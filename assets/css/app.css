@@ -1,0 +1,15 @@
+body, nav {
+  background-color: #f5f5f7;
+}
+
+.custom-shadow,
+.custom-shadow input,
+.custom-shadow button,
+.custom-shadow select {
+  box-shadow: 0 2px 4px #0000001a;
+  border-radius: 0px;
+}
+
+.organisme-logo {
+  width: 60px;
+}

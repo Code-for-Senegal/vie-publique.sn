@@ -1,0 +1,79 @@
+[
+    {
+        "display": false,
+        "id": 1,
+        "slug": "Mamour-Diallo",
+        "nom": "Mamour Diallo",
+        "fonction": "Directeur des Domaines",
+        "resume": "épinglé par l'ofnac sur l'affaire du TF 1451/R 94 Milliard, Association de malfaiteurs, Escroquerie portant sur des deniers publics, Tentative d’escroquerie portant sur des deniers publics ",
+        "photo": "https://www.sudquotidien.sn/wp-content/uploads/2022/10/Mamour-Diallo-1080x900.png"
+    },
+    {
+        "display": false,
+        "id": 2,
+        "slug": "Aliou-SALL",
+        "nom": "Aliou SALL",
+        "fonction": "Homme d'affaire, frère du président",
+        "resume": "épinglé sur l'affaire Petrotim - soupçons de népotisme, de conflits d’intérêts et de corruption. épinglé aussi par un rapport d’audit sur la CDC pour dérogation illégale au Code des marchés publics ",
+        "photo": "https://www.impact.sn/photo/art/default/40818780-34512214.jpg?v=1576481919"
+    },
+    {
+        "display": false,
+        "id": 3,
+        "slug": "Demba-Diop-Sy",
+        "nom": "Demba Diop Sy",
+        "fonction": "Maire de tiwaoune, Député, Homme d'affaire",
+        "resume": "épinglé dans le rapport fonds de riposte contre la Covid-19, banqueroute frauduleuse, présomptions d’escroquerie portant sur des deniers publics",
+        "photo": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Demba_Diop_Sy.jpg"
+    },
+    {
+        "display": true,
+        "id": 4,
+        "slug": "Cheikh-Oumar-Hanne",
+        "nom": "Cheikh Oumar Hanne",
+        "fonction": "Ancien ministre, Ancien Directeur du COUD",
+        "resume": " épinglé par le rapport 2017 de l’Arpm, Lourdement épinglé par le rapport de l’OFNAC 2014-2015. L'ofnac a recommandé qu’il ne lui soit plus confié la responsabilité de diriger un organisme public",
+        "photo": "https://www.seneplus.com/sites/default/files/styles/section_hero/public/raw_photos/cohanne_1.jpg",
+        "facts_denounced": [
+            {
+                "rapport": "OFNAC 2014-2015 - Enquête n°06 - Page 66",
+                "intro": "Reproches faits au Directeur du COUD ",
+                "infractions": [
+                    "Empêchement de l'exécution correcte de la mission de vérification",
+                    "Menaces envers les membres de l'équipe de vérification",
+                    "Actes d'intoxication",
+                    "Intimidation des travailleurs du COUD pour qu'ils ne défèrent pas aux convocations de l'OFNAC.",
+                    "Sabotage de la mission de vérification.",
+                    "Pratiques de détournements de deniers publics.",
+                    "Octroi de subventions irrégulières",
+                    "Non-respect de la procédure prévue pour l'octroi de subventions",
+                    "Engagement de dépenses sans autorisation préalable du Conseil d'Administration.",
+                    "Versement de subventions sans identification formelle des bénéficiaires",
+                    "Manœuvres frauduleuses pour tenter de combler des manquants",
+                    "Infractions de faux et usage de faux"
+                ],
+                "outro": "Ces reproches ont conduit à la recommandation de relever Cheikh Oumar Hanne de ses fonctions de direction et à la transmission du rapport d'enquête au procureur"
+            }
+        ]
+    },
+    {
+        "display": true,
+        "id": 5,
+        "slug": "Kabirou-Mbodj",
+        "nom": "Kabirou Mbodj",
+        "fonction": "Homme d'affaire, PDG de WARI S.A.",
+        "resume": "épinglé par l'ofnac sur son rapport 2021",
+        "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/KabirouMbodje.jpg/330px-KabirouMbodje.jpg",
+        "facts_denounced": [
+            {
+                "rapport": "OFNAC 2021 - Enquête n°01/2021 - page 50",
+                "infractions": [
+                    "Falsification des états financiers de WARI S.A., INTERACTIVE SARL et INTERLINQ SUARL",
+                    "Détournement d'activité d'INTERACTIVE SARL vers une société parallèle, INTERLINQ SUARL",
+                    "Transfert du siège de WARI S.A. à Lomé pour éviter le paiement des impôts au Sénégal et au Togo",
+                    "Corruption présumée d'un notaire et d'un responsable des impôts au Togo pour éviter le paiement de 3,8 milliards FCFA d'impôts"
+                ]
+            }
+        ]
+    }
+]

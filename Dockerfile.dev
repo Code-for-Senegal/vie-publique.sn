@@ -1,0 +1,27 @@
+# https://markus.oberlehner.net/blog/running-nuxt-3-in-a-docker-container/
+
+ARG NODE_VERSION=21
+
+FROM node:${NODE_VERSION}-slim as base
+
+ENV NODE_ENV=development
+
+WORKDIR /src
+
+# Build
+FROM base as build
+
+# COPY --link package.json package-lock.json .
+COPY ./package*.json .
+
+# Utiliser uniquement si nécessaire
+RUN npm config set strict-ssl false
+
+RUN npm install
+
+# Run
+FROM base
+
+COPY --from=build /src/node_modules /src/node_modules
+
+CMD [ "npm", "run", "dev" ]

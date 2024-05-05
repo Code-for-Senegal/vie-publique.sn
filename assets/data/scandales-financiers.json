@@ -1,0 +1,49 @@
+[
+    {
+        "id": 1,
+        "slug":"petrotim",
+        "titre": "Affaire Petrotim",
+        "sous_titre": "Implication d'Aliou Sall et Frank Timis dans l'octroi de droits pétroliers.",
+        "annee": 2019,
+        "date_publication": "2019-06-20",
+        "image_url": "https://prod.cdn-medias.jeuneafrique.com/medias/2019/06/20/untitled.jpg"
+        
+    },
+    {
+        "id": 2,
+        "slug":"94-millards-mamour-diallo",
+        "titre": "Affaire 94 milliards Mamour Diallo",
+        "sous_titre": "Accusations de détournement de fonds publics impliquant Mamour Diallo dans une transaction foncière.",
+        "annee": 2018,
+        "date_publication": "2018-10-15",
+        "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyK8C5m_vV-sZ2JOjnqclEyS2glG07kCi68TSj9QZCQQ&s"
+    },
+    {
+        "id": 3,
+        "slug":"29-milliard-mame-mbaye-niang",
+        "titre": "Affaire 29 Millards PRODAC",
+        "sous_titre": "Détournement présumé de 29 milliards de francs CFA dans le cadre du projet PRODAC.",
+        "annee": 2018,
+        "date_publication": "2018-05-10",
+        "image_url": "https://www.yadamagazine.com/wp-content/uploads/2023/02/1-780x470.png"
+    },
+    {
+        "id": 4,
+        "slug":"coud-cheikh-omar-hann",
+        "titre": "Affaires COUD Cheikh Oumar HANN",
+        "sous_titre": "Accusations de malversations financières au Centre des œuvres universitaires de Dakar sous la direction de Cheikh Oumar HANN.",
+        "annee": 2020,
+        "date_publication": "2020-01-30",
+        "image_url": "https://www.pressafrik.com/photo/art/grande/34720094-31685093.jpg?v=1560362510"
+    },
+    {
+        "id": 5,
+        "slug":"12-milliards-visas-biométriques",
+        "titre": "Affaire 12 Milliards visas biométriques",
+        "sous_titre": "Scandale impliquant des irrégularités financières dans la gestion des visas biométriques avec Adama Bictogo",
+        "annee": 2015,
+        "date_publication": "2015-03-22",
+        "image_url": "https://www.financialafrik.com/wp-content/uploads/2016/05/visa.jpg"
+    }
+  ]
+  

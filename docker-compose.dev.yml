@@ -1,0 +1,17 @@
+# https://markus.oberlehner.net/blog/running-nuxt-3-in-a-docker-container/
+version: "3"
+
+volumes:
+  node_modules:
+services:
+  my-app-dev:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "3000:3000"
+      - "24678:24678"
+    volumes:
+      - .:/src
+      - node_modules:/src/node_modules
+      - /src/.nuxt
