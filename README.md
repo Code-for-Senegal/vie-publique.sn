@@ -1,6 +1,41 @@
-# Nuxt 3 Minimal Starter
+# vie-publique.sn
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Plateforme Web CivicTech dédiée à la centralisation, la visualisation et l'analyse des rapports publiés sur la gestion des finances publiques au Sénégal. 
+
+
+## Présentation 
+
+* Objectifs : 
+    - simplifier l'accès aux rapports des corps de contrôle 
+    - vulgariser les infos qu'elles contiennent
+    - participer à combattre la corruption
+
+* Fonctionalités
+    - centraliser les rapports provenant de ofnac, ige, cours des comptes et armp
+    - télécharger les rapports
+    - consulter le résumé d'un rapport
+    - consulter un résumé  affaires traités et personnes incriminées sur un rapport
+    - lister les personnalités publiques épinglées
+
+* ROADMAP
+
+    - V0 MVP
+        - feat: liste des personnes épinglées
+        - fix: stockage des pdfs, migrer vers un storage externe
+        - fix: stockage des data, migrer vers une bdd externe
+        - fix: restructuration du schémas données (rapports, personnes épinglées …)
+        - optimisations: SEO, configurer les keyword, metadata, sitemap, robots.txt
+        - optimisation: performance, SSR, Cache, CDN, Lazy loading…
+        - optimisation: UI/UX, charte graphique, navigation 
+    - V1
+        - feat: liste des scandales financiers ?
+        - feat: liste des décrets officiels ?
+        - feat: liste des sites internet publics du Sénégal ?
+
+    - V2
+        - Hosting: migrer l’hébergement au Sénégal (datacenter orange ? )
+        - Analytics : monitoring des évènements utilisateurs (téléchargement, recherche)
+
 
 ## Stack
 
@@ -15,27 +50,27 @@ Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introdu
 - [Tailwind css](https://tailwindcss.com/) comme framework css
 
 * Nom de domaine
-    - DNS vie-publique.sn acheté via OVH
+    - DNS [vie-publique.sn](https://www.vie-publique.sn) acheté via OVH
 
 * Hébergement
     - projet déployé chez [Vercel](https://vercel.com)
 
-## Prerequisites
-
-- Node.js > v18.0.0
-
-## structure du projet 
+## Structure du projet 
 
 ```graphql
-nuxt-senegal-reports/
+vie-publique.sn/
 ├── assets/            # Ressources non compilées comme les styles et les images
 ├── components/        # Composants Vue réutilisables
 ├── layouts/           # Modèles de mise en page pour ton application
 ├── pages/             # Les pages de ton application basées sur les routes
 ├── plugins/           # Plugins JavaScript que tu souhaites exécuter avant l'instance root Vue
 ├── static/            # Fichiers statiques servis directement depuis la racine
-└── store/             # État global (Vuex Store)
+└── public/            # Dossier publique avec les rapports pdf
 ```
+
+## Prérequis
+
+- Node.js > v18.0.0
 
 ## Creation
 
@@ -50,11 +85,10 @@ nexui was added with following command
 ```bash
 pnpm dlx nuxi@latest module add ui
 ```
-others module
+others module added with following command
 
 ```bash
 pnpm dlx nuxi@latest module add content
-pnpm dlx nuxi@latest module add sitemap
 pnpm dlx nuxi@latest module add seo
 
 ```
@@ -97,28 +131,19 @@ yarn dev
 bun run dev
 ```
 
-## Environnement variable .env file
+## Environnement de variable fichier .env 
 
-tu peux créer un fichier .env à la racine de ton projet et y définir la variable d'environnement pour l'ID de Google Analytics ou le dns
+Vous pouvez créer un fichier .env à la racine du projet et y définir la variable d'environnement pour l'ID de Google Analytics ou le DNS
 
 exemple: 
 ```
 GTAG_ID=G-XXXXXX
 NUXT_PUBLIC_SITE_URL=https://www.vie-publique.sn
 SHOW_PINNED_PEOLPLES=false
+PUBLIC_SHOW_SCANDALS=false
 ```
 
 non obligatoire en environnement de développement
-
-## Development Server with Docker
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-docker-compose up
-docker compose -f docker-compose.dev.yml up --build
-
-```
 
 ## Production
 
