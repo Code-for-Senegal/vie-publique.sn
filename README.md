@@ -2,6 +2,25 @@
 
 Plateforme Web CivicTech dédiée à la centralisation, la visualisation et l'analyse des rapports publiés sur la gestion des finances publiques au Sénégal. 
 
+Production - Url publique : 
+https://www.vie-publique.sn
+
+Recette - Url version en cours de dev :
+https://senegal-rapports.netlify.app 
+
+# Sommaire
+
+1. [Présentation](#présentation)
+2. [ROADMAP](#roadmap)
+3. [Stack](#stack)
+4. [Structure du projet](#structure-du-projet)
+5. [Prérequis](#prérequis)
+6. [Creation](#creation)
+7. [Setup](#setup)
+8. [Development Server](#development-server)
+9. [Utiliser les Dev Containers](#utiliser-les-dev-containers)
+10. [Environnement de variable fichier .env](#environnement-de-variable-fichier-env)
+11. [Production](#production)
 
 ## Présentation 
 
@@ -31,8 +50,10 @@ Plateforme Web CivicTech dédiée à la centralisation, la visualisation et l'an
         - feat: liste des scandales financiers ?
         - feat: liste des décrets officiels ?
         - feat: liste des sites internet publics du Sénégal ?
+        - feat: newletters
 
     - V2
+        - Espace blog: pour publier des articles sur l'évolution des rapport d'enquêtes
         - Hosting: migrer l’hébergement au Sénégal (datacenter orange ? )
         - Analytics : monitoring des évènements utilisateurs (téléchargement, recherche)
 
@@ -130,6 +151,11 @@ yarn dev
 # bun
 bun run dev
 ```
+## Utiliser les Dev Containers
+
+Vous pouvez utiliser Docker avec l'extension Dev Containers
+
+En savoir plus : https://code.visualstudio.com/docs/devcontainers/containers
 
 ## Environnement de variable fichier .env 
 
@@ -139,7 +165,7 @@ exemple:
 ```
 GTAG_ID=G-XXXXXX
 NUXT_PUBLIC_SITE_URL=https://www.vie-publique.sn
-SHOW_PINNED_PEOLPLES=false
+PUBLIC_SHOW_PINNED_PEOLPLES=false
 PUBLIC_SHOW_SCANDALS=false
 ```
 
