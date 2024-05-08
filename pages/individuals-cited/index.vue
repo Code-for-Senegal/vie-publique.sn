@@ -20,12 +20,15 @@ function goToIndividualCitedDetails(item) {
 </script>
 
 <template>
-  <div class="grid-container" v-if="showPinnedPeoples">
-    <UCard v-for="item in peoples" :key="item.id" class="person-card custom-shadow cursor-pointer" 
-    @click="goToIndividualCitedDetails(item)">
+  <p v-if="showPinnedPeoples" class="text-gray-500 text-sm mb-2">
+    Les personnes cités ici sont présumées innocentes en l'absence d'une décision de justice définitive.
+  </p>
+  <div v-if="showPinnedPeoples" class="grid-container">
+    <UCard v-for="item in peoples" :key="item.id" class="person-card custom-shadow cursor-pointer"
+      @click="goToIndividualCitedDetails(item)">
       <div class="flex flex-col items-center">
         <img :src="item.photo" alt="Photo de profil" class="profile-photo mb-1">
-        <UDivider/>
+        <!-- <UDivider/> -->
         <h2 class="font-semibold ">{{ item.nom }}</h2>
         <p class="text-sm text-gray-500">{{ item.fonction }}</p>
       </div>
@@ -47,7 +50,7 @@ function goToIndividualCitedDetails(item) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center; 
+  text-align: center;
 }
 
 .profile-photo {

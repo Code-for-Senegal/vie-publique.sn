@@ -7,7 +7,7 @@ const selectedYear = ref('')
 
 const router = useRouter();
 
-const organismes = ['Cours des Comptes', 'OFNAC', 'IGE', 'ARMP', 'Autres'];
+const organismes = ['Cours des Comptes', 'OFNAC', 'IGE', 'ARMP'];
 // const organismes = computed(() => [...new Set(rapports.value.map(rapport => rapport.organisme))])
 
 const years = computed(() => [...new Set(rapports.value.map(rapport => rapport.annee))].sort((a, b) => b - a))
@@ -36,7 +36,7 @@ function goToRapportDetails(rapport: any) {
   <UInput size="md" v-model="searchQuery" placeholder="Rechercher..." icon="i-heroicons-magnifying-glass"
     class="input w-full mb-1 custom-shadow" />
 
-  <div class="flex overflow-x-auto sm:flex-wrap sm:flex-wrap justify-start sm:justify-center gap-2 my-3">
+  <div class="flex overflow-x-auto sm:flex-wrap sm:flex-wrap justify-start sm:justify-center gap-2 my-3 scrollable-hidden">
     <UButton class="custom-shadow"
       :class="[selectedOrganisme === '' ? 'bg-neutral-900' : 'bg-white text-inherit hover:bg-neutral-900 hover:text-white']"
       @click="selectedOrganisme = ''">
@@ -61,10 +61,9 @@ function goToRapportDetails(rapport: any) {
           <img v-if="rapport.organisme == 'IGE'" src="~/assets/logos/ige.png" class="organisme-logo" />
           <img v-if="rapport.organisme == 'Cours des Comptes'" src="~/assets/logos/cour_des_comptes.png"
             class="organisme-logo" />
-            
-            <img v-if="rapport.organisme == 'Autres'" src="~/assets/logos/doc.svg"
-            class="organisme-logo" />
-            <!-- <USkeleton v-if="rapport.organisme == 'Autres'" class="h-12 w-12" /> -->
+
+          <img v-if="rapport.organisme == 'Autres'" src="~/assets/logos/doc.svg" class="organisme-logo" />
+          <!-- <USkeleton v-if="rapport.organisme == 'Autres'" class="h-12 w-12" /> -->
         </div>
 
         <div>
@@ -78,3 +77,18 @@ function goToRapportDetails(rapport: any) {
   </div>
 
 </template>
+
+<style scoped>
+.scrollable-hidden {
+  overflow-x: auto;
+  /* Masque la barre sur Firefox */
+  scrollbar-width: none;
+  /* Masque la barre sur Internet Explorer et Edge */
+  -ms-overflow-style: none;
+}
+
+.scrollable-hidden::-webkit-scrollbar {
+  /* Masque la barre sur Chrome, Safari et Opera */
+  display: none;
+}
+</style>

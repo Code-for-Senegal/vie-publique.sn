@@ -46,13 +46,12 @@ function showResume(rapport: any): boolean {
 
   <UCard v-if="showResume(rapport)" class="custom-shadow">
     <div class="p-2 text-sm">
-        <ul v-if="resume && resume.summary">
-            <li v-for="(summaryItem, i) in resume.summary" :key="i">
-              {{ summaryItem }}
-            </li>
-          </ul>
-      <h2 v-if="resume && resume.title"
-      class="font-bold mt-4"> {{ resume.title }}</h2>
+      <ul v-if="resume && resume.summary">
+        <li v-for="(summaryItem, i) in resume.summary" :key="i">
+          {{ summaryItem }}
+        </li>
+      </ul>
+      <h2 v-if="resume && resume.title" class="font-bold mt-4"> {{ resume.title }}</h2>
     </div>
 
     <UAccordion v-if="resume && resume.investigations" :items="resume.investigations">
@@ -74,25 +73,26 @@ function showResume(rapport: any): boolean {
 
           <h4 class="font-semibold mt-2">Référence</h4>
           <p>{{ item.reference }}</p>
-          
+
+          <h4 class="font-semibold mt-1">Décision OFNAC</h4>
+          <UBadge color="white" variant="solid">{{ item.ofnac_decision }}</UBadge>
+
           <div v-if="item.facts_denounced != null && item.facts_denounced.length > 0">
-          <h4 class="font-semibold mt-1">Les faits dénoncés</h4>
-          <ul class="list-disc">
-            <li v-for="(factItem, i) in item.facts_denounced" :key="i" 
-            class="text-sm ml-4 mt-1">
-              {{ factItem }}
-            </li>
-          </ul>
-        </div>
+            <h4 class="font-semibold mt-1">Les faits dénoncés</h4>
+            <ul class="list-disc">
+              <li v-for="(factItem, i) in item.facts_denounced" :key="i" class="text-sm ml-4 mt-1">
+                {{ factItem }}
+              </li>
+            </ul>
+          </div>
 
           <h4 class="font-semibold mt-1">Lanceur d'alerte</h4>
           <p>{{ item.whistleblower }}</p>
 
           <h4 class="font-semibold mt-1">Personnes incriminées</h4>
           <ul class="list-disc">
-            <li v-for="(person, i) in item.incriminated" :key="i" 
-            class="text-sm ml-4 mt-1">
-              {{ person.name }} 
+            <li v-for="(person, i) in item.incriminated" :key="i" class="text-sm ml-4 mt-1">
+              {{ person.name }}
               <span v-if="person.position">, {{ person.position }}</span>
             </li>
           </ul>
@@ -106,10 +106,6 @@ function showResume(rapport: any): boolean {
           <h4 class="font-semibold mt-1">Période des faits</h4>
           <p>{{ item.facts_period }}</p>
 
-          <h4 class="font-semibold mt-1">Décision OFNAC</h4>
-          <UBadge color="white" variant="solid">{{ item.ofnac_decision }}</UBadge>
-
-          
         </div>
       </template>
     </UAccordion>
