@@ -2,509 +2,514 @@
     {
         "id": "ofnac-2023",
         "summary": [
-        "53 Plaintes déposées",
-        "42 Ordres ouverture d'enquête",
-        "40 Rapports d'enquête transmis au Procureur",
-        "12 rapports d'enquête finalisés",
-        "3 Affaires avec déliberation définitive"
-    ],
-    "title": "Résumé des affaires ayant fait l’objet d’une déliberation définitive de l’OFNAC",
-    "investigations": [
-        {
-            "reference": "Page 34 - Rapport d'enquête n°03/2022",
-            "title": "Kit médical de Dialyse",
-            "file_title": "Faits supposés de corruption dans la gestion de la prise en charge de la maladie rénale chronique (Dialyse)",
-            "facts_denounced": [
-                "Irrégularités graves dans la distribution des kits d'hémodialyse",
-                "Détournement de Kit parfois, certains étant vendus illégalement en Gambie",
-                "Surfacturation des Kit d'analyse, acheté 8 000 FCFA l'unité et revendu 40 000 FCFA à l'État",
-                "Délit d'initié impliquant CCBM de Serigne Mboup et son frère Directeur de Carrefour Médical"
-            ],
-            "infractions": [
-                "Corruption",
-                "Escroquerie",
-                "Abus de confiance",
-                "violation d’une convention Etat-Privé"
-            ],
-            "incriminated": [
-                {
-                    "name": "Assistante-secrétaire de l'ICP",
-                    "position": "",
-                    "infraction": "corruption passive et escroquerie"
-                },
-                {
-                    "name": "Administrateur de l'ICP (Institut clinique de performance)",
-                    "position": "",
-                    "infraction": "escroquerie portant sur les deniers publics"
-                }
-            ],
-            "whistleblower": "Mr Hamidou Diallo, porte-parole du Mouvement des Insuffisants rénaux du Sénégal ( décédé en cours d’enquête, le 29 juillet 2020)",
-            "prejudice_amount": "quatre milliards (4 000 000 000) de FCFA de surfacturation par an",
-            "facts_period": "2020",
-            "ofnac_decision": "Transmission au Procureur"
-        },
-        {
-            "reference": "Page 39 - Rapport d'enquête n°06/2022",
-            "title": "Délivrance Frauduleuse de Carnet ATA par la CCIAD",
-            "file_title": "Délivrance de Carnet ATA par la CCIAD",
-            "infractions": [
-                "Fraude"
-            ],
-            "incriminated": [
-                {
-                    "name": "Secrétaire général de la CCIAD",
-                    "position": ""
-                }
-            ],
-            "whistleblower": "Papa Seckou Sokhna Cisse, Adjoint au chef du DAERI de la CCIAD",
-            "prejudice_amount": "Non spécifié",
-            "facts_period": "Août 2019",
-            "ofnac_decision": "Classement sans suite"
-        },
-        {
-            "reference": "Page 42 - Rapport d'enquête n°08/2022 ",
-            "title": "Malversations à la Chambre de Métiers de Sédhiou",
-            "file_title": "Gestion de la Chambre de Métiers de Sédhiou",
-            "infractions": [
-                "Malversations",
-                "Abus de pouvoir"
-            ],
-            "incriminated": [
-                {
-                    "name": "Président de la Chambre de Métiers de Sédhiou",
-                    "position": ""
-                }
-            ],
-            "whistleblower": "Bacary Mane, membre de la Chambre de Métiers de Sédhiou",
-            "prejudice_amount": "3 994 463 FCFA",
-            "facts_period": "Décembre 2019",
-            "ofnac_decision": "Transmission à titre d'information au Premier Président de la Cour des comptes"
-        }
-    ]
-},
-{
-    "id": "ofnac-2022",
-    "summary": [
-        "95 Plaintes déposées",
-        "73 Ordres ouverture d'enquête",
-        "9 Rapports d'enquête transmis au Procureur",
-        "2 Affaires détaillés dans le rapport"
-    ],
-    "title": "Résumé des 2 rapports d'enquête transmis au procureur et détaillés dans le rapport",
-    "investigations": [
-        {
-            "reference": "Page 56 - Rapport d'enquête n°01/2022",
-            "title": "Maire de la Commune de Gandé",
-            "file_title": "Plainte visant le maire de la Commune de Gandé",
-            "facts_denounced": [
-                "Rétention des comptes administratifs annuels et gestion opaque des recettes municipales",
-                "Attribution d'une parcelle de 200ha à un promoteur en contrepartie de travaux non budgétisés",
-                "Appropriation personnelle d'une parcelle de terrain et utilisation d'un tracteur d'État à des fins personnelles",
-                "Utilisation d'un véhicule de la commune pour des besoins personnels et résidence à Dakar contrairement aux obligations légales"
-            ],
-            "infractions": [
-                "Violation du Code général des collectivités territoriales",
-                "Violation du Règlement général sur la Comptabilité publique",
-                "Faute de gestion",
-                "Gestion de fait",
-                "Occupation de terrain attribué à autrui, sans droit ni titre",
-                "Détournement de deniers publics",
-                "Faux et usage de faux"
-            ],
-            "incriminated": [
-                {
-                    "name": "Maire de la Commune de Gandé",
-                    "position": "Maire",
-                    "infraction": "Multiples infractions incluant faux et usage de faux, détournement de deniers publics"
-                }
-            ],
-            "whistleblower": "Mouvement 'Leeral Moomellu Gandé', collectif de conseillers municipaux",
-            "prejudice_amount": "Non spécifié",
-            "facts_period": "2019-2021",
-            "ofnac_decision": "Transmission au Procureur de Louga"
-        },
-        {
-            "reference": "Page 58 - Rapport d'enquête n°04/2022",
-            "title": "Bureau des Domaines de Ngor/Almadies",
-            "file_title": "Affaire contre un Particulier et contre le Bureau des Domaines de Ngor/Almadies concernant un litige foncier portant sur la parcelle n° 74 du TF 2132/NGA (ex TF 5757/DG) située à Ngor Extension",
-            "facts_denounced": [
-                "Différend foncier concernant la parcelle n° 74 du TF 2132/NGA, impliquant de fausses attributions et de l'usage de faux documents",
-                "Négligence dans la gestion des archives publiques et irrégularités dans l'attribution de propriétés foncières"
-            ],
-            "infractions": [
-                "Faux en document administratif",
-                "Usage de faux dans un document administratif",
-                "Violation de l’obligation de conserver les archives publiques"
-            ],
-            "incriminated": [
-                {
-                    "name": "Maire de la Commune de Ngor",
-                    "position": "",
-                    "infraction": "Faux en document administratif et usage de faux"
-                },
-                {
-                    "name": "Frères M.S et A.S",
-                    "position": "Particuliers",
-                    "infraction": "Usage de faux"
-                }
-            ],
-            "whistleblower": "Particulier, attributaire de la parcelle depuis 2001",
-            "prejudice_amount": "Non spécifié",
-            "facts_period": "2020",
-            "ofnac_decision": "Transmission au procureur de Dakar"
-        }
-    ]
-},
-{
-    "id": "ofnac-2021",
-    "summary": [
-        "100 Plaintes déposées",
-        "90 Ordres ouverture d'enquête"
-    ],
-    "title": "Résumé des enquêtes menées",
-    "investigations": [
-        {
-            "reference": "Rapport d'enquête n°01/2021 - page 50",
-            "title": "Affaire Seyni Camara, Cheikh Tague et Malick Fall contre le PDG de WARI S.A.",
-            "file_title": "Abus de biens sociaux, fraude fiscale et corruption dans la gestion de WARI S.A.",
-            "facts_denounced": [
-                "Falsification des états financiers de WARI S.A., INTERACTIVE SARL et INTERLINQ SUARL",
-                "Détournement d'activité d'INTERACTIVE SARL vers une société parallèle, INTERLINQ SUARL",
-                "Transfert du siège de WARI S.A. à Lomé pour éviter le paiement des impôts au Sénégal et au Togo",
-                "Corruption présumée d'un notaire et d'un responsable des impôts au Togo pour éviter le paiement de 3,8 milliards FCFA d'impôts"
-            ],
-            "infractions": [
-                "Abus de biens sociaux",
-                "Fraude fiscale",
-                "Corruption active",
-                "Fraude comptable"
-            ],
-            "incriminated": [
-                {
-                    "name": "Kabirou Mbodj",
-                    "position": "PDG de WARI S.A.",
-                    "infraction": "Abus de biens sociaux, fraude fiscale, corruption active"
-                },
-                {
-                    "name": "Pape Magatte Diop",
-                    "position": "Conseiller juridique et fiscal de WARI",
-                    "infraction": "Corruption active"
-                }
-            ],
-            "whistleblower": "Seyni Camara, Cheikh Tague et Malick Fall, co-fondateurs et actionnaires de WARI",
-            "prejudice_amount": "Non spécifié",
-            "facts_period": "2015-2017",
-            "ofnac_decision": "Transmission au Procureur"
-        },
-        {
-            "reference": "Rapport d'enquête n°02/2021",
-            "title": "Affaire contre Hamady Séga Sy, Directeur Administratif et Financier de l'Université du Sine Saloum El Hadji Ibrahima Niass (USSEIN)",
-            "file_title": "Détournement de fonds publics et enrichissement illicite",
-            "facts_denounced": [
-                "Attribution de marchés publics à des sociétés-écran",
-                "Création de dépenses fictives pour couvrir des transactions personnelles",
-                "Surfacturation du matériel informatique et des produits d'entretien"
-            ],
-            "infractions": [
-                "Détournement de fonds publics",
-                "Enrichissement illicite",
-                "Surfacturation"
-            ],
-            "incriminated": [
-                {
-                    "name": "Hamady Séga Sy",
-                    "position": "Directeur Administratif et Financier de l'USSEIN",
-                    "infraction": "Détournement de fonds publics, enrichissement illicite"
-                }
-            ],
-            "whistleblower": "Individu anonyme",
-            "prejudice_amount": "Non spécifié",
-            "facts_period": "Non spécifié",
-            "ofnac_decision": "Classement sans suite"
-        },
-        {
-            "reference": "Rapport d'enquête n°03/2021",
-            "title": "Affaire Colonel Ndeye Sene Thiam de la Direction des Parcs Nationaux (DPN)",
-            "file_title": "Fraude au Centre médico-social de la DPN",
-            "facts_denounced": [
-                "Paiement de salaires fictifs à des contractuels depuis 2012",
-                "Tentative de corruption du sergent-chef Alassane Diop pour son silence",
-                "Refus de rendre au Trésor le montant de 302 504 FCFA représentant les salaires fictifs"
-            ],
-            "infractions": [
-                "Faux et usage de faux",
-                "Escroquerie portant sur des deniers publics",
-                "Association de malfaiteurs"
-            ],
-            "incriminated": [
-                {
-                    "name": "Lamine Sambou, Ndeye Sene Thiam, Mouhamadou Mody Diallo, Papa Tagouth Top, Alassane Samb",
-                    "position": "Divers",
-                    "infraction": "Faux, usage de faux et escroquerie portant sur des deniers publics"
-                }
-            ],
-            "whistleblower": "Sergent-chef Alassane Diop",
-            "prejudice_amount": "8 667 764 FCFA",
-            "facts_period": "2013-2018",
-            "ofnac_decision": "Transmission au Procureur de la République"
-        },
-        {
-            "reference": "Rapport d'enquête n°04/2021",
-            "title": "Affaire contre le Maire de la Commune de Darou Khoudoss-Mboro",
-            "file_title": "Absence de transparence dans la gestion des finances communales",
-            "facts_denounced": [
-                "Absence de transparence dans la collecte des taxes municipales routières",
-                "Manque de transparence dans les subventions financières allouées à la commune par les sociétés minières",
-                "Construction illégale d'un centre commercial"
-            ],
-            "infractions": [
-                "Faux et usage de faux en écritures publiques",
-                "Détournement de deniers publics",
-                "Enrichissement illicite"
-            ],
-            "incriminated": [
-                {
-                    "name": "Magor Kane",
-                    "position": "Maire de Darou Khoudoss-Mboro",
-                    "infraction": "Faux et usage de faux, détournement de deniers publics, enrichissement illicite"
-                }
-            ],
-            "whistleblower": "Souleymane Diop",
-            "prejudice_amount": "Non spécifié",
-            "facts_period": "2018",
-            "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-        },
-        {
-            "reference": "Rapport d'enquête n°05/2021",
-            "title": "Affaire délivrance de licences de pêche au Sénégal",
-            "file_title": "Délivrance de licences de pêche en violation du Code de la pêche maritime",
-            "facts_denounced": [
-                "Accord de licences à des navires récemment naturalisés sans convocation de la Commission consultative d'Attribution",
-                "Soupçons de concussion et de corruption à la base des autorisations"
-            ],
-            "infractions": [
-                "Corruption",
-                "Concussion"
-            ],
-            "incriminated": [],
-            "whistleblower": "UPAMES, CONIPAS et GAIPES",
-            "prejudice_amount": "Non spécifié",
-            "facts_period": "2018-2020",
-            "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-        },
-        {
-            "reference": "Rapport d'enquête n°06/2021",
-            "title": "Affaire contre le Maire de la Commune de Faoune",
-            "file_title": "Anomalies dans les comptes administratifs et gestion non transparente",
-            "facts_denounced": [
-                "Non-exécution de plusieurs projets inscrits dans les comptes administratifs de 2017 et 2018",
-                "Mauvaise gestion facilitée par l'absence d'une commission des marchés et d'une cellule de passation de marchés"
-            ],
-            "infractions": [
-                "Faux et usage de faux",
-                "Faute de gestion",
-                "Gestion de fait",
-                "Violation du Code des Collectivités territoriales"
-            ],
-            "incriminated": [
-                {
-                    "name": "Ibrahima Ba",
-                    "position": "Maire de Faoune",
-                    "infraction": "Faux et usage de faux, faute de gestion, gestion de fait"
-                }
-            ],
-            "whistleblower": "Souleymane Iradiang",
-            "prejudice_amount": "Non spécifié",
-            "facts_period": "2017-2018",
-            "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-        },
-        {
-            "reference": "Rapport d'enquête n°07/2021",
-            "title": "Affaire contre le Groupe Auchan, SETAM, la Mairie et le Conseil Départemental de Mbour",
-            "file_title": "Conflit d'intérêts, corruption et violation du Code des Marchés publics",
-            "facts_denounced": [
-                "Octroi d'une partie du stade Caroline Faye au Groupe Auchan",
-                "Attribution du marché de construction du complexe culturel à SETAM sans respect des procédures"
-            ],
-            "infractions": [
-                "Corruption",
-                "Violation du Code des Marchés publics",
-                "Faux et usage de faux"
-            ],
-            "incriminated": [
-                {
-                    "name": "El Hadji Falou Sylla",
-                    "position": "Maire de Mbour",
-                    "infraction": "Faux et usage de faux"
-                },
-                {
-                    "name": "Abdou Salam Ndiaye",
-                    "position": "Gérant de SETAM",
-                    "infraction": "Favoritisme"
-                }
-            ],
-            "whistleblower": "Ibou Niang, membre du Forum Civil et Coordinateur de Transparency International Mbour",
-            "prejudice_amount": "Non spécifié",
-            "facts_period": "Non spécifié",
-            "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-        },
-        {
-            "reference": "Rapport d'enquête n°08/2021",
-            "title": "Affaire corruption et vente illégale de terrains contre Donacien Kanfany",
-            "file_title": "Corruption et vente illégale de terrains au Cadastre de Ziguinchor",
-            "facts_denounced": [
-                "Vente illégale de 20 parcelles de terrains",
-                "Occupation illégale du poste de chef du Cadastre"
-            ],
-            "infractions": [
-                "Concussion",
-                "Vente illégale de terres du domaine national",
-                "Enrichissement illicite"
-            ],
-            "incriminated": [
-                {
-                    "name": "Donacien Kanfany",
-                    "position": "Chef du Cadastre de Ziguinchor",
-                    "infraction": "Vente illégale de terres, concussion, enrichissement illicite"
-                }
-            ],
-            "whistleblower": "Individu anonyme",
-            "prejudice_amount": "Non spécifié",
-            "facts_period": "Non spécifié",
-            "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-        },
-        {
-            "reference": "Rapport d'enquête n°09/2021",
-            "title": "Affaire contre le Maire de la Commune de Sindia",
-            "file_title": "Détournement de deniers publics, escroquerie et blanchiment de capitaux",
-            "facts_denounced": [
-                "Détournement de 54 175 500 FCFA en indemnités de terres",
-                "Manoeuvres pour s'inscrire comme propriétaire coutumier pour recevoir des indemnités"
-            ],
-            "infractions": [
-                "Détournement de deniers publics",
-                "Escroquerie portant sur des deniers publics",
-                "Blanchiment de capitaux"
-            ],
-            "incriminated": [
-                {
-                    "name": "Thierno Diagne",
-                    "position": "Maire de Sindia",
-                    "infraction": "Détournement de deniers publics, escroquerie, blanchiment de capitaux"
-                }
-            ],
-            "whistleblower": "Individu anonyme",
-            "prejudice_amount": "54 175 500 FCFA",
-            "facts_period": "Non spécifié",
-            "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-        },
-        {
-            "reference": "Rapport d'enquête n°10/2021",
-            "title": "Affaire acquisition de vivres et autres produits et prestations de services de transport dans le cadre de la lutte contre la pandémie COVID-19",
-            "file_title": "Faux en écritures privées, banqueroute frauduleuse et violation du Code des marchés publics",
-            "facts_denounced": [
-                "Attribution de marchés à des entreprises non qualifiées ou en faillite",
-                "Faux en écritures privées",
-                "Banqueroute frauduleuse"
-            ],
-            "infractions": [
-                "Faux en écritures privées",
-                "Banqueroute frauduleuse",
-                "Violation du Code des marchés publics"
-            ],
-            "incriminated": [
-                {
-                    "name": "Rayan Hachem",
-                    "position": "Gérant de 'Avanti Suarl' et 'Afri & Co Suarl'",
-                    "infraction": "Faux en écritures privées, banqueroute frauduleuse"
-                },
-                {
-                    "name": "Demba Diop Sy",
-                    "position": "Directeur général de 'Urbaine d'Entreprise' (UDE)",
-                    "infraction": "Banqueroute frauduleuse, violation du Code des marchés publics"
-                }
-            ],
-            "whistleblower": [
-                "Guy Marius Sagna, mouvement 'FRAPP/France Dégage'",
-                "Professeur Babacar Diop, parti 'FDS'"
-            ],
-            "prejudice_amount": "Non spécifié",
-            "facts_period": "Non spécifié",
-            "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-        },
-        {
-            "reference": "Rapport d'enquête n°11/2021",
-            "title": "Affaire contre le Maire de la Commune de Ndindy",
-            "file_title": "Détournement de deniers publics, corruption et surfacturation",
-            "facts_denounced": [
-                "Dépenses surestimées pour les projets financés par le budget consolidé d'investissement de 2019",
-                "Détournement d'objectif sur 16 projets financés par un partenaire italien"
-            ],
-            "infractions": [
-                "Détournement de deniers publics",
-                "Corruption",
-                "Surfacturation"
-            ],
-            "incriminated": [
-                {
-                    "name": "Cheikh Seck",
-                    "position": "Maire de Ndindy",
-                    "infraction": "Détournement de deniers publics, corruption, surfacturation"
-                }
-            ],
-            "whistleblower": "Matar Sylla, responsable APR à Ndindy",
-            "prejudice_amount": "Non spécifié",
-            "facts_period": "2019",
-            "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-        },
-        {
-            "reference": "Rapport d'enquête n°12/2021",
-            "title": "Plainte contre le Sieur Amadou Diallo, ex-proviseur du Lycée Cheikh Mouhamadou Moustapha Mbakke de Diourbel",
-            "file_title": "Détournement de deniers publics",
-            "facts_denounced": [
-                "Détournement de deniers publics par l'ex-proviseur"
-            ],
-            "infractions": [
-                "Détournement de deniers publics"
-            ],
-            "incriminated": [
-                {
-                    "name": "Amadou Diallo",
-                    "position": "Ex-proviseur du Lycée Cheikh Mouhamadou Moustapha Mbakke de Diourbel",
-                    "infraction": "Détournement de deniers publics"
-                }
-            ],
-            "whistleblower": "Meissa Gningue",
-            "prejudice_amount": "Non spécifié",
-            "facts_period": "Non spécifié",
-            "ofnac_decision": "Classement sans suite"
-        },
-        {
-            "reference": "Rapport d'enquête n°13/2021",
-            "title": "Plainte contre le Président de la Chambre des Métiers de Diourbel",
-            "file_title": "Vol, détournement de fonds publics et utilisation abusive des biens",
-            "facts_denounced": [
-                "Vol de biens fournis par une ONG",
-                "Détournement de fonds publics",
-                "Utilisation abusive de véhicules administratifs"
-            ],
-            "infractions": [
-                "Vol",
-                "Détournement de fonds publics",
-                "Utilisation abusive des biens administratifs"
-            ],
-            "incriminated": [
-                {
-                    "name": "Massamba Thiam",
-                    "position": "Président de la Chambre des Métiers de Diourbel",
-                    "infraction": "Vol, détournement de fonds publics, utilisation abusive des biens"
-                }
-            ],
-            "whistleblower": "Ibrahima Thiam",
-            "prejudice_amount": "Non spécifié",
-            "facts_period": "Non spécifié",
-            "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-        }
-    ]   
-}
+            "Président OFNAC : Serigne Bassirou GUEYE",
+            "53 Plaintes déposées",
+            "42 Ordres ouverture d'enquête",
+            "40 Rapports d'enquête transmis au Procureur",
+            "12 rapports d'enquête finalisés",
+            "3 Affaires avec déliberation définitive"
+        ],
+        "title": "Résumé des affaires ayant fait l’objet d’une déliberation définitive de l’OFNAC",
+        "investigations": [
+            {
+                "reference": "Page 34 - Rapport d'enquête n°03/2022",
+                "title": "Kit médical de Dialyse",
+                "file_title": "Faits supposés de corruption dans la gestion de la prise en charge de la maladie rénale chronique (Dialyse)",
+                "facts_denounced": [
+                    "Irrégularités graves dans la distribution des kits d'hémodialyse",
+                    "Détournement de Kit parfois, certains étant vendus illégalement en Gambie",
+                    "Surfacturation des Kit d'analyse, acheté 8 000 FCFA l'unité et revendu 40 000 FCFA à l'État",
+                    "Délit d'initié impliquant CCBM de Serigne Mboup et son frère Directeur de Carrefour Médical"
+                ],
+                "infractions": [
+                    "Corruption",
+                    "Escroquerie",
+                    "Abus de confiance",
+                    "violation d’une convention Etat-Privé"
+                ],
+                "incriminated": [
+                    {
+                        "name": "Assistante-secrétaire de l'ICP",
+                        "position": "",
+                        "infraction": "corruption passive et escroquerie"
+                    },
+                    {
+                        "name": "Administrateur de l'ICP (Institut clinique de performance)",
+                        "position": "",
+                        "infraction": "escroquerie portant sur les deniers publics"
+                    }
+                ],
+                "whistleblower": "Mr Hamidou Diallo, porte-parole du Mouvement des Insuffisants rénaux du Sénégal ( décédé en cours d’enquête, le 29 juillet 2020)",
+                "prejudice_amount": "quatre milliards (4 000 000 000) de FCFA de surfacturation par an",
+                "facts_period": "2020",
+                "ofnac_decision": "Transmission au Procureur"
+            },
+            {
+                "reference": "Page 39 - Rapport d'enquête n°06/2022",
+                "title": "Délivrance Frauduleuse de Carnet ATA par la CCIAD",
+                "file_title": "Délivrance de Carnet ATA par la CCIAD",
+                "infractions": [
+                    "Fraude"
+                ],
+                "incriminated": [
+                    {
+                        "name": "Secrétaire général de la CCIAD",
+                        "position": ""
+                    }
+                ],
+                "whistleblower": "Papa Seckou Sokhna Cisse, Adjoint au chef du DAERI de la CCIAD",
+                "prejudice_amount": "Non spécifié",
+                "facts_period": "Août 2019",
+                "ofnac_decision": "Classement sans suite"
+            },
+            {
+                "reference": "Page 42 - Rapport d'enquête n°08/2022 ",
+                "title": "Malversations à la Chambre de Métiers de Sédhiou",
+                "file_title": "Gestion de la Chambre de Métiers de Sédhiou",
+                "infractions": [
+                    "Malversations",
+                    "Abus de pouvoir"
+                ],
+                "incriminated": [
+                    {
+                        "name": "Président de la Chambre de Métiers de Sédhiou",
+                        "position": ""
+                    }
+                ],
+                "whistleblower": "Bacary Mane, membre de la Chambre de Métiers de Sédhiou",
+                "prejudice_amount": "3 994 463 FCFA",
+                "facts_period": "Décembre 2019",
+                "ofnac_decision": "Transmission à titre d'information au Premier Président de la Cour des comptes"
+            }
+        ]
+    },
+    {
+        "id": "ofnac-2022",
+        "summary": [
+            "Président OFNAC : Serigne Bassirou GUEYE",
+            "95 Plaintes déposées",
+            "73 Ordres ouverture d'enquête",
+            "9 Rapports d'enquête transmis au Procureur",
+            "2 Affaires détaillés dans le rapport"
+        ],
+        "title": "Résumé des 2 rapports d'enquête transmis au procureur et détaillés dans le rapport",
+        "investigations": [
+            {
+                "reference": "Page 56 - Rapport d'enquête n°01/2022",
+                "title": "Maire de la Commune de Gandé",
+                "file_title": "Plainte visant le maire de la Commune de Gandé",
+                "facts_denounced": [
+                    "Rétention des comptes administratifs annuels et gestion opaque des recettes municipales",
+                    "Attribution d'une parcelle de 200ha à un promoteur en contrepartie de travaux non budgétisés",
+                    "Appropriation personnelle d'une parcelle de terrain et utilisation d'un tracteur d'État à des fins personnelles",
+                    "Utilisation d'un véhicule de la commune pour des besoins personnels et résidence à Dakar contrairement aux obligations légales"
+                ],
+                "infractions": [
+                    "Violation du Code général des collectivités territoriales",
+                    "Violation du Règlement général sur la Comptabilité publique",
+                    "Faute de gestion",
+                    "Gestion de fait",
+                    "Occupation de terrain attribué à autrui, sans droit ni titre",
+                    "Détournement de deniers publics",
+                    "Faux et usage de faux"
+                ],
+                "incriminated": [
+                    {
+                        "name": "Maire de la Commune de Gandé",
+                        "position": "Maire",
+                        "infraction": "Multiples infractions incluant faux et usage de faux, détournement de deniers publics"
+                    }
+                ],
+                "whistleblower": "Mouvement 'Leeral Moomellu Gandé', collectif de conseillers municipaux",
+                "prejudice_amount": "Non spécifié",
+                "facts_period": "2019-2021",
+                "ofnac_decision": "Transmission au Procureur de Louga"
+            },
+            {
+                "reference": "Page 58 - Rapport d'enquête n°04/2022",
+                "title": "Bureau des Domaines de Ngor/Almadies",
+                "file_title": "Affaire contre un Particulier et contre le Bureau des Domaines de Ngor/Almadies concernant un litige foncier portant sur la parcelle n° 74 du TF 2132/NGA (ex TF 5757/DG) située à Ngor Extension",
+                "facts_denounced": [
+                    "Différend foncier concernant la parcelle n° 74 du TF 2132/NGA, impliquant de fausses attributions et de l'usage de faux documents",
+                    "Négligence dans la gestion des archives publiques et irrégularités dans l'attribution de propriétés foncières"
+                ],
+                "infractions": [
+                    "Faux en document administratif",
+                    "Usage de faux dans un document administratif",
+                    "Violation de l’obligation de conserver les archives publiques"
+                ],
+                "incriminated": [
+                    {
+                        "name": "Maire de la Commune de Ngor",
+                        "position": "",
+                        "infraction": "Faux en document administratif et usage de faux"
+                    },
+                    {
+                        "name": "Frères M.S et A.S",
+                        "position": "Particuliers",
+                        "infraction": "Usage de faux"
+                    }
+                ],
+                "whistleblower": "Particulier, attributaire de la parcelle depuis 2001",
+                "prejudice_amount": "Non spécifié",
+                "facts_period": "2020",
+                "ofnac_decision": "Transmission au procureur de Dakar"
+            }
+        ]
+    },
+    {
+        "id": "ofnac-2021",
+        "summary": [
+            "Président OFNAC : Seynabou NDIAYE DIAKHATE",
+            "100 Plaintes déposées",
+            "90 Ordres ouverture d'enquête"
+        ],
+        "title": "Résumé des enquêtes menées",
+        "investigations": [
+            {
+                "reference": "Rapport d'enquête n°01/2021 - page 50",
+                "title": "Affaire Seyni Camara, Cheikh Tague et Malick Fall contre le PDG de WARI S.A.",
+                "file_title": "Abus de biens sociaux, fraude fiscale et corruption dans la gestion de WARI S.A.",
+                "facts_denounced": [
+                    "Falsification des états financiers de WARI S.A., INTERACTIVE SARL et INTERLINQ SUARL",
+                    "Détournement d'activité d'INTERACTIVE SARL vers une société parallèle, INTERLINQ SUARL",
+                    "Transfert du siège de WARI S.A. à Lomé pour éviter le paiement des impôts au Sénégal et au Togo",
+                    "Corruption présumée d'un notaire et d'un responsable des impôts au Togo pour éviter le paiement de 3,8 milliards FCFA d'impôts"
+                ],
+                "infractions": [
+                    "Abus de biens sociaux",
+                    "Fraude fiscale",
+                    "Corruption active",
+                    "Fraude comptable"
+                ],
+                "incriminated": [
+                    {
+                        "name": "Kabirou Mbodj",
+                        "position": "PDG de WARI S.A.",
+                        "infraction": "Abus de biens sociaux, fraude fiscale, corruption active"
+                    },
+                    {
+                        "name": "Pape Magatte Diop",
+                        "position": "Conseiller juridique et fiscal de WARI",
+                        "infraction": "Corruption active"
+                    }
+                ],
+                "whistleblower": "Seyni Camara, Cheikh Tague et Malick Fall, co-fondateurs et actionnaires de WARI",
+                "prejudice_amount": "Non spécifié",
+                "facts_period": "2015-2017",
+                "ofnac_decision": "Transmission au Procureur"
+            },
+            {
+                "reference": "Rapport d'enquête n°02/2021",
+                "title": "Affaire contre Hamady Séga Sy, Directeur Administratif et Financier de l'Université du Sine Saloum El Hadji Ibrahima Niass (USSEIN)",
+                "file_title": "Détournement de fonds publics et enrichissement illicite",
+                "facts_denounced": [
+                    "Attribution de marchés publics à des sociétés-écran",
+                    "Création de dépenses fictives pour couvrir des transactions personnelles",
+                    "Surfacturation du matériel informatique et des produits d'entretien"
+                ],
+                "infractions": [
+                    "Détournement de fonds publics",
+                    "Enrichissement illicite",
+                    "Surfacturation"
+                ],
+                "incriminated": [
+                    {
+                        "name": "Hamady Séga Sy",
+                        "position": "Directeur Administratif et Financier de l'USSEIN",
+                        "infraction": "Détournement de fonds publics, enrichissement illicite"
+                    }
+                ],
+                "whistleblower": "Individu anonyme",
+                "prejudice_amount": "Non spécifié",
+                "facts_period": "Non spécifié",
+                "ofnac_decision": "Classement sans suite"
+            },
+            {
+                "reference": "Rapport d'enquête n°03/2021",
+                "title": "Affaire Colonel Ndeye Sene Thiam de la Direction des Parcs Nationaux (DPN)",
+                "file_title": "Fraude au Centre médico-social de la DPN",
+                "facts_denounced": [
+                    "Paiement de salaires fictifs à des contractuels depuis 2012",
+                    "Tentative de corruption du sergent-chef Alassane Diop pour son silence",
+                    "Refus de rendre au Trésor le montant de 302 504 FCFA représentant les salaires fictifs"
+                ],
+                "infractions": [
+                    "Faux et usage de faux",
+                    "Escroquerie portant sur des deniers publics",
+                    "Association de malfaiteurs"
+                ],
+                "incriminated": [
+                    {
+                        "name": "Lamine Sambou, Ndeye Sene Thiam, Mouhamadou Mody Diallo, Papa Tagouth Top, Alassane Samb",
+                        "position": "Divers",
+                        "infraction": "Faux, usage de faux et escroquerie portant sur des deniers publics"
+                    }
+                ],
+                "whistleblower": "Sergent-chef Alassane Diop",
+                "prejudice_amount": "8 667 764 FCFA",
+                "facts_period": "2013-2018",
+                "ofnac_decision": "Transmission au Procureur de la République"
+            },
+            {
+                "reference": "Rapport d'enquête n°04/2021",
+                "title": "Affaire contre le Maire de la Commune de Darou Khoudoss-Mboro",
+                "file_title": "Absence de transparence dans la gestion des finances communales",
+                "facts_denounced": [
+                    "Absence de transparence dans la collecte des taxes municipales routières",
+                    "Manque de transparence dans les subventions financières allouées à la commune par les sociétés minières",
+                    "Construction illégale d'un centre commercial"
+                ],
+                "infractions": [
+                    "Faux et usage de faux en écritures publiques",
+                    "Détournement de deniers publics",
+                    "Enrichissement illicite"
+                ],
+                "incriminated": [
+                    {
+                        "name": "Magor Kane",
+                        "position": "Maire de Darou Khoudoss-Mboro",
+                        "infraction": "Faux et usage de faux, détournement de deniers publics, enrichissement illicite"
+                    }
+                ],
+                "whistleblower": "Souleymane Diop",
+                "prejudice_amount": "Non spécifié",
+                "facts_period": "2018",
+                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+            },
+            {
+                "reference": "Rapport d'enquête n°05/2021",
+                "title": "Affaire délivrance de licences de pêche au Sénégal",
+                "file_title": "Délivrance de licences de pêche en violation du Code de la pêche maritime",
+                "facts_denounced": [
+                    "Accord de licences à des navires récemment naturalisés sans convocation de la Commission consultative d'Attribution",
+                    "Soupçons de concussion et de corruption à la base des autorisations"
+                ],
+                "infractions": [
+                    "Corruption",
+                    "Concussion"
+                ],
+                "incriminated": [],
+                "whistleblower": "UPAMES, CONIPAS et GAIPES",
+                "prejudice_amount": "Non spécifié",
+                "facts_period": "2018-2020",
+                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+            },
+            {
+                "reference": "Rapport d'enquête n°06/2021",
+                "title": "Affaire contre le Maire de la Commune de Faoune",
+                "file_title": "Anomalies dans les comptes administratifs et gestion non transparente",
+                "facts_denounced": [
+                    "Non-exécution de plusieurs projets inscrits dans les comptes administratifs de 2017 et 2018",
+                    "Mauvaise gestion facilitée par l'absence d'une commission des marchés et d'une cellule de passation de marchés"
+                ],
+                "infractions": [
+                    "Faux et usage de faux",
+                    "Faute de gestion",
+                    "Gestion de fait",
+                    "Violation du Code des Collectivités territoriales"
+                ],
+                "incriminated": [
+                    {
+                        "name": "Ibrahima Ba",
+                        "position": "Maire de Faoune",
+                        "infraction": "Faux et usage de faux, faute de gestion, gestion de fait"
+                    }
+                ],
+                "whistleblower": "Souleymane Iradiang",
+                "prejudice_amount": "Non spécifié",
+                "facts_period": "2017-2018",
+                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+            },
+            {
+                "reference": "Rapport d'enquête n°07/2021",
+                "title": "Affaire contre le Groupe Auchan, SETAM, la Mairie et le Conseil Départemental de Mbour",
+                "file_title": "Conflit d'intérêts, corruption et violation du Code des Marchés publics",
+                "facts_denounced": [
+                    "Octroi d'une partie du stade Caroline Faye au Groupe Auchan",
+                    "Attribution du marché de construction du complexe culturel à SETAM sans respect des procédures"
+                ],
+                "infractions": [
+                    "Corruption",
+                    "Violation du Code des Marchés publics",
+                    "Faux et usage de faux"
+                ],
+                "incriminated": [
+                    {
+                        "name": "El Hadji Falou Sylla",
+                        "position": "Maire de Mbour",
+                        "infraction": "Faux et usage de faux"
+                    },
+                    {
+                        "name": "Abdou Salam Ndiaye",
+                        "position": "Gérant de SETAM",
+                        "infraction": "Favoritisme"
+                    }
+                ],
+                "whistleblower": "Ibou Niang, membre du Forum Civil et Coordinateur de Transparency International Mbour",
+                "prejudice_amount": "Non spécifié",
+                "facts_period": "Non spécifié",
+                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+            },
+            {
+                "reference": "Rapport d'enquête n°08/2021",
+                "title": "Affaire corruption et vente illégale de terrains contre Donacien Kanfany",
+                "file_title": "Corruption et vente illégale de terrains au Cadastre de Ziguinchor",
+                "facts_denounced": [
+                    "Vente illégale de 20 parcelles de terrains",
+                    "Occupation illégale du poste de chef du Cadastre"
+                ],
+                "infractions": [
+                    "Concussion",
+                    "Vente illégale de terres du domaine national",
+                    "Enrichissement illicite"
+                ],
+                "incriminated": [
+                    {
+                        "name": "Donacien Kanfany",
+                        "position": "Chef du Cadastre de Ziguinchor",
+                        "infraction": "Vente illégale de terres, concussion, enrichissement illicite"
+                    }
+                ],
+                "whistleblower": "Individu anonyme",
+                "prejudice_amount": "Non spécifié",
+                "facts_period": "Non spécifié",
+                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+            },
+            {
+                "reference": "Rapport d'enquête n°09/2021",
+                "title": "Affaire contre le Maire de la Commune de Sindia",
+                "file_title": "Détournement de deniers publics, escroquerie et blanchiment de capitaux",
+                "facts_denounced": [
+                    "Détournement de 54 175 500 FCFA en indemnités de terres",
+                    "Manoeuvres pour s'inscrire comme propriétaire coutumier pour recevoir des indemnités"
+                ],
+                "infractions": [
+                    "Détournement de deniers publics",
+                    "Escroquerie portant sur des deniers publics",
+                    "Blanchiment de capitaux"
+                ],
+                "incriminated": [
+                    {
+                        "name": "Thierno Diagne",
+                        "position": "Maire de Sindia",
+                        "infraction": "Détournement de deniers publics, escroquerie, blanchiment de capitaux"
+                    }
+                ],
+                "whistleblower": "Individu anonyme",
+                "prejudice_amount": "54 175 500 FCFA",
+                "facts_period": "Non spécifié",
+                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+            },
+            {
+                "reference": "Rapport d'enquête n°10/2021",
+                "title": "Affaire acquisition de vivres et autres produits et prestations de services de transport dans le cadre de la lutte contre la pandémie COVID-19",
+                "file_title": "Faux en écritures privées, banqueroute frauduleuse et violation du Code des marchés publics",
+                "facts_denounced": [
+                    "Attribution de marchés à des entreprises non qualifiées ou en faillite",
+                    "Faux en écritures privées",
+                    "Banqueroute frauduleuse"
+                ],
+                "infractions": [
+                    "Faux en écritures privées",
+                    "Banqueroute frauduleuse",
+                    "Violation du Code des marchés publics"
+                ],
+                "incriminated": [
+                    {
+                        "name": "Rayan Hachem",
+                        "position": "Gérant de 'Avanti Suarl' et 'Afri & Co Suarl'",
+                        "infraction": "Faux en écritures privées, complicité par instigation"
+                    },
+                    {
+                        "name": "Demba Diop Sy",
+                        "position": "DG 'Urbaine d'Entreprise' (UDE)",
+                        "infraction": "Banqueroute frauduleuse, violation du Règlement intérieur de l’Assemblée nationale"
+                    },
+                    {
+                        "name": "Marième Diop",
+                        "position": "Fille de Demba DIOP SY",
+                        "infraction": "Complicité de Banqueroute frauduleuse"
+                    }
+                ],
+                "whistleblower": "Guy Marius Sagna (FRAPP), Professeur Babacar Diop (FDS)",
+                "prejudice_amount": "Non spécifié",
+                "facts_period": "Non spécifié",
+                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+            },
+            {
+                "reference": "Rapport d'enquête n°11/2021",
+                "title": "Affaire contre le Maire de la Commune de Ndindy",
+                "file_title": "Détournement de deniers publics, corruption et surfacturation",
+                "facts_denounced": [
+                    "Dépenses surestimées pour les projets financés par le budget consolidé d'investissement de 2019",
+                    "Détournement d'objectif sur 16 projets financés par un partenaire italien"
+                ],
+                "infractions": [
+                    "Détournement de deniers publics",
+                    "Corruption",
+                    "Surfacturation"
+                ],
+                "incriminated": [
+                    {
+                        "name": "Cheikh Seck",
+                        "position": "Maire de Ndindy",
+                        "infraction": "Détournement de deniers publics, corruption, surfacturation"
+                    }
+                ],
+                "whistleblower": "Matar Sylla, responsable APR à Ndindy",
+                "prejudice_amount": "Non spécifié",
+                "facts_period": "2019",
+                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+            },
+            {
+                "reference": "Rapport d'enquête n°12/2021",
+                "title": "Plainte contre le Sieur Amadou Diallo, ex-proviseur du Lycée Cheikh Mouhamadou Moustapha Mbakke de Diourbel",
+                "file_title": "Détournement de deniers publics",
+                "facts_denounced": [
+                    "Détournement de deniers publics par l'ex-proviseur"
+                ],
+                "infractions": [
+                    "Détournement de deniers publics"
+                ],
+                "incriminated": [
+                    {
+                        "name": "Amadou Diallo",
+                        "position": "Ex-proviseur du Lycée Cheikh Mouhamadou Moustapha Mbakke de Diourbel",
+                        "infraction": "Détournement de deniers publics"
+                    }
+                ],
+                "whistleblower": "Meissa Gningue",
+                "prejudice_amount": "Non spécifié",
+                "facts_period": "Non spécifié",
+                "ofnac_decision": "Classement sans suite"
+            },
+            {
+                "reference": "Rapport d'enquête n°13/2021",
+                "title": "Plainte contre le Président de la Chambre des Métiers de Diourbel",
+                "file_title": "Vol, détournement de fonds publics et utilisation abusive des biens",
+                "facts_denounced": [
+                    "Vol de biens fournis par une ONG",
+                    "Détournement de fonds publics",
+                    "Utilisation abusive de véhicules administratifs"
+                ],
+                "infractions": [
+                    "Vol",
+                    "Détournement de fonds publics",
+                    "Utilisation abusive des biens administratifs"
+                ],
+                "incriminated": [
+                    {
+                        "name": "Massamba Thiam",
+                        "position": "Président de la Chambre des Métiers de Diourbel",
+                        "infraction": "Vol, détournement de fonds publics, utilisation abusive des biens"
+                    }
+                ],
+                "whistleblower": "Ibrahima Thiam",
+                "prejudice_amount": "Non spécifié",
+                "facts_period": "Non spécifié",
+                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+            }
+        ]
+    }
 ]

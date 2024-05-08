@@ -186,7 +186,7 @@
     "titre": "Cours des comptes rapport sur l'eau et l'assainissement 2021",
     "organisme": "Cours des Comptes",
     "annee": 2021,
-    "period": "2021",
+    "period": "Janvier à Décembre 2021",
     "date_publication": "2021-12-31",
     "url_pdf": "/reports/CC_2021_Eau_Assainissement.pdf",
     "sous_titre": "Rapport public définitif de synthèse sur le secteur de l'eau et de l'assainissement"
@@ -213,7 +213,7 @@
     "period": "2021",
     "date_publication": "2021-12-31",
     "url_pdf": "/reports/ARMP_2021.pdf",
-    "sous_titre": "Autorité de Régulation des Marchés Publics (ARMP) du Sénégal, année 2021"
+    "sous_titre": "Autorité de Régulation des Marchés Publics du Sénégal, année 2021"
   },
   {
     "resume_disponible": false,
@@ -225,7 +225,7 @@
     "period": "2019",
     "date_publication": "2019-12-31",
     "url_pdf": "/reports/ARMP_2018_2019.pdf",
-    "sous_titre": "Autorité de Régulation des Marchés Publics (ARMP) du Sénégal, années 2018 et 2019"
+    "sous_titre": "Autorité de Régulation des Marchés Publics du Sénégal, années 2018 et 2019"
   },
   {
     "resume_disponible": false,
@@ -237,7 +237,7 @@
     "period": "2020",
     "date_publication": "2020-12-31",
     "url_pdf": "/reports/ARMP_2020.pdf",
-    "sous_titre": "Autorité de Régulation des Marchés Publics (ARMP) du Sénégal, année 2020"
+    "sous_titre": "Autorité de Régulation des Marchés Publics du Sénégal, année 2020"
   },
   {
     "resume_disponible": false,
@@ -309,7 +309,7 @@
     "period": "2018 - 2021",
     "date_publication": "2023-12-04",
     "url_pdf": "/reports/CC_2022_ASER.pdf",
-    "sous_titre": "Agence senegalaise d’electrification rurale (ASER), exercie 2018 - 2021"
+    "sous_titre": "Agence senegalaise d’electrification rurale, gestion 2018-2021"
   },
   {
     "resume_disponible": false,
@@ -321,7 +321,7 @@
     "period": "2018 - 2021",
     "date_publication": "2023-05-31",
     "url_pdf": "/reports/CC_2023_DPGU.pdf",
-    "sous_titre": "Délégation générale à la Promotion des Pôles urbains de Diamniadio et du Lac Rose (DPGU), exercie 2018 - 2021"    
+    "sous_titre": "Délégation générale à la Promotion des Pôles urbains de Diamniadio et du Lac Rose, gestion 2018-2021"    
   },
   {
     "resume_disponible": false,
@@ -333,7 +333,7 @@
     "period": "2019 à 2021",
     "date_publication": "2024-01-01",
     "url_pdf": "/reports/CC_2023_DEFCCS.pdf",
-    "sous_titre": "Direction des Eaux et Forêts, Chasses et de la Conservation des Sols (DEFCCS), gestion de 2019 - 2021"    
+    "sous_titre": "Direction des Eaux et Forêts, Chasses et de la Conservation des Sols, gestion 2019-2021"    
   },
   {
     "resume_disponible": false,
@@ -345,7 +345,7 @@
     "period": "2017 à 2020",
     "date_publication": "2023-06-01",
     "url_pdf": "/reports/CC_2023_ANAMO.pdf",
-    "sous_titre": "Agence nationale de la Maison de l’Outil (ANAMO), gestion de 2017 - 2020"    
+    "sous_titre": "Agence nationale de la Maison de l’Outil, gestion 2017-2020"    
   },
   {
     "resume_disponible": false,
@@ -357,7 +357,7 @@
     "period": "2017 à 2021",
     "date_publication": "2024-01-01",
     "url_pdf": "/reports/CC_2023_ACBEP.pdf",
-    "sous_titre": "Agence de Construction des Bâtiments et Edifices publics (ACBEP), gestion de 2017 - 2021"    
+    "sous_titre": "Agence de Construction des Bâtiments et Edifices publics, gestion 2017-2021"    
   },
   {
     "resume_disponible": false,
@@ -369,7 +369,7 @@
     "period": "2017 à 2020",
     "date_publication": "2022-08-28",
     "url_pdf": "/reports/CC_2023_SEMENCES.pdf",
-    "sous_titre": "Rapport d'audit de la Gestion des Semences arachidières, gestion de 2017 - 2020"    
+    "sous_titre": "Rapport d'audit de la Gestion des Semences arachidières, gestion 2017-2020"    
   }
   ,
   {
@@ -383,18 +383,5 @@
     "date_publication": "2022-07-27",
     "url_pdf": "/reports/CC_2022_DAGE_Ministere_Sante.pdf",
     "sous_titre": "Direction de l’Administration générale et de l’Equipement (DAGE) Ministère de la Santé et de l’Action Sociale, gestion de 2015 - 2018"    
-  }
-  ,
-  {
-    "resume_disponible": false,
-    "slug": "cours-des-compte-itie-2023",
-    "id": 31,
-    "titre": "Rapport ITIE 2022",
-    "organisme": "Autres",
-    "annee": 2023,
-    "period": "2022",
-    "date_publication": "2023-12-20",
-    "url_pdf": "/reports/AUTRE_2022_ITIE.pdf",
-    "sous_titre": "Initiative pour la Transparence dans les Industries Extractives (ITIE) au Sénégal 2022"    
   }
 ]

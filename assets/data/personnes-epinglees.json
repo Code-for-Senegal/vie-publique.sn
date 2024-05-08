@@ -18,13 +18,26 @@
         "photo": "https://www.impact.sn/photo/art/default/40818780-34512214.jpg?v=1576481919"
     },
     {
-        "display": false,
+        "display": true,
         "id": 3,
         "slug": "Demba-Diop-Sy",
         "nom": "Demba Diop Sy",
         "fonction": "Maire de tiwaoune, Député, Homme d'affaire",
         "resume": "épinglé dans le rapport fonds de riposte contre la Covid-19, banqueroute frauduleuse, présomptions d’escroquerie portant sur des deniers publics",
-        "photo": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Demba_Diop_Sy.jpg"
+        "photo": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Demba_Diop_Sy.jpg",
+        "facts_denounced": [
+            {
+                "rapport": "Rapport OFNAC 2021 - Enquête N°10/2021 - Page 63",
+                "intro": "Dans le cadre du fond de 69 milliards destiné à l’appui aux populations en vivres pour la riposte contre la Covid-19, il lui est reproché:",
+                "infractions": [
+                    "Banqueroute Frauduleuse : Demba Diop Sy aurait continué à exercer la profession de dirigeant alors que sa société, « Urbaine d'Entreprise » (UDE), était déclarée en faillite",
+                    "Violation du Règlement intérieur de l’Assemblée nationale: En tant que député, Demba Diop Sy a dirigé l'entreprise « UDE », contrevenant aux réglementations légales en raison de l'incompatibilité entre sa fonction de député et celle de dirigeant d'une entreprise.",
+                    "Dissimulation du Statut Réel: Il est accusé d'avoir sciemment caché la véritable situation financière de sa société lors des soumissions, malgré la liquidation judiciaire prononcée",
+                    "Marième DIOP, la fille de DIOP SY, est accusé de complicité avec son père"
+                ],
+                "outro": "Ces actions auraient permis à Demba Diop Sy de bénéficier indûment de marchés publics liés à la lutte contre la pandémie de COVID-19. Ces faits révèlent des présomptions d’escroquerie portant sur des deniers publics (article 153 du Code pénal). l'OFNAC a délibéré le 13 avril 2022 et décidé de transmettre le rapport d’enquête au Procureur de Dakar"
+            }
+        ]
     },
     {
         "display": true,
@@ -36,8 +49,8 @@
         "photo": "https://www.seneplus.com/sites/default/files/styles/section_hero/public/raw_photos/cohanne_1.jpg",
         "facts_denounced": [
             {
-                "rapport": "OFNAC 2014-2015 - Enquête n°06 - Page 66",
-                "intro": "Reproches faits au Directeur du COUD ",
+                "rapport": "Rapport OFNAC 2014-2015 - Enquête n°06 - Page 66",
+                "intro": "Reproches faits lorsqu'il était directeur du COUD",
                 "infractions": [
                     "Empêchement de l'exécution correcte de la mission de vérification",
                     "Menaces envers les membres de l'équipe de vérification",
@@ -45,14 +58,16 @@
                     "Intimidation des travailleurs du COUD pour qu'ils ne défèrent pas aux convocations de l'OFNAC.",
                     "Sabotage de la mission de vérification.",
                     "Pratiques de détournements de deniers publics.",
-                    "Octroi de subventions irrégulières",
+                    "Dépenses effectuées à l'occasion d'une cérémonie de visite au Campus en juillet 2015",
+                    "Octroi de subventions irrégulières pour un montant total de 454 476 081 FCFA accordé à divers bénéficiaires en 2014 et 2015.",
+                    "Subventions sans bénéficiaires pour un montant de 35 020 000 FCFA accordées en octobre 2014.",
                     "Non-respect de la procédure prévue pour l'octroi de subventions",
                     "Engagement de dépenses sans autorisation préalable du Conseil d'Administration.",
                     "Versement de subventions sans identification formelle des bénéficiaires",
                     "Manœuvres frauduleuses pour tenter de combler des manquants",
                     "Infractions de faux et usage de faux"
                 ],
-                "outro": "Ces reproches ont conduit à la recommandation de relever Cheikh Oumar Hanne de ses fonctions de direction et à la transmission du rapport d'enquête au procureur"
+                "outro": "l'OFNAC a recommandé de relever Cheikh Oumar Hanne de ses fonctions et a transmis le dossier au procureur. Aucune poursuite judiciaire n'a été enclenchée à ce jour"
             }
         ]
     },
@@ -66,13 +81,38 @@
         "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/KabirouMbodje.jpg/330px-KabirouMbodje.jpg",
         "facts_denounced": [
             {
-                "rapport": "OFNAC 2021 - Enquête n°01/2021 - page 50",
+                "rapport": "Rapport OFNAC 2021 - Enquête n°01/2021 - page 50",
                 "infractions": [
                     "Falsification des états financiers de WARI S.A., INTERACTIVE SARL et INTERLINQ SUARL",
                     "Détournement d'activité d'INTERACTIVE SARL vers une société parallèle, INTERLINQ SUARL",
                     "Transfert du siège de WARI S.A. à Lomé pour éviter le paiement des impôts au Sénégal et au Togo",
                     "Corruption présumée d'un notaire et d'un responsable des impôts au Togo pour éviter le paiement de 3,8 milliards FCFA d'impôts"
                 ]
+            }
+        ]
+    },
+    {
+        "display": true,
+        "id": 6,
+        "slug": "Ndeye-Sene-Thiam",
+        "nom": "Ndeye Sene Thiam",
+        "fonction": "Colonel, Chef de Bureau à la Direction des Parcs Nationaux (DPN)",
+        "resume": "épinglé par l'ofnac dans son rapport 2021",
+        "photo": "https://www.alleganyco.gov/wp-content/uploads/unknown-person-icon-Image-from.png",
+        "facts_denounced": [
+            {
+                "rapport": "Rapport OFNAC 2021 - Enquête n°03/2021 - page 54",
+                "intro": "Les infractions qui lui sont reprochées à la DPN",
+                "infractions": [
+                    "Fraude au niveau du Centre médico-social de la DPN.",
+                    "Paiement de salaires à des employés fictifs pour un montant estimé à 8 667 764 FCFA.",
+                    "Association de malfaiteurs.",
+                    "Faux et usage de faux portant sur des documents administratifs.",
+                    "Escroquerie portant sur des deniers publics.",
+                    "Partage de fonds destinés à l'achat de denrées alimentaires pour un montant de 8 473 500 FCFA.",
+                    "Détournement de deniers publics."
+                ],
+                "outro": "Le rapport d’enquête a été transmis au Procureur de la République"
             }
         ]
     }
