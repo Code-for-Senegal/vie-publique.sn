@@ -2,11 +2,15 @@
 
 Plateforme Web CivicTech dédiée à la centralisation, la visualisation et l'analyse des rapports publiés sur la gestion des finances publiques au Sénégal. 
 
-Production - Url publique : 
+- Production - Url publique : 
 https://www.vie-publique.sn
 
-Recette - Url version en cours de dev :
+- Recette - Url version en cours de dev :
 https://senegal-rapports.netlify.app 
+
+> ⚠️ **AVERTISSEMENT IMPORTANT**  
+> Projet initié dans l'urgence pour répondre à [l'indisponiblité du site de la cours des comptes le 01/05/2024](https://twitter.com/malick_yacine/status/1785472745150742983). Les data (metadata sur les rapports et les pdf) on été incluses directement dans le repo git. Cela explique la taille conséquente du repo (200mo). Ce point sera corrigé très rapidement en séparant les data du code. 
+
 
 # Sommaire
 
