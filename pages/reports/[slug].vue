@@ -1,15 +1,27 @@
 <script setup lang="ts">
 const rapport = ref<any | null>(null);
 const resume = ref<any | null>(null);
-
 const route = useRoute();
+const { gtag } = useGtag()
+
+const { data } = useFetch<any[]>('/api/reports');
 
 onMounted(async () => {
-  rapport.value = (await import('@/assets/data/rapports-liste.json')).default
-    .find(s => s.slug === route.params.slug);
+  rapport.value = data.value.find(s => s.slug === route.params.slug);
 
   resume.value = (await import('@/assets/data/rapports-details.json')).default
     .find(s => s.id === route.params.slug);
+
+  // Définir les méta-tags une fois les données chargées
+  useHead({
+    title: rapport.value ? `${rapport.value.titre}` : 'Chargement...',
+    meta: [
+      {
+        name: 'description',
+        content: rapport.value ? rapport.value.sous_titre : 'Description de la page en cours de chargement...',
+      }
+    ]
+  });
 });
 
 const links = [{ label: '← Retour à la liste rapports', to: '/' }]
@@ -17,38 +29,73 @@ const links = [{ label: '← Retour à la liste rapports', to: '/' }]
 function showResume(rapport: any): boolean {
   return rapport != null && rapport.resume_disponible && resume != null
 }
+
+function formatDate(dateStr: string): string {
+  const date = new Date(dateStr);
+  const monthNames = [
+    'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+    'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+  ];
+  const month = monthNames[date.getMonth()];
+  const year = date.getFullYear();
+  return `${month} ${year}`;
+}
+
+function trackPDFDownload() {
+  gtag('event', 'download_pdf', {
+    'event_category': 'PDF Downloads',
+    'event_label': rapport.value.titre,
+    'value': rapport.value.url_pdf
+  })
+}
+
 </script>
 
 <template>
-  <UBreadcrumb v-if="rapport != null" divider=">" :links=links class="mb-2 px-2.5" />
+  <h1 v-if="rapport != null" class="sr-only">{{ rapport.titre }}</h1>
+
+  <UButton v-if="rapport != null" class="bg-white hover:bg-white mb-2 custom-shadow w-full">
+    <UBreadcrumb divider=">" :links=links class="px-2.5" />
+  </UButton>
 
   <UCard v-if="rapport != null" class="custom-shadow mb-2">
+
     <div>
-      <img v-if="rapport.organisme == 'ARMP'" src="~/assets/logos/armp.png" class="organisme-logo" />
-      <img v-if="rapport.organisme == 'OFNAC'" src="~/assets/logos/ofnac.png" class="organisme-logo" />
-      <img v-if="rapport.organisme == 'IGE'" src="~/assets/logos/ige.png" class="organisme-logo" />
-      <img v-if="rapport.organisme == 'Cours des comptes'" src="~/assets/logos/cour_des_comptes.png"
-        class="organisme-logo" />
+      <img v-if="rapport.organisme == 'ARMP'" src="~/assets/logos/armp.webp" loading="lazy" alt="Logo ARMP"
+        class="organisme-logo" width="60" height="40" />
+      <img v-if="rapport.organisme == 'OFNAC'" src="~/assets/logos/ofnac.webp" loading="lazy" alt="Logo OFNAC"
+        class="organisme-logo" width="60" height="40" />
+      <img v-if="rapport.organisme == 'IGE'" src="~/assets/logos/ige.webp" loading="lazy" alt="Logo IGE"
+        class="organisme-logo" width="60" height="40" />
+      <img v-if="rapport.organisme == 'Cours des Comptes'" src="~/assets/logos/cour_des_comptes.webp" loading="lazy"
+        alt="Logo Cours des Comptes" class="organisme-logo" width="60" height="40" />
+      <img v-if="rapport.organisme == 'Autres'" src="~/assets/logos/doc.svg" loading="lazy" alt="Logo rapport"
+        class="organisme-logo" width="60" height="40" />
     </div>
+
     <h1 class="text-xl sm:text-2xl">{{ rapport.titre }}</h1>
     <p class="text-gray-500 text-sm mb-2">{{ rapport.sous_titre }}</p>
-    <p class="text-gray-500 text-sm mb-2">
+    <!-- <p class="text-gray-500 text-sm mb-2">
       Période contrôlée: {{ rapport.period }}
-    </p>
+    </p> -->
     <p class="text-gray-500 text-sm mb-2">
-      Date de publication: {{ new Date(rapport.date_publication).toLocaleDateString() }}
+      Date de publication: {{ formatDate(rapport.date_publication) }}
     </p>
 
     <UButton size="sm" icon="i-heroicons-arrow-down-tray" truncate color="black" variant="outline" :to="rapport.url_pdf"
-      target="_blank" label="Télécharger le document PDF" class="w-full sm:w-1/2 md:w-1/2 xl:w-1/3">
+      target="_blank" label="Télécharger le document PDF" class="w-full sm:w-1/2 md:w-1/2 xl:w-1/3"
+      @click="trackPDFDownload">
     </UButton>
   </UCard>
 
   <UCard v-if="showResume(rapport)" class="custom-shadow">
     <div class="p-2 text-sm">
-      <ul v-if="resume && resume.summary">
-        <li v-for="(summaryItem, i) in resume.summary" :key="i">
-          {{ summaryItem }}
+      <ul v-if="resume && resume.summary" class="list-disc">
+        <li v-for="(summaryItem, i) in resume.summary" :key="i" class="ml-5 mt-1">
+          <span v-if="summaryItem.title != null" class="font-semibold">
+            {{ summaryItem.title }}:
+          </span>
+          {{ summaryItem.content }}
         </li>
       </ul>
       <h2 v-if="resume && resume.title" class="font-bold mt-4"> {{ resume.title }}</h2>

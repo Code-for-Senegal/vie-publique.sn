@@ -1,12 +1,33 @@
 [
     {
-        "display": false,
+        "display": true,
         "id": 1,
-        "slug": "Mamour-Diallo",
-        "nom": "Mamour Diallo",
-        "fonction": "Directeur des Domaines",
+        "slug": "Mamadou-Mamour-Diallo",
+        "nom": "Mamadou Mamour Diallo",
+        "fonction": "Ancien DG ONAS, Ancien Directeur des Domaines",
         "resume": "épinglé par l'ofnac sur l'affaire du TF 1451/R 94 Milliard, Association de malfaiteurs, Escroquerie portant sur des deniers publics, Tentative d’escroquerie portant sur des deniers publics ",
-        "photo": "https://www.sudquotidien.sn/wp-content/uploads/2022/10/Mamour-Diallo-1080x900.png"
+        "photo": "https://www.sudquotidien.sn/wp-content/uploads/2022/10/Mamour-Diallo-1080x900.png",
+        "facts_denounced": [
+            {
+                "rapport": "Rapport OFNAC 2019 - Enquête n°03 - Page 52 à 56",
+                "intro": "Les infractions qui lui sont reprochées en tant que Directeur des Domaine:",
+                "infractions": [
+                    {
+                        "title": "Gestion du TF 1451/R",
+                        "content": "Il a approuvé le paiement de 94,78 milliards FCFA au profit des sociétés SOFICO et CFU. Cependant, ces paiements ont été établis sur des bases irrégulières, avec des actes d'acquiescement en faveur de Seydou Sarr, qui n'était pas propriétaire mais s'était substitué aux héritiers légitimes (p. 53-54)."
+                    },
+                    {
+                        "title": "Non-Respect des Procédures",
+                        "content": "Les paiements ont été effectués en violation des procédures normales. Les actes d'acquiescement utilisés n'avaient pas fait l'objet d'une validation ou d'une vérification rigoureuse."
+                    },
+                    {
+                        "title": "Conflits d'Intérêt",
+                        "content": "Certains paiements ont été approuvés alors que des conflits d'intérêt n'étaient pas correctement gérés, créant des irrégularités dans l'attribution des indemnisations."
+                    }
+                ],
+                "outro": "Selon l'OFNAC, ces faits révèlent des infractions d'association de malfaiteurs, d'escroquerie portant sur des deniers publics. Le dossier a été transmis au Procureur."
+            }
+        ]
     },
     {
         "display": false,
@@ -24,16 +45,28 @@
         "nom": "Demba Diop Sy",
         "fonction": "Maire de tiwaoune, Député, Homme d'affaire",
         "resume": "épinglé dans le rapport fonds de riposte contre la Covid-19, banqueroute frauduleuse, présomptions d’escroquerie portant sur des deniers publics",
-        "photo": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Demba_Diop_Sy.jpg",
+        "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Demba_Diop_Sy.jpg/330px-Demba_Diop_Sy.jpg",
         "facts_denounced": [
             {
                 "rapport": "Rapport OFNAC 2021 - Enquête N°10/2021 - Page 63",
                 "intro": "Dans le cadre du fond de 69 milliards destiné à l’appui aux populations en vivres pour la riposte contre la Covid-19, il lui est reproché:",
                 "infractions": [
-                    "Banqueroute Frauduleuse : Demba Diop Sy aurait continué à exercer la profession de dirigeant alors que sa société, « Urbaine d'Entreprise » (UDE), était déclarée en faillite",
-                    "Violation du Règlement intérieur de l’Assemblée nationale: En tant que député, Demba Diop Sy a dirigé l'entreprise « UDE », contrevenant aux réglementations légales en raison de l'incompatibilité entre sa fonction de député et celle de dirigeant d'une entreprise.",
-                    "Dissimulation du Statut Réel: Il est accusé d'avoir sciemment caché la véritable situation financière de sa société lors des soumissions, malgré la liquidation judiciaire prononcée",
-                    "Marième DIOP, la fille de DIOP SY, est accusé de complicité avec son père"
+                    {
+                        "title": "Banqueroute Frauduleuse",
+                        "content": "Demba Diop Sy aurait continué à exercer la profession de dirigeant alors que sa société, « Urbaine d'Entreprise » (UDE), était déclarée en faillite."
+                    },
+                    {
+                        "title": "Violation du Règlement intérieur de l’Assemblée nationale",
+                        "content": "En tant que député, Demba Diop Sy a dirigé l'entreprise « UDE », contrevenant aux réglementations légales en raison de l'incompatibilité entre sa fonction de député et celle de dirigeant d'une entreprise."
+                    },
+                    {
+                        "title": "Dissimulation du Statut Réel",
+                        "content": "Il est accusé d'avoir sciemment caché la véritable situation financière de sa société lors des soumissions, malgré la liquidation judiciaire prononcée."
+                    },
+                    {
+                        "title": "Complicité avec sa fille",
+                        "content": "Marième DIOP, la fille de DIOP SY, est accusée de complicité avec son père."
+                    }
                 ],
                 "outro": "Ces actions auraient permis à Demba Diop Sy de bénéficier indûment de marchés publics liés à la lutte contre la pandémie de COVID-19. Ces faits révèlent des présomptions d’escroquerie portant sur des deniers publics (article 153 du Code pénal). l'OFNAC a délibéré le 13 avril 2022 et décidé de transmettre le rapport d’enquête au Procureur de Dakar"
             }
@@ -52,20 +85,50 @@
                 "rapport": "Rapport OFNAC 2014-2015 - Enquête n°06 - Page 66",
                 "intro": "Reproches faits lorsqu'il était directeur du COUD",
                 "infractions": [
-                    "Empêchement de l'exécution correcte de la mission de vérification",
-                    "Menaces envers les membres de l'équipe de vérification",
-                    "Actes d'intoxication",
-                    "Intimidation des travailleurs du COUD pour qu'ils ne défèrent pas aux convocations de l'OFNAC.",
-                    "Sabotage de la mission de vérification.",
-                    "Pratiques de détournements de deniers publics.",
-                    "Dépenses effectuées à l'occasion d'une cérémonie de visite au Campus en juillet 2015",
-                    "Octroi de subventions irrégulières pour un montant total de 454 476 081 FCFA accordé à divers bénéficiaires en 2014 et 2015.",
-                    "Subventions sans bénéficiaires pour un montant de 35 020 000 FCFA accordées en octobre 2014.",
-                    "Non-respect de la procédure prévue pour l'octroi de subventions",
-                    "Engagement de dépenses sans autorisation préalable du Conseil d'Administration.",
-                    "Versement de subventions sans identification formelle des bénéficiaires",
-                    "Manœuvres frauduleuses pour tenter de combler des manquants",
-                    "Infractions de faux et usage de faux"
+                    {
+                        "title": "Sabotage de la mission de vérification",
+                        "content": "Empêchement de l'exécution correcte de la mission de vérification, Menaces envers les membres de l'équipe de vérification."
+                    },
+                    {
+                        "title": "actes d'intoxication",
+                        "content": "Intimidation des travailleurs du COUD pour qu'ils ne défèrent pas aux convocations de l'OFNAC."
+                    },
+                    {
+                        "title": null,
+                        "content": "Pratiques de détournements de deniers publics."
+                    },
+                    {
+                        "title": "Dépenses injustifiées",
+                        "content": "Dépenses d'un montant de 89 millions effectuées sans justificatifs à l'occasion d'une cérémonie de visite au Campus en juillet 2015: pas de procès-verbaux de réception, pas de matières reçues dans le service."
+                    },
+                    {
+                        "title": "Dépenses non autorisées",
+                        "content": "Engagement de dépenses sans autorisation préalable du Conseil d'Administration."
+                    },
+                    {
+                        "title": "subventions irrégulières",
+                        "content": "Octroi de subventions irrégulières pour un montant total de 454 476 081 FCFA accordé à divers bénéficiaires en 2014 et 2015."
+                    },
+                    {
+                        "title": "Subventions sans bénéficiaires",
+                        "content": "Versement de subventions sans identification formelle des bénéficiaires. Subventions sans bénéficiaires pour un montant de 35 020 000 FCFA accordées en octobre 2014."
+                    },
+                    {
+                        "title": "Emploi fictif",
+                        "content": "recrutement à titre posthume pour le compte d’un agent décédé le 08 novembre 2014 dans un accident de la circulation."
+                    },
+                    {
+                        "title": null,
+                        "content": "Non-respect de la procédure prévue pour l'octroi de subventions."
+                    },
+                    {
+                        "title": null,
+                        "content": "Manœuvres frauduleuses pour tenter de combler des manquants."
+                    },
+                    {
+                        "title": null,
+                        "content": "Infractions de faux et usage de faux."
+                    }
                 ],
                 "outro": "l'OFNAC a recommandé de relever Cheikh Oumar Hanne de ses fonctions et a transmis le dossier au procureur. Aucune poursuite judiciaire n'a été enclenchée à ce jour"
             }
@@ -83,37 +146,363 @@
             {
                 "rapport": "Rapport OFNAC 2021 - Enquête n°01/2021 - page 50",
                 "infractions": [
-                    "Falsification des états financiers de WARI S.A., INTERACTIVE SARL et INTERLINQ SUARL",
-                    "Détournement d'activité d'INTERACTIVE SARL vers une société parallèle, INTERLINQ SUARL",
-                    "Transfert du siège de WARI S.A. à Lomé pour éviter le paiement des impôts au Sénégal et au Togo",
-                    "Corruption présumée d'un notaire et d'un responsable des impôts au Togo pour éviter le paiement de 3,8 milliards FCFA d'impôts"
+                    {
+                        "title": "Falsification",
+                        "content": "Falsification des états financiers de WARI S.A."
+                    },
+                    {
+                        "title": "Détournement",
+                        "content": "Détournement d'activité d'INTERACTIVE SARL vers une société unipersonelle parallèle, INTERLINQ SUARL."
+                    },
+                    {
+                        "title": "évasion fisclale",
+                        "content": "Transfert du siège de WARI S.A. à Lomé pour éviter le paiement des impôts au Sénégal et au Togo."
+                    },
+                    {
+                        "title": "Corruption",
+                        "content": "Corruption présumée d'un notaire et d'un responsable des impôts au Togo pour éviter le paiement de 3,8 milliards FCFA d'impôts."
+                    }
                 ]
             }
-        ]
+        ],
+        "outro": "Selon l'OFNAC, les faits dénoncés sont corroborés à travers des indices pouvant justifier des poursuites pénales contre monsieur Kabirou MBODJI. Le dossier a été transmis au Procureur le 21 Avril 2021"
     },
     {
         "display": true,
-        "id": 6,
+        "id": 98,
         "slug": "Ndeye-Sene-Thiam",
         "nom": "Ndeye Sene Thiam",
         "fonction": "Colonel, Chef de Bureau à la Direction des Parcs Nationaux (DPN)",
         "resume": "épinglé par l'ofnac dans son rapport 2021",
-        "photo": "https://www.alleganyco.gov/wp-content/uploads/unknown-person-icon-Image-from.png",
+        "photo": "https://www.pngitem.com/pimgs/m/618-6183618_transparent-unknown-person-png-transparent-background-female-user.png",
         "facts_denounced": [
             {
                 "rapport": "Rapport OFNAC 2021 - Enquête n°03/2021 - page 54",
                 "intro": "Les infractions qui lui sont reprochées à la DPN",
                 "infractions": [
-                    "Fraude au niveau du Centre médico-social de la DPN.",
-                    "Paiement de salaires à des employés fictifs pour un montant estimé à 8 667 764 FCFA.",
-                    "Association de malfaiteurs.",
-                    "Faux et usage de faux portant sur des documents administratifs.",
-                    "Escroquerie portant sur des deniers publics.",
-                    "Partage de fonds destinés à l'achat de denrées alimentaires pour un montant de 8 473 500 FCFA.",
-                    "Détournement de deniers publics."
+                    {
+                        "title": null,
+                        "content": "Fraude au niveau du Centre médico-social de la DPN."
+                    },
+                    {
+                        "title": null,
+                        "content": "Paiement de salaires à des employés fictifs pour un montant estimé à 8 667 764 FCFA."
+                    },
+                    {
+                        "title": null,
+                        "content": "Association de malfaiteurs."
+                    },
+                    {
+                        "title": null,
+                        "content": "Faux et usage de faux portant sur des documents administratifs."
+                    },
+                    {
+                        "title": null,
+                        "content": "Escroquerie portant sur des deniers publics."
+                    },
+                    {
+                        "title": null,
+                        "content": "Partage de fonds destinés à l'achat de denrées alimentaires pour un montant de 8 473 500 FCFA."
+                    },
+                    {
+                        "title": null,
+                        "content": "Détournement de deniers publics."
+                    }
                 ],
                 "outro": "Le rapport d’enquête a été transmis au Procureur de la République"
             }
         ]
+    },
+    {
+        "display": true,
+        "id": 7,
+        "slug": "Pape-Malick-Ndour",
+        "nom": "Pape Malick Ndour",
+        "fonction": "Ancien Ministre, Ancien Coordonnateur du PRODAC",
+        "resume": "",
+        "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Pape-Malick-Ndour.png/330px-Pape-Malick-Ndour.png",
+        "facts_denounced": [
+            {
+                "rapport": "Rapport Cours des compte sur le PRODAC de 2018 à 2021",
+                "intro": "Le rapport critique la gestion de Pape Malick Ndour, Voici un résumé des reproches formulés à son encontre :",
+                "infractions": [
+                    {
+                        "title": "Indemnités Cumulées",
+                        "content": "Il a bénéficié d'une indemnité cumulée de 15 250 000 F CFA en plus de son salaire en tant que coordonnateur du PDEAS. Cette pratique est considérée comme non justifiée et discriminatoire car d'autres employés n'ont pas bénéficié du même traitement (p. 73)"
+                    },
+                    {
+                        "title": "Dépenses Non Justifiées",
+                        "content": "Des paiements pour les réparations et l'achat de pièces de rechange ont été effectués sans respecter les dispositions contractuelles, entraînant des coûts de 12 000 000 F CFA et 17 316 860 F CFA respectivement (p. 59)"
+                    },
+                    {
+                        "title": "Surplus de Paiement à la BNDE (p. 50, p. 48, p. 47)",
+                        "content": "Un surplus de 1,24 milliard FCFA a été payé à la BNDE. Pape Malick Ndour a reconnu avoir émis un ordre de virement d'un montant de 1 milliard FCFA à la BNDE, remplaçant un premier ordre de virement non exécuté de 1,248 milliard FCFA. Cependant, le montant total versé a dépassé les obligations impayées initialement dues à la BNDE, ce qui a causé un paiement excessif."
+                    },
+                    {
+                        "title": "Absence de Validation des PTBA",
+                        "content": "Les Programmes de Travail Budgétaires Annuels (PTBA) pour les gestions 2019, 2020 et 2021 n'ont pas été validés, rendant impossible un suivi budgétaire correct (page 21)"
+                    },
+                    {
+                        "title": "Réalisation d'Activités sans Planification",
+                        "content": "Le Camp d’Immersion à l’Entrepreneuriat Agricole (CIEA) de 2021 a été lancé sans planification préalable, entraînant des problèmes logistiques et l’arrêt de l’activité avant les récoltes (page 22)"
+                    },
+                    {
+                        "title": "Non-Réalisation des Projets et Rapports Annuels de Performance",
+                        "content": "Aucun Projet Annuel de Performance ou Rapport Annuel de Performance n'a été produit, privant le programme d'outils de pilotage, de suivi et de reddition des comptes (page 23)"
+                    },
+                    {
+                        "title": "Défaillances dans l’Archivage des Marchés",
+                        "content": "Les dossiers de marchés n'ont pas été classés et archivés de manière adéquate, compliquant la transparence et le contrôle des marchés (page 24)."
+                    },
+                    {
+                        "title": "Paiements Irréguliers d’Indemnités",
+                        "content": "Des indemnités totalisant 600 000 FCFA ont été irrégulièrement versées à des membres de commissions de marchés publics (page 26)"
+                    },
+                    {
+                        "title": "Défaut de Suppléance en Cas d'Absence du Coordonnateur",
+                        "content": "Aucune disposition n'a été prise pour assurer la suppléance en cas d’absence de Pape Malick Ndour, ce qui a perturbé le bon fonctionnement du programme (page 18)"
+                    },
+                    {
+                        "title": "Défaillances du Système d'Information",
+                        "content": "Le logiciel de paie FinPro Net n'était pas à jour, et l’accès n'était pas suffisamment sécurisé, exposant le programme à des risques de fraude (page 19)."
+                    },
+                    {
+                        "title": "Absence de Plan de Formation et d'Évaluation",
+                        "content": "Sous sa direction, le personnel du PRODAC n'a pas bénéficié d'une formation adéquate ni d'une évaluation régulière, entraînant un manque de développement des compétences et une baisse de productivité (p. 70)"
+                    }
+                ],
+                "outro": "Ces critiques démontrent des lacunes dans la planification, l'exécution et le suivi des activités du PRODAC sous la gestion de Pape Malick Ndour​​."
+            }
+        ]
+    },
+    {
+        "display": true,
+        "id": 8,
+        "slug": "Abdoulaye-Saydou-SOW",
+        "nom": "Abdoulaye Saydou SOW",
+        "fonction": "Maire de Kaffrine, Ancien Ministre, Ancien Président du Conseil d'orientation PRODAC",
+        "resume": "",
+        "photo": "/personnes-epinglees/Abdoulaye-Saydou-SOW.jfif",
+        "facts_denounced": [
+            {
+                "rapport": "Rapport Cours des compte sur le PRODAC (2018 à 2021)",
+                "intro": "Les faits qui lui sont reprochés en tant que Président du Conseil d'orientation PRODAC:",
+                "infractions": [
+                    {
+                        "title": "Prêt 10 millions",
+                        "content": "Il a reçu un prêt d'un montant total de 10 millions FCFA en avril 2017, payable en 10 mensualités de 1 million FCFA. Après un premier paiement de 1 million FCFA, un second paiement a été effectué en espèces de 5,9 millions FCFA, avec un reliquat de 3,070,000 FCFA non recouvré depuis le deuxième versement. La Cour a constaté des incohérences dans le remboursement de ce prêt et a recommandé que le remboursement effectué par l'ancien Président du Conseil d'Orientation fasse l'objet d'une prise en charge dans les documents comptables du programme (Page 61)"
+                    },
+                    {
+                        "title": null,
+                        "content": "L'octroi d'un prêt au président du Conseil d'Orientation ne cadrait pas avec sa situation précaire, étant révocable ad nutum à tout moment, ce qui a été considéré comme inapproprié."
+                    },
+                    
+                    {
+                        "title": null,
+                        "content": "Aucun dispositif de suivi du recouvrement du prêt, tel un prélèvement à la source des indemnités versées au PCO, n'a été mis en place, ce qui a été considéré comme une défaillance dans la gestion financière du programme."
+                    },
+                    {
+                        "title": null,
+                        "content": "De plus, la Cour a souligné que le décret n° 2014-498 du 10 avril 2014 régissant le PRODAC ne prévoyait pas de président du Conseil d'Orientation. Ainsi, les nominations d'Abdoulaye Seydou Sow et de Cheikh Ahmet Tidiane Dieng à ce poste ne respectaient pas le cadre juridique du programme​"
+
+                    }
+                ],
+                "outro": "Abdoulaye Saydou SOW a déclaré dans la presse qu'il avait déja rembourssé intégralement le prêt de 10 millions"
+            }
+        ]
+    },
+    {
+        "display": true,
+        "id": 99,
+        "slug": "Mouhamadou-Bamba-Amar",
+        "nom": "Mouhamadou Bamba Amar",
+        "fonction": "Aide-comptable au Ministère du Développement industriel et des PMI",
+        "resume": "",
+        "photo": "https://www.alleganyco.gov/wp-content/uploads/unknown-person-icon-Image-from.png",
+        "facts_denounced": [
+            {
+                "rapport": "Rapport Cours des compte sur les fonds force COVID-19 ",
+                "intro": "Les faits qui lui sont reprochés:",
+                "infractions": [
+                    {
+                        "title": "Retraits d'espèce répétés",
+                        "content": "Durant la période allant du 03 mars au 21 août 2020, pour le paiement des dépenses d’acquisition de masques, Monsieur Mouhamadou Bamba AMAR a procédé à 55 retraits, pour des montants de 50 millions et 100 millions, correspondant à total de 2,5 milliards du compte bancaire par chèques signés par Monsieur Moustapha DIOP (Paragraphe 1.3.2, Page 106 à 109)"
+                    },
+                    {
+                        "title": "Paiements en espèces",
+                        "content": "Paiement en espèce pour les fournisseurs de masques telles que C&H, COMASET, NICOROI, AFRITEX GROUP, AFRITEX, SOSENAP, SOKAMOUSS.. alors que le paiement des dépenses de l’Etat par remise de chèque ou par virement bancaire ou postal est obligatoire (Pages 109, 132)"
+                    },
+                    {
+                        "title": "Décharges non conformes",
+                        "content": " Anomalies dans les décharges de remises de fonds, y compris l'absence du nom du bénéficiaire du paiement et des numéros de pièces d'identification nationale mentionnés, ce qui ne permet pas de s'assurer du caractère libératoire du paiement (Page 109)."
+                    }
+                ],
+                "outro": "La cours a demandé l’ouverture d’une information judiciaire contre Mouhamadou Bamba Amar"
+            }
+        ]
+    },
+    {
+        "display": true,
+        "id": 9,
+        "slug": "Ibrahima-Sall",
+        "nom": "Ibrahima Sall",
+        "fonction": "Ancien Ministre, Ancien Directeur Générale SICAP",
+        "resume": "",
+        "photo": "https://www.leral.net/photo/art/default/74874155-52095615.jpg?v=1693299490",
+        "facts_denounced": [
+            {
+                "rapport": "Rapport Cours des compte sur la SICAP SA (2014-2018) ",
+                "intro": "Les manquement qui lui sont reprochés en tant que DG SICAP:",
+                "infractions": [
+                    {
+                        "title": "Octroi abusif de dons et subventions ",
+                        "content": "entre 2014 et 2018, Il a accordé un montant cumulé de 703 millions FCFA en Dons et subventions à des responsables politiques, à des chefs religieux, à des communicateurs traditionnels et à des artistes, pour des motifs sans rapport avec l’objet de la société. (p. 28)"
+                    },
+                    {
+                        "title": "Dépenses indûment qualifiées de frais de sponsoring",
+                        "content": "en 2015, Il a versé 12 980 000 Fcfa au MEDS de Mbagnick DIOP qui l’a nominé au CAURIS D’or. (p. 38)"
+                    },
+                    {
+                        "title": "Attributions injustifiées de 2 logements au DG",
+                        "content": "Le DG s'est attribué lui-même deux logements à tarif préférentiels, à Sacré-Cœur et Sicap-Keur-Gorgui, ce qui est considéré comme un abus par la cours des comptes (p. 51)"
+                    },
+                    {
+                        "title": "Attributions injustifiées de logements aux agents",
+                        "content": "plus de 30 agents SICAP, en plus de bénéficier de logement à des taux préférentiels, ont été attributaires de deux logement chacun. De surcroît sans qu’ils n’honorent leurs engagements contractuels. Une bonne partie d’entre eux accusent des retards de paiements significatifs. (p.51 et p.81)"
+                    },
+                    {
+                        "title": "364 millions d’indemnité et frais de missions non justifiés",
+                        "content": "Le DG et le PCA ont effectué plusieurs missions à l’étranger avec des des frais élevés mais sans aucun justificatif (ni termes de référence, ni invitation, ni compte rendu de réunion, ni rapport de mission). Le montant total des dépenses pour les indemnités de mission et les titres de voyage de 2014 à 2018 s'élève à 364 473 037 FCFA​​. (p.32)"
+                    },
+                    {
+                        "title": "419 millions FCFA d’honoraires irrégulièrement versés",
+                        "content": "par la SICAP au cabinet CONEX entre 2015 et 2018, sans aucune base contractuelle. (p. 39)"
+                    },
+                    {
+                        "title": "Faiblesse de la production d’unités d’habitations",
+                        "content": "Sur un objectif de 11 000 unités d’habitation, la SICAP n’a produit que 3 542 unités (p. 69)"
+                    },
+                    {
+                        "title": "Gestion des projets",
+                        "content": "Faible niveau d’exécution des programmes d’investissement mais aussi les longs retards constatés dans la réalisation des travaux de construction. (p. 71)"
+                    },
+                    {
+                        "title": null,
+                        "content": "Des centaines de millions ont été dépensés sur des projets à l’arrêt (SICAP TOUBA, SICAP SALY, SICAP DIASS, SICAP Bambilor)"
+                    },
+                    {
+                        "title": "Insuffisances dans la gestion fiscale",
+                        "content": "883 millions de redressement fiscal et 247 827 de pénalités (p 6)"
+                    },
+                    {
+                        "title": "mauvaise qualité des logements livrés aux clients",
+                        "content": "écarts significatifs entre les unités d’habitation réalisées et les spécifications contenues dans les documents contractuels. Des défaillances techniques manifestes sont relevées en ce qui concerne la structure générale des constructions, l’aménagement et la viabilisation des sites de KeurMassar économique, Mbao Villeneuve, Sacré-Coeur III VDN Extension 2 (p. 74)"
+                    }
+                ],
+                "outro": "Ces pratiques ont entraîné des critiques sévères de la part de la Cour des comptes, soulignant une gestion inappropriée des ressources de l'entreprise et un manque de conformité avec les procédures établies"
+            }
+        ]
+    },
+    {
+        "display": true,
+        "id": 10,
+        "slug": "Thierno-Diagne",
+        "nom": "Thierno Diagne",
+        "fonction": "Maire Commune de Sindia",
+        "resume": "",
+        "photo": "https://www.dakaractu.com/photo/art/default/64504176-46228702.jpg?v=1652288110",
+        "facts_denounced": [
+            {
+                "rapport": "OFNAC - Rapport d'enquête n°09/2021 - Pages 62-63",
+                "intro": "à l’occasion du versement, par la Coopérative d’habitat des agents de Sonatel, d’indemnités d’un montant de 2 milliard de FCFA à des propriétaires de terres coutumiers de Sindia-ndombo, il est reproché au Maire les faits suivants",
+                "infractions": [
+                    {
+                        "title": "détournement de deniers publics",
+                        "content": "Manoeuvres pour s'inscrire comme propriétaire coutumier pour recevoir des indemnités. Détournement de deniers publics, d’escroquerie aux deniers publics estimé à la somme globale de cinquante - quatre millions cent soixante-quinze mille cinq cent (54 175 500) francs CFA, faits prévus et punis par les dispositions des articles 152 et 153 du Code pénal"
+                    },
+                    {
+                        "title": "blanchiment de capitaux faits",
+                        "content": "Blanchiment de capitaux faits prévus par la loi n° 2018 - 03 du 23 février 2018 relative à la lutte contre le blanchiment de capitaux et le financement du terrorisme ( article 7, a et b)."
+                    }
+                ],
+                "outro": "Après en avoir délibéré lors de sa séance du 13 avril 2022, l’Assemblée de l’OFNAC a décidé de transmettre le rapport d’enquête au Procureur de Thiès. Il a été arrêté et déféré au parquet de Mbour le mercredi 22 mai 2024"
+            }
+        ]
     }
+
+    ,
+    {
+        "display": true,
+        "id": 99,
+        "slug": "Ibrahima FALL",
+        "nom": "Ibrahima FALL",
+        "fonction": "Directeur général de l’entreprise LAMP FALL BTP",
+        "resume": "",
+        "photo": "https://www.alleganyco.gov/wp-content/uploads/unknown-person-icon-Image-from.png",
+        "facts_denounced": [
+            {
+                "rapport": "Cour des Comptes sur la Gestion des équipements de la pêche artisanale 2019-2021 - Pages 63",
+                "intro": " il est reproché à Monsieur Ibrahima FALL les faits suivants:",
+                "infractions": [
+                    {
+                        "title": null,
+                        "content": "non-respect de ses engagements contractuels dans le cadre du marché de 179 millions FCFA pour les travaux d’aménagement d’un quai de pêche à Mboro en 2018"
+                    }
+                ],
+                "outro": "La Cour a demandé à l’Agent judiciaire de l’Etat d’engager des poursuites contre monsieur Ibrahima FALL, Directeur général de l’entreprise LAMP FALL BTP et l'exclusion de cette entreprise des marchés publics au Sénégal."
+            }
+        ]
+    }
+    ,
+    {
+        "display": true,
+        "id": 99,
+        "slug": "Abib-SY",
+        "nom": "Abib SY",
+        "fonction": "Directeur général de l’entreprise OZE SUARL",
+        "resume": "",
+        "photo": "https://www.alleganyco.gov/wp-content/uploads/unknown-person-icon-Image-from.png",
+        "facts_denounced": [
+            {
+                "rapport": "Cour des Comptes sur la Gestion des équipements de la pêche artisanale 2019-2021 - Pages 30",
+                "intro": " il est reproché à Monsieur Abib Sy les faits suivants:",
+                "infractions": [
+                    {
+                        "title": "Travaux de finition non parachevés",
+                        "content": "Concernant le marché de 69 387 706 FCFA portant sur les travaux de construction d'un service départemental à Mbour, une visite sur les lieux a permis de constater que les travaux de finition n’ont pas été parachevés alors qu'ils ont fait l’objet d’un paiement intégral en 2018"
+                    },
+                    {
+                        "title": "Certificat de service fait non conforme",
+                        "content": "des irrégularités ont été constatées concernant la délivrance d'un certificat de service fait par Monsieur Seydina Oumar BA, administrateur suppléant du budget, alors que les travaux n'étaient pas terminés."
+                    }
+                ],
+                "outro": "La Cour a demandé à l’Agent judiciaire de l’Etat d’engager des poursuites contre monsieur Abib Sy, Directeur général de l’entreprise OZE SUARL et l'exclusion de cette entreprise des marchés publics au Sénégal."
+            }
+        ]
+    },
+
+    {
+        "display": true,
+        "id": 100,
+        "slug": "Sanoussi DIAKITE",
+        "nom": "Sanoussi DIAKITE",
+        "fonction": "Ancien Directeur général de l'ONFP",
+        "resume": "",
+        "photo": "/personnes-epinglees/Sanoussi-DIAKITE.png",
+        "facts_denounced": [
+            {
+                "rapport": "Rapport Cour des Comptes sur la Gestion de l'ONFP 2013-2017 - Pages 21",
+                "intro": "Il est reproché à Monsieur Sanoussi DIAKITE les faits suivants :",
+                "infractions": [
+                    {
+                        "title": null,
+                        "content": "Cumul irrégulier de salaires, percevant 32 694 478 FCFA en tant que Professeur d’Enseignement secondaire de 2012 à 2019, alors qu'il touchait déjà 3 millions FCFA par mois en tant que Directeur général de l'ONFP."
+                    }
+                ],
+                "outro": "La Cour a demandé l'arrêt de ce paiement et le remboursement des sommes perçues."
+            }
+        ]
+    }
+    
+
 ]

@@ -1,10 +1,10 @@
 <template>
-    <div class="flex flex-row items-center gap-2 py-2.5">
+    <div class="flex flex-row items-center gap-1 py-2">
         <div class="flag-logo px-2.5">
-            <img src="~/assets/logos/logo.svg" class="flag-logo" />
+            <img src="~/assets/logos/logo.svg" loading="lazy" alt="Logo" class="flag-logo" />
         </div>
-        <div class="leading-4 text-xs">
-            <h2 class="tracking-wide font-bold">Vie-Publique.sn</h2>
+        <div class="text-xs">
+            <h2 class="text-gray-500 tracking-wide font-bold ">Vie-Publique.sn</h2>
             <p class="text-gray-500">Au cœur du débat public au Sénégal</p>
         </div>
     </div>
@@ -13,6 +13,6 @@
 <style scoped>
 .flag-logo {
     height: auto;
-    width: 50px;
+    width: 60px;
 }
 </style>

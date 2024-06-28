@@ -1,5 +1,6 @@
-body, nav {
-  background-color: #f5f5f7;
+body,
+nav {
+  background-color: #f5f5f76e;
 }
 
 .custom-shadow,
@@ -8,8 +9,4 @@ body, nav {
 .custom-shadow select {
   box-shadow: 0 2px 4px #0000001a;
   border-radius: 0px;
-}
-
-.organisme-logo {
-  width: 60px;
 }

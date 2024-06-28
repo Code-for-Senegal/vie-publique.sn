@@ -1,17 +1,25 @@
 <script setup>
-import { ref, onMounted } from 'vue';
 
 const runtimeConfig = useRuntimeConfig();
 const showPinnedPeoples = ref(runtimeConfig.public.showPinnedPeoples === 'true');
 
 const peoples = ref([]);
-
 const router = useRouter();
+
+const metaTitle = "vie-publique.sn - personnes épinglées rapport OFNAC Cours des comptes IGE"
+const metaDescription = "Liste des personnalités épinglées par OFNAC, Cours des Comptes et IGE"
+
+useHead({
+  title: metaTitle,
+  meta: [
+    { name: 'description', content: metaDescription }
+  ]
+})
 
 onMounted(async () => {
   peoples.value = (await import('@/assets/data/personnes-epinglees.json')).default
     .filter(person => person.display)
-    .sort((a, b) => b.annee - b.annee);
+    .sort((a, b) => a.id - b.id);
 });
 
 function goToIndividualCitedDetails(item) {
@@ -20,23 +28,32 @@ function goToIndividualCitedDetails(item) {
 </script>
 
 <template>
-  <p v-if="showPinnedPeoples" class="text-gray-500 text-sm mb-2">
-    Les personnes cités ici sont présumées innocentes en l'absence d'une décision de justice définitive.
-  </p>
-  <div v-if="showPinnedPeoples" class="grid-container">
-    <UCard v-for="item in peoples" :key="item.id" class="person-card custom-shadow cursor-pointer"
-      @click="goToIndividualCitedDetails(item)">
-      <div class="flex flex-col items-center">
-        <img :src="item.photo" alt="Photo de profil" class="profile-photo mb-1">
-        <!-- <UDivider/> -->
-        <h2 class="font-semibold ">{{ item.nom }}</h2>
-        <p class="text-sm text-gray-500">{{ item.fonction }}</p>
-      </div>
-    </UCard>
-  </div>
-  <div v-else class="text-gray-500 text-sm">
-    <p> Page en cours de rédaction... </p>
-    <p> Nous listerons ici la liste des personnes épinglées dans les rapports</p>
+
+  <div class="flex flex-col items-center px-4 sm:px-8">
+
+    <h1 class="sr-only"> Liste des personnalités épinglées au Sénégal</h1>
+    <h1 class="text-xl font-semibold text-center mt-4 mb-2">
+      Liste des personnalités épinglées par les corps de contrôle
+    </h1>
+
+    <p v-if="showPinnedPeoples" class="text-gray-500 text-sm mb-2">
+      Les personnes cités ici sont présumées innocentes en l'absence d'une décision de justice définitive.
+    </p>
+    <div v-if="showPinnedPeoples" class="grid-container">
+      <UCard v-for="item in peoples" :key="item.id" class="person-card custom-shadow cursor-pointer"
+        @click="goToIndividualCitedDetails(item)">
+        <div class="flex flex-col items-center">
+          <img :src="item.photo" loading="lazy" alt="Photo de profil" class="profile-photo mb-1">
+          <!-- <UDivider/> -->
+          <h2 class="font-semibold ">{{ item.nom }}</h2>
+          <p class="text-sm text-gray-500">{{ item.fonction }}</p>
+        </div>
+      </UCard>
+    </div>
+    <div v-else class="text-gray-500 text-sm">
+      <p> Page en cours de rédaction... </p>
+      <p> Nous listerons ici la liste des personnes épinglées dans les rapports</p>
+    </div>
   </div>
 </template>
 
@@ -54,7 +71,7 @@ function goToIndividualCitedDetails(item) {
 }
 
 .profile-photo {
-  width: 100px;
+  width: 90px;
   height: 100px;
   object-fit: cover;
 }

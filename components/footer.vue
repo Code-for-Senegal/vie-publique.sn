@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const currentYear = new Date().getFullYear();
-const version = "1.0.1"; 
+const version = "1.0.4";
 
 const links = [
   {
@@ -30,16 +30,15 @@ const links = [
   <footer class="relative mx-auto sm:px-6 lg:px-8 py-8 lg:py-4 lg:flex lg:items-center lg:justify-between lg:gap-x-3 
     border-y-1">
     <ul class="flex flex-col md:flex-row items-center justify-center gap-4 lg:gap-6">
-      
-      <li class="relative" v-for="link in links">
-        <ULink :to="link.to"
-          class="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
-          {{link.label}}
-        </ULink>
-      </li>
       <li class="relative">
         <p class="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
-          version {{ version }} &copy;{{ currentYear }} </p>
+          Version {{ version }} &copy; {{ currentYear }} </p>
+      </li>
+      <li class="relative" v-for="link in links">
+        <ULink :to="link.to"
+          class="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 underline">
+          {{ link.label }}
+        </ULink>
       </li>
     </ul>
   </footer>

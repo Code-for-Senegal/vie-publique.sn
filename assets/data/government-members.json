@@ -1,0 +1,258 @@
+[
+    {
+        "name": "Monsieur Ousmane SONKO",
+        "type": null,
+        "role": "Premier Ministre",
+        "nominationDate": "2 avril 2024",
+        "photo": "https://infosdakar.com/wp-content/uploads/2023/12/1689081653784.jpeg",
+        "rating": 8.5
+    },
+    {
+        "name": "Monsieur Ahmadou Al Aminou LO",
+        "type": null,
+        "role": "Ministre, Secrétaire général du Gouvernement",
+        "nominationDate": "5 avril 2024",
+        "photo": null,
+        "rating": 7.0
+    },
+    {
+        "name": "Madame Yassine FALL",
+        "type": "Ministre",
+        "role": "Ministre de l’Intégration africaine et des Affaires étrangères",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-yassine-fall.jfif",
+        "rating": 8.2
+    },
+    {
+        "name": "Général Birame DIOP",
+        "type": "Ministre",
+        "role": "Ministre des Forces armées",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-général-jean-baptiste-tine.jpg",
+        "rating": 8.0
+    },
+    {
+        "name": "Monsieur Ousmane DIAGNE",
+        "type": "Ministre",
+        "role": "Ministre de la Justice, Garde des Sceaux",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-ousmane-diagne.jfif",
+        "rating": 7.8
+    },
+    {
+        "name": "Général Jean Baptiste TINE",
+        "type": "Ministre",
+        "role": "Ministre de l’Intérieur et de la Sécurité publique",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-général-jean-baptiste-tine.jfif",
+        "rating": 8.1
+    },
+    {
+        "name": "Monsieur Birame Souleye DIOP",
+        "type": "Ministre",
+        "role": "Ministre de l’Énergie, du Pétrole et des Mines",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-birame-souleye-diop.jfif",
+        "rating": 7.5
+    },
+    {
+        "name": "Monsieur Abdourahmane SARR",
+        "type": "Ministre",
+        "role": "Ministre de l’Économie du Plan et de la Coopération",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-abdourahmane-sarr.jfif",
+        "rating": 7.9
+    },
+    {
+        "name": "Monsieur Cheikh DIBA",
+        "type": "Ministre",
+        "role": "Ministre des Finances et du Budget",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-cheikh-diba.jfif",
+        "rating": 8.3
+    },
+    {
+        "name": "Monsieur Malick NDIAYE",
+        "type": "Ministre",
+        "role": "Ministre des Infrastructures, des Transports terrestres et aériens",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-malick-ndiaye.jfif",
+        "rating": 8.0
+    },
+    {
+        "name": "Monsieur Daouda NGOM",
+        "type": "Ministre",
+        "role": "Ministre de l’Environnement et de la Transition écologique",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-daouda-ngom.jfif",
+        "rating": 7.6
+    },
+    {
+        "name": "Monsieur Amadou Moustapha Ndieck SARRE",
+        "type": "Ministre",
+        "role": "Ministre de la Formation professionnelle (Porte-parole du Gouvernement)",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-amadou-moustapha-ndieck-sarre.jfif",
+        "rating": 7.7
+    },
+    {
+        "name": "Monsieur Cheikh Tidiane DIEYE",
+        "type": "Ministre",
+        "role": "Ministre de l‘Hydraulique et de l’Assainissement",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-cheikh-tidiane-dieye.jfif",
+        "rating": 7.8
+    },
+    {
+        "name": "Monsieur Alioune SALL",
+        "type": "Ministre",
+        "role": "Ministre de la Communication, des Télécommunications et du Numérique",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-alione-sall.jfif",
+        "rating": 7.9
+    },
+    {
+        "name": "Monsieur Elhadj Abdourahmane DIOUF",
+        "type": "Ministre",
+        "role": "Ministre de l’Enseignement supérieur, de la Recherche et de l’Innovation",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-elhadj-abdourahmane-diouf.jfif",
+        "rating": 7.5
+    },
+    {
+        "name": "Monsieur Serigne Gueye DIOP",
+        "type": "Ministre",
+        "role": "Ministre de l’Industrie et du Commerce",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-serigne-gueye-diop.jfif",
+        "rating": 7.6
+    },
+    {
+        "name": "Madame Fatou DIOUF",
+        "type": "Ministre",
+        "role": "Ministre des Pêches, des Infrastructures maritimes et portuaires",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-fatou-diouf.jfif",
+        "rating": 8.1
+    },
+    {
+        "name": "Madame Maimouna DIEYE",
+        "type": "Ministre",
+        "role": "Ministre de la Famille et des Solidarités",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-maimouna-dièye.jfif",
+        "rating": 8.0
+    },
+    {
+        "name": "Monsieur Yankhoba DIEME",
+        "type": "Ministre",
+        "role": "Ministre du Travail, de l’Emploi et des Relations avec les Institutions",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-yankhoba-dieme.jfif",
+        "rating": 7.7
+    },
+    {
+        "name": "Monsieur Balla Moussa FOFANA",
+        "type": "Ministre",
+        "role": "Ministre de l’Urbanisme, des Collectivités territoriales et de l’Aménagement des Territoires",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-balla-moussa-fofana.jpg",
+        "rating": 7.8
+    },
+    {
+        "name": "Monsieur Moustapha Mamba GUIRASSY",
+        "type": "Ministre",
+        "role": "Ministre de l’Education nationale",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-moustapha-mamba-guirassy.jfif",
+        "rating": 7.9
+    },
+    {
+        "name": "Monsieur Ibrahima SY",
+        "type": "Ministre",
+        "role": "Ministre de la Santé et de l’Action sociale",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-ibrayima-sy.jfif",
+        "rating": 8.2
+    },
+    {
+        "name": "Monsieur Olivier BOUCAL",
+        "type": "Ministre",
+        "role": "Ministre de la Fonction publique et de la Réforme du Service public",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-olivier-boucal.jfif",
+        "rating": 7.7
+    },
+    {
+        "name": "Madame Khady Diene GAYE",
+        "type": "Ministre",
+        "role": "Ministre de la Jeunesse, des Sports et de la Culture",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-Khady-Diène-Gaye.jpg",
+        "rating": 7.9
+    },
+    {
+        "name": "Monsieur Mabouba DIAGNE",
+        "type": "Ministre",
+        "role": "Ministre de l’Agriculture, de la Souveraineté alimentaire et de l’Elevage",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-mabouba-diagne.jfif",
+        "rating": 7.6
+    },
+    {
+        "name": "Monsieur Alioune DIONE",
+        "type": "Ministre",
+        "role": "Ministre de la Microfinance, de l’Economie sociale et solidaire",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-alioune-dione.jfif",
+        "rating": 7.8
+    },
+    {
+        "name": "Monsieur Mountaga DIAO",
+        "type": "Ministre",
+        "role": "Ministre du Tourisme et de l’Artisanat",
+        "nominationDate": "5 avril 2024",
+        "photo": "/gouvernement/ministre-Mountaga-Diao.jfif",
+        "rating": 7.9
+    },
+    {
+        "name": "Monsieur Amadou Chérif DIOUF",
+        "type": "Secrétaire d’État",
+        "role": "Secrétaire d’État aux Sénégalais de l’Extérieur",
+        "nominationDate": "5 avril 2024",
+        "photo": null,
+        "rating": 7.7
+    },
+    {
+        "name": "Monsieur Ibrahima THIAM",
+        "type": "Secrétaire d’État",
+        "role": "Secrétaire d’État au Développement des PME PMI",
+        "nominationDate": "5 avril 2024",
+        "photo": null,
+        "rating": 7.8
+    },
+    {
+        "name": "Monsieur Momath Talla NDAO",
+        "type": "Secrétaire d’État",
+        "role": "Secrétaire d’État à l’Urbanisme et au Logement",
+        "nominationDate": "5 avril 2024",
+        "photo": null,
+        "rating": 7.9
+    },
+    {
+        "name": "Secrétaire d’État Alpha BA",
+        "type": "Secrétaire d’État",
+        "role": "Secrétaire d’État aux Coopératives et à l’Encadrement paysan",
+        "nominationDate": "5 avril 2024",
+        "photo": null,
+        "rating": 7.8
+    },
+    {
+        "name": "Monsieur Bacary SARR",
+        "type": "Secrétaire d’État",
+        "role": "Secrétaire d’État à la Culture, aux Industries créatives et au Patrimoine historique",
+        "nominationDate": "5 avril 2024",
+        "photo": null,
+        "rating": 7.7
+    }
+]

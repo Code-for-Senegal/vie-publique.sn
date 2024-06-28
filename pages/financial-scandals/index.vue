@@ -6,8 +6,9 @@ const runtimeConfig = useRuntimeConfig();
 const showScandals = ref(runtimeConfig.public.showScandals === 'true');
 
 onMounted(async () => {
-  scandales.value = (await import('@/assets/data/scandales-financiers.json'))
-    .default.sort((a, b) => new Date(b.date_publication).getTime() - new Date(a.date_publication).getTime());
+  // FIXME
+  // scandales.value = (await import('@/assets/data/scandales-financiers.json'))
+  //   .default.sort((a, b) => new Date(b.date_publication).getTime() - new Date(a.date_publication).getTime());
 });
 
 function goToScandaleDetails(scandal: any) {
