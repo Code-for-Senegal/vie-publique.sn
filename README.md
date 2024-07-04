@@ -174,6 +174,8 @@ yarn dev
 bun run dev
 ```
 
+accès au viewer tailwind `http://localhost:3000/\_tailwind`
+
 ## Utiliser les Dev Containers
 
 Vous pouvez utiliser Docker avec l'extension Dev Containers

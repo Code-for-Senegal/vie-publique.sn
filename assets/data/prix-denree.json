@@ -1,0 +1,65 @@
+[
+    {
+        "reference": 1,
+        "label": "Sucre cristallisé",
+        "oldPrice": 650,
+        "newPrice": 600,
+        "reductionPercentage": null,
+        "reductionUnit": null,
+        "reductionValue": 50
+    },
+    {
+        "reference": 2,
+        "label": "Riz brisé non parfumé",
+        "oldPrice": null,
+        "newPrice": 410,
+        "reductionPercentage": null,
+        "reductionUnit": null,
+        "reductionValue": 40
+    },
+    {
+        "reference": 3,
+        "label": "Huile raffinée",
+        "oldPrice": null,
+        "newPrice": null,
+        "reductionPercentage": null,
+        "reductionUnit": null,
+        "reductionValue": 100
+    },
+    {
+        "reference": 4,
+        "label": "Pain baguette de 190 grammes",
+        "oldPrice": 175,
+        "newPrice": 160,
+        "reductionPercentage": null,
+        "reductionUnit": null,
+        "reductionValue": 15
+    },
+    {
+        "reference": 5,
+        "label": "Ciment",
+        "oldPrice": null,
+        "newPrice": null,
+        "reductionPercentage": null,
+        "reductionUnit": "tonne",
+        "reductionValue": 2000
+    },
+    {
+        "reference": 6,
+        "label": "Digital",
+        "oldPrice": null,
+        "newPrice": null,
+        "reductionPercentage": null,
+        "reductionUnit": null,
+        "reductionValue": null
+    },
+    {
+        "reference": 7,
+        "label": "Engrais",
+        "oldPrice": null,
+        "newPrice": null,
+        "reductionPercentage": 20,
+        "reductionUnit": null,
+        "reductionValue": null
+    }
+]

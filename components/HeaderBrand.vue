@@ -1,13 +1,16 @@
 <template>
-    <div class="flex flex-row items-center gap-1 py-2">
-        <div class="flag-logo px-2.5">
-            <img src="~/assets/logos/logo.svg" loading="lazy" alt="Logo" class="flag-logo" />
+    <NuxtLink :to="`/`">
+        <div class="flex flex-row items-center gap-1 py-2">
+            <div class="flag-logo px-2.5">
+                <img src="~/assets/logos/logo.svg" loading="lazy" alt="Logo" class="flag-logo" />
+            </div>
+            <div class="text-xs">
+                <h2 class="text-gray-500 tracking-wide font-bold ">Vie-Publique.sn</h2>
+                <!-- <p class="text-gray-500">Au cœur du débat public au Sénégal</p> -->
+                <p class="text-gray-500">l'info publique au Sénégal</p>
+            </div>
         </div>
-        <div class="text-xs">
-            <h2 class="text-gray-500 tracking-wide font-bold ">Vie-Publique.sn</h2>
-            <p class="text-gray-500">Au cœur du débat public au Sénégal</p>
-        </div>
-    </div>
+    </NuxtLink>
 </template>
 
 <style scoped>

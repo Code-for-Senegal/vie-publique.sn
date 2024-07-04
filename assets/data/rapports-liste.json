@@ -564,7 +564,7 @@
     "sous_titre": "Commune de Saly Porugal, gestion de 2012 à 2016 avec le maire Monsieur Ousmane GUEYE."
   },
   {
-    "resume_disponible": false,
+    "resume_disponible": true,
     "slug": "cours-des-compte-onas-2019",
     "id": 46,
     "titre": "Cours des comptes Rapport contrôle ONAS (2012-2017)",
@@ -646,9 +646,7 @@
     "date_publication": "2023-02-09",
     "url_pdf": "/reports/CC_2023_ITIE_2021.pdf",
     "sous_titre": "Initiative pour la Transparence dans les Industries Extractives (ITIE), gestion 2021"
-  }
-
-  ,
+  },
   {
     "resume_disponible": true,
     "slug": "cours-des-compte-crse-2023",
@@ -660,8 +658,7 @@
     "date_publication": "2023-07-01",
     "url_pdf": "/reports/CC_2023_CRSE.pdf",
     "sous_titre": "Commission de Régulation du Secteur de l’Electricité, gestion 2017-2020"
-  }
-  ,
+  },
   {
     "resume_disponible": true,
     "slug": "cours-des-compte-personnel-etat-2021",
@@ -697,8 +694,7 @@
     "date_publication": "2021-06-28",
     "url_pdf": "/reports/cour-des-comptes-2021-commune-rosso-senegal-2015-2018.pdf",
     "sous_titre": "Commune de Rosso Sééngal gestions 2015 à 2018 avec le maire Cheikh GAYE"
-  }
-  ,
+  },
   {
     "resume_disponible": true,
     "slug": "cour-des-comptes-2022-audit-3FPT-2015-2019",

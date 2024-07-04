@@ -1065,7 +1065,6 @@
     {
         "id": "cours-des-compte-commune-dakar-plateau-2020",
         "summary": [
-            
             {
                 "title": "Transport de pèlerins aux lieux saints (Mecque et Fès)",
                 "content": "Des dépenses importantes à hauteur de 423 millions de FCFA ont été engagées pour le transport des pèlerins vers les lieux saints, notamment à la Mecque et à Fès, sans qu'Aucun document permettant d’identifier les bénéficiaires de ces déplacements n’a été fourniaux vérificateurs.'. (page 53)"
@@ -1129,12 +1128,10 @@
                 "title": "Anomalies dans système de gestion RH",
                 "content": "512 cas d’agents mineurs\n2933 cas d’agents avec la même identité\n7125 cas d’agents avec le même CNI\n8487 cas d’agents avec le même matricule\n(page 47-48)"
             }
-        ]
-        ,
+        ],
         "title": "",
         "investigations": []
     },
-
     {
         "id": "cours-des-comptes-2022-audit-financier-dette-publique-2018-2020",
         "summary": [
@@ -1153,14 +1150,12 @@
             {
                 "title": null,
                 "content": "L'écart le plus considérable est lié au projet Piriou (achat de patrouilleurs pour la Marine) pour un montant de 32,578 milliards de Fcfa. Selon la Cour, «la fréquence des écarts et leur caractère significatif posent le problème de la fiabilité des informations sur la dette relative aux financiers extérieurs»."
-            }
-            ,
+            },
             {
                 "title": "Tenue de la comptabilité ",
                 "content": "Durant la période sous revue 2018-2020, les montants des demandes de retraits de fonds (Drf) s’élèvent à 305 milliards 689 millions francs Cfa. Et, de l’avis de la Cour des comptes, le ministère des Finances et du Budget n’a pas apporté de réponses sur l’absence de tenue de comptabilité dans la gestion des prêts projets."
             }
         ]
-        
     },
     {
         "id": "cour-des-comptes-2021-commune-rosso-senegal-2015-2018",
@@ -1184,8 +1179,7 @@
             {
                 "title": "Tenue de la comptabilité administrative ",
                 "content": "Le maire n’a pas présenté les documents comptables requis, notamment le livre journal des recettes et des dépenses (page 15)"
-            }
-            ,
+            },
             {
                 "title": "Défaut d’immatriculation de véhicules administratifs",
                 "content": "Certains véhicules de la commune ne disposent pas d’une carte grise (page 17)"
@@ -1201,38 +1195,37 @@
     {
         "id": "cour-des-comptes-2022-audit-3FPT-2015-2019",
         "summary": [
-          {
-            "title": "Cadre juridique et gouvernance",
-            "content": "Confusions sur le statut du Fonds: Le statut du 3FPT n'a pas été correctement défini, causant des confusions dans l'application des textes et des régimes indemnitaires des dirigeants. Manquements dans la mise en place des organes d'administration (p. 11): Absence d'arrêté pour la nomination des membres du Conseil d'Administration (CA), non-représentation du Ministère de l'Economie et des Finances au CA en 2017, 2018, et 2019. Défaut de mise en place d'un comité d'audit (p. 11): Malgré la résolution du 4 octobre 2019 pour créer un comité d'audit, celui-ci n'est pas encore fonctionnel. (p. 10)"
-          },
-          {
-            "title": "Cadre organisationnel et répartition des tâches",
-            "content": "Retard dans la mise en œuvre du projet de construction du siège : Les travaux de construction n'ont toujours pas démarré malgré les paiements effectués pour les études architecturales en 2019. Manquements dans la gestion des ressources humaines (p. 14): Absence de référentiels de gestion, recrutements sans appel à candidatures, absence de règlement intérieur, et fiches de poste non systématisées. (p. 12)"
-          },
-          {
-            "title": "Planification et gestion stratégique",
-            "content": "Planification non adossée à un diagnostic sectoriel (p. 15): Absence d'études prospectives nécessaires pour aligner les besoins de formation avec les secteurs prioritaires. Insuffisances dans l'élaboration du plan stratégique (p. 16): Le plan stratégique 2017-2020 manque de références à des documents clés et de détails sur les objectifs spécifiques et budgets nécessaires."
-          },
-          {
-            "title": "Dispositifs de contrôle et de suivi-évaluation",
-            "content": "Faiblesses dans le processus d'assurance qualité (p. 19): Limitation des attributions de l'assurance qualité aux seules accréditations et labellisations, et insuffisance des ressources humaines dédiées. Insuffisance des ressources humaines pour le suivi-évaluation (p. 20): Le service de suivi-évaluation est sous-dimensionné avec un seul agent, et absence de système d'information adapté pour le suivi-évaluation."
-          },
-          {
-            "title": "Communication et relations avec les parties prenantes",
-            "content": "Absence d'une stratégie globale de communication : Inexistence d'un document de stratégie de communication, et insuffisances dans l'évaluation des actions de communication (p. 22-25)."
-          },
-          {
-            "title": "Mobilisation des ressources et exécution des financements",
-            "content": "Absence de sincérité et de visibilité sur les ressources (p. 28): Problèmes de recouvrement des ressources issues de la CFCE et déperdition des fonds. Financements insuffisamment mobilisés (p. 32): Manque de mobilisation des ressources provenant des partenaires techniques et financiers et des ressources internes hors CFCE."
-          },
-          {
-            "title": "Efficacité et pérennité des activités",
-            "content": "Déséquilibres territoriaux dans la répartition des financements (p. 50): Inéquité dans la répartition des financements entre les pôles territoriaux, favorisant les grandes écoles de commerce et certaines régions."
-          }
+            {
+                "title": "Cadre juridique et gouvernance",
+                "content": "Confusions sur le statut du Fonds: Le statut du 3FPT n'a pas été correctement défini, causant des confusions dans l'application des textes et des régimes indemnitaires des dirigeants. Manquements dans la mise en place des organes d'administration (p. 11): Absence d'arrêté pour la nomination des membres du Conseil d'Administration (CA), non-représentation du Ministère de l'Economie et des Finances au CA en 2017, 2018, et 2019. Défaut de mise en place d'un comité d'audit (p. 11): Malgré la résolution du 4 octobre 2019 pour créer un comité d'audit, celui-ci n'est pas encore fonctionnel. (p. 10)"
+            },
+            {
+                "title": "Cadre organisationnel et répartition des tâches",
+                "content": "Retard dans la mise en œuvre du projet de construction du siège : Les travaux de construction n'ont toujours pas démarré malgré les paiements effectués pour les études architecturales en 2019. Manquements dans la gestion des ressources humaines (p. 14): Absence de référentiels de gestion, recrutements sans appel à candidatures, absence de règlement intérieur, et fiches de poste non systématisées. (p. 12)"
+            },
+            {
+                "title": "Planification et gestion stratégique",
+                "content": "Planification non adossée à un diagnostic sectoriel (p. 15): Absence d'études prospectives nécessaires pour aligner les besoins de formation avec les secteurs prioritaires. Insuffisances dans l'élaboration du plan stratégique (p. 16): Le plan stratégique 2017-2020 manque de références à des documents clés et de détails sur les objectifs spécifiques et budgets nécessaires."
+            },
+            {
+                "title": "Dispositifs de contrôle et de suivi-évaluation",
+                "content": "Faiblesses dans le processus d'assurance qualité (p. 19): Limitation des attributions de l'assurance qualité aux seules accréditations et labellisations, et insuffisance des ressources humaines dédiées. Insuffisance des ressources humaines pour le suivi-évaluation (p. 20): Le service de suivi-évaluation est sous-dimensionné avec un seul agent, et absence de système d'information adapté pour le suivi-évaluation."
+            },
+            {
+                "title": "Communication et relations avec les parties prenantes",
+                "content": "Absence d'une stratégie globale de communication : Inexistence d'un document de stratégie de communication, et insuffisances dans l'évaluation des actions de communication (p. 22-25)."
+            },
+            {
+                "title": "Mobilisation des ressources et exécution des financements",
+                "content": "Absence de sincérité et de visibilité sur les ressources (p. 28): Problèmes de recouvrement des ressources issues de la CFCE et déperdition des fonds. Financements insuffisamment mobilisés (p. 32): Manque de mobilisation des ressources provenant des partenaires techniques et financiers et des ressources internes hors CFCE."
+            },
+            {
+                "title": "Efficacité et pérennité des activités",
+                "content": "Déséquilibres territoriaux dans la répartition des financements (p. 50): Inéquité dans la répartition des financements entre les pôles territoriaux, favorisant les grandes écoles de commerce et certaines régions."
+            }
         ]
-      },
-
-      {
+    },
+    {
         "id": "cours-des-compte-onfp-2019",
         "summary": [
             {
@@ -1272,6 +1265,42 @@
                 "content": "De longs retards et des défaillances criardes dans l’exécution technique des projets de construction."
             }
         ]
+    },
+    {
+        "id": "cours-des-compte-onas-2019",
+        "summary": [
+            {
+                "title": "Mauvaise planification des marchés (p.35)",
+                "content": "Marché de gardiennage attribué à SSGEPB SCORPION SA pour 330 336 000 FCFA, estimé initialement à 230 000 000 FCFA. Travaux d'assainissement à Ziguinchor attribués à CSE pour 1 734 884 283 FCFA et à CHIALI SERVICES pour 2 543 557 409 FCFA."
+            },
+            {
+                "title": "Abus dans les contrats de prestation (p.43)",
+                "content": "Alioune Badara DIOP, ancien DG, a signé des contrats pour des agents sans indication de tâches, avec un salaire de 500 000 FCFA/mois. Gaspillage de ressources par le recrutement non nécessaire."
+            },
+            {
+                "title": "Abus sur les indemnités du comité technique du projet Bill et Melinda Gates (p.41)",
+                "content": "Amadou Lamine DIENG et Alioune Badara DIOP ont attribué des indemnités allant jusqu'à 800 000 FCFA/mois sans rapport avec les niveaux d'intervention dans le projet."
+            },
+            {
+                "title": "Exécution onéreuse de dépenses à caractère social (p.41)",
+                "content": "353 353 273 FCFA dépensés en libéralités non liées à l'objet social de l'ONAS, en violation des directives."
+            },
+            {
+                "title": "Insuffisance de la redevance pour la couverture des charges d’exploitation (p.23)",
+                "content": "Manque de contrôle sur les redevances perçues, avec des écarts importants entre les montants comptabilisés par l’ONAS et ceux communiqués par la SDE."
+            },
+            {
+                "title": "Défauts dans l’élaboration et l’exécution budgétaire (p.34)",
+                "content": "Absence de rapports d’exécution budgétaire annuelle, empêchant une analyse cohérente de l’exécution budgétaire."
+            },
+            {
+                "title": "Défauts dans la mise en œuvre des infrastructures d’assainissement (p.50)",
+                "content": "Retards de décaissement et ponctions budgétaires impactant négativement les projets d'assainissement."
+            },
+            {
+                "title": "faits présumés de détournement et d'escroquerie sur deniers publics contre Madame Fatou WADE ",
+                "content": "Madame Fatou WADE est mentionnée pour modification arbitraire et unilatérale des procédures de gestion de la caisse, ce qui a conduit à des manquants en caisse estimés à 98 100 284 FCFA en 2016."
+            }
+        ]
     }
-    
 ]

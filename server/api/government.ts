@@ -2,5 +2,9 @@ import governmentMembers from "~/assets/data/government-members.json"; // Assure
 import { GovernmentMember } from "~/types/government-member";
 
 export default defineEventHandler((): GovernmentMember[] => {
-  return governmentMembers;
+  return governmentMembers.sort(
+    (a, b) =>
+      new Date(b.nominationDate).getTime() -
+      new Date(a.nominationDate).getTime()
+  );
 });

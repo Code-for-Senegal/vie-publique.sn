@@ -22,6 +22,15 @@
 - [x] About us
 - [ ] qui somme nous https://www.vie-publique.fr/qui-sommes-nous
 
+- [ ] page de contact avec mail pro
+- [ ] bouton de contribution
+- [ ] page de contact avec le mail - contact@vie-publique.sn
+
+- liste ambassadeur
+- liste maire
+- liste députés
+-
+
 ## SEO
 
 - [ ] SEO [100%](https://nuxtseo.com/)
@@ -31,6 +40,8 @@
 - [ ] Includes recommended SEO meta tags and description
 - [ ] header and cache
 - submit sitemap https://nuxtseo.com/sitemap/guides/submitting-sitemap
+- https://1.fr/
+- smrush
 
 ## Performance
 

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 
+/* SEO */
+
 useHead({
     title: 'Annuaire sites web Sénégal | Vie-Publique.sn',
     meta: [
@@ -10,8 +12,10 @@ useHead({
     ]
 })
 
+/* Get Datas */
+
 const nuxtApp = useNuxtApp()
-const { data } = await useFetch('/api/websites', {
+const { data, error } = await useFetch('/api/websites', {
     watch: false,
 
     transform(input) {
@@ -28,7 +32,6 @@ const { data } = await useFetch('/api/websites', {
             // Fetch the first time
             return
         }
-
         // Is the data too old?
         const expirationDate = new Date(data.fetchedAt)
         expirationDate.setTime(expirationDate.getTime() + 120 * 1000) // 120 secondes
@@ -41,6 +44,13 @@ const { data } = await useFetch('/api/websites', {
         return data
     },
 })
+
+if (error.value) {
+    console.error('Failed to fetch websites data:', error.value)
+}
+
+/* Filters */
+
 const searchQuery = ref('');
 const selectedType = ref('');
 
@@ -56,6 +66,8 @@ const types = computed(() => {
     return Array.from(new Set(allTypes));
 });
 
+/* Pagination */
+
 const page = ref(1)
 const pageCount = 10
 
@@ -63,17 +75,21 @@ const rowsFilteredSites = computed(() => {
     return filteredSites.value.slice((page.value - 1) * pageCount, (page.value) * pageCount)
 });
 
+// Réinitialiser la page lors du changement de type
+watch(selectedType, () => {
+    page.value = 1;
+});
+
 </script>
 
 <template>
 
-    <!-- <div class="flex flex-col items-center"> -->
     <div class="flex flex-col items-center px-4 sm:px-8">
 
         <h1 class="text-xl font-semibold text-center mt-4 mb-2">
             Annuaire de {{ data.sites.length }} sites internets publics du Sénégal
         </h1>
-        <p class="mb-4 text-gray-600">
+        <p class="text-sm mb-4 text-gray-500">
             Liste non exhaustive
         </p>
 

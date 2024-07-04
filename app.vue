@@ -1,28 +1,19 @@
 <script setup lang="ts">
-const route = useRoute()
 
 const isOpen = ref(false)
 
-const toggleMenu = () => {
-  isOpen.value = true;
-};
-
 const links = [
   {
-    label: 'Rapports publics',
-    to: '/',
-  },
-  {
-    label: 'Personnes épinglées',
-    to: '/individuals-cited',
-  },
-  {
-    label: 'Annuaire site web',
-    to: '/annuaire-sites-publics-senegal',
+    label: 'Rapports',
+    to: '/reports',
   },
   {
     label: 'Nominations',
     to: '/nomination-senegal',
+  },
+  {
+    label: 'Site web',
+    to: '/annuaire-sites-publics-senegal',
   },
   {
     label: 'À Propos',
@@ -51,7 +42,7 @@ const links = [
           class="flex sm:hidden absolute end-5 top-5 z-10" square padded @click="isOpen = false" />
         <div class="h-full">
           <HeaderBrand />
-          <UCard v-for="link in links" :key="link.to" class="cursor-pointer custom-shadow mb-2" @click="isOpen = false">
+          <UCard v-for="link in links" :key="link.to" class="cursor-pointer shadow-lg mb-2" @click="isOpen = false">
             <ULink :to="link.to" class="flex flex-row gap-2">
               {{ link.label }}
             </ULink>
@@ -66,7 +57,7 @@ const links = [
 
     <!-- Navigation horizontale pour les écrans plus larges -->
     <UHorizontalNavigation :links="links"
-      class="hidden sm:flex border-b border-gray-200 dark:border-gray-800 mx-auto mb-3 top-0 z-50 sm:justify-center">
+      class="hidden sm:flex border-b border-gray-200 dark:border-gray-800 mx-auto top-0 z-50 sm:justify-center">
       <template #default="{ link }">
         <span class="group-hover:text-primary relative">{{ link.label }}</span>
       </template>

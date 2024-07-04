@@ -36,7 +36,7 @@ export default defineNuxtConfig({
         {
           name: "description",
           content:
-            "Plateforme centralisant les rapports publics du Sénégal. Accédez aux rapports de l'ARMP, IGE, IGF, OFNAC, et Cours des Comptes pour encourager la transparence et la participation citoyenne.",
+            "Rapports publics du Sénégal. ARMP, IGE, IGF, OFNAC, et Cours des Comptes pour encourager la transparence et la participation citoyenne.",
         },
         // Open Graph Meta Tags
         {

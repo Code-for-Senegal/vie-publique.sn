@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const currentYear = new Date().getFullYear();
-const version = "1.0.4";
+const version = "04.07.2024";
 
 const links = [
   {
@@ -10,6 +10,14 @@ const links = [
   {
     label: 'Règles de confidentialité',
     to: '/about/privacy',
+  },
+  {
+    label: 'Twitter',
+    to: 'https://twitter.com/malick_yacine',
+  },
+  {
+    label: 'Linkedin',
+    to: 'https://www.linkedin.com/in/malicktech',
   }
 ]
 

@@ -35,6 +35,8 @@ Facebook Debugger : Utilise l'outil Facebook Debugger pour vérifier que l'image
 Twitter Card Validator : Utilise cet outil pour valider que les balises Twitter Card fonctionnent correctement.
 [Twitter Card Validator](https://cards-dev.twitter.com/validator)
 
+https://www.bannerbear.com/tools/twitter-card-preview-tool/#image_result
+
 ## photos inconnu
 
 https://www.alleganyco.gov/wp-content/uploads/unknown-person-icon-Image-from.png
