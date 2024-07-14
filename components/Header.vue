@@ -1,6 +1,6 @@
 <template>
     <NuxtLink :to="`/`">
-        <div class="flex flex-col items-center py-2">
+        <div class="flex flex-col items-center p-2">
             <!-- <div class="flag-logo px-2.5">
                 <img src="~/assets/logos/logo.svg" loading="lazy" alt="Logo" class="flag-logo" />
             </div> -->

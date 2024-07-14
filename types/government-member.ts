@@ -1,4 +1,3 @@
-// types/minister.ts
 export type GovernmentMember = {
   sexe: string;
   name: string;

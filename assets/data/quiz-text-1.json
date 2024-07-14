@@ -1,0 +1,1080 @@
+[
+  {
+    "type": "texte",
+    "question": "Quelle est la capitale du Sénégal ?",
+    "options": ["Dakar", "Saint-Louis"],
+    "answer": "Dakar",
+    "explanation": "Dakar est la capitale et la plus grande ville du Sénégal."
+  },
+  {
+    "type": "texte",
+    "question": "Quelle est la langue officielle du Sénégal ?",
+    "options": ["Français", "Wolof", "Anglais", "Espagnol"],
+    "answer": "Français",
+    "explanation": "Le français est la langue officielle du Sénégal."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le plus grand fleuve du Sénégal ?",
+    "options": [
+      "Fleuve Sénégal",
+      "Fleuve Gambie",
+      "Fleuve Casamance",
+      "Fleuve Saloum"
+    ],
+    "answer": "Fleuve Sénégal",
+    "explanation": "Le fleuve Sénégal est le plus grand fleuve qui traverse le pays."
+  },
+  {
+    "type": "texte",
+    "question": "Quelle entité est contrôlée par le Ministère des Forces Armées ?",
+    "options": [
+      "Centre de Formation judiciaire",
+      "Office national des Anciens Combattants et Victimes de guerre",
+      "Caisse des Dépôts et Consignations",
+      "Université Cheikh Anta DIOP de Dakar"
+    ],
+    "answer": "Office national des Anciens Combattants et Victimes de guerre",
+    "explanation": "L'Office national des Anciens Combattants et Victimes de guerre est contrôlé par le Ministère des Forces Armées."
+  },
+  {
+    "type": "texte",
+    "question": "Quel ministère contrôle le Centre de Formation judiciaire ?",
+    "options": [
+      "Ministère des Finances et du Budget",
+      "Ministère de l'Énergie, du Pétrole et des Mines",
+      "Ministère de la Justice",
+      "Ministère de l'Hydraulique et de l'Assainissement"
+    ],
+    "answer": "Ministère de la Justice",
+    "explanation": "Le Centre de Formation judiciaire est contrôlé par le Ministère de la Justice."
+  },
+  {
+    "type": "texte",
+    "question": "Quel établissement est sous la supervision du Ministère des Infrastructures et des Transports Terrestres et Aériens ?",
+    "options": [
+      "Fonds d'Entretien Routier Autonome",
+      "Office national de Formation professionnelle",
+      "Institut national de Pédologie",
+      "SEN-Pharmacie nationale d'Approvisionnement"
+    ],
+    "answer": "Fonds d'Entretien Routier Autonome",
+    "explanation": "Le Fonds d'Entretien Routier Autonome est sous la supervision du Ministère des Infrastructures et des Transports Terrestres et Aériens."
+  },
+  {
+    "type": "texte",
+    "question": "Quel ministère est responsable de l'Université Cheikh Anta DIOP de Dakar ?",
+    "options": [
+      "Ministère de la Santé et de l'Action Sociale",
+      "Ministère de l'Enseignement Supérieur, de la Recherche et de l'Innovation",
+      "Ministère de l'Énergie, du Pétrole et des Mines",
+      "Ministère de la Communication, des Télécommunications et du Numérique"
+    ],
+    "answer": "Ministère de l'Enseignement Supérieur, de la Recherche et de l'Innovation",
+    "explanation": "L'Université Cheikh Anta DIOP de Dakar est sous la responsabilité du Ministère de l'Enseignement Supérieur, de la Recherche et de l'Innovation."
+  },
+  {
+    "type": "texte",
+    "question": "Quelle entité relève du Ministère des Finances et du Budget ?",
+    "options": [
+      "Ordre des Avocats",
+      "Caisse des Dépôts et Consignations",
+      "Service géologique national du Sénégal",
+      "Ordre des Huissiers de Justice"
+    ],
+    "answer": "Caisse des Dépôts et Consignations",
+    "explanation": "La Caisse des Dépôts et Consignations relève du Ministère des Finances et du Budget."
+  },
+  {
+    "type": "texte",
+    "question": "Quel établissement est contrôlé par le Ministère de la Formation Professionnelle ?",
+    "options": [
+      "Centre national de Qualification professionnelle",
+      "Ordre des Experts et Evaluateurs agréés",
+      "Office des Lacs et Cours d'eau",
+      "Maison de la Presse Babacar TOURE"
+    ],
+    "answer": "Centre national de Qualification professionnelle",
+    "explanation": "Le Centre national de Qualification professionnelle est contrôlé par le Ministère de la Formation Professionnelle."
+  },
+  {
+    "type": "texte",
+    "question": "Quel ministère supervise l'Institut national du Pétrole et du Gaz ?",
+    "options": [
+      "Ministère de l'Énergie, du Pétrole et des Mines",
+      "Ministère de la Justice",
+      "Ministère des Finances et du Budget",
+      "Ministère de l'Hydraulique et de l'Assainissement"
+    ],
+    "answer": "Ministère de l'Énergie, du Pétrole et des Mines",
+    "explanation": "L'Institut national du Pétrole et du Gaz est supervisé par le Ministère de l'Énergie, du Pétrole et des Mines."
+  },
+  {
+    "type": "texte",
+    "question": "Quel ministère est responsable de l'Office des Lacs et Cours d'eau ?",
+    "options": [
+      "Ministère de la Santé et de l'Action Sociale",
+      "Ministère de l'Hydraulique et de l'Assainissement",
+      "Ministère de la Communication, des Télécommunications et du Numérique",
+      "Ministère de la Justice"
+    ],
+    "answer": "Ministère de l'Hydraulique et de l'Assainissement",
+    "explanation": "L'Office des Lacs et Cours d'eau est sous la responsabilité du Ministère de l'Hydraulique et de l'Assainissement."
+  },
+  {
+    "type": "texte",
+    "question": "Quel établissement est sous la supervision du Ministère de la Santé et de l'Action Sociale ?",
+    "options": [
+      "Centre hospitalier universitaire de Fann",
+      "Ordre des Architectes du Sénégal",
+      "Chambre Nationale de Commerce, d'Industrie et des Services",
+      "Fonds de Garantie automobile"
+    ],
+    "answer": "Centre hospitalier universitaire de Fann",
+    "explanation": "Le Centre hospitalier universitaire de Fann est sous la supervision du Ministère de la Santé et de l'Action Sociale."
+  },
+  {
+    "type": "texte",
+    "question": "Quel ministère contrôle le Grand Théâtre National Doudou NDIAYE Coumba Rose ?",
+    "options": [
+      "Ministère de la Santé et de l'Action Sociale",
+      "Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Élevage",
+      "Ministère de la Jeunesse, des Sports et de la Culture",
+      "Ministère de l'Industrie et du Commerce"
+    ],
+    "answer": "Ministère de la Jeunesse, des Sports et de la Culture",
+    "explanation": "Le Grand Théâtre National Doudou NDIAYE Coumba Rose est contrôlé par le Ministère de la Jeunesse, des Sports et de la Culture."
+  },
+  {
+    "type": "texte",
+    "question": "Quel ministère est responsable de l'Inspection générale d'État (IGE) ?",
+    "options": [
+      "Ministère de la Justice",
+      "Présidence de la République",
+      "Ministère de l'Intérieur et de la Sécurité Publique"
+    ],
+    "answer": "Présidence de la République",
+    "explanation": "L'IGE est rattachée au Cabinet du Président de la République."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est chargé de la coordination de la sécurité maritime ?",
+    "options": [
+      "Haut Commandement de la Gendarmerie Nationale",
+      "Haute Autorité chargée de la Coordination de la Sécurité maritime (HASSMAR)",
+      "Direction générale de la Police nationale"
+    ],
+    "answer": "Haute Autorité chargée de la Coordination de la Sécurité maritime (HASSMAR)",
+    "explanation": "La HASSMAR est rattachée au Cabinet militaire du Président de la République."
+  },
+  {
+    "type": "texte",
+    "question": "Quelle administration est responsable de la gestion du patrimoine immobilier de l'État à l'étranger ?",
+    "options": [
+      "Secrétariat général de la Présidence de la République",
+      "Ministère des Affaires étrangères",
+      "Ministère des Finances et du Budget"
+    ],
+    "answer": "Secrétariat général de la Présidence de la République",
+    "explanation": "La Commission de contrôle et de Suivi du Patrimoine immobilier de l'Etat à l'étranger est rattachée au Secrétariat général de la Présidence de la République."
+  },
+  {
+    "type": "texte",
+    "question": "Quel ministère est responsable du Fonds de Soutien au Suivi des Projets et Programmes ?",
+    "options": [
+      "Ministère de l'Economie, du Plan et de la Coopération",
+      "Primature",
+      "Ministère des Finances et du Budget"
+    ],
+    "answer": "Primature",
+    "explanation": "Le Fonds de Soutien au Suivi des Projets et Programmes est rattaché au Cabinet du Premier Ministre."
+  },
+  {
+    "type": "texte",
+    "question": "Quelle direction est responsable de la gestion des Archives du Sénégal ?",
+    "options": [
+      "Direction de l'Imprimerie nationale",
+      "Direction générale du Service civique national et du Volontariat",
+      "Direction de l'Activité normative"
+    ],
+    "answer": "Direction de l'Activité normative",
+    "explanation": "La Direction des Archives du Sénégal est rattachée au Secrétariat général du Gouvernement."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la lutte contre la Fraude et la Corruption ?",
+    "options": [
+      "Inspection générale d'État (IGE)",
+      "Office national de lutte contre la Fraude et la Corruption (OFNAC)",
+      "Commission nationale du Dialogue des Territoires (CNDT)"
+    ],
+    "answer": "Office national de lutte contre la Fraude et la Corruption (OFNAC)",
+    "explanation": "L'OFNAC est rattaché au Cabinet du Président de la République."
+  },
+  {
+    "type": "texte",
+    "question": "Quelle direction est responsable de la gestion des ressources humaines au sein de la Gendarmerie nationale ?",
+    "options": [
+      "Direction des Personnels militaires et de la Mobilisation",
+      "Direction des Affaires administratives, de l'Equipement et du Budget",
+      "Direction de l'Action sociale des Armées"
+    ],
+    "answer": "Direction des Personnels militaires et de la Mobilisation",
+    "explanation": "La Direction des Personnels militaires et de la Mobilisation est rattachée au Ministère des Forces Armées."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la formation des sapeurs-pompiers ?",
+    "options": [
+      "Brigade nationale des Sapeurs-Pompiers",
+      "Direction générale de la Police nationale",
+      "Direction générale de la Protection civile"
+    ],
+    "answer": "Brigade nationale des Sapeurs-Pompiers",
+    "explanation": "La Brigade nationale des Sapeurs-Pompiers est rattachée au Cabinet du Ministre de l'Intérieur et de la Sécurité Publique."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle du Comité national de suivi du Contenu local ?",
+    "options": [
+      "Superviser les projets d'infrastructures routières",
+      "Gérer les ressources en eau",
+      "Superviser les projets d'investissement dans le secteur minier et pétrolier"
+    ],
+    "answer": "Superviser les projets d'investissement dans le secteur minier et pétrolier",
+    "explanation": "Le Comité national de suivi du Contenu local est rattaché au Ministère de l'Énergie, du Pétrole et des Mines."
+  },
+  {
+    "type": "texte",
+    "question": "Quelle administration est responsable de la gestion de la dette publique ?",
+    "options": [
+      "Direction générale du Budget",
+      "Direction générale de la Comptabilité publique et du Trésor",
+      "Direction générale des Impôts et des Domaines"
+    ],
+    "answer": "Direction générale de la Comptabilité publique et du Trésor",
+    "explanation": "La Direction de la Dette publique est rattachée à la Direction générale de la Comptabilité publique et du Trésor."
+  },
+  {
+    "type": "texte",
+    "question": "Quelle est la principale mission de l'Agence nationale de Sécurité routière ?",
+    "options": [
+      "Gérer les infrastructures routières",
+      "Promouvoir la sécurité routière",
+      "Contrôler les transports aériens"
+    ],
+    "answer": "Promouvoir la sécurité routière",
+    "explanation": "L'Agence nationale de Sécurité routière est rattachée au Ministère des Infrastructures et des Transports terrestres et aériens."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la gestion des parcs nationaux ?",
+    "options": [
+      "Direction des Eaux et Forêts, Chasses et de la Conservation des Sols",
+      "Direction des Parcs nationaux",
+      "Agence sénégalaise de la Reforestation et de la Grande Muraille verte"
+    ],
+    "answer": "Direction des Parcs nationaux",
+    "explanation": "La Direction des Parcs nationaux est rattachée au Ministère de l'Environnement et de la Transition Ecologique."
+  },
+  {
+    "type": "texte",
+    "question": "Quelle direction est responsable de la gestion des Etablissements publics de Formation professionnelle et technique ?",
+    "options": [
+      "Direction de l'Apprentissage",
+      "Direction générale de la Formation professionnelle et technique",
+      "Direction des Examens, Concours professionnels et Certifications"
+    ],
+    "answer": "Direction générale de la Formation professionnelle et technique",
+    "explanation": "La Direction des Etablissements publics de Formation professionnelle et technique est rattachée à la Direction générale de la Formation professionnelle et technique."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la promotion de l'Economie numérique et des Partenariats ?",
+    "options": [
+      "Direction des Technologies de l'Information et de la Communication",
+      "Direction de la Promotion de l'Economie numérique et des Partenariats",
+      "Fonds de Développement du Service Universel et des Télécommunications"
+    ],
+    "answer": "Direction de la Promotion de l'Economie numérique et des Partenariats",
+    "explanation": "La Direction de la Promotion de l'Economie numérique et des Partenariats est rattachée au Ministère de la Communication, des Télécommunications et du Numérique."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de l'Assurance Qualité de l'Enseignement supérieur ?",
+    "options": [
+      "Agence nationale de la Recherche scientifique appliquée",
+      "Autorité nationale d'Assurance Qualité de l'Enseignement supérieur",
+      "Ecole nationale de Développement sanitaire et social"
+    ],
+    "answer": "Autorité nationale d'Assurance Qualité de l'Enseignement supérieur",
+    "explanation": "L'Autorité nationale d'Assurance Qualité de l'Enseignement supérieur est rattachée au Ministère de l'Enseignement Supérieur, de la Recherche et de l'Innovation."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle de la Commission nationale de la Concurrence ?",
+    "options": [
+      "Réguler le secteur des télécommunications",
+      "Superviser les projets d'investissement",
+      "Veiller au respect des règles de la concurrence"
+    ],
+    "answer": "Veiller au respect des règles de la concurrence",
+    "explanation": "La Commission nationale de la Concurrence est rattachée au Ministère de l'Industrie et du Commerce."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le principal organisme responsable de la promotion du tourisme au Sénégal ?",
+    "options": [
+      "Ecole nationale de Formation hôtelière et touristique",
+      "Agence Sénégalaise de Promotion Touristique",
+      "Union nationale des chambres des métiers"
+    ],
+    "answer": "Agence Sénégalaise de Promotion Touristique",
+    "explanation": "L'Agence Sénégalaise de Promotion Touristique est rattachée au Ministère du Tourisme et de l'Artisanat."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle de l'Office national des Pupilles de la Nation ?",
+    "options": [
+      "Gérer les pensions de retraite",
+      "Protéger les enfants en situation difficile",
+      "Promouvoir l'accès à l'éducation"
+    ],
+    "answer": "Protéger les enfants en situation difficile",
+    "explanation": "L'Office national des Pupilles de la Nation est rattaché au Ministère de la Famille et des Solidarités."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle de la Commission de Supervision et de Régulation des Institutions de Sécurité sociale ?",
+    "options": [
+      "Gérer les pensions de retraite",
+      "Superviser les institutions de sécurité sociale",
+      "Promouvoir l'accès à la santé"
+    ],
+    "answer": "Superviser les institutions de sécurité sociale",
+    "explanation": "La Commission de Supervision et de Régulation des Institutions de Sécurité sociale est rattachée au Ministère du Travail, de l'Emploi et des Relations avec les Institutions."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la gestion des Déchets au Sénégal ?",
+    "options": [
+      "Agence de Construction des Bâtiments et Edifices publics",
+      "Société Nationale de Gestion Intégrée des Déchets (SONAGED S.A.)",
+      "Agence nationale de l'état civil"
+    ],
+    "answer": "Société Nationale de Gestion Intégrée des Déchets (SONAGED S.A.)",
+    "explanation": "La SONAGED S.A. est rattachée au Ministère de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle de l'Agence nationale de la Petite Enfance et de la Case des Tout-petits ?",
+    "options": [
+      "Promouvoir l'accès à l'éducation préscolaire",
+      "Gérer les hôpitaux",
+      "Protéger les enfants en situation difficile"
+    ],
+    "answer": "Promouvoir l'accès à l'éducation préscolaire",
+    "explanation": "L'Agence nationale de la Petite Enfance et de la Case des Tout-petits est rattachée au Ministère de l'Education Nationale."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle de la Direction générale de l'Action sociale ?",
+    "options": [
+      "Gérer les hôpitaux",
+      "Promouvoir la santé publique",
+      "Protéger les groupes vulnérables"
+    ],
+    "answer": "Protéger les groupes vulnérables",
+    "explanation": "La Direction générale de l'Action sociale est rattachée au Ministère de la Santé et de l'Action Sociale."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la formation des fonctionnaires ?",
+    "options": [
+      "Centre national de Formation et d'Action",
+      "Centre médico-social de la Fonction publique",
+      "Programme d'Appui à la Modernisation de l'Administration"
+    ],
+    "answer": "Centre national de Formation et d'Action",
+    "explanation": "Le Centre national de Formation et d'Action est rattaché au Ministère de la Fonction Publique et de la Réforme du Service Public."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la gestion des Maisons de la Jeunesse et de la Citoyenneté ?",
+    "options": [
+      "Agence Nationale pour la Promotion de l'Emploi des Jeunes",
+      "Centre national d'Education populaire et sportive",
+      "Cellule d'Appui et de Suivi des Maisons de la Jeunesse et de la Citoyenneté"
+    ],
+    "answer": "Cellule d'Appui et de Suivi des Maisons de la Jeunesse et de la Citoyenneté",
+    "explanation": "La Cellule d'Appui et de Suivi des Maisons de la Jeunesse et de la Citoyenneté est rattachée au Cabinet du Ministre de la Jeunesse, des Sports et de la Culture."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle de l'Agence nationale du Conseil agricole et rural ?",
+    "options": [
+      "Gérer les fermes agricoles",
+      "Promouvoir la recherche agricole",
+      "Fournir des conseils aux agriculteurs"
+    ],
+    "answer": "Fournir des conseils aux agriculteurs",
+    "explanation": "L'Agence nationale du Conseil agricole et rural est rattachée au Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Elevage."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la gestion des infrastructures sportives ?",
+    "options": [
+      "Office de Gestion des Infrastructures sportives",
+      "Grand Théâtre National Doudou NDIAYE Coumba Rose",
+      "Compagnie du Théâtre national Daniel Sorano"
+    ],
+    "answer": "Office de Gestion des Infrastructures sportives",
+    "explanation": "L'Office de Gestion des Infrastructures sportives est rattaché au Ministère de la Jeunesse, des Sports et de la Culture."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle de la Société nationale de Gestion et d'Exploitation du Patrimoine bâti de l'État ?",
+    "options": [
+      "Gérer les infrastructures routières",
+      "Gérer les bâtiments publics",
+      "Promouvoir les investissements"
+    ],
+    "answer": "Gérer les bâtiments publics",
+    "explanation": "La Société nationale de Gestion et d'Exploitation du Patrimoine bâti de l'État est rattachée à la Présidence de la République."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la gestion des phosphates de Matam ?",
+    "options": [
+      "Société des Mines de Fer du Sénégal oriental",
+      "Société des Mines d'Or de Sabodala",
+      "Société d'Etudes et de réalisation des Phosphates de Matam"
+    ],
+    "answer": "Société d'Etudes et de réalisation des Phosphates de Matam",
+    "explanation": "La Société d'Etudes et de réalisation des Phosphates de Matam est rattachée au Ministère de l'Énergie, du Pétrole et des Mines."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle de la Banque nationale de Développement Economique ?",
+    "options": [
+      "Gérer les pensions de retraite",
+      "Financer les projets de développement économique",
+      "Promouvoir la sécurité sociale"
+    ],
+    "answer": "Financer les projets de développement économique",
+    "explanation": "La Banque nationale de Développement Economique est rattachée au Ministère des Finances et du Budget."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la gestion du Train express régional ?",
+    "options": [
+      "Société Dakar Dem Dik",
+      "Société des Grands Trains du Sénégal",
+      "Société nationale de gestion du Patrimoine du Train express régional (SEN-TER S.A.)"
+    ],
+    "answer": "Société nationale de gestion du Patrimoine du Train express régional (SEN-TER S.A.)",
+    "explanation": "La SEN-TER S.A. est rattachée au Ministère des Infrastructures et des Transports terrestres et aériens."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle de la Société nationale des Eaux du Sénégal ?",
+    "options": [
+      "Gérer les ressources en eau potable",
+      "Gérer les ressources en électricité",
+      "Gérer les ressources en gaz"
+    ],
+    "answer": "Gérer les ressources en eau potable",
+    "explanation": "La Société nationale des Eaux du Sénégal est rattachée au Ministère de l'Hydraulique et de l'Assainissement."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la gestion du port autonome de Dakar ?",
+    "options": [
+      "Société d'Infrastructures et de Réparation navale",
+      "Société nationale du Port autonome de Dakar",
+      "Consortium Sénégalais d'activités maritimes"
+    ],
+    "answer": "Société nationale du Port autonome de Dakar",
+    "explanation": "La Société nationale du Port autonome de Dakar est rattachée au Ministère des Pêches, des Infrastructures maritimes et portuaires."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle de la Société nationale des Habitations à Loyer modéré ?",
+    "options": [
+      "Construire des infrastructures routières",
+      "Construire des logements sociaux",
+      "Gérer les ressources en eau"
+    ],
+    "answer": "Construire des logements sociaux",
+    "explanation": "La Société nationale des Habitations à Loyer modéré est rattachée au Ministère de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la gestion du Grand Théâtre National Doudou NDIAYE Coumba Rose ?",
+    "options": [
+      "Office de Gestion des Infrastructures sportives",
+      "Grand Théâtre National Doudou NDIAYE Coumba Rose",
+      "Compagnie du Théâtre national Daniel Sorano"
+    ],
+    "answer": "Grand Théâtre National Doudou NDIAYE Coumba Rose",
+    "explanation": "Le Grand Théâtre National Doudou NDIAYE Coumba Rose est rattaché au Ministère de la Jeunesse, des Sports et de la Culture."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la gestion des oléagineux au Sénégal ?",
+    "options": [
+      "Société nationale de Commercialisation des Oléagineux du Sénégal",
+      "Société nationale d'Aménagement des Terres du Delta et de la Vallée du Fleuve Sénégal",
+      "Société de Développement agricole et industriel"
+    ],
+    "answer": "Société nationale de Commercialisation des Oléagineux du Sénégal",
+    "explanation": "La Société nationale de Commercialisation des Oléagineux du Sénégal est rattachée au Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Elevage."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle de la Société d'Aménagement et de Promotion des Côtes et Zones Touristiques du Sénégal ?",
+    "options": [
+      "Promouvoir l'artisanat",
+      "Aménager les zones touristiques",
+      "Gérer les infrastructures routières"
+    ],
+    "answer": "Aménager les zones touristiques",
+    "explanation": "La Société d'Aménagement et de Promotion des Côtes et Zones Touristiques du Sénégal est rattachée au Ministère du Tourisme et de l'Artisanat."
+  },
+  {
+    "type": "texte",
+    "question": "Quel ministère est responsable de la Direction générale de la Surveillance et du Contrôle de l'Occupation du Sol ?",
+    "options": [
+      "Ministère de l'Environnement et de la Transition Ecologique",
+      "Ministère de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires",
+      "Primature"
+    ],
+    "answer": "Primature",
+    "explanation": "La Direction générale de la Surveillance et du Contrôle de l'Occupation du Sol est rattachée au Secrétariat général du Gouvernement."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la gestion des frontières du Sénégal ?",
+    "options": [
+      "Commission nationale de la Gestion des Frontières",
+      "Direction générale de la Police nationale",
+      "Direction générale de l'Administration territoriale"
+    ],
+    "answer": "Commission nationale de la Gestion des Frontières",
+    "explanation": "La Commission nationale de la Gestion des Frontières est rattachée à la Présidence de la République."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle de la Direction générale des Elections ?",
+    "options": [
+      "Organiser les élections",
+      "Gérer les affaires civiles",
+      "Protéger les droits humains"
+    ],
+    "answer": "Organiser les élections",
+    "explanation": "La Direction générale des Elections est rattachée au Ministère de l'Intérieur et de la Sécurité Publique."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la formation des maîtres d'enseignement technique ?",
+    "options": [
+      "Centre national de Formation des Maîtres d'Enseignement technique",
+      "Ecole nationale de Formation en Economie familiale et sociale",
+      "Centre de Formation professionnelle et commerciale Delafosse de Dakar"
+    ],
+    "answer": "Centre national de Formation des Maîtres d'Enseignement technique",
+    "explanation": "Le Centre national de Formation des Maîtres d'Enseignement technique est rattaché au Ministère de la Formation Professionnelle."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle de l'Agence nationale de l'Aviation civile et de la Météorologie ?",
+    "options": [
+      "Gérer les aéroports",
+      "Contrôler les transports aériens",
+      "Prévoir les conditions météorologiques"
+    ],
+    "answer": "Contrôler les transports aériens",
+    "explanation": "L'Agence nationale de l'Aviation civile et de la Météorologie est rattachée au Ministère des Infrastructures et des Transports terrestres et aériens."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la gestion des produits chimiques au Sénégal ?",
+    "options": [
+      "Commission nationale de Gestion des Produits Chimiques",
+      "Direction du Changement climatique, de la Transition écologique et des Financements verts",
+      "Agence nationale de Biosécurité"
+    ],
+    "answer": "Commission nationale de Gestion des Produits Chimiques",
+    "explanation": "La Commission nationale de Gestion des Produits Chimiques est rattachée au Ministère de l'Environnement et de la Transition Ecologique."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle de l'Agence nationale de la Maison de l'Outil ?",
+    "options": [
+      "Promouvoir l'apprentissage des métiers",
+      "Gérer les Etablissements publics de Formation professionnelle et technique",
+      "Fournir des bourses aux étudiants"
+    ],
+    "answer": "Promouvoir l'apprentissage des métiers",
+    "explanation": "L'Agence nationale de la Maison de l'Outil est rattachée au Ministère de la Formation Professionnelle."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la gestion des ressources en eau au Sénégal ?",
+    "options": [
+      "Office des Lacs et Cours d'eau",
+      "Office national de l'Assainissement du Sénégal",
+      "Office national des Forages ruraux"
+    ],
+    "answer": "Office des Lacs et Cours d'eau",
+    "explanation": "L'Office des Lacs et Cours d'eau est rattaché au Ministère de l'Hydraulique et de l'Assainissement."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la gestion de la poste au Sénégal ?",
+    "options": [
+      "Société nationale des Télécommunications",
+      "Société nationale « La Poste »",
+      "Société de Télédiffusion du Sénégal"
+    ],
+    "answer": "Société nationale « La Poste »",
+    "explanation": "La Société nationale « La Poste » est rattachée au Ministère de la Communication, des Télécommunications et du Numérique."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle de l'Institut de Technologie Alimentaire ?",
+    "options": [
+      "Promouvoir la recherche agricole",
+      "Former des techniciens en alimentation",
+      "Gérer les marchés agricoles"
+    ],
+    "answer": "Former des techniciens en alimentation",
+    "explanation": "L'Institut de Technologie Alimentaire est rattaché au Ministère de l'Industrie et du Commerce."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la gestion des activités maritimes au Sénégal ?",
+    "options": [
+      "Société d'Infrastructures et de Réparation navale",
+      "Consortium Sénégalais d'activités maritimes",
+      "Agence nationale des Affaires maritimes"
+    ],
+    "answer": "Consortium Sénégalais d'activités maritimes",
+    "explanation": "Le Consortium Sénégalais d'activités maritimes est rattaché au Ministère des Pêches, des Infrastructures maritimes et portuaires."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la gestion des logements sociaux au Sénégal ?",
+    "options": [
+      "Société nationale des Habitations à Loyer modéré",
+      "Société immobilière du Cap-Vert",
+      "Société d'Aménagement foncier et de Rénovation urbaine (SAFRU)"
+    ],
+    "answer": "Société nationale des Habitations à Loyer modéré",
+    "explanation": "La Société nationale des Habitations à Loyer modéré est rattachée au Ministère de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle de la Compagnie du Théâtre national Daniel Sorano ?",
+    "options": [
+      "Gérer les musées",
+      "Organiser des festivals culturels",
+      "Produire des pièces de théâtre"
+    ],
+    "answer": "Produire des pièces de théâtre",
+    "explanation": "La Compagnie du Théâtre national Daniel Sorano est rattachée au Ministère de la Jeunesse, des Sports et de la Culture."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la gestion des terres du Delta et de la Vallée du Fleuve Sénégal ?",
+    "options": [
+      "Société nationale de Commercialisation des Oléagineux du Sénégal",
+      "Société nationale d'Aménagement des Terres du Delta et de la Vallée du Fleuve Sénégal",
+      "Société de Développement agricole et industriel"
+    ],
+    "answer": "Société nationale d'Aménagement des Terres du Delta et de la Vallée du Fleuve Sénégal",
+    "explanation": "La Société nationale d'Aménagement des Terres du Delta et de la Vallée du Fleuve Sénégal est rattachée au Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Elevage."
+  },
+  {
+    "type": "texte",
+    "question": "Quel ministère est responsable du contrôle du Crédit du Sénégal ?",
+    "options": [
+      "Ministère des Finances et du Budget",
+      "Ministère de l'Economie, du Plan et de la Coopération",
+      "Primature"
+    ],
+    "answer": "Ministère des Finances et du Budget",
+    "explanation": "Le Crédit du Sénégal est une société nationale contrôlée par le Ministère des Finances et du Budget."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la gestion des infrastructures aéroportuaires ?",
+    "options": [
+      "Direction des Transports aériens",
+      "Direction des Infrastructures aéroportuaires",
+      "Société Anonyme Aéroport International Blaise Diagne"
+    ],
+    "answer": "Direction des Infrastructures aéroportuaires",
+    "explanation": "La Direction des Infrastructures aéroportuaires est rattachée au Ministère des Infrastructures et des Transports terrestres et aériens."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle de l'Organisation pour la Mise en Valeur du Fleuve Sénégal ?",
+    "options": [
+      "Gérer les ressources en eau potable",
+      "Gérer les ressources en électricité",
+      "Gérer les ressources en eau du fleuve Sénégal"
+    ],
+    "answer": "Gérer les ressources en eau du fleuve Sénégal",
+    "explanation": "L'Organisation pour la Mise en Valeur du Fleuve Sénégal est rattachée au Ministère de l'Hydraulique et de l'Assainissement."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle de la Société nationale des Télécommunications ?",
+    "options": [
+      "Fournir des services de téléphonie",
+      "Gérer la poste",
+      "Diffuser des programmes de télévision"
+    ],
+    "answer": "Fournir des services de téléphonie",
+    "explanation": "La Société nationale des Télécommunications est rattachée au Ministère de la Communication, des Télécommunications et du Numérique."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la promotion des exportations sénégalaises ?",
+    "options": [
+      "Agence sénégalaise pour la Propriété intellectuelle et l'Innovation technologique",
+      "Agence de Développement et d'Encadrement des PME",
+      "Agence sénégalaise de Promotion des Exportations"
+    ],
+    "answer": "Agence sénégalaise de Promotion des Exportations",
+    "explanation": "L'Agence sénégalaise de Promotion des Exportations est rattachée au Ministère de l'Industrie et du Commerce."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la gestion du Mémorial du Bateau le JOOLA ?",
+    "options": [
+      "Musée des Civilisations Noires",
+      "Ecole nationale des Arts et Métiers de la Culture",
+      "Mémorial du Bateau le JOOLA"
+    ],
+    "answer": "Mémorial du Bateau le JOOLA",
+    "explanation": "Le Mémorial du Bateau le JOOLA est rattaché au Ministère de la Jeunesse, des Sports et de la Culture."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle de l'Institut sénégalais de Recherches agricoles ?",
+    "options": [
+      "Gérer les fermes agricoles",
+      "Promouvoir la recherche agricole",
+      "Fournir des conseils aux agriculteurs"
+    ],
+    "answer": "Promouvoir la recherche agricole",
+    "explanation": "L'Institut sénégalais de Recherches agricoles est rattaché au Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Elevage."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle de la Société de Développement agricole et industriel ?",
+    "options": [
+      "Commercialiser les produits agricoles",
+      "Aménager les terres agricoles",
+      "Promouvoir la recherche agricole"
+    ],
+    "answer": "Aménager les terres agricoles",
+    "explanation": "La Société de Développement agricole et industriel est rattachée au Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Elevage."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle de la Chambre nationale d'Agriculture ?",
+    "options": [
+      "Gérer les marchés agricoles",
+      "Représenter les intérêts des agriculteurs",
+      "Promouvoir la recherche agricole"
+    ],
+    "answer": "Représenter les intérêts des agriculteurs",
+    "explanation": "La Chambre nationale d'Agriculture est rattachée au Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Elevage."
+  },
+  {
+    "type": "texte",
+    "question": "Quel ministère est responsable du contrôle de la Société nationale d'Electricité ?",
+    "options": [
+      "Ministère des Finances et du Budget",
+      "Ministère de l'Énergie, du Pétrole et des Mines",
+      "Primature"
+    ],
+    "answer": "Ministère de l'Énergie, du Pétrole et des Mines",
+    "explanation": "La Société nationale d'Electricité est une société nationale contrôlée par le Ministère de l'Énergie, du Pétrole et des Mines."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle du Fonds Souverain d'Investissements stratégiques (FONSIS) ?",
+    "options": [
+      "Gérer les pensions de retraite",
+      "Financer les projets d'investissement stratégiques",
+      "Promouvoir la sécurité sociale"
+    ],
+    "answer": "Financer les projets d'investissement stratégiques",
+    "explanation": "Le FONSIS est rattaché au Ministère des Finances et du Budget."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la gestion du Train express régional (TER) ?",
+    "options": [
+      "Société Dakar Dem Dik",
+      "Société des Grands Trains du Sénégal",
+      "Société nationale de gestion du Patrimoine du Train express régional (SEN-TER S.A.)"
+    ],
+    "answer": "Société nationale de gestion du Patrimoine du Train express régional (SEN-TER S.A.)",
+    "explanation": "La SEN-TER S.A. est rattachée au Ministère des Infrastructures et des Transports terrestres et aériens."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle de l'Agence pour la Sécurité de la Navigation aérienne en Afrique et à Madagascar ?",
+    "options": [
+      "Gérer les aéroports",
+      "Contrôler les transports aériens",
+      "Assurer la sécurité de la navigation aérienne"
+    ],
+    "answer": "Assurer la sécurité de la navigation aérienne",
+    "explanation": "L'Agence pour la Sécurité de la Navigation aérienne en Afrique et à Madagascar est rattachée au Ministère des Infrastructures et des Transports terrestres et aériens."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la gestion des eaux du fleuve Gambie ?",
+    "options": [
+      "Organisation pour la Mise en Valeur du Fleuve Sénégal",
+      "Organisation pour la Mise en Valeur du Fleuve Gambie",
+      "Office national de l'Assainissement du Sénégal"
+    ],
+    "answer": "Organisation pour la Mise en Valeur du Fleuve Gambie",
+    "explanation": "L'Organisation pour la Mise en Valeur du Fleuve Gambie est rattachée au Ministère de l'Hydraulique et de l'Assainissement."
+  },
+  {
+    "type": "texte",
+    "question": "Quel organisme est responsable de la gestion de la radiodiffusion et de la télévision au Sénégal ?",
+    "options": [
+      "Société nationale de Radiodiffusion et Télévision du Sénégal",
+      "Société sénégalaise de Presse et de Publication « Le Soleil »",
+      "Société nationale Agence de Presse Sénégalaise"
+    ],
+    "answer": "Société nationale de Radiodiffusion et Télévision du Sénégal",
+    "explanation": "La Société nationale de Radiodiffusion et Télévision du Sénégal est rattachée au Ministère de la Communication, des Télécommunications et du Numérique."
+  },
+
+  {
+    "type": "texte",
+    "question": "Quelle est la principale différence entre les missions de l'IGE et de l'OFNAC ?",
+    "options": [
+      "L'IGE se concentre sur les fraudes financières, tandis que l'OFNAC s'occupe de la corruption.",
+      "L'OFNAC est un organe de conseil, tandis que l'IGE a un pouvoir d'investigation.",
+      "L'IGE a un mandat plus large, incluant la corruption et les fraudes.",
+      "L'OFNAC est indépendant du gouvernement, tandis que l'IGE est rattachée à la Présidence."
+    ],
+    "answer": "L'IGE a un mandat plus large, incluant la corruption et les fraudes.",
+    "explanation": "L'IGE est l'Inspection Générale d'Etat, elle est chargée de contrôler l'administration et de lutter contre la corruption et les fraudes. L'OFNAC, quant à lui, se concentre spécifiquement sur la lutte contre la corruption."
+  },
+  {
+    "type": "texte",
+    "question": "En quoi la Commission nationale du Dialogue des Territoires (CNDT) diffère-t-elle du Haut Conseil du Dialogue social ?",
+    "options": [
+      "La CNDT se focalise sur les tensions politiques, tandis que le Haut Conseil gère les relations entre le gouvernement et les travailleurs.",
+      "Le Haut Conseil est un organe consultatif, tandis que la CNDT a un pouvoir décisionnel.",
+      "La CNDT vise à résoudre les conflits territoriaux, tandis que le Haut Conseil s'occupe des conflits socio-économiques.",
+      "Le Haut Conseil est composé de représentants des syndicats, tandis que la CNDT inclut des représentants des communautés locales."
+    ],
+    "answer": "La CNDT vise à résoudre les conflits territoriaux, tandis que le Haut Conseil s'occupe des conflits socio-économiques.",
+    "explanation": "La CNDT est un organe dédié au dialogue et à la résolution des conflits liés aux territoires, tandis que le Haut Conseil du Dialogue social s'occupe des relations entre le gouvernement, les travailleurs et les employeurs."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est l'impact de la création de la Délégation générale à la Promotion des Pôles urbains de Diamniadio et du Lac Rose sur le développement économique du Sénégal ?",
+    "options": [
+      "Elle favorise la concentration des activités économiques dans la région de Dakar.",
+      "Elle vise à désengorger Dakar et à promouvoir un développement plus équilibré.",
+      "Elle permet de développer le tourisme dans la région de Diamniadio.",
+      "Elle attire les investissements étrangers dans le secteur minier."
+    ],
+    "answer": "Elle vise à désengorger Dakar et à promouvoir un développement plus équilibré.",
+    "explanation": "La Délégation générale à la Promotion des Pôles urbains de Diamniadio et du Lac Rose vise à créer des pôles de développement économique en dehors de Dakar afin de réduire la pression sur la capitale et de favoriser un développement plus équilibré."
+  },
+  {
+    "type": "texte",
+    "question": "Pourquoi la création de l'Agence Nationale pour la relance des Activités en Casamance est-elle un enjeu crucial pour le Sénégal ?",
+    "options": [
+      "Elle vise à lutter contre la pauvreté dans la région de la Casamance.",
+      "Elle permet de développer les infrastructures routières dans la région.",
+      "Elle contribue à la résolution du conflit en Casamance et au retour de la paix.",
+      "Elle permet d'attirer les investissements étrangers dans le secteur touristique."
+    ],
+    "answer": "Elle contribue à la résolution du conflit en Casamance et au retour de la paix.",
+    "explanation": "L'Agence Nationale pour la relance des Activités en Casamance a pour but de redynamiser l'économie de la région et de contribuer à la résolution du conflit qui y sévit depuis des décennies."
+  },
+  {
+    "type": "texte",
+    "question": "En quoi la Direction générale d'Appui aux Sénégalais de l'Extérieur est-elle un instrument important pour la politique étrangère du Sénégal ?",
+    "options": [
+      "Elle favorise la coopération économique avec les pays d'accueil des Sénégalais de l'extérieur.",
+      "Elle contribue à la promotion de la culture sénégalaise à l'étranger.",
+      "Elle protège les droits des Sénégalais de l'extérieur et facilite leur intégration.",
+      "Elle permet de recruter des experts étrangers pour le développement du Sénégal."
+    ],
+    "answer": "Elle protège les droits des Sénégalais de l'extérieur et facilite leur intégration.",
+    "explanation": "La Direction générale d'Appui aux Sénégalais de l'Extérieur est chargée de soutenir les Sénégalais vivant à l'étranger, de protéger leurs droits et de faciliter leur intégration dans leurs pays d'accueil."
+  },
+  {
+    "type": "texte",
+    "question": "Quelle est la principale différence entre la Direction de la Justice militaire et la Direction du Contrôle des Etudes et de la Législation ?",
+    "options": [
+      "La Direction de la Justice militaire s'occupe des crimes militaires, tandis que la Direction du Contrôle des Etudes et de la Législation gère les affaires civiles.",
+      "La Direction du Contrôle des Etudes et de la Législation est rattachée au Cabinet civil, tandis que la Direction de la Justice militaire dépend du Cabinet militaire.",
+      "La Direction de la Justice militaire est un organe d'investigation, tandis que la Direction du Contrôle des Etudes et de la Législation est un organe consultatif.",
+      "La Direction de la Justice militaire traite les affaires de désertion, tandis que la Direction du Contrôle des Etudes et de la Législation s'occupe des affaires de discipline."
+    ],
+    "answer": "La Direction de la Justice militaire s'occupe des crimes militaires, tandis que la Direction du Contrôle des Etudes et de la Législation gère les affaires civiles.",
+    "explanation": "La Direction de la Justice militaire est un organe judiciaire spécialisé dans les crimes militaires, tandis que la Direction du Contrôle des Etudes et de la Législation s'occupe de la réglementation et de la législation au sein des Forces Armées."
+  },
+  {
+    "type": "texte",
+    "question": "Comment l'Observatoire national des Lieux de Privation de Liberté contribue-t-il à la protection des droits humains ?",
+    "options": [
+      "Il assure la formation des gardiens de prison.",
+      "Il surveille les conditions de détention et les traitements infligés aux détenus.",
+      "Il gère les dossiers des détenus en attente de jugement.",
+      "Il aide les détenus à trouver du travail après leur libération."
+    ],
+    "answer": "Il surveille les conditions de détention et les traitements infligés aux détenus.",
+    "explanation": "L'Observatoire national des Lieux de Privation de Liberté a pour mission de contrôler les conditions de détention et de s'assurer que les droits des détenus sont respectés."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le lien entre le Cadre d'Intervention et de coordination interministériel des opérations de lutte antiterroriste et la Cellule de lutte antiterroriste ?",
+    "options": [
+      "La Cellule de lutte antiterroriste est un organe d'investigation, tandis que le Cadre est un organe de coordination.",
+      "Le Cadre est un organe consultatif, tandis que la Cellule a un pouvoir d'action.",
+      "La Cellule de lutte antiterroriste est rattachée à la Direction générale de la Police nationale, tandis que le Cadre est rattaché au Ministère de la Justice.",
+      "Le Cadre est un programme de formation, tandis que la Cellule est un groupe de travail."
+    ],
+    "answer": "La Cellule de lutte antiterroriste est un organe d'investigation, tandis que le Cadre est un organe de coordination.",
+    "explanation": "Le Cadre d'Intervention et de coordination interministériel des opérations de lutte antiterroriste est un organe de coordination entre les différents services de sécurité, tandis que la Cellule de lutte antiterroriste est un organe d'investigation et d'action."
+  },
+  {
+    "type": "texte",
+    "question": "Quelle est la principale différence entre la Direction de la Protection sociale et la Direction de la Sécurité et Santé au Travail ?",
+    "options": [
+      "La Direction de la Protection sociale s'occupe des accidents du travail, tandis que la Direction de la Sécurité et Santé au Travail gère les pensions de retraite.",
+      "La Direction de la Sécurité et Santé au Travail se concentre sur la prévention des risques professionnels, tandis que la Direction de la Protection sociale s'occupe des allocations et des prestations sociales.",
+      "La Direction de la Protection sociale est un organe consultatif, tandis que la Direction de la Sécurité et Santé au Travail a un pouvoir d'action.",
+      "La Direction de la Sécurité et Santé au Travail est rattachée au Ministère de la Santé, tandis que la Direction de la Protection sociale est rattachée au Ministère du Travail."
+    ],
+    "answer": "La Direction de la Sécurité et Santé au Travail se concentre sur la prévention des risques professionnels, tandis que la Direction de la Protection sociale s'occupe des allocations et des prestations sociales.",
+    "explanation": "La Direction de la Sécurité et Santé au Travail a pour mission de protéger les travailleurs contre les risques professionnels, tandis que la Direction de la Protection sociale est responsable des allocations et des prestations sociales."
+  },
+  {
+    "type": "texte",
+    "question": "En quoi la Direction générale de l'Urbanisme et de l'Architecture diffère-t-elle de la Direction générale de la Construction et de l'Habitat ?",
+    "options": [
+      "La Direction générale de la Construction et de l'Habitat est responsable de la réglementation des bâtiments, tandis que la Direction générale de l'Urbanisme et de l'Architecture gère les permis de construire.",
+      "La Direction générale de l'Urbanisme et de l'Architecture se focalise sur l'aménagement du territoire, tandis que la Direction générale de la Construction et de l'Habitat s'occupe de la construction des logements.",
+      "La Direction générale de la Construction et de l'Habitat est rattachée au Ministère de l'Economie, du Plan et de la Coopération, tandis que la Direction générale de l'Urbanisme et de l'Architecture est rattachée au Ministère de l'Intérieur.",
+      "La Direction générale de l'Urbanisme et de l'Architecture est un organe de conseil, tandis que la Direction générale de la Construction et de l'Habitat a un pouvoir d'action."
+    ],
+    "answer": "La Direction générale de l'Urbanisme et de l'Architecture se focalise sur l'aménagement du territoire, tandis que la Direction générale de la Construction et de l'Habitat s'occupe de la construction des logements.",
+    "explanation": "La Direction générale de l'Urbanisme et de l'Architecture est responsable de la planification et de la réglementation de l'aménagement urbain, tandis que la Direction générale de la Construction et de l'Habitat se concentre sur la construction des logements et la promotion de l'habitat social."
+  },
+  {
+    "type": "texte",
+    "question": "Quelle est la principale différence entre les missions de la Direction générale de la Santé et de la Direction générale des Etablissements de Santé ?",
+    "options": [
+      "La Direction générale de la Santé gère les hôpitaux, tandis que la Direction générale des Etablissements de Santé est responsable de la santé publique.",
+      "La Direction générale des Etablissements de Santé est un organe consultatif, tandis que la Direction générale de la Santé a un pouvoir d'action.",
+      "La Direction générale de la Santé s'occupe de la prévention des maladies, tandis que la Direction générale des Etablissements de Santé gère les soins médicaux.",
+      "La Direction générale des Etablissements de Santé est rattachée au Ministère de la Fonction Publique, tandis que la Direction générale de la Santé est rattachée au Ministère de l'Education."
+    ],
+    "answer": "La Direction générale de la Santé s'occupe de la prévention des maladies, tandis que la Direction générale des Etablissements de Santé gère les soins médicaux.",
+    "explanation": "La Direction générale de la Santé est responsable de la santé publique, de la prévention des maladies et de la promotion de la santé, tandis que la Direction générale des Etablissements de Santé gère les hôpitaux et les autres établissements de santé."
+  },
+  {
+    "type": "texte",
+    "question": "En quoi la Direction de la Transformation du Secteur public diffère-t-elle de la Direction des Systèmes d'Informations ?",
+    "options": [
+      "La Direction de la Transformation du Secteur public est un organe consultatif, tandis que la Direction des Systèmes d'Informations a un pouvoir d'action.",
+      "La Direction des Systèmes d'Informations gère les technologies de l'information, tandis que la Direction de la Transformation du Secteur public s'occupe de la modernisation de l'administration.",
+      "La Direction de la Transformation du Secteur public est rattachée à la Primature, tandis que la Direction des Systèmes d'Informations est rattachée au Ministère de l'Intérieur.",
+      "La Direction de la Transformation du Secteur public se focalise sur la gestion des ressources humaines, tandis que la Direction des Systèmes d'Informations s'occupe de la sécurité informatique."
+    ],
+    "answer": "La Direction des Systèmes d'Informations gère les technologies de l'information, tandis que la Direction de la Transformation du Secteur public s'occupe de la modernisation de l'administration.",
+    "explanation": "La Direction de la Transformation du Secteur public est responsable de la modernisation de l'administration et de l'amélioration de la performance des services publics, tandis que la Direction des Systèmes d'Informations gère les technologies de l'information et de la communication."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le rôle du Conseil consultatif des Arts, des Lettres et de la Culture ?",
+    "options": [
+      "Gérer les musées et les galeries d'art",
+      "Organiser les festivals culturels",
+      "Conseiller le gouvernement sur les politiques culturelles",
+      "Promouvoir les industries créatives"
+    ],
+    "answer": "Conseiller le gouvernement sur les politiques culturelles",
+    "explanation": "Le Conseil consultatif des Arts, des Lettres et de la Culture est un organe consultatif qui conseille le gouvernement sur les politiques culturelles du Sénégal."
+  },
+  {
+    "type": "texte",
+    "question": "Quelle est la principale différence entre la Direction des Arts et la Direction du Livre et de la Lecture ?",
+    "options": [
+      "La Direction des Arts s'occupe des arts plastiques, tandis que la Direction du Livre et de la Lecture gère les bibliothèques.",
+      "La Direction du Livre et de la Lecture est un organe consultatif, tandis que la Direction des Arts a un pouvoir d'action.",
+      "La Direction des Arts est rattachée au Ministère de l'Education, tandis que la Direction du Livre et de la Lecture est rattachée au Ministère de la Culture.",
+      "La Direction des Arts promeut les artistes sénégalais à l'étranger, tandis que la Direction du Livre et de la Lecture s'occupe de la promotion de la lecture au Sénégal."
+    ],
+    "answer": "La Direction des Arts s'occupe des arts plastiques, tandis que la Direction du Livre et de la Lecture gère les bibliothèques.",
+    "explanation": "La Direction des Arts est responsable de la promotion et du développement des arts plastiques, tandis que la Direction du Livre et de la Lecture est chargée de la promotion de la lecture et de la gestion des bibliothèques."
+  },
+  {
+    "type": "texte",
+    "question": "Comment la Cellule de Prévention et de Lutte contre le Vol de Bétail contribue-t-elle à la sécurité alimentaire du Sénégal ?",
+    "options": [
+      "Elle fournit des formations aux éleveurs sur les techniques d'élevage.",
+      "Elle contrôle les importations de bétail.",
+      "Elle lutte contre le vol de bétail afin de protéger les ressources animales du pays.",
+      "Elle finance les projets d'élevage."
+    ],
+    "answer": "Elle lutte contre le vol de bétail afin de protéger les ressources animales du pays.",
+    "explanation": "La Cellule de Prévention et de Lutte contre le Vol de Bétail a pour mission de lutter contre le vol de bétail, ce qui contribue à la sécurité alimentaire en protégeant les ressources animales du pays."
+  },
+  {
+    "type": "texte",
+    "question": "Quel est le lien entre le Fonds d'Appui à l'Economie sociale et solidaire et la Direction de la Promotion de l’Economie sociale et solidaire ?",
+    "options": [
+      "La Direction de la Promotion de l’Economie sociale et solidaire gère les fonds, tandis que le Fonds d'Appui est un organe consultatif.",
+      "Le Fonds d'Appui est un instrument de financement, tandis que la Direction a un rôle de coordination et de promotion.",
+      "Le Fonds d'Appui est rattaché au Ministère de l'Economie, du Plan et de la Coopération, tandis que la Direction est rattachée au Ministère de l'Industrie.",
+      "La Direction de la Promotion de l’Economie sociale et solidaire se focalise sur la microfinance, tandis que le Fonds d'Appui s'occupe de l'entrepreneuriat social."
+    ],
+    "answer": "Le Fonds d'Appui est un instrument de financement, tandis que la Direction a un rôle de coordination et de promotion.",
+    "explanation": "Le Fonds d'Appui à l'Economie sociale et solidaire est un fonds de financement pour les projets d'économie sociale et solidaire, tandis que la Direction de la Promotion de l’Economie sociale et solidaire a pour mission de promouvoir et de coordonner les initiatives dans ce domaine."
+  },
+  {
+    "type": "texte",
+    "question": "Quelle est la principale différence entre la Direction de la Promotion touristique et la Direction de la Réglementation touristique ?",
+    "options": [
+      "La Direction de la Promotion touristique gère les infrastructures touristiques, tandis que la Direction de la Réglementation touristique s'occupe des formalités administratives.",
+      "La Direction de la Réglementation touristique est un organe consultatif, tandis que la Direction de la Promotion touristique a un pouvoir d'action.",
+      "La Direction de la Promotion touristique se focalise sur l'attractivité du Sénégal, tandis que la Direction de la Réglementation touristique s'occupe des normes et des règles du secteur touristique.",
+      "La Direction de la Réglementation touristique est rattachée au Ministère de l'Intérieur, tandis que la Direction de la Promotion touristique est rattachée au Ministère de l'Economie."
+    ],
+    "answer": "La Direction de la Promotion touristique se focalise sur l'attractivité du Sénégal, tandis que la Direction de la Réglementation touristique s'occupe des normes et des règles du secteur touristique.",
+    "explanation": "La Direction de la Promotion touristique est chargée de promouvoir le tourisme au Sénégal, tandis que la Direction de la Réglementation touristique est responsable de la mise en place et du respect des normes et des réglementations du secteur touristique."
+  },
+  {
+    "type": "texte",
+    "question": "En quoi l'Ecole nationale de Formation hôtelière et touristique est-elle un élément crucial pour le développement du secteur touristique sénégalais ?",
+    "options": [
+      "Elle forme les agents de sécurité dans les hôtels.",
+      "Elle fournit des formations aux professionnels du tourisme.",
+      "Elle développe des programmes de recherche sur le tourisme.",
+      "Elle gère les réservations dans les hôtels."
+    ],
+    "answer": "Elle fournit des formations aux professionnels du tourisme.",
+    "explanation": "L'Ecole nationale de Formation hôtelière et touristique a pour mission de former les professionnels du tourisme afin de répondre aux besoins croissants du secteur."
+  }
+]

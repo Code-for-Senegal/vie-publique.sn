@@ -16,6 +16,7 @@
     "@nuxtjs/seo": "^2.0.0-rc.10",
     "@nuxtjs/sitemap": "^5.2.0",
     "@nuxtjs/web-vitals": "^0.2.7",
+    "@vueuse/motion": "^2.2.3",
     "nuxt": "^3.11.2",
     "papaparse": "^5.4.1",
     "vue": "^3.4.21",

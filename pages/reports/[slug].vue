@@ -30,19 +30,7 @@ function showResume(rapport: any): boolean {
   return rapport != null && rapport.resume_disponible && resume != null
 }
 
-function formatDate(dateStr: string): string {
-  const date = new Date(dateStr);
-  const monthNames = [
-    'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-    'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
-  ];
-  const month = monthNames[date.getMonth()];
-  const year = date.getFullYear();
-  return `${month} ${year}`;
-}
-
 function trackPDFDownload() {
-  console.log('trackPDFDownload');
   gtag('event', 'download_pdf', {
     'event_category': 'PDF Downloads',
     'event_label': rapport.value.titre,
@@ -87,7 +75,7 @@ function trackPDFDownload() {
         Date de publication: {{ $dateMonthYearformat(rapport.date_publication) }}
       </p>
 
-      <UButton size="sm" icon="i-heroicons-arrow-down-tray" truncate color="black" variant="outline"
+      <UButton size="sm" icon="i-heroicons-arrow-down-tray" truncate color="primary" variant="solid"
         :to="rapport.url_pdf" target="_blank" label="Télécharger le document PDF"
         class="w-full sm:w-1/2 md:w-1/2 xl:w-1/3" @click="trackPDFDownload">
       </UButton>

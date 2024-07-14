@@ -124,6 +124,24 @@ https://github.com/malicktech/annuaire-sites-publics-senegal-ui/blob/main/src/co
 http://localhost:3000/api/reports
 http://localhost:3000/api/websites
 
+## Quiz
+
+https://motion.vueuse.org/getting-started/nuxt
+
+pnpm install @vueuse/motion
+
+Aléatoire et Limitation : Nous avons ajouté une fonction shuffleArray pour randomiser les questions et limiter le quiz à 10 questions.
+Feedback Immedié : Les explications et les résultats sont affichés immédiatement après chaque réponse.
+Responsive : L'interface utilise TailwindCSS, qui est responsive par défaut.
+Animations : Nous avons intégré vueuse/motion pour ajouter des animations aux éléments qui changent, comme les feedbacks corrects ou incorrects.
+
+v-if="question !== null && question.length > 1"
+
+http://localhost:3000/api/quiz
+
+pnpm install vue3-circle-progress
+pnpm uninstall vue3-circle-progress
+
 ## fetch
 
 https://github.com/nuxt/nuxt/discussions/16294

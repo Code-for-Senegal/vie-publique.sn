@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 
 const runtimeConfig = useRuntimeConfig();
 const showPinnedPeoples = ref(runtimeConfig.public.showPinnedPeoples === 'true');

@@ -56,7 +56,9 @@ const selectedType = ref('');
 
 const filteredSites = computed(() => {
     return data.value.sites.filter((site: any) =>
-        site.nom.toLowerCase().includes(searchQuery.value.toLowerCase()) &&
+        (site.nom.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+            site.url.toLowerCase().includes(searchQuery.value.toLowerCase()))
+        &&
         (selectedType.value ? site.type === selectedType.value : true)
     );
 });
@@ -69,7 +71,7 @@ const types = computed(() => {
 /* Pagination */
 
 const page = ref(1)
-const pageCount = 10
+const pageCount = 20
 
 const rowsFilteredSites = computed(() => {
     return filteredSites.value.slice((page.value - 1) * pageCount, (page.value) * pageCount)
@@ -100,7 +102,7 @@ watch(selectedType, () => {
             <USelect class="w-full sm:w-full mb-3 custom-shadow" size="lg" icon="i-heroicons-funnel"
                 placeholder="Filtrer par type" v-model="selectedType" :options="types" />
 
-            <div class="space-y-2">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <UCard v-for="site in rowsFilteredSites" :key="site.url" class="cursor-pointer custom-shadow">
                     <ULink :to="site.url" target="_blank"
                         class="text-blue-600 hover:text-blue-800 underline text-sm font-semibold">
@@ -108,7 +110,8 @@ watch(selectedType, () => {
                     </ULink>
                     <div>
                         <p class="text-sm">{{ site.nom }}</p>
-                        <span class="siteweb-type inline-block px-2 py-1 text-xs font-medium bg-gray-200 text-gray-800">
+                        <span
+                            class="siteweb-type inline-block px-2 py-1 my-1 text-xs font-medium bg-gray-200 text-gray-800">
                             {{ site.type }}
                         </span>
                     </div>

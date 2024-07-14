@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     "@nuxtjs/sitemap",
     "@nuxtjs/web-vitals",
     "@nuxt/image",
+    "@vueuse/motion/nuxt",
   ],
   devtools: { enabled: true },
   runtimeConfig: {

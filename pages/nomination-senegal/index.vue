@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { GovernmentMember } from '~/types/government-member';
 
-
 useHead({
     title: 'Annuaire nominations Sénégal | Vie-Publique.sn',
     meta: [
@@ -69,7 +68,6 @@ const selectedGender = ref('');
 const selectedDate = ref('');
 
 const filteredMinisters = computed(() => {
-    console.log('filteredMinisters')
     return (data.value.members?.filter((member: GovernmentMember) =>
         (member.name.toLowerCase().includes(searchQuery.value.toLowerCase())
             || member.role.toLowerCase().includes(searchQuery.value.toLowerCase())) &&
@@ -148,7 +146,7 @@ function filterByGender(gender: string) {
                     <!-- <Placeholder v-else class="h-8" /> -->
                     <div class="flex justify-center items-center">
                         <NuxtImg :src="selectedMinister.photo || '/unknown_member.webp'" alt="Profile Photo"
-                            sizes="300px" class="h-auto" placeholder />
+                            sizes="300px" class="h-auto" :placeholder="[300, 300]" />
                     </div>
                 </template>
 
@@ -190,15 +188,6 @@ function filterByGender(gender: string) {
                 </UInput>
 
                 <div class="  text-center w-full mb-1">
-                    <UButton :ui="{ rounded: 'rounded-full' }"
-                        class="hidden text-sm custom-shadow ml-1 mb-1 font-normal"
-                        :color="selectedDate === '03/07/2024' ? 'primary' : 'white'"
-                        @click="selectedDate = '03/07/2024' === '03/07/2024' ? '' : '03/07/2024'" size="sm">
-                        Nominations 03/07
-                        <UBadge :ui="{ rounded: 'rounded-full' }" label="33"
-                            :color="selectedDate === '03/07/2024' ? 'primary' : 'primary'"
-                            :variant="selectedDate === '03/07/2024' ? 'soft' : 'solid'" size="xs"></UBadge>
-                    </UButton>
                     <UButton :ui="{ rounded: 'rounded-full' }" class="text-sm custom-shadow ml-1 mb-1 font-normal"
                         :color="selectedGender === 'Monsieur' ? 'primary' : 'white'"
                         @click="selectedGender = selectedGender === 'Monsieur' ? '' : 'Monsieur'" size="sm">
@@ -213,8 +202,7 @@ function filterByGender(gender: string) {
                         :color="selectedGender === 'Madame' ? 'primary' : 'white'"
                         @click="selectedGender = selectedGender === 'Madame' ? '' : 'Madame'" size="sm">
                         Femmes
-                        <UBadge :ui="{ rounded: 'rounded-full' }" :label="totalsByGender.femaleCount"
-                            :color="selectedGender === 'Madame' ? 'primary' : 'primary'"
+                        <UBadge :ui="{ rounded: 'rounded-full' }" :label="totalsByGender.femaleCount" color="primary"
                             :variant="selectedGender === 'Madame' ? 'soft' : 'solid'" size="xs"></UBadge>
                     </UButton>
 
@@ -227,8 +215,7 @@ function filterByGender(gender: string) {
                         class="text-sm custom-shadow ml-1 mb-1 font-normal"
                         @click="selectedType = selectedType === type ? '' : type" size="sm">
                         {{ type }}
-                        <UBadge :ui="{ rounded: 'rounded-full' }" :label="total"
-                            :color="selectedType === type ? 'primary' : 'primary'"
+                        <UBadge :ui="{ rounded: 'rounded-full' }" :label="total" color="primary"
                             :variant="selectedType === type ? 'soft' : 'solid'" size="xs"></UBadge>
                     </UButton>
                 </div>

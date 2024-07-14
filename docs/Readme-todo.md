@@ -14,13 +14,15 @@
 - [x] List pinned peoples
 - [ ] Blog / List financial scandal
 
-- [x] Deploy to VERCEL
-- [x] Deploy to netlify
-- [ ] Deploy to firebase
-
 - [x] Privacy
-- [x] About us
-- [ ] qui somme nous https://www.vie-publique.fr/qui-sommes-nous
+- [x] About us / qui somme nous https://www.vie-publique.fr/qui-sommes-nous
+
+- [x] Website - List
+- [x] Website - Filter by type and search
+
+- [x] Nomination - List
+- [x] Nomination - Search and Filter by role 
+
 
 - [ ] page de contact avec mail pro
 - [ ] bouton de contribution
@@ -30,6 +32,12 @@
 - liste maire
 - liste députés
 -
+
+## Deployment
+
+- [x] Deploy to VERCEL
+- [x] Deploy to netlify
+- [ ] Deploy to firebase
 
 ## SEO
 
@@ -44,6 +52,10 @@
 - smrush
 
 ## Performance
+
+- [ ] Headless CMS
+
+- [ ] Backend firebase
 
 - [ ] PWA avec @nuxtjs/pwa
 - [ ] SSR

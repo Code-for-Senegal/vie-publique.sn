@@ -16,12 +16,12 @@ const selectedOrganisme = ref('')
 const selectedYear = ref('')
 
 const organismes = ['Cours des Comptes', 'OFNAC', 'IGE', 'ARMP'];
-// const organismes = computed(() => [...new Set(rapports.value.map(rapport => rapport.organisme))])
-// const years = computed(() => [...new Set(rapports.value.map(rapport => rapport.annee))].sort((a, b) => b - a))
 
 const filteredRapports = computed(() => rapports.value.filter(rapport => {
   return (
-    (searchQuery.value.length === 0 || rapport.titre.toLowerCase().includes(searchQuery.value.toLowerCase())) &&
+    (searchQuery.value.length === 0
+      || rapport.titre.toLowerCase().includes(searchQuery.value.toLowerCase())
+      || rapport.sous_titre.toLowerCase().includes(searchQuery.value.toLowerCase())) &&
     (selectedOrganisme.value === '' || rapport.organisme === selectedOrganisme.value) &&
     (selectedYear.value === '' || rapport.annee === parseInt(selectedYear.value))
   )
@@ -31,8 +31,6 @@ onMounted(async () => {
   rapports.value = (await import('@/assets/data/rapports-liste.json'))
     .default.sort((a, b) => new Date(b.date_publication).getTime() - new Date(a.date_publication).getTime());
 });
-
-
 
 </script>
 

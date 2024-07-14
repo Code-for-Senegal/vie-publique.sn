@@ -706,5 +706,29 @@
     "date_publication": "2022-12-01",
     "url_pdf": "/reports/cour-des-comptes-2022-audit-3FPT-2015-2019.pdf",
     "sous_titre": "Auditant les performances du Fonds de Financement de la Formation Professionnelle et Technique (3FPT) pour les exercices 2015 à 2019"
+  },
+  {
+    "resume_disponible": false,
+    "slug": "cours-des-compte-anat-2022",
+    "id": 58,
+    "titre": "Cours des comptes Rapport contrôle ANAT (2017-2020)",
+    "organisme": "Cours des Comptes",
+    "annee": 2022,
+    "period": "2017 à 2020",
+    "date_publication": "2022-05-01",
+    "url_pdf": "/reports/cour-des-comptes-2022-audit-ANAT-2017-2020.pdf",
+    "sous_titre": "Agence Nationale de l’Aménagement du Territoire (ANAT), gestion de 2013 à 2017 du DG Mamadou DJIGO"
+  },
+  {
+    "resume_disponible": false,
+    "slug": "cours-des-compte-aner-2022",
+    "id": 59,
+    "titre": "Cours des comptes Rapport contrôle ANER (2017-2020)",
+    "organisme": "Cours des Comptes",
+    "annee": 2022,
+    "period": "2017 à 2020",
+    "date_publication": "2022-06-01",
+    "url_pdf": "/reports/cour-des-comptes-2022-audit-ANER-2017-2020.pdf",
+    "sous_titre": "Agence Nationale pour les Energies Renouvelables (ANER), gestion de 2013 à 2017"
   }
 ]
