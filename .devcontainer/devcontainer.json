@@ -13,7 +13,10 @@
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "yarn install",
-	"postCreateCommand": "pnpm install"
+	"postCreateCommand": "pnpm install",
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
+	}
 
 
 	// Configure tool-specific properties.
