@@ -179,12 +179,20 @@ accès au viewer tailwind `http://localhost:3000/\_tailwind`
 ## Utiliser les Dev Containers
 
 Vous pouvez utiliser Docker avec l'extension Dev Containers
+1. Exécutez Docker
+```shell
+docker compose up
+```
 
+2. Assurez-vous que Docker n'est pas en cours d'exécution
+```shell
+docker compose stop
+```
 En savoir plus : https://code.visualstudio.com/docs/devcontainers/containers
 
 ## Environnement de variable fichier .env
 
-Vous pouvez créer un fichier .env à la racine du projet et y définir la variable d'environnement pour l'ID de Google Analytics ou le DNS
+Vous pouvez créer un fichier `.env` avec `.env.example` à la racine du projet et y définir la variable d'environnement pour l'ID de Google Analytics ou le DNS
 
 exemple:
 
