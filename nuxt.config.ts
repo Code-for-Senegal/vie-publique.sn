@@ -42,6 +42,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
+      titleTemplate: "%s | " + "Vie-Publique.sn",
       title: "Sénégal | Vie-Publique.sn",
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
@@ -81,6 +82,17 @@ export default defineNuxtConfig({
         },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:image", content: "/social-image.png" },
+        {
+          hid: 'og-local',
+          property: 'og:local',
+          content: 'fr_FR',
+        },
+        {
+          hid: 'og-site_name',
+          property: 'og:site_name',
+          content:
+            'Sénégal | Vie-Publique',
+        },
       ],
     },
   },
@@ -88,12 +100,10 @@ export default defineNuxtConfig({
     defaultLocale: "fr",
   },
   gtag: {
-    enabled: !process.env.GTAG_ID,
     id: process.env.GTAG_ID,
   },
   webVitals: {
     provider: "ga",
-    disabled: !process.env.GTAG_ID,
     ga: { id: process.env.GTAG_ID },
   },
   sitemap: {

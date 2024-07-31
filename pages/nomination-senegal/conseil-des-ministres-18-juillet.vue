@@ -2,7 +2,7 @@
 import type { GovernmentMember } from '~/types/government-member';
 
 useHead({
-    title: 'Nominations Conseil des ministres Sénégal | Vie-Publique.sn',
+    title: 'Nominations Conseil des ministres Sénégal',
     meta: [
         {
             name: 'description',

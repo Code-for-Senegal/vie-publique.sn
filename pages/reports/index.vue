@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 useHead({
-  title: "Sénégal Rapports OFNAC Cours des compte IGE | Vie-Publique.sn",
+  title: "Sénégal Rapports OFNAC Cours des compte IGE",
   meta: [
     {
       name: 'description',

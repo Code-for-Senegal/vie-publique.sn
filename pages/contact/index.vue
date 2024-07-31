@@ -2,7 +2,7 @@
 
 /* SEO */
 useHead({
-    title: 'Contact | Vie-Publique.sn',
+    title: 'Contact',
     meta: [
         {
             name: 'description',
