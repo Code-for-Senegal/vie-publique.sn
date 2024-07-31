@@ -88,10 +88,12 @@ export default defineNuxtConfig({
     defaultLocale: "fr",
   },
   gtag: {
+    enabled: !process.env.GTAG_ID,
     id: process.env.GTAG_ID,
   },
   webVitals: {
     provider: "ga",
+    disabled: !process.env.GTAG_ID,
     ga: { id: process.env.GTAG_ID },
   },
   sitemap: {
