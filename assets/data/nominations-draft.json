@@ -1,5 +1,24 @@
 [
     {
+        "name": "Madame Oulimata Sarr",
+        "type": "Autre",
+        "role": "Présidente Comité National ITIE",
+        "nominationDate": null,
+        "photo": null,
+        "sexe": "Madame",
+        "predecessor": null,
+        "formation": null,
+        "organisation": null,
+        "description": "Ancienne Ministre de l’Economie, du Plan et de la Coopération, Présidente Our Legacy Foundation, Présidente Comité National ITIE, Ancienne Dir Reg ONU Femmes",
+        "facebook": null,
+        "instagram": null,
+        "tiktok": "https://x.com/OulimataSarr",
+        "twitter": null,
+        "linkedin": null,
+        "website": null,
+        "rating": null
+    },
+    {
         "sexe": "Monsieur",
         "name": "Mamadou FAYE",
         "type": "Directeur général",

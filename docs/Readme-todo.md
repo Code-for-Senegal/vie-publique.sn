@@ -21,8 +21,7 @@
 - [x] Website - Filter by type and search
 
 - [x] Nomination - List
-- [x] Nomination - Search and Filter by role 
-
+- [x] Nomination - Search and Filter by role
 
 - [ ] page de contact avec mail pro
 - [ ] bouton de contribution
@@ -94,4 +93,17 @@
   - combiner avec un CMS robuste pour la gestion du contenu.
 
 - Docker
+
   - https://markus.oberlehner.net/blog/running-nuxt-3-in-a-docker-container/
+
+- [] Newsletter
+
+https://www.brevo.com/fr/blog/conseils-pour-ameliorer-formulaire-newsletter/
+
+https://www.brevo.com/fr/blog/creer-une-newsletter/
+
+https://devbits.ph/azelalynetan/how-to-setup-brevo-with-nuxtjs-and-dqxm
+
+- update package
+
+  - npm update @getbrevo/brevo @nuxtjs/seo

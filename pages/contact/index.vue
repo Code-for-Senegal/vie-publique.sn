@@ -26,13 +26,15 @@ const submitForm = () => {
 
     <div class="flex flex-col items-center px-4 sm:px-8">
 
-        <h1 class="text-xl font-semibold text-center mt-4 mb-2">
-            Contactez-nous
-        </h1>
+        <div class="prose prose-sm sm:prose mx-auto my-2">
+            <h1 class="text-center">
+                Contactez-nous
+            </h1>
+        </div>
 
         <div class="w-full max-w-4xl text-center">
             <div class="mb-4">
-                <h2 class="text-md text-gray-500">Email</h2>
+                <h2 class="text-sm text-gray-500">Envoyez nous un Email à l'adresse mail suivante</h2>
                 <p class="text-blue-600 hover:text-blue-800 underline">
                     <a href="mailto:contact@vie-publique.sn">contact@vie-publique.sn</a>
                 </p>

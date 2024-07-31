@@ -5,7 +5,11 @@ export default defineSitemapEventHandler(() => {
   const reportUrls = reportsData.map((report) => `/reports/${report.slug}`);
 
   // Ajoute les autres URLs statiques manuellement
-  const staticUrls = [{ loc: "/about/us" }, { loc: "/about/privacy" }];
+  const staticUrls = [
+    { loc: "/about/us" },
+    { loc: "/about/privacy" },
+    { loc: "/journal-officiel-senegal/2024" },
+  ];
 
   return [
     ...staticUrls,

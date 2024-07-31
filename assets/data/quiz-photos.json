@@ -1,722 +1,1658 @@
 [
-    {
-        "type": "image",
-        "question": "Qui est le Ministre, Directeur de Cabinet du Président de la République ?",
-        "options": [
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/pape-birane-dieye.jfif",
-            "/nominations/ousmane-sonko.jfif"
-        ],
-        "answer": "/nominations/mary-teuw-niane.jfif",
-        "explanation": "Mary Teuw NIANE est le Ministre, Directeur de Cabinet du Président de la République."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Ministre, Secrétaire Général de la Présidence de la République ?",
-        "options": [
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/pape-birane-dieye.jfif",
-            "/nominations/ousmane-sonko.jfif"
-        ],
-        "answer": "/nominations/omar-samba-ba.jfif",
-        "explanation": "Oumar Samba BA est le Ministre, Secrétaire Général de la Présidence de la République."
-    },
-    {
-        "type": "image",
-        "question": "Qui est l'Aide de camp du Président de la République ?",
-        "options": [
-            "/nominations/pape-birane-dieye.jfif",
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/ousmane-sonko.jfif"
-        ],
-        "answer": "/nominations/pape-birane-dieye.jfif",
-        "explanation": "Colonel Pape Birane DIEYE est l'Aide de camp du Président de la République."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Premier Ministre ?",
-        "options": [
-            "/nominations/premier-ministre-ousmane-sonko.jfif",
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/pape-birane-dieye.jfif"
-        ],
-        "answer": "/nominations/premier-ministre-ousmane-sonko.jfif",
-        "explanation": "Ousmane SONKO est le Premier Ministre."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Ministre, Secrétaire général du Gouvernement ?",
-        "options": [
-            "/gouvernement/ministre-secretaire-general-Ahmadou-Al-Aminou-LO.jfif",
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/pape-birane-dieye.jfif"
-        ],
-        "answer": "/gouvernement/ministre-secretaire-general-Ahmadou-Al-Aminou-LO.jfif",
-        "explanation": "Ahmadou Al Aminou LO est le Ministre, Secrétaire général du Gouvernement."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Ministre de l’Intégration africaine et des Affaires étrangères ?",
-        "options": [
-            "/gouvernement/ministre-yassine-fall.jfif",
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/pape-birane-dieye.jfif"
-        ],
-        "answer": "/gouvernement/ministre-yassine-fall.jfif",
-        "explanation": "Madame Yassine FALL est le Ministre de l’Intégration africaine et des Affaires étrangères."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Ministre des Forces armées ?",
-        "options": [
-            "/gouvernement/ministre-général-birame-diop.jfif",
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/pape-birane-dieye.jfif"
-        ],
-        "answer": "/gouvernement/ministre-général-birame-diop.jfif",
-        "explanation": "Général Birame DIOP est le Ministre des Forces armées."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Ministre de la Justice, Garde des Sceaux ?",
-        "options": [
-            "/gouvernement/ministre-ousmane-diagne.jfif",
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/pape-birane-dieye.jfif"
-        ],
-        "answer": "/gouvernement/ministre-ousmane-diagne.jfif",
-        "explanation": "Ousmane DIAGNE est le Ministre de la Justice, Garde des Sceaux."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Ministre de l’Intérieur et de la Sécurité publique ?",
-        "options": [
-            "/gouvernement/ministre-général-jean-baptiste-tine.jfif",
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/pape-birane-dieye.jfif"
-        ],
-        "answer": "/gouvernement/ministre-général-jean-baptiste-tine.jfif",
-        "explanation": "Général Jean Baptiste TINE est le Ministre de l’Intérieur et de la Sécurité publique."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Ministre de l’Énergie, du Pétrole et des Mines ?",
-        "options": [
-            "/gouvernement/ministre-birame-souleye-diop.jfif",
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/pape-birane-dieye.jfif"
-        ],
-        "answer": "/gouvernement/ministre-birame-souleye-diop.jfif",
-        "explanation": "Birame Souleye DIOP est le Ministre de l’Énergie, du Pétrole et des Mines."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Ministre de l’Économie du Plan et de la Coopération ?",
-        "options": [
-            "/gouvernement/ministre-abdourahmane-sarr.jfif",
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/pape-birane-dieye.jfif"
-        ],
-        "answer": "/gouvernement/ministre-abdourahmane-sarr.jfif",
-        "explanation": "Abdourahmane SARR est le Ministre de l’Économie du Plan et de la Coopération."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Ministre des Finances et du Budget ?",
-        "options": [
-            "/gouvernement/ministre-cheikh-diba.jfif",
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/pape-birane-dieye.jfif"
-        ],
-        "answer": "/gouvernement/ministre-cheikh-diba.jfif",
-        "explanation": "Cheikh DIBA est le Ministre des Finances et du Budget."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Ministre des Infrastructures, des Transports terrestres et aériens ?",
-        "options": [
-            "/gouvernement/ministre-malick-ndiaye.jfif",
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/pape-birane-dieye.jfif"
-        ],
-        "answer": "/gouvernement/ministre-malick-ndiaye.jfif",
-        "explanation": "Malick NDIAYE est le Ministre des Infrastructures, des Transports terrestres et aériens."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Ministre de l’Environnement et de la Transition écologique ?",
-        "options": [
-            "/gouvernement/ministre-daouda-ngom.jfif",
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/pape-birane-dieye.jfif"
-        ],
-        "answer": "/gouvernement/ministre-daouda-ngom.jfif",
-        "explanation": "Daouda NGOM est le Ministre de l’Environnement et de la Transition écologique."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Ministre de la Formation professionnelle et Porte-parole du Gouvernement ?",
-        "options": [
-            "/gouvernement/ministre-amadou-moustapha-ndieck-sarre.jfif",
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/pape-birane-dieye.jfif"
-        ],
-        "answer": "/gouvernement/ministre-amadou-moustapha-ndieck-sarre.jfif",
-        "explanation": "Amadou Moustapha Ndieck SARRE est le Ministre de la Formation professionnelle et Porte-parole du Gouvernement."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Ministre de l‘Hydraulique et de l’Assainissement ?",
-        "options": [
-            "/gouvernement/ministre-cheikh-tidiane-dieye.jfif",
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/pape-birane-dieye.jfif"
-        ],
-        "answer": "/gouvernement/ministre-cheikh-tidiane-dieye.jfif",
-        "explanation": "Cheikh Tidiane DIEYE est le Ministre de l‘Hydraulique et de l’Assainissement."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Ministre de la Communication, des Télécommunications et du Numérique ?",
-        "options": [
-            "/gouvernement/ministre-alione-sall.jfif",
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/pape-birane-dieye.jfif"
-        ],
-        "answer": "/gouvernement/ministre-alione-sall.jfif",
-        "explanation": "Alioune SALL est le Ministre de la Communication, des Télécommunications et du Numérique."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Ministre de l’Enseignement supérieur, de la Recherche et de l’Innovation ?",
-        "options": [
-            "/gouvernement/ministre-elhadj-abdourahmane-diouf.jfif",
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/pape-birane-dieye.jfif"
-        ],
-        "answer": "/gouvernement/ministre-elhadj-abdourahmane-diouf.jfif",
-        "explanation": "Elhadj Abdourahmane DIOUF est le Ministre de l’Enseignement supérieur, de la Recherche et de l’Innovation."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général de l'Agence pour la Promotion des Investissements et des Grands Travaux (APIX SA) ?",
-        "options": [
-            "/nominations/pape-ale-niang.jfif",
-            "/nominations/waly-diouf-bodiang.jfif",
-            "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
-            "/nominations/bacary-sega-bathily.jfif"
-        ],
-        "answer": "/nominations/bacary-sega-bathily.jfif",
-        "explanation": "Bacary Sega BATHILY est le Directeur général de l'Agence pour la Promotion des Investissements et des Grands Travaux (APIX SA)."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général de la Radiotélévision Sénégalaise (RTS) ?",
-        "options": [
-            "/nominations/bacary-sega-bathily.jfif",
-            "/nominations/waly-diouf-bodiang.jfif",
-            "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
-            "/nominations/pape-ale-niang.jfif"
-        ],
-        "answer": "/nominations/pape-ale-niang.jfif",
-        "explanation": "Pape Alé NIANG est le Directeur général de la Radiotélévision Sénégalaise (RTS)."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général de la Société nationale du Port Autonome de Dakar ?",
-        "options": [
-            "/nominations/bacary-sega-bathily.jfif",
-            "/nominations/pape-ale-niang.jfif",
-            "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
-            "/nominations/waly-diouf-bodiang.jfif"
-        ],
-        "answer": "/nominations/waly-diouf-bodiang.jfif",
-        "explanation": "Waly DIOUF BODIANG est le Directeur général de la Société nationale du Port Autonome de Dakar."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général de l'Aéroport International Blaise DIAGNE (AIBD) ?",
-        "options": [
-            "/nominations/bacary-sega-bathily.jfif",
-            "/nominations/pape-ale-niang.jfif",
-            "/nominations/waly-diouf-bodiang.jfif",
-            "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
-        ],
-        "answer": "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
-        "explanation": "Cheikh Mamadou Abiboulaye DIEYE est le Directeur général de l'Aéroport International Blaise DIAGNE (AIBD)."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général de la Caisse des Dépôts et Consignations (CDC) ?",
-        "options": [
-            "/nominations/pape-ale-niang.jfif",
-            "/nominations/waly-diouf-bodiang.jfif",
-            "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
-            "/nominations/fadilou-keita.jfif"
-        ],
-        "answer": "/nominations/fadilou-keita.jfif",
-        "explanation": "Fadilou KEITA est le Directeur général de la Caisse des Dépôts et Consignations (CDC)."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général de la Société nationale La Poste ?",
-        "options": [
-            "/nominations/maguette-kane.jpeg",
-            "/nominations/pape-ale-niang.jfif",
-            "/nominations/waly-diouf-bodiang.jfif",
-            "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
-        ],
-        "answer": "/nominations/maguette-kane.jpeg",
-        "explanation": "Maguette KANE est le Directeur général de la Société nationale La Poste."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général de la Société nationale des Habitations à Loyer Modéré (SN HLM) ?",
-        "options": [
-            "/nominations/bassirou-kebe.jfif",
-            "/nominations/pape-ale-niang.jfif",
-            "/nominations/waly-diouf-bodiang.jfif",
-            "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
-        ],
-        "answer": "/nominations/bassirou-kebe.jfif",
-        "explanation": "Bassirou KEBE est le Directeur général de la Société nationale des Habitations à Loyer Modéré (SN HLM)."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général de la Société immobilière du Cap Vert (SICAP SA) ?",
-        "options": [
-            "/nominations/mouhamadou-moctar-magassouba.jfif",
-            "/nominations/pape-ale-niang.jfif",
-            "/nominations/waly-diouf-bodiang.jfif",
-            "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
-        ],
-        "answer": "/nominations/mouhamadou-moctar-magassouba.jfif",
-        "explanation": "Mouhamadou Moctar MAGASSOUBA est le Directeur général de la Société immobilière du Cap Vert (SICAP SA)."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général de la Société d’Aménagement et de Promotion des Côtes et Zones touristiques du Sénégal (SAPCO SA) ?",
-        "options": [
-            "/nominations/serigne-mamadou-mboup-2.jfif",
-            "/nominations/pape-ale-niang.jfif",
-            "/nominations/waly-diouf-bodiang.jfif",
-            "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
-        ],
-        "answer": "/nominations/serigne-mamadou-mboup-2.jfif",
-        "explanation": "Serigne Mamadou MBOUP est le Directeur général de la Société d’Aménagement et de Promotion des Côtes et Zones touristiques du Sénégal (SAPCO SA)."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général de l’Agence de Développement et d’Encadrement des petites et moyennes entreprises (ADEPME) ?",
-        "options": [
-            "/nominations/marie-rose-faye.jfif",
-            "/nominations/pape-ale-niang.jfif",
-            "/nominations/waly-diouf-bodiang.jfif",
-            "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
-        ],
-        "answer": "/nominations/marie-rose-faye.jfif",
-        "explanation": "Marie Rose FAYE est le Directeur général de l’Agence de Développement et d’Encadrement des petites et moyennes entreprises (ADEPME)."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général de l’Agence nationale de la Petite enfance et de la Case des Tout-Petits ?",
-        "options": [
-            "/nominations/yaye-khadidiatou-djamila-diallo.jfif",
-            "/nominations/pape-ale-niang.jfif",
-            "/nominations/waly-diouf-bodiang.jfif",
-            "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
-        ],
-        "answer": "/nominations/yaye-khadidiatou-djamila-diallo.jfif",
-        "explanation": "Yaye Khadidiatou Djamila DIALLO est le Directeur général de l’Agence nationale de la Petite enfance et de la Case des Tout-Petits."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général de l’Agence nationale de l’Aménagement du Territoire (ANAT) ?",
-        "options": [
-            "/nominations/tidiane-sidibe.jpg",
-            "/nominations/pape-ale-niang.jfif",
-            "/nominations/waly-diouf-bodiang.jfif",
-            "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
-        ],
-        "answer": "/nominations/tidiane-sidibe.jpg",
-        "explanation": "Tidiane SIDIBE est le Directeur général de l’Agence nationale de l’Aménagement du Territoire (ANAT)."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général de l’Agence sénégalaise de Reforestation et de la Grande Muraille Verte (ASERGMV) ?",
-        "options": [
-            "/nominations/sekouna-diatta.jfif",
-            "/nominations/pape-ale-niang.jfif",
-            "/nominations/waly-diouf-bodiang.jfif",
-            "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
-        ],
-        "answer": "/nominations/sekouna-diatta.jfif",
-        "explanation": "Sékouna DIATTA est le Directeur général de l’Agence sénégalaise de Reforestation et de la Grande Muraille Verte (ASERGMV)."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général de l’Office national de l’Assainissement du Sénégal (ONAS) ?",
-        "options": [
-            "/nominations/chiekh-dieng.jfif",
-            "/nominations/pape-ale-niang.jfif",
-            "/nominations/waly-diouf-bodiang.jfif",
-            "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
-        ],
-        "answer": "/nominations/chiekh-dieng.jfif",
-        "explanation": "Docteur Cheikh DIENG est le Directeur général de l’Office national de l’Assainissement du Sénégal (ONAS)."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général de la Société nationale des Eaux du Sénégal (SONES) ?",
-        "options": [
-            "/nominations/abdoul-niang.jfif",
-            "/nominations/pape-ale-niang.jfif",
-            "/nominations/waly-diouf-bodiang.jfif",
-            "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
-        ],
-        "answer": "/nominations/abdoul-niang.jfif",
-        "explanation": "Abdoul NIANG est le Directeur général de la Société nationale des Eaux du Sénégal (SONES)."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général de la Société Africaine de Raffinage (SAR) ?",
-        "options": [
-            "/nominations/mamadou-abib-diop-3.jfif",
-            "/nominations/pape-ale-niang.jfif",
-            "/nominations/waly-diouf-bodiang.jfif",
-            "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
-        ],
-        "answer": "/nominations/mamadou-abib-diop-3.jfif",
-        "explanation": "Mamadou Abib DIOP est le Directeur général de la Société Africaine de Raffinage (SAR)."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général de la Société nationale des Chemins de Fer du Sénégal (CFS) ?",
-        "options": [
-            "/nominations/ibrahima-ba-2.jfif",
-            "/nominations/pape-ale-niang.jfif",
-            "/nominations/waly-diouf-bodiang.jfif",
-            "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
-        ],
-        "answer": "/nominations/ibrahima-ba-2.jfif",
-        "explanation": "Ibrahima BA est le Directeur général de la Société nationale des Chemins de Fer du Sénégal (CFS)."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général du Fonds Souverain d’Investissements Stratégiques (FONSIS) ?",
-        "options": [
-            "/nominations/babacar-ngning.jfif",
-            "/nominations/pape-ale-niang.jfif",
-            "/nominations/waly-diouf-bodiang.jfif",
-            "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
-        ],
-        "answer": "/nominations/babacar-ngning.jfif",
-        "explanation": "Babacar GNING est le Directeur général du Fonds Souverain d’Investissements Stratégiques (FONSIS)."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général de l'Autorité de Régulation des Télécommunications et des Postes (ARTP) ?",
-        "options": [
-            "/nominations/dahirou-thiam-2.jfif",
-            "/nominations/pape-ale-niang.jfif",
-            "/nominations/waly-diouf-bodiang.jfif",
-            "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
-        ],
-        "answer": "/nominations/dahirou-thiam-2.jfif",
-        "explanation": "Dahirou THIAM est le Directeur général de l'Autorité de Régulation des Télécommunications et des Postes (ARTP)."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général de la Société Dakar Dem Dikk ?",
-        "options": [
-            "/nominations/assane-mbengue.jfif",
-            "/nominations/pape-ale-niang.jfif",
-            "/nominations/waly-diouf-bodiang.jfif",
-            "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
-        ],
-        "answer": "/nominations/assane-mbengue.jfif",
-        "explanation": "Assane MBENGUE est le Directeur général de la Société Dakar Dem Dikk."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général de la Société des Mines du Sénégal (SOMISEN) ?",
-        "options": [
-            "/nominations/ngagne-demba-toure-2.jfif",
-            "/nominations/pape-ale-niang.jfif",
-            "/nominations/waly-diouf-bodiang.jfif",
-            "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
-        ],
-        "answer": "/nominations/ngagne-demba-toure-2.jfif",
-        "explanation": "Ngagne Demba TOURE est le Directeur général de la Société des Mines du Sénégal (SOMISEN)."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général de la Société anonyme Télédiffusion du Sénégal (TDS-SA) ?",
-        "options": [
-            "/nominations/aminata-sarr.jfif",
-            "/nominations/pape-ale-niang.jfif",
-            "/nominations/waly-diouf-bodiang.jfif",
-            "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
-        ],
-        "answer": "/nominations/aminata-sarr.jfif",
-        "explanation": "Aminata SARR est le Directeur général de la Société anonyme Télédiffusion du Sénégal (TDS-SA)."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général du Conseil Sénégalais des Chargeurs (COSEC) ?",
-        "options": [
-            "/nominations/ndeye-rokhaya-thiam-2.jfif",
-            "/nominations/pape-ale-niang.jfif",
-            "/nominations/waly-diouf-bodiang.jfif",
-            "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
-        ],
-        "answer": "/nominations/ndeye-rokhaya-thiam-2.jfif",
-        "explanation": "Ndeye Rokhaya THIAM est le Directeur général du Conseil Sénégalais des Chargeurs (COSEC)."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Ministre, Directeur de Cabinet du Président de la République ?",
-        "options": [
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/pape-birane-dieye.jfif",
-            "/nominations/ndeye-rokhaya-thiam-2.jfif",
-            "/nominations/mary-teuw-niane.jfif"
-        ],
-        "answer": "/nominations/mary-teuw-niane.jfif",
-        "explanation": "Mary Teuw NIANE est le Ministre, Directeur de Cabinet du Président de la République."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Ministre, Secrétaire Général de la Présidence de la République ?",
-        "options": [
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/pape-birane-dieye.jfif",
-            "/nominations/momath-talla-ndao.jfif",
-            "/nominations/omar-samba-ba.jfif"
-        ],
-        "answer": "/nominations/omar-samba-ba.jfif",
-        "explanation": "Oumar Samba BA est le Ministre, Secrétaire Général de la Présidence de la République."
-    },
-    {
-        "type": "image",
-        "question": "Qui est l'Aide de camp du Président de la République ?",
-        "options": [
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/premier-ministre-ousmane-sonko.jfif",
-            "/nominations/pape-birane-dieye.jfif"
-        ],
-        "answer": "/nominations/pape-birane-dieye.jfif",
-        "explanation": "Colonel Pape Birane DIEYE est l'Aide de camp du Président de la République."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Premier Ministre ?",
-        "options": [
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/pape-birane-dieye.jfif",
-            "/nominations/premier-ministre-ousmane-sonko.jfif"
-        ],
-        "answer": "/nominations/premier-ministre-ousmane-sonko.jfif",
-        "explanation": "Ousmane SONKO est le Premier Ministre."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Secrétaire d’État aux Sénégalais de l’Extérieur ?",
-        "options": [
-            "/nominations/ibrahima-thiam-3.jfif",
-            "/nominations/momath-talla-ndao.jfif",
-            "/nominations/alpha-ba.jfif",
-            "/nominations/amadou-cherif-diouf-2.jfif"
-        ],
-        "answer": "/nominations/amadou-cherif-diouf-2.jfif",
-        "explanation": "Amadou Chérif DIOUF est le Secrétaire d’État aux Sénégalais de l’Extérieur."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Secrétaire d’État au Développement des PME PMI ?",
-        "options": [
-            "/nominations/amadou-cherif-diouf-2.jfif",
-            "/nominations/momath-talla-ndao.jfif",
-            "/nominations/alpha-ba.jfif",
-            "/nominations/ibrahima-thiam-3.jfif"
-        ],
-        "answer": "/nominations/ibrahima-thiam-3.jfif",
-        "explanation": "Ibrahima THIAM est le Secrétaire d’État au Développement des PME PMI."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Secrétaire d’État à l’Urbanisme et au Logement ?",
-        "options": [
-            "/nominations/amadou-cherif-diouf-2.jfif",
-            "/nominations/ibrahima-thiam-3.jfif",
-            "/nominations/alpha-ba.jfif",
-            "/nominations/momath-talla-ndao.jfif"
-        ],
-        "answer": "/nominations/momath-talla-ndao.jfif",
-        "explanation": "Momath Talla NDAO est le Secrétaire d’État à l’Urbanisme et au Logement."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Secrétaire d’État aux Coopératives et à l’Encadrement paysan ?",
-        "options": [
-            "/nominations/amadou-cherif-diouf-2.jfif",
-            "/nominations/ibrahima-thiam-3.jfif",
-            "/nominations/momath-talla-ndao.jfif",
-            "/nominations/alpha-ba.jfif"
-        ],
-        "answer": "/nominations/alpha-ba.jfif",
-        "explanation": "Alpha BA est le Secrétaire d’État aux Coopératives et à l’Encadrement paysan."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Secrétaire d’État à la Culture, aux Industries créatives et au Patrimoine historique ?",
-        "options": [
-            "/nominations/amadou-cherif-diouf-2.jfif",
-            "/nominations/ibrahima-thiam-3.jfif",
-            "/nominations/momath-talla-ndao.jfif",
-            "/nominations/bakary-sarr.jfif"
-        ],
-        "answer": "/nominations/bakary-sarr.jfif",
-        "explanation": "Bacary SARR est le Secrétaire d’État à la Culture, aux Industries créatives et au Patrimoine historique."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Haut-Commandant de la Gendarmerie nationale et Directeur de la Justice Militaire ?",
-        "options": [
-            "/nominations/papa-diouf.jpg",
-            "/nominations/el-hadj-daouda-niang-2.jpg",
-            "/nominations/martin-faye.jfif",
-            "/nominations/bara-diouf.jfif"
-        ],
-        "answer": "/nominations/martin-faye.jfif",
-        "explanation": "Général de Division Martin Faye est le Haut-Commandant de la Gendarmerie nationale et Directeur de la Justice Militaire."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Haut-commandant en Second de la Gendarmerie nationale et Sous-directeur de la justice militaire ?",
-        "options": [
-            "/nominations/martin-faye.jfif",
-            "/nominations/el-hadj-daouda-niang-2.jpg",
-            "/nominations/bara-diouf.jfif",
-            "/nominations/papa-diouf.jpg"
-        ],
-        "answer": "/nominations/papa-diouf.jpg",
-        "explanation": "Papa DIOUF est le Haut-commandant en Second de la Gendarmerie nationale et Sous-directeur de la justice militaire."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Conseiller technique, Délégué général au Renseignement national ?",
-        "options": [
-            "/nominations/papa-diouf.jpg",
-            "/nominations/martin-faye.jfif",
-            "/nominations/bara-diouf.jfif",
-            "/nominations/el-hadj-daouda-niang-2.jpg"
-        ],
-        "answer": "/nominations/el-hadj-daouda-niang-2.jpg",
-        "explanation": "El Hadj Daouda NIANG est le Conseiller technique, Délégué général au Renseignement national."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Délégué général à la Promotion des Pôles Urbains de Diamniadio et du Lac Rose ?",
-        "options": [
-            "/nominations/papa-diouf.jpg",
-            "/nominations/martin-faye.jfif",
-            "/nominations/el-hadj-daouda-niang-2.jpg",
-            "/nominations/bara-diouf.jfif"
-        ],
-        "answer": "/nominations/bara-diouf.jfif",
-        "explanation": "Bara DIOUF est le Délégué général à la Promotion des Pôles Urbains de Diamniadio et du Lac Rose."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général de l’Agence pour la Promotion des Investissements et des Grands Travaux (APIX SA) ?",
-        "options": [
-            "/nominations/papa-diouf.jpg",
-            "/nominations/martin-faye.jfif",
-            "/nominations/el-hadj-daouda-niang-2.jpg",
-            "/nominations/bacary-sega-bathily.jfif"
-        ],
-        "answer": "/nominations/bacary-sega-bathily.jfif",
-        "explanation": "Bacary Sega BATHILY est le Directeur général de l’Agence pour la Promotion des Investissements et des Grands Travaux (APIX SA)."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur général de la Radiotélévision Sénégalaise (RTS) ?",
-        "options": [
-            "/nominations/papa-diouf.jpg",
-            "/nominations/martin-faye.jfif",
-            "/nominations/el-hadj-daouda-niang-2.jpg",
-            "/nominations/pape-ale-niang.jfif"
-        ],
-        "answer": "/nominations/pape-ale-niang.jfif",
-        "explanation": "Pape Alé NIANG est le Directeur général de la Radiotélévision Sénégalaise (RTS)."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Chef d’Etat-Major de l’Armée de terre ?",
-        "options": [
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/pape-birane-dieye.jfif",
-            "/nominations/général-magatte-ndiaye.jpg"
-        ],
-        "answer": "/nominations/général-magatte-ndiaye.jpg",
-        "explanation": "Général Magatte Ndiaye est le Chef d’Etat-Major de l’Armée de terre."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Président du Comité sénégalais des Droits de l’homme ?",
-        "options": [
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/pape-birane-dieye.jfif",
-            "/nominations/amsatou-sow-sidibe.jfif"
-        ],
-        "answer": "/nominations/amsatou-sow-sidibe.jfif",
-        "explanation": "Amsatou Sow SIDIBE est le Président du Comité sénégalais des Droits de l’homme."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Directeur du Centre international du Commerce extérieur du Sénégal (CICES) ?",
-        "options": [
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/pape-birane-dieye.jfif",
-            "/nominations/justin-correa.jfif"
-        ],
-        "answer": "/nominations/justin-correa.jfif",
-        "explanation": "Justin CORREA est le Directeur du Centre international du Commerce extérieur du Sénégal (CICES)."
-    },
-    {
-        "type": "image",
-        "question": "Qui est le Coordonnateur national du Programme de Modernisation et de Gestion des Marchés (PROMOGEM) ?",
-        "options": [
-            "/nominations/mary-teuw-niane.jfif",
-            "/nominations/omar-samba-ba.jfif",
-            "/nominations/pape-birane-dieye.jfif",
-            "/nominations/rougui-aladji-sow.jpeg"
-        ],
-        "answer": "/nominations/rougui-aladji-sow.jpeg",
-        "explanation": "Rougui Aladji SOW est le Coordonnateur national du Programme de Modernisation et de Gestion des Marchés (PROMOGEM)."
-    }
+  {
+    "type": "image",
+    "question": "Qui est le Ministre, Directeur de Cabinet du Président de la République ?",
+    "options": [
+      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/omar-samba-ba.jfif",
+      "/nominations/pape-birane-dieye.jfif",
+      "/nominations/sidy-alpha-ndiaye.jpeg"
+    ],
+    "answer": "/nominations/mary-teuw-niane.jfif",
+    "explanation": "Mary Teuw NIANE est le Ministre, Directeur de Cabinet du Président de la République."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre, Secrétaire Général de la Présidence de la République ?",
+    "options": [
+      "/nominations/omar-samba-ba.jfif",
+      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/pape-birane-dieye.jfif",
+      "/nominations/habib-sy.jfif"
+    ],
+    "answer": "/nominations/omar-samba-ba.jfif",
+    "explanation": "Oumar Samba BA est le Ministre, Secrétaire Général de la Présidence de la République."
+  },
+  {
+    "type": "image",
+    "question": "Qui est l'Aide de camp du Président de la République ?",
+    "options": [
+      "/nominations/pape-birane-dieye.jfif",
+      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/omar-samba-ba.jfif",
+      "nominations/outhmane-diagne.jpg"
+    ],
+    "answer": "/nominations/pape-birane-dieye.jfif",
+    "explanation": "Colonel Pape Birane DIEYE est l'Aide de camp du Président de la République."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre, Secrétaire général du Gouvernement ?",
+    "options": [
+      "/gouvernement/ministre-secretaire-general-Ahmadou-Al-Aminou-LO.jfif",
+      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/omar-samba-ba.jfif",
+      "/nominations/pape-birane-dieye.jfif"
+    ],
+    "answer": "/gouvernement/ministre-secretaire-general-Ahmadou-Al-Aminou-LO.jfif",
+    "explanation": "Ahmadou Al Aminou LO est le Ministre, Secrétaire général du Gouvernement."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de l’Intégration africaine et des Affaires étrangères ?",
+    "options": [
+      "/gouvernement/ministre-yassine-fall.jfif",
+      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/omar-samba-ba.jfif",
+      "/nominations/pape-birane-dieye.jfif"
+    ],
+    "answer": "/gouvernement/ministre-yassine-fall.jfif",
+    "explanation": "Madame Yassine FALL est le Ministre de l’Intégration africaine et des Affaires étrangères."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre des Forces armées ?",
+    "options": [
+      "/gouvernement/ministre-général-birame-diop.jfif",
+      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/omar-samba-ba.jfif",
+      "/nominations/pape-birane-dieye.jfif"
+    ],
+    "answer": "/gouvernement/ministre-général-birame-diop.jfif",
+    "explanation": "Général Birame DIOP est le Ministre des Forces armées."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de la Justice, Garde des Sceaux ?",
+    "options": [
+      "/gouvernement/ministre-ousmane-diagne.jfif",
+      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/omar-samba-ba.jfif",
+      "/nominations/pape-birane-dieye.jfif"
+    ],
+    "answer": "/gouvernement/ministre-ousmane-diagne.jfif",
+    "explanation": "Ousmane DIAGNE est le Ministre de la Justice, Garde des Sceaux."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de l’Intérieur et de la Sécurité publique ?",
+    "options": [
+      "/gouvernement/ministre-général-jean-baptiste-tine.jfif",
+      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/omar-samba-ba.jfif",
+      "/nominations/pape-birane-dieye.jfif"
+    ],
+    "answer": "/gouvernement/ministre-général-jean-baptiste-tine.jfif",
+    "explanation": "Général Jean Baptiste TINE est le Ministre de l’Intérieur et de la Sécurité publique."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de l’Énergie, du Pétrole et des Mines ?",
+    "options": [
+      "/gouvernement/ministre-birame-souleye-diop.jfif",
+      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/omar-samba-ba.jfif",
+      "/nominations/pape-birane-dieye.jfif"
+    ],
+    "answer": "/gouvernement/ministre-birame-souleye-diop.jfif",
+    "explanation": "Birame Souleye DIOP est le Ministre de l’Énergie, du Pétrole et des Mines."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de l’Économie du Plan et de la Coopération ?",
+    "options": [
+      "/gouvernement/ministre-abdourahmane-sarr.jfif",
+      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/omar-samba-ba.jfif",
+      "/nominations/pape-birane-dieye.jfif"
+    ],
+    "answer": "/gouvernement/ministre-abdourahmane-sarr.jfif",
+    "explanation": "Abdourahmane SARR est le Ministre de l’Économie du Plan et de la Coopération."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre des Finances et du Budget ?",
+    "options": [
+      "/gouvernement/ministre-cheikh-diba.jfif",
+      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/omar-samba-ba.jfif",
+      "/nominations/pape-birane-dieye.jfif"
+    ],
+    "answer": "/gouvernement/ministre-cheikh-diba.jfif",
+    "explanation": "Cheikh DIBA est le Ministre des Finances et du Budget."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre des Infrastructures, des Transports terrestres et aériens ?",
+    "options": [
+      "/gouvernement/ministre-malick-ndiaye.jfif",
+      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/omar-samba-ba.jfif",
+      "/nominations/pape-birane-dieye.jfif"
+    ],
+    "answer": "/gouvernement/ministre-malick-ndiaye.jfif",
+    "explanation": "Malick NDIAYE est le Ministre des Infrastructures, des Transports terrestres et aériens."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de l’Environnement et de la Transition écologique ?",
+    "options": [
+      "/gouvernement/ministre-daouda-ngom.jfif",
+      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/omar-samba-ba.jfif",
+      "/nominations/pape-birane-dieye.jfif"
+    ],
+    "answer": "/gouvernement/ministre-daouda-ngom.jfif",
+    "explanation": "Daouda NGOM est le Ministre de l’Environnement et de la Transition écologique."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de la Formation professionnelle et Porte-parole du Gouvernement ?",
+    "options": [
+      "/gouvernement/ministre-amadou-moustapha-ndieck-sarre.jfif",
+      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/omar-samba-ba.jfif",
+      "/nominations/pape-birane-dieye.jfif"
+    ],
+    "answer": "/gouvernement/ministre-amadou-moustapha-ndieck-sarre.jfif",
+    "explanation": "Amadou Moustapha Ndieck SARRE est le Ministre de la Formation professionnelle et Porte-parole du Gouvernement."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de l‘Hydraulique et de l’Assainissement ?",
+    "options": [
+      "/gouvernement/ministre-cheikh-tidiane-dieye.jfif",
+      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/omar-samba-ba.jfif",
+      "/nominations/pape-birane-dieye.jfif"
+    ],
+    "answer": "/gouvernement/ministre-cheikh-tidiane-dieye.jfif",
+    "explanation": "Cheikh Tidiane DIEYE est le Ministre de l‘Hydraulique et de l’Assainissement."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de la Communication, des Télécommunications et du Numérique ?",
+    "options": [
+      "/gouvernement/ministre-alione-sall.jfif",
+      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/omar-samba-ba.jfif",
+      "/nominations/pape-birane-dieye.jfif"
+    ],
+    "answer": "/gouvernement/ministre-alione-sall.jfif",
+    "explanation": "Alioune SALL est le Ministre de la Communication, des Télécommunications et du Numérique."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de l’Enseignement supérieur, de la Recherche et de l’Innovation ?",
+    "options": [
+      "/gouvernement/ministre-elhadj-abdourahmane-diouf.jfif",
+      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/omar-samba-ba.jfif",
+      "/nominations/pape-birane-dieye.jfif"
+    ],
+    "answer": "/gouvernement/ministre-elhadj-abdourahmane-diouf.jfif",
+    "explanation": "Elhadj Abdourahmane DIOUF est le Ministre de l’Enseignement supérieur, de la Recherche et de l’Innovation."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Radiotélévision Sénégalaise (RTS) ?",
+    "options": [
+      "/nominations/bacary-sega-bathily.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
+      "/nominations/pape-ale-niang.jfif"
+    ],
+    "answer": "/nominations/pape-ale-niang.jfif",
+    "explanation": "Pape Alé NIANG est le Directeur général de la Radiotélévision Sénégalaise (RTS)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société nationale du Port Autonome de Dakar ?",
+    "options": [
+      "/nominations/bacary-sega-bathily.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
+      "/nominations/waly-diouf-bodiang.jfif"
+    ],
+    "answer": "/nominations/waly-diouf-bodiang.jfif",
+    "explanation": "Waly DIOUF BODIANG est le Directeur général de la Société nationale du Port Autonome de Dakar."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de l'Aéroport International Blaise DIAGNE (AIBD) ?",
+    "options": [
+      "/nominations/bacary-sega-bathily.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
+    ],
+    "answer": "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
+    "explanation": "Cheikh Mamadou Abiboulaye DIEYE est le Directeur général de l'Aéroport International Blaise DIAGNE (AIBD)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Caisse des Dépôts et Consignations (CDC) ?",
+    "options": [
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
+      "/nominations/fadilou-keita.jfif"
+    ],
+    "answer": "/nominations/fadilou-keita.jfif",
+    "explanation": "Fadilou KEITA est le Directeur général de la Caisse des Dépôts et Consignations (CDC)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société nationale La Poste ?",
+    "options": [
+      "/nominations/maguette-kane.jpeg",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
+    ],
+    "answer": "/nominations/maguette-kane.jpeg",
+    "explanation": "Maguette KANE est le Directeur général de la Société nationale La Poste."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société nationale des Habitations à Loyer Modéré (SN HLM) ?",
+    "options": [
+      "/nominations/bassirou-kebe.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
+    ],
+    "answer": "/nominations/bassirou-kebe.jfif",
+    "explanation": "Bassirou KEBE est le Directeur général de la Société nationale des Habitations à Loyer Modéré (SN HLM)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société immobilière du Cap Vert (SICAP SA) ?",
+    "options": [
+      "/nominations/mouhamadou-moctar-magassouba.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
+    ],
+    "answer": "/nominations/mouhamadou-moctar-magassouba.jfif",
+    "explanation": "Mouhamadou Moctar MAGASSOUBA est le Directeur général de la Société immobilière du Cap Vert (SICAP SA)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société d’Aménagement et de Promotion des Côtes et Zones touristiques du Sénégal (SAPCO SA) ?",
+    "options": [
+      "/nominations/serigne-mamadou-mboup-2.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
+    ],
+    "answer": "/nominations/serigne-mamadou-mboup-2.jfif",
+    "explanation": "Serigne Mamadou MBOUP est le Directeur général de la Société d’Aménagement et de Promotion des Côtes et Zones touristiques du Sénégal (SAPCO SA)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de l’Agence de Développement et d’Encadrement des petites et moyennes entreprises (ADEPME) ?",
+    "options": [
+      "/nominations/marie-rose-faye.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
+    ],
+    "answer": "/nominations/marie-rose-faye.jfif",
+    "explanation": "Marie Rose FAYE est le Directeur général de l’Agence de Développement et d’Encadrement des petites et moyennes entreprises (ADEPME)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de l’Agence nationale de la Petite enfance et de la Case des Tout-Petits ?",
+    "options": [
+      "/nominations/yaye-khadidiatou-djamila-diallo.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
+    ],
+    "answer": "/nominations/yaye-khadidiatou-djamila-diallo.jfif",
+    "explanation": "Yaye Khadidiatou Djamila DIALLO est le Directeur général de l’Agence nationale de la Petite enfance et de la Case des Tout-Petits."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de l’Agence nationale de l’Aménagement du Territoire (ANAT) ?",
+    "options": [
+      "/nominations/tidiane-sidibe.jpg",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
+    ],
+    "answer": "/nominations/tidiane-sidibe.jpg",
+    "explanation": "Tidiane SIDIBE est le Directeur général de l’Agence nationale de l’Aménagement du Territoire (ANAT)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de l’Agence sénégalaise de Reforestation et de la Grande Muraille Verte (ASERGMV) ?",
+    "options": [
+      "/nominations/sekouna-diatta.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
+    ],
+    "answer": "/nominations/sekouna-diatta.jfif",
+    "explanation": "Sékouna DIATTA est le Directeur général de l’Agence sénégalaise de Reforestation et de la Grande Muraille Verte (ASERGMV)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de l’Office national de l’Assainissement du Sénégal (ONAS) ?",
+    "options": [
+      "/nominations/chiekh-dieng.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
+    ],
+    "answer": "/nominations/chiekh-dieng.jfif",
+    "explanation": "Docteur Cheikh DIENG est le Directeur général de l’Office national de l’Assainissement du Sénégal (ONAS)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société nationale des Eaux du Sénégal (SONES) ?",
+    "options": [
+      "/nominations/abdoul-niang.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
+    ],
+    "answer": "/nominations/abdoul-niang.jfif",
+    "explanation": "Abdoul NIANG est le Directeur général de la Société nationale des Eaux du Sénégal (SONES)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société Africaine de Raffinage (SAR) ?",
+    "options": [
+      "/nominations/mamadou-abib-diop-3.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
+    ],
+    "answer": "/nominations/mamadou-abib-diop-3.jfif",
+    "explanation": "Mamadou Abib DIOP est le Directeur général de la Société Africaine de Raffinage (SAR)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société nationale des Chemins de Fer du Sénégal (CFS) ?",
+    "options": [
+      "/nominations/ibrahima-ba-2.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
+    ],
+    "answer": "/nominations/ibrahima-ba-2.jfif",
+    "explanation": "Ibrahima BA est le Directeur général de la Société nationale des Chemins de Fer du Sénégal (CFS)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Directeur général du Fonds Souverain d’Investissements Stratégiques (FONSIS) ?",
+    "options": [
+      "/nominations/babacar-ngning.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
+    ],
+    "answer": "/nominations/babacar-ngning.jfif",
+    "explanation": "Babacar GNING est le Directeur général du Fonds Souverain d’Investissements Stratégiques (FONSIS)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de l'Autorité de Régulation des Télécommunications et des Postes (ARTP) ?",
+    "options": [
+      "/nominations/dahirou-thiam-2.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
+    ],
+    "answer": "/nominations/dahirou-thiam-2.jfif",
+    "explanation": "Dahirou THIAM est le Directeur général de l'Autorité de Régulation des Télécommunications et des Postes (ARTP)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société Dakar Dem Dikk ?",
+    "options": [
+      "/nominations/assane-mbengue.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
+    ],
+    "answer": "/nominations/assane-mbengue.jfif",
+    "explanation": "Assane MBENGUE est le Directeur général de la Société Dakar Dem Dikk."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société des Mines du Sénégal (SOMISEN) ?",
+    "options": [
+      "/nominations/ngagne-demba-toure-2.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
+    ],
+    "answer": "/nominations/ngagne-demba-toure-2.jfif",
+    "explanation": "Ngagne Demba TOURE est le Directeur général de la Société des Mines du Sénégal (SOMISEN)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société anonyme Télédiffusion du Sénégal (TDS-SA) ?",
+    "options": [
+      "/nominations/aminata-sarr.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
+    ],
+    "answer": "/nominations/aminata-sarr.jfif",
+    "explanation": "Aminata SARR est le Directeur général de la Société anonyme Télédiffusion du Sénégal (TDS-SA)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Directeur général du Conseil Sénégalais des Chargeurs (COSEC) ?",
+    "options": [
+      "/nominations/ndeye-rokhaya-thiam-2.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
+    ],
+    "answer": "/nominations/ndeye-rokhaya-thiam-2.jfif",
+    "explanation": "Ndeye Rokhaya THIAM est le Directeur général du Conseil Sénégalais des Chargeurs (COSEC)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Secrétaire d’État aux Sénégalais de l’Extérieur ?",
+    "options": [
+      "/nominations/ibrahima-thiam-3.jfif",
+      "/nominations/momath-talla-ndao.jfif",
+      "/nominations/alpha-ba.jfif",
+      "/nominations/amadou-cherif-diouf-2.jfif"
+    ],
+    "answer": "/nominations/amadou-cherif-diouf-2.jfif",
+    "explanation": "Amadou Chérif DIOUF est le Secrétaire d’État aux Sénégalais de l’Extérieur."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Secrétaire d’État au Développement des PME PMI ?",
+    "options": [
+      "/nominations/amadou-cherif-diouf-2.jfif",
+      "/nominations/momath-talla-ndao.jfif",
+      "/nominations/alpha-ba.jfif",
+      "/nominations/ibrahima-thiam-3.jfif"
+    ],
+    "answer": "/nominations/ibrahima-thiam-3.jfif",
+    "explanation": "Ibrahima THIAM est le Secrétaire d’État au Développement des PME PMI."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Secrétaire d’État à l’Urbanisme et au Logement ?",
+    "options": [
+      "/nominations/amadou-cherif-diouf-2.jfif",
+      "/nominations/ibrahima-thiam-3.jfif",
+      "/nominations/alpha-ba.jfif",
+      "/nominations/momath-talla-ndao.jfif"
+    ],
+    "answer": "/nominations/momath-talla-ndao.jfif",
+    "explanation": "Momath Talla NDAO est le Secrétaire d’État à l’Urbanisme et au Logement."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Secrétaire d’État aux Coopératives et à l’Encadrement paysan ?",
+    "options": [
+      "/nominations/amadou-cherif-diouf-2.jfif",
+      "/nominations/ibrahima-thiam-3.jfif",
+      "/nominations/momath-talla-ndao.jfif",
+      "/nominations/alpha-ba.jfif"
+    ],
+    "answer": "/nominations/alpha-ba.jfif",
+    "explanation": "Alpha BA est le Secrétaire d’État aux Coopératives et à l’Encadrement paysan."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Secrétaire d’État à la Culture, aux Industries créatives et au Patrimoine historique ?",
+    "options": [
+      "/nominations/amadou-cherif-diouf-2.jfif",
+      "/nominations/ibrahima-thiam-3.jfif",
+      "/nominations/momath-talla-ndao.jfif",
+      "/nominations/bakary-sarr.jfif"
+    ],
+    "answer": "/nominations/bakary-sarr.jfif",
+    "explanation": "Bacary SARR est le Secrétaire d’État à la Culture, aux Industries créatives et au Patrimoine historique."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Haut-Commandant de la Gendarmerie nationale et Directeur de la Justice Militaire ?",
+    "options": [
+      "/nominations/papa-diouf.jpg",
+      "/nominations/el-hadj-daouda-niang-2.jpg",
+      "/nominations/martin-faye.jfif",
+      "/nominations/bara-diouf.jfif"
+    ],
+    "answer": "/nominations/martin-faye.jfif",
+    "explanation": "Général de Division Martin Faye est le Haut-Commandant de la Gendarmerie nationale et Directeur de la Justice Militaire."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Haut-commandant en Second de la Gendarmerie nationale et Sous-directeur de la justice militaire ?",
+    "options": [
+      "/nominations/martin-faye.jfif",
+      "/nominations/el-hadj-daouda-niang-2.jpg",
+      "/nominations/bara-diouf.jfif",
+      "/nominations/papa-diouf.jpg"
+    ],
+    "answer": "/nominations/papa-diouf.jpg",
+    "explanation": "Papa DIOUF est le Haut-commandant en Second de la Gendarmerie nationale et Sous-directeur de la justice militaire."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Conseiller technique, Délégué général au Renseignement national ?",
+    "options": [
+      "/nominations/papa-diouf.jpg",
+      "/nominations/martin-faye.jfif",
+      "/nominations/bara-diouf.jfif",
+      "/nominations/el-hadj-daouda-niang-2.jpg"
+    ],
+    "answer": "/nominations/el-hadj-daouda-niang-2.jpg",
+    "explanation": "El Hadj Daouda NIANG est le Conseiller technique, Délégué général au Renseignement national."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Délégué général à la Promotion des Pôles Urbains de Diamniadio et du Lac Rose ?",
+    "options": [
+      "/nominations/papa-diouf.jpg",
+      "/nominations/martin-faye.jfif",
+      "/nominations/el-hadj-daouda-niang-2.jpg",
+      "/nominations/bara-diouf.jfif"
+    ],
+    "answer": "/nominations/bara-diouf.jfif",
+    "explanation": "Bara DIOUF est le Délégué général à la Promotion des Pôles Urbains de Diamniadio et du Lac Rose."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de l’Agence pour la Promotion des Investissements et des Grands Travaux (APIX SA) ?",
+    "options": [
+      "/nominations/papa-diouf.jpg",
+      "/nominations/martin-faye.jfif",
+      "/nominations/el-hadj-daouda-niang-2.jpg",
+      "/nominations/bacary-sega-bathily.jfif"
+    ],
+    "answer": "/nominations/bacary-sega-bathily.jfif",
+    "explanation": "Bacary Sega BATHILY est le Directeur général de l’Agence pour la Promotion des Investissements et des Grands Travaux (APIX SA)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Chef d’Etat-Major de l’Armée de terre ?",
+    "options": [
+      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/omar-samba-ba.jfif",
+      "/nominations/pape-birane-dieye.jfif",
+      "/nominations/général-magatte-ndiaye.jpg"
+    ],
+    "answer": "/nominations/général-magatte-ndiaye.jpg",
+    "explanation": "Général Magatte Ndiaye est le Chef d’Etat-Major de l’Armée de terre."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Président du Comité sénégalais des Droits de l’homme ?",
+    "options": [
+      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/omar-samba-ba.jfif",
+      "/nominations/pape-birane-dieye.jfif",
+      "/nominations/amsatou-sow-sidibe.jfif"
+    ],
+    "answer": "/nominations/amsatou-sow-sidibe.jfif",
+    "explanation": "Amsatou Sow SIDIBE est le Président du Comité sénégalais des Droits de l’homme."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Directeur du Centre international du Commerce extérieur du Sénégal (CICES) ?",
+    "options": [
+      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/omar-samba-ba.jfif",
+      "/nominations/pape-birane-dieye.jfif",
+      "/nominations/justin-correa.jfif"
+    ],
+    "answer": "/nominations/justin-correa.jfif",
+    "explanation": "Justin CORREA est le Directeur du Centre international du Commerce extérieur du Sénégal (CICES)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Coordonnateur national du Programme de Modernisation et de Gestion des Marchés (PROMOGEM) ?",
+    "options": [
+      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/omar-samba-ba.jfif",
+      "/nominations/pape-birane-dieye.jfif",
+      "/nominations/rougui-aladji-sow.jpeg"
+    ],
+    "answer": "/nominations/rougui-aladji-sow.jpeg",
+    "explanation": "Rougui Aladji SOW est le Coordonnateur national du Programme de Modernisation et de Gestion des Marchés (PROMOGEM)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Premier Ministre ?",
+    "options": [
+      "/nominations/premier-ministre-ousmane-sonko.jfif",
+      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/omar-samba-ba.jfif",
+      "/nominations/pape-birane-dieye.jfif"
+    ],
+    "answer": "/nominations/premier-ministre-ousmane-sonko.jfif",
+    "explanation": "Ousmane SONKO est le Premier Ministre."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de l’Intégration africaine et des Affaires étrangères ?",
+    "options": [
+      "/gouvernement/ministre-yassine-fall.jfif",
+      "/gouvernement/ministre-général-birame-diop.jfif",
+      "/gouvernement/ministre-ousmane-diagne.jpg",
+      "/gouvernement/ministre-général-jean-baptiste-tine.jfif"
+    ],
+    "answer": "/gouvernement/ministre-yassine-fall.jfif",
+    "explanation": "Madame Yassine FALL est la Ministre de l’Intégration africaine et des Affaires étrangères."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre des Forces armées ?",
+    "options": [
+      "/gouvernement/ministre-yassine-fall.jfif",
+      "/gouvernement/ministre-général-birame-diop.jfif",
+      "/gouvernement/ministre-ousmane-diagne.jpg",
+      "/gouvernement/ministre-général-jean-baptiste-tine.jfif"
+    ],
+    "answer": "/gouvernement/ministre-général-birame-diop.jfif",
+    "explanation": "Général Birame DIOP est le Ministre des Forces armées."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de la Justice, Garde des Sceaux ?",
+    "options": [
+      "/gouvernement/ministre-yassine-fall.jfif",
+      "/gouvernement/ministre-général-birame-diop.jfif",
+      "/gouvernement/ministre-ousmane-diagne.jpg",
+      "/gouvernement/ministre-général-jean-baptiste-tine.jfif"
+    ],
+    "answer": "/gouvernement/ministre-ousmane-diagne.jpg",
+    "explanation": "Ousmane DIAGNE est le Ministre de la Justice, Garde des Sceaux."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de l’Intérieur et de la Sécurité publique ?",
+    "options": [
+      "/gouvernement/ministre-yassine-fall.jfif",
+      "/gouvernement/ministre-général-birame-diop.jfif",
+      "/gouvernement/ministre-ousmane-diagne.jpg",
+      "/gouvernement/ministre-général-jean-baptiste-tine.jfif"
+    ],
+    "answer": "/gouvernement/ministre-général-jean-baptiste-tine.jfif",
+    "explanation": "Général Jean Baptiste TINE est le Ministre de l’Intérieur et de la Sécurité publique."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de l’Énergie, du Pétrole et des Mines ?",
+    "options": [
+      "/gouvernement/ministre-birame-souleye-diop.jfif",
+      "/gouvernement/ministre-abdourahmane-sarr.jfif",
+      "/gouvernement/ministre-cheikh-diba.jfif",
+      "/gouvernement/ministre-malick-ndiaye.jfif"
+    ],
+    "answer": "/gouvernement/ministre-birame-souleye-diop.jfif",
+    "explanation": "Birame Souleye DIOP est le Ministre de l’Énergie, du Pétrole et des Mines."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de l’Économie du Plan et de la Coopération ?",
+    "options": [
+      "/gouvernement/ministre-birame-souleye-diop.jfif",
+      "/gouvernement/ministre-abdourahmane-sarr.jfif",
+      "/gouvernement/ministre-cheikh-diba.jfif",
+      "/gouvernement/ministre-malick-ndiaye.jfif"
+    ],
+    "answer": "/gouvernement/ministre-abdourahmane-sarr.jfif",
+    "explanation": "Abdourahmane SARR est le Ministre de l’Économie du Plan et de la Coopération."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre des Finances et du Budget ?",
+    "options": [
+      "/gouvernement/ministre-birame-souleye-diop.jfif",
+      "/gouvernement/ministre-abdourahmane-sarr.jfif",
+      "/gouvernement/ministre-cheikh-diba.jfif",
+      "/gouvernement/ministre-malick-ndiaye.jfif"
+    ],
+    "answer": "/gouvernement/ministre-cheikh-diba.jfif",
+    "explanation": "Cheikh DIBA est le Ministre des Finances et du Budget."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre des Infrastructures, des Transports terrestres et aériens ?",
+    "options": [
+      "/gouvernement/ministre-birame-souleye-diop.jfif",
+      "/gouvernement/ministre-abdourahmane-sarr.jfif",
+      "/gouvernement/ministre-cheikh-diba.jfif",
+      "/gouvernement/ministre-malick-ndiaye.jfif"
+    ],
+    "answer": "/gouvernement/ministre-malick-ndiaye.jfif",
+    "explanation": "Malick NDIAYE est le Ministre des Infrastructures, des Transports terrestres et aériens."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de l’Environnement et de la Transition écologique ?",
+    "options": [
+      "/gouvernement/ministre-daouda-ngom.jfif",
+      "/gouvernement/ministre-amadou-moustapha-ndieck-sarre.jfif",
+      "/gouvernement/ministre-cheikh-tidiane-dieye.jfif",
+      "/gouvernement/ministre-alione-sall.jfif"
+    ],
+    "answer": "/gouvernement/ministre-daouda-ngom.jfif",
+    "explanation": "Daouda NGOM est le Ministre de l’Environnement et de la Transition écologique."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de la Formation professionnelle et Porte-parole du Gouvernement ?",
+    "options": [
+      "/gouvernement/ministre-daouda-ngom.jfif",
+      "/gouvernement/ministre-amadou-moustapha-ndieck-sarre.jfif",
+      "/gouvernement/ministre-cheikh-tidiane-dieye.jfif",
+      "/gouvernement/ministre-alione-sall.jfif"
+    ],
+    "answer": "/gouvernement/ministre-amadou-moustapha-ndieck-sarre.jfif",
+    "explanation": "Amadou Moustapha Ndieck SARRE est le Ministre de la Formation professionnelle et Porte-parole du Gouvernement."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de l‘Hydraulique et de l’Assainissement ?",
+    "options": [
+      "/gouvernement/ministre-daouda-ngom.jfif",
+      "/gouvernement/ministre-amadou-moustapha-ndieck-sarre.jfif",
+      "/gouvernement/ministre-cheikh-tidiane-dieye.jfif",
+      "/gouvernement/ministre-alione-sall.jfif"
+    ],
+    "answer": "/gouvernement/ministre-cheikh-tidiane-dieye.jfif",
+    "explanation": "Cheikh Tidiane DIEYE est le Ministre de l‘Hydraulique et de l’Assainissement."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de la Communication, des Télécommunications et du Numérique ?",
+    "options": [
+      "/gouvernement/ministre-daouda-ngom.jfif",
+      "/gouvernement/ministre-amadou-moustapha-ndieck-sarre.jfif",
+      "/gouvernement/ministre-cheikh-tidiane-dieye.jfif",
+      "/gouvernement/ministre-alione-sall.jfif"
+    ],
+    "answer": "/gouvernement/ministre-alione-sall.jfif",
+    "explanation": "Alioune SALL est le Ministre de la Communication, des Télécommunications et du Numérique."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de l’Enseignement supérieur, de la Recherche et de l’Innovation ?",
+    "options": [
+      "/gouvernement/ministre-elhadj-abdourahmane-diouf.jfif",
+      "/gouvernement/ministre-serigne-gueye-diop.jfif",
+      "/gouvernement/ministre-amadou-moustapha-ndieck-sarre.jfif",
+      "/nominations/sidy-alpha-ndiaye.jpeg"
+    ],
+    "answer": "/gouvernement/ministre-elhadj-abdourahmane-diouf.jfif",
+    "explanation": "Elhadj Abdourahmane DIOUF est le Ministre de l’Enseignement supérieur, de la Recherche et de l’Innovation."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de l’Industrie et du Commerce ?",
+    "options": [
+      "/gouvernement/ministre-elhadj-abdourahmane-diouf.jfif",
+      "/gouvernement/ministre-serigne-gueye-diop.jfif",
+      "/gouvernement/ministre-fatou-diouf.jfif",
+      "/gouvernement/ministre-maimouna-dièye.jfif"
+    ],
+    "answer": "/gouvernement/ministre-serigne-gueye-diop.jfif",
+    "explanation": "Serigne Gueye DIOP est le Ministre de l’Industrie et du Commerce."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre des Pêches, des Infrastructures maritimes et portuaires ?",
+    "options": [
+      "/gouvernement/ministre-elhadj-abdourahmane-diouf.jfif",
+      "/gouvernement/ministre-serigne-gueye-diop.jfif",
+      "/gouvernement/ministre-fatou-diouf.jfif",
+      "/gouvernement/ministre-maimouna-dièye.jfif"
+    ],
+    "answer": "/gouvernement/ministre-fatou-diouf.jfif",
+    "explanation": "Fatou DIOUF est la Ministre des Pêches, des Infrastructures maritimes et portuaires."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de la Famille et des Solidarités ?",
+    "options": [
+      "/nominations/yaye-khadidiatou-djamila-diallo.jfif",
+      "/nominations/aminata-sarr.jfif",
+      "/gouvernement/ministre-fatou-diouf.jfif",
+      "/gouvernement/ministre-maimouna-dièye.jfif"
+    ],
+    "answer": "/gouvernement/ministre-maimouna-dièye.jfif",
+    "explanation": "Maimouna DIEYE est la Ministre de la Famille et des Solidarités."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre du Travail, de l’Emploi et des Relations avec les Institutions ?",
+    "options": [
+      "/gouvernement/ministre-yankhoba-dieme.jfif",
+      "/gouvernement/ministre-balla-moussa-fofana.jfif",
+      "/gouvernement/ministre-moustapha-mamba-guirassy.jfif",
+      "/gouvernement/ministre-ibrayima-sy.jfif"
+    ],
+    "answer": "/gouvernement/ministre-yankhoba-dieme.jfif",
+    "explanation": "Yankhoba DIEME est le Ministre du Travail, de l’Emploi et des Relations avec les Institutions."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de l’Urbanisme, des Collectivités territoriales et de l’Aménagement des Territoires ?",
+    "options": [
+      "/gouvernement/ministre-yankhoba-dieme.jfif",
+      "/gouvernement/ministre-balla-moussa-fofana.jfif",
+      "/gouvernement/ministre-moustapha-mamba-guirassy.jfif",
+      "/gouvernement/ministre-ibrayima-sy.jfif"
+    ],
+    "answer": "/gouvernement/ministre-balla-moussa-fofana.jfif",
+    "explanation": "Balla Moussa FOFANA est le Ministre de l’Urbanisme, des Collectivités territoriales et de l’Aménagement des Territoires."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de l’Education nationale ?",
+    "options": [
+      "/gouvernement/ministre-yankhoba-dieme.jfif",
+      "/gouvernement/ministre-balla-moussa-fofana.jfif",
+      "/gouvernement/ministre-moustapha-mamba-guirassy.jfif",
+      "/gouvernement/ministre-ibrayima-sy.jfif"
+    ],
+    "answer": "/gouvernement/ministre-moustapha-mamba-guirassy.jfif",
+    "explanation": "Moustapha Mamba GUIRASSY est le Ministre de l’Education nationale."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de la Santé et de l’Action sociale ?",
+    "options": [
+      "/gouvernement/ministre-yankhoba-dieme.jfif",
+      "/gouvernement/ministre-balla-moussa-fofana.jfif",
+      "/gouvernement/ministre-moustapha-mamba-guirassy.jfif",
+      "/gouvernement/ministre-ibrayima-sy.jfif"
+    ],
+    "answer": "/gouvernement/ministre-ibrayima-sy.jfif",
+    "explanation": "Ibrahima SY est le Ministre de la Santé et de l’Action sociale."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de la Fonction publique et de la Réforme du Service public ?",
+    "options": [
+      "/nominations/marie-rose-faye.jfif",
+      "/gouvernement/ministre-Khady-Diène-Gaye.jpg",
+      "/gouvernement/ministre-fatou-diouf.jfif",
+      "/gouvernement/ministre-maimouna-dièye.jfif"
+    ],
+    "answer": "/gouvernement/ministre-olivier-boucal.jfif",
+    "explanation": "Olivier BOUCAL est le Ministre de la Fonction publique et de la Réforme du Service public."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de la Jeunesse, des Sports et de la Culture ?",
+    "options": [
+      "/gouvernement/ministre-olivier-boucal.jfif",
+      "/gouvernement/ministre-Khady-Diène-Gaye.jpg",
+      "/gouvernement/ministre-fatou-diouf.jfif",
+      "/gouvernement/ministre-alioune-dione.jfif"
+    ],
+    "answer": "/gouvernement/ministre-Khady-Diène-Gaye.jpg",
+    "explanation": "Khady Diene GAYE est la Ministre de la Jeunesse, des Sports et de la Culture."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de l’Agriculture, de la Souveraineté alimentaire et de l’Elevage ?",
+    "options": [
+      "/gouvernement/ministre-olivier-boucal.jfif",
+      "/gouvernement/ministre-Khady-Diène-Gaye.jpg",
+      "/gouvernement/ministre-mabouba-diagne.jfif",
+      "/gouvernement/ministre-alioune-dione.jfif"
+    ],
+    "answer": "/gouvernement/ministre-mabouba-diagne.jfif",
+    "explanation": "Mabouba DIAGNE est le Ministre de l’Agriculture, de la Souveraineté alimentaire et de l’Elevage."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de la Microfinance, de l’Economie sociale et solidaire ?",
+    "options": [
+      "/gouvernement/ministre-olivier-boucal.jfif",
+      "/gouvernement/ministre-Khady-Diène-Gaye.jpg",
+      "/gouvernement/ministre-mabouba-diagne.jfif",
+      "/gouvernement/ministre-alioune-dione.jfif"
+    ],
+    "answer": "/gouvernement/ministre-alioune-dione.jfif",
+    "explanation": "Alioune DIONE est le Ministre de la Microfinance, de l’Economie sociale et solidaire."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Secrétaire d’État aux Sénégalais de l’Extérieur ?",
+    "options": [
+      "/nominations/amadou-cherif-diouf-2.jfif",
+      "/nominations/ibrahima-thiam-3.jfif",
+      "/nominations/momath-talla-ndao.jfif",
+      "/nominations/alpha-ba.jfif"
+    ],
+    "answer": "/nominations/amadou-cherif-diouf-2.jfif",
+    "explanation": "Amadou Chérif DIOUF est le Secrétaire d’État aux Sénégalais de l’Extérieur."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Secrétaire d’État au Développement des PME PMI ?",
+    "options": [
+      "/nominations/amadou-cherif-diouf-2.jfif",
+      "/nominations/ibrahima-thiam-3.jfif",
+      "/nominations/momath-talla-ndao.jfif",
+      "/nominations/alpha-ba.jfif"
+    ],
+    "answer": "/nominations/ibrahima-thiam-3.jfif",
+    "explanation": "Ibrahima THIAM est le Secrétaire d’État au Développement des PME PMI."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Secrétaire d’État à l’Urbanisme et au Logement ?",
+    "options": [
+      "/nominations/amadou-cherif-diouf-2.jfif",
+      "/nominations/ibrahima-thiam-3.jfif",
+      "/nominations/momath-talla-ndao.jfif",
+      "/nominations/alpha-ba.jfif"
+    ],
+    "answer": "/nominations/momath-talla-ndao.jfif",
+    "explanation": "Momath Talla NDAO est le Secrétaire d’État à l’Urbanisme et au Logement."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Secrétaire d’État aux Coopératives et à l’Encadrement paysan ?",
+    "options": [
+      "/nominations/amadou-cherif-diouf-2.jfif",
+      "/nominations/ibrahima-thiam-3.jfif",
+      "/nominations/momath-talla-ndao.jfif",
+      "/nominations/alpha-ba.jfif"
+    ],
+    "answer": "/nominations/alpha-ba.jfif",
+    "explanation": "Alpha BA est le Secrétaire d’État aux Coopératives et à l’Encadrement paysan."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Secrétaire d’État à la Culture, aux Industries créatives et au Patrimoine historique ?",
+    "options": [
+      "/nominations/bakary-sarr.jfif",
+      "/nominations/amadou-cherif-diouf-2.jfif",
+      "/nominations/ibrahima-thiam-3.jfif",
+      "/nominations/momath-talla-ndao.jfif"
+    ],
+    "answer": "/nominations/bakary-sarr.jfif",
+    "explanation": "Bacary SARR est le Secrétaire d’État à la Culture, aux Industries créatives et au Patrimoine historique."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Haut-Commandant de la Gendarmerie nationale et Directeur de la Justice Militaire ?",
+    "options": [
+      "/nominations/martin-faye.jfif",
+      "/nominations/papa-diouf.jpg",
+      "/nominations/el-hadj-daouda-niang-2.jpg",
+      "/nominations/bara-diouf.jfif"
+    ],
+    "answer": "/nominations/martin-faye.jfif",
+    "explanation": "Général de Division Martin Faye est le Haut-Commandant de la Gendarmerie nationale et Directeur de la Justice Militaire."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Haut-commandant en Second de la Gendarmerie nationale et Sous-directeur de la justice militaire ?",
+    "options": [
+      "/nominations/martin-faye.jfif",
+      "/nominations/papa-diouf.jpg",
+      "/nominations/el-hadj-daouda-niang-2.jpg",
+      "/nominations/bara-diouf.jfif"
+    ],
+    "answer": "/nominations/papa-diouf.jpg",
+    "explanation": "Papa DIOUF est le Haut-commandant en Second de la Gendarmerie nationale et Sous-directeur de la justice militaire."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Délégué général au Renseignement national ?",
+    "options": [
+      "/nominations/el-hadj-daouda-niang-2.jpg",
+      "/nominations/martin-faye.jfif",
+      "/nominations/papa-diouf.jpg",
+      "/nominations/bara-diouf.jfif"
+    ],
+    "answer": "/nominations/el-hadj-daouda-niang-2.jpg",
+    "explanation": "El Hadj Daouda Niang est le Délégué général au Renseignement national."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Délégué général à la Promotion des Pôles Urbains de Diamniadio et du Lac Rose ?",
+    "options": [
+      "/nominations/el-hadj-daouda-niang-2.jpg",
+      "/nominations/martin-faye.jfif",
+      "/nominations/papa-diouf.jpg",
+      "/nominations/bara-diouf.jfif"
+    ],
+    "answer": "/nominations/bara-diouf.jfif",
+    "explanation": "Bara DIOUF est le Délégué général à la Promotion des Pôles Urbains de Diamniadio et du Lac Rose."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société nationale du Port Autonome de Dakar ?",
+    "options": [
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/bacary-sega-bathily.jfif",
+      "/nominations/el-hadj-daouda-niang-2.jpg"
+    ],
+    "answer": "/nominations/waly-diouf-bodiang.jfif",
+    "explanation": "Waly DIOUF BODIANG est le Directeur général de la Société nationale du Port Autonome de Dakar."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de l'Aéroport International Blaise DIAGNE (AIBD) ?",
+    "options": [
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/bacary-sega-bathily.jfif"
+    ],
+    "answer": "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
+    "explanation": "Cheikh Mamadou Abiboulaye DIEYE est le Directeur général de l'Aéroport International Blaise DIAGNE (AIBD)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Caisse des Dépôts et Consignations (CDC) ?",
+    "options": [
+      "/nominations/fadilou-keita.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/pape-ale-niang.jfif"
+    ],
+    "answer": "/nominations/fadilou-keita.jfif",
+    "explanation": "Fadilou KEITA est le Directeur général de la Caisse des Dépôts et Consignations (CDC)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société nationale La Poste ?",
+    "options": [
+      "/nominations/maguette-kane.jpeg",
+      "/nominations/fadilou-keita.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
+      "/nominations/waly-diouf-bodiang.jfif"
+    ],
+    "answer": "/nominations/maguette-kane.jpeg",
+    "explanation": "Maguette KANE est le Directeur général de la Société nationale La Poste."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société nationale des Habitations à Loyer Modéré (SN HLM) ?",
+    "options": [
+      "/nominations/bassirou-kebe.jfif",
+      "/nominations/maguette-kane.jpeg",
+      "/nominations/fadilou-keita.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
+    ],
+    "answer": "/nominations/bassirou-kebe.jfif",
+    "explanation": "Bassirou KEBE est le Directeur général de la Société nationale des Habitations à Loyer Modéré (SN HLM)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société immobilière du Cap Vert (SICAP SA) ?",
+    "options": [
+      "/nominations/mouhamadou-moctar-magassouba.jfif",
+      "/nominations/bassirou-kebe.jfif",
+      "/nominations/maguette-kane.jpeg",
+      "/nominations/fadilou-keita.jfif"
+    ],
+    "answer": "/nominations/mouhamadou-moctar-magassouba.jfif",
+    "explanation": "Mouhamadou Moctar MAGASSOUBA est le Directeur général de la Société immobilière du Cap Vert (SICAP SA)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de la Jeunesse, des Sports et de la Culture ?",
+    "options": [
+      "/gouvernement/ministre-Khady-Diène-Gaye.jpg",
+      "/gouvernement/ministre-mabouba-diagne.jfif",
+      "/gouvernement/ministre-alioune-dione.jfif",
+      "/gouvernement/ministre-ibrayima-sy.jfif"
+    ],
+    "answer": "/gouvernement/ministre-Khady-Diène-Gaye.jpg",
+    "explanation": "Khady Diene GAYE est la Ministre de la Jeunesse, des Sports et de la Culture."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de l’Agriculture, de la Souveraineté alimentaire et de l’Elevage ?",
+    "options": [
+      "/gouvernement/ministre-mabouba-diagne.jfif",
+      "/gouvernement/ministre-alioune-dione.jfif",
+      "/gouvernement/ministre-ibrayima-sy.jfif",
+      "/gouvernement/ministre-olivier-boucal.jfif"
+    ],
+    "answer": "/gouvernement/ministre-mabouba-diagne.jfif",
+    "explanation": "Mabouba DIAGNE est le Ministre de l’Agriculture, de la Souveraineté alimentaire et de l’Elevage."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Ministre de la Microfinance, de l’Economie sociale et solidaire ?",
+    "options": [
+      "/gouvernement/ministre-alioune-dione.jfif",
+      "/gouvernement/ministre-ibrayima-sy.jfif",
+      "/gouvernement/ministre-olivier-boucal.jfif",
+      "/gouvernement/ministre-Khady-Diène-Gaye.jpg"
+    ],
+    "answer": "/gouvernement/ministre-alioune-dione.jfif",
+    "explanation": "Alioune DIONE est le Ministre de la Microfinance, de l’Economie sociale et solidaire."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Secrétaire d’État aux Sénégalais de l’Extérieur ?",
+    "options": [
+      "/nominations/amadou-cherif-diouf-2.jfif",
+      "/nominations/ibrahima-thiam-3.jfif",
+      "/nominations/momath-talla-ndao.jfif",
+      "/nominations/alpha-ba.jfif"
+    ],
+    "answer": "/nominations/amadou-cherif-diouf-2.jfif",
+    "explanation": "Amadou Chérif DIOUF est le Secrétaire d’État aux Sénégalais de l’Extérieur."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Secrétaire d’État au Développement des PME PMI ?",
+    "options": [
+      "/nominations/ibrahima-thiam-3.jfif",
+      "/nominations/momath-talla-ndao.jfif",
+      "/nominations/alpha-ba.jfif",
+      "/nominations/amadou-cherif-diouf-2.jfif"
+    ],
+    "answer": "/nominations/ibrahima-thiam-3.jfif",
+    "explanation": "Ibrahima THIAM est le Secrétaire d’État au Développement des PME PMI."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Secrétaire d’État à l’Urbanisme et au Logement ?",
+    "options": [
+      "/nominations/momath-talla-ndao.jfif",
+      "/nominations/alpha-ba.jfif",
+      "/nominations/amadou-cherif-diouf-2.jfif",
+      "/nominations/ibrahima-thiam-3.jfif"
+    ],
+    "answer": "/nominations/momath-talla-ndao.jfif",
+    "explanation": "Momath Talla NDAO est le Secrétaire d’État à l’Urbanisme et au Logement."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Secrétaire d’État aux Coopératives et à l’Encadrement paysan ?",
+    "options": [
+      "/nominations/alpha-ba.jfif",
+      "/nominations/amadou-cherif-diouf-2.jfif",
+      "/nominations/ibrahima-thiam-3.jfif",
+      "/nominations/momath-talla-ndao.jfif"
+    ],
+    "answer": "/nominations/alpha-ba.jfif",
+    "explanation": "Alpha BA est le Secrétaire d’État aux Coopératives et à l’Encadrement paysan."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Secrétaire d’État à la Culture, aux Industries créatives et au Patrimoine historique ?",
+    "options": [
+      "/nominations/bakary-sarr.jfif",
+      "/nominations/amadou-cherif-diouf-2.jfif",
+      "/nominations/ibrahima-thiam-3.jfif",
+      "/nominations/momath-talla-ndao.jfif"
+    ],
+    "answer": "/nominations/bakary-sarr.jfif",
+    "explanation": "Bacary SARR est le Secrétaire d’État à la Culture, aux Industries créatives et au Patrimoine historique."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Haut-Commandant de la Gendarmerie nationale et Directeur de la Justice Militaire ?",
+    "options": [
+      "/nominations/martin-faye.jfif",
+      "/nominations/papa-diouf.jpg",
+      "/nominations/el-hadj-daouda-niang-2.jpg",
+      "/nominations/bara-diouf.jfif"
+    ],
+    "answer": "/nominations/martin-faye.jfif",
+    "explanation": "Général de Division Martin Faye est le Haut-Commandant de la Gendarmerie nationale et Directeur de la Justice Militaire."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Haut-commandant en Second de la Gendarmerie nationale et Sous-directeur de la justice militaire ?",
+    "options": [
+      "/nominations/papa-diouf.jpg",
+      "/nominations/martin-faye.jfif",
+      "/nominations/el-hadj-daouda-niang-2.jpg",
+      "/nominations/bara-diouf.jfif"
+    ],
+    "answer": "/nominations/papa-diouf.jpg",
+    "explanation": "Papa DIOUF est le Haut-commandant en Second de la Gendarmerie nationale et Sous-directeur de la justice militaire."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Délégué général au Renseignement national ?",
+    "options": [
+      "/nominations/el-hadj-daouda-niang-2.jpg",
+      "/nominations/martin-faye.jfif",
+      "/nominations/papa-diouf.jpg",
+      "/nominations/bara-diouf.jfif"
+    ],
+    "answer": "/nominations/el-hadj-daouda-niang-2.jpg",
+    "explanation": "El Hadj Daouda Niang est le Délégué général au Renseignement national."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Délégué général à la Promotion des Pôles Urbains de Diamniadio et du Lac Rose ?",
+    "options": [
+      "/nominations/bara-diouf.jfif",
+      "/nominations/el-hadj-daouda-niang-2.jpg",
+      "/nominations/martin-faye.jfif",
+      "/nominations/papa-diouf.jpg"
+    ],
+    "answer": "/nominations/bara-diouf.jfif",
+    "explanation": "Bara DIOUF est le Délégué général à la Promotion des Pôles Urbains de Diamniadio et du Lac Rose."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société nationale du Port Autonome de Dakar ?",
+    "options": [
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/bacary-sega-bathily.jfif",
+      "/nominations/el-hadj-daouda-niang-2.jpg"
+    ],
+    "answer": "/nominations/waly-diouf-bodiang.jfif",
+    "explanation": "Waly DIOUF BODIANG est le Directeur général de la Société nationale du Port Autonome de Dakar."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de l'Aéroport International Blaise DIAGNE (AIBD) ?",
+    "options": [
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/bacary-sega-bathily.jfif"
+    ],
+    "answer": "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
+    "explanation": "Cheikh Mamadou Abiboulaye DIEYE est le Directeur général de l'Aéroport International Blaise DIAGNE (AIBD)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Caisse des Dépôts et Consignations (CDC) ?",
+    "options": [
+      "/nominations/fadilou-keita.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/pape-ale-niang.jfif"
+    ],
+    "answer": "/nominations/fadilou-keita.jfif",
+    "explanation": "Fadilou KEITA est le Directeur général de la Caisse des Dépôts et Consignations (CDC)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société nationale La Poste ?",
+    "options": [
+      "/nominations/maguette-kane.jpeg",
+      "/nominations/fadilou-keita.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
+      "/nominations/waly-diouf-bodiang.jfif"
+    ],
+    "answer": "/nominations/maguette-kane.jpeg",
+    "explanation": "Maguette KANE est le Directeur général de la Société nationale La Poste."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société nationale des Habitations à Loyer Modéré (SN HLM) ?",
+    "options": [
+      "/nominations/bassirou-kebe.jfif",
+      "/nominations/maguette-kane.jpeg",
+      "/nominations/fadilou-keita.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
+    ],
+    "answer": "/nominations/bassirou-kebe.jfif",
+    "explanation": "Bassirou KEBE est le Directeur général de la Société nationale des Habitations à Loyer Modéré (SN HLM)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société immobilière du Cap Vert (SICAP SA) ?",
+    "options": [
+      "/nominations/mouhamadou-moctar-magassouba.jfif",
+      "/nominations/bassirou-kebe.jfif",
+      "/nominations/maguette-kane.jpeg",
+      "/nominations/fadilou-keita.jfif"
+    ],
+    "answer": "/nominations/mouhamadou-moctar-magassouba.jfif",
+    "explanation": "Mouhamadou Moctar MAGASSOUBA est le Directeur général de la Société immobilière du Cap Vert (SICAP SA)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société d’Aménagement et de Promotion des Côtes et Zones touristiques du Sénégal (SAPCO SA) ?",
+    "options": [
+      "/nominations/serigne-mamadou-mboup-2.jfif",
+      "/nominations/mouhamadou-moctar-magassouba.jfif",
+      "/nominations/bassirou-kebe.jfif",
+      "/nominations/maguette-kane.jpeg"
+    ],
+    "answer": "/nominations/serigne-mamadou-mboup-2.jfif",
+    "explanation": "Serigne Mamadou MBOUP est le Directeur général de la Société d’Aménagement et de Promotion des Côtes et Zones touristiques du Sénégal (SAPCO SA)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de l'Agence de Développement et d’Encadrement des petites et moyennes entreprises (ADEPME) ?",
+    "options": [
+      "/nominations/marie-rose-faye.jfif",
+      "/nominations/serigne-mamadou-mboup-2.jfif",
+      "/nominations/mouhamadou-moctar-magassouba.jfif",
+      "/nominations/bassirou-kebe.jfif"
+    ],
+    "answer": "/nominations/marie-rose-faye.jfif",
+    "explanation": "Marie Rose FAYE est la Directrice général de l'Agence de Développement et d’Encadrement des petites et moyennes entreprises (ADEPME)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de l'Agence nationale de la Petite enfance et de la Case des Tout-Petits ?",
+    "options": [
+      "/nominations/yaye-khadidiatou-djamila-diallo.jfif",
+      "/nominations/marie-rose-faye.jfif",
+      "/nominations/serigne-mamadou-mboup-2.jfif",
+      "/nominations/mouhamadou-moctar-magassouba.jfif"
+    ],
+    "answer": "/nominations/yaye-khadidiatou-djamila-diallo.jfif",
+    "explanation": "Yaye Khadidiatou Djamila DIALLO est la Directrice général de l'Agence nationale de la Petite enfance et de la Case des Tout-Petits."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de l'Agence nationale de l’Aménagement du Territoire (ANAT) ?",
+    "options": [
+      "/nominations/tidiane-sidibe.jpg",
+      "/nominations/yaye-khadidiatou-djamila-diallo.jfif",
+      "/nominations/marie-rose-faye.jfif",
+      "/nominations/serigne-mamadou-mboup-2.jfif"
+    ],
+    "answer": "/nominations/tidiane-sidibe.jpg",
+    "explanation": "Tidiane SIDIBE est le Directeur général de l'Agence nationale de l’Aménagement du Territoire (ANAT)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de l'Agence sénégalaise de Reforestation et de la Grande Muraille Verte (ASERGMV) ?",
+    "options": [
+      "/nominations/sekouna-diatta.jfif",
+      "/nominations/tidiane-sidibe.jpg",
+      "/nominations/yaye-khadidiatou-djamila-diallo.jfif",
+      "/nominations/marie-rose-faye.jfif"
+    ],
+    "answer": "/nominations/sekouna-diatta.jfif",
+    "explanation": "Sékouna DIATTA est le Directeur général de l'Agence sénégalaise de Reforestation et de la Grande Muraille Verte (ASERGMV)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de l'Office national de l’Assainissement du Sénégal (ONAS) ?",
+    "options": [
+      "/nominations/chiekh-dieng.jfif",
+      "/nominations/sekouna-diatta.jfif",
+      "/nominations/tidiane-sidibe.jpg",
+      "/nominations/yaye-khadidiatou-djamila-diallo.jfif"
+    ],
+    "answer": "/nominations/chiekh-dieng.jfif",
+    "explanation": "Docteur Cheikh DIENG est le Directeur général de l'Office national de l’Assainissement du Sénégal (ONAS)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Directeur général du Fonds Souverain d’Investissements Stratégiques (FONSIS) ?",
+    "options": [
+      "/nominations/babacar-ngning.jfif",
+      "/nominations/chiekh-dieng.jfif",
+      "/nominations/sekouna-diatta.jfif",
+      "/nominations/tidiane-sidibe.jpg"
+    ],
+    "answer": "/nominations/babacar-ngning.jfif",
+    "explanation": "Babacar GNING est le Directeur général du Fonds Souverain d’Investissements Stratégiques (FONSIS)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de l'Autorité de Régulation des Télécommunications et des Postes (ARTP) ?",
+    "options": [
+      "/nominations/dahirou-thiam-2.jfif",
+      "/nominations/babacar-ngning.jfif",
+      "/nominations/chiekh-dieng.jfif",
+      "/nominations/sekouna-diatta.jfif"
+    ],
+    "answer": "/nominations/dahirou-thiam-2.jfif",
+    "explanation": "Dahirou THIAM est le Directeur général de l'Autorité de Régulation des Télécommunications et des Postes (ARTP)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société Dakar Dem Dikk ?",
+    "options": [
+      "/nominations/assane-mbengue.jfif",
+      "/nominations/dahirou-thiam-2.jfif",
+      "/nominations/babacar-ngning.jfif",
+      "/nominations/chiekh-dieng.jfif"
+    ],
+    "answer": "/nominations/assane-mbengue.jfif",
+    "explanation": "Assane MBENGUE est le Directeur général de la Société Dakar Dem Dikk."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Directeur du Centre des Œuvres universitaires de Dakar (COUD) ?",
+    "options": [
+      "/nominations/ndéné-mbodj.jfif",
+      "/nominations/assane-mbengue.jfif",
+      "/nominations/dahirou-thiam-2.jfif",
+      "/nominations/babacar-ngning.jfif"
+    ],
+    "answer": "/nominations/ndéné-mbodj.jfif",
+    "explanation": "Ndéné MBODJ est le Directeur du Centre des Œuvres universitaires de Dakar (COUD)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société des Mines du Sénégal (SOMISEN) ?",
+    "options": [
+      "/nominations/ngagne-demba-toure-2.jfif",
+      "/nominations/ndéné-mbodj.jfif",
+      "/nominations/assane-mbengue.jfif",
+      "/nominations/dahirou-thiam-2.jfif"
+    ],
+    "answer": "/nominations/ngagne-demba-toure-2.jfif",
+    "explanation": "Ngagne Demba TOURE est le Directeur général de la Société des Mines du Sénégal (SOMISEN)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société anonyme TDS-SA ?",
+    "options": [
+      "/nominations/aminata-sarr.jfif",
+      "/nominations/ngagne-demba-toure-2.jfif",
+      "/nominations/ndéné-mbodj.jfif",
+      "/nominations/assane-mbengue.jfif"
+    ],
+    "answer": "/nominations/aminata-sarr.jfif",
+    "explanation": "Aminata SARR est la Directrice général de la Société anonyme Télédiffusion du Sénégal (TDS-SA)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Directeur général du COSEC ?",
+    "options": [
+      "/nominations/ndeye-rokhaya-thiam-2.jfif",
+      "/nominations/aminata-sarr.jfif",
+      "/nominations/ngagne-demba-toure-2.jfif",
+      "/nominations/ndéné-mbodj.jfif"
+    ],
+    "answer": "/nominations/ndeye-rokhaya-thiam-2.jfif",
+    "explanation": "Ndeye Rokhaya THIAM est la Directrice général du Conseil Sénégalais des Chargeurs (COSEC)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la SONES ?",
+    "options": [
+      "/nominations/abdoul-niang.jfif",
+      "/nominations/ndeye-rokhaya-thiam-2.jfif",
+      "/nominations/aminata-sarr.jfif",
+      "/nominations/ngagne-demba-toure-2.jfif"
+    ],
+    "answer": "/nominations/abdoul-niang.jfif",
+    "explanation": "Abdoul NIANG est le Directeur général de la Société nationale des Eaux du Sénégal (SONES)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la SAR ?",
+    "options": [
+      "/nominations/mamadou-abib-diop-3.jfif",
+      "/nominations/abdoul-niang.jfif",
+      "/nominations/ndeye-rokhaya-thiam-2.jfif",
+      "/nominations/aminata-sarr.jfif"
+    ],
+    "answer": "/nominations/mamadou-abib-diop-3.jfif",
+    "explanation": "Mamadou Abib DIOP est le Directeur général de la Société Africaine de Raffinage (SAR)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société nationale des Chemins de Fer du Sénégal (CFS) ?",
+    "options": [
+      "/nominations/ibrahima-ba-2.jfif",
+      "/nominations/mamadou-abib-diop-3.jfif",
+      "/nominations/abdoul-niang.jfif",
+      "/nominations/ndeye-rokhaya-thiam-2.jfif"
+    ],
+    "answer": "/nominations/ibrahima-ba-2.jfif",
+    "explanation": "Ibrahima BA est le Directeur général de la Société nationale des Chemins de Fer du Sénégal (CFS)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le Délégué général à la Promotion des Pôles Urbains de Diamniadio et du Lac Rose ?",
+    "options": [
+      "/nominations/bara-diouf.jfif",
+      "/nominations/ibrahima-ba-2.jfif",
+      "/nominations/mamadou-abib-diop-3.jfif",
+      "/nominations/abdoul-niang.jfif"
+    ],
+    "answer": "/nominations/bara-diouf.jfif",
+    "explanation": "Bara DIOUF est le Délégué général à la Promotion des Pôles Urbains de Diamniadio et du Lac Rose."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de l'APIX ?",
+    "options": [
+      "/nominations/bacary-sega-bathily.jfif",
+      "/nominations/bara-diouf.jfif",
+      "/nominations/ibrahima-ba-2.jfif",
+      "/nominations/mamadou-abib-diop-3.jfif"
+    ],
+    "answer": "/nominations/bacary-sega-bathily.jfif",
+    "explanation": "Bacary Sega BATHILY est le Directeur général de l'Agence pour la Promotion des Investissements et des Grands Travaux (APIX SA)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société nationale du Port Autonome de Dakar ?",
+    "options": [
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/bacary-sega-bathily.jfif",
+      "/nominations/bara-diouf.jfif"
+    ],
+    "answer": "/nominations/waly-diouf-bodiang.jfif",
+    "explanation": "Waly DIOUF BODIANG est le Directeur général de la Société nationale du Port Autonome de Dakar."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de l'AIBD ?",
+    "options": [
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/pape-ale-niang.jfif",
+      "/nominations/bacary-sega-bathily.jfif"
+    ],
+    "answer": "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
+    "explanation": "Cheikh Mamadou Abiboulaye DIEYE est le Directeur général de l'Aéroport International Blaise DIAGNE (AIBD)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Caisse des Dépôts et Consignations (CDC) ?",
+    "options": [
+      "/nominations/fadilou-keita.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
+      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/pape-ale-niang.jfif"
+    ],
+    "answer": "/nominations/fadilou-keita.jfif",
+    "explanation": "Fadilou KEITA est le Directeur général de la Caisse des Dépôts et Consignations (CDC)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société nationale La Poste ?",
+    "options": [
+      "/nominations/maguette-kane.jpeg",
+      "/nominations/fadilou-keita.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
+      "/nominations/waly-diouf-bodiang.jfif"
+    ],
+    "answer": "/nominations/maguette-kane.jpeg",
+    "explanation": "Maguette KANE est le Directeur général de la Société nationale La Poste."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société nationale des Habitations à Loyer Modéré (SN HLM) ?",
+    "options": [
+      "/nominations/bassirou-kebe.jfif",
+      "/nominations/maguette-kane.jpeg",
+      "/nominations/fadilou-keita.jfif",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
+    ],
+    "answer": "/nominations/bassirou-kebe.jfif",
+    "explanation": "Bassirou KEBE est le Directeur général de la Société nationale des Habitations à Loyer Modéré (SN HLM)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société immobilière du Cap Vert (SICAP SA) ?",
+    "options": [
+      "/nominations/mouhamadou-moctar-magassouba.jfif",
+      "/nominations/bassirou-kebe.jfif",
+      "/nominations/maguette-kane.jpeg",
+      "/nominations/fadilou-keita.jfif"
+    ],
+    "answer": "/nominations/mouhamadou-moctar-magassouba.jfif",
+    "explanation": "Mouhamadou Moctar MAGASSOUBA est le Directeur général de la Société immobilière du Cap Vert (SICAP SA)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de la Société d’Aménagement et de Promotion des Côtes et Zones touristiques du Sénégal (SAPCO SA) ?",
+    "options": [
+      "/nominations/serigne-mamadou-mboup-2.jfif",
+      "/nominations/mouhamadou-moctar-magassouba.jfif",
+      "/nominations/bassirou-kebe.jfif",
+      "/nominations/maguette-kane.jpeg"
+    ],
+    "answer": "/nominations/serigne-mamadou-mboup-2.jfif",
+    "explanation": "Serigne Mamadou MBOUP est le Directeur général de la Société d’Aménagement et de Promotion des Côtes et Zones touristiques du Sénégal (SAPCO SA)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de l'Agence de Développement et d’Encadrement des petites et moyennes entreprises (ADEPME) ?",
+    "options": [
+      "/nominations/marie-rose-faye.jfif",
+      "/nominations/serigne-mamadou-mboup-2.jfif",
+      "/nominations/mouhamadou-moctar-magassouba.jfif",
+      "/nominations/bassirou-kebe.jfif"
+    ],
+    "answer": "/nominations/marie-rose-faye.jfif",
+    "explanation": "Marie Rose FAYE est la Directrice général de l'Agence de Développement et d’Encadrement des petites et moyennes entreprises (ADEPME)."
+  },
+  {
+    "type": "image",
+    "question": "Qui est le DG de l'Agence nationale de la Petite enfance et de la Case des Tout-Petits ?",
+    "options": [
+      "/nominations/yaye-khadidiatou-djamila-diallo.jfif",
+      "/nominations/marie-rose-faye.jfif",
+      "/gouvernement/ministre-fatou-diouf.jfif",
+      "/gouvernement/ministre-Khady-Diène-Gaye.jpg"
+    ],
+    "answer": "/nominations/yaye-khadidiatou-djamila-diallo.jfif",
+    "explanation": "Yaye Khadidiatou DJAMILA DIALLO est le Directeur … de l'Agence nationale de la Petite enfance et de la Case des Tout-Petits."
+  }
 ]

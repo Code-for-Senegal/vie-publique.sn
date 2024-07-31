@@ -17,7 +17,7 @@ export default defineNuxtPlugin(() => {
     provide: {
       dateformat: (dateStr: string) => {
         const date = new Date(dateStr);
-        const day = date.getDay();
+        const day = date.getDate();
         const month = monthNames[date.getMonth()];
         const year = date.getFullYear();
         return `${day} ${month} ${year}`;

@@ -54,7 +54,7 @@ https://tailwindcss.com/docs/customizing-colors#color-palette-reference
  robots: {
     allow: [
       "/",
-      "/reports",
+      "/rapport-senegal",
       "/individuals-cited",
       "/about/us",
       "/about/privacy",
@@ -68,7 +68,7 @@ https://tailwindcss.com/docs/customizing-colors#color-palette-reference
   sitemap: {
     include: [
       "/",
-      "/reports/**",
+      "/rapport-senegal/**",
       "/individuals-cited/**",
       "/about/us/",
       "/about/privacy/",
@@ -147,6 +147,10 @@ pnpm uninstall vue3-circle-progress
 https://github.com/nuxt/nuxt/discussions/16294
 
 useStore or cache
+
+##JO
+
+Ajout du plugin @tailwindcss/typography qui ajoute un ensemble de classes utilitaires pour styler du contenu typographique riche, particulièrement utile pour le contenu généré par un CMS ou des fichiers Markdown.
 
 ## menu
 
@@ -242,3 +246,23 @@ const selected = ref('');
 </template>
 
 ```
+
+# add PR section on readme
+
+https://raw.githubusercontent.com/decaporg/decap-cms/main/CONTRIBUTING.md
+Pull Requests
+
+We actively welcome your pull requests!
+
+If you need help with Git or our workflow, please ask in our [community chat](https://decapcms.org/chat). We want your contributions even if you're just learning Git. Our maintainers are happy to help!
+
+Decap CMS uses the [Forking Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow) + [Feature Branches](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow). Additionally, PR's should be [rebased](https://www.atlassian.com/git/tutorials/merging-vs-rebasing) on main when opened, and again before merging.
+
+1. Fork the repo.
+2. Create a branch from `main`. If you're addressing a specific issue, prefix your branch name with the issue number.
+3. If you've added code that should be tested, add tests.
+4. If you've changed APIs, update the documentation.
+5. Run `npm run test` and ensure the test suite passes.
+6. Use `npm run format` to format and lint your code.
+7. PR's must be rebased before merge (feel free to ask for help).
+8. PR should be reviewed by two maintainers prior to merging.

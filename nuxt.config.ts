@@ -1,4 +1,7 @@
+import tailwindTypography from "@tailwindcss/typography";
+
 export default defineNuxtConfig({
+  ssr: true,
   modules: [
     "@nuxt/ui",
     "@nuxt/content",
@@ -10,45 +13,58 @@ export default defineNuxtConfig({
     "@vueuse/motion/nuxt",
   ],
   devtools: { enabled: true },
+  nitro: {
+    plugins: ["~/server/plugins/redirects.ts"],
+  },
   runtimeConfig: {
     public: {
       showPinnedPeoples: process.env.PUBLIC_SHOW_PINNED_PEOLPLES,
       showScandals: process.env.PUBLIC_SHOW_SCANDALS,
+      brevoApiKey: process.env.BREVO_API_KEY,
+      brevoListId: process.env.BREVO_LIST_ID,
+      redirects: [
+        { from: "^/reports(.*)", to: "/rapport-senegal$1" },
+        // Ajoutez d'autres redirections ici
+      ],
     },
   },
   css: ["~/assets/css/app.css"],
   colorMode: {
     preference: "light",
   },
+  tailwindcss: {
+    config: {
+      plugins: [tailwindTypography],
+    },
+  },
   content: {
     defaultLocale: "fr",
   },
   app: {
     head: {
-      title: "Sénégal Rapports OFNAC Cours des compte IGE ARMP",
+      title: "Sénégal | Vie-Publique.sn",
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
       meta: [
         {
           name: "keywords",
           content:
-            "vie-publique.sn, rapports Sénégal ARMP, Rapport IGE, IGF, Rapport OFNAC, Rapport Cours des Comptes, Cours des Comptes Sénégal",
+            "Sénégal gouvernement journal officiel rapports OFNAC Cours des Comptes IGE ARMP CENTIF",
         },
         {
           name: "description",
           content:
-            "Rapports publics du Sénégal. ARMP, IGE, IGF, OFNAC, et Cours des Comptes pour encourager la transparence et la participation citoyenne.",
+            "Gouvernement du Sénégal, journal officiel, rapports d'audit OFNAC Cours des Comptes",
         },
         // Open Graph Meta Tags
         {
           property: "og:title",
-          content:
-            "vie-publique.sn - Rapports Sénégal OFNAC Cours des compte IGE ARMP",
+          content: "Sénégal | Vie-Publique.sn",
         },
         {
           property: "og:description",
           content:
-            "vie-publique.sn, rapports Sénégal ARMP, Rapport IGE, IGF, Rapport OFNAC, Rapport Cours des Comptes, Cours des Comptes Sénégal",
+            "Gouvernement du Sénégal, journal officiel, rapports d'audit OFNAC Cours des Comptes",
         },
         { property: "og:image", content: "/social-image.png" },
         { property: "og:url", content: "https://vie-publique.sn" },
@@ -56,12 +72,12 @@ export default defineNuxtConfig({
         // Twitter Card Meta Tags
         {
           name: "twitter:title",
-          content:
-            "vie-publique.sn - Rapports Sénégal OFNAC Cours des compte IGE ARMP",
+          content: "Sénégal | Vie-Publique.sn",
         },
         {
           name: "twitter:description",
-          content: "Sénégal Rapports OFNAC, IGE, Cours des comptes, ARMP",
+          content:
+            "Gouvernement du Sénégal, journal officiel, rapports d'audit OFNAC Cours des Comptes",
         },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:image", content: "/social-image.png" },
@@ -75,6 +91,7 @@ export default defineNuxtConfig({
     id: process.env.GTAG_ID,
   },
   webVitals: {
+    provider: "ga",
     ga: { id: process.env.GTAG_ID },
   },
   sitemap: {

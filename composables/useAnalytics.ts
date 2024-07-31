@@ -1,4 +1,6 @@
 // composables/useAnalytics.ts
+const { gtag } = useGtag();
+
 export const useAnalytics = () => {
   const trackQuizStart = () => {
     gtag("event", "start_quiz", {

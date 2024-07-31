@@ -86,13 +86,15 @@ watch(selectedType, () => {
 
 <template>
 
-    <div class="flex flex-col items-center px-4 sm:px-8">
+    <div class="flex flex-col items-center px-4">
 
-        <h1 class="text-xl font-semibold text-center mt-4 mb-2">
-            Annuaire de {{ data.sites.length }} sites internets publics du Sénégal
-        </h1>
-        <p class="text-sm mb-4 text-gray-500">
-            Liste non exhaustive
+        <div class="prose prose-sm sm:prose mx-auto my-2">
+            <h1 class="text-center">
+                Annuaire sites internets
+            </h1>
+        </div>
+        <p class="text-sm mb-4 text-gray-500 text-center">
+            Liste non exhaustive de {{ data.sites.length }} site web publics du Sénégal
         </p>
 
         <div class="w-full max-w-4xl">
@@ -102,7 +104,7 @@ watch(selectedType, () => {
             <USelect class="w-full sm:w-full mb-3 custom-shadow" size="lg" icon="i-heroicons-funnel"
                 placeholder="Filtrer par type" v-model="selectedType" :options="types" />
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <UCard v-for="site in rowsFilteredSites" :key="site.url" class="cursor-pointer custom-shadow">
                     <ULink :to="site.url" target="_blank"
                         class="text-blue-600 hover:text-blue-800 underline text-sm font-semibold">

@@ -1,7 +1,7 @@
 <template>
-    <main>
-      <!-- ContentDoc returns content for `$route.path` by default or you can pass a `path` prop -->
-      <ContentDoc />
-    </main>
-  </template>
-  
+  <ContentDoc v-slot="{ doc }">
+    <div class="prose prose-sm sm:prose lg:prose-lg xl:prose-xl mx-auto mt-2">
+      <ContentRenderer :value="doc" />
+    </div>
+  </ContentDoc>
+</template>

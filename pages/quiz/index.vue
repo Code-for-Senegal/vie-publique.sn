@@ -5,11 +5,6 @@ const { trackQuizStart, trackQuizFinish } = useAnalytics();
 useHead({
     title: 'Quiz sur le Sénégal | Vie-Publique.sn',
     meta: [
-        // TODO remove
-        {
-            name: 'robots',
-            content: 'noindex, nofollow'
-        },
         {
             name: 'description',
             content: 'Jeux Quiz culture général sur le Sénégal'
@@ -21,10 +16,23 @@ useHead({
         },
         {
             name: "twitter:description",
-            content: "Jeux Quiz sur le Sénégal et le gouvernement Diomaye Sonko",
+            content: "Jeux Quiz sur le Sénégal et le gouvernement du Sénégal",
         },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:image", content: "/quiz-1.png" },
+        // Open Graph Meta Tags
+        {
+            property: "og:title",
+            content:
+                "Jeux Quiz sur le Sénégal | vie-publique.sn",
+        },
+        {
+            property: "og:description",
+            content: "Jeux Quiz sur le Sénégal et le gouvernement du Sénégal",
+        },
+        { property: "og:image", content: "/quiz-1.png" },
+        { property: "og:url", content: "https://vie-publique.sn/quiz" },
+        { property: "og:type", content: "website" },
     ]
 })
 
@@ -108,6 +116,7 @@ const startQuiz = () => {
 }
 
 const selectQuizType = (type: string) => {
+    console.log("'electQuizType: 'selectQuizType");
     selectedQuizType.value = type
     initializeQuiz()
     startQuiz()
@@ -124,22 +133,40 @@ useMotion()
 <template>
     <div class="container mx-auto px-4 sm:px-8">
 
-        <h1 class="text-xl font-semibold text-center my-2">Quiz
-            <span v-if="selectedQuizType === 'text'">Organisation de l'État</span>
-            <span v-else-if="selectedQuizType === 'image'">Photos</span>
-        </h1>
+        <div class="prose prose-sm sm:prose mx-auto my-2">
+            <h1 class="text-center">Quiz
+                <span v-if="selectedQuizType === 'text'">Organisation de l'État</span>
+                <span v-else-if="selectedQuizType === 'image'">Photos nominations</span>
+            </h1>
+        </div>
 
         <div v-if="!selectedQuizType">
-            <UCard class="p-4 text-center">
+            <div class="p-4 text-center mb-2 ">
                 <p>Question pour un citoyen Champion</p>
-                <p>Testez vos connaissances sur la citoyenneté et la vie démocratique</p>
-                <div class="flex flex-col mt-4 gap-4 w-full">
-                    <UButton @click="selectQuizType('text')" class="text-center w-full sm:w-72 mx-auto"
-                        label="Quiz Organisation de l'état" size="xl" icon="i-heroicons-play" color="black" />
-                    <UButton @click="selectQuizType('image')" class="text-center w-full sm:w-72 mx-auto"
-                        label="Quiz Photos nomination" size="xl" icon="i-heroicons-play" color="black" />
-                </div>
-            </UCard>
+                <p>Sélectionnez un Quiz et testez vos connaissances sur le gouvernement du Sénégal</p>
+            </div>
+
+            <!-- <div class="flex flex-col sm:flex-row justify-center items-center gap-2 mt-4"> -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <UCard class="text-center cursor-pointer custom-shadow" @click="selectQuizType('text')">
+                    <img src="~/assets/images/quiz_logo_1.jpg" alt="Quiz Organisation de l'Etat" loading="lazy"
+                        width="100" height="100" class="mx-auto" />
+                    <div class="p-2">
+                        <p class="text-lg font-semibold mb-2">Quiz Organisation de l'état</p>
+                        <!-- <UButton @click="selectQuizType('text')" class="text-center w-full rounded-3xl"
+                                label="Jouer" size="xl" icon="i-heroicons-play" color="black" /> -->
+                    </div>
+                </UCard>
+                <UCard class="text-center cursor-pointer custom-shadow" @click="selectQuizType('image')">
+                    <img src="~/assets/images/quiz_logo_2.jpg" alt="Quiz Photos nominations" loading="lazy" width="100"
+                        height="100" class="mx-auto" />
+                    <div class="p-2">
+                        <p class="text-lg font-semibold mb-2">Quiz Photos nominations</p>
+                        <!-- <UButton @click="selectQuizType('image')" class="text-center w-full rounded-3xl "
+                                label="Jouer" size="xl" icon="i-heroicons-play" color="black" /> -->
+                    </div>
+                </UCard>
+            </div>
 
         </div>
 
@@ -212,15 +239,15 @@ useMotion()
                     <div v-if="feedback[currentQuestionIndex] !== null" class="text-sm text-center text-gray-500 my-2"
                         :class="{ '': feedback[currentQuestionIndex], '': !feedback[currentQuestionIndex] }">
                         <div v-if="feedback[currentQuestionIndex] === true" v-motion>
-                            <p>
-                                <UIcon name="i-heroicons-check-circle" class="text-emerald-600" size="md" />
+                            <p class="text-emerald-600">
+                                <UIcon name="i-heroicons-check-circle" size="md" />
                                 Bonne réponse
                             </p>
                             <p> {{ currentQuestions[currentQuestionIndex].explanation }}</p>
                         </div>
                         <div v-else v-motion>
-                            <p>
-                                <UIcon name="i-heroicons-x-circle" class="text-rose-600" size="md" />
+                            <p class="text-rose-600">
+                                <UIcon name="i-heroicons-x-circle" size="md" />
                                 Mauvaise réponse
                             </p>
                             <p>{{ currentQuestions[currentQuestionIndex].explanation }}</p>

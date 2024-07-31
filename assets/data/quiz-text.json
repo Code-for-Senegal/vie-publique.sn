@@ -1128,5 +1128,705 @@
     ],
     "answer": "Ministère du Tourisme",
     "explanation": "Le Secrétariat permanent du Crédit hôtelier et touristique est rattaché au Cabinet du Ministre du Tourisme et de l'Artisanat."
+  },
+  {
+    "question": "Quel est l'organisme chargé de la gestion du Centre International de Conférences Abdou DIOUF ?",
+    "options": [
+      "Secrétariat général de la Présidence de la République",
+      "Ministère de la Communication",
+      "Primature"
+    ],
+    "answer": "Secrétariat général de la Présidence de la République",
+    "explanation": "Le Centre International de Conférences Abdou DIOUF est une institution rattachée à la Présidence de la République."
+  },
+  {
+    "question": "De quel ministère dépend l'Autorité de Régulation des Télécommunications et des Postes ?",
+    "options": [
+      "Ministère de la Communication",
+      "Ministère du Numérique",
+      "Ministère des Technologies de l'Information"
+    ],
+    "answer": "Secrétariat général de la Présidence de la République",
+    "explanation": "L'Autorité de Régulation des Télécommunications et des Postes est une institution rattachée à la Présidence de la République."
+  },
+  {
+    "question": "Quelle structure de l'État est responsable de la gestion du Fonds intergénérationnel ?",
+    "options": [
+      "Secrétariat général de la Présidence de la République",
+      "Ministère des Finances",
+      "Ministère de l'Economie"
+    ],
+    "answer": "Secrétariat général de la Présidence de la République",
+    "explanation": "Le Fonds intergénérationnel est une institution rattachée à la Présidence de la République."
+  },
+  {
+    "question": "Quel ministère supervise le Millenium Challenge Account Sénégal ?",
+    "options": [
+      "Ministère de l'Economie",
+      "Primature",
+      "Ministère des Finances"
+    ],
+    "answer": "Primature",
+    "explanation": "Le Millenium Challenge Account Sénégal est une institution rattachée à la Primature."
+  },
+  {
+    "question": "À quelle structure de l'État est rattaché l'Observatoire national de l'Investissement ?",
+    "options": [
+      "Primature",
+      "Ministère de l'Economie",
+      "Ministère des Finances"
+    ],
+    "answer": "Primature",
+    "explanation": "L'Observatoire national de l'Investissement est une institution rattachée à la Primature."
+  },
+  {
+    "question": "De quel ministère dépend le Bureau de Coordination du Comité Permanent de l'OCI pour l'information et les Affaires Culturelles ?",
+    "options": [
+      "Ministère des Affaires étrangères",
+      "Ministère de la Culture",
+      "Ministère de la Communication"
+    ],
+    "answer": "Ministère des Affaires étrangères",
+    "explanation": "Le Bureau est rattaché au Ministère de l'Intégration Africaine et des Affaires étrangères."
+  },
+  {
+    "question": "Quelle structure de l'État est responsable de la Direction de l'Intégration économique régionale et du NEPAD ?",
+    "options": [
+      "Ministère des Affaires étrangères",
+      "Ministère de l'Economie",
+      "Ministère de l'Intégration Africaine"
+    ],
+    "answer": "Ministère des Affaires étrangères",
+    "explanation": "La Direction est rattachée au Ministère de l'Intégration Africaine et des Affaires étrangères."
+  },
+  {
+    "question": "Quel ministère supervise l'Agence sénégalaise de l'Electrification rurale ?",
+    "options": [
+      "Ministère de l'Énergie",
+      "Ministère de l'Environnement",
+      "Ministère de l'Agriculture"
+    ],
+    "answer": "Ministère de l'Énergie",
+    "explanation": "L'Agence sénégalaise de l'Electrification rurale est rattachée au Ministère de l'Énergie, du Pétrole et des Mines."
+  },
+  {
+    "question": "À quelle structure de l'État est rattachée la Cellule de suivi des Fonds dédiés au secteur minier et géologique ?",
+    "options": [
+      "Ministère des Mines",
+      "Ministère de l'Énergie",
+      "Ministère des Finances"
+    ],
+    "answer": "Ministère de l'Énergie",
+    "explanation": "La Cellule est rattachée au Cabinet du Ministre de l'Énergie, du Pétrole et des Mines."
+  },
+  {
+    "question": "De quel ministère dépend l'Agence pour l'Economie et la Maîtrise de l'Energie ?",
+    "options": [
+      "Ministère de l'Énergie",
+      "Ministère de l'Environnement",
+      "Ministère de l'Economie"
+    ],
+    "answer": "Ministère de l'Énergie",
+    "explanation": "L'Agence pour l'Economie et la Maîtrise de l'Energie est rattachée au Ministère de l'Énergie, du Pétrole et des Mines."
+  },
+  {
+    "question": "Quelle structure de l'État est responsable de la Cellule d'Appui à la mise oeuvre du MCA-Sénégal II ?",
+    "options": [
+      "Ministère des Finances",
+      "Ministère de l'Economie",
+      "Primature"
+    ],
+    "answer": "Ministère des Finances",
+    "explanation": "La Cellule est rattachée au Cabinet du Ministre des Finances et du Budget."
+  },
+  {
+    "question": "Quel ministère supervise le Comité paritaire public-privé des Zones Économiques Spéciales ?",
+    "options": [
+      "Ministère de l'Economie",
+      "Ministère de l'Industrie",
+      "Ministère des Finances"
+    ],
+    "answer": "Ministère de l'Economie",
+    "explanation": "Le Comité paritaire public-privé des Zones Économiques Spéciales est rattaché au Ministère de l'Economie, du Plan et de la Coopération."
+  },
+  {
+    "question": "À quelle structure de l'État est rattachée la Direction du Cadastre ?",
+    "options": [
+      "Ministère des Finances",
+      "Ministère de l'Urbanisme",
+      "Ministère de l'Intérieur"
+    ],
+    "answer": "Ministère des Finances",
+    "explanation": "La Direction du Cadastre est rattachée à la Direction générale des Impôts et des Domaines."
+  },
+  {
+    "question": "De quel ministère dépend le Fonds de Garantie des Investissements prioritaires ?",
+    "options": [
+      "Ministère des Finances",
+      "Ministère de l'Economie",
+      "Ministère de l'Industrie"
+    ],
+    "answer": "Ministère de l'Economie",
+    "explanation": "Le Fonds de Garantie des Investissements prioritaires est rattaché au Ministère de l'Economie, du Plan et de la Coopération."
+  },
+  {
+    "question": "Quelle structure de l'État est responsable de la Direction des grandes Entreprises ?",
+    "options": [
+      "Ministère des Finances",
+      "Ministère de l'Economie",
+      "Ministère de l'Industrie"
+    ],
+    "answer": "Ministère des Finances",
+    "explanation": "La Direction des grandes Entreprises est rattachée à la Direction générale des Impôts et des Domaines."
+  },
+  {
+    "question": "Quel ministère supervise l'Agence d'Aménagement et de Promotion des sites industriels ?",
+    "options": [
+      "Ministère de l'Industrie",
+      "Ministère de l'Urbanisme",
+      "Ministère de l'Economie"
+    ],
+    "answer": "Ministère de l'Industrie",
+    "explanation": "L'Agence d'Aménagement et de Promotion des sites industriels est rattachée au Ministère de l'Industrie et du Commerce."
+  },
+  {
+    "question": "À quelle structure de l'État est rattachée la Direction des Industries de Transformation de la Pêche ?",
+    "options": [
+      "Ministère des Pêches",
+      "Ministère de l'Industrie",
+      "Ministère de l'Agriculture"
+    ],
+    "answer": "Ministère des Pêches",
+    "explanation": "La Direction est rattachée au Ministère des Pêches, des Infrastructures maritimes et portuaires."
+  },
+  {
+    "question": "De quel ministère dépend l'Agence Nationale de l'Aquaculture ?",
+    "options": [
+      "Ministère des Pêches",
+      "Ministère de l'Agriculture",
+      "Ministère de l'Environnement"
+    ],
+    "answer": "Ministère des Pêches",
+    "explanation": "L'Agence Nationale de l'Aquaculture est rattachée au Ministère des Pêches, des Infrastructures maritimes et portuaires."
+  },
+  {
+    "question": "Quelle structure de l'État est responsable de la Direction de l'Equité territoriale ?",
+    "options": [
+      "Ministère de la Famille",
+      "Ministère de l'Urbanisme",
+      "Ministère de l'Economie"
+    ],
+    "answer": "Ministère de la Famille",
+    "explanation": "La Direction est rattachée à la Direction générale du Développement communautaire et de la Promotion de l'Equité."
+  },
+  {
+    "question": "Quel ministère supervise le Programme d'Urgence de Développement communautaire ?",
+    "options": [
+      "Ministère de la Famille",
+      "Ministère de l'Economie",
+      "Ministère de l'Urbanisme"
+    ],
+    "answer": "Ministère de la Famille",
+    "explanation": "Le Programme d'Urgence de Développement communautaire est rattaché au Ministère de la Famille et des Solidarités."
+  },
+  {
+    "question": "À quelle structure de l'État est rattachée la Direction des Statistiques du Travail ?",
+    "options": [
+      "Ministère du Travail",
+      "Ministère de l'Economie",
+      "Ministère des Finances"
+    ],
+    "answer": "Ministère du Travail",
+    "explanation": "La Direction est rattachée à la Direction générale du Travail et de la Sécurité sociale."
+  },
+  {
+    "question": "De quel ministère dépend l'Institution de Coordination de l'Assurance maladie obligatoire ?",
+    "options": [
+      "Ministère du Travail",
+      "Ministère de la Santé",
+      "Ministère des Finances"
+    ],
+    "answer": "Ministère du Travail",
+    "explanation": "L'Institution de Coordination de l'Assurance maladie obligatoire est rattachée au Ministère du Travail, de l'Emploi et des Relations avec les Institutions."
+  },
+  {
+    "question": "Quelle structure de l'État est responsable de la Direction de la Promotion des Pôles urbains ?",
+    "options": [
+      "Ministère de l'Urbanisme",
+      "Ministère de l'Economie",
+      "Ministère de l'Intérieur"
+    ],
+    "answer": "Ministère de l'Urbanisme",
+    "explanation": "La Direction est rattachée à la Direction générale de l'Urbanisme et de l'Architecture."
+  },
+  {
+    "question": "Quel ministère supervise l'Agence de Développement municipal ?",
+    "options": [
+      "Ministère de l'Urbanisme",
+      "Ministère de l'Intérieur",
+      "Ministère de l'Economie"
+    ],
+    "answer": "Ministère de l'Urbanisme",
+    "explanation": "L'Agence de Développement municipal est rattachée au Ministère de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires."
+  },
+  {
+    "question": "À quelle structure de l'État est rattachée la Direction des Daara ?",
+    "options": [
+      "Ministère de l'Education",
+      "Ministère des Affaires religieuses",
+      "Ministère de la Culture"
+    ],
+    "answer": "Ministère de l'Education",
+    "explanation": "La Direction des Daara est rattachée au Ministère de l'Education Nationale."
+  },
+  {
+    "question": "De quel ministère dépend l'Institut national d'Education et de Formation des jeunes Aveugles ?",
+    "options": [
+      "Ministère de l'Education",
+      "Ministère de la Santé",
+      "Ministère de l'Action Sociale"
+    ],
+    "answer": "Ministère de l'Education",
+    "explanation": "L'Institut national d'Education et de Formation des jeunes Aveugles est rattaché au Ministère de l'Education Nationale."
+  },
+  {
+    "question": "Quelle structure de l'État est responsable de la Cellule de la Carte sanitaire et sociale, de la Santé digitale et de l'Observatoire de la Santé ?",
+    "options": [
+      "Ministère de la Santé",
+      "Ministère du Numérique",
+      "Ministère de la Technologie"
+    ],
+    "answer": "Ministère de la Santé",
+    "explanation": "La Cellule est rattachée au Secrétariat général du Ministère de la Santé et de l'Action Sociale."
+  },
+  {
+    "question": "Quel ministère supervise l'Agence sénégalaise de Réglementation pharmaceutique ?",
+    "options": [
+      "Ministère de la Santé",
+      "Ministère de l'Industrie",
+      "Ministère de l'Agriculture"
+    ],
+    "answer": "Ministère de la Santé",
+    "explanation": "L'Agence sénégalaise de Réglementation pharmaceutique est rattachée au Ministère de la Santé et de l'Action Sociale."
+  },
+  {
+    "question": "À quelle structure de l'État est rattachée la Cellule d'Appui et d'Assistance à la Fonction publique territoriale ?",
+    "options": [
+      "Ministère de la Fonction Publique",
+      "Ministère de l'Intérieur",
+      "Ministère de l'Urbanisme"
+    ],
+    "answer": "Ministère de la Fonction Publique",
+    "explanation": "La Cellule est rattachée au Secrétariat général du Ministère de la Fonction Publique et de la Réforme du Service Public."
+  },
+  {
+    "question": "De quel ministère dépend le Programme d'Appui à la Modernisation de l'Administration ?",
+    "options": [
+      "Ministère de la Fonction Publique",
+      "Primature",
+      "Ministère de l'Intérieur"
+    ],
+    "answer": "Ministère de la Fonction Publique",
+    "explanation": "Le Programme d'Appui à la Modernisation de l'Administration est rattaché au Ministère de la Fonction Publique et de la Réforme du Service Public."
+  },
+  {
+    "question": "Quelle structure de l'État est responsable du Conseil consultatif des Droits de l'Homme et du Droit international humanitaire ?",
+    "options": [
+      "Ministère de la Justice",
+      "Ministère des Affaires étrangères",
+      "Ministère de la Famille"
+    ],
+    "answer": "Ministère de la Justice",
+    "explanation": "Le Conseil consultatif des Droits de l'Homme et du Droit international humanitaire est rattaché au Cabinet du Ministre de la Justice."
+  },
+  {
+    "question": "Quel ministère supervise la Cellule nationale de lutte contre la traite des personnes ?",
+    "options": [
+      "Ministère de la Justice",
+      "Ministère de l'Intérieur",
+      "Ministère du Travail"
+    ],
+    "answer": "Ministère de la Justice",
+    "explanation": "La Cellule nationale de lutte contre la traite des personnes est rattachée au Cabinet du Ministre de la Justice."
+  },
+  {
+    "question": "À quelle structure de l'État est rattachée la Direction des Affaires religieuses et de l'insertion des diplômés en langue arabe ?",
+    "options": [
+      "Présidence de la République",
+      "Ministère des Affaires religieuses",
+      "Ministère de l'Education"
+    ],
+    "answer": "Présidence de la République",
+    "explanation": "La Direction est rattachée au Cabinet du Président de la République."
+  },
+  {
+    "question": "De quel ministère dépend la Société des Mines d'Or de Sabodala ?",
+    "options": [
+      "Ministère des Mines",
+      "Ministère de l'Énergie",
+      "Ministère de l'Industrie"
+    ],
+    "answer": "Ministère de l'Énergie",
+    "explanation": "La Société des Mines d'Or de Sabodala est une société nationale contrôlée par le Ministère de l'Énergie, du Pétrole et des Mines."
+  },
+  {
+    "question": "Quelle structure de l'État est responsable de la Société nationale « Les Chemins de Fer du Sénégal » ?",
+    "options": [
+      "Ministère des Transports",
+      "Ministère des Infrastructures",
+      "Ministère des Finances"
+    ],
+    "answer": "Ministère des Infrastructures",
+    "explanation": "La Société nationale « Les Chemins de Fer du Sénégal » est une société nationale contrôlée par le Ministère des Infrastructures et des Transports terrestres et aériens."
+  },
+  {
+    "question": "Quel ministère supervise la Société nationale « Autoroutes du Sénégal » ?",
+    "options": [
+      "Ministère des Transports",
+      "Ministère des Infrastructures",
+      "Ministère des Finances"
+    ],
+    "answer": "Ministère des Infrastructures",
+    "explanation": "La Société nationale « Autoroutes du Sénégal » est une société nationale contrôlée par le Ministère des Infrastructures et des Transports terrestres et aériens."
+  },
+  {
+    "question": "À quelle structure de l'État est rattachée l'Agence pour la Promotion des Investissements et des Grands Travaux ?",
+    "options": [
+      "Présidence de la République",
+      "Primature",
+      "Ministère de l'Economie"
+    ],
+    "answer": "Présidence de la République",
+    "explanation": "L'Agence pour la Promotion des Investissements et des Grands Travaux est une institution rattachée à la Présidence de la République."
+  },
+  {
+    "question": "De quel ministère dépend la Société nationale d'Assurance et de Crédit ?",
+    "options": [
+      "Ministère des Finances",
+      "Ministère de l'Economie",
+      "Ministère du Travail"
+    ],
+    "answer": "Ministère des Finances",
+    "explanation": "La Société nationale d'Assurance et de Crédit est une société nationale contrôlée par le Ministère des Finances et du Budget."
+  },
+  {
+    "question": "Quelle structure de l'État est responsable de la Société nationale de Recouvrement ?",
+    "options": [
+      "Ministère des Finances",
+      "Ministère de la Justice",
+      "Ministère de l'Economie"
+    ],
+    "answer": "Ministère des Finances",
+    "explanation": "La Société nationale de Recouvrement est une société nationale contrôlée par le Ministère des Finances et du Budget."
+  },
+  {
+    "question": "Quel ministère supervise la Société de Gestion des Infrastructures publiques dans les Pôles Urbains de Diamniadio et du Lac Rose (SOGIP SA) ?",
+    "options": [
+      "Ministère des Finances",
+      "Ministère de l'Urbanisme",
+      "Ministère de l'Intérieur"
+    ],
+    "answer": "Ministère des Finances",
+    "explanation": "La SOGIP SA est une société nationale contrôlée par le Ministère des Finances et du Budget."
+  },
+  {
+    "question": "À quelle structure de l'État est rattachée la Société Dakar Dem Dik ?",
+    "options": [
+      "Ministère des Transports",
+      "Ministère des Infrastructures",
+      "Ministère de l'Economie"
+    ],
+    "answer": "Ministère des Infrastructures",
+    "explanation": "La Société Dakar Dem Dik est une société nationale contrôlée par le Ministère des Infrastructures et des Transports terrestres et aériens."
+  },
+  {
+    "question": "De quel ministère dépend la Société des Grands Trains du Sénégal ?",
+    "options": [
+      "Ministère des Transports",
+      "Ministère des Infrastructures",
+      "Ministère des Finances"
+    ],
+    "answer": "Ministère des Infrastructures",
+    "explanation": "La Société des Grands Trains du Sénégal est une société nationale contrôlée par le Ministère des Infrastructures et des Transports terrestres et aériens."
+  },
+  {
+    "question": "Quelle structure de l'État est responsable de la Société nationale « Air Sénégal S.A. » ?",
+    "options": [
+      "Ministère des Transports",
+      "Ministère des Finances",
+      "Ministère de l'Economie"
+    ],
+    "answer": "Ministère des Infrastructures",
+    "explanation": "La Société nationale « Air Sénégal S.A. » est une société nationale contrôlée par le Ministère des Infrastructures et des Transports terrestres et aériens."
+  },
+  {
+    "question": "Quel ministère supervise la Société Anonyme Aéroport International Blaise Diagne ?",
+    "options": [
+      "Ministère des Transports",
+      "Ministère des Finances",
+      "Ministère de l'Economie"
+    ],
+    "answer": "Ministère des Infrastructures",
+    "explanation": "La Société Anonyme Aéroport International Blaise Diagne est une société nationale contrôlée par le Ministère des Infrastructures et des Transports terrestres et aériens."
+  },
+  {
+    "question": "À quelle structure de l'État est rattachée la Sénégalaise des Eaux ?",
+    "options": [
+      "Ministère de l'Hydraulique",
+      "Ministère de l'Environnement",
+      "Ministère de l'Economie"
+    ],
+    "answer": "Ministère de l'Hydraulique",
+    "explanation": "La Sénégalaise des Eaux est une société nationale contrôlée par le Ministère de l'Hydraulique et de l'Assainissement."
+  },
+  {
+    "question": "De quel ministère dépend la Société nationale de Radiodiffusion et Télévision du Sénégal ?",
+    "options": [
+      "Ministère de la Communication",
+      "Ministère du Numérique",
+      "Ministère de la Culture"
+    ],
+    "answer": "Ministère de la Communication",
+    "explanation": "La Société nationale de Radiodiffusion et Télévision du Sénégal est une société nationale contrôlée par le Ministère de la Communication, des Télécommunications et du Numérique."
+  },
+  {
+    "question": "Quelle structure de l'État est responsable de la Société sénégalaise de Presse et de Publication « Le Soleil » ?",
+    "options": [
+      "Ministère de la Communication",
+      "Ministère de la Culture",
+      "Primature"
+    ],
+    "answer": "Ministère de la Communication",
+    "explanation": "La Société sénégalaise de Presse et de Publication « Le Soleil » est une société nationale contrôlée par le Ministère de la Communication, des Télécommunications et du Numérique."
+  },
+  {
+    "question": "Quel ministère supervise la Société nationale Agence de Presse Sénégalaise ?",
+    "options": [
+      "Ministère de la Communication",
+      "Ministère de la Culture",
+      "Primature"
+    ],
+    "answer": "Ministère de la Communication",
+    "explanation": "La Société nationale Agence de Presse Sénégalaise est une société nationale contrôlée par le Ministère de la Communication, des Télécommunications et du Numérique."
+  },
+  {
+    "question": "À quelle structure de l'État est rattachée la Société de Télédiffusion du Sénégal ?",
+    "options": [
+      "Ministère de la Communication",
+      "Ministère du Numérique",
+      "Ministère des Technologies de l'Information"
+    ],
+    "answer": "Ministère de la Communication",
+    "explanation": "La Société de Télédiffusion du Sénégal est une société nationale contrôlée par le Ministère de la Communication, des Télécommunications et du Numérique."
+  },
+  {
+    "question": "De quel ministère dépend la Société des Textiles de Kaolack ?",
+    "options": [
+      "Ministère de l'Industrie",
+      "Ministère du Commerce",
+      "Ministère de l'Agriculture"
+    ],
+    "answer": "Ministère de l'Industrie",
+    "explanation": "La Société des Textiles de Kaolack est une société nationale contrôlée par le Ministère de l'Industrie et du Commerce."
+  },
+  {
+    "question": "Quelle structure de l'État est responsable de la Société du Domaine industriel de Ziguinchor ?",
+    "options": [
+      "Ministère de l'Industrie",
+      "Ministère de l'Urbanisme",
+      "Ministère de l'Economie"
+    ],
+    "answer": "Ministère de l'Industrie",
+    "explanation": "La Société du Domaine industriel de Ziguinchor est une société nationale contrôlée par le Ministère de l'Industrie et du Commerce."
+  },
+  {
+    "question": "Quel ministère supervise la Société du Domaine industriel de Saint-Louis ?",
+    "options": [
+      "Ministère de l'Industrie",
+      "Ministère de l'Urbanisme",
+      "Ministère de l'Economie"
+    ],
+    "answer": "Ministère de l'Industrie",
+    "explanation": "La Société du Domaine industriel de Saint-Louis est une société nationale contrôlée par le Ministère de l'Industrie et du Commerce."
+  },
+  {
+    "question": "À quelle structure de l'État est rattachée la Société d'Infrastructures et de Réparation navale ?",
+    "options": [
+      "Ministère des Pêches",
+      "Ministère des Transports",
+      "Ministère de la Marine"
+    ],
+    "answer": "Ministère des Pêches",
+    "explanation": "La Société d'Infrastructures et de Réparation navale est une société nationale contrôlée par le Ministère des Pêches, des Infrastructures maritimes et portuaires."
+  },
+  {
+    "question": "De quel ministère dépend la Société des Conserveries d'Afrique ?",
+    "options": [
+      "Ministère des Pêches",
+      "Ministère de l'Agriculture",
+      "Ministère de l'Industrie"
+    ],
+    "answer": "Ministère des Pêches",
+    "explanation": "La Société des Conserveries d'Afrique est une société nationale contrôlée par le Ministère des Pêches, des Infrastructures maritimes et portuaires."
+  },
+  {
+    "question": "Quelle structure de l'État est responsable de la Société immobilière du Cap-Vert ?",
+    "options": [
+      "Ministère de l'Urbanisme",
+      "Ministère du Logement",
+      "Ministère de l'Intérieur"
+    ],
+    "answer": "Ministère de l'Urbanisme",
+    "explanation": "La Société immobilière du Cap-Vert est une société nationale contrôlée par le Ministère de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires."
+  },
+  {
+    "question": "Quel ministère supervise la Société d'Aménagement foncier et de Rénovation urbaine (SAFRU) ?",
+    "options": [
+      "Ministère de l'Urbanisme",
+      "Ministère de l'Economie",
+      "Ministère de l'Intérieur"
+    ],
+    "answer": "Ministère de l'Urbanisme",
+    "explanation": "La SAFRU est une société nationale contrôlée par le Ministère de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires."
+  },
+  {
+    "question": "À quelle structure de l'État est rattachée la Société nationale d'Aménagement des Terres du Delta et de la Vallée du Fleuve Sénégal ?",
+    "options": [
+      "Ministère de l'Agriculture",
+      "Ministère de l'Hydraulique",
+      "Ministère de l'Environnement"
+    ],
+    "answer": "Ministère de l'Agriculture",
+    "explanation": "La Société nationale d'Aménagement des Terres du Delta et de la Vallée du Fleuve Sénégal est une société nationale contrôlée par le Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Elevage."
+  },
+  {
+    "question": "De quel ministère dépend la Société de Développement des Fibres textiles ?",
+    "options": [
+      "Ministère de l'Agriculture",
+      "Ministère de l'Industrie",
+      "Ministère du Commerce"
+    ],
+    "answer": "Ministère de l'Agriculture",
+    "explanation": "La Société de Développement des Fibres textiles est une société nationale contrôlée par le Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Elevage."
+  },
+  {
+    "question": "Quelle structure de l'État est responsable de la Société « Les nouvelles Editions africaines » ?",
+    "options": [
+      "Ministère de la Culture",
+      "Ministère de l'Education",
+      "Primature"
+    ],
+    "answer": "Ministère de la Culture",
+    "explanation": "La Société « Les nouvelles Editions africaines » est une société nationale contrôlée par le Ministère de la Jeunesse, des Sports et de la Culture."
+  },
+  {
+    "question": "Quel ministère supervise la Sénégalaise du Droit d'Auteur et des Droits Voisins ?",
+    "options": [
+      "Ministère de la Culture",
+      "Ministère de la Justice",
+      "Ministère de l'Economie"
+    ],
+    "answer": "Ministère de la Culture",
+    "explanation": "La Sénégalaise du Droit d'Auteur et des Droits Voisins est une société nationale contrôlée par le Ministère de la Jeunesse, des Sports et de la Culture."
+  },
+  {
+    "question": "À quelle structure de l'État est rattachée l'Agence nationale pour les Energies renouvelables ?",
+    "options": [
+      "Ministère de l'Énergie",
+      "Ministère de l'Environnement",
+      "Ministère de l'Economie"
+    ],
+    "answer": "Ministère de l'Énergie",
+    "explanation": "L'Agence nationale pour les Energies renouvelables est rattachée au Ministère de l'Énergie, du Pétrole et des Mines."
+  },
+  {
+    "question": "De quel ministère dépend l'Agence sénégalaise de la Couverture sanitaire universelle ?",
+    "options": [
+      "Ministère de la Santé",
+      "Ministère de la Famille",
+      "Ministère de l'Economie"
+    ],
+    "answer": "Ministère de la Famille",
+    "explanation": "L'Agence sénégalaise de la Couverture sanitaire universelle est rattachée au Ministère de la Famille et des Solidarités."
+  },
+  {
+    "question": "Quelle structure de l'État est responsable du Fonds de Solidarité nationale ?",
+    "options": [
+      "Ministère de la Famille",
+      "Ministère des Finances",
+      "Primature"
+    ],
+    "answer": "Ministère de la Famille",
+    "explanation": "Le Fonds de Solidarité nationale est rattaché au Ministère de la Famille et des Solidarités."
+  },
+  {
+    "question": "Quel ministère supervise la Société des Mines du Sénégal (SOMISEN SA) ?",
+    "options": [
+      "Ministère des Mines",
+      "Ministère de l'Énergie",
+      "Ministère de l'Industrie"
+    ],
+    "answer": "Ministère de l'Énergie",
+    "explanation": "La SOMISEN SA est une société nationale contrôlée par le Ministère de l'Énergie, du Pétrole et des Mines."
+  },
+  {
+    "question": "À quelle structure de l'État est rattachée l'Agence nationale pour la Promotion de l'Emploi des Jeunes ?",
+    "options": [
+      "Ministère de la Jeunesse",
+      "Ministère du Travail",
+      "Ministère de l'Economie"
+    ],
+    "answer": "Ministère de la Jeunesse",
+    "explanation": "L'Agence nationale pour la Promotion de l'Emploi des Jeunes est rattachée au Ministère de la Jeunesse, des Sports et de la Culture."
+  },
+  {
+    "question": "De quel ministère dépend le Centre national d'Education populaire et sportive ?",
+    "options": [
+      "Ministère de la Culture",
+      "Ministère de la Jeunesse",
+      "Ministère des Sports"
+    ],
+    "answer": "Ministère de la Jeunesse",
+    "explanation": "Le Centre national d'Education populaire et sportive est rattaché au Ministère de la Jeunesse, des Sports et de la Culture."
+  },
+  {
+    "question": "Quelle structure de l'État est responsable de la Société « Les nouvelles Editions africaines » ?",
+    "options": [
+      "Ministère de la Culture",
+      "Ministère de l'Education",
+      "Primature"
+    ],
+    "answer": "Ministère de la Culture",
+    "explanation": "La Société « Les nouvelles Editions africaines » est une société nationale contrôlée par le Ministère de la Jeunesse, des Sports et de la Culture."
+  },
+  {
+    "question": "Quel ministère supervise la La Sénégalaise du Droit d'Auteur et des Droits Voisins ?",
+    "options": [
+      "Ministère de la Culture",
+      "Ministère de la Justice",
+      "Ministère de l'Economie"
+    ],
+    "answer": "Ministère de la Culture",
+    "explanation": "La Sénégalaise du Droit d'Auteur et des Droits Voisins est une société nationale contrôlée par le Ministère de la Jeunesse, des Sports et de la Culture."
+  },
+  {
+    "question": "À quelle structure de l'État est rattachée la Commission nationale de Cryptologie ?",
+    "options": [
+      "Secrétariat général de la Présidence de la République",
+      "Ministère de la Défense",
+      "Ministère de l'Intérieur"
+    ],
+    "answer": "Secrétariat général de la Présidence de la République",
+    "explanation": "La Commission nationale de Cryptologie est une institution rattachée à la Présidence de la République."
+  },
+  {
+    "question": "De quel ministère dépend le Comité national de l'Initiative pour la Transparence dans les industries extractives ?",
+    "options": [
+      "Ministère des Mines",
+      "Ministère de l'Énergie",
+      "Ministère de l'Economie"
+    ],
+    "answer": "Secrétariat général de la Présidence de la République",
+    "explanation": "Le Comité national de l'Initiative pour la Transparence dans les industries extractives est une institution rattachée à la Présidence de la République."
   }
 ]

@@ -15,10 +15,22 @@ useHead({
         },
         {
             name: "twitter:description",
-            content: "Annuaire des nominations du président Diomaye Faye",
+            content: "Nominations du président Diomaye Faye",
         },
         { name: "twitter:card", content: "summary_large_image" },
-        { name: "twitter:image", content: "/nominations-conseil-ministres.jpg" },
+        { name: "twitter:image", content: "/nomination-3.png" },
+        // Open Graph Meta Tags
+        {
+            property: "og:title",
+            content: "Annuaire nominations Sénégal | Vie-Publique.sn",
+        },
+        {
+            property: "og:description",
+            content: "Nominations du président Diomaye Faye",
+        },
+        { property: "og:image", content: "/nomination-3.png" },
+        { property: "og:url", content: "https://vie-publique.sn/nomination-senegal" },
+        { property: "og:type", content: "website" },
     ]
 })
 
@@ -127,14 +139,18 @@ function filterByGender(gender: string) {
 
 <template>
 
-    <div class="flex flex-col items-center px-4 sm:px-8">
+    <div class="flex flex-col items-center px-4">
         <h1 class="text-sm mb-4 text-gray-500 sr-only">
             Membres du gouvernement du Sénégal, Nouveau gouvernement Sénégal Diomaye Sonko,
             Conseil des ministres, Liste des ministres du Sénégal,
         </h1>
-        <h1 class="text-xl font-semibold text-center mt-4 mb-2">
-            {{ data.members?.length }} Nominations du président Diomaye Faye au Sénégal
-        </h1>
+        <div class="prose prose-sm sm:prose mx-auto my-2">
+            <h1 class="text-center">
+                {{ data.members?.length }} Nominations
+                <!--du président Diomaye-->
+            </h1>
+        </div>
+
         <p class="text-sm mb-4 text-gray-500 sr-only">
             Ministres, Secrétaires, Directeurs, PCA
         </p>
@@ -151,7 +167,7 @@ function filterByGender(gender: string) {
                 </template>
 
                 <div class="p-4 text-center">
-                    <h2 class="font-semibold">{{ selectedMinister.name }}</h2>
+                    <h2 class="text-xl font-semibold">{{ selectedMinister.name }}</h2>
                     <p class="text-sm">{{ selectedMinister.role }}</p>
                     <div v-if="selectedMinister.nominationDate != null" class="mt-1">
                         <p class="text-sm text-gray-500">Nommé le</p>
@@ -177,71 +193,71 @@ function filterByGender(gender: string) {
         </UModal>
 
         <div class="w-full max-w-4xl">
-            <div>
-
-                <UInput class="input w-full mb-3 custom-shadow" size="lg" icon="i-heroicons-magnifying-glass"
-                    placeholder="Rechercher une nomination..." v-model="searchQuery">
-                    <!-- <template #trailing>
+            <UInput class="input w-full mb-3 custom-shadow" size="lg" icon="i-heroicons-magnifying-glass"
+                placeholder="Rechercher une nomination..." v-model="searchQuery">
+                <!-- <template #trailing>
                         <UButton v-show="searchQuery !== ''" color="gray" variant="link"
                             icon="i-heroicons-x-mark-20-solid" :padded="false" @click="searchQuery = ''" />
                     </template> -->
-                </UInput>
+            </UInput>
 
-                <div class="  text-center w-full mb-1">
-                    <UButton :ui="{ rounded: 'rounded-full' }" class="text-sm custom-shadow ml-1 mb-1 font-normal"
-                        :color="selectedGender === 'Monsieur' ? 'primary' : 'white'"
-                        @click="selectedGender = selectedGender === 'Monsieur' ? '' : 'Monsieur'" size="sm">
-                        Hommes
-                        <UBadge :ui="{ rounded: 'rounded-full' }" :label="totalsByGender.maleCount"
-                            :color="selectedGender === 'Monsieur' ? 'primary' : 'primary'"
-                            :variant="selectedGender === 'Monsieur' ? 'soft' : 'solid'" size="xs"></UBadge>
-                    </UButton>
+            <div class="text-center w-full mb-1">
+                <UButton :ui="{ rounded: 'rounded-full' }" class="text-sm custom-shadow ml-1 mb-1 font-normal"
+                    :color="selectedGender === 'Monsieur' ? 'primary' : 'white'"
+                    @click="selectedGender = selectedGender === 'Monsieur' ? '' : 'Monsieur'" size="sm">
+                    Hommes
+                    <UBadge :ui="{ rounded: 'rounded-full' }" :label="totalsByGender.maleCount"
+                        :color="selectedGender === 'Monsieur' ? 'primary' : 'primary'"
+                        :variant="selectedGender === 'Monsieur' ? 'soft' : 'solid'" size="xs"></UBadge>
+                </UButton>
+                <UButton :ui="{ rounded: 'rounded-full' }" class="text-sm custom-shadow ml-1 mb-1 font-normal"
+                    :color="selectedGender === 'Madame' ? 'primary' : 'white'"
+                    @click="selectedGender = selectedGender === 'Madame' ? '' : 'Madame'" size="sm">
+                    Femmes
+                    <UBadge :ui="{ rounded: 'rounded-full' }" :label="totalsByGender.femaleCount" color="primary"
+                        :variant="selectedGender === 'Madame' ? 'soft' : 'solid'" size="xs"></UBadge>
+                </UButton>
+            </div>
+
+            <div class="text-center w-full mb-1">
+
+                <UButton v-for="(total, type) in totalsByType" :key="type" :ui="{ rounded: 'rounded-full' }"
+                    :color="selectedType === type ? 'primary' : 'white'"
+                    class="text-sm custom-shadow ml-1 mb-1 font-normal"
+                    @click="selectedType = selectedType === type ? '' : type" size="sm">
+                    {{ type }}
+                    <UBadge :ui="{ rounded: 'rounded-full' }" :label="total" color="primary"
+                        :variant="selectedType === type ? 'soft' : 'solid'" size="xs"></UBadge>
+                </UButton>
+            </div>
+
+            <div class="text-center w-full mb-3">
+                <NuxtLink to="/nomination-senegal/conseil-des-ministres-18-juillet"
+                    class="text-sm mb-2 underline text-center">
+                    Voir les nominations du dernier conseil des ministres
+                </NuxtLink>
+            </div>
+
+            <div class="space-y-2">
+                <UCard v-for="minister in filteredMinisters" :key="minister.name" class="cursor-pointer custom-shadow"
+                    @click="openModal(minister)">
+                    <div class="flex flex-row gap-2 ">
+                        <div class="flex-shrink-0 w-16 h-16 md:w-20 md:h-20">
+                            <NuxtImg :src="minister.photo || '/unknown_member.webp'" alt="Photo ministre"
+                                sizes="64px sm:80px" class="object-cover rounded-full w-full h-full" placeholder />
 
 
-                    <UButton :ui="{ rounded: 'rounded-full' }" class="text-sm custom-shadow ml-1 mb-1 font-normal"
-                        :color="selectedGender === 'Madame' ? 'primary' : 'white'"
-                        @click="selectedGender = selectedGender === 'Madame' ? '' : 'Madame'" size="sm">
-                        Femmes
-                        <UBadge :ui="{ rounded: 'rounded-full' }" :label="totalsByGender.femaleCount" color="primary"
-                            :variant="selectedGender === 'Madame' ? 'soft' : 'solid'" size="xs"></UBadge>
-                    </UButton>
-
-                </div>
-
-                <div class="text-center w-full mb-3">
-
-                    <UButton v-for="(total, type) in totalsByType" :key="type" :ui="{ rounded: 'rounded-full' }"
-                        :color="selectedType === type ? 'primary' : 'white'"
-                        class="text-sm custom-shadow ml-1 mb-1 font-normal"
-                        @click="selectedType = selectedType === type ? '' : type" size="sm">
-                        {{ type }}
-                        <UBadge :ui="{ rounded: 'rounded-full' }" :label="total" color="primary"
-                            :variant="selectedType === type ? 'soft' : 'solid'" size="xs"></UBadge>
-                    </UButton>
-                </div>
-
-                <!-- Liste des ministres avec onClick event -->
-                <div class="space-y-2">
-                    <UCard v-for="minister in filteredMinisters" :key="minister.name"
-                        class="cursor-pointer custom-shadow" @click="openModal(minister)">
-                        <div class="flex flex-row gap-2 ">
-                            <div class="flex-shrink-0 w-16 h-16 md:w-20 md:h-20">
-                                <NuxtImg :src="minister.photo || '/unknown_member.webp'" alt="Photo ministre"
-                                    sizes="64px sm:80px" class="object-cover rounded-full w-full h-full" placeholder />
-
-
-                            </div>
-                            <div class="flex-grow">
-                                <h2 class="font-semibold">{{ minister.name }}</h2>
-                                <p class="text-sm">{{ minister.role }}</p>
-                                <p class="text-sm text-gray-500">Nommé le
-                                    <!-- {{ minister.nominationDate }} -->
-                                    {{ $dateformat(minister.nominationDate) }}
-                                </p>
-                            </div>
                         </div>
-                    </UCard>
-                </div>
+                        <div class="flex-grow">
+                            <h2 class="font-semibold">{{ minister.name }}</h2>
+                            <p class="text-sm">{{ minister.role }}</p>
+                            <p class="text-sm text-gray-500">Nommé le
+                                <!-- {{ minister.nominationDate }} -->
+                                {{ $dateformat(minister.nominationDate) }}
+                            </p>
+                        </div>
+                    </div>
+                </UCard>
             </div>
         </div>
 

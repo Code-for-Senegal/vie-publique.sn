@@ -5,47 +5,52 @@ useHead({
     meta: [
         {
             name: 'description',
-            content: 'Annuaire publiqc, Rapports OFNAC cours des compte, Nominations, Site web des institutions publiques du Sénégal'
+            content: 'Annuaire public, Rapports OFNAC cours des compte, Nominations, Site web des institutions publiques du Sénégal'
         }
     ]
 })
 
 const links = [
     {
-        label: 'Quiz Jeux',
-        description: 'Jeux QCM sur les institutions publiques du Sénégal',
+        label: "Rapports Audit",
+        description: "Cours des Comptes, OFNAC, IGE, CENTIF, ARMP, IGF",
         photo: '/unknown_member.webp',
-        icon: 'i-heroicons-puzzle-piece',
-        to: '/quiz',
+        icon: 'i-heroicons-document-text',
+        to: '/rapport-senegal',
     },
     {
         label: 'Nominations',
-        description: 'Annuaire des nominations du président Diomaye',
+        description: 'Annuaire des nominations du président',
         photo: '/unknown_member.webp',
         icon: 'i-heroicons-identification',
         to: '/nomination-senegal',
-    },
-    {
-        label: "Rapports d'audit",
-        description: "Cours des Comptes, OFNAC, IGE, ARMP, IGF",
+    }, {
+        label: 'Journal Officiel',
+        description: 'Textes législatifs, Lois, Décrets, Arrêtés',
         photo: '/unknown_member.webp',
-        icon: 'i-heroicons-document-text',
-        to: '/reports',
+        icon: 'i-heroicons-newspaper',
+        to: '/journal-officiel-senegal',
+    }, {
+        label: 'Codes Général',
+        description: 'Constitution, Code de la famille, etc',
+        photo: '/unknown_member.webp',
+        icon: 'i-heroicons-clipboard-document-list',
+        to: '/code-senegal',
     },
     {
-        label: "Sites web",
-        description: 'Annuaire des sites internet publics du Sénégal',
+        label: "Sites Web",
+        description: 'Annuaire des sites internet publics',
         photo: '/unknown_member.webp',
         icon: 'i-heroicons-computer-desktop',
         to: '/annuaire-sites-publics-senegal',
     },
-    // {
-    //     label: 'Prix des denrées',
-    //     description: 'Prix des denrées de première nécessité au Sénégal',
-    //     photo: '/unknown_member.webp',
-    //     icon: 'i-heroicons-globe-alt',
-    //     to: '/annuaire-sites-publics-senegal',
-    // },
+    {
+        label: 'Quiz Jeux',
+        description: 'Jeux QCM sur les institutions publiques',
+        photo: '/unknown_member.webp',
+        icon: 'i-heroicons-puzzle-piece',
+        to: '/quiz',
+    }
 ]
 
 </script>
