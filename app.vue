@@ -101,26 +101,6 @@ const aboutUslinks = [
         <div class="h-full">
           <AppHeader />
 
-          <!-- <UCard v-for="link in links" :key="link.to" class="cursor-pointer custom-shadow mb-2" @click="isOpen = false">
-            <ULink :to="link.to" class="flex flex-row gap-2 uppercase">
-              {{ link.label }}
-            </ULink>
-          </UCard>
-          <UDivider />
-          <UCard v-for="link in aboutUslinks" :key="link.to" class="cursor-pointer custom-shadow mb-2"
-            @click="isOpen = false">
-            <ULink :to="link.to" class="flex flex-row gap-2">
-              {{ link.label }}
-            </ULink>
-          </UCard>
-          <UDivider />
-          <UCard v-for="link in betalinks" :key="link.to" class="hidden cursor-pointer custom-shadow mb-2"
-            @click="isOpen = false">
-            <ULink :to="link.to" class="flex flex-row gap-2">
-              {{ link.label }}
-            </ULink>
-          </UCard> -->
-
           <UVerticalNavigation :links="links" @click="isOpen = false" :ui="{ size: 'text-md' }" class="vertical-nav"/>
           <UDivider />
           <UVerticalNavigation :links="aboutUslinks" @click="isOpen = false" :ui="{ size: 'text-md' }" class="vertical-nav"/>
