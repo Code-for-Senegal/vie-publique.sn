@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-const seoTitle = 'Code général Sénégal | Vie-Publique.sn';
+const seoTitle = 'Code général Sénégal';
 const seoDescription = 'Code général de la république du Sénégal';
 const seoImgPath = '/vpsn-share-jors.png';
 const seoPageUrl = 'https://vie-publique.sn/journal-officiel-senegal/2024';

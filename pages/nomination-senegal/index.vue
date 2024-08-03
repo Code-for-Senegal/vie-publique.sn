@@ -2,7 +2,7 @@
 import type { GovernmentMember } from '~/types/government-member';
 
 useHead({
-    title: 'Annuaire nominations Sénégal | Vie-Publique.sn',
+    title: 'Annuaire nominations Sénégal',
     meta: [
         {
             name: 'description',

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 useHead({
-    title: "l'information publique au Sénégal | Vie-Publique.sn",
+    title: "L'information publique au Sénégal",
     meta: [
         {
             name: 'description',

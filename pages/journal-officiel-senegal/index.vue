@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-const seoTitle = 'Journal officiel Sénégal | Vie-Publique.sn';
+const seoTitle = 'Journal officiel Sénégal';
 const seoDescription = 'Journal officiel de la république du Sénégal';
 const seoImgPath = '/images/vpsn-share-jors-4.png';
 const seoPageUrl = 'https://vie-publique.sn/journal-officiel-senegal/2024';

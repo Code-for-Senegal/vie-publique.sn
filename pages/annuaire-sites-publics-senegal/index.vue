@@ -3,7 +3,7 @@
 /* SEO */
 
 useHead({
-    title: 'Annuaire sites web Sénégal | Vie-Publique.sn',
+    title: 'Annuaire sites web Sénégal',
     meta: [
         {
             name: 'description',
