@@ -3,7 +3,7 @@ import type { Question } from '~/types/question';
 const { trackQuizStart, trackQuizFinish } = useAnalytics();
 
 useHead({
-    title: 'Quiz sur le Sénégal | Vie-Publique.sn',
+    title: 'Quiz sur le Sénégal',
     meta: [
         {
             name: 'description',

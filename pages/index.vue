@@ -1,30 +1,39 @@
 <script setup lang="ts">
 
+/* SEO */
 useHead({
-    title: "l'information publique au Sénégal | Vie-Publique.sn",
+    title: "l'information publique au Sénégal, Actualité au Sénégal | Vie-Publique.sn",
     meta: [
         {
             name: 'description',
-            content: 'Annuaire public, Rapports OFNAC cours des compte, Nominations, Site web des institutions publiques du Sénégal'
-        }
-    ]
+            content:
+                "Information sur la République du Sénégal: Gouvernement de Diomaye et Sonko, journal officiel, rapports d'audit OFNAC Cours des Comptes CENTIG IGE",
+        },
+    ],
 })
 
 const links = [
+    
+    {
+        label: 'Nominations',
+        description: 'Annuaire des nominations du président Diomaye',
+        photo: '/unknown_member.webp',
+        icon: 'i-heroicons-identification',
+        to: '/nomination-senegal',
+    }, {
+        label: 'Conseil des ministres',
+        description: 'Communiqué Conseil des ministres',
+        photo: '/unknown_member.webp',
+        icon: 'i-heroicons-document',
+        to: '/conseil-des-ministres',
+    },
     {
         label: "Rapports Audit",
         description: "Cours des Comptes, OFNAC, IGE, CENTIF, ARMP, IGF",
         photo: '/unknown_member.webp',
         icon: 'i-heroicons-document-text',
         to: '/rapport-senegal',
-    },
-    {
-        label: 'Nominations',
-        description: 'Annuaire des nominations du président',
-        photo: '/unknown_member.webp',
-        icon: 'i-heroicons-identification',
-        to: '/nomination-senegal',
-    }, {
+    },{
         label: 'Journal Officiel',
         description: 'Textes législatifs, Lois, Décrets, Arrêtés',
         photo: '/unknown_member.webp',
@@ -44,6 +53,7 @@ const links = [
         icon: 'i-heroicons-computer-desktop',
         to: '/annuaire-sites-publics-senegal',
     },
+    
     {
         label: 'Quiz Jeux',
         description: 'Jeux QCM sur les institutions publiques',

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
-const seoTitle = 'Code général Sénégal | Vie-Publique.sn';
-const seoDescription = 'Code général de la république du Sénégal';
+const seoTitle = 'Code général de la république du Sénégal';
+const seoDescription = 'Sénégal Constitution, Code de la famille, Code du travail, Code des collectivités locales, Code de la presse';
 const seoImgPath = '/vpsn-share-jors.png';
 const seoPageUrl = 'https://vie-publique.sn/journal-officiel-senegal/2024';
 useHead({
@@ -40,7 +40,8 @@ useHead({
 const searchQuery = ref('')
 
 const { data: codes, pending, error } = await useAsyncData('codes', () =>
-  queryContent('code-senegal').find()
+  queryContent('code-senegal').find(),
+  { server: true, lazy: false }
 )
 
 const filteredCodes = computed(() => {
@@ -52,7 +53,7 @@ const filteredCodes = computed(() => {
 </script>
 
 <template>
-  <div class="container mx-auto p-4">
+  <div class="container mx-auto px-4">
 
     <div class="prose prose-sm sm:prose mx-auto my-2">
       <h1 class="text-center">
@@ -62,7 +63,7 @@ const filteredCodes = computed(() => {
 
     <div class="text-center">
       <p v-if="filteredCodes.length > 1" class="text-sm mb-2 text-gray-500">
-        Constitution, Codes, Textes
+        {{ filteredCodes.length }} Codes référencés
       </p>
     </div>
 
@@ -74,11 +75,12 @@ const filteredCodes = computed(() => {
     <div v-else>
       <div class="flex flex-col gap-2">
         <UCard v-for="codeItem in filteredCodes" :key="codeItem._path" class="cursor-pointer custom-shadow">
-          <NuxtLink :to="codeItem._path" class="font-semibold flex items-center">
-            <UIcon name="i-heroicons-document" />
-
-            <!-- <UIcon name="i-heroicons-arrow-right-circle" /> -->
-            <p class="underline">{{ codeItem.title }}</p>
+          <NuxtLink :to="codeItem._path">
+            <p class="font-semibold underline">
+              <!-- <UIcon name="i-heroicons-document" />&nbsp; -->
+              {{ codeItem.title }}
+            </p>
+            <p class="text-gray-500 text-sm">{{ codeItem.subtitle }}</p>
           </NuxtLink>
         </UCard>
       </div>

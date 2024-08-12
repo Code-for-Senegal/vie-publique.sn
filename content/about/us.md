@@ -1,56 +1,76 @@
 ---
-title: "A propos vie-publique.sn"
-description: "A propos du site vie-publique.sn"
+title: "À propos de vie-publique.sn"
+description: "Informations sur le site vie-publique.sn, initiative citoyenne dédiée à la promotion de la transparence et de l'accessibilité de l'information publique au Sénégal"
 ---
-
-<!-- Content of the page -->
 
 # À Propos
 
-## **Contact**
+### Projet Citoyen, Ouvert et Open Source
 
-Envoyez nous un mail sur [contact@vie-publique.sn](mailto:contact@vie-publique.sn)
+Bienvenue sur vie-publique.sn, une plateforme citoyenne dédiée à la promotion de la transparence et de l'accessibilité à l'information publique au Sénégal.
 
-## **Projet Citoyen, Ouvert et Open Source**
+C'est une plateforme participative, collective, ouverte et open source visant à rendre accessible au grand public les informations publiques (rapports d'audit, budget, journal officiel, lois et réglements, code général, nominations etc.).
 
-Bienvenue sur vie-publique.sn, une initiative citoyenne dédiée à la promotion de la transparence et de l'accessibilité de l'information publique au Sénégal. Ce projet n'est pas affilié à aucun gouvernement ou organisation politique. Il s'agit d'une démarche ouverte et open source visant à rendre accessible au grand public les rapports de contrôle émis par les organismes de surveillance étatiques.
+Ce projet n'est pas affilié à aucun gouvernement ou organisation politique.
 
-## **Source des Rapports**
 
-Les rapports que nous publions sont strictement ceux rendus publics par les organismes de contrôle suivants :
+### Contact
 
-- ARMP - Autorité de Régulation des Marchés Publics
-- IGE - Inspection Générale d'État
-- IGF - Inspection Générale des Finances
-- Cours des Comptes
-- OFNAC - Office National de Lutte contre la Fraude et la Corruption
-- AUTRES - ITIE, ARTP, ANSD, Transparency International, Amnesty
+Pour toute question ou suggestion, envoyez-nous un mail à [contact@vie-publique.sn](mailto:contact@vie-publique.sn).
 
-Ces documents sont récupérés directement des canaux publics et sont présentés ici dans un effort pour faciliter leur accès et leur utilisation par le public.
+### Objectif du Projet
 
-## **Source des données sur les nominations**
+L'objectif de vie-publique.sn est de fournir un accès facile aux informations gouvernementales afin de promouvoir l'engagement civique, la responsabilisation et une meilleure compréhension des affaires publiques par les citoyens. En consolidant ces informations eet en facilitant leur accès à un seul endroit, nous espérons contribuer à une société plus informée et plus engagée.
 
-- Communiqué des conseils des ministres
+### Participation et Contributions
 
-## **Source des données sur le quiz**
-
-- Décret de répartition de service de l'état
-- Communiqué des conseils des ministres
-
-## **Objectif du Projet**
-
-L'objectif de vie-publique.sn est de fournir un accès facile aux rapports de contrôle gouvernemental pour encourager l'engagement civique, la responsabilisation et une meilleure compréhension des affaires publiques par les citoyens. En consolidant ces informations en un seul endroit accessible, nous espérons contribuer à une société plus informée et plus engagée.
-
-## **Participation et Contributions**
-
-Étant un projet open source, nous encourageons la communauté à participer et à contribuer à l'amélioration de cette plateforme. Si vous avez des compétences en développement web, en analyse de données, ou si vous souhaitez simplement suggérer des améliorations ou signaler des erreurs, n'hésitez pas à nous contacter ou à contribuer via notre dépôt GitHub.
+En tant que projet open source, nous encourageons la communauté à participer et à contribuer à l'amélioration de cette plateforme. Si vous avez des compétences en développement web, en analyse de données, ou si vous souhaitez simplement nous transmettre des information, suggérer des améliorations ou signaler des erreurs, n'hésitez pas à nous contacter ou à contribuer via notre dépôt GitHub.
 
 Nous sommes ouverts à toutes les formes de collaboration qui peuvent enrichir ce projet et servir au mieux les intérêts des citoyens.
 
-## **Code source**
+### Sources des Données
 
-Le code est disponible en open source sur Github
+**Journal officiel**
+
+- Imprimerie nationale
+
+**Nominations**
+
+- Communiqués des conseils des ministres
+
+**Quiz**
+
+- Décrets de répartition des services de l'État
+- Communiqués des conseils des ministres
+
+**Rapports**
+
+Les rapports publiés sur notre plateforme proviennent exclusivement des organismes de contrôle suivants :
+
+- **Cour des Comptes**
+- **ARMP** Autorité de Régulation des Marchés Publics
+- **IGE** Inspection Générale d'État
+- **IGF** Inspection Générale des Finances
+- \*_CENTIF_ Cellule nationale de Traitement des Informations financière
+- **OFNAC** Office National de Lutte contre la Fraude et la Corruption
+- **Autres** ITIE, ARTP, ANSD, Transparency International, Amnesty
+
+Ces documents sont récupérés directement des sources publiques et sont présentés ici dans le but de faciliter leur accès et leur utilisation par le public.
+
+### Code Source
+
+Le code source de notre plateforme est disponible en open source sur GitHub. Vous pouvez le consulter et y contribuer via le lien ci-dessous :
 
 <a href="https://github.com/Code-for-Senegal/vie-publique.sn" target="_blank">github.com/Code-for-Senegal/vie-publique.sn</a>
 
-Contactez nous sur [contact@vie-publique.sn](mailto:contact@vie-publique.sn)
+### Contact
+
+Pour toute question ou suggestion, envoyez-nous un mail à [contact@vie-publique.sn](mailto:contact@vie-publique.sn).
+
+<!-- ### Historique projet
+
+Projet débuté le 1er mai 2024 sur twitter
+
+<ClientOnly>
+<blockquote class="twitter-tweet"><p lang="fr" dir="ltr">🚀Here we go, Voici centralisé les rapports sur une nouvelle plateforme vie-publique SN <a href="https://t.co/TlcsIxpsu8">https://t.co/TlcsIxpsu8</a> <br><br>Vous pouvez filtrer, rechercher et télécharger les rapports PDF. Les fonctionnalités de résumés des rapports et de listing des personnes épinglées seront bientôt… <a href="https://t.co/LJ1UIBn9ou">https://t.co/LJ1UIBn9ou</a> <a href="https://t.co/qoIWw5J1Tz">pic.twitter.com/qoIWw5J1Tz</a></p>&mdash; Malick Yacine ® (@malick_yacine) <a href="https://twitter.com/malick_yacine/status/1785472745150742983?ref_src=twsrc%5Etfw">May 1, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<ClientOnly> -->

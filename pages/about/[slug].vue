@@ -5,3 +5,9 @@
     </div>
   </ContentDoc>
 </template>
+
+<style>
+.prose div h3 a {
+  text-decoration: none;
+}
+</style>

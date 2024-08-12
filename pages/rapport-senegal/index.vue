@@ -73,7 +73,6 @@ watch(selectedOrganisme, () => {
         @click="selectedOrganisme = ''">
         Tous
       </UButton>
-      <!-- :class="[selectedOrganisme === organisme ? 'primary' : 'bg-white text-inherit hover:bg-neutral-900 hover:text-white']" -->
       <UButton v-for="organisme in organismes" :key="organisme" class="custom-shadow ml-1 mb-1"
         :color="selectedOrganisme === organisme ? 'primary' : 'white'"
         @click="selectedOrganisme = selectedOrganisme === organisme ? '' : organisme">

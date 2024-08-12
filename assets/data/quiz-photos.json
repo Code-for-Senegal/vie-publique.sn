@@ -13,6 +13,30 @@
   },
   {
     "type": "image",
+    "question": "Qui est le DG du CROUS de Diamniadio ?",
+    "options": [
+      "/nominations/marie-rose-faye.jfif",
+      "/nominations/yaye-khadidiatou-djamila-diallo.jfif",
+      "/nominations/fama-dieng.jpg",
+      "/nominations/sidy-alpha-ndiaye.jpeg"
+    ],
+    "answer": "/nominations/fama-dieng.jpg",
+    "explanation": "Fama Dieng a été nommée le 03 Juillet 2024 Directrice du CROUS de Diamniadio."
+  },
+  {
+    "type": "image",
+    "question": "Qui est la Secrétaire permanent à l’Energie ?",
+    "options": [
+      "/nominations/yaye-khadidiatou-djamila-diallo.jfif",
+      "/nominations/oumy-khairy-diop.jpg",
+      "/gouvernement/ministre-yassine-fall.jfif",
+      "/nominations/marie-rose-faye.jfif"
+    ],
+    "answer": "/nominations/oumy-khairy-diop.jpg",
+    "explanation": "Oumou Khaïry DIOP a été nommé le 18 Juillet 2024 Secrétaire permanent à l’Energie"
+  },
+  {
+    "type": "image",
     "question": "Qui est le Ministre, Secrétaire Général de la Présidence de la République ?",
     "options": [
       "/nominations/omar-samba-ba.jfif",
@@ -25,10 +49,22 @@
   },
   {
     "type": "image",
+    "question": "Qui est le Ministre de l’Économie du Plan et de la Coopération ?",
+    "options": [
+      "/gouvernement/ministre-abdourahmane-sarr.jfif",
+      "/nominations/aissatou-mbodj.jfif",
+      "/nominations/omar-samba-ba.jfif",
+      "/nominations/pape-birane-dieye.jfif"
+    ],
+    "answer": "/gouvernement/ministre-abdourahmane-sarr.jfif",
+    "explanation": "Abdourahmane SARR est le Ministre de l’Économie du Plan et de la Coopération."
+  },
+  {
+    "type": "image",
     "question": "Qui est l'Aide de camp du Président de la République ?",
     "options": [
       "/nominations/pape-birane-dieye.jfif",
-      "/nominations/mary-teuw-niane.jfif",
+      "/gouvernement/ministre-général-jean-baptiste-tine.jfif",
       "/nominations/omar-samba-ba.jfif",
       "nominations/outhmane-diagne.jpg"
     ],
@@ -40,7 +76,7 @@
     "question": "Qui est le Ministre, Secrétaire général du Gouvernement ?",
     "options": [
       "/gouvernement/ministre-secretaire-general-Ahmadou-Al-Aminou-LO.jfif",
-      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/amadou-gueye.jfif",
       "/nominations/omar-samba-ba.jfif",
       "/nominations/pape-birane-dieye.jfif"
     ],
@@ -52,8 +88,8 @@
     "question": "Qui est le Ministre de l’Intégration africaine et des Affaires étrangères ?",
     "options": [
       "/gouvernement/ministre-yassine-fall.jfif",
-      "/nominations/mary-teuw-niane.jfif",
-      "/nominations/omar-samba-ba.jfif",
+      "/gouvernement/ministre-amadou-moustapha-ndieck-sarre.jfif",
+      "/gouvernement/ministre-alioune-sall.jfif",
       "/nominations/pape-birane-dieye.jfif"
     ],
     "answer": "/gouvernement/ministre-yassine-fall.jfif",
@@ -106,18 +142,6 @@
     ],
     "answer": "/gouvernement/ministre-birame-souleye-diop.jfif",
     "explanation": "Birame Souleye DIOP est le Ministre de l’Énergie, du Pétrole et des Mines."
-  },
-  {
-    "type": "image",
-    "question": "Qui est le Ministre de l’Économie du Plan et de la Coopération ?",
-    "options": [
-      "/gouvernement/ministre-abdourahmane-sarr.jfif",
-      "/nominations/mary-teuw-niane.jfif",
-      "/nominations/omar-samba-ba.jfif",
-      "/nominations/pape-birane-dieye.jfif"
-    ],
-    "answer": "/gouvernement/ministre-abdourahmane-sarr.jfif",
-    "explanation": "Abdourahmane SARR est le Ministre de l’Économie du Plan et de la Coopération."
   },
   {
     "type": "image",
@@ -183,12 +207,12 @@
     "type": "image",
     "question": "Qui est le Ministre de la Communication, des Télécommunications et du Numérique ?",
     "options": [
-      "/gouvernement/ministre-alione-sall.jfif",
-      "/nominations/mary-teuw-niane.jfif",
+      "/gouvernement/ministre-alioune-sall.jfif",
+      "/nominations/amadou-cherif-diouf-2.jfif",
       "/nominations/omar-samba-ba.jfif",
-      "/nominations/pape-birane-dieye.jfif"
+      "/nominations/ibrahima-thiam-3.jfif"
     ],
-    "answer": "/gouvernement/ministre-alione-sall.jfif",
+    "answer": "/gouvernement/ministre-alioune-sall.jfif",
     "explanation": "Alioune SALL est le Ministre de la Communication, des Télécommunications et du Numérique."
   },
   {
@@ -196,7 +220,7 @@
     "question": "Qui est le Ministre de l’Enseignement supérieur, de la Recherche et de l’Innovation ?",
     "options": [
       "/gouvernement/ministre-elhadj-abdourahmane-diouf.jfif",
-      "/nominations/mary-teuw-niane.jfif",
+      "/nominations/momath-talla-ndao.jfif",
       "/nominations/omar-samba-ba.jfif",
       "/nominations/pape-birane-dieye.jfif"
     ],
@@ -208,7 +232,7 @@
     "question": "Qui est le DG de la Radiotélévision Sénégalaise (RTS) ?",
     "options": [
       "/nominations/bacary-sega-bathily.jfif",
-      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/alioune-ibnou-abou-talib-diouf.jfif",
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
       "/nominations/pape-ale-niang.jfif"
     ],
@@ -217,7 +241,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le DG de la Société nationale du Port Autonome de Dakar ?",
+    "question": "Qui est le DG du Port Autonome de Dakar ?",
     "options": [
       "/nominations/bacary-sega-bathily.jfif",
       "/nominations/pape-ale-niang.jfif",
@@ -232,8 +256,8 @@
     "question": "Qui est le DG de l'Aéroport International Blaise DIAGNE (AIBD) ?",
     "options": [
       "/nominations/bacary-sega-bathily.jfif",
-      "/nominations/pape-ale-niang.jfif",
-      "/nominations/waly-diouf-bodiang.jfif",
+      "nominations/cheikh-ahmed-bamba-diagne.jpg",
+      "/gouvernement/ministre-abdourahmane-sarr.jfif",
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
     ],
     "answer": "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
@@ -243,7 +267,7 @@
     "type": "image",
     "question": "Qui est le DG de la Caisse des Dépôts et Consignations (CDC) ?",
     "options": [
-      "/nominations/pape-ale-niang.jfif",
+      "/nominations/abdou-diaw.jfif",
       "/nominations/waly-diouf-bodiang.jfif",
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
       "/nominations/fadilou-keita.jfif"
@@ -255,10 +279,10 @@
     "type": "image",
     "question": "Qui est le DG de la Société nationale La Poste ?",
     "options": [
-      "/nominations/maguette-kane.jpeg",
       "/nominations/pape-ale-niang.jfif",
-      "/nominations/waly-diouf-bodiang.jfif",
-      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
+      "/nominations/tahir-ndiaye.jpeg",
+      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
+      "/nominations/maguette-kane.jpeg"
     ],
     "answer": "/nominations/maguette-kane.jpeg",
     "explanation": "Maguette KANE est le Directeur général de la Société nationale La Poste."
@@ -267,9 +291,9 @@
     "type": "image",
     "question": "Qui est le DG de la Société nationale des Habitations à Loyer Modéré (SN HLM) ?",
     "options": [
-      "/nominations/bassirou-kebe.jfif",
       "/nominations/pape-ale-niang.jfif",
-      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/bassirou-kebe.jfif",
+      "/nominations/ndioguou-ndiaye.jpeg",
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
     ],
     "answer": "/nominations/bassirou-kebe.jfif",
@@ -280,7 +304,7 @@
     "question": "Qui est le DG de la Société immobilière du Cap Vert (SICAP SA) ?",
     "options": [
       "/nominations/mouhamadou-moctar-magassouba.jfif",
-      "/nominations/pape-ale-niang.jfif",
+      "/nominations/bakary-sarr.jfif",
       "/nominations/waly-diouf-bodiang.jfif",
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
     ],
@@ -293,7 +317,7 @@
     "options": [
       "/nominations/serigne-mamadou-mboup-2.jfif",
       "/nominations/pape-ale-niang.jfif",
-      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/ahmad-iyane-sow.jpeg",
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
     ],
     "answer": "/nominations/serigne-mamadou-mboup-2.jfif",
@@ -304,8 +328,8 @@
     "question": "Qui est le DG de l’Agence de Développement et d’Encadrement des petites et moyennes entreprises (ADEPME) ?",
     "options": [
       "/nominations/marie-rose-faye.jfif",
-      "/nominations/pape-ale-niang.jfif",
-      "/nominations/waly-diouf-bodiang.jfif",
+      "nominations/cheikh-ahmed-bamba-diagne.jpg",
+      "/nominations/alioune-ibnou-abou-talib-diouf.jfif",
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
     ],
     "answer": "/nominations/marie-rose-faye.jfif",
@@ -316,7 +340,7 @@
     "question": "Qui est le DG de l’Agence nationale de la Petite enfance et de la Case des Tout-Petits ?",
     "options": [
       "/nominations/yaye-khadidiatou-djamila-diallo.jfif",
-      "/nominations/pape-ale-niang.jfif",
+      "/nominations/mor-fall.tiff",
       "/nominations/waly-diouf-bodiang.jfif",
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
     ],
@@ -327,9 +351,9 @@
     "type": "image",
     "question": "Qui est le DG de l’Agence nationale de l’Aménagement du Territoire (ANAT) ?",
     "options": [
+      "/nominations/mamadou-goudiaby.jpeg",
       "/nominations/tidiane-sidibe.jpg",
       "/nominations/pape-ale-niang.jfif",
-      "/nominations/waly-diouf-bodiang.jfif",
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
     ],
     "answer": "/nominations/tidiane-sidibe.jpg",
@@ -341,7 +365,7 @@
     "options": [
       "/nominations/sekouna-diatta.jfif",
       "/nominations/pape-ale-niang.jfif",
-      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/tidiane-sidibe.jpg",
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
     ],
     "answer": "/nominations/sekouna-diatta.jfif",
@@ -364,8 +388,8 @@
     "question": "Qui est le DG de la Société nationale des Eaux du Sénégal (SONES) ?",
     "options": [
       "/nominations/abdoul-niang.jfif",
-      "/nominations/pape-ale-niang.jfif",
-      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/biram-holo-ba.jpeg",
+      "/nominations/mamadou-abib-diop-3.jfif",
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
     ],
     "answer": "/nominations/abdoul-niang.jfif",
@@ -377,7 +401,7 @@
     "options": [
       "/nominations/mamadou-abib-diop-3.jfif",
       "/nominations/pape-ale-niang.jfif",
-      "/nominations/waly-diouf-bodiang.jfif",
+      "/gouvernement/ministre-abdourahmane-sarr.jfif",
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
     ],
     "answer": "/nominations/mamadou-abib-diop-3.jfif",
@@ -400,8 +424,8 @@
     "question": "Qui est le Directeur général du Fonds Souverain d’Investissements Stratégiques (FONSIS) ?",
     "options": [
       "/nominations/babacar-ngning.jfif",
-      "/nominations/pape-ale-niang.jfif",
-      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/momath-talla-ndao.jfif",
+      "/nominations/alpha-ba.jfif",
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
     ],
     "answer": "/nominations/babacar-ngning.jfif",
@@ -412,8 +436,8 @@
     "question": "Qui est le DG de l'Autorité de Régulation des Télécommunications et des Postes (ARTP) ?",
     "options": [
       "/nominations/dahirou-thiam-2.jfif",
-      "/nominations/pape-ale-niang.jfif",
-      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/alpha-ba.jfif",
+      "nominations/outhmane-diagne.jpg",
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
     ],
     "answer": "/nominations/dahirou-thiam-2.jfif",
@@ -436,8 +460,8 @@
     "question": "Qui est le DG de la Société des Mines du Sénégal (SOMISEN) ?",
     "options": [
       "/nominations/ngagne-demba-toure-2.jfif",
-      "/nominations/pape-ale-niang.jfif",
-      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/mor-fall.tiff",
+      "/nominations/mady-bathily.jpeg",
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
     ],
     "answer": "/nominations/ngagne-demba-toure-2.jfif",
@@ -448,8 +472,8 @@
     "question": "Qui est le DG de la Société anonyme Télédiffusion du Sénégal (TDS-SA) ?",
     "options": [
       "/nominations/aminata-sarr.jfif",
-      "/nominations/pape-ale-niang.jfif",
-      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/bakary-sarr.jfif",
+      "/nominations/ahmad-iyane-sow.jpeg",
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
     ],
     "answer": "/nominations/aminata-sarr.jfif",
@@ -460,7 +484,7 @@
     "question": "Qui est le Directeur général du Conseil Sénégalais des Chargeurs (COSEC) ?",
     "options": [
       "/nominations/ndeye-rokhaya-thiam-2.jfif",
-      "/nominations/pape-ale-niang.jfif",
+      "/nominations/alpha-ba.jfif",
       "/nominations/waly-diouf-bodiang.jfif",
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
     ],
@@ -613,18 +637,6 @@
   },
   {
     "type": "image",
-    "question": "Qui est le Directeur du Centre international du Commerce extérieur du Sénégal (CICES) ?",
-    "options": [
-      "/nominations/mary-teuw-niane.jfif",
-      "/nominations/omar-samba-ba.jfif",
-      "/nominations/pape-birane-dieye.jfif",
-      "/nominations/justin-correa.jfif"
-    ],
-    "answer": "/nominations/justin-correa.jfif",
-    "explanation": "Justin CORREA est le Directeur du Centre international du Commerce extérieur du Sénégal (CICES)."
-  },
-  {
-    "type": "image",
     "question": "Qui est le Coordonnateur national du Programme de Modernisation et de Gestion des Marchés (PROMOGEM) ?",
     "options": [
       "/nominations/mary-teuw-niane.jfif",
@@ -750,7 +762,7 @@
       "/gouvernement/ministre-daouda-ngom.jfif",
       "/gouvernement/ministre-amadou-moustapha-ndieck-sarre.jfif",
       "/gouvernement/ministre-cheikh-tidiane-dieye.jfif",
-      "/gouvernement/ministre-alione-sall.jfif"
+      "/gouvernement/ministre-alioune-sall.jfif"
     ],
     "answer": "/gouvernement/ministre-daouda-ngom.jfif",
     "explanation": "Daouda NGOM est le Ministre de l’Environnement et de la Transition écologique."
@@ -762,7 +774,7 @@
       "/gouvernement/ministre-daouda-ngom.jfif",
       "/gouvernement/ministre-amadou-moustapha-ndieck-sarre.jfif",
       "/gouvernement/ministre-cheikh-tidiane-dieye.jfif",
-      "/gouvernement/ministre-alione-sall.jfif"
+      "/gouvernement/ministre-alioune-sall.jfif"
     ],
     "answer": "/gouvernement/ministre-amadou-moustapha-ndieck-sarre.jfif",
     "explanation": "Amadou Moustapha Ndieck SARRE est le Ministre de la Formation professionnelle et Porte-parole du Gouvernement."
@@ -774,7 +786,7 @@
       "/gouvernement/ministre-daouda-ngom.jfif",
       "/gouvernement/ministre-amadou-moustapha-ndieck-sarre.jfif",
       "/gouvernement/ministre-cheikh-tidiane-dieye.jfif",
-      "/gouvernement/ministre-alione-sall.jfif"
+      "/gouvernement/ministre-alioune-sall.jfif"
     ],
     "answer": "/gouvernement/ministre-cheikh-tidiane-dieye.jfif",
     "explanation": "Cheikh Tidiane DIEYE est le Ministre de l‘Hydraulique et de l’Assainissement."
@@ -786,9 +798,9 @@
       "/gouvernement/ministre-daouda-ngom.jfif",
       "/gouvernement/ministre-amadou-moustapha-ndieck-sarre.jfif",
       "/gouvernement/ministre-cheikh-tidiane-dieye.jfif",
-      "/gouvernement/ministre-alione-sall.jfif"
+      "/gouvernement/ministre-alioune-sall.jfif"
     ],
-    "answer": "/gouvernement/ministre-alione-sall.jfif",
+    "answer": "/gouvernement/ministre-alioune-sall.jfif",
     "explanation": "Alioune SALL est le Ministre de la Communication, des Télécommunications et du Numérique."
   },
   {
@@ -1045,15 +1057,15 @@
   },
   {
     "type": "image",
-    "question": "Qui est le DG de la Société nationale du Port Autonome de Dakar ?",
+    "question": "Qui est le DG de l’Agence pour la promotion et le Développement de l’Artisanat ?",
     "options": [
-      "/nominations/waly-diouf-bodiang.jfif",
-      "/nominations/pape-ale-niang.jfif",
+      "/nominations/sophie-nzingua-sy.jpeg",
+      "/nominations/mamadou-coulibaly.jfif",
       "/nominations/bacary-sega-bathily.jfif",
       "/nominations/el-hadj-daouda-niang-2.jpg"
     ],
-    "answer": "/nominations/waly-diouf-bodiang.jfif",
-    "explanation": "Waly DIOUF BODIANG est le Directeur général de la Société nationale du Port Autonome de Dakar."
+    "answer": "/nominations/sophie-nzingua-sy.jpeg",
+    "explanation": "Sophie Nzinga SY est la Directrice générale de l’Agence pour la promotion et le Développement de l’Artisanat (APDA)"
   },
   {
     "type": "image",
@@ -1061,7 +1073,7 @@
     "options": [
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
       "/nominations/waly-diouf-bodiang.jfif",
-      "/nominations/pape-ale-niang.jfif",
+      "/nominations/meissa-diakhate.jpeg",
       "/nominations/bacary-sega-bathily.jfif"
     ],
     "answer": "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
@@ -1069,15 +1081,15 @@
   },
   {
     "type": "image",
-    "question": "Qui est le DG de la Caisse des Dépôts et Consignations (CDC) ?",
+    "question": "Qui est le Président du Conseil de surveillance de ANER?",
     "options": [
       "/nominations/fadilou-keita.jfif",
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
-      "/nominations/waly-diouf-bodiang.jfif",
-      "/nominations/pape-ale-niang.jfif"
+      "/nominations/adama-diawara.jpg",
+      "/nominations/biram-holo-ba.jpeg"
     ],
-    "answer": "/nominations/fadilou-keita.jfif",
-    "explanation": "Fadilou KEITA est le Directeur général de la Caisse des Dépôts et Consignations (CDC)."
+    "answer": "/nominations/adama-diawara.jpg",
+    "explanation": "Adama DIAWARA Président du Conseil de surveillance de l’Agence nationale des Energies renouvelables (ANER)"
   },
   {
     "type": "image",
@@ -1261,23 +1273,23 @@
   },
   {
     "type": "image",
-    "question": "Qui est le DG de la Société nationale du Port Autonome de Dakar ?",
+    "question": "Qui est le DG de la Société d’Exploitation du Marché d’Intérêt national et de la gare des gros Porteurs ?",
     "options": [
-      "/nominations/waly-diouf-bodiang.jfif",
       "/nominations/pape-ale-niang.jfif",
+      "/nominations/mamadou-coulibaly.jfif",
       "/nominations/bacary-sega-bathily.jfif",
       "/nominations/el-hadj-daouda-niang-2.jpg"
     ],
-    "answer": "/nominations/waly-diouf-bodiang.jfif",
-    "explanation": "Waly DIOUF BODIANG est le Directeur général de la Société nationale du Port Autonome de Dakar."
+    "answer": "/nominations/mamadou-coulibaly.jfif",
+    "explanation": "Mamadou COULIBALY est le DG de la Société d’Exploitation du Marché d’Intérêt national et de la gare des gros Porteurs."
   },
   {
     "type": "image",
     "question": "Qui est le DG de l'Aéroport International Blaise DIAGNE (AIBD) ?",
     "options": [
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
-      "/nominations/waly-diouf-bodiang.jfif",
-      "/nominations/pape-ale-niang.jfif",
+      "/nominations/mady-bathily.jpeg",
+      "/nominations/adama-diawara.jpg",
       "/nominations/bacary-sega-bathily.jfif"
     ],
     "answer": "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
@@ -1285,15 +1297,15 @@
   },
   {
     "type": "image",
-    "question": "Qui est le DG de la Caisse des Dépôts et Consignations (CDC) ?",
+    "question": "Qui est le DG du Réseau gazier du Sénégal SA (RGS SA)?",
     "options": [
       "/nominations/fadilou-keita.jfif",
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
-      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/pape-momar-lo.jpeg",
       "/nominations/pape-ale-niang.jfif"
     ],
-    "answer": "/nominations/fadilou-keita.jfif",
-    "explanation": "Fadilou KEITA est le Directeur général de la Caisse des Dépôts et Consignations (CDC)."
+    "answer": "/nominations/pape-momar-lo.jpeg",
+    "explanation": "Pape Momar LO est le Directeur général du Réseau gazier du Sénégal SA (RGS SA)"
   },
   {
     "type": "image",
@@ -1465,27 +1477,15 @@
   },
   {
     "type": "image",
-    "question": "Qui est le DG de la Société anonyme TDS-SA ?",
+    "question": "Qui est le coordonnateur national du Programme de Développement de la Microfinance Islamique ?",
     "options": [
-      "/nominations/aminata-sarr.jfif",
+      "/nominations/abdou-diaw.jfif",
       "/nominations/ngagne-demba-toure-2.jfif",
       "/nominations/ndéné-mbodj.jfif",
       "/nominations/assane-mbengue.jfif"
     ],
-    "answer": "/nominations/aminata-sarr.jfif",
-    "explanation": "Aminata SARR est la Directrice général de la Société anonyme Télédiffusion du Sénégal (TDS-SA)."
-  },
-  {
-    "type": "image",
-    "question": "Qui est le Directeur général du COSEC ?",
-    "options": [
-      "/nominations/ndeye-rokhaya-thiam-2.jfif",
-      "/nominations/aminata-sarr.jfif",
-      "/nominations/ngagne-demba-toure-2.jfif",
-      "/nominations/ndéné-mbodj.jfif"
-    ],
-    "answer": "/nominations/ndeye-rokhaya-thiam-2.jfif",
-    "explanation": "Ndeye Rokhaya THIAM est la Directrice général du Conseil Sénégalais des Chargeurs (COSEC)."
+    "answer": "/nominations/abdou-diaw.jfif",
+    "explanation": "Abdou Diaw est le coordonnateur national du Programme de Développement de la Microfinance Islamique."
   },
   {
     "type": "image",
@@ -1537,27 +1537,27 @@
   },
   {
     "type": "image",
-    "question": "Qui est le DG de l'APIX ?",
+    "question": "Qui est le DG du CICES ?",
     "options": [
-      "/nominations/bacary-sega-bathily.jfif",
+      "/nominations/justin-correa.jfif",
       "/nominations/bara-diouf.jfif",
       "/nominations/ibrahima-ba-2.jfif",
       "/nominations/mamadou-abib-diop-3.jfif"
     ],
-    "answer": "/nominations/bacary-sega-bathily.jfif",
-    "explanation": "Bacary Sega BATHILY est le Directeur général de l'Agence pour la Promotion des Investissements et des Grands Travaux (APIX SA)."
+    "answer": "/nominations/justin-correa.jfif",
+    "explanation": "Justin CORREA est le DG du Centre international du Commerce extérieur du Sénégal (CICES)."
   },
   {
     "type": "image",
-    "question": "Qui est le DG de la Société nationale du Port Autonome de Dakar ?",
+    "question": "Le quel d'entre eux est Conseiller spécial du président de la république ?",
     "options": [
-      "/nominations/waly-diouf-bodiang.jfif",
+      "/nominations/mouhamad-samba-djim.jpeg",
       "/nominations/pape-ale-niang.jfif",
       "/nominations/bacary-sega-bathily.jfif",
       "/nominations/bara-diouf.jfif"
     ],
-    "answer": "/nominations/waly-diouf-bodiang.jfif",
-    "explanation": "Waly DIOUF BODIANG est le Directeur général de la Société nationale du Port Autonome de Dakar."
+    "answer": "/nominations/mouhamad-samba-djim.jpeg",
+    "explanation": "Mouhamad Samba Djim (dit Hannibal Djim)"
   },
   {
     "type": "image",
@@ -1573,12 +1573,12 @@
   },
   {
     "type": "image",
-    "question": "Qui est le DG de la Caisse des Dépôts et Consignations (CDC) ?",
+    "question": "Qui est le DG de la CDC ?",
     "options": [
+      "/nominations/pape-momar-lo.jpeg",
       "/nominations/fadilou-keita.jfif",
-      "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif",
-      "/nominations/waly-diouf-bodiang.jfif",
-      "/nominations/pape-ale-niang.jfif"
+      "/nominations/tahir-ndiaye.jpeg",
+      "/nominations/oumy-khairy-diop.jpg"
     ],
     "answer": "/nominations/fadilou-keita.jfif",
     "explanation": "Fadilou KEITA est le Directeur général de la Caisse des Dépôts et Consignations (CDC)."

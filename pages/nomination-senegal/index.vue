@@ -2,7 +2,7 @@
 import type { GovernmentMember } from '~/types/government-member';
 
 useHead({
-    title: 'Annuaire nominations Sénégal | Vie-Publique.sn',
+    title: 'Annuaire nominations Sénégal',
     meta: [
         {
             name: 'description',
@@ -11,7 +11,7 @@ useHead({
         // Twitter Card Meta Tags
         {
             name: "twitter:title",
-            content: "Annuaire nominations Sénégal | Vie-Publique.sn",
+            content: "Annuaire nominations Sénégal",
         },
         {
             name: "twitter:description",
@@ -22,7 +22,7 @@ useHead({
         // Open Graph Meta Tags
         {
             property: "og:title",
-            content: "Annuaire nominations Sénégal | Vie-Publique.sn",
+            content: "Annuaire nominations Sénégal",
         },
         {
             property: "og:description",
@@ -89,6 +89,15 @@ const filteredMinisters = computed(() => {
     ) || []).sort((a, b) => new Date(b.nominationDate).getTime() - new Date(a.nominationDate).getTime());
 });
 
+/* Pagination */
+
+const page = ref(1)
+const pageCount = 25
+
+const rowsfilteredMinisters = computed(() => {
+    return filteredMinisters.value.slice((page.value - 1) * pageCount, (page.value) * pageCount)
+});
+
 // FIXME move to server
 const totalsByType = computed(() => {
     const totals: Record<string, number> = {};
@@ -131,9 +140,15 @@ function openModal(minister: GovernmentMember) {
     isModalOpen.value = true;
 }
 
-function filterByGender(gender: string) {
-    selectedGender.value = gender;
-}
+// Réinitialiser la page lors d'une recherche
+watch(searchQuery, () => {
+    selectedType.value = '';
+    page.value = 1;
+});
+// Réinitialiser la page lors du changement de type
+watch(selectedType, () => {
+    page.value = 1;
+});
 
 </script>
 
@@ -152,7 +167,7 @@ function filterByGender(gender: string) {
         </div>
 
         <p class="text-sm mb-4 text-gray-500 sr-only">
-            Ministres, Secrétaires, Directeurs, PCA
+            Ministres, Secrétaires, Directeurs, PCA...
         </p>
 
         <!-- Modal pour afficher les détails du membre -->
@@ -162,16 +177,20 @@ function filterByGender(gender: string) {
                     <!-- <Placeholder v-else class="h-8" /> -->
                     <div class="flex justify-center items-center">
                         <NuxtImg :src="selectedMinister.photo || '/unknown_member.webp'" alt="Profile Photo"
-                            sizes="300px" class="h-auto" :placeholder="[300, 300]" />
+                            sizes="300px md:400px" :placeholder="[300, 300]" />
                     </div>
                 </template>
 
-                <div class="p-4 text-center">
+                <div class="px-4 text-center">
                     <h2 class="text-xl font-semibold">{{ selectedMinister.name }}</h2>
                     <p class="text-sm">{{ selectedMinister.role }}</p>
                     <div v-if="selectedMinister.nominationDate != null" class="mt-1">
                         <p class="text-sm text-gray-500">Nommé le</p>
                         <p class="text-sm">{{ $dateformat(selectedMinister.nominationDate) }}</p>
+                    </div>
+                    <div v-if="selectedMinister.endDate != null" class="mt-1">
+                        <p class="text-sm text-gray-500">Limogé le</p>
+                        <p class="text-sm">{{ $dateformat(selectedMinister.endDate) }}</p>
                     </div>
                     <div v-if="selectedMinister.formation != null" class="mt-1">
                         <p class="text-sm text-gray-500">Formation</p>
@@ -181,11 +200,16 @@ function filterByGender(gender: string) {
                         <p class="text-sm text-gray-500">Prédécesseur</p>
                         <p class="text-sm">{{ selectedMinister.predecessor }}</p>
                     </div>
+
+                    <ULink v-if="selectedMinister.portrait != null" :to="selectedMinister.portrait"
+                        class="text-blue-600 hover:text-blue-800 underline text-sm font-semibold">
+                        Voir le portrait complet
+                    </ULink>
                 </div>
 
                 <template #footer>
                     <Placeholder class="h-8" />
-                    <div class="text-right p-4">
+                    <div class="text-right p-2">
                         <button class="btn btn-primary" @click="isModalOpen = false">Fermer</button>
                     </div>
                 </template>
@@ -195,10 +219,7 @@ function filterByGender(gender: string) {
         <div class="w-full max-w-4xl">
             <UInput class="input w-full mb-3 custom-shadow" size="lg" icon="i-heroicons-magnifying-glass"
                 placeholder="Rechercher une nomination..." v-model="searchQuery">
-                <!-- <template #trailing>
-                        <UButton v-show="searchQuery !== ''" color="gray" variant="link"
-                            icon="i-heroicons-x-mark-20-solid" :padded="false" @click="searchQuery = ''" />
-                    </template> -->
+
             </UInput>
 
             <div class="text-center w-full mb-1">
@@ -220,7 +241,6 @@ function filterByGender(gender: string) {
             </div>
 
             <div class="text-center w-full mb-1">
-
                 <UButton v-for="(total, type) in totalsByType" :key="type" :ui="{ rounded: 'rounded-full' }"
                     :color="selectedType === type ? 'primary' : 'white'"
                     class="text-sm custom-shadow ml-1 mb-1 font-normal"
@@ -232,15 +252,15 @@ function filterByGender(gender: string) {
             </div>
 
             <div class="text-center w-full mb-3">
-                <NuxtLink to="/nomination-senegal/conseil-des-ministres-18-juillet"
+                <NuxtLink to="/nomination-senegal/conseil-des-ministres-07-aout"
                     class="text-sm mb-2 underline text-center">
                     Voir les nominations du dernier conseil des ministres
                 </NuxtLink>
             </div>
 
             <div class="space-y-2">
-                <UCard v-for="minister in filteredMinisters" :key="minister.name" class="cursor-pointer custom-shadow"
-                    @click="openModal(minister)">
+                <UCard v-for="minister in rowsfilteredMinisters" :key="minister.name"
+                    class="cursor-pointer custom-shadow" @click="openModal(minister)">
                     <div class="flex flex-row gap-2 ">
                         <div class="flex-shrink-0 w-16 h-16 md:w-20 md:h-20">
                             <NuxtImg :src="minister.photo || '/unknown_member.webp'" alt="Photo ministre"
@@ -252,12 +272,19 @@ function filterByGender(gender: string) {
                             <h2 class="font-semibold">{{ minister.name }}</h2>
                             <p class="text-sm">{{ minister.role }}</p>
                             <p class="text-sm text-gray-500">Nommé le
-                                <!-- {{ minister.nominationDate }} -->
                                 {{ $dateformat(minister.nominationDate) }}
+                            </p>
+                            <p v-if="minister.endDate != null" class="text-sm text-gray-500">Limogé le
+                                {{ $dateformat(minister.endDate) }}
                             </p>
                         </div>
                     </div>
                 </UCard>
+            </div>
+
+            <div :class="{ 'hidden': rowsfilteredMinisters < pageCount }"
+                class="flex justify-end px-3 py-3.5 border-t border-gray-200 dark:border-gray-700">
+                <UPagination size="md" v-model="page" :page-count="pageCount" :total="filteredMinisters.length" />
             </div>
         </div>
 

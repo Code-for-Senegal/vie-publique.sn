@@ -3,7 +3,6 @@
 const route = useRoute();
 
 const links = [
-  // { label: 'Accueil', to: '/' },
   { label: 'Codes', to: '/code-senegal' }]
 
 </script>
@@ -19,3 +18,10 @@ const links = [
 
   <ScrollToTopButton />
 </template>
+
+<style>
+.prose p a {
+  text-decoration: none;
+  color: rgb(37 99 235);
+}
+</style>

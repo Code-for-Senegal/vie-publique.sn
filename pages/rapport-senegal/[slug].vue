@@ -26,7 +26,6 @@ onMounted(async () => {
 // const links = [{ label: '← Retour à la liste rapports', to: '/rapport-senegal' }]
 
 const links = [
-  // { label: 'Accueil', to: '/' },
   { label: 'Rapports', to: '/rapport-senegal' }]
 
 function showResume(rapport: any): boolean {

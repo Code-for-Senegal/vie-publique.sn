@@ -42,45 +42,75 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: "Sénégal | Vie-Publique.sn",
+      titleTemplate: "%s | Vie-Publique.sn",
+      title: "l'information publique au Sénégal | Vie-Publique.sn",
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
       meta: [
         {
           name: "keywords",
           content:
-            "Sénégal gouvernement journal officiel rapports OFNAC Cours des Comptes IGE ARMP CENTIF",
+            "République Sénégal gouvernement Diomaye Sonko journal officiel rapports OFNAC Cours des Comptes IGE ARMP CENTIF",
         },
         {
           name: "description",
           content:
-            "Gouvernement du Sénégal, journal officiel, rapports d'audit OFNAC Cours des Comptes",
+            "République du Sénégal, Gouvernement, nominations, journal officiel, rapports d'audit OFNAC Cours des Compte, Diomaye Faye, Ousmane SOnko",
         },
         // Open Graph Meta Tags
         {
           property: "og:title",
-          content: "Sénégal | Vie-Publique.sn",
+          content: "l'information publique au Sénégal | Vie-Publique.sn",
         },
         {
           property: "og:description",
           content:
-            "Gouvernement du Sénégal, journal officiel, rapports d'audit OFNAC Cours des Comptes",
+            "République du Sénégal, Gouvernement Diomaye Faye et Ousmane Sonko, nominations, journal officiel, rapports d'audit OFNAC Cours des Compte",
         },
-        { property: "og:image", content: "/social-image.png" },
-        { property: "og:url", content: "https://vie-publique.sn" },
-        { property: "og:type", content: "website" },
+        {
+          name: "og:locale",
+          content: "fr_FR",
+        },
+        {
+          property: "og:image",
+          content: "https://vie-publique.sn/images/share-linkedin.png",
+        },
+        {
+          property: "og:image:type",
+          content: "image/png",
+        },
+        {
+          property: "og:image:width",
+          content: "1353",
+        },
+        {
+          property: "og:image:height",
+          content: "1082",
+        },
+        {
+          property: "og:url",
+          content: "https://vie-publique.sn",
+        },
+        {
+          property: "og:type",
+          content: "website",
+        },
+        {
+          property: "og:site_name",
+          content: "l'information publique au Sénégal | Vie-Publique.sn",
+        },
         // Twitter Card Meta Tags
         {
           name: "twitter:title",
-          content: "Sénégal | Vie-Publique.sn",
+          content: "l'information publique au Sénégal | Vie-Publique.sn",
         },
         {
           name: "twitter:description",
           content:
-            "Gouvernement du Sénégal, journal officiel, rapports d'audit OFNAC Cours des Comptes",
+            "Gouvernement du Sénégal, nominations de Diomaye et Sonko, journal officiel, rapports d'audit OFNAC Cours des Comptes",
         },
         { name: "twitter:card", content: "summary_large_image" },
-        { name: "twitter:image", content: "/social-image.png" },
+        { name: "twitter:image", content: "/images/share-linkedin.png" },
       ],
     },
   },
@@ -88,7 +118,7 @@ export default defineNuxtConfig({
     defaultLocale: "fr",
   },
   gtag: {
-    enabled: !process.env.GTAG_ID,
+    enabled: !!process.env.GTAG_ID,
     id: process.env.GTAG_ID,
   },
   webVitals: {

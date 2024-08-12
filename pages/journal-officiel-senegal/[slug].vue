@@ -3,7 +3,6 @@
 const route = useRoute();
 
 const links = [
-  // { label: 'Accueil', to: '/' },
   { label: 'Journaux', to: '/journal-officiel-senegal' }]
 
 </script>

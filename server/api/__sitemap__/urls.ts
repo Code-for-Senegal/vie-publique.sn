@@ -1,19 +1,19 @@
+import { serverQueryContent } from "#content/server";
 import reportsData from "@/assets/data/rapports-liste.json";
 
-export default defineSitemapEventHandler(() => {
+export default defineSitemapEventHandler(async (event) => {
   // Générer un tableau de chaînes d'URL pour les rapports
-  const reportUrls = reportsData.map((report) => `/reports/${report.slug}`);
+  const reportUrls = reportsData.map(
+    (report) => `/rapport-senegal/${report.slug}`
+  );
 
-  // Ajoute les autres URLs statiques manuellement
-  const staticUrls = [
-    { loc: "/about/us" },
-    { loc: "/about/privacy" },
-    { loc: "/journal-officiel-senegal/2024" },
-  ];
+  // Récupérer toutes les pages du dossier content
+  const docs = await serverQueryContent(event).find();
+  const contentUrls = docs.map((doc) => doc._path);
 
   return [
-    ...staticUrls,
     ...reportUrls,
+    ...contentUrls.map((url) => ({ loc: url })),
     {
       // will end up in the pages sitemap
       _sitemap: "pages",

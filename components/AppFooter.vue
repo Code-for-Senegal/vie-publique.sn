@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const currentYear = new Date().getFullYear();
-const version = "3107";
+const version = "08-Aout";
 
 const links = [
   {
@@ -41,7 +41,7 @@ const links = [
     <ul class="flex flex-col md:flex-row items-center justify-center gap-4 lg:gap-6">
       <li class="relative">
         <p class="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
-          Version {{ version }} &copy; {{ currentYear }} </p>
+          Version {{ version }}&copy;{{ currentYear }} </p>
       </li>
       <li class="relative" v-for="link in links">
         <ULink :to="link.to"

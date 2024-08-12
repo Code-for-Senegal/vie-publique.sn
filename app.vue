@@ -46,9 +46,11 @@ const links = [{
 
 const aboutUslinks = [
   {
-    label: 'À Propos',
-    to: '/about/us',
-    icon: 'i-heroicons-information-circle',
+    label: 'Conseil des ministres',
+    description: 'Conseil des ministres',
+    photo: '/unknown_member.webp',
+    icon: 'i-heroicons-document-text',
+    to: '/conseil-des-ministres',
   },
   {
     label: 'Newsletter',
@@ -63,69 +65,45 @@ const aboutUslinks = [
     photo: '/unknown_member.webp',
     icon: 'i-heroicons-puzzle-piece',
     to: '/quiz',
+  },
+  {
+    label: 'À Propos',
+    to: '/about/us',
+    icon: 'i-heroicons-information-circle',
   }
 ]
 
-// const betalinks = [
-//   {
-//     label: 'x',
-//     to: '/x'
-//   }
-// ]
 
 </script>
 
 <template>
+  <div class="md:px-10 lg:px-28 xl:px-40 top-header flex justify-between items-center top-0 z-50 sticky opacity-100">
+    <!-- HeaderBrand à gauche -->
+    <AppHeader />
+
+    <!-- Navigation horizontale pour les écrans plus larges -->
+    <UHorizontalNavigation :links="links" class="hidden md:flex items-center w-auto">
+    </UHorizontalNavigation>
+
+    <!-- Menu pour mobiles (toggle visibility with Tailwind CSS) -->
+    <UButton class="md:hidden" @click="isOpen = true" color="gray" variant="link" size="xl" icon="i-heroicons-bars-3" />
+  </div>
   <UContainer class="mt-2 px-0 sm:px-10 md:px-14 lg:px-28 xl:px-40">
-
-    <div class=" top-header flex justify-between items-center top-0 z-50 sticky opacity-100">
-      <!-- HeaderBrand à gauche -->
-      <AppHeader />
-
-      <!-- Navigation horizontale pour les écrans plus larges -->
-      <UHorizontalNavigation :links="links" class="hidden md:flex items-center w-auto">
-      </UHorizontalNavigation>
-
-      <!-- Menu pour mobiles (toggle visibility with Tailwind CSS) -->
-      <UButton class="md:hidden" @click="isOpen = true" color="gray" variant="link" size="xl"
-        icon="i-heroicons-bars-3" />
-    </div>
-
     <!-- Navigation verticale pour mobiles (toggle visibility with Tailwind CSS) -->
     <USlideover v-model="isOpen">
-
       <div class="p-4 flex-1">
-
         <UButton color="gray" variant="ghost" size="xl" icon="i-heroicons-x-mark-20-solid"
           class="flex sm:hidden absolute end-5 top-5 z-10" square padded @click="isOpen = false" />
-        <div class="h-full">
+        <div class="min-h-full">
           <AppHeader />
 
-          <!-- <UCard v-for="link in links" :key="link.to" class="cursor-pointer custom-shadow mb-2" @click="isOpen = false">
-            <ULink :to="link.to" class="flex flex-row gap-2 uppercase">
-              {{ link.label }}
-            </ULink>
-          </UCard>
-          <UDivider />
-          <UCard v-for="link in aboutUslinks" :key="link.to" class="cursor-pointer custom-shadow mb-2"
-            @click="isOpen = false">
-            <ULink :to="link.to" class="flex flex-row gap-2">
-              {{ link.label }}
-            </ULink>
-          </UCard>
-          <UDivider />
-          <UCard v-for="link in betalinks" :key="link.to" class="hidden cursor-pointer custom-shadow mb-2"
-            @click="isOpen = false">
-            <ULink :to="link.to" class="flex flex-row gap-2">
-              {{ link.label }}
-            </ULink>
-          </UCard> -->
+          <UVerticalNavigation :links="links" @click="isOpen = false" :ui="{ size: 'text-md' }" class="vertical-nav" />
 
-          <UVerticalNavigation :links="links" @click="isOpen = false" :ui="{ size: 'text-md' }" class="vertical-nav"/>
           <UDivider />
-          <UVerticalNavigation :links="aboutUslinks" @click="isOpen = false" :ui="{ size: 'text-md' }" class="vertical-nav"/>
+
+          <UVerticalNavigation :links="aboutUslinks" @click="isOpen = false" :ui="{ size: 'text-md' }"
+            class="vertical-nav" />
         </div>
-
       </div>
     </USlideover>
 
@@ -160,7 +138,7 @@ nav ul li a span {
 .vertical-nav ul li a {
   margin: 0.5rem;
   padding-left: 1rem !important;
-   box-shadow: 0 2px 4px #0000001a;
+  box-shadow: 0 2px 4px #0000001a;
   line-height: 2rem;
 }
 </style>

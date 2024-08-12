@@ -2,7 +2,7 @@
 import type { GovernmentMember } from '~/types/government-member';
 
 useHead({
-    title: 'Nominations Conseil des ministres Sénégal | Vie-Publique.sn',
+    title: 'Nominations Conseil des ministres Sénégal du 18 Juillet 2024',
     meta: [
         {
             name: 'description',
@@ -11,7 +11,7 @@ useHead({
         // Twitter Card Meta Tags
         {
             name: "twitter:title",
-            content: "Nominations Conseil des ministres Sénégal | Vie-Publique.sn",
+            content: "Nominations Conseil des ministres Sénégal",
         },
         {
             name: "twitter:description",
@@ -22,7 +22,7 @@ useHead({
         // Open Graph Meta Tags
         {
             property: "og:title",
-            content: "Annuaire nominations Sénégal | Vie-Publique.sn",
+            content: "Annuaire nominations Sénégal",
         },
         {
             property: "og:description",
@@ -145,14 +145,10 @@ function filterByGender(gender: string) {
             Conseil des ministres, Liste des ministres du Sénégal,
         </h1>
         <div class="prose prose-sm sm:prose mx-auto mt-2">
-            <h1 class="text-center mt-4 mb-2">
+            <h2 class="text-center mt-4 mb-2">
                 {{ data.members?.length }} Nominations au conseil des ministres du 18 Juillet 2024
-            </h1>
+            </h2>
         </div>
-
-        <p class="text-sm mb-4 text-gray-500 sr-only">
-            Ministres, Secrétaires, Directeurs, PCA
-        </p>
 
         <!-- Modal pour afficher les détails du membre -->
         <UModal v-model="isModalOpen">
@@ -228,7 +224,7 @@ function filterByGender(gender: string) {
 
             <div class="text-center w-full mb-3">
                 <NuxtLink to="/nomination-senegal" class="text-sm mb-2 underline text-center">
-                    Voir la totalité des 277 nominations
+                    Voir la totalité des 418 nominations
                 </NuxtLink>
             </div>
 
@@ -246,8 +242,10 @@ function filterByGender(gender: string) {
                             <h2 class="font-semibold">{{ minister.name }}</h2>
                             <p class="text-sm">{{ minister.role }}</p>
                             <p class="text-sm text-gray-500">Nommé le
-                                <!-- {{ minister.nominationDate }} -->
                                 {{ $dateformat(minister.nominationDate) }}
+                            </p>
+                            <p v-if="minister.endDate != null" class="text-sm text-gray-500">Limogé le
+                                {{ $dateformat(minister.endDate) }}
                             </p>
                         </div>
                     </div>

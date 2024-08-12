@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-const seoTitle = 'Journal officiel Sénégal | Vie-Publique.sn';
+const seoTitle = 'Journal officiel Sénégal';
 const seoDescription = 'Journal officiel de la république du Sénégal';
 const seoImgPath = '/images/vpsn-share-jors-4.png';
 const seoPageUrl = 'https://vie-publique.sn/journal-officiel-senegal/2024';
@@ -40,7 +40,8 @@ useHead({
 const searchQuery = ref('')
 
 const { data: journaux, pending, error } = await useAsyncData('journaux', () =>
-  queryContent('journal-officiel-senegal').find()
+  queryContent('journal-officiel-senegal').find(),
+  { server: true, lazy: false }
 )
 
 const filteredJournals = computed(() => {
@@ -54,7 +55,7 @@ const filteredJournals = computed(() => {
 </script>
 
 <template>
-  <div class="container mx-auto p-4">
+  <div class="container mx-auto px-4">
 
     <div class="prose prose-sm sm:prose mx-auto my-2">
       <h1 class="text-center">
@@ -62,8 +63,14 @@ const filteredJournals = computed(() => {
       </h1>
     </div>
     <div class="text-center text-gray-500 text-sm">
-      💡 Travail de numérisation en cours, Retrouvez ici bientôt l'historique complète des JO publiés en 2024
+      <p>
+        {{ filteredJournals.length }} Journaux référencés
+      </p>
+      <p>
+        💡 Travail de numérisation en cours, Retrouvez ici bientôt l'historique complète des JO publiés en 2024
+      </p>
     </div>
+
     <!-- <input v-model="searchQuery" type="text" placeholder="Rechercher par numéro ou date"
         class="p-2 border rounded w-full"> -->
     <UInput size="md" v-model="searchQuery" placeholder="Rechercher par numéro ou date"
