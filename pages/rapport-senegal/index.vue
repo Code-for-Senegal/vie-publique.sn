@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 useHead({
-  title: "Rapports public Sénégal OFNAC Cours des compte... | Vie-Publique.sn",
+  title: "Rapports public Sénégal OFNAC Cours des comptes...",
   meta: [
     {
       name: 'description',

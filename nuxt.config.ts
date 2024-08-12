@@ -123,7 +123,6 @@ export default defineNuxtConfig({
   },
   webVitals: {
     provider: "ga",
-    disabled: !process.env.GTAG_ID,
     ga: { id: process.env.GTAG_ID },
   },
   sitemap: {
