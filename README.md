@@ -126,7 +126,24 @@ bun install
 
 ## Development Server
 
-Start the development server on `http://localhost:3000`:
+1. **Environnement de variable fichier .env**
+
+Créer un fichier `.env` en copiant le fichier `.env.example` à la racine du projet et y définir la variable d'environnement pour l'ID de Google Analytics ou le DNS
+
+exemple:
+
+```
+GTAG_ID=G-XXXXXX
+NUXT_PUBLIC_SITE_URL=https://www.vie-publique.sn
+PUBLIC_SHOW_PINNED_PEOLPLES=false
+PUBLIC_SHOW_SCANDALS=false
+BREVO_API_KEY=xxx
+BREVO_LIST_ID=xxx
+```
+
+vous pouvez mettre des valeurs fictives en local pas important
+
+2. Démarrer le serveur de dev sur `http://localhost:3000`:
 
 ```bash
 # npm
@@ -169,23 +186,6 @@ docker compose stop
 Votre application Nuxt 3 devrait maintenant être accessible à l'adresse http://localhost:3000 et se recharger automatiquement lorsque vous modifiez vos fichiers source.
 
 En savoir plus : https://code.visualstudio.com/docs/devcontainers/containers
-
-## Environnement de variable fichier .env
-
-Vous pouvez créer un fichier `.env` avec `.env.example` à la racine du projet et y définir la variable d'environnement pour l'ID de Google Analytics ou le DNS
-
-exemple:
-
-```
-GTAG_ID=G-XXXXXX
-NUXT_PUBLIC_SITE_URL=https://www.vie-publique.sn
-PUBLIC_SHOW_PINNED_PEOLPLES=false
-PUBLIC_SHOW_SCANDALS=false
-BREVO_API_KEY=xxx
-BREVO_LIST_ID=xxx
-```
-
-non obligatoire en environnement de développement
 
 ## Production
 
