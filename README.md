@@ -137,11 +137,12 @@ GTAG_ID=G-XXXXXX
 NUXT_PUBLIC_SITE_URL=https://www.vie-publique.sn
 PUBLIC_SHOW_PINNED_PEOLPLES=false
 PUBLIC_SHOW_SCANDALS=false
+PUBLIC_SHOW_BAROMETER=true
 BREVO_API_KEY=xxx
 BREVO_LIST_ID=xxx
 ```
 
-vous pouvez mettre des valeurs fictives en local pas important
+vous pouvez mettre des valeurs fictives en local
 
 2. Démarrer le serveur de dev sur `http://localhost:3000`:
 
