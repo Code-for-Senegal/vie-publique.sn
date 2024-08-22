@@ -58,7 +58,7 @@ const filteredPressReleases = computed(() => {
 /* Pagination */
 
 const page = ref(1)
-const pageCount = 5
+const pageCount = 10
 
 const rowsFilteredPressReleases = computed(() => {
   return filteredPressReleases.value.slice((page.value - 1) * pageCount, (page.value) * pageCount)

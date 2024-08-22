@@ -7,8 +7,52 @@ description: Ministre des Infrastructures, des Transports terrestres et aériens
 
 **_Ministre des Infrastructures, des Transports terrestres et aériens_**
 
-Nommé Ministre des Infrastructures et des Transports terrestres et aériens dans le premier Gouvernement du Premier Ministre Ousmane SONKO, Monsieur Malick NDIAYE n’est pas inconnu du grand public. Secrétaire national à la communication de Pastef-Les Patriotes, il reste l’un des fidèles défenseurs du Projet. Ce qui lui vaut aujourd’hui la confiance du Président de la République, Son Excellence Monsieur Bassirou Diomaye Diakhar FAYE.
+<img src="/gouvernement/ministre-malick-ndiaye.jfif" alt="ministre Malick NDIAYE" width="300">
 
-Né en 1983 à Dahra Djolof, M. Malick NDIAYE, plus connu sous le nom de El Malick, est diplômé en management, commerce international, transport et logistique. Cadre dans une grande société multinationale où il s’occupe des opérations portuaires, l’homme est doté d’une grande expérience dans ce domaine qui reste son terrain de prédilection. Décrit comme un professionnel confirmé, un homme ouvert, courtois et discret, ce logisticien de métier affiche toutes les compétences pour multiplier les succès à la tête de son département qui revêt une importance capitale pour notre économie nationale.
+# Malick NDIAYE (El Malick)
 
-A côté de son expérience professionnelle, le Ministre des Infrastructures jouit d’un solide vécu politique. Déjà, au début des années 2000, alors qu’il était très jeune, Malick NDIAYE soutenait certains leaders de gauche comme Moustapha NIASS, Abdoulaye Bathily, Aj/Pads de Landing Savané, etc. Et c’est en 2011 qu’il s’est réellement engagé auprès du professeur Ibrahima FALL (Taxaw Tem), qu’il considère comme son mentor. Et c’est en 2015-2016 que M. NDIAYE a rejoint le Pastef. Parti dont il gère la communication.
+**Ministre des Infrastructures et des Transports terrestres et aériens**
+
+### Informations personnelles
+
+- Né en 1983 à Dahra Djolof
+- Connu sous le nom de El Malick
+
+### Nomination ministérielle
+
+- Nommé Ministre des Infrastructures et des Transports terrestres et aériens en avril 2024 dans le gouvernement d'Ousmane SONKO
+
+### Formation
+
+- IAE Paris - Sorbonne Business School : Master's degree, Business Administration and Management (2023-2024)
+- Université Paris Dauphine-PSL : Master of Business Administration - MBA (2023-2024)
+- KEDGE Business School :
+  - Master Spécialisé, Commerce et Affaires Internationales (2017-2018)
+  - Master's Degree, Business Administration and Management (2012-2013)
+  - Bachelor's Degree, Marketing and Commercial Development (2010-2011)
+- Institut Technique de Commerce de Dakar ITECOM : Associate Degree in Transport and Logistics (2006-2008)
+
+### Parcours professionnel
+
+- Eramet (7 ans) :
+  - Port Activities Head Of Department (sept. 2020 - avril 2024)
+  - Logistics & Shipping Superintendent (sept. 2017 - sept. 2020)
+- Maersk Line (8 ans 9 mois) :
+  - Inland Operations Coordinator (avr. 2012 - août 2017)
+  - Intermodal Back Office Supervisor (nov. 2009 - mars 2012)
+  - Customer Service Representative (déc. 2008 - oct. 2009)
+
+### Expertise
+
+- Management
+- Commerce international
+- Transport et logistique
+- Opérations portuaires
+
+### Carrière politique
+
+- Secrétaire national à la communication de Pastef-Les Patriotes
+- Engagement politique depuis les années 2000
+- A soutenu des leaders de gauche comme Moustapha NIASS, Abdoulaye Bathily, Landing Savané
+- Engagé auprès du professeur Ibrahima FALL (Taxaw Tem) en 2011
+- A rejoint le parti Pastef en 2015-2016

@@ -18,3 +18,10 @@ const links = [
 
   <ScrollToTopButton />
 </template>
+
+<style>
+.prose p a {
+  /* text-decoration: none; */
+  color: rgb(37 99 235);
+}
+</style>

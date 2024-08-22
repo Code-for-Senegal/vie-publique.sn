@@ -11,7 +11,7 @@ const links = [
   <ContentDoc v-slot="{ doc }">
     <AppBreadcrumb :links=links :lastText="route.params.slug" />
 
-    <div class="prose prose-sm sm:prose lg:prose-lg xl:prose-xl mx-auto mt-2">
+    <div class="prose prose-sm sm:prose lg:prose-md mx-auto">
       <ContentRenderer :value="doc" />
     </div>
   </ContentDoc>

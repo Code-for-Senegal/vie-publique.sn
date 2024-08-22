@@ -71,13 +71,8 @@ const filteredJournals = computed(() => {
       </p>
     </div>
 
-    <!-- <input v-model="searchQuery" type="text" placeholder="Rechercher par numéro ou date"
-        class="p-2 border rounded w-full"> -->
     <UInput size="md" v-model="searchQuery" placeholder="Rechercher par numéro ou date"
       icon="i-heroicons-magnifying-glass" class="input w-full my-4 custom-shadow" />
-
-
-
 
     <div v-if="pending">Chargement...</div>
     <div v-else-if="error">Une erreur s'est produite lors du chargement des journaux.</div>

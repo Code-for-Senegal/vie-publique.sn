@@ -25,7 +25,7 @@ Quelques années plus tard, Madame le Ministre Maïmouna DIEYE s’envole pour l
 
 Son amour pour la quête de la connaissance l’a poussé à décrocher son Good Governance Executive Leadership Program (GGEL) à l’Institut Panafricain de Développement Local PIMD à Washington. Elle va s’inscrire au Cabinet RNC Reengineering consulting de Dakar, en 2023, pour le renforcement des compétences managériales.
 
-## Expériences professionnelles
+### Expériences professionnelles
 
 La marathonienne accomplie est du genre à bien connaître le tracé de sa course. De 1993 à 2009, elle occupe, en Suisse, le poste de Déléguée médicale, superviseure sous régionale avec le Laboratoire DR Grossmann ag. Elle faisait partie aussi d’une équipe de 15 délégués, Sénégal, Côte d’Ivoire avec le Laboratoire Dolisos en France (1999 / 2005) avant d’être affectée au Mali, en Guinée Bissau et République de Guinée de 2000 à 2007 pour le compte des laboratoires Sussex.
 

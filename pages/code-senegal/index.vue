@@ -57,7 +57,7 @@ const filteredCodes = computed(() => {
 
     <div class="prose prose-sm sm:prose mx-auto my-2">
       <h1 class="text-center">
-        Codes
+        Codes du Sénégal
       </h1>
     </div>
 

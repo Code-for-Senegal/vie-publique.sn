@@ -189,7 +189,7 @@ watch(selectedType, () => {
                         <p class="text-sm">{{ $dateformat(selectedMinister.nominationDate) }}</p>
                     </div>
                     <div v-if="selectedMinister.endDate != null" class="mt-1">
-                        <p class="text-sm text-gray-500">Limogé le</p>
+                        <p class="text-sm text-gray-500">Fin de fonction le</p>
                         <p class="text-sm">{{ $dateformat(selectedMinister.endDate) }}</p>
                     </div>
                     <div v-if="selectedMinister.formation != null" class="mt-1">

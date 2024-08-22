@@ -12,39 +12,35 @@ useHead({
     ],
 })
 
+// Fetch les 3 dernières actualités
+
+const { data: latestNews } = await useAsyncData('latestNews', () =>
+    queryContent('publications/actualites')
+        .sort({ date: -1 })
+        .limit(2)
+        .find()
+)
+
 const links = [
-    
+
     {
-        label: 'Nominations',
-        description: 'Annuaire des nominations du président Diomaye',
+        label: 'Annuaire Gouvernement',
+        description: "Nominations, Ministres, DG...",
         photo: '/unknown_member.webp',
         icon: 'i-heroicons-identification',
         to: '/nomination-senegal',
     }, {
         label: 'Conseil des ministres',
-        description: 'Communiqué Conseil des ministres',
+        description: 'Communiqués conseil des ministres...',
         photo: '/unknown_member.webp',
         icon: 'i-heroicons-document',
         to: '/conseil-des-ministres',
     },
     {
-        label: "Rapports Audit",
-        description: "Cours des Comptes, OFNAC, IGE, CENTIF, ARMP, IGF",
-        photo: '/unknown_member.webp',
+        label: 'Documents',
+        description: "Journal officiel, Codes, Rapports OFNAC Cours des comptes...",
         icon: 'i-heroicons-document-text',
-        to: '/rapport-senegal',
-    },{
-        label: 'Journal Officiel',
-        description: 'Textes législatifs, Lois, Décrets, Arrêtés',
-        photo: '/unknown_member.webp',
-        icon: 'i-heroicons-newspaper',
-        to: '/journal-officiel-senegal',
-    }, {
-        label: 'Codes Général',
-        description: 'Constitution, Code de la famille, etc',
-        photo: '/unknown_member.webp',
-        icon: 'i-heroicons-clipboard-document-list',
-        to: '/code-senegal',
+        to: '/documents',
     },
     {
         label: "Sites Web",
@@ -52,8 +48,13 @@ const links = [
         photo: '/unknown_member.webp',
         icon: 'i-heroicons-computer-desktop',
         to: '/annuaire-sites-publics-senegal',
+    }, {
+        label: 'Annuaire Justice',
+        description: 'Annuaire Magistrature, Fonctionnement de la justice etc.',
+        photo: '/unknown_member.webp',
+        icon: 'i-heroicons-scale',
+        to: '/justice',
     },
-    
     {
         label: 'Quiz Jeux',
         description: 'Jeux QCM sur les institutions publiques',
@@ -63,18 +64,62 @@ const links = [
     }
 ]
 
+
 </script>
 
 <template>
     <div class="container mx-auto p-2 sm:p-4">
+        <!-- Section des dernières actualités -->
+        <div class="">
+            <div class="prose prose-sm sm:prose mx-auto my-2">
+                <h1 class="text-center">Actualités</h1>
+                <!-- <h2 class="text-center text-2xl font-bold text-green-700">Dernières Actualités</h2> -->
+            </div>
+            <div class="text-center">
+                <p class="text-sm mb-2 text-gray-500">
+                    Communiqués, discours, annonces, déclarations, etc.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <UCard class="cursor-pointer custom-shadow">
+                    <NuxtLink to="/medias">
+                        <img src="/images/actu-presse-en-ligne-senegal-sites-internet-informations-senegal.jpg"
+                            alt="Aide à la presse" class="w-full h-48 object-cover mb-4">
+                        <div class="siteweb-type inline-block px-2 py-1 my-1 text-xs bg-gray-200 text-gray-800">
+                            Article
+                        </div>
+                        <div class="text-gray-800 text-sm">
+                            {{ $dateformatWithDayName("2024-08-20") }}
+                        </div>
+                        <p class="font-semibold">
+                            Classement aides à la presse 2023
+                        </p>
 
-        <!-- <div>
-            <p class="text-sm mb-4 text-gray-500 text-center">
-                Au coeur du débat public, annuaire, info
-            </p>
-        </div> -->
+                    </NuxtLink>
+                </UCard>
+                <UCard v-for="item in latestNews" :key="item._path" class="cursor-pointer custom-shadow">
+                    <NuxtLink :to="item._path">
+                        <img :src="item.image" :alt="item.title" class="w-full h-48 object-cover mb-4">
+                        <div class="siteweb-type inline-block px-2 py-1 my-1 text-xs bg-gray-200 text-gray-800">
+                            {{ item.category }}
+                        </div>
+                        <div class="text-gray-800 text-sm">
+                            {{ $dateformatWithDayName(item.date) }}
+                        </div>
+                        <p class="font-semibold">
+                            {{ item.title }}
+                        </p>
+                    </NuxtLink>
+                </UCard>
+            </div>
+            <div class="text-center mt-4">
+                <NuxtLink to="/publications/actualites" class="text-green-700 underline">
+                    Voir toutes les actualités
+                </NuxtLink>
+            </div>
+        </div>
 
-        <!-- <HomeMenuCards1 :menus="links" /> -->
+        <!-- Section des liens -->
         <HomeMenuCards2 :menus="links" />
     </div>
 </template>

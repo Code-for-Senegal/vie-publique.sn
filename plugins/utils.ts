@@ -45,6 +45,12 @@ export default defineNuxtPlugin(() => {
         const year = date.getFullYear();
         return `${month} ${year}`;
       },
+      formatAmount: (amount: number) => {
+        return new Intl.NumberFormat("fr-FR", {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0,
+        }).format(amount);
+      },
     },
   };
 });

@@ -19,6 +19,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       showPinnedPeoples: process.env.PUBLIC_SHOW_PINNED_PEOLPLES,
+      showBarometer: process.env.PUBLIC_SHOW_BAROMETER,
       showScandals: process.env.PUBLIC_SHOW_SCANDALS,
       brevoApiKey: process.env.BREVO_API_KEY,
       brevoListId: process.env.BREVO_LIST_ID,
@@ -123,6 +124,7 @@ export default defineNuxtConfig({
   },
   webVitals: {
     provider: "ga",
+    disabled: !process.env.GTAG_ID,
     ga: { id: process.env.GTAG_ID },
   },
   sitemap: {
