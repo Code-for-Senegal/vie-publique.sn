@@ -22,19 +22,17 @@ const { data: latestNews } = await useAsyncData('latestNews', () =>
 )
 
 const links = [
-
     {
-        label: 'Annuaire Gouvernement',
-        description: "Nominations, Ministres, DG...",
-        photo: '/unknown_member.webp',
-        icon: 'i-heroicons-identification',
-        to: '/nomination-senegal',
-    }, {
         label: 'Conseil des ministres',
-        description: 'Communiqués conseil des ministres...',
-        photo: '/unknown_member.webp',
+        description: 'Communiqués des conseil des ministres...',
         icon: 'i-heroicons-document',
         to: '/conseil-des-ministres',
+    },
+    {
+        label: 'Annuaires',
+        description: "Nominations gouvernement, Sites Web, Justice, Medias...",
+        icon: 'i-heroicons-rectangle-stack',
+        to: '/annuaires',
     },
     {
         label: 'Documents',
@@ -43,22 +41,8 @@ const links = [
         to: '/documents',
     },
     {
-        label: "Sites Web",
-        description: 'Annuaire des sites internet publics',
-        photo: '/unknown_member.webp',
-        icon: 'i-heroicons-computer-desktop',
-        to: '/annuaire-sites-publics-senegal',
-    }, {
-        label: 'Annuaire Justice',
-        description: 'Annuaire Magistrature, Fonctionnement de la justice etc.',
-        photo: '/unknown_member.webp',
-        icon: 'i-heroicons-scale',
-        to: '/justice',
-    },
-    {
         label: 'Quiz Jeux',
-        description: 'Jeux QCM sur les institutions publiques',
-        photo: '/unknown_member.webp',
+        description: "Jeux QCM sur les institutions et l'organisation de l'Etat",
         icon: 'i-heroicons-puzzle-piece',
         to: '/quiz',
     }
@@ -69,6 +53,9 @@ const links = [
 
 <template>
     <div class="container mx-auto p-2 sm:p-4">
+        <!-- Section des liens -->
+        <HomeMenuCards2 :menus="links" />
+
         <!-- Section des dernières actualités -->
         <div class="">
             <div class="prose prose-sm sm:prose mx-auto my-2">
@@ -119,8 +106,6 @@ const links = [
             </div>
         </div>
 
-        <!-- Section des liens -->
-        <HomeMenuCards2 :menus="links" />
     </div>
 </template>
 

@@ -7,42 +7,24 @@ const links = [{
   icon: 'i-heroicons-home',
   to: '/',
 }, {
-  label: "Rapports",
-  description: "Cours des Comptes, OFNAC, IGE, CENTIF, ARMP, IGF",
-  photo: '/unknown_member.webp',
-  icon: 'i-heroicons-document-text',
-  to: '/rapport-senegal',
-},
-{
-  label: 'JO',
-  description: 'Textes législatifs, Lois, Décrets, Arrêtés',
+  label: 'Actualités',
+  description: 'Communiqués, Annonces, Articles',
   photo: '/unknown_member.webp',
   icon: 'i-heroicons-newspaper',
-  to: '/journal-officiel-senegal',
+  to: '/publications/actualites',
 },
 {
-  label: 'Codes',
-  description: 'Constitution, Code de la famille, etc',
-  photo: '/unknown_member.webp',
-  icon: 'i-heroicons-clipboard-document-list',
-  to: '/code-senegal',
+  label: 'Annuaires',
+  description: "Gouvernement, Sites Web, Justice...",
+  icon: 'i-heroicons-rectangle-stack',
+  to: '/annuaires',
 },
 {
-  label: 'Nominations',
-  description: 'Annuaire des nominations du président',
-  photo: '/unknown_member.webp',
-  icon: 'i-heroicons-identification',
-  to: '/nomination-senegal',
-},
-{
-  label: "Sites Web",
-  description: 'Annuaire des sites internet publics',
-  photo: '/unknown_member.webp',
-  icon: 'i-heroicons-computer-desktop',
-  to: '/annuaire-sites-publics-senegal',
-},
-
-]
+  label: 'Documents',
+  description: "Journal officiel, Codes, Rapports OFNAC Cours des comptes...",
+  icon: 'i-heroicons-document-text',
+  to: '/documents',
+}];
 
 const aboutUslinks = [
   {
@@ -70,14 +52,13 @@ const aboutUslinks = [
     label: 'À Propos',
     to: '/about/us',
     icon: 'i-heroicons-information-circle',
-  }
-]
+  }];
 
 
 </script>
 
 <template>
-  <div class="md:px-10 lg:px-28 xl:px-40 top-header flex justify-between items-center top-0 z-50 sticky opacity-100">
+  <div class="md:px-10 lg:px-18 xl:px-32 top-header flex justify-between items-center top-0 z-50 sticky opacity-100">
     <!-- HeaderBrand à gauche -->
     <AppHeader />
 

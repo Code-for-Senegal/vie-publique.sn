@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-    title: "Documents officiels du Sénégal | Vie-Publique.sn",
+    title: "Documents officiels du Sénégal",
     meta: [
         {
             name: 'description',
@@ -57,7 +57,7 @@ const documentCategories = [
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
-            <UCard v-for="menu in documentCategories" :key="menu.label" class="p-4 custom-shadow hover:shadow-xl">
+            <UCard v-for="menu in documentCategories" :key="menu.title" class="p-4 custom-shadow hover:shadow-xl">
                 <NuxtLink :to="menu.to" class="flex items-start">
                     <div class="flex-shrink-0 mr-4">
                         <div :class="['w-14 h-14 rounded-full flex items-center justify-center', menu.color]">
