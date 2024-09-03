@@ -2,6 +2,7 @@ import tailwindTypography from "@tailwindcss/typography";
 
 export default defineNuxtConfig({
   ssr: true,
+
   modules: [
     "@nuxt/ui",
     "@nuxt/content",
@@ -12,10 +13,13 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@vueuse/motion/nuxt",
   ],
+
   devtools: { enabled: true },
+
   nitro: {
     plugins: ["~/server/plugins/redirects.ts"],
   },
+
   runtimeConfig: {
     public: {
       showPinnedPeoples: process.env.PUBLIC_SHOW_PINNED_PEOLPLES,
@@ -29,18 +33,23 @@ export default defineNuxtConfig({
       ],
     },
   },
+
   css: ["~/assets/css/app.css"],
+
   colorMode: {
     preference: "light",
   },
+
   tailwindcss: {
     config: {
       plugins: [tailwindTypography],
     },
   },
+
   content: {
     defaultLocale: "fr",
   },
+
   app: {
     head: {
       titleTemplate: "%s | Vie-Publique.sn",
@@ -115,22 +124,29 @@ export default defineNuxtConfig({
       ],
     },
   },
+
   site: {
     defaultLocale: "fr",
   },
+
   gtag: {
     enabled: !!process.env.GTAG_ID,
     id: process.env.GTAG_ID,
   },
+
   webVitals: {
     provider: "ga",
     disabled: !process.env.GTAG_ID,
     ga: { id: process.env.GTAG_ID },
   },
+
   sitemap: {
     sources: ["/api/__sitemap__/urls"],
   },
+
   image: {
     // Options
   },
+
+  compatibilityDate: "2024-09-03",
 });

@@ -74,17 +74,18 @@ const filteredJournals = computed(() => {
     <UInput size="md" v-model="searchQuery" placeholder="Rechercher par numéro ou date"
       icon="i-heroicons-magnifying-glass" class="input w-full my-4 custom-shadow" />
 
-    <div v-if="pending">Chargement...</div>
+      <div v-if="pending">Chargement...</div>
     <div v-else-if="error">Une erreur s'est produite lors du chargement des journaux.</div>
     <div v-else>
-      <div class="flex flex-col gap-2">
+      <div v-if="filteredJournals.length === 0" class="text-center text-gray-500 mt-4 flex flex-col items-center">
+        <UIcon name="i-heroicons-exclamation-circle" class="w-12 h-12 mb-2" />
+        <p>Aucun résultat disponible</p>
+      </div>
+      <div v-else class="flex flex-col gap-2">
         <UCard v-for="journal in filteredJournals" :key="journal._path" class="cursor-pointer custom-shadow">
           <NuxtLink :to="journal._path">
-
             <p class="font-semibold underline">{{ journal.title }}</p>
-
             <p class="text-gray-500 text-sm">{{ journal.subtitle }}</p>
-
           </NuxtLink>
         </UCard>
       </div>
