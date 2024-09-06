@@ -7,7 +7,7 @@ description: Ministre de la Fonction publique et de la Réforme du Service publi
 
 **_Ministre de la Fonction publique et de la Réforme du Service public_**
 
-<img src="/gouvernement/ministre-olivier-boucal.jfif" alt="ministre Olivier BOUCAL" width="300">
+<img src="/gouvernement/ministre-olivier-boucal.jfif" alt="ministre Olivier BOUCAL" width="300" fetchpriority="high">
 
 Par décret n° 2024- 339 du 5 avril 2024 portant nomination des Ministres et fixant la composition du Gouvernement, Monsieur Oliver BOUCAL est nommé Ministre de la Fonction publique et de la Réforme du Service public.
 

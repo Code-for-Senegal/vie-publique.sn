@@ -81,16 +81,16 @@ onMounted(async () => {
 
           <div class="flex-shrink-0 w-12 md:w-16">
             <img v-if="rapport.organisme == 'ARMP'" src="~/assets/logos/armp.webp" loading="lazy" alt="Logo ARMP"
-              class="organisme-logo w-11 md:w-12 lg:w-14 h-auto" width="60" height="40" />
+              class="organisme-logo w-11 md:w-12 lg:w-14 h-auto" width="60" height="40" fetchpriority="high"/>
             <img v-if="rapport.organisme == 'OFNAC'" src="~/assets/logos/ofnac.webp" loading="lazy" alt="Logo OFNAC"
-              class="organisme-logo w-11 md:w-12 lg:w-14 h-auto" width="60" height="40" />
+              class="organisme-logo w-11 md:w-12 lg:w-14 h-auto" width="60" height="40" fetchpriority="high"/>
             <img v-if="rapport.organisme == 'IGE'" src="~/assets/logos/ige.webp" loading="lazy" alt="Logo IGE"
-              class="organisme-logo w-11 md:w-12 lg:w-14 h-auto" width="60" height="40" />
+              class="organisme-logo w-11 md:w-12 lg:w-14 h-auto" width="60" height="40" fetchpriority="high"/>
             <img v-if="rapport.organisme == 'Cours des Comptes'" src="~/assets/logos/cour_des_comptes.webp"
               loading="lazy" alt="Logo Cours des Comptes" class="organisme-logo w-11 md:w-12 lg:w-14 h-auto" width="60"
-              height="40" />
+              height="40" fetchpriority="high"/>
             <img v-if="rapport.organisme == 'Autres'" src="~/assets/logos/doc.svg" loading="lazy" alt="Logo rapport"
-              class="organisme-logo w-11 md:w-12 lg:w-14 h-auto" width="60" height="40" />
+              class="organisme-logo w-11 md:w-12 lg:w-14 h-auto" width="60" height="40" fetchpriority="high"/>
           </div>
 
           <div class="flex-grow">

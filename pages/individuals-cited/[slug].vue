@@ -26,7 +26,7 @@ const links = [{ label: '← Retour à la liste', to: '/individuals-cited' }]
                 </div>
             </template>
 
-            <img :src="individualCited.photo" loading="lazy" alt="Photo de profil" class="profile-photo mb-1">
+            <img :src="individualCited.photo" loading="lazy" alt="Photo de profil" fetchpriority="high" class="profile-photo mb-1">
 
             <div v-if="individualCited.facts_denounced != null" v-for="(factItem, i) in individualCited.facts_denounced"
                 :key="i" class="mb-1 text-sm ">

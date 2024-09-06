@@ -58,17 +58,17 @@ function trackPDFDownload() {
 
       <div>
         <img v-if="rapport.organisme == 'ARMP'" src="~/assets/logos/armp.webp" loading="lazy" alt="Logo ARMP"
-          class="organisme-logo" width="60" height="40" />
+          class="organisme-logo" width="60" height="40" fetchpriority="high"/>
         <img v-if="rapport.organisme == 'OFNAC'" src="~/assets/logos/ofnac.webp" loading="lazy" alt="Logo OFNAC"
-          class="organisme-logo" width="60" height="40" />
+          class="organisme-logo" width="60" height="40" fetchpriority="high"/>
         <img v-if="rapport.organisme == 'IGE'" src="~/assets/logos/ige.webp" loading="lazy" alt="Logo IGE"
-          class="organisme-logo" width="60" height="40" />
+          class="organisme-logo" width="60" height="40" fetchpriority="high"/>
         <img v-if="rapport.organisme == 'Cours des Comptes'" src="~/assets/logos/cour_des_comptes.webp" loading="lazy"
-          alt="Logo Cours des Comptes" class="organisme-logo" width="60" height="40" />
+          alt="Logo Cours des Comptes" class="organisme-logo" width="60" height="40" fetchpriority="high"/>
         <img v-if="rapport.organisme == 'Autres'" src="~/assets/logos/doc.svg" loading="lazy" alt="Logo rapport"
-          class="organisme-logo" width="60" height="40" />
+          class="organisme-logo" width="60" height="40" fetchpriority="high"/>
         <img v-if="rapport.organisme == 'CENTIF'" src="~/assets/logos/centif.webp" loading="lazy" alt="Logo CENTIF"
-          class="organisme-logo" width="60" height="40" />
+          class="organisme-logo" width="60" height="40" fetchpriority="high"/>
       </div>
 
       <h1 class="text-xl sm:text-2xl">{{ rapport.titre }}</h1>

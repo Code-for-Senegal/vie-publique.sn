@@ -7,7 +7,7 @@ description: Ministre, Directeur de cabinet du Président de la République du S
 
 **Ministre, Directeur de cabinet du Président de la République du Sénégal**
 
-<img src="/gouvernement/mary-teuw-niane.jfif" alt="ministre Mary Teuw Niane" width="300">
+<img src="/gouvernement/mary-teuw-niane.jfif" alt="ministre Mary Teuw Niane" width="300" fetchpriority="high">
 
 ### Informations personnelles
 

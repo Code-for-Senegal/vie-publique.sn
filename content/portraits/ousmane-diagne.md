@@ -7,7 +7,7 @@ description: Garde des Sceaux, Ministre de la Justice du Gouvernement du Sénég
 
 **_Garde des Sceaux, Ministre de la Justice_**
 
-<img src="/gouvernement/ministre-ousmane-diagne.jfif" alt="ministre Ousmane Diagne" width="300">
+<img src="/gouvernement/ministre-ousmane-diagne.jfif" alt="ministre Ousmane Diagne" width="300" fetchpriority="high">
 
 ## Parcours professionnel
 

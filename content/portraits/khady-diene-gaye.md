@@ -7,7 +7,7 @@ description: Ministre de la Jeunesse, des Sports et de la Culture du Gouvernemen
 
 **_Ministre de la Jeunesse, des Sports et de la Culture_**
 
-<img src="/gouvernement/ministre-Khady-Diène-Gaye.jpg" alt="ministre Khady Diène Gaye" width="300">
+<img src="/gouvernement/ministre-Khady-Diène-Gaye.jpg" alt="ministre Khady Diène Gaye" width="300" fetchpriority="high">
 
 ## Nomination ministérielle
 

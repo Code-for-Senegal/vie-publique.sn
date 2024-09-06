@@ -25,7 +25,7 @@ function goToScandaleDetails(scandal: any) {
         <div class="flex flex-col md:flex-row">
           <!-- left desktop & tab -->
           <div class="md:w-1/3 mb-1">
-            <img :src="scandale.image_url" :alt="scandale.titre" class="w-full h-auto">
+            <img :src="scandale.image_url" :alt="scandale.titre" class="w-full h-auto" fetchpriority="high">
           </div>
           <!-- right desktop & tab -->
           <div class="md:w-2/3 pl-2 flex flex-col justify-between">
