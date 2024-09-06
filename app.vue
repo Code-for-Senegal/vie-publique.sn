@@ -4,70 +4,109 @@ const isOpen = ref(false)
 
 const links = [{
   label: 'Accueil',
-  icon: 'i-heroicons-home',
+  //icon: 'i-heroicons-home',
   to: '/',
-}, {
-  label: 'Actualités',
-  description: 'Communiqués, Annonces, Articles',
-  photo: '/unknown_member.webp',
-  icon: 'i-heroicons-newspaper',
-  to: '/publications/actualites',
-},
-{
-  label: 'Annuaires',
-  description: "Gouvernement, Sites Web, Justice...",
-  icon: 'i-heroicons-rectangle-stack',
-  to: '/annuaires',
 },
 {
   label: 'Documents',
-  description: "Journal officiel, Codes, Rapports OFNAC Cours des comptes...",
-  icon: 'i-heroicons-document-text',
-  to: '/documents',
-}];
-
-const aboutUslinks = [
-  {
-    label: 'Conseil des ministres',
-    description: 'Conseil des ministres',
-    photo: '/unknown_member.webp',
-    icon: 'i-heroicons-document-text',
-    to: '/conseil-des-ministres',
+  description: 'Rapports, Journal Officiel, Codes, Nominations, Sites Web',
+  to: '/ressources-senegal',
+  withDropdown: true,
+  children: [
+    {
+      label: "Rapports Publics",
+      description: "Cours des Comptes, OFNAC, IGE, CENTIF, ARMP, IGF",
+      to: '/rapport-senegal',
+    },
+    {
+      label: 'Journal Officiel',
+      description: 'Textes législatifs, Lois, Décrets, Arrêtés',
+      to: '/journal-officiel-senegal',
+    },
+    {
+      label: 'Codes Généraux',
+      description: 'Constitution, Code de la famille, etc',
+      to: '/code-senegal',
+    },
+  ]
   },
   {
-    label: 'Newsletter',
-    description: 'Abonnez vous à notre newsletter',
-    photo: '/unknown_member.webp',
-    icon: 'i-heroicons-envelope',
-    to: '/newsletter',
+    label: 'Découverte',
+    description: 'Annuaire des nominations du président',
+    to: '/decouverte',
+    children: [
+      {
+        label: 'Guides',
+        to: '/guides-senegal',
+      },
+      {
+        label: 'Fonctionnement de l\'État',
+        to: '/fonctionnement-etat-senegal',
+      },
+      {
+        label: 'Quiz',
+        to: '/quiz',
+      },
+    ]
   },
   {
-    label: 'Quiz',
-    description: 'Jeux QCM sur les institutions publiques',
-    photo: '/unknown_member.webp',
-    icon: 'i-heroicons-puzzle-piece',
-    to: '/quiz',
+    label: "Annuaires",
+    to: '/annuaire-sites-publics-senegal',
+    children: [
+      {
+        label: 'Annuaire',
+        description: 'Annuaire des sites internet publics',
+        to: '/annuaire-sites-publics-senegal',
+      },
+      {
+        label: 'Outils pratiques',
+        description: 'API pour les développeurs',
+        to: '/api-senegal',
+      },
+    ]
   },
   {
-    label: 'À Propos',
-    to: '/about/us',
-    icon: 'i-heroicons-information-circle',
-  }];
-
+    label: 'Actualités',
+    to: '/publications/actualites',
+  }
+]
 
 </script>
 
 <template>
-  <div class="md:px-10 lg:px-18 xl:px-32 top-header flex justify-between items-center top-0 z-50 sticky opacity-100">
-    <!-- HeaderBrand à gauche -->
-    <AppHeader />
-
-    <!-- Navigation horizontale pour les écrans plus larges -->
-    <UHorizontalNavigation :links="links" class="hidden md:flex items-center w-auto">
-    </UHorizontalNavigation>
-
+  <div class="relative bg-white shadow-lg z-50">
+    <div class="hidden md:block">
+      <div class="xl:container flex justify-between items-center relative p-4 h-[116px] mx-auto">
+        <!-- HeaderBrand à gauche -->
+        <AppHeader />
+        <div class="flex divide-x divide-gray-200">
+          <div class="border-b-2 border-gray-300 flex justify-between w-[256px]">
+            <UInput color="primary" size="lg" variant="none" placeholder="RECHERCHER..." class="font-medium" />
+            <div class="bg-gray-500 px-1.5 pt-1.5 text-white">
+              <UIcon name="i-heroicons-magnifying-glass" class="w-7 h-7" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="w-full border-t"></div>
+      <div class="xl:container flex justify-between text-sm text-gray-800 mx-auto px-4">
+        <ul class="flex">
+          <li v-for="link in links" :key="link.label">
+            <NavButton :link="link" />
+          </li>
+        </ul>
+      </div>
+    </div>
     <!-- Menu pour mobiles (toggle visibility with Tailwind CSS) -->
-    <UButton class="md:hidden" @click="isOpen = true" color="gray" variant="link" size="xl" icon="i-heroicons-bars-3" />
+    <div class="md:hidden">
+      <div class="flex justify-between items-center p-4">
+        <AppHeader />
+        <div>
+          <UButton color="gray" variant="link" size="xl" icon="i-heroicons-magnifying-glass" to="/search" />
+          <UButton @click="isOpen = true" color="gray" variant="link" size="xl" icon="i-heroicons-bars-3" />
+        </div>
+      </div>
+    </div>
   </div>
   <UContainer class="mt-2 px-0 sm:px-10 md:px-14 lg:px-28 xl:px-40">
     <!-- Navigation verticale pour mobiles (toggle visibility with Tailwind CSS) -->
@@ -77,13 +116,13 @@ const aboutUslinks = [
           class="flex sm:hidden absolute end-5 top-5 z-10" square padded @click="isOpen = false" />
         <div class="min-h-full">
           <AppHeader />
-
-          <UVerticalNavigation :links="links" @click="isOpen = false" :ui="{ size: 'text-md' }" class="vertical-nav" />
-
-          <UDivider />
-
-          <UVerticalNavigation :links="aboutUslinks" @click="isOpen = false" :ui="{ size: 'text-md' }"
-            class="vertical-nav" />
+          <div class="vertical-nav">
+            <ul>
+              <li v-for="link in links" :key="link.label">
+                <NavButton :link="link" />
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </USlideover>
@@ -105,21 +144,5 @@ const aboutUslinks = [
   /* background-color: #f2f2f2; */
   /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05); */
   box-shadow: 0 2px 6px rgba(0, 0, 0, .1);
-}
-
-nav ul li a span {
-  text-transform: uppercase;
-  font-family: "Quicksand", sans-serif;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
-
-  /* font-size: 0.75rem; */
-
-}
-
-.vertical-nav ul li a {
-  margin: 0.5rem;
-  padding-left: 1rem !important;
-  box-shadow: 0 2px 4px #0000001a;
-  line-height: 2rem;
 }
 </style>
