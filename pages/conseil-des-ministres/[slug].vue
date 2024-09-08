@@ -1,27 +1,28 @@
 <script setup lang="ts">
-
 const route = useRoute();
 
-const seoTitle = 'Communiqué Conseil des ministres Sénégal';
-const seoDescription = 'Communiqué conseil des ministres du gouvernement du Sénégal';
-const seoImgPath = '/images/share-conseil-des-ministres-nomination-full.jfif';
-const seoPageUrl = 'https://vie-publique.sn/conseil-des-ministres/' + route.params.slug;
+const seoTitle = "Communiqué Conseil des ministres Sénégal";
+const seoDescription =
+  "Communiqué conseil des ministres du gouvernement du Sénégal";
+const seoImgPath = "/images/share-conseil-des-ministres-nomination-full.jfif";
+const seoPageUrl =
+  "https://vie-publique.sn/conseil-des-ministres/" + route.params.slug;
 
 useHead({
   title: seoTitle,
   meta: [
     {
-      name: 'description',
-      content: seoDescription
+      name: "description",
+      content: seoDescription,
     },
     // Twitter Card Meta Tags
     {
       name: "twitter:title",
-      content: seoTitle
+      content: seoTitle,
     },
     {
       name: "twitter:description",
-      content: seoDescription
+      content: seoDescription,
     },
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:image", content: seoImgPath },
@@ -32,23 +33,20 @@ useHead({
     },
     {
       property: "og:description",
-      content: seoDescription
+      content: seoDescription,
     },
     { property: "og:image", content: seoImgPath },
     { property: "og:url", content: seoPageUrl },
     { property: "og:type", content: "article" },
-  ]
-})
+  ],
+});
 
-
-const links = [
-  { label: 'communiqués', to: '/conseil-des-ministres' }]
-
+const links = [{ label: "communiqués", to: "/conseil-des-ministres" }];
 </script>
 
 <template>
   <ContentDoc v-slot="{ doc }">
-    <AppBreadcrumb :links=links :lastText="route.params.slug" />
+    <AppBreadcrumb :links="links" :last-text="route.params.slug" />
 
     <div class="prose prose-sm sm:prose mx-auto">
       <ContentRenderer :value="doc" />

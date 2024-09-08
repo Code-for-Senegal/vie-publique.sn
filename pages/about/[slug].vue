@@ -1,6 +1,6 @@
 <template>
   <ContentDoc v-slot="{ doc }">
-    <div class="prose prose-sm sm:prose lg:prose-lg xl:prose-xl mx-auto mt-2">
+    <div class="prose prose-sm sm:prose lg:prose-md mx-auto">
       <ContentRenderer :value="doc" />
     </div>
   </ContentDoc>

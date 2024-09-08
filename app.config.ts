@@ -3,7 +3,7 @@ export default defineAppConfig({
     primary: "neutral", // https://tailwindcss.com/docs/customizing-colors#color-palette-reference
     gray: "cool",
     container: {
-      padding: "px-3 sm:px-6 lg:px-8",
+      padding: "px-2 sm:px-6 lg:px-8",
     },
     card: {
       header: {

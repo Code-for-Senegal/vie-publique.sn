@@ -2,7 +2,6 @@ import tailwindTypography from "@tailwindcss/typography";
 
 export default defineNuxtConfig({
   ssr: true,
-
   modules: [
     "@nuxt/ui",
     "@nuxt/content",
@@ -12,14 +11,13 @@ export default defineNuxtConfig({
     "@nuxtjs/web-vitals",
     "@nuxt/image",
     "@vueuse/motion/nuxt",
+    "@nuxt/eslint",
+    "@pinia/nuxt",
   ],
-
   devtools: { enabled: true },
-
   nitro: {
     plugins: ["~/server/plugins/redirects.ts"],
   },
-
   runtimeConfig: {
     public: {
       showPinnedPeoples: process.env.PUBLIC_SHOW_PINNED_PEOLPLES,
@@ -29,27 +27,35 @@ export default defineNuxtConfig({
       brevoListId: process.env.BREVO_LIST_ID,
       redirects: [
         { from: "^/reports(.*)", to: "/rapport-senegal$1" },
+        { from: "^/budget-etat-senegal(.*)", to: "/budget-senegal$1" },
+        {
+          from: "^/nomination-senegal/conseil-des-ministres-07-aout(.*)",
+          to: "/nomination-senegal$1",
+        },
+        {
+          from: "^/nomination-senegal/conseil-des-ministres-18-juillet(.*)",
+          to: "/nomination-senegal$1",
+        },
+        {
+          from: "^/nomination-senegal/conseil-des-ministres-31-juillet(.*)",
+          to: "/nomination-senegal$1",
+        },
         // Ajoutez d'autres redirections ici
       ],
     },
   },
-
   css: ["~/assets/css/app.css"],
-
   colorMode: {
     preference: "light",
   },
-
   tailwindcss: {
     config: {
       plugins: [tailwindTypography],
     },
   },
-
   content: {
     defaultLocale: "fr",
   },
-
   app: {
     head: {
       titleTemplate: "%s | Vie-Publique.sn",
@@ -122,38 +128,33 @@ export default defineNuxtConfig({
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:image", content: "/images/share-linkedin.png" },
       ],
-      script: [
-        {
-          type: 'module',
-          src: '//instant.page/5.1.1',
-          integrity: "sha384-MWfCL6g1OTGsbSwfuMHc8+8J2u71/LA8dzlIN3ycajckxuZZmF+DNjdm7O6H3PSq"
-        }
-      ],
     },
   },
-
   site: {
     defaultLocale: "fr",
   },
-
   gtag: {
     enabled: !!process.env.GTAG_ID,
     id: process.env.GTAG_ID,
   },
-
   webVitals: {
     provider: "ga",
     disabled: !process.env.GTAG_ID,
     ga: { id: process.env.GTAG_ID },
   },
-
   sitemap: {
     sources: ["/api/__sitemap__/urls"],
   },
-
   image: {
     // Options
   },
-
-  compatibilityDate: "2024-09-03",
+  script: [
+    {
+      type: "module",
+      src: "//instant.page/5.1.1",
+      integrity:
+        "sha384-MWfCL6g1OTGsbSwfuMHc8+8J2u71/LA8dzlIN3ycajckxuZZmF+DNjdm7O6H3PSq",
+    },
+  ],
+  compatibilityDate: "2024-09-08",
 });

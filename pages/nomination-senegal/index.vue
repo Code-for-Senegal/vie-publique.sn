@@ -1,204 +1,364 @@
 <script setup lang="ts">
-import type { GovernmentMember } from '~/types/government-member';
+import type { GovernmentMember } from "~/types/government-member";
 
+// Configuration des métadonnées pour le SEO et le partage social
+const seoTitle = "Annuaire nominations Sénégal";
+const seoDescription =
+  "Liste des nominations du président Diomaye Faye au Sénégal";
+const seoImgPath = "https://vie-publique.sn/nomination-3.png";
+const seoPageUrl = "https://vie-publique.sn/nomination-senegal";
 useHead({
-    title: 'Annuaire nominations Sénégal',
-    meta: [
-        { name: 'description', content: 'Liste des nominations du président Diomaye Faye au Sénégal' },
-        { name: "twitter:title", content: "Annuaire nominations Sénégal" },
-        { name: "twitter:description", content: "Nominations du président Diomaye Faye" },
-        { name: "twitter:card", content: "summary_large_image" },
-        { name: "twitter:image", content: "/nomination-3.png" },
-        { property: "og:title", content: "Annuaire nominations Sénégal" },
-        { property: "og:description", content: "Nominations du président Diomaye Faye" },
-        { property: "og:image", content: "/nomination-3.png" },
-        { property: "og:url", content: "https://vie-publique.sn/nomination-senegal" },
-        { property: "og:type", content: "website" },
-    ]
-})
-
-const { $dateformat } = useNuxtApp()
-
-const { data } = await useFetch('/api/government', {
-    watch: false,
-    transform(input) {
-        return { members: input, fetchedAt: new Date() }
+  title: seoTitle,
+  meta: [
+    {
+      name: "description",
+      content: seoDescription,
     },
-    getCachedData(key) {
-        const data = useNuxtApp().payload.data[key] || useNuxtApp().static.data[key]
-        if (!data) return
-        const expirationDate = new Date(data.fetchedAt)
-        expirationDate.setTime(expirationDate.getTime() + 120 * 1000)
-        return expirationDate.getTime() < Date.now() ? undefined : data
+    // Twitter Card Meta Tags
+    {
+      name: "twitter:title",
+      content: seoTitle,
     },
-})
+    {
+      name: "twitter:description",
+      content: seoDescription,
+    },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:image", content: seoImgPath },
+    // Open Graph Meta Tags
+    {
+      property: "og:title",
+      content: seoTitle,
+    },
+    {
+      property: "og:description",
+      content: seoDescription,
+    },
+    { property: "og:image", content: seoImgPath },
+    { property: "og:url", content: seoPageUrl },
+    { property: "og:type", content: "website" },
+  ],
+});
 
-const searchQuery = ref('')
-const selectedType = ref('Ministre') // Initialisé à 'Ministre' par défaut
-const selectedGender = ref('')
-const viewMode = ref('list') // Initialisé à 'list' par défaut
-const page = ref(1)
-const pageCount = 10
+/* plugin */
+
+const { $dateformat } = useNuxtApp();
+
+/* Get Datas */
+
+const nuxtApp = useNuxtApp();
+const { data } = await useFetch("/api/nominations", {
+  watch: false,
+
+  transform(input) {
+    return {
+      members: input,
+      fetchedAt: new Date(),
+    };
+  },
+
+  getCachedData(key) {
+    const data = nuxtApp.payload.data[key] || nuxtApp.static.data[key];
+    if (!data) {
+      return;
+    }
+
+    const expirationDate = new Date(data.fetchedAt);
+    expirationDate.setTime(expirationDate.getTime() + 120 * 1000); // 120 secondes
+    const isExpired = expirationDate.getTime() < Date.now();
+    if (isExpired) {
+      return;
+    }
+
+    return data;
+  },
+});
+
+/* Filters */
+
+const searchQuery = ref("");
+const selectedType = ref("Ministre");
+const selectedGender = ref("");
+const selectedDate = ref("");
 
 const filteredMinisters = computed(() => {
-    return (data.value?.members?.filter((member: GovernmentMember) =>
+  return (
+    data.value.members?.filter(
+      (member: GovernmentMember) =>
         (member.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-            member.role.toLowerCase().includes(searchQuery.value.toLowerCase())) &&
-        (selectedType.value === 'Ministre' ? member.type === 'Ministre' : (!selectedType.value || member.type === selectedType.value)) &&
-        (!selectedGender.value || member.sexe === selectedGender.value)
-    ) || []).sort((a, b) => new Date(b.nominationDate).getTime() - new Date(a.nominationDate).getTime())
-})
+          member.role
+            .toLowerCase()
+            .includes(searchQuery.value.toLowerCase())) &&
+        (!selectedType.value || member.type === selectedType.value) &&
+        (!selectedGender.value || member.sexe === selectedGender.value) &&
+        (!selectedDate.value || member.sexe === selectedDate.value),
+    ) || []
+  ).sort(
+    (a, b) =>
+      new Date(b.nominationDate).getTime() -
+      new Date(a.nominationDate).getTime(),
+  );
+});
+
+/* Pagination */
+
+const page = ref(1);
+const pageCount = 25;
 
 const rowsfilteredMinisters = computed(() =>
-    filteredMinisters.value.slice((page.value - 1) * pageCount, page.value * pageCount)
-)
+  filteredMinisters.value.slice(
+    (page.value - 1) * pageCount,
+    page.value * pageCount,
+  ),
+);
 
+// FIXME move to server side
 const totalsByType = computed(() => {
-    const totals: Record<string, number> = {}
-    data.value?.members?.forEach((member: GovernmentMember) => {
-        if (member.type) {
-            totals[member.type] = (totals[member.type] || 0) + 1
-        }
-    })
-    return Object.fromEntries(Object.entries(totals).sort(([a], [b]) => a.localeCompare(b)))
-})
+  const totals: Record<string, number> = {};
+  data.value?.members?.forEach((member: GovernmentMember) => {
+    if (member.type) {
+      totals[member.type] = (totals[member.type] || 0) + 1;
+    }
+  });
 
+  return Object.fromEntries(
+    Object.entries(totals).sort(([a], [b]) => a.localeCompare(b)),
+  );
+
+  // return totals;
+});
+
+// FIXME move to server
 const totalsByGender = computed(() => {
-    let maleCount = 0, femaleCount = 0
-    data.value?.members?.forEach((member: GovernmentMember) => {
-        member.sexe === 'Monsieur' ? maleCount++ : member.sexe === 'Madame' ? femaleCount++ : null
-    })
-    return { maleCount, femaleCount }
-})
+  let maleCount = 0,
+    femaleCount = 0;
+  data.value?.members?.forEach((member: GovernmentMember) => {
+    if (member.sexe === "Monsieur") {
+      maleCount++;
+    } else if (member.sexe === "Madame") {
+      femaleCount++;
+    }
+  });
+  return { maleCount, femaleCount };
+});
 
-const selectedMinister = ref<GovernmentMember | null>(null)
-const isModalOpen = ref(false)
+const selectedMinister = ref<GovernmentMember | null>(null);
+const isModalOpen = ref(false);
 
 function openModal(minister: GovernmentMember) {
-    selectedMinister.value = minister
-    isModalOpen.value = true
+  selectedMinister.value = minister;
+  isModalOpen.value = true;
 }
 
-watch([searchQuery, selectedType, selectedGender], () => {
-    page.value = 1
-})
+watch(searchQuery, () => {
+  selectedType.value = "";
+  selectedGender.value = "";
+  page.value = 1;
+});
+
+watch([selectedType, selectedGender], () => {
+  page.value = 1;
+});
 </script>
 
 <template>
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold text-center mb-8">{{ data?.members?.length }} Nominations</h1>
+  <div class="flex flex-col items-center px-4">
+    <h1 class="sr-only mb-4 text-sm text-gray-500">
+      Membres du gouvernement du Sénégal, Nouveau gouvernement Sénégal Diomaye
+      Sonko, Conseil des ministres, Liste des ministres du Sénégal,
+    </h1>
+    <div class="prose prose-sm sm:prose mx-auto my-2">
+      <h1 class="text-center">
+        {{ data.members?.length }} Nominations
+        <!--du président Diomaye-->
+      </h1>
+    </div>
 
-        <div class="max-w-4xl mx-auto space-y-6">
-            <!-- Lien vers les récentes nominations -->
-            <div class="text-center mb-4">
-                <ULink to="/nomination-senegal/conseil-des-ministres-07-aout"
-                    class="text-sm mb-2 underline text-center text-gray-600 hover:text-gray-800">
-                    Voir les nominations du dernier conseil des ministres
-                </ULink>
-            </div>
+    <p class="sr-only mb-4 text-sm text-gray-500">
+      Ministres, Secrétaires, Directeurs, PCA...
+    </p>
 
-            <UInput v-model="searchQuery" icon="i-heroicons-magnifying-glass" placeholder="Rechercher une nomination..."
-                class="w-full" />
+    <!-- Modal pour afficher les détails du membre -->
+    <UModal v-model="isModalOpen">
+      <UCard
+        v-if="selectedMinister"
+        :ui="{
+          ring: '',
+          divide: 'divide-y divide-gray-100 dark:divide-gray-800',
+        }"
+      >
+        <template #header>
+          <!-- <Placeholder v-else class="h-8" /> -->
+          <div class="flex items-center justify-center">
+            <img
+              :src="selectedMinister.photo || '/unknown_member.webp'"
+              alt="Profile Photo"
+              sizes="300px md:400px"
+            />
+          </div>
+        </template>
 
-            <div class="flex flex-wrap justify-center gap-2">
-                <UButton v-for="gender in ['Monsieur', 'Madame']" :key="gender"
-                    :color="selectedGender === gender ? 'primary' : 'gray'"
-                    @click="selectedGender = selectedGender === gender ? '' : gender" class="text-sm">
-                    {{ gender === 'Monsieur' ? 'Hommes' : 'Femmes' }}
-                    <UBadge :label="totalsByGender[gender === 'Monsieur' ? 'maleCount' : 'femaleCount']"
-                        :variant="selectedGender === gender ? 'solid' : 'soft'" />
-                </UButton>
-                <UButton v-for="(total, type) in totalsByType" :key="type"
-                    :color="selectedType === type ? 'primary' : 'gray'"
-                    @click="selectedType = selectedType === type ? '' : type" class="text-sm">
-                    {{ type }}
-                    <UBadge :label="total" :variant="selectedType === type ? 'solid' : 'soft'" />
-                </UButton>
-            </div>
+        <div class="px-4 text-center">
+          <h2 class="text-xl font-semibold">{{ selectedMinister.name }}</h2>
+          <p class="text-sm">{{ selectedMinister.role }}</p>
+          <div v-if="selectedMinister.nominationDate" class="mt-1">
+            <p class="text-sm text-gray-500">Nommé le</p>
+            <p class="text-sm">
+              {{ $dateformat(selectedMinister.nominationDate) }}
+            </p>
+          </div>
+          <div v-if="selectedMinister.endDate" class="mt-1">
+            <p class="text-sm text-gray-500">Fin de fonction le</p>
+            <p class="text-sm">{{ $dateformat(selectedMinister.endDate) }}</p>
+          </div>
+          <div v-if="selectedMinister.formation" class="mt-1">
+            <p class="text-sm text-gray-500">Formation</p>
+            <p class="text-sm">{{ selectedMinister.formation }}</p>
+          </div>
+          <div v-if="selectedMinister.predecessor" class="mt-1">
+            <p class="text-sm text-gray-500">Prédécesseur</p>
+            <p class="text-sm">{{ selectedMinister.predecessor }}</p>
+          </div>
 
-            <div class="flex justify-end mb-4">
-                <UButtonGroup size="sm">
-                    <UButton :color="viewMode === 'grid' ? 'primary' : 'gray'" @click="viewMode = 'grid'">
-                        <UIcon name="i-heroicons-squares-2x2-solid" />
-                    </UButton>
-                    <UButton :color="viewMode === 'list' ? 'primary' : 'gray'" @click="viewMode = 'list'">
-                        <UIcon name="i-heroicons-bars-3-solid" />
-                    </UButton>
-                </UButtonGroup>
-            </div>
-
-            <div v-if="rowsfilteredMinisters.length === 0" class="text-center py-8">
-                <UIcon name="i-heroicons-exclamation-circle" class="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                <p class="text-xl text-gray-600">Aucun résultat trouvé</p>
-            </div>
-
-            <div v-else
-                :class="viewMode === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4' : 'space-y-4'">
-                <UCard v-for="minister in rowsfilteredMinisters" :key="minister.name"
-                    class="cursor-pointer hover:shadow-lg transition-shadow duration-300" @click="openModal(minister)">
-                    <div :class="viewMode === 'grid' ? 'text-center' : 'flex items-center space-x-4'">
-                        <NuxtImg :src="minister.photo || '/unknown_member.webp'"
-                            :class="viewMode === 'grid' ? 'w-32 h-32 mx-auto rounded-full mb-4' : 'w-16 h-16 rounded-full'"
-                            :alt="minister.name" />
-                        <div>
-                            <h2 class="font-semibold">{{ minister.name }}</h2>
-                            <p class="text-sm text-gray-600">{{ minister.role }}</p>
-                            <p class="text-xs text-gray-500">Nommé le {{ $dateformat(minister.nominationDate) }}</p>
-                        </div>
-                    </div>
-                </UCard>
-            </div>
-
-            <div v-if="filteredMinisters.length > pageCount" class="flex justify-center mt-8">
-                <UPagination v-model="page" :total="filteredMinisters.length" :page-count="pageCount" />
-            </div>
+          <ULink
+            v-if="selectedMinister.portrait"
+            :to="selectedMinister.portrait"
+            class="text-sm font-semibold text-blue-600 underline hover:text-blue-800"
+          >
+            Voir le portrait complet
+          </ULink>
         </div>
 
-        <UModal v-model="isModalOpen">
-            <UCard v-if="selectedMinister" :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
-                <template #header>
-                    <div class="flex justify-center items-center">
-                        <NuxtImg :src="selectedMinister.photo || '/unknown_member.webp'" alt="Profile Photo"
-                            sizes="300px md:400px" :placeholder="[300, 300]" />
-                    </div>
-                </template>
+        <template #footer>
+          <Placeholder class="h-8" />
+          <div class="p-2 text-right">
+            <UButton color="white" @click="isModalOpen = false">Fermer</UButton>
+          </div>
+        </template>
+      </UCard>
+    </UModal>
 
-                <div class="px-4 text-center">
-                    <h2 class="text-xl font-semibold">{{ selectedMinister.name }}</h2>
-                    <p class="text-sm">{{ selectedMinister.role }}</p>
-                    <div v-if="selectedMinister.nominationDate" class="mt-1">
-                        <p class="text-sm text-gray-500">Nommé le</p>
-                        <p class="text-sm">{{ $dateformat(selectedMinister.nominationDate) }}</p>
-                    </div>
-                    <div v-if="selectedMinister.endDate" class="mt-1">
-                        <p class="text-sm text-gray-500">Fin de fonction le</p>
-                        <p class="text-sm">{{ $dateformat(selectedMinister.endDate) }}</p>
-                    </div>
-                    <div v-if="selectedMinister.formation" class="mt-1">
-                        <p class="text-sm text-gray-500">Formation</p>
-                        <p class="text-sm">{{ selectedMinister.formation }}</p>
-                    </div>
-                    <div v-if="selectedMinister.predecessor" class="mt-1">
-                        <p class="text-sm text-gray-500">Prédécesseur</p>
-                        <p class="text-sm">{{ selectedMinister.predecessor }}</p>
-                    </div>
+    <div class="w-full max-w-4xl">
+      <UInput
+        v-model="searchQuery"
+        class="input custom-shadow mb-3 w-full"
+        size="lg"
+        icon="i-heroicons-magnifying-glass"
+        placeholder="Rechercher une nomination..."
+      >
+      </UInput>
 
-                    <ULink v-if="selectedMinister.portrait" :to="selectedMinister.portrait"
-                        class="text-blue-600 hover:text-blue-800 underline text-sm font-semibold">
-                        Voir le portrait complet
-                    </ULink>
-                </div>
+      <div class="mb-1 w-full text-center">
+        <UButton
+          :ui="{ rounded: 'rounded-full' }"
+          class="custom-shadow mb-1 ml-1 text-sm font-normal transition-all duration-300 ease-in-out"
+          :color="selectedGender === 'Monsieur' ? 'primary' : 'white'"
+          size="sm"
+          @click="
+            selectedGender = selectedGender === 'Monsieur' ? '' : 'Monsieur'
+          "
+        >
+          Hommes
+          <UBadge
+            :ui="{ rounded: 'rounded-full' }"
+            :label="totalsByGender.maleCount"
+            :color="selectedGender === 'Monsieur' ? 'primary' : 'primary'"
+            :variant="selectedGender === 'Monsieur' ? 'soft' : 'solid'"
+            size="xs"
+          ></UBadge>
+        </UButton>
+        <UButton
+          :ui="{ rounded: 'rounded-full' }"
+          class="custom-shadow mb-1 ml-1 text-sm font-normal transition-all duration-300 ease-in-out"
+          :color="selectedGender === 'Madame' ? 'primary' : 'white'"
+          size="sm"
+          @click="selectedGender = selectedGender === 'Madame' ? '' : 'Madame'"
+        >
+          Femmes
+          <UBadge
+            :ui="{ rounded: 'rounded-full' }"
+            :label="totalsByGender.femaleCount"
+            color="primary"
+            :variant="selectedGender === 'Madame' ? 'soft' : 'solid'"
+            size="xs"
+          ></UBadge>
+        </UButton>
+      </div>
 
-                <template #footer>
-                    <div class="text-right p-2">
-                        <UButton color="gray" @click="isModalOpen = false">Fermer</UButton>
-                    </div>
-                </template>
-            </UCard>
-        </UModal>
+      <div class="mb-2 w-full text-center">
+        <UButton
+          v-for="(total, type) in totalsByType"
+          :key="type"
+          :ui="{ rounded: 'rounded-full' }"
+          :color="selectedType === type ? 'primary' : 'white'"
+          class="custom-shadow mb-1 ml-1 text-sm font-normal transition-all duration-300 ease-in-out"
+          size="sm"
+          @click="selectedType = selectedType === type ? '' : type"
+        >
+          {{ type }}
+          <UBadge
+            :ui="{ rounded: 'rounded-full' }"
+            :label="total"
+            color="primary"
+            :variant="selectedType === type ? 'soft' : 'solid'"
+            size="xs"
+          ></UBadge>
+        </UButton>
+      </div>
+
+      <!-- FIXME @deprecated to remove -->
+      <div class="mb-3 hidden w-full text-center">
+        <NuxtLink
+          to="/nomination-senegal/conseil-des-ministres-07-aout"
+          class="mb-2 text-center text-sm underline"
+        >
+          Voir les nominations du dernier conseil des ministres
+        </NuxtLink>
+      </div>
+
+      <div class="space-y-2">
+        <UCard
+          v-for="minister in rowsfilteredMinisters"
+          :key="minister.name"
+          class="custom-shadow cursor-pointer"
+          @click="openModal(minister)"
+        >
+          <div class="flex flex-row gap-2">
+            <div class="h-16 w-16 flex-shrink-0 md:h-20 md:w-20">
+              <img
+                :src="minister.photo || '/unknown_member.webp'"
+                alt="Photo ministre"
+                sizes="64px sm:80px"
+                class="h-full w-full rounded-full object-cover"
+              />
+            </div>
+            <div class="flex-grow">
+              <h2 class="font-semibold">{{ minister.name }}</h2>
+              <p class="text-sm">{{ minister.role }}</p>
+              <p class="text-sm text-gray-500">
+                Nommé le
+                {{ $dateformat(minister.nominationDate) }}
+              </p>
+              <p v-if="minister.endDate != null" class="text-sm text-gray-500">
+                Limogé le
+                {{ $dateformat(minister.endDate) }}
+              </p>
+            </div>
+          </div>
+        </UCard>
+      </div>
+
+      <div
+        :class="{ hidden: rowsfilteredMinisters < pageCount }"
+        class="flex justify-end border-t border-gray-200 px-3 py-3.5 dark:border-gray-700"
+      >
+        <UPagination
+          v-model="page"
+          size="md"
+          :page-count="pageCount"
+          :total="filteredMinisters.length"
+        />
+      </div>
     </div>
+  </div>
 </template>
-
-<style scoped>
-/* Ajoutez ici des styles spécifiques si nécessaire */
-</style>

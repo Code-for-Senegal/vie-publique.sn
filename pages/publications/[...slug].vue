@@ -1,24 +1,21 @@
 <script setup lang="ts">
-
 const route = useRoute();
 
-const { data } = await useAsyncData('content', () => queryContent(route.path).findOne())
+const { data } = await useAsyncData("content", () =>
+  queryContent(route.path).findOne(),
+);
 
 useHead({
-  meta: [
-    { name: 'robots', content: data.value?.robots || 'index,follow' }
-  ]
-})
+  meta: [{ name: "robots", content: data.value?.robots || "index,follow" }],
+});
 
 const links = [
-  // { label: 'Justice', to: '/justice' }]
-  { label: 'Actualités', to: '/publications/actualites' }]
-
-
+  { label: route.params.slug[0], to: "/publications/" + route.params.slug[0] },
+];
 </script>
 <template>
   <ContentDoc v-slot="{ doc }">
-    <AppBreadcrumb :links=links :lastText="route.params.slug[1]" />
+    <AppBreadcrumb :links="links" :last-text="route.params.slug[1]" />
 
     <div class="prose prose-sm sm:prose lg:prose-md mx-auto">
       <ContentRenderer :value="doc" />

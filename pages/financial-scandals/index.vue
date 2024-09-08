@@ -3,13 +3,7 @@ const router = useRouter();
 const scandales = ref<any[]>([]);
 
 const runtimeConfig = useRuntimeConfig();
-const showScandals = ref(runtimeConfig.public.showScandals === 'true');
-
-onMounted(async () => {
-  // FIXME
-  // scandales.value = (await import('@/assets/data/scandales-financiers.json'))
-  //   .default.sort((a, b) => new Date(b.date_publication).getTime() - new Date(a.date_publication).getTime());
-});
+const showScandals = ref(runtimeConfig.public.showScandals === "true");
 
 function goToScandaleDetails(scandal: any) {
   router.push(`/financial-scandals/${scandal.id}`);
@@ -19,19 +13,29 @@ function goToScandaleDetails(scandal: any) {
 <template>
   <div class="gap-5">
     <div v-if="showScandals">
-      <UCard v-for="scandale in scandales" :key="scandale.id" class="mb-2 cursor-pointer custom-shadow"
-        @click="goToScandaleDetails(scandale)">
+      <UCard
+        v-for="scandale in scandales"
+        :key="scandale.id"
+        class="custom-shadow mb-2 cursor-pointer"
+        @click="goToScandaleDetails(scandale)"
+      >
         <!-- <NuxtLink :to="{name: ''}"> -->
         <div class="flex flex-col md:flex-row">
           <!-- left desktop & tab -->
-          <div class="md:w-1/3 mb-1">
-            <img :src="scandale.image_url" :alt="scandale.titre" class="w-full h-auto" fetchpriority="high">
+          <div class="mb-1 md:w-1/3">
+            <img
+              :src="scandale.image_url"
+              :alt="scandale.titre"
+              class="h-auto w-full"
+            />
           </div>
           <!-- right desktop & tab -->
-          <div class="md:w-2/3 pl-2 flex flex-col justify-between">
+          <div class="flex flex-col justify-between pl-2 md:w-2/3">
             <div>
               <h3 class="text-xl">{{ scandale.titre }}</h3>
-              <p class="text-gray-500 text-sm my-2">{{ scandale.sous_titre }}</p>
+              <p class="my-2 text-sm text-gray-500">
+                {{ scandale.sous_titre }}
+              </p>
             </div>
             <div>
               <span>Date: {{ scandale.annee }}</span>
@@ -42,10 +46,9 @@ function goToScandaleDetails(scandal: any) {
         <!-- </NuxtLink> -->
       </UCard>
     </div>
-    <div v-else class="justify-center text-gray-500 text-sm">
-      <p> Page en cours de rédaction... </p>
-      <p> Nous listerons ici la liste des scandales financiers au sénégal</p>
+    <div v-else class="justify-center text-sm text-gray-500">
+      <p>Page en cours de rédaction...</p>
+      <p>Nous listerons ici la liste des scandales financiers au sénégal</p>
     </div>
   </div>
-
 </template>

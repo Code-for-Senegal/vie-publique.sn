@@ -30,7 +30,7 @@ const filteredRapports = computed(() =>
       (selectedYear.value === "" ||
         rapport.annee === parseInt(selectedYear.value))
     );
-  })
+  }),
 );
 
 onMounted(async () => {
@@ -39,18 +39,19 @@ onMounted(async () => {
   ).default.sort(
     (a, b) =>
       new Date(b.date_publication).getTime() -
-      new Date(a.date_publication).getTime()
+      new Date(a.date_publication).getTime(),
   );
 });
 
 /* Pagination */
+
 const page = ref(1);
 const pageCount = 20;
 
 const rowsfilteredRapports = computed(() => {
   return filteredRapports.value.slice(
     (page.value - 1) * pageCount,
-    page.value * pageCount
+    page.value * pageCount,
   );
 });
 
@@ -62,6 +63,8 @@ watch(selectedOrganisme, () => {
 
 <template>
   <div class="flex flex-col items-center px-4">
+    <!-- <Submenu /> -->
+
     <h1 class="sr-only">
       Rapports d'audits publics Sénégal OFNAC Cours des comptes IGE CENTIF
     </h1>
@@ -69,21 +72,21 @@ watch(selectedOrganisme, () => {
     <div class="prose prose-sm sm:prose mx-auto my-2">
       <h1 class="text-center">Rapports publics</h1>
     </div>
-    <p v-if="rapports.length > 1" class="text-sm mb-4 text-gray-500">
+    <p v-if="rapports.length > 1" class="mb-4 text-sm text-gray-500">
       {{ rapports.length }} rapports disponibles
     </p>
 
     <UInput
-      size="md"
       v-model="searchQuery"
+      size="md"
       placeholder="Rechercher..."
       icon="i-heroicons-magnifying-glass"
-      class="input w-full mb-1 custom-shadow"
+      class="input custom-shadow mb-1 w-full"
     />
 
-    <div class="text-center w-full my-3">
+    <div class="my-3 w-full text-center">
       <UButton
-        class="custom-shadow ml-1 mb-1"
+        class="custom-shadow mb-1 ml-1"
         :color="selectedOrganisme === '' ? 'primary' : 'white'"
         @click="selectedOrganisme = ''"
       >
@@ -92,7 +95,7 @@ watch(selectedOrganisme, () => {
       <UButton
         v-for="organisme in organismes"
         :key="organisme"
-        class="custom-shadow ml-1 mb-1"
+        class="custom-shadow mb-1 ml-1"
         :color="selectedOrganisme === organisme ? 'primary' : 'white'"
         @click="
           selectedOrganisme = selectedOrganisme === organisme ? '' : organisme
@@ -102,107 +105,102 @@ watch(selectedOrganisme, () => {
       </UButton>
     </div>
 
-    <div class="flex flex-col gap-2 w-full">
+    <div class="flex flex-col gap-2">
       <!-- Afficher USkeleton si les rapports ne sont pas encore chargés -->
-      <div v-if="rapports.length === 0">
+      <div v-if="filteredRapports.length == 0">
         <div v-for="i in 5" :key="`skeleton-${i}`">
-          <USkeleton class="h-24 w-full mb-2 custom-shadow bg-white" />
+          <USkeleton class="custom-shadow mb-2 h-24 w-full bg-white" />
         </div>
       </div>
 
-      <!-- Afficher le message "Aucun résultat disponible" si aucun rapport ne correspond aux critères de recherche -->
-      <div
-        v-else-if="filteredRapports.length === 0"
-        class="text-center text-gray-500 mt-4 flex flex-col items-center"
-      >
-        <UIcon name="i-heroicons-exclamation-circle" class="w-12 h-12 mb-2" />
-        <p>Aucun résultat disponible</p>
-      </div>
-
       <!-- Afficher les cartes de rapport une fois chargées -->
-
-      <template v-else>
-        <UCard
-          v-for="rapport in rowsfilteredRapports"
-          :key="rapport.id"
-          class="cursor-pointer custom-shadow"
+      <UCard
+        v-for="rapport in rowsfilteredRapports"
+        v-else
+        :key="rapport.id"
+        class="custom-shadow cursor-pointer"
+      >
+        <NuxtLink
+          :to="`/rapport-senegal/${rapport.slug}`"
+          class="flex flex-row gap-2"
         >
-          <NuxtLink
-            :to="`/rapport-senegal/${rapport.slug}`"
-            class="flex flex-row gap-2"
-          >
-            <div class="flex-shrink-0 w-12 md:w-16">
-              <img
-                v-if="rapport.organisme == 'ARMP'"
-                src="~/assets/logos/armp.webp"
-                loading="lazy"
-                alt="Logo ARMP"
-                class="organisme-logo w-11 md:w-12 lg:w-14 h-auto"
-                width="60"
-                height="40" fetchpriority="high"
-              />
-              <img
-                v-else-if="rapport.organisme == 'OFNAC'"
-                src="~/assets/logos/ofnac.webp"
-                loading="lazy"
-                alt="Logo OFNAC"
-                class="organisme-logo w-11 md:w-12 lg:w-14 h-auto"
-                width="60"
-                height="40" fetchpriority="high"
-              />
-              <img
-                v-else-if="rapport.organisme == 'IGE'"
-                src="~/assets/logos/ige.webp"
-                loading="lazy"
-                alt="Logo IGE"
-                class="organisme-logo w-11 md:w-12 lg:w-14 h-auto"
-                width="60"
-                height="40" fetchpriority="high"
-              />
-              <img
-                v-else-if="rapport.organisme == 'Cours des Comptes'"
-                src="~/assets/logos/cour_des_comptes.webp"
-                loading="lazy"
-                alt="Logo Cours des Comptes"
-                class="organisme-logo w-11 md:w-12 lg:w-14 h-auto"
-                width="60"
-                height="40" fetchpriority="high"
-              />
-              <img
-                v-else-if="rapport.organisme == 'CENTIF'"
-                src="~/assets/logos/centif.webp"
-                loading="lazy"
-                alt="Logo CENTIF"
-                class="organisme-logo w-11 md:w-12 lg:w-14 h-auto"
-                width="60"
-                height="40" fetchpriority="high"
-              />
-              <img
-                v-else
-                src="~/assets/logos/doc.svg"
-                loading="lazy"
-                alt="Logo rapport"
-                class="organisme-logo w-11 md:w-12 lg:w-14 h-auto"
-                width="60"
-                height="40" fetchpriority="high"
-              />
-            </div>
-            <div class="flex-grow">
-              <p class="text-sm font-semibold">{{ rapport.titre }}</p>
-              <p class="text-gray-500 text-sm">{{ rapport.sous_titre }}</p>
-            </div>
-          </NuxtLink>
-        </UCard>
-      </template>
+          <div class="w-12 flex-shrink-0 md:w-16">
+            <img
+              v-if="rapport.organisme == 'ARMP'"
+              src="~/assets/logos/armp.webp"
+              loading="lazy"
+              fetchpriority="high"
+              alt="Logo ARMP"
+              class="organisme-logo h-auto w-11 md:w-12 lg:w-14"
+              width="60"
+              height="40"
+            />
+            <img
+              v-if="rapport.organisme == 'OFNAC'"
+              src="~/assets/logos/ofnac.webp"
+              loading="lazy"
+              fetchpriority="high"
+              alt="Logo OFNAC"
+              class="organisme-logo h-auto w-11 md:w-12 lg:w-14"
+              width="60"
+              height="40"
+            />
+            <img
+              v-if="rapport.organisme == 'IGE'"
+              src="~/assets/logos/ige.webp"
+              loading="lazy"
+              fetchpriority="high"
+              alt="Logo IGE"
+              class="organisme-logo h-auto w-11 md:w-12 lg:w-14"
+              width="60"
+              height="40"
+            />
+            <img
+              v-if="rapport.organisme == 'Cours des Comptes'"
+              src="~/assets/logos/cour_des_comptes.webp"
+              loading="lazy"
+              fetchpriority="high"
+              alt="Logo Cours des Comptes"
+              class="organisme-logo h-auto w-11 md:w-12 lg:w-14"
+              width="60"
+              height="40"
+            />
+            <img
+              v-if="rapport.organisme == 'CENTIF'"
+              src="~/assets/logos/centif.webp"
+              loading="lazy"
+              fetchpriority="high"
+              alt="Logo CENTIF"
+              class="organisme-logo h-auto w-11 md:w-12 lg:w-14"
+              width="60"
+              height="40"
+            />
+            <img
+              v-if="rapport.organisme == 'Autres'"
+              src="~/assets/logos/doc.svg"
+              loading="lazy"
+              fetchpriority="high"
+              alt="Logo rapport"
+              class="organisme-logo h-auto w-11 md:w-12 lg:w-14"
+              width="60"
+              height="40"
+            />
+          </div>
+
+          <div class="flex-grow">
+            <p class="text-sm font-semibold">{{ rapport.titre }}</p>
+            <p class="text-sm text-gray-500">{{ rapport.sous_titre }}</p>
+          </div>
+        </NuxtLink>
+      </UCard>
     </div>
 
     <div
-      v-if="filteredRapports.length > 0"
-      class="flex justify-end px-3 py-3.5 border-t border-gray-200 dark:border-gray-700 w-full"
+      class="flex justify-end border-t border-gray-200 px-3 py-3.5 dark:border-gray-700"
     >
       <UPagination
-        size="md"
         v-model="page"
+        size="md"
         :page-count="pageCount"
         :total="filteredRapports.length"
       />

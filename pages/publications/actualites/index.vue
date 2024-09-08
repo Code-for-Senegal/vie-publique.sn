@@ -1,153 +1,175 @@
 <script setup lang="ts">
-
-// Définition des métadonnées SEO
-const seoTitle = 'Actualités de la république du Sénégal';
-const seoDescription = 'Information Actualités de la république du Sénégal';
-const seoImgPath = 'https://vie-publique.sn/images/share-linkedin.png';
-const seoPageUrl = 'https://vie-publique.sn/publications/actualites';
-
 // Configuration des métadonnées pour le SEO et le partage social
+const seoTitle = "Actualités de la république du Sénégal";
+const seoDescription = "Information Actualités de la république du Sénégal";
+const seoImgPath = "https://vie-publique.sn/images/share-linkedin.png";
+const seoPageUrl = "https://vie-publique.sn/publications/actualites";
 useHead({
   title: seoTitle,
   meta: [
-    { name: 'description', content: seoDescription },
+    {
+      name: "description",
+      content: seoDescription,
+    },
     // Twitter Card Meta Tags
-    { name: "twitter:title", content: seoTitle },
-    { name: "twitter:description", content: seoDescription },
+    {
+      name: "twitter:title",
+      content: seoTitle,
+    },
+    {
+      name: "twitter:description",
+      content: seoDescription,
+    },
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:image", content: seoImgPath },
-    // Open Graph Meta Tags pour Facebook et autres
-    { property: "og:title", content: seoTitle },
-    { property: "og:description", content: seoDescription },
+    // Open Graph Meta Tags
+    {
+      property: "og:title",
+      content: seoTitle,
+    },
+    {
+      property: "og:description",
+      content: seoDescription,
+    },
     { property: "og:image", content: seoImgPath },
     { property: "og:url", content: seoPageUrl },
     { property: "og:type", content: "website" },
-  ]
-})
+  ],
+});
 
+const searchQuery = ref("");
 // État réactif pour la catégorie sélectionnée, initialisé à 'Toutes'
-const selectedCategory = ref('Toutes')
+const selectedCategory = ref("Toutes");
 
-// Récupération des données des actualités depuis le CMS
-const { data: contentItems, pending, error } = await useAsyncData('contentItems', () =>
-  queryContent('publications/actualites').find(),
-  { server: true, lazy: false }
-)
+const {
+  data: contentItems,
+  pending,
+  error,
+} = await useAsyncData(
+  "contentItems",
+  () => queryContent("publications/actualites").find(),
+  { server: true, lazy: false },
+);
 
 // Calcul des catégories uniques avec le nombre d'articles pour chaque catégorie
 const categoriesWithCount = computed(() => {
-  if (!contentItems.value) return [{ name: 'Toutes', count: 0 }]
-  
+  if (!contentItems.value) return [{ name: "Toutes", count: 0 }];
+
   const categoryCounts = contentItems.value.reduce((acc, item) => {
-    acc[item.category] = (acc[item.category] || 0) + 1
-    return acc
-  }, {})
+    acc[item.category] = (acc[item.category] || 0) + 1;
+    return acc;
+  }, {});
 
-  const allCount = contentItems.value.length
-  
+  const allCount = contentItems.value.length;
+
   return [
-    { name: 'Toutes', count: allCount },
-    ...Object.entries(categoryCounts).map(([name, count]) => ({ name, count }))
-  ]
-})
+    { name: "Toutes", count: allCount },
+    ...Object.entries(categoryCounts).map(([name, count]) => ({ name, count })),
+  ];
+});
 
-// Filtrage des actualités en fonction de la catégorie sélectionnée
-const filteredContentItems = computed(() => {
-  if (!contentItems.value) return []
-  return contentItems.value.filter(item =>
-    selectedCategory.value === 'Toutes' || item.category === selectedCategory.value
-  )
-})
-
-// Fonction utilitaire pour obtenir l'URL de l'image (avec une image par défaut si non spécifiée)
-function getImageUrl(item) {
-  return item.image || '/chemin/vers/image/par-defaut.jpg'
-}
-
-// Tri des actualités filtrées par date, du plus récent au plus ancien
-const sortedContentItems = computed(() => {
-  return [...filteredContentItems.value].sort((a, b) => new Date(b.date) - new Date(a.date))
-})
+// Filtrage des actualités en fonction de la catégorie sélectionnée et Tri des actualités filtrées par date, du plus récent au plus ancien
+const filteredSortedContentItems = computed(() => {
+  if (!contentItems.value) return [];
+  return contentItems.value
+    .filter(
+      (code) =>
+        code.title?.toLowerCase().includes(searchQuery.value.toLowerCase()) &&
+        (selectedCategory.value === "Toutes" ||
+          code.category === selectedCategory.value),
+    )
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+});
 </script>
 
 <template>
-  <div class="container mx-auto px-4 py-8">
-    <!-- Titre principal de la page -->
-    <h1 class="text-4xl font-bold text-center mb-8 text-gray-800">Actualités</h1>
+  <div class="container mx-auto px-4">
+    <div class="prose prose-sm sm:prose mx-auto my-2">
+      <h1 class="text-center">Actualités</h1>
+    </div>
 
     <!-- Boutons de filtrage par catégorie avec nombre d'articles -->
-    <div class="flex flex-wrap justify-center gap-4 mb-8">
+    <div class="mb-4 flex flex-wrap justify-center gap-2">
       <UButton
         v-for="category in categoriesWithCount"
         :key="category.name"
         :color="selectedCategory === category.name ? 'primary' : 'gray'"
+        class="rounded-none border-0 text-sm shadow-md transition-all duration-300 ease-in-out"
+        size="sm"
         @click="selectedCategory = category.name"
-        class="text-sm px-4 py-2 rounded-full transition-all duration-300 ease-in-out"
       >
         {{ category.name }} ({{ category.count }})
       </UButton>
     </div>
 
+    <UInput
+      v-model="searchQuery"
+      size="md"
+      placeholder="Rechercher..."
+      icon="i-heroicons-magnifying-glass"
+      class="input custom-shadow my-4 hidden w-full"
+    />
+
     <!-- Affichage du spinner pendant le chargement des données -->
-    <div v-if="pending" class="text-center py-8">
+    <div v-if="pending" class="py-8 text-center">
       <USpinner size="lg" class="mb-4" />
       <p class="text-gray-600">Chargement des actualités...</p>
     </div>
-    
+
     <!-- Affichage d'une alerte en cas d'erreur -->
-    <UAlert v-else-if="error" icon="i-heroicons-exclamation-triangle" color="red" title="Erreur de chargement" :description="error.message" />
-    
+    <UAlert
+      v-else-if="error"
+      icon="i-heroicons-exclamation-triangle"
+      color="red"
+      title="Erreur de chargement"
+      :description="error.message"
+    />
+
     <!-- Affichage des actualités -->
     <div v-else>
       <!-- Message si aucun résultat n'est trouvé -->
-      <div v-if="sortedContentItems.length === 0" class="text-center text-gray-500 mt-8 flex flex-col items-center">
-        <UIcon name="i-heroicons-exclamation-circle" class="w-16 h-16 mb-4 text-gray-400" />
+      <div
+        v-if="filteredSortedContentItems.length === 0"
+        class="mt-8 flex flex-col items-center text-center text-gray-500"
+      >
+        <UIcon
+          name="i-heroicons-exclamation-circle"
+          class="mb-4 h-16 w-16 text-gray-400"
+        />
         <p class="text-xl">Aucun résultat disponible</p>
       </div>
-      <!-- Grille des actualités -->
-      <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Carte pour chaque actualité -->
-        <UCard v-for="item in sortedContentItems" :key="item._path" class="overflow-hidden hover:shadow-xl transition-shadow duration-300">
-          <NuxtLink :to="item._path" class="block">
-            <!-- Image de l'actualité avec catégorie -->
-            <div class="relative">
-              <img :src="getImageUrl(item)" :alt="item.title" class="w-full h-56 object-cover transition-transform duration-300 hover:scale-105" fetchpriority="high">
-              <span class="absolute top-0 left-0 bg-primary-600 text-white px-3 py-1 text-sm font-semibold">
-                {{ item.category }}
-              </span>
 
+      <!-- Grille des actualités -->
+      <div v-else class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <UCard
+          v-for="item in filteredSortedContentItems"
+          :key="item._path"
+          class="custom-shadow cursor-pointer"
+        >
+          <NuxtLink :to="item._path">
+            <NuxtImg
+              :src="item.image || '/default-image-2.gif'"
+              :alt="item.title"
+              class="mb-4 h-48 w-full object-cover"
+              loading="lazy"
+              fetchpriority="high"
+              sizes="300px"
+              :placeholder="[300, 300]"
+            />
+            <div
+              class="siteweb-type my-1 inline-block bg-gray-200 px-2 py-1 text-xs text-gray-800"
+            >
+              {{ item.category }}
             </div>
-            <div class="p-4">
-              <!-- Métadonnées de l'actualité (date) -->
-              <div class="flex justify-end items-center mb-2">
-                <span class="text-sm text-gray-600">
-                  {{ $dateformatWithDayName(item.date) }}
-                </span>
-              </div>
-              <!-- Titre et description de l'actualité -->
-              <h2 class="text-xl font-semibold text-gray-800 mb-2 line-clamp-2">{{ item.title }}</h2>
-              <p class="text-gray-600 line-clamp-3">{{ item.description }}</p>
+            <div class="text-sm text-gray-800">
+              {{ $dateformatWithDayName(item.date) }}
             </div>
+            <p class="font-semibold">
+              {{ item.title }}
+            </p>
           </NuxtLink>
         </UCard>
       </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-/* Classes utilitaires pour limiter le nombre de lignes affichées */
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-</style>

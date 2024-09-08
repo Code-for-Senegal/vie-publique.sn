@@ -1,15 +1,12 @@
 <script setup lang="ts">
-
 const route = useRoute();
 
-const links = [
-  { label: 'Journaux', to: '/journal-officiel-senegal' }]
-
+const links = [{ label: "Journaux", to: "/journal-officiel-senegal" }];
 </script>
 
 <template>
   <ContentDoc v-slot="{ doc }">
-    <AppBreadcrumb :links=links :lastText="route.params.slug" />
+    <AppBreadcrumb :links="links" :last-text="route.params.slug" />
 
     <div class="prose prose-sm sm:prose mx-auto">
       <ContentRenderer :value="doc" />
