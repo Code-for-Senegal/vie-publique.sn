@@ -116,7 +116,7 @@ const rowsFilteredAppointee = computed(() => {
   );
 });
 
-// FIXME move to server
+// FIXME move to server side
 const totalsByJurisdictionType = computed(() => {
   const totals: Record<string, number> = {};
   data.value.appointees?.forEach((appointee: MagistratureType) => {
@@ -136,7 +136,7 @@ const totalsByJurisdictionType = computed(() => {
   // return totals;
 });
 
-// FIXME move to server
+// FIXME move to server side
 const totalsByGender = computed(() => {
   let maleCount = 0;
   let femaleCount = 0;
