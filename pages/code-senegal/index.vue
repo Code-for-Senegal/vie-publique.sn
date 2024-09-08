@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 const seoTitle = 'Code général de la république du Sénégal';
 const seoDescription = 'Sénégal Constitution, Code de la famille, Code du travail, Code des collectivités locales, Code de la presse';
 const seoImgPath = '/vpsn-share-jors.png';
@@ -54,7 +53,6 @@ const filteredCodes = computed(() => {
 
 <template>
   <div class="container mx-auto px-4">
-
     <div class="prose prose-sm sm:prose mx-auto my-2">
       <h1 class="text-center">
         Codes du Sénégal
@@ -67,23 +65,41 @@ const filteredCodes = computed(() => {
       </p>
     </div>
 
-    <!-- <UInput size="md" v-model="searchQuery" placeholder="Rechercher..." icon="i-heroicons-magnifying-glass"
-      class="input w-full my-4 custom-shadow" /> -->
+    <UInput size="md" v-model="searchQuery" placeholder="Rechercher..." icon="i-heroicons-magnifying-glass"
+      class="input w-full my-4 custom-shadow" />
 
-    <div v-if="pending">Chargement...</div>
-    <div v-else-if="error">Une erreur s'est produite lors du chargement des textes.</div>
+    <div v-if="pending" class="space-y-4">
+      <USkeleton v-for="i in 5" :key="i" class="h-24 w-full" :ui="{ background: 'bg-gray-200 dark:bg-gray-800' }">
+        <div class="space-y-2">
+          <USkeleton width="70%" height="20px" class="mb-2" />
+          <USkeleton width="40%" height="16px" />
+        </div>
+      </USkeleton>
+    </div>
+    
+    <UAlert v-else-if="error" icon="i-heroicons-exclamation-triangle" color="red" title="Erreur de chargement" :description="error.message" />
+    
     <div v-else>
-      <div class="flex flex-col gap-2">
-        <UCard v-for="codeItem in filteredCodes" :key="codeItem._path" class="cursor-pointer custom-shadow">
-          <NuxtLink :to="codeItem._path">
-            <p class="font-semibold underline">
-              <!-- <UIcon name="i-heroicons-document" />&nbsp; -->
+      <div v-if="filteredCodes.length === 0" class="text-center text-gray-500 mt-4 flex flex-col items-center">
+        <UIcon name="i-heroicons-exclamation-circle" class="w-12 h-12 mb-2" />
+        <p>Aucun résultat disponible</p>
+      </div>
+      <div v-else class="flex flex-col gap-2">
+        <UCard v-for="codeItem in filteredCodes" :key="codeItem._path" class="cursor-pointer custom-shadow hover:shadow-md transition-shadow duration-200">
+          <NuxtLink :to="codeItem._path" class="block">
+            <p class="font-semibold underline text-primary-600 hover:text-primary-700">
               {{ codeItem.title }}
             </p>
-            <p class="text-gray-500 text-sm">{{ codeItem.subtitle }}</p>
+            <p class="text-gray-500 text-sm mt-1">{{ codeItem.subtitle }}</p>
           </NuxtLink>
         </UCard>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+.custom-shadow {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+</style>
