@@ -10,7 +10,7 @@
 6. [Creation](#creation)
 7. [Setup](#setup)
 8. [Development Server](#development-server)
-9. [Utiliser les Dev Containers](#utiliser-les-dev-containers)
+9. [Dev Containers](#utiliser-les-dev-containers)
 10. [Production](#production)
 
 ## Présentation
@@ -76,37 +76,6 @@ vie-publique.sn/
 
 - Node.js > v18.0.0
 
-## Creation
-
-Project was created with this command
-
-```bash
-pnpm dlx nuxi@latest init nuxt-senegal-reports
-```
-
-nexui was added with following command
-
-```bash
-pnpm dlx nuxi@latest module add ui
-```
-
-others module added with following command
-
-```bash
-pnpm dlx nuxi@latest module add content
-pnpm dlx nuxi@latest module add seo
-pnpm dlx nuxi@latest module add web-vitals
-pnpm dlx nuxi@latest module add image
-
-pnpm install @tailwindcss/typography
-```
-
-To add dynamics url on sitemap.xml
-
-```bash
-pnpm dlx nuxi@latest module add sitemap
-```
-
 ## Setup
 
 Make sure to install the dependencies:
@@ -135,22 +104,24 @@ BREVO_LIST_ID=xxx
 
 vous pouvez mettre des valeurs fictives en local
 
-2. Start the development server on `http://localhost:3000`:
+2. Development server
 
 ```bash
 npm run dev
 ```
 
-accès au viewer tailwind `http://localhost:3000/\_tailwind`
+Votre application Nuxt 3 devrait maintenant être accessible à l'adresse http://localhost:3000 et se recharger automatiquement lorsque vous modifiez vos fichiers source.
+
+Accès au viewer tailwind `http://localhost:3000/\_tailwind`
 
 3. IDE
 
-If you are a VSCode user, install these 2 extensions :
+Pour VSCode, installer ces 2 extensions :
 
 - Prettier - Code formatter https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
 - ESLint https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
 
-Run the 'npm run lint' command to check if the code style is correct or run 'npm run lint:fix' to automatically fix issues.
+Executer la commande 'npm run lint' pour vérifier si le code style est correct ou 'npm run lint:fix' pour fixer automatiquement les issues.
 
 ## Utiliser les Dev Containers
 
@@ -185,15 +156,6 @@ Build the application for production:
 ```bash
 # npm
 npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
 Locally preview production build:
@@ -201,21 +163,6 @@ Locally preview production build:
 ```bash
 # npm
 npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
-
-## useful links
-
-https://nuxt.com/modules
-
-https://heroicons.com/
