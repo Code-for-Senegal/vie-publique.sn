@@ -7,11 +7,13 @@ description: "Informations sur le site vie-publique.sn, initiative citoyenne dé
 
 ### Projet Citoyen, Ouvert et Open Source
 
-Bienvenue sur vie-publique.sn, une plateforme citoyenne dédiée à la promotion de la transparence et de l'accessibilité à l'information publique au Sénégal.
+Vie-publique.sn est plateforme citoyenne dédiée à la promotion de la transparence et de l'accessibilité à l'information publique au Sénégal.
 
 C'est une plateforme participative, collective, ouverte et open source visant à rendre accessible au grand public les informations publiques (rapports d'audit, budget, journal officiel, lois et règlements, code général, nominations etc.).
 
-Ce projet n'est, à ce jour, pas affilié à aucun gouvernement ou organisation politique. Pour toute question ou suggestion, envoyez-nous un mail à [contact@vie-publique.sn](mailto:contact@vie-publique.sn).
+Ce projet n'est, à ce jour, affilié à aucun gouvernement ou organisation politique.
+
+Pour toute question ou suggestion, envoyez-nous un mail à [contact@vie-publique.sn](mailto:contact@vie-publique.sn).
 
 ### Objectif du Projet
 
@@ -21,25 +23,35 @@ L'objectif de vie-publique.sn est de fournir un accès facile aux informations g
 
 Un aperçu rapide des chantiers sur lesquels nous travaillons actuellement :
 
-- ✅ Rapports: OFNAC, cours des comptes, IGE etc
-- ✅ Conseil des ministres
-- 🛠️ Conseil interministériel
-- ✅ Codes, constitution, code du travail, de fa famille, de la presse, etc.
+- ✅ Annuaire de nominations
+- ✅ Rapports: Centralisation rapports d’audit OFNAC, IGE etc.
+- ✅ Conseil des ministres et interministériel
+- ✅ Budget: tableau de bord du budget de l'état
+- ✅ Actualités: Communiqués, discours, déclarations etc.
+- ✅ Codes: constitution, code du travail, code de la famille etc.
 - ✅ Journal officiel: Parution de 2024
-- 🛠️ Journal officiel: historique complète de toutes les parutions depuis 2021
-- 🛠️ Baromètre citoyen: suivi des promesses électorales et engagements du gouvernement
-- 🛠️ Actualites: Communiqués, discours, annonces, déclarations, etc.
-- 🛠️ Guide, Quiz et FAQ pour vulgariser le fonctionnement et l'organisation des services de l'état
-- 🚀 Élection: annuaire des élus (députés, maires, conseiller etc.) avec le maximum d'info sur chaque élu
-- 🚀 Justice: annuaire des acteurs de la justice et des décisions de justices
-- 🚀 Election: historique des résultats des élections depuis 1960 avec les chiffres détaillés
+
+- 🛠️ Publication des contrats publiques
+- 🛠️ Annuaire des élus (députés, maires…. avec portrait et photos )
+- 🛠️ Annuaire acteur de la justice
+- 🛠️ Annuaire entreprise Sénégal
+- 🛠️ Journal officiel: historique complète depuis 2021
+- 🛠️ Budget: budget des entreprises publiques
+- 🛠️ Baromètre citoyen: suivi des promesses électorales
+- 🛠️ Guides, Quiz et FAQ sur le fonctionnement de l'état
+
+- 🚀 Élection: annuaire des élus députés, maires, conseillers etc.
+- 🚀 Justice: annuaire des acteurs de la justice
+- 🚀 Justice: annuaire des décisions de justices
+- 🚀 Election: historique des résultats depuis 1960
+- 🚀 Version wolof
 
 ### Participation et Contributions
 
-En tant que projet open source, nous encourageons la communauté à participer et à contribuer à l'amélioration de cette plateforme. Si vous avez des compétences en développement web, en analyse de données, ou si vous souhaitez simplement nous transmettre des information, suggérer des améliorations ou signaler des erreurs, n'hésitez pas à:
+Nous encourageons la communauté à participer et à contribuer à l'amélioration de cette plateforme. Si vous avez des compétences en développement web, en analyse de données, ou si vous souhaitez simplement nous transmettre des informations, suggérer des améliorations ou signaler des erreurs, n'hésitez pas à:
 
 - nous contacter par mail à [contact@vie-publique.sn](mailto:contact@vie-publique.sn)
-- contribuer via notre dépôt GitHub <a href="https://github.com/Code-for-Senegal/vie-publique.sn" target="_blank">github.com/Code-for-Senegal/vie-publique.sn</a>
+- contribuer sur le code source sur [GitHub](https://github.com/Code-for-Senegal/vie-publique.sn){:target="\_blank"}
 
 Nous sommes ouverts à toutes les formes de collaboration qui peuvent enrichir ce projet et servir au mieux les intérêts des citoyens sénégalais.
 
@@ -67,7 +79,11 @@ Nous sommes ouverts à toutes les formes de collaboration qui peuvent enrichir c
 
   - **George Lamine DIOP**, Expert Marketing Digital
 
-  - **Anta Ndao**, Doctorant en administration publique
+  - **Ndéné SENE**, Architecte Logicielle
+
+  - **Mbaye dione**, Ingénieur Développeur
+
+  - **Anta Ndao**, Doctorante en administration publique
 
   - **Sidath Gueye**, Ingénieur Logiciel en R&D et en Intelligence Artificielle
 
@@ -75,22 +91,18 @@ Nous sommes ouverts à toutes les formes de collaboration qui peuvent enrichir c
 
   - **Thierno Lo**, Chef de projet et entrepreneur
 
-### Code Source Projet
+  - **Ndiaga Ndiaye**, Digital Manager
 
-Le code source de notre plateforme est disponible en open source sur GitHub. Vous pouvez le consulter et y contribuer via le lien ci-dessous :
+  - **Khadija Diallo**, communicante et entrepreneur
 
-<a href="https://github.com/Code-for-Senegal/vie-publique.sn" target="_blank">github.com/Code-for-Senegal/vie-publique.sn</a>
+  - **Bocar KANE**, Expert IT et Télécom, CEO Kaylene group et HubSIX
 
 ### Sources des Données
 
 - **Journal officiel:** Imprimerie nationale
-
 - **Nominations:** Communiqués des conseils des ministres
-
 - **Quiz:** Documents institutionnels
-
 - **Actualités:** RTS, APS, BIC Gouv, primature.sn, .sn, DRI (Direction des Relations avec les Institutions)
-
 - **Rapports:**
   - **Cour des Comptes du Sénégal**
   - **ARMP** Autorité de Régulation des Marchés Publics

@@ -9,7 +9,7 @@ description: Ministre de l’Intégration africaine et des Affaires étrangères
 
 **_Ministre de l’Intégration africaine et des Affaires étrangères_**
 
-<img src="/gouvernement/ministre-yassine-fall.jfif" alt="ministre-yassine-fall" width="300" fetchpriority="high" fetchpriority="high">
+<img src="/gouvernement/ministre-yassine-fall.jfif" alt="ministre-yassine-fall" width="300" fetchpriority="high">
 
 Nommée Ministre de l’intégration africaine et des affaires étrangères, le 05 avril 2024, Madame Yacine FALL est une économiste et femme politique de renommée mondiale. Originaire de Ndiangué, un village situé dans la commune de Richard-Toll, au cœur du Walo, elle jouit d’un riche parcours et d’une forte expérience internationale, notamment au sein du système des Nations Unies.
 

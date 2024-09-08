@@ -9,7 +9,6 @@ description: Ministre de l’Environnement et de la Transition écologique du Go
 
 <img src="/gouvernement/ministre-daouda-ngom.jfif" alt="ministre Daouda NGOM" width="300" fetchpriority="high">
 
-
 Monsieur Daouda NGOM occupe les fonctions de Ministre de l’Environnement et de la Transition écologique dans le premier Gouvernement du Premier Ministre Ousmane SONKO, nommé le 05 avril 2024. Enseignant-chercheur à l’Université Cheikh Anta DIOP de Dakar, ce passionné de la biodiversité, d’écologie, d’agroforesterie et de développement durable est doté d’une vaste expérience académique et professionnelle et d’une expertise confirmée dans son domaine.
 
 Titulaire d’un Diplôme d’Études Approfondies (DEA) en biologie, d’un Diplôme d’Études Supérieures Spécialisées (DESS) en agroenvironnement, d’un Doctorat en biologie végétale et d’un Doctorat en écologie et agroforesterie, il est professeur titulaire au Département de Biologie Végétale de l’Université Cheikh Anta Diop de Dakar.
