@@ -11,15 +11,16 @@
 7. [Setup](#setup)
 8. [Development Server](#development-server)
 9. [Utiliser les Dev Containers](#utiliser-les-dev-containers)
-10. [Environnement de variable fichier .env](#environnement-de-variable-fichier-env)
-11. [Production](#production)
+10. [Production](#production)
 
 ## Présentation
 
-Plateforme Web CivicTech dédiée à la centralisation, la visualisation et l'analyse des rapports publiés sur la gestion des finances publiques au Sénégal.
+Plateforme Web citoyenne dédiée à la promotion de la transparence et de l'accessibilité à l'information publique au Sénégal.
+
+C'est une plateforme participative, collective, ouverte et open source visant à rendre accessible au grand public les informations publiques (rapports d'audit, budget, journal officiel, lois et règlements, code général, nominations etc.).
 
 > ⚠️ **AVERTISSEMENT IMPORTANT**  
-> Projet initié dans l'urgence pour répondre à [l'indisponiblité du site de la cours des comptes le 01/05/2024](https://twitter.com/malick_yacine/status/1785472745150742983). Les data (metadata sur les rapports et les pdf) on été incluses directement dans le repo git. Cela explique la taille conséquente du repo (200mo). Ce point sera corrigé très rapidement en séparant les data du code.
+> Projet initié dans l'urgence pour répondre à [l'indisponiblité du site de la cours des comptes le 01/05/2024](https://twitter.com/malick_yacine/status/1785472745150742983). Les data (metadata sur les rapports et les pdf) on été incluses directement dans le repo git. Ce point sera corrigé très rapidement en séparant les data du code.
 
 ## Roadmap
 
@@ -32,11 +33,13 @@ https://github.com/Code-for-Senegal/vie-publique.sn/wiki/ROADMAP
 - [Nuxt 3](https://nuxt.com)
 
   - [Nuxt UI](https://ui.nuxt.com) pour les composants UI
-  - [Nuxt SEO](https://nuxtseo.com) pour optimiser le référencement naturel
-  - [Nuxt Content](https://content.nuxt.com/) pour gérer du contenu dynamique en markdown
+  - [Nuxt SEO](https://nuxtseo.com) pour optimiser SEO référencement naturel
+  - [Nuxt Content](https://content.nuxt.com/) pour générer du contenu statique en markdown
   - [nuxt-gtag](https://nuxt.com/modules/gtag) pour le suivi Google Analytics
 
-- [Tailwind css](https://tailwindcss.com/) pour le framework css
+- [Tailwind css](https://tailwindcss.com/) pour le style UI
+
+- [ES lint](https://nuxt.com/docs/guide/concepts/code-style) et [prettier](https://prettier.io) pour le code Style
 
 - [Brevo (ex Sendinblue)](https://www.brevo.com/fr/) pour la newsletter
 
@@ -44,11 +47,11 @@ https://github.com/Code-for-Senegal/vie-publique.sn/wiki/ROADMAP
 
 - Bundler: Vite
 
-* Nom de domaine
+- Nom de domaine
 
   - DNS [vie-publique.sn](https://www.vie-publique.sn) acheté via OVH
 
-* Hébergement
+- Hébergement
   - projet déployé chez [Vercel](https://vercel.com)
 
 ## Structure du projet
@@ -62,6 +65,11 @@ vie-publique.sn/
 ├── plugins/           # Plugins JavaScript que tu souhaites exécuter avant l'instance root Vue
 ├── static/            # Fichiers statiques servis directement depuis la racine
 └── public/            # Dossier publique avec les rapports pdf
+└── content/           # Dossier content pour les contenus statiques markdown
+└── server/            # parter serveur API
+└── nuxt.config.ts     # Nuxt root config file
+└── eslint.config.mjs  # ESLint config file
+└── .prettierrc        # Prettier Config file
 ```
 
 ## Prérequis
@@ -104,18 +112,7 @@ pnpm dlx nuxi@latest module add sitemap
 Make sure to install the dependencies:
 
 ```bash
-
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
 ## Development Server
@@ -138,23 +135,22 @@ BREVO_LIST_ID=xxx
 
 vous pouvez mettre des valeurs fictives en local
 
-2. Démarrer le serveur de dev sur `http://localhost:3000`:
+2. Start the development server on `http://localhost:3000`:
 
 ```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
 accès au viewer tailwind `http://localhost:3000/\_tailwind`
+
+3. IDE
+
+If you are a VSCode user, install these 2 extensions :
+
+- Prettier - Code formatter https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+- ESLint https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
+
+Run the 'npm run lint' command to check if the code style is correct or run 'npm run lint:fix' to automatically fix issues.
 
 ## Utiliser les Dev Containers
 
