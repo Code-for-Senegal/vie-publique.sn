@@ -27,7 +27,7 @@ export default defineNuxtPlugin(() => {
         const day = date.getDate();
         const month = monthNames[date.getMonth()];
         const year = date.getFullYear();
-        var days = [
+        const days = [
           "Dimanche",
           "Lundi",
           "Mardi",
@@ -36,7 +36,7 @@ export default defineNuxtPlugin(() => {
           "Vendredi",
           "Samedi",
         ];
-        var dayName = days[date.getDay()];
+        const dayName = days[date.getDay()];
         return `${dayName} ${day} ${month} ${year}`;
       },
       dateMonthYearformat: (dateStr: string) => {

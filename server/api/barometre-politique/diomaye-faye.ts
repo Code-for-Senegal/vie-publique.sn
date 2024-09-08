@@ -1,7 +1,6 @@
 // /server/api/barometre-politique/diomaye-faye.ts
 import promesses from "~/assets/data/barometre-diomaye.json";
-import { Promesse } from "~/types/promesse";
-import { PromesseStats } from "~/types/promesse";
+import type { Promesse, PromesseStats } from "~/types/promesse";
 
 function calculateStats(promesses: Promesse[]): PromesseStats {
   const stats: PromesseStats = {

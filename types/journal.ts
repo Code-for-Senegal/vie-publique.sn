@@ -1,5 +1,4 @@
 export type Journal = {
-    numero: string;
-    date: string;
-  };
-  
+  numero: string;
+  date: string;
+};

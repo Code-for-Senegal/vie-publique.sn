@@ -4,7 +4,7 @@ import reportsData from "@/assets/data/rapports-liste.json";
 export default defineSitemapEventHandler(async (event) => {
   // Générer un tableau de chaînes d'URL pour les rapports
   const reportUrls = reportsData.map(
-    (report) => `/rapport-senegal/${report.slug}`
+    (report) => `/rapport-senegal/${report.slug}`,
   );
 
   // Récupérer toutes les pages du dossier content

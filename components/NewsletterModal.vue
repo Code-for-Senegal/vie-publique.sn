@@ -10,23 +10,22 @@
 </template>
 
 <script lang="ts" setup>
-
-const isOpen = ref(false)
+const isOpen = ref(false);
 
 const open = () => {
-  isOpen.value = true
-}
+  isOpen.value = true;
+};
 
 const close = () => {
-  isOpen.value = false
-}
+  isOpen.value = false;
+};
 
 const handleSuccess = () => {
   // Fermer le modal après un court délai pour que l'utilisateur puisse voir le message de succès
   setTimeout(() => {
-    close()
-  }, 2000)
-}
+    close();
+  }, 2000);
+};
 
-defineExpose({ open, close })
+defineExpose({ open, close });
 </script>
