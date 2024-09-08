@@ -150,7 +150,7 @@ useMotion()
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <UCard class="text-center cursor-pointer custom-shadow" @click="selectQuizType('text')">
                     <img src="~/assets/images/quiz_logo_1.jpg" alt="Quiz Organisation de l'Etat" loading="lazy"
-                        width="100" height="100" class="mx-auto" />
+                        width="100" height="100" class="mx-auto" fetchpriority="high" />
                     <div class="p-2">
                         <p class="text-lg font-semibold mb-2">Quiz Organisation de l'état</p>
                         <!-- <UButton @click="selectQuizType('text')" class="text-center w-full rounded-3xl"
@@ -159,7 +159,7 @@ useMotion()
                 </UCard>
                 <UCard class="text-center cursor-pointer custom-shadow" @click="selectQuizType('image')">
                     <img src="~/assets/images/quiz_logo_2.jpg" alt="Quiz Photos nominations" loading="lazy" width="100"
-                        height="100" class="mx-auto" />
+                        height="100" class="mx-auto" fetchpriority="high"/>
                     <div class="p-2">
                         <p class="text-lg font-semibold mb-2">Quiz Photos nominations</p>
                         <!-- <UButton @click="selectQuizType('image')" class="text-center w-full rounded-3xl "

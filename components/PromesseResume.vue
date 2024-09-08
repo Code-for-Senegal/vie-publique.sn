@@ -1,7 +1,7 @@
 <template>
     <div class="text-center max-w-md mx-auto">
         <div class=" w-28 mx-auto mb-4">
-            <img src="/images/diomaye-officielle-1.jfif" alt="Diomaye Faye" class="object-cover w-28" />
+            <img src="/images/diomaye-officielle-1.jfif" alt="Diomaye Faye" class="object-cover w-28" fetchpriority="high" />
         </div>
         <h2 class="text-3xl font-bold mb-1">Diomaye Faye</h2>
         <p class="text-xl mb-4">(2024-2029)</p>

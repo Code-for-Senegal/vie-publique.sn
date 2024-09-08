@@ -6,7 +6,7 @@
             </div> -->
             <div class="text-xs">
                 <h2 class="text-gray-500 tracking-wide font-bold ">Vie-Publique.sn</h2>
-                <img src="~/assets/logos/flag.png" loading="lazy" alt="Logo" class="flag-logo" />
+                <img src="~/assets/logos/flag.png" loading="lazy" alt="Logo" class="flag-logo" fetchpriority="high"/>
                 <p class="text-gray-500">Au cœur du débat public au Sénégal</p>
             </div>
         </div>

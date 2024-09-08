@@ -7,7 +7,7 @@ description: Garde des Sceaux, Ministre de la Justice du Gouvernement du Sénég
 
 **_Ministre de l’Agriculture, de la Souveraineté alimentaire et de l’Élevage_**
 
-<img src="/gouvernement/ministre-mabouba-diagne.jfif" alt="ministre Mabouba Diagne" width="300">
+<img src="/gouvernement/ministre-mabouba-diagne.jfif" alt="ministre Mabouba Diagne" width="300" fetchpriority="high">
 
 ## Nomination ministérielle
 

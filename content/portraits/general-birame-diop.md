@@ -7,7 +7,7 @@ description: Ministre des Forces armées du Gouvernement du Sénégal
 
 **_Ministre des Forces armées_**
 
-<img src="/gouvernement/ministre-général-birame-diop.jfif" alt="ministre-yassine-fall" width="300">
+<img src="/gouvernement/ministre-général-birame-diop.jfif" alt="ministre-yassine-fall" width="300" fetchpriority="high">
 
 **Date et lieu de naissance :** 29 Mars 1961 à Thiès  
 **Grade :** Général d'armée aérienne (2S)  
