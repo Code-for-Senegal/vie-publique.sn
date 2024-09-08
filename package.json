@@ -7,24 +7,39 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier . --write"
   },
   "dependencies": {
     "@nuxt/content": "^2.13.2",
+    "@nuxt/eslint": "^0.5.4",
     "@nuxt/image": "^1.7.0",
     "@nuxt/ui": "^2.18.3",
     "@nuxtjs/seo": "2.0.0-rc.16",
     "@nuxtjs/sitemap": "^5.3.5",
     "@nuxtjs/web-vitals": "^0.2.7",
+    "@pinia/nuxt": "^0.5.4",
     "@tailwindcss/typography": "^0.5.13",
     "@vueuse/motion": "^2.2.3",
+    "d3": "^7.9.0",
     "nuxt": "^3.11.2",
     "papaparse": "^5.4.1",
+    "pinia": "^2.2.2",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
+    "@nuxt/eslint-config": "^0.5.4",
+    "@types/d3": "^7.4.3",
+    "@types/eslint-config-prettier": "^6.11.3",
+    "eslint": "^9.9.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
     "execa": "^9.3.0",
-    "nuxt-gtag": "^2.0.5"
+    "nuxt-gtag": "^2.0.5",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.6"
   }
 }
