@@ -7,7 +7,7 @@ description: Ministre des Infrastructures, des Transports terrestres et aériens
 
 **_Ministre des Infrastructures, des Transports terrestres et aériens_**
 
-<img src="/gouvernement/ministre-malick-ndiaye.jfif" alt="ministre Malick NDIAYE" width="300">
+<img src="/gouvernement/ministre-malick-ndiaye.jfif" alt="ministre Malick NDIAYE" width="300" fetchpriority="high">
 
 # Malick NDIAYE (El Malick)
 

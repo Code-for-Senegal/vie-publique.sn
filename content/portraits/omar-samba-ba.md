@@ -7,7 +7,7 @@ description: Ministre, Secrétaire général de la Présidence de la République
 
 **Ministre, Secrétaire général de la Présidence de la République du Sénégal**
 
-<img src="/gouvernement/omar-samba-ba.jfif" alt="ministre Oumar Samba Ba" width="300">
+<img src="/gouvernement/omar-samba-ba.jfif" alt="ministre Oumar Samba Ba" width="300" fetchpriority="high">
 
 ### Formation et expertise
 

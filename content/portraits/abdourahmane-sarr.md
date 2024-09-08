@@ -7,7 +7,7 @@ description: Ministre de l’Économie du Plan et de la Coopération du Gouverne
 
 **_Ministre de l’Économie du Plan et de la Coopération_**
 
-<img src="/gouvernement/ministre-abdourahmane-sarr.jfif" alt="ministre Abdourahmane DIOUF" width="300">
+<img src="/gouvernement/ministre-abdourahmane-sarr.jfif" alt="ministre Abdourahmane DIOUF" width="300" fetchpriority="high">
 
 Nommé Ministre de l’Economie, du Plan et de la Coopération, le 05 avril 2024, par Son Excellence le Président Bassirou Diomaye FAYE, Monsieur Abdourahmane SARR est un économiste expérimenté aux compétences incontestables. Il est né le 26 mars 1968 à Paris et a grandi dans une famille originaire de Kaolack.
 

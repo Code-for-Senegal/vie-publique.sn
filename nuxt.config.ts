@@ -122,6 +122,13 @@ export default defineNuxtConfig({
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:image", content: "/images/share-linkedin.png" },
       ],
+      script: [
+        {
+          type: 'module',
+          src: '//instant.page/5.1.1',
+          integrity: "sha384-MWfCL6g1OTGsbSwfuMHc8+8J2u71/LA8dzlIN3ycajckxuZZmF+DNjdm7O6H3PSq"
+        }
+      ],
     },
   },
 

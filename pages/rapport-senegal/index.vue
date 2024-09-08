@@ -120,6 +120,7 @@ watch(selectedOrganisme, () => {
       </div>
 
       <!-- Afficher les cartes de rapport une fois chargées -->
+
       <template v-else>
         <UCard
           v-for="rapport in rowsfilteredRapports"
@@ -138,7 +139,7 @@ watch(selectedOrganisme, () => {
                 alt="Logo ARMP"
                 class="organisme-logo w-11 md:w-12 lg:w-14 h-auto"
                 width="60"
-                height="40"
+                height="40" fetchpriority="high"
               />
               <img
                 v-else-if="rapport.organisme == 'OFNAC'"
@@ -147,7 +148,7 @@ watch(selectedOrganisme, () => {
                 alt="Logo OFNAC"
                 class="organisme-logo w-11 md:w-12 lg:w-14 h-auto"
                 width="60"
-                height="40"
+                height="40" fetchpriority="high"
               />
               <img
                 v-else-if="rapport.organisme == 'IGE'"
@@ -156,7 +157,7 @@ watch(selectedOrganisme, () => {
                 alt="Logo IGE"
                 class="organisme-logo w-11 md:w-12 lg:w-14 h-auto"
                 width="60"
-                height="40"
+                height="40" fetchpriority="high"
               />
               <img
                 v-else-if="rapport.organisme == 'Cours des Comptes'"
@@ -165,7 +166,7 @@ watch(selectedOrganisme, () => {
                 alt="Logo Cours des Comptes"
                 class="organisme-logo w-11 md:w-12 lg:w-14 h-auto"
                 width="60"
-                height="40"
+                height="40" fetchpriority="high"
               />
               <img
                 v-else-if="rapport.organisme == 'CENTIF'"
@@ -174,7 +175,7 @@ watch(selectedOrganisme, () => {
                 alt="Logo CENTIF"
                 class="organisme-logo w-11 md:w-12 lg:w-14 h-auto"
                 width="60"
-                height="40"
+                height="40" fetchpriority="high"
               />
               <img
                 v-else
@@ -183,7 +184,7 @@ watch(selectedOrganisme, () => {
                 alt="Logo rapport"
                 class="organisme-logo w-11 md:w-12 lg:w-14 h-auto"
                 width="60"
-                height="40"
+                height="40" fetchpriority="high"
               />
             </div>
             <div class="flex-grow">

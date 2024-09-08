@@ -111,10 +111,11 @@ const sortedContentItems = computed(() => {
           <NuxtLink :to="item._path" class="block">
             <!-- Image de l'actualité avec catégorie -->
             <div class="relative">
-              <img :src="getImageUrl(item)" :alt="item.title" class="w-full h-56 object-cover transition-transform duration-300 hover:scale-105">
+              <img :src="getImageUrl(item)" :alt="item.title" class="w-full h-56 object-cover transition-transform duration-300 hover:scale-105" fetchpriority="high">
               <span class="absolute top-0 left-0 bg-primary-600 text-white px-3 py-1 text-sm font-semibold">
                 {{ item.category }}
               </span>
+
             </div>
             <div class="p-4">
               <!-- Métadonnées de l'actualité (date) -->

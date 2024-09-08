@@ -71,7 +71,7 @@ const links = [
                 <UCard class="cursor-pointer custom-shadow">
                     <NuxtLink to="/medias">
                         <img src="/images/actu-presse-en-ligne-senegal-sites-internet-informations-senegal.jpg"
-                            alt="Aide à la presse" class="w-full h-48 object-cover mb-4">
+                            alt="Aide à la presse" class="w-full h-48 object-cover mb-4" fetchpriority="high">
                         <div class="siteweb-type inline-block px-2 py-1 my-1 text-xs bg-gray-200 text-gray-800">
                             Article
                         </div>
@@ -86,7 +86,7 @@ const links = [
                 </UCard>
                 <UCard v-for="item in latestNews" :key="item._path" class="cursor-pointer custom-shadow">
                     <NuxtLink :to="item._path">
-                        <img :src="item.image" :alt="item.title" class="w-full h-48 object-cover mb-4">
+                        <img :src="item.image" :alt="item.title" class="w-full h-48 object-cover mb-4" fetchpriority="high">
                         <div class="siteweb-type inline-block px-2 py-1 my-1 text-xs bg-gray-200 text-gray-800">
                             {{ item.category }}
                         </div>

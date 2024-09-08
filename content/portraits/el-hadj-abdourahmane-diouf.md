@@ -7,7 +7,7 @@ description: Ministre de l’Enseignement supérieur, de la Recherche et de l’
 
 **_Ministre de l’Enseignement supérieur, de la Recherche et de l’Innovation_**
 
-<img src="/gouvernement/ministre-elhadj-abdourahmane-diouf.jfif" alt="ministre Abdourahmane DIOUF" width="300">
+<img src="/gouvernement/ministre-elhadj-abdourahmane-diouf.jfif" alt="ministre Abdourahmane DIOUF" width="300" fetchpriority="high">
 
 ## Formation
 

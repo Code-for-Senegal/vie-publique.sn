@@ -43,7 +43,7 @@ function goToIndividualCitedDetails(item) {
       <UCard v-for="item in peoples" :key="item.id" class="person-card custom-shadow cursor-pointer"
         @click="goToIndividualCitedDetails(item)">
         <div class="flex flex-col items-center">
-          <img :src="item.photo" loading="lazy" alt="Photo de profil" class="profile-photo mb-1">
+          <img :src="item.photo" loading="lazy" alt="Photo de profil" class="profile-photo mb-1" fetchpriority="high">
           <!-- <UDivider/> -->
           <h2 class="font-semibold ">{{ item.nom }}</h2>
           <p class="text-sm text-gray-500">{{ item.fonction }}</p>

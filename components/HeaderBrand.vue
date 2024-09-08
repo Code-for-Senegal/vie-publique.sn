@@ -2,7 +2,7 @@
     <NuxtLink :to="`/`">
         <div class="flex flex-row items-center gap-1 px-2.5 py-3.5">
             <div class="flag-logo px-2.5">
-                <img src="~/assets/logos/logo.svg" loading="lazy" alt="Logo" class="flag-logo" />
+                <img src="~/assets/logos/logo.svg" loading="lazy" alt="Logo" class="flag-logo" fetchpriority="high" />
             </div>
             <div class="text-xs">
                 <h2 class="text-gray-500 tracking-wide font-bold ">Vie-Publique.sn</h2>

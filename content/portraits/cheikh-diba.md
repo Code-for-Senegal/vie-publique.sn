@@ -7,7 +7,7 @@ description: Ministre des Finances et du Budget du Gouvernement du Sénégal
 
 **_Ministre des Finances et du Budget_**
 
-<img src="/gouvernement/ministre-cheikh-diba.jfif" alt="ministre" width="300">
+<img src="/gouvernement/ministre-cheikh-diba.jfif" alt="ministre" width="300" fetchpriority="high">
 
 Monsieur Cheikh Diba était jusqu’à sa nomination, le 5 avril 2024, le Directeur de la Programmation budgétaire au sein de la Direction générale du Budget.
 

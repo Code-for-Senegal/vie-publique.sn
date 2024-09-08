@@ -7,7 +7,7 @@ description: Ministre de la Famille et des Solidarités du Gouvernement du Sén�
 
 **_Ministre de la Famille et des Solidarités_**
 
-<img src="/gouvernement/ministre-maimouna-dièye.jfif" alt="ministre Maimouna DIEYE" width="300">
+<img src="/gouvernement/ministre-maimouna-dièye.jfif" alt="ministre Maimouna DIEYE" width="300" fetchpriority="high">
 
 Madame le Ministre de la Famille et des Solidarités ne se fixe pas de limites. Professionnelle de l’industrie pharmaceutique, actrice de développement, Madame Maïmouna DIEYE a cette force de croire que tout est possible.
 

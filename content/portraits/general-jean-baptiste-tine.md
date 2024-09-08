@@ -7,7 +7,7 @@ description: Ministre de l'Intérieur et de la Sécurité publique du Gouverneme
 
 **_Ministre de l'Intérieur et de la Sécurité publique_**
 
-<img src="/gouvernement/ministre-général-jean-baptiste-tine.jfif" alt="ministre-yassine-fall" width="300">
+<img src="/gouvernement/ministre-général-jean-baptiste-tine.jfif" alt="ministre-yassine-fall" width="300" fetchpriority="high">
 
 Le général de Corps d'Armée Jean Baptiste TINE occupe les fonctions de Ministre de l'Intérieur et de la sécurité publique dans le premier Gouvernement du Premier Ministre Ousmane SONKO, nommé le 05 avril 2024 par Son Excellence le Président Bassirou Diomaye Diakhar FAYE. Né le 4 septembre 1961 à Thiès, l'homme jouit d'un parcours exceptionnel et d'une forte expérience à la tête des Armées sénégalaises.
 
