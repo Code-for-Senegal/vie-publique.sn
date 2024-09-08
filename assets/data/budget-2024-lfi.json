@@ -1,0 +1,716 @@
+{
+  "totalBudget": 5755.4,
+  "budgetIncrease": 11.9,
+  "specialAccount": {
+    "name": "Comptes Spéciaux du Trésor",
+    "value": 221.5,
+    "increase": 25.1
+  },
+  "growthRate": 9.2,
+  "balance": {
+    "amount": 840.2,
+    "unit": "milliards",
+    "pibPercentage": 3.9
+  },
+  "resources": {
+    "totalResources": 4693.7,
+    "resourcesIncrease": 19.8,
+    "internalResources": {
+      "total": 4390.0,
+      "details": [
+        {
+          "name": "Recettes fiscales",
+          "value": 4180.0,
+          "percentage": 89.05,
+          "color": "bg-red-500"
+        },
+        {
+          "name": "Recettes non fiscales",
+          "value": 210.0,
+          "percentage": 4.47,
+          "color": "bg-blue-500"
+        }
+      ]
+    },
+    "externalResources": {
+      "total": 303.8,
+      "details": [
+        {
+          "name": "Dons budgétaires",
+          "value": 47.2,
+          "percentage": 1.01,
+          "color": "bg-green-500"
+        },
+        {
+          "name": "Dons en capital",
+          "value": 256.6,
+          "percentage": 5.47,
+          "color": "bg-purple-500"
+        }
+      ]
+    }
+  },
+  "expenses": {
+    "totalExpenses": 5533.9,
+    "expensesIncrease": 11.5,
+    "categories": [
+      {
+        "name": "Dette publique",
+        "value": 578.3,
+        "percentage": 10.45,
+        "increase": 36.3,
+        "color": "bg-green-500",
+        "details": [
+          {
+            "name": "Intérêts et commission dette extérieure",
+            "value": 400.2,
+            "percentage": 7.23
+          },
+          {
+            "name": "Intérêts et commission dette intérieure",
+            "value": 178.1,
+            "percentage": 3.22
+          }
+        ]
+      },
+      {
+        "name": "Dépenses de personnel",
+        "value": 1442.5,
+        "percentage": 26.07,
+        "increase": 13.3,
+        "color": "bg-yellow-500"
+      },
+      {
+        "name": "Autres dépenses courantes",
+        "value": 1676.9,
+        "percentage": 30.3,
+        "increase": -0.2,
+        "color": "bg-red-500"
+      },
+      {
+        "name": "Dépenses d'investissement",
+        "value": 1836.3,
+        "percentage": 33.18,
+        "increase": 15.6,
+        "color": "bg-blue-500",
+        "details": [
+          {
+            "name": "Dépenses en capital sur ressources internes",
+            "value": 1134.7,
+            "percentage": 20.5
+          },
+          {
+            "name": "Dépenses en capital sur ressources externes",
+            "value": 701.6,
+            "percentage": 12.68
+          }
+        ]
+      }
+    ]
+  },
+  "ministryBudgets": [
+    {
+      "name": "Ministère de l'Education nationale",
+      "budget": 909.32,
+      "totalBudget": {
+        "amount": 909.32,
+        "unit": "milliards"
+      },
+      "icon": "📚"
+    },
+    {
+      "name": "Ministère des Finances et du Budget",
+      "budget": 422.43,
+      "totalBudget": {
+        "amount": 422.43,
+        "unit": "milliards"
+      },
+      "icon": "💶"
+    },
+    {
+      "name": "Ministère du Pétrole et des Energies",
+      "budget": 316.25,
+      "totalBudget": {
+        "amount": 316.25,
+        "unit": "milliards"
+      },
+      "icon": "⚡"
+    },
+    {
+      "name": "Ministère des Forces armées",
+      "budget": 312.26,
+      "totalBudget": {
+        "amount": 312.26,
+        "unit": "milliards"
+      },
+      "icon": "🛡️"
+    },
+    {
+      "name": "Ministère de l'Intérieur",
+      "budget": 197,
+      "totalBudget": {
+        "amount": 197,
+        "unit": "milliards"
+      },
+      "icon": "🏛️"
+    },
+    {
+      "name": "Ministère des Affaires étrangères et des Sénégalais de l'Extérieur",
+      "budget": 76.84,
+      "totalBudget": {
+        "amount": 76.84,
+        "unit": "milliards"
+      },
+      "icon": "🌍"
+    },
+    {
+      "name": "Ministère de la Justice",
+      "budget": 92.36,
+      "totalBudget": {
+        "amount": 92.36,
+        "unit": "milliards"
+      },
+      "icon": "⚖️"
+    },
+    {
+      "name": "Ministère des Sports",
+      "budget": 37.88,
+      "totalBudget": {
+        "amount": 37.88,
+        "unit": "milliards"
+      },
+      "icon": "⚽"
+    },
+    {
+      "name": "Ministère de la Culture et du Patrimoine historique",
+      "budget": 20.74,
+      "totalBudget": {
+        "amount": 20.74,
+        "unit": "milliards"
+      },
+      "icon": "🎭"
+    },
+    {
+      "name": "Ministère de la Santé et de l'Action sociale",
+      "budget": 263.47,
+      "totalBudget": {
+        "amount": 263.47,
+        "unit": "milliards"
+      },
+      "icon": "🏥"
+    },
+    {
+      "name": "Ministère du Commerce, de la Consommation et des PME",
+      "budget": 24.75,
+      "totalBudget": {
+        "amount": 24.75,
+        "unit": "milliards"
+      },
+      "icon": "🏪"
+    },
+    {
+      "name": "Ministère de la Fonction publique et de la Transformation du Secteur public",
+      "budget": 8.17,
+      "totalBudget": {
+        "amount": 8.17,
+        "unit": "milliards"
+      },
+      "icon": "👨🏾‍💼"
+    },
+    {
+      "name": "Ministère du Travail, du Dialogue social et des Relations avec les Institutions",
+      "budget": 7.06,
+      "totalBudget": {
+        "amount": 7.06,
+        "unit": "milliards"
+      },
+      "icon": "🤝🏿"
+    },
+    {
+      "name": "Ministère des Pêches et de l'Economie maritime",
+      "budget": 36.72,
+      "totalBudget": {
+        "amount": 36.72,
+        "unit": "milliards"
+      },
+      "icon": "🐟"
+    },
+    {
+      "name": "Ministère des Infrastructures, des Transports terrestres et du Désenclavement",
+      "budget": 283.2,
+      "totalBudget": {
+        "amount": 283.2,
+        "unit": "milliards"
+      },
+      "icon": "🚍"
+    },
+    {
+      "name": "Ministère de l'Agriculture, de l'Equipement rural et de la Souveraineté alimentaire",
+      "budget": 207.84,
+      "totalBudget": {
+        "amount": 207.84,
+        "unit": "milliards"
+      },
+      "icon": "🌾"
+    },
+    {
+      "name": "Ministère de l'Urbanisme, du Logement et de l'Hygiène publique",
+      "budget": 86.45,
+      "totalBudget": {
+        "amount": 86.45,
+        "unit": "milliards"
+      },
+      "icon": "🏙️"
+    },
+    {
+      "name": "Ministère du Développement industriel et des PMI",
+      "budget": 16.77,
+      "totalBudget": {
+        "amount": 16.77,
+        "unit": "milliards"
+      },
+      "icon": "🏭"
+    },
+    {
+      "name": "Ministère du Tourisme et des Loisirs",
+      "budget": 9.4,
+      "totalBudget": {
+        "amount": 9.4,
+        "unit": "milliards"
+      },
+      "icon": "🏖️"
+    },
+    {
+      "name": "Ministère de la Jeunesse, de l'Entrepreneuriat et de l'Emploi",
+      "budget": 33.44,
+      "totalBudget": {
+        "amount": 33.44,
+        "unit": "milliards"
+      },
+      "icon": "👨‍💻"
+    },
+    {
+      "name": "Ministère de l'Environnement, du Développement durable et de la Transition écologique",
+      "budget": 48.69,
+      "totalBudget": {
+        "amount": 48.69,
+        "unit": "milliards"
+      },
+      "icon": "🌿"
+    },
+    {
+      "name": "Ministère de la Femme, de la Famille et de la Protection des Enfants",
+      "budget": 31.29,
+      "totalBudget": {
+        "amount": 31.29,
+        "unit": "milliards"
+      },
+      "icon": "👪🏿"
+    },
+    {
+      "name": "Ministère de la Formation professionnelle, de l'Apprentissage et de l'Insertion",
+      "budget": 92.25,
+      "totalBudget": {
+        "amount": 92.25,
+        "unit": "milliards"
+      },
+      "icon": "🛠️"
+    },
+    {
+      "name": "Ministère de l'Economie, du Plan et de la Coopération",
+      "budget": 56.56,
+      "totalBudget": {
+        "amount": 56.56,
+        "unit": "milliards"
+      },
+      "icon": "📊"
+    },
+    {
+      "name": "Ministère de l'Elevage et des Productions animales",
+      "budget": 42.28,
+      "totalBudget": {
+        "amount": 42.28,
+        "unit": "milliards"
+      },
+      "icon": "🐄"
+    },
+    {
+      "name": "Ministère de la Communication, des Télécommunications et de l'Economie numérique",
+      "budget": 42.71,
+      "totalBudget": {
+        "amount": 42.71,
+        "unit": "milliards"
+      },
+      "icon": "📡"
+    },
+    {
+      "name": "Ministère de la Microfinance et de l'Economie sociale et solidaire",
+      "budget": 14.95,
+      "totalBudget": {
+        "amount": 14.95,
+        "unit": "milliards"
+      },
+      "icon": "💳"
+    },
+    {
+      "name": "Ministère des Collectivités territoriales, de l'Aménagement et du Développement des Territoires",
+      "budget": 139.75,
+      "totalBudget": {
+        "amount": 139.75,
+        "unit": "milliards"
+      },
+      "icon": "🏘️"
+    },
+    {
+      "name": "Ministère de l'Eau et de l'Assainissement",
+      "budget": 132.39,
+      "totalBudget": {
+        "amount": 132.39,
+        "unit": "milliards"
+      },
+      "icon": "💧"
+    },
+    {
+      "name": "Ministère de l'Artisanat et de la Transformation du Secteur informel",
+      "budget": 8.29,
+      "totalBudget": {
+        "amount": 8.29,
+        "unit": "milliards"
+      },
+      "icon": "🧑🏿‍🔧"
+    },
+    {
+      "name": "Ministère de l'Enseignement supérieur, de la Recherche et de l'Innovation",
+      "budget": 303.43,
+      "totalBudget": {
+        "amount": 303.43,
+        "unit": "milliards"
+      },
+      "icon": "🎓"
+    },
+    {
+      "name": "Ministère des Transports aériens et du Développement des Infrastructures aéroportuaires",
+      "budget": 17.15,
+      "totalBudget": {
+        "amount": 17.15,
+        "unit": "milliards"
+      },
+      "icon": "✈️"
+    },
+    {
+      "name": "Ministère des Mines et de la Géologie",
+      "budget": 8.74,
+      "totalBudget": {
+        "amount": 8.74,
+        "unit": "milliards"
+      },
+      "icon": "⛏️"
+    },
+    {
+      "name": "Ministère du Développement communautaire, de la Solidarité nationale et de l'Equité sociale et territoriale",
+      "budget": 163.88,
+      "totalBudget": {
+        "amount": 163.88,
+        "unit": "milliards"
+      },
+      "icon": "🤲🏿"
+    }
+  ],
+  "institutionBudgets": [
+    {
+      "name": "Présidence",
+      "description": "Présidence de la république",
+      "color": "bg-blue-500",
+      "totalBudget": {
+        "amount": 80.13,
+        "unit": "milliards"
+      },
+      "execution_q1": {
+        "amount": 22.21,
+        "unit": "milliards"
+      },
+      "categories": [
+        {
+          "name": "Dépenses de personnel",
+          "budget": {
+            "amount": 18.75,
+            "unit": "milliards"
+          }
+        },
+        {
+          "name": "Acquisition de biens et services",
+          "budget": {
+            "amount": 8.61,
+            "unit": "milliards"
+          }
+        },
+        {
+          "name": "Transferts courants",
+          "budget": {
+            "amount": 39.15,
+            "unit": "milliards"
+          }
+        },
+        {
+          "name": "Investissements exécutés par l'État",
+          "budget": {
+            "amount": 3.07,
+            "unit": "milliards"
+          }
+        },
+        {
+          "name": "Transferts en capital",
+          "budget": {
+            "amount": 10.23,
+            "unit": "milliards"
+          }
+        },
+        {
+          "name": "Frais de contrôle des entreprises publiques",
+          "budget": {
+            "amount": 500,
+            "unit": "millions"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "Primature",
+      "description": "Primature, Gouvernement",
+      "color": "bg-green-500",
+      "totalBudget": {
+        "amount": 25.72,
+        "unit": "milliards",
+        "increase": -12.7
+      },
+      "categories": [
+        {
+          "name": "Dépenses de personnel",
+          "budget": {
+            "amount": 5.43,
+            "unit": "milliards"
+          }
+        },
+        {
+          "name": "Acquisition de biens et services",
+          "budget": {
+            "amount": 7.07,
+            "unit": "milliards"
+          }
+        },
+        {
+          "name": "Transferts courants",
+          "budget": {
+            "amount": 4.57,
+            "unit": "milliards"
+          }
+        },
+        {
+          "name": "Investissements exécutés par l'État",
+          "budget": {
+            "amount": 5.15,
+            "unit": "milliards"
+          }
+        },
+        {
+          "name": "Transferts en capital",
+          "budget": {
+            "amount": 3.5,
+            "unit": "milliards"
+          }
+        }
+      ],
+      "execution_q1": {
+        "amount": 8.79,
+        "unit": "milliards"
+      }
+    },
+
+    {
+      "name": "Assemblée Nationale",
+      "description": "Assemblée Nationale",
+      "color": "bg-orange-500",
+      "totalBudget": {
+        "amount": 20.16,
+        "unit": "milliards",
+        "increase": -2.9
+      },
+      "execution_q1": {
+        "amount": 5.81,
+        "unit": "milliards"
+      },
+      "categories": [
+        {
+          "name": "Transferts courants (dépenses récurrentes)",
+          "budget": {
+            "amount": 19.16,
+            "unit": "milliards"
+          }
+        },
+        {
+          "name": "Transferts en capital (dépenses d'investissement)",
+          "budget": {
+            "amount": 1,
+            "unit": "milliards"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "Cour des Comptes",
+      "description": "Cour des Comptes",
+      "color": "bg-yellow-500",
+      "totalBudget": {
+        "amount": 13.2,
+        "unit": "milliards",
+        "increase": 25.3
+      },
+      "execution_q1": {
+        "amount": 2.44,
+        "unit": "milliards"
+      },
+      "categories": [
+        {
+          "name": "Dépenses de personnel",
+          "budget": {
+            "amount": 2.95,
+            "unit": "milliards"
+          }
+        },
+        {
+          "name": "Transferts courants (dépenses récurrentes)",
+          "budget": {
+            "amount": 9.75,
+            "unit": "milliards"
+          }
+        },
+        {
+          "name": "Transferts en capital (dépenses d'investissement)",
+          "budget": {
+            "amount": 500,
+            "unit": "millions"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "HCCT",
+      "description": "Haut Conseil des Collectivités Territoriales",
+      "color": "bg-purple-500",
+      "totalBudget": {
+        "amount": 7.81,
+        "unit": "milliards",
+        "increase": -14.7
+      },
+      "execution_q1": {
+        "amount": 3.22,
+        "unit": "milliards"
+      },
+      "categories": [
+        {
+          "name": "Transferts courants (dépenses récurrentes)",
+          "budget": {
+            "amount": 7.81,
+            "unit": "milliards"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "CESE",
+      "description": "Conseil Économique, Social et Environnemental",
+      "color": "bg-pink-500",
+      "totalBudget": {
+        "amount": 7.54,
+        "unit": "milliards",
+        "increase": 0
+      },
+      "execution_q1": {
+        "amount": 1.89,
+        "unit": "milliards"
+      },
+      "categories": [
+        {
+          "name": "Transferts courants (dépenses récurrentes)",
+          "budget": {
+            "amount": 7.54,
+            "unit": "milliards"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "Cour Suprême",
+      "description": "Cour Suprême",
+      "color": "bg-green-500",
+      "totalBudget": {
+        "amount": 5.1,
+        "unit": "milliards",
+        "increase": 55.5
+      },
+      "execution_q1": {
+        "amount": 0.65,
+        "unit": "milliards"
+      },
+      "categories": [
+        {
+          "name": "Dépenses de personnel",
+          "budget": {
+            "amount": 2.1,
+            "unit": "milliards"
+          }
+        },
+        {
+          "name": "Transferts courants",
+          "budget": {
+            "amount": 2.6,
+            "unit": "milliards"
+          }
+        },
+        {
+          "name": "Investissements exécutés par l'État",
+          "budget": {
+            "amount": 400,
+            "unit": "millions"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "Conseil Constitutionnel",
+      "description": "Conseil Constitutionnel",
+      "color": "bg-red-500",
+      "totalBudget": {
+        "amount": 1.76,
+        "unit": "milliards",
+        "increase": -53.5
+      },
+      "execution_q1": {
+        "amount": 0.54,
+        "unit": "milliards"
+      },
+      "categories": [
+        {
+          "name": "Dépenses de personnel",
+          "budget": {
+            "amount": 505,
+            "unit": "millions"
+          }
+        },
+        {
+          "name": "Transferts courants (dépenses récurrentes)",
+          "budget": {
+            "amount": 1.25,
+            "unit": "milliards"
+          }
+        }
+      ]
+    }
+  ]
+}

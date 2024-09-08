@@ -1,0 +1,30 @@
+{
+  "public_debt_evolution": [
+    { "year": 2019, "amount": null, "unit": "milliards", "pibPercentage": 64 },
+    {
+      "year": 2020,
+      "amount": null,
+      "unit": "milliards",
+      "pibPercentage": 69.1
+    },
+    {
+      "year": 2023,
+      "amount": null,
+      "unit": "milliards",
+      "pibPercentage": 73.3
+    },
+    {
+      "year": 2022,
+      "amount": null,
+      "unit": "milliards",
+      "pibPercentage": 76.16
+    },
+    {
+      "year": 2023,
+      "amount": null,
+      "unit": "milliards",
+      "pibPercentage": 73.1
+    },
+    { "year": 2024, "amount": null, "unit": "milliards", "pibPercentage": 71.4 }
+  ]
+}

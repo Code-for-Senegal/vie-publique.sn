@@ -1,412 +1,412 @@
 [
-    {
-        "label": "Mise en place de la couverture sanitaire universelle (CSU) en lieu et place de la CMU",
-        "objectif": "Assurer une politique de prévention plus efficace et éviter la maladie, tout en impliquant la majorité dans la cotisation.",
-        "sector": "Santé publique",
-        "schedules": "3 ans",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 122",
-        "source": "Programme présidentiel",
-        "theme": "Santé"
-    },
-    {
-        "label": "Création d'un département de Santé Social",
-        "objectif": "Permettre l'accès aux premiers soins pour les plus vulnérables et démunis, et améliorer la prise en charge des urgences.",
-        "sector": "Santé publique",
-        "schedules": "Non spécifié",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 122",
-        "source": "Programme présidentiel",
-        "theme": "Santé"
-    },
-    {
-        "label": "Amélioration de l'assurance maladie",
-        "objectif": "Financer l'assurance maladie via plusieurs sources et établir un Numéro d'Identification Sanitaire (NIS) pour chaque sénégalais majeur.",
-        "sector": "Santé publique",
-        "schedules": "Non spécifié",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 122",
-        "source": "Programme présidentiel",
-        "theme": "Santé"
-    },
-    {
-        "label": "Réforme de la gratuité des soins pour les personnes handicapées",
-        "objectif": "Assurer la gratuité des soins pour les personnes en situation de handicap titulaires de la carte d'égalité des chances.",
-        "sector": "Santé et handicap",
-        "schedules": "Non spécifié",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 122",
-        "source": "Programme présidentiel",
-        "theme": "Santé"
-    },
-    {
-        "label": "Mise à niveau du plateau technique national",
-        "objectif": "Réviser la carte sanitaire et mettre en place un programme pour résorber le déficit en équipements médicaux essentiels.",
-        "sector": "Infrastructures de santé",
-        "schedules": "2 ans",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 133",
-        "source": "Programme présidentiel",
-        "theme": "Santé"
-    },
-    {
-        "label": "Renforcement du Centre des Opérations d'Urgence Sanitaire (COUS)",
-        "objectif": "Intégrer la surveillance épidémiologique pour mieux répondre aux maladies émergentes.",
-        "sector": "Gestion des urgences",
-        "schedules": "2 ans",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 133",
-        "source": "Programme présidentiel",
-        "theme": "Santé"
-    },
-    {
-        "label": "Promotion de la télémédecine",
-        "objectif": "Favoriser l'accès aux soins de santé par la télémédecine pour répondre aux besoins émergents.",
-        "sector": "Technologie de santé",
-        "schedules": "3 ans",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 134",
-        "source": "Programme présidentiel",
-        "theme": "Santé"
-    },
-    {
-        "label": "Augmentation du personnel de santé et renforcement de ses capacités",
-        "objectif": "Assurer une formation continue et diversifier les personnels soignants pour une meilleure prise en charge.",
-        "sector": "Ressources humaines",
-        "schedules": "2 ans",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 127",
-        "source": "Programme présidentiel",
-        "theme": "Santé"
-    },
-    {
-        "label": "Réforme de la gouvernance des hôpitaux",
-        "objectif": "Améliorer la gouvernance et la coordination des hôpitaux, y compris l'intégration des activités des partenaires techniques et financiers.",
-        "sector": "Gouvernance sanitaire",
-        "schedules": "2 ans",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 134",
-        "source": "Programme présidentiel",
-        "theme": "Santé"
-    },
-    {
-        "label": "Digitalisation du système de santé",
-        "objectif": "Mettre en place le Dossier Patient Informatisé (DPI) et promouvoir l'utilisation de l'IA dans la gestion des données et des soins.",
-        "sector": "Technologie de santé",
-        "schedules": "3 ans",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 137",
-        "source": "Programme présidentiel",
-        "theme": "Santé"
-    },
-    {
-        "label": "Mise en place d'une Autorité gouvernementale forte chargée de l'économie numérique",
-        "objectif": "Superviser et réguler le secteur numérique au Sénégal pour éviter les conflits de compétence et renforcer l'efficacité du secteur",
-        "sector": "Gouvernance numérique",
-        "schedules": "2 à 5 ans",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 214",
-        "source": "Programme présidentiel",
-        "theme": "Technologie numérique"
-    },
-    {
-        "label": "Création de Datacenters souverains, publics et privés",
-        "objectif": "Renforcer la souveraineté numérique en assurant des infrastructures de stockage et de traitement des données sensibles sur le territoire national",
-        "sector": "Infrastructures numériques",
-        "schedules": "2 à 5 ans",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 215",
-        "source": "Programme présidentiel",
-        "theme": "Technologie numérique"
-    },
-    {
-        "label": "Adoption d'une loi-cadre sur le numérique",
-        "objectif": "Fournir un cadre législatif et réglementaire harmonisé pour le développement du secteur numérique",
-        "sector": "Législation numérique",
-        "schedules": "2 à 5 ans",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 217",
-        "source": "Programme présidentiel",
-        "theme": "Technologie numérique"
-    },
-    {
-        "label": "Lutte contre la cybercriminalité et promotion de la cybersécurité",
-        "objectif": "Mettre en place des mesures pour protéger les infrastructures numériques et les données sensibles contre les menaces locales et globales",
-        "sector": "Cybersécurité",
-        "schedules": "2 à 5 ans",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 217",
-        "source": "Programme présidentiel",
-        "theme": "Technologie numérique"
-    },
-    {
-        "label": "Promotion de l'interopérabilité des réseaux et services numériques au sein de l'Administration",
-        "objectif": "Assurer la compatibilité et l'intégration des systèmes d'information publics pour améliorer l'efficacité administrative",
-        "sector": "Administration numérique",
-        "schedules": "2 à 5 ans",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 215",
-        "source": "Programme présidentiel",
-        "theme": "Technologie numérique"
-    },
-    {
-        "label": "Inscription du droit d'accès universel et de la protection des données personnelles dans la Constitution",
-        "objectif": "Garantir à tous les citoyens l'accès aux services numériques et protéger leurs données personnelles au niveau constitutionnel",
-        "sector": "Droits numériques",
-        "schedules": "2 à 5 ans",
-        "status": "tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 217",
-        "source": "Programme présidentiel",
-        "theme": "Technologie numérique"
-    },
-    {
-        "label": "Mise en place d'une administration publique digitalisée",
-        "objectif": "Créer une administration efficace et transparente grâce à la transformation digitale, en automatisant les tâches et en améliorant la collaboration entre systèmes",
-        "sector": "Administration publique",
-        "schedules": "2 à 5 ans",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 218",
-        "source": "Programme présidentiel",
-        "theme": "Technologie numérique"
-    },
-    {
-        "label": "Mise en place d'un cadre incitatif pour l'entreprenariat numérique",
-        "objectif": "Favoriser la création d'entreprises numériques performantes et encourager l'innovation locale en fournissant un cadre sécurisé pour l'entrepreneuriat numérique",
-        "sector": "Entrepreneuriat numérique",
-        "schedules": "2 à 5 ans",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 219",
-        "source": "Programme présidentiel",
-        "theme": "Technologie numérique"
-    },
-    {
-        "label": "Renforcement du budget des armées pour l'acquisition d'équipements de dernière génération",
-        "objectif": "Moderniser l'armée et accroître son potentiel opérationnel pour faire face aux menaces pesant sur la sécurité nationale",
-        "sector": "Défense nationale",
-        "schedules": "2 ans",
-        "status": "en cours",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 45",
-        "source": "Programme présidentiel",
-        "theme": "Défense & Sécurité"
-    },
-    {
-        "label": "Création d'un complexe militaro-industriel et d'un centre spatial pour la fabrication d'armes indigènes",
-        "objectif": "Booster la fabrication d'armes indigènes et développer la capacité du Sénégal à envoyer des nanosatellites en orbite",
-        "sector": "Industrie de défense",
-        "schedules": "2 ans",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 45",
-        "source": "Programme présidentiel",
-        "theme": "Défense & Sécurité"
-    },
-    {
-        "label": "Renforcement de la surveillance des frontières et lutte contre le terrorisme",
-        "objectif": "Protéger les frontières et renforcer les capacités de collecte du renseignement des forces de défense",
-        "sector": "Sécurité des frontières",
-        "schedules": "2 ans",
-        "status": "non évaluée",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 45",
-        "source": "Programme présidentiel",
-        "theme": "Défense & Sécurité"
-    },
-    {
-        "label": "Mise en place d'une autorité autonome pour enquêter sur l'utilisation excessive de la force",
-        "objectif": "Garantir la transparence dans le maintien de l'ordre et lutter contre la corruption au sein des forces de l'ordre",
-        "sector": "Gouvernance sécuritaire",
-        "schedules": "2 ans",
-        "status": "en cours",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 42",
-        "source": "Programme présidentiel",
-        "theme": "Défense & Sécurité"
-    },
-    {
-        "label": "Surveillance combinée des ressources halieutiques et des installations pétrolières et gazières",
-        "objectif": "Protéger les ressources maritimes et les installations pétrolières et gazières du Sénégal",
-        "sector": "Sécurité maritime",
-        "schedules": "2 ans",
-        "status": "tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 45",
-        "source": "Programme présidentiel",
-        "theme": "Défense & Sécurité"
-    },
-    {
-        "label": "Renforcement des capacités de réaction des sapeurs-pompiers en cas de catastrophe",
-        "objectif": "Améliorer la gestion des catastrophes naturelles et autres situations d'urgence par les sapeurs-pompiers",
-        "sector": "Gestion des urgences",
-        "schedules": "2 ans",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 42",
-        "source": "Programme présidentiel",
-        "theme": "Défense & Sécurité"
-    },
-    {
-        "label": "Lutte contre la pêche illégale et renforcement de la coopération maritime régionale",
-        "objectif": "Sécuriser les ressources maritimes en luttant contre la pêche illégale et en renforçant la coopération avec les pays voisins du littoral atlantique",
-        "sector": "Sécurité maritime",
-        "schedules": "2 ans",
-        "status": "non évaluée",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 45",
-        "source": "Programme présidentiel",
-        "theme": "Défense & Sécurité"
-    },
-    {
-        "label": "Revalorisation des salaires et pensions des anciens combattants",
-        "objectif": "Récompenser les anciens combattants et améliorer les conditions de vie des soldats en activité et des vétérans",
-        "sector": "Défense nationale",
-        "schedules": "2 ans",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 45",
-        "source": "Programme présidentiel",
-        "theme": "Défense & Sécurité"
-    },
-    {
-        "label": "Intégration de la cyberdéfense dans l'architecture sécuritaire du Sénégal",
-        "objectif": "Protéger les systèmes et données informatiques de l'État contre les attaques sur le cyberespace",
-        "sector": "Cybersécurité",
-        "schedules": "2 ans",
-        "status": "en cours",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 45",
-        "source": "Programme présidentiel",
-        "theme": "Défense & Sécurité"
-    },
-    {
-        "label": "Modernisation de l'armée avec une couverture radar améliorée",
-        "objectif": "Assurer un meilleur contrôle de l'espace aérien sénégalais et protéger le territoire contre les vols clandestins ou suspects",
-        "sector": "Défense aérienne",
-        "schedules": "2 ans",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 45",
-        "source": "Programme présidentiel",
-        "theme": "Défense & Sécurité"
-    },
-    {
-        "label": "Instauration d'un Juge des Libertés et de la Détention (JLD)",
-        "objectif": "Garantir la sauvegarde des libertés individuelles et instituer des peines alternatives à l'emprisonnement",
-        "sector": "Justice",
-        "schedules": "2 ans",
-        "status": "non évaluée",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 27",
-        "source": "Programme présidentiel",
-        "theme": "Justice"
-    },
-    {
-        "label": "Réforme de la politique carcérale",
-        "objectif": "Améliorer la réinsertion des prisonniers en leur offrant des formations professionnelles et des opportunités de travail pendant leur détention",
-        "sector": "Justice pénale",
-        "schedules": "5 ans",
-        "status": "non évaluée",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 30",
-        "source": "Programme présidentiel",
-        "theme": "Justice"
-    },
-    {
-        "label": "Renforcement de l'accès à la justice pour tous les citoyens",
-        "objectif": "Assurer l'accès à une justice indépendante, impartiale, et transparente pour tous, y compris les plus défavorisés",
-        "sector": "Accès à la justice",
-        "schedules": "2 ans",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 31",
-        "source": "Programme présidentiel",
-        "theme": "Justice"
-    },
-    {
-        "label": "Augmentation substantielle du budget de la justice",
-        "objectif": "Moderniser la justice en augmentant le budget pour construire de nouveaux édifices et moderniser les infrastructures existantes",
-        "sector": "Financement de la justice",
-        "schedules": "5 ans",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 29",
-        "source": "Programme présidentiel",
-        "theme": "Justice"
-    },
-    {
-        "label": "Réforme du Code pénal et du Code de procédure pénale",
-        "objectif": "Adapter le code pénal et le code de procédure pénale aux valeurs et besoins actuels, supprimer les peines d'emprisonnement pour les infractions de presse",
-        "sector": "Législation pénale",
-        "schedules": "2 ans",
-        "status": "non évaluée",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 24",
-        "source": "Programme présidentiel",
-        "theme": "Justice"
-    },
-    {
-        "label": "Révision du Conseil Supérieur de la Magistrature (CSM)",
-        "objectif": "Assurer une indépendance réelle du pouvoir judiciaire en réformant le CSM pour réduire l'influence de l'exécutif",
-        "sector": "Gouvernance judiciaire",
-        "schedules": "2 ans",
-        "status": "inévaluable",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 24",
-        "source": "Programme présidentiel",
-        "theme": "Justice"
-    },
-    {
-        "label": "Renforcement des modes alternatifs de règlement des différends",
-        "objectif": "Promouvoir les mécanismes de justice non contentieuse comme les maisons de justice pour un règlement plus efficace et équitable des différends",
-        "sector": "Justice alternative",
-        "schedules": "2 ans",
-        "status": "tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 32",
-        "source": "Programme présidentiel",
-        "theme": "Justice"
-    },
-    {
-        "label": "Modernisation de la justice par la digitalisation",
-        "objectif": "Accélérer les procédures judiciaires et améliorer l'accès à la justice grâce à la numérisation des processus judiciaires",
-        "sector": "Technologie judiciaire",
-        "schedules": "5 ans",
-        "status": "inévaluable",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 30",
-        "source": "Programme présidentiel",
-        "theme": "Justice"
-    },
-    {
-        "label": "Création d'une Cour Constitutionnelle indépendante",
-        "objectif": "Remplacer le Conseil Constitutionnel par une Cour Constitutionnelle dotée de pouvoirs accrus et d'une composition plus indépendante",
-        "sector": "Institutions judiciaires",
-        "schedules": "2 ans",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 22",
-        "source": "Programme présidentiel",
-        "theme": "Justice"
-    },
-    {
-        "label": "Institution de l'indépendance du parquet vis-à-vis du Ministre de la Justice",
-        "objectif": "Assurer que le ministère public soit indépendant du pouvoir exécutif pour garantir l'impartialité dans les poursuites judiciaires",
-        "sector": "Gouvernance judiciaire",
-        "schedules": "2 ans",
-        "status": "non évaluée",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 25",
-        "source": "Programme présidentiel",
-        "theme": "Justice"
-    },
-    {
-        "label": "Suppression de la pratique du \"retour de parquet\"",
-        "objectif": "Mettre fin à cette pratique qui peut prolonger indûment la détention préventive sans décision judiciaire, pour garantir le respect des droits des détenus",
-        "sector": "Procédure pénale",
-        "schedules": "2 ans",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 24",
-        "source": "Programme présidentiel",
-        "theme": "Justice"
-    },
-    {
-        "label": "Limitation du délai de détention provisoire en matière criminelle à trois ans",
-        "objectif": "Réduire la durée maximale de la détention provisoire pour éviter des emprisonnements prolongés sans jugement",
-        "sector": "Procédure pénale",
-        "schedules": "2 ans",
-        "status": "non tenue",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 25",
-        "source": "Programme présidentiel",
-        "theme": "Justice"
-    },
-    {
-        "label": "Modernisation du budget et des infrastructures judiciaires",
-        "objectif": "Réformer le système de gestion budgétaire des juridictions, leur assurer une autonomie financière et construire de nouveaux palais de justice",
-        "sector": "Infrastructures judiciaires",
-        "schedules": "5 ans",
-        "status": "non évaluée",
-        "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 29",
-        "source": "Programme présidentiel",
-        "theme": "Justice"
-    }
+  {
+    "label": "Mise en place de la couverture sanitaire universelle (CSU) en lieu et place de la CMU",
+    "objectif": "Assurer une politique de prévention plus efficace et éviter la maladie, tout en impliquant la majorité dans la cotisation.",
+    "sector": "Santé publique",
+    "schedules": "3 ans",
+    "status": "non tenue",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 122",
+    "source": "Programme présidentiel",
+    "theme": "Santé"
+  },
+  {
+    "label": "Création d'un département de Santé Social",
+    "objectif": "Permettre l'accès aux premiers soins pour les plus vulnérables et démunis, et améliorer la prise en charge des urgences.",
+    "sector": "Santé publique",
+    "schedules": "Non spécifié",
+    "status": "non tenue",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 122",
+    "source": "Programme présidentiel",
+    "theme": "Santé"
+  },
+  {
+    "label": "Amélioration de l'assurance maladie",
+    "objectif": "Financer l'assurance maladie via plusieurs sources et établir un Numéro d'Identification Sanitaire (NIS) pour chaque sénégalais majeur.",
+    "sector": "Santé publique",
+    "schedules": "Non spécifié",
+    "status": "non tenue",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 122",
+    "source": "Programme présidentiel",
+    "theme": "Santé"
+  },
+  {
+    "label": "Réforme de la gratuité des soins pour les personnes handicapées",
+    "objectif": "Assurer la gratuité des soins pour les personnes en situation de handicap titulaires de la carte d'égalité des chances.",
+    "sector": "Santé et handicap",
+    "schedules": "Non spécifié",
+    "status": "non tenue",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 122",
+    "source": "Programme présidentiel",
+    "theme": "Santé"
+  },
+  {
+    "label": "Mise à niveau du plateau technique national",
+    "objectif": "Réviser la carte sanitaire et mettre en place un programme pour résorber le déficit en équipements médicaux essentiels.",
+    "sector": "Infrastructures de santé",
+    "schedules": "2 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 133",
+    "source": "Programme présidentiel",
+    "theme": "Santé"
+  },
+  {
+    "label": "Renforcement du Centre des Opérations d'Urgence Sanitaire (COUS)",
+    "objectif": "Intégrer la surveillance épidémiologique pour mieux répondre aux maladies émergentes.",
+    "sector": "Gestion des urgences",
+    "schedules": "2 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 133",
+    "source": "Programme présidentiel",
+    "theme": "Santé"
+  },
+  {
+    "label": "Promotion de la télémédecine",
+    "objectif": "Favoriser l'accès aux soins de santé par la télémédecine pour répondre aux besoins émergents.",
+    "sector": "Technologie de santé",
+    "schedules": "3 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 134",
+    "source": "Programme présidentiel",
+    "theme": "Santé"
+  },
+  {
+    "label": "Augmentation du personnel de santé et renforcement de ses capacités",
+    "objectif": "Assurer une formation continue et diversifier les personnels soignants pour une meilleure prise en charge.",
+    "sector": "Ressources humaines",
+    "schedules": "2 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 127",
+    "source": "Programme présidentiel",
+    "theme": "Santé"
+  },
+  {
+    "label": "Réforme de la gouvernance des hôpitaux",
+    "objectif": "Améliorer la gouvernance et la coordination des hôpitaux, y compris l'intégration des activités des partenaires techniques et financiers.",
+    "sector": "Gouvernance sanitaire",
+    "schedules": "2 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 134",
+    "source": "Programme présidentiel",
+    "theme": "Santé"
+  },
+  {
+    "label": "Digitalisation du système de santé",
+    "objectif": "Mettre en place le Dossier Patient Informatisé (DPI) et promouvoir l'utilisation de l'IA dans la gestion des données et des soins.",
+    "sector": "Technologie de santé",
+    "schedules": "3 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 137",
+    "source": "Programme présidentiel",
+    "theme": "Santé"
+  },
+  {
+    "label": "Mise en place d'une Autorité gouvernementale forte chargée de l'économie numérique",
+    "objectif": "Superviser et réguler le secteur numérique au Sénégal pour éviter les conflits de compétence et renforcer l'efficacité du secteur",
+    "sector": "Gouvernance numérique",
+    "schedules": "2 à 5 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 214",
+    "source": "Programme présidentiel",
+    "theme": "Technologie numérique"
+  },
+  {
+    "label": "Création de Datacenters souverains, publics et privés",
+    "objectif": "Renforcer la souveraineté numérique en assurant des infrastructures de stockage et de traitement des données sensibles sur le territoire national",
+    "sector": "Infrastructures numériques",
+    "schedules": "2 à 5 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 215",
+    "source": "Programme présidentiel",
+    "theme": "Technologie numérique"
+  },
+  {
+    "label": "Adoption d'une loi-cadre sur le numérique",
+    "objectif": "Fournir un cadre législatif et réglementaire harmonisé pour le développement du secteur numérique",
+    "sector": "Législation numérique",
+    "schedules": "2 à 5 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 217",
+    "source": "Programme présidentiel",
+    "theme": "Technologie numérique"
+  },
+  {
+    "label": "Lutte contre la cybercriminalité et promotion de la cybersécurité",
+    "objectif": "Mettre en place des mesures pour protéger les infrastructures numériques et les données sensibles contre les menaces locales et globales",
+    "sector": "Cybersécurité",
+    "schedules": "2 à 5 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 217",
+    "source": "Programme présidentiel",
+    "theme": "Technologie numérique"
+  },
+  {
+    "label": "Promotion de l'interopérabilité des réseaux et services numériques au sein de l'Administration",
+    "objectif": "Assurer la compatibilité et l'intégration des systèmes d'information publics pour améliorer l'efficacité administrative",
+    "sector": "Administration numérique",
+    "schedules": "2 à 5 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 215",
+    "source": "Programme présidentiel",
+    "theme": "Technologie numérique"
+  },
+  {
+    "label": "Inscription du droit d'accès universel et de la protection des données personnelles dans la Constitution",
+    "objectif": "Garantir à tous les citoyens l'accès aux services numériques et protéger leurs données personnelles au niveau constitutionnel",
+    "sector": "Droits numériques",
+    "schedules": "2 à 5 ans",
+    "status": "tenue",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 217",
+    "source": "Programme présidentiel",
+    "theme": "Technologie numérique"
+  },
+  {
+    "label": "Mise en place d'une administration publique digitalisée",
+    "objectif": "Créer une administration efficace et transparente grâce à la transformation digitale, en automatisant les tâches et en améliorant la collaboration entre systèmes",
+    "sector": "Administration publique",
+    "schedules": "2 à 5 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 218",
+    "source": "Programme présidentiel",
+    "theme": "Technologie numérique"
+  },
+  {
+    "label": "Mise en place d'un cadre incitatif pour l'entreprenariat numérique",
+    "objectif": "Favoriser la création d'entreprises numériques performantes et encourager l'innovation locale en fournissant un cadre sécurisé pour l'entrepreneuriat numérique",
+    "sector": "Entrepreneuriat numérique",
+    "schedules": "2 à 5 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 219",
+    "source": "Programme présidentiel",
+    "theme": "Technologie numérique"
+  },
+  {
+    "label": "Renforcement du budget des armées pour l'acquisition d'équipements de dernière génération",
+    "objectif": "Moderniser l'armée et accroître son potentiel opérationnel pour faire face aux menaces pesant sur la sécurité nationale",
+    "sector": "Défense nationale",
+    "schedules": "2 ans",
+    "status": "en cours",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 45",
+    "source": "Programme présidentiel",
+    "theme": "Défense & Sécurité"
+  },
+  {
+    "label": "Création d'un complexe militaro-industriel et d'un centre spatial pour la fabrication d'armes indigènes",
+    "objectif": "Booster la fabrication d'armes indigènes et développer la capacité du Sénégal à envoyer des nanosatellites en orbite",
+    "sector": "Industrie de défense",
+    "schedules": "2 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 45",
+    "source": "Programme présidentiel",
+    "theme": "Défense & Sécurité"
+  },
+  {
+    "label": "Renforcement de la surveillance des frontières et lutte contre le terrorisme",
+    "objectif": "Protéger les frontières et renforcer les capacités de collecte du renseignement des forces de défense",
+    "sector": "Sécurité des frontières",
+    "schedules": "2 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 45",
+    "source": "Programme présidentiel",
+    "theme": "Défense & Sécurité"
+  },
+  {
+    "label": "Mise en place d'une autorité autonome pour enquêter sur l'utilisation excessive de la force",
+    "objectif": "Garantir la transparence dans le maintien de l'ordre et lutter contre la corruption au sein des forces de l'ordre",
+    "sector": "Gouvernance sécuritaire",
+    "schedules": "2 ans",
+    "status": "en cours",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 42",
+    "source": "Programme présidentiel",
+    "theme": "Défense & Sécurité"
+  },
+  {
+    "label": "Surveillance combinée des ressources halieutiques et des installations pétrolières et gazières",
+    "objectif": "Protéger les ressources maritimes et les installations pétrolières et gazières du Sénégal",
+    "sector": "Sécurité maritime",
+    "schedules": "2 ans",
+    "status": "tenue",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 45",
+    "source": "Programme présidentiel",
+    "theme": "Défense & Sécurité"
+  },
+  {
+    "label": "Renforcement des capacités de réaction des sapeurs-pompiers en cas de catastrophe",
+    "objectif": "Améliorer la gestion des catastrophes naturelles et autres situations d'urgence par les sapeurs-pompiers",
+    "sector": "Gestion des urgences",
+    "schedules": "2 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 42",
+    "source": "Programme présidentiel",
+    "theme": "Défense & Sécurité"
+  },
+  {
+    "label": "Lutte contre la pêche illégale et renforcement de la coopération maritime régionale",
+    "objectif": "Sécuriser les ressources maritimes en luttant contre la pêche illégale et en renforçant la coopération avec les pays voisins du littoral atlantique",
+    "sector": "Sécurité maritime",
+    "schedules": "2 ans",
+    "status": "tenue",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 45",
+    "source": "Programme présidentiel",
+    "theme": "Défense & Sécurité"
+  },
+  {
+    "label": "Revalorisation des salaires et pensions des anciens combattants",
+    "objectif": "Récompenser les anciens combattants et améliorer les conditions de vie des soldats en activité et des vétérans",
+    "sector": "Défense nationale",
+    "schedules": "2 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 45",
+    "source": "Programme présidentiel",
+    "theme": "Défense & Sécurité"
+  },
+  {
+    "label": "Intégration de la cyberdéfense dans l'architecture sécuritaire du Sénégal",
+    "objectif": "Protéger les systèmes et données informatiques de l'État contre les attaques sur le cyberespace",
+    "sector": "Cybersécurité",
+    "schedules": "2 ans",
+    "status": "en cours",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 45",
+    "source": "Programme présidentiel",
+    "theme": "Défense & Sécurité"
+  },
+  {
+    "label": "Modernisation de l'armée avec une couverture radar améliorée",
+    "objectif": "Assurer un meilleur contrôle de l'espace aérien sénégalais et protéger le territoire contre les vols clandestins ou suspects",
+    "sector": "Défense aérienne",
+    "schedules": "2 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 45",
+    "source": "Programme présidentiel",
+    "theme": "Défense & Sécurité"
+  },
+  {
+    "label": "Instauration d'un Juge des Libertés et de la Détention (JLD)",
+    "objectif": "Garantir la sauvegarde des libertés individuelles et instituer des peines alternatives à l'emprisonnement",
+    "sector": "Justice",
+    "schedules": "2 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 27",
+    "source": "Programme présidentiel",
+    "theme": "Justice"
+  },
+  {
+    "label": "Réforme de la politique carcérale",
+    "objectif": "Améliorer la réinsertion des prisonniers en leur offrant des formations professionnelles et des opportunités de travail pendant leur détention",
+    "sector": "Justice pénale",
+    "schedules": "5 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 30",
+    "source": "Programme présidentiel",
+    "theme": "Justice"
+  },
+  {
+    "label": "Renforcement de l'accès à la justice pour tous les citoyens",
+    "objectif": "Assurer l'accès à une justice indépendante, impartiale, et transparente pour tous, y compris les plus défavorisés",
+    "sector": "Accès à la justice",
+    "schedules": "2 ans",
+    "status": "tenue",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 31",
+    "source": "Programme présidentiel",
+    "theme": "Justice"
+  },
+  {
+    "label": "Augmentation substantielle du budget de la justice",
+    "objectif": "Moderniser la justice en augmentant le budget pour construire de nouveaux édifices et moderniser les infrastructures existantes",
+    "sector": "Financement de la justice",
+    "schedules": "5 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 29",
+    "source": "Programme présidentiel",
+    "theme": "Justice"
+  },
+  {
+    "label": "Réforme du Code pénal et du Code de procédure pénale",
+    "objectif": "Adapter le code pénal et le code de procédure pénale aux valeurs et besoins actuels, supprimer les peines d'emprisonnement pour les infractions de presse",
+    "sector": "Législation pénale",
+    "schedules": "2 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 24",
+    "source": "Programme présidentiel",
+    "theme": "Justice"
+  },
+  {
+    "label": "Révision du Conseil Supérieur de la Magistrature (CSM)",
+    "objectif": "Assurer une indépendance réelle du pouvoir judiciaire en réformant le CSM pour réduire l'influence de l'exécutif",
+    "sector": "Gouvernance judiciaire",
+    "schedules": "2 ans",
+    "status": "inévaluable",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 24",
+    "source": "Programme présidentiel",
+    "theme": "Justice"
+  },
+  {
+    "label": "Renforcement des modes alternatifs de règlement des différends",
+    "objectif": "Promouvoir les mécanismes de justice non contentieuse comme les maisons de justice pour un règlement plus efficace et équitable des différends",
+    "sector": "Justice alternative",
+    "schedules": "2 ans",
+    "status": "tenue",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 32",
+    "source": "Programme présidentiel",
+    "theme": "Justice"
+  },
+  {
+    "label": "Modernisation de la justice par la digitalisation",
+    "objectif": "Accélérer les procédures judiciaires et améliorer l'accès à la justice grâce à la numérisation des processus judiciaires",
+    "sector": "Technologie judiciaire",
+    "schedules": "5 ans",
+    "status": "inévaluable",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 30",
+    "source": "Programme présidentiel",
+    "theme": "Justice"
+  },
+  {
+    "label": "Création d'une Cour Constitutionnelle indépendante",
+    "objectif": "Remplacer le Conseil Constitutionnel par une Cour Constitutionnelle dotée de pouvoirs accrus et d'une composition plus indépendante",
+    "sector": "Institutions judiciaires",
+    "schedules": "2 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 22",
+    "source": "Programme présidentiel",
+    "theme": "Justice"
+  },
+  {
+    "label": "Institution de l'indépendance du parquet vis-à-vis du Ministre de la Justice",
+    "objectif": "Assurer que le ministère public soit indépendant du pouvoir exécutif pour garantir l'impartialité dans les poursuites judiciaires",
+    "sector": "Gouvernance judiciaire",
+    "schedules": "2 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 25",
+    "source": "Programme présidentiel",
+    "theme": "Justice"
+  },
+  {
+    "label": "Suppression de la pratique du retour de parquet",
+    "objectif": "Mettre fin à cette pratique qui peut prolonger indûment la détention préventive sans décision judiciaire, pour garantir le respect des droits des détenus",
+    "sector": "Procédure pénale",
+    "schedules": "2 ans",
+    "status": "non évaluée",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 24",
+    "source": "Programme présidentiel",
+    "theme": "Justice"
+  },
+  {
+    "label": "Limitation du délai de détention provisoire en matière criminelle à trois ans",
+    "objectif": "Réduire la durée maximale de la détention provisoire pour éviter des emprisonnements prolongés sans jugement",
+    "sector": "Procédure pénale",
+    "schedules": "2 ans",
+    "status": "non tenue",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 25",
+    "source": "Programme présidentiel",
+    "theme": "Justice"
+  },
+  {
+    "label": "Modernisation du budget et des infrastructures judiciaires",
+    "objectif": "Réformer le système de gestion budgétaire des juridictions, leur assurer une autonomie financière et construire de nouveaux palais de justice",
+    "sector": "Infrastructures judiciaires",
+    "schedules": "5 ans",
+    "status": "non tenue",
+    "reference": "Livre-Programme-Bassirou-Diomaye-Faye, page 29",
+    "source": "Programme présidentiel",
+    "theme": "Justice"
+  }
 ]

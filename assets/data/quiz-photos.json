@@ -1059,12 +1059,12 @@
     "type": "image",
     "question": "Qui est le DG de l’Agence pour la promotion et le Développement de l’Artisanat ?",
     "options": [
-      "/nominations/sophie-nzingua-sy.jpeg",
+      "/nominations/sophie-nzingua-sy.jpg",
       "/nominations/mamadou-coulibaly.jfif",
       "/nominations/bacary-sega-bathily.jfif",
       "/nominations/el-hadj-daouda-niang-2.jpg"
     ],
-    "answer": "/nominations/sophie-nzingua-sy.jpeg",
+    "answer": "/nominations/sophie-nzingua-sy.jpg",
     "explanation": "Sophie Nzinga SY est la Directrice générale de l’Agence pour la promotion et le Développement de l’Artisanat (APDA)"
   },
   {
