@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import PromesseResume from "~/components/PromesseResume.vue";
 import type { PromesseStats } from "~/types/promesse";
 
 useHead({
@@ -34,7 +33,8 @@ const stats = computed<PromesseStats>(
       Vérificateur de promesses électorales
     </h1>
 
-    <PromesseResume v-if="showBarometer" :stats="stats" />
+    <!-- <div v-if="showBarometer">test</div> -->
+    <PromiseOverview v-if="showBarometer" :stats="stats" />
 
     <div v-else class="text-center text-gray-500">
       <p>Page en cours de construction</p>

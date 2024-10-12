@@ -51,6 +51,9 @@ export default defineNuxtPlugin(() => {
           maximumFractionDigits: 0,
         }).format(amount);
       },
+      directusImageUrl: (photoId: string) => {
+        return `${process.env.CMS_API_URL}/assets/${photoId}?fit=cover&quality=25`;
+      },
     },
   };
 });

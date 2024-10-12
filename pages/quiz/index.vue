@@ -347,7 +347,7 @@ useMotion();
             questions.
           </p>
           <div class="mx-auto text-center">
-            <CustomCircleProgressBar
+            <QuizCircleProgressBar
               :progress="
                 Math.round(
                   (correctAnswersCount / currentQuestions.length) * 100,

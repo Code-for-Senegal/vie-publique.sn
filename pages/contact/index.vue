@@ -9,15 +9,6 @@ useHead({
     },
   ],
 });
-
-const name = ref("");
-const email = ref("");
-const message = ref("");
-
-const submitForm = () => {
-  // Ajouter la logique pour gérer l'envoi du formulaire
-  alert(`Nom: ${name.value}\nEmail: ${email.value}\nMessage: ${message.value}`);
-};
 </script>
 
 <template>
@@ -29,7 +20,10 @@ const submitForm = () => {
     <div class="w-full max-w-4xl text-center">
       <div class="mb-4">
         <h2 class="text-sm text-gray-500">
-          Envoyez nous un Email à l'adresse mail suivante
+          Vous souhaitez nous transmettre des informations, nous faire des
+          suggestions, nous signalez des erreur ou nous soumettre une
+          proposition de partenariat, envoyez nous un Email à l'adresse mail
+          suivante
         </h2>
         <p class="text-blue-600 underline hover:text-blue-800">
           <a href="mailto:contact@vie-publique.sn">contact@vie-publique.sn</a>

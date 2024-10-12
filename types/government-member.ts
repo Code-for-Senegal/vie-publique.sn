@@ -10,4 +10,5 @@ export type GovernmentMember = {
   predecessor: string | null;
   rating: number | null;
   portrait: string | null;
+  organisation: string | null;
 };

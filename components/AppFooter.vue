@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const currentYear = new Date().getFullYear();
-const version = "02-Sept";
+const version = "15-Sept";
 
 const links = [
   {
@@ -25,7 +25,11 @@ const links = [
   },
   {
     label: "Twitter",
-    to: "https://twitter.com/malick_yacine",
+    to: "https://twitter.com/ViePubliqueSN",
+  },
+  {
+    label: "Facebook",
+    to: "https://www.facebook.com/ViePubliqueSenegal",
   },
 ];
 </script>
