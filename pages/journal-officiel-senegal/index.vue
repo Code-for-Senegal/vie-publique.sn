@@ -107,7 +107,7 @@ const filteredJournals = computed(() => {
           <NuxtLink :to="journal._path">
             <p class="font-semibold underline">{{ journal.title }}</p>
 
-            <p class="text-sm text-gray-500">{{ journal.subtitle }}</p>
+            <p class="mt-1 text-sm text-gray-500">{{ journal.subtitle }}</p>
           </NuxtLink>
         </UCard>
       </div>
