@@ -77,7 +77,7 @@ const { data } = await useFetch("/api/nominations", {
 /* Filters */
 
 const searchQuery = ref("");
-const selectedType = ref("Ministre");
+const selectedType = ref("Présidence");
 const selectedGender = ref("");
 const selectedDate = ref("");
 
@@ -201,6 +201,9 @@ watch([selectedType, selectedGender], () => {
         <div class="px-4 text-center">
           <h2 class="text-xl font-semibold">{{ selectedMinister.name }}</h2>
           <p class="text-sm">{{ selectedMinister.role }}</p>
+          <p v-if="selectedMinister.organisation" class="text-sm text-gray-500">
+            {{ selectedMinister.organisation }}
+          </p>
           <div v-if="selectedMinister.nominationDate" class="mt-1">
             <p class="text-sm text-gray-500">Nommé le</p>
             <p class="text-sm">
@@ -330,16 +333,20 @@ watch([selectedType, selectedGender], () => {
                 alt="Photo ministre"
                 sizes="64px sm:80px"
                 class="h-full w-full rounded-full object-cover"
+                loading="lazy"
               />
             </div>
             <div class="flex-grow">
               <h2 class="font-semibold">{{ minister.name }}</h2>
               <p class="text-sm">{{ minister.role }}</p>
+              <p v-if="minister.organisation" class="text-sm text-gray-500">
+                {{ minister.organisation }}
+              </p>
               <p class="text-sm text-gray-500">
                 Nommé le
                 {{ $dateformat(minister.nominationDate) }}
               </p>
-              <p v-if="minister.endDate != null" class="text-sm text-gray-500">
+              <p v-if="minister.endDate" class="text-sm text-gray-500">
                 Limogé le
                 {{ $dateformat(minister.endDate) }}
               </p>

@@ -25,6 +25,9 @@ export default defineNuxtConfig({
       showScandals: process.env.PUBLIC_SHOW_SCANDALS,
       brevoApiKey: process.env.BREVO_API_KEY,
       brevoListId: process.env.BREVO_LIST_ID,
+      googleAdsId: process.env.GOOGLE_ADS_ID,
+      cmsApiUrl: process.env.CMS_API_URL,
+      cmsApiKey: process.env.CMS_API_KEY,
       redirects: [
         { from: "^/reports(.*)", to: "/rapport-senegal$1" },
         { from: "^/budget-etat-senegal(.*)", to: "/budget-senegal$1" },
@@ -40,7 +43,6 @@ export default defineNuxtConfig({
           from: "^/nomination-senegal/conseil-des-ministres-31-juillet(.*)",
           to: "/nomination-senegal$1",
         },
-        // Ajoutez d'autres redirections ici
       ],
     },
   },
@@ -55,6 +57,9 @@ export default defineNuxtConfig({
   },
   content: {
     defaultLocale: "fr",
+    experimental: {
+      search: true,
+    },
   },
   app: {
     head: {
@@ -144,6 +149,11 @@ export default defineNuxtConfig({
   gtag: {
     enabled: !!process.env.GTAG_ID,
     id: process.env.GTAG_ID,
+    config: {
+      send_page_view: true,
+      anonymize_ip: true,
+      conversion_linker: true,
+    },
   },
   webVitals: {
     provider: "ga",

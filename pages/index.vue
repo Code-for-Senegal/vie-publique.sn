@@ -14,6 +14,12 @@ useHead({
 
 const links = [
   {
+    label: "Elections législatives",
+    description: "Elections anticipé du 17 Novembre",
+    icon: "i-heroicons-document-text",
+    to: "/elections/legislatives",
+  },
+  {
     label: "Conseil des ministres",
     description: "Communiqués des conseil des ministres...",
     icon: "i-heroicons-document-text",
@@ -49,7 +55,7 @@ const links = [
     <!-- Section des dernières actualités -->
     <div class="">
       <div class="prose prose-sm sm:prose mx-auto my-4">
-        <h2 class="text-center">Dernières Publications</h2>
+        <h2 class="text-center text-gray-800">Dernières Publications</h2>
         <!-- <h2 class="text-center text-2xl font-bold text-green-700">Dernières Actualités</h2> -->
       </div>
       <!-- <div class="text-center">
