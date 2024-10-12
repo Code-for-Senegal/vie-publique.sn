@@ -6,7 +6,7 @@ const { data } = await useAsyncData("content", () =>
 );
 
 useHead({
-  meta: [{ name: "robots", content: data.value?.robots || "index,follow" }],
+  meta: [{ name: "robots", content: "noindex" }],
 });
 
 const links = [

@@ -4,7 +4,7 @@ const seoDescription = "Institutions de la république du Sénégal";
 const seoImgPath = "https://vie-publique.sn/images/share-linkedin.png";
 const seoPageUrl = "https://vie-publique.sn/publications/actualites";
 useHead({
-  meta: [{ name: "robots", content: "index,follow" }],
+  meta: [{ name: "robots", content: "noindex" }],
 });
 
 const searchQuery = ref("");
