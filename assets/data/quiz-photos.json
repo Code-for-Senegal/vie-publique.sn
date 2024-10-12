@@ -25,7 +25,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est la Secrétaire permanent à l’Energie ?",
+    "question": "Qui est la Secrétaire permanent à l'Energie ?",
     "options": [
       "/nominations/yaye-khadidiatou-djamila-diallo.jfif",
       "/nominations/oumy-khairy-diop.jpg",
@@ -33,7 +33,7 @@
       "/nominations/marie-rose-faye.jfif"
     ],
     "answer": "/nominations/oumy-khairy-diop.jpg",
-    "explanation": "Oumou Khaïry DIOP a été nommé le 18 Juillet 2024 Secrétaire permanent à l’Energie"
+    "explanation": "Oumou Khaïry DIOP a été nommé le 18 Juillet 2024 Secrétaire permanent à l'Energie"
   },
   {
     "type": "image",
@@ -49,7 +49,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le Ministre de l’Économie du Plan et de la Coopération ?",
+    "question": "Qui est le Ministre de l'Économie du Plan et de la Coopération ?",
     "options": [
       "/gouvernement/ministre-abdourahmane-sarr.jfif",
       "/nominations/aissatou-mbodj.jfif",
@@ -57,7 +57,7 @@
       "/nominations/pape-birane-dieye.jfif"
     ],
     "answer": "/gouvernement/ministre-abdourahmane-sarr.jfif",
-    "explanation": "Abdourahmane SARR est le Ministre de l’Économie du Plan et de la Coopération."
+    "explanation": "Abdourahmane SARR est le Ministre de l'Économie du Plan et de la Coopération."
   },
   {
     "type": "image",
@@ -85,7 +85,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le Ministre de l’Intégration africaine et des Affaires étrangères ?",
+    "question": "Qui est le Ministre de l'Intégration africaine et des Affaires étrangères ?",
     "options": [
       "/gouvernement/ministre-yassine-fall.jfif",
       "/gouvernement/ministre-amadou-moustapha-ndieck-sarre.jfif",
@@ -93,7 +93,7 @@
       "/nominations/pape-birane-dieye.jfif"
     ],
     "answer": "/gouvernement/ministre-yassine-fall.jfif",
-    "explanation": "Madame Yassine FALL est le Ministre de l’Intégration africaine et des Affaires étrangères."
+    "explanation": "Madame Yassine FALL est le Ministre de l'Intégration africaine et des Affaires étrangères."
   },
   {
     "type": "image",
@@ -121,7 +121,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le Ministre de l’Intérieur et de la Sécurité publique ?",
+    "question": "Qui est le Ministre de l'Intérieur et de la Sécurité publique ?",
     "options": [
       "/gouvernement/ministre-général-jean-baptiste-tine.jfif",
       "/nominations/mary-teuw-niane.jfif",
@@ -129,11 +129,11 @@
       "/nominations/pape-birane-dieye.jfif"
     ],
     "answer": "/gouvernement/ministre-général-jean-baptiste-tine.jfif",
-    "explanation": "Général Jean Baptiste TINE est le Ministre de l’Intérieur et de la Sécurité publique."
+    "explanation": "Général Jean Baptiste TINE est le Ministre de l'Intérieur et de la Sécurité publique."
   },
   {
     "type": "image",
-    "question": "Qui est le Ministre de l’Énergie, du Pétrole et des Mines ?",
+    "question": "Qui est le Ministre de l'Énergie, du Pétrole et des Mines ?",
     "options": [
       "/gouvernement/ministre-birame-souleye-diop.jfif",
       "/nominations/mary-teuw-niane.jfif",
@@ -141,7 +141,7 @@
       "/nominations/pape-birane-dieye.jfif"
     ],
     "answer": "/gouvernement/ministre-birame-souleye-diop.jfif",
-    "explanation": "Birame Souleye DIOP est le Ministre de l’Énergie, du Pétrole et des Mines."
+    "explanation": "Birame Souleye DIOP est le Ministre de l'Énergie, du Pétrole et des Mines."
   },
   {
     "type": "image",
@@ -169,7 +169,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le Ministre de l’Environnement et de la Transition écologique ?",
+    "question": "Qui est le Ministre de l'Environnement et de la Transition écologique ?",
     "options": [
       "/gouvernement/ministre-daouda-ngom.jfif",
       "/nominations/mary-teuw-niane.jfif",
@@ -177,7 +177,7 @@
       "/nominations/pape-birane-dieye.jfif"
     ],
     "answer": "/gouvernement/ministre-daouda-ngom.jfif",
-    "explanation": "Daouda NGOM est le Ministre de l’Environnement et de la Transition écologique."
+    "explanation": "Daouda NGOM est le Ministre de l'Environnement et de la Transition écologique."
   },
   {
     "type": "image",
@@ -193,7 +193,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le Ministre de l‘Hydraulique et de l’Assainissement ?",
+    "question": "Qui est le Ministre de l‘Hydraulique et de l'Assainissement ?",
     "options": [
       "/gouvernement/ministre-cheikh-tidiane-dieye.jfif",
       "/nominations/mary-teuw-niane.jfif",
@@ -201,7 +201,7 @@
       "/nominations/pape-birane-dieye.jfif"
     ],
     "answer": "/gouvernement/ministre-cheikh-tidiane-dieye.jfif",
-    "explanation": "Cheikh Tidiane DIEYE est le Ministre de l‘Hydraulique et de l’Assainissement."
+    "explanation": "Cheikh Tidiane DIEYE est le Ministre de l‘Hydraulique et de l'Assainissement."
   },
   {
     "type": "image",
@@ -217,7 +217,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le Ministre de l’Enseignement supérieur, de la Recherche et de l’Innovation ?",
+    "question": "Qui est le Ministre de l'Enseignement supérieur, de la Recherche et de l'Innovation ?",
     "options": [
       "/gouvernement/ministre-elhadj-abdourahmane-diouf.jfif",
       "/nominations/momath-talla-ndao.jfif",
@@ -225,7 +225,7 @@
       "/nominations/pape-birane-dieye.jfif"
     ],
     "answer": "/gouvernement/ministre-elhadj-abdourahmane-diouf.jfif",
-    "explanation": "Elhadj Abdourahmane DIOUF est le Ministre de l’Enseignement supérieur, de la Recherche et de l’Innovation."
+    "explanation": "Elhadj Abdourahmane DIOUF est le Ministre de l'Enseignement supérieur, de la Recherche et de l'Innovation."
   },
   {
     "type": "image",
@@ -313,7 +313,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le DG de la Société d’Aménagement et de Promotion des Côtes et Zones touristiques du Sénégal (SAPCO SA) ?",
+    "question": "Qui est le DG de la Société d'Aménagement et de Promotion des Côtes et Zones touristiques du Sénégal (SAPCO SA) ?",
     "options": [
       "/nominations/serigne-mamadou-mboup-2.jfif",
       "/nominations/pape-ale-niang.jfif",
@@ -321,11 +321,11 @@
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
     ],
     "answer": "/nominations/serigne-mamadou-mboup-2.jfif",
-    "explanation": "Serigne Mamadou MBOUP est le Directeur général de la Société d’Aménagement et de Promotion des Côtes et Zones touristiques du Sénégal (SAPCO SA)."
+    "explanation": "Serigne Mamadou MBOUP est le Directeur général de la Société d'Aménagement et de Promotion des Côtes et Zones touristiques du Sénégal (SAPCO SA)."
   },
   {
     "type": "image",
-    "question": "Qui est le DG de l’Agence de Développement et d’Encadrement des petites et moyennes entreprises (ADEPME) ?",
+    "question": "Qui est le DG de l'Agence de Développement et d'Encadrement des petites et moyennes entreprises (ADEPME) ?",
     "options": [
       "/nominations/marie-rose-faye.jfif",
       "nominations/cheikh-ahmed-bamba-diagne.jpg",
@@ -333,11 +333,11 @@
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
     ],
     "answer": "/nominations/marie-rose-faye.jfif",
-    "explanation": "Marie Rose FAYE est le Directeur général de l’Agence de Développement et d’Encadrement des petites et moyennes entreprises (ADEPME)."
+    "explanation": "Marie Rose FAYE est le Directeur général de l'Agence de Développement et d'Encadrement des petites et moyennes entreprises (ADEPME)."
   },
   {
     "type": "image",
-    "question": "Qui est le DG de l’Agence nationale de la Petite enfance et de la Case des Tout-Petits ?",
+    "question": "Qui est le DG de l'Agence nationale de la Petite enfance et de la Case des Tout-Petits ?",
     "options": [
       "/nominations/yaye-khadidiatou-djamila-diallo.jfif",
       "/nominations/mor-fall.tiff",
@@ -345,11 +345,11 @@
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
     ],
     "answer": "/nominations/yaye-khadidiatou-djamila-diallo.jfif",
-    "explanation": "Yaye Khadidiatou Djamila DIALLO est le Directeur général de l’Agence nationale de la Petite enfance et de la Case des Tout-Petits."
+    "explanation": "Yaye Khadidiatou Djamila DIALLO est le Directeur général de l'Agence nationale de la Petite enfance et de la Case des Tout-Petits."
   },
   {
     "type": "image",
-    "question": "Qui est le DG de l’Agence nationale de l’Aménagement du Territoire (ANAT) ?",
+    "question": "Qui est le DG de l'Agence nationale de l'Aménagement du Territoire (ANAT) ?",
     "options": [
       "/nominations/mamadou-goudiaby.jpeg",
       "/nominations/tidiane-sidibe.jpg",
@@ -357,11 +357,11 @@
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
     ],
     "answer": "/nominations/tidiane-sidibe.jpg",
-    "explanation": "Tidiane SIDIBE est le Directeur général de l’Agence nationale de l’Aménagement du Territoire (ANAT)."
+    "explanation": "Tidiane SIDIBE est le Directeur général de l'Agence nationale de l'Aménagement du Territoire (ANAT)."
   },
   {
     "type": "image",
-    "question": "Qui est le DG de l’Agence sénégalaise de Reforestation et de la Grande Muraille Verte (ASERGMV) ?",
+    "question": "Qui est le DG de l'Agence sénégalaise de Reforestation et de la Grande Muraille Verte (ASERGMV) ?",
     "options": [
       "/nominations/sekouna-diatta.jfif",
       "/nominations/pape-ale-niang.jfif",
@@ -369,11 +369,11 @@
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
     ],
     "answer": "/nominations/sekouna-diatta.jfif",
-    "explanation": "Sékouna DIATTA est le Directeur général de l’Agence sénégalaise de Reforestation et de la Grande Muraille Verte (ASERGMV)."
+    "explanation": "Sékouna DIATTA est le Directeur général de l'Agence sénégalaise de Reforestation et de la Grande Muraille Verte (ASERGMV)."
   },
   {
     "type": "image",
-    "question": "Qui est le DG de l’Office national de l’Assainissement du Sénégal (ONAS) ?",
+    "question": "Qui est le DG de l'Office national de l'Assainissement du Sénégal (ONAS) ?",
     "options": [
       "/nominations/chiekh-dieng.jfif",
       "/nominations/pape-ale-niang.jfif",
@@ -381,7 +381,7 @@
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
     ],
     "answer": "/nominations/chiekh-dieng.jfif",
-    "explanation": "Docteur Cheikh DIENG est le Directeur général de l’Office national de l’Assainissement du Sénégal (ONAS)."
+    "explanation": "Docteur Cheikh DIENG est le Directeur général de l'Office national de l'Assainissement du Sénégal (ONAS)."
   },
   {
     "type": "image",
@@ -421,7 +421,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le Directeur général du Fonds Souverain d’Investissements Stratégiques (FONSIS) ?",
+    "question": "Qui est le Directeur général du Fonds Souverain d'Investissements Stratégiques (FONSIS) ?",
     "options": [
       "/nominations/babacar-ngning.jfif",
       "/nominations/momath-talla-ndao.jfif",
@@ -429,7 +429,7 @@
       "/nominations/cheikh-mamaodou-abiboulaye-dieye.jfif"
     ],
     "answer": "/nominations/babacar-ngning.jfif",
-    "explanation": "Babacar GNING est le Directeur général du Fonds Souverain d’Investissements Stratégiques (FONSIS)."
+    "explanation": "Babacar GNING est le Directeur général du Fonds Souverain d'Investissements Stratégiques (FONSIS)."
   },
   {
     "type": "image",
@@ -493,7 +493,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le Secrétaire d’État aux Sénégalais de l’Extérieur ?",
+    "question": "Qui est le Secrétaire d'État aux Sénégalais de l'Extérieur ?",
     "options": [
       "/nominations/ibrahima-thiam-3.jfif",
       "/nominations/momath-talla-ndao.jfif",
@@ -501,11 +501,11 @@
       "/nominations/amadou-cherif-diouf-2.jfif"
     ],
     "answer": "/nominations/amadou-cherif-diouf-2.jfif",
-    "explanation": "Amadou Chérif DIOUF est le Secrétaire d’État aux Sénégalais de l’Extérieur."
+    "explanation": "Amadou Chérif DIOUF est le Secrétaire d'État aux Sénégalais de l'Extérieur."
   },
   {
     "type": "image",
-    "question": "Qui est le Secrétaire d’État au Développement des PME PMI ?",
+    "question": "Qui est le Secrétaire d'État au Développement des PME PMI ?",
     "options": [
       "/nominations/amadou-cherif-diouf-2.jfif",
       "/nominations/momath-talla-ndao.jfif",
@@ -513,11 +513,11 @@
       "/nominations/ibrahima-thiam-3.jfif"
     ],
     "answer": "/nominations/ibrahima-thiam-3.jfif",
-    "explanation": "Ibrahima THIAM est le Secrétaire d’État au Développement des PME PMI."
+    "explanation": "Ibrahima THIAM est le Secrétaire d'État au Développement des PME PMI."
   },
   {
     "type": "image",
-    "question": "Qui est le Secrétaire d’État à l’Urbanisme et au Logement ?",
+    "question": "Qui est le Secrétaire d'État à l'Urbanisme et au Logement ?",
     "options": [
       "/nominations/amadou-cherif-diouf-2.jfif",
       "/nominations/ibrahima-thiam-3.jfif",
@@ -525,11 +525,11 @@
       "/nominations/momath-talla-ndao.jfif"
     ],
     "answer": "/nominations/momath-talla-ndao.jfif",
-    "explanation": "Momath Talla NDAO est le Secrétaire d’État à l’Urbanisme et au Logement."
+    "explanation": "Momath Talla NDAO est le Secrétaire d'État à l'Urbanisme et au Logement."
   },
   {
     "type": "image",
-    "question": "Qui est le Secrétaire d’État aux Coopératives et à l’Encadrement paysan ?",
+    "question": "Qui est le Secrétaire d'État aux Coopératives et à l'Encadrement paysan ?",
     "options": [
       "/nominations/amadou-cherif-diouf-2.jfif",
       "/nominations/ibrahima-thiam-3.jfif",
@@ -537,11 +537,11 @@
       "/nominations/alpha-ba.jfif"
     ],
     "answer": "/nominations/alpha-ba.jfif",
-    "explanation": "Alpha BA est le Secrétaire d’État aux Coopératives et à l’Encadrement paysan."
+    "explanation": "Alpha BA est le Secrétaire d'État aux Coopératives et à l'Encadrement paysan."
   },
   {
     "type": "image",
-    "question": "Qui est le Secrétaire d’État à la Culture, aux Industries créatives et au Patrimoine historique ?",
+    "question": "Qui est le Secrétaire d'État à la Culture, aux Industries créatives et au Patrimoine historique ?",
     "options": [
       "/nominations/amadou-cherif-diouf-2.jfif",
       "/nominations/ibrahima-thiam-3.jfif",
@@ -549,7 +549,7 @@
       "/nominations/bakary-sarr.jfif"
     ],
     "answer": "/nominations/bakary-sarr.jfif",
-    "explanation": "Bacary SARR est le Secrétaire d’État à la Culture, aux Industries créatives et au Patrimoine historique."
+    "explanation": "Bacary SARR est le Secrétaire d'État à la Culture, aux Industries créatives et au Patrimoine historique."
   },
   {
     "type": "image",
@@ -601,7 +601,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le DG de l’Agence pour la Promotion des Investissements et des Grands Travaux (APIX SA) ?",
+    "question": "Qui est le DG de l'Agence pour la Promotion des Investissements et des Grands Travaux (APIX SA) ?",
     "options": [
       "/nominations/papa-diouf.jpg",
       "/nominations/martin-faye.jfif",
@@ -609,11 +609,11 @@
       "/nominations/bacary-sega-bathily.jfif"
     ],
     "answer": "/nominations/bacary-sega-bathily.jfif",
-    "explanation": "Bacary Sega BATHILY est le Directeur général de l’Agence pour la Promotion des Investissements et des Grands Travaux (APIX SA)."
+    "explanation": "Bacary Sega BATHILY est le Directeur général de l'Agence pour la Promotion des Investissements et des Grands Travaux (APIX SA)."
   },
   {
     "type": "image",
-    "question": "Qui est le Chef d’Etat-Major de l’Armée de terre ?",
+    "question": "Qui est le Chef d'Etat-Major de l'Armée de terre ?",
     "options": [
       "/nominations/mary-teuw-niane.jfif",
       "/nominations/omar-samba-ba.jfif",
@@ -621,11 +621,11 @@
       "/nominations/général-magatte-ndiaye.jpg"
     ],
     "answer": "/nominations/général-magatte-ndiaye.jpg",
-    "explanation": "Général Magatte Ndiaye est le Chef d’Etat-Major de l’Armée de terre."
+    "explanation": "Général Magatte Ndiaye est le Chef d'Etat-Major de l'Armée de terre."
   },
   {
     "type": "image",
-    "question": "Qui est le Président du Comité sénégalais des Droits de l’homme ?",
+    "question": "Qui est le Président du Comité sénégalais des Droits de l'homme ?",
     "options": [
       "/nominations/mary-teuw-niane.jfif",
       "/nominations/omar-samba-ba.jfif",
@@ -633,7 +633,7 @@
       "/nominations/amsatou-sow-sidibe.jfif"
     ],
     "answer": "/nominations/amsatou-sow-sidibe.jfif",
-    "explanation": "Amsatou Sow SIDIBE est le Président du Comité sénégalais des Droits de l’homme."
+    "explanation": "Amsatou Sow SIDIBE est le Président du Comité sénégalais des Droits de l'homme."
   },
   {
     "type": "image",
@@ -661,7 +661,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le Ministre de l’Intégration africaine et des Affaires étrangères ?",
+    "question": "Qui est le Ministre de l'Intégration africaine et des Affaires étrangères ?",
     "options": [
       "/gouvernement/ministre-yassine-fall.jfif",
       "/gouvernement/ministre-général-birame-diop.jfif",
@@ -669,7 +669,7 @@
       "/gouvernement/ministre-général-jean-baptiste-tine.jfif"
     ],
     "answer": "/gouvernement/ministre-yassine-fall.jfif",
-    "explanation": "Madame Yassine FALL est la Ministre de l’Intégration africaine et des Affaires étrangères."
+    "explanation": "Madame Yassine FALL est la Ministre de l'Intégration africaine et des Affaires étrangères."
   },
   {
     "type": "image",
@@ -697,7 +697,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le Ministre de l’Intérieur et de la Sécurité publique ?",
+    "question": "Qui est le Ministre de l'Intérieur et de la Sécurité publique ?",
     "options": [
       "/gouvernement/ministre-yassine-fall.jfif",
       "/gouvernement/ministre-général-birame-diop.jfif",
@@ -705,11 +705,11 @@
       "/gouvernement/ministre-général-jean-baptiste-tine.jfif"
     ],
     "answer": "/gouvernement/ministre-général-jean-baptiste-tine.jfif",
-    "explanation": "Général Jean Baptiste TINE est le Ministre de l’Intérieur et de la Sécurité publique."
+    "explanation": "Général Jean Baptiste TINE est le Ministre de l'Intérieur et de la Sécurité publique."
   },
   {
     "type": "image",
-    "question": "Qui est le Ministre de l’Énergie, du Pétrole et des Mines ?",
+    "question": "Qui est le Ministre de l'Énergie, du Pétrole et des Mines ?",
     "options": [
       "/gouvernement/ministre-birame-souleye-diop.jfif",
       "/gouvernement/ministre-abdourahmane-sarr.jfif",
@@ -717,11 +717,11 @@
       "/gouvernement/ministre-malick-ndiaye.jfif"
     ],
     "answer": "/gouvernement/ministre-birame-souleye-diop.jfif",
-    "explanation": "Birame Souleye DIOP est le Ministre de l’Énergie, du Pétrole et des Mines."
+    "explanation": "Birame Souleye DIOP est le Ministre de l'Énergie, du Pétrole et des Mines."
   },
   {
     "type": "image",
-    "question": "Qui est le Ministre de l’Économie du Plan et de la Coopération ?",
+    "question": "Qui est le Ministre de l'Économie du Plan et de la Coopération ?",
     "options": [
       "/gouvernement/ministre-birame-souleye-diop.jfif",
       "/gouvernement/ministre-abdourahmane-sarr.jfif",
@@ -729,7 +729,7 @@
       "/gouvernement/ministre-malick-ndiaye.jfif"
     ],
     "answer": "/gouvernement/ministre-abdourahmane-sarr.jfif",
-    "explanation": "Abdourahmane SARR est le Ministre de l’Économie du Plan et de la Coopération."
+    "explanation": "Abdourahmane SARR est le Ministre de l'Économie du Plan et de la Coopération."
   },
   {
     "type": "image",
@@ -757,7 +757,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le Ministre de l’Environnement et de la Transition écologique ?",
+    "question": "Qui est le Ministre de l'Environnement et de la Transition écologique ?",
     "options": [
       "/gouvernement/ministre-daouda-ngom.jfif",
       "/gouvernement/ministre-amadou-moustapha-ndieck-sarre.jfif",
@@ -765,7 +765,7 @@
       "/gouvernement/ministre-alioune-sall.jfif"
     ],
     "answer": "/gouvernement/ministre-daouda-ngom.jfif",
-    "explanation": "Daouda NGOM est le Ministre de l’Environnement et de la Transition écologique."
+    "explanation": "Daouda NGOM est le Ministre de l'Environnement et de la Transition écologique."
   },
   {
     "type": "image",
@@ -781,7 +781,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le Ministre de l‘Hydraulique et de l’Assainissement ?",
+    "question": "Qui est le Ministre de l‘Hydraulique et de l'Assainissement ?",
     "options": [
       "/gouvernement/ministre-daouda-ngom.jfif",
       "/gouvernement/ministre-amadou-moustapha-ndieck-sarre.jfif",
@@ -789,7 +789,7 @@
       "/gouvernement/ministre-alioune-sall.jfif"
     ],
     "answer": "/gouvernement/ministre-cheikh-tidiane-dieye.jfif",
-    "explanation": "Cheikh Tidiane DIEYE est le Ministre de l‘Hydraulique et de l’Assainissement."
+    "explanation": "Cheikh Tidiane DIEYE est le Ministre de l‘Hydraulique et de l'Assainissement."
   },
   {
     "type": "image",
@@ -805,7 +805,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le Ministre de l’Enseignement supérieur, de la Recherche et de l’Innovation ?",
+    "question": "Qui est le Ministre de l'Enseignement supérieur, de la Recherche et de l'Innovation ?",
     "options": [
       "/gouvernement/ministre-elhadj-abdourahmane-diouf.jfif",
       "/gouvernement/ministre-serigne-gueye-diop.jfif",
@@ -813,11 +813,11 @@
       "/nominations/sidy-alpha-ndiaye.jpeg"
     ],
     "answer": "/gouvernement/ministre-elhadj-abdourahmane-diouf.jfif",
-    "explanation": "Elhadj Abdourahmane DIOUF est le Ministre de l’Enseignement supérieur, de la Recherche et de l’Innovation."
+    "explanation": "Elhadj Abdourahmane DIOUF est le Ministre de l'Enseignement supérieur, de la Recherche et de l'Innovation."
   },
   {
     "type": "image",
-    "question": "Qui est le Ministre de l’Industrie et du Commerce ?",
+    "question": "Qui est le Ministre de l'Industrie et du Commerce ?",
     "options": [
       "/gouvernement/ministre-elhadj-abdourahmane-diouf.jfif",
       "/gouvernement/ministre-serigne-gueye-diop.jfif",
@@ -825,7 +825,7 @@
       "/gouvernement/ministre-maimouna-dièye.jfif"
     ],
     "answer": "/gouvernement/ministre-serigne-gueye-diop.jfif",
-    "explanation": "Serigne Gueye DIOP est le Ministre de l’Industrie et du Commerce."
+    "explanation": "Serigne Gueye DIOP est le Ministre de l'Industrie et du Commerce."
   },
   {
     "type": "image",
@@ -853,7 +853,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le Ministre du Travail, de l’Emploi et des Relations avec les Institutions ?",
+    "question": "Qui est le Ministre du Travail, de l'Emploi et des Relations avec les Institutions ?",
     "options": [
       "/gouvernement/ministre-yankhoba-dieme.jfif",
       "/gouvernement/ministre-balla-moussa-fofana.jfif",
@@ -861,11 +861,11 @@
       "/gouvernement/ministre-ibrayima-sy.jfif"
     ],
     "answer": "/gouvernement/ministre-yankhoba-dieme.jfif",
-    "explanation": "Yankhoba DIEME est le Ministre du Travail, de l’Emploi et des Relations avec les Institutions."
+    "explanation": "Yankhoba DIEME est le Ministre du Travail, de l'Emploi et des Relations avec les Institutions."
   },
   {
     "type": "image",
-    "question": "Qui est le Ministre de l’Urbanisme, des Collectivités territoriales et de l’Aménagement des Territoires ?",
+    "question": "Qui est le Ministre de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires ?",
     "options": [
       "/gouvernement/ministre-yankhoba-dieme.jfif",
       "/gouvernement/ministre-balla-moussa-fofana.jfif",
@@ -873,11 +873,11 @@
       "/gouvernement/ministre-ibrayima-sy.jfif"
     ],
     "answer": "/gouvernement/ministre-balla-moussa-fofana.jfif",
-    "explanation": "Balla Moussa FOFANA est le Ministre de l’Urbanisme, des Collectivités territoriales et de l’Aménagement des Territoires."
+    "explanation": "Balla Moussa FOFANA est le Ministre de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires."
   },
   {
     "type": "image",
-    "question": "Qui est le Ministre de l’Education nationale ?",
+    "question": "Qui est le Ministre de l'Education nationale ?",
     "options": [
       "/gouvernement/ministre-yankhoba-dieme.jfif",
       "/gouvernement/ministre-balla-moussa-fofana.jfif",
@@ -885,11 +885,11 @@
       "/gouvernement/ministre-ibrayima-sy.jfif"
     ],
     "answer": "/gouvernement/ministre-moustapha-mamba-guirassy.jfif",
-    "explanation": "Moustapha Mamba GUIRASSY est le Ministre de l’Education nationale."
+    "explanation": "Moustapha Mamba GUIRASSY est le Ministre de l'Education nationale."
   },
   {
     "type": "image",
-    "question": "Qui est le Ministre de la Santé et de l’Action sociale ?",
+    "question": "Qui est le Ministre de la Santé et de l'Action sociale ?",
     "options": [
       "/gouvernement/ministre-yankhoba-dieme.jfif",
       "/gouvernement/ministre-balla-moussa-fofana.jfif",
@@ -897,7 +897,7 @@
       "/gouvernement/ministre-ibrayima-sy.jfif"
     ],
     "answer": "/gouvernement/ministre-ibrayima-sy.jfif",
-    "explanation": "Ibrahima SY est le Ministre de la Santé et de l’Action sociale."
+    "explanation": "Ibrahima SY est le Ministre de la Santé et de l'Action sociale."
   },
   {
     "type": "image",
@@ -925,7 +925,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le Ministre de l’Agriculture, de la Souveraineté alimentaire et de l’Elevage ?",
+    "question": "Qui est le Ministre de l'Agriculture, de la Souveraineté alimentaire et de l'Elevage ?",
     "options": [
       "/gouvernement/ministre-olivier-boucal.jfif",
       "/gouvernement/ministre-Khady-Diène-Gaye.jpg",
@@ -933,11 +933,11 @@
       "/gouvernement/ministre-alioune-dione.jfif"
     ],
     "answer": "/gouvernement/ministre-mabouba-diagne.jfif",
-    "explanation": "Mabouba DIAGNE est le Ministre de l’Agriculture, de la Souveraineté alimentaire et de l’Elevage."
+    "explanation": "Mabouba DIAGNE est le Ministre de l'Agriculture, de la Souveraineté alimentaire et de l'Elevage."
   },
   {
     "type": "image",
-    "question": "Qui est le Ministre de la Microfinance, de l’Economie sociale et solidaire ?",
+    "question": "Qui est le Ministre de la Microfinance, de l'Economie sociale et solidaire ?",
     "options": [
       "/gouvernement/ministre-olivier-boucal.jfif",
       "/gouvernement/ministre-Khady-Diène-Gaye.jpg",
@@ -945,11 +945,11 @@
       "/gouvernement/ministre-alioune-dione.jfif"
     ],
     "answer": "/gouvernement/ministre-alioune-dione.jfif",
-    "explanation": "Alioune DIONE est le Ministre de la Microfinance, de l’Economie sociale et solidaire."
+    "explanation": "Alioune DIONE est le Ministre de la Microfinance, de l'Economie sociale et solidaire."
   },
   {
     "type": "image",
-    "question": "Qui est le Secrétaire d’État aux Sénégalais de l’Extérieur ?",
+    "question": "Qui est le Secrétaire d'État aux Sénégalais de l'Extérieur ?",
     "options": [
       "/nominations/amadou-cherif-diouf-2.jfif",
       "/nominations/ibrahima-thiam-3.jfif",
@@ -957,11 +957,11 @@
       "/nominations/alpha-ba.jfif"
     ],
     "answer": "/nominations/amadou-cherif-diouf-2.jfif",
-    "explanation": "Amadou Chérif DIOUF est le Secrétaire d’État aux Sénégalais de l’Extérieur."
+    "explanation": "Amadou Chérif DIOUF est le Secrétaire d'État aux Sénégalais de l'Extérieur."
   },
   {
     "type": "image",
-    "question": "Qui est le Secrétaire d’État au Développement des PME PMI ?",
+    "question": "Qui est le Secrétaire d'État au Développement des PME PMI ?",
     "options": [
       "/nominations/amadou-cherif-diouf-2.jfif",
       "/nominations/ibrahima-thiam-3.jfif",
@@ -969,11 +969,11 @@
       "/nominations/alpha-ba.jfif"
     ],
     "answer": "/nominations/ibrahima-thiam-3.jfif",
-    "explanation": "Ibrahima THIAM est le Secrétaire d’État au Développement des PME PMI."
+    "explanation": "Ibrahima THIAM est le Secrétaire d'État au Développement des PME PMI."
   },
   {
     "type": "image",
-    "question": "Qui est le Secrétaire d’État à l’Urbanisme et au Logement ?",
+    "question": "Qui est le Secrétaire d'État à l'Urbanisme et au Logement ?",
     "options": [
       "/nominations/amadou-cherif-diouf-2.jfif",
       "/nominations/ibrahima-thiam-3.jfif",
@@ -981,11 +981,11 @@
       "/nominations/alpha-ba.jfif"
     ],
     "answer": "/nominations/momath-talla-ndao.jfif",
-    "explanation": "Momath Talla NDAO est le Secrétaire d’État à l’Urbanisme et au Logement."
+    "explanation": "Momath Talla NDAO est le Secrétaire d'État à l'Urbanisme et au Logement."
   },
   {
     "type": "image",
-    "question": "Qui est le Secrétaire d’État aux Coopératives et à l’Encadrement paysan ?",
+    "question": "Qui est le Secrétaire d'État aux Coopératives et à l'Encadrement paysan ?",
     "options": [
       "/nominations/amadou-cherif-diouf-2.jfif",
       "/nominations/ibrahima-thiam-3.jfif",
@@ -993,11 +993,11 @@
       "/nominations/alpha-ba.jfif"
     ],
     "answer": "/nominations/alpha-ba.jfif",
-    "explanation": "Alpha BA est le Secrétaire d’État aux Coopératives et à l’Encadrement paysan."
+    "explanation": "Alpha BA est le Secrétaire d'État aux Coopératives et à l'Encadrement paysan."
   },
   {
     "type": "image",
-    "question": "Qui est le Secrétaire d’État à la Culture, aux Industries créatives et au Patrimoine historique ?",
+    "question": "Qui est le Secrétaire d'État à la Culture, aux Industries créatives et au Patrimoine historique ?",
     "options": [
       "/nominations/bakary-sarr.jfif",
       "/nominations/amadou-cherif-diouf-2.jfif",
@@ -1005,7 +1005,7 @@
       "/nominations/momath-talla-ndao.jfif"
     ],
     "answer": "/nominations/bakary-sarr.jfif",
-    "explanation": "Bacary SARR est le Secrétaire d’État à la Culture, aux Industries créatives et au Patrimoine historique."
+    "explanation": "Bacary SARR est le Secrétaire d'État à la Culture, aux Industries créatives et au Patrimoine historique."
   },
   {
     "type": "image",
@@ -1057,7 +1057,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le DG de l’Agence pour la promotion et le Développement de l’Artisanat ?",
+    "question": "Qui est le DG de l'Agence pour la promotion et le Développement de l'Artisanat ?",
     "options": [
       "/nominations/sophie-nzingua-sy.jpg",
       "/nominations/mamadou-coulibaly.jfif",
@@ -1065,7 +1065,7 @@
       "/nominations/el-hadj-daouda-niang-2.jpg"
     ],
     "answer": "/nominations/sophie-nzingua-sy.jpg",
-    "explanation": "Sophie Nzinga SY est la Directrice générale de l’Agence pour la promotion et le Développement de l’Artisanat (APDA)"
+    "explanation": "Sophie Nzinga SY est la Directrice générale de l'Agence pour la promotion et le Développement de l'Artisanat (APDA)"
   },
   {
     "type": "image",
@@ -1089,7 +1089,7 @@
       "/nominations/biram-holo-ba.jpeg"
     ],
     "answer": "/nominations/adama-diawara.jpg",
-    "explanation": "Adama DIAWARA Président du Conseil de surveillance de l’Agence nationale des Energies renouvelables (ANER)"
+    "explanation": "Adama DIAWARA Président du Conseil de surveillance de l'Agence nationale des Energies renouvelables (ANER)"
   },
   {
     "type": "image",
@@ -1141,7 +1141,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le Ministre de l’Agriculture, de la Souveraineté alimentaire et de l’Elevage ?",
+    "question": "Qui est le Ministre de l'Agriculture, de la Souveraineté alimentaire et de l'Elevage ?",
     "options": [
       "/gouvernement/ministre-mabouba-diagne.jfif",
       "/gouvernement/ministre-alioune-dione.jfif",
@@ -1149,11 +1149,11 @@
       "/gouvernement/ministre-olivier-boucal.jfif"
     ],
     "answer": "/gouvernement/ministre-mabouba-diagne.jfif",
-    "explanation": "Mabouba DIAGNE est le Ministre de l’Agriculture, de la Souveraineté alimentaire et de l’Elevage."
+    "explanation": "Mabouba DIAGNE est le Ministre de l'Agriculture, de la Souveraineté alimentaire et de l'Elevage."
   },
   {
     "type": "image",
-    "question": "Qui est le Ministre de la Microfinance, de l’Economie sociale et solidaire ?",
+    "question": "Qui est le Ministre de la Microfinance, de l'Economie sociale et solidaire ?",
     "options": [
       "/gouvernement/ministre-alioune-dione.jfif",
       "/gouvernement/ministre-ibrayima-sy.jfif",
@@ -1161,11 +1161,11 @@
       "/gouvernement/ministre-Khady-Diène-Gaye.jpg"
     ],
     "answer": "/gouvernement/ministre-alioune-dione.jfif",
-    "explanation": "Alioune DIONE est le Ministre de la Microfinance, de l’Economie sociale et solidaire."
+    "explanation": "Alioune DIONE est le Ministre de la Microfinance, de l'Economie sociale et solidaire."
   },
   {
     "type": "image",
-    "question": "Qui est le Secrétaire d’État aux Sénégalais de l’Extérieur ?",
+    "question": "Qui est le Secrétaire d'État aux Sénégalais de l'Extérieur ?",
     "options": [
       "/nominations/amadou-cherif-diouf-2.jfif",
       "/nominations/ibrahima-thiam-3.jfif",
@@ -1173,11 +1173,11 @@
       "/nominations/alpha-ba.jfif"
     ],
     "answer": "/nominations/amadou-cherif-diouf-2.jfif",
-    "explanation": "Amadou Chérif DIOUF est le Secrétaire d’État aux Sénégalais de l’Extérieur."
+    "explanation": "Amadou Chérif DIOUF est le Secrétaire d'État aux Sénégalais de l'Extérieur."
   },
   {
     "type": "image",
-    "question": "Qui est le Secrétaire d’État au Développement des PME PMI ?",
+    "question": "Qui est le Secrétaire d'État au Développement des PME PMI ?",
     "options": [
       "/nominations/ibrahima-thiam-3.jfif",
       "/nominations/momath-talla-ndao.jfif",
@@ -1185,11 +1185,11 @@
       "/nominations/amadou-cherif-diouf-2.jfif"
     ],
     "answer": "/nominations/ibrahima-thiam-3.jfif",
-    "explanation": "Ibrahima THIAM est le Secrétaire d’État au Développement des PME PMI."
+    "explanation": "Ibrahima THIAM est le Secrétaire d'État au Développement des PME PMI."
   },
   {
     "type": "image",
-    "question": "Qui est le Secrétaire d’État à l’Urbanisme et au Logement ?",
+    "question": "Qui est le Secrétaire d'État à l'Urbanisme et au Logement ?",
     "options": [
       "/nominations/momath-talla-ndao.jfif",
       "/nominations/alpha-ba.jfif",
@@ -1197,11 +1197,11 @@
       "/nominations/ibrahima-thiam-3.jfif"
     ],
     "answer": "/nominations/momath-talla-ndao.jfif",
-    "explanation": "Momath Talla NDAO est le Secrétaire d’État à l’Urbanisme et au Logement."
+    "explanation": "Momath Talla NDAO est le Secrétaire d'État à l'Urbanisme et au Logement."
   },
   {
     "type": "image",
-    "question": "Qui est le Secrétaire d’État aux Coopératives et à l’Encadrement paysan ?",
+    "question": "Qui est le Secrétaire d'État aux Coopératives et à l'Encadrement paysan ?",
     "options": [
       "/nominations/alpha-ba.jfif",
       "/nominations/amadou-cherif-diouf-2.jfif",
@@ -1209,11 +1209,11 @@
       "/nominations/momath-talla-ndao.jfif"
     ],
     "answer": "/nominations/alpha-ba.jfif",
-    "explanation": "Alpha BA est le Secrétaire d’État aux Coopératives et à l’Encadrement paysan."
+    "explanation": "Alpha BA est le Secrétaire d'État aux Coopératives et à l'Encadrement paysan."
   },
   {
     "type": "image",
-    "question": "Qui est le Secrétaire d’État à la Culture, aux Industries créatives et au Patrimoine historique ?",
+    "question": "Qui est le Secrétaire d'État à la Culture, aux Industries créatives et au Patrimoine historique ?",
     "options": [
       "/nominations/bakary-sarr.jfif",
       "/nominations/amadou-cherif-diouf-2.jfif",
@@ -1221,7 +1221,7 @@
       "/nominations/momath-talla-ndao.jfif"
     ],
     "answer": "/nominations/bakary-sarr.jfif",
-    "explanation": "Bacary SARR est le Secrétaire d’État à la Culture, aux Industries créatives et au Patrimoine historique."
+    "explanation": "Bacary SARR est le Secrétaire d'État à la Culture, aux Industries créatives et au Patrimoine historique."
   },
   {
     "type": "image",
@@ -1273,7 +1273,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le DG de la Société d’Exploitation du Marché d’Intérêt national et de la gare des gros Porteurs ?",
+    "question": "Qui est le DG de la Société d'Exploitation du Marché d'Intérêt national et de la gare des gros Porteurs ?",
     "options": [
       "/nominations/pape-ale-niang.jfif",
       "/nominations/mamadou-coulibaly.jfif",
@@ -1281,7 +1281,7 @@
       "/nominations/el-hadj-daouda-niang-2.jpg"
     ],
     "answer": "/nominations/mamadou-coulibaly.jfif",
-    "explanation": "Mamadou COULIBALY est le DG de la Société d’Exploitation du Marché d’Intérêt national et de la gare des gros Porteurs."
+    "explanation": "Mamadou COULIBALY est le DG de la Société d'Exploitation du Marché d'Intérêt national et de la gare des gros Porteurs."
   },
   {
     "type": "image",
@@ -1345,7 +1345,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le DG de la Société d’Aménagement et de Promotion des Côtes et Zones touristiques du Sénégal (SAPCO SA) ?",
+    "question": "Qui est le DG de la Société d'Aménagement et de Promotion des Côtes et Zones touristiques du Sénégal (SAPCO SA) ?",
     "options": [
       "/nominations/serigne-mamadou-mboup-2.jfif",
       "/nominations/mouhamadou-moctar-magassouba.jfif",
@@ -1353,11 +1353,11 @@
       "/nominations/maguette-kane.jpeg"
     ],
     "answer": "/nominations/serigne-mamadou-mboup-2.jfif",
-    "explanation": "Serigne Mamadou MBOUP est le Directeur général de la Société d’Aménagement et de Promotion des Côtes et Zones touristiques du Sénégal (SAPCO SA)."
+    "explanation": "Serigne Mamadou MBOUP est le Directeur général de la Société d'Aménagement et de Promotion des Côtes et Zones touristiques du Sénégal (SAPCO SA)."
   },
   {
     "type": "image",
-    "question": "Qui est le DG de l'Agence de Développement et d’Encadrement des petites et moyennes entreprises (ADEPME) ?",
+    "question": "Qui est le DG de l'Agence de Développement et d'Encadrement des petites et moyennes entreprises (ADEPME) ?",
     "options": [
       "/nominations/marie-rose-faye.jfif",
       "/nominations/serigne-mamadou-mboup-2.jfif",
@@ -1365,7 +1365,7 @@
       "/nominations/bassirou-kebe.jfif"
     ],
     "answer": "/nominations/marie-rose-faye.jfif",
-    "explanation": "Marie Rose FAYE est la Directrice général de l'Agence de Développement et d’Encadrement des petites et moyennes entreprises (ADEPME)."
+    "explanation": "Marie Rose FAYE est la Directrice général de l'Agence de Développement et d'Encadrement des petites et moyennes entreprises (ADEPME)."
   },
   {
     "type": "image",
@@ -1381,7 +1381,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le DG de l'Agence nationale de l’Aménagement du Territoire (ANAT) ?",
+    "question": "Qui est le DG de l'Agence nationale de l'Aménagement du Territoire (ANAT) ?",
     "options": [
       "/nominations/tidiane-sidibe.jpg",
       "/nominations/yaye-khadidiatou-djamila-diallo.jfif",
@@ -1389,7 +1389,7 @@
       "/nominations/serigne-mamadou-mboup-2.jfif"
     ],
     "answer": "/nominations/tidiane-sidibe.jpg",
-    "explanation": "Tidiane SIDIBE est le Directeur général de l'Agence nationale de l’Aménagement du Territoire (ANAT)."
+    "explanation": "Tidiane SIDIBE est le Directeur général de l'Agence nationale de l'Aménagement du Territoire (ANAT)."
   },
   {
     "type": "image",
@@ -1405,7 +1405,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le DG de l'Office national de l’Assainissement du Sénégal (ONAS) ?",
+    "question": "Qui est le DG de l'Office national de l'Assainissement du Sénégal (ONAS) ?",
     "options": [
       "/nominations/chiekh-dieng.jfif",
       "/nominations/sekouna-diatta.jfif",
@@ -1413,11 +1413,11 @@
       "/nominations/yaye-khadidiatou-djamila-diallo.jfif"
     ],
     "answer": "/nominations/chiekh-dieng.jfif",
-    "explanation": "Docteur Cheikh DIENG est le Directeur général de l'Office national de l’Assainissement du Sénégal (ONAS)."
+    "explanation": "Docteur Cheikh DIENG est le Directeur général de l'Office national de l'Assainissement du Sénégal (ONAS)."
   },
   {
     "type": "image",
-    "question": "Qui est le Directeur général du Fonds Souverain d’Investissements Stratégiques (FONSIS) ?",
+    "question": "Qui est le Directeur général du Fonds Souverain d'Investissements Stratégiques (FONSIS) ?",
     "options": [
       "/nominations/babacar-ngning.jfif",
       "/nominations/chiekh-dieng.jfif",
@@ -1425,7 +1425,7 @@
       "/nominations/tidiane-sidibe.jpg"
     ],
     "answer": "/nominations/babacar-ngning.jfif",
-    "explanation": "Babacar GNING est le Directeur général du Fonds Souverain d’Investissements Stratégiques (FONSIS)."
+    "explanation": "Babacar GNING est le Directeur général du Fonds Souverain d'Investissements Stratégiques (FONSIS)."
   },
   {
     "type": "image",
@@ -1621,7 +1621,7 @@
   },
   {
     "type": "image",
-    "question": "Qui est le DG de la Société d’Aménagement et de Promotion des Côtes et Zones touristiques du Sénégal (SAPCO SA) ?",
+    "question": "Qui est le DG de la Société d'Aménagement et de Promotion des Côtes et Zones touristiques du Sénégal (SAPCO SA) ?",
     "options": [
       "/nominations/serigne-mamadou-mboup-2.jfif",
       "/nominations/mouhamadou-moctar-magassouba.jfif",
@@ -1629,11 +1629,11 @@
       "/nominations/maguette-kane.jpeg"
     ],
     "answer": "/nominations/serigne-mamadou-mboup-2.jfif",
-    "explanation": "Serigne Mamadou MBOUP est le Directeur général de la Société d’Aménagement et de Promotion des Côtes et Zones touristiques du Sénégal (SAPCO SA)."
+    "explanation": "Serigne Mamadou MBOUP est le Directeur général de la Société d'Aménagement et de Promotion des Côtes et Zones touristiques du Sénégal (SAPCO SA)."
   },
   {
     "type": "image",
-    "question": "Qui est le DG de l'Agence de Développement et d’Encadrement des petites et moyennes entreprises (ADEPME) ?",
+    "question": "Qui est le DG de l'Agence de Développement et d'Encadrement des petites et moyennes entreprises (ADEPME) ?",
     "options": [
       "/nominations/marie-rose-faye.jfif",
       "/nominations/serigne-mamadou-mboup-2.jfif",
@@ -1641,7 +1641,7 @@
       "/nominations/bassirou-kebe.jfif"
     ],
     "answer": "/nominations/marie-rose-faye.jfif",
-    "explanation": "Marie Rose FAYE est la Directrice général de l'Agence de Développement et d’Encadrement des petites et moyennes entreprises (ADEPME)."
+    "explanation": "Marie Rose FAYE est la Directrice général de l'Agence de Développement et d'Encadrement des petites et moyennes entreprises (ADEPME)."
   },
   {
     "type": "image",

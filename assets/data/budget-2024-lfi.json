@@ -425,10 +425,15 @@
         "amount": 80.13,
         "unit": "milliards"
       },
+      "execution_q2": {
+        "amount": 34.31,
+        "unit": "milliards"
+      },
       "execution_q1": {
         "amount": 22.21,
         "unit": "milliards"
       },
+
       "categories": [
         {
           "name": "Dépenses de personnel",
@@ -521,6 +526,10 @@
           }
         }
       ],
+      "execution_q2": {
+        "amount": 12.12,
+        "unit": "milliards"
+      },
       "execution_q1": {
         "amount": 8.79,
         "unit": "milliards"
@@ -535,6 +544,10 @@
         "amount": 20.16,
         "unit": "milliards",
         "increase": -2.9
+      },
+      "execution_q2": {
+        "amount": 12.66,
+        "unit": "milliards"
       },
       "execution_q1": {
         "amount": 5.81,
@@ -566,6 +579,10 @@
         "amount": 13.2,
         "unit": "milliards",
         "increase": 25.3
+      },
+      "execution_q2": {
+        "amount": 4.88,
+        "unit": "milliards"
       },
       "execution_q1": {
         "amount": 2.44,
@@ -605,6 +622,10 @@
         "unit": "milliards",
         "increase": -14.7
       },
+      "execution_q2": {
+        "amount": 4.83,
+        "unit": "milliards"
+      },
       "execution_q1": {
         "amount": 3.22,
         "unit": "milliards"
@@ -629,6 +650,10 @@
         "unit": "milliards",
         "increase": 0
       },
+      "execution_q2": {
+        "amount": 3.77,
+        "unit": "milliards"
+      },
       "execution_q1": {
         "amount": 1.89,
         "unit": "milliards"
@@ -652,6 +677,10 @@
         "amount": 5.1,
         "unit": "milliards",
         "increase": 55.5
+      },
+      "execution_q2": {
+        "amount": 1.3,
+        "unit": "milliards"
       },
       "execution_q1": {
         "amount": 0.65,
@@ -687,9 +716,13 @@
       "description": "Conseil Constitutionnel",
       "color": "bg-red-500",
       "totalBudget": {
-        "amount": 1.76,
+        "amount": 1.7,
         "unit": "milliards",
         "increase": -53.5
+      },
+      "execution_q2": {
+        "amount": 0.78,
+        "unit": "milliards"
       },
       "execution_q1": {
         "amount": 0.54,

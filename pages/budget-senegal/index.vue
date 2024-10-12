@@ -37,12 +37,33 @@ useHead({
   ],
 });
 
+const keyPoints = [
+  "Vie-Publique est tenu par des bénévoles, si vous voyez une erreur merci de nous aider à corriger",
+  "Les chiffres présentés sont basés sur les crédits de paiement de l'Annexe II de la LFI 2024",
+];
+
+const sources = [
+  { title: "Loi de finances 2024", url: "2024-lois-de-finances-2023-18" },
+  {
+    title: "Annexe la Loi de finances 2024",
+    url: "/pdf/budget/2024-loi-de-finances-annexes.pdf",
+  },
+  {
+    title: "Rapport d'exécution 1er trimestre 2024",
+    url: "/pdf/budget/2024-rapport-execution-budgetaire-premier-trimestre.pdf",
+  },
+  {
+    title: "Rapport d'exécution 2ème trimestre 2024",
+    url: "/pdf/budget/2024-rapport-execution-budgetaire-deuxieme-trimestre.pdf",
+  },
+];
+
 /* Get Datas */
 
 // const { data: budgetDatas } = await useFetch('/api/quiz-text')
 const { data: budgetDatas, pending } = useLazyFetch("/api/budget-lfi");
 
-const { data: q1Datas } = useLazyFetch("/api/budget-q1");
+const { data: q1Datas } = useLazyFetch("/api/budget-execution");
 
 const optionBudget = "Chiffres clés";
 const optionInstitutions = "Institutions";
@@ -139,5 +160,22 @@ const toggleSortOrder = () => {
       <BudgetTendance :data="q1Datas" />
     </div>
     <!-- END IF -->
+
+    <div class="mt-6">
+      <h2 class="mb-2 text-lg font-semibold">💡 NB</h2>
+      <ul class="list-disc space-y-1 pl-5">
+        <li v-for="point in keyPoints" :key="point">{{ point }}</li>
+      </ul>
+    </div>
+    <div class="mt-6">
+      <h2 class="mb-2 text-lg font-semibold">🗂️ Sources</h2>
+      <ul class="list-disc space-y-1 pl-5">
+        <li v-for="source in sources" :key="source.url">
+          <a :href="source.url" class="underline" target="_blank">{{
+            source.title
+          }}</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>

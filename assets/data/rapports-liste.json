@@ -128,8 +128,32 @@
     "annee": 2013,
     "period": "2013",
     "date_publication": "2013-12-31",
-    "url_pdf": "https://www.ige.sn/images/stories/rapport_compresse.pdf",
+    "url_pdf": "/pdf/rapport-senegal/IGE_2013.pdf",
     "sous_titre": "Rapport IGE annuel sur l'état de la gouvernance et de la reddition des comptes pour l'année 2013"
+  },
+  {
+    "resume_disponible": false,
+    "slug": "ige-2014",
+    "id": 22014,
+    "titre": "IGE rapport public 2014",
+    "organisme": "IGE",
+    "annee": 2014,
+    "period": "2014",
+    "date_publication": "2014-07-31",
+    "url_pdf": "/pdf/rapport-senegal/IGE_2014.pdf",
+    "sous_titre": "Rapport IGE annuel sur l'état de la gouvernance et de la reddition des comptes pour l'année 2014"
+  },
+  {
+    "resume_disponible": false,
+    "slug": "ige-2015",
+    "id": 22015,
+    "titre": "IGE rapport public 2015",
+    "organisme": "IGE",
+    "annee": 2015,
+    "period": "2015",
+    "date_publication": "2015-06-31",
+    "url_pdf": "/pdf/rapport-senegal/IGE_2015.pdf",
+    "sous_titre": "Rapport IGE annuel sur l'état de la gouvernance et de la reddition des comptes pour l'année 2015"
   },
   {
     "resume_disponible": false,
@@ -309,7 +333,7 @@
     "period": "2018 - 2021",
     "date_publication": "2023-12-04",
     "url_pdf": "/pdf/rapport-senegal/CC_2022_ASER.pdf",
-    "sous_titre": "Agence senegalaise d’electrification rurale, gestion 2018-2021"
+    "sous_titre": "Agence senegalaise d'electrification rurale, gestion 2018-2021"
   },
   {
     "resume_disponible": false,
@@ -345,7 +369,7 @@
     "period": "2017 à 2020",
     "date_publication": "2023-06-01",
     "url_pdf": "/pdf/rapport-senegal/CC_2023_ANAMO.pdf",
-    "sous_titre": "Agence nationale de la Maison de l’Outil, gestion 2017-2020"
+    "sous_titre": "Agence nationale de la Maison de l'Outil, gestion 2017-2020"
   },
   {
     "resume_disponible": false,
@@ -381,7 +405,7 @@
     "period": "2015 à 2018",
     "date_publication": "2022-07-27",
     "url_pdf": "/pdf/rapport-senegal/CC_2022_DAGE_Ministere_Sante.pdf",
-    "sous_titre": "Direction de l’Administration générale et de l’Equipement (DAGE) Ministère de la Santé et de l’Action Sociale, gestion de 2015 - 2018"
+    "sous_titre": "Direction de l'Administration générale et de l'Equipement (DAGE) Ministère de la Santé et de l'Action Sociale, gestion de 2015 - 2018"
   },
   {
     "resume_disponible": false,
@@ -429,7 +453,7 @@
     "period": "2019 à 2021",
     "date_publication": "2023-08-31",
     "url_pdf": "/pdf/rapport-senegal/CC_2023_PUMA.pdf",
-    "sous_titre": "Programme d’urgence de modernisation des axes et territoires frontaliers (PUMA), gestion de 2019 - 2021"
+    "sous_titre": "Programme d'urgence de modernisation des axes et territoires frontaliers (PUMA), gestion de 2019 - 2021"
   },
   {
     "resume_disponible": false,
@@ -465,7 +489,7 @@
     "period": "2019 à 2021",
     "date_publication": "2023-12-06",
     "url_pdf": "/pdf/rapport-senegal/CC_2023_PECHE_ARTISANALE.pdf",
-    "sous_titre": "Gestion des équipements de la pêche artisanale par le Ministère de la Pêche et de l’Economie maritime de 2019 à 2021"
+    "sous_titre": "Gestion des équipements de la pêche artisanale par le Ministère de la Pêche et de l'Economie maritime de 2019 à 2021"
   },
   {
     "resume_disponible": true,
@@ -525,7 +549,7 @@
     "period": "2014 à 2018",
     "date_publication": "2020-03-01",
     "url_pdf": "/pdf/rapport-senegal/CC_2020_CEREEQ.pdf",
-    "sous_titre": "Centre expérimental de Recherches et d’Etudes pour l’Equipement (C.E.R.E.EQ), gestion de 2014 à 2018"
+    "sous_titre": "Centre expérimental de Recherches et d'Etudes pour l'Equipement (C.E.R.E.EQ), gestion de 2014 à 2018"
   },
   {
     "resume_disponible": false,
@@ -573,7 +597,7 @@
     "period": "2012 à 2017",
     "date_publication": "2019-12-01",
     "url_pdf": "/pdf/rapport-senegal/CC_2019_ONAS.pdf",
-    "sous_titre": "Office national de l’Assainissement du Sénégal ONAS, gestion de 2012 à 2017"
+    "sous_titre": "Office national de l'Assainissement du Sénégal ONAS, gestion de 2012 à 2017"
   },
   {
     "resume_disponible": true,
@@ -597,7 +621,7 @@
     "period": "2012 à 2016",
     "date_publication": "2019-03-01",
     "url_pdf": "/pdf/rapport-senegal/CC_2019_APS.pdf",
-    "sous_titre": "L’Agence de Presse sénégalaise (APS), gestion de 2012 à 2016"
+    "sous_titre": "L'Agence de Presse sénégalaise (APS), gestion de 2012 à 2016"
   },
   {
     "resume_disponible": false,
@@ -609,7 +633,7 @@
     "period": "2013 à 2017",
     "date_publication": "2019-12-01",
     "url_pdf": "/pdf/rapport-senegal/CC_2019_OLAC.pdf",
-    "sous_titre": "Office des Lacs et Cours d’eau du Sénégal (OLAC), gestion de 2013 à 2017"
+    "sous_titre": "Office des Lacs et Cours d'eau du Sénégal (OLAC), gestion de 2013 à 2017"
   },
   {
     "resume_disponible": false,
@@ -657,19 +681,19 @@
     "period": "2027-2020",
     "date_publication": "2023-07-01",
     "url_pdf": "/pdf/rapport-senegal/CC_2023_CRSE.pdf",
-    "sous_titre": "Commission de Régulation du Secteur de l’Electricité, gestion 2017-2020"
+    "sous_titre": "Commission de Régulation du Secteur de l'Electricité, gestion 2017-2020"
   },
   {
     "resume_disponible": true,
     "slug": "cours-des-compte-personnel-etat-2021",
     "id": 54,
-    "titre": "Cours des comptes Rapport dépenses personnel de l’état (2015-2018)",
+    "titre": "Cours des comptes Rapport dépenses personnel de l'état (2015-2018)",
     "organisme": "Cours des Comptes",
     "annee": 2021,
     "period": "2015-2018",
     "date_publication": "2021-03-03",
     "url_pdf": "/pdf/rapport-senegal/CC_2021_Dépenses_personnel_Etat.pdf",
-    "sous_titre": "cours des compte sur le contrôle des dépenses de personnel de l’état entre 2015 et 2018"
+    "sous_titre": "cours des compte sur le contrôle des dépenses de personnel de l'état entre 2015 et 2018"
   },
   {
     "resume_disponible": true,
@@ -717,7 +741,7 @@
     "period": "2017 à 2020",
     "date_publication": "2022-05-01",
     "url_pdf": "/pdf/rapport-senegal/cour-des-comptes-2022-audit-ANAT-2017-2020.pdf",
-    "sous_titre": "Agence Nationale de l’Aménagement du Territoire (ANAT), gestion de 2013 à 2017 du DG Mamadou DJIGO"
+    "sous_titre": "Agence Nationale de l'Aménagement du Territoire (ANAT), gestion de 2013 à 2017 du DG Mamadou DJIGO"
   },
   {
     "resume_disponible": false,
