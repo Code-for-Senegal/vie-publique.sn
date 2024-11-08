@@ -40,6 +40,9 @@ function trackPDFDownload() {
     value: rapport.value.url_pdf,
   });
 }
+
+const runtimeConfig = useRuntimeConfig();
+const siteUrl = ref(runtimeConfig.public.siteUrl);
 </script>
 
 <template>
@@ -49,7 +52,7 @@ function trackPDFDownload() {
     <h1 v-if="rapport != null" class="sr-only">{{ rapport.titre }}</h1>
 
     <UButton
-      v-if="rapport != null"
+      v-if="rapport"
       class="bg-gray custom-shadow mb-2 w-full hover:bg-white"
     >
       <!-- <UBreadcrumb divider=">" :links=links class="px-2.5" /> -->
@@ -248,6 +251,20 @@ function trackPDFDownload() {
         cliquer sur le bouton pour télécharger le rapport pdf. La rédaction du
         résumé est en cours...
       </p>
+
+      <div v-if="rapport != null" class="mt-2">
+        <embed
+          :src="
+            'https://drive.google.com/viewerng/viewer?embedded=true&url=' +
+            siteUrl +
+            rapport.url_pdf
+          "
+          type="application/pdf"
+          width="100%"
+          height="600px"
+          title="test"
+        />
+      </div>
     </UCard>
   </div>
 </template>

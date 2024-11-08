@@ -1,7 +1,24 @@
 <script setup lang="ts">
 const currentYear = new Date().getFullYear();
-const version = "15-Sept";
+const version = "0711";
 
+const linksSocial = [
+  {
+    label: "Linkedin",
+    to: "https://www.linkedin.com/company/vie-publique-sn",
+    icon: "i-simple-icons-linkedin", // Exemple d'icône, peut être ajusté selon votre bibliothèque d'icônes
+  },
+  {
+    label: "Twitter",
+    to: "https://twitter.com/ViePubliqueSN",
+    icon: "i-simple-icons-x",
+  },
+  {
+    label: "Facebook",
+    to: "https://www.facebook.com/ViePubliqueSenegal",
+    icon: "i-simple-icons-facebook",
+  },
+];
 const links = [
   {
     label: "À Propos",
@@ -19,58 +36,53 @@ const links = [
     label: "Règles de confidentialité",
     to: "/about/privacy",
   },
-  {
-    label: "Linkedin",
-    to: "https://www.linkedin.com/company/vie-publique-sn",
-  },
-  {
-    label: "Twitter",
-    to: "https://twitter.com/ViePubliqueSN",
-  },
-  {
-    label: "Facebook",
-    to: "https://www.facebook.com/ViePubliqueSenegal",
-  },
 ];
 </script>
 
 <template>
-  <div
-    class="mt-5 flex h-px w-full items-center justify-center bg-gray-200 dark:bg-gray-800"
-  >
-    <div class="bg-transparent px-4 dark:bg-gray-900"></div>
-  </div>
+  <div class="mt-5 h-px w-full bg-gray-200 dark:bg-gray-800"></div>
 
-  <footer
-    class="relative mx-auto py-8 sm:px-6 lg:flex lg:items-center lg:justify-between lg:gap-x-3 lg:px-8 lg:py-4"
-  >
-    <ul
+  <footer class="relative mx-auto py-8 sm:px-6 lg:px-8 lg:py-4">
+    <!-- Social Links Row -->
+    <div class="flex items-center justify-center gap-6 pb-4">
+      <ULink
+        v-for="social in linksSocial"
+        :key="social.label"
+        :to="social.to"
+        class="text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
+        target="_blank"
+        aria-label="social.label"
+      >
+        <UIcon :name="social.icon" class="h-8 w-8" />
+      </ULink>
+    </div>
+
+    <!-- Footer Links Row -->
+    <div
       class="flex flex-col items-center justify-center gap-4 md:flex-row lg:gap-6"
     >
-      <li class="relative">
-        <p
-          class="text-sm text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
-        >
-          Version {{ version }}&copy;{{ currentYear }}
-        </p>
-      </li>
-      <li v-for="link in links" class="relative">
-        <ULink
-          :to="link.to"
-          class="text-sm text-gray-500 underline hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
-        >
-          {{ link.label }}
-        </ULink>
-      </li>
-    </ul>
+      <ul class="flex flex-col items-center gap-4 md:flex-row lg:gap-6">
+        <li v-for="link in links" :key="link.label">
+          <ULink
+            :to="link.to"
+            class="text-sm text-gray-500 underline hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
+          >
+            {{ link.label }}
+          </ULink>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="flex flex-col items-center py-4 text-sm text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
+    >
+      Version {{ version }} &copy; {{ currentYear }}
+    </div>
   </footer>
 </template>
 
 <style scoped>
 footer {
   border-top: 2px solid #fff;
-  -o-border-image: linear-gradient(45deg, green 33%, #ff0 67%, red) 5;
   border-image: linear-gradient(45deg, green 33%, #ff0 67%, red) 5;
-  /* border-image: linear-gradient(90deg, green 33%, #ff0 34%, #ff0 66%, red 67%) 5; */
 }
 </style>

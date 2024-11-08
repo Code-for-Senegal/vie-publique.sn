@@ -135,6 +135,7 @@ const aboutUslinks = [
       <NuxtPage />
     </NuxtLayout>
 
+    <!-- <NewsletterSocial /> -->
     <AppFooter />
   </UContainer>
 </template>
@@ -142,8 +143,6 @@ const aboutUslinks = [
 <style>
 .top-header {
   background-color: #f9f9f9;
-  /* background-color: #f2f2f2; */
-  /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05); */
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -151,8 +150,6 @@ nav ul li a span {
   text-transform: uppercase;
   font-family: "Quicksand", sans-serif;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
-
-  /* font-size: 0.75rem; */
 }
 
 .vertical-nav ul li a {

@@ -1,51 +1,96 @@
 <script lang="ts" setup>
 const starNews = [
   {
-    _path: "conseil-des-ministres/conseil-des-ministres-du-09-octobre-2024",
-    title: "Conseil des ministres du 09 octobre 2024",
-    date: "2024-10-08",
+    _path: "/conseil-des-ministres/conseil-des-ministres-du-06-novembre-2024",
+    title: "Conseil des ministres du 06 novembre 2024",
+    date: "2024-11-06",
     category: "Conseil des ministres",
-    image: "/images/communique-conseil-des-ministres-2.jpg",
+    image: "/images/conseil-des-ministres-du-06-novembre-2024.png",
   },
   {
     _path:
-      "/publications/actualites/reunion-interministerielle-sur-le-retour-des-deplaces-de-casamance",
-    title: "Réunion interministérielle sur le retour des déplacés de Casamance",
-    date: "2024-10-08",
-    category: "Conseil interministériel",
-    image:
-      "/images/actualites/reunion-interministerielle-sur-le-retour-des-deplaces-de-casamance.jpeg",
-  },
-  {
-    _path: "conseil-des-ministres/conseil-des-ministres-du-02-octobre-2024",
-    title: "Conseil des ministres du 02 octobre 2024",
-    date: "2024-10-02",
-    category: "Conseil des ministres",
-    image: "/images/communique-conseil-des-ministres-4.jpg",
-  },
-  {
-    _path:
-      "/publications/actualites/reddition-des-comptes-debut-des-poursuites",
-    title: "Reddition des comptes, Poursuites judiciaires",
-    date: "2024-09-30",
-    category: "Article",
-    image: "/images/actualites/reddition-des-compte-debut-poursuites.png",
-  },
-  {
-    _path:
-      "/publications/actualites/point-de-presse-du-gouvernement-26-09-2024",
-    title: "Point de presse du gouvernement, état des lieux du pays",
-    date: "2024-09-26",
-    category: "Articles",
-    image: "/images/actualites/point-de-presse-du-gouvernement-26-09-2024.jpeg",
-  },
-  {
-    _path: "/publications/actualites/discours-president-diomaye-onu-2024",
-    title: "Discours du président Diomaye à la 79e session de l'ONU",
-    date: "2024-09-25",
+      "/publications/actualites/president-diomaye-visite-etat-senegal-turquie",
+    title: "Président Diomaye en visite d'État en Turquie",
+    date: "2024-10-31",
     category: "Discours",
-    image: "/images/actualites/diomaye-onu-79e-session-2024.webp",
+    image: "/images/actualites/pr-diomaye-turquie-1.webp",
   },
+  {
+    _path:
+      "/publications/actualites/interview-president-diomaye-forum-fii-2024-riyad",
+    title:
+      "Interview du président Diomaye au Forum Future Investment Initiative À Riyad",
+    date: "2024-10-28",
+    category: "Discours",
+    image:
+      "/images/actualites/interview-president-diomaye-forum-fii-2024-riyad.jpg",
+  },
+  {
+    _path: "/conseil-des-ministres/conseil-des-ministres-du-23-octobre-2024",
+    title: "Conseil des ministres du 23 octobre 2024",
+    date: "2024-10-23",
+    category: "Conseil des ministres",
+    image: "/images/diomaye-faye-2.jpeg",
+  },
+  {
+    _path: "/conseil-des-ministres/conseil-des-ministres-du-16-octobre-2024",
+    title: "Conseil des ministres du 16 octobre 2024",
+    date: "2024-10-16",
+    category: "Conseil des ministres",
+    image: "/images/actualites/conseil-des-ministres-du-16-octobre-2024.png",
+  },
+  {
+    _path:
+      "/publications/actualites/conseil-interministeriel-sur-lorganisation-des-jeux-olympiques-jeunesse",
+    title: "Conseil interministériel sur l'organisation des JOJ 2026",
+    date: "2024-10-15",
+    category: "Conseil interministériel",
+    image: "/images/actualites/conseil-interministeriel-joj-2026.jpg",
+  },
+  {
+    _path: "/publications/actualites/senegal-2050-lancement",
+    title: "Lancement du référentiel « SÉNÉGAL 2050 »",
+    date: "2024-10-14",
+    category: "Article",
+    image: "/images/actualites/senegal-2050-lancement-1.PNG",
+  },
+  // {
+  //   _path: "/conseil-des-ministres/conseil-des-ministres-du-09-octobre-2024",
+  //   title: "Conseil des ministres du 09 octobre 2024",
+  //   date: "2024-10-08",
+  //   category: "Conseil des ministres",
+  //   image: "/images/communique-conseil-des-ministres-2.jpg",
+  // },
+  // {
+  //   _path: "conseil-des-ministres/conseil-des-ministres-du-02-octobre-2024",
+  //   title: "Conseil des ministres du 02 octobre 2024",
+  //   date: "2024-10-02",
+  //   category: "Conseil des ministres",
+  //   image: "/images/communique-conseil-des-ministres-4.jpg",
+  // },
+  // {
+  //   _path:
+  //     "/publications/actualites/reddition-des-comptes-debut-des-poursuites",
+  //   title: "Reddition des comptes, Poursuites judiciaires",
+  //   date: "2024-09-30",
+  //   category: "Article",
+  //   image: "/images/actualites/reddition-des-compte-debut-poursuites.png",
+  // },
+  // {
+  //   _path:
+  //     "/publications/actualites/point-de-presse-du-gouvernement-26-09-2024",
+  //   title: "Point de presse du gouvernement, état des lieux du pays",
+  //   date: "2024-09-26",
+  //   category: "Articles",
+  //   image: "/images/actualites/point-de-presse-du-gouvernement-26-09-2024.jpeg",
+  // },
+  // {
+  //   _path: "/publications/actualites/discours-president-diomaye-onu-2024",
+  //   title: "Discours du président Diomaye à la 79e session de l'ONU",
+  //   date: "2024-09-25",
+  //   category: "Discours",
+  //   image: "/images/actualites/diomaye-onu-79e-session-2024.webp",
+  // },
   // {
   //   _path:
   //     "/publications/actualites/mise-en-service-du-pool-judiciaire-financier",

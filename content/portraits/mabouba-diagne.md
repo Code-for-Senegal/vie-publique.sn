@@ -7,7 +7,7 @@ description: Garde des Sceaux, Ministre de la Justice du Gouvernement du Sénég
 
 **_Ministre de l’Agriculture, de la Souveraineté alimentaire et de l’Élevage_**
 
-<img src="/gouvernement/ministre-mabouba-diagne.jfif" alt="ministre Mabouba Diagne" width="300" fetchpriority="high">
+<img src="/gouvernement/ministre-mabouba-diagne.webp" alt="ministre Mabouba Diagne" width="300" fetchpriority="high">
 
 ## Nomination ministérielle
 
@@ -21,7 +21,9 @@ description: Garde des Sceaux, Ministre de la Justice du Gouvernement du Sénég
 
 ## Formation
 
-- Maîtrise et DEA à l'université Gaston Berger de St Louis au Sénégal (1995)
+- Lauréat au Concours général en Maths en 1989
+- Bac C
+- Maîtrise et DEA mention Bien à l'université Gaston Berger de Saint-Louis au Sénégal (1995)
 - Doctorat (PhD) en Financial Risk Management & Gestion de Portefeuille
 - Quatre (04) Diplômes de Masters dans les domaines des Mathématiques financières et Informatique
 

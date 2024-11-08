@@ -1,36 +1,30 @@
-interface Candidate {
-  first_name: string;
-  last_name: string;
-  profession: string;
-  gender: string;
-  position: number;
-  photo: string | null;
-  voter_number: string;
-}
+import type { Candidate } from "~/types/candidate";
 
 interface ElectoralList {
   name: string;
-  type: "national" | "departmental";
+  type: "national" | "departmental" | "diaspora";
   is_substitute: boolean;
   candidates: Candidate[];
   constituency: { name: string } | null;
 }
 
-// import type { ElectoralList } from '~/types/election'  // Assurez-vous d'avoir défini ce type
-
 export const useElectoralLists = (coalitionId: string) => {
-  console.log("useElectoralLists");
+  const config = useRuntimeConfig();
+
   return useAsyncData(
     `electoral-lists-${coalitionId}`,
     () =>
       $fetch<{ data: ElectoralList[] }>(
-        `https://cms.vie-publique.sn/items/election_electoral_lists`,
+        `${config.public.cmsApiUrl}/items/election_electoral_lists`,
         {
           params: {
             filter: { coalition: coalitionId },
+            limit: 400,
+            fields:
+              "name,type,is_substitute,candidates.first_name,candidates.last_name,candidates.profession,candidates.gender,candidates.position,candidates.photo,candidates.voter_number,constituency.name",
           },
           headers: {
-            Authorization: "Bearer UEKE4VSBPluwM9sUtUH0E-9bsL2Mnge1",
+            Authorization: `Bearer ${config.public.cmsApiKey}`,
           },
         },
       ),

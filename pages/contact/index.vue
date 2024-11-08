@@ -19,32 +19,15 @@ useHead({
 
     <div class="w-full max-w-4xl text-center">
       <div class="mb-4">
-        <h2 class="text-sm text-gray-500">
+        <h2 class="text-gray-500 sm:text-xl">
           Vous souhaitez nous transmettre des informations, nous faire des
           suggestions, nous signalez des erreur ou nous soumettre une
           proposition de partenariat, envoyez nous un Email à l'adresse mail
           suivante
         </h2>
-        <p class="text-blue-600 underline hover:text-blue-800">
+        <p class="py-8 text-xl text-blue-600 underline hover:text-blue-800">
           <a href="mailto:contact@vie-publique.sn">contact@vie-publique.sn</a>
         </p>
-      </div>
-      <div class="mb-4 hidden">
-        <h2 class="text-md text-gray-500">Twitter</h2>
-        <a
-          href="https://x.com/malick_yacine"
-          target="_blank"
-          rel="noopener"
-          class="space-x-2 text-blue-600 hover:text-blue-600"
-        >
-          <!-- <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M23.954 4.569a9.918 9.918 0 0 1-2.825.775 4.932 4.932 0 0 0 2.165-2.724 9.865 9.865 0 0 1-3.127 1.195 4.924 4.924 0 0 0-8.388 4.482A13.978 13.978 0 0 1 1.671 3.149a4.905 4.905 0 0 0 1.523 6.574 4.895 4.895 0 0 1-2.231-.616v.061a4.925 4.925 0 0 0 3.946 4.827 4.996 4.996 0 0 1-2.224.085 4.93 4.93 0 0 0 4.604 3.417A9.874 9.874 0 0 1 .94 20.895a13.949 13.949 0 0 0 7.548 2.212c9.058 0 14.01-7.498 14.01-13.987 0-.21-.005-.422-.015-.633A10.01 10.01 0 0 0 24 4.59z" />
-                    </svg> -->
-
-          <!-- <UIcon name="i-heroicons-light-bulb" /> -->
-          <span>@malicktech</span>
-        </a>
       </div>
 
       <div class="mb-4 hidden">
