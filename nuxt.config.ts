@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     "@vueuse/motion/nuxt",
     "@nuxt/eslint",
     "@pinia/nuxt",
+    "@nuxtjs/leaflet",
   ],
   devtools: { enabled: true },
   nitro: {
@@ -20,12 +21,12 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL,
       showPinnedPeoples: process.env.PUBLIC_SHOW_PINNED_PEOLPLES,
       showBarometer: process.env.PUBLIC_SHOW_BAROMETER,
       showScandals: process.env.PUBLIC_SHOW_SCANDALS,
       brevoApiKey: process.env.BREVO_API_KEY,
       brevoListId: process.env.BREVO_LIST_ID,
-      googleAdsId: process.env.GOOGLE_ADS_ID,
       cmsApiUrl: process.env.CMS_API_URL,
       cmsApiKey: process.env.CMS_API_KEY,
       redirects: [
@@ -149,11 +150,6 @@ export default defineNuxtConfig({
   gtag: {
     enabled: !!process.env.GTAG_ID,
     id: process.env.GTAG_ID,
-    config: {
-      send_page_view: true,
-      anonymize_ip: true,
-      conversion_linker: true,
-    },
   },
   webVitals: {
     provider: "ga",
@@ -164,7 +160,10 @@ export default defineNuxtConfig({
     sources: ["/api/__sitemap__/urls"],
   },
   image: {
-    // Options
+    directus: {
+      // This URL needs to include the final `assets/` directory
+      baseURL: process.env.CMS_API_URL_ASSETS,
+    },
   },
   compatibilityDate: "2024-09-08",
 });
