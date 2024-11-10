@@ -28,7 +28,7 @@ const electionCategories = [
     color: "bg-red-100 text-red-700",
   },
   {
-    display: false,
+    display: true,
     title: "Carte électorale",
     description: "Lieux et Bureaux de vote. Bientôt disponible",
     icon: "i-heroicons-map",
