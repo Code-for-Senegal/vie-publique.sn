@@ -12,25 +12,39 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="md:grid-cols mb-6 mt-2 grid grid-cols-1 gap-4">
-    <UCard
-      v-for="menu in menus"
-      :key="menu.label"
-      class="custom-shadow p-2 hover:shadow-xl"
+  <div class="relative overflow-hidden rounded-lg shadow-lg">
+    <!-- Image de fond avec effet sombre -->
+    <div
+      class="absolute inset-0 bg-cover bg-center"
+      :style="{ backgroundImage: `url('/images/elections/assemble-1.jpg')` }"
     >
-      <NuxtLink :to="menu.to" class="flex items-start">
-        <div class="mr-4 flex-shrink-0">
-          <div
-            class="flex h-14 w-14 items-center justify-center rounded-full bg-green-100"
-          >
-            <UIcon :name="menu.icon" class="h-8 w-8 text-green-700" />
-          </div>
-        </div>
-        <div>
-          <h2 class="text-md font-bold text-green-700">{{ menu.label }}</h2>
-          <p class="text-sm text-gray-700">{{ menu.description }}</p>
-        </div>
+      <div class="absolute inset-0 bg-black opacity-60"></div>
+      <!-- Overlay sombre pour lisibilité du texte -->
+    </div>
+
+    <!-- Contenu du bloc -->
+    <div class="relative z-10 p-8 text-center text-white">
+      <h2 class="mb-4 text-4xl font-extrabold">Législatives 2024</h2>
+      <p class="mb-6 text-lg font-semibold leading-relaxed drop-shadow-md">
+        Découvrez les coalitions, les candidats et informations essentielles
+        pour les élections du 17 Novembre.
+      </p>
+      <NuxtLink
+        to="/elections"
+        class="inline-block rounded-full bg-green-700 px-6 py-2 text-lg font-semibold shadow-lg transition hover:bg-green-800"
+      >
+        Consulter les informations
       </NuxtLink>
-    </UCard>
+    </div>
   </div>
 </template>
+
+<style scoped>
+/* Styles supplémentaires pour la transition */
+.relative {
+  transition: transform 0.3s ease-in-out;
+}
+.relative:hover {
+  transform: scale(1.02);
+}
+</style>

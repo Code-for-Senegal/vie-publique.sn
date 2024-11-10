@@ -28,7 +28,7 @@
             :key="item.tranche"
             class="transition-colors hover:bg-gray-50"
           >
-            <td class="px-4 py-2">
+            <td class="py-2">
               <div class="flex items-center gap-2">
                 <div
                   class="h-4 w-4 rounded-full"
@@ -186,7 +186,7 @@ const drawChart = () => {
     .attr("stroke", "white")
     .attr("stroke-width", 2)
     .transition()
-    .duration(1000)
+    .duration(300)
     .attrTween("d", function (d) {
       const i = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
       return function (t) {

@@ -6,5 +6,5 @@ export interface Candidate {
   position: number;
   photo: string | null;
   voter_number: string;
-  bio: string | null;
+  biography: string | null;
 }

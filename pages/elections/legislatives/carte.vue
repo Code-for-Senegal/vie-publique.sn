@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import ElectionMapElectoral from "~/components/Election/ElectionMapElectoral.vue";
+
 // import ElectionLeaflet from "~/components/Election/ElectionLeaflet.vue";
 
 useHead({
@@ -7,21 +9,44 @@ useHead({
 
 const { regions, loading, error, fetchRegions } = useRegionsData();
 
-const optionMap = "map";
-const optionMap2 = "map2";
-const optionList = "list";
-const senegalMap = "SenegalMap";
-const senegalMapGenerator = "SenegalMapGenerator";
-const selectedOptions = ref(optionMap);
+const optionMap1 = "Opentreet 1";
+const optionMap2 = "Opentreet 2";
+const optionMap3 = "Opentreet 3";
+const optionMapChoroplet = "Opentreet Choroplet";
+const optionList = "List";
+const senegalMap = "Senegal Map";
+const senegalMapGenerator = "Senegal Map Generator";
+const electionMapElectoral = "Election Map Electoral";
+const selectedOptions = ref(optionMap1);
 
 const items = [
   [
     {
-      label: "Carte Base",
+      label: "Carte Base 1",
       icon: "i-heroicons-map-solid",
       click: () => {
         console.log("Carte");
-        selectedOptions.value = optionMap;
+        selectedOptions.value = optionMap1;
+      },
+    },
+  ],
+  [
+    {
+      label: "Carte Base 2",
+      icon: "i-heroicons-map-solid",
+      click: () => {
+        console.log("Carte");
+        selectedOptions.value = optionMap2;
+      },
+    },
+  ],
+  [
+    {
+      label: "Carte Base 3",
+      icon: "i-heroicons-map-solid",
+      click: () => {
+        console.log("Carte");
+        selectedOptions.value = optionMap3;
       },
     },
   ],
@@ -31,7 +56,7 @@ const items = [
       icon: "i-heroicons-map-solid",
       click: () => {
         console.log("Carte");
-        selectedOptions.value = optionMap2;
+        selectedOptions.value = optionMapChoroplet;
       },
     },
   ],
@@ -45,56 +70,66 @@ const items = [
       },
     },
   ],
-  [
-    {
-      label: "SenegalMap",
-      icon: "i-heroicons-list-bullet-solid",
-      click: () => {
-        console.log("SenegalMap");
-        selectedOptions.value = senegalMap;
-      },
-    },
-  ],
-  [
-    {
-      label: "senegalMapGenerator",
-      icon: "i-heroicons-list-bullet-solid",
-      click: () => {
-        console.log("senegalMapGenerator");
-        selectedOptions.value = senegalMapGenerator;
-      },
-    },
-  ],
+  // [
+  //   {
+  //     label: "SenegalMap",
+  //     icon: "i-heroicons-list-bullet-solid",
+  //     click: () => {
+  //       console.log("SenegalMap");
+  //       selectedOptions.value = senegalMap;
+  //     },
+  //   },
+  // ],
+  // [
+  //   {
+  //     label: "senegalMapGenerator",
+  //     icon: "i-heroicons-list-bullet-solid",
+  //     click: () => {
+  //       console.log("senegalMapGenerator");
+  //       selectedOptions.value = senegalMapGenerator;
+  //     },
+  //   },
+  // ],
+  // [
+  //   {
+  //     label: "electionMapElectoral",
+  //     icon: "i-heroicons-list-bullet-solid",
+  //     click: () => {
+  //       console.log("electionMapElectoral");
+  //       selectedOptions.value = electionMapElectoral;
+  //     },
+  //   },
+  // ],
 ];
 
-const itemsSelect = [
-  {
-    label: "Carte Base",
-    icon: "i-heroicons-map-solid",
-    click: () => {
-      console.log("Carte");
-      selectedOptions.value = optionMap;
-    },
-  },
+// const itemsSelect = [
+//   {
+//     label: "Carte Base",
+//     icon: "i-heroicons-map-solid",
+//     click: () => {
+//       console.log("Carte");
+//       selectedOptions.value = optionMap;
+//     },
+//   },
 
-  {
-    label: "Carte choroplèthe",
-    icon: "i-heroicons-map-solid",
-    click: () => {
-      console.log("Carte");
-      selectedOptions.value = optionMap2;
-    },
-  },
+//   {
+//     label: "Carte choroplèthe",
+//     icon: "i-heroicons-map-solid",
+//     click: () => {
+//       console.log("Carte");
+//       selectedOptions.value = optionMap2;
+//     },
+//   },
 
-  {
-    label: "Liste",
-    icon: "i-heroicons-list-bullet-solid",
-    click: () => {
-      console.log("Liste");
-      selectedOptions.value = optionList;
-    },
-  },
-];
+//   {
+//     label: "Liste",
+//     icon: "i-heroicons-list-bullet-solid",
+//     click: () => {
+//       console.log("Liste");
+//       selectedOptions.value = optionList;
+//     },
+//   },
+// ];
 
 const retryLoading = async () => {
   await fetchRegions();
@@ -119,9 +154,11 @@ onMounted(async () => {
     <!-- Loading State -->
     <div
       v-if="loading"
-      class="absolute inset-0 z-50 flex items-center justify-center bg-white/80"
+      class="absolute inset-0 z-50 flex hidden items-center justify-center bg-white/80"
     >
-      <USpinner />
+      <div
+        class="h-20 w-20 animate-spin rounded-full border-8 border-gray-300 border-t-green-700"
+      ></div>
     </div>
 
     <!-- Error State -->
@@ -167,16 +204,30 @@ onMounted(async () => {
     </USelectMenu> -->
 
     <!-- CARTE 1 -->
-    <ElectionMapComponent
-      v-if="selectedOptions == optionMap"
+    <ElectionMapComponent1
+      v-if="selectedOptions == optionMap1"
       :initial-zoom="7"
+      :regions="regions"
+      :loading="loading"
+    />
+
+    <!-- CARTE 1 -->
+    <ElectionMapComponent2
+      v-if="selectedOptions == optionMap2"
+      :regions="regions"
+      :loading="loading"
+    />
+
+    <!-- CARTE 1 -->
+    <ElectionMapComponent3
+      v-if="selectedOptions == optionMap3"
       :regions="regions"
       :loading="loading"
     />
 
     <!-- CARTE 2 -->
     <ElectionMapChoropleteComponent
-      v-else-if="selectedOptions == optionMap2"
+      v-else-if="selectedOptions == optionMapChoroplet"
       :regions="regions"
       :loading="loading"
     />
@@ -196,6 +247,15 @@ onMounted(async () => {
     >
       <h1 class="mb-6 text-3xl font-bold">SenegalMapGenerator du Sénégal</h1>
       <ElectionSenegalMapGenerator />
+    </div>
+
+    <!-- CARTE 4 -->
+    <div
+      class="container mx-auto px-4 py-8"
+      v-if="selectedOptions == electionMapElectoral"
+    >
+      <h1 class="mb-6 text-3xl font-bold">ElectionMapElectoral</h1>
+      <ElectionMapElectoral />
     </div>
 
     <!-- LISTE -->

@@ -12,7 +12,9 @@
         v-if="loading"
         class="absolute inset-0 z-50 flex items-center justify-center bg-white bg-opacity-75"
       >
-        <USpinner />
+        <div
+          class="h-20 w-20 animate-spin rounded-full border-8 border-gray-300 border-t-green-700"
+        ></div>
       </div>
 
       <!-- Error state -->

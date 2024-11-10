@@ -56,7 +56,7 @@ const listViewTypes = [
   listViewTypeHeadOfList,
 ];
 
-const links = [{ label: "Élections", to: "/elections" }];
+const links = [{ label: "Tableau de Bord Élections", to: "/elections" }];
 </script>
 
 <template>
@@ -70,7 +70,7 @@ const links = [{ label: "Élections", to: "/elections" }];
     </UButton>
 
     <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">Listes Législatives 2024</h1>
+      <h1 class="text-center">Candidatures Législatives 2024</h1>
     </div>
 
     <div class="my-3 w-full text-center">
@@ -116,6 +116,7 @@ const links = [{ label: "Élections", to: "/elections" }];
             coalitions?.length > 0
           "
           :coalitions="coalitions"
+          :loading="loadingCoalitions"
         />
 
         <ElectionListBulletin

@@ -13,12 +13,6 @@ useHead({
 });
 
 const links = [
-  // {
-  //   label: "Elections législatives",
-  //   description: "Elections anticipé du 17 Novembre",
-  //   icon: "i-heroicons-document-text",
-  //   to: "/elections/legislatives",
-  // },
   {
     label: "Conseil des ministres",
     description: "Communiqués des conseil des ministres...",
@@ -49,7 +43,7 @@ const links = [
 const newFeatures = [
   {
     label: "Législatives 2024",
-    description: "Elections législatives anticipés du 17 Novembre",
+    description: "Elections législatives anticipées du 17 Novembre",
     icon: "i-heroicons-star",
     to: "/elections",
   },

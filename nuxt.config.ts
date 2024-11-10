@@ -29,6 +29,7 @@ export default defineNuxtConfig({
       brevoListId: process.env.BREVO_LIST_ID,
       cmsApiUrl: process.env.CMS_API_URL,
       cmsApiKey: process.env.CMS_API_KEY,
+      fbPixelId: process.env.FACEBOOK_PIXEL_ID || "",
       redirects: [
         { from: "^/reports(.*)", to: "/rapport-senegal$1" },
         { from: "^/budget-etat-senegal(.*)", to: "/budget-senegal$1" },

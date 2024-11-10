@@ -3,49 +3,38 @@
     Cliquez sur une photo pour voir la liste des candidats
   </p>
   <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+    <!-- Skeleton de chargement -->
     <div v-if="loading">
       <div v-for="n in 41" :key="n" class="w-full">
         <div class="h-48 w-full animate-pulse rounded-lg bg-gray-200"></div>
       </div>
     </div>
 
+    <!-- Affichage des coalitions -->
     <div
-      v-else
       v-for="coalition in coalitions"
+      v-else
       :key="coalition.id"
-      class="relative flex h-56 flex-col overflow-hidden rounded-lg shadow-lg"
+      class="relative flex flex-col overflow-hidden rounded-lg shadow-lg"
+      style="height: 250px"
     >
       <NuxtLink
         :to="`/elections/legislatives/${coalition.id}`"
         class="group block"
       >
         <img
-          :src="$directusImageUrl(coalition.head_of_list?.photo, '50')"
+          :src="$directusImageUrl(coalition.head_of_list?.photo, '25')"
           alt="Photo tête de liste"
-          class="h-full w-full object-cover"
+          class="h-full w-full object-contain"
           loading="lazy"
           fetchpriority="high"
         />
 
+        <!-- Overlay sombre pour le texte -->
         <div class="absolute inset-0 bg-black bg-opacity-40"></div>
 
-        <!-- Texte superposé (Nom, prénom, profession) -->
+        <!-- Détails de la tête de liste -->
         <div class="absolute inset-0 flex flex-col justify-end p-2 text-white">
-          <!-- <div
-                        class="absolute left-2 top-2 rounded-full p-1 text-xs font-bold text-white"
-                        :class="
-                          item.is_substitute ? 'bg-orange-600' : 'bg-green-700'
-                        "
-                        style="
-                          width: 30px;
-                          height: 30px;
-                          display: flex;
-                          justify-content: center;
-                          align-items: center;
-                        "
-                      >
-                        {{ candidate.position }}
-                      </div> -->
           <h4 class="font-bold capitalize">
             {{ coalition.head_of_list?.first_name.toLowerCase() }}
             <span class="capitalize">
@@ -56,7 +45,7 @@
           <p
             class="line-clamp-1 rounded-full bg-green-700 px-1 text-xs lowercase capitalize"
           >
-            {{ coalition.name }}
+            {{ coalition.list_order }}. {{ coalition.name }}
           </p>
         </div>
       </NuxtLink>

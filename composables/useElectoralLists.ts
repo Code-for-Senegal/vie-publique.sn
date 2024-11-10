@@ -21,7 +21,7 @@ export const useElectoralLists = (coalitionId: string) => {
             filter: { coalition: coalitionId },
             limit: 400,
             fields:
-              "name,type,is_substitute,candidates.first_name,candidates.last_name,candidates.profession,candidates.gender,candidates.position,candidates.photo,candidates.voter_number,constituency.name",
+              "name,type,is_substitute,candidates.first_name,candidates.last_name,candidates.profession,candidates.gender,candidates.position,candidates.photo,candidates.biography,candidates.voter_number,constituency.name",
           },
           headers: {
             Authorization: `Bearer ${config.public.cmsApiKey}`,

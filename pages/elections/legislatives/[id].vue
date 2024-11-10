@@ -172,7 +172,7 @@ function openModal(minister: Candidate) {
             </div>
           </template>
 
-          <div class="px-2 text-center">
+          <div class="text-center">
             <h2 class="text-xl font-semibold">
               <span class="capitalize">{{
                 selectedCandidat.first_name.toLowerCase()
@@ -180,20 +180,19 @@ function openModal(minister: Candidate) {
               {{ selectedCandidat.last_name.toUpperCase() }}
             </h2>
             <div v-if="selectedCandidat.profession" class="mt-1">
-              <!-- <p class="text-sm text-gray-500">Profession</p> -->
-              <p class="text-sm capitalize">
+              <p class="text-sm font-semibold capitalize text-green-700">
                 {{ selectedCandidat.profession.toLowerCase() }}
               </p>
             </div>
-            <div v-if="selectedCandidat.bio" class="mt-1">
-              <p class="text-sm text-gray-500">Bio</p>
-              <p class="text-sm">{{ $dateformat(selectedCandidat.bio) }}</p>
+            <div v-if="selectedCandidat.biography" class="mt-1">
+              <p class="text-sm">
+                {{ selectedCandidat.biography }}
+              </p>
             </div>
           </div>
 
           <template #footer>
-            <Placeholder class="h-8" />
-            <div class="p-2 text-right">
+            <div class="p-0 text-right">
               <UButton color="white" @click="isModalOpen = false"
                 >Fermer</UButton
               >
