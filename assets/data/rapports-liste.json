@@ -994,5 +994,77 @@
     "date_publication": "2022-10-01",
     "url_pdf": "/pdf/rapport-senegal/cour-des-comptes-2022-SEN-032-formation-pro-et-employabilite.pdf",
     "sous_titre": "Audit du programme SEN/032 formation profesionnelle et technique, employabilité gestion 2019 et 2020"
+  },
+  {
+    "resume_disponible": false,
+    "slug": "cours-des-comptes-2017",
+    "id": 80,
+    "titre": "Cours des comptes Rapport Public Annuel 2017",
+    "organisme": "Cours des Comptes",
+    "annee": 2017,
+    "period": "2017",
+    "date_publication": "2017-31-01",
+    "url_pdf": "/pdf/rapport-senegal/CC_2017.pdf",
+    "sous_titre": "Rapport Public général Annuel 2017"
+  },
+  {
+    "resume_disponible": false,
+    "slug": "cours-des-comptes-2016",
+    "id": 81,
+    "titre": "Cours des comptes Rapport Public Annuel 2016",
+    "organisme": "Cours des Comptes",
+    "annee": 2016,
+    "period": "2016",
+    "date_publication": "2016-31-01",
+    "url_pdf": "/pdf/rapport-senegal/CC_2016.pdf",
+    "sous_titre": "Rapport Public général Annuel 2016"
+  },
+  {
+    "resume_disponible": false,
+    "slug": "cours-des-comptes-2015",
+    "id": 82,
+    "titre": "Cours des comptes Rapport Public Annuel 2015",
+    "organisme": "Cours des Comptes",
+    "annee": 2015,
+    "period": "2015",
+    "date_publication": "2015-31-01",
+    "url_pdf": "/pdf/rapport-senegal/CC_2015.pdf",
+    "sous_titre": "Rapport Public général Annuel 2015"
+  },
+  {
+    "resume_disponible": false,
+    "slug": "cours-des-comptes-2014",
+    "id": 83,
+    "titre": "Cours des comptes Rapport Public Annuel 2014",
+    "organisme": "Cours des Comptes",
+    "annee": 2014,
+    "period": "2014",
+    "date_publication": "2014-31-01",
+    "url_pdf": "/pdf/rapport-senegal/CC_2014.pdf",
+    "sous_titre": "Rapport Public général Annuel 2014"
+  },
+  {
+    "resume_disponible": false,
+    "slug": "cours-des-comptes-2013",
+    "id": 84,
+    "titre": "Cours des comptes Rapport Public Annuel 2013",
+    "organisme": "Cours des Comptes",
+    "annee": 2013,
+    "period": "2013",
+    "date_publication": "2013-31-01",
+    "url_pdf": "/pdf/rapport-senegal/CC_2013.pdf",
+    "sous_titre": "Rapport Public général Annuel 2013"
+  },
+  {
+    "resume_disponible": false,
+    "slug": "cours-des-comptes-2012",
+    "id": 85,
+    "titre": "Cours des comptes Rapport Public Annuel 2012",
+    "organisme": "Cours des Comptes",
+    "annee": 2012,
+    "period": "2012",
+    "date_publication": "2012-31-01",
+    "url_pdf": "/pdf/rapport-senegal/CC_2012.pdf",
+    "sous_titre": "Rapport Public général Annuel 2012"
   }
 ]
