@@ -1,6 +1,7 @@
 <!-- components/MapComponent.vue -->
 <template>
   <div class="relative h-[600px] w-full">
+    <!-- Loading spinner -->
     <div
       v-if="loading"
       class="absolute inset-0 z-50 flex items-center justify-center bg-white/80"
@@ -19,7 +20,7 @@
         class="z-0 h-full w-full"
         @ready="handleMapReady"
       >
-        <!-- Utilisation d'un fond de carte plus simple -->
+        <!-- 1. Fond de carte -->
         <LTileLayer
           url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png"
           layer-type="base"
@@ -27,6 +28,22 @@
           :options="tileLayerOptions"
         />
 
+        <!-- 2. Masque pour cacher les pays voisins -->
+        <!-- Masque ajusté pour le Sénégal -->
+        <LGeoJson
+          :geojson="senegalMask"
+          :options="{
+            style: {
+              fillColor: '#ffffff',
+              color: '#ffffff',
+              weight: 1,
+              opacity: 1,
+              fillOpacity: 1,
+            },
+          }"
+        />
+
+        <!-- 3. Départements du Sénégal -->
         <template v-for="region in regions" :key="region.id">
           <LPolygon
             :lat-lngs="region.coordinates"
@@ -54,7 +71,7 @@
                 <p>Région: {{ region.region }}</p>
               </div>
               <NuxtLink
-                :to="`/elections/legislatives/31`"
+                :to="`/elections/legislatives/carte-electorale/nationale/${region.departement.toUpperCase()}`"
                 class="rounded-md bg-green-100 p-2 text-green-700"
                 >Voir plus</NuxtLink
               >
@@ -90,13 +107,32 @@ const zoom: Ref<number> = ref(props.initialZoom);
 const center: Ref<LatLng> = ref(props.initialCenter);
 const mapInstance: Ref<unknown> = ref(null);
 
+// Définition du masque inverse pour le Sénégal
+const senegalMask = {
+  type: "Feature",
+  properties: {},
+  geometry: {
+    type: "Polygon",
+    coordinates: [
+      [
+        [-18.0, 17.0], // Coin Nord-Ouest
+        [-11.0, 17.0], // Coin Nord-Est
+        [-11.0, 12.0], // Coin Sud-Est
+        [-18.0, 12.0], // Coin Sud-Ouest
+        [-18.0, 17.0], // Retour au point de départ
+      ],
+    ],
+  },
+};
+
 // Options de la carte optimisées
+// Ajustement des options de la carte
 const mapOptions = {
-  minZoom: 6,
-  maxZoom: 9,
+  minZoom: 7,
+  maxZoom: 11,
   maxBounds: [
-    [12.3, -17.5], // Sud-Ouest
-    [16.7, -11.4], // Nord-Est
+    [12.0, -17.7], // Sud-Ouest
+    [16.9, -11.3], // Nord-Est
   ],
   zoomControl: true,
   attributionControl: false,
@@ -107,11 +143,11 @@ const mapOptions = {
   dragging: true,
 };
 
-// Options des tuiles
+// Options des tuiles avec opacité ajustée
 const tileLayerOptions = {
   maxZoom: 9,
   minZoom: 6,
-  opacity: 0.3, // Réduire l'opacité du fond de carte
+  opacity: 0.4, // Fond de carte légèrement plus visible
 };
 
 // Options des polygones
@@ -121,27 +157,28 @@ const polygonOptions = {
 };
 
 // Palette de couleurs distinctes pour les départements
+// Palette de couleurs optimisée pour une meilleure distinction
 const REGION_COLORS = [
-  "#1f77b4",
-  "#ff7f0e",
-  "#2ca02c",
-  "#d62728",
-  "#9467bd",
-  "#8c564b",
-  "#e377c2",
-  "#7f7f7f",
-  "#bcbd22",
-  "#17becf",
-  "#aec7e8",
-  "#ffbb78",
-  "#98df8a",
-  "#ff9896",
-  "#c5b0d5",
-  "#c49c94",
-  "#f7b6d2",
-  "#c7c7c7",
-  "#dbdb8d",
-  "#9edae5",
+  "#e6194B",
+  "#3cb44b",
+  "#ffe119",
+  "#4363d8",
+  "#f58231",
+  "#911eb4",
+  "#42d4f4",
+  "#f032e6",
+  "#bfef45",
+  "#fabed4",
+  "#469990",
+  "#dcbeff",
+  "#9A6324",
+  "#fffac8",
+  "#800000",
+  "#aaffc3",
+  "#808000",
+  "#ffd8b1",
+  "#000075",
+  "#a9a9a9",
 ] as const;
 
 const getRegionColor = (region: TransformedRegion): string => {
@@ -196,10 +233,21 @@ const calculateBounds = (regions: TransformedRegion[]) => {
   box-shadow: none !important;
   color: #000;
   font-size: 10px;
+  font-weight: 600;
   text-shadow:
     -1px -1px 0 #fff,
     1px -1px 0 #fff,
     -1px 1px 0 #fff,
     1px 1px 0 #fff;
+}
+
+/* Ajout d'un effet de hover sur les départements */
+.leaflet-interactive {
+  transition: all 0.2s ease;
+}
+
+.leaflet-interactive:hover {
+  fillopacity: 0.8 !important;
+  cursor: pointer;
 }
 </style>
