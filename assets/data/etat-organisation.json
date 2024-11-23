@@ -1,0 +1,2884 @@
+[
+  {
+    "name": "Présidence de la République",
+    "children": [
+      {
+        "name": "Cabinet du Président de la République",
+        "children": [
+          { "name": "Inspection générale d'Etat (IGE)" },
+          {
+            "name": "Office national de lutte contre la Fraude et la Corruption (OFNAC)"
+          },
+          {
+            "name": "Comité d'Orientation stratégique du Pétrole et du Gaz (COS-PETROGAZ)"
+          },
+          {
+            "name": "Commission nationale du Dialogue des Territoires (CNDT)"
+          },
+          {
+            "name": "Bureau de Suivi et d'Evaluation des Politiques et Programmes publics"
+          },
+          {
+            "name": "Direction des Affaires religieuses et de l'insertion des diplômés en langue arabe"
+          },
+          { "name": "Haut Conseil du Dialogue social" },
+          {
+            "name": "Pôle diplomatique",
+            "children": [
+              { "name": "Conseiller(s) diplomatique(s)" },
+              {
+                "name": "Bureau du représentant personnel du Chef de l'Etat auprès de l'Organisation internationale de la Francophonie"
+              }
+            ]
+          },
+          {
+            "name": "Pôle des affaires protocolaires",
+            "children": [
+              { "name": "Service du Protocole présidentiel" },
+              { "name": "Grande Chancellerie de l'Ordre national du Lion" }
+            ]
+          },
+          {
+            "name": "Pôle Juridique",
+            "children": [{ "name": "Conseiller(s) juridique(s)" }]
+          },
+          {
+            "name": "Pôle Communication et Porte-parolat",
+            "children": [
+              { "name": "Cellule audiovisuelle" },
+              { "name": "Cellule digitale" }
+            ]
+          },
+          {
+            "name": "Pôle Sécurité",
+            "children": [
+              { "name": "Délégation générale au renseignement national" },
+              { "name": "Secrétariat du Conseil national de Sécurité" }
+            ]
+          },
+          {
+            "name": "Pôle de Coordination des missions régaliennes",
+            "children": [
+              {
+                "name": "Secrétariat du Conseil supérieur de la Magistrature"
+              },
+              {
+                "name": "Secrétariat du Conseil supérieur de la Cour des Comptes"
+              },
+              { "name": "Commission nationale de la Gestion des Frontières" }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Cabinet militaire du Président de la République",
+        "children": [
+          { "name": "Inspection générale des Forces armées" },
+          { "name": "Etat-Major particulier du Président de la République" },
+          {
+            "name": "Haute Autorité chargée de la Coordination de la Sécurité maritime, de la Sûreté maritime et de la Protection de l'Environnement marin (HASSMAR)"
+          },
+          { "name": "Haute Autorité des Aéroports du Sénégal (HAAS)" },
+          {
+            "name": "Centre des Hautes études de Défense et de Sécurité (CHEDS)"
+          },
+          { "name": "Maison militaire" },
+          { "name": "Escadrille présidentielle" },
+          { "name": "Flottille présidentielle" },
+          { "name": "Aide de Camp du Président de la République" },
+          { "name": "Médecin du Président de la République" }
+        ]
+      },
+      {
+        "name": "Services du Palais",
+        "children": [
+          { "name": "Hôtel des Palais présidentiels" },
+          { "name": "Intendance des Palais nationaux" }
+        ]
+      },
+      {
+        "name": "Secrétariat général de la Présidence de la République",
+        "children": [
+          { "name": "Contrôle financier" },
+          { "name": "Bureau Organisation et Méthodes" },
+          { "name": "Bureau d'Intelligence et de Prospective Economiques" },
+          { "name": "Direction des Moyens généraux" },
+          {
+            "name": "Direction générale du Chiffre et de la Sécurité des Systèmes d'information"
+          },
+          { "name": "Service informatique" },
+          { "name": "Commission de Contrôle des Véhicules Administratifs" },
+          {
+            "name": "Commission de contrôle et de Suivi du Patrimoine immobilier de l'Etat à l'étranger"
+          },
+          { "name": "Cellule de passation des Marchés publics" },
+          { "name": "Laboratoire radioélectrique" },
+          {
+            "name": "Comité national chargé de la Gestion de la Situation des Réfugiés, Rapatriés et Personnes déplacées"
+          }
+        ]
+      },
+      {
+        "name": "Autres administrations",
+        "children": [
+          { "name": "Commission de Protection des Données Personnelles" },
+          { "name": "Commission nationale de Cryptologie" },
+          {
+            "name": "Comité national de l'Initiative pour la Transparence dans les industries extractives"
+          },
+          {
+            "name": "Comité de pilotage du Projet du Développement Economique de la Casamance"
+          },
+          { "name": "Comité sénégalais des Droits de l'Homme" },
+          {
+            "name": "Bureau d'Architecture et de Conservation des Palais nationaux"
+          },
+          {
+            "name": "Délégation générale à la Promotion des Pôles urbains de Diamniadio et du Lac Rose"
+          },
+          {
+            "name": "Délégation générale à l'Entreprenariat Rapide des Femmes et des Jeunes"
+          },
+          { "name": "Ecole nationale de Cybersécurité" },
+          { "name": "Centre International de Conférences Abdou DIOUF" },
+          { "name": "Centre des Expositions de Diamniadio" },
+          {
+            "name": "Autorité de Régulation des Télécommunications et des Postes"
+          },
+          { "name": "Autorité de Régulation de la Commande publique" },
+          { "name": "Commission de Régulation du Secteur de l'Energie" },
+          { "name": "Autorité de Radioprotection et de Sûreté nucléaire" },
+          { "name": "Autorité de Régulation du Secteur de l'Eau" },
+          { "name": "Fonds intergénérationnel" }
+        ]
+      },
+      {
+        "name": "Sociétés nationales et à participation publique",
+        "children": [
+          {
+            "name": "Agence pour la Promotion des Investissements et des Grands Travaux"
+          },
+          {
+            "name": "Société nationale de Gestion et d'Exploitation du Patrimoine bâti de l'État."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Primature",
+    "children": [
+      {
+        "name": "Cabinet du Premier Ministre",
+        "children": [
+          { "name": "Service du Protocole" },
+          {
+            "name": "Bureau Opérationnel de Coordination et de Suivi des Projets et Programmes"
+          },
+          { "name": "Fonds de Soutien au Suivi des Projets et Programmes" },
+          { "name": "Cellule de Communication" },
+          { "name": "Conseil national de Développement de la Nutrition" },
+          { "name": "Conseil national de Lutte contre le SIDA" },
+          {
+            "name": "Secrétariat exécutif du Conseil national de Sécurité alimentaire"
+          },
+          {
+            "name": "Haut Conseil national de la Sécurité sanitaire mondiale « One Health »"
+          },
+          {
+            "name": "Comité interministériel de Suivi et de Restructuration des Entreprises publiques et parapubliques"
+          },
+          {
+            "name": "Comité interministériel à la Prévention et à la Sécurité routières"
+          }
+        ]
+      },
+      {
+        "name": "Secrétariat général du Gouvernement",
+        "children": [
+          {
+            "name": "Direction générale de la Surveillance et du Contrôle de l'Occupation du Sol",
+            "children": [
+              { "name": "Direction de la Réglementation et du Contentieux" },
+              { "name": "Direction de la planification et des opérations" }
+            ]
+          },
+          {
+            "name": "Direction générale du Service civique national et du Volontariat",
+            "children": [
+              { "name": "Direction du Service civique national" },
+              { "name": "Direction de l'Engagement volontaire" }
+            ]
+          },
+          { "name": "Direction de l'Activité normative" },
+          { "name": "Direction des Archives du Sénégal" },
+          { "name": "Direction de l'Imprimerie nationale" },
+          { "name": "Direction de la Coopération technique" },
+          {
+            "name": "Direction de l'Administration générale et de l'Equipement"
+          },
+          { "name": "Bureau de Suivi et de Coordination" },
+          { "name": "Bureau d'information gouvernementale" },
+          { "name": "Bureau du courrier général" },
+          { "name": "Service informatique" },
+          { "name": "Cellule de passation des marchés" },
+          { "name": "Commission d'Evaluation des Agences d'Exécution" },
+          { "name": "Service de Gestion du Building administratif" },
+          {
+            "name": "Commission de réforme spéciale des véhicules administratifs"
+          },
+          {
+            "name": "Unité de coordination de la gestion des sphères ministérielles de Diamniadio"
+          }
+        ]
+      },
+      {
+        "name": "Autres administrations",
+        "children": [
+          { "name": "Ecole nationale d'Administration" },
+          { "name": "Millenium Challenge Account Sénégal" },
+          { "name": "Observatoire national de l'Investissement" },
+          {
+            "name": "Agence Nationale pour la relance des Activités en Casamance"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Ministères",
+    "children": [
+      {
+        "name": "Ministère de l'Intégration africaine et des Affaires étrangères",
+        "children": [
+          {
+            "name": "Secrétariat général et services rattachés ",
+            "children": [
+              {
+                "name": "Cellule des Etudes, de l'Analyse et de la Prospective"
+              },
+              { "name": "Cellule des statistiques et données" },
+              {
+                "name": "Service de l'Information, de la Communication et des Relations publiques"
+              },
+              { "name": "Bureau des Pèlerinages" },
+              { "name": "Haut Conseil des Sénégalais de l'Extérieur" },
+              {
+                "name": "Bureau d'Accueil, d'Orientation et de Suivi des Emigrés"
+              },
+              { "name": "Bureau des passeports spéciaux" },
+              {
+                "name": "Cabinet du Secrétaire d'Etat aux Sénégalais de l'Extérieur"
+              }
+            ]
+          },
+          {
+            "name": "Secrétariat général et services rattachés ",
+            "children": [
+              { "name": "Inspection des Services" },
+              {
+                "name": "Service du Courrier général et de la Valise diplomatique"
+              },
+              { "name": "Service du Chiffre" },
+              {
+                "name": "Cellule de la Planification, du Suivi-évaluation et des Statistiques"
+              },
+              { "name": "Cellule de passation des marchés publics" },
+              { "name": "Cellule genre et de l'équité" },
+              { "name": "Cellule de l'Informatique" }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              { "name": "Direction Afrique et Union Africaine" },
+              { "name": "Direction Asie – Pacifique et Moyen Orient" },
+              { "name": "Direction Europe – Amérique et Océanie" },
+              {
+                "name": "Direction des Partenariats et de la Promotion économique et culturelle"
+              },
+              {
+                "name": "Direction des Organisations Internationales et de la Mondialisation"
+              },
+              {
+                "name": "Direction de l'Intégration économique régionale et du NEPAD"
+              },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              },
+              {
+                "name": "Direction du Protocole, des conférences internationales et de la Traduction"
+              },
+              { "name": "Direction des Affaires juridiques et consulaires" },
+              { "name": "Direction de la Francophonie" },
+              {
+                "name": "Direction générale d'Appui aux Sénégalais de l'Extérieur",
+                "children": [
+                  {
+                    "name": "Direction de l'Assistance et de la Promotion des Sénégalais de l'Extérieur"
+                  },
+                  {
+                    "name": "Direction de l'Appui à l'Investissement et aux Projets"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              {
+                "name": "Délégation générale au Pèlerinage aux Lieux Saints de l'Islam"
+              },
+              { "name": "Centre national d'Action anti-mines" },
+              {
+                "name": "Fonds d'Appui à l'Investissement des Sénégalais de l'Extérieur"
+              },
+              {
+                "name": "Bureau de Coordination du Comité Permanent de l'OCI pour l'information et les Affaires Culturelles"
+              },
+              { "name": "Centre national de l'Alerte précoce (CEDEAO)" }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ministère des Forces armées",
+        "children": [
+          {
+            "name": "Cabinet civil",
+            "children": [{ "name": "Inspection interne" }]
+          },
+          {
+            "name": "Cabinet militaire",
+            "children": [
+              { "name": "Bureau de Liaison et du Courrier" },
+              { "name": "Bureau de Sécurité du Building administratif" },
+              { "name": "Bureau de l'Action sociale des Forces armées" },
+              { "name": "Cellule des Affaires juridiques" },
+              { "name": "Cellule des statistiques et données" },
+              { "name": "Cellule de passation des Marchés publics" }
+            ]
+          },
+          {
+            "name": "Services propres",
+            "children": [
+              { "name": "Etat-Major général des Armées" },
+              { "name": "Haut-Commandement de la Gendarmerie nationale" }
+            ]
+          },
+          { "name": "Secrétariat Général" },
+          {
+            "name": "Directions",
+            "children": [
+              { "name": "Direction de la Justice militaire" },
+              {
+                "name": "Direction du Contrôle des Etudes et de la Législation"
+              },
+              {
+                "name": "Direction des Personnels militaires et de la Mobilisation"
+              },
+              {
+                "name": "Direction des Affaires administratives, de l'Equipement et du Budget"
+              },
+              {
+                "name": "Direction des Archives et du Patrimoine historique"
+              },
+              {
+                "name": "Direction du Génie et de l'Infrastructure des Armées"
+              },
+              { "name": "Direction du Service du Matériel des Armées" },
+              {
+                "name": "Direction des Transmissions et de l'Informatique des Armées"
+              },
+              { "name": "Direction du Service de l'Intendance des Armées" },
+              { "name": "Direction du Service de Santé des Armées" },
+              {
+                "name": "Direction de la Prévention et de la Sécurité des Armées"
+              },
+              { "name": "Direction de l'Action sociale des Armées" },
+              {
+                "name": "Direction de l'Information et des Relations publiques des Armées"
+              }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              { "name": "Agence pour la Réinsertion sociale des Militaires" },
+              { "name": "Agence pour le Logement des Forces Armées" },
+              { "name": "Fondation des Invalides et Mutilés militaires" },
+              { "name": "Ecole de l'Armée de l'Air" },
+              { "name": "Ecole d'Application du Génie" },
+              {
+                "name": "Ecole militaire d'Administration et des Métiers techniques de l'Intendance"
+              },
+              { "name": "Institut de Défense du Sénégal" }
+            ]
+          },
+          {
+            "name": "Établissements publics",
+            "children": [
+              {
+                "name": "Office national des Anciens Combattants et Victimes de guerre"
+              },
+              { "name": "Hôpital Principal de Dakar" }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ministère de la Justice",
+        "children": [
+          {
+            "name": "Cabinet et services rattachés",
+            "children": [
+              {
+                "name": "Inspection générale de l'Administration de la Justice"
+              },
+              {
+                "name": "Commission nationale pour l'Harmonisation en Afrique du Droit des Affaires"
+              },
+              {
+                "name": "Conseil consultatif national des Droits de l'Homme et du Droit international humanitaire"
+              },
+              {
+                "name": "Cellule nationale de lutte contre la traite des personnes"
+              },
+              { "name": "Cellule des statistiques et données" },
+              { "name": "Service de Communication" }
+            ]
+          },
+          {
+            "name": "Secrétariat général et Services rattachés",
+            "children": [
+              { "name": "Cellule de Passation des Marchés publics" },
+              {
+                "name": "Cellule des Etudes statistiques, de la Planification et du Suivi-Évaluation"
+              },
+              {
+                "name": "Cellule d'Exécution administrative et financière du Programme sectoriel Justice"
+              },
+              { "name": "Cellule Genre et de l'Equité" },
+              { "name": "Cellule de l'Informatique" },
+              { "name": "Cellule juridique" },
+              { "name": "Centre national des Archives judiciaires" },
+              { "name": "Service des Archives et de la Documentation" },
+              { "name": "Bureau du Courrier commun" }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              {
+                "name": "Direction générale de l'Administration pénitentiaire",
+                "children": [
+                  {
+                    "name": "Direction des Affaires juridiques, de la Planification, des Statistiques et des Etablissements pénitentiaires"
+                  },
+                  {
+                    "name": "Direction des Finances, du Budget, du Matériel et des Infrastructures"
+                  },
+                  { "name": "Direction des Ressources humaines" },
+                  { "name": "Direction de la Sécurité pénitentiaire" },
+                  { "name": "Direction de la Réinsertion sociale" },
+                  { "name": "Direction de l'Action médicale et sociale" },
+                  { "name": "Inspection interne des Services pénitentiaires" }
+                ]
+              },
+              {
+                "name": "Direction générale de la Protection judiciaire et sociale",
+                "children": [
+                  { "name": "Inspection interne" },
+                  {
+                    "name": "Direction de la Législation et de la Protection sociale"
+                  },
+                  { "name": "Direction de la Protection judiciaire" },
+                  { "name": "Direction des établissements de Protection" },
+                  { "name": "Direction de l'adoption internationale" },
+                  {
+                    "name": "Direction des Ressources humaines et de la Formation"
+                  }
+                ]
+              },
+              { "name": "Direction des Affaires civiles et du Sceau" },
+              { "name": "Direction des Affaires criminelles et des Grâces" },
+              { "name": "Direction des Services judiciaires" },
+              {
+                "name": "Direction de la Justice de Proximité et de la Promotion de l'Accès au Droit"
+              },
+              { "name": "Direction des Droits humains" },
+              {
+                "name": "Direction des Constructions des Palais de Justice et autres Édifices"
+              },
+              {
+                "name": "Direction de la Dématérialisation et de l'Automatisation"
+              },
+              { "name": "Direction de la Promotion de la Bonne Gouvernance" },
+              {
+                "name": "Direction du Suivi et de l'Evaluation des Politiques de Bonne Gouvernance"
+              },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              {
+                "name": "Observatoire national des Lieux de Privation de Liberté"
+              }
+            ]
+          },
+          {
+            "name": "Établissements publics",
+            "children": [
+              { "name": "Centre de Formation judiciaire" },
+              {
+                "name": "Office national de recouvrement des avoirs criminels"
+              },
+              { "name": "Ordre des Avocats" },
+              { "name": "Ordre des Experts et Evaluateurs agréés" },
+              { "name": "Ordre national des Experts du Sénégal" },
+              { "name": "Ordre des Huissiers de Justice" },
+              { "name": "Chambre des Notaires" }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ministère de l'Intérieur et de la Sécurité Publique",
+        "children": [
+          {
+            "name": "Cabinet et services rattachés",
+            "children": [
+              { "name": "Inspection des Services de Sécurité" },
+              {
+                "name": "Inspection de l'Administration centrale et territoriale"
+              },
+              { "name": "Brigade nationale des Sapeurs-Pompiers" },
+              { "name": "Comité interministériel de Lutte contre la Drogue" },
+              {
+                "name": "Cadre d'Intervention et de coordination interministériel des opérations de lutte antiterroriste"
+              },
+              { "name": "Cellule de lutte antiterroriste" },
+              { "name": "Cellule des statistiques et données" },
+              { "name": "Cellule communication" },
+              { "name": "Service des Télécommunications" },
+              { "name": "Bureau de la Vidéosurveillance" },
+              {
+                "name": "Comité interministériel de lutte contre l'émigration clandestine"
+              },
+              { "name": "Pool des Conseillers techniques" },
+              { "name": "Secrétariat particulier" },
+              { "name": "Inspection interne" }
+            ]
+          },
+          {
+            "name": "Secrétariat général et services rattachés",
+            "children": [
+              { "name": "Service de la Formation" },
+              { "name": "Service des Archives communes" },
+              { "name": "Bureau de suivi" },
+              { "name": "Bureau du Courrier commun" },
+              { "name": "Cellule informatique" },
+              { "name": "Cellule des Etudes et de la Planification" },
+              { "name": "Cellule de passation des marchés publics" },
+              { "name": "Cellule des Affaires juridiques" },
+              { "name": "Cellule genre et de l'Equité" },
+              { "name": "Secrétariat particulier" }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              {
+                "name": "Direction générale de la Police nationale",
+                "children": [
+                  { "name": "Direction de la Sécurité publique" },
+                  { "name": "Direction de la Police judiciaire" },
+                  { "name": "Direction de la Surveillance du Territoire" },
+                  {
+                    "name": "Direction de la Police des Étrangers et des Titres de Voyage"
+                  },
+                  {
+                    "name": "Direction de la Police de l'Air et des Frontières"
+                  },
+                  { "name": "Direction des Ressources humaines" },
+                  { "name": "Direction du Budget et des Matériels" },
+                  { "name": "Direction de la Formation" },
+                  { "name": "Direction du Groupement mobile d'intervention" },
+                  {
+                    "name": "Direction de l'Office centrale de répression du trafic illicite de stupéfiants"
+                  }
+                ]
+              },
+              {
+                "name": "Direction générale de l'Administration territoriale",
+                "children": [
+                  { "name": "Direction de l'Action territoriale" },
+                  {
+                    "name": "Direction des Libertés publiques et de la Législation"
+                  },
+                  {
+                    "name": "Direction du Partenariat et des Organisations Non gouvernementales"
+                  },
+                  {
+                    "name": "Direction des Ressources humaines et du Matériel"
+                  }
+                ]
+              },
+              {
+                "name": "Direction générale des Elections",
+                "children": [
+                  { "name": "Direction des Opérations électorales" },
+                  {
+                    "name": "Direction de la Formation et de la Communication"
+                  },
+                  {
+                    "name": "Direction des Ressources humaines et des Finances"
+                  }
+                ]
+              },
+              { "name": "Direction de l'Automatisation des Fichiers" },
+              { "name": "Direction de la Protection civile" },
+              { "name": "Direction des Constructions" },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              { "name": "Agence d'Assistance à la Sécurité de Proximité" },
+              {
+                "name": "Centre de recueil et d'enregistrement des Données et Information policières"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ministère de l'Énergie, du Pétrole et des Mines",
+        "children": [
+          {
+            "name": "Cabinet et services rattachés",
+            "children": [
+              { "name": "Inspection interne" },
+              { "name": "Cellule de Communication" },
+              { "name": "Secrétariat permanent à l'Energie" },
+              {
+                "name": "Unité d'Exécution et de Gestion du Pétrole et du Gaz (GES-PETROGAZ)"
+              },
+              {
+                "name": "Secrétariat technique du Comité national de suivi du Contenu local"
+              },
+              { "name": "Cellule des statistiques et données" },
+              {
+                "name": "Cellule de suivi des Fonds dédiés au secteur minier et géologique"
+              },
+              { "name": "Cellule de suivi du Contenu local" }
+            ]
+          },
+          {
+            "name": "Secrétariat général et services rattachés",
+            "children": [
+              { "name": "Cellule de Passation des Marchés publics" },
+              {
+                "name": "Cellule informatique et des Technologies de l'Information"
+              },
+              { "name": "Cellule du Genre et de l'Equité" },
+              { "name": "Cellule des Affaires juridiques" },
+              {
+                "name": "Cellule des Etudes, de la Planification et de l'Evaluation des Programmes et Projets"
+              },
+              { "name": "Cellule de la Transition énergétique" },
+              { "name": "Cellule de Coordination du Contrôle de Gestion" },
+              { "name": "services régionaux" },
+              { "name": "Bureau du Courrier et des Archives" }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              {
+                "name": "Direction générale des Mines",
+                "children": [
+                  { "name": "Direction des Mines" },
+                  { "name": "Direction des Carrières" },
+                  {
+                    "name": "Direction de l'Exploitation minière artisanale à Petite échelle"
+                  },
+                  {
+                    "name": "Direction de la Réglementation, de la Production minière et des Statistiques"
+                  }
+                ]
+              },
+              { "name": "Direction des Hydrocarbures" },
+              { "name": "Direction de la Stratégie et de la Réglementation" },
+              { "name": "Direction de l'Electricité" },
+              {
+                "name": "Direction du Développement des Energies renouvelables"
+              },
+              {
+                "name": "Direction de la Planification, des Etudes, et du système d'Information Energétique"
+              },
+              {
+                "name": "Direction du Contrôle et de la Surveillance des Opérations minières"
+              },
+              { "name": "Direction de la Géologie" },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              { "name": "Agence sénégalaise de l'Electrification rurale" },
+              {
+                "name": "Agence pour l'Economie et la Maitrise de l'Energie"
+              },
+              { "name": "Agence nationale pour les Energies renouvelables" }
+            ]
+          },
+          {
+            "name": "Établissements publics",
+            "children": [
+              { "name": "Institut national du Pétrole et du Gaz" },
+              { "name": "Service géologique national du Sénégal" }
+            ]
+          },
+          {
+            "name": "Sociétés nationales et à participation publique",
+            "children": [
+              { "name": "Société nationale d'Electricité" },
+              { "name": "Société africaine de Raffinage" },
+              {
+                "name": "Holding Sociétés des Pétroles du Sénégal (PETROSEN Holding SA)"
+              },
+              {
+                "name": "PETROSEN Exploration & Production SA (PETROSEN E&P SA)"
+              },
+              { "name": "PETROSEN Trading & Services SA (PETROSEN T&S. SA)" },
+              { "name": "Réseau Gazier du Sénégal SA" },
+              { "name": "Société des Mines de Fer du Sénégal oriental" },
+              { "name": "Société des Mines d'Or de Sabodala" },
+              {
+                "name": "Société d'Etudes et de réalisation des Phosphates de Matam"
+              },
+              { "name": "Société des Mines du Sénégal (SOMISEN SA)" }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ministère de l'Economie, du Plan et de la Coopération",
+        "children": [
+          {
+            "name": "Cabinet et services rattachés",
+            "children": [
+              { "name": "Inspection interne" },
+              { "name": "Cellule attractivité et compétitivité" },
+              { "name": "Cellule des statistiques et données" },
+              { "name": "Cellule de Communication" }
+            ]
+          },
+          {
+            "name": "Secrétariat général et Services rattachés",
+            "children": [
+              { "name": "Cellule de l'Evaluation et de la Performance" },
+              { "name": "Cellule de Passation des Marchés publics" },
+              { "name": "Cellule des Affaires juridiques" },
+              { "name": "Cellule de l'Informatique" },
+              { "name": "Cellule du Genre et de l'Equité" },
+              { "name": "Bureau des Archives et de la Documentation" },
+              { "name": "Bureau du Courrier commun" }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              {
+                "name": "Direction générale de la Planification et des Politiques économiques",
+                "children": [
+                  { "name": "Services propres" },
+                  { "name": "Direction de l'Administration et du Personnel" },
+                  { "name": "Direction de la Planification" },
+                  { "name": "Direction du Développement du Capital humain" },
+                  {
+                    "name": "Direction de la Prévision et des Etudes économiques"
+                  },
+                  {
+                    "name": "Unité de Coordination et de Suivi de la Politique économique"
+                  },
+                  { "name": "Cellule de Suivi de l'Intégration" },
+                  {
+                    "name": "Centre d'Etudes de Politiques pour le Développement"
+                  }
+                ]
+              },
+              {
+                "name": "Direction générale de la Coopération et des Financements extérieurs et du Développement du Secteur privé",
+                "children": [
+                  { "name": "Services propres" },
+                  { "name": "Direction de l'Administration et du Personnel" },
+                  {
+                    "name": "Direction de la Coopération économique et financière"
+                  },
+                  {
+                    "name": "Direction des Financements et des Partenariats Public-Privé"
+                  },
+                  {
+                    "name": "Direction de l'Evaluation des Performances des projets et programmes"
+                  },
+                  { "name": "Direction du Développement du Secteur Privé" }
+                ]
+              },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              },
+              { "name": "Direction des Ressources humaines" }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              {
+                "name": "Agence nationale de la Statistique et de la Démographie"
+              },
+              {
+                "name": "Comité paritaire public-privé des Zones Economiques Spéciales"
+              },
+              {
+                "name": "Comité national d'Appui aux Partenariats – Public- Privé"
+              },
+              { "name": "Fonds de Garantie des Investissements prioritaires" }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ministère des Finances et du Budget",
+        "children": [
+          {
+            "name": "Cabinet et services rattachés",
+            "children": [
+              { "name": "Inspection générale des Finances" },
+              {
+                "name": "Cellule nationale de Traitement des Informations financières"
+              },
+              {
+                "name": "Projet de Coordination des Réformes budgétaires et financières"
+              },
+              { "name": "Cellule d'Appui à la mise œuvre du MCA-Sénégal II" },
+              { "name": "Cellule des statistiques et données" },
+              { "name": "Cellule de Communication" }
+            ]
+          },
+          {
+            "name": "Secrétariat général et Services rattachés",
+            "children": [
+              { "name": "Cellule d'Etudes et de Planification" },
+              { "name": "Cellule de Passation des Marchés publics" },
+              { "name": "Bureau du Courrier commun" },
+              { "name": "Cellule des Affaires juridiques" },
+              { "name": "Cellule du genre et de l'Equité" },
+              {
+                "name": "Cellule des Etudes, de la Planification et de suivi-évaluation"
+              }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              {
+                "name": "Direction générale de la Comptabilité publique et du Trésor",
+                "children": [
+                  { "name": "Services propres" },
+                  { "name": "Direction du Contrôle interne" },
+                  { "name": "Direction de l'Administration et du Personnel" },
+                  { "name": "Direction de l'Informatique" },
+                  { "name": "Trésorerie générale" },
+                  { "name": "Direction de la Comptabilité publique" },
+                  { "name": "Direction du Secteur parapublic" },
+                  { "name": "Direction de la Dette publique" },
+                  { "name": "Direction du Secteur public local" },
+                  { "name": "Paierie générale du Trésor" },
+                  { "name": "Recette générale du Trésor" },
+                  { "name": "Trésorerie-Paierie pour l'Etranger" },
+                  { "name": "Agence comptable des grands projets" },
+                  { "name": "Trésoreries – Paieries régionales" }
+                ]
+              },
+              {
+                "name": "Direction générale des Douanes",
+                "children": [
+                  { "name": "Services propres" },
+                  { "name": "Direction du Contrôle interne" },
+                  {
+                    "name": "Direction de la Réglementation et de la Coopération internationale"
+                  },
+                  { "name": "Direction des Opérations douanières" },
+                  {
+                    "name": "Direction de la Facilitation et du Partenariat avec l'Entreprise"
+                  },
+                  {
+                    "name": "Direction du Renseignement et des Enquêtes douanières"
+                  },
+                  { "name": "Direction du Personnel et de la Logistique" },
+                  {
+                    "name": "Direction des Systèmes informatiques douaniers"
+                  },
+                  { "name": "Services extérieurs" }
+                ]
+              },
+              {
+                "name": "Direction générale des Impôts et des Domaines",
+                "children": [
+                  { "name": "Services propres" },
+                  { "name": "Direction du Contrôle interne" },
+                  {
+                    "name": "Direction de la Législation et de la Coopération internationale"
+                  },
+                  { "name": "Direction de l'Administration et du Personnel" },
+                  { "name": "Direction des Domaines" },
+                  { "name": "Direction du Cadastre" },
+                  {
+                    "name": "Direction du Renseignement et des Stratégies de Contrôle fiscal"
+                  },
+                  { "name": "Direction des Systèmes d'Informations" },
+                  { "name": "Direction du Recouvrement" },
+                  { "name": "Direction des grandes Entreprises" },
+                  { "name": "Direction des moyennes Entreprises" },
+                  { "name": "Direction des Services fiscaux" }
+                ]
+              },
+              {
+                "name": "Direction générale du Budget",
+                "children": [
+                  { "name": "Services propres" },
+                  { "name": "Cellule de Suivi et de Synthèse" },
+                  { "name": "Cellule des Etudes et de la Réglementation" },
+                  { "name": "Direction du Contrôle interne" },
+                  {
+                    "name": "Direction du Matériel et du Transit Administratif"
+                  },
+                  { "name": "Direction de l'Administration et du Personnel" },
+                  { "name": "Direction des Systèmes d'Information" },
+                  { "name": "Direction de la Programmation budgétaire" },
+                  {
+                    "name": "Direction de l'Ordonnancement des dépenses publiques"
+                  },
+                  { "name": "Direction de la Solde" },
+                  { "name": "Direction des Pensions" },
+                  { "name": "Direction du Contrôle budgétaire" }
+                ]
+              },
+              {
+                "name": "Direction générale du Secteur financier",
+                "children": [
+                  { "name": "Services propres" },
+                  { "name": "Direction de l'Administration et du Personnel" },
+                  { "name": "Direction de la Monnaie et du Crédit" },
+                  { "name": "Direction des Assurances" },
+                  {
+                    "name": "Direction de la Réglementation et de la Supervision des Systèmes financiers décentralisés"
+                  }
+                ]
+              },
+              {
+                "name": "Direction du Traitement automatique de l'Information"
+              },
+              { "name": "Direction centrale de la Commande publique" },
+              { "name": "Agence judiciaire de l'Etat" },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              },
+              { "name": "Direction des Ressources humaines" }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              {
+                "name": "Fonds spécial de Soutien au Secteur de l'Energie (FSE)"
+              },
+              {
+                "name": "Observatoire de la Qualité des Services financiers"
+              },
+              { "name": "Haute Autorité du WAQF" }
+            ]
+          },
+          {
+            "name": "Établissements publics",
+            "children": [
+              { "name": "Caisse des Dépôts et Consignations" },
+              {
+                "name": "Ordre national des Experts comptables et comptables agréés"
+              }
+            ]
+          },
+          {
+            "name": "Sociétés nationales et à participation publique",
+            "children": [
+              { "name": "Compagnie bancaire pour l'Afrique occidentale" },
+              { "name": "Crédit du Sénégal" },
+              {
+                "name": "Banque internationale pour le Commerce et l'Industrie du Sénégal"
+              },
+              { "name": "AXA Assurances Sénégal" },
+              { "name": "AMSA Assurances" },
+              { "name": "Banque de l'Habitat du Sénégal" },
+              { "name": "La Banque agricole" },
+              { "name": "Banque islamique du Sénégal" },
+              { "name": "Société sénégalaise de Réassurances" },
+              { "name": "Société nationale de Recouvrement" },
+              { "name": "Fonds de Garantie automobile" },
+              { "name": "Société nationale d'Assurance et de Crédit" },
+              { "name": "Compagnie nationale d'Assurance Agricole" },
+              { "name": "Banque nationale de Développement Economique" },
+              { "name": "Loterie nationale du Sénégal" },
+              {
+                "name": "Société de Gestion des Infrastructures publiques dans les Pôles Urbains de Diamniadio et du Lac Rose (SOGIP SA)"
+              },
+              { "name": "Fonds Souverain d'Investissements stratégiques" }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ministère des Infrastructures et des Transports Terrestres et Aériens",
+        "children": [
+          {
+            "name": "Cabinet et services rattachés",
+            "children": [
+              { "name": "Inspection interne" },
+              { "name": "Cellule des statistiques et données" },
+              { "name": "Cellule de communication" },
+              {
+                "name": "Unité de Coordination des grands programmes et projets de modernisation des systèmes de transports terrestres"
+              }
+            ]
+          },
+          {
+            "name": "Secrétariat général et services rattachés",
+            "children": [
+              { "name": "Cellule de Passation des marchés publics" },
+              {
+                "name": "Cellule des Etudes, de la Planification et du suivi-évaluation"
+              },
+              { "name": "Cellule de Coordination du Contrôle de Gestion" },
+              { "name": "Cellule des Affaires juridiques" },
+              { "name": "Cellule de l'Informatique" },
+              { "name": "Cellule du Genre et de l'Equité" },
+              { "name": "Bureau des archives et de la Documentation" },
+              { "name": "Bureau du Courrier commun" }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              {
+                "name": "Direction générale des Infrastructures Routières et du Désenclavement",
+                "children": [
+                  {
+                    "name": "Direction de la Planification routière et de la Régulation des Autoroutes"
+                  },
+                  {
+                    "name": "Direction de la Réglementation et du Suivi des Infrastructures routières"
+                  },
+                  {
+                    "name": "Direction des Stratégies de Désenclavement et de la promotion de l'Intermodalité"
+                  }
+                ]
+              },
+              {
+                "name": "Direction générale des Transports terrestres",
+                "children": [
+                  { "name": "Direction des Transports routiers" },
+                  { "name": "Direction des Transports ferroviaires" },
+                  {
+                    "name": "Direction de la Mobilité et de la Circulation routière"
+                  }
+                ]
+              },
+              { "name": "Direction des Transports aériens" },
+              { "name": "Direction des Infrastructures aéroportuaires" },
+              {
+                "name": "Directions régionales des Infrastructures et des Transports terrestres"
+              },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              {
+                "name": "Centre de Formation et de Perfectionnement des Travaux Publics"
+              },
+              {
+                "name": "Centre de Formation et de Perfectionnement aux Métiers du Rail"
+              },
+              { "name": "Agence des Travaux et de Gestion des Routes" },
+              { "name": "Fonds de Développement des Transports terrestres" },
+              { "name": "Agence nationale de Sécurité routière" },
+              {
+                "name": "Laboratoire National de Référence des Bâtiments et Travaux publics"
+              },
+              {
+                "name": "Agence nationale de l'Aviation civile et de la Météorologie"
+              }
+            ]
+          },
+          {
+            "name": "Établissements publics",
+            "children": [
+              { "name": "Conseil exécutif des Transports urbains Durables" },
+              { "name": "Fonds d'Entretien Routier Autonome" }
+            ]
+          },
+          {
+            "name": "Sociétés nationales et à participation publique",
+            "children": [
+              { "name": "Société Dakar Dem Dik" },
+              { "name": "Société des Grands Trains du Sénégal" },
+              {
+                "name": "Société nationale de gestion du Patrimoine du Train express régional (SEN-TER S.A.)"
+              },
+              {
+                "name": "Société nationale « Les Chemins de Fer du Sénégal »"
+              },
+              { "name": "Société nationale « Autoroutes du Sénégal »" },
+              { "name": "Air Sénégal S.A." },
+              {
+                "name": "Agence pour la Sécurité de la Navigation aérienne en Afrique et à Madagascar"
+              },
+              {
+                "name": "Société Anonyme Aéroport International Blaise Diagne"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ministère de l'Environnement et de la Transition Ecologique",
+        "children": [
+          {
+            "name": "Cabinet et services rattachés",
+            "children": [
+              { "name": "Inspection interne" },
+              {
+                "name": "Comité national du Comité Inter-Etats de lutte contre la Sécheresse dans le Sahel"
+              },
+              { "name": "Comité national Changement Climatique" },
+              { "name": "Commission nationale du Développement durable" },
+              {
+                "name": "Commission nationale de Gestion des Produits Chimiques"
+              },
+              { "name": "Cellule des statistiques et données" },
+              { "name": "Cellule d'information et de communication" }
+            ]
+          },
+          {
+            "name": "Secrétariat général et services rattachés",
+            "children": [
+              { "name": "Cellule des Affaires juridiques" },
+              { "name": "Cellule de Passation des Marchés" },
+              { "name": "Cellule Genre et Equité" },
+              { "name": "Cellule informatique" },
+              { "name": "Bureau du Courrier Commun" },
+              { "name": "Bureau des Archives et de la Documentation" }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              {
+                "name": "Direction des Eaux et Forêts, Chasses et de la Conservation des Sols"
+              },
+              { "name": "Direction des Parcs nationaux" },
+              {
+                "name": "Direction de la Réglementation environnementale et du Contrôle"
+              },
+              {
+                "name": "Direction du Changement climatique, de la Transition écologique et des Financements verts"
+              },
+              {
+                "name": "Direction de la Planification et de la Veille environnementale"
+              },
+              {
+                "name": "Direction des Aires marines communautaires protégées"
+              },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              {
+                "name": "Centre national de Formation des Techniciens des Eaux et Forêts, Chasses et Parcs nationaux"
+              },
+              { "name": "Centre de Suivi écologique" },
+              {
+                "name": "Centre d'Education et de Formation environnementales"
+              },
+              {
+                "name": "Agence sénégalaise de la Reforestation et de la Grande Muraille verte"
+              },
+              { "name": "Autorité nationale de Biosécurité" }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ministère de la Formation Professionnelle",
+        "children": [
+          {
+            "name": "Cabinet et services rattachés",
+            "children": [
+              { "name": "Inspection interne" },
+              { "name": "Service de Communication" },
+              { "name": "Cellule des statistiques et données" },
+              { "name": "Centre national d'Information et de Documentation" }
+            ]
+          },
+          {
+            "name": "Secrétariat général et services rattachés",
+            "children": [
+              { "name": "Cellule Genre et Equité" },
+              { "name": "Cellule juridique" },
+              { "name": "Cellule de Passation des Marchés" },
+              { "name": "Cellule informatique" },
+              { "name": "Cellule de Coordination du Contrôle de Gestion" },
+              { "name": "Cellule d'Assurance Qualité" },
+              { "name": "Bureau du Courrier commun" },
+              { "name": "Bureau de Suivi" }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              {
+                "name": "Direction générale de la Formation professionnelle et technique",
+                "children": [
+                  {
+                    "name": "Direction des Etablissements publics de Formation professionnelle et technique"
+                  },
+                  {
+                    "name": "Direction des Etablissements privés de Formation professionnelle et technique"
+                  },
+                  {
+                    "name": "Direction des Curricula et des Innovations pédagogiques"
+                  }
+                ]
+              },
+              { "name": "Direction de l'Apprentissage" },
+              {
+                "name": "Direction des Examens, Concours professionnels et Certifications"
+              },
+              { "name": "Direction de l'Insertion" },
+              { "name": "Direction des Ressources humaines" },
+              {
+                "name": "Direction de la Planification et du Suivi-Evaluation"
+              },
+              { "name": "Direction de l'Orientation professionnelle" },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              { "name": "Agence nationale de la Maison de l'Outil" },
+              {
+                "name": "Ecole nationale de Formation en Economie familiale et sociale"
+              },
+              {
+                "name": "Centre de Formation professionnelle et commerciale Delafosse de Dakar"
+              },
+              {
+                "name": "Centre national de Formation des Maîtres d'Enseignement technique"
+              },
+              {
+                "name": "Centre de Formation professionnelle des Jeunes de Dakar"
+              },
+              {
+                "name": "Centre de Formation professionnelle et technique Sénégal – Japon"
+              },
+              { "name": "Centre d'Enseignement professionnel" },
+              {
+                "name": "Centre national de Formation des Cours professionnels et Industriels"
+              },
+              { "name": "Centre régional d'Enseignement technique féminin" },
+              { "name": "Centre d'Enseignement technique féminin" },
+              {
+                "name": "Centre de Formation professionnelle de Joal-Fadiouth"
+              },
+              { "name": "Centre régional de Formation professionnelle" },
+              {
+                "name": "Fonds de Financement de la Formation professionnelle et technique"
+              },
+              { "name": "Institut de Coupe, Couture et Mode" },
+              { "name": "Office National de la Formation Professionnelle" },
+              {
+                "name": "Centre d'Entreprenariat et de Développement technique"
+              },
+              { "name": "Centre de Formation professionnelle de Linguère" },
+              {
+                "name": "Centre de Formation professionnelle de Médina Gounas"
+              },
+              { "name": "Centre de Formation professionnelle de Mbour" },
+              { "name": "Centre de Formation professionnelle de Thiès" },
+              { "name": "Centre de Formation professionnelle de Ndindy" },
+              { "name": "Centre de Formation professionnelle de Kébémer" },
+              { "name": "Centre de Formation professionnelle de Louga" },
+              {
+                "name": "Centre de Formation professionnelle de Médina de Dakar"
+              },
+              {
+                "name": "Centre sectoriel de Formation professionnelle en tourisme de Saint Louis"
+              },
+              {
+                "name": "Centre sectoriel de Formation professionnelle en Tourisme de Ziguinchor"
+              },
+              {
+                "name": "Centre sectoriel de Formation professionnelle en horticulture de Thieppe"
+              },
+              {
+                "name": "Centre sectoriel de Formation professionnelle en horticulture de Diamniadio"
+              },
+              {
+                "name": "Centre sectoriel de Formation professionnelle en aviculture de Diamniadio"
+              }
+            ]
+          },
+          {
+            "name": "Établissements publics",
+            "children": [
+              { "name": "Centre national de Qualification professionnelle" },
+              { "name": "Office national de Formation professionnelle" }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ministère de l'Hydraulique et de l'Assainissement",
+        "children": [
+          {
+            "name": "Cabinet et services rattachés",
+            "children": [
+              { "name": "Inspection interne" },
+              { "name": "Cellule des statistiques et données" },
+              { "name": "Bureau de la Communication" }
+            ]
+          },
+          {
+            "name": "Secrétariat général et services rattachés",
+            "children": [
+              { "name": "Cellule de Passation des Marchés publics" },
+              {
+                "name": "Cellule de Planification, de Coordination et de Suivi des Programmes"
+              },
+              {
+                "name": "Cellule nationale de Suivi de l'Organisation pour la mise en Valeur du Fleuve Sénégal (OMVS) et de l'Organisation pour la mise en Valeur du Fleuve Gambie (OMVG)"
+              },
+              { "name": "Cellule des Affaires juridiques" },
+              { "name": "Cellule du Genre et de l'Equité" },
+              { "name": "Cellule Informatique" },
+              {
+                "name": "Bureau du Courrier, des Archives et de la Documentation"
+              }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              { "name": "Direction de l'Hydraulique" },
+              {
+                "name": "Direction de la Gestion et de la Planification des Ressources en Eau"
+              },
+              { "name": "Direction de l'Assainissement" },
+              {
+                "name": "Direction de la Prévention et de la Gestion des Inondations"
+              },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              }
+            ]
+          },
+          {
+            "name": "Établissements publics",
+            "children": [
+              { "name": "Office des Lacs et Cours d'eau" },
+              { "name": "Office national de l'Assainissement du Sénégal" },
+              { "name": "Office national des Forages ruraux" }
+            ]
+          },
+          {
+            "name": "Sociétés nationales et à participation publique",
+            "children": [
+              { "name": "Société nationale des Eaux du Sénégal" },
+              { "name": "Sénégalaise des Eaux" },
+              {
+                "name": "Organisation pour la Mise en Valeur du Fleuve Sénégal"
+              },
+              {
+                "name": "Organisation pour la Mise en Valeur du Fleuve Gambie"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ministère de la Communication, des Télécommunications et du Numérique",
+        "children": [
+          {
+            "name": "Cabinet et services rattachés",
+            "children": [
+              { "name": "Inspection interne" },
+              { "name": "Cellule des statistiques et données" },
+              {
+                "name": "Service des Relations publiques et de la Documentation"
+              }
+            ]
+          },
+          {
+            "name": "Secrétariat général et services rattachés",
+            "children": [
+              { "name": "Cellule de Passation des Marchés publics" },
+              { "name": "Cellule des Affaires juridiques" },
+              {
+                "name": "Cellule des Etudes, de la Planification et du Suivi-évaluation"
+              },
+              { "name": "Cellule de l'Informatique" },
+              { "name": "Cellule du Genre et de l'Equité" },
+              { "name": "Bureau des Archives et de la Documentation" },
+              { "name": "Bureau du Courrier commun" }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              { "name": "Direction de la Communication" },
+              {
+                "name": "Direction des Technologies de l'Information et de la Communication"
+              },
+              {
+                "name": "Direction de la Promotion de l'Economie numérique et des Partenariats"
+              },
+              { "name": "Direction des Télécommunications" },
+              { "name": "Direction des Postes" },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              {
+                "name": "Fonds de Développement du Service Universel et des Télécommunications"
+              }
+            ]
+          },
+          {
+            "name": "Établissements publics",
+            "children": [
+              { "name": "Maison de la Presse Babacar TOURE" },
+              { "name": "Sénégal Connect Park" }
+            ]
+          },
+          {
+            "name": "Sociétés nationales et à participation publique",
+            "children": [
+              {
+                "name": "Société nationale de Radiodiffusion et Télévision du Sénégal"
+              },
+              {
+                "name": "Société sénégalaise de Presse et de Publication « Le Soleil »"
+              },
+              { "name": "Société nationale Agence de Presse Sénégalaise" },
+              { "name": "Société nationale des Télécommunications" },
+              { "name": "Société nationale « La Poste »" },
+              { "name": "Société de Télédiffusion du Sénégal" },
+              { "name": "Société nationale « Sénégal numérique SA »" }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ministère de l'Enseignement Supérieur, de la Recherche et de l'Innovation",
+        "children": [
+          {
+            "name": "Cabinet et services rattachés",
+            "children": [
+              { "name": "Inspection interne" },
+              {
+                "name": "Centre national de Documentation scientifique et technique"
+              },
+              { "name": "Office du Baccalauréat" },
+              { "name": "Cellule des statistiques et données" },
+              { "name": "Cellule de Communication" },
+              { "name": "Centre des Réseaux et des Systèmes d'information" },
+              {
+                "name": "Direction des Classes préparatoires aux Grandes Ecoles"
+              }
+            ]
+          },
+          {
+            "name": "Secrétariat général et services rattachés",
+            "children": [
+              { "name": "Cellule de passation des Marchés publics" },
+              {
+                "name": "Cellule des Etudes, de la Planification et du suivi-évaluation"
+              },
+              { "name": "Cellule juridique" },
+              { "name": "Cellule Genre et de l'Equité" },
+              { "name": "Bureau du Courrier commun" }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              {
+                "name": "Direction générale de l'Enseignement supérieur",
+                "children": [
+                  { "name": "Direction de l'Enseignement supérieur public" },
+                  { "name": "Direction de l'Enseignement supérieur privé" },
+                  {
+                    "name": "Direction du Financement des Etablissements d'Enseignement supérieur"
+                  },
+                  { "name": "Direction des Etudes et de la Coopération" },
+                  {
+                    "name": "Direction des Affaires académiques et juridiques"
+                  }
+                ]
+              },
+              {
+                "name": "Direction générale de la Recherche et de l'Innovation",
+                "children": [
+                  {
+                    "name": "Direction des Stratégies et de la Planification de la Recherche"
+                  },
+                  {
+                    "name": "Direction de l'Innovation, de la Valorisation, de la Propriété intellectuelle et du transfert technologique"
+                  },
+                  {
+                    "name": "Direction du Financement de la Recherche scientifique et du Développement technologique"
+                  },
+                  {
+                    "name": "Direction de la Promotion de la Culture scientifique"
+                  }
+                ]
+              },
+              {
+                "name": "Direction de la Maintenance des Constructions et des Equipements de l'Enseignement supérieur"
+              },
+              { "name": "Direction des Bourses" },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              { "name": "Ecole Supérieure d'Economie appliquée" },
+              {
+                "name": "Agence nationale de la Recherche scientifique appliquée"
+              },
+              {
+                "name": "Autorité nationale d'Assurance Qualité de l'Enseignement supérieur"
+              },
+              {
+                "name": "Ecole nationale de Développement sanitaire et social"
+              },
+              { "name": "Agence sénégalaise d'études spatiales" }
+            ]
+          },
+          {
+            "name": "Établissements publics",
+            "children": [
+              { "name": "Université Cheikh Anta DIOP de Dakar" },
+              { "name": "Université Gaston Berger de Saint-Louis" },
+              { "name": "Université de Iba Der THIAM de Thiès" },
+              { "name": "Université Alioune DIOP de Bambey" },
+              { "name": "Université Assane SECK de Ziguinchor" },
+              { "name": "Université Amadou Mahtar MBOW" },
+              {
+                "name": "Université du Sine Saloum El Hadji Ibrahima Niasse"
+              },
+              { "name": "Université virtuelle du Sénégal" },
+              { "name": "Centre des Œuvres universitaires de Dakar" },
+              {
+                "name": "Centre régional des Œuvres universitaires de Saint-Louis"
+              },
+              {
+                "name": "Centre régional des Œuvres universitaires sociales de Bambey"
+              },
+              {
+                "name": "Centre régional des Œuvres universitaires sociales de Ziguinchor"
+              },
+              {
+                "name": "Centre régional des Œuvres universitaires sociales de Thiès"
+              },
+              {
+                "name": "Centre Régional des Œuvres universitaires sociales de Diamniadio"
+              },
+              {
+                "name": "Centre régional des Œuvres universitaires sociales du Sine saloum"
+              },
+              {
+                "name": "Institut sénégalo – britannique d'Enseignement de l'Anglais"
+              },
+              { "name": "Campus Franco-Sénégalais" },
+              {
+                "name": "Institut supérieur d'Education populaire et sportive"
+              },
+              {
+                "name": "Ecole nationale supérieure d'Enseignement technique et professionnel"
+              },
+              { "name": "Centre National de la Recherche Scientifique" },
+              { "name": "Ecole Polytechnique de Thiès" },
+              {
+                "name": "Institut supérieur d'Enseignement professionnel de Matam"
+              },
+              {
+                "name": "Institut supérieur d'Enseignement professionnel Amadou TRAWARE de Diamnadio"
+              },
+              {
+                "name": "Institut supérieur d'Enseignement professionnel de Bignona"
+              },
+              {
+                "name": "Institut supérieur d'Enseignement professionnel de Richard-Toll"
+              },
+              {
+                "name": "Institut supérieur d'Enseignement professionnel Abdoulaye LY de Thiès"
+              },
+              {
+                "name": "Cyber-infrastructure nationale pour l'Enseignement supérieur, la Recherche et l'Innovation"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ministère de l'Industrie et du Commerce",
+        "children": [
+          {
+            "name": "Cabinet et services rattachés",
+            "children": [
+              { "name": "Inspection Interne" },
+              { "name": "Cellule des statistiques et données" },
+              { "name": "Cellule de Communication" },
+              { "name": "Cellule d'Intermédiation avec le Secteur privé" },
+              {
+                "name": "Centre de Recherches, d'Analyses des échanges et des statistiques"
+              },
+              { "name": "Haut Conseil de la Consommation" }
+            ]
+          },
+          {
+            "name": "Cabinet du Secrétaire d'État au Développement des Petites et moyennes industries"
+          },
+          {
+            "name": "Secrétariat général et services rattachés",
+            "children": [
+              { "name": "Cellule de Passation des Marchés publics" },
+              {
+                "name": "Cellule d'Etudes, de Planification et du Suivi-évaluation"
+              },
+              { "name": "Cellule des Affaires juridiques" },
+              { "name": "Cellule du Genre et de l'Equité" },
+              { "name": "Cellule de l'Informatique" },
+              { "name": "Cellule de Coordination du Contrôle de Gestion" },
+              { "name": "Bureau des Archives et de la Documentation" },
+              { "name": "Bureau du Courrier commun" }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              {
+                "name": "Direction des Stratégies de Développement industriel"
+              },
+              { "name": "Direction du Redéploiement industriel" },
+              { "name": "Direction des Petites et Moyennes Industries" },
+              { "name": "Direction du Commerce intérieur" },
+              { "name": "Direction du Commerce extérieur" },
+              { "name": "Direction des Petites et Moyennes Entreprises" },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              {
+                "name": "Agence d'Aménagement et de Promotion des sites industriels"
+              },
+              {
+                "name": "Agence sénégalaise pour la Propriété intellectuelle et l'Innovation technologique"
+              },
+              { "name": "Association sénégalaise de Normalisation" },
+              {
+                "name": "Système de récépissé d'entrepôt de marchandises au Sénégal"
+              },
+              { "name": "Bureau de Mise à Niveau" },
+              { "name": "Agence de Développement et d'Encadrement des PME" },
+              { "name": "Agence sénégalaise de Promotion des Exportations" },
+              { "name": "Agence de Régulation des Marchés" },
+              { "name": "Laboratoire national d'Analyse et de Contrôle" },
+              { "name": "Commission nationale de la Concurrence" },
+              {
+                "name": "Programme de Modernisation et de Gestion des Marchés"
+              },
+              {
+                "name": "Programme national de Développement des Agropoles du Sénégal"
+              },
+              {
+                "name": "Commission nationale de régulation du loyer des locaux à usage d'habitation"
+              }
+            ]
+          },
+          {
+            "name": "Établissements publics",
+            "children": [
+              { "name": "Institut de Technologie Alimentaire" },
+              {
+                "name": "Chambre Nationale de Commerce, d'Industrie et des Services"
+              },
+              {
+                "name": "Chambres régionales de Commerce, d'Industrie et des Services"
+              },
+              { "name": "Fondation Trade Point Sénégal" },
+              {
+                "name": "Bourse nationale de Sous-traitance et de Partenariat du Sénégal"
+              }
+            ]
+          },
+          {
+            "name": "Sociétés nationales et à participation publique",
+            "children": [
+              { "name": "Africa- Soins" },
+              { "name": "Société des Textiles de Kaolack" },
+              { "name": "Société du Domaine industriel de Ziguinchor" },
+              { "name": "Société du Domaine industriel de Saint-Louis" },
+              { "name": "Industries chimiques du Sénégal" },
+              {
+                "name": "Centre international du Commerce extérieur du Sénégal"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ministère des Pêches, des Infrastructures Maritimes et Portuaires",
+        "children": [
+          {
+            "name": "Cabinet et services rattachés",
+            "children": [
+              { "name": "Inspection interne" },
+              { "name": "Cellule des statistiques et données" },
+              { "name": "Cellule de Communication" }
+            ]
+          },
+          {
+            "name": "Secrétariat général et services rattachés",
+            "children": [
+              { "name": "Cellule de Passation des Marchés publics" },
+              {
+                "name": "Cellule d'Etudes, de la Planification et du Suivi-évaluation"
+              },
+              { "name": "Cellule des Affaires juridiques" },
+              { "name": "Cellule de l'Informatique" },
+              { "name": "Cellule du Genre et de l'Equité" },
+              { "name": "Cellule des Archives et de la Documentation" },
+              { "name": "Service du Courrier commun" }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              { "name": "Direction des Pêches maritimes" },
+              {
+                "name": "Direction de la Protection et de la Surveillance des Pêches"
+              },
+              {
+                "name": "Direction des Industries de Transformation de la Pêche"
+              },
+              {
+                "name": "Direction de la Gestion et de l'Exploitation des Fonds marins"
+              },
+              { "name": "Direction de la Pêche continentale" },
+              { "name": "Direction des Infrastructures portuaires" },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              { "name": "Ecole nationale de Formation maritime" },
+              {
+                "name": "Centre national de Formation des Techniciens des Pêches et de l'Aquaculture"
+              },
+              {
+                "name": "Centre de Perfectionnement, d'Expérimentation et de Vulgarisation de la Pêche"
+              },
+              { "name": "Agence nationale des Affaires maritimes" },
+              { "name": "Agence Nationale de l'Aquaculture" },
+              { "name": "Station piscicole de Richard Toll" }
+            ]
+          },
+          {
+            "name": "Établissements publics",
+            "children": [{ "name": "Conseil sénégalais des Chargeurs" }]
+          },
+          {
+            "name": "Sociétés nationales et à participation publique",
+            "children": [
+              { "name": "Société d'Infrastructures et de Réparation navale" },
+              { "name": "Société nationale du Port autonome de Dakar" },
+              { "name": "Société des Conserveries d'Afrique" },
+              { "name": "Consortium Sénégalais d'activités maritimes" }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ministère de la Famille et des Solidarités",
+        "children": [
+          {
+            "name": "Cabinet et services rattachés",
+            "children": [
+              { "name": "Inspection interne" },
+              { "name": "Service des Actions sociales" },
+              { "name": "Cellule des statistiques et données" },
+              { "name": "Cellule de la Communication" },
+              {
+                "name": "Centre national d'Assistance et de formation pour la Femme"
+              },
+              {
+                "name": "Centre d'Accueil, d'Information et d'Orientation pour Enfants en Situation Difficile"
+              },
+              { "name": "Cellule d'Appui à la Protection de l'Enfance" },
+              {
+                "name": "Cellule de suivi opérationnel des projets et programmes"
+              },
+              { "name": "Observatoire national de la Parité" }
+            ]
+          },
+          {
+            "name": "Secrétariat général et services rattachés",
+            "children": [
+              { "name": "Cellule de Passation des Marchés publics" },
+              {
+                "name": "Cellule des Etudes, de la Planification et suivi évaluation"
+              },
+              { "name": "Cellule des Affaires juridiques" },
+              { "name": "Cellule de l'Informatique" },
+              { "name": "Cellule de Coordination du contrôle de gestion" },
+              { "name": "Bureau des Archives et de la Documentation" },
+              { "name": "Bureau du Courrier commun" }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              {
+                "name": "Direction générale du Développement communautaire et de la Promotion de l'Equité",
+                "children": [
+                  { "name": "Direction du Développement communautaire" },
+                  { "name": "Direction de l'Equité sociale" },
+                  { "name": "Direction de l'Equité territoriale" },
+                  { "name": "Directions régionales" }
+                ]
+              },
+              {
+                "name": "Direction de l'Evaluation des Programmes et projets"
+              },
+              {
+                "name": "Direction de la Famille et de la Protection des groupes vulnérables"
+              },
+              {
+                "name": "Direction de l'Autonomisation économique de la Femme"
+              },
+              { "name": "Direction de l'Equité et de l'Egalité du Genre" },
+              {
+                "name": "Direction de la Promotion des Droits et de la Protection des Enfants"
+              },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              {
+                "name": "Centre national d'Assistance et de Formation pour les Femmes"
+              },
+              { "name": "Fonds national de l'Entreprenariat féminin" },
+              { "name": "Fonds national de Crédit pour les Femmes" },
+              { "name": "Office national des Pupilles de la Nation" },
+              {
+                "name": "Centre d'Accueil, d'Information et d'Orientation pour les Enfants en situation difficile"
+              },
+              { "name": "Cellule d'appui à la Protection de l'Enfance" },
+              {
+                "name": "Programme d'Urgence de Développement communautaire"
+              },
+              {
+                "name": "Programme d'Urgence de Modernisation des Axes et Territoires frontaliers"
+              },
+              { "name": "Programme de Modernisation des Villes" },
+              {
+                "name": "Délégation générale à la Protection sociale et à la Solidarité nationale"
+              },
+              {
+                "name": "Agence sénégalaise de la Couverture sanitaire universelle"
+              },
+              { "name": "Fonds de Solidarité nationale" }
+            ]
+          },
+          {
+            "name": "Établissements publics",
+            "children": [
+              {
+                "name": "Commissariat à la Sécurité alimentaire et à la Résilience"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ministère du Travail, de l'Emploi et des Relations avec les Institutions",
+        "children": [
+          {
+            "name": "Cabinet et services rattachés",
+            "children": [
+              { "name": "Inspection interne" },
+              {
+                "name": "Commission de Supervision et de Régulation des Institutions de Sécurité sociale"
+              },
+              { "name": "Cellule des statistiques et données" },
+              { "name": "Service des Relations publiques" }
+            ]
+          },
+          {
+            "name": "Secrétariat général et services rattachés",
+            "children": [
+              { "name": "Cellule de Passation des Marchés publics" },
+              { "name": "Cellule des Affaires juridiques" },
+              {
+                "name": "Cellule des Etudes, de la Planification et du Suivi-évaluation"
+              },
+              { "name": "Cellule de l'Informatique" },
+              { "name": "Cellule du Genre et de l'Equité" },
+              { "name": "Bureau des Archives et de la Documentation" },
+              { "name": "Bureau du Courrier commun" }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              {
+                "name": "Direction générale du Travail et de la Sécurité sociale",
+                "children": [
+                  {
+                    "name": "Direction des Relations de Travail et des Organisations professionnelles"
+                  },
+                  { "name": "Direction de la Protection sociale" },
+                  { "name": "Direction de la Sécurité et Santé au Travail" },
+                  { "name": "Direction des Statistiques du Travail" }
+                ]
+              },
+              { "name": "Direction de l'Emploi" },
+              { "name": "Direction des Relations avec les Institutions" },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              { "name": "Institution de Prévoyance Retraite du Sénégal" },
+              { "name": "Caisse de Sécurité sociale" },
+              {
+                "name": "Institution de Coordination de l'Assurance maladie obligatoire"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ministère de l'Urbanisme, des Collectivités Territoriales et de l'Aménagement des Territoires",
+        "children": [
+          {
+            "name": "Cabinet et services rattachés",
+            "children": [
+              { "name": "Inspection interne" },
+              { "name": "Inspection de l'Administration locale" },
+              {
+                "name": "Bureau de la communication et des relations publiques"
+              },
+              {
+                "name": "Projet d'achèvement du plan « Jaxaay » et du Programme « Tawfekh-Yakaar» dénommé « PAJ »"
+              },
+              {
+                "name": "Comité national de Pilotage du Programme national de Développement local"
+              },
+              { "name": "Cellule des statistiques et données" },
+              { "name": "Service de la Formation" }
+            ]
+          },
+          {
+            "name": "Cabinet du Secrétaire d'État à l'Urbanisme et au Logement"
+          },
+          {
+            "name": "Secrétariat général et services rattachés",
+            "children": [
+              { "name": "Cellule de Passation des Marchés publics" },
+              {
+                "name": "Cellule des Etudes, de la Planification et du Suivi-évaluation"
+              },
+              { "name": "Cellule des Affaires juridiques" },
+              { "name": "Cellule du Genre et de l'Equité" },
+              { "name": "Cellule de l'Informatique" },
+              { "name": "Cellule de Coordination du Contrôle de Gestion" },
+              { "name": "Bureau du Courrier commun" },
+              {
+                "name": "Centre de Recherche, de Documentation et de Digitalisation"
+              },
+              { "name": "services déconcentrés" }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              {
+                "name": "Direction générale de l'Urbanisme et de l'Architecture",
+                "children": [
+                  {
+                    "name": "Direction de la Planification urbaine et de la Réglementation"
+                  },
+                  {
+                    "name": "Direction de l'Aménagement urbain et de la Restructuration"
+                  },
+                  { "name": "Direction de l'Architecture" },
+                  { "name": "Direction de la Promotion des Pôles urbains" }
+                ]
+              },
+              {
+                "name": "Direction générale de la Construction et de l'Habitat",
+                "children": [
+                  { "name": "Direction de la Construction" },
+                  { "name": "Direction de la Promotion de l'Habitat social" },
+                  {
+                    "name": "Direction de la Régulation et du Suivi des Politiques de logement"
+                  },
+                  { "name": "Inspection générale des Bâtiments" }
+                ]
+              },
+              {
+                "name": "Direction générale du Cadre de vie et de l'Hygiène publique",
+                "children": [
+                  {
+                    "name": "Direction de la lutte contre les Encombrements"
+                  },
+                  {
+                    "name": "Direction de la Propreté et de l'Hygiène publique"
+                  },
+                  {
+                    "name": "Direction des Paysages urbains et des Espaces publics"
+                  },
+                  {
+                    "name": "Direction de la Sensibilisation et du Partenariat institutionnel"
+                  }
+                ]
+              },
+              { "name": "Direction de la Gouvernance territoriale" },
+              {
+                "name": "Direction de la Promotion du Développement territorial"
+              },
+              { "name": "Direction de l'Aménagement du Territoire" },
+              { "name": "Direction de la Coopération décentralisée" },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              {
+                "name": "Agence de Construction des Bâtiments et Edifices publics"
+              },
+              { "name": "Agence nationale de l'Aménagement du Territoire" },
+              { "name": "Agence de Développement municipal" },
+              { "name": "Agence de Développement local" },
+              { "name": "Agence nationale de l'état civil" },
+              { "name": "Fondation Droit à la Ville" },
+              { "name": "Fonds pour l'Habitat social" },
+              {
+                "name": "Guichet unique pour le « Projet 100 000 logements »"
+              }
+            ]
+          },
+          {
+            "name": "Établissements publics",
+            "children": [
+              { "name": "Ordre des Architectes du Sénégal" },
+              {
+                "name": "Centre national de la Fonction publique locale et de la Formation"
+              }
+            ]
+          },
+          {
+            "name": "Sociétés nationales et à participation publique",
+            "children": [
+              { "name": "Société nationale des Habitations à Loyer modéré" },
+              { "name": "Société immobilière du Cap-Vert" },
+              {
+                "name": "Société d'Aménagement foncier et de Rénovation urbaine (SAFRU)"
+              },
+              {
+                "name": "Société Nationale de Gestion Intégrée des Déchets (SONAGED S.A.)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ministère de l'Education Nationale",
+        "children": [
+          {
+            "name": "Cabinet et services rattachés",
+            "children": [
+              { "name": "Inspection générale de l'Education nationale" },
+              { "name": "Inspection interne" },
+              { "name": "Inspections d'Académie" },
+              {
+                "name": "Centre national d'Orientation scolaire et professionnelle"
+              },
+              {
+                "name": "Centre national de Documentation scientifique et technique"
+              },
+              { "name": "Unité de Coordination des Projets d'Education" },
+              {
+                "name": "Division des Affaires juridiques, des Liaisons et de la Documentation"
+              },
+              { "name": "Division de l'Enseignement privé" },
+              { "name": "Division de l'Enseignement arabe" },
+              { "name": "Division des Sports et des Activités de jeunesse" },
+              { "name": "Division du Contrôle médical scolaire" },
+              {
+                "name": "Division de la Promotion des Technologies de l'Information et de la Communication"
+              },
+              { "name": "Division de la Radio-Télévision scolaire" },
+              { "name": "Cellule des statistiques et données" }
+            ]
+          },
+          {
+            "name": "Secrétariat général et services rattachés",
+            "children": [
+              { "name": "Cellule de Passation des Marchés publics" },
+              { "name": "Bureau de la Communication et de la Documentation" },
+              { "name": "Cellule des Affaires juridiques" },
+              { "name": "Cellule de l'Informatique" },
+              { "name": "Cellule du Genre et de l'Equité" },
+              { "name": "Bureau du Courrier commun" },
+              { "name": "Centre de Perfectionnement en Langue anglaise" }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              { "name": "Direction de l'Enseignement préscolaire" },
+              { "name": "Direction de l'Enseignement élémentaire" },
+              {
+                "name": "Direction de l'Enseignement moyen secondaire général"
+              },
+              {
+                "name": "Direction de l'Alphabétisation et des Langues nationales"
+              },
+              { "name": "Direction des Examens et Concours" },
+              {
+                "name": "Direction de la Planification et de la Réforme de l'Education"
+              },
+              { "name": "Direction des Constructions scolaires" },
+              { "name": "Direction des Equipements scolaires" },
+              { "name": "Direction de la Formation et de la Communication" },
+              { "name": "Direction des Ressources humaines" },
+              { "name": "Direction des Daara" },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              {
+                "name": "Institut national d'Etude et d'Action pour le Développement de l'Education"
+              },
+              {
+                "name": "Secrétariat général permanent de la Commission nationale pour l'UNESCO"
+              },
+              {
+                "name": "Centre régional de Formation des Personnels de l'Education"
+              },
+              {
+                "name": "Institut national d'Education et de Formation des jeunes Aveugles"
+              },
+              {
+                "name": "Agence nationale de la Petite Enfance et de la Case des Tout-petits"
+              }
+            ]
+          },
+          {
+            "name": "Établissements publics",
+            "children": [{ "name": "Institut Islamique de Dakar" }]
+          }
+        ]
+      },
+      {
+        "name": "Ministère de la Santé et de l'Action Sociale",
+        "children": [
+          {
+            "name": "Cabinet et services rattachés",
+            "children": [
+              { "name": "Inspection interne" },
+              { "name": "Service national d'Hygiène" },
+              {
+                "name": "Service national de l'Education et de l'Information sanitaire et sociale"
+              },
+              { "name": "Cellule des statistiques et données" },
+              { "name": "Cellule de la Communication" }
+            ]
+          },
+          {
+            "name": "Secrétariat général et services rattachés",
+            "children": [
+              { "name": "Cellule de Passation des Marchés publics" },
+              { "name": "Bureau du Courrier commun" },
+              { "name": "Bureau des Archives et de la Documentation" },
+              {
+                "name": "Cellule de la Carte sanitaire et sociale, de la Santé digitale et de l'Observatoire de la Santé"
+              },
+              { "name": "Cellule de l'Informatique" }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              {
+                "name": "Direction générale de la Santé",
+                "children": [
+                  { "name": "Direction de la Lutte contre la Maladie" },
+                  {
+                    "name": "Direction de la Santé de la Mère et de l'Enfant"
+                  },
+                  { "name": "Direction de la Prévention" },
+                  { "name": "Direction des Laboratoires" }
+                ]
+              },
+              {
+                "name": "Direction générale des Etablissements de Santé",
+                "children": [
+                  { "name": "Direction des Établissements publics de santé" },
+                  { "name": "Direction des établissements privés de santé" },
+                  {
+                    "name": "Direction de la qualité, de la sécurité et de l'Hygiène hospitalières"
+                  }
+                ]
+              },
+              {
+                "name": "Direction générale de l'Action sociale",
+                "children": [
+                  { "name": "Direction de l'Action médico-sociale" },
+                  {
+                    "name": "Direction de la Promotion et de la Protection des groupes vulnérables"
+                  },
+                  {
+                    "name": "Direction de la Promotion et de la Protection des Personnes handicapées"
+                  }
+                ]
+              },
+              {
+                "name": "Direction des Infrastructures, des Equipements et de la Maintenance"
+              },
+              {
+                "name": "Direction de la Planification, de la Recherche et des Statistiques"
+              },
+              { "name": "Direction des Ressources humaines" },
+              { "name": "Direction des Affaires juridiques" },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              {
+                "name": "Centre national de Formation des Techniciens en Maintenance hospitalière"
+              },
+              {
+                "name": "Ecole nationale des Travailleurs sociaux spécialisés"
+              },
+              { "name": "Fonds d'Action sociale" },
+              {
+                "name": "Agence sénégalaise de Réglementation pharmaceutique"
+              }
+            ]
+          },
+          {
+            "name": "Établissements publics",
+            "children": [
+              { "name": "SEN-Pharmacie nationale d'Approvisionnement" },
+              { "name": "Ordre des Médecins" },
+              { "name": "Ordre des Pharmaciens" },
+              { "name": "Ordre des Chirurgiens-dentistes" },
+              { "name": "Ordre des Sages-femmes" },
+              { "name": "Centre hospitalier universitaire de Fann" },
+              { "name": "Hôpital Aristide le Dantec" },
+              {
+                "name": "Centre hospitalier national d'Enfants Albert Royer"
+              },
+              { "name": "Hôpital général de Grand Yoff" },
+              { "name": "Centre hospitalier national de Pikine" },
+              {
+                "name": "Centre hospitalier national Matlaboul Fawzaïni de Touba"
+              },
+              {
+                "name": "Centre hospitalier national Cheikh Ahmadoul Khadim de Touba"
+              },
+              {
+                "name": "Centre hospitalier national Henrich Lübke de Diourbel"
+              },
+              {
+                "name": "Centre hospitalier régional Ibrahima Abdoulaye Niasse de Kaolack"
+              },
+              {
+                "name": "Centre hospitalier régional Amadou Sakhir Mbaye de Louga"
+              },
+              {
+                "name": "Centre hospitalier régional Lieutenant-Colonel Mamadou Diouf de Saint-Louis"
+              },
+              { "name": "Centre hospitalier régional de Ziguinchor" },
+              { "name": "Centre hospitalier régional de Kolda" },
+              { "name": "Centre hospitalier régional de Tambacounda" },
+              {
+                "name": "Centre hospitalier régional Adja Marième FAYE SALL de Fatick"
+              },
+              { "name": "Centre national psychiatrique de Thiaroye" },
+              {
+                "name": "Centre hospitalier régional El Hadji Amadou Sakhir Ndiéguène de Thiès"
+              },
+              { "name": "Centre hospitalier régional de Ourossogui" },
+              { "name": "Centre hospitalier régional de Ndioum" },
+              {
+                "name": "Centre hospitalier régional Amath Dansokho de Kédougou"
+              },
+              {
+                "name": "Centre hospitalier régional Thierno Birahim NDAO de Kaffrine"
+              },
+              {
+                "name": "Centre hospitalier régional Amadou Tidiane BA de Sédhiou"
+              },
+              {
+                "name": "Centre hospitalier Thierno Mouhamadoul Mansour BARRO de Mbour"
+              },
+              { "name": "Centre national de Transfusion sanguine" },
+              { "name": "Centre national d'Appareillage et d'Orthopédie" },
+              { "name": "Pharmacie nationale d'Approvisionnement" },
+              { "name": "Hôpital d'Enfants de Diamniadio" },
+              { "name": "Hôpital de la Paix de Ziguinchor" },
+              { "name": "Hôpital Dalal Jamm" },
+              { "name": "Hôpital régional de Matam" },
+              {
+                "name": "Etablissement public de Santé de niveau II « Mame Abdoul Aziz Dabakh de Tivaouane »"
+              },
+              {
+                "name": "Etablissement public de Santé de niveau I Yousssou Mbargane de Rufisque"
+              },
+              {
+                "name": "Etablissement public de Santé de niveau I El Hadji Alioune DIAGNE MBOR"
+              },
+              {
+                "name": "Etablissement public de Santé de niveau I Roi Baudouin"
+              },
+              { "name": "Centre de Santé de Touba" },
+              { "name": "Centre de Santé de Richard Toll" },
+              { "name": "Centre de Santé de Linguère" },
+              { "name": "Hôpital de Ziguinchor" }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ministère de la Fonction Publique et de la Réforme du Service Public",
+        "children": [
+          {
+            "name": "Cabinet et services rattachés",
+            "children": [
+              { "name": "Inspection interne" },
+              { "name": "Cellule des statistiques et données" },
+              {
+                "name": "Service des relations publiques et de la Documentation"
+              }
+            ]
+          },
+          {
+            "name": "Secrétariat Général et services rattachés",
+            "children": [
+              { "name": "Cellule de Coordination du Contrôle de Gestion" },
+              { "name": "Cellule de Passation des Marchés publics" },
+              {
+                "name": "Cellule d'Appui et d'Assistance à la Fonction publique territoriale"
+              },
+              {
+                "name": "Cellule des Etudes, de la Planification et du suivi-évaluation"
+              },
+              { "name": "Cellule du Genre et de l'Equité" },
+              { "name": "Cellule des Affaires juridiques" },
+              { "name": "Bureau du Courrier commun" }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              {
+                "name": "Direction générale de la Fonction publique",
+                "children": [
+                  {
+                    "name": "Direction des Etudes, de la Législation et du Contentieux"
+                  },
+                  {
+                    "name": "Direction de la Gestion prévisionnelle des Effectifs, des Emplois et des Compétences"
+                  },
+                  { "name": "Direction de la Gestion des Carrières" }
+                ]
+              },
+              { "name": "Direction de la Transformation du Secteur public" },
+              { "name": "Direction des Systèmes d'Informations" },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              { "name": "Centre médico-social de la Fonction publique" },
+              { "name": "Centre national de Formation et d'Action" },
+              {
+                "name": "Programme d'Appui à la Modernisation de l'Administration"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ministère de la Jeunesse, des Sports et de la Culture",
+        "children": [
+          {
+            "name": "Cabinet et services rattachés",
+            "children": [
+              { "name": "Inspection interne" },
+              { "name": "Cellule des statistiques et données" },
+              { "name": "Cellule de Communication" },
+              {
+                "name": "Cellule d'Appui et de Suivi des Maisons de la Jeunesse et de la Citoyenneté"
+              },
+              {
+                "name": "Bureau de l'Architecture et des Monuments historiques"
+              },
+              {
+                "name": "Service des Relations publiques et de la Documentation"
+              },
+              {
+                "name": "Conseil consultatif des Arts, des Lettres et de la Culture"
+              }
+            ]
+          },
+          {
+            "name": "Cabinet du Secrétaire d'État à la Culture, aux Industries créatives et au Patrimoine historique"
+          },
+          {
+            "name": "Secrétariat général et services rattachés",
+            "children": [
+              { "name": "Cellule de Passation des Marchés publics" },
+              { "name": "Cellule des Affaires juridiques" },
+              {
+                "name": "Cellule des Etudes, de la Planification et suivi-évaluation"
+              },
+              { "name": "Cellule Genre et de l'Equité" },
+              { "name": "Cellule de l'Informatique" },
+              { "name": "Cellule du Contrôle de Gestion" },
+              { "name": "Bureau des archives et de la Documentation" },
+              { "name": "Bureau du Courrier commun" }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              {
+                "name": "Direction générale de la Jeunesse et de la Vie associative",
+                "children": [
+                  { "name": "Direction des Activités socio-éducatives" },
+                  { "name": "Direction de la Protection sociale des Jeunes" },
+                  { "name": "Direction de l'Information Jeunesse" },
+                  { "name": "Direction de l'Education populaire" },
+                  { "name": "Direction de la Vie associative" }
+                ]
+              },
+              { "name": "Direction de la Promotion de l'Entrepreneuriat" },
+              { "name": "Direction du Sport de Haut niveau" },
+              { "name": "Direction des Activités physiques et sportives" },
+              { "name": "Direction de la Formation et de la Coopération" },
+              { "name": "Direction des Infrastructures sportives" },
+              { "name": "Direction des Loisirs" },
+              { "name": "Direction des Arts" },
+              { "name": "Direction du Livre et de la Lecture" },
+              { "name": "Direction du Patrimoine" },
+              { "name": "Direction de la Cinématographie" },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              {
+                "name": "Agence Nationale pour la Promotion de l'Emploi des Jeunes"
+              },
+              { "name": "Centre national d'Education populaire et sportive" },
+              { "name": "Maison de la Culture Douta Seck" },
+              { "name": "Orchestre national du Sénégal" },
+              { "name": "Biennale de l'Art africain contemporain" },
+              { "name": "Ecole nationale des Arts" },
+              { "name": "Galerie nationale des Arts" },
+              { "name": "Bibliothèque nationale du Sénégal" },
+              { "name": "Service des Spectacles Sons et Lumières" },
+              { "name": "Place du Souvenir africain" },
+              { "name": "Monument de la Renaissance africaine" },
+              { "name": "Festival national des Arts et Cultures" },
+              { "name": "Commissariat du mémorial de Gorée" },
+              { "name": "Musée Léopold Sédar Senghor" },
+              { "name": "Musée Boribana" }
+            ]
+          },
+          {
+            "name": "Établissements publics",
+            "children": [
+              { "name": "Office de Gestion des Infrastructures sportives" },
+              { "name": "Grand Théâtre National Doudou NDIAYE Coumba Rose" },
+              { "name": "Compagnie du Théâtre national Daniel Sorano" },
+              { "name": "Manufacture sénégalaise des Arts décoratifs" },
+              { "name": "Musée des Civilisations Noires" },
+              { "name": "Ecole nationale des Arts et Métiers de la Culture" },
+              {
+                "name": "Fonds de développement des Cultures Urbaines et des Industries créatives"
+              },
+              { "name": "Mémorial du Bateau le JOOLA" }
+            ]
+          },
+          {
+            "name": "Sociétés nationales et à participation publique",
+            "children": [
+              { "name": "Société « Les nouvelles Editions africaines »" },
+              {
+                "name": "La Sénégalaise du Droit d'Auteur et des Droits Voisins"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Elevage",
+        "children": [
+          {
+            "name": "Cabinet et services rattachés",
+            "children": [
+              { "name": "Inspection interne" },
+              { "name": "Cellule de Communication et d'Information" },
+              { "name": "Bureau de la Formation professionnelle agricole" },
+              {
+                "name": "Bureau des Relations avec les Organisations paysannes"
+              },
+              { "name": "Bureau de la Législation agricole" },
+              { "name": "Cellule des statistiques et données" },
+              {
+                "name": "Cellule de Prévention et de Lutte contre le Vol de Bétail"
+              },
+              { "name": "Bureau de la Formation professionnelle en Elevage" }
+            ]
+          },
+          {
+            "name": "Cabinet du Secrétaire d'État aux Coopératives et à l'Encadrement paysan"
+          },
+          {
+            "name": "Secrétariat général et services rattachés",
+            "children": [
+              { "name": "Cellule de Passation des Marchés publics" },
+              {
+                "name": "Cellule des Etudes, de la Planification et suivi-évaluation"
+              },
+              { "name": "Cellule des Affaires juridiques" },
+              { "name": "Cellule Genre et de l'Equité" },
+              { "name": "Cellule de l'Informatique" },
+              { "name": "Cellule de Coordination du Contrôle de Gestion" },
+              { "name": "Bureau des archives et de la Documentation" },
+              { "name": "Bureau du Courrier commun" }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              { "name": "Direction de l'Agriculture" },
+              { "name": "Direction de la Protection des Végétaux" },
+              { "name": "Direction de l'Horticulture" },
+              {
+                "name": "Direction de l'Analyse, de la Prévision et des Statistiques agricoles"
+              },
+              {
+                "name": "Direction de la Modernisation de l'Equipement rural"
+              },
+              {
+                "name": "Direction du Financement et du Partenariat avec les Organisations"
+              },
+              {
+                "name": "Direction des Bassins de Rétention et des Lacs artificiels"
+              },
+              { "name": "Direction de l'Elevage" },
+              { "name": "Direction des Services vétérinaires" },
+              { "name": "Direction des Industries animales" },
+              { "name": "Direction du Développement des Équidés" },
+              {
+                "name": "Direction de la Planification, de l'Evaluation et des Statistiques"
+              },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              { "name": "Centre de Formation Professionnelle horticole" },
+              { "name": "Centre d'Initiation horticole" },
+              { "name": "Centre de Perfectionnement agricole" },
+              { "name": "Centre de Perfectionnement des maraîchers" },
+              {
+                "name": "Centre de Formation des Techniciens en Agriculture et Génie rural"
+              },
+              {
+                "name": "Centre national de Formation en Cultures irriguées"
+              },
+              {
+                "name": "Agence nationale d'Insertion et de Développement agricole"
+              },
+              { "name": "Haras national de Kébémer" },
+              { "name": "Fonds d'Appui à la Stabulation" },
+              { "name": "Centre national d'Aviculture de Mbao" },
+              { "name": "Centre national d'Amélioration génétique" },
+              {
+                "name": "Centre national de Formation des Techniciens de l'Elevage et des Industries animales de Saint-Louis"
+              },
+              { "name": "Centre de Perfectionnement des Eleveurs de Labgar" },
+              { "name": "Ranch Djibo Leyti KA de Dolly" },
+              { "name": "Programme des Domaines agricoles communautaires" }
+            ]
+          },
+          {
+            "name": "Établissements publics",
+            "children": [
+              { "name": "Institut sénégalais de Recherches agricoles" },
+              { "name": "Institut national de Pédologie" },
+              { "name": "Chambre nationale d'Agriculture" },
+              { "name": "Chambres régionales d'Agriculture" },
+              { "name": "Barrage d'Affiniam" },
+              { "name": "Ordre des Vétérinaires" },
+              { "name": "Haras national" }
+            ]
+          },
+          {
+            "name": "Sociétés nationales et à participation publique",
+            "children": [
+              {
+                "name": "Société nationale de Commercialisation des Oléagineux du Sénégal"
+              },
+              {
+                "name": "Société nationale d'Aménagement des Terres du Delta et de la Vallée du Fleuve Sénégal"
+              },
+              { "name": "Société de Développement agricole et industriel" },
+              { "name": "Société de Développement des Fibres textiles" },
+              { "name": "Agence nationale du Conseil agricole et rural" }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ministère de la Microfinance, de l'Economie Sociale et Solidaire",
+        "children": [
+          {
+            "name": "Cabinet et services rattachés",
+            "children": [
+              { "name": "Inspection interne" },
+              { "name": "Fonds d'Appui à l'Economie sociale et solidaire" },
+              { "name": "Cellule des statistiques et données" },
+              { "name": "Cellule de communication" }
+            ]
+          },
+          {
+            "name": "Secrétariat général et services rattachés",
+            "children": [
+              { "name": "Cellule de Passation des Marchés publics" },
+              { "name": "Cellule des Affaires juridiques" },
+              {
+                "name": "Cellule des Etudes, de la Planification et du Suivi-évaluation"
+              },
+              { "name": "Cellule du Genre et de l'Equité" },
+              { "name": "Centre de Ressources et de Documentation" },
+              { "name": "Bureau du Courrier commun" }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              {
+                "name": "Direction de la Promotion de l'Economie sociale et solidaire"
+              },
+              {
+                "name": "Direction de la Microfinance et de l'Inclusion financière"
+              },
+              { "name": "Direction des Stratégies et de la Prospective" },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              { "name": "Fonds d'Impulsion de la Micro Finance" },
+              { "name": "Fonds national de la Microfinance" },
+              {
+                "name": "Programme de Développement de la Microfinance Islamique au Sénégal"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Ministère du Tourisme et de l'Artisanat",
+        "children": [
+          {
+            "name": "Cabinet et services rattachés",
+            "children": [
+              { "name": "Inspection interne" },
+              {
+                "name": "Bureau de la Communication, des Archives et de la Documentation"
+              },
+              {
+                "name": "Secrétariat du Comité de Gestion du Fonds de Promotion touristique"
+              },
+              {
+                "name": "Cellule de la Promotion et des Aménagements touristiques"
+              },
+              {
+                "name": "Service des Relations publiques et de la Documentation"
+              },
+              {
+                "name": "Secrétariat permanent du Conseil sénégalais du Tourisme"
+              },
+              {
+                "name": "Secrétariat permanent du Crédit hôtelier et touristique"
+              }
+            ]
+          },
+          {
+            "name": "Secrétariat général et services rattachés",
+            "children": [
+              { "name": "Cellule de passation des Marchés publics" },
+              { "name": "Cellule des Affaires juridiques" },
+              { "name": "Cellule l'Informatique" },
+              {
+                "name": "Cellule des études, de la planification et du suivi-évaluation"
+              },
+              { "name": "Cellule du Genre et de l'Equité" },
+              { "name": "Bureau des archives et de la Documentation" },
+              { "name": "Bureau du Courrier commun" }
+            ]
+          },
+          {
+            "name": "Directions",
+            "children": [
+              {
+                "name": "Direction des Investissements et des Aménagements touristiques"
+              },
+              { "name": "Direction de la Promotion touristique" },
+              { "name": "Direction de la Réglementation touristique" },
+              { "name": "Direction de l'Artisanat" },
+              {
+                "name": "Direction de l'Encadrement et de la transformation des entreprises informelles"
+              },
+              {
+                "name": "Direction des Statistiques et de la productivité du Capital humain"
+              },
+              {
+                "name": "Direction de l'Administration générale et de l'Equipement"
+              }
+            ]
+          },
+          {
+            "name": "Autres administrations",
+            "children": [
+              {
+                "name": "Ecole nationale de Formation hôtelière et touristique"
+              },
+              { "name": "Agence Sénégalaise de Promotion Touristique" },
+              {
+                "name": "Agence pour la Promotion et le Développement de l'Artisanat"
+              },
+              { "name": "Centre de Formation artisanale de Dakar" },
+              { "name": "Centre de Perfectionnement des artisans ruraux" },
+              { "name": "Centre de Perfectionnement agricole et artisanal" },
+              { "name": "Projet Mobilier national" }
+            ]
+          },
+          {
+            "name": "Établissements publics",
+            "children": [
+              { "name": "Union nationale des chambres des métiers" },
+              { "name": "Chambres des métiers" }
+            ]
+          },
+          {
+            "name": "Sociétés nationales et à participation publique",
+            "children": [
+              {
+                "name": "Société d'Aménagement et de Promotion des Côtes et Zones Touristiques du Sénégal"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

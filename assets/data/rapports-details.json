@@ -1,1360 +1,1331 @@
 [
-    {
-        "id": "ofnac-2023",
-        "summary": [
-            {
-                "title": null,
-                "content": "Président OFNAC: Serigne Bassirou GUEYE"
-            },
-            {
-                "title": null,
-                "content": "53 Plaintes déposées"
-            },
-            {
-                "title": null,
-                "content": "42 Ordres ouverture d'enquête"
-            },
-            {
-                "title": null,
-                "content": "40 Rapports d'enquête transmis au Procureur"
-            },
-            {
-                "title": null,
-                "content": "12 rapports d'enquête finalisés"
-            },
-            {
-                "title": null,
-                "content": "3 Affaires avec déliberation définitive"
-            }
+  {
+    "id": "ofnac-2023",
+    "summary": [
+      {
+        "title": null,
+        "content": "Président OFNAC: Serigne Bassirou GUEYE"
+      },
+      {
+        "title": null,
+        "content": "53 Plaintes déposées"
+      },
+      {
+        "title": null,
+        "content": "42 Ordres ouverture d'enquête"
+      },
+      {
+        "title": null,
+        "content": "40 Rapports d'enquête transmis au Procureur"
+      },
+      {
+        "title": null,
+        "content": "12 rapports d'enquête finalisés"
+      },
+      {
+        "title": null,
+        "content": "3 Affaires avec déliberation définitive"
+      }
+    ],
+    "title": "Résumé des affaires ayant fait l'objet d'une déliberation définitive de l'OFNAC",
+    "investigations": [
+      {
+        "reference": "Page 34 - Rapport d'enquête n°03/2022",
+        "title": "Kit médical de Dialyse",
+        "file_title": "Faits supposés de corruption dans la gestion de la prise en charge de la maladie rénale chronique (Dialyse)",
+        "facts_denounced": [
+          "Irrégularités graves dans la distribution des kits d'hémodialyse",
+          "Détournement de Kit parfois, certains étant vendus illégalement en Gambie",
+          "Surfacturation des Kit d'analyse, acheté 8 000 FCFA l'unité et revendu 40 000 FCFA à l'État",
+          "Délit d'initié impliquant CCBM de Serigne Mboup et son frère Directeur de Carrefour Médical"
         ],
-        "title": "Résumé des affaires ayant fait l’objet d’une déliberation définitive de l’OFNAC",
-        "investigations": [
-            {
-                "reference": "Page 34 - Rapport d'enquête n°03/2022",
-                "title": "Kit médical de Dialyse",
-                "file_title": "Faits supposés de corruption dans la gestion de la prise en charge de la maladie rénale chronique (Dialyse)",
-                "facts_denounced": [
-                    "Irrégularités graves dans la distribution des kits d'hémodialyse",
-                    "Détournement de Kit parfois, certains étant vendus illégalement en Gambie",
-                    "Surfacturation des Kit d'analyse, acheté 8 000 FCFA l'unité et revendu 40 000 FCFA à l'État",
-                    "Délit d'initié impliquant CCBM de Serigne Mboup et son frère Directeur de Carrefour Médical"
-                ],
-                "infractions": [
-                    "Corruption",
-                    "Escroquerie",
-                    "Abus de confiance",
-                    "violation d’une convention Etat-Privé"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Assistante-secrétaire de l'ICP",
-                        "position": "",
-                        "infraction": "corruption passive et escroquerie"
-                    },
-                    {
-                        "name": "Administrateur de l'ICP (Institut clinique de performance)",
-                        "position": "",
-                        "infraction": "escroquerie portant sur les deniers publics"
-                    }
-                ],
-                "whistleblower": "Mr Hamidou Diallo, porte-parole du Mouvement des Insuffisants rénaux du Sénégal ( décédé en cours d’enquête, le 29 juillet 2020)",
-                "prejudice_amount": "quatre milliards (4 000 000 000) de FCFA de surfacturation par an",
-                "facts_period": "2020",
-                "ofnac_decision": "Transmission au Procureur"
-            },
-            {
-                "reference": "Page 39 - Rapport d'enquête n°06/2022",
-                "title": "Délivrance Frauduleuse de Carnet ATA par la CCIAD",
-                "file_title": "Délivrance de Carnet ATA par la CCIAD",
-                "infractions": [
-                    "Fraude"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Secrétaire général de la CCIAD",
-                        "position": ""
-                    }
-                ],
-                "whistleblower": "Papa Seckou Sokhna Cisse, Adjoint au chef du DAERI de la CCIAD",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "Août 2019",
-                "ofnac_decision": "Classement sans suite"
-            },
-            {
-                "reference": "Page 42 - Rapport d'enquête n°08/2022 ",
-                "title": "Malversations à la Chambre de Métiers de Sédhiou",
-                "file_title": "Gestion de la Chambre de Métiers de Sédhiou",
-                "infractions": [
-                    "Malversations",
-                    "Abus de pouvoir"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Président de la Chambre de Métiers de Sédhiou",
-                        "position": ""
-                    }
-                ],
-                "whistleblower": "Bacary Mane, membre de la Chambre de Métiers de Sédhiou",
-                "prejudice_amount": "3 994 463 FCFA",
-                "facts_period": "Décembre 2019",
-                "ofnac_decision": "Transmission à titre d'information au Premier Président de la Cour des comptes"
-            }
-        ]
-    },
-    {
-        "id": "ofnac-2022",
-        "summary": [
-            {
-                "title": null,
-                "content": "Président OFNAC Serigne Bassirou GUEYE"
-            },
-            {
-                "title": null,
-                "content": "95 Plaintes déposées"
-            },
-            {
-                "title": null,
-                "content": "73 Ordres ouverture d'enquête"
-            },
-            {
-                "title": null,
-                "content": "9 Rapports d'enquête transmis au Procureur"
-            },
-            {
-                "title": null,
-                "content": "2 Affaires détaillés dans le rapport"
-            }
+        "infractions": [
+          "Corruption",
+          "Escroquerie",
+          "Abus de confiance",
+          "violation d'une convention Etat-Privé"
         ],
-        "title": "Résumé des 2 rapports d'enquête transmis au procureur et détaillés dans le rapport",
-        "investigations": [
-            {
-                "reference": "Page 56 - Rapport d'enquête n°01/2022",
-                "title": "Maire de la Commune de Gandé",
-                "file_title": "Plainte visant le maire de la Commune de Gandé",
-                "facts_denounced": [
-                    "Rétention des comptes administratifs annuels et gestion opaque des recettes municipales",
-                    "Attribution d'une parcelle de 200ha à un promoteur en contrepartie de travaux non budgétisés",
-                    "Appropriation personnelle d'une parcelle de terrain et utilisation d'un tracteur d'État à des fins personnelles",
-                    "Utilisation d'un véhicule de la commune pour des besoins personnels et résidence à Dakar contrairement aux obligations légales"
-                ],
-                "infractions": [
-                    "Violation du Code général des collectivités territoriales",
-                    "Violation du Règlement général sur la Comptabilité publique",
-                    "Faute de gestion",
-                    "Gestion de fait",
-                    "Occupation de terrain attribué à autrui, sans droit ni titre",
-                    "Détournement de deniers publics",
-                    "Faux et usage de faux"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Maire de la Commune de Gandé",
-                        "position": "Maire",
-                        "infraction": "Multiples infractions incluant faux et usage de faux, détournement de deniers publics"
-                    }
-                ],
-                "whistleblower": "Mouvement 'Leeral Moomellu Gandé', collectif de conseillers municipaux",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "2019-2021",
-                "ofnac_decision": "Transmission au Procureur de Louga"
-            },
-            {
-                "reference": "Page 58 - Rapport d'enquête n°04/2022",
-                "title": "Bureau des Domaines de Ngor/Almadies",
-                "file_title": "Affaire contre un Particulier et contre le Bureau des Domaines de Ngor/Almadies concernant un litige foncier portant sur la parcelle n° 74 du TF 2132/NGA (ex TF 5757/DG) située à Ngor Extension",
-                "facts_denounced": [
-                    "Différend foncier concernant la parcelle n° 74 du TF 2132/NGA, impliquant de fausses attributions et de l'usage de faux documents",
-                    "Négligence dans la gestion des archives publiques et irrégularités dans l'attribution de propriétés foncières"
-                ],
-                "infractions": [
-                    "Faux en document administratif",
-                    "Usage de faux dans un document administratif",
-                    "Violation de l’obligation de conserver les archives publiques"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Maire de la Commune de Ngor",
-                        "position": "",
-                        "infraction": "Faux en document administratif et usage de faux"
-                    },
-                    {
-                        "name": "Frères M.S et A.S",
-                        "position": "Particuliers",
-                        "infraction": "Usage de faux"
-                    }
-                ],
-                "whistleblower": "Particulier, attributaire de la parcelle depuis 2001",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "2020",
-                "ofnac_decision": "Transmission au procureur de Dakar"
-            }
-        ]
-    },
-    {
-        "id": "ofnac-2021",
-        "summary": [
-            {
-                "title": null,
-                "content": "Président OFNAC Seynabou NDIAYE DIAKHATE"
-            },
-            {
-                "title": null,
-                "content": "100 Plaintes déposées"
-            },
-            {
-                "title": null,
-                "content": "90 Ordres ouverture d'enquête"
-            }
+        "incriminated": [
+          {
+            "name": "Assistante-secrétaire de l'ICP",
+            "position": "",
+            "infraction": "corruption passive et escroquerie"
+          },
+          {
+            "name": "Administrateur de l'ICP (Institut clinique de performance)",
+            "position": "",
+            "infraction": "escroquerie portant sur les deniers publics"
+          }
         ],
-        "title": "Résumé des enquêtes menées",
-        "investigations": [
-            {
-                "reference": "Rapport d'enquête n°01/2021 - page 50",
-                "title": "Affaire Seyni Camara, Cheikh Tague et Malick Fall contre le PDG de WARI S.A.",
-                "file_title": "Abus de biens sociaux, fraude fiscale et corruption dans la gestion de WARI S.A.",
-                "facts_denounced": [
-                    "Falsification des états financiers de WARI S.A., INTERACTIVE SARL et INTERLINQ SUARL",
-                    "Détournement d'activité d'INTERACTIVE SARL vers une société parallèle, INTERLINQ SUARL",
-                    "Transfert du siège de WARI S.A. à Lomé pour éviter le paiement des impôts au Sénégal et au Togo",
-                    "Corruption présumée d'un notaire et d'un responsable des impôts au Togo pour éviter le paiement de 3,8 milliards FCFA d'impôts"
-                ],
-                "infractions": [
-                    "Abus de biens sociaux",
-                    "Fraude fiscale",
-                    "Corruption active",
-                    "Fraude comptable"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Kabirou Mbodj",
-                        "position": "PDG de WARI S.A.",
-                        "infraction": "Abus de biens sociaux, fraude fiscale, corruption active"
-                    },
-                    {
-                        "name": "Pape Magatte Diop",
-                        "position": "Conseiller juridique et fiscal de WARI",
-                        "infraction": "Corruption active"
-                    }
-                ],
-                "whistleblower": "Seyni Camara, Cheikh Tague et Malick Fall, co-fondateurs et actionnaires de WARI",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "2015-2017",
-                "ofnac_decision": "Transmission au Procureur"
-            },
-            {
-                "reference": "Rapport d'enquête n°02/2021",
-                "title": "Affaire contre Hamady Séga Sy, Directeur Administratif et Financier de l'Université du Sine Saloum El Hadji Ibrahima Niass (USSEIN)",
-                "file_title": "Détournement de fonds publics et enrichissement illicite",
-                "facts_denounced": [
-                    "Attribution de marchés publics à des sociétés-écran",
-                    "Création de dépenses fictives pour couvrir des transactions personnelles",
-                    "Surfacturation du matériel informatique et des produits d'entretien"
-                ],
-                "infractions": [
-                    "Détournement de fonds publics",
-                    "Enrichissement illicite",
-                    "Surfacturation"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Hamady Séga Sy",
-                        "position": "Directeur Administratif et Financier de l'USSEIN",
-                        "infraction": "Détournement de fonds publics, enrichissement illicite"
-                    }
-                ],
-                "whistleblower": "Individu anonyme",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "Non spécifié",
-                "ofnac_decision": "Classement sans suite"
-            },
-            {
-                "reference": "Rapport d'enquête n°03/2021",
-                "title": "Affaire Colonel Ndeye Sene Thiam de la Direction des Parcs Nationaux (DPN)",
-                "file_title": "Fraude au Centre médico-social de la DPN",
-                "facts_denounced": [
-                    "Paiement de salaires fictifs à des contractuels depuis 2012",
-                    "Tentative de corruption du sergent-chef Alassane Diop pour son silence",
-                    "Refus de rendre au Trésor le montant de 302 504 FCFA représentant les salaires fictifs"
-                ],
-                "infractions": [
-                    "Faux et usage de faux",
-                    "Escroquerie portant sur des deniers publics",
-                    "Association de malfaiteurs"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Lamine Sambou, Ndeye Sene Thiam, Mouhamadou Mody Diallo, Papa Tagouth Top, Alassane Samb",
-                        "position": "Divers",
-                        "infraction": "Faux, usage de faux et escroquerie portant sur des deniers publics"
-                    }
-                ],
-                "whistleblower": "Sergent-chef Alassane Diop",
-                "prejudice_amount": "8 667 764 FCFA",
-                "facts_period": "2013-2018",
-                "ofnac_decision": "Transmission au Procureur de la République"
-            },
-            {
-                "reference": "Rapport d'enquête n°04/2021",
-                "title": "Affaire contre le Maire de la Commune de Darou Khoudoss-Mboro",
-                "file_title": "Absence de transparence dans la gestion des finances communales",
-                "facts_denounced": [
-                    "Absence de transparence dans la collecte des taxes municipales routières",
-                    "Manque de transparence dans les subventions financières allouées à la commune par les sociétés minières",
-                    "Construction illégale d'un centre commercial"
-                ],
-                "infractions": [
-                    "Faux et usage de faux en écritures publiques",
-                    "Détournement de deniers publics",
-                    "Enrichissement illicite"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Magor Kane",
-                        "position": "Maire de Darou Khoudoss-Mboro",
-                        "infraction": "Faux et usage de faux, détournement de deniers publics, enrichissement illicite"
-                    }
-                ],
-                "whistleblower": "Souleymane Diop",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "2018",
-                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-            },
-            {
-                "reference": "Rapport d'enquête n°05/2021",
-                "title": "Affaire délivrance de licences de pêche au Sénégal",
-                "file_title": "Délivrance de licences de pêche en violation du Code de la pêche maritime",
-                "facts_denounced": [
-                    "Accord de licences à des navires récemment naturalisés sans convocation de la Commission consultative d'Attribution",
-                    "Soupçons de concussion et de corruption à la base des autorisations"
-                ],
-                "infractions": [
-                    "Corruption",
-                    "Concussion"
-                ],
-                "incriminated": [],
-                "whistleblower": "UPAMES, CONIPAS et GAIPES",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "2018-2020",
-                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-            },
-            {
-                "reference": "Rapport d'enquête n°06/2021",
-                "title": "Affaire contre le Maire de la Commune de Faoune",
-                "file_title": "Anomalies dans les comptes administratifs et gestion non transparente",
-                "facts_denounced": [
-                    "Non-exécution de plusieurs projets inscrits dans les comptes administratifs de 2017 et 2018",
-                    "Mauvaise gestion facilitée par l'absence d'une commission des marchés et d'une cellule de passation de marchés"
-                ],
-                "infractions": [
-                    "Faux et usage de faux",
-                    "Faute de gestion",
-                    "Gestion de fait",
-                    "Violation du Code des Collectivités territoriales"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Ibrahima Ba",
-                        "position": "Maire de Faoune",
-                        "infraction": "Faux et usage de faux, faute de gestion, gestion de fait"
-                    }
-                ],
-                "whistleblower": "Souleymane Iradiang",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "2017-2018",
-                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-            },
-            {
-                "reference": "Rapport d'enquête n°07/2021",
-                "title": "Affaire contre le Groupe Auchan, SETAM, la Mairie et le Conseil Départemental de Mbour",
-                "file_title": "Conflit d'intérêts, corruption et violation du Code des Marchés publics",
-                "facts_denounced": [
-                    "Octroi d'une partie du stade Caroline Faye au Groupe Auchan",
-                    "Attribution du marché de construction du complexe culturel à SETAM sans respect des procédures"
-                ],
-                "infractions": [
-                    "Corruption",
-                    "Violation du Code des Marchés publics",
-                    "Faux et usage de faux"
-                ],
-                "incriminated": [
-                    {
-                        "name": "El Hadji Falou Sylla",
-                        "position": "Maire de Mbour",
-                        "infraction": "Faux et usage de faux"
-                    },
-                    {
-                        "name": "Abdou Salam Ndiaye",
-                        "position": "Gérant de SETAM",
-                        "infraction": "Favoritisme"
-                    }
-                ],
-                "whistleblower": "Ibou Niang, membre du Forum Civil et Coordinateur de Transparency International Mbour",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "Non spécifié",
-                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-            },
-            {
-                "reference": "Rapport d'enquête n°08/2021",
-                "title": "Affaire corruption et vente illégale de terrains contre Donacien Kanfany",
-                "file_title": "Corruption et vente illégale de terrains au Cadastre de Ziguinchor",
-                "facts_denounced": [
-                    "Vente illégale de 20 parcelles de terrains",
-                    "Occupation illégale du poste de chef du Cadastre"
-                ],
-                "infractions": [
-                    "Concussion",
-                    "Vente illégale de terres du domaine national",
-                    "Enrichissement illicite"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Donacien Kanfany",
-                        "position": "Chef du Cadastre de Ziguinchor",
-                        "infraction": "Vente illégale de terres, concussion, enrichissement illicite"
-                    }
-                ],
-                "whistleblower": "Individu anonyme",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "Non spécifié",
-                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-            },
-            {
-                "reference": "Rapport d'enquête n°09/2021",
-                "title": "Affaire contre le Maire de la Commune de Sindia",
-                "file_title": "Détournement de deniers publics, escroquerie et blanchiment de capitaux",
-                "facts_denounced": [
-                    "Détournement de 54 175 500 FCFA en indemnités de terres",
-                    "Manoeuvres pour s'inscrire comme propriétaire coutumier pour recevoir des indemnités"
-                ],
-                "infractions": [
-                    "Détournement de deniers publics",
-                    "Escroquerie portant sur des deniers publics",
-                    "Blanchiment de capitaux"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Thierno Diagne",
-                        "position": "Maire de Sindia",
-                        "infraction": "Détournement de deniers publics, escroquerie, blanchiment de capitaux"
-                    }
-                ],
-                "whistleblower": "Individu anonyme",
-                "prejudice_amount": "54 175 500 FCFA",
-                "facts_period": "Non spécifié",
-                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-            },
-            {
-                "reference": "Rapport d'enquête n°10/2021",
-                "title": "Affaire acquisition de vivres et autres produits et prestations de services de transport dans le cadre de la lutte contre la pandémie COVID-19",
-                "file_title": "Faux en écritures privées, banqueroute frauduleuse et violation du Code des marchés publics",
-                "facts_denounced": [
-                    "Attribution de marchés à des entreprises non qualifiées ou en faillite",
-                    "Faux en écritures privées",
-                    "Banqueroute frauduleuse"
-                ],
-                "infractions": [
-                    "Faux en écritures privées",
-                    "Banqueroute frauduleuse",
-                    "Violation du Code des marchés publics"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Rayan Hachem",
-                        "position": "Gérant de 'Avanti Suarl' et 'Afri & Co Suarl'",
-                        "infraction": "Faux en écritures privées, complicité par instigation"
-                    },
-                    {
-                        "name": "Demba Diop Sy",
-                        "position": "DG 'Urbaine d'Entreprise' (UDE)",
-                        "infraction": "Banqueroute frauduleuse, violation du Règlement intérieur de l’Assemblée nationale"
-                    },
-                    {
-                        "name": "Marième Diop",
-                        "position": "Fille de Demba DIOP SY",
-                        "infraction": "Complicité de Banqueroute frauduleuse"
-                    }
-                ],
-                "whistleblower": "Guy Marius Sagna (FRAPP), Professeur Babacar Diop (FDS)",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "Non spécifié",
-                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-            },
-            {
-                "reference": "Rapport d'enquête n°11/2021",
-                "title": "Affaire contre le Maire de la Commune de Ndindy",
-                "file_title": "Détournement de deniers publics, corruption et surfacturation",
-                "facts_denounced": [
-                    "Dépenses surestimées pour les projets financés par le budget consolidé d'investissement de 2019",
-                    "Détournement d'objectif sur 16 projets financés par un partenaire italien"
-                ],
-                "infractions": [
-                    "Détournement de deniers publics",
-                    "Corruption",
-                    "Surfacturation"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Cheikh Seck",
-                        "position": "Maire de Ndindy",
-                        "infraction": "Détournement de deniers publics, corruption, surfacturation"
-                    }
-                ],
-                "whistleblower": "Matar Sylla, responsable APR à Ndindy",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "2019",
-                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-            },
-            {
-                "reference": "Rapport d'enquête n°12/2021",
-                "title": "Plainte contre le Sieur Amadou Diallo, ex-proviseur du Lycée Cheikh Mouhamadou Moustapha Mbakke de Diourbel",
-                "file_title": "Détournement de deniers publics",
-                "facts_denounced": [
-                    "Détournement de deniers publics par l'ex-proviseur"
-                ],
-                "infractions": [
-                    "Détournement de deniers publics"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Amadou Diallo",
-                        "position": "Ex-proviseur du Lycée Cheikh Mouhamadou Moustapha Mbakke de Diourbel",
-                        "infraction": "Détournement de deniers publics"
-                    }
-                ],
-                "whistleblower": "Meissa Gningue",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "Non spécifié",
-                "ofnac_decision": "Classement sans suite"
-            },
-            {
-                "reference": "Rapport d'enquête n°13/2021",
-                "title": "Plainte contre le Président de la Chambre des Métiers de Diourbel",
-                "file_title": "Vol, détournement de fonds publics et utilisation abusive des biens",
-                "facts_denounced": [
-                    "Vol de biens fournis par une ONG",
-                    "Détournement de fonds publics",
-                    "Utilisation abusive de véhicules administratifs"
-                ],
-                "infractions": [
-                    "Vol",
-                    "Détournement de fonds publics",
-                    "Utilisation abusive des biens administratifs"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Massamba Thiam",
-                        "position": "Président de la Chambre des Métiers de Diourbel",
-                        "infraction": "Vol, détournement de fonds publics, utilisation abusive des biens"
-                    }
-                ],
-                "whistleblower": "Ibrahima Thiam",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "Non spécifié",
-                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-            }
-        ]
-    },
-    {
-        "id": "ofnac-2020",
-        "title": "Résumé des enquêtes menées",
-        "summary": [
-            {
-                "title": null,
-                "content": "Président OFNAC Seynabou NDIAYE DIAKHATE"
-            },
-            {
-                "title": null,
-                "content": "129 Plaintes déposées"
-            },
-            {
-                "title": null,
-                "content": "83 Ordres ouverture d'enquête"
-            }
+        "whistleblower": "Mr Hamidou Diallo, porte-parole du Mouvement des Insuffisants rénaux du Sénégal ( décédé en cours d'enquête, le 29 juillet 2020)",
+        "prejudice_amount": "quatre milliards (4 000 000 000) de FCFA de surfacturation par an",
+        "facts_period": "2020",
+        "ofnac_decision": "Transmission au Procureur"
+      },
+      {
+        "reference": "Page 39 - Rapport d'enquête n°06/2022",
+        "title": "Délivrance Frauduleuse de Carnet ATA par la CCIAD",
+        "file_title": "Délivrance de Carnet ATA par la CCIAD",
+        "infractions": ["Fraude"],
+        "incriminated": [
+          {
+            "name": "Secrétaire général de la CCIAD",
+            "position": ""
+          }
         ],
-        "investigations": [
-            {
-                "reference": "Rapport d'enquête n°01/2020",
-                "title": "Affaire contre Mor FALL, Chef du Centre des Services fiscaux de Saint-Louis",
-                "file_title": "Corruption, détournement de fonds et faux et usage de faux en écriture",
-                "facts_denounced": [
-                    "Faux état de droits réels et fausse copie des bordereaux analytiques",
-                    "Mutation effectuée sur la base de faux documents"
-                ],
-                "infractions": [
-                    "Corruption",
-                    "Détournement de fonds",
-                    "Faux et usage de faux"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Mor FALL",
-                        "position": "Chef du Centre des Services fiscaux de Saint-Louis",
-                        "infraction": "Corruption, détournement de fonds, faux et usage de faux"
-                    }
-                ],
-                "whistleblower": "Momar NDIAYE",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "2013",
-                "ofnac_decision": "Classement sans suite"
-            },
-            {
-                "reference": "Rapport d'enquête n°02/2020",
-                "title": "Affaire contre SONATEL Mobile et Orange Finances Mobile Sénégal",
-                "file_title": "Violation et collecte illicite de données à caractère personnel",
-                "facts_denounced": [
-                    "Envoi de messages commerciaux intempestifs",
-                    "Collecte non autorisée des données personnelles"
-                ],
-                "infractions": [
-                    "Violation de la loi n° 2008-12",
-                    "Collecte illicite de données personnelles"
-                ],
-                "incriminated": [
-                    {
-                        "name": "SONATEL Mobile",
-                        "position": "Entreprise",
-                        "infraction": "Violation des données personnelles"
-                    },
-                    {
-                        "name": "Orange Finances Mobile Sénégal",
-                        "position": "Entreprise",
-                        "infraction": "Collecte illicite de données personnelles"
-                    }
-                ],
-                "whistleblower": "Madame Magatte NDIAYE NDOYE",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "2013-2019",
-                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-            },
-            {
-                "reference": "Rapport d'enquête n°03/2020",
-                "title": "Affaire contre Abdoulaye SADIO dit Bosco, Maire de Goudomp",
-                "file_title": "Abus de pouvoir, faux et usage de faux en écriture",
-                "facts_denounced": [
-                    "Non-respect des intérêts des planteurs lors du lotissement",
-                    "Absence d'une commission d'attribution des parcelles",
-                    "Répartition inégale des parcelles"
-                ],
-                "infractions": [
-                    "Abus de pouvoir",
-                    "Faux et usage de faux"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Abdoulaye SADIO dit Bosco",
-                        "position": "Maire de Goudomp",
-                        "infraction": "Abus de pouvoir, faux et usage de faux"
-                    }
-                ],
-                "whistleblower": "Makhfousse FALL",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "Non spécifié",
-                "ofnac_decision": "Classement sans suite"
-            },
-            {
-                "reference": "Rapport d'enquête n°04/2020",
-                "title": "Affaire contre Mar NDIAYE, Chef du Service du Contrôle domanial de la Mairie de Keur Massar",
-                "file_title": "Concussion",
-                "facts_denounced": [
-                    "Perception illégale de frais pour l'obtention d'une autorisation de construire",
-                    "Non-émission de quittances officielles"
-                ],
-                "infractions": [
-                    "Concussion"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Mar NDIAYE",
-                        "position": "Chef du Service du Contrôle domanial de la Mairie de Keur Massar",
-                        "infraction": "Concussion"
-                    }
-                ],
-                "whistleblower": "Moussa FALL",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "Non spécifié",
-                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-            },
-            {
-                "reference": "Rapport d'enquête n°05/2020",
-                "title": "Affaire contre Mbaye TINE, Maire de la Commune de Taïf",
-                "file_title": "Refus de présenter les comptes administratifs, gestion non transparente",
-                "facts_denounced": [
-                    "Refus de présenter les comptes administratifs de 2017 et 2018",
-                    "Refus de recueillir l'avis du Conseil municipal",
-                    "Travaux non budgétisés"
-                ],
-                "infractions": [
-                    "Faux et usage de faux",
-                    "Gestion non transparente"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Mbaye TINE",
-                        "position": "Maire de la Commune de Taïf",
-                        "infraction": "Faux et usage de faux, gestion non transparente"
-                    }
-                ],
-                "whistleblower": "Collectif des conseillers municipaux de Taïf",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "2017-2018",
-                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-            },
-            {
-                "reference": "Rapport d'enquête n°06/2020",
-                "title": "Affaire contre Marco Fortumato GIANNECHINI",
-                "file_title": "Occupation illégale de terrain, escroquerie et faux et usage de faux",
-                "facts_denounced": [
-                    "Occupation illégale d'un terrain attribué par le Conseil rural de Yenne",
-                    "Destruction d'aménagements préexistants"
-                ],
-                "infractions": [
-                    "Occupation illégale",
-                    "Escroquerie",
-                    "Faux et usage de faux"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Marco Fortumato GIANNECHINI",
-                        "position": "Individu",
-                        "infraction": "Occupation illégale de terrain, escroquerie, faux et usage de faux"
-                    }
-                ],
-                "whistleblower": "Madame Gemma SAMBOU BADJI",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "Non spécifié",
-                "ofnac_decision": "Transmission au procureur de la République"
-            },
-            {
-                "reference": "Rapport d'enquête n°07/2020",
-                "title": "Affaire contre le Maire de Vélingara",
-                "file_title": "Fautes de gestion, violation du code pénal et du code des collectivités territoriales",
-                "facts_denounced": [
-                    "Non-transmission du compte administratif",
-                    "Bradage des terres",
-                    "Détournement d'objectifs"
-                ],
-                "infractions": [
-                    "Faux et usage de faux",
-                    "Détournement d'objectifs"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Mamadou Oury Baïlo DIALLO",
-                        "position": "Maire de Vélingara",
-                        "infraction": "Fautes de gestion, violation du code pénal, faux et usage de faux"
-                    }
-                ],
-                "whistleblower": "El Hadji Abdoul Aziz MBENGUE",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "Non spécifié",
-                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-            },
-            {
-                "reference": "Rapport d'enquête n°08/2020",
-                "title": "Fraude sur le concours d'entrée en 6ème à la Maison d'Éducation Mariama BA de Gorée",
-                "file_title": "Fraude présumée sur un concours d'entrée",
-                "facts_denounced": [
-                    "Fraude présumée sur le concours d'entrée",
-                    "Refus d'accorder un recours"
-                ],
-                "infractions": [
-                    "Fraude"
-                ],
-                "incriminated": [],
-                "whistleblower": "Seyni TOURE",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "2019",
-                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-            },
-            {
-                "reference": "Rapport d'enquête n°09/2020",
-                "title": "Affaire contre Astou Dioh SÈNE, Directrice du CNEPS de Thiès",
-                "file_title": "Gestion nébuleuse, gabegie et corruption",
-                "facts_denounced": [
-                    "Acquisition et construction d'immeubles à Thiès",
-                    "Blanchiment d'argent à travers deux boutiques"
-                ],
-                "infractions": [
-                    "Gestion nébuleuse",
-                    "Corruption"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Astou Dioh SÈNE",
-                        "position": "Directrice du CNEPS de Thiès",
-                        "infraction": "Gestion nébuleuse, corruption"
-                    }
-                ],
-                "whistleblower": "Dénonciation anonyme",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "Non spécifié",
-                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-            },
-            {
-                "reference": "Rapport d'enquête n°10/2020",
-                "title": "Affaire contre la Directrice et la Gestionnaire de la Galerie nationale d'Art",
-                "file_title": "Détournement présumé de deniers publics",
-                "facts_denounced": [
-                    "Détournement présumé d'une subvention de 100 millions FCFA",
-                    "Surfacturation des travaux de rénovation de la salle d'exposition"
-                ],
-                "infractions": [
-                    "Détournement de deniers publics",
-                    "Surfacturation"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Madjiguène NIANG MOREAU",
-                        "position": "Directrice de la Galerie nationale d'Art",
-                        "infraction": "Détournement présumé de deniers publics"
-                    },
-                    {
-                        "name": "Absa BEYE COULIBALY",
-                        "position": "Gestionnaire de la Galerie nationale d'Art",
-                        "infraction": "Détournement présumé de deniers publics"
-                    }
-                ],
-                "whistleblower": "Dénonciation anonyme",
-                "prejudice_amount": "100 millions de FCFA",
-                "facts_period": "2019",
-                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-            },
-            {
-                "reference": "Rapport d'enquête n°11/2020",
-                "title": "Affaire contre Mamadou Saliou DIALLO, Responsable Administratif et Financier au Ministère des Infrastructures, des Transports terrestres et du Désenclavement",
-                "file_title": "Enrichissement illicite, corruption et détournement de deniers publics",
-                "facts_denounced": [
-                    "Création d'entreprises fictives attribuées à ses proches",
-                    "Surfacturation des contrats de travaux publics",
-                    "Détournement de fonds publics à travers des transactions immobilières"
-                ],
-                "infractions": [
-                    "Enrichissement illicite",
-                    "Corruption",
-                    "Détournement de deniers publics"
-                ],
-                "incriminated": [
-                    {
-                        "name": "Mamadou Saliou DIALLO",
-                        "position": "Responsable Administratif et Financier au Ministère des Infrastructures, des Transports terrestres et du Désenclavement",
-                        "infraction": "Enrichissement illicite, corruption, détournement de deniers publics"
-                    }
-                ],
-                "whistleblower": "Dénonciation anonyme",
-                "prejudice_amount": "Non spécifié",
-                "facts_period": "Non spécifié",
-                "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
-            }
-        ]
-    },
-    {
-        "id": "cours-des-compte-prodac",
-        "summary": [
-            {
-                "title": "Non-respect des délais de mise en place des DAC",
-                "content": "Retards dans la réalisation des Domaines agricoles communautaires (DAC) de la première phase. Défaut de réalisation des DAC de la seconde phase (p45)."
-            },
-            {
-                "title": "Non atteinte des objectifs du PRODAC",
-                "content": "Le programme prévoyait « l'installation de 2 000 Unités Autonomes d'Exploitation (UAE) de 15 ha chacune ». Sept ans plus tard, aucune UAE n’a été mise en place. (p. 37)"
-            },
-            {
-                "title": "Non-atteinte des objectifs du PRODAC",
-                "content": "Défaut de mise en place des Unités Autonomes d'Exploitation (UAE). Défaut de réalisation de l'objectif de création d'emplois."
-            },
-            {
-                "title": "Gestion financière des opérations par le PRODAC",
-                "content": "Incohérences dans le paiement des engagements de l'Etat envers la BNDE. Déficiences dans l'enregistrement et le référencement des dossiers de marchés (p59)."
-            },
-            {
-                "title": "Surplus de Paiement à la BNDE",
-                "content": "Un surplus de 1,24 milliard FCFA a été payé à la BNDE. Pape Malick Ndour, coordonateur du PRODAC, a reconnu avoir émis un ordre de virement d'un montant de 1 milliard FCFA à la BNDE, remplaçant un premier ordre de virement non exécuté de 1,248 milliard FCFA. Cependant, le montant total versé a dépassé les obligations impayées initialement dues à la BNDE, ce qui a causé un paiement excessif (p. 50, p. 48, p. 47)."
-            },
-            {
-                "title": "Non-Respect de la Convention de Financement",
-                "content": "La convention de financement entre l'État et LOCAFRIQUE prévoyait un montant total de 29,6 milliards FCFA, mais certains paiements ont été effectués en dehors du champ d'application de la convention. Les factures émises par Green 2000 pour le DAC de Sangalkam ont été payées par le PRODAC, sans passer par LOCAFRIQUE, et sans précompter la TVA de 259,3 millions FCFA (p. 53, p. 57)."
-            },
-            {
-                "title": "Défaillances du Système d'Information",
-                "content": "Le logiciel de paie FinPro Net n'était pas à jour, et l’accès n'était pas suffisamment sécurisé, exposant le programme à des risques de fraude (page 19)."
-            },
-            {
-                "title": "Absence de Plan de Formation et d'Évaluation",
-                "content": "Sous sa direction, le personnel du PRODAC n'a pas bénéficié d'une formation adéquate ni d'une évaluation régulière, entraînant un manque de développement des compétences et une baisse de productivité (p. 70)"
-            }
+        "whistleblower": "Papa Seckou Sokhna Cisse, Adjoint au chef du DAERI de la CCIAD",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "Août 2019",
+        "ofnac_decision": "Classement sans suite"
+      },
+      {
+        "reference": "Page 42 - Rapport d'enquête n°08/2022 ",
+        "title": "Malversations à la Chambre de Métiers de Sédhiou",
+        "file_title": "Gestion de la Chambre de Métiers de Sédhiou",
+        "infractions": ["Malversations", "Abus de pouvoir"],
+        "incriminated": [
+          {
+            "name": "Président de la Chambre de Métiers de Sédhiou",
+            "position": ""
+          }
         ],
-        "title": "",
-        "investigations": []
-    },
-    {
-        "id": "cours-des-compte-covid-19",
-        "summary": [
-            {
-                "title": "Lamine Diallo (Comptable, Hôpital de Kaffrine)",
-                "content": "Non-justification des dépenses de 45 millions de francs CFA (p. 83, Demande d’ouverture d’une information judiciaire)"
-            },
-            {
-                "title": "Aliou Sow (DAGE du ministère du Développement communautaire)",
-                "content": "Surfacturation du riz pour un montant de 2,75 milliards de francs CFA. (p. 100, Demande d’ouverture d’une information judiciaire)"
-            },
-            {
-                "title": "Ndiamé Ndiaye (Directeur du Fonds d'impulsion de la microfinance)",
-                "content": "Qui a géré les fonds Covid-19 pour le Ministère de la Microfinance et de l’Economie sociale et solidaire, n’a pas justifié l’utilisation de 11,2 millions de francs CFA (Paragraphe 1.1.4.3, Page 96, Demande d’ouverture d’une information judiciaire)"
-            },
-            {
-                "title": "Mouhamadou Sène (DAGE du Ministère de la Jeunesse)",
-                "content": "Surfacturation du gel hydroalcoolique pour un montant de 41,2 millions de francs CFA. (p. 96, Demande d’ouverture d’une information judiciaire)"
-            },
-            {
-                "title": "Mouhamadou Bamba Amar (Aide-comptable, ministère du Développement industriel)",
-                "content": "Retraits répétés journalier de 50 à 100 millions de FCFA en espèces (2,5 milliards au total) pour le paiement des dépenses d’acquisition de masques en espèces (p. 106 à 109, Demande d’ouverture d’une information judiciaire)"
-            },
-            {
-                "title": "Ndèye Aminata Loum Ndiaye (DAGE du du Ministère du Développement industriel et des Petites et Moyennes Industries)",
-                "content": "Surfacturation des masques à hauteur de 2,5 milliards de francs CFA. (p. 106 à 109, Demande d’ouverture d’une information judiciaire)"
-            },
-            {
-                "title": "Djiby Diakhaté (DAGE du de la Femme, de la Famille et de la Gestion de la Petite Enfance)",
-                "content": "Non-justification de dépenses de 114 millions de francs CFA."
-            },
-            {
-                "title": "Léon Nzalley (DAGE du Ministère de la Communication et de la Culture)",
-                "content": "Dépenses non justifiées pour 1 milliard 120 000 francs CFA."
-            },
-            {
-                "title": "Alassane Diallo (DAGE sortant du Ministère des Mines et de la Géologie)",
-                "content": "Paiement de 73 millions pour des services non exécutés​."
-            },
-            {
-                "title": "Ousseynou NGOM, DAGE du Ministère de la Santé et de l’Action sociale",
-                "content": "La cours des comptes lui a demandé de rembourser la somme de 313 millions FCFA irrégulièrement payée à des personnes dites « membres du Comité national de Gestion des Epidémies (CNGE) (Page 65)"
-            },
-            {
-                "title": "Moustapha DIOP, gestionnaire du compte bancaire « fonds d’appui à la petite et moyenne entreprise » ouvert à la BOA",
-                "content": "Il est poursuivi au même titre que la DAGE Ndèye Aminata LOUM NDIAYE sur la surfacturation des masques à hauteur de 2,5 milliards de FCFA (Page 110)"
-            }
+        "whistleblower": "Bacary Mane, membre de la Chambre de Métiers de Sédhiou",
+        "prejudice_amount": "3 994 463 FCFA",
+        "facts_period": "Décembre 2019",
+        "ofnac_decision": "Transmission à titre d'information au Premier Président de la Cour des comptes"
+      }
+    ]
+  },
+  {
+    "id": "ofnac-2022",
+    "summary": [
+      {
+        "title": null,
+        "content": "Président OFNAC Serigne Bassirou GUEYE"
+      },
+      {
+        "title": null,
+        "content": "95 Plaintes déposées"
+      },
+      {
+        "title": null,
+        "content": "73 Ordres ouverture d'enquête"
+      },
+      {
+        "title": null,
+        "content": "9 Rapports d'enquête transmis au Procureur"
+      },
+      {
+        "title": null,
+        "content": "2 Affaires détaillés dans le rapport"
+      }
+    ],
+    "title": "Résumé des 2 rapports d'enquête transmis au procureur et détaillés dans le rapport",
+    "investigations": [
+      {
+        "reference": "Page 56 - Rapport d'enquête n°01/2022",
+        "title": "Maire de la Commune de Gandé",
+        "file_title": "Plainte visant le maire de la Commune de Gandé",
+        "facts_denounced": [
+          "Rétention des comptes administratifs annuels et gestion opaque des recettes municipales",
+          "Attribution d'une parcelle de 200ha à un promoteur en contrepartie de travaux non budgétisés",
+          "Appropriation personnelle d'une parcelle de terrain et utilisation d'un tracteur d'État à des fins personnelles",
+          "Utilisation d'un véhicule de la commune pour des besoins personnels et résidence à Dakar contrairement aux obligations légales"
         ],
-        "title": "La cours comptes a demandé dans le rapport une ouverture d'information judiciaire contre ces 10 personnes. Des enquêtes approfondies ont été menées par la Division des investigations criminelles  (DIC) et lors du conseil des minitre du 15 Mai 2024, le ministre de la Justice Ousmane Diagne a pris la parole pour faire une communication concernant le traitement judiciaire du rapport",
-        "investigations": []
-    },
-    {
-        "id": "cours-des-compte-sicap-2020",
-        "summary": [
-            {
-                "title": "Faiblesse de la production d’unités d’habitations",
-                "content": "Sur un objectif de 11 000 unités d’habitation, la SICAP n’a produit que 3 542 unités (p. 69)"
-            },
-            {
-                "title": "mauvaise qualité des logements",
-                "content": "écarts significatifs entre les unités d’habitation réalisées et les spécifications contenues dans les documents contractuels. Des défaillances techniques manifestes sont relevées en ce qui concerne la structure générale des constructions, l’aménagement et la viabilisation des sites (Projet KeurMassar économique, Projet Mbao Villeneuve, Projet Sacré-Coeur III VDN Extension 2)"
-            },
-            {
-                "title": "Gestion des projets",
-                "content": "Faible niveau d’exécution des programmes d’investissement mais aussi les longs retards constatés dans la réalisation des travaux de construction.Des centaines de millions dépensés sur des projets à l’arrêt à SICAP TOUBA, SICAP SALY, DIASS Bambilor... (p. 71)"
-            },
-            {
-                "title": "Octroi abusif de dons et subventions",
-                "content": "Un montant cumulé de 703 millions FCFA de dons et subventions ont été distribués pour des motifs sans lien direct avec les activités normales de l’entreprise (p. 28)"
-            },
-            {
-                "title": "Manque de contrôle de la gestion",
-                "content": "Absence de comité de direction et de contrôle permanent, malgré les dispositions statutaires (p. 11)"
-            },
-            {
-                "title": "Déficiences dans la gestion budgétaire",
-                "content": "Des budgets d'investissement irréalistes avec des taux d'exécution très bas, allant de 5% à 45% selon les années. Dépenses exécutées sans budgetisation prévue, par exemple 115 628 000 FCFA en charges provisionnées pour 2018 (p. 21-22)"
-            },
-            {
-                "title": "Gestion complaisante",
-                "content": "plus de 30 agents SICAP, en plus de bénéficier de logement à des taux préférentiels, ont été attributaires de deux logement chacun. De surcroît sans qu’ils n’honorent leurs engagements contractuels. Une bonne partie d’entre eux accusent des retards de paiements significatifs. (p.51 et p.81)"
-            },
-            {
-                "title": "Attributions injustifiées de 2 logements au DG",
-                "content": "Le DG s'est attribué lui-même deux logements à tarif préférentiels, à Sacré-Cœur et Sicap-Keur-Gorgui, ce qui est considéré comme un abus par la cours des comptes (p. 51)"
-            },
-            {
-                "title": "Insuffisances dans la gestion fiscale",
-                "content": "883 millions de redressement fiscal et 247 827 de pénalités (p. 66)"
-            }
+        "infractions": [
+          "Violation du Code général des collectivités territoriales",
+          "Violation du Règlement général sur la Comptabilité publique",
+          "Faute de gestion",
+          "Gestion de fait",
+          "Occupation de terrain attribué à autrui, sans droit ni titre",
+          "Détournement de deniers publics",
+          "Faux et usage de faux"
         ],
-        "title": "",
-        "investigations": []
-    },
-    {
-        "id": "cours-des-compte-crse-2023",
-        "summary": [
-            {
-                "title": null,
-                "content": "La CRSE a pour missions de promouvoir le développement rationnel de l’offre d’énergie électrique et de veiller à l’équilibre économique et financier du secteur électrique et à la préservation des conditions économiques nécessaires à sa viabilité."
-            },
-            {
-                "title": "Attribution de dons et subventions",
-                "content": "entre 2017 et 2020, 6 811 100 FCFA de dons et subventions n’ayant aucun rapport avec l'objet social de la CRSE ont été accordées, suggérant une utilisation des fonds non conforme aux objectifs de l'organisation (p. 18)"
-            },
-            {
-                "title": "Système de contrôle interne défaillant",
-                "content": "Aucun agent comptable n'a été nommé, entraînant une confusion des fonctions d’ordonnateur et de comptable public (p. 10-11)"
-            },
-            {
-                "title": "Gestion budgétaire et financière inadéquate",
-                "content": "Absence d'un auditeur interne, ce qui affaiblit le contrôle interne de l'organisation (p. 11). Manque de contrôleur de gestion pour surveiller l'exécution budgétaire et l'analyse des écarts (p. 11-12)."
-            },
-            {
-                "title": null,
-                "content": "Documents d’orientation budgétaire non produits, ce qui compromet la planification et le contrôle budgétaire (p. 12-13)."
-            },
-            {
-                "title": null,
-                "content": "Dépassements budgétaires récurrents sans modifications appropriées des prévisions budgétaires (p. 12-14)."
-            },
-            {
-                "title": "indemnités de frais de mission",
-                "content": "Gestion des indemnités journalières de déplacement et des frais de mission qui ne respectent pas les procédures établies, absence de visa des ordres de mission (p. 19-20)"
-            },
-            {
-                "title": "Gestion des Marchés publics",
-                "content": "L’examen de la gestion des marchés de la CRSE révèle des irrégularités sur le processus de passation de marchés publics: Dossier sans les Avis d’appel d’offres, les Termes de référence et les offres des candidats… (p. 21)"
-            },
-            {
-                "title": "redressement fiscal",
-                "content": "en décembre 2019 pour un montant de 139 736 049 F CFA pour non reversement de la CFCE."
-            },
-            {
-                "title": "Non-respect de la procédure de recrutement du personnel",
-                "content": "absence de justificatif sur la publication des offres d’emploi, les candidatures reçues, les dépouillements, les entretiens, les PV de la Commission de sélection. Le président recrutait sur la base de simples lettres de demande d’emploi. (p. 23)"
-            },
-            {
-                "title": "Mise à disposition irrégulière d’agents de la CRSE à la tutelle",
-                "content": "du personnel de la CRSE, Chauffeur et Assistant administratif, ont été mis à la disposition de Mme Maïmouna Ndoye SECK, Ministre en charge de l’Energie, mais continuaient à recevoir leur rémunération de la CRSE. (p. 23-24)"
-            },
-            {
-                "title": "Octroi d’avantages injustifiés",
-                "content": "cumul indu d’une indemnité de transport allant de 30 000 à 500.000 FCFA et des dotations mensuelles de carburant fixées entre 300, 200 et 150 litres"
-            },
-            {
-                "title": "Déficit de communication",
-                "content": "Il a été constaté un défaut de vulgarisation de la CRSE sur ses missions de préservation des intérêts des consommateurs et la protection de leurs droits"
-            }
-        ]
-    },
-    {
-        "id": "cours-des-compte-peche-artisanale-2023",
-        "summary": [
-            {
-                "title": "Quai de pêche à Bargny, 279 millions",
-                "content": "les travaux d'aménagement d'un quai de pêche à Bargny ont été confiés à la société CGI pour un montant de 279 951 021 FCFA. Ces travaux ont été réceptionnés et payés, cependant, l'équipement n'a pas été utilisé. Les acteurs locaux ont refusé de débarquer sur le site du quai de pêche de Bargny, arguant d'un manque d'inclusion dans la réalisation du projet. Ils ont souligné que le site retenu présentait des dangers pour l'accostage des pirogues chargées en raison d'une côte rocheuse. Les acteurs locaux avaient proposé un autre site, Bargny Guedj, qu'ils estimaient plus adapté pour accueillir le quai de pêche."
-            },
-            {
-                "title": "Des défaillances dans l’exécution du programme de construction",
-                "content": "la Cour des Comptes a relevé une irrégularité commise par Monsieur Seydina Oumar BA, administrateur suppléant du budget, qui a délivré un certificat de service fait à l'entreprise OZE SUARL alors que les travaux n'étaient pas terminés. (p.30)"
-            },
-            {
-                "title": null,
-                "content": "la Cour a constaté un défaut de report du solde du compte de dépôt n°368.8.061 'Appui à la politique sectorielle Pêche' de 2020 à 2023, résultant d'un défaut de contrôle des comptes de dépôt. "
-            },
-            {
-                "title": null,
-                "content": "La Cour a demandé à l’Agent judiciaire de l’Etat d’engager des poursuites contre Monsieur Abib SY, Directeur général de l’entreprise OZE SUARL concernant le marché de 69 millions FCFA portant sur les travaux de construction d'un service départemental à Mbour"
-            },
-            {
-                "title": null,
-                "content": "La Cour a demandé à l’Agent judiciaire de l’Etat d’engager des poursuites contre monsieur Ibrahima FALL, Directeur général de l’entreprise LAMP FALL BTP pour non-respect de ses engagements contractuels dans le cadre du marché d'un montant de 179 millions FCFA pour les travaux d’aménagement d’un quai de pêche à Mboro"
-            }
-        ]
-    },
-    {
-        "id": "cours-des-compte-commune-dakar-plateau-2020",
-        "summary": [
-            {
-                "title": "Transport de pèlerins aux lieux saints (Mecque et Fès)",
-                "content": "Des dépenses importantes à hauteur de 423 millions de FCFA ont été engagées pour le transport des pèlerins vers les lieux saints, notamment à la Mecque et à Fès, sans qu'Aucun document permettant d’identifier les bénéficiaires de ces déplacements n’a été fourniaux vérificateurs.'. (page 53)"
-            },
-            {
-                "title": "Distribution de denrées alimentaires",
-                "content": "58 millions de fcfa de dépenses relatives à l’acquisition de denrées alimentaires au profit de nécessiteux et d’indigents ont été effectuéessans que les listes des bénéficiaires ne soient produites. (page 55)"
-            },
-            {
-                "title": "Recrutement d’agents avec des avantages indus",
-                "content": "Des agents municipaux ont été recrutés avec des avantages indus en termes d'indice salarial, en violation des normes établies. Par exemple, M. Seydou KAMARA a été recruté à un indice supérieur à celui auquel il avait droit, et M. Pape Boura SONKO a été engagé à un niveau hiérarchique inapproprié  (page 8)"
-            },
-            {
-                "title": "Agents municipaux dont le dossier est incomplet ou présente des incohérences",
-                "content": "Certains dossiers du personnel de la commune sont incomplets ou irréguliers, ce qui pose des problèmes de suivi et de gestion. Par exemple, les dossiers 4 agent n'ont pas de diplôme. (page 7"
-            },
-            {
-                "title": "Utilisation abusive des contrats à durée déterminée (CDD)",
-                "content": "724 contrats à durée déterminée ont été conclus en 2016, principalement pour des tâches de nettoiement. Ceci constitue une violation de l'article L. 45 de la loi 97-17 du code du travail (pages 6-7)"
-            },
-            {
-                "title": "Dépassement du plafond d'encaisse",
-                "content": "La régie des recettes a dépassé le plafond d'encaisse d’un (1) million fcfa prévu par les régulations, sans autorisation appropriée (page 7)"
-            },
-            {
-                "title": "Dépenses illégales et non autorisées",
-                "content": "Construction illégale d'un complexe scolaire et réhabilitation illégale d'écoles élémentaires (pages 22-24). Dépenses engagées au-delà des autorisations budgétaires (page 35).Non-respect des mentions obligatoires dans les contrats de marchés publics et imputation incorrecte des dépenses (pages 37-38)."
-            },
-            {
-                "title": "Indemnités de logement irrégulières",
-                "content": "Le secrétaire municipal a continué de percevoir une indemnité de logement de 100 000 FCFA, alors que le montant dû était de 150 000 FCFA selon le décret en vigueur (pages 44-45)."
-            }
+        "incriminated": [
+          {
+            "name": "Maire de la Commune de Gandé",
+            "position": "Maire",
+            "infraction": "Multiples infractions incluant faux et usage de faux, détournement de deniers publics"
+          }
         ],
-        "title": "La Cour des comptes a recommandé au maire de respecter diverses réglementations, mais aucune poursuite judiciaire n'a été demandé",
-        "investigations": []
-    },
-    {
-        "id": "cours-des-compte-personnel-etat-2021",
-        "summary": [
-            {
-                "title": "indemnités allouées sans base légale",
-                "content": "entre 2015 et 2018, 224 milliards de FCFA ont été payés à des agents de l’État sans bases textuelles (pages 61-63)"
-            },
-            {
-                "title": "Double paiement",
-                "content": "en 2018 des agents ont bénéficié de doubles paiements par virement bancaire et par billetterie pour le même mois de salaire (page 82-83)"
-            },
-            {
-                "title": "Cumul d’indemnité de logement",
-                "content": "78 agents ont bénéficié cumulativement, pendant deux ans, d’un logement administratif et d’une indemnité de logement. (page 64-65)"
-            },
-            {
-                "title": "Cumul d’indemnités sur les heures supplémentaires",
-                "content": "58 millions FCFA d'indemnités pour travaux supplémentaires (ITS) ont été allouées à certains agents de la DS, cumulativement avec les indemnité 'heures de budget'. (page 63-64)"
-            },
-            {
-                "title": "indemnités versées à des agents non immatriculés",
-                "content": "Des agents inconnus de la Fonction publique et de la Direction de la solde ont bénéficié des indemnités de vacation. une pratique qui a conduit à une augmentation de l’enveloppe annuelle supportée par le budget de 1,7 milliard de FCFA en 2015 à 5 milliards de FCFA en 2019. (page 65)"
-            },
-            {
-                "title": "Anomalies dans système de gestion RH",
-                "content": "512 cas d’agents mineurs\n2933 cas d’agents avec la même identité\n7125 cas d’agents avec le même CNI\n8487 cas d’agents avec le même matricule\n(page 47-48)"
-            }
+        "whistleblower": "Mouvement 'Leeral Moomellu Gandé', collectif de conseillers municipaux",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "2019-2021",
+        "ofnac_decision": "Transmission au Procureur de Louga"
+      },
+      {
+        "reference": "Page 58 - Rapport d'enquête n°04/2022",
+        "title": "Bureau des Domaines de Ngor/Almadies",
+        "file_title": "Affaire contre un Particulier et contre le Bureau des Domaines de Ngor/Almadies concernant un litige foncier portant sur la parcelle n° 74 du TF 2132/NGA (ex TF 5757/DG) située à Ngor Extension",
+        "facts_denounced": [
+          "Différend foncier concernant la parcelle n° 74 du TF 2132/NGA, impliquant de fausses attributions et de l'usage de faux documents",
+          "Négligence dans la gestion des archives publiques et irrégularités dans l'attribution de propriétés foncières"
         ],
-        "title": "",
-        "investigations": []
-    },
-    {
-        "id": "cours-des-comptes-2022-audit-financier-dette-publique-2018-2020",
-        "summary": [
-            {
-                "title": "Beaucoup d'anomalies constatées dans les comptes",
-                "content": "système d’information défaillant, absence d’outil de contrôle interne, des comptes qui ne permettent pas de tracer l’exhaustivité du stock de la dette publique, des écarts entre les imputations sur des comptes et les pièces comptables pour des montants de 104 milliards et 5 milliards en 2019 …"
-            },
-            {
-                "title": "Des écarts invraisemblables",
-                "content": "un rapprochement d'un échantillon avec la base de données de la Direction de la dette publique (Ddp) a permis de relever que «30 sur les 32 prêts projets tirés présentent des écarts, soit un taux de 93% »"
-            },
-            {
-                "title": null,
-                "content": "Les écarts concernent le projet Pikine irrégulier (6,45 milliards), le projet de réhabilitation de la route nationale 2 Ndioum-Ourrossogui-Bakel (6,334 milliards), le Brt (2,9 milliards de Fcfa), le Programme d'autosuffisance en riz (13,3 milliards de Fcfa), le projet de Parc de technologies numériques (4,484 milliards), les projets ponts et autoponts du Sénégal (12,060 milliards), le projet de Ter (1,695 milliard)..."
-            },
-            {
-                "title": null,
-                "content": "L'écart le plus considérable est lié au projet Piriou (achat de patrouilleurs pour la Marine) pour un montant de 32,578 milliards de Fcfa. Selon la Cour, «la fréquence des écarts et leur caractère significatif posent le problème de la fiabilité des informations sur la dette relative aux financiers extérieurs»."
-            },
-            {
-                "title": "Tenue de la comptabilité ",
-                "content": "Durant la période sous revue 2018-2020, les montants des demandes de retraits de fonds (Drf) s’élèvent à 305 milliards 689 millions francs Cfa. Et, de l’avis de la Cour des comptes, le ministère des Finances et du Budget n’a pas apporté de réponses sur l’absence de tenue de comptabilité dans la gestion des prêts projets."
-            }
-        ]
-    },
-    {
-        "id": "cour-des-comptes-2021-commune-rosso-senegal-2015-2018",
-        "summary": [
-            {
-                "title": "Maire",
-                "content": "Monsieur Cheikh GAYE"
-            },
-            {
-                "title": "Paiement irrégulier de salaire à un agent temporaire de la commune",
-                "content": "Ousmane SECK, infirmier, a perçu 3,3M FCFA en double salaire (2017-2019) de la commune et du ministère de la Santé. (page 24) "
-            },
-            {
-                "title": "Absence de parité dans la composition du bureau municipal",
-                "content": "Le bureau municipal n’est pas composé de façon paritaire, étant constitué exclusivement d’hommes.(page 9)"
-            },
-            {
-                "title": "Absence de nomination d’un secrétaire municipal",
-                "content": "Le poste de secrétaire municipal n’a pas été pourvu durant la période sous revue."
-            },
-            {
-                "title": "Tenue de la comptabilité administrative ",
-                "content": "Le maire n’a pas présenté les documents comptables requis, notamment le livre journal des recettes et des dépenses (page 15)"
-            },
-            {
-                "title": "Défaut d’immatriculation de véhicules administratifs",
-                "content": "Certains véhicules de la commune ne disposent pas d’une carte grise (page 17)"
-            },
-            {
-                "title": "Non-souscription de police d’assurance pour les véhicules de la commune",
-                "content": "Le maire n’a pas souscrit de police d’assurance pour les véhicules de la commune. (page 18)"
-            }
+        "infractions": [
+          "Faux en document administratif",
+          "Usage de faux dans un document administratif",
+          "Violation de l'obligation de conserver les archives publiques"
         ],
-        "title": "",
-        "investigations": []
-    },
-    {
-        "id": "cour-des-comptes-2022-audit-3FPT-2015-2019",
-        "summary": [
-            {
-                "title": "Cadre juridique et gouvernance",
-                "content": "Confusions sur le statut du Fonds: Le statut du 3FPT n'a pas été correctement défini, causant des confusions dans l'application des textes et des régimes indemnitaires des dirigeants. Manquements dans la mise en place des organes d'administration (p. 11): Absence d'arrêté pour la nomination des membres du Conseil d'Administration (CA), non-représentation du Ministère de l'Economie et des Finances au CA en 2017, 2018, et 2019. Défaut de mise en place d'un comité d'audit (p. 11): Malgré la résolution du 4 octobre 2019 pour créer un comité d'audit, celui-ci n'est pas encore fonctionnel. (p. 10)"
-            },
-            {
-                "title": "Cadre organisationnel et répartition des tâches",
-                "content": "Retard dans la mise en œuvre du projet de construction du siège : Les travaux de construction n'ont toujours pas démarré malgré les paiements effectués pour les études architecturales en 2019. Manquements dans la gestion des ressources humaines (p. 14): Absence de référentiels de gestion, recrutements sans appel à candidatures, absence de règlement intérieur, et fiches de poste non systématisées. (p. 12)"
-            },
-            {
-                "title": "Planification et gestion stratégique",
-                "content": "Planification non adossée à un diagnostic sectoriel (p. 15): Absence d'études prospectives nécessaires pour aligner les besoins de formation avec les secteurs prioritaires. Insuffisances dans l'élaboration du plan stratégique (p. 16): Le plan stratégique 2017-2020 manque de références à des documents clés et de détails sur les objectifs spécifiques et budgets nécessaires."
-            },
-            {
-                "title": "Dispositifs de contrôle et de suivi-évaluation",
-                "content": "Faiblesses dans le processus d'assurance qualité (p. 19): Limitation des attributions de l'assurance qualité aux seules accréditations et labellisations, et insuffisance des ressources humaines dédiées. Insuffisance des ressources humaines pour le suivi-évaluation (p. 20): Le service de suivi-évaluation est sous-dimensionné avec un seul agent, et absence de système d'information adapté pour le suivi-évaluation."
-            },
-            {
-                "title": "Communication et relations avec les parties prenantes",
-                "content": "Absence d'une stratégie globale de communication : Inexistence d'un document de stratégie de communication, et insuffisances dans l'évaluation des actions de communication (p. 22-25)."
-            },
-            {
-                "title": "Mobilisation des ressources et exécution des financements",
-                "content": "Absence de sincérité et de visibilité sur les ressources (p. 28): Problèmes de recouvrement des ressources issues de la CFCE et déperdition des fonds. Financements insuffisamment mobilisés (p. 32): Manque de mobilisation des ressources provenant des partenaires techniques et financiers et des ressources internes hors CFCE."
-            },
-            {
-                "title": "Efficacité et pérennité des activités",
-                "content": "Déséquilibres territoriaux dans la répartition des financements (p. 50): Inéquité dans la répartition des financements entre les pôles territoriaux, favorisant les grandes écoles de commerce et certaines régions."
-            }
-        ]
-    },
-    {
-        "id": "cours-des-compte-onfp-2019",
-        "summary": [
-            {
-                "title": "Monsieur Sanoussi DIAKITE",
-                "content": "Directeur général, nommé par décret n° 2012-996 du 20 septembre 2012"
-            },
-            {
-                "title": "Cumul irrégulier de salaires par Sanoussi DIAKITE",
-                "content": "Sanoussi DIAKITE, ancien DG de l'ONFP, a perçu illégalement de 2012 à 2019 un salaire de Professeur d’Enseignement secondaire cumulant 32 694 478 FCFA, alors qu'il touchait déjà 3 millions FCFA par mois en tant que DG. La Cour des Comptes demande l'arrêt de ce paiement et le remboursement des sommes perçues. (page 21)"
-            },
-            {
-                "title": "Encaissement irrégulier de frais d'inscription par Mme DIOP",
-                "content": "Mme DIOP, assistante du Directeur administratif et financier de l'ONFP, a irrégulièrement encaissé 2 040 000 FCFA de frais d’inscription. La Cour des Comptes demande le reversement de ce montant et une meilleure gestion des encaissements. (page 28)"
-            },
-            {
-                "title": null,
-                "content": "Un manuel de procédures incomplet et un organigramme non mis en oeuvre."
-            },
-            {
-                "title": null,
-                "content": "L’absence de la fonction d’audit interne et des insuffisances dans le contrôle de gestion."
-            },
-            {
-                "title": null,
-                "content": "Des faiblesses dans la procédure de recrutement et des fonctionnaires irrégulièrement « mis à disposition »."
-            },
-            {
-                "title": null,
-                "content": "Des activités de formation incorrectement planifiées, peu coordonnées et pas toujours bien exécutées et évaluées."
-            },
-            {
-                "title": null,
-                "content": "L’inexistence d’un système pertinent de suivi et d’accompagnement des formés."
-            },
-            {
-                "title": null,
-                "content": "De longs retards et des défaillances criardes dans l’exécution technique des projets de construction."
-            }
-        ]
-    },
-    {
-        "id": "cours-des-compte-onas-2019",
-        "summary": [
-            {
-                "title": "Mauvaise planification des marchés (p.35)",
-                "content": "Marché de gardiennage attribué à SSGEPB SCORPION SA pour 330 336 000 FCFA, estimé initialement à 230 000 000 FCFA. Travaux d'assainissement à Ziguinchor attribués à CSE pour 1 734 884 283 FCFA et à CHIALI SERVICES pour 2 543 557 409 FCFA."
-            },
-            {
-                "title": "Abus dans les contrats de prestation (p.43)",
-                "content": "Alioune Badara DIOP, ancien DG, a signé des contrats pour des agents sans indication de tâches, avec un salaire de 500 000 FCFA/mois. Gaspillage de ressources par le recrutement non nécessaire."
-            },
-            {
-                "title": "Abus sur les indemnités du comité technique du projet Bill et Melinda Gates (p.41)",
-                "content": "Amadou Lamine DIENG et Alioune Badara DIOP ont attribué des indemnités allant jusqu'à 800 000 FCFA/mois sans rapport avec les niveaux d'intervention dans le projet."
-            },
-            {
-                "title": "Exécution onéreuse de dépenses à caractère social (p.41)",
-                "content": "353 353 273 FCFA dépensés en libéralités non liées à l'objet social de l'ONAS, en violation des directives."
-            },
-            {
-                "title": "Insuffisance de la redevance pour la couverture des charges d’exploitation (p.23)",
-                "content": "Manque de contrôle sur les redevances perçues, avec des écarts importants entre les montants comptabilisés par l’ONAS et ceux communiqués par la SDE."
-            },
-            {
-                "title": "Défauts dans l’élaboration et l’exécution budgétaire (p.34)",
-                "content": "Absence de rapports d’exécution budgétaire annuelle, empêchant une analyse cohérente de l’exécution budgétaire."
-            },
-            {
-                "title": "Défauts dans la mise en œuvre des infrastructures d’assainissement (p.50)",
-                "content": "Retards de décaissement et ponctions budgétaires impactant négativement les projets d'assainissement."
-            },
-            {
-                "title": "faits présumés de détournement et d'escroquerie sur deniers publics contre Madame Fatou WADE ",
-                "content": "Madame Fatou WADE est mentionnée pour modification arbitraire et unilatérale des procédures de gestion de la caisse, ce qui a conduit à des manquants en caisse estimés à 98 100 284 FCFA en 2016."
-            }
-        ]
-    },
-    {
-        "id": "centif-2022",
-        "summary": [
-            {
-                "title": "Missions et Organisation",
-                "content": "La CENTIF est une autorité administrative sous la tutelle du Ministère des Finances, chargée de traiter et de transmettre des informations pour lutter contre le blanchiment de capitaux (BC) et le financement du terrorisme (FT). Ses missions incluent la réception de déclarations de soupçon, le traitement des informations collectées, et la transmission de rapports aux autorités judiciaires."
-            },
-            {
-                "title": "Transactions en cryptomonnaie",
-                "content": "La CENTIF a traité plusieurs dossiers liés à des transactions en cryptomonnaie, mettant en évidence des scénarios d'arnaque et d'escroquerie impliquant des plateformes d'émission de monnaie virtuelle. (page 42)"
-            },
-            {
-                "title": "Déclarations d'opérations suspectes (DOS)",
-                "content": "En 2022, la CENTIF a reçu et analysé 330 déclarations provenant des banques et établissements financiers"
-            },
-            {
-                "title": "Fraude fiscale",
-                "content": "Durant ces dernières années, la CENTIF a constaté la recrudescence des sociétés dûment créées qui pratiquent la fraude fiscale. La plupart de ces sociétés sont actives dans des secteurs réputés sensibles en matière de fraude fiscale comme la vente de marchandises diverses, les travaux publics et l’industrie. La CENTIF a observé le recours à des hommes de paille pour gérer ces sociétés appartenant en grande majorité à des ressortissants de pays asiatiques"
-            },
-            {
-                "title": "Distinctions et Reconnaissance",
-                "content": "Lors de la 37e plénière du Groupe intergouvernemental d’Action contre le Blanchiment d’Argent en Afrique de l’Ouest (GIABA), La CENTIF a été récompensée pour son mentorat et son excellente collaboration. Elle a également reçu le prix spécial de reconnaissance pour sa contribution aux rapports d’évaluation mutuelle et de suivi des États membres ."
-            }
-        ]
-    },
-    {
-        "id": "cours-des-compte-puma-2023",
-        "summary": [
-            {
-                "title": "Coordonateur",
-                "content": "Moussa Sow, Maire de Walalde (Podor) et inspecteur des impôts, a été nommé Coordonnateur national du PUMA par le décret n° 2016-1850 du 23 novembre 2016"
-            },
-            {
-                "title": "💸 Salaires personnel",
-                "content": "483 millions FCFA en dépassements entre 2019 et 2021 (page 33)"
-            },
-            {
-                "title": "🧳 Frais de mission",
-                "content": "105 millions FCFA en dépassements en 2019 et 2021 (page 34)"
-            },
-            {
-                "title": "⛽ Abus de carburant",
-                "content": "Dotations excessives à des personnels non éligibles. Surplus de donation mensuelles 100 litres par véhicule (page 35)"
-            },
-            {
-                "title": "📜 Contrats irréguliers",
-                "content": "Rémunérations des chargés de mission passant de 61,7M à 236,6M FCFA (2019-2021), soit +283.3% (page 37)"
-            },
-            {
-                "title": "⚠️ Autres dysfonctionnements",
-                "content": "Inefficacité organisationnelle; Absence d'outils de suivi; Projets non rentables; Faible rentabilité des activités génératrices de revenus; Léthargie des comités de suivi; Absence d'audit interne; Aménagements non fonctionnels"
-            }
-        ]
-    }
+        "incriminated": [
+          {
+            "name": "Maire de la Commune de Ngor",
+            "position": "",
+            "infraction": "Faux en document administratif et usage de faux"
+          },
+          {
+            "name": "Frères M.S et A.S",
+            "position": "Particuliers",
+            "infraction": "Usage de faux"
+          }
+        ],
+        "whistleblower": "Particulier, attributaire de la parcelle depuis 2001",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "2020",
+        "ofnac_decision": "Transmission au procureur de Dakar"
+      }
+    ]
+  },
+  {
+    "id": "ofnac-2021",
+    "summary": [
+      {
+        "title": null,
+        "content": "Président OFNAC Seynabou NDIAYE DIAKHATE"
+      },
+      {
+        "title": null,
+        "content": "100 Plaintes déposées"
+      },
+      {
+        "title": null,
+        "content": "90 Ordres ouverture d'enquête"
+      }
+    ],
+    "title": "Résumé des enquêtes menées",
+    "investigations": [
+      {
+        "reference": "Rapport d'enquête n°01/2021 - page 50",
+        "title": "Affaire Seyni Camara, Cheikh Tague et Malick Fall contre le PDG de WARI S.A.",
+        "file_title": "Abus de biens sociaux, fraude fiscale et corruption dans la gestion de WARI S.A.",
+        "facts_denounced": [
+          "Falsification des états financiers de WARI S.A., INTERACTIVE SARL et INTERLINQ SUARL",
+          "Détournement d'activité d'INTERACTIVE SARL vers une société parallèle, INTERLINQ SUARL",
+          "Transfert du siège de WARI S.A. à Lomé pour éviter le paiement des impôts au Sénégal et au Togo",
+          "Corruption présumée d'un notaire et d'un responsable des impôts au Togo pour éviter le paiement de 3,8 milliards FCFA d'impôts"
+        ],
+        "infractions": [
+          "Abus de biens sociaux",
+          "Fraude fiscale",
+          "Corruption active",
+          "Fraude comptable"
+        ],
+        "incriminated": [
+          {
+            "name": "Kabirou Mbodj",
+            "position": "PDG de WARI S.A.",
+            "infraction": "Abus de biens sociaux, fraude fiscale, corruption active"
+          },
+          {
+            "name": "Pape Magatte Diop",
+            "position": "Conseiller juridique et fiscal de WARI",
+            "infraction": "Corruption active"
+          }
+        ],
+        "whistleblower": "Seyni Camara, Cheikh Tague et Malick Fall, co-fondateurs et actionnaires de WARI",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "2015-2017",
+        "ofnac_decision": "Transmission au Procureur"
+      },
+      {
+        "reference": "Rapport d'enquête n°02/2021",
+        "title": "Affaire contre Hamady Séga Sy, Directeur Administratif et Financier de l'Université du Sine Saloum El Hadji Ibrahima Niass (USSEIN)",
+        "file_title": "Détournement de fonds publics et enrichissement illicite",
+        "facts_denounced": [
+          "Attribution de marchés publics à des sociétés-écran",
+          "Création de dépenses fictives pour couvrir des transactions personnelles",
+          "Surfacturation du matériel informatique et des produits d'entretien"
+        ],
+        "infractions": [
+          "Détournement de fonds publics",
+          "Enrichissement illicite",
+          "Surfacturation"
+        ],
+        "incriminated": [
+          {
+            "name": "Hamady Séga Sy",
+            "position": "Directeur Administratif et Financier de l'USSEIN",
+            "infraction": "Détournement de fonds publics, enrichissement illicite"
+          }
+        ],
+        "whistleblower": "Individu anonyme",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "Non spécifié",
+        "ofnac_decision": "Classement sans suite"
+      },
+      {
+        "reference": "Rapport d'enquête n°03/2021",
+        "title": "Affaire Colonel Ndeye Sene Thiam de la Direction des Parcs Nationaux (DPN)",
+        "file_title": "Fraude au Centre médico-social de la DPN",
+        "facts_denounced": [
+          "Paiement de salaires fictifs à des contractuels depuis 2012",
+          "Tentative de corruption du sergent-chef Alassane Diop pour son silence",
+          "Refus de rendre au Trésor le montant de 302 504 FCFA représentant les salaires fictifs"
+        ],
+        "infractions": [
+          "Faux et usage de faux",
+          "Escroquerie portant sur des deniers publics",
+          "Association de malfaiteurs"
+        ],
+        "incriminated": [
+          {
+            "name": "Lamine Sambou, Ndeye Sene Thiam, Mouhamadou Mody Diallo, Papa Tagouth Top, Alassane Samb",
+            "position": "Divers",
+            "infraction": "Faux, usage de faux et escroquerie portant sur des deniers publics"
+          }
+        ],
+        "whistleblower": "Sergent-chef Alassane Diop",
+        "prejudice_amount": "8 667 764 FCFA",
+        "facts_period": "2013-2018",
+        "ofnac_decision": "Transmission au Procureur de la République"
+      },
+      {
+        "reference": "Rapport d'enquête n°04/2021",
+        "title": "Affaire contre le Maire de la Commune de Darou Khoudoss-Mboro",
+        "file_title": "Absence de transparence dans la gestion des finances communales",
+        "facts_denounced": [
+          "Absence de transparence dans la collecte des taxes municipales routières",
+          "Manque de transparence dans les subventions financières allouées à la commune par les sociétés minières",
+          "Construction illégale d'un centre commercial"
+        ],
+        "infractions": [
+          "Faux et usage de faux en écritures publiques",
+          "Détournement de deniers publics",
+          "Enrichissement illicite"
+        ],
+        "incriminated": [
+          {
+            "name": "Magor Kane",
+            "position": "Maire de Darou Khoudoss-Mboro",
+            "infraction": "Faux et usage de faux, détournement de deniers publics, enrichissement illicite"
+          }
+        ],
+        "whistleblower": "Souleymane Diop",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "2018",
+        "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+      },
+      {
+        "reference": "Rapport d'enquête n°05/2021",
+        "title": "Affaire délivrance de licences de pêche au Sénégal",
+        "file_title": "Délivrance de licences de pêche en violation du Code de la pêche maritime",
+        "facts_denounced": [
+          "Accord de licences à des navires récemment naturalisés sans convocation de la Commission consultative d'Attribution",
+          "Soupçons de concussion et de corruption à la base des autorisations"
+        ],
+        "infractions": ["Corruption", "Concussion"],
+        "incriminated": [],
+        "whistleblower": "UPAMES, CONIPAS et GAIPES",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "2018-2020",
+        "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+      },
+      {
+        "reference": "Rapport d'enquête n°06/2021",
+        "title": "Affaire contre le Maire de la Commune de Faoune",
+        "file_title": "Anomalies dans les comptes administratifs et gestion non transparente",
+        "facts_denounced": [
+          "Non-exécution de plusieurs projets inscrits dans les comptes administratifs de 2017 et 2018",
+          "Mauvaise gestion facilitée par l'absence d'une commission des marchés et d'une cellule de passation de marchés"
+        ],
+        "infractions": [
+          "Faux et usage de faux",
+          "Faute de gestion",
+          "Gestion de fait",
+          "Violation du Code des Collectivités territoriales"
+        ],
+        "incriminated": [
+          {
+            "name": "Ibrahima Ba",
+            "position": "Maire de Faoune",
+            "infraction": "Faux et usage de faux, faute de gestion, gestion de fait"
+          }
+        ],
+        "whistleblower": "Souleymane Iradiang",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "2017-2018",
+        "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+      },
+      {
+        "reference": "Rapport d'enquête n°07/2021",
+        "title": "Affaire contre le Groupe Auchan, SETAM, la Mairie et le Conseil Départemental de Mbour",
+        "file_title": "Conflit d'intérêts, corruption et violation du Code des Marchés publics",
+        "facts_denounced": [
+          "Octroi d'une partie du stade Caroline Faye au Groupe Auchan",
+          "Attribution du marché de construction du complexe culturel à SETAM sans respect des procédures"
+        ],
+        "infractions": [
+          "Corruption",
+          "Violation du Code des Marchés publics",
+          "Faux et usage de faux"
+        ],
+        "incriminated": [
+          {
+            "name": "El Hadji Falou Sylla",
+            "position": "Maire de Mbour",
+            "infraction": "Faux et usage de faux"
+          },
+          {
+            "name": "Abdou Salam Ndiaye",
+            "position": "Gérant de SETAM",
+            "infraction": "Favoritisme"
+          }
+        ],
+        "whistleblower": "Ibou Niang, membre du Forum Civil et Coordinateur de Transparency International Mbour",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "Non spécifié",
+        "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+      },
+      {
+        "reference": "Rapport d'enquête n°08/2021",
+        "title": "Affaire corruption et vente illégale de terrains contre Donacien Kanfany",
+        "file_title": "Corruption et vente illégale de terrains au Cadastre de Ziguinchor",
+        "facts_denounced": [
+          "Vente illégale de 20 parcelles de terrains",
+          "Occupation illégale du poste de chef du Cadastre"
+        ],
+        "infractions": [
+          "Concussion",
+          "Vente illégale de terres du domaine national",
+          "Enrichissement illicite"
+        ],
+        "incriminated": [
+          {
+            "name": "Donacien Kanfany",
+            "position": "Chef du Cadastre de Ziguinchor",
+            "infraction": "Vente illégale de terres, concussion, enrichissement illicite"
+          }
+        ],
+        "whistleblower": "Individu anonyme",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "Non spécifié",
+        "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+      },
+      {
+        "reference": "Rapport d'enquête n°09/2021",
+        "title": "Affaire contre le Maire de la Commune de Sindia",
+        "file_title": "Détournement de deniers publics, escroquerie et blanchiment de capitaux",
+        "facts_denounced": [
+          "Détournement de 54 175 500 FCFA en indemnités de terres",
+          "Manoeuvres pour s'inscrire comme propriétaire coutumier pour recevoir des indemnités"
+        ],
+        "infractions": [
+          "Détournement de deniers publics",
+          "Escroquerie portant sur des deniers publics",
+          "Blanchiment de capitaux"
+        ],
+        "incriminated": [
+          {
+            "name": "Thierno Diagne",
+            "position": "Maire de Sindia",
+            "infraction": "Détournement de deniers publics, escroquerie, blanchiment de capitaux"
+          }
+        ],
+        "whistleblower": "Individu anonyme",
+        "prejudice_amount": "54 175 500 FCFA",
+        "facts_period": "Non spécifié",
+        "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+      },
+      {
+        "reference": "Rapport d'enquête n°10/2021",
+        "title": "Affaire acquisition de vivres et autres produits et prestations de services de transport dans le cadre de la lutte contre la pandémie COVID-19",
+        "file_title": "Faux en écritures privées, banqueroute frauduleuse et violation du Code des marchés publics",
+        "facts_denounced": [
+          "Attribution de marchés à des entreprises non qualifiées ou en faillite",
+          "Faux en écritures privées",
+          "Banqueroute frauduleuse"
+        ],
+        "infractions": [
+          "Faux en écritures privées",
+          "Banqueroute frauduleuse",
+          "Violation du Code des marchés publics"
+        ],
+        "incriminated": [
+          {
+            "name": "Rayan Hachem",
+            "position": "Gérant de 'Avanti Suarl' et 'Afri & Co Suarl'",
+            "infraction": "Faux en écritures privées, complicité par instigation"
+          },
+          {
+            "name": "Demba Diop Sy",
+            "position": "DG 'Urbaine d'Entreprise' (UDE)",
+            "infraction": "Banqueroute frauduleuse, violation du Règlement intérieur de l'Assemblée nationale"
+          },
+          {
+            "name": "Marième Diop",
+            "position": "Fille de Demba DIOP SY",
+            "infraction": "Complicité de Banqueroute frauduleuse"
+          }
+        ],
+        "whistleblower": "Guy Marius Sagna (FRAPP), Professeur Babacar Diop (FDS)",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "Non spécifié",
+        "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+      },
+      {
+        "reference": "Rapport d'enquête n°11/2021",
+        "title": "Affaire contre le Maire de la Commune de Ndindy",
+        "file_title": "Détournement de deniers publics, corruption et surfacturation",
+        "facts_denounced": [
+          "Dépenses surestimées pour les projets financés par le budget consolidé d'investissement de 2019",
+          "Détournement d'objectif sur 16 projets financés par un partenaire italien"
+        ],
+        "infractions": [
+          "Détournement de deniers publics",
+          "Corruption",
+          "Surfacturation"
+        ],
+        "incriminated": [
+          {
+            "name": "Cheikh Seck",
+            "position": "Maire de Ndindy",
+            "infraction": "Détournement de deniers publics, corruption, surfacturation"
+          }
+        ],
+        "whistleblower": "Matar Sylla, responsable APR à Ndindy",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "2019",
+        "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+      },
+      {
+        "reference": "Rapport d'enquête n°12/2021",
+        "title": "Plainte contre le Sieur Amadou Diallo, ex-proviseur du Lycée Cheikh Mouhamadou Moustapha Mbakke de Diourbel",
+        "file_title": "Détournement de deniers publics",
+        "facts_denounced": [
+          "Détournement de deniers publics par l'ex-proviseur"
+        ],
+        "infractions": ["Détournement de deniers publics"],
+        "incriminated": [
+          {
+            "name": "Amadou Diallo",
+            "position": "Ex-proviseur du Lycée Cheikh Mouhamadou Moustapha Mbakke de Diourbel",
+            "infraction": "Détournement de deniers publics"
+          }
+        ],
+        "whistleblower": "Meissa Gningue",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "Non spécifié",
+        "ofnac_decision": "Classement sans suite"
+      },
+      {
+        "reference": "Rapport d'enquête n°13/2021",
+        "title": "Plainte contre le Président de la Chambre des Métiers de Diourbel",
+        "file_title": "Vol, détournement de fonds publics et utilisation abusive des biens",
+        "facts_denounced": [
+          "Vol de biens fournis par une ONG",
+          "Détournement de fonds publics",
+          "Utilisation abusive de véhicules administratifs"
+        ],
+        "infractions": [
+          "Vol",
+          "Détournement de fonds publics",
+          "Utilisation abusive des biens administratifs"
+        ],
+        "incriminated": [
+          {
+            "name": "Massamba Thiam",
+            "position": "Président de la Chambre des Métiers de Diourbel",
+            "infraction": "Vol, détournement de fonds publics, utilisation abusive des biens"
+          }
+        ],
+        "whistleblower": "Ibrahima Thiam",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "Non spécifié",
+        "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+      }
+    ]
+  },
+  {
+    "id": "ofnac-2020",
+    "title": "Résumé des enquêtes menées",
+    "summary": [
+      {
+        "title": null,
+        "content": "Président OFNAC Seynabou NDIAYE DIAKHATE"
+      },
+      {
+        "title": null,
+        "content": "129 Plaintes déposées"
+      },
+      {
+        "title": null,
+        "content": "83 Ordres ouverture d'enquête"
+      }
+    ],
+    "investigations": [
+      {
+        "reference": "Rapport d'enquête n°01/2020",
+        "title": "Affaire contre Mor FALL, Chef du Centre des Services fiscaux de Saint-Louis",
+        "file_title": "Corruption, détournement de fonds et faux et usage de faux en écriture",
+        "facts_denounced": [
+          "Faux état de droits réels et fausse copie des bordereaux analytiques",
+          "Mutation effectuée sur la base de faux documents"
+        ],
+        "infractions": [
+          "Corruption",
+          "Détournement de fonds",
+          "Faux et usage de faux"
+        ],
+        "incriminated": [
+          {
+            "name": "Mor FALL",
+            "position": "Chef du Centre des Services fiscaux de Saint-Louis",
+            "infraction": "Corruption, détournement de fonds, faux et usage de faux"
+          }
+        ],
+        "whistleblower": "Momar NDIAYE",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "2013",
+        "ofnac_decision": "Classement sans suite"
+      },
+      {
+        "reference": "Rapport d'enquête n°02/2020",
+        "title": "Affaire contre SONATEL Mobile et Orange Finances Mobile Sénégal",
+        "file_title": "Violation et collecte illicite de données à caractère personnel",
+        "facts_denounced": [
+          "Envoi de messages commerciaux intempestifs",
+          "Collecte non autorisée des données personnelles"
+        ],
+        "infractions": [
+          "Violation de la loi n° 2008-12",
+          "Collecte illicite de données personnelles"
+        ],
+        "incriminated": [
+          {
+            "name": "SONATEL Mobile",
+            "position": "Entreprise",
+            "infraction": "Violation des données personnelles"
+          },
+          {
+            "name": "Orange Finances Mobile Sénégal",
+            "position": "Entreprise",
+            "infraction": "Collecte illicite de données personnelles"
+          }
+        ],
+        "whistleblower": "Madame Magatte NDIAYE NDOYE",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "2013-2019",
+        "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+      },
+      {
+        "reference": "Rapport d'enquête n°03/2020",
+        "title": "Affaire contre Abdoulaye SADIO dit Bosco, Maire de Goudomp",
+        "file_title": "Abus de pouvoir, faux et usage de faux en écriture",
+        "facts_denounced": [
+          "Non-respect des intérêts des planteurs lors du lotissement",
+          "Absence d'une commission d'attribution des parcelles",
+          "Répartition inégale des parcelles"
+        ],
+        "infractions": ["Abus de pouvoir", "Faux et usage de faux"],
+        "incriminated": [
+          {
+            "name": "Abdoulaye SADIO dit Bosco",
+            "position": "Maire de Goudomp",
+            "infraction": "Abus de pouvoir, faux et usage de faux"
+          }
+        ],
+        "whistleblower": "Makhfousse FALL",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "Non spécifié",
+        "ofnac_decision": "Classement sans suite"
+      },
+      {
+        "reference": "Rapport d'enquête n°04/2020",
+        "title": "Affaire contre Mar NDIAYE, Chef du Service du Contrôle domanial de la Mairie de Keur Massar",
+        "file_title": "Concussion",
+        "facts_denounced": [
+          "Perception illégale de frais pour l'obtention d'une autorisation de construire",
+          "Non-émission de quittances officielles"
+        ],
+        "infractions": ["Concussion"],
+        "incriminated": [
+          {
+            "name": "Mar NDIAYE",
+            "position": "Chef du Service du Contrôle domanial de la Mairie de Keur Massar",
+            "infraction": "Concussion"
+          }
+        ],
+        "whistleblower": "Moussa FALL",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "Non spécifié",
+        "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+      },
+      {
+        "reference": "Rapport d'enquête n°05/2020",
+        "title": "Affaire contre Mbaye TINE, Maire de la Commune de Taïf",
+        "file_title": "Refus de présenter les comptes administratifs, gestion non transparente",
+        "facts_denounced": [
+          "Refus de présenter les comptes administratifs de 2017 et 2018",
+          "Refus de recueillir l'avis du Conseil municipal",
+          "Travaux non budgétisés"
+        ],
+        "infractions": ["Faux et usage de faux", "Gestion non transparente"],
+        "incriminated": [
+          {
+            "name": "Mbaye TINE",
+            "position": "Maire de la Commune de Taïf",
+            "infraction": "Faux et usage de faux, gestion non transparente"
+          }
+        ],
+        "whistleblower": "Collectif des conseillers municipaux de Taïf",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "2017-2018",
+        "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+      },
+      {
+        "reference": "Rapport d'enquête n°06/2020",
+        "title": "Affaire contre Marco Fortumato GIANNECHINI",
+        "file_title": "Occupation illégale de terrain, escroquerie et faux et usage de faux",
+        "facts_denounced": [
+          "Occupation illégale d'un terrain attribué par le Conseil rural de Yenne",
+          "Destruction d'aménagements préexistants"
+        ],
+        "infractions": [
+          "Occupation illégale",
+          "Escroquerie",
+          "Faux et usage de faux"
+        ],
+        "incriminated": [
+          {
+            "name": "Marco Fortumato GIANNECHINI",
+            "position": "Individu",
+            "infraction": "Occupation illégale de terrain, escroquerie, faux et usage de faux"
+          }
+        ],
+        "whistleblower": "Madame Gemma SAMBOU BADJI",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "Non spécifié",
+        "ofnac_decision": "Transmission au procureur de la République"
+      },
+      {
+        "reference": "Rapport d'enquête n°07/2020",
+        "title": "Affaire contre le Maire de Vélingara",
+        "file_title": "Fautes de gestion, violation du code pénal et du code des collectivités territoriales",
+        "facts_denounced": [
+          "Non-transmission du compte administratif",
+          "Bradage des terres",
+          "Détournement d'objectifs"
+        ],
+        "infractions": ["Faux et usage de faux", "Détournement d'objectifs"],
+        "incriminated": [
+          {
+            "name": "Mamadou Oury Baïlo DIALLO",
+            "position": "Maire de Vélingara",
+            "infraction": "Fautes de gestion, violation du code pénal, faux et usage de faux"
+          }
+        ],
+        "whistleblower": "El Hadji Abdoul Aziz MBENGUE",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "Non spécifié",
+        "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+      },
+      {
+        "reference": "Rapport d'enquête n°08/2020",
+        "title": "Fraude sur le concours d'entrée en 6ème à la Maison d'Éducation Mariama BA de Gorée",
+        "file_title": "Fraude présumée sur un concours d'entrée",
+        "facts_denounced": [
+          "Fraude présumée sur le concours d'entrée",
+          "Refus d'accorder un recours"
+        ],
+        "infractions": ["Fraude"],
+        "incriminated": [],
+        "whistleblower": "Seyni TOURE",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "2019",
+        "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+      },
+      {
+        "reference": "Rapport d'enquête n°09/2020",
+        "title": "Affaire contre Astou Dioh SÈNE, Directrice du CNEPS de Thiès",
+        "file_title": "Gestion nébuleuse, gabegie et corruption",
+        "facts_denounced": [
+          "Acquisition et construction d'immeubles à Thiès",
+          "Blanchiment d'argent à travers deux boutiques"
+        ],
+        "infractions": ["Gestion nébuleuse", "Corruption"],
+        "incriminated": [
+          {
+            "name": "Astou Dioh SÈNE",
+            "position": "Directrice du CNEPS de Thiès",
+            "infraction": "Gestion nébuleuse, corruption"
+          }
+        ],
+        "whistleblower": "Dénonciation anonyme",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "Non spécifié",
+        "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+      },
+      {
+        "reference": "Rapport d'enquête n°10/2020",
+        "title": "Affaire contre la Directrice et la Gestionnaire de la Galerie nationale d'Art",
+        "file_title": "Détournement présumé de deniers publics",
+        "facts_denounced": [
+          "Détournement présumé d'une subvention de 100 millions FCFA",
+          "Surfacturation des travaux de rénovation de la salle d'exposition"
+        ],
+        "infractions": ["Détournement de deniers publics", "Surfacturation"],
+        "incriminated": [
+          {
+            "name": "Madjiguène NIANG MOREAU",
+            "position": "Directrice de la Galerie nationale d'Art",
+            "infraction": "Détournement présumé de deniers publics"
+          },
+          {
+            "name": "Absa BEYE COULIBALY",
+            "position": "Gestionnaire de la Galerie nationale d'Art",
+            "infraction": "Détournement présumé de deniers publics"
+          }
+        ],
+        "whistleblower": "Dénonciation anonyme",
+        "prejudice_amount": "100 millions de FCFA",
+        "facts_period": "2019",
+        "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+      },
+      {
+        "reference": "Rapport d'enquête n°11/2020",
+        "title": "Affaire contre Mamadou Saliou DIALLO, Responsable Administratif et Financier au Ministère des Infrastructures, des Transports terrestres et du Désenclavement",
+        "file_title": "Enrichissement illicite, corruption et détournement de deniers publics",
+        "facts_denounced": [
+          "Création d'entreprises fictives attribuées à ses proches",
+          "Surfacturation des contrats de travaux publics",
+          "Détournement de fonds publics à travers des transactions immobilières"
+        ],
+        "infractions": [
+          "Enrichissement illicite",
+          "Corruption",
+          "Détournement de deniers publics"
+        ],
+        "incriminated": [
+          {
+            "name": "Mamadou Saliou DIALLO",
+            "position": "Responsable Administratif et Financier au Ministère des Infrastructures, des Transports terrestres et du Désenclavement",
+            "infraction": "Enrichissement illicite, corruption, détournement de deniers publics"
+          }
+        ],
+        "whistleblower": "Dénonciation anonyme",
+        "prejudice_amount": "Non spécifié",
+        "facts_period": "Non spécifié",
+        "ofnac_decision": "Rapport soumis à l'Assemblée des membres"
+      }
+    ]
+  },
+  {
+    "id": "cours-des-compte-prodac",
+    "summary": [
+      {
+        "title": "Non-respect des délais de mise en place des DAC",
+        "content": "Retards dans la réalisation des Domaines agricoles communautaires (DAC) de la première phase. Défaut de réalisation des DAC de la seconde phase (p45)."
+      },
+      {
+        "title": "Non atteinte des objectifs du PRODAC",
+        "content": "Le programme prévoyait « l'installation de 2 000 Unités Autonomes d'Exploitation (UAE) de 15 ha chacune ». Sept ans plus tard, aucune UAE n'a été mise en place. (p. 37)"
+      },
+      {
+        "title": "Non-atteinte des objectifs du PRODAC",
+        "content": "Défaut de mise en place des Unités Autonomes d'Exploitation (UAE). Défaut de réalisation de l'objectif de création d'emplois."
+      },
+      {
+        "title": "Gestion financière des opérations par le PRODAC",
+        "content": "Incohérences dans le paiement des engagements de l'Etat envers la BNDE. Déficiences dans l'enregistrement et le référencement des dossiers de marchés (p59)."
+      },
+      {
+        "title": "Surplus de Paiement à la BNDE",
+        "content": "Un surplus de 1,24 milliard FCFA a été payé à la BNDE. Pape Malick Ndour, coordonateur du PRODAC, a reconnu avoir émis un ordre de virement d'un montant de 1 milliard FCFA à la BNDE, remplaçant un premier ordre de virement non exécuté de 1,248 milliard FCFA. Cependant, le montant total versé a dépassé les obligations impayées initialement dues à la BNDE, ce qui a causé un paiement excessif (p. 50, p. 48, p. 47)."
+      },
+      {
+        "title": "Non-Respect de la Convention de Financement",
+        "content": "La convention de financement entre l'État et LOCAFRIQUE prévoyait un montant total de 29,6 milliards FCFA, mais certains paiements ont été effectués en dehors du champ d'application de la convention. Les factures émises par Green 2000 pour le DAC de Sangalkam ont été payées par le PRODAC, sans passer par LOCAFRIQUE, et sans précompter la TVA de 259,3 millions FCFA (p. 53, p. 57)."
+      },
+      {
+        "title": "Défaillances du Système d'Information",
+        "content": "Le logiciel de paie FinPro Net n'était pas à jour, et l'accès n'était pas suffisamment sécurisé, exposant le programme à des risques de fraude (page 19)."
+      },
+      {
+        "title": "Absence de Plan de Formation et d'Évaluation",
+        "content": "Sous sa direction, le personnel du PRODAC n'a pas bénéficié d'une formation adéquate ni d'une évaluation régulière, entraînant un manque de développement des compétences et une baisse de productivité (p. 70)"
+      }
+    ],
+    "title": "",
+    "investigations": []
+  },
+  {
+    "id": "cours-des-compte-covid-19",
+    "summary": [
+      {
+        "title": "Lamine Diallo (Comptable, Hôpital de Kaffrine)",
+        "content": "Non-justification des dépenses de 45 millions de francs CFA (p. 83, Demande d'ouverture d'une information judiciaire)"
+      },
+      {
+        "title": "Aliou Sow (DAGE du ministère du Développement communautaire)",
+        "content": "Surfacturation du riz pour un montant de 2,75 milliards de francs CFA. (p. 100, Demande d'ouverture d'une information judiciaire)"
+      },
+      {
+        "title": "Ndiamé Ndiaye (Directeur du Fonds d'impulsion de la microfinance)",
+        "content": "Qui a géré les fonds Covid-19 pour le Ministère de la Microfinance et de l'Economie sociale et solidaire, n'a pas justifié l'utilisation de 11,2 millions de francs CFA (Paragraphe 1.1.4.3, Page 96, Demande d'ouverture d'une information judiciaire)"
+      },
+      {
+        "title": "Mouhamadou Sène (DAGE du Ministère de la Jeunesse)",
+        "content": "Surfacturation du gel hydroalcoolique pour un montant de 41,2 millions de francs CFA. (p. 96, Demande d'ouverture d'une information judiciaire)"
+      },
+      {
+        "title": "Mouhamadou Bamba Amar (Aide-comptable, ministère du Développement industriel)",
+        "content": "Retraits répétés journalier de 50 à 100 millions de FCFA en espèces (2,5 milliards au total) pour le paiement des dépenses d'acquisition de masques en espèces (p. 106 à 109, Demande d'ouverture d'une information judiciaire)"
+      },
+      {
+        "title": "Ndèye Aminata Loum Ndiaye (DAGE du du Ministère du Développement industriel et des Petites et Moyennes Industries)",
+        "content": "Surfacturation des masques à hauteur de 2,5 milliards de francs CFA. (p. 106 à 109, Demande d'ouverture d'une information judiciaire)"
+      },
+      {
+        "title": "Djiby Diakhaté (DAGE du de la Femme, de la Famille et de la Gestion de la Petite Enfance)",
+        "content": "Non-justification de dépenses de 114 millions de francs CFA."
+      },
+      {
+        "title": "Léon Nzalley (DAGE du Ministère de la Communication et de la Culture)",
+        "content": "Dépenses non justifiées pour 1 milliard 120 000 francs CFA."
+      },
+      {
+        "title": "Alassane Diallo (DAGE sortant du Ministère des Mines et de la Géologie)",
+        "content": "Paiement de 73 millions pour des services non exécutés​."
+      },
+      {
+        "title": "Ousseynou NGOM, DAGE du Ministère de la Santé et de l'Action sociale",
+        "content": "La cours des comptes lui a demandé de rembourser la somme de 313 millions FCFA irrégulièrement payée à des personnes dites « membres du Comité national de Gestion des Epidémies (CNGE) (Page 65)"
+      },
+      {
+        "title": "Moustapha DIOP, gestionnaire du compte bancaire « fonds d'appui à la petite et moyenne entreprise » ouvert à la BOA",
+        "content": "Il est poursuivi au même titre que la DAGE Ndèye Aminata LOUM NDIAYE sur la surfacturation des masques à hauteur de 2,5 milliards de FCFA (Page 110)"
+      }
+    ],
+    "title": "La cours comptes a demandé dans le rapport une ouverture d'information judiciaire contre ces 10 personnes. Des enquêtes approfondies ont été menées par la Division des investigations criminelles  (DIC) et lors du conseil des minitre du 15 Mai 2024, le ministre de la Justice Ousmane Diagne a pris la parole pour faire une communication concernant le traitement judiciaire du rapport",
+    "investigations": []
+  },
+  {
+    "id": "cours-des-compte-sicap-2020",
+    "summary": [
+      {
+        "title": "Faiblesse de la production d'unités d'habitations",
+        "content": "Sur un objectif de 11 000 unités d'habitation, la SICAP n'a produit que 3 542 unités (p. 69)"
+      },
+      {
+        "title": "mauvaise qualité des logements",
+        "content": "écarts significatifs entre les unités d'habitation réalisées et les spécifications contenues dans les documents contractuels. Des défaillances techniques manifestes sont relevées en ce qui concerne la structure générale des constructions, l'aménagement et la viabilisation des sites (Projet KeurMassar économique, Projet Mbao Villeneuve, Projet Sacré-Coeur III VDN Extension 2)"
+      },
+      {
+        "title": "Gestion des projets",
+        "content": "Faible niveau d'exécution des programmes d'investissement mais aussi les longs retards constatés dans la réalisation des travaux de construction.Des centaines de millions dépensés sur des projets à l'arrêt à SICAP TOUBA, SICAP SALY, DIASS Bambilor... (p. 71)"
+      },
+      {
+        "title": "Octroi abusif de dons et subventions",
+        "content": "Un montant cumulé de 703 millions FCFA de dons et subventions ont été distribués pour des motifs sans lien direct avec les activités normales de l'entreprise (p. 28)"
+      },
+      {
+        "title": "Manque de contrôle de la gestion",
+        "content": "Absence de comité de direction et de contrôle permanent, malgré les dispositions statutaires (p. 11)"
+      },
+      {
+        "title": "Déficiences dans la gestion budgétaire",
+        "content": "Des budgets d'investissement irréalistes avec des taux d'exécution très bas, allant de 5% à 45% selon les années. Dépenses exécutées sans budgetisation prévue, par exemple 115 628 000 FCFA en charges provisionnées pour 2018 (p. 21-22)"
+      },
+      {
+        "title": "Gestion complaisante",
+        "content": "plus de 30 agents SICAP, en plus de bénéficier de logement à des taux préférentiels, ont été attributaires de deux logement chacun. De surcroît sans qu'ils n'honorent leurs engagements contractuels. Une bonne partie d'entre eux accusent des retards de paiements significatifs. (p.51 et p.81)"
+      },
+      {
+        "title": "Attributions injustifiées de 2 logements au DG",
+        "content": "Le DG s'est attribué lui-même deux logements à tarif préférentiels, à Sacré-Cœur et Sicap-Keur-Gorgui, ce qui est considéré comme un abus par la cours des comptes (p. 51)"
+      },
+      {
+        "title": "Insuffisances dans la gestion fiscale",
+        "content": "883 millions de redressement fiscal et 247 827 de pénalités (p. 66)"
+      }
+    ],
+    "title": "",
+    "investigations": []
+  },
+  {
+    "id": "cours-des-compte-crse-2023",
+    "summary": [
+      {
+        "title": null,
+        "content": "La CRSE a pour missions de promouvoir le développement rationnel de l'offre d'énergie électrique et de veiller à l'équilibre économique et financier du secteur électrique et à la préservation des conditions économiques nécessaires à sa viabilité."
+      },
+      {
+        "title": "Attribution de dons et subventions",
+        "content": "entre 2017 et 2020, 6 811 100 FCFA de dons et subventions n'ayant aucun rapport avec l'objet social de la CRSE ont été accordées, suggérant une utilisation des fonds non conforme aux objectifs de l'organisation (p. 18)"
+      },
+      {
+        "title": "Système de contrôle interne défaillant",
+        "content": "Aucun agent comptable n'a été nommé, entraînant une confusion des fonctions d'ordonnateur et de comptable public (p. 10-11)"
+      },
+      {
+        "title": "Gestion budgétaire et financière inadéquate",
+        "content": "Absence d'un auditeur interne, ce qui affaiblit le contrôle interne de l'organisation (p. 11). Manque de contrôleur de gestion pour surveiller l'exécution budgétaire et l'analyse des écarts (p. 11-12)."
+      },
+      {
+        "title": null,
+        "content": "Documents d'orientation budgétaire non produits, ce qui compromet la planification et le contrôle budgétaire (p. 12-13)."
+      },
+      {
+        "title": null,
+        "content": "Dépassements budgétaires récurrents sans modifications appropriées des prévisions budgétaires (p. 12-14)."
+      },
+      {
+        "title": "indemnités de frais de mission",
+        "content": "Gestion des indemnités journalières de déplacement et des frais de mission qui ne respectent pas les procédures établies, absence de visa des ordres de mission (p. 19-20)"
+      },
+      {
+        "title": "Gestion des Marchés publics",
+        "content": "L'examen de la gestion des marchés de la CRSE révèle des irrégularités sur le processus de passation de marchés publics: Dossier sans les Avis d'appel d'offres, les Termes de référence et les offres des candidats… (p. 21)"
+      },
+      {
+        "title": "redressement fiscal",
+        "content": "en décembre 2019 pour un montant de 139 736 049 F CFA pour non reversement de la CFCE."
+      },
+      {
+        "title": "Non-respect de la procédure de recrutement du personnel",
+        "content": "absence de justificatif sur la publication des offres d'emploi, les candidatures reçues, les dépouillements, les entretiens, les PV de la Commission de sélection. Le président recrutait sur la base de simples lettres de demande d'emploi. (p. 23)"
+      },
+      {
+        "title": "Mise à disposition irrégulière d'agents de la CRSE à la tutelle",
+        "content": "du personnel de la CRSE, Chauffeur et Assistant administratif, ont été mis à la disposition de Mme Maïmouna Ndoye SECK, Ministre en charge de l'Energie, mais continuaient à recevoir leur rémunération de la CRSE. (p. 23-24)"
+      },
+      {
+        "title": "Octroi d'avantages injustifiés",
+        "content": "cumul indu d'une indemnité de transport allant de 30 000 à 500.000 FCFA et des dotations mensuelles de carburant fixées entre 300, 200 et 150 litres"
+      },
+      {
+        "title": "Déficit de communication",
+        "content": "Il a été constaté un défaut de vulgarisation de la CRSE sur ses missions de préservation des intérêts des consommateurs et la protection de leurs droits"
+      }
+    ]
+  },
+  {
+    "id": "cours-des-compte-peche-artisanale-2023",
+    "summary": [
+      {
+        "title": "Quai de pêche à Bargny, 279 millions",
+        "content": "les travaux d'aménagement d'un quai de pêche à Bargny ont été confiés à la société CGI pour un montant de 279 951 021 FCFA. Ces travaux ont été réceptionnés et payés, cependant, l'équipement n'a pas été utilisé. Les acteurs locaux ont refusé de débarquer sur le site du quai de pêche de Bargny, arguant d'un manque d'inclusion dans la réalisation du projet. Ils ont souligné que le site retenu présentait des dangers pour l'accostage des pirogues chargées en raison d'une côte rocheuse. Les acteurs locaux avaient proposé un autre site, Bargny Guedj, qu'ils estimaient plus adapté pour accueillir le quai de pêche."
+      },
+      {
+        "title": "Des défaillances dans l'exécution du programme de construction",
+        "content": "la Cour des Comptes a relevé une irrégularité commise par Monsieur Seydina Oumar BA, administrateur suppléant du budget, qui a délivré un certificat de service fait à l'entreprise OZE SUARL alors que les travaux n'étaient pas terminés. (p.30)"
+      },
+      {
+        "title": null,
+        "content": "la Cour a constaté un défaut de report du solde du compte de dépôt n°368.8.061 'Appui à la politique sectorielle Pêche' de 2020 à 2023, résultant d'un défaut de contrôle des comptes de dépôt. "
+      },
+      {
+        "title": null,
+        "content": "La Cour a demandé à l'Agent judiciaire de l'Etat d'engager des poursuites contre Monsieur Abib SY, Directeur général de l'entreprise OZE SUARL concernant le marché de 69 millions FCFA portant sur les travaux de construction d'un service départemental à Mbour"
+      },
+      {
+        "title": null,
+        "content": "La Cour a demandé à l'Agent judiciaire de l'Etat d'engager des poursuites contre monsieur Ibrahima FALL, Directeur général de l'entreprise LAMP FALL BTP pour non-respect de ses engagements contractuels dans le cadre du marché d'un montant de 179 millions FCFA pour les travaux d'aménagement d'un quai de pêche à Mboro"
+      }
+    ]
+  },
+  {
+    "id": "cours-des-compte-commune-dakar-plateau-2020",
+    "summary": [
+      {
+        "title": "Transport de pèlerins aux lieux saints (Mecque et Fès)",
+        "content": "Des dépenses importantes à hauteur de 423 millions de FCFA ont été engagées pour le transport des pèlerins vers les lieux saints, notamment à la Mecque et à Fès, sans qu'Aucun document permettant d'identifier les bénéficiaires de ces déplacements n'a été fourniaux vérificateurs.'. (page 53)"
+      },
+      {
+        "title": "Distribution de denrées alimentaires",
+        "content": "58 millions de fcfa de dépenses relatives à l'acquisition de denrées alimentaires au profit de nécessiteux et d'indigents ont été effectuéessans que les listes des bénéficiaires ne soient produites. (page 55)"
+      },
+      {
+        "title": "Recrutement d'agents avec des avantages indus",
+        "content": "Des agents municipaux ont été recrutés avec des avantages indus en termes d'indice salarial, en violation des normes établies. Par exemple, M. Seydou KAMARA a été recruté à un indice supérieur à celui auquel il avait droit, et M. Pape Boura SONKO a été engagé à un niveau hiérarchique inapproprié  (page 8)"
+      },
+      {
+        "title": "Agents municipaux dont le dossier est incomplet ou présente des incohérences",
+        "content": "Certains dossiers du personnel de la commune sont incomplets ou irréguliers, ce qui pose des problèmes de suivi et de gestion. Par exemple, les dossiers 4 agent n'ont pas de diplôme. (page 7"
+      },
+      {
+        "title": "Utilisation abusive des contrats à durée déterminée (CDD)",
+        "content": "724 contrats à durée déterminée ont été conclus en 2016, principalement pour des tâches de nettoiement. Ceci constitue une violation de l'article L. 45 de la loi 97-17 du code du travail (pages 6-7)"
+      },
+      {
+        "title": "Dépassement du plafond d'encaisse",
+        "content": "La régie des recettes a dépassé le plafond d'encaisse d'un (1) million fcfa prévu par les régulations, sans autorisation appropriée (page 7)"
+      },
+      {
+        "title": "Dépenses illégales et non autorisées",
+        "content": "Construction illégale d'un complexe scolaire et réhabilitation illégale d'écoles élémentaires (pages 22-24). Dépenses engagées au-delà des autorisations budgétaires (page 35).Non-respect des mentions obligatoires dans les contrats de marchés publics et imputation incorrecte des dépenses (pages 37-38)."
+      },
+      {
+        "title": "Indemnités de logement irrégulières",
+        "content": "Le secrétaire municipal a continué de percevoir une indemnité de logement de 100 000 FCFA, alors que le montant dû était de 150 000 FCFA selon le décret en vigueur (pages 44-45)."
+      }
+    ],
+    "title": "La Cour des comptes a recommandé au maire de respecter diverses réglementations, mais aucune poursuite judiciaire n'a été demandé",
+    "investigations": []
+  },
+  {
+    "id": "cours-des-compte-personnel-etat-2021",
+    "summary": [
+      {
+        "title": "indemnités allouées sans base légale",
+        "content": "entre 2015 et 2018, 224 milliards de FCFA ont été payés à des agents de l'État sans bases textuelles (pages 61-63)"
+      },
+      {
+        "title": "Double paiement",
+        "content": "en 2018 des agents ont bénéficié de doubles paiements par virement bancaire et par billetterie pour le même mois de salaire (page 82-83)"
+      },
+      {
+        "title": "Cumul d'indemnité de logement",
+        "content": "78 agents ont bénéficié cumulativement, pendant deux ans, d'un logement administratif et d'une indemnité de logement. (page 64-65)"
+      },
+      {
+        "title": "Cumul d'indemnités sur les heures supplémentaires",
+        "content": "58 millions FCFA d'indemnités pour travaux supplémentaires (ITS) ont été allouées à certains agents de la DS, cumulativement avec les indemnité 'heures de budget'. (page 63-64)"
+      },
+      {
+        "title": "indemnités versées à des agents non immatriculés",
+        "content": "Des agents inconnus de la Fonction publique et de la Direction de la solde ont bénéficié des indemnités de vacation. une pratique qui a conduit à une augmentation de l'enveloppe annuelle supportée par le budget de 1,7 milliard de FCFA en 2015 à 5 milliards de FCFA en 2019. (page 65)"
+      },
+      {
+        "title": "Anomalies dans système de gestion RH",
+        "content": "512 cas d'agents mineurs\n2933 cas d'agents avec la même identité\n7125 cas d'agents avec le même CNI\n8487 cas d'agents avec le même matricule\n(page 47-48)"
+      }
+    ],
+    "title": "",
+    "investigations": []
+  },
+  {
+    "id": "cours-des-comptes-2022-audit-financier-dette-publique-2018-2020",
+    "summary": [
+      {
+        "title": "Beaucoup d'anomalies constatées dans les comptes",
+        "content": "système d'information défaillant, absence d'outil de contrôle interne, des comptes qui ne permettent pas de tracer l'exhaustivité du stock de la dette publique, des écarts entre les imputations sur des comptes et les pièces comptables pour des montants de 104 milliards et 5 milliards en 2019 …"
+      },
+      {
+        "title": "Des écarts invraisemblables",
+        "content": "un rapprochement d'un échantillon avec la base de données de la Direction de la dette publique (Ddp) a permis de relever que «30 sur les 32 prêts projets tirés présentent des écarts, soit un taux de 93% »"
+      },
+      {
+        "title": null,
+        "content": "Les écarts concernent le projet Pikine irrégulier (6,45 milliards), le projet de réhabilitation de la route nationale 2 Ndioum-Ourrossogui-Bakel (6,334 milliards), le Brt (2,9 milliards de Fcfa), le Programme d'autosuffisance en riz (13,3 milliards de Fcfa), le projet de Parc de technologies numériques (4,484 milliards), les projets ponts et autoponts du Sénégal (12,060 milliards), le projet de Ter (1,695 milliard)..."
+      },
+      {
+        "title": null,
+        "content": "L'écart le plus considérable est lié au projet Piriou (achat de patrouilleurs pour la Marine) pour un montant de 32,578 milliards de Fcfa. Selon la Cour, «la fréquence des écarts et leur caractère significatif posent le problème de la fiabilité des informations sur la dette relative aux financiers extérieurs»."
+      },
+      {
+        "title": "Tenue de la comptabilité ",
+        "content": "Durant la période sous revue 2018-2020, les montants des demandes de retraits de fonds (Drf) s'élèvent à 305 milliards 689 millions francs Cfa. Et, de l'avis de la Cour des comptes, le ministère des Finances et du Budget n'a pas apporté de réponses sur l'absence de tenue de comptabilité dans la gestion des prêts projets."
+      }
+    ]
+  },
+  {
+    "id": "cour-des-comptes-2021-commune-rosso-senegal-2015-2018",
+    "summary": [
+      {
+        "title": "Maire",
+        "content": "Monsieur Cheikh GAYE"
+      },
+      {
+        "title": "Paiement irrégulier de salaire à un agent temporaire de la commune",
+        "content": "Ousmane SECK, infirmier, a perçu 3,3M FCFA en double salaire (2017-2019) de la commune et du ministère de la Santé. (page 24) "
+      },
+      {
+        "title": "Absence de parité dans la composition du bureau municipal",
+        "content": "Le bureau municipal n'est pas composé de façon paritaire, étant constitué exclusivement d'hommes.(page 9)"
+      },
+      {
+        "title": "Absence de nomination d'un secrétaire municipal",
+        "content": "Le poste de secrétaire municipal n'a pas été pourvu durant la période sous revue."
+      },
+      {
+        "title": "Tenue de la comptabilité administrative ",
+        "content": "Le maire n'a pas présenté les documents comptables requis, notamment le livre journal des recettes et des dépenses (page 15)"
+      },
+      {
+        "title": "Défaut d'immatriculation de véhicules administratifs",
+        "content": "Certains véhicules de la commune ne disposent pas d'une carte grise (page 17)"
+      },
+      {
+        "title": "Non-souscription de police d'assurance pour les véhicules de la commune",
+        "content": "Le maire n'a pas souscrit de police d'assurance pour les véhicules de la commune. (page 18)"
+      }
+    ],
+    "title": "",
+    "investigations": []
+  },
+  {
+    "id": "cour-des-comptes-2022-audit-3FPT-2015-2019",
+    "summary": [
+      {
+        "title": "Cadre juridique et gouvernance",
+        "content": "Confusions sur le statut du Fonds: Le statut du 3FPT n'a pas été correctement défini, causant des confusions dans l'application des textes et des régimes indemnitaires des dirigeants. Manquements dans la mise en place des organes d'administration (p. 11): Absence d'arrêté pour la nomination des membres du Conseil d'Administration (CA), non-représentation du Ministère de l'Economie et des Finances au CA en 2017, 2018, et 2019. Défaut de mise en place d'un comité d'audit (p. 11): Malgré la résolution du 4 octobre 2019 pour créer un comité d'audit, celui-ci n'est pas encore fonctionnel. (p. 10)"
+      },
+      {
+        "title": "Cadre organisationnel et répartition des tâches",
+        "content": "Retard dans la mise en œuvre du projet de construction du siège : Les travaux de construction n'ont toujours pas démarré malgré les paiements effectués pour les études architecturales en 2019. Manquements dans la gestion des ressources humaines (p. 14): Absence de référentiels de gestion, recrutements sans appel à candidatures, absence de règlement intérieur, et fiches de poste non systématisées. (p. 12)"
+      },
+      {
+        "title": "Planification et gestion stratégique",
+        "content": "Planification non adossée à un diagnostic sectoriel (p. 15): Absence d'études prospectives nécessaires pour aligner les besoins de formation avec les secteurs prioritaires. Insuffisances dans l'élaboration du plan stratégique (p. 16): Le plan stratégique 2017-2020 manque de références à des documents clés et de détails sur les objectifs spécifiques et budgets nécessaires."
+      },
+      {
+        "title": "Dispositifs de contrôle et de suivi-évaluation",
+        "content": "Faiblesses dans le processus d'assurance qualité (p. 19): Limitation des attributions de l'assurance qualité aux seules accréditations et labellisations, et insuffisance des ressources humaines dédiées. Insuffisance des ressources humaines pour le suivi-évaluation (p. 20): Le service de suivi-évaluation est sous-dimensionné avec un seul agent, et absence de système d'information adapté pour le suivi-évaluation."
+      },
+      {
+        "title": "Communication et relations avec les parties prenantes",
+        "content": "Absence d'une stratégie globale de communication : Inexistence d'un document de stratégie de communication, et insuffisances dans l'évaluation des actions de communication (p. 22-25)."
+      },
+      {
+        "title": "Mobilisation des ressources et exécution des financements",
+        "content": "Absence de sincérité et de visibilité sur les ressources (p. 28): Problèmes de recouvrement des ressources issues de la CFCE et déperdition des fonds. Financements insuffisamment mobilisés (p. 32): Manque de mobilisation des ressources provenant des partenaires techniques et financiers et des ressources internes hors CFCE."
+      },
+      {
+        "title": "Efficacité et pérennité des activités",
+        "content": "Déséquilibres territoriaux dans la répartition des financements (p. 50): Inéquité dans la répartition des financements entre les pôles territoriaux, favorisant les grandes écoles de commerce et certaines régions."
+      }
+    ]
+  },
+  {
+    "id": "cours-des-compte-onfp-2019",
+    "summary": [
+      {
+        "title": "Monsieur Sanoussi DIAKITE",
+        "content": "Directeur général, nommé par décret n° 2012-996 du 20 septembre 2012"
+      },
+      {
+        "title": "Cumul irrégulier de salaires par Sanoussi DIAKITE",
+        "content": "Sanoussi DIAKITE, ancien DG de l'ONFP, a perçu illégalement de 2012 à 2019 un salaire de Professeur d'Enseignement secondaire cumulant 32 694 478 FCFA, alors qu'il touchait déjà 3 millions FCFA par mois en tant que DG. La Cour des Comptes demande l'arrêt de ce paiement et le remboursement des sommes perçues. (page 21)"
+      },
+      {
+        "title": "Encaissement irrégulier de frais d'inscription par Mme DIOP",
+        "content": "Mme DIOP, assistante du Directeur administratif et financier de l'ONFP, a irrégulièrement encaissé 2 040 000 FCFA de frais d'inscription. La Cour des Comptes demande le reversement de ce montant et une meilleure gestion des encaissements. (page 28)"
+      },
+      {
+        "title": null,
+        "content": "Un manuel de procédures incomplet et un organigramme non mis en oeuvre."
+      },
+      {
+        "title": null,
+        "content": "L'absence de la fonction d'audit interne et des insuffisances dans le contrôle de gestion."
+      },
+      {
+        "title": null,
+        "content": "Des faiblesses dans la procédure de recrutement et des fonctionnaires irrégulièrement « mis à disposition »."
+      },
+      {
+        "title": null,
+        "content": "Des activités de formation incorrectement planifiées, peu coordonnées et pas toujours bien exécutées et évaluées."
+      },
+      {
+        "title": null,
+        "content": "L'inexistence d'un système pertinent de suivi et d'accompagnement des formés."
+      },
+      {
+        "title": null,
+        "content": "De longs retards et des défaillances criardes dans l'exécution technique des projets de construction."
+      }
+    ]
+  },
+  {
+    "id": "cours-des-compte-onas-2019",
+    "summary": [
+      {
+        "title": "Mauvaise planification des marchés (p.35)",
+        "content": "Marché de gardiennage attribué à SSGEPB SCORPION SA pour 330 336 000 FCFA, estimé initialement à 230 000 000 FCFA. Travaux d'assainissement à Ziguinchor attribués à CSE pour 1 734 884 283 FCFA et à CHIALI SERVICES pour 2 543 557 409 FCFA."
+      },
+      {
+        "title": "Abus dans les contrats de prestation (p.43)",
+        "content": "Alioune Badara DIOP, ancien DG, a signé des contrats pour des agents sans indication de tâches, avec un salaire de 500 000 FCFA/mois. Gaspillage de ressources par le recrutement non nécessaire."
+      },
+      {
+        "title": "Abus sur les indemnités du comité technique du projet Bill et Melinda Gates (p.41)",
+        "content": "Amadou Lamine DIENG et Alioune Badara DIOP ont attribué des indemnités allant jusqu'à 800 000 FCFA/mois sans rapport avec les niveaux d'intervention dans le projet."
+      },
+      {
+        "title": "Exécution onéreuse de dépenses à caractère social (p.41)",
+        "content": "353 353 273 FCFA dépensés en libéralités non liées à l'objet social de l'ONAS, en violation des directives."
+      },
+      {
+        "title": "Insuffisance de la redevance pour la couverture des charges d'exploitation (p.23)",
+        "content": "Manque de contrôle sur les redevances perçues, avec des écarts importants entre les montants comptabilisés par l'ONAS et ceux communiqués par la SDE."
+      },
+      {
+        "title": "Défauts dans l'élaboration et l'exécution budgétaire (p.34)",
+        "content": "Absence de rapports d'exécution budgétaire annuelle, empêchant une analyse cohérente de l'exécution budgétaire."
+      },
+      {
+        "title": "Défauts dans la mise en œuvre des infrastructures d'assainissement (p.50)",
+        "content": "Retards de décaissement et ponctions budgétaires impactant négativement les projets d'assainissement."
+      },
+      {
+        "title": "faits présumés de détournement et d'escroquerie sur deniers publics contre Madame Fatou WADE ",
+        "content": "Madame Fatou WADE est mentionnée pour modification arbitraire et unilatérale des procédures de gestion de la caisse, ce qui a conduit à des manquants en caisse estimés à 98 100 284 FCFA en 2016."
+      }
+    ]
+  },
+  {
+    "id": "centif-2022",
+    "summary": [
+      {
+        "title": "Missions et Organisation",
+        "content": "La CENTIF est une autorité administrative sous la tutelle du Ministère des Finances, chargée de traiter et de transmettre des informations pour lutter contre le blanchiment de capitaux (BC) et le financement du terrorisme (FT). Ses missions incluent la réception de déclarations de soupçon, le traitement des informations collectées, et la transmission de rapports aux autorités judiciaires."
+      },
+      {
+        "title": "Transactions en cryptomonnaie",
+        "content": "La CENTIF a traité plusieurs dossiers liés à des transactions en cryptomonnaie, mettant en évidence des scénarios d'arnaque et d'escroquerie impliquant des plateformes d'émission de monnaie virtuelle. (page 42)"
+      },
+      {
+        "title": "Déclarations d'opérations suspectes (DOS)",
+        "content": "En 2022, la CENTIF a reçu et analysé 330 déclarations provenant des banques et établissements financiers"
+      },
+      {
+        "title": "Fraude fiscale",
+        "content": "Durant ces dernières années, la CENTIF a constaté la recrudescence des sociétés dûment créées qui pratiquent la fraude fiscale. La plupart de ces sociétés sont actives dans des secteurs réputés sensibles en matière de fraude fiscale comme la vente de marchandises diverses, les travaux publics et l'industrie. La CENTIF a observé le recours à des hommes de paille pour gérer ces sociétés appartenant en grande majorité à des ressortissants de pays asiatiques"
+      },
+      {
+        "title": "Distinctions et Reconnaissance",
+        "content": "Lors de la 37e plénière du Groupe intergouvernemental d'Action contre le Blanchiment d'Argent en Afrique de l'Ouest (GIABA), La CENTIF a été récompensée pour son mentorat et son excellente collaboration. Elle a également reçu le prix spécial de reconnaissance pour sa contribution aux rapports d'évaluation mutuelle et de suivi des États membres ."
+      }
+    ]
+  },
+  {
+    "id": "cours-des-compte-puma-2023",
+    "summary": [
+      {
+        "title": "Coordonateur",
+        "content": "Moussa Sow, Maire de Walalde (Podor) et inspecteur des impôts, a été nommé Coordonnateur national du PUMA par le décret n° 2016-1850 du 23 novembre 2016"
+      },
+      {
+        "title": "💸 Salaires personnel",
+        "content": "483 millions FCFA en dépassements entre 2019 et 2021 (page 33)"
+      },
+      {
+        "title": "🧳 Frais de mission",
+        "content": "105 millions FCFA en dépassements en 2019 et 2021 (page 34)"
+      },
+      {
+        "title": "⛽ Abus de carburant",
+        "content": "Dotations excessives à des personnels non éligibles. Surplus de donation mensuelles 100 litres par véhicule (page 35)"
+      },
+      {
+        "title": "📜 Contrats irréguliers",
+        "content": "Rémunérations des chargés de mission passant de 61,7M à 236,6M FCFA (2019-2021), soit +283.3% (page 37)"
+      },
+      {
+        "title": "⚠️ Autres dysfonctionnements",
+        "content": "Inefficacité organisationnelle; Absence d'outils de suivi; Projets non rentables; Faible rentabilité des activités génératrices de revenus; Léthargie des comités de suivi; Absence d'audit interne; Aménagements non fonctionnels"
+      }
+    ]
+  }
 ]

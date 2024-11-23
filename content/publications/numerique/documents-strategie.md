@@ -10,9 +10,17 @@ robots: noindex
 
 ### 2016 - Stratégie Numerique 2025 (SN 2025) - version première
 
-### 2016 - Stratégie Numerique 2025 (SN 2025) - Plan d'actions actualisé avec le PNUD
+<!-- https://www.adie.sn/agence/cadre-strat%C3%A9gique -->
+
+le gouvernement du Sénégal a élaboré, depuis 2016, la stratégie « Sénégal Numérique 2025 » (SN2025) pour contribuer à la mise en œuvre optimale du Plan Sénégal Émergent (PSE) par l’entremise du levier du numérique. Cette stratégie a été actualisée en 2019 grâce à l’appui du PNUD qui a facilité l’élaboration de la stratégie de la dématérialisation et la digitalisation des procédures et des services judiciaires déclinées dans le Schéma Numérique.
+
+### 2019 - Stratégie Numerique 2025 (SN 2025) - Plan d'actions actualisé avec le PNUD
 
 ### 2022 - Stratégie nationale de cybersécurité du Sénégal 2022 (SNC2 022)
+
+### Schéma Directeur Numérique de la Justice 2023-2027
+
+Ce Schéma Directeur Numérique, document stratégique pour le département de la Justice, a été conçu et élaboré conformément à la vision de modernisation du service public de la Justice du Président de la République, M. Macky SALL
 
 <!-- ### schémas numérique de la justice 2023-2027 -->
 

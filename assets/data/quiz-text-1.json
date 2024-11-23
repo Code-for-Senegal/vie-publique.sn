@@ -1043,15 +1043,15 @@
   },
   {
     "type": "texte",
-    "question": "Quel est le lien entre le Fonds d'Appui à l'Economie sociale et solidaire et la Direction de la Promotion de l’Economie sociale et solidaire ?",
+    "question": "Quel est le lien entre le Fonds d'Appui à l'Economie sociale et solidaire et la Direction de la Promotion de l'Economie sociale et solidaire ?",
     "options": [
-      "La Direction de la Promotion de l’Economie sociale et solidaire gère les fonds, tandis que le Fonds d'Appui est un organe consultatif.",
+      "La Direction de la Promotion de l'Economie sociale et solidaire gère les fonds, tandis que le Fonds d'Appui est un organe consultatif.",
       "Le Fonds d'Appui est un instrument de financement, tandis que la Direction a un rôle de coordination et de promotion.",
       "Le Fonds d'Appui est rattaché au Ministère de l'Economie, du Plan et de la Coopération, tandis que la Direction est rattachée au Ministère de l'Industrie.",
-      "La Direction de la Promotion de l’Economie sociale et solidaire se focalise sur la microfinance, tandis que le Fonds d'Appui s'occupe de l'entrepreneuriat social."
+      "La Direction de la Promotion de l'Economie sociale et solidaire se focalise sur la microfinance, tandis que le Fonds d'Appui s'occupe de l'entrepreneuriat social."
     ],
     "answer": "Le Fonds d'Appui est un instrument de financement, tandis que la Direction a un rôle de coordination et de promotion.",
-    "explanation": "Le Fonds d'Appui à l'Economie sociale et solidaire est un fonds de financement pour les projets d'économie sociale et solidaire, tandis que la Direction de la Promotion de l’Economie sociale et solidaire a pour mission de promouvoir et de coordonner les initiatives dans ce domaine."
+    "explanation": "Le Fonds d'Appui à l'Economie sociale et solidaire est un fonds de financement pour les projets d'économie sociale et solidaire, tandis que la Direction de la Promotion de l'Economie sociale et solidaire a pour mission de promouvoir et de coordonner les initiatives dans ce domaine."
   },
   {
     "type": "texte",

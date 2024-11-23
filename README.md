@@ -1,19 +1,15 @@
 # vie-publique.sn
 
-## Sommaire
+## 📋 Sommaire
 
-1. [Présentation](#présentation)
-2. [ROADMAP](#roadmap)
-3. [Stack](#stack)
-4. [Structure du projet](#structure-du-projet)
-5. [Prérequis](#prérequis)
-6. [Creation](#creation)
-7. [Setup](#setup)
-8. [Development Server](#development-server)
-9. [Dev Containers](#utiliser-les-dev-containers)
-10. [Production](#production)
+1. [💡 Présentation](#présentation)
+2. [🗺️ Roadmap](#roadmap)
+3. [👨‍💻 Stack](#stack)
+4. [📁 Structure du projet](#structure-du-projet)
+5. [⚙️ Develop](#develop)
+6. [🚀 Déploiement](#deploiement)
 
-## Présentation
+## 💡 Présentation
 
 Plateforme Web citoyenne dédiée à la promotion de la transparence et de l'accessibilité à l'information publique au Sénégal.
 
@@ -22,39 +18,30 @@ C'est une plateforme participative, collective, ouverte et open source visant à
 > ⚠️ **AVERTISSEMENT IMPORTANT**
 > Projet initié dans l'urgence pour répondre à [l'indisponiblité du site de la cours des comptes le 01/05/2024](https://twitter.com/malick_yacine/status/1785472745150742983). Les data (metadata sur les rapports et les pdf) on été incluses directement dans le repo git. Ce point sera corrigé très rapidement en séparant les data du code.
 
-## Roadmap
+## 🗺️ Roadmap
 
 https://github.com/Code-for-Senegal/vie-publique.sn/wiki/ROADMAP
 
-## Stack
+## 👨‍💻 Stack
 
 - [Vue 3](https://vuejs.org)
-
 - [Nuxt 3](https://nuxt.com)
-
   - [Nuxt UI](https://ui.nuxt.com) pour les composants UI
   - [Nuxt SEO](https://nuxtseo.com) pour optimiser SEO référencement naturel
   - [Nuxt Content](https://content.nuxt.com/) pour générer du contenu statique en markdown
   - [nuxt-gtag](https://nuxt.com/modules/gtag) pour le suivi Google Analytics
-
 - [Tailwind css](https://tailwindcss.com/) pour le style UI
-
 - [ES lint](https://nuxt.com/docs/guide/concepts/code-style) et [prettier](https://prettier.io) pour le code Style
-
 - [Brevo (ex Sendinblue)](https://www.brevo.com/fr/) pour la newsletter
 
 - Package Manager: npm
-
 - Bundler: Vite
-
 - Nom de domaine
-
-  - DNS [vie-publique.sn](https://www.vie-publique.sn) acheté via OVH
-
+  - DNS [vie-publique.sn](https://www.vie-publique.sn)
 - Hébergement
   - projet déployé chez [Vercel](https://vercel.com)
 
-## Structure du projet
+## 📁 Structure du projet
 
 ```graphql
 vie-publique.sn/
@@ -72,19 +59,21 @@ vie-publique.sn/
 └── .prettierrc        # Prettier Config file
 ```
 
-## Prérequis
+## ⚙️ Develop
+
+### `Prérequis`
 
 - Node.js > v18.0.0
 
-## Setup
+### `Install`
 
-Make sure to install the dependencies:
+Installer les dépendences
 
 ```bash
 npm install
 ```
 
-## Development Server
+### `Start`
 
 1. **Environnement de variable fichier .env**
 
@@ -104,7 +93,7 @@ BREVO_LIST_ID=xxx
 
 vous pouvez mettre des valeurs fictives en local
 
-2. Development server
+2. **Development server**
 
 ```bash
 npm run dev
@@ -114,7 +103,7 @@ Votre application Nuxt 3 devrait maintenant être accessible à l'adresse http:/
 
 Accès au viewer tailwind `http://localhost:3000/\_tailwind`
 
-3. IDE
+3. **IDE**
 
 Pour VSCode, installer ces 2 extensions :
 
@@ -123,7 +112,7 @@ Pour VSCode, installer ces 2 extensions :
 
 Executer la commande 'npm run lint' pour vérifier si le code style est correct ou 'npm run lint:fix' pour fixer automatiquement les issues.
 
-## Utiliser les Dev Containers
+### `Utiliser les Dev Containers`
 
 Vous pouvez utiliser Docker avec l'extension Dev Containers
 
@@ -149,7 +138,7 @@ Votre application Nuxt 3 devrait maintenant être accessible à l'adresse http:/
 
 En savoir plus : https://code.visualstudio.com/docs/devcontainers/containers
 
-## Production
+## 🚀 Déploiement
 
 Build the application for production:
 

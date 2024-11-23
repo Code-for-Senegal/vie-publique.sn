@@ -1,4 +1,6 @@
 export default defineNuxtPlugin(() => {
+  const config = useRuntimeConfig();
+
   const monthNames = [
     "Janvier",
     "Février",
@@ -50,6 +52,9 @@ export default defineNuxtPlugin(() => {
           minimumFractionDigits: 0,
           maximumFractionDigits: 0,
         }).format(amount);
+      },
+      directusImageUrl: (photoId: string, quality: string) => {
+        return `${config.public.cmsApiUrl}/assets/${photoId}?fit=cover&quality=${quality}`;
       },
     },
   };

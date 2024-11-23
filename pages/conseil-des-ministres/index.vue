@@ -88,7 +88,9 @@ const rowsFilteredPressReleases = computed(() => {
     <!-- <UInput size="md" v-model="searchQuery" placeholder="Rechercher..." icon="i-heroicons-magnifying-glass"
       class="input w-full my-4 custom-shadow" /> -->
 
-    <div v-if="pending">Chargement...</div>
+    <div v-if="pending">
+      <UIcon name="i-heroicons-arrow-path" class="h-8 w-8 animate-spin" />
+    </div>
     <div v-else-if="error">
       Une erreur s'est produite lors du chargement des textes.
     </div>

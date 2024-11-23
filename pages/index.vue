@@ -39,38 +39,29 @@ const links = [
     to: "/etat-senegal",
   },
 ];
+
+const newFeatures = [
+  {
+    label: "Législatives 2024",
+    description: "Elections législatives anticipées du 17 Novembre",
+    icon: "i-heroicons-star",
+    to: "/elections",
+  },
+];
 </script>
 
 <template>
   <div class="container mx-auto p-2 sm:p-4">
-    <!-- Section des liens -->
+    <HomeBanner :menus="newFeatures" />
+
     <HomeMenu :menus="links" />
 
-    <!-- Section des dernières actualités -->
     <div class="">
       <div class="prose prose-sm sm:prose mx-auto my-4">
-        <h2 class="text-center">Dernières Publications</h2>
-        <!-- <h2 class="text-center text-2xl font-bold text-green-700">Dernières Actualités</h2> -->
+        <h2 class="text-center text-gray-800">Dernières Publications</h2>
       </div>
-      <!-- <div class="text-center">
-                <p class="text-sm mb-2 text-gray-500">
-                    Communiqués, discours, annonces, déclarations, etc.
-                </p>
-            </div> -->
 
       <HomeNews />
-
-      <!-- <div v-if="pending" class="loading">
-        <p>Chargement des actualités...</p>
-      </div>
-
-      <div v-else-if="error" class="error">
-        <p>Une erreur est survenue lors du chargement des actualités.</p>
-      </div> -->
-
-      <!-- <div v-else class="no-news">
-        <p>Aucune actualité disponible pour le moment.</p>
-      </div> -->
 
       <div class="mt-4 text-center">
         <NuxtLink

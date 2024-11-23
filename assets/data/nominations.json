@@ -12,7 +12,7 @@
     "sexe": "Monsieur",
     "predecessor": null,
     "formation": "Professeur titulaire de classe exceptionnelle, Mathématicien",
-    "organisation": "Président de la République",
+    "organisation": "Présidence de la République",
     "description": null,
     "facebook": "https://www.facebook.com/maryteuw.niane",
     "instagram": "https://www.instagram.com/mary_teuw_niane",
@@ -35,7 +35,7 @@
     "sexe": "Monsieur",
     "predecessor": null,
     "formation": null,
-    "organisation": "Président de la République",
+    "organisation": "Présidence de la République",
     "description": null,
     "facebook": null,
     "instagram": null,
@@ -58,7 +58,7 @@
     "sexe": "Monsieur",
     "predecessor": null,
     "formation": "Militaire, Colonel",
-    "organisation": "Président de la République",
+    "organisation": "Présidence de la République",
     "description": "ancien Chef de Cabinet du Chef d'Etat-major général des armées sénégalais.",
     "facebook": null,
     "instagram": null,
@@ -81,7 +81,7 @@
     "sexe": "Monsieur",
     "predecessor": null,
     "formation": "Inspecteur principal des Impôts et des Domaines",
-    "organisation": null,
+    "organisation": "Primature",
     "description": null,
     "facebook": null,
     "instagram": null,
@@ -592,7 +592,7 @@
     "facebook": null,
     "instagram": null,
     "tiktok": null,
-    "twitter": null,
+    "twitter": "https://x.com/BoucalOfficiel",
     "linkedin": "https://www.linkedin.com/in/olivier-boucal-200003ab",
     "website": null,
     "rating": 7.7
@@ -731,7 +731,7 @@
     "instagram": null,
     "tiktok": null,
     "twitter": null,
-    "linkedin": null,
+    "linkedin": "https://www.linkedin.com/in/ibrahima-thiam-b8701159",
     "website": null,
     "rating": 7.8
   },
@@ -871,7 +871,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Président de la République"
+    "organisation": "Présidence de la République"
   },
   {
     "portrait": null,
@@ -963,7 +963,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Port Autonome de Dakar"
+    "organisation": "Ministère de la Pêche et des Infrastructures maritimes et portuaires"
   },
   {
     "portrait": null,
@@ -1216,7 +1216,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Office national de l'Assainissement du Sénégal (ONAS)"
+    "organisation": "Ministère de l'Hydraulique et de l'Assainissement"
   },
   {
     "portrait": null,
@@ -1527,7 +1527,7 @@
     "role": "Secrétaire Général du Ministère de l'Intérieur et de la Sécurité publique",
     "endDate": null,
     "nominationDate": "2024-05-15",
-    "photo": null,
+    "photo": "/nominations/alioune-aidara-niang.jpg",
     "predecessor": null,
     "formation": "Administrateur civil principal",
     "description": null,
@@ -2152,11 +2152,11 @@
     "predecessor": "Monsieur Cheikh BAKHOUM",
     "formation": "Expert-comptable",
     "description": null,
-    "facebook": null,
+    "facebook": "https://www.facebook.com/dioufisidore",
     "instagram": null,
     "tiktok": null,
     "twitter": null,
-    "linkedin": null,
+    "linkedin": "https://www.linkedin.com/in/isidore-diouf-652a3b2a/",
     "website": null,
     "rating": null,
     "organisation": "Société Sénégal Numérique SA"
@@ -2251,7 +2251,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Loterie Nationale Sénégalaise (LONASE)"
+    "organisation": "Ministère des Finances et du Budget"
   },
   {
     "portrait": null,
@@ -2274,7 +2274,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence nationale pour les Energies Renouvelables (ANER)"
+    "organisation": "Ministère de l'Energie, du Pétrole et des Mines"
   },
   {
     "portrait": null,
@@ -2297,7 +2297,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Grand Théâtre national"
+    "organisation": "Ministère de la Jeunesse, des Sports et de la Culture"
   },
   {
     "portrait": null,
@@ -2320,7 +2320,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence sénégalaise de Promotion Touristique (ASPT)"
+    "organisation": "Ministère de l'Industrie et du Commerce"
   },
   {
     "portrait": null,
@@ -2343,7 +2343,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Société nationale de Recouvrement (SNR)"
+    "organisation": "Ministère des Finances et du Budget"
   },
   {
     "portrait": null,
@@ -2366,7 +2366,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Société nationale de Gestion du Patrimoine du Train Express Régional (SENTER SA)"
+    "organisation": "Ministère des Infrastructures et des Transports terrestres et aériens"
   },
   {
     "portrait": null,
@@ -2389,7 +2389,7 @@
     "linkedin": "https://www.linkedin.com/in/seydina-oumar-toure-24172a226",
     "website": null,
     "rating": null,
-    "organisation": "Agence d'Assistance à la Sécurité de Proximité (ASP)"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité Publique"
   },
   {
     "portrait": null,
@@ -2412,7 +2412,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence nationale de l'Aviation Civile et de la Météorologie (ANACIM)"
+    "organisation": "Ministère des Infrastructures, des Transports terrestres et aériens"
   },
   {
     "portrait": null,
@@ -2435,7 +2435,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence nationale de l'Aquaculture (ANA)"
+    "organisation": "Ministère des Pêches, des Infrastructures maritimes et portuaires"
   },
   {
     "portrait": null,
@@ -2458,7 +2458,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Office national des Pupilles de la Nation (ONPN)"
+    "organisation": "Ministère de la Famille et des Solidarités"
   },
   {
     "portrait": null,
@@ -2481,7 +2481,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence de Développement Local (ADL)"
+    "organisation": "Ministère de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires"
   },
   {
     "portrait": null,
@@ -2504,7 +2504,7 @@
     "linkedin": null,
     "website": "https://www.fera.sn",
     "rating": null,
-    "organisation": "Fonds d'Entretien Routier Autonome (FERA)"
+    "organisation": "Ministère des Infrastructures et des Transports terrestres et aériens"
   },
   {
     "portrait": null,
@@ -2513,7 +2513,7 @@
     "sexe": "Madame",
     "name": "Sinna Amadou GAYE",
     "type": "Directeur général",
-    "role": "Directeur de l'Agence nationale pour l'Emploi des Jeunes (ANPEJ)",
+    "role": "Directeur de l'Agence nationale pour la Promotion de l'Emploi des Jeunes (ANPEJ)",
     "endDate": null,
     "nominationDate": "2024-05-15",
     "photo": "/nominations/sinna-ama-gaye.jfif",
@@ -2527,7 +2527,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence nationale pour l'Emploi des Jeunes (ANPEJ)"
+    "organisation": "Ministère de la Jeunesse, des Sports et de la Culture"
   },
   {
     "portrait": null,
@@ -2547,10 +2547,10 @@
     "instagram": null,
     "tiktok": "https://x.com/MariemeSoda_SN",
     "twitter": null,
-    "linkedin": null,
+    "linkedin": "https://www.linkedin.com/in/marieme-soda-ndiaye-18a689138/",
     "website": null,
     "rating": null,
-    "organisation": "Commissariat à la Sécurité Alimentaire et à la Résilience"
+    "organisation": "Ministère de la Famille et des Solidarités"
   },
   {
     "portrait": null,
@@ -2573,7 +2573,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Centre Régional des Œuvres Universitaires de l'Université Gaston Berger de Saint-Louis (CROUS UGB)"
+    "organisation": "Ministère de l'Enseignement supérieur de la Recherche et de l'Innovation"
   },
   {
     "portrait": null,
@@ -2582,13 +2582,13 @@
     "sexe": "Monsieur",
     "name": "Ibba SANE",
     "type": "Directeur général",
-    "role": "Directeur général de l'Agence nationale de Relance des Activités Economiques et Sociales en Casamance (ANRAC)",
+    "role": "Directeur général de l'Agence Nationale pourla Relance des Activités Economiques et Sociales en Casamance (ANRAC)",
     "endDate": null,
     "nominationDate": "2024-05-15",
     "photo": "/nominations/ibba-sane-2.jpg",
     "predecessor": "Monsieur Ansou SANE",
     "formation": "Ingénieur en Planification Economique et Gestion des Organisations",
-    "description": null,
+    "description": "Agence Nationale pour la relance des Activités en Casamance",
     "facebook": null,
     "instagram": null,
     "tiktok": null,
@@ -2596,7 +2596,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence nationale de Relance des Activités Economiques et Sociales en Casamance (ANRAC)"
+    "organisation": "Primature"
   },
   {
     "portrait": null,
@@ -2619,7 +2619,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence sénégalaise de Promotion des Exportations (ASEPEX)"
+    "organisation": "Ministère de l'Industrie et du Commerce"
   },
   {
     "portrait": null,
@@ -3030,7 +3030,7 @@
     "instagram": null,
     "tiktok": null,
     "twitter": null,
-    "linkedin": null,
+    "linkedin": "https://www.linkedin.com/in/justin-correa-jc/",
     "website": null,
     "rating": null,
     "organisation": "Centre international du Commerce extérieur du Sénégal (CICES)"
@@ -3640,7 +3640,7 @@
     "sexe": "Madame",
     "name": "Fatou Kiné Diakhaté",
     "type": "Présidence",
-    "role": "Directrice adjointe de Cabinet du Président de la République",
+    "role": "Directrice de Cabinet adjointe du Président de la République",
     "endDate": null,
     "nominationDate": "2024-05-12",
     "photo": "/nominations/fatou-kine-diakhate-2.jfif",
@@ -3651,10 +3651,10 @@
     "instagram": null,
     "tiktok": null,
     "twitter": null,
-    "linkedin": null,
+    "linkedin": "https://www.linkedin.com/company/diakhatefifi",
     "website": null,
     "rating": null,
-    "organisation": "Président de la République"
+    "organisation": "Présidence de la République"
   },
   {
     "portrait": null,
@@ -3663,7 +3663,7 @@
     "sexe": "Monsieur",
     "name": "Ousseynou Ly ",
     "type": "Présidence",
-    "role": "Ministre Conseiller, Porte-parole de la Présidence, Chef de la Cellule digital.",
+    "role": "Ministre, Conseiller, Porte-parole de la Présidence, Chef de la Cellule digital.",
     "endDate": null,
     "nominationDate": "2024-05-01",
     "photo": "/nominations/ousseynou-ly.jfif",
@@ -3677,7 +3677,7 @@
     "linkedin": "https://www.linkedin.com/in/ousseynou-ly-449ab464",
     "website": null,
     "rating": null,
-    "organisation": "Président de la République"
+    "organisation": "Présidence de la République"
   },
   {
     "portrait": null,
@@ -3686,7 +3686,7 @@
     "sexe": "Monsieur",
     "name": "Sidy Alpha Ndiaye",
     "type": "Présidence",
-    "role": "Ministre Conseiller juridique et Directeur de cabinet adjoint du Président de la République",
+    "role": "Ministre, Conseiller juridique et Directeur de cabinet adjoint du Président de la République",
     "endDate": null,
     "nominationDate": "2024-05-23",
     "photo": "/nominations/sidy-alpha-ndiaye.jpeg",
@@ -3700,7 +3700,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Président de la République"
+    "organisation": "Présidence de la République"
   },
   {
     "portrait": null,
@@ -3723,7 +3723,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Président de la République"
+    "organisation": "Présidence de la République"
   },
   {
     "sexe": "Monsieur",
@@ -3743,7 +3743,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence de Promotion des Investissements et des Grands Travaux (APIX)"
+    "organisation": "Présidence de la République"
   },
   {
     "sexe": "Monsieur",
@@ -3763,7 +3763,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Institut National du Pétrole et du Gaz (INPG)"
+    "organisation": "Présidence de la République"
   },
   {
     "sexe": "Monsieur",
@@ -3783,7 +3783,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Surveillance et du Contrôle de l'Occupation du Sol (DSCOS)"
+    "organisation": "Primature"
   },
   {
     "sexe": "Monsieur",
@@ -3803,7 +3803,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Police nationale"
+    "organisation": "Ministère de l'Intérieur"
   },
   {
     "sexe": "Monsieur",
@@ -3843,7 +3843,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "société AIBD SA"
+    "organisation": "Ministère des Infrastructures et des Transports terrestres et aériens"
   },
   {
     "sexe": "Monsieur",
@@ -3863,7 +3863,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence nationale de la Sécurité Routière (ANASER)"
+    "organisation": "Ministère des Infrastructures et des Transports terrestres et aériens"
   },
   {
     "sexe": "Monsieur",
@@ -3903,7 +3903,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Parcs nationaux"
+    "organisation": "Ministère de l'Environnement et de la Transition écologique"
   },
   {
     "sexe": "Monsieur",
@@ -3923,7 +3923,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "autorité nationale de Biosécurité (Ministère de l'Environnement et de la Transition écologique)"
+    "organisation": "Ministère de l'Environnement et de la Transition écologique"
   },
   {
     "sexe": "Monsieur",
@@ -3943,7 +3943,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Autorité nationale de Biosécurité"
+    "organisation": "Ministère de l'Environnement et de la Transition écologique"
   },
   {
     "sexe": "Monsieur",
@@ -3963,7 +3963,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Centre d'Education et de Formation environnementales"
+    "organisation": "Ministère de l'Environnement et de la Transition écologique"
   },
   {
     "sexe": "Monsieur",
@@ -3983,7 +3983,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Centre Régional des Œuvres universitaires sociales de Thiès (CROUS-T)"
+    "organisation": "Ministère de l'Enseignement supérieur de la Recherche et de l'Innovation"
   },
   {
     "sexe": "Monsieur",
@@ -4003,7 +4003,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Centre Régional des Œuvres universitaires sociales du Sine Saloum"
+    "organisation": "Ministère de l'Enseignement supérieur de la Recherche et de l'Innovation"
   },
   {
     "sexe": "Madame",
@@ -4023,7 +4023,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Centre Régional des Œuvres universitaires sociales de Diamniadio"
+    "organisation": "Ministère de l'Enseignement supérieur de la Recherche et de l'Innovation"
   },
   {
     "sexe": "Monsieur",
@@ -4043,7 +4043,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Centre régional des Œuvres universitaires sociales de Ziguinchor"
+    "organisation": "Ministère de l'Enseignement supérieur de la Recherche et de l'Innovation"
   },
   {
     "sexe": "Monsieur",
@@ -4063,7 +4063,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Institut de Technologie Alimentaire"
+    "organisation": "Ministère de l'Industrie et du Commerce"
   },
   {
     "sexe": "Madame",
@@ -4083,13 +4083,13 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Développement communautaire et de la Promotion de l'Equité"
+    "organisation": "Ministère de la Famille et des Solidarités"
   },
   {
     "sexe": "Madame",
     "name": "Fatoumata Bintou DIEDHIOU",
     "type": "Directeur",
-    "role": "Directeur de l'Equité Sociale, Ministère de la Famille et des Solidarités",
+    "role": "Directeur de l'Equité Sociale",
     "endDate": null,
     "nominationDate": "2024-07-03",
     "photo": null,
@@ -4103,13 +4103,13 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Direction de l'Equité Sociale, Ministère de la Famille et des Solidarités"
+    "organisation": "Ministère de la Famille et des Solidarités"
   },
   {
     "sexe": "Monsieur",
     "name": "Ely Paul BIAGUI",
     "type": "Directeur",
-    "role": "Directeur du Développement Communautaire, Ministère de la Famille et des Solidarités",
+    "role": "Directeur du Développement Communautaire",
     "endDate": null,
     "nominationDate": "2024-07-03",
     "photo": null,
@@ -4123,13 +4123,13 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Développement Communautaire"
+    "organisation": "Ministère de la Famille et des Solidarités"
   },
   {
     "sexe": "Madame",
     "name": "Saye CISSÉ",
     "type": "Directeur",
-    "role": "Directeur de l'Equité Territoriale (Ministère de la Famille et des Solidarités)",
+    "role": "Directeur de l'Equité Territoriale",
     "endDate": null,
     "nominationDate": "2024-07-03",
     "photo": null,
@@ -4143,13 +4143,13 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Equité Territoriale"
+    "organisation": "Ministère de la Famille et des Solidarités"
   },
   {
     "sexe": "Madame",
     "name": "Fatou BA",
     "type": "Directeur",
-    "role": "Directeur de Promotion des droits et de la Protection des Enfants (Ministère de la Famille et des Solidarités)",
+    "role": "Directeur de Promotion des droits et de la Protection des Enfants",
     "endDate": null,
     "nominationDate": "2024-07-03",
     "photo": null,
@@ -4163,13 +4163,13 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Promotion des droits et de la Protection des Enfants, Ministère de la Famille et des Solidarités"
+    "organisation": "Ministère de la Famille et des Solidarités"
   },
   {
     "sexe": "Madame",
     "name": "Nancy NDOUR",
     "type": "Directeur",
-    "role": "Directeur de l'Autonomisation Économique des Femmes (Ministère de la Famille et des Solidarités)",
+    "role": "Directeur de l'Autonomisation Économique des Femmes",
     "endDate": null,
     "nominationDate": "2024-07-03",
     "photo": null,
@@ -4183,7 +4183,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Autonomisation Économique des Femmes (Ministère de la Famille et des Solidarités)"
+    "organisation": "Ministère de la Famille et des Solidarités"
   },
   {
     "sexe": "Monsieur",
@@ -4223,7 +4223,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence de Construction des Bâtiments et Édifices Publics,  Ministre de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires"
+    "organisation": "Ministère de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires"
   },
   {
     "sexe": "Monsieur",
@@ -4263,7 +4263,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Projet de Promotion de la Gestion Intégrée et de l'Economie des Déchets Solides (PROMOGED)"
+    "organisation": "Ministère de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires "
   },
   {
     "sexe": "Monsieur",
@@ -4303,7 +4303,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "SEN-Pharmacie nationale d'approvisionnement (SEN-PNA)"
+    "organisation": "Ministère de la Santé et de l'Action sociale"
   },
   {
     "sexe": "Madame",
@@ -4383,7 +4383,7 @@
     "linkedin": "https://www.linkedin.com/in/abdou-karim-diaw-79455038",
     "website": null,
     "rating": null,
-    "organisation": "Programme de Développement de la Microfinance Islamique, Ministère de la Microfinance et de l'Economie sociale et solidaire"
+    "organisation": "Ministère de la Microfinance et de l'Economie sociale et solidaire"
   },
   {
     "portrait": null,
@@ -4406,7 +4406,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": null
+    "organisation": "Présidence de la République"
   },
   {
     "portrait": null,
@@ -4429,7 +4429,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ecole nationale d'Administration (ENA)"
+    "organisation": "Primature"
   },
   {
     "portrait": null,
@@ -4452,7 +4452,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Bureau de l'Information et de la Communication du gouvernement (BIC-GOUV)"
+    "organisation": "Primature"
   },
   {
     "portrait": null,
@@ -4472,10 +4472,10 @@
     "instagram": null,
     "tiktok": null,
     "twitter": null,
-    "linkedin": null,
+    "linkedin": "https://www.linkedin.com/in/dr-birome-holo-ba-a0705339/",
     "website": null,
     "rating": null,
-    "organisation": "Bureau opérationnel de Coordination et de Suivi des Projets et Programmes"
+    "organisation": "Primature"
   },
   {
     "portrait": null,
@@ -4498,7 +4498,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Fonds Spécial de soutien au secteur de l'Energie"
+    "organisation": "Ministère de l'Énergie, du Pétrole et des Mines"
   },
   {
     "portrait": null,
@@ -4521,7 +4521,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Société africaine de Raffinage (SAR)"
+    "organisation": "Ministère de l'Énergie, du Pétrole et des Mines"
   },
   {
     "portrait": null,
@@ -4544,7 +4544,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "PETROSEN Holding"
+    "organisation": "Ministère de l'Énergie, du Pétrole et des Mines"
   },
   {
     "portrait": null,
@@ -4567,7 +4567,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence sénégalaise d'Electrification rurale (ASER)"
+    "organisation": "Ministère de l'Énergie, du Pétrole et des Mines"
   },
   {
     "portrait": null,
@@ -4575,7 +4575,7 @@
     "age": null,
     "sexe": "Monsieur",
     "name": "Adama DIAWARA",
-    "type": "Autre",
+    "type": "PCS",
     "role": "Président du Conseil de surveillance de l'Agence nationale des Energies renouvelables (ANER)",
     "endDate": null,
     "nominationDate": "2024-07-18",
@@ -4590,7 +4590,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence nationale des Energies renouvelables (ANER)"
+    "organisation": "Ministère de l'Énergie, du Pétrole et des Mines"
   },
   {
     "portrait": null,
@@ -4613,7 +4613,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Réseau gazier du Sénégal SA (RGS SA)"
+    "organisation": "Ministère de l'Énergie, du Pétrole et des Mines"
   },
   {
     "portrait": null,
@@ -4636,7 +4636,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Électricité"
+    "organisation": "Ministère de l'Énergie, du Pétrole et des Mines"
   },
   {
     "portrait": null,
@@ -4659,7 +4659,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Développement des Energies renouvelables, Ministère des Energies, du Pétrole et des Mines"
+    "organisation": "Ministère de l'Énergie, du Pétrole et des Mines"
   },
   {
     "portrait": null,
@@ -4682,7 +4682,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Énergie"
+    "organisation": "Ministère de l'Énergie, du Pétrole et des Mines"
   },
   {
     "portrait": null,
@@ -4705,7 +4705,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence sénégalaise d'Electrification rurale (ASER)"
+    "organisation": "Ministère de l'Énergie, du Pétrole et des Mines"
   },
   {
     "portrait": null,
@@ -4728,7 +4728,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Société AIBD Assistance Services (2AS)"
+    "organisation": "Ministère des Infrastructures et des Transports terrestres et aériens"
   },
   {
     "portrait": null,
@@ -4736,7 +4736,7 @@
     "age": null,
     "sexe": "Monsieur",
     "name": "Ndiogou NDIAYE",
-    "type": "Autre",
+    "type": "PCS",
     "role": "Président du Conseil de surveillance de l'Agence nationale de l'Aviation civile et de la Météorologie (ANACIM)",
     "endDate": null,
     "nominationDate": "2024-07-18",
@@ -4751,7 +4751,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence nationale de l'Aviation civile et de la Météorologie (ANACIM)"
+    "organisation": "Ministère des Infrastructures et des Transports terrestres et aériens"
   },
   {
     "portrait": null,
@@ -4759,7 +4759,7 @@
     "age": null,
     "sexe": "Monsieur",
     "name": "Mor Talla NDIAYE",
-    "type": "Autre",
+    "type": "PCS",
     "role": "Président du Conseil de surveillance de l'Agence de Gestion des Routes (AGEROUTE)",
     "endDate": null,
     "nominationDate": "2024-07-18",
@@ -4774,7 +4774,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence de Gestion des Routes (AGEROUTE)"
+    "organisation": "Ministère des Infrastructures et des Transports terrestres et aériens"
   },
   {
     "portrait": null,
@@ -4797,7 +4797,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Fonds pour le Développement des Transports terrestres (FDTT)"
+    "organisation": "Ministère des Infrastructures et des Transports terrestres et aériens"
   },
   {
     "portrait": null,
@@ -4820,7 +4820,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Société Dakar Dem Dikk (DDD)"
+    "organisation": "Ministère des Infrastructures et des Transports terrestres et aériens"
   },
   {
     "portrait": null,
@@ -4843,7 +4843,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Fonds d'Entretien routier autonome (FERA)"
+    "organisation": "Ministère des Infrastructures et des Transports terrestres et aériens"
   },
   {
     "portrait": null,
@@ -4855,7 +4855,7 @@
     "role": "Secrétaire général de l'Agence sénégalaise de la Reforestation et de la Grande Muraille verte (ASERGMV)",
     "endDate": null,
     "nominationDate": "2024-07-18",
-    "photo": "/nominations/mady-bathily-2.jpeg",
+    "photo": "/nominations/mady-bathily-2.jpg",
     "predecessor": "Maodo Malick NDAO",
     "formation": "Administrateur civil",
     "description": null,
@@ -4866,7 +4866,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence sénégalaise de la Reforestation et de la Grande Muraille verte (ASERGMV)"
+    "organisation": "Ministère des Infrastructures et des Transports terrestres et aériens"
   },
   {
     "portrait": null,
@@ -4889,7 +4889,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Office national de Formation professionnelle (ONFP)"
+    "organisation": "Ministère de la Formation professionnelle"
   },
   {
     "portrait": null,
@@ -4912,7 +4912,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Centre national de Qualification professionnelle (CNQP)"
+    "organisation": "Ministère de la Formation professionnelle"
   },
   {
     "portrait": null,
@@ -4920,7 +4920,7 @@
     "age": null,
     "sexe": "Monsieur",
     "name": "Malick SY",
-    "type": "Autre",
+    "type": "PCS",
     "role": "Président du Conseil de surveillance de l'Agence nationale de la Maison de l'Outil (ANAMO)",
     "endDate": null,
     "nominationDate": "2024-07-18",
@@ -4935,7 +4935,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence nationale de la Maison de l'Outil (ANAMO)"
+    "organisation": "Ministère de la Formation professionnelle"
   },
   {
     "portrait": null,
@@ -4958,7 +4958,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence nationale de la Maison de l'Outil (ANAMO)"
+    "organisation": "Ministère de la Formation Professionnelle"
   },
   {
     "portrait": null,
@@ -4981,7 +4981,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Office des Lacs et Cours d'eau (OLAC)"
+    "organisation": "Ministère de l'hydraulique et de l'assainissement"
   },
   {
     "portrait": null,
@@ -5004,7 +5004,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Pêches maritimes"
+    "organisation": "Ministère de la Pêche et des Infrastructures maritimes et portuaires"
   },
   {
     "portrait": null,
@@ -5027,7 +5027,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Centre national de Formation des Techniciens des pêches et de l'Aquaculture (CNFTPA)"
+    "organisation": "Ministère de la Pêche et des Infrastructures maritimes et portuaires"
   },
   {
     "portrait": null,
@@ -5050,7 +5050,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Port autonome de Dakar (PAD)"
+    "organisation": "Ministère de la Pêche et des Infrastructures maritimes et portuaires"
   },
   {
     "portrait": null,
@@ -5073,7 +5073,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Société nationale de gestion intégré des déchets (SONAGED)"
+    "organisation": "Ministère de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires"
   },
   {
     "portrait": null,
@@ -5096,7 +5096,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Fonds pour l'Habitat social (FHS)"
+    "organisation": "Ministère de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires"
   },
   {
     "portrait": null,
@@ -5119,7 +5119,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Société d'Aménagement foncier et Rénovation urbaine (SAFRU)"
+    "organisation": "Ministère de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires"
   },
   {
     "portrait": null,
@@ -5142,7 +5142,7 @@
     "linkedin": "https://www.linkedin.com/in/serigne-kosso-sene-ab8bb4111",
     "website": null,
     "rating": null,
-    "organisation": "Cadre de vie et de l'Hygiène publique"
+    "organisation": "Ministère de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires"
   },
   {
     "portrait": null,
@@ -5165,7 +5165,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence sénégalaise de Réglementation pharmaceutique (ARP)"
+    "organisation": "Ministère de la Santé et de l'Action Sociale"
   },
   {
     "portrait": null,
@@ -5188,7 +5188,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Centre national d'Oncologie de Diamniadio"
+    "organisation": "Ministère de la Santé et de l'Action Sociale"
   },
   {
     "portrait": null,
@@ -5211,7 +5211,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Service d'Assistance médicale d'Urgence (SAMU)"
+    "organisation": "Ministère de la Santé et de l'Action Sociale"
   },
   {
     "portrait": null,
@@ -5234,7 +5234,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Laboratoires"
+    "organisation": "Ministère de la Santé et de l'Action Sociale"
   },
   {
     "portrait": null,
@@ -5257,7 +5257,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Direction de l'Action sociale (DGAS) Ministère de la Santé et de l'Action Sociale"
+    "organisation": "Ministère de la Santé et de l'Action Sociale"
   },
   {
     "portrait": null,
@@ -5280,7 +5280,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Centre hospitalier régional de Kolda"
+    "organisation": "Ministère de la Santé et de l'Action Sociale"
   },
   {
     "portrait": null,
@@ -5303,7 +5303,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Hôpital Abdoul Aziz SY DABAKH de Tivaone"
+    "organisation": "Ministère de la Santé et de l'Action Sociale"
   },
   {
     "portrait": null,
@@ -5326,7 +5326,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence nationale d'Insertion et de Développement agricole (ANIDA)"
+    "organisation": "Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Élevage"
   },
   {
     "portrait": null,
@@ -5349,7 +5349,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Institut supérieur de recherches agricoles (ISRA)"
+    "organisation": "Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Élevage"
   },
   {
     "portrait": null,
@@ -5372,7 +5372,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Société nationale d'Aménagement et d'Exploitation des Terres du Delta du Fleuve Sénégal et des Vallées du Fleuve Sénégal et de la Falémé (SAED)"
+    "organisation": "Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Élevage"
   },
   {
     "portrait": null,
@@ -5395,7 +5395,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Institut supérieur de recherches agricoles (ISRA)"
+    "organisation": "Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Élevage"
   },
   {
     "portrait": null,
@@ -5418,7 +5418,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Analyse, de la Prévision et des Statistiques agricoles (DAPSA)"
+    "organisation": "Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Élevage"
   },
   {
     "portrait": null,
@@ -5441,7 +5441,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Matériel et de l'Equipement rural"
+    "organisation": "Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Élevage"
   },
   {
     "portrait": null,
@@ -5464,7 +5464,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence nationale de Conseil agricole et rural (ANCAR)"
+    "organisation": "Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Élevage"
   },
   {
     "portrait": null,
@@ -5487,7 +5487,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence nationale de Conseil agricole et rural (ANCAR)"
+    "organisation": "Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Élevage"
   },
   {
     "portrait": null,
@@ -5510,7 +5510,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Société nationale de Commercialisation des Oléagineux du Sénégal (SONACOS)"
+    "organisation": "Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Élevage"
   },
   {
     "portrait": null,
@@ -5533,7 +5533,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Programme des Domaines agricoles communautaires (PRODAC)"
+    "organisation": "Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Élevage"
   },
   {
     "portrait": null,
@@ -5541,7 +5541,7 @@
     "age": null,
     "sexe": "Monsieur",
     "name": "Abdou Mbacké SAMB",
-    "type": "Autre",
+    "type": "PCS",
     "role": "Président du Conseil de surveillance du Programme des Domaines agricoles communautaires (PRODAC)",
     "endDate": null,
     "nominationDate": "2024-07-18",
@@ -5556,7 +5556,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Programme des Domaines agricoles communautaires (PRODAC)"
+    "organisation": "Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Élevage"
   },
   {
     "portrait": null,
@@ -5579,7 +5579,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Financement et du Partenariat avec les Organisations"
+    "organisation": "Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Élevage"
   },
   {
     "portrait": null,
@@ -5602,7 +5602,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Institut national de Pédologie (INP)"
+    "organisation": "Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Élevage"
   },
   {
     "portrait": null,
@@ -5625,7 +5625,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Promotion de l'Economie sociale et solidaire"
+    "organisation": "Ministère de la Microfinance et de l'Economie sociale et solidaire"
   },
   {
     "portrait": null,
@@ -5648,7 +5648,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Stratégies et de la Prospective"
+    "organisation": "Ministère de la Microfinance et de l'Economie sociale et solidaire"
   },
   {
     "portrait": null,
@@ -5660,7 +5660,7 @@
     "role": "Président du Conseil d'orientation du Fonds national de la Microfinance",
     "endDate": null,
     "nominationDate": "2024-07-18",
-    "photo": null,
+    "photo": "/nominations/demba-thiam-fonamif.jpg",
     "predecessor": "Ismaïla DEMBELE",
     "formation": "Professeur de l'enseignement moyen secondaire",
     "description": null,
@@ -5671,7 +5671,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Fonds national de la Microfinance"
+    "organisation": "Ministère de la Microfinance et de l'Economie sociale et solidaire"
   },
   {
     "portrait": null,
@@ -5694,7 +5694,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Promotion touristique"
+    "organisation": "Ministère du Tourisme et de l'Artisanat"
   },
   {
     "portrait": null,
@@ -5717,7 +5717,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Artisanat"
+    "organisation": "Ministère du Tourisme et de l'Artisanat"
   },
   {
     "portrait": null,
@@ -5740,7 +5740,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Encadrement et de la Transformation des Entreprises informelles"
+    "organisation": "Ministère du Tourisme et de l'Artisanat"
   },
   {
     "portrait": null,
@@ -5763,7 +5763,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence pour la promotion et le Développement de l'Artisanat (APDA)"
+    "organisation": "Ministère du Tourisme et de l'Artisanat"
   },
   {
     "portrait": null,
@@ -5786,7 +5786,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ecole nationale de Formation hôtelière et touristique"
+    "organisation": "Ministère du Tourisme et de l'Artisanat"
   },
   {
     "portrait": null,
@@ -5794,7 +5794,7 @@
     "age": null,
     "sexe": "Monsieur",
     "name": "Sissao DIANE",
-    "type": "Autre",
+    "type": "PCS",
     "role": "Président du Conseil de surveillance de l'Agence pour la Promotion et le Développement de l'Artisanat",
     "endDate": null,
     "nominationDate": "2024-07-18",
@@ -5809,7 +5809,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence pour la Promotion et le Développement de l'Artisanat"
+    "organisation": "Ministère du Tourisme et de l'Artisanat"
   },
   {
     "portrait": null,
@@ -5832,7 +5832,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Agence sénégalaise de Promotion touristique"
+    "organisation": "Ministère du Tourisme et de l'Artisanat"
   },
   {
     "portrait": null,
@@ -5844,7 +5844,7 @@
     "role": "Coordonnateur du Projet Mobilier national",
     "endDate": null,
     "nominationDate": "2024-07-18",
-    "photo": null,
+    "photo": "/nominations/ibrahima-tall.jpeg",
     "predecessor": "Saloum NDIAYE",
     "formation": "Economiste statisticien",
     "description": null,
@@ -5855,7 +5855,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Projet Mobilier national"
+    "organisation": "Ministère du Tourisme et de l'Artisanat"
   },
   {
     "portrait": null,
@@ -5878,7 +5878,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Société d'Exploitation du Marché d'Intérêt national et de la gare des gros Porteurs (SEMIG)"
+    "organisation": "Ministère de l'Industrie et du Commerce"
   },
   {
     "portrait": null,
@@ -5901,7 +5901,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Bonne Gouvernance"
+    "organisation": "Ministère de la Justice"
   },
   {
     "portrait": null,
@@ -5924,7 +5924,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Maintenance des Constructions et des Equipements de l'Enseignement supérieur"
+    "organisation": "Ministère de l'Enseignement supérieur de la Recherche et de l'Innovation"
   },
   {
     "portrait": null,
@@ -5947,7 +5947,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Centre régional des Œuvres universitaires sociales de l'Université Alioune Diop de Bambey"
+    "organisation": "Ministère de l'Enseignement supérieur de la Recherche et de l'Innovation"
   },
   {
     "portrait": null,
@@ -5970,7 +5970,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Bourses"
+    "organisation": "Ministère de l'Enseignement supérieur de la Recherche et de l'Innovation"
   },
   {
     "portrait": null,
@@ -5993,7 +5993,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Cadastre"
+    "organisation": "Ministère des Finances et du Budget"
   },
   {
     "portrait": null,
@@ -6016,7 +6016,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Elections (DGE)"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité Publique"
   },
   {
     "portrait": null,
@@ -6039,7 +6039,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Administration générale et de l'Equipement au Ministère de l'Économie du Plan et de la Coopération"
+    "organisation": "Ministère de l'Économie du Plan et de la Coopération"
   },
   {
     "portrait": null,
@@ -6062,7 +6062,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Administration générale et de l'Equipement au Ministère de l'Enseignement supérieur, de la Recherche et de l'Innovation"
+    "organisation": "Ministère de l'Enseignement supérieur, de la Recherche et de l'Innovation"
   },
   {
     "portrait": null,
@@ -6085,7 +6085,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Administration générale et de l'Equipement au Ministère de l'Education nationale"
+    "organisation": "Ministère de l'Education nationale"
   },
   {
     "portrait": null,
@@ -6108,7 +6108,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Administration générale et de l'Equipement au Ministère de la Fonction publique et de la Réforme du Service public"
+    "organisation": "Ministère de la Fonction publique et de la Réforme du Service public"
   },
   {
     "portrait": null,
@@ -6131,7 +6131,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Administration générale et de l'Equipement au Ministère du Tourisme et de l'Artisanat"
+    "organisation": "Ministère du Tourisme et de l'Artisanat"
   },
   {
     "portrait": null,
@@ -6154,7 +6154,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Affaires administratives et financières au Ministère de l'Education nationale"
+    "organisation": "Ministère de l'Education nationale"
   },
   {
     "portrait": null,
@@ -6246,7 +6246,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Affaires administratives et financières au Ministère de la Microfinance, de l'Economie sociale et solidaire"
+    "organisation": "Ministère de la Microfinance, de l'Economie sociale et solidaire"
   },
   {
     "portrait": null,
@@ -6308,7 +6308,7 @@
     "predecessor": null,
     "formation": null,
     "description": null,
-    "facebook": null,
+    "facebook": "https://www.facebook.com/ousmaneabdoulaye.barro",
     "instagram": null,
     "tiktok": null,
     "twitter": null,
@@ -6346,7 +6346,7 @@
     "age": null,
     "sexe": "Monsieur",
     "name": "Modou DIAGNE",
-    "type": "Secrétaire",
+    "type": "Secrétaire général",
     "role": "Secrétaire permanent du Comité interministériel de Lutte contre la Migration irrégulière",
     "endDate": null,
     "nominationDate": "2024-07-31",
@@ -6614,7 +6614,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Président de la République"
+    "organisation": "Présidence de la République"
   },
   {
     "portrait": null,
@@ -6680,7 +6680,7 @@
     "instagram": null,
     "tiktok": null,
     "twitter": "https://x.com/ndatou1",
-    "linkedin": null,
+    "linkedin": "https://www.linkedin.com/in/ndeye-fatou-mbodj-2077148a/",
     "website": null,
     "rating": null,
     "organisation": "Ministère de l'Économie, du Plan et de la Coopération"
@@ -6787,7 +6787,7 @@
     "role": "Directeur de l'Administration générale et de l'Equipement au Ministère de l'Industrie et du Commerce",
     "endDate": null,
     "nominationDate": "2024-08-07",
-    "photo": null,
+    "photo": "/nominations/madeleine-suzane-lo.jfif",
     "predecessor": null,
     "formation": "Economiste, matricule de solde n° 666 369/Z,",
     "description": null,
@@ -7036,7 +7036,7 @@
     "age": null,
     "sexe": "Monsieur",
     "name": "Papa Madièye GUEYE",
-    "type": "Autre",
+    "type": "PCS",
     "role": "Président du Conseil de Réglementation de l'Agence sénégalaise de Réglementation pharmaceutique (ARP)",
     "endDate": null,
     "nominationDate": "2024-08-07",
@@ -7174,7 +7174,7 @@
     "age": null,
     "sexe": "Monsieur",
     "name": "Médou Mané DIOP",
-    "type": "Autre",
+    "type": "PCS",
     "role": "Président du Conseil de Surveillance de l'Agence nationale pour la Promotion et l'Emploi des Jeunes (ANPEJ)",
     "endDate": null,
     "nominationDate": "2024-08-07",
@@ -7281,7 +7281,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7304,7 +7304,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7327,7 +7327,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7350,7 +7350,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7373,7 +7373,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7396,7 +7396,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7419,7 +7419,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7442,7 +7442,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7465,7 +7465,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7488,7 +7488,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7511,7 +7511,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7534,7 +7534,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7557,7 +7557,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7580,7 +7580,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7603,7 +7603,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7626,7 +7626,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7649,7 +7649,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7672,7 +7672,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7695,7 +7695,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7718,7 +7718,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7741,7 +7741,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7764,7 +7764,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7787,7 +7787,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7810,7 +7810,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7833,7 +7833,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7856,7 +7856,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7879,7 +7879,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7902,7 +7902,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7925,7 +7925,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7948,7 +7948,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7971,7 +7971,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -7994,7 +7994,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8017,7 +8017,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8040,7 +8040,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8063,7 +8063,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8086,7 +8086,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8109,7 +8109,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8132,7 +8132,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8155,7 +8155,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8178,7 +8178,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8201,7 +8201,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8224,7 +8224,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8247,7 +8247,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8270,7 +8270,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8293,7 +8293,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8316,7 +8316,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8339,7 +8339,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8362,7 +8362,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8385,7 +8385,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8408,7 +8408,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8431,7 +8431,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8454,7 +8454,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8477,7 +8477,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8500,7 +8500,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8523,7 +8523,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8546,7 +8546,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8569,7 +8569,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8592,7 +8592,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8615,7 +8615,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8638,7 +8638,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8661,7 +8661,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8684,7 +8684,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8707,7 +8707,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8730,7 +8730,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8753,7 +8753,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8776,7 +8776,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8799,7 +8799,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8822,7 +8822,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8845,7 +8845,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8868,7 +8868,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8891,7 +8891,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8914,7 +8914,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8937,7 +8937,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8960,7 +8960,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -8983,7 +8983,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9006,7 +9006,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9029,7 +9029,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9052,7 +9052,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9075,7 +9075,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9098,7 +9098,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9121,7 +9121,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9144,7 +9144,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9167,7 +9167,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9190,7 +9190,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9213,7 +9213,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9236,7 +9236,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9259,7 +9259,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9282,7 +9282,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9305,7 +9305,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9328,7 +9328,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9351,7 +9351,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9374,7 +9374,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9397,7 +9397,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9420,7 +9420,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9443,7 +9443,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9466,7 +9466,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9489,7 +9489,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9512,7 +9512,7 @@
     "linkedin": null,
     "website": null,
     "rating": null,
-    "organisation": "Ministère de l'Intérieur"
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
   },
   {
     "portrait": null,
@@ -9596,7 +9596,7 @@
     "sexe": "Madame",
     "predecessor": "Moustapha Niass",
     "formation": null,
-    "organisation": "Président de la République",
+    "organisation": "Présidence de la République",
     "description": "Nommée par décret N* 24/1796 du 26 août 2024",
     "facebook": null,
     "instagram": null,
@@ -9651,5 +9651,2264 @@
     "linkedin": null,
     "website": null,
     "rating": null
+  },
+  {
+    "name": " Aminata NIANG DIENE",
+    "type": "Autre",
+    "role": "Recteur par intérim de l'UCAD ",
+    "endDate": null,
+    "nominationDate": "2024-09-09",
+    "photo": "/nominations/aminata-niang-diene.jfif",
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Madame",
+    "predecessor": "Monsieur Amadou Aly MBAYE.",
+    "formation": "Professeur titulaire des Universités, vice-recteur de l'Université Cheikh Anta DIOP de Dakar (UCAD),",
+    "organisation": "Ministère de l'Enseignement supérieur de la Recherche et de l'Innovation",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null
+  },
+  {
+    "name": "Djim DRAME",
+    "type": "Présidence",
+    "role": "Directeur des Affaires religieuses et de l'Insertion des diplômés en langue arabe",
+    "endDate": null,
+    "nominationDate": "2024-09-18",
+    "photo": "/nominations/djim-drame.jfif",
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "predecessor": null,
+    "formation": "Maitre de recherches titulaire à l'IFAN",
+    "organisation": "Présidence de la République",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null
+  },
+  {
+    "name": "Mouhamadou Bamba SIBY",
+    "type": "Autre",
+    "role": "Président de la Cellule nationale de Traitement des Informations financières (CENTIF)",
+    "endDate": null,
+    "nominationDate": "2024-09-18",
+    "photo": "/nominations/mouhamadou-bamba-siby.png",
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "predecessor": "Madame Ramatoulaye Gadio AGNE",
+    "formation": "Inspecteur des Impôts et Domaines de classe exceptionnelle",
+    "organisation": "Ministère des Finances et du Budget",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null
+  },
+  {
+    "name": "Aïssé Gassama TALL",
+    "type": "Directeur général",
+    "role": "Directeur général de la Protection judiciaire et sociale",
+    "endDate": null,
+    "nominationDate": "2024-09-18",
+    "photo": "/nominations/aisse-gassama-tall.jpg",
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Madame",
+    "predecessor": null,
+    "formation": "Magistrat",
+    "organisation": "Ministère de la Justice",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null
+  },
+  {
+    "name": "Souleymane TELIKO",
+    "type": "Directeur général",
+    "role": "Directeur général du Centre de Formation judiciaire (CFJ)",
+    "endDate": null,
+    "nominationDate": "2024-09-18",
+    "photo": "/nominations/souleymane-teliko.jpg",
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "predecessor": "Monsieur Mademba GUEYE",
+    "formation": "Magistrat",
+    "organisation": "Ministère de la Justice",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null
+  },
+  {
+    "name": "Mor NDIAYE",
+    "type": "Directeur général",
+    "role": "Directeur général de l'Office national de Recouvrement des Avoirs criminels (ONRAC)",
+    "endDate": null,
+    "nominationDate": "2024-09-18",
+    "photo": null,
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "predecessor": "Monsieur Malick LAMOTTE",
+    "formation": "Magistrat",
+    "organisation": "Ministère de la Justice",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null
+  },
+  {
+    "name": "Ibrahima TINE",
+    "type": "Directeur",
+    "role": "Directeur des Constructions des Palais de Justice et autres édifices",
+    "endDate": null,
+    "nominationDate": "2024-09-18",
+    "photo": null,
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "predecessor": "Monsieur Mohamed WANE",
+    "formation": "Ingénieur en Génie civil",
+    "organisation": "Ministère de la Justice",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null
+  },
+  {
+    "name": "Marième Pouye ANNE",
+    "type": "Préfet",
+    "role": "Préfet du Département de Guinguinéo",
+    "endDate": null,
+    "nominationDate": "2024-09-18",
+    "photo": null,
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Madame",
+    "predecessor": null,
+    "formation": "Administrateur civil",
+    "organisation": "Ministère de l'Intérieur et de la Sécurité Publique",
+    "description": "Précédemment adjoint au Gouverneur de la Région de Kolda, chargé des Affaires administratives",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null
+  },
+  {
+    "name": "Cheikh SAMB",
+    "type": "Secrétaire général",
+    "role": "Secrétaire général de l'Agence d'Assistance à la Sécurité de Proximité",
+    "endDate": null,
+    "nominationDate": "2024-09-18",
+    "photo": null,
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "predecessor": "Monsieur Babacar BA",
+    "formation": "Administrateur civil principal",
+    "organisation": "Ministère de l'Intérieur et de la Sécurité Publique",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null
+  },
+
+  {
+    "name": "Professeur Abdoulaye Bathily",
+    "type": "Présidence",
+    "role": "Envoyé spécial du Président de la République",
+    "endDate": null,
+    "nominationDate": "2024-07-27",
+    "photo": "/nominations/abdoulaye-bathily.jpg",
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "predecessor": null,
+    "formation": null,
+    "organisation": "Présidence de la République",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null
+  },
+  {
+    "name": "Amadou Tidiane WONE",
+    "type": "Présidence",
+    "role": "Ministre, Conseiller à la Présidence de la République",
+    "endDate": null,
+    "nominationDate": "2024-09-20",
+    "photo": "/nominations/amadou-tidiane-wone.jfif",
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "predecessor": null,
+    "formation": "Ecrivain Essayiste, Diplômé en Sciences politiques",
+    "organisation": "Présidence de la République",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": "https://sn.linkedin.com/in/atwone01",
+    "website": "https://amadoutidianewone.com",
+    "rating": null
+  },
+  {
+    "name": "Cheikh Tahir FALL",
+    "type": "Présidence",
+    "role": "Conseiller spécial du président de la République",
+    "endDate": null,
+    "nominationDate": "2024-09-26",
+    "photo": "/nominations/tahir-fall.jpg",
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "predecessor": null,
+    "formation": "Imam",
+    "organisation": "Présidence de la République",
+    "description": "Président du MODDAP (mouvement des Domou Daara patriotes de Pastef)",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null
+  },
+  {
+    "name": "Elhadj Mounirou Ndiaye",
+    "type": "Présidence",
+    "role": "Ministre conseiller du président de la République, chef du Bureau de suivi et d'Évaluation des politiques et programmes publics",
+    "endDate": null,
+    "nominationDate": "2024-09-30",
+    "photo": "/nominations/mounirou-ndiaye.webp",
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "predecessor": null,
+    "formation": "Enseignant-chercheur à l'Université Iba Der Thiam de Thiès",
+    "organisation": "Présidence de la République",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Mamadou Oumar NDIAYE",
+    "type": "Autre",
+    "role": "Président du Conseil national de Régulation de l'Audiovisuel",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": "/nominations/mamadou-oumar-ndiaye.jpg",
+    "predecessor": null,
+    "formation": "Journaliste",
+    "description": "Poste Vacant",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Présidence de la République"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Mamadou Lamine DIANTE",
+    "type": "Autre",
+    "role": "Président du Haut Conseil du Dialogue social",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": "/nominations/mamadou-lamine-diante.jpg",
+    "predecessor": "Madame Innocence NTAP NDIAYE",
+    "formation": null,
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Présidence de la République"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Moustapha DJITTE",
+    "type": "Directeur général",
+    "role": "Directeur général de l'Autorité de Régulation de la Commande publique (ARCOP)",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": "/nominations/moustapha-djitte.jfif",
+    "predecessor": "Monsieur Saer NIANG",
+    "formation": "Magistrat",
+    "description": "Matricule de solde n°602 388/E",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": "https://www.linkedin.com/in/moustapha-djitte-296a881b7/",
+    "website": null,
+    "rating": null,
+    "organisation": "Présidence de la République"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Hatab SANE",
+    "type": "PCS",
+    "role": "Président du Conseil de surveillance de l'Agence nationale de relance des activités économiques et sociales en Casamance (ANRAC)",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": null,
+    "formation": null,
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Primature"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Souleymane GUEYE",
+    "type": "Directeur",
+    "role": "Directeur des Transports aériens",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": "/nominations/souleymane-gueye.jfif",
+    "predecessor": "Monsieur Oumar Xassimou Dia",
+    "formation": "Expert en Transport aérien",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère des Infrastructures, des Transports terrestres et aériens"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Badara DIOP",
+    "type": "Directeur",
+    "role": "Directeur des Infrastructures aéroportuaires",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": "Monsieur Cheikh DIOUF",
+    "formation": "Ingénieur d'exploitation de l'aviation civile",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère des Infrastructures, des Transports terrestres et aériens"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Mandiaye FAYE",
+    "type": "Directeur",
+    "role": "Directeur de la circulation routière et de la mobilité",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": "Monsieur Mouhamadou Moustapha NIANG",
+    "formation": "Ingénieur des transports",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère des Infrastructures, des Transports terrestres et aériens"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Abdoul Siléye Fatah BA",
+    "type": "Directeur",
+    "role": "Directeur des transports Routiers",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": "Monsieur Yaya Samba NIANG",
+    "formation": "Ingénieur des transports",
+    "description": "Matricule n°627472/L précédemment Chef de la Division du Centre de Contrôle Technique au Ministère des Infrastructures et des Transports terrestres et Aériens",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère des Infrastructures, des Transports terrestres et aériens"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Yancoba Ben Alfousseyni SONKO",
+    "type": "Autre",
+    "role": "Président du Conseil d'Orientation du Fonds de Développement des Transports terrestres",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": null,
+    "formation": "Master QHSE",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère des Infrastructures, des Transports terrestres et aériens"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Babacar SEMBENE",
+    "type": "Directeur général",
+    "role": "Directeur général de l'Agence de Régulation des Marchés",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": "Monsieur Ansoumana SANE",
+    "formation": "Commissaire aux Enquêtes économiques principal",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Industrie et du Commerce"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Madame",
+    "name": "Françoise FAYE",
+    "type": "Directeur général",
+    "role": "Directeur général de l'Agence sénégalaise pour la Propriété industrielle et l'Innovation technologique",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": "Monsieur Makhtar DIA",
+    "formation": "Commissaire aux Enquêtes économiques principal",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Industrie et du Commerce"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Ahmed Tidiane DIA",
+    "type": "Directeur",
+    "role": "Directeur du Commerce extérieur",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": "Monsieur Ansou BADJI",
+    "formation": "Commissaire aux Enquêtes économiques principal",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Industrie et du Commerce"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Henri Fall CARVALHO",
+    "type": "Directeur",
+    "role": "Directeur des Petites et Moyennes Entreprises",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": "Monsieur Seydina Aboubacar Sadikh NDIAYE",
+    "formation": "Ingénieur en Industries agricoles et alimentaires",
+    "description": "Matricule de solde n° 618 880/M",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Industrie et du Commerce"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Issa WADE",
+    "type": "Directeur général",
+    "role": "Directeur général de l'Organe de Régulation du Système de Récépissé d'Entrepôt",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": "Monsieur Driss Junior DIALLO",
+    "formation": "Commissaire aux Enquêtes économiques",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Industrie et du Commerce"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Ali Fourou BA",
+    "type": "PCA",
+    "role": "PCA du CICES",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": null,
+    "formation": null,
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Industrie et du Commerce"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Babacar SY",
+    "type": "Directeur",
+    "role": "Directeur de l'Emploi",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": "Modou Fall",
+    "formation": "Inspecteur du Travail et de la Sécurité sociale",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère du Travail, de l'Emploi et des Relations avec les Institutions"
+  },
+
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Salif COLY",
+    "type": "Directeur",
+    "role": "Directeur du Centre national de Formation et d'Action",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": "Monsieur Kalidou SOKOMA",
+    "formation": "Professeur de l'Enseignement secondaire",
+    "description": "Matricule de solde n° 551.277/Z",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Fonction publique et de la Réforme du Service public"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Ibrahima DIENG",
+    "type": "Directeur général",
+    "role": "Directeur général de la Fonction publique",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": "Monsieur Amadou Matar CISSE",
+    "formation": "Inspecteur du Travail et de la Sécurité sociale",
+    "description": "Matricule de solde n° 515.700/B, précédemment Directeur des Ressources humaines au Ministère de l'Economie, du Plan et de la Coopération",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Fonction publique et de la Réforme du Service public"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Gora GAYE",
+    "type": "Secrétaire général",
+    "role": "Secrétaire général de l'Agence pour la Promotion et le Développement de l'Artisanat (APDA)",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": "Monsieur Youssoupha BA",
+    "formation": "Titulaire d'un Diplôme d'Etudes approfondies en Géographie",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère du Tourisme et de l'Artisanat"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "ANSOUMANA SANE",
+    "type": "PCS",
+    "role": "Président du Conseil de surveillance de l'Agence sénégalaise de Promotion touristique",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": null,
+    "formation": "Promoteur touristique",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère du Tourisme et de l'Artisanat"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Momar Diongue",
+    "type": "Directeur",
+    "role": "Directeur de l'Agence de Presse Sénégalaise",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": "/nominations/momar-diongue.jpg",
+    "predecessor": "Monsieur Thierno Amadou SY",
+    "formation": "Journaliste, titulaire d'une maitrise en Lettres Modernes",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Communication, des Télécommunications et du Numérique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Cheikhouna BEYE",
+    "type": "PCA",
+    "role": "Président du Conseil d'Administration de la RTS",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": null,
+    "formation": "Enseignant-chercheur, Maître de Conférences en Sciences de l'Information et de la Communication",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Communication, des Télécommunications et du Numérique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "SEGA GUEYE",
+    "type": "Directeur général",
+    "role": "Directeur général de l'Agence sénégalaise de la Couverture Maladie universelle",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": "Monsieur Cheikh Tacko DIOP",
+    "formation": "Titulaire d'un Doctorat en Sociologie",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Santé"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Mbossé SOW",
+    "type": "PCA",
+    "role": "PCA de l'Office national de Recouvrement des Avoirs criminels (ONRAC)",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": null,
+    "formation": "Greffier",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Justice"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Abdou Salam KANTE",
+    "type": "PCS",
+    "role": "PCS de l'Agence d'assistance à la sécurité de proximité (ASP)",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": "Monsieur Hamidou Mbow",
+    "formation": "Conducteur de travaux, retraité des armées",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Cheikh NIANG",
+    "type": "Secrétaire général",
+    "role": "Secrétaire général du Ministère de l'Intérieur et de la Sécurité publique",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": "Monsieur Alioune Aïdara NIANG",
+    "formation": "Magistrat",
+    "description": "Matricule de solde 600 667/A",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Sadibou DJIBA",
+    "type": "PCA",
+    "role": "PCA de l'Agence nationale de la Reforestation et de la Grande muraille verte",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": null,
+    "formation": "Professeur d'Enseignement secondaire en Sciences naturelles",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Environnement et de la Transition écologique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Madame",
+    "name": "Sokhna Benga",
+    "type": "PCS",
+    "role": "Président du Conseil de Surveillance de l'Agence nationale des Affaires maritimes (ANAM)",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": "Monsieur Ibrahima CAMARA",
+    "formation": "Administrateur des Affaires maritimes",
+    "description": "Matricule de solde n° 618 080/U",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Pêche et des Infrastructures maritimes et portuaires"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Bécaye Diop",
+    "type": "Directeur général",
+    "role": "Directeur général de l'Agence nationale des Affaires maritimes (ANAM)",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": "/nominations/becaye-diop.jpg",
+    "predecessor": "Monsieur Massamba Achille Edouard GUEYE",
+    "formation": "Titulaire d'un MBA en Management",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Pêche et des Infrastructures maritimes et portuaires"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Madame",
+    "name": "Mbeugué GAYE",
+    "type": "Directeur général",
+    "role": " Directeur de la pêche continentale",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": "Monsieur Massamba Achille Edouard GUEYE",
+    "formation": "Biologiste",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Pêche et des Infrastructures maritimes et portuaires"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Aliou Ba",
+    "type": "PCS",
+    "role": "Président du Conseil de surveillance de l'Agence nationale de l'Aquaculture",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": null,
+    "predecessor": "Monsieur Killé SAKHO",
+    "formation": "Economiste des Ressources naturelles, Expert en Pêche et Aquaculture",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Pêche et des Infrastructures maritimes et portuaires"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Idrissa SAMB",
+    "type": "Autre",
+    "role": "Administrateur du Fonds de Garantie Automobile",
+    "endDate": null,
+    "nominationDate": "2024-10-02",
+    "photo": "/nominations/idrissa-samb.jpg",
+    "predecessor": null,
+    "formation": "Inspecteur principal des Impôts",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère des Finances et du Budget"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Madame",
+    "name": "Seynabou GUEYE",
+    "type": "Inspecteur",
+    "role": "Inspecteur de l'Administration centrale et territoriale du Ministère de l'Intérieur et de la Sécurité publique",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": "Madame Ramatoulaye DIENG",
+    "formation": "Administrateur civil",
+    "description": "Matricule de solde n°608 876/G",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Sékou Vieux DIATTA",
+    "type": "Sous-préfet",
+    "role": "Adjoint au Préfet du Département de Guédiawaye",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": null,
+    "formation": "Instituteur",
+    "description": "Matricule de solde n°630 591/F, précédemment Adjoint au Sous-Préfet de l'Arrondissement de Taïf, Département de Mbacké",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Abdou Khadre DIALLO",
+    "type": "Sous-préfet",
+    "role": "Adjoint au Préfet du Département de Malem Hodar",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": null,
+    "formation": "Instituteur",
+    "description": "Matricule de solde n°675 797/A, précédemment Adjoint au Sous-Préfet de l'Arrondissement de Thillé Boubacar, Département de Podor",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Anaby Moussa TOURE",
+    "type": "Sous-préfet",
+    "role": "Adjoint au Préfet du Département de Bounkiling",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": null,
+    "formation": "Instituteur",
+    "description": "Matricule de solde n°612 954/A, précédemment Adjoint au Sous-Préfet de l'Arrondissement de Loudia Ouolof, Département d'Oussouye",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Ngor POUYE",
+    "type": "Sous-préfet",
+    "role": "Adjoint au Préfet du Département de Bakel",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": null,
+    "formation": "Instituteur",
+    "description": "Matricule de solde n°517 772/I, précédemment Adjoint au Sous-Préfet de l'Arrondissement de Ndorna, Département de Médina Yoro Foulah",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Ousmane SANE",
+    "type": "Sous-préfet",
+    "role": "Sous-Préfet de l'Arrondissement de Sagatta Djoloff, Département de Linguère",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": null,
+    "formation": "Secrétaire d'Administration",
+    "description": "Matricule de solde n°519 212/J, précédemment Sous-Préfet de l'Arrondissement de Simbandi Brassou, Département de Goudomp",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Jean Paul Sylvain DIATTA",
+    "type": "Sous-préfet",
+    "role": "Sous-Préfet de l'Arrondissement de Simbandi Brassou, Département de Goudomp",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": "Monsieur Ousmane SANE",
+    "formation": "Secrétaire d'Administration",
+    "description": "Matricule de solde n°661 427/H, précédemment Adjoint au Préfet du Département de Bakel",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Ibrahima NDIAYE",
+    "type": "Sous-préfet",
+    "role": "Sous-Préfet de l'Arrondissement de Ouadiour, Département de Gossas",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": "Monsieur Ibrahima NDAO",
+    "formation": "Secrétaire d'Administration",
+    "description": "Matricule de solde n°517 694/J, précédemment en service à la Direction générale de l'Administration territoriale",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Intérieur et de la Sécurité publique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Mamadou GAYE",
+    "type": "Autre",
+    "role": "Délégué général au pèlerinage aux Lieux saints de l'Islam",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": "Monsieur Boubacar SARR",
+    "formation": "Général de division (2s), titulaire d'un Master en sciences militaires",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Intégration africaine et des Affaires étrangères"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Assane NDIAYE",
+    "type": "Autre",
+    "role": "Premier Délégué général adjoint au pèlerinage aux Lieux saints de l'Islam",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": "Monsieur Khadim SYLLA",
+    "formation": null,
+    "description": "Précédemment Premier Conseiller à l'Ambassade du Sénégal à RYAD et à la Représentation permanente du Sénégal auprès de l'Organisation de la Conférence islamique",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Intégration africaine et des Affaires étrangères"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Mohamed Mansour NDIAYE",
+    "type": "Autre",
+    "role": "Délégué général adjoint au pèlerinage aux Lieux Saints de l'Islam",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": "Monsieur Ousmane NDOYE",
+    "formation": "Titulaire d'un Master 2 en traduction et interprétation de conférence",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Intégration africaine et des Affaires étrangères"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Habibou DIA",
+    "type": "Directeur",
+    "role": "Directeur de la communication au Ministère de la Communication, des télécommunications et du Numérique",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": "Monsieur Ousseynou DIENG",
+    "formation": "Titulaire d'un Master 2 en Journalisme et Communication",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Communication, des Télécommunications et du Numérique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Serigne Abdoul Ahad NDIAYE",
+    "type": "Autre",
+    "role": "Président du Comité directeur du Fonds de Développement du Service universel (FDSUT)",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": "/nominations/serigne-abdoul-ahad-ndiaye.jpg",
+    "predecessor": "Monsieur Aly Coto NDIAYE",
+    "formation": "Ingénieur en informatique et industriel",
+    "description": null,
+    "facebook": "https://www.facebook.com/AbdoulAhadNjaay",
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Communication, des Télécommunications et du Numérique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Mamadou Lamine SENE",
+    "type": "Autre",
+    "role": "Membre du comité directeur du Fonds de développement du service universel (FDSUT)",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": "Monsieur Cheikh MBACKE",
+    "formation": "Ingénieur en électronique et technologies numériques",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Communication, des Télécommunications et du Numérique"
+  },
+
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Madame",
+    "name": "Ndeye Seynabou SY",
+    "type": "Autre",
+    "role": "Membre du Comité directeur du Fonds de Développement du Service universel (FDSUT)",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": "Mme Sophie NDIAYE",
+    "formation": "Titulaire d'un Master 2 en business and corporate law",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Communication, des Télécommunications et du Numérique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Madame",
+    "name": "Sira Niang SY",
+    "type": "Autre",
+    "role": "Membre du comité directeur du Fonds de développement du service universel (FDSUT)",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": "Monsieur Abdoulaye NGOM",
+    "formation": "Titulaire d'un Master 2 en management et négociation",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Communication, des Télécommunications et du Numérique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Souleymane NDIAYE",
+    "type": "Autre",
+    "role": "Membre du Comité directeur du Fonds de développement du Service universel (FDSUT)",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": "/nominations/souleymane-ndiaye.jpg",
+    "predecessor": "Monsieur Mamadou Yaya BA",
+    "formation": "Titulaire d'un Master 2 en informatique et réseau",
+    "description": "membre fondateur de Pastef kanel et président de la commission finances de Pastef Canada depuis 2016.",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Communication, des Télécommunications et du Numérique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Amadou Moctar NDIAYE",
+    "type": "Autre",
+    "role": "Membre du comité Directeur du Fonds de développement du Service universel (FDSUT)",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": "Monsieur Mamadou Al Hadji LY",
+    "formation": "Ingénieur des télécommunications",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Communication, des Télécommunications et du Numérique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Aboubakar Sidy SONKO",
+    "type": "Directeur général",
+    "role": "Directeur général de la Société de Développement agricole et industriel du Sénégal (SODAGRI)",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": "Monsieur Alpha Bocar BALDE",
+    "formation": "Ingénieur informaticien, Expert en Agritech",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Élevage"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Fafa SOW",
+    "type": "Directeur",
+    "role": "Directeur des Industries animales au Ministère de l'Agriculture de la Souveraineté alimentaire et de l'Élevage",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": "Madame Fat Cheikh NDIONE",
+    "formation": "Titulaire d'un Doctorat en sciences vétérinaires",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Élevage"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Mamadou KANE",
+    "type": "Directeur",
+    "role": "Directeur de l'Administration générale et de l'Équipement",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": "Amadou Diallo",
+    "formation": "Docteur",
+    "description": "Matricule de solde 625481/L, précédemment Chef de Division du budget et de la comptabilité au Ministère de la Formation professionnelle",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Formation professionnelle"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Madame",
+    "name": "Mame Diarra DIOP",
+    "type": "Directeur général",
+    "role": "Directeur général de la Formation professionnelle et technique",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": "Madame Maïmouna Kanté",
+    "formation": "Inspecteur de Spécialité de classe exceptionnelle",
+    "description": "Matricule de solde n° 514396/H, précédemment Directeur du Service national d'orientation professionnelle",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Formation professionnelle"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "El hadji Mamadou GNINGUE",
+    "type": "Directeur",
+    "role": "Directeur de la Planification et du suivi-évaluation",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": "Monsieur Cheikh Ahmadou Abdoul GUEYE",
+    "formation": "Psychologue conseiller de 4ère classe – 1ème échelon",
+    "description": "Matricule de solde n° 714148/E, précédemment Chef de bureau Suivi-Evaluation",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Formation professionnelle"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Madame",
+    "name": "Aminata NDOYE",
+    "type": "Directeur",
+    "role": "Directeur de l'Insertion",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": "Monsieur Abdourahmane LY",
+    "formation": "Psychologue conseiller de 2ère classe – 2ème échelon",
+    "description": "Matricule de solde n° 632978/E, précédemment Chef du bureau du suivi au secrétariat général du ministère de la Formation Professionnelle",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Formation professionnelle"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Abdou DIONGUE",
+    "type": "Inspecteur",
+    "role": "Inspecteur technique au Ministère de l'Environnement et de la Transition écologique",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": "Madame Ndèye SENE",
+    "formation": "Conservateur des Parcs nationaux",
+    "description": "Matricule de solde n° 613 282 /L",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Environnement et de la Transition écologique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Assane NDOYE",
+    "type": "Inspecteur",
+    "role": "Inspecteur technique au Ministère de l'Environnement et de la Transition écologique",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": null,
+    "formation": "Lieutenant-Colonel, Conservateur des Parcs nationaux",
+    "description": "Matricule de solde n°510 886/B",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Environnement et de la Transition écologique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Abdoul Aziz DIOUF",
+    "type": "Directeur général",
+    "role": "Directeur général de l'Enseignement supérieur",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": "Monsieur Amadou Abdoul SOW",
+    "formation": "Professeur titulaire en droit privé",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Enseignement supérieur de la Recherche et de l'Innovation"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Hamidou DATT",
+    "type": "Directeur général",
+    "role": "Directeur général de la Recherche et de l'Innovation",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": "Monsieur Amadou Gallo DIOP",
+    "formation": "Professeur titulaire de mathématiques",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Enseignement supérieur de la Recherche et de l'Innovation"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Pape Abdoulaye DIAW",
+    "type": "Directeur",
+    "role": "Directeur de l'Institut supérieur d'Enseignement professionnel de Richard Toll",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": "/nominations/pape-abdoulaye-diaw.jfif",
+    "predecessor": "Madame Awa Niang",
+    "formation": "Maître de conférences titulaire",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Enseignement supérieur de la Recherche et de l'Innovation"
+  },
+
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Alassane DIEDHIOU",
+    "type": "Autre",
+    "role": "Recteur de l'Université Assane Seck de Ziguinchor",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": null,
+    "formation": "Professeur titulaire",
+    "description": "Matricule de solde 102524/D, précédemment vice-recteur de l'Université Assane Seck de Ziguinchor",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Enseignement supérieur de la Recherche et de l'Innovation"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Seydina Alioune NDJIM",
+    "type": "Directeur",
+    "role": "Directeur des Paysages urbains et des Espaces publics",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": "/nominations/seydina-alioune-ndjim.jpg",
+    "predecessor": "Madame Mame Marie Ousmane NDIAYE",
+    "formation": "Titulaire d'un Master professionnel en Management et Administration des entreprises",
+    "description": null,
+    "facebook": "https://www.facebook.com/aliou.jim",
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Madame",
+    "name": "Aminata WANE",
+    "type": "Directeur",
+    "role": "Directeur de la Planification urbaine et de la Réglementation",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": "/nominations/aminata-wane-3.jpg",
+    "predecessor": "Monsieur Youssouph MANE",
+    "formation": "Titulaire d'un Master 2 en Urbanisme et Aménagement",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": "https://www.linkedin.com/in/aminata-wane-a3815442/",
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Sécou Oumar DIEDHIOU",
+    "type": "Directeur",
+    "role": "Directeur de la Promotion du Développement des Territoires",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": "Monsieur Mbagnick DIOUF",
+    "formation": "Titulaire d'un Doctorat en Géographie et d'un Master en Aménagement urbain",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Arona BA",
+    "type": "Directeur",
+    "role": "Directeur des Collectivités territoriales",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": "Madame Fatoumata Bintou CAMARA",
+    "formation": "Titulaire d'un diplôme d'études approfondies (DEA) en Politiques économiques et gestion et Ingénieur en travaux de planification",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Momar NDIAYE",
+    "type": "Directeur",
+    "role": "Directeur de l'Aménagement urbain et de la Restructuration",
+    "endDate": null,
+    "nominationDate": "2024-10-09",
+    "photo": null,
+    "predecessor": "Madame Seynabou Oumy GOUMBALA",
+    "formation": "Ingénieur en gestion des travaux de développement urbain",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Abdoulaye TINE",
+    "type": "PCA",
+    "role": "Président du Conseil d'Administration de la Société de Gestion du Patrimoine bâti de l'Etat (SOGEPA-SN)",
+    "endDate": null,
+    "nominationDate": "2024-10-23",
+    "photo": "/nominations/abdoulaye-tine.jpg",
+    "predecessor": "Monsieur El Hadji Seck Ndiaye WADE",
+    "formation": "Avocat",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Présidence de la République"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Samba NDIAYE",
+    "type": "PCA",
+    "role": "Président du Conseil d'Administration de la Société nationale des Habitations à Loyer modéré (SN-HLM)",
+    "endDate": null,
+    "nominationDate": "2024-10-23",
+    "photo": "/nominations/samba-ndiaye.jpg",
+    "predecessor": "Monsieur Moustapha FALL",
+    "formation": "Ingénieur en génie Civil",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": "https://x.com/SambaNdiayeNDF",
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Ousseynou FAYE",
+    "type": "PCA",
+    "role": "Président du Conseil d'Administration de la Société immobilière du Cap Vert (SICAP)-SA",
+    "endDate": null,
+    "nominationDate": "2024-10-23",
+    "photo": null,
+    "predecessor": "Monsieur Mamadou FAYE",
+    "formation": "Architecte urbaniste",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Ibrahima THIOYE",
+    "type": "Directeur général",
+    "role": "Directeur général de la Société d'Aménagement Foncier et de Rénovation urbaine (SAFRU SA)",
+    "endDate": null,
+    "nominationDate": "2024-10-23",
+    "photo": null,
+    "predecessor": "Monsieur Maissa Mahécor DIOUF",
+    "formation": "Administrateur civil principal",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Urbanisme, des Collectivités territoriales et de l'Aménagement des Territoires"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Madame",
+    "name": "Mané THIAM",
+    "type": "PCA",
+    "role": "Président du Conseil d'Administration de la Société nationale La Poste (SN-LA POSTE)",
+    "endDate": null,
+    "nominationDate": "2024-10-23",
+    "photo": null,
+    "predecessor": "Monsieur Lansana SANO",
+    "formation": "Expert-comptable",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Communication, des Télécommunications et du Numérique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Oumar WATT",
+    "type": "PCA",
+    "role": "Président du Conseil d'Administration de la Société nationale Sénégal Numérique (SENUM SA)",
+    "endDate": null,
+    "nominationDate": "2024-10-23",
+    "photo": "/nominations/oumar-watt.jfif",
+    "predecessor": "Monsieur Diégane SENE",
+    "formation": null,
+    "description": null,
+    "facebook": "https://www.facebook.com/oumarw",
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Communication, des Télécommunications et du Numérique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Sadikh TOP",
+    "type": "PCA",
+    "role": "Président du Conseil d'Administration de l'Agence de Presse sénégalaise (SN-APS)",
+    "endDate": null,
+    "nominationDate": "2024-10-23",
+    "photo": "/nominations/sadikh-top.jpg",
+    "predecessor": "Monsieur Moustapha SAMB",
+    "formation": null,
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": "https://www.linkedin.com/in/ababacar-sadikh-top-b08675a0",
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Communication, des Télécommunications et du Numérique"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Boubacar SOLLY",
+    "type": "PCA",
+    "role": "Président du Conseil d'Administration de la Société de Gestion des Infrastructures publiques dans les Pôles urbains de Diamniadio et du Lac Rose (SOGIP – SA)",
+    "endDate": null,
+    "nominationDate": "2024-10-23",
+    "photo": "/nominations/boubacar-solly.jfif",
+    "predecessor": "Monsieur Meissa Ndao WADE",
+    "formation": "Docteur en géographie",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": "https://www.linkedin.com/in/dr-boubacar-solly-0b3753221/",
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère des Finances et du Budget"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Madame",
+    "name": "Ndèye Fatou FALL",
+    "type": "PCA",
+    "role": "Président du Conseil d'Administration de la Société nationale de Recouvrement (SIR)",
+    "endDate": null,
+    "nominationDate": "2024-10-23",
+    "photo": "/nominations/ndeye-fatou-fall.jpg",
+    "predecessor": "Monsieur Pape DIOUF",
+    "formation": "Titulaire d'un diplôme d'études approfondies en droit économique et des affaires",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère des Finances et du Budget"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Moustapha Camara",
+    "type": "PCA",
+    "role": "Président du Conseil d'Administration de la Loterie nationale sénégalaise (LONASE)",
+    "endDate": null,
+    "nominationDate": "2024-10-23",
+    "photo": null,
+    "predecessor": "Monsieur Ciré DIA",
+    "formation": "Titulaire d'un master 2 en ingénierie des systèmes d'information",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère des Finances et du Budget"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Sidy FALL",
+    "type": "PCA",
+    "role": "Président du Conseil d'Administration du Fonds de Garantie automobile (FGA)",
+    "endDate": null,
+    "nominationDate": "2024-10-23",
+    "photo": null,
+    "predecessor": "Monsieur Mor Dia THIAM",
+    "formation": "Opérateur économique",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère des Finances et du Budget"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Momath CISSE",
+    "type": "Directeur général Adjoint",
+    "role": "Directeur général Adjoint de l'Agence nationale de la Statistique et de la Démographie (ANSD)",
+    "endDate": null,
+    "nominationDate": "2024-10-23",
+    "photo": null,
+    "predecessor": null,
+    "formation": "Ingénieur statisticien",
+    "description": "Poste vacant",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère des Finances et du Budget"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Oumar REMY",
+    "type": "PCA",
+    "role": "Président du Conseil d'Administration du Fonds de Garantie des Investissements prioritaires (FONGIP)",
+    "endDate": null,
+    "nominationDate": "2024-10-23",
+    "photo": "/nominations/oumar-remy.jpg",
+    "predecessor": "Monsieur Oumar NDOYE",
+    "formation": "Expert en Commerce international",
+    "description": null,
+    "facebook": null,
+    "instagram": "https://www.instagram.com/oumarremytoure/",
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": "https://www.linkedin.com/in/oumar-remy-716a01153/",
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère des Finances et du Budget"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Laurent SINA",
+    "type": "PCA",
+    "role": "Président du Conseil d'Administration du Laboratoire national de référence dans le domaine du Bâtiment et des Travaux publics (LNR-BTP)",
+    "endDate": null,
+    "nominationDate": "2024-10-23",
+    "photo": null,
+    "predecessor": "Monsieur Dame DIOP",
+    "formation": "Consultant en système de management qualité",
+    "description": "Ex CEREEQ-SA",
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère des Infrastructures et des Transports terrestres et aériens"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Youssoupha CISS",
+    "type": "PCA",
+    "role": "Président du Conseil d'Administration de la Société nationale Les Autoroutes du Sénégal (SN-LAS)",
+    "endDate": null,
+    "nominationDate": "2024-10-23",
+    "photo": "/nominations/youssoupha-ciss.jfif",
+    "predecessor": "Madame Ndèye Saly Diop DIENG",
+    "formation": "Enseignant",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère des Infrastructures et des Transports terrestres et aériens"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Mamadou SANE",
+    "type": "PCA",
+    "role": "Président du Conseil d'Administration de la Pharmacie nationale d'Approvisionnement (PNA)",
+    "endDate": null,
+    "nominationDate": "2024-10-23",
+    "photo": null,
+    "predecessor": "Madame Aissatou Mbéne Lo NGOM",
+    "formation": "Titulaire d'un doctorat en Pharmacie",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Santé et de l'Action sociale"
+  },
+
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Monsieur",
+    "name": "Famara MANÉ",
+    "type": "PCA",
+    "role": "Président du Conseil d'Administration de la Société d'Aménagement agricole des Grandes Vallées rizicoles (SODAGRI)",
+    "endDate": null,
+    "nominationDate": "2024-10-23",
+    "photo": null,
+    "predecessor": "Monsieur Cherif SABALY",
+    "formation": "Enseignant",
+    "description": null,
+    "facebook": null,
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de l'Agriculture, de la Souveraineté alimentaire et de l'Elevage"
+  },
+  {
+    "portrait": null,
+    "birthdate": null,
+    "age": null,
+    "sexe": "Madame",
+    "name": "Mame Mbissine NDIAYE",
+    "type": "PCA",
+    "role": "Président du Conseil d'Administration de l'Office national des Pupilles de la Nation (ONPN)",
+    "endDate": null,
+    "nominationDate": "2024-10-23",
+    "photo": "/nominations/mame-mbissine-ndiaye.jpg",
+    "predecessor": "Monsieur Abdou Aziz NDIAYE",
+    "formation": "Technicienne Supérieure en commerce international",
+    "description": null,
+    "facebook": "https://www.facebook.com/ndiaye.mbissine",
+    "instagram": null,
+    "tiktok": null,
+    "twitter": null,
+    "linkedin": null,
+    "website": null,
+    "rating": null,
+    "organisation": "Ministère de la Famille et des Solidarités"
   }
 ]

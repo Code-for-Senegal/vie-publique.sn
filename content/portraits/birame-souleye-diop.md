@@ -7,7 +7,7 @@ description: Ministre de l’Énergie, du Pétrole et des Mines du Gouvernement 
 
 **_Ministre de l’Énergie, du Pétrole et des Mines_**
 
-<img src="/gouvernement/ministre-birame-souleye-diop.jfif" alt="ministre Abdourahmane DIOUF" width="300" fetchpriority="high">
+<img src="/gouvernement/ministre-birame-souleye-diop.jfif" alt="ministre Birame Souleye DIOP" width="300" fetchpriority="high">
 
 Monsieur Birame Souleye DIOP a été nommé à la tête du très stratégique département de l’Energie, du Pétrole et des Mines par Son Excellence le Président Bassirou Diomaye Diakhar FAYE. Inspecteur des impôts et des domaines de métier, il occupe une place de choix dans l’équipe chargée de concrétiser le Projet pour un Sénégal Uni, Souverain, Juste et Prospère.
 

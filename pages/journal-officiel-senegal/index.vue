@@ -51,12 +51,20 @@ const {
 
 const filteredJournals = computed(() => {
   if (!journaux.value) return [];
-  return journaux.value.filter(
-    (journal) =>
-      journal.title?.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      journal.numero?.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      journal.subtitle?.toLowerCase().includes(searchQuery.value.toLowerCase()),
-  );
+  return journaux.value
+    .filter(
+      (journal) =>
+        journal.title
+          ?.toLowerCase()
+          .includes(searchQuery.value.toLowerCase()) ||
+        journal.numero
+          ?.toLowerCase()
+          .includes(searchQuery.value.toLowerCase()) ||
+        journal.subtitle
+          ?.toLowerCase()
+          .includes(searchQuery.value.toLowerCase()),
+    )
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 });
 </script>
 
@@ -107,7 +115,7 @@ const filteredJournals = computed(() => {
           <NuxtLink :to="journal._path">
             <p class="font-semibold underline">{{ journal.title }}</p>
 
-            <p class="text-sm text-gray-500">{{ journal.subtitle }}</p>
+            <p class="mt-1 text-sm text-gray-500">{{ journal.subtitle }}</p>
           </NuxtLink>
         </UCard>
       </div>
