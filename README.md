@@ -19,7 +19,7 @@ Plateforme Web citoyenne dédiée à la promotion de la transparence et de l'acc
 
 C'est une plateforme participative, collective, ouverte et open source visant à rendre accessible au grand public les informations publiques (rapports d'audit, budget, journal officiel, lois et règlements, code général, nominations etc.).
 
-> ⚠️ **AVERTISSEMENT IMPORTANT**  
+> ⚠️ **AVERTISSEMENT IMPORTANT**
 > Projet initié dans l'urgence pour répondre à [l'indisponiblité du site de la cours des comptes le 01/05/2024](https://twitter.com/malick_yacine/status/1785472745150742983). Les data (metadata sur les rapports et les pdf) on été incluses directement dans le repo git. Ce point sera corrigé très rapidement en séparant les data du code.
 
 ## Roadmap
@@ -164,5 +164,44 @@ Locally preview production build:
 # npm
 npm run preview
 ```
+
+# Règles de Contribution au projet Vie-Publique
+
+Processus de contribution.
+
+---
+
+## 📌 Pré-requis avant de contribuer
+
+1. **Récupérez l'URL du dépôt** :
+   Copiez le lien HTTPS ou SSH du dépôt principal.
+
+2. **Cloner le projet sur votre ordinateur** :
+   Ouvrez votre terminal et exécutez la commande suivante :
+   ```bash
+   git clone https://github.com/[votre-utilisateur]/vie-publique.git
+   cd vie-publique
+
+3. **Faire les configs en dessus et s'assurer que le projet se lance bien en local**
+
+4. **Créer une branche dédiée**
+   - Utilisez une convention de nommage pour vos branches :
+     - `feature/nom-fonctionnalité` : Pour les nouvelles fonctionnalités.
+     - `fix/description-bug` : Pour corriger des bugs.
+     - `docs/mise-à-jour-readme` : Pour les modifications du readme.
+   - Exemple : `feature/[#numero-issu]-newsletter-integration`.
+
+5. **Commit, push et ouvrir une Pull Request**
+   - Faites vos modifications et commit.
+   - Poussez vos modifications sur votre branche.
+   - Ouvrez une Pull Request sur le dépôt principal.
+
+6. **Attendez la validation de votre Pull Request**
+   - Votre Pull Request sera revue par un membre de l'équipe.
+   - Si tout est OK, votre Pull Request sera fusionnée par admin.
+
+7. **Supprimer votre branche**
+   - Une fois votre Pull Request fusionnée, vous pouvez supprimer votre branche.
+
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
