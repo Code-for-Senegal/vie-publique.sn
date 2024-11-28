@@ -40,6 +40,33 @@ useHead({
 const electionCategories = [
   {
     display: true,
+    title: "Les députés élus",
+    shortTitle: "Députés élus",
+    description: "Découvrez les visages de l'assemblée",
+    icon: "i-heroicons-user",
+    to: "/elections/legislatives/resultats/deputes",
+    color: "bg-emerald-100 text-emerald-500 border border-emerald-50",
+  },
+  {
+    display: true,
+    title: "Classement des listes",
+    shortTitle: "Classement listes",
+    description: "Pourcentages et voix obtenus",
+    icon: "i-heroicons-chart-bar-square",
+    to: "/elections/legislatives/resultats",
+    color: "bg-red-100 text-red-500 border border-red-50",
+  },
+  {
+    display: true,
+    title: "Résultats",
+    shortTitle: "Résultats",
+    description: "Répartition des sièges par coalition",
+    icon: "i-heroicons-star",
+    to: "/elections/legislatives/resultats",
+    color: "bg-blue-100 text-blue-500 border border-blue-50",
+  },
+  {
+    display: true,
     title: "Les listes et candidats",
     shortTitle: "Listes",
     description: "Consulter les 41 listes retenues",
@@ -82,16 +109,6 @@ const electionCategories = [
     icon: "i-heroicons-check",
     to: "https://elections.sec.gouv.sn",
     color: "bg-blue-100 text-blue-800 border border-blue-50",
-  },
-
-  {
-    display: false,
-    title: "Résultats",
-    shortTitle: "shortTitle",
-    description: "Disponible le jour du vote",
-    icon: "i-heroicons-star",
-    to: "#",
-    color: "bg-gray-100 text-gray-500 border border-gray-50",
   },
 ];
 </script>

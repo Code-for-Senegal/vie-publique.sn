@@ -142,7 +142,7 @@ const aboutUslinks = [
 
 <style>
 .top-header {
-  background-color: #f9f9f9;
+  background-color: #ffff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 

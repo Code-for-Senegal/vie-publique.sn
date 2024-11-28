@@ -238,14 +238,6 @@ function openModal(minister: Candidate) {
         </UButton>
       </div>
 
-      <!-- <USelect
-        v-model="listTypeFilter"
-        :options="listFiltersOptions"
-        class="custom-shadow mb-3 hidden"
-        icon="i-heroicons-funnel"
-        size="lg"
-      /> -->
-
       <div
         v-if="
           listTypeFilter == 'national' ||

@@ -1,6 +1,40 @@
 <script lang="ts" setup>
 const starNews = [
   {
+    _path:
+      "/publications/actualites/accords-de-peche-conference-de-presse-fatou-diouf",
+    title:
+      "Accord de pêche avec l'UE, Point de presse de la ministre Dr Fatou Diouf",
+    date: "2024-11-28",
+    category: "Article",
+    image:
+      "/images/actualites/accords-de-peche-conference-de-presse-fatou-diouf.jpeg",
+  },
+  {
+    _path: "/conseil-des-ministres/conseil-des-ministres-du-27-novembre-2024",
+    title: "Conseil des ministres du 27 novembre 2024",
+    date: "2024-11-27",
+    category: "Conseil des ministres",
+    image: "/images/communique-conseil-des-ministres-5.jpg",
+  },
+  {
+    _path:
+      "/publications/actualites/conseil-interministeriel-sur-la-campagne-de-commercialisation-agricole-2024",
+    title:
+      "Conseil interministériel sur la campagne de commercialisation agricole 2024-2025",
+    date: "2024-11-26",
+    category: "Conseil interministériel",
+    image:
+      "/images/actualites/conseil-interministeriel-sur-la-campagne-de-commercialisation-agricole-2024.jpg",
+  },
+  {
+    _path: "/conseil-des-ministres/conseil-des-ministres-du-20-novembre-2024",
+    title: "Conseil des ministres du 20 novembre 2024",
+    date: "2024-11-20",
+    category: "Conseil des ministres",
+    image: "/images/communique-conseil-des-ministres-3.jpg",
+  },
+  {
     _path: "/conseil-des-ministres/conseil-des-ministres-du-06-novembre-2024",
     title: "Conseil des ministres du 06 novembre 2024",
     date: "2024-11-06",
@@ -24,20 +58,6 @@ const starNews = [
     category: "Discours",
     image:
       "/images/actualites/interview-president-diomaye-forum-fii-2024-riyad.jpg",
-  },
-  {
-    _path: "/conseil-des-ministres/conseil-des-ministres-du-23-octobre-2024",
-    title: "Conseil des ministres du 23 octobre 2024",
-    date: "2024-10-23",
-    category: "Conseil des ministres",
-    image: "/images/diomaye-faye-2.jpeg",
-  },
-  {
-    _path: "/conseil-des-ministres/conseil-des-ministres-du-16-octobre-2024",
-    title: "Conseil des ministres du 16 octobre 2024",
-    date: "2024-10-16",
-    category: "Conseil des ministres",
-    image: "/images/actualites/conseil-des-ministres-du-16-octobre-2024.png",
   },
   {
     _path: "/publications/actualites/senegal-2050-lancement",
@@ -69,11 +89,11 @@ const starNews = [
           />
         </div>
         <div class="flex-1">
-          <div
+          <!-- <div
             class="siteweb-type my-1 inline-block bg-gray-200 px-2 py-1 text-xs text-gray-800"
           >
             {{ item.category }}
-          </div>
+          </div> -->
 
           <p class="text-sm font-semibold sm:text-base">
             {{ item.title }}

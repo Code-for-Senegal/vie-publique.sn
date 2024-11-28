@@ -14,9 +14,14 @@ export interface HeadOfList {
 export interface Coalition {
   id: number;
   name: string;
+  color: string;
   list_order: number;
   logo: string | null;
   bulletin: string | null;
   videos: Video[];
   head_of_list: HeadOfList;
+  voix: number;
+  pourcentage: number;
+  sieges?: number;
+  sieges_departement?: number;
 }

@@ -58,30 +58,29 @@ const {
   error: errorDepertmental,
 } = useElectionStatsList();
 
-const statsType = ref("profession");
+const statsType = ref("professionDeputy");
 const statsTypes = [
-  { label: "Profession des candidats", value: "profession" },
+  { label: "Métiers des députés", value: "professionDeputy" },
+  { label: "Profession des candidats", value: "professionCandidat" },
   { label: "Présences des listes par département", value: "departmental" },
   { label: "Répartition des électeurs par sexe", value: "genderDistribution" },
   { label: "Répartition des électeurs par âge", value: "ageDistribution" },
 ];
-
-const links = [{ label: "Élections", to: "/elections" }];
 </script>
 
 <template>
   <div class="flex flex-col items-center px-4">
-    <UButton
-      v-if="coalitions"
-      class="bg-gray mb-2 w-full hover:bg-white"
-      size="xs"
-    >
-      <AppBreadcrumb :links="links" :last-text="route.params.slug" />
-    </UButton>
+    <UBreadcrumb
+      class="mt-2"
+      :links="[
+        { label: 'Accueil', to: '/' },
+        { label: 'Législatives 2024', to: '/elections' },
+        { label: 'Statistiques' },
+      ]"
+    />
 
-    <div class="prose prose-sm sm:prose mx-auto my-2">
+    <div class="prose prose-sm sm:prose mx-auto my-4">
       <h1 class="mb-2 text-center">Statistiques Législatives 2024</h1>
-      <!-- <h3 class="mt-0 text-center">Statistiques</h3> -->
     </div>
 
     <UCard v-if="loadingProfessions">
@@ -101,9 +100,15 @@ const links = [{ label: "Élections", to: "/elections" }];
         class="input custom-shadow mb-4 w-full"
       />
 
+      <ElectionCandidatProfessionDeputies
+        v-if="statsType == 'professionDeputy'"
+      />
+
       <ElectionCandidatProfessionChart
         v-if="
-          statsType == 'profession' && professions && professions?.length > 0
+          statsType == 'professionCandidat' &&
+          professions &&
+          professions?.length > 0
         "
         :professions="professions"
       />

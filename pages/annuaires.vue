@@ -13,21 +13,28 @@ useHead({
 const menuCategories = [
   {
     title: "Annuaire Gouvernement",
-    description: "Nominations, Ministres, DG...",
+    description: "Nominations, Ministres, DG etc.",
     icon: "i-heroicons-identification",
     to: "/nomination-senegal",
     color: "bg-green-100 text-green-700",
   },
   {
+    title: "Annuaire Députés",
+    description: "165 nouveaux députés",
+    icon: "i-heroicons-user",
+    to: "/elections/legislatives/resultats/deputes",
+    color: "bg-green-100 text-green-700",
+  },
+  {
     title: "Annuaire Justice",
-    description: "Magistrature, Acteurs de la justice...",
+    description: "Magistrature, Acteurs de la justice",
     icon: "i-heroicons-scale",
     to: "/justice/magistrature",
     color: "bg-purple-100 text-purple-700",
   },
   {
     title: "Annuaire Médias",
-    description: "Aide à la presse, Radios, TV, Médias en ligne...",
+    description: "Aide à la presse, Radios, TV, Médias en ligne",
     icon: "i-heroicons-radio",
     to: "/medias",
     color: "bg-red-100 text-red-700",

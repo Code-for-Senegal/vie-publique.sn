@@ -36,6 +36,10 @@ const links = [
     label: "Règles de confidentialité",
     to: "/about/privacy",
   },
+  {
+    label: "Recrutement",
+    to: "/publications/recrutement",
+  },
 ];
 </script>
 

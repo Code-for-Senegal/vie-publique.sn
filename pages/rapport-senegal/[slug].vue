@@ -47,8 +47,6 @@ const siteUrl = ref(runtimeConfig.public.siteUrl);
 
 <template>
   <div class="flex flex-col items-center px-4">
-    <!-- <Submenu /> -->
-
     <h1 v-if="rapport != null" class="sr-only">{{ rapport.titre }}</h1>
 
     <UButton

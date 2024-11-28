@@ -19,32 +19,17 @@ Pour toute question ou suggestion, envoyez-nous un mail à [contact@vie-publique
 
 L'objectif de vie-publique.sn est de fournir un accès facile aux informations gouvernementales afin de promouvoir l'engagement civique, la responsabilisation et une meilleure compréhension des affaires publiques par les citoyens. En consolidant ces informations et en facilitant leur accès à un seul endroit, nous espérons contribuer à une société plus informée et plus engagée.
 
-### Roadmap
+## Nos valeurs
 
-Un aperçu rapide des chantiers sur lesquels nous travaillons actuellement :
+**Transparence** L’objectif est de permettre un accès libre et ouvert aux informations publiques pour tous
 
-- ✅ Annuaire de nominations
-- ✅ Rapports: Centralisation rapports d’audit OFNAC, IGE etc.
-- ✅ Conseil des ministres et interministériel
-- ✅ Budget: tableau de bord du budget de l'état
-- ✅ Actualités: Communiqués, discours, déclarations etc.
-- ✅ Codes: constitution, code du travail, code de la famille etc.
-- ✅ Journal officiel: Parution de 2024
+**Indépendance** Vie-publique.sn n’est affiliée à aucun gouvernement ou organisation politique.
 
-- 🛠️ Publication des contrats publiques
-- 🛠️ Annuaire des élus (députés, maires…. avec portrait et photos )
-- 🛠️ Annuaire acteur de la justice
-- 🛠️ Annuaire entreprise Sénégal
-- 🛠️ Journal officiel: historique complète depuis 2021
-- 🛠️ Budget: budget des entreprises publiques
-- 🛠️ Baromètre citoyen: suivi des promesses électorales
-- 🛠️ Guides, Quiz et FAQ sur le fonctionnement de l'état
+**Participation citoyenne** L'initiative est collective, open source, et invite à la contribution de tous.
 
-- 🚀 Élection: annuaire des élus députés, maires, conseillers etc.
-- 🚀 Justice: annuaire des acteurs de la justice
-- 🚀 Justice: annuaire des décisions de justices
-- 🚀 Election: historique des résultats depuis 1960
-- 🚀 Version wolof
+**Responsabilité** Promouvoir la responsabilisation des institutions publiques et des citoyens en rendant les informations clés accessibles.
+
+**Ouverture** Utiliser une approche open source pour favoriser l’innovation et l’amélioration continue de la plateforme par la communauté.
 
 ### Participation et Contributions
 
@@ -59,13 +44,15 @@ Nous sommes ouverts à toutes les formes de collaboration qui peuvent enrichir c
 
 - Projet débuté le 1er mai 2024
 
+- Assemblé générale : Sept 2024
+
+- Forme juridique : Association
+
 - Contributeurs
 
   - **Malick Yacine DIOP**, Ingénieur IT et entrepreneur
 
-  - **Momar Assane DIOUF** Financier et entrepreneur
-
-  - **El Hadj Djibril Ciss**, Etudiant
+  - **Momar Assane DIOUF** Entrepreneur agro-industriel
 
   - **Papa Djigane CISSE**, Head of Business Development & Supply Chain
 
@@ -85,6 +72,8 @@ Nous sommes ouverts à toutes les formes de collaboration qui peuvent enrichir c
 
   - **Anta Ndao**, Doctorante en administration publique
 
+  - **El Hadj Djibril Ciss**, Etudiant
+
   - **Sidath Gueye**, Ingénieur Logiciel en R&D et en Intelligence Artificielle
 
   - **Joe Diouf**, Ingénieur Etude et Développement
@@ -103,13 +92,6 @@ Nous sommes ouverts à toutes les formes de collaboration qui peuvent enrichir c
 - **Nominations:** Communiqués des conseils des ministres
 - **Quiz:** Documents institutionnels
 - **Actualités:** RTS, APS, BIC Gouv, primature.sn, .sn, DRI (Direction des Relations avec les Institutions)
-- **Rapports:**
-  - **Cour des Comptes du Sénégal**
-  - **ARMP** Autorité de Régulation des Marchés Publics
-  - **IGE** Inspection Générale d'État
-  - **IGF** Inspection Générale des Finances
-  - **CENTIF** Cellule nationale de Traitement des Informations financière
-  - **OFNAC** Office National de Lutte contre la Fraude et la Corruption
-  - **Autres** ITIE, ARTP, ANSD, Transparency International, Amnesty
+- **Rapports:** Cour des Comptes du Sénégal, ARMP, IGE, OFNAC etc.
 
-Les documents et informations sont récupérés directement des sources publiques, puis centralisés, enréchis, croisés avant d'être publiés sur Vie-Publique.sn dans le but de faciliter leur accès et leur utilisation par le public.
+Les documents et informations publiés sur la plateforme sont récupérés directement des sources publiques, puis centralisés, enréchis, croisés avant d'être publiés sur Vie-Publique.sn dans le but de faciliter leur accès et leur utilisation par le public.
