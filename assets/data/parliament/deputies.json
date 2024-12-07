@@ -1,0 +1,22 @@
+[
+    {
+        "id": 7,
+        "gender": "M",
+        "first_name": "OUSMANE",
+        "last_name": "SONKO",
+        "profession": "EXPERT FISCAL",
+        "birthplace": "ZIGUINCHOR",
+        "birthdate": "1974-07-15",
+        "photo": "4e1c3427-ae2d-4090-a5fb-8460f7ef8ac3",
+        "biography": "Ousmane Sonko est un homme politique sénégalais, né le 15 juillet 1974 à Ziguinchor. Il est le président du parti politique PASTEF Les Patriotes. Il est également inspecteur des impôts et des domaines.",
+        "electoral_list": {
+            "type": "national",
+            "name": "PASTEF nationale titulaire",
+            "coalition": {
+                "name": "PASTEF",
+                "color": "#AA2F2E"
+            },
+            "constituency": null
+        }
+    }
+]
