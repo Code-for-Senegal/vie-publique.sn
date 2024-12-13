@@ -17,6 +17,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@nuxtjs/leaflet",
     "@vite-pwa/nuxt",
+    "@vueuse/nuxt",
   ],
   devtools: { enabled: true },
   nitro: {

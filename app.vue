@@ -89,6 +89,11 @@ const aboutUslinks = [
     <!-- HeaderBrand à gauche -->
     <AppHeader />
 
+    <!-- App alert online and offline -->
+    <ClientOnly>
+      <AppLineAlert />
+    </ClientOnly>
+
     <!-- Navigation horizontale pour les écrans plus larges -->
     <UHorizontalNavigation
       :links="links"
