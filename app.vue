@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { $pwa } = useNuxtApp();
 const isOpen = ref(false);
 
 const links = [
@@ -31,6 +32,12 @@ const links = [
     description: "....",
     icon: "i-heroicons-banknotes",
     to: "/budget-senegal",
+  },
+  {
+    label: "Installer",
+    description: "Installer l'application PWA",
+    icon: "i-heroicons-arrow-down-circle",
+    click: () => "",
   },
   // {
   //   label: "Découverte",
@@ -74,6 +81,8 @@ const aboutUslinks = [
   <div
     class="lg:px-18 top-header sticky top-0 z-50 flex items-center justify-between opacity-100 md:px-10 xl:px-32"
   >
+    <!-- PWA manifest -->
+    <NuxtPwaManifest />
     <!-- loader quand on change de page -->
     <NuxtLoadingIndicator />
 
@@ -85,6 +94,24 @@ const aboutUslinks = [
       :links="links"
       class="hidden w-auto items-center md:flex"
     >
+      <template #default="{ link }">
+        <button
+          v-if="
+            link.click &&
+            $pwa?.showInstallPrompt &&
+            !$pwa?.offlineReady &&
+            !$pwa?.needRefresh &&
+            !$pwa.isPWAInstalled
+          "
+          class="hover:bg-primaryDark focus-visible:bg-primaryDark rounded"
+          @click="$pwa.install"
+        >
+          <i :class="link.icon"></i>
+          <span v-if="link.click" class="group-hover:text-primary relative">{{
+            link.label
+          }}</span>
+        </button>
+      </template>
     </UHorizontalNavigation>
 
     <!-- Menu pour mobiles (toggle visibility with Tailwind CSS) -->

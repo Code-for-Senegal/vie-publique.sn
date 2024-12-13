@@ -1,10 +1,12 @@
 {
-  "name": "nuxt-app",
+  "name": "vie-publique-sn",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "nuxt build",
+    "build-sw": "SW=true nuxt build",
     "dev": "nuxt dev",
+    "dev-sw": "SW=true nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -23,6 +25,7 @@
     "@nuxtjs/web-vitals": "^0.2.7",
     "@pinia/nuxt": "^0.5.4",
     "@tailwindcss/typography": "^0.5.13",
+    "@vite-pwa/nuxt": "^0.10.6",
     "@vueuse/motion": "^2.2.3",
     "d3": "^7.9.0",
     "nuxt": "^3.11.2",
