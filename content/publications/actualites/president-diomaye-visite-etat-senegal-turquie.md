@@ -24,7 +24,7 @@ Dans le prolongement de ce protocole, des ministres sénégalais et leurs homolo
 
 🎥 Discours du président Diomaye à la cérémonie de signature
 
-<iframe width="100%" height="315" src="https://www.youtube.com/embed/KKPZ6GIJTNA?rel=0&modestbranding=1&origin=https://www.vie-publique.sn" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe class="video" width="100%" height="315" src="https://www.youtube.com/embed/KKPZ6GIJTNA?rel=0&modestbranding=1&origin=https://www.vie-publique.sn" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ---
 

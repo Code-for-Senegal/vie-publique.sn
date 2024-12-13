@@ -54,4 +54,4 @@ Ousmane Diagne, le ministre de justice, a annoncé des poursuites judiciaires. I
 
 > La justice fera son travail sans faiblesse, en toute transparence, tout en respectant les droits de chacun, à son propre rythme, sans se laisser dicter le chemin à emprunter
 
-<iframe width="100%" height="315" src="https://www.youtube.com/embed/_ytfEX2rJaM?rel=0&modestbranding=1&origin=https://www.vie-publique.sn" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe class="video" width="100%" height="315" src="https://www.youtube.com/embed/_ytfEX2rJaM?rel=0&modestbranding=1&origin=https://www.vie-publique.sn" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
