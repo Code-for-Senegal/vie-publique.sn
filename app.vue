@@ -168,6 +168,8 @@ const aboutUslinks = [
     </NuxtLayout>
 
     <!-- <NewsletterSocial /> -->
+    <!-- affichage des deux composants à rendre dynamique -->
+    <AppBottomNav />
     <AppFooter />
   </UContainer>
 </template>
