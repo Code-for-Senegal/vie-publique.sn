@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Toaster, toast } from "vue-sonner";
 const { $pwa } = useNuxtApp();
 const isOpen = ref(false);
 
@@ -75,6 +76,17 @@ const aboutUslinks = [
     icon: "i-heroicons-information-circle",
   },
 ];
+
+onMounted(() => {
+  if ($pwa?.needRefresh) {
+    toast("Nouvelle version trouvée. Actualiser pour mettre à jour.", {
+      action: {
+        label: "Recharger",
+        onClick: () => location.reload(),
+      },
+    });
+  }
+});
 </script>
 
 <template>
@@ -93,6 +105,8 @@ const aboutUslinks = [
     <ClientOnly>
       <AppLineAlert />
     </ClientOnly>
+
+    <Toaster position="bottom-center" />
 
     <!-- Navigation horizontale pour les écrans plus larges -->
     <UHorizontalNavigation
