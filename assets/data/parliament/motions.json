@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "type": "law_project",
+        "title": "Protection des données personnelles",
+        "description": "Ce projet de loi vise à renforcer la protection des données personnelles des citoyens et à encadrer leur utilisation par les entreprises.",
+        "vote_count": 165,
+        "yes_count": 165,
+        "no_count": 0,
+        "theme": "Protection des données"
+    },
+    {
+        "id": 2,
+        "type": "budget_vote",
+        "title": "Loi de finances initiale 2024",
+        "description": "Le projet de loi de finances 2024 prévoit un budget de 5755,4 milliards FCFA, en hausse de 11,9% par rapport à 2023.",
+        "vote_count": 165,
+        "yes_count": 165,
+        "no_count": 0,
+        "theme": "Budget"
+    },
+    {
+        "id": 3,
+        "type": "constitution_amendment",
+        "title": "Modification de l'âge d'éligibilité",
+        "description": "Proposition de modification de l'article concernant l'âge minimum d'éligibilité aux élections présidentielles.",
+        "vote_count": 165,
+        "yes_count": 165,
+        "no_count": 0,
+        "theme": "Constitution"
+    }
+]

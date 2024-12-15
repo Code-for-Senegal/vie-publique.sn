@@ -1,7 +1,7 @@
 <template>
   <div class="mb-6 mt-2 grid grid-cols-1 gap-4 md:grid-cols-2">
-    <ElectionMenuSieges />
     <ElectionMenuDepute />
+    <ElectionMenuSieges />
     <ElectionMenuClassement />
     <ElectionMenuInfo />
   </div>
