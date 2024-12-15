@@ -1,6 +1,92 @@
 <script lang="ts" setup>
 const starNews = [
   {
+    _path: "/publications/actualites/projet-loi-de-finance-2025",
+    title: "Projet de loi de finances 2025",
+    date: "2024-12-13",
+    category: "Article",
+    image: "/images/actualites/projet-loi-finance-initiale-2025.PNG",
+  },
+  {
+    _path: "/conseil-des-ministres/conseil-des-ministres-du-11-decembre-2024",
+    title: "Conseil des ministres du 11 décembre 2024",
+    date: "2024-12-11",
+    category: "Conseil des ministres",
+    image: "/images/communique-conseil-des-ministres-5.jpg",
+  },
+  {
+    _path:
+      "/publications/actualites/discours-president-diomaye-conference-union-africaine-education-jeunesse",
+    title:
+      "Président Diomaye conférence de l’Union africaine dédiée à l’éducation",
+    date: "2024-12-10",
+    category: "Discours",
+    image:
+      "/images/actualites/discours-president-diomaye-conference-union-africaine-education-jeunesse.jpg",
+  },
+  {
+    _path: "/conseil-des-ministres/conseil-des-ministres-du-03-decembre-2024",
+    title: "Conseil des ministres du 03 decembre 2024",
+    date: "2024-12-03",
+    category: "Conseil des ministres",
+    image: "/images/conseil-des-ministres-03-decembre-2024.PNG",
+  },
+  {
+    _path: "/medias/liste-officielle",
+    title: "Liste des 112 Médias reconnus au Sénégal",
+    date: "2024-12-03",
+    category: "Article",
+    image: "/images/menu/medias-3.jpg",
+  },
+  {
+    _path: "/publications/actualites/reamenagement-du-gouvernement-sonko",
+    title: "Réaménagement du gouvernement",
+    date: "2024-12-02",
+    category: "Article",
+    image:
+      "/images/actualites/gouvernement-du-senegal-du-02-decembre-2024.webp",
+  },
+  {
+    _path: "/publications/actualites/assemblee-nationale-2024",
+    title: "Assemblé nationale, les membres du bureaux",
+    date: "2024-12-02",
+    category: "Article",
+    image: "/images/actualites/assemblee-natinale-15em-legislature-bureau.png",
+  },
+  {
+    _path: "/portraits/el-malick-ndiaye",
+    title: "Nouveau président de l'assemblée nationale",
+    date: "2024-12-02",
+    category: "Article",
+    image: "/gouvernement/ministre-malick-ndiaye.jpg",
+  },
+  {
+    _path:
+      "/publications/actualites/discours-president-diomaye-commemoration-80e-anniversaire-du-massacre-de-thiaroye",
+    title: "80e anniversaire du Massacre de Thiaroye 1944",
+    date: "2024-12-01",
+    category: "Discours",
+    image:
+      "/images/actualites/president-diomaye-commemoration-80e-anniversaire-du-massacre-de-thiaroye-2.jpg",
+  },
+  {
+    _path: "/publications/actualites/journee-nationale-daara-senegal-2024",
+    title: "Journée nationale des daaras, discours du président Diomaye",
+    date: "2024-11-28",
+    category: "Discours",
+    image: "/images/actualites/journee-nationale-daara-2024-senegal.jpeg",
+  },
+  {
+    _path:
+      "/publications/actualites/interview-president-diomaye-france-2-massacre-thiaroye",
+    title:
+      "Interview du président Diomaye à France 2 sur le massacre de Thioroye",
+    date: "2024-11-28",
+    category: "Article",
+    image:
+      "/images/actualites/interview-president-diomaye-france-2-massacre-thiaroye.jpg",
+  },
+  {
     _path:
       "/publications/actualites/accords-de-peche-conference-de-presse-fatou-diouf",
     title:
@@ -17,55 +103,16 @@ const starNews = [
     category: "Conseil des ministres",
     image: "/images/communique-conseil-des-ministres-5.jpg",
   },
-  {
-    _path:
-      "/publications/actualites/conseil-interministeriel-sur-la-campagne-de-commercialisation-agricole-2024",
-    title:
-      "Conseil interministériel sur la campagne de commercialisation agricole 2024-2025",
-    date: "2024-11-26",
-    category: "Conseil interministériel",
-    image:
-      "/images/actualites/conseil-interministeriel-sur-la-campagne-de-commercialisation-agricole-2024.jpg",
-  },
-  {
-    _path: "/conseil-des-ministres/conseil-des-ministres-du-20-novembre-2024",
-    title: "Conseil des ministres du 20 novembre 2024",
-    date: "2024-11-20",
-    category: "Conseil des ministres",
-    image: "/images/communique-conseil-des-ministres-3.jpg",
-  },
-  {
-    _path: "/conseil-des-ministres/conseil-des-ministres-du-06-novembre-2024",
-    title: "Conseil des ministres du 06 novembre 2024",
-    date: "2024-11-06",
-    category: "Conseil des ministres",
-    image: "/images/conseil-des-ministres-du-06-novembre-2024.png",
-  },
-  {
-    _path:
-      "/publications/actualites/president-diomaye-visite-etat-senegal-turquie",
-    title: "Président Diomaye en visite d'État en Turquie",
-    date: "2024-10-31",
-    category: "Discours",
-    image: "/images/actualites/pr-diomaye-turquie-1.webp",
-  },
-  {
-    _path:
-      "/publications/actualites/interview-president-diomaye-forum-fii-2024-riyad",
-    title:
-      "Interview du président Diomaye au Forum Future Investment Initiative À Riyad",
-    date: "2024-10-28",
-    category: "Discours",
-    image:
-      "/images/actualites/interview-president-diomaye-forum-fii-2024-riyad.jpg",
-  },
-  {
-    _path: "/publications/actualites/senegal-2050-lancement",
-    title: "Lancement du référentiel « SÉNÉGAL 2050 »",
-    date: "2024-10-14",
-    category: "Article",
-    image: "/images/actualites/senegal-2050-lancement-1.PNG",
-  },
+  // {
+  //   _path:
+  //     "/publications/actualites/conseil-interministeriel-sur-la-campagne-de-commercialisation-agricole-2024",
+  //   title:
+  //     "Conseil interministériel sur la campagne de commercialisation agricole 2024-2025",
+  //   date: "2024-11-26",
+  //   category: "Conseil interministériel",
+  //   image:
+  //     "/images/actualites/conseil-interministeriel-sur-la-campagne-de-commercialisation-agricole-2024.jpg",
+  // },
 ];
 </script>
 

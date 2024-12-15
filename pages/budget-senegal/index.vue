@@ -43,7 +43,10 @@ const keyPoints = [
 ];
 
 const sources = [
-  { title: "Loi de finances 2024", url: "2024-lois-de-finances-2023-18" },
+  {
+    title: "Loi de finances 2024",
+    url: "/pdf/budget/2024-lois-de-finances-2023-18.pdf",
+  },
   {
     title: "Annexe la Loi de finances 2024",
     url: "/pdf/budget/2024-loi-de-finances-annexes.pdf",

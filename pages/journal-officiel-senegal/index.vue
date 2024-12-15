@@ -1,36 +1,30 @@
 <script setup lang="ts">
-// Configuration des métadonnées pour le SEO et le partage social
+// Types pour les journaux officiels
+interface JournalOfficiel {
+  _path: string;
+  title: string;
+  subtitle: string;
+  numero: string;
+  date: string;
+  description: string;
+}
+
+// Configuration SEO
 const seoTitle = "Journal officiel Sénégal";
 const seoDescription = "Journal officiel de la république du Sénégal";
 const seoImgPath = "/images/vpsn-share-jors-4.png";
 const seoPageUrl = "https://vie-publique.sn/journal-officiel-senegal/2024";
+
 useHead({
   title: seoTitle,
   meta: [
-    {
-      name: "description",
-      content: seoDescription,
-    },
-    // Twitter Card Meta Tags
-    {
-      name: "twitter:title",
-      content: seoTitle,
-    },
-    {
-      name: "twitter:description",
-      content: seoDescription,
-    },
+    { name: "description", content: seoDescription },
+    { name: "twitter:title", content: seoTitle },
+    { name: "twitter:description", content: seoDescription },
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:image", content: seoImgPath },
-    // Open Graph Meta Tags
-    {
-      property: "og:title",
-      content: seoTitle,
-    },
-    {
-      property: "og:description",
-      content: seoDescription,
-    },
+    { property: "og:title", content: seoTitle },
+    { property: "og:description", content: seoDescription },
     { property: "og:image", content: seoImgPath },
     { property: "og:url", content: seoPageUrl },
     { property: "og:type", content: "website" },
@@ -38,19 +32,40 @@ useHead({
 });
 
 const searchQuery = ref("");
+const currentView = ref<"grid" | "list">("list");
 
+// État pour le tri
+const sortOrder = ref<"asc" | "desc">("desc");
+const sortField = ref<"date" | "numero">("date");
+
+// Fetch des données
 const {
   data: journaux,
   pending,
   error,
-} = await useAsyncData(
+} = await useAsyncData<JournalOfficiel[]>(
   "journaux",
   () => queryContent("journal-officiel-senegal").find(),
   { server: true, lazy: false },
 );
 
+// Fonction de tri
+const sortJournals = (a: JournalOfficiel, b: JournalOfficiel) => {
+  if (sortField.value === "date") {
+    return sortOrder.value === "desc"
+      ? new Date(b.date).getTime() - new Date(a.date).getTime()
+      : new Date(a.date).getTime() - new Date(b.date).getTime();
+  } else {
+    return sortOrder.value === "desc"
+      ? b.numero.localeCompare(a.numero)
+      : a.numero.localeCompare(b.numero);
+  }
+};
+
+// Filtrage et tri des journaux
 const filteredJournals = computed(() => {
   if (!journaux.value) return [];
+
   return journaux.value
     .filter(
       (journal) =>
@@ -64,61 +79,178 @@ const filteredJournals = computed(() => {
           ?.toLowerCase()
           .includes(searchQuery.value.toLowerCase()),
     )
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    .sort(sortJournals);
 });
+
+// Format de la date
+const formatDate = (date: string) => {
+  return new Date(date).toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+};
 </script>
 
 <template>
   <div class="container mx-auto px-4">
-    <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">Journal Officiel</h1>
-    </div>
-    <div class="text-center text-sm text-gray-500">
-      <p>{{ filteredJournals.length }} Journaux référencés</p>
-      <p>
-        💡 Travail de numérisation en cours, Retrouvez ici bientôt l'historique
-        complète des JO publiés en 2024
-      </p>
+    <!-- En-tête -->
+    <div class="prose prose-sm sm:prose mx-auto my-4">
+      <h1 class="text-center">Journal Officiel du Sénégal</h1>
     </div>
 
-    <UInput
-      v-model="searchQuery"
-      size="md"
-      placeholder="Rechercher par numéro ou date"
-      icon="i-heroicons-magnifying-glass"
-      class="input custom-shadow my-4 w-full"
+    <!-- Barre d'outils -->
+    <div class="mb-6 space-y-2">
+      <!-- Statistiques et info -->
+      <div class="text-center">
+        <UBadge size="sm" color="gray" class="custom-shadow">
+          {{ filteredJournals.length }} Journaux référencés
+        </UBadge>
+        <p class="mt-2 text-sm text-gray-500">
+          💡 Travail de numérisation en cours, retrouvez ici bientôt
+          l'historique complet des JO publiés en 2024
+        </p>
+      </div>
+
+      <!-- Contrôles -->
+      <div
+        class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+      >
+        <UInput
+          v-model="searchQuery"
+          size="lg"
+          placeholder="Rechercher par numéro, date ou contenu..."
+          icon="i-heroicons-magnifying-glass"
+          class="custom-shadow sm:w-full"
+        />
+
+        <!-- <div class="flex items-center gap-4">
+          <USelect
+            v-model="sortField"
+            :options="[
+              { label: 'Date', value: 'date' },
+              { label: 'Numéro', value: 'numero' },
+            ]"
+            size="sm"
+          />
+
+          <UButton
+            :icon="
+              sortOrder === 'desc'
+                ? 'i-heroicons-arrow-down'
+                : 'i-heroicons-arrow-up'
+            "
+            color="gray"
+            variant="ghost"
+            @click="sortOrder = sortOrder === 'desc' ? 'asc' : 'desc'"
+          />
+
+          <UButtonGroup size="sm">
+            <UButton
+              :color="currentView === 'grid' ? 'primary' : 'gray'"
+              :variant="currentView === 'grid' ? 'soft' : 'ghost'"
+              icon="i-heroicons-squares-2x2"
+              @click="currentView = 'grid'"
+            />
+            <UButton
+              :color="currentView === 'list' ? 'primary' : 'gray'"
+              :variant="currentView === 'list' ? 'soft' : 'ghost'"
+              icon="i-heroicons-bars-3"
+              @click="currentView = 'list'"
+            />
+          </UButtonGroup>
+        </div> -->
+      </div>
+    </div>
+
+    <!-- Loading et Error states -->
+    <UCard v-if="pending" class="p-8 text-center">
+      <ULoadingBar />
+      <p class="mt-4">Chargement des journaux officiels...</p>
+    </UCard>
+
+    <UAlert
+      v-else-if="error"
+      title="Erreur"
+      description="Une erreur s'est produite lors du chargement des journaux."
+      color="red"
+      icon="i-heroicons-exclamation-triangle"
     />
 
-    <div v-if="pending">Chargement...</div>
+    <!-- Résultats vides -->
+    <UAlert
+      v-else-if="filteredJournals.length === 0"
+      title="Aucun résultat"
+      description="Aucun journal officiel ne correspond à votre recherche."
+      color="gray"
+      icon="i-heroicons-inbox"
+    />
 
-    <div v-else-if="error">
-      Une erreur s'est produite lors du chargement des journaux.
-    </div>
-
-    <div v-else>
-      <div
-        v-if="filteredJournals.length === 0"
-        class="mt-4 flex flex-col items-center text-center text-gray-500"
+    <!-- Liste des journaux -->
+    <div
+      v-else
+      :class="{
+        'grid gap-6 sm:grid-cols-2 lg:grid-cols-3': currentView === 'grid',
+        'space-y-4': currentView === 'list',
+      }"
+    >
+      <UCard
+        v-for="journal in filteredJournals"
+        :key="journal._path"
+        :ui="{
+          body: { padding: currentView === 'grid' ? 'sm:p-6' : 'sm:p-4' },
+        }"
+        class="rounded-none transition-shadow duration-200 hover:shadow-lg"
       >
-        <UIcon
-          name="i-heroicons-exclamation-circle"
-          class="mb-2 h-12 w-12 text-sm"
-        />
-        <p>Aucun résultat disponible</p>
-      </div>
-      <div v-else class="flex flex-col gap-2">
-        <UCard
-          v-for="journal in filteredJournals"
-          :key="journal._path"
-          class="custom-shadow cursor-pointer"
-        >
-          <NuxtLink :to="journal._path">
-            <p class="font-semibold underline">{{ journal.title }}</p>
+        <NuxtLink :to="journal._path" class="block">
+          <!-- Aperçu PDF (à implémenter) -->
+          <div
+            v-if="currentView === 'grid'"
+            class="mb-4 aspect-[3/4] overflow-hidden rounded-lg bg-gray-100"
+          >
+            <img
+              :src="`/api/pdf-preview/pdf/jors/JO-${journal.numero}.pdf/1`"
+              :alt="`Aperçu JO ${journal.numero}`"
+              class="h-full w-full object-cover"
+            />
+          </div>
 
-            <p class="mt-1 text-sm text-gray-500">{{ journal.subtitle }}</p>
-          </NuxtLink>
-        </UCard>
-      </div>
+          <div :class="{ 'flex gap-4': currentView === 'list' }">
+            <div
+              v-if="currentView === 'list'"
+              class="w-24 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100"
+            >
+              <img
+                :src="`/images/default-journal-officiel.webp`"
+                :alt="`Aperçu JO ${journal.numero}`"
+                class="h-full w-full object-cover"
+                loading="lazy"
+                fetchpriority="high"
+              />
+            </div>
+
+            <div>
+              <div class="flex items-start justify-between gap-4">
+                <h3 class="text-primary font-semibold">{{ journal.title }}</h3>
+                <!-- <UBadge color="gray" size="sm">N° {{ journal.numero }}</UBadge> -->
+              </div>
+
+              <p class="mt-2 text-sm text-gray-600">{{ journal.subtitle }}</p>
+
+              <div class="mt-3 flex items-center gap-2 text-sm text-gray-500">
+                <UIcon name="i-heroicons-calendar" />
+                <span>{{ formatDate(journal.date) }}</span>
+              </div>
+            </div>
+          </div>
+        </NuxtLink>
+      </UCard>
     </div>
   </div>
 </template>
+
+<style scoped>
+.hover\:shadow-lg {
+  transition: box-shadow 0.2s ease-in-out;
+}
+</style>

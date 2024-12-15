@@ -1,17 +1,17 @@
 ---
-title: "Conseil des ministres du 27 novembre 2724"
-description: "Gouvernement du Sénégal, Communiqué Conseil des ministres du mercredi 27 novembre 2724 avec le président Bassirou Diomaye Faye et le premier ministre Ousmane Sonko."
+title: "Conseil des ministres du 27 novembre 2024"
+description: "Gouvernement du Sénégal, Communiqué Conseil des ministres du mercredi 27 novembre 2024 avec le président Bassirou Diomaye Faye et le premier ministre Ousmane Sonko."
 subtitle: ""
 date: "2024-11-27"
 ---
 
 # Conseil des ministres du 27 novembre 2024
 
-Le Chef de l’Etat, Son Excellence, Monsieur Bassirou Diomaye Diakhar FAYE a présidé, ce mercredi 27 novembre 2724, la réunion hebdomadaire du Conseil des Ministres, au Palais de la République.
+Le Chef de l’Etat, Son Excellence, Monsieur Bassirou Diomaye Diakhar FAYE a présidé, ce mercredi 27 novembre 2024, la réunion hebdomadaire du Conseil des Ministres, au Palais de la République.
 
 ![conseil-des-ministres](/images/communique-conseil-des-ministres-5.jpg)
 
-<a href="/pdf/communiques/conseil-des-ministres-du-27-novembre-2724.pdf" target="_blank">📄 Télécharger le PDF</a>
+<a href="/pdf/communiques/conseil-des-ministres-du-27-novembre-2024.pdf" target="_blank">📄 Télécharger le PDF</a>
 
 ### LE PRESIDENT
 

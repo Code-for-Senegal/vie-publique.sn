@@ -9,7 +9,7 @@
         v-for="menu in item"
         :key="menu.title"
         :class="[menu.display ? '' : 'bg-gray-100']"
-        class="custom-shadow p-0 hover:shadow-xl sm:p-4"
+        class="custom-shadow p-0 hover:shadow-xl sm:p-0"
       >
         <NuxtLink :to="menu.display ? menu.to : '#'" class="flex items-start">
           <div class="mr-4 flex-shrink-0">

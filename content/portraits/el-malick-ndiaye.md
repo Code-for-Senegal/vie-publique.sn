@@ -5,22 +5,11 @@ description: Ministre des Infrastructures, des Transports terrestres et aériens
 
 # Malick NDIAYE
 
-**_Ministre des Infrastructures, des Transports terrestres et aériens_**
+**Président de l'assemblée nationale du Sénégal**
 
-<img src="/gouvernement/ministre-malick-ndiaye.jfif" alt="ministre Malick NDIAYE" width="300" fetchpriority="high">
+<img src="/gouvernement/ministre-malick-ndiaye.jpg" alt="ministre Malick NDIAYE" width="300" fetchpriority="high">
 
-# Malick NDIAYE (El Malick)
-
-**Ministre des Infrastructures et des Transports terrestres et aériens**
-
-### Informations personnelles
-
-- Né en 1983 à Dahra Djolof
-- Connu sous le nom de El Malick
-
-### Nomination ministérielle
-
-- Nommé Ministre des Infrastructures et des Transports terrestres et aériens en avril 2024 dans le gouvernement d'Ousmane SONKO
+Malick Nidaye, plus connue sous le nom El Malick, 42 ans, né en 24 Juillet 1982 à Dahra Djolof
 
 ### Formation
 
@@ -42,17 +31,20 @@ description: Ministre des Infrastructures, des Transports terrestres et aériens
   - Intermodal Back Office Supervisor (nov. 2009 - mars 2012)
   - Customer Service Representative (déc. 2008 - oct. 2009)
 
-### Expertise
-
-- Management
-- Commerce international
-- Transport et logistique
-- Opérations portuaires
-
 ### Carrière politique
 
-- Secrétaire national à la communication de Pastef-Les Patriotes
 - Engagement politique depuis les années 2000
+
 - A soutenu des leaders de gauche comme Moustapha NIASS, Abdoulaye Bathily, Landing Savané
+
 - Engagé auprès du professeur Ibrahima FALL (Taxaw Tem) en 2011
-- A rejoint le parti Pastef en 2015-2016
+
+- 2015 - Adhésion au parti Pastef les Patriotes
+
+- Secrétaire national à la communication de Pastef-Les Patriotes
+
+- 02 Avril 2024: nommé Ministre des Infrastructures et des Transports terrestres et aériens
+
+- 17 Novembre 2024: élu député sur la liste départementale PASTEF Linguère
+
+- 02 Décembre 2024: élu 13ème président de l'assemblée nationale du Sénégal

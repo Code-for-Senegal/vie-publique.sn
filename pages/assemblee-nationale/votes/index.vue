@@ -1,0 +1,112 @@
+<!-- pages/assemblee-nationale/votes/index.vue -->
+<template>
+  <div class="min-h-screen">
+    <UContainer>
+      <UBreadcrumb
+        class="mt-2"
+        :links="[
+          { label: 'Accueil', to: '/' },
+          { label: 'Assemblée', to: '/assemblee-nationale' },
+          { label: 'votes' },
+        ]"
+      />
+      <!-- En-tête avec titre et description -->
+      <div class="mb-8">
+        <h1 class="mb-4 text-4xl font-bold text-gray-900">
+          Les votes décryptés par Vie Publique
+        </h1>
+        <div class="prose max-w-3xl text-sm text-gray-600">
+          <p>
+            L'équipe de Vie-Publique décrypte pour vous les votes de la
+            législature en cours.
+          </p>
+          <p>
+            Tous ces votes décryptés font l'objet d'une reformulation et d'une
+            contextualisation, afin de les rendre plus accessibles et plus
+            compréhensibles.
+          </p>
+        </div>
+      </div>
+
+      <!-- Loading state -->
+      <template v-if="loading && !votes.length">
+        <div class="space-y-4">
+          <USkeleton v-for="i in 3" :key="i" class="h-64" />
+        </div>
+      </template>
+
+      <!-- Error State -->
+      <UAlert
+        v-if="error"
+        icon="i-heroicons-exclamation-triangle"
+        color="red"
+        variant="soft"
+        class="mb-4"
+      >
+        {{ error }}
+      </UAlert>
+
+      <!-- Liste des votes -->
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <ULink
+          v-for="vote in votes"
+          :key="vote.id"
+          :to="`/assemblee-nationale/votes/${vote.id}`"
+          class="transition-shadow hover:shadow-md"
+        >
+          <UCard
+            class="h-full rounded-none p-0 transition-shadow hover:shadow-md"
+          >
+            <div class="flex h-full flex-col p-0">
+              <!-- Header: Date et Status -->
+              <div class="mb-6 flex items-center justify-between">
+                <span class="text-sm text-gray-500">
+                  {{ formatDate(vote.date) }}
+                </span>
+                <UBadge
+                  :color="vote.status === 'adopted' ? 'emerald' : 'red'"
+                  class="font-medium uppercase"
+                >
+                  {{ vote.status === "adopted" ? "Adopté" : "Rejeté" }}
+                </UBadge>
+              </div>
+
+              <!-- Titre -->
+              <h2 class="mb-auto text-lg font-medium text-gray-900">
+                {{ vote.name }}
+              </h2>
+
+              <!-- Tag catégorie -->
+              <div class="mt-6">
+                <UBadge
+                  color="emerald"
+                  variant="soft"
+                  size="lg"
+                  class="font-medium"
+                >
+                  {{ vote.type }}
+                </UBadge>
+              </div>
+            </div>
+          </UCard>
+        </ULink>
+      </div>
+    </UContainer>
+  </div>
+</template>
+
+<script setup lang="ts">
+const { fetchAssemblyVotes, votes, loading, error } = useAssemblyVotes();
+
+onMounted(() => {
+  fetchAssemblyVotes();
+});
+
+const formatDate = (date: string) => {
+  return new Date(date).toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+};
+</script>

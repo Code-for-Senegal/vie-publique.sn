@@ -5,6 +5,8 @@ description: "Informations sur le site vie-publique.sn, initiative citoyenne dé
 
 # À Propos
 
+<p class="text-sm text-gray-600">Dernière modification 02 décembre 2024</p>
+
 ### Projet Citoyen, Ouvert et Open Source
 
 Vie-publique.sn est plateforme citoyenne dédiée à la promotion de la transparence et de l'accessibilité à l'information publique au Sénégal.
@@ -44,7 +46,7 @@ Nous sommes ouverts à toutes les formes de collaboration qui peuvent enrichir c
 
 - Projet débuté le 1er mai 2024
 
-- Assemblé générale : Sept 2024
+- Assemblée générale : Sept 2024
 
 - Forme juridique : Association
 
@@ -52,17 +54,19 @@ Nous sommes ouverts à toutes les formes de collaboration qui peuvent enrichir c
 
   - **Malick Yacine DIOP**, Ingénieur IT et entrepreneur
 
-  - **Momar Assane DIOUF** Entrepreneur agro-industriel
+  - **Momar Assane DIOUF** Entrepreneur Agro-industriel
 
   - **Papa Djigane CISSE**, Head of Business Development & Supply Chain
 
-  - **Mamadou Diagne**, Expert IT et entrepreneur
+  - **Mohamadou Manel Fall**, Public Management
 
-  - **Modou Fall**, Expert industrialisation et entrepreneur
+  - **Mamadou Diagne**, Expert IT
+
+  - **Modou Fall**, Expert industrialisation
 
   - **Cherif Hassana**, Journaliste ITV
 
-  - **Ousmane Barry**, Ingénieur en Intelligence artificielle et entrepreneur
+  - **Ousmane Barry**, Ingénieur en Intelligence artificielle
 
   - **George Lamine DIOP**, Expert Marketing Digital
 

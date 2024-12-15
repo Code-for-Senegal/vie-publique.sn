@@ -63,8 +63,6 @@ watch(selectedOrganisme, () => {
 
 <template>
   <div class="flex flex-col items-center px-4">
-    <!-- <Submenu /> -->
-
     <h1 class="sr-only">
       Rapports d'audits publics Sénégal OFNAC Cours des comptes IGE CENTIF
     </h1>

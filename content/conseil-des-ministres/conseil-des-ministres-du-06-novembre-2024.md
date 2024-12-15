@@ -3,6 +3,7 @@ title: "Conseil des ministres du 06 novembre 2024"
 description: "Gouvernement du Sénégal, Communiqué Conseil des ministres du mercredi 06 novembre 2024 avec le président Bassirou Diomaye Faye et le premier ministre Ousmane Sonko."
 subtitle: ""
 date: "2024-11-06"
+images: "/images/conseil-des-ministres-du-06-novembre-2024.png"
 ---
 
 # Conseil des ministres du 06 novembre 2024

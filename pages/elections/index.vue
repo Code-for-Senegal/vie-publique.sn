@@ -40,9 +40,9 @@ useHead({
 const electionCategories = [
   {
     display: true,
-    title: "Les députés élus",
+    title: "Annuaire des députés",
     shortTitle: "Députés élus",
-    description: "Découvrez les visages de l'assemblée",
+    description: "Les députés élus",
     icon: "i-heroicons-user",
     to: "/elections/legislatives/resultats/deputes",
     color: "bg-emerald-100 text-emerald-500 border border-emerald-50",
@@ -53,12 +53,12 @@ const electionCategories = [
     shortTitle: "Classement listes",
     description: "Pourcentages et voix obtenus",
     icon: "i-heroicons-chart-bar-square",
-    to: "/elections/legislatives/resultats",
+    to: "/elections/legislatives/resultats/classement",
     color: "bg-red-100 text-red-500 border border-red-50",
   },
   {
     display: true,
-    title: "Résultats",
+    title: "Répartition hémyciycle",
     shortTitle: "Résultats",
     description: "Répartition des sièges par coalition",
     icon: "i-heroicons-star",
@@ -114,8 +114,16 @@ const electionCategories = [
 </script>
 
 <template>
-  <LayoutSubcategoryComponent
-    :item="electionCategories"
-    :title="`Élections Législatives 2024`"
-  />
+  <div>
+    <!-- <div class="mb-6 mt-2 grid grid-cols-1 gap-4 md:grid-cols-2"> -->
+    <!-- <ElectionMenuSieges /> -->
+    <!-- <ElectionMenuDepute /> -->
+    <!-- <ElectionMenuClassement /> -->
+    <!-- <ElectionMenuInfo /> -->
+    <!-- </div> -->
+    <LayoutSubcategoryComponent
+      :item="electionCategories"
+      :title="`Élections Législatives 2024`"
+    />
+  </div>
 </template>

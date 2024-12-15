@@ -1,0 +1,184 @@
+<script setup lang="ts">
+const route = useRoute();
+const config = useRuntimeConfig();
+const { commission, loading, error, fetchAssemblyCommissionById } =
+  useAssemblyCommissions();
+
+onMounted(async () => {
+  console.log("onMounted");
+  if (route.params.id) {
+    await fetchAssemblyCommissionById(route.params.id as string);
+  }
+});
+
+// Function to get full image URL
+const getImageUrl = (imageId: string) => {
+  return `${config.public.cmsApiUrl}/assets/${imageId}`;
+};
+
+// Get bureau members IDs to filter them out from regular members
+const getBureauMembersIds = computed(() => {
+  console.log("getBureauMembersIds");
+  console.log(commission);
+  console.log(commission.value);
+  if (!commission.value) return [];
+  const ids = [];
+
+  if (commission.value.president?.id) ids.push(commission.value.president.id);
+  if (commission.value.vice_president?.id)
+    ids.push(commission.value.vice_president.id);
+  if (commission.value["1st_vice_president"]?.id)
+    ids.push(commission.value["1st_vice_president"].id);
+
+  return ids;
+});
+
+// Filter regular members (excluding bureau members)
+const regularMembers = computed(() => {
+  if (!commission.value?.members) return [];
+
+  return commission.value.members.filter(
+    (member) =>
+      !getBureauMembersIds.value.includes(member.assembly_deputy_id.id),
+  );
+});
+</script>
+
+<template>
+  <div class="container mx-auto px-4 py-8">
+    <div class="mx-auto max-w-6xl">
+      <!-- Bouton retour -->
+      <NuxtLink
+        to="/assemblee-nationale/commissions"
+        class="mb-2 inline-flex items-center text-gray-600 hover:text-gray-800"
+      >
+        <UIcon name="i-heroicons-arrow-left" class="mr-2 h-5 w-5" />
+        Retour à la liste
+      </NuxtLink>
+
+      <!-- Loading state -->
+      <div v-if="loading" class="flex justify-center py-8">
+        <UIcon name="i-heroicons-arrow-path" class="h-8 w-8 animate-spin" />
+      </div>
+
+      <!-- Error state -->
+      <div v-else-if="error" class="py-8 text-center text-red-500">
+        {{ error }}
+      </div>
+
+      <!-- Contenu de la commission -->
+      <div v-else-if="commission" class="space-y-8">
+        <!-- <pre>{{ commission }}</pre> -->
+        <!-- En-tête de la commission -->
+        <div class="rounded-lg bg-white p-6 shadow-sm">
+          <h1 class="mb-4 text-2xl font-bold md:text-3xl">
+            {{ commission.name }}
+          </h1>
+
+          <div class="prose prose-gray max-w-none">
+            <p class="text-gray-600">{{ commission.description }}</p>
+          </div>
+        </div>
+
+        <!-- Bureau de la commission -->
+        <div class="rounded-lg bg-white p-6 shadow-sm">
+          <h2 class="mb-6 text-xl font-bold">Bureau de la commission</h2>
+
+          <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <!-- Président -->
+            <div
+              v-if="commission.president"
+              class="flex items-center space-x-4"
+            >
+              <img
+                :src="getImageUrl(commission.president.photo)"
+                :alt="commission.president.first_name"
+                class="h-16 w-16 rounded-full object-cover"
+              />
+              <div>
+                <div class="font-medium">
+                  {{ commission.president.first_name }}
+                  {{ commission.president.last_name }}
+                </div>
+                <div class="text-sm text-gray-500">Président(e)</div>
+              </div>
+            </div>
+
+            <!-- 1er Vice-président -->
+            <div
+              v-if="commission['1st_vice_president']"
+              class="flex items-center space-x-4"
+            >
+              <img
+                :src="getImageUrl(commission['1st_vice_president'].photo)"
+                :alt="commission['1st_vice_president'].first_name"
+                class="h-16 w-16 rounded-full object-cover"
+              />
+              <div>
+                <div class="font-medium">
+                  {{ commission["1st_vice_president"].first_name }}
+                  {{ commission["1st_vice_president"].last_name }}
+                </div>
+                <div class="text-sm text-gray-500">1er Vice-président(e)</div>
+              </div>
+            </div>
+
+            <!-- Vice-président -->
+            <div
+              v-if="commission.vice_president"
+              class="flex items-center space-x-4"
+            >
+              <img
+                :src="getImageUrl(commission.vice_president.photo)"
+                :alt="commission.vice_president.first_name"
+                class="h-16 w-16 rounded-full object-cover"
+              />
+              <div>
+                <div class="font-medium">
+                  {{ commission.vice_president.first_name }}
+                  {{ commission.vice_president.last_name }}
+                </div>
+                <div class="text-sm text-gray-500">Vice-président(e)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Membres de la commission -->
+        <div class="rounded-lg bg-white p-6 shadow-sm">
+          <h2 class="mb-6 text-xl font-bold">Membres de la commission</h2>
+
+          <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+            <div
+              v-for="member in regularMembers"
+              :key="member.assembly_deputy_id.id"
+              class="flex flex-col items-center space-y-2 text-center"
+            >
+              <img
+                :src="getImageUrl(member.assembly_deputy_id.photo)"
+                :alt="member.assembly_deputy_id.first_name"
+                class="h-24 w-24 rounded-full object-cover"
+              />
+              <div>
+                <div class="font-medium">
+                  {{ member.assembly_deputy_id.first_name }}
+                </div>
+                <div class="font-medium">
+                  {{ member.assembly_deputy_id.last_name }}
+                </div>
+                <div class="text-sm text-gray-500">
+                  {{ member.assembly_deputy_id.profession }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Not found state -->
+      <div v-else class="py-8 text-center text-gray-500">
+        Commission non trouvée
+      </div>
+    </div>
+  </div>
+</template>

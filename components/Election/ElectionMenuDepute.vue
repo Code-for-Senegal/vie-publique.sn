@@ -12,10 +12,12 @@
 
     <!-- Contenu du bloc -->
     <div class="relative z-10 p-6 px-4 text-center text-white">
-      <NuxtLink to="/deputes">
-        <h2 class="mb-2 text-2xl font-extrabold md:text-3xl">Députés élus</h2>
+      <NuxtLink to="/elections/legislatives/resultats/deputes">
+        <h2 class="mb-2 text-2xl font-extrabold md:text-3xl">
+          Annuaire Députés
+        </h2>
         <p class="mb-2 text-sm font-medium leading-relaxed md:text-base">
-          Découvrez la nouvelle assemblée
+          Découvrez les députés élus
         </p>
       </NuxtLink>
     </div>

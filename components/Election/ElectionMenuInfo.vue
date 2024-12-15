@@ -17,7 +17,7 @@
           Législatives 2024
         </h2>
         <p class="mb-2 text-sm font-medium leading-relaxed md:text-base">
-          Informations essentielles pour les élections du 17 Novembre.
+          élections anticipées du 17 Novembre.
         </p>
       </NuxtLink>
     </div>

@@ -1066,5 +1066,17 @@
     "date_publication": "2012-31-01",
     "url_pdf": "/pdf/rapport-senegal/CC_2012.pdf",
     "sous_titre": "Rapport Public général Annuel 2012"
+  },
+  {
+    "resume_disponible": true,
+    "slug": "centif-2023",
+    "id": 86,
+    "titre": "CENTIF Rapport d'activité 2023",
+    "organisme": "CENTIF",
+    "annee": 2023,
+    "period": "2023",
+    "date_publication": "2024-11-14",
+    "url_pdf": "/pdf/rapport-senegal/centif-2023.pdf",
+    "sous_titre": "Cellule Nationale de Traitement des Informations Financières 2023"
   }
 ]

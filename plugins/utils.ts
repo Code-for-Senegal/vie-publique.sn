@@ -69,6 +69,16 @@ export default defineNuxtPlugin(() => {
         }
         return age;
       },
+      // Fonction pour convertir le nom en slug URL-friendly
+      getSlugifyUrlPath: (text: string) => {
+        return text
+          .toString()
+          .toLowerCase()
+          .trim()
+          .replace(/\s+/g, "-") // Remplace les espaces par des tirets
+          .replace(/[^\w\-]+/g, "") // Supprime les caractères spéciaux
+          .replace(/\-\-+/g, "-"); // Évite les tirets multiples
+      },
     },
   };
 });

@@ -4,10 +4,17 @@
 /* background-color: #f0efea; */
 /* } */
 
+/* assets/css/main.css */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
 .custom-shadow,
 .custom-shadow input,
 .custom-shadow button,
 .custom-shadow select {
   box-shadow: 0 2px 4px #0000001a;
   border-radius: 0px;
+}
+
+.bloc-result {
+  background: linear-gradient(to bottom, #000000 50%, #3533cd 50%);
 }
