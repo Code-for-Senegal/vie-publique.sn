@@ -72,7 +72,7 @@ export default defineNuxtConfig({
       titleTemplate: "%s | Vie-Publique.sn",
       title: "l'information publique au Sénégal | Vie-Publique.sn",
       charset: "utf-8",
-      viewport: "width=device-width, initial-scale=1",
+      viewport: "width=device-width, initial-scale=1, maximum-scale=1",
       meta: [
         {
           name: "keywords",

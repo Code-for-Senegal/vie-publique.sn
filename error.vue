@@ -36,22 +36,25 @@ const links = [
 
 <template>
   <UContainer class="py-8">
-    <section
-      class="mx-auto flex max-w-4xl flex-col items-center space-y-6 py-32 text-center"
-    >
-      <div v-if="error?.statusCode == 404" class="space-y-6">
-        <h1 class="text-4xl font-bold sm:text-7xl">404</h1>
-        <div class="ml-2 font-semibold">Page non trouvée</div>
-        <p class="text-xl text-gray-500">
-          Le contenu auquel vous tentez d'accéder n'existe pas ou n'est plus
-          disponible.
-        </p>
-      </div>
-      <div v-else class="space-y-6">
-        Erreur système temporaire, ne vous ennuyez pas, nous allons la corriger.
-      </div>
-      <UButton color="black" @click="handleError">Retour à l'accueil</UButton>
-      <HomeMenu :menus="links" />
-    </section>
+    <NuxtLayout>
+      <section
+        class="mx-auto flex max-w-4xl flex-col items-center space-y-6 py-32 text-center"
+      >
+        <div v-if="error?.statusCode == 404" class="space-y-6">
+          <h1 class="text-4xl font-bold sm:text-7xl">404</h1>
+          <div class="ml-2 font-semibold">Page non trouvée</div>
+          <p class="text-xl text-gray-500">
+            Le contenu auquel vous tentez d'accéder n'existe pas ou n'est plus
+            disponible.
+          </p>
+        </div>
+        <div v-else class="space-y-6">
+          Erreur système temporaire, ne vous ennuyez pas, nous allons la
+          corriger.
+        </div>
+        <UButton color="black" @click="handleError">Retour à l'accueil</UButton>
+        <HomeMenu :menus="links" />
+      </section>
+    </NuxtLayout>
   </UContainer>
 </template>

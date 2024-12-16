@@ -87,6 +87,15 @@ onMounted(() => {
     });
   }
 });
+defineShortcuts({
+  escape: () => navigateTo("/"),
+  "/": () => navigateTo("/"),
+  meta_k: () => navigateTo("/"),
+  a: () => navigateTo("/annuaires"),
+  b: () => navigateTo("/budget-senegal"),
+  c: () => navigateTo("/conseil-des-ministres"),
+  d: () => navigateTo("/documents"),
+});
 </script>
 
 <template>
