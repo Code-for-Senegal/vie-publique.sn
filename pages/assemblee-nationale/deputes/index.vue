@@ -1,16 +1,23 @@
 <!-- pages/deputies.vue -->
 <template>
   <div>
-    <UBreadcrumb
+    <!-- <UBreadcrumb
       class="mt-2"
       :links="[
         { label: 'Accueil', to: '/' },
         { label: '15e législature', to: '/assemblee-nationale' },
         { label: 'Députés' },
       ]"
+    /> -->
+    <UButton
+      icon="i-heroicons-arrow-left"
+      variant="ghost"
+      label="Retour à la liste"
+      color="gray"
+      @click.native="router.back()"
     />
 
-    <div class="py-2">
+    <div class="">
       <div class="container">
         <div class="prose prose-sm sm:prose my-2">
           <h1 class="">Annuaire des députés</h1>
@@ -22,13 +29,9 @@
       </div>
     </div>
     <!-- Informations sur l'Assemblée nationale -->
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col">
       <!-- <p v-html="legislature.description"></p> -->
-      <p class="text-sm">
-        L'Assemblée nationale du Sénégal compte 165 députés, élus pour un mandat
-        de 5 ans lors des élections législatives. Les dernières élections ont eu
-        lieu le 17 novembre 2024
-      </p>
+      <p class="text-sm text-gray-600">Les 165 députés de la 15e législature</p>
     </div>
 
     <ElectionResultDeputiesGrid2
@@ -41,18 +44,12 @@
 
 <script setup>
 import { useDeputev2 } from "@/composables/parliament/useDeputev2";
-
-// Récupération des données
-// const { legislature, fetchLegislature, loading, error } = useLegislature();
-// const deputies = ref([]);
+const router = useRouter();
 
 const { deputies, loading, error, fetchElectedDeputies } = useDeputev2();
 
-// Appeler fetchElectedDeputies dans onMounted
 onMounted(async () => {
   await fetchElectedDeputies();
-  // const legislatureData = legislature.value;
-  // deputies.value = legislatureData.deputies;
 });
 
 const seoTitle = "Députés Assemblée Nationale nationale";

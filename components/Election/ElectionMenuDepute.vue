@@ -12,7 +12,7 @@
 
     <!-- Contenu du bloc -->
     <div class="relative z-10 p-6 px-4 text-center text-white">
-      <NuxtLink to="/elections/legislatives/resultats/deputes">
+      <NuxtLink to="/assemblee-nationale/deputes">
         <h2 class="mb-2 text-2xl font-extrabold md:text-3xl">
           Annuaire Députés
         </h2>

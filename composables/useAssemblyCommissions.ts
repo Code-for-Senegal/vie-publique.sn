@@ -50,7 +50,7 @@ export const useAssemblyCommissions = () => {
     error.value = null;
 
     const fields =
-      "id,name,description,type,president.id,president.first_name,president.last_name,president.photo,members.assembly_deputy_id.id,members.assembly_deputy_id.gender,vice_president.id,vice_president.photo,vice_president.first_name,vice_president.last_name,members.assembly_deputy_id.first_name,members.assembly_deputy_id.last_name,members.assembly_deputy_id.profession,members.assembly_deputy_id.birthplace,members.assembly_deputy_id.birthdate,members.assembly_deputy_id.photo,group.name,group.color, 1st_vice_president.id,1st_vice_president.photo,1st_vice_president.first_name,1st_vice_president.last_name";
+      "id,name,description,type,president.id,president.first_name,president.last_name,president.photo,members.assembly_deputy_id.id,members.assembly_deputy_id.gender,vice_president.id,vice_president.photo,vice_president.first_name,vice_president.last_name,members.assembly_deputy_id.first_name,members.assembly_deputy_id.last_name,members.assembly_deputy_id.profession,members.assembly_deputy_id.birthplace,members.assembly_deputy_id.birthdate,members.assembly_deputy_id.photo,group.name,group.color, 1st_vice_president.*, 2nd_vice_president.*,secretary.*,reporter.*";
 
     try {
       const config = useRuntimeConfig();

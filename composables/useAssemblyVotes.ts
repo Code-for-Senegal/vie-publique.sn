@@ -11,12 +11,14 @@ export const useAssemblyVotes = () => {
 
     // const fields = "";
 
+    const videoSort = `sort=-date`;
+
     console.log("fetchAssemblyVotes " + useRuntimeConfig().public.cmsApiUrl);
 
     try {
       const config = useRuntimeConfig();
       const response = await fetch(
-        `${config.public.cmsApiUrl}/items/assembly_vote`,
+        `${config.public.cmsApiUrl}/items/assembly_vote?${videoSort}`,
         {
           headers: {
             Authorization: `Bearer ${config.public.cmsApiKey}`,

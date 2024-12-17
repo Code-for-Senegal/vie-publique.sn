@@ -94,7 +94,7 @@ MEMBRES
 
 ### 3 - Commission aménagement du territoire de l’urbanisme de l’habitat des infrastructures et des transports
 
-- PRESIDENT : Oumar SY 77 266 86 03
+- PRESIDENT : Oumar SY
 - 1er VICE-PRESIDENT : Mame Marème DARY
 - 2e VICE-PRESIDENT : Mame DIARRA BEYE
 - SECRETAIRE : Marième DIAMANKA
@@ -133,7 +133,7 @@ MEMBRES
 
 ### 4 - Commission Développement rural
 
-- PRESIDENT : Ibrahima MBODJ 77 519 32 43
+- PRESIDENT : Ibrahima MBODJ
 - 1er VICE-PRESIDENT: Bouly DOUCOURE
 - 2e VICE-PRESIDENT : Moussa MBAYE
 - SECRETAIRE : Mareme FALL
@@ -173,7 +173,7 @@ MEMBRES
 
 ### 5 - Commission développement durable et de la transition écologique
 
-- PRESIDENT Amy NDIAYE 77 555 13 46
+- PRESIDENT Amy NDIAYE
 - 1er VICE-PRESIDENT : Safietou Malick MBAYE
 - 2e VICE- PRESIDENT : Ousmane CISS
 - SECRETAIRE : Awa SY
@@ -329,7 +329,7 @@ MEMBRES
 
 ### 9 - COMMISSION DE LA DEFENSE ET DE LA SECURITE
 
-- PRESIDENT : Ibou GUEYE 77 713 21 33
+- PRESIDENT : Ibou GUEYE
 - 1er VICE-PRESIDENT : Amadou Lamine Diouf
 - 2e VICE-PRESIDENT : Anthia DIENG
 - SECRETAIRE : Ndack THIAM
@@ -365,7 +365,7 @@ MEMBRES
 
 ### 10 - COMMISSION DE L’EDUCATION, DE LA JEUNESSE, DES SPORTS ET DES LOISIRS
 
-- PRESIDENT : El Hadji GUEYE 77 366 11 64
+- PRESIDENT : El Hadji GUEYE
 - 1er VICE-PRESIDENT : Ismaila Mamadou Abdoul WONE
 - 2e VICE-PRESIDENT : Ndeye Marie SANE
 - SECRETAIRE : Saliou NDIONE
@@ -440,7 +440,7 @@ MEMBRES
 
 ### 12 - Commission de la Santé, de la Population, des Affaires Sociales et de la Solidarité Nationale
 
-- PRESIDENT : Khady SARR 77 656 65 06
+- PRESIDENT : Khady SARR
 - 1er VICE-PRESIDENT : Seynabou Yacine SAMB
 - 2e VICE-PRESIDENT : Awa SECK
 - SECRETAIRE : Cheikh FAYE
@@ -479,7 +479,7 @@ MEMBRES
 
 ### 13 - COMMISSION DE COMPTABILITE ET DE CONTROLE
 
-- PRESIDENT: Abdoulaye SOW 77 243 51 49
+- PRESIDENT: Abdoulaye SOW
 - VICE-PRESIDENT : Badara Diouf
 - SECRETAIRE: Holemata Bayo
 

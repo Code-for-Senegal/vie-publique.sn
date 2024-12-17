@@ -140,7 +140,7 @@ const filteredRows = computed(() => {
               icon="i-heroicons-arrow-left"
               to="'/elections/legislatives/carte-electorale'"
               variant="ghost"
-              @click="router.back()"
+              @click.native="router.back()"
             />
           </div>
 

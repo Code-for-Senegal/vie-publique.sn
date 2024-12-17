@@ -1,15 +1,23 @@
 <!-- pages/assemblee-nationale/votes/index.vue -->
 <template>
   <div class="min-h-screen">
+    <UButton
+      icon="i-heroicons-arrow-left"
+      variant="ghost"
+      label="15e législature"
+      color="gray"
+      @click.native="router.back()"
+    />
     <UContainer>
-      <UBreadcrumb
+      <!-- <UBreadcrumb
         class="mt-2"
         :links="[
           { label: 'Accueil', to: '/' },
-          { label: 'Assemblée', to: '/assemblee-nationale' },
+          { label: '15e législature', to: '/assemblee-nationale' },
           { label: 'votes' },
         ]"
-      />
+      /> -->
+
       <!-- En-tête avec titre et description -->
       <div class="mb-8">
         <h1 class="mb-4 text-4xl font-bold text-gray-900">
@@ -18,12 +26,9 @@
         <div class="prose max-w-3xl text-sm text-gray-600">
           <p>
             L'équipe de Vie-Publique décrypte pour vous les votes de la
-            législature en cours.
-          </p>
-          <p>
-            Tous ces votes décryptés font l'objet d'une reformulation et d'une
-            contextualisation, afin de les rendre plus accessibles et plus
-            compréhensibles.
+            législature en cours. chaque vote fait l'objet d'une reformulation
+            et d'une contextualisation, afin de le rendre plus accessible et
+            plus compréhensible.
           </p>
         </div>
       </div>
@@ -59,10 +64,15 @@
           >
             <div class="flex h-full flex-col p-0">
               <!-- Header: Date et Status -->
-              <div class="mb-6 flex items-center justify-between">
-                <span class="text-sm text-gray-500">
-                  {{ formatDate(vote.date) }}
-                </span>
+              <div class="mb-4 flex items-center justify-between">
+                <UBadge
+                  color="green"
+                  variant="soft"
+                  size="lg"
+                  class="font-medium"
+                >
+                  {{ $getAssemblyVoteLabel(vote.type) }}
+                </UBadge>
                 <UBadge
                   :color="vote.status === 'adopted' ? 'emerald' : 'red'"
                   class="font-medium uppercase"
@@ -77,15 +87,10 @@
               </h2>
 
               <!-- Tag catégorie -->
-              <div class="mt-6">
-                <UBadge
-                  color="emerald"
-                  variant="soft"
-                  size="lg"
-                  class="font-medium"
-                >
-                  {{ vote.type }}
-                </UBadge>
+              <div>
+                <span class="text-sm text-gray-500">
+                  {{ formatDate(vote.date) }}
+                </span>
               </div>
             </div>
           </UCard>
@@ -97,6 +102,7 @@
 
 <script setup lang="ts">
 const { fetchAssemblyVotes, votes, loading, error } = useAssemblyVotes();
+const router = useRouter();
 
 onMounted(() => {
   fetchAssemblyVotes();
@@ -108,5 +114,13 @@ const formatDate = (date: string) => {
     month: "long",
     year: "numeric",
   });
+};
+
+const getBgColor = (voteType: string): string => {
+  const colors: Record<string, string> = {
+    government_bill: "yellow",
+    election: "indigo",
+  };
+  return colors[voteType];
 };
 </script>

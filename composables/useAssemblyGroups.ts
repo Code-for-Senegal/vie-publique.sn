@@ -12,7 +12,7 @@ export const useAssemblyGroups = () => {
     try {
       const config = useRuntimeConfig();
       const response = await fetch(
-        "https://cms.vie-publique.sn/items/assembly_group?limit=2000&fields=id,name,status,creation_date,logo,color,members,president.photo,president.first_name,president.last_name&filter[status]=active",
+        "https://cms.vie-publique.sn/items/assembly_group?limit=2000&fields=id,name,status,creation_date,logo,color,members,president.photo,president.first_name,president.last_name&filter[status]=active&deep[members][_filter][status]=active&deep[members][_limit]=165",
         {
           headers: {
             Authorization: `Bearer ${config.public.cmsApiKey}`,

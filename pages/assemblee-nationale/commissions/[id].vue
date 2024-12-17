@@ -1,5 +1,7 @@
 <script setup lang="ts">
 const route = useRoute();
+const router = useRouter();
+
 const config = useRuntimeConfig();
 const { commission, loading, error, fetchAssemblyCommissionById } =
   useAssemblyCommissions();
@@ -18,9 +20,6 @@ const getImageUrl = (imageId: string) => {
 
 // Get bureau members IDs to filter them out from regular members
 const getBureauMembersIds = computed(() => {
-  console.log("getBureauMembersIds");
-  console.log(commission);
-  console.log(commission.value);
   if (!commission.value) return [];
   const ids = [];
 
@@ -42,19 +41,36 @@ const regularMembers = computed(() => {
       !getBureauMembersIds.value.includes(member.assembly_deputy_id.id),
   );
 });
+
+const deputyUrl = computed((deputy: any) => {
+  const fullName = `${deputy.first_name}-${deputy.last_name}`
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+  return `/assemblee-nationale/deputes/${deputy.id}/${fullName}`;
+});
 </script>
 
 <template>
   <div class="container mx-auto px-4 py-8">
     <div class="mx-auto max-w-6xl">
       <!-- Bouton retour -->
-      <NuxtLink
+      <!-- <NuxtLink
         to="/assemblee-nationale/commissions"
         class="mb-2 inline-flex items-center text-gray-600 hover:text-gray-800"
       >
         <UIcon name="i-heroicons-arrow-left" class="mr-2 h-5 w-5" />
         Retour à la liste
-      </NuxtLink>
+      </NuxtLink> -->
+
+      <UButton
+        icon="i-heroicons-arrow-left"
+        variant="ghost"
+        label="Retour à la liste"
+        color="gray"
+        @click.native="router.back()"
+      />
 
       <!-- Loading state -->
       <div v-if="loading" class="flex justify-center py-8">
@@ -86,8 +102,10 @@ const regularMembers = computed(() => {
 
           <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             <!-- Président -->
-            <div
+
+            <NuxtLink
               v-if="commission.president"
+              :to="`/assemblee-nationale/deputes/${commission.president.id}/${$getSlugifyUrlPath(commission.president.first_name + '-' + commission.president.last_name)}`"
               class="flex items-center space-x-4"
             >
               <img
@@ -102,28 +120,8 @@ const regularMembers = computed(() => {
                 </div>
                 <div class="text-sm text-gray-500">Président(e)</div>
               </div>
-            </div>
+            </NuxtLink>
 
-            <!-- 1er Vice-président -->
-            <div
-              v-if="commission['1st_vice_president']"
-              class="flex items-center space-x-4"
-            >
-              <img
-                :src="getImageUrl(commission['1st_vice_president'].photo)"
-                :alt="commission['1st_vice_president'].first_name"
-                class="h-16 w-16 rounded-full object-cover"
-              />
-              <div>
-                <div class="font-medium">
-                  {{ commission["1st_vice_president"].first_name }}
-                  {{ commission["1st_vice_president"].last_name }}
-                </div>
-                <div class="text-sm text-gray-500">1er Vice-président(e)</div>
-              </div>
-            </div>
-
-            <!-- Vice-président -->
             <div
               v-if="commission.vice_president"
               class="flex items-center space-x-4"
@@ -141,6 +139,81 @@ const regularMembers = computed(() => {
                 <div class="text-sm text-gray-500">Vice-président(e)</div>
               </div>
             </div>
+
+            <!-- 1er Vice-président -->
+
+            <NuxtLink
+              v-if="commission['1st_vice_president']"
+              :to="`/assemblee-nationale/deputes/${commission['1st_vice_president'].id}/${$getSlugifyUrlPath(commission['1st_vice_president'].first_name + '-' + commission['1st_vice_president'].last_name)}`"
+              class="flex items-center space-x-4"
+            >
+              <img
+                :src="getImageUrl(commission['1st_vice_president'].photo)"
+                :alt="commission['1st_vice_president'].first_name"
+                class="h-16 w-16 rounded-full object-cover"
+              />
+              <div>
+                <div class="font-medium">
+                  {{ commission["1st_vice_president"].first_name }}
+                  {{ commission["1st_vice_president"].last_name }}
+                </div>
+                <div class="text-sm text-gray-500">1er Vice-président(e)</div>
+              </div>
+            </NuxtLink>
+
+            <NuxtLink
+              v-if="commission['2nd_vice_president']"
+              :to="`/assemblee-nationale/deputes/${commission['2nd_vice_president'].id}/${$getSlugifyUrlPath(commission['2nd_vice_president'].first_name + '-' + commission['2nd_vice_president'].last_name)}`"
+              class="flex items-center space-x-4"
+            >
+              <img
+                :src="getImageUrl(commission['2nd_vice_president'].photo)"
+                :alt="commission['2nd_vice_president'].first_name"
+                class="h-16 w-16 rounded-full object-cover"
+              />
+              <div>
+                <div class="font-medium">
+                  {{ commission["2nd_vice_president"].first_name }}
+                  {{ commission["2nd_vice_president"].last_name }}
+                </div>
+                <div class="text-sm text-gray-500">1er Vice-président(e)</div>
+              </div>
+            </NuxtLink>
+
+            <!-- Vice-secretary -->
+            <div
+              v-if="commission.secretary"
+              class="flex items-center space-x-4"
+            >
+              <img
+                :src="getImageUrl(commission.secretary.photo)"
+                :alt="commission.secretary.first_name"
+                class="h-16 w-16 rounded-full object-cover"
+              />
+              <div>
+                <div class="font-medium">
+                  {{ commission.secretary.first_name }}
+                  {{ commission.secretary.last_name }}
+                </div>
+                <div class="text-sm text-gray-500">Vice-président(e)</div>
+              </div>
+            </div>
+
+            <!-- reporter -->
+            <div v-if="commission.reporter" class="flex items-center space-x-4">
+              <img
+                :src="getImageUrl(commission.reporter.photo)"
+                :alt="commission.reporter.first_name"
+                class="h-16 w-16 rounded-full object-cover"
+              />
+              <div>
+                <div class="font-medium">
+                  {{ commission.reporter.first_name }}
+                  {{ commission.reporter.last_name }}
+                </div>
+                <div class="text-sm text-gray-500">Vice-président(e)</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -149,7 +222,12 @@ const regularMembers = computed(() => {
           <h2 class="mb-6 text-xl font-bold">Membres de la commission</h2>
 
           <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
-            <div
+            <AssemblyDeputyCard
+              v-for="deputy in regularMembers"
+              :key="deputy.assembly_deputy_id.id"
+              :deputy="deputy.assembly_deputy_id"
+            />
+            <!-- <div
               v-for="member in regularMembers"
               :key="member.assembly_deputy_id.id"
               class="flex flex-col items-center space-y-2 text-center"
@@ -170,7 +248,7 @@ const regularMembers = computed(() => {
                   {{ member.assembly_deputy_id.profession }}
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

@@ -44,7 +44,7 @@ const electionCategories = [
     shortTitle: "Députés élus",
     description: "Les députés élus",
     icon: "i-heroicons-user",
-    to: "/elections/legislatives/resultats/deputes",
+    to: "/assemblee-nationale/deputes",
     color: "bg-emerald-100 text-emerald-500 border border-emerald-50",
   },
   {

@@ -22,7 +22,7 @@ const menuCategories = [
     title: "Annuaire Députés",
     description: "les 165 députés élus",
     icon: "i-heroicons-user",
-    to: "/elections/legislatives/resultats/deputes",
+    to: "/assemblee-nationale/deputes",
     color: "bg-green-100 text-green-700",
   },
   {

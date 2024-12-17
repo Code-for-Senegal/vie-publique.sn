@@ -1,22 +1,33 @@
 <!-- pages/assemblee-nationale/groupes/[id]/[name].vue -->
 <template>
   <div>
-    <UBreadcrumb
-      class="mb-2 mt-2"
-      :links="[
-        { label: 'Accueil', to: '/' },
-        { label: '15e législature', to: '/assemblee-nationale' },
-        { label: 'Groupes' },
-      ]"
-    />
     <!-- Hero section -->
-    <div class="relative h-48 bg-gray-900">
+    <div class="relative h-40 bg-gray-900">
       <div class="absolute inset-0">
         <img
           src="/images/menu/assemblee-nationale-1.jpg"
           alt="Hémicycle de l'Assemblée nationale"
           class="h-full w-full object-cover opacity-50"
         />
+      </div>
+
+      <div class="absolute left-4 top-4">
+        <UBreadcrumb
+          class="mb-2 mt-2 text-white"
+          :links="[
+            { label: '15e législature', to: '/assemblee-nationale' },
+            { label: 'Groupes', to: '/assemblee-nationale/groupes' },
+          ]"
+        >
+          <template #divider>
+            <span class="h-0.5 w-2 rounded-full bg-white dark:bg-gray-700" />
+          </template>
+          <template #default="{ link, isActive, index }">
+            <div class="truncate text-white">
+              {{ link.label }}
+            </div>
+          </template>
+        </UBreadcrumb>
       </div>
     </div>
 
@@ -41,10 +52,10 @@
     </UContainer>
 
     <!-- Contenu principal -->
-    <UContainer v-else class="relative -mt-24">
-      <div class="flex flex-col gap-8 lg:flex-row">
+    <UContainer v-else class="relative -mt-24 px-2">
+      <div class="flex flex-col gap-2 lg:flex-row">
         <!-- Sidebar -->
-        <div class="lg:w-96">
+        <div class="lg:w-64">
           <div class="sticky top-8">
             <!-- Squelette pendant le chargement -->
             <div
@@ -71,7 +82,7 @@
 
             <!-- Contenu réel -->
             <div v-else class="overflow-hidden rounded-lg bg-white shadow-sm">
-              <div class="p-6">
+              <div class="p-2">
                 <div class="flex flex-col items-center">
                   <!-- Logo -->
                   <div class="mb-2 overflow-hidden rounded-lg bg-white">
@@ -112,8 +123,8 @@
                     <div class="flex flex-col text-sm">
                       <span class="text-gray-600">Président(e) </span>
                       <span class="truncate font-medium">
+                        {{ groupById?.president?.first_name }}
                         {{ groupById?.president?.last_name }}
-                        {{ groupById?.president?.first_name || "N/A" }}
                       </span>
                     </div>
                     <div
@@ -122,20 +133,20 @@
                     >
                       <span class="text-gray-600">Vice-président(e)</span>
                       <span class="truncate font-medium">
-                        {{ groupById?.vice_president?.last_name }}
                         {{ groupById.vice_president.first_name }}
+                        {{ groupById?.vice_president?.last_name }}
                       </span>
                     </div>
                   </div>
 
-                  <UButton
+                  <!-- <UButton
                     :to="`/assemblee-nationale/groupes/${groupById?.id}/membres`"
                     class="mt-6 w-full"
                     color="primary"
                     variant="soft"
                   >
                     Voir les {{ groupById?.members?.length }} membres
-                  </UButton>
+                  </UButton> -->
                 </div>
               </div>
 
@@ -165,17 +176,30 @@
           <!-- Contenu réel -->
           <div v-else class="rounded-lg bg-white shadow-sm">
             <div class="p-4">
-              <h2 class="text-normal mb-4 font-semibold">
+              <h2 class="text-normal mb-2 font-semibold">
                 Le groupe en quelques mots
               </h2>
               <p class="text-sm text-gray-700" v-if="groupById?.description">
                 {{ groupById?.description }}
               </p>
-              <p v-if="groupById?.president" class="mt-4 text-sm text-gray-700">
+              <p
+                v-if="groupById?.president"
+                class="mt-2 hidden text-sm text-gray-700"
+              >
                 Dirigé par {{ groupById.president.first_name }}
                 {{ groupById.president.last_name }}, à ce poste depuis
                 {{ formatDate(groupById.creation_date) }}.
               </p>
+            </div>
+
+            <div
+              class="grid grid-cols-2 gap-2 px-2 md:grid-cols-2 lg:grid-cols-3"
+            >
+              <AssemblyDeputyCard2
+                v-for="deputy in deputies"
+                :key="deputy.id"
+                :deputy="deputy"
+              />
             </div>
           </div>
         </div>
@@ -189,11 +213,16 @@ const route = useRoute();
 const { fetchAssemblyGroupById, groupById, loading, error } =
   useAssemblyGroups();
 
+import { useDeputev2 } from "@/composables/parliament/useDeputev2";
+
+const { deputies, fetchElectedDeputies } = useDeputev2();
+
 const groupId = route.params.id as string;
 
 // Chargement des données au montage
 onMounted(async () => {
   await fetchAssemblyGroupById(groupId);
+  await fetchElectedDeputies(groupId);
 });
 
 // Fonction de formatage de date

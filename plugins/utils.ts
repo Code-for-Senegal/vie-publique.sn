@@ -79,6 +79,15 @@ export default defineNuxtPlugin(() => {
           .replace(/[^\w\-]+/g, "") // Supprime les caractères spéciaux
           .replace(/\-\-+/g, "-"); // Évite les tirets multiples
       },
+      // Fonction pour convertir le nom en slug URL-friendly
+      getAssemblyVoteLabel: (text: string) => {
+        if (text === "government_bill") {
+          return "Projet de loi";
+        }
+        if (text === "election") {
+          return "Élection";
+        }
+      },
     },
   };
 });

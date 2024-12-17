@@ -1,19 +1,25 @@
 <template>
   <UContainer>
-    <UBreadcrumb
+    <!-- <UBreadcrumb
       class="mt-2"
       :links="[
         { label: 'Accueil', to: '/' },
         { label: 'Assemblée', to: '/assemblee-nationale' },
         { label: 'Groupes' },
       ]"
+    /> -->
+    <UButton
+      icon="i-heroicons-arrow-left"
+      variant="ghost"
+      label="Retour à la liste"
+      color="gray"
+      @click.native="router.back()"
     />
     <!-- En-tête -->
     <div class="mb-8">
-      <h1 class="mb-4 text-3xl font-bold">
-        Les groupes parlementaires
-        <!-- <span class="text-primary">{{ groups.length }}</span>  -->
-      </h1>
+      <div class="prose prose-sm sm:prose my-2">
+        <h1 class="">Les groupes parlementaires</h1>
+      </div>
       <p class="text-sm text-gray-600">
         Les groupes politiques rassemblent des députés selon leur affinité
         politique. Un groupe doit être composé au minimum de 16 députés.
@@ -54,6 +60,7 @@
 
 <script setup lang="ts">
 const { groups, loading, error, fetchAssemblyGroups } = useAssemblyGroups();
+const router = useRouter();
 
 onMounted(() => {
   fetchAssemblyGroups();

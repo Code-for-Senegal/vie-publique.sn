@@ -166,7 +166,7 @@ const municipalities = computed(() => {
       <UButton
         icon="i-heroicons-arrow-left"
         variant="ghost"
-        @click="router.back()"
+        @click.native="router.back()"
       />
       <h1 class="text-2xl font-bold">Département {{ department }}</h1>
     </div>

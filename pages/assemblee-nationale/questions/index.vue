@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const config = useRuntimeConfig();
 const { questions, loading, error } = useAssemblyQuestions();
+const router = useRouter();
 
 const getImageUrl = (imageId: string) => {
   return `${config.public.cmsApiUrl}/assets/${imageId}`;
@@ -17,16 +18,23 @@ const formatDate = (date: string) => {
 
 <template>
   <div class="container mx-auto px-4 py-4">
-    <UBreadcrumb
+    <!-- <UBreadcrumb
       class="mt-2"
       :links="[
         { label: 'Accueil', to: '/' },
         { label: '15e législature', to: '/assemblee-nationale' },
         { label: 'Questions' },
       ]"
+    /> -->
+    <UButton
+      icon="i-heroicons-arrow-left"
+      variant="ghost"
+      label="15e législature"
+      color="gray"
+      @click.native="router.back()"
     />
     <div class="mx-auto max-w-4xl">
-      <h1 class="mb-8 text-center text-2xl font-bold md:text-3xl">
+      <h1 class="mb-6 text-center text-2xl font-bold md:text-3xl">
         Questions à l'Assemblée
       </h1>
 

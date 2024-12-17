@@ -8,7 +8,7 @@ image: "/images/actualites/projet-loi-finance-initiale-2025.PNG"
 
 # Projet de loi de finances 2025
 
-<!-- 📅 Vendrei 13 Décembre 2024 -->
+<!-- 📅 Vendredi 13 Décembre 2024 -->
 
 <img src="/images/actualites/projet-loi-finance-initiale-2025.PNG" alt="LFI 2025" loading="lazy" fetchpriority="high" width="" hight="">
 
@@ -18,19 +18,27 @@ image: "/images/actualites/projet-loi-finance-initiale-2025.PNG"
 
 Chiffres clés du projet de loi de finances initiale 2025
 
-📈 Budget général : 6 395,1 milliards FCFA
+📈 Budget général :
 
-📉 𝗕𝘂𝗱𝗴𝗲𝘁 𝗴𝗹𝗼𝗯𝗮𝗹 (incluant les CST) : 6 614 milliards FCFA,
+- 6 395,1 milliards FCFA en 2025
+
+📉 𝗕𝘂𝗱𝗴𝗲𝘁 𝗴𝗹𝗼𝗯𝗮𝗹 (incluant les CST) :
+
+- 6 614 milliards FCFA en 2025
 
 - contre 7 003 milliards FCFA en 2024
 - Baisse de 389 milliards FCFA (-5,55 %)
 
-💰 𝗥𝗲𝗰𝗲𝘁𝘁𝗲𝘀 𝗳𝗶𝘀𝗰𝗮𝗹𝗲𝘀 𝗮𝘁𝘁𝗲𝗻𝗱𝘂𝗲𝘀 : 4 359 milliards FCFA
+💰 𝗥𝗲𝗰𝗲𝘁𝘁𝗲𝘀 𝗳𝗶𝘀𝗰𝗮𝗹𝗲𝘀 𝗮𝘁𝘁𝗲𝗻𝗱𝘂𝗲𝘀 :
+
+- 4 359 milliards FCFA en 2025
 
 - contre 4 180 milliards FCFA en 2024.
 - Progression de +180 milliards FCFA (+4,31 %).
 
-🛒 Acquisitions de biens et services : 415 milliards FCFA
+🛒 Acquisitions de biens et services :
+
+- 415 milliards FCFA en 2025
 
 - contre 428 milliards FCFA en 2024.
 - Baisse de -13 milliards FCFA (-3,04 %).
@@ -55,9 +63,10 @@ Chiffres clés du projet de loi de finances initiale 2025
 - 2025 : 25,01 milliards FCFA
 - Variation : -716,5 millions FCFA (-2,8%)
 
-📊 **Déficit budgétaire:** 7 % du PIB
+📊 **Déficit budgétaire:**
 
-avec une ambition de réduction à 3 % d’ici 2027.
+- 7 % du PIB
+- ambition de réduction à 3 % d’ici 2027.
 
 📈 **Croissance économique prévue:** : 8,8 %
 

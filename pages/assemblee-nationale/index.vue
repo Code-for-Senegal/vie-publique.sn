@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// import LayoutSubcategoryAssembly from "~/components/Layout/LayoutSubcategoryAssembly";
+
 const seoTitle =
   "Assemblée nationale du Sénégal - Activité parlementaire | Vie-Publique.sn";
 const seoDescription =
@@ -43,7 +45,28 @@ useHead({
   ],
 });
 
-const parliamentaryActivities = [
+const router = useRouter();
+
+const parliamentaryInfos = [
+  {
+    display: true,
+    title: "Les députés",
+    description: "Annuaire 15e législature",
+    icon: "i-heroicons-user",
+    to: "/assemblee-nationale/deputes",
+    color: "bg-emerald-100 text-emerald-500 border border-emerald-50",
+  },
+  {
+    display: true,
+    title: "Présentation",
+    description: "Annuaire 15e législature",
+    icon: "i-heroicons-user",
+    to: "/assemblee-nationale/deputes",
+    color: "bg-emerald-100 text-emerald-500 border border-emerald-50",
+  },
+];
+
+const parliamentaryOrganisation = [
   {
     display: true,
     title: "Les députés",
@@ -65,10 +88,21 @@ const parliamentaryActivities = [
     display: true,
     title: "Les commissions",
     description: "Travaux des commissions",
-    icon: "i-heroicons-document-text",
+    icon: "i-heroicons-clipboard-document-list",
     to: "/assemblee-nationale/commissions",
     color: "bg-emerald-100 text-emerald-500 border border-emerald-50",
   },
+  {
+    display: true,
+    title: "Le Bureau",
+    description: "Le président et son équipe",
+    icon: "i-heroicons-document-text",
+    to: "/assemblee-nationale/bureau",
+    color: "bg-emerald-100 text-emerald-500 border border-emerald-50",
+  },
+];
+
+const parliamentaryActivities = [
   {
     display: true,
     title: "Les votes",
@@ -85,22 +119,40 @@ const parliamentaryActivities = [
     to: "/assemblee-nationale/questions",
     color: "bg-emerald-100 text-emerald-500 border border-emerald-50",
   },
-  // {
-  //   display: false,
-  //   title: "Bureau de l'Assemblée",
-  //   description: "Travaux des commissions",
-  //   icon: "i-heroicons-document-text",
-  //   to: "/assemblee-nationale/commissions",
-  //   color: "bg-emerald-100 text-emerald-500 border border-emerald-50",
-  // },
 ];
 </script>
 
 <template>
   <div>
-    <LayoutSubcategoryComponent
-      :item="parliamentaryActivities"
-      title="Assemblée nationale du Sénégal"
-    />
+    <!-- Hero section avec image de fond -->
+    <div class="relative h-52 bg-gray-900">
+      <div class="absolute inset-0">
+        <img
+          src="/images/menu/assemblee-nationale-2.jpg"
+          alt="Hémicycle"
+          class="h-full w-full object-cover opacity-50"
+        />
+      </div>
+      <div class="absolute left-4 top-4">
+        <p class="font-bold uppercase text-white">Assemblée nationale</p>
+      </div>
+      <div class="absolute right-4 top-4">
+        <UBadge class="sm:text-lg" color="emerald"> 15e législature </UBadge>
+      </div>
+    </div>
+
+    <UContainer class="relative -mt-24">
+      <UCard class="mb-4 bg-white">
+        <LayoutSubcategoryAssembly
+          :item="parliamentaryOrganisation"
+          title="Organisation"
+        />
+
+        <LayoutSubcategoryAssembly
+          :item="parliamentaryActivities"
+          title="Vie de l'assemblée"
+        />
+      </UCard>
+    </UContainer>
   </div>
 </template>

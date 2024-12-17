@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { commissions, loading, error } = useAssemblyCommissions();
+const router = useRouter();
 
 const searchQuery = ref("");
 
@@ -13,18 +14,25 @@ const filteredCommissions = computed(() => {
 
 <template>
   <div class="container mx-auto px-2 py-4">
-    <UBreadcrumb
+    <!-- <UBreadcrumb
       class="mt-2"
       :links="[
         { label: 'Accueil', to: '/' },
         { label: '15e législature', to: '/assemblee-nationale' },
         { label: 'Commissions' },
       ]"
+    /> -->
+    <UButton
+      icon="i-heroicons-arrow-left"
+      variant="ghost"
+      label="15e législature"
+      color="gray"
+      @click.native="router.back()"
     />
     <div class="mx-auto max-w-4xl">
-      <h1 class="mb-8 text-center text-2xl font-bold md:text-3xl">
-        Commissions de l'Assemblée
-      </h1>
+      <div class="prose prose-sm sm:prose my-2">
+        <h1 class="">Commissions de l'Assemblée</h1>
+      </div>
 
       <!-- Barre de recherche -->
       <div class="mb-4">
@@ -64,6 +72,7 @@ const filteredCommissions = computed(() => {
                 Commission N°{{ commission.id }}
               </p> -->
               <h2 class="text-lg font-medium">
+                <span class="text-blue-800">#{{ commission.id }} </span>
                 {{ commission.name }}
               </h2>
               <p v-if="commission.president" class="text-sm text-gray-500">

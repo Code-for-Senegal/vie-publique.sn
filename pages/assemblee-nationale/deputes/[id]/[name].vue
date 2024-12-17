@@ -1,13 +1,12 @@
 <!-- pages/deputes/[id].vue -->
 <template>
   <div class="container mx-auto px-4 py-8">
-    <!-- Breadcrumb -->
-    <UBreadcrumb
-      :links="[
-        { label: 'Assemblée', to: '/assemblee-nationale' },
-        { label: 'Députés', to: '/assemblee-nationale/deputes' },
-        { label: deputy ? `${deputy?.first_name} ${deputy?.last_name}` : '' },
-      ]"
+    <UButton
+      icon="i-heroicons-arrow-left"
+      variant="ghost"
+      label="Retour à la liste"
+      color="gray"
+      @click.native="router.back()"
     />
 
     <!-- Loading state -->
@@ -36,6 +35,25 @@
         /> -->
         <AssemblyBiography :deputy="deputy" />
         <!-- <RecentVotes :votes="deputy?.votes" /> -->
+
+        <UCard v-if="deputiesCommissions.length">
+          <h2 class="text-xl font-semibold">Commissions</h2>
+          <div
+            v-for="commission in deputiesCommissionsFiltered"
+            :key="commission.assembly_commission_id.id"
+            class="transition-all hover:shadow-lg"
+          >
+            <NuxtLink
+              :to="`/assemblee-nationale/commissions/${commission.assembly_commission_id.id}`"
+            >
+              <ul class="flex gap-4">
+                <li class="mb-2 text-sm underline">
+                  {{ commission.assembly_commission_id.name }}
+                </li>
+              </ul>
+            </NuxtLink>
+          </div>
+        </UCard>
       </div>
     </div>
 
@@ -48,16 +66,30 @@
 import { useDeputev2 } from "@/composables/parliament/useDeputev2";
 
 const route = useRoute();
+const router = useRouter();
 
 // const { deputy, loading } = useDeputev2(parseInt(route.params?.id));
-const { deputy, loading, error, fetchElectedDeputyById } = useDeputev2();
+const {
+  deputy,
+  deputiesCommissions,
+  loading,
+  error,
+  fetchElectedDeputyById,
+  fetchElectedDeputyCommissions,
+} = useDeputev2();
 
 onMounted(async () => {
   if (route.params.id) {
     await fetchElectedDeputyById(route.params.id as string);
+    await fetchElectedDeputyCommissions(route.params.id as string);
   }
 });
 
+const deputiesCommissionsFiltered = computed(() => {
+  return deputiesCommissions.value.filter(
+    (commission) => commission.assembly_commission_id,
+  );
+});
 const age = computed(() => {
   if (!deputy.birthdate) return null;
   const birthDate = new Date(deputy.birthdate);

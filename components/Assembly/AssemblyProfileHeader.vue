@@ -33,9 +33,9 @@ defineProps<ProfileHeaderProps>();
         {{ deputy.first_name }} <br />
         {{ deputy.last_name }}
       </h1>
-      <a href="#" class="mb-4 text-red-700 hover:underline">
+      <!-- <a href="#" class="mb-4 text-red-700 hover:underline">
         {{ deputy.electoral_list.coalition.name }}
-      </a>
+      </a> -->
       <div class="mb-4 flex flex-col items-center space-y-2 text-gray-600">
         <div class="flex items-center justify-center gap-2">
           <font-awesome-icon icon="fa-solid fa-location-dot" />
@@ -50,6 +50,37 @@ defineProps<ProfileHeaderProps>();
           {{ deputy.profession.toLowerCase() }}
         </div>
       </div>
+
+      <div class="flex items-center justify-center gap-6 pb-4">
+        <ULink
+          v-if="deputy.facebook"
+          :to="deputy.facebook"
+          class="text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
+          target="_blank"
+          aria-label="social.label"
+        >
+          <UIcon name="i-simple-icons-facebook" class="h-8 w-8" />
+        </ULink>
+        <ULink
+          v-if="deputy.twitter"
+          :to="deputy.twitter"
+          class="text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
+          target="_blank"
+          aria-label="social.label"
+        >
+          <UIcon name="i-simple-icons-x" class="h-8 w-8" />
+        </ULink>
+        <ULink
+          v-if="deputy.linkedin"
+          :to="deputy.linkedin"
+          class="text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
+          target="_blank"
+          aria-label="social.label"
+        >
+          <UIcon name="i-simple-icons-linkedin" class="h-8 w-8" />
+        </ULink>
+      </div>
+
       <div
         class="inline-block rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800"
       >

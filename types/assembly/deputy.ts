@@ -1,25 +1,26 @@
-import type { Vote } from './vote';
+import type { Vote } from "./vote";
 
 export type Deputy = {
-    id: number;
-    first_name: string;
-    last_name: string;
-    profession: string;
-    photo: string;
-    gender: string;
-    birthplace: string;
-    birthdate: string;
-    biography: string;
-    electoral_list: {
-        type: string;
-        name: string;
-        coalition: {
-            name: string;
-            color: string;
-        };
-        constituency: {
-            name: string;
-        };
+  id: number;
+  first_name: string;
+  last_name: string;
+  profession: string;
+  photo: string;
+  gender: string;
+  birthplace: string;
+  birthdate: string;
+  biography: string;
+  bio: string;
+  electoral_list: {
+    type: string;
+    name: string;
+    coalition: {
+      name: string;
+      color: string;
     };
-    votes: Vote[];
-}
+    constituency: {
+      name: string;
+    };
+  };
+  votes: Vote[];
+};
