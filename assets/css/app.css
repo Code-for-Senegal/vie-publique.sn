@@ -18,3 +18,7 @@
 .bloc-result {
   background: linear-gradient(to bottom, #000000 50%, #3533cd 50%);
 }
+.video {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}

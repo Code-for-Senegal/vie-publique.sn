@@ -48,7 +48,7 @@
       <div class="w-full max-w-lg rounded-lg bg-white p-2 shadow-lg">
         <iframe
           :src="filteredVideos[0].url.replace('watch?v=', 'embed/')"
-          class="h-60 w-full rounded-lg"
+          class="video h-60 w-full rounded-lg"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen

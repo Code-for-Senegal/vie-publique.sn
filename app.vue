@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Toaster, toast } from "vue-sonner";
+const { $pwa } = useNuxtApp();
 const isOpen = ref(false);
 
 const links = [
@@ -31,6 +33,12 @@ const links = [
     description: "....",
     icon: "i-heroicons-banknotes",
     to: "/budget-senegal",
+  },
+  {
+    label: "Installer",
+    description: "Installer l'application PWA",
+    icon: "i-heroicons-arrow-down-circle",
+    click: () => "",
   },
   // {
   //   label: "Découverte",
@@ -68,23 +76,70 @@ const aboutUslinks = [
     icon: "i-heroicons-information-circle",
   },
 ];
+
+onMounted(() => {
+  if ($pwa?.needRefresh) {
+    toast("Nouvelle version trouvée. Actualiser pour mettre à jour.", {
+      action: {
+        label: "Recharger",
+        onClick: () => location.reload(),
+      },
+    });
+  }
+});
+defineShortcuts({
+  escape: () => navigateTo("/"),
+  "/": () => navigateTo("/"),
+  meta_k: () => navigateTo("/"),
+  a: () => navigateTo("/annuaires"),
+  b: () => navigateTo("/budget-senegal"),
+  c: () => navigateTo("/conseil-des-ministres"),
+  d: () => navigateTo("/documents"),
+});
 </script>
 
 <template>
   <div
     class="lg:px-18 top-header sticky top-0 z-50 flex items-center justify-between opacity-100 md:px-10 xl:px-32"
   >
+    <!-- PWA manifest -->
+    <NuxtPwaManifest />
     <!-- loader quand on change de page -->
     <NuxtLoadingIndicator />
 
     <!-- HeaderBrand à gauche -->
     <AppHeader />
 
+    <!-- App alert online and offline -->
+    <ClientOnly>
+      <AppLineAlert />
+    </ClientOnly>
+
+    <Toaster position="bottom-center" />
+
     <!-- Navigation horizontale pour les écrans plus larges -->
     <UHorizontalNavigation
       :links="links"
       class="hidden w-auto items-center md:flex"
     >
+      <template #default="{ link }">
+        <button
+          v-if="
+            link.click &&
+            $pwa?.showInstallPrompt &&
+            !$pwa?.offlineReady &&
+            !$pwa?.needRefresh &&
+            !$pwa.isPWAInstalled
+          "
+          class="hover:bg-primaryDark focus-visible:bg-primaryDark rounded"
+          @click="$pwa.install"
+        >
+          <i :class="link.icon"></i>
+          <span v-if="link.click" class="group-hover:text-primary relative">{{
+            link.label
+          }}</span>
+        </button>
+      </template>
     </UHorizontalNavigation>
 
     <!-- Menu pour mobiles (toggle visibility with Tailwind CSS) -->
@@ -136,6 +191,8 @@ const aboutUslinks = [
     </NuxtLayout>
 
     <!-- <NewsletterSocial /> -->
+    <!-- affichage des deux composants à rendre dynamique -->
+    <AppBottomNav />
     <AppFooter />
   </UContainer>
 </template>

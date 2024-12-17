@@ -1,5 +1,7 @@
 import tailwindTypography from "@tailwindcss/typography";
+import { env } from "node:process";
 
+const sw = env.SW === "true";
 export default defineNuxtConfig({
   ssr: true,
   modules: [
@@ -14,6 +16,8 @@ export default defineNuxtConfig({
     "@nuxt/eslint",
     "@pinia/nuxt",
     "@nuxtjs/leaflet",
+    "@vite-pwa/nuxt",
+    "@vueuse/nuxt",
   ],
   devtools: { enabled: true },
   nitro: {
@@ -72,7 +76,7 @@ export default defineNuxtConfig({
       titleTemplate: "%s | Vie-Publique.sn",
       title: "l'information publique au Sénégal | Vie-Publique.sn",
       charset: "utf-8",
-      viewport: "width=device-width, initial-scale=1",
+      viewport: "width=device-width, initial-scale=1, maximum-scale=1",
       meta: [
         {
           name: "keywords",
@@ -168,6 +172,104 @@ export default defineNuxtConfig({
     directus: {
       // This URL needs to include the final `assets/` directory
       baseURL: process.env.CMS_API_URL_ASSETS,
+    },
+  },
+  pwa: {
+    strategies: sw ? "injectManifest" : "generateSW",
+    srcDir: sw ? "service-worker" : undefined,
+    filename: sw ? "sw.ts" : undefined,
+    registerType: "autoUpdate",
+    manifest: {
+      name: "Vie Publique SN",
+      short_name: "ViePuliqueSN",
+      start_url: "/?utm_medium=PWA&utm_source=launcher",
+      id: "/?utm_medium=PWA&utm_source=launcher",
+      display: "standalone",
+      orientation: "any",
+      background_color: "#fff",
+      theme_color: "#ffffff",
+      icons: [
+        {
+          src: "pwa-192x192.png",
+          sizes: "192x192",
+          type: "image/png",
+        },
+        {
+          src: "pwa-256x256.png",
+          sizes: "256x256",
+          type: "image/png",
+        },
+        {
+          src: "pwa-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+        },
+        {
+          src: "pwa-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "any maskable",
+        },
+      ],
+      description: "L'information publique au Sénégal",
+      lang: "fr",
+      categories: [
+        "informations",
+        "politiques",
+        "gouvernement du sénégal",
+        "bonne gouvernance",
+        "Etat",
+      ],
+      screenshots: [
+        {
+          src: "screenshot1-vpsn.png",
+          type: "image/png",
+          sizes: "321x321",
+          form_factor: "narrow",
+        },
+        {
+          src: "screenshot2-vpsn.png",
+          type: "image/png",
+          sizes: "540x332",
+          form_factor: "narrow",
+        },
+        {
+          src: "screenshot5-vpsn.png",
+          type: "image/png",
+          sizes: "1024x630",
+          form_factor: "wide",
+        },
+        {
+          src: "screenshot3-vpsn.png",
+          type: "image/png",
+          sizes: "1024x714",
+          form_factor: "wide",
+        },
+        {
+          src: "screenshot4-vpsn.png",
+          type: "image/png",
+          sizes: "640x480",
+          form_factor: "wide",
+        },
+      ],
+    },
+    workbox: {
+      globPatterns: ["**/*.{js,css,html,png,svg,ico}"],
+    },
+    injectManifest: {
+      globPatterns: ["**/*.{js,css,html,png,svg,ico}"],
+    },
+    client: {
+      installPrompt: true,
+      // if enabling periodic sync for update use 1 hour or so (periodicSyncForUpdates: 3600)
+      periodicSyncForUpdates: 20,
+    },
+    devOptions: {
+      enabled: true,
+      suppressWarnings: true,
+      navigateFallback: "/",
+      navigateFallbackAllowlist: [/^\/$/],
+      type: "module",
     },
   },
   compatibilityDate: "2024-09-08",

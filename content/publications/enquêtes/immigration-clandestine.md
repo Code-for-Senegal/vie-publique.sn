@@ -61,4 +61,4 @@ Au Sénégal, il existe depuis 2020 le CILEC (Comité Interministériel de Lutte
 
 - Reportage ARTE 2023 "Sénégal : l’exode des pêcheurs
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/fNd6PAyv8c8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe class="video" width="560" height="315" src="https://www.youtube.com/embed/fNd6PAyv8c8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
