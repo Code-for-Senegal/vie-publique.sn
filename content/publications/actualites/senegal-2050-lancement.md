@@ -73,8 +73,8 @@ En parallèle au développement des transports terrestres, les moyens de communi
 
 Discours du premier ministre Ousmane SONKO
 
-<iframe width="100%" height="315" src="https://www.youtube.com/embed/vijqo2rucTw?rel=0&modestbranding=1&origin=https://www.vie-publique.sn" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe class="video" width="100%" height="315" src="https://www.youtube.com/embed/vijqo2rucTw?rel=0&modestbranding=1&origin=https://www.vie-publique.sn" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 Discours du président Diomaye FAYE
 
-<iframe width="100%" height="315" src="https://www.youtube.com/embed/kvvf3oPRCwM?rel=0&modestbranding=1&origin=https://www.vie-publique.sn" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe class="video" width="100%" height="315" src="https://www.youtube.com/embed/kvvf3oPRCwM?rel=0&modestbranding=1&origin=https://www.vie-publique.sn" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
