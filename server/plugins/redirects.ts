@@ -1,13 +1,14 @@
 export default defineNitroPlugin((nitroApp) => {
   nitroApp.hooks.hook("request", (event) => {
     const config = useRuntimeConfig();
-    if (!config || !config.public || !config.public.redirects) {
+    if (!config?.public?.redirects) {
       console.error("Redirects configuration is missing");
       return;
     }
 
     const redirects = config.public.redirects;
-    const pathname = new URL(event.node.req.url, "http://localhost").pathname;
+
+    const pathname = getRequestURL(event).pathname;
 
     if (!Array.isArray(redirects)) {
       console.error("Redirects should be an array");
