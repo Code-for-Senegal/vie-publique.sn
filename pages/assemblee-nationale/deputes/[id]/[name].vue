@@ -79,10 +79,16 @@ const {
 } = useDeputev2();
 
 onMounted(async () => {
-  if (route.params.id) {
-    await fetchElectedDeputyById(route.params.id as string);
-    await fetchElectedDeputyCommissions(route.params.id as string);
+  const deputyId = route.params.id as string;
+
+  if (deputyId) {
+    await Promise.all([
+      fetchElectedDeputyById(deputyId),
+      fetchElectedDeputyCommissions(deputyId),
+    ]);
   }
+  await nextTick();
+  setupSEO();
 });
 
 const deputiesCommissionsFiltered = computed(() => {
@@ -102,27 +108,19 @@ const age = computed(() => {
 //   return deputy.value?.votes[0];
 // });
 
-onMounted(async () => {
-  // Attendre que deputy soit chargé
-  await nextTick();
-
-  // Configuration SEO une fois deputy chargé
+function setupSEO() {
   useHead({
-    title: computed(() =>
-      deputy
-        ? `${deputy.first_name} ${deputy.last_name} - Député`
-        : "Chargement...",
-    ),
+    title: deputy.value
+      ? `${deputy.value.first_name} ${deputy.value.last_name} - Député`
+      : "Chargement...",
     meta: [
       {
         name: "description",
-        content: computed(() =>
-          deputy
-            ? `Découvrez le profil et l'activité parlementaire de ${deputy.first_name} ${deputy.last_name}, député ${deputy.electoral_list.name}`
-            : "",
-        ),
+        content: deputy.value
+          ? `Découvrez le profil et l'activité parlementaire de ${deputy.value.first_name} ${deputy.value.last_name}, député ${deputy.value.electoral_list.name}`
+          : "",
       },
     ],
   });
-});
+}
 </script>
