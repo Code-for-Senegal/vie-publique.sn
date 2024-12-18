@@ -53,7 +53,7 @@ const links = [
           corriger.
         </div>
         <UButton color="black" @click="handleError">Retour à l'accueil</UButton>
-        <HomeMenu :menus="links" />
+        <MenuHome :menus="links" />
       </section>
     </NuxtLayout>
   </UContainer>
