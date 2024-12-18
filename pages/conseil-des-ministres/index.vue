@@ -62,8 +62,10 @@ const {
 const filteredPressReleases = computed(() => {
   if (!codes.value) return [];
   return codes.value
-    .filter((code) =>
-      code.title?.toLowerCase().includes(searchQuery.value.toLowerCase()),
+    .filter(
+      (code) =>
+        code.title?.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+        code.content?.toLowerCase().includes(searchQuery.value.toLowerCase()),
     )
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 });
@@ -78,6 +80,10 @@ const rowsFilteredPressReleases = computed(() => {
     (page.value - 1) * pageCount,
     page.value * pageCount,
   );
+});
+
+watch(searchQuery, () => {
+  page.value = 1;
 });
 </script>
 
@@ -127,7 +133,6 @@ const rowsFilteredPressReleases = computed(() => {
                   '/images/communique-conseil-des-ministres.jpeg'
                 "
                 :alt="pressItem.title"
-                loading="lazy"
                 fetchpriority="high"
                 class="h-28 w-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
@@ -156,7 +161,7 @@ const rowsFilteredPressReleases = computed(() => {
       <div class="mt-8 flex justify-center border-t border-gray-200 pt-6">
         <UPagination
           v-model="page"
-          :page-count="Math.ceil(filteredPressReleases.length / pageCount)"
+          :page-count="pageCount"
           :total="filteredPressReleases.length"
           class="justify-center"
         />
