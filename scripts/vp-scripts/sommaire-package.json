@@ -1,0 +1,32 @@
+{
+  "name": "extract-sommaire-jo",
+  "version": "1.0.0",
+  "description": "Script pour extraire le sommaire des journaux officiels PDF",
+  "main": "dist/extract-sommaire-node.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node src/extract-sommaire-node.ts",
+    "extract": "ts-node src/extract-sommaire-node.ts"
+  },
+  "keywords": [
+    "pdf",
+    "ocr",
+    "sommaire",
+    "journal-officiel"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "canvas": "^2.11.2",
+    "fs-extra": "^11.3.0",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^2.16.105",
+    "tesseract.js": "^5.0.5"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.13.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  }
+} 
