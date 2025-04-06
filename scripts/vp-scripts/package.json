@@ -6,12 +6,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node src/index.ts",
     "build": "tsc",
-    "watermark": "ts-node src/index.ts",
+    "watermark": "ts-node src/jo-watermark.ts",
     "extract-sommaire": "ts-node src/extract-sommaire-node.ts",
-    "upload-directus": "ts-node src/upload-to-directus.ts",
+    "upload-directus": "ts-node src/jo-directus.ts",
     "update-missing-fields": "ts-node src/update-missing-fields.ts",
     "extract-jo-sommaire": "ts-node src/extract-jo-sommaire.ts",
     "extract-jo-sommaire-mistral": "ts-node src/extract-jo-sommaire-mistral.ts",
+    "extract-jo-sommaire-scanned-mistral": "ts-node src/extract-jo-sommaire-scanned-mistral.ts",
     "extract-and-upload-jo": "ts-node src/extract-and-upload-jo.ts"
   },
   "keywords": [
@@ -24,9 +25,10 @@
   ],
   "author": "",
   "license": "ISC",
-  "description": "Scripts pour le traitement des PDF (filigrane et extraction de sommaire)",
+  "description": "Scripts pour le traitement des documents du Journal Officiel",
   "dependencies": {
     "@directus/sdk": "^13.0.2",
+    "@mistralai/mistralai": "^0.0.10",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^22.13.10",
     "canvas": "^2.11.2",
