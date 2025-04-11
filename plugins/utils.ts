@@ -56,6 +56,38 @@ export default defineNuxtPlugin(() => {
       directusImageUrl: (photoId: string, quality: string) => {
         return `${config.public.cmsApiUrl}/assets/${photoId}?fit=cover&quality=${quality}`;
       },
+      getAgeFromBirthdate: (birthdate: string) => {
+        const birthDate = new Date(birthdate);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDifference = today.getMonth() - birthDate.getMonth();
+        if (
+          monthDifference < 0 ||
+          (monthDifference === 0 && today.getDate() < birthDate.getDate())
+        ) {
+          age--;
+        }
+        return age;
+      },
+      // Fonction pour convertir le nom en slug URL-friendly
+      getSlugifyUrlPath: (text: string) => {
+        return text
+          .toString()
+          .toLowerCase()
+          .trim()
+          .replace(/\s+/g, "-") // Remplace les espaces par des tirets
+          .replace(/[^\w\-]+/g, "") // Supprime les caractères spéciaux
+          .replace(/\-\-+/g, "-"); // Évite les tirets multiples
+      },
+      // Fonction pour convertir le nom en slug URL-friendly
+      getAssemblyVoteLabel: (text: string) => {
+        if (text === "government_bill") {
+          return "Projet de loi";
+        }
+        if (text === "election") {
+          return "Élection";
+        }
+      },
     },
   };
 });

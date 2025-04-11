@@ -7,13 +7,14 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "nuxt-gtag",
     "@nuxtjs/seo",
-    "@nuxtjs/sitemap",
     "@nuxtjs/web-vitals",
     "@nuxt/image",
     "@vueuse/motion/nuxt",
     "@nuxt/eslint",
     "@pinia/nuxt",
     "@nuxtjs/leaflet",
+    "@vite-pwa/nuxt",
+    "@vueuse/nuxt",
   ],
   devtools: { enabled: true },
   nitro: {
@@ -29,7 +30,10 @@ export default defineNuxtConfig({
       brevoListId: process.env.BREVO_LIST_ID,
       cmsApiUrl: process.env.CMS_API_URL,
       cmsApiKey: process.env.CMS_API_KEY,
+      sunuElectionApiUrl: process.env.SUNU_ELECTION_API_URL,
+      sunuElectionApiKey: process.env.SUNU_ELECTION_API_KEY,
       fbPixelId: process.env.FACEBOOK_PIXEL_ID || "",
+      maintenanceMode: process.env.NUXT_PUBLIC_MAINTENANCE_MODE === "true",
       redirects: [
         { from: "^/reports(.*)", to: "/rapport-senegal$1" },
         { from: "^/budget-etat-senegal(.*)", to: "/budget-senegal$1" },
@@ -61,6 +65,8 @@ export default defineNuxtConfig({
     defaultLocale: "fr",
     experimental: {
       search: true,
+      payloadExtraction: true,
+      renderJsonPayloads: true,
     },
   },
   app: {
@@ -68,7 +74,7 @@ export default defineNuxtConfig({
       titleTemplate: "%s | Vie-Publique.sn",
       title: "l'information publique au Sénégal | Vie-Publique.sn",
       charset: "utf-8",
-      viewport: "width=device-width, initial-scale=1",
+      viewport: "width=device-width, initial-scale=1, maximum-scale=1",
       meta: [
         {
           name: "keywords",
@@ -164,6 +170,145 @@ export default defineNuxtConfig({
     directus: {
       // This URL needs to include the final `assets/` directory
       baseURL: process.env.CMS_API_URL_ASSETS,
+    },
+  },
+  pwa: {
+    strategies: process.env.SW ? "injectManifest" : "generateSW",
+    srcDir: process.env.SW ? "service-worker" : undefined,
+    filename: process.env.SW ? "sw.ts" : undefined,
+    registerType: "autoUpdate",
+    manifest: {
+      name: "Vie Publique SN",
+      short_name: "ViePubliqueSN",
+      start_url: "/?utm_medium=PWA&utm_source=launcher",
+      id: "/?utm_medium=PWA&utm_source=launcher",
+      display: "standalone",
+      orientation: "portrait",
+      background_color: "#fff",
+      theme_color: "#ffffff",
+      icons: [
+        {
+          src: "pwa-192x192.png",
+          sizes: "192x192",
+          type: "image/png",
+        },
+        {
+          src: "pwa-256x256.png",
+          sizes: "256x256",
+          type: "image/png",
+        },
+        {
+          src: "pwa-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+        },
+        {
+          src: "pwa-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "any",
+        },
+        {
+          src: "pwa-1024x1024.png",
+          sizes: "1024x1024",
+          type: "image/png",
+        },
+        {
+          src: "pwa-1024x1024.png",
+          sizes: "1024x1024",
+          type: "image/png",
+          purpose: "any",
+        },
+        {
+          src: "pwa-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "maskable",
+        },
+        {
+          src: "pwa-1024x1024.png",
+          sizes: "1024x1024",
+          type: "image/png",
+          purpose: "maskable",
+        },
+      ],
+      description: "L'information publique au Sénégal",
+      lang: "fr",
+      categories: [
+        "informations",
+        "politiques",
+        "gouvernement du sénégal",
+        "bonne gouvernance",
+        "Etat",
+      ],
+      screenshots: [
+        {
+          src: "screenshot1-vpsn.png",
+          type: "image/png",
+          sizes: "321x321",
+          form_factor: "narrow",
+        },
+        {
+          src: "screenshot2-vpsn.png",
+          type: "image/png",
+          sizes: "540x332",
+          form_factor: "narrow",
+        },
+        {
+          src: "screenshot5-vpsn.png",
+          type: "image/png",
+          sizes: "1024x630",
+          form_factor: "wide",
+        },
+        {
+          src: "screenshot3-vpsn.png",
+          type: "image/png",
+          sizes: "1024x714",
+          form_factor: "wide",
+        },
+        {
+          src: "screenshot4-vpsn.png",
+          type: "image/png",
+          sizes: "640x480",
+          form_factor: "wide",
+        },
+      ],
+      share_target: {
+        action: "/?utm_medium=PWA&utm_source=share-target&share-target",
+        method: "POST",
+        enctype: "multipart/form-data",
+        params: {
+          files: [
+            {
+              name: "file",
+              accept: ["image/*"],
+            },
+          ],
+        },
+      },
+    },
+    workbox: {
+      globPatterns: ["**/*.{js,css,html,png,svg,ico}"],
+      maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
+      navigateFallback: "/",
+      cleanupOutdatedCaches: true,
+      clientsClaim: true,
+      skipWaiting: true,
+      version: Date.now().toString(),
+      navigateFallbackAllowlist: [/^\/$/, /^\/budget-senegal(\/.*)?$/],
+    },
+    injectManifest: {
+      globPatterns: ["**/*.{js,css,html,png,svg,ico}"],
+      maximumFileSizeToCacheInBytes: 50 * 1024 * 1024,
+    },
+    client: {
+      installPrompt: true,
+      periodicSyncForUpdates: 3600,
+    },
+    devOptions: {
+      enabled: true,
+      suppressWarnings: false,
+      type: "module",
     },
   },
   compatibilityDate: "2024-09-08",

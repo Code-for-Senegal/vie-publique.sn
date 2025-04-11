@@ -10,7 +10,7 @@
       <path
         d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
         fill="none"
-        :stroke="color"
+        :stroke="colorBg"
         stroke-width="2"
         :stroke-dasharray="`${percentage}, 100`"
       />
@@ -18,7 +18,7 @@
     <div
       class="absolute inset-0 flex flex-col items-center justify-center text-center"
     >
-      <div class="text-wrap text-xl text-green-700">
+      <div class="text-wrap text-xl" :class="`text-${colorText}-700`">
         {{ Math.floor(percentage) }}%
       </div>
       <div class="text-wrap text-xs">{{ label }}</div>
@@ -32,6 +32,7 @@ const props = defineProps<{
   percentage: number;
   label: string;
   value: string;
-  color?: string;
+  colorBg?: string;
+  colorText?: string;
 }>();
 </script>

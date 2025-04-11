@@ -63,7 +63,6 @@ const entityTypes = [
 ];
 
 const filteredEntities = computed(() => {
-  console.log(data.value);
   return data.value.flatData?.filter(
     (entity) =>
       entity.name.toLowerCase().includes(searchTerm.value.toLowerCase()) &&

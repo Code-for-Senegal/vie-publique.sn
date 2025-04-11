@@ -83,7 +83,7 @@ const filteredSortedContentItems = computed(() => {
 </script>
 
 <template>
-  <div class="container mx-auto px-4">
+  <div class="container mx-auto">
     <div class="prose prose-sm sm:prose mx-auto my-2">
       <h1 class="text-center">Actualités</h1>
     </div>

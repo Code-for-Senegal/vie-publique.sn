@@ -40,6 +40,33 @@ useHead({
 const electionCategories = [
   {
     display: true,
+    title: "Annuaire des députés",
+    shortTitle: "Députés élus",
+    description: "Les députés élus",
+    icon: "i-heroicons-user",
+    to: "/assemblee-nationale/deputes",
+    color: "bg-emerald-100 text-emerald-500 border border-emerald-50",
+  },
+  {
+    display: true,
+    title: "Classement des listes",
+    shortTitle: "Classement listes",
+    description: "Pourcentages et voix obtenus",
+    icon: "i-heroicons-chart-bar-square",
+    to: "/elections/legislatives/resultats/classement",
+    color: "bg-red-100 text-red-500 border border-red-50",
+  },
+  {
+    display: true,
+    title: "Répartition hémyciycle",
+    shortTitle: "Résultats",
+    description: "Répartition des sièges par coalition",
+    icon: "i-heroicons-star",
+    to: "/elections/legislatives/resultats",
+    color: "bg-blue-100 text-blue-500 border border-blue-50",
+  },
+  {
+    display: true,
     title: "Les listes et candidats",
     shortTitle: "Listes",
     description: "Consulter les 41 listes retenues",
@@ -83,22 +110,20 @@ const electionCategories = [
     to: "https://elections.sec.gouv.sn",
     color: "bg-blue-100 text-blue-800 border border-blue-50",
   },
-
-  {
-    display: false,
-    title: "Résultats",
-    shortTitle: "shortTitle",
-    description: "Disponible le jour du vote",
-    icon: "i-heroicons-star",
-    to: "#",
-    color: "bg-gray-100 text-gray-500 border border-gray-50",
-  },
 ];
 </script>
 
 <template>
-  <LayoutSubcategoryComponent
-    :item="electionCategories"
-    :title="`Élections Législatives 2024`"
-  />
+  <div>
+    <!-- <div class="mb-6 mt-2 grid grid-cols-1 gap-4 md:grid-cols-2"> -->
+    <!-- <ElectionMenuSieges /> -->
+    <!-- <ElectionMenuDepute /> -->
+    <!-- <ElectionMenuClassement /> -->
+    <!-- <ElectionMenuInfo /> -->
+    <!-- </div> -->
+    <LayoutSubcategoryComponent
+      :item="electionCategories"
+      :title="`Élections Législatives 2024`"
+    />
+  </div>
 </template>

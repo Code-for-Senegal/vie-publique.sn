@@ -19,22 +19,36 @@ const menuCategories = [
     color: "bg-green-100 text-green-700",
   },
   {
+    title: "Annuaire Députés",
+    description: "les 165 députés élus",
+    icon: "i-heroicons-user",
+    to: "/assemblee-nationale/deputes",
+    color: "bg-green-100 text-green-700",
+  },
+  {
+    title: "Annuaire Médias",
+    description: "Liste des Médias reconnus",
+    icon: "i-heroicons-tv",
+    to: "/medias",
+    color: "bg-red-100 text-red-700",
+  },
+  {
+    title: "Aide à la presses",
+    description: "Fond d'aide à la presse",
+    icon: "i-heroicons-radio",
+    to: "/medias/aide-presse",
+    color: "bg-red-100 text-red-700",
+  },
+  {
     title: "Annuaire Justice",
-    description: "Magistrature, Acteurs de la justice...",
+    description: "Magistrature, acteurs de la justice",
     icon: "i-heroicons-scale",
     to: "/justice/magistrature",
     color: "bg-purple-100 text-purple-700",
   },
   {
-    title: "Annuaire Médias",
-    description: "Aide à la presse, Radios, TV, Médias en ligne...",
-    icon: "i-heroicons-radio",
-    to: "/medias",
-    color: "bg-red-100 text-red-700",
-  },
-  {
     title: "Annuaire Sites Web",
-    description: "Annuaire des sites internet publics",
+    description: "Annuaire des sites publics",
     icon: "i-heroicons-computer-desktop",
     to: "/annuaire-sites-publics-senegal",
     color: "bg-blue-100 text-blue-700",
@@ -43,9 +57,7 @@ const menuCategories = [
 </script>
 
 <template>
-  <div class="container mx-auto p-2 sm:p-4">
-    <!-- <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Documents</h1> -->
-
+  <div class="container mx-auto px-4">
     <div class="prose prose-sm sm:prose mx-auto my-2">
       <h1 class="text-center">Annuaires</h1>
     </div>
@@ -54,7 +66,7 @@ const menuCategories = [
       <UCard
         v-for="menu in menuCategories"
         :key="menu.title"
-        class="custom-shadow p-4 hover:shadow-xl"
+        class="custom-shadow p-0 hover:shadow-xl"
       >
         <NuxtLink :to="menu.to" class="flex items-start">
           <div class="mr-4 flex-shrink-0">

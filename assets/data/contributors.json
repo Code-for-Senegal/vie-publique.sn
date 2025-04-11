@@ -1,0 +1,193 @@
+{
+  "contributors": [
+    {
+      "gender": "M",
+      "name": "Malick Yacine DIOP",
+      "role": null,
+      "job": "Ingénieur IT",
+      "description": "Ingénieur IT et entrepreneur",
+      "image": "https://pbs.twimg.com/profile_images/1782088999584022529/Z3pLqToF_400x400.jpg",
+      "linkedin": null
+    },
+    {
+      "gender": "M",
+      "name": "Momar Assane DIOUF",
+      "role": null,
+      "job": "Entrepreneur",
+      "description": "Entrepreneur Agro-industriel",
+      "image": "https://pbs.twimg.com/profile_images/1776647933737181184/3CNYB9lZ_400x400.jpg",
+      "linkedin": null
+    },
+    {
+      "gender": "M",
+      "name": "P. Djigane CISSE",
+      "role": null,
+      "job": "Business Development",
+      "description": "Head of Business Development & Supply Chain",
+      "image": "https://media.licdn.com/dms/image/v2/D4E03AQGFHbcDxbxbbQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1729236512303?e=1741219200&v=beta&t=X3DrOL82y4xx9rXXX6sz3GLWIpiQxcxuG7cp7aVQFb0",
+      "linkedin": null
+    },
+    {
+      "gender": "M",
+      "name": "M. Manel Fall",
+      "role": null,
+      "job": "Manager",
+      "description": "Public Management",
+      "image": "https://media.licdn.com/dms/image/v2/D4E03AQG1vjnnBktwzg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1719505833577?e=1741219200&v=beta&t=6fj1b8Cu0UjjN8HnQO5Zgr9lBEKQ-LYNfn9k_vB955Y",
+      "linkedin": null
+    },
+    {
+      "gender": "M",
+      "name": "Modou Fall",
+      "role": null,
+      "job": "Expert industrialisation",
+      "description": "Expert industrialisation",
+      "image": "https://media.licdn.com/dms/image/v2/C4D03AQH9gAwCZsMOHQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1574076462904?e=1741219200&v=beta&t=C25Hyk_rUVqzzs8NKEw3_M_PeivAUTftHF4UPPPiOk4",
+      "linkedin": null
+    },
+    {
+      "gender": "M",
+      "name": "Mamadou Diagne",
+      "role": null,
+      "job": "Expert IT",
+      "description": "Expert IT",
+      "image": null,
+      "linkedin": null
+    },
+    {
+      "gender": "M",
+      "name": "Cherif Hassana",
+      "role": null,
+      "job": "Journaliste",
+      "description": "Journaliste ITV",
+      "image": null,
+      "linkedin": null
+    },
+    {
+      "gender": "M",
+      "name": "Ousmane Barry",
+      "role": null,
+      "job": "Ingénieur IA",
+      "description": "Ingénieur en Intelligence artificielle",
+      "image": null,
+      "linkedin": null
+    },
+    {
+      "gender": "M",
+      "name": "George L. DIOP",
+      "role": null,
+      "job": "Expert Marketing",
+      "description": "Expert Marketing Digital",
+      "image": null,
+      "linkedin": null
+    },
+    {
+      "gender": "M",
+      "name": "Ndéné SENE",
+      "role": null,
+      "job": "Architecte",
+      "description": "Architecte Logicielle",
+      "image": null,
+      "linkedin": null
+    },
+    {
+      "gender": "F",
+      "name": "Anta Ndao",
+      "role": null,
+      "job": "Doctorante Administration Publique",
+      "description": "Doctorante en administration publique",
+      "image": null,
+      "linkedin": null
+    },
+    {
+      "gender": "M",
+      "name": "El H. Djibril Ciss",
+      "role": null,
+      "job": "Étudiant",
+      "description": "Etudiant",
+      "image": null,
+      "linkedin": null
+    },
+    {
+      "gender": "M",
+      "name": "Sidath Gueye",
+      "role": null,
+      "job": "Ingénieur R&D IA",
+      "description": "Ingénieur Logiciel en R&D et en Intelligence Artificielle",
+      "image": null,
+      "linkedin": null
+    },
+    {
+      "gender": "M",
+      "name": "Joe Diouf",
+      "role": null,
+      "job": "Ingénieur",
+      "description": "Ingénieur Etude et Développement",
+      "image": null,
+      "linkedin": null
+    },
+    {
+      "gender": "M",
+      "name": "Thierno Lo",
+      "role": null,
+      "job": "Chef de projet",
+      "description": "Chef de projet et entrepreneur",
+      "image": null,
+      "linkedin": null
+    },
+    {
+      "gender": "M",
+      "name": "Ndiaga Ndiaye",
+      "role": null,
+      "job": "Digital Manager",
+      "description": "Digital Manager",
+      "image": null,
+      "linkedin": null
+    },
+    {
+      "gender": "F",
+      "name": "Khadija Diallo",
+      "role": null,
+      "job": "Communicante",
+      "description": "Communicante et entrepreneur",
+      "image": null,
+      "linkedin": null
+    },
+    {
+      "gender": "M",
+      "name": "Bocar KANE",
+      "role": null,
+      "job": "Entrepreneur Telecom",
+      "description": "Expert IT et Télécom, CEO Kaylene group et HubSIX",
+      "image": null,
+      "linkedin": null
+    },
+    {
+      "gender": "M",
+      "name": "Médoune Mbaye",
+      "role": null,
+      "job": "Gestion de projet",
+      "description": "Gestion de projet",
+      "image": null,
+      "linkedin": null
+    },
+    {
+      "gender": "M",
+      "name": "Raby Diallo",
+      "role": null,
+      "job": "Communication Digitale",
+      "description": "Communication Digitale",
+      "image": null,
+      "linkedin": null
+    },
+    {
+      "gender": "M",
+      "name": "Issakha Cissé",
+      "role": null,
+      "job": "Développeur",
+      "description": "Développeur",
+      "image": null,
+      "linkedin": null
+    }
+  ]
+}

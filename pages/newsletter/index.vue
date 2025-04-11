@@ -19,7 +19,7 @@ const handleSuccess = () => {
 </script>
 
 <template>
-  <div class="newsletter-page container mx-auto px-4 py-8">
+  <div class="newsletter-page container mx-auto px-4 py-4">
     <div class="prose prose-sm sm:prose mx-auto my-2">
       <h1 class="text-center">Newsletter</h1>
     </div>

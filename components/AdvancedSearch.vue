@@ -7,7 +7,7 @@
       @input="debounceSearch"
     />
     <div v-if="isLoading" class="mt-4">
-      <ULoader />
+      <UProgress />
     </div>
     <div v-else-if="searchResults.length > 0" class="mt-4">
       <h3 class="mb-2 text-lg font-semibold">Résultats de recherche</h3>

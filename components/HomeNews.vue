@@ -1,66 +1,86 @@
 <script lang="ts" setup>
-const starNews = [
-  {
-    _path: "/conseil-des-ministres/conseil-des-ministres-du-06-novembre-2024",
-    title: "Conseil des ministres du 06 novembre 2024",
-    date: "2024-11-06",
-    category: "Conseil des ministres",
-    image: "/images/conseil-des-ministres-du-06-novembre-2024.png",
-  },
-  {
-    _path:
-      "/publications/actualites/president-diomaye-visite-etat-senegal-turquie",
-    title: "Président Diomaye en visite d'État en Turquie",
-    date: "2024-10-31",
-    category: "Discours",
-    image: "/images/actualites/pr-diomaye-turquie-1.webp",
-  },
-  {
-    _path:
-      "/publications/actualites/interview-president-diomaye-forum-fii-2024-riyad",
-    title:
-      "Interview du président Diomaye au Forum Future Investment Initiative À Riyad",
-    date: "2024-10-28",
-    category: "Discours",
-    image:
-      "/images/actualites/interview-president-diomaye-forum-fii-2024-riyad.jpg",
-  },
-  {
-    _path: "/conseil-des-ministres/conseil-des-ministres-du-23-octobre-2024",
-    title: "Conseil des ministres du 23 octobre 2024",
-    date: "2024-10-23",
-    category: "Conseil des ministres",
-    image: "/images/diomaye-faye-2.jpeg",
-  },
-  {
-    _path: "/conseil-des-ministres/conseil-des-ministres-du-16-octobre-2024",
-    title: "Conseil des ministres du 16 octobre 2024",
-    date: "2024-10-16",
-    category: "Conseil des ministres",
-    image: "/images/actualites/conseil-des-ministres-du-16-octobre-2024.png",
-  },
-  {
-    _path: "/publications/actualites/senegal-2050-lancement",
-    title: "Lancement du référentiel « SÉNÉGAL 2050 »",
-    date: "2024-10-14",
-    category: "Article",
-    image: "/images/actualites/senegal-2050-lancement-1.PNG",
-  },
-];
+import { useNews } from "~/composables/news/useNews";
+const { news, loading, error, fetchNews } = useNews({ featured: true });
+
+// Utiliser useRuntimeConfig pour accéder au mode dev
+const config = useRuntimeConfig();
+const isDev = process.dev; // Nuxt way to check dev mode
+
+// Log pour débugger les valeurs réactives
+// watchEffect(() => {
+//   console.log("Current state:", {
+//     loading: loading.value,
+//     error: error.value,
+//     newsLength: news.value?.length,
+//     newsContent: news.value,
+//   });
+// });
+
+// Fonction pour formater l'URL selon le nouveau format /categorie/id/slug
+const formatNewsUrl = (article: any) => {
+  if (!article) return "/actualites";
+
+  const id = article.id;
+  const slug =
+    article.slug ||
+    article.title
+      ?.toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
+
+  // Gestion spécifique selon la catégorie
+  const categorySlug = article.category?.slug;
+
+  // Cas du conseil des ministres
+  if (categorySlug === "conseil-des-ministres") {
+    return `/conseil-des-ministres/${id}/${slug}`;
+  }
+
+  // Cas de l'assemblée nationale
+  if (categorySlug === "assemblee-nationale") {
+    return `/assemblee-nationale/actualites/${id}/${slug}`;
+  }
+
+  // Cas par défaut pour toutes les autres catégories
+  return `/actualites/${id}/${slug}`;
+};
+
+// Récupération des articles au montage du composant
+onMounted(async () => {
+  console.log("Component mounted, fetching news...");
+  await fetchNews();
+});
 </script>
 
 <template>
-  <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+  <div
+    v-if="loading"
+    class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+  >
+    <div v-for="n in 3" :key="n" class="animate-pulse">
+      <div class="relative w-full">
+        <div class="aspect-[16/9] rounded-t-lg bg-gray-200"></div>
+      </div>
+      <div class="mt-4 h-4 w-3/4 rounded bg-gray-200"></div>
+      <div class="mt-2 h-3 w-1/4 rounded bg-gray-200"></div>
+    </div>
+  </div>
+
+  <div v-else-if="error" class="p-4 text-red-600">
+    Une erreur est survenue lors du chargement des actualités.
+  </div>
+
+  <div v-else class="grid grid-cols-1 gap-4 md:grid-cols-3">
     <UCard
-      v-for="item in starNews"
-      :key="item._path"
+      v-for="article in news"
+      :key="article.id"
       class="custom-shadow cursor-pointer"
     >
-      <NuxtLink :to="item._path" class="flex flex-row sm:flex-col">
+      <NuxtLink :to="formatNewsUrl(article)" class="flex flex-row sm:flex-col">
         <div class="mb-0 mr-4 w-1/3 sm:mb-4 sm:mr-0 sm:w-full">
           <NuxtImg
-            :src="item.image"
-            :alt="item.title"
+            :src="$directusImageUrl(article.cover_image, '50')"
+            :alt="article.title"
             class="h-24 w-full object-cover sm:h-48"
             loading="lazy"
             fetchpriority="high"
@@ -69,17 +89,11 @@ const starNews = [
           />
         </div>
         <div class="flex-1">
-          <div
-            class="siteweb-type my-1 inline-block bg-gray-200 px-2 py-1 text-xs text-gray-800"
-          >
-            {{ item.category }}
-          </div>
-
           <p class="text-sm font-semibold sm:text-base">
-            {{ item.title }}
+            {{ article.title }}
           </p>
-          <div v-if="item.date" class="text-sm text-gray-800">
-            {{ $dateformatWithDayName(item.date) }}
+          <div v-if="article.date_published" class="text-sm text-gray-800">
+            {{ $dateformatWithDayName(article.date_published) }}
           </div>
         </div>
       </NuxtLink>

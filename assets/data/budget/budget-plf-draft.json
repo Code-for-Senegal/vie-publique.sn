@@ -1,0 +1,32 @@
+[
+  {
+    "label": "Recettes fiscales",
+    "value": 4359.6,
+    "variation_absolute": 179.6,
+    "variation_percentage": 4.3
+  },
+  {
+    "label": "Recettes non fiscales",
+    "value": 190,
+    "variation_absolute": -20,
+    "variation_percentage": -9.5
+  },
+  {
+    "label": "Dons en capital projet",
+    "value": 200,
+    "variation_absolute": -56.6,
+    "variation_percentage": -22.1
+  },
+  {
+    "label": "Dons Budgétaire",
+    "value": 45,
+    "variation_absolute": -2.2,
+    "variation_percentage": -4.6
+  },
+  {
+    "label": "Recettes Comptes Spéciaux",
+    "value": 219.7,
+    "variation_absolute": -1.8,
+    "variation_percentage": -0.8
+  }
+]

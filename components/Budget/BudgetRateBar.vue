@@ -5,10 +5,6 @@
         <span class="text-sm font-medium">{{ item.name }}</span>
         <span class="text-sm font-medium">{{ item.value.toFixed(1) }} Mrd</span>
       </div>
-
-      <!-- <div class="sm:w-54 w-40 text-xs">
-        {{ item.name }}
-      </div> -->
       <div
         class="h-2.5 w-full flex-grow overflow-hidden rounded-full bg-gray-200"
       >
@@ -18,7 +14,6 @@
         ></div>
       </div>
       <div class="flex justify-end text-xs">
-        <!-- {{ item.value.toFixed(1) }} Mrd -->
         <span
           class="text-sm"
           :class="[item.increase > 0 ? 'text-green-600' : 'text-red-600']"

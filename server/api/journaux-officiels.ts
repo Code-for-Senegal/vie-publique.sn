@@ -1,6 +1,6 @@
 import { defineEventHandler, getQuery } from "h3";
 import { serverQueryContent } from "#content/server";
-
+// DEPRECATED - to delete
 export default defineEventHandler(async (event) => {
   const { page = 1, limit = 10, search = "" } = getQuery(event);
 

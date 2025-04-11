@@ -31,7 +31,9 @@
         />
 
         <!-- Overlay sombre pour le texte -->
-        <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"
+        ></div>
 
         <!-- Détails de la tête de liste -->
         <div class="absolute inset-0 flex flex-col justify-end p-2 text-white">
@@ -43,7 +45,7 @@
           </h4>
 
           <p
-            class="line-clamp-1 rounded-full bg-green-700 px-1 text-xs lowercase capitalize"
+            class="line-clamp-1 rounded-full bg-green-700 px-1 text-xs font-bold lowercase capitalize"
           >
             {{ coalition.list_order }}. {{ coalition.name }}
           </p>

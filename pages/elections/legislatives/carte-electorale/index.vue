@@ -1,4 +1,3 @@
-//pages/election-map.vue
 <script setup lang="ts">
 const optionMap = "Vue Carte";
 const optionList = "Vue Liste";
