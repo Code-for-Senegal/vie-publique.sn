@@ -1,0 +1,190 @@
+[
+	{
+		"id": 1467,
+		"type": "national",
+		"is_substitute": false,
+		"constituency": null
+	},
+	{
+		"id": 1468,
+		"type": "national",
+		"is_substitute": true,
+		"constituency": null
+	},
+	{
+		"id": 1469,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "DAKAR"
+		}
+	},
+	{
+		"id": 1470,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "DAKAR"
+		}
+	},
+	{
+		"id": 1471,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "KEUR MASSAR"
+		}
+	},
+	{
+		"id": 1472,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "KEUR MASSAR"
+		}
+	},
+	{
+		"id": 1473,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "PIKINE"
+		}
+	},
+	{
+		"id": 1474,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "PIKINE"
+		}
+	},
+	{
+		"id": 1475,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "SALEMATA"
+		}
+	},
+	{
+		"id": 1476,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "SALEMATA"
+		}
+	},
+	{
+		"id": 1477,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "KOLDA"
+		}
+	},
+	{
+		"id": 1478,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "KOLDA"
+		}
+	},
+	{
+		"id": 1479,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "MEDINA YORO FOULAH"
+		}
+	},
+	{
+		"id": 1480,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "MEDINA YORO FOULAH"
+		}
+	},
+	{
+		"id": 1481,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "DAGANA"
+		}
+	},
+	{
+		"id": 1482,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "DAGANA"
+		}
+	},
+	{
+		"id": 1483,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "SEDHIOU"
+		}
+	},
+	{
+		"id": 1484,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "SEDHIOU"
+		}
+	},
+	{
+		"id": 1485,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "BAKEL"
+		}
+	},
+	{
+		"id": 1486,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "BAKEL"
+		}
+	},
+	{
+		"id": 1487,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "TAMBACOUNDA"
+		}
+	},
+	{
+		"id": 1488,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "TAMBACOUNDA"
+		}
+	},
+	{
+		"id": 1489,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "OUSSOUYE"
+		}
+	},
+	{
+		"id": 1490,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "OUSSOUYE"
+		}
+	}
+]

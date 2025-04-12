@@ -4,11 +4,13 @@
     <div class="py-2">
       <div class="container">
         <div class="prose prose-sm sm:prose my-2">
-          <h1 class="">Annuaire des députés</h1>
+          <h1 class="">Députés élus</h1>
         </div>
 
         <template v-if="!loading && deputies">
-          <!-- <p class="mt-2 text-gray-600">{{ deputies.length }} candidats élus</p> -->
+          <p class="mt-2 text-gray-600">
+            les 165 candidats élus le 17 Novembre
+          </p>
         </template>
       </div>
     </div>
@@ -309,9 +311,9 @@ const filteredDeputies = computed(() => {
 // };
 
 // Handle refresh
-const handleRefresh = () => {
-  fetchElectedDeputies();
-};
+// const handleRefresh = () => {
+//   fetchElectedDeputies();
+// };
 
 // Modal functions
 const openModal = (candidat: Deputy) => {

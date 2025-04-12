@@ -1,0 +1,847 @@
+[
+  {
+    "name": "FARLU nationale titulaire",
+    "type": "national",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 33
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "FARLU nationale suppléant",
+    "type": "national",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 33
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "FARLU DAKAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 33
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 1
+    }
+  },
+  {
+    "name": "FARLU DAKAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 33
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 1
+    }
+  },
+
+  {
+    "name": "FARLU GUEDIAWAYE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 2
+    }
+  },
+  {
+    "name": "FARLU GUEDIAWAYE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 2
+    }
+  },
+  {
+    "name": "FARLU KEUR MASSAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 3
+    }
+  },
+  {
+    "name": "FARLU KEUR MASSAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 3
+    }
+  },
+
+  {
+    "name": "FARLU PIKINE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 4
+    }
+  },
+
+  {
+    "name": "FARLU PIKINE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 4
+    }
+  },
+  {
+    "name": "FARLU RUFISQUE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 5
+    }
+  },
+  {
+    "name": "FARLU RUFISQUE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 5
+    }
+  },
+
+  {
+    "name": "FARLU BAMBEY titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 6
+    }
+  },
+  {
+    "name": "FARLU BAMBEY suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 6
+    }
+  },
+  {
+    "name": "FARLU DIOURBEL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 7
+    }
+  },
+  {
+    "name": "FARLU DIOURBEL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 7
+    }
+  },
+
+  {
+    "name": "FARLU MBACKE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 8
+    }
+  },
+  {
+    "name": "FARLU MBACKE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 8
+    }
+  },
+  {
+    "name": "FARLU BIRKILANE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 12
+    }
+  },
+  {
+    "name": "FARLU BIRKILANE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 12
+    }
+  },
+  {
+    "name": "FARLU MALEM HODAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 15
+    }
+  },
+  {
+    "name": "FARLU MALEM HODAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 15
+    }
+  },
+  {
+    "name": "FARLU GUINGUINEO titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 16
+    }
+  },
+  {
+    "name": "FARLU GUINGUINEO suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 16
+    }
+  },
+
+  {
+    "name": "FARLU KAOLACK titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 17
+    }
+  },
+  {
+    "name": "FARLU KAOLACK suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 17
+    }
+  },
+  {
+    "name": "FARLU KOLDA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 22
+    }
+  },
+  {
+    "name": "FARLU KOLDA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 22
+    }
+  },
+  {
+    "name": "FARLU VELINGARA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 24
+    }
+  },
+  {
+    "name": "FARLU VELINGARA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 24
+    }
+  },
+  {
+    "name": "FARLU LOUGA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 27
+    }
+  },
+  {
+    "name": "FARLU LOUGA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 27
+    }
+  },
+  {
+    "name": "FARLU KANEL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 28
+    }
+  },
+  {
+    "name": "FARLU KANEL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 28
+    }
+  },
+  {
+    "name": "FARLU MATAM titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 29
+    }
+  },
+  {
+    "name": "FARLU MATAM suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 29
+    }
+  },
+  {
+    "name": "FARLU RANEROU FERLO titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 30
+    }
+  },
+  {
+    "name": "FARLU RANEROU FERLO suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 30
+    }
+  },
+  {
+    "name": "FARLU PODOR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 32
+    }
+  },
+  {
+    "name": "FARLU PODOR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 32
+    }
+  },
+
+  {
+    "name": "FARLU SAINT LOUIS titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 33
+    }
+  },
+
+  {
+    "name": "FARLU SAINT LOUIS suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 33
+    }
+  },
+  {
+    "name": "FARLU SEDHIOU titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 36
+    }
+  },
+  {
+    "name": "FARLU SEDHIOU suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 36
+    }
+  },
+
+  {
+    "name": "FARLU BAKEL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 37
+    }
+  },
+  {
+    "name": "FARLU BAKEL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 37
+    }
+  },
+  {
+    "name": "FARLU TAMBACOUNDA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 40
+    }
+  },
+  {
+    "name": "FARLU TAMBACOUNDA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 40
+    }
+  },
+  {
+    "name": "FARLU THIES titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 42
+    }
+  },
+  {
+    "name": "FARLU THIES suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 42
+    }
+  },
+  {
+    "name": "FARLU TIVAOUANE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 43
+    }
+  },
+  {
+    "name": "FARLU TIVAOUANE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 43
+    }
+  },
+  {
+    "name": "FARLU ZIGUINCHOR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 46
+    }
+  },
+  {
+    "name": "FARLU ZIGUINCHOR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 46
+    }
+  },
+  {
+    "name": "FARLU EUROPE OUEST CENTRE NORD titulaire",
+    "type": "diaspora",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 54
+    }
+  },
+  {
+    "name": "FARLU EUROPE OUEST CENTRE NORD suppléant",
+    "type": "diaspora",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 33
+    },
+    "constituency": {
+      "id": 54
+    }
+  }
+]

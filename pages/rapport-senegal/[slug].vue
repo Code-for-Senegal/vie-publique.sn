@@ -6,11 +6,11 @@ const { gtag } = useGtag();
 
 onMounted(async () => {
   rapport.value = (
-    await import("@/assets/data/rapports-liste.json")
+    await import("@/assets/data/rapport/rapports-liste.json")
   ).default.find((s) => s.slug === route.params.slug);
 
   resume.value = (
-    await import("@/assets/data/rapports-details.json")
+    await import("@/assets/data/rapport/rapports-details.json")
   ).default.find((s) => s.id === route.params.slug);
 
   // Définir les méta-tags une fois les données chargées

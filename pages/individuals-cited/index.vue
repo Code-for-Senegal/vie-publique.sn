@@ -8,7 +8,7 @@ const peoples = ref([]);
 const router = useRouter();
 
 const metaTitle =
-  "vie-publique.sn - personnes épinglées rapport OFNAC Cours des comptes IGE";
+  "vie-publique.sn - personnes épinglées rapport OFNAC Cour des comptes IGE";
 const metaDescription =
   "Liste des personnalités épinglées par OFNAC, Cours des Comptes et IGE";
 

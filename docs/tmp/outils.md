@@ -1,0 +1,1 @@
+https://squoosh.app

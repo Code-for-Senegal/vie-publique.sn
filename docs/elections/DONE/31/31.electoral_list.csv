@@ -1,0 +1,111 @@
+"id","name","type","is_substitute","status","election","coalition","constituency.id","constituency.id"
+1,"Pastef national titulaire","national",false,"draft",1,31,,
+2,"Pastef national suppléant","national",true,"draft",1,31,,
+1,Pastef DAKAR titulaire,departmental,FALSE,draft,1,31,1
+2,Pastef DAKAR suppléant,departmental,TRUE,draft,1,31,1
+3,Pastef GUEDIAWAYE titulaire,departmental,FALSE,draft,1,31,2
+4,Pastef GUEDIAWAYE suppléant,departmental,TRUE,draft,1,31,2
+5,Pastef KEUR MASSAR titulaire,departmental,FALSE,draft,1,31,3
+6,Pastef KEUR MASSAR suppléant,departmental,TRUE,draft,1,31,3
+7,Pastef PIKINE titulaire,departmental,FALSE,draft,1,31,4
+8,Pastef PIKINE suppléant,departmental,TRUE,draft,1,31,4
+9,Pastef RUFISQUE titulaire,departmental,FALSE,draft,1,31,5
+10,Pastef RUFISQUE suppléant,departmental,TRUE,draft,1,31,5
+11,Pastef BAMBEY titulaire,departmental,FALSE,draft,1,31,6
+12,Pastef BAMBEY suppléant,departmental,TRUE,draft,1,31,6
+13,Pastef DIOURBEL titulaire,departmental,FALSE,draft,1,31,7
+14,Pastef DIOURBEL suppléant,departmental,TRUE,draft,1,31,7
+15,Pastef MBACKE titulaire,departmental,FALSE,draft,1,31,8
+16,Pastef MBACKE suppléant,departmental,TRUE,draft,1,31,8
+17,Pastef FATICK titulaire,departmental,FALSE,draft,1,31,9
+18,Pastef FATICK suppléant,departmental,TRUE,draft,1,31,9
+19,Pastef FOUNDIOUGNE titulaire,departmental,FALSE,draft,1,31,10
+20,Pastef FOUNDIOUGNE suppléant,departmental,TRUE,draft,1,31,10
+21,Pastef GOSSAS titulaire,departmental,FALSE,draft,1,31,11
+22,Pastef GOSSAS suppléant,departmental,TRUE,draft,1,31,11
+23,Pastef BIRKILANE titulaire,departmental,FALSE,draft,1,31,12
+24,Pastef BIRKILANE suppléant,departmental,TRUE,draft,1,31,12
+25,Pastef KAFFRINE titulaire,departmental,FALSE,draft,1,31,13
+26,Pastef KAFFRINE suppléant,departmental,TRUE,draft,1,31,13
+27,Pastef KOUNGHEUL titulaire,departmental,FALSE,draft,1,31,14
+28,Pastef KOUNGHEUL suppléant,departmental,TRUE,draft,1,31,14
+29,Pastef MALEM HODAR titulaire,departmental,FALSE,draft,1,31,15
+30,Pastef MALEM HODAR suppléant,departmental,TRUE,draft,1,31,15
+31,Pastef GUINGUINEO titulaire,departmental,FALSE,draft,1,31,16
+32,Pastef GUINGUINEO suppléant,departmental,TRUE,draft,1,31,16
+33,Pastef KAOLACK titulaire,departmental,FALSE,draft,1,31,17
+34,Pastef KAOLACK suppléant,departmental,TRUE,draft,1,31,17
+35,Pastef NIORO DU RIP titulaire,departmental,FALSE,draft,1,31,18
+36,Pastef NIORO DU RIP suppléant,departmental,TRUE,draft,1,31,18
+37,Pastef KEDOUGOU titulaire,departmental,FALSE,draft,1,31,19
+38,Pastef KEDOUGOU suppléant,departmental,TRUE,draft,1,31,19
+39,Pastef SALEMATA titulaire,departmental,FALSE,draft,1,31,20
+40,Pastef SALEMATA suppléant,departmental,TRUE,draft,1,31,20
+41,Pastef SARAYA titulaire,departmental,FALSE,draft,1,31,21
+42,Pastef SARAYA suppléant,departmental,TRUE,draft,1,31,21
+43,Pastef KOLDA titulaire,departmental,FALSE,draft,1,31,22
+44,Pastef KOLDA suppléant,departmental,TRUE,draft,1,31,22
+45,Pastef MEDINA YORO FOULAH titulaire,departmental,FALSE,draft,1,31,23
+46,Pastef MEDINA YORO FOULAH suppléant,departmental,TRUE,draft,1,31,23
+47,Pastef VELINGARA titulaire,departmental,FALSE,draft,1,31,24
+48,Pastef VELINGARA suppléant,departmental,TRUE,draft,1,31,24
+49,Pastef KEBEMER titulaire,departmental,FALSE,draft,1,31,25
+50,Pastef KEBEMER suppléant,departmental,TRUE,draft,1,31,25
+51,Pastef LINGUERE titulaire,departmental,FALSE,draft,1,31,26
+52,Pastef LINGUERE suppléant,departmental,TRUE,draft,1,31,26
+53,Pastef LOUGA titulaire,departmental,FALSE,draft,1,31,27
+54,Pastef LOUGA suppléant,departmental,TRUE,draft,1,31,27
+55,Pastef KANEL titulaire,departmental,FALSE,draft,1,31,28
+56,Pastef KANEL suppléant,departmental,TRUE,draft,1,31,28
+57,Pastef MATAM titulaire,departmental,FALSE,draft,1,31,29
+58,Pastef MATAM suppléant,departmental,TRUE,draft,1,31,29
+59,Pastef RANEROU FERLO titulaire,departmental,FALSE,draft,1,31,30
+60,Pastef RANEROU FERLO suppléant,departmental,TRUE,draft,1,31,30
+61,Pastef DAGANA titulaire,departmental,FALSE,draft,1,31,31
+62,Pastef DAGANA suppléant,departmental,TRUE,draft,1,31,31
+63,Pastef PODOR titulaire,departmental,FALSE,draft,1,31,32
+64,Pastef PODOR suppléant,departmental,TRUE,draft,1,31,32
+65,Pastef SAINT LOUIS titulaire,departmental,FALSE,draft,1,31,33
+66,Pastef SAINT LOUIS suppléant,departmental,TRUE,draft,1,31,33
+67,Pastef BOUNKILING titulaire,departmental,FALSE,draft,1,31,34
+68,Pastef BOUNKILING suppléant,departmental,TRUE,draft,1,31,34
+69,Pastef GOUDOMP titulaire,departmental,FALSE,draft,1,31,35
+70,Pastef GOUDOMP suppléant,departmental,TRUE,draft,1,31,35
+71,Pastef SEDHIOU titulaire,departmental,FALSE,draft,1,31,36
+72,Pastef SEDHIOU suppléant,departmental,TRUE,draft,1,31,36
+73,Pastef BAKEL titulaire,departmental,FALSE,draft,1,31,37
+74,Pastef BAKEL suppléant,departmental,TRUE,draft,1,31,37
+75,Pastef GOUDIRY titulaire,departmental,FALSE,draft,1,31,38
+76,Pastef GOUDIRY suppléant,departmental,TRUE,draft,1,31,38
+77,Pastef KOUMPENTOUM titulaire,departmental,FALSE,draft,1,31,39
+78,Pastef KOUMPENTOUM suppléant,departmental,TRUE,draft,1,31,39
+79,Pastef TAMBACOUNDA titulaire,departmental,FALSE,draft,1,31,40
+80,Pastef TAMBACOUNDA suppléant,departmental,TRUE,draft,1,31,40
+81,Pastef MBOUR titulaire,departmental,FALSE,draft,1,31,41
+82,Pastef MBOUR suppléant,departmental,TRUE,draft,1,31,41
+83,Pastef THIES titulaire,departmental,FALSE,draft,1,31,42
+84,Pastef THIES suppléant,departmental,TRUE,draft,1,31,42
+85,Pastef TIVAOUANE titulaire,departmental,FALSE,draft,1,31,43
+86,Pastef TIVAOUANE suppléant,departmental,TRUE,draft,1,31,43
+87,Pastef BIGNONA titulaire,departmental,FALSE,draft,1,31,44
+88,Pastef BIGNONA suppléant,departmental,TRUE,draft,1,31,44
+89,Pastef OUSSOUYE titulaire,departmental,FALSE,draft,1,31,45
+90,Pastef OUSSOUYE suppléant,departmental,TRUE,draft,1,31,45
+91,Pastef ZIGUINCHOR titulaire,departmental,FALSE,draft,1,31,46
+92,Pastef ZIGUINCHOR suppléant,departmental,TRUE,draft,1,31,46
+93,Pastef AFRIQUE AUSTRALE titulaire,departmental,FALSE,draft,1,31,47
+94,Pastef AFRIQUE AUSTRALE suppléant,departmental,TRUE,draft,1,31,47
+95,Pastef AFRIQUE CENTRE titulaire,departmental,FALSE,draft,1,31,48
+96,Pastef AFRIQUE CENTRE suppléant,departmental,TRUE,draft,1,31,48
+97,Pastef AFRIQUE NORD titulaire,departmental,FALSE,draft,1,31,49
+98,Pastef AFRIQUE NORD suppléant,departmental,TRUE,draft,1,31,49
+99,Pastef AFRIQUE OUEST titulaire,departmental,FALSE,draft,1,31,50
+100,Pastef AFRIQUE OUEST suppléant,departmental,TRUE,draft,1,31,50
+101,Pastef AMERIQUE OCEANIE titulaire,departmental,FALSE,draft,1,31,51
+102,Pastef AMERIQUE OCEANIE suppléant,departmental,TRUE,draft,1,31,51
+103,Pastef ASIE MOYEN ORIENT titulaire,departmental,FALSE,draft,1,31,52
+104,Pastef ASIE MOYEN ORIENT suppléant,departmental,TRUE,draft,1,31,52
+105,Pastef EUROPE DU SUD titulaire,departmental,FALSE,draft,1,31,53
+106,Pastef EUROPE DU SUD suppléant,departmental,TRUE,draft,1,31,53
+107,Pastef EUROPE OUEST CENTRE NORD titulaire,departmental,FALSE,draft,1,31,54
+108,Pastef EUROPE OUEST CENTRE NORD suppléant,departmental,TRUE,draft,1,31,54

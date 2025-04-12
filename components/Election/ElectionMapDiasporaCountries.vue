@@ -134,7 +134,7 @@ const handleRowClick = (row: CountryStats) => {
       >
         <template #loading>
           <div class="flex justify-center p-4">
-            <!-- <ULoader /> -->
+            <UProgress />
             chargement
           </div>
         </template>

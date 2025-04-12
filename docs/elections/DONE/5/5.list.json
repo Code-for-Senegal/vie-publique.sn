@@ -1,0 +1,753 @@
+[
+  {
+    "name": "POLE ALTERNATIF nationale titulaire",
+    "type": "national",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 5
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "POLE ALTERNATIF nationale suppléant",
+    "type": "national",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 5
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "POLE ALTERNATIF DAKAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 5
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 1
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF DAKAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 5
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 1
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF GUEDIAWAYE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 2
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF GUEDIAWAYE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 2
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF PIKINE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 4
+    }
+  },
+
+  {
+    "name": "POLE ALTERNATIF PIKINE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 4
+    }
+  },
+
+  {
+    "name": "POLE ALTERNATIF RUFISQUE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 5
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF RUFISQUE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 5
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF BAMBEY titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 6
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF BAMBEY suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 6
+    }
+  },
+
+  {
+    "name": "POLE ALTERNATIF DIOURBEL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 7
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF DIOURBEL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 7
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF MBACKE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 8
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF MBACKE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 8
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF BIRKILANE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 12
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF BIRKILANE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 12
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF KAFFRINE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 13
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF KAFFRINE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 13
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF MALEM HODAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 15
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF MALEM HODAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 15
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF NIORO DU RIP titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 18
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF NIORO DU RIP suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 18
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF KEDOUGOU titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 19
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF KEDOUGOU suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 19
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF SALEMATA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 20
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF SALEMATA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 20
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF KOLDA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 22
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF KOLDA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 22
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF VELINGARA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 24
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF VELINGARA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 24
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF LOUGA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 27
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF LOUGA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 27
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF MATAM titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 29
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF MATAM suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 29
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF SAINT LOUIS titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 33
+    }
+  },
+
+  {
+    "name": "POLE ALTERNATIF SAINT LOUIS suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 33
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF KOUMPENTOUM titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 39
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF KOUMPENTOUM suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 39
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF TAMBACOUNDA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 40
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF TAMBACOUNDA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 40
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF THIES titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 42
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF THIES suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 42
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF BIGNONA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 44
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF BIGNONA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 44
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF OUSSOUYE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 45
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF OUSSOUYE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 45
+    }
+  },
+
+  {
+    "name": "POLE ALTERNATIF ZIGUINCHOR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 46
+    }
+  },
+  {
+    "name": "POLE ALTERNATIF ZIGUINCHOR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 5
+    },
+    "constituency": {
+      "id": 46
+    }
+  }
+]

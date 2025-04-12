@@ -1,0 +1,448 @@
+[
+	{
+		"id": 926,
+		"type": "national",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": null
+	},
+	{
+		"id": 927,
+		"type": "national",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": null
+	},
+	{
+		"id": 928,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "DAKAR"
+		}
+	},
+	{
+		"id": 929,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "DAKAR"
+		}
+	},
+	{
+		"id": 930,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "GUEDIAWAYE"
+		}
+	},
+	{
+		"id": 931,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "GUEDIAWAYE"
+		}
+	},
+	{
+		"id": 932,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "PIKINE"
+		}
+	},
+	{
+		"id": 933,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "PIKINE"
+		}
+	},
+	{
+		"id": 934,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "RUFISQUE"
+		}
+	},
+	{
+		"id": 935,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "RUFISQUE"
+		}
+	},
+	{
+		"id": 936,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "BAMBEY"
+		}
+	},
+	{
+		"id": 937,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "BAMBEY"
+		}
+	},
+	{
+		"id": 938,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "DIOURBEL"
+		}
+	},
+	{
+		"id": 939,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "DIOURBEL"
+		}
+	},
+	{
+		"id": 940,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "MBACKE"
+		}
+	},
+	{
+		"id": 941,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "MBACKE"
+		}
+	},
+	{
+		"id": 942,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "BIRKILANE"
+		}
+	},
+	{
+		"id": 943,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "BIRKILANE"
+		}
+	},
+	{
+		"id": 944,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "KAFFRINE"
+		}
+	},
+	{
+		"id": 945,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "KAFFRINE"
+		}
+	},
+	{
+		"id": 946,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "MALEM HODAR"
+		}
+	},
+	{
+		"id": 947,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "MALEM HODAR"
+		}
+	},
+	{
+		"id": 948,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "NIORO DU RIP"
+		}
+	},
+	{
+		"id": 949,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "NIORO DU RIP"
+		}
+	},
+	{
+		"id": 950,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "KEDOUGOU"
+		}
+	},
+	{
+		"id": 951,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "KEDOUGOU"
+		}
+	},
+	{
+		"id": 952,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "SALEMATA"
+		}
+	},
+	{
+		"id": 953,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "SALEMATA"
+		}
+	},
+	{
+		"id": 954,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "KOLDA"
+		}
+	},
+	{
+		"id": 955,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "KOLDA"
+		}
+	},
+	{
+		"id": 956,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "VELINGARA"
+		}
+	},
+	{
+		"id": 957,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "VELINGARA"
+		}
+	},
+	{
+		"id": 958,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "LOUGA"
+		}
+	},
+	{
+		"id": 959,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "LOUGA"
+		}
+	},
+	{
+		"id": 960,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "MATAM"
+		}
+	},
+	{
+		"id": 961,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "MATAM"
+		}
+	},
+	{
+		"id": 962,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "SAINT LOUIS"
+		}
+	},
+	{
+		"id": 963,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "SAINT LOUIS"
+		}
+	},
+	{
+		"id": 964,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "KOUMPENTOUM"
+		}
+	},
+	{
+		"id": 965,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "KOUMPENTOUM"
+		}
+	},
+	{
+		"id": 966,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "TAMBACOUNDA"
+		}
+	},
+	{
+		"id": 967,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "TAMBACOUNDA"
+		}
+	},
+	{
+		"id": 968,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "THIES"
+		}
+	},
+	{
+		"id": 969,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "THIES"
+		}
+	},
+	{
+		"id": 970,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "BIGNONA"
+		}
+	},
+	{
+		"id": 971,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "BIGNONA"
+		}
+	},
+	{
+		"id": 972,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "OUSSOUYE"
+		}
+	},
+	{
+		"id": 973,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "OUSSOUYE"
+		}
+	},
+	{
+		"id": 974,
+		"type": "departmental",
+		"is_substitute": false,
+		"status": "draft",
+		"constituency": {
+			"name": "ZIGUINCHOR"
+		}
+	},
+	{
+		"id": 975,
+		"type": "departmental",
+		"is_substitute": true,
+		"status": "draft",
+		"constituency": {
+			"name": "ZIGUINCHOR"
+		}
+	}
+]

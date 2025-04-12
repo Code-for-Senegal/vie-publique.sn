@@ -1,0 +1,1475 @@
+[
+    {
+      "name": "DIAM AK NJARIN nationale titulaire",
+      "type": "national",
+      "is_substitute": false,
+      "status": "draft",
+      "coalition": {
+        "id": 36
+      },
+      "election": {
+        "id": 1
+      },
+      "constituency": null
+    },
+    {
+      "name": "DIAM AK NJARIN nationale suppléant",
+      "type": "national",
+      "is_substitute": true,
+      "status": "draft",
+      "coalition": {
+        "id": 36
+      },
+      "election": {
+        "id": 1
+      },
+      "constituency": null
+    },
+    {
+      "name": "DIAM AK NJARIN DAKAR titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "coalition": {
+        "id": 36
+      },
+      "election": {
+        "id": 1
+      },
+      "constituency": {
+        "id": 1
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN DAKAR suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "coalition": {
+        "id": 36
+      },
+      "election": {
+        "id": 1
+      },
+      "constituency": {
+        "id": 1
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN GUEDIAWAYE titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 2
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN GUEDIAWAYE suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 2
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN KEUR MASSAR titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 3
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN KEUR MASSAR suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 3
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN PIKINE titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 4
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN PIKINE suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 4
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN RUFISQUE titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 5
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN RUFISQUE suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 5
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN BAMBEY titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 6
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN BAMBEY suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 6
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN DIOURBEL titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 7
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN DIOURBEL suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 7
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN MBACKE titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 8
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN MBACKE suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 8
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN FATICK titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 9
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN FATICK suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 9
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN FOUNDIOUGNE titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 10
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN FOUNDIOUGNE suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 10
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN GOSSAS titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 11
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN GOSSAS suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 11
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN BIRKILANE titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 12
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN BIRKILANE suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 12
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN KAFFRINE titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 13
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN KAFFRINE suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 13
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN KOUNGHEUL titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 14
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN KOUNGHEUL suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 14
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN MALEM HODAR titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 15
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN MALEM HODAR suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 15
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN GUINGUINEO titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 16
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN GUINGUINEO suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 16
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN KAOLACK titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 17
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN KAOLACK suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 17
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN NIORO DU RIP titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 18
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN NIORO DU RIP suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 18
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN KEDOUGOU titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 19
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN KEDOUGOU suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 19
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN SALEMATA titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 20
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN SALEMATA suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 20
+      }
+    },
+  
+    {
+      "name": "DIAM AK NJARIN SARAYA titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 21
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN SARAYA suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 21
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN KOLDA titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 22
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN KOLDA suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 22
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN MEDINA YORO FOULAH titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 23
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN MEDINA YORO FOULAH suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 23
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN VELINGARA titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 24
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN VELINGARA suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 24
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN KEBEMER titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 25
+      }
+    },
+
+    {
+      "name": "DIAM AK NJARIN LINGUERE suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 26
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN LOUGA titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 27
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN LOUGA suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 27
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN KANEL titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 28
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN KANEL suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 28
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN MATAM titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 29
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN MATAM suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 29
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN RANEROU FERLO titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 30
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN RANEROU FERLO suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 30
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN DAGANA titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 31
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN DAGANA suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 31
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN PODOR titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 32
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN PODOR suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 32
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN SAINT LOUIS titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 33
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN SAINT LOUIS suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 33
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN BOUNKILING titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 34
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN BOUNKILING suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 34
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN GOUDOMP titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 35
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN GOUDOMP suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 35
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN SEDHIOU titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 36
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN SEDHIOU suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 36
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN BAKEL titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 37
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN BAKEL suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 37
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN GOUDIRY titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 38
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN GOUDIRY suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 38
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN KOUMPENTOUM titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 39
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN KOUMPENTOUM suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 39
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN TAMBACOUNDA titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 40
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN TAMBACOUNDA suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 40
+      }
+    },
+  
+    {
+      "name": "DIAM AK NJARIN MBOUR titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 41
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN MBOUR suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 41
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN THIES titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 42
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN THIES suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 42
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN TIVAOUANE titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 43
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN TIVAOUANE suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 43
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN BIGNONA titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 44
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN BIGNONA suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 44
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN OUSSOUYE titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 45
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN OUSSOUYE suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 45
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN ZIGUINCHOR titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 46
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN ZIGUINCHOR suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 46
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN AFRIQUE AUSTRALE titulaire",
+      "type": "diaspora",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 47
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN AFRIQUE AUSTRALE suppléant",
+      "type": "diaspora",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 47
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN AFRIQUE OUEST titulaire",
+      "type": "diaspora",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 50
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN AFRIQUE OUEST suppléant",
+      "type": "diaspora",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 50
+      }
+    },
+
+
+    {
+      "name": "DIAM AK NJARIN AMERIQUE OCEANIE titulaire",
+      "type": "diaspora",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 51
+      }
+    },
+    {
+      "name": "DIAM AK NJARIN AMERIQUE OCEANIE suppléant",
+      "type": "diaspora",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 36
+      },
+      "constituency": {
+        "id": 51
+      }
+    }
+
+  ]
+  

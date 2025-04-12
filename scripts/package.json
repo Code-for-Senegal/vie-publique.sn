@@ -1,0 +1,27 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "description": "install",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate-jors": "ts-node migrate_jo_nuxt_to_directus.ts",
+    "migrate-conseil": "ts-node migrate_conseil_ministre_to_directus.ts",
+    "migrate-position": "ts-node migrate_positions.ts",
+    "test-connection": "ts-node test-connection.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@directus/sdk": "^18.0.3",
+    "@types/node": "^22.13.0",
+    "dotenv": "^16.4.7",
+    "form-data": "^4.0.1",
+    "gray-matter": "^4.0.3",
+    "marked": "^15.0.6",
+    "mime-types": "^2.1.35",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+}

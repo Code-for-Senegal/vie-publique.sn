@@ -118,7 +118,7 @@
           v-if="filterLoading"
           class="absolute inset-0 z-10 flex items-center justify-center bg-white bg-opacity-75"
         >
-          <ULoadingIcon class="h-8 w-8 text-gray-500" />
+          <UProgress />
         </div>
 
         <table class="min-w-full divide-y divide-gray-200">

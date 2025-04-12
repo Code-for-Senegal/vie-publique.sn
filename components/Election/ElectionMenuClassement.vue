@@ -13,11 +13,11 @@
     <!-- Contenu du bloc -->
     <div class="relative z-10 p-6 px-4 text-center text-white">
       <NuxtLink to="/elections/legislatives/resultats/classement">
-        <h2 class="mb-2 text-2xl font-extrabold md:text-3xl">
-          Classement listes
+        <h2 class="mb-2 text-2xl font-extrabold sm:text-xl md:text-3xl">
+          Résultats législatives
         </h2>
         <p class="mb-2 text-sm font-medium leading-relaxed md:text-base">
-          Pourcentages et voix obtenus
+          Pourcentages et voix des coalitions
         </p>
       </NuxtLink>
     </div>

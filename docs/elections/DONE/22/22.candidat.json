@@ -1,0 +1,2272 @@
+[
+  {
+    "position": 1,
+    "first_name": "INSSA",
+    "last_name": "DIEYE",
+    "voter_number": "103076586",
+    "profession": "Mécanicien",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "COUMBA AISSATA",
+    "last_name": "NDIAYE",
+    "voter_number": "104872474",
+    "profession": "Coiffeuse",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 3,
+    "first_name": "MAMADOU",
+    "last_name": "KASSE",
+    "voter_number": "106462649",
+    "profession": "Bijoutier",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 4,
+    "first_name": "DIARRI",
+    "last_name": "NIANG",
+    "voter_number": "100920051",
+    "profession": "Couturière",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 5,
+    "first_name": "MODOU",
+    "last_name": "SECK",
+    "voter_number": "101622226",
+    "profession": "Transporteur",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 6,
+    "first_name": "FATOU KINE",
+    "last_name": "DIOP",
+    "voter_number": "100552284",
+    "profession": "Transformatrice",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 7,
+    "first_name": "PAPA SALIOU",
+    "last_name": "SENE",
+    "voter_number": "105337512",
+    "profession": "ARTISAN",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 8,
+    "first_name": "MARIEME",
+    "last_name": "NDIAYE",
+    "voter_number": "102031144",
+    "profession": "Agent de poste",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 9,
+    "first_name": "ELHADJI BABACAR ALIOUNE",
+    "last_name": "SOW",
+    "voter_number": "124046143",
+    "profession": "Carreleur",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 10,
+    "first_name": "DIEYNABA N. BOUBOU",
+    "last_name": "THIELO",
+    "voter_number": "100120027",
+    "profession": "Artisane",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 11,
+    "first_name": "DAME",
+    "last_name": "LOUM",
+    "voter_number": "100695140",
+    "profession": "Mécanicien",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 12,
+    "first_name": "AISSATOU",
+    "last_name": "MBODJI",
+    "voter_number": "122018255",
+    "profession": "Transformatrice",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 13,
+    "first_name": "MAMADOU YORO",
+    "last_name": "BALDE",
+    "voter_number": "100950338",
+    "profession": "Tailleur",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 14,
+    "first_name": "OUSMANE",
+    "last_name": "DIALLO",
+    "voter_number": "105402102",
+    "profession": "Couturière",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 15,
+    "first_name": "PAPA DEMBA",
+    "last_name": "FALL",
+    "voter_number": "120242417",
+    "profession": "Menuisier",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 16,
+    "first_name": "FATOU",
+    "last_name": "SARR",
+    "voter_number": "100219079",
+    "profession": "Couturière",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 17,
+    "first_name": "IBRAHIMA",
+    "last_name": "BARRY",
+    "voter_number": "102068551",
+    "profession": "Couturier",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 18,
+    "first_name": "NOGAYE",
+    "last_name": "SEYE",
+    "voter_number": "103906605",
+    "profession": "ARTISANE",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 19,
+    "first_name": "MOMAR",
+    "last_name": "SALL",
+    "voter_number": "101517913",
+    "profession": "Menuisier Métallique",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 20,
+    "first_name": "NDOFFE",
+    "last_name": "DIOP",
+    "voter_number": "103051605",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 21,
+    "first_name": "MBAYE",
+    "last_name": "TINE",
+    "voter_number": "101549050",
+    "profession": "Menuisier",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 22,
+    "first_name": "MARAME",
+    "last_name": "KA",
+    "voter_number": "100920022",
+    "profession": "Transformatrice",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 23,
+    "first_name": "CHEIKHOU",
+    "last_name": "SINE",
+    "voter_number": "101117154",
+    "profession": "ARTISAN",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 24,
+    "first_name": "AISSATOU",
+    "last_name": "NDIAYE",
+    "voter_number": "100533744",
+    "profession": "Coiffeuse",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 25,
+    "first_name": "CHEIKH TIDIANE",
+    "last_name": "NDIAYE",
+    "voter_number": "105044125",
+    "profession": "Menuisier",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 26,
+    "first_name": "ABSA",
+    "last_name": "NDOUR",
+    "voter_number": "101030735",
+    "profession": "ARTISANE",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 27,
+    "first_name": "SOULEYMANE",
+    "last_name": "MBAYE",
+    "voter_number": "102233449",
+    "profession": "Couturier",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 28,
+    "first_name": "ASTOU",
+    "last_name": "DIONE",
+    "voter_number": "106595508",
+    "profession": "Tailleur",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 29,
+    "first_name": "ABOUBACAR SADIKH",
+    "last_name": "NDIAYE",
+    "voter_number": "101692306",
+    "profession": "Menuisier Métallique",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 30,
+    "first_name": "FAMA",
+    "last_name": "FAYE",
+    "voter_number": "120443530",
+    "profession": "Coiffeuse",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 31,
+    "first_name": "YOBA",
+    "last_name": "MBALLO",
+    "voter_number": "100277479",
+    "profession": "Tailleur",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 32,
+    "first_name": "COUMBA",
+    "last_name": "BADIANE",
+    "voter_number": "100596216",
+    "profession": "Couturière",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 33,
+    "first_name": "MOR",
+    "last_name": "DIABAYE",
+    "voter_number": "104621532",
+    "profession": "Menuisier",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 34,
+    "first_name": "NDEYE",
+    "last_name": "NIANG",
+    "voter_number": "100069173",
+    "profession": "Artisane",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 35,
+    "first_name": "SAMBA",
+    "last_name": "NDAO",
+    "voter_number": "105760746",
+    "profession": "Menuisier",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+
+  {
+    "position": 36,
+    "first_name": "SIRA",
+    "last_name": "DIEME",
+    "voter_number": "100216181",
+    "profession": "Transformatrice",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 37,
+    "first_name": "CHEIKH EL HADJI OMAR",
+    "last_name": "TRAORE",
+    "voter_number": "104983015",
+    "profession": "Menuisier",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 38,
+    "first_name": "KHADY",
+    "last_name": "NDIAYE",
+    "voter_number": "106148309",
+    "profession": "Artisane",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 39,
+    "first_name": "PAPA SALOUM",
+    "last_name": "SOW",
+    "voter_number": "100415681",
+    "profession": "Chauffeur",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 40,
+    "first_name": "DIEYNABA",
+    "last_name": "MBALLO",
+    "voter_number": "106708291",
+    "profession": "Artisane",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 41,
+    "first_name": "ALIOU",
+    "last_name": "BALDE",
+    "voter_number": "102481001",
+    "profession": "Transporteur",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 42,
+    "first_name": "NDEYE ANTAGUENE",
+    "last_name": "SARR",
+    "voter_number": "104064361",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 43,
+    "first_name": "MAMADOU MOUSTAPHA",
+    "last_name": "SENE",
+    "voter_number": "100502015",
+    "profession": "ARTISAN",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 44,
+    "first_name": "TENING",
+    "last_name": "KAMA",
+    "voter_number": "103018153",
+    "profession": "Receveuse",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 45,
+    "first_name": "MALANG",
+    "last_name": "SANO",
+    "voter_number": "980317506",
+    "profession": "Logisticien",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 46,
+    "first_name": "MANIATOU",
+    "last_name": "NDIAYE",
+    "voter_number": "104091164",
+    "profession": "Transformatrice",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 47,
+    "first_name": "LAMINE",
+    "last_name": "THIAM",
+    "voter_number": "100277046",
+    "profession": "Menuisier Métallique",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 48,
+    "first_name": "TAHIBOU",
+    "last_name": "CAMARA",
+    "voter_number": "100007709",
+    "profession": "Transformatrice",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 49,
+    "first_name": "MOR",
+    "last_name": "GUEYE",
+    "voter_number": "102765397",
+    "profession": "Menuisier",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 50,
+    "first_name": "AMINATA",
+    "last_name": "SOW",
+    "voter_number": "100926022",
+    "profession": "Transformatrice",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 51,
+    "first_name": "ABDOU",
+    "last_name": "THIAM",
+    "voter_number": "106198422",
+    "profession": "Artisan",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 52,
+    "first_name": "MAIMOUNA",
+    "last_name": "DRAME",
+    "voter_number": "100557459",
+    "profession": "Couturière",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 53,
+    "first_name": "ASSANE",
+    "last_name": "CISSE",
+    "voter_number": "106803080",
+    "profession": "Maçon",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1094
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "OMAR",
+    "last_name": "MBAYE",
+    "voter_number": "105645315",
+    "profession": "Menuisier Ébéniste",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "KINE",
+    "last_name": "FAYE",
+    "voter_number": "100271733",
+    "profession": "Transformatrice",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 3,
+    "first_name": "ABABACAR MBAYE",
+    "last_name": "HANE",
+    "voter_number": "105045164",
+    "profession": "Electro technicien",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 4,
+    "first_name": "FATIM",
+    "last_name": "SYLLA",
+    "voter_number": "102067388",
+    "profession": "Couturière",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 5,
+    "first_name": "MACKY",
+    "last_name": "FAYE",
+    "voter_number": "100157334",
+    "profession": "Comptable",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 6,
+    "first_name": "MARIEME",
+    "last_name": "BADIANE",
+    "voter_number": "105157445",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 7,
+    "first_name": "SERIGNE",
+    "last_name": "SARR",
+    "voter_number": "100102121",
+    "profession": "Menuisier Métallique",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 8,
+    "first_name": "KATY",
+    "last_name": "DIOP",
+    "voter_number": "106039288",
+    "profession": "Transformatrice",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 9,
+    "first_name": "MOR",
+    "last_name": "GUEYE",
+    "voter_number": "102496528",
+    "profession": "Artisan",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 10,
+    "first_name": "KADJATA MAMADOU",
+    "last_name": "ANNE",
+    "voter_number": "100404085",
+    "profession": "Transformatrice",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 11,
+    "first_name": "ABDOUL AZIZ",
+    "last_name": "TALL",
+    "voter_number": "105893995",
+    "profession": "Menuisier",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 12,
+    "first_name": "ROKHAYA",
+    "last_name": "DIALLO",
+    "voter_number": "101962197",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 13,
+    "first_name": "ABDOULAYE",
+    "last_name": "NDOYE",
+    "voter_number": "102347640",
+    "profession": "Menuisier",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 14,
+    "first_name": "FATOUMATA",
+    "last_name": "TOURE",
+    "voter_number": "100523634",
+    "profession": "Couturière",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 15,
+    "first_name": "BABACAR",
+    "last_name": "GUEYE",
+    "voter_number": "121165100",
+    "profession": "Tailleur",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 16,
+    "first_name": "BIGUE",
+    "last_name": "NDOUR",
+    "voter_number": "105569892",
+    "profession": "ARTISANE",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 17,
+    "first_name": "IBRAHIMA",
+    "last_name": "SOW",
+    "voter_number": "104477516",
+    "profession": "Photographe",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 18,
+    "first_name": "SANOU",
+    "last_name": "DIA",
+    "voter_number": "120310206",
+    "profession": "Coiffeuse",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 19,
+    "first_name": "OUSMANE",
+    "last_name": "DIALLO",
+    "voter_number": "106665752",
+    "profession": "Menuisier Bois",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 20,
+    "first_name": "RAMATOULAYE",
+    "last_name": "DIALLO",
+    "voter_number": "100973219",
+    "profession": "formatrice - artisane",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 21,
+    "first_name": "BARA",
+    "last_name": "SAKHO",
+    "voter_number": "103828742",
+    "profession": "Menuisier aluminium",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 22,
+    "first_name": "BINTA",
+    "last_name": "DIARRA",
+    "voter_number": "120366141",
+    "profession": "Transformatrice produits locaux",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 23,
+    "first_name": "DJIBY",
+    "last_name": "DIALLO",
+    "voter_number": "102458713",
+    "profession": "Mecanicien",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 24,
+    "first_name": "MAGBOULA",
+    "last_name": "FALL",
+    "voter_number": "105432526",
+    "profession": "Couturière",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 25,
+    "first_name": "TALLA",
+    "last_name": "TALL",
+    "voter_number": "101848905",
+    "profession": "Ingénieur agricole",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 26,
+    "first_name": "NOGAYE",
+    "last_name": "NDIAYE",
+    "voter_number": "102067113",
+    "profession": "Transformatrice",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 27,
+    "first_name": "SERIGNE IDRISSA",
+    "last_name": "SENE",
+    "voter_number": "101246958",
+    "profession": "Menuisier",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 28,
+    "first_name": "AIDA",
+    "last_name": "NDIAYE",
+    "voter_number": "100685507",
+    "profession": "Couturière",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 29,
+    "first_name": "OMAR ABSA",
+    "last_name": "KA",
+    "voter_number": "100143418",
+    "profession": "Tailleur",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 30,
+    "first_name": "FATOU",
+    "last_name": "NDIAYE",
+    "voter_number": "102162384",
+    "profession": "Transformatrice",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 31,
+    "first_name": "BADOU",
+    "last_name": "GUEYE",
+    "voter_number": "100164604",
+    "profession": "Menuisier",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 32,
+    "first_name": "ADAMA HAWA",
+    "last_name": "DIALLO",
+    "voter_number": "102848881",
+    "profession": "Ménagère",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 33,
+    "first_name": "IBRAHIMA SORY",
+    "last_name": "DIALLO",
+    "voter_number": "100796882",
+    "profession": "Tailleur",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 34,
+    "first_name": "SEYNABOU",
+    "last_name": "DIOUF",
+    "voter_number": "101249581",
+    "profession": "Ménagère",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 35,
+    "first_name": "ASSANE",
+    "last_name": "BABOU",
+    "voter_number": "104744098",
+    "profession": "TAILLEUR",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 36,
+    "first_name": "AMY",
+    "last_name": "KEBE",
+    "voter_number": "122883640",
+    "profession": "Ménagère",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 37,
+    "first_name": "BARA",
+    "last_name": "THIAM",
+    "voter_number": "104785375",
+    "profession": "Bijoutier",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 38,
+    "first_name": "ADAM",
+    "last_name": "DIAGNE",
+    "voter_number": "103872202",
+    "profession": "AGENT HOPITAL",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 39,
+    "first_name": "GORA",
+    "last_name": "GUEYE",
+    "voter_number": "103444594",
+    "profession": "Styliste",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+
+  {
+    "position": 40,
+    "first_name": "MARY",
+    "last_name": "MBAYE",
+    "voter_number": "100419981",
+    "profession": "Comptable",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 41,
+    "first_name": "WALY",
+    "last_name": "NDIAYE",
+    "voter_number": "100421727",
+    "profession": "ARTISAN",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 42,
+    "first_name": "FATOU KINE",
+    "last_name": "NIASSE",
+    "voter_number": "105586643",
+    "profession": "ARTISANE",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 43,
+    "first_name": "IBRAHIMA",
+    "last_name": "NDIAYE",
+    "voter_number": "104669453",
+    "profession": "Menuisier",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 44,
+    "first_name": "OUMOU",
+    "last_name": "TALL",
+    "voter_number": "103637874",
+    "profession": "Ménagère",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 45,
+    "first_name": "MAMADOU",
+    "last_name": "DIENG",
+    "voter_number": "105849685",
+    "profession": "ARTISAN",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 46,
+    "first_name": "ROKHY",
+    "last_name": "DIAKHATE",
+    "voter_number": "100721896",
+    "profession": "Couturière",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 47,
+    "first_name": "MODOU",
+    "last_name": "DIOUF",
+    "voter_number": "106384585",
+    "profession": "ARTISAN",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 48,
+    "first_name": "SALIMATOU",
+    "last_name": "BALDE",
+    "voter_number": "102962456",
+    "profession": "Ménagère",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 49,
+    "first_name": "THIERNO",
+    "last_name": "NIANG",
+    "voter_number": "100958322",
+    "profession": "Chauffeur",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 50,
+    "first_name": "RAMATOULAYE",
+    "last_name": "BALDE",
+    "voter_number": "100103101",
+    "profession": "Ménagère",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1095
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "MOUHAMED LAMINE",
+    "last_name": "KEBE",
+    "voter_number": "101934123",
+    "profession": "TAILLEUR",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1096
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "MATY",
+    "last_name": "LADIANE",
+    "voter_number": "100331499",
+    "profession": "ARTISANE",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1096
+    }
+  },
+  {
+    "position": 3,
+    "first_name": "PAPA ALLE",
+    "last_name": "FALL",
+    "voter_number": "105283729",
+    "profession": "CHAUFFEUR",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1096
+    }
+  },
+  {
+    "position": 4,
+    "first_name": "DADO",
+    "last_name": "THIAM",
+    "voter_number": "102332463",
+    "profession": "COUTURIÈRE",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1096
+    }
+  },
+  {
+    "position": 5,
+    "first_name": "AMADOU",
+    "last_name": "DIOP",
+    "voter_number": "100960787",
+    "profession": "ARTISAN",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1096
+    }
+  },
+  {
+    "position": 6,
+    "first_name": "ROSE MARIE CHANTAL",
+    "last_name": "GOMIS",
+    "voter_number": "100950110",
+    "profession": "COIFFEUSE",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1096
+    }
+  },
+  {
+    "position": 7,
+    "first_name": "AISSATOU COMBE",
+    "last_name": "DIATTA",
+    "voter_number": "100048818",
+    "profession": "COUTURIÈRE",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1096
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "MAGAMOU",
+    "last_name": "NIANG",
+    "voter_number": "101974597",
+    "profession": "ARTISAN",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1097
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "MAGATTE",
+    "last_name": "NIANG",
+    "voter_number": "101768096",
+    "profession": "COUTURIÈRE",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1097
+    }
+  },
+  {
+    "position": 3,
+    "first_name": "MODOU",
+    "last_name": "GUEYE",
+    "voter_number": "103387612",
+    "profession": "TAILLEUR",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1097
+    }
+  },
+  {
+    "position": 4,
+    "first_name": "MOUMOU AMADOU",
+    "last_name": "NDEMANE",
+    "voter_number": "100086756",
+    "profession": "ENTREPRENEUR",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1097
+    }
+  },
+  {
+    "position": 5,
+    "first_name": "ELHADJI MAMOUR",
+    "last_name": "DIENG",
+    "voter_number": "101763673",
+    "profession": "CHAUFFEUR",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1097
+    }
+  },
+  {
+    "position": 6,
+    "first_name": "SEYNABOU",
+    "last_name": "SECK",
+    "voter_number": "102397489",
+    "profession": "ARTISANE",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1097
+    }
+  },
+  {
+    "position": 7,
+    "first_name": "ALIOU",
+    "last_name": "CAMARA",
+    "voter_number": "100307051",
+    "profession": "ARTISAN",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1097
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "PAPA",
+    "last_name": "SAKHO",
+    "voter_number": "101824160",
+    "profession": "Tôlier",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1098
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "GNAGNA",
+    "last_name": "MBOW",
+    "voter_number": "102795810",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1098
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "MAMADOU SAIDOU",
+    "last_name": "DIALLO",
+    "voter_number": "100724651",
+    "profession": "Couturier",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1099
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "FATOU",
+    "last_name": "WATHIE",
+    "voter_number": "103424500",
+    "profession": "Couturière",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1099
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "OMAR",
+    "last_name": "THIAM",
+    "voter_number": "102826582",
+    "profession": "Maroquinier",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1100
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "FATOU",
+    "last_name": "NDONG",
+    "voter_number": "101538509",
+    "profession": "Transformatrice produits locaux",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1100
+    }
+  },
+  {
+    "position": 3,
+    "first_name": "KHALY",
+    "last_name": "THIAM",
+    "voter_number": "105960788",
+    "profession": "Bijoutier",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1100
+    }
+  },
+  {
+    "position": 4,
+    "first_name": "FATIMATA",
+    "last_name": "SY",
+    "voter_number": "102063348",
+    "profession": "Transformatrice des produits locaux",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1100
+    }
+  },
+  {
+    "position": 5,
+    "first_name": "TOUBA",
+    "last_name": "NGUENENE",
+    "voter_number": "102387264",
+    "profession": "Tailleur",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1100
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "FALLOU",
+    "last_name": "DIA",
+    "voter_number": "102497467",
+    "profession": "Bijoutier",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1101
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "AISSATOU",
+    "last_name": "DIA",
+    "voter_number": "105795548",
+    "profession": "Transformatrice",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1101
+    }
+  },
+  {
+    "position": 3,
+    "first_name": "MODOU",
+    "last_name": "GAYE",
+    "voter_number": "102865223",
+    "profession": "Tailleur",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1101
+    }
+  },
+  {
+    "position": 4,
+    "first_name": "KHADY",
+    "last_name": "DIOUF",
+    "voter_number": "102831129",
+    "profession": "Couturière",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1101
+    }
+  },
+  {
+    "position": 5,
+    "first_name": "SIDY",
+    "last_name": "FALL",
+    "voter_number": "122175319",
+    "profession": "Menuisier et Ébéniste",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1101
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "CHEIKH AHMED TIDIANI",
+    "last_name": "THIAM",
+    "voter_number": "121069841",
+    "profession": "Bijoutier",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1102
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "AWA",
+    "last_name": "SAMBA",
+    "voter_number": "100853236",
+    "profession": "ARTISAN",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1102
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "ADJI",
+    "last_name": "THIANDOUM",
+    "voter_number": "100553827",
+    "profession": "Coiffeuse",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1103
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "MAMOUR",
+    "last_name": "NDIAYE",
+    "voter_number": "106173946",
+    "profession": "Menuisier",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1103
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "BADARA",
+    "last_name": "BADIANE",
+    "voter_number": "100493035",
+    "profession": "TAILLEUR",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1104
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "PENDA",
+    "last_name": "GACKOU",
+    "voter_number": "101638078",
+    "profession": "ARTISAN",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1104
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "EL HADJI FALOU",
+    "last_name": "KANDJI",
+    "voter_number": "103413883",
+    "profession": "Menuisier Bois Ébéniste",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1105
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "MAGUETTE",
+    "last_name": "DIAGNE",
+    "voter_number": "100223192",
+    "profession": "Coiffeuse",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1105
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "BASSIROU",
+    "last_name": "DIENG",
+    "voter_number": "102913530",
+    "profession": "MECANIQUE GENERALE",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1106
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "MAME AMY",
+    "last_name": "DEME",
+    "voter_number": "104478316",
+    "profession": "Couturière",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1106
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "MAFATIM",
+    "last_name": "DIOP",
+    "voter_number": "104652256",
+    "profession": "Electromécanique",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1107
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "THERESE",
+    "last_name": "DIOP",
+    "voter_number": "100000551",
+    "profession": "Artisane",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1107
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "MODOU",
+    "last_name": "MOUSTAPHA DIENG",
+    "voter_number": "100783897",
+    "profession": "Menuisier Bois",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1108
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "THIOUBA",
+    "last_name": "BASS",
+    "voter_number": "104499568",
+    "profession": "Femme de développement",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1108
+    }
+  },
+  {
+    "position": 3,
+    "first_name": "TAFSIR",
+    "last_name": "NDIAYE",
+    "voter_number": "101729368",
+    "profession": "Cordonnier",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1108
+    }
+  },
+  {
+    "position": 4,
+    "first_name": "KHADY",
+    "last_name": "KANE",
+    "voter_number": "106329731",
+    "profession": "Entrepreneuse",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1108
+    }
+  },
+  {
+    "position": 5,
+    "first_name": "PAPA",
+    "last_name": "NDONG",
+    "voter_number": "101385311",
+    "profession": "Chauffeur",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1108
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "MOUSTAPHA",
+    "last_name": "GUEYE",
+    "voter_number": "100149785",
+    "profession": "Cordonnier",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1109
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "ADJI BINETA",
+    "last_name": "THIAW",
+    "voter_number": "104798887",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1109
+    }
+  },
+  {
+    "position": 3,
+    "first_name": "ABDOU KHADIR",
+    "last_name": "BA",
+    "voter_number": "104726558",
+    "profession": "Menuisier",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1109
+    }
+  },
+  {
+    "position": 4,
+    "first_name": "RAMATOULAYE",
+    "last_name": "DIARRA",
+    "voter_number": "100689936",
+    "profession": "Restauratrice",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1109
+    }
+  },
+  {
+    "position": 5,
+    "first_name": "YACINE",
+    "last_name": "NDIAYE",
+    "voter_number": "106367979",
+    "profession": "Femme de développement",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1109
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "BADARA",
+    "last_name": "NDIAYE",
+    "voter_number": "100432197",
+    "profession": "Régisseur des bourses",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1110
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "AISSATOU",
+    "last_name": "NDIAYE",
+    "voter_number": "100120324",
+    "profession": "Transformatrice",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1110
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "TENING",
+    "last_name": "NDIOR",
+    "voter_number": "103202025",
+    "profession": "Petitiere",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1111
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "FATACOR",
+    "last_name": "FAYE",
+    "voter_number": "100259928",
+    "profession": "Menuisier Métallique",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1111
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "SADA",
+    "last_name": "NDAO",
+    "voter_number": "100456987",
+    "profession": "Mécanicien",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1112
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "KHADY",
+    "last_name": "TOURE",
+    "voter_number": "104280851",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1112
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "ABDOULAYE",
+    "last_name": "POUYE",
+    "voter_number": "100434150",
+    "profession": "Menuisier",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1113
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "BANEL",
+    "last_name": "BA",
+    "voter_number": "101942794",
+    "profession": "Couturière",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1113
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "MODOU",
+    "last_name": "SENGHOR",
+    "voter_number": "102799610",
+    "profession": "Menuisier",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1114
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "FATOU",
+    "last_name": "THIAM",
+    "voter_number": "104332855",
+    "profession": "Couturière",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1115
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "BABACAR",
+    "last_name": "NDIAYE",
+    "voter_number": "106659554",
+    "profession": "Mécanicien",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1116
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "BINTA",
+    "last_name": "DIOUF",
+    "voter_number": "100063448",
+    "profession": "Transformatrice",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1116
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "ALASSANE",
+    "last_name": "NDAO",
+    "voter_number": "100078910",
+    "profession": "Tailleur",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1117
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "BOURY",
+    "last_name": "THIOUBE",
+    "voter_number": "106660049",
+    "profession": "Coiffeuse",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1117
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "BOCAR",
+    "last_name": "CISSOKHO",
+    "voter_number": "100793342",
+    "profession": "Tailleur",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1118
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "HAWA",
+    "last_name": "BA",
+    "voter_number": "100160323",
+    "profession": "Transformatrice",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1119
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "KADIDIATOU",
+    "last_name": "DIALLO",
+    "voter_number": "102476591",
+    "profession": "Transformatrice",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1120
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "AMADOU DIOGO",
+    "last_name": "DIALLO",
+    "voter_number": "105905002",
+    "profession": "Tailleur",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1120
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "AISSATOU",
+    "last_name": "DIALLO",
+    "voter_number": "103644221",
+    "profession": "Coiffeuse",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1121
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "YAYA",
+    "last_name": "DIAO",
+    "voter_number": "103600603",
+    "profession": "Chauffeur",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1121
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "Moussokoro",
+    "last_name": "Ndaiye",
+    "voter_number": "105992548",
+    "profession": "Transformatrice",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1122
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "Modou",
+    "last_name": "Thiam",
+    "voter_number": "105951213",
+    "profession": "Soudeur",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1122
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "Thiane",
+    "last_name": "Diop",
+    "voter_number": "101589613",
+    "profession": "Artisan",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1123
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "Samba Soya",
+    "last_name": "Fall",
+    "voter_number": "101786589",
+    "profession": "Mécanicien",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1123
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "PAPA MOUSSA",
+    "last_name": "MBAYE",
+    "voter_number": "102424618",
+    "profession": "Artisan",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1124
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "AMINATA",
+    "last_name": "THIAM",
+    "voter_number": "100498473",
+    "profession": "Artisane",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1124
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "MAME DIARA",
+    "last_name": "NDIAYE",
+    "voter_number": "106034048",
+    "profession": "Artisan",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1125
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "MODOU",
+    "last_name": "THIAM",
+    "voter_number": "102418165",
+    "profession": "ARTISAN",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1125
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "NDEYE BIRANE",
+    "last_name": "SENE",
+    "voter_number": "103164284",
+    "profession": "Couturière",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1126
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "IBRAHIMA",
+    "last_name": "GUEYE",
+    "voter_number": "102693256",
+    "profession": "ARTISAN",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1126
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "ATTOU",
+    "last_name": "BOYE",
+    "voter_number": "102660206",
+    "profession": "Mécanicien",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1127
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "MARIEME",
+    "last_name": "MBAYE",
+    "voter_number": "102660304",
+    "profession": "Coiffeuse",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1127
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "MASSILE",
+    "last_name": "GUEYE",
+    "voter_number": "105197205",
+    "profession": "Tailleur",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1128
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "AMINATA",
+    "last_name": "TOURE",
+    "voter_number": "101102823",
+    "profession": "Artisane",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 1128
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "ABABACAR",
+    "last_name": "KASSE",
+    "voter_number": "105680977",
+    "profession": "Artisan",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1129
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "DIAGNA",
+    "last_name": "FALL",
+    "voter_number": "101782250",
+    "profession": "Tailleur",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 1129
+    }
+  }
+]

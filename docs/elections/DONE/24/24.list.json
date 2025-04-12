@@ -1,0 +1,1333 @@
+[
+  {
+    "name": "AND BESSAL nationale titulaire",
+    "type": "national",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 24
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "AND BESSAL nationale suppléant",
+    "type": "national",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 24
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+
+  {
+    "name": "AND BESSAL DAKAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 24
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 1
+    }
+  },
+  {
+    "name": "AND BESSAL DAKAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 24
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 1
+    }
+  },
+
+  {
+    "name": "AND BESSAL GUEDIAWAYE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 2
+    }
+  },
+  {
+    "name": "AND BESSAL GUEDIAWAYE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 2
+    }
+  },
+
+  {
+    "name": "AND BESSAL KEUR MASSAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 3
+    }
+  },
+  {
+    "name": "AND BESSAL KEUR MASSAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 3
+    }
+  },
+
+  {
+    "name": "AND BESSAL PIKINE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 4
+    }
+  },
+
+  {
+    "name": "AND BESSAL PIKINE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 4
+    }
+  },
+
+  {
+    "name": "AND BESSAL RUFISQUE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 5
+    }
+  },
+  {
+    "name": "AND BESSAL RUFISQUE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 5
+    }
+  },
+
+  {
+    "name": "AND BESSAL BAMBEY titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 6
+    }
+  },
+  {
+    "name": "AND BESSAL BAMBEY suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 6
+    }
+  },
+
+  {
+    "name": "AND BESSAL DIOURBEL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 7
+    }
+  },
+  {
+    "name": "AND BESSAL DIOURBEL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 7
+    }
+  },
+
+  {
+    "name": "AND BESSAL MBACKE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 8
+    }
+  },
+  {
+    "name": "AND BESSAL MBACKE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 8
+    }
+  },
+
+  {
+    "name": "AND BESSAL FATICK titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 9
+    }
+  },
+  {
+    "name": "AND BESSAL FATICK suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 9
+    }
+  },
+
+  {
+    "name": "AND BESSAL FOUNDIOUGNE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 10
+    }
+  },
+  {
+    "name": "AND BESSAL FOUNDIOUGNE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 10
+    }
+  },
+
+  {
+    "name": "AND BESSAL GOSSAS titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 11
+    }
+  },
+  {
+    "name": "AND BESSAL GOSSAS suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 11
+    }
+  },
+
+  {
+    "name": "AND BESSAL KAFFRINE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 13
+    }
+  },
+  {
+    "name": "AND BESSAL KAFFRINE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 13
+    }
+  },
+
+  {
+    "name": "AND BESSAL KOUNGHEUL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 14
+    }
+  },
+  {
+    "name": "AND BESSAL KOUNGHEUL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 14
+    }
+  },
+
+  {
+    "name": "AND BESSAL GUINGUINEO titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 16
+    }
+  },
+  {
+    "name": "AND BESSAL GUINGUINEO suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 16
+    }
+  },
+
+  {
+    "name": "AND BESSAL KAOLACK titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 17
+    }
+  },
+  {
+    "name": "AND BESSAL KAOLACK suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 17
+    }
+  },
+
+  {
+    "name": "AND BESSAL NIORO DU RIP titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 18
+    }
+  },
+  {
+    "name": "AND BESSAL NIORO DU RIP suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 18
+    }
+  },
+  {
+    "name": "AND BESSAL KEDOUGOU titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 19
+    }
+  },
+  {
+    "name": "AND BESSAL KEDOUGOU suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 19
+    }
+  },
+
+  {
+    "name": "AND BESSAL SALEMATA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 20
+    }
+  },
+  {
+    "name": "AND BESSAL SALEMATA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 20
+    }
+  },
+
+  {
+    "name": "AND BESSAL KOLDA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 22
+    }
+  },
+
+  {
+    "name": "AND BESSAL KOLDA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 22
+    }
+  },
+
+  {
+    "name": "AND BESSAL VELINGARA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 24
+    }
+  },
+  {
+    "name": "AND BESSAL VELINGARA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 24
+    }
+  },
+
+  {
+    "name": "AND BESSAL KEBEMER titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 25
+    }
+  },
+  {
+    "name": "AND BESSAL KEBEMER suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 25
+    }
+  },
+
+  {
+    "name": "AND BESSAL LINGUERE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 26
+    }
+  },
+  {
+    "name": "AND BESSAL LINGUERE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 26
+    }
+  },
+
+  {
+    "name": "AND BESSAL LOUGA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 27
+    }
+  },
+  {
+    "name": "AND BESSAL LOUGA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 27
+    }
+  },
+
+  {
+    "name": "AND BESSAL KANEL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 28
+    }
+  },
+  {
+    "name": "AND BESSAL KANEL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 28
+    }
+  },
+
+  {
+    "name": "AND BESSAL RANEROU FERLO titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 30
+    }
+  },
+  {
+    "name": "AND BESSAL RANEROU FERLO suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 30
+    }
+  },
+
+  {
+    "name": "AND BESSAL DAGANA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 31
+    }
+  },
+  {
+    "name": "AND BESSAL DAGANA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 31
+    }
+  },
+
+  {
+    "name": "AND BESSAL PODOR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 32
+    }
+  },
+  {
+    "name": "AND BESSAL PODOR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 32
+    }
+  },
+
+  {
+    "name": "AND BESSAL SAINT LOUIS titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 33
+    }
+  },
+
+  {
+    "name": "AND BESSAL SAINT LOUIS suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 33
+    }
+  },
+
+  {
+    "name": "AND BESSAL BOUNKILING titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 34
+    }
+  },
+
+  {
+    "name": "AND BESSAL BOUNKILING suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 34
+    }
+  },
+
+  {
+    "name": "AND BESSAL BAKEL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 37
+    }
+  },
+  {
+    "name": "AND BESSAL BAKEL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 37
+    }
+  },
+
+  {
+    "name": "AND BESSAL TAMBACOUNDA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 40
+    }
+  },
+  {
+    "name": "AND BESSAL TAMBACOUNDA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 40
+    }
+  },
+
+  {
+    "name": "AND BESSAL MBOUR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 41
+    }
+  },
+  {
+    "name": "AND BESSAL MBOUR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 41
+    }
+  },
+
+  {
+    "name": "AND BESSAL THIES titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 42
+    }
+  },
+  {
+    "name": "AND BESSAL THIES suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 42
+    }
+  },
+
+  {
+    "name": "AND BESSAL TIVAOUANE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 43
+    }
+  },
+  {
+    "name": "AND BESSAL TIVAOUANE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 43
+    }
+  },
+
+  {
+    "name": "AND BESSAL BIGNONA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 44
+    }
+  },
+  {
+    "name": "AND BESSAL BIGNONA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 44
+    }
+  },
+
+  {
+    "name": "AND BESSAL OUSSOUYE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 45
+    }
+  },
+  {
+    "name": "AND BESSAL OUSSOUYE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 45
+    }
+  },
+
+  {
+    "name": "AND BESSAL ZIGUINCHOR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 46
+    }
+  },
+  {
+    "name": "AND BESSAL ZIGUINCHOR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 46
+    }
+  },
+
+  {
+    "name": "AND BESSAL AFRIQUE AUSTRALE titulaire",
+    "type": "diaspora",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 47
+    }
+  },
+  {
+    "name": "AND BESSAL AFRIQUE AUSTRALE suppléant",
+    "type": "diaspora",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 47
+    }
+  },
+
+  {
+    "name": "AND BESSAL AFRIQUE OUEST titulaire",
+    "type": "diaspora",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 50
+    }
+  },
+  {
+    "name": "AND BESSAL AFRIQUE OUEST suppléant",
+    "type": "diaspora",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 50
+    }
+  },
+
+  {
+    "name": "AND BESSAL AFRIQUE NORD titulaire",
+    "type": "diaspora",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 49
+    }
+  },
+  {
+    "name": "AND BESSAL AFRIQUE NORD suppléant",
+    "type": "diaspora",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 49
+    }
+  },
+
+  {
+    "name": "AND BESSAL EUROPE OUEST CENTRE NORD titulaire",
+    "type": "diaspora",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 54
+    }
+  },
+  {
+    "name": "AND BESSAL EUROPE OUEST CENTRE NORD suppléant",
+    "type": "diaspora",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 54
+    }
+  },
+
+  {
+    "name": "AND BESSAL EUROPE DU SUD titulaire",
+    "type": "diaspora",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 53
+    }
+  },
+  {
+    "name": "AND BESSAL EUROPE DU SUD suppléant",
+    "type": "diaspora",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 24
+    },
+    "constituency": {
+      "id": 53
+    }
+  }
+]

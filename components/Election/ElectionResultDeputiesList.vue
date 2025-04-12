@@ -1,9 +1,9 @@
 <!-- components/DeputiesList.vue -->
 <template>
-  <div class="container mx-auto px-4 py-8">
+  <div class="container mx-auto px-4 py-4">
     <!-- État de chargement -->
     <div v-if="loading" class="flex min-h-[200px] items-center justify-center">
-      <ULoadingIcon size="lg" />
+      <UProgress />
     </div>
 
     <!-- Message d'erreur -->

@@ -12,65 +12,56 @@ useHead({
   ],
 });
 
-const links = [
+const navigationCards = [
   {
-    label: "Conseil des ministres",
-    description: "Communiqués des conseil des ministres...",
-    icon: "i-heroicons-document-text",
+    title: "Assemblée Nationale",
+    description: "Suivez l'activité parlementaire",
+    icon: "i-heroicons-building-library",
+    to: "/assemblee-nationale",
+  },
+  {
+    title: "Journal officiel Sénégal",
+    description: "Lois, Décrets, Arrêtés",
+    icon: "i-heroicons-newspaper",
+    to: "/documents/journal-officiel",
+  },
+  {
+    title: "Budget du Sénégal",
+    description: "Loi de finances 2025",
+    icon: "i-heroicons-banknotes",
+    to: "/budget-senegal",
+  },
+  {
+    title: "Conseil des ministres",
+    description: "Communiqués Comptes rendus",
+    icon: "i-heroicons-briefcase",
     to: "/conseil-des-ministres",
   },
   {
-    label: "Annuaires",
-    description: "Nominations gouvernement, Sites Web, Justice, Medias...",
-    icon: "i-heroicons-identification",
+    title: "Annuaire",
+    description: "Nominations, Sites, Medias...",
+    icon: "i-heroicons-book-open",
     to: "/annuaires",
   },
   {
-    label: "Documents",
-    description: "Journal officiel, Codes, Rapports OFNAC Cours des comptes...",
-    icon: "i-heroicons-rectangle-stack",
+    title: "Documents",
+    description: "Journal officiel, Codes, Rapports",
+    icon: "i-heroicons-document-text",
     to: "/documents",
-  },
-  {
-    label: "Budget, Quiz",
-    description:
-      "Fonctionnement de l'état, Guide, Institutions, Budget, Quiz...",
-    icon: "i-heroicons-information-circle",
-    to: "/etat-senegal",
-  },
-];
-
-const newFeatures = [
-  {
-    label: "Législatives 2024",
-    description: "Elections législatives anticipées du 17 Novembre",
-    icon: "i-heroicons-star",
-    to: "/elections",
   },
 ];
 </script>
 
 <template>
   <div class="container mx-auto p-2 sm:p-4">
-    <HomeBanner :menus="newFeatures" />
-
-    <HomeMenu :menus="links" />
+    <MenuHomeV4 :navigation-cards="navigationCards" />
 
     <div class="">
-      <div class="prose prose-sm sm:prose mx-auto my-4">
-        <h2 class="text-center text-gray-800">Dernières Publications</h2>
-      </div>
-
       <HomeNews />
-
-      <div class="mt-4 text-center">
-        <NuxtLink
-          to="/publications/actualites"
-          class="text-green-700 underline"
-        >
-          Voir toutes les actualités
-        </NuxtLink>
-      </div>
+      <!-- Dernières mises à jour -->
+      <HomeLatestUpdates />
+      <HomeSocialNetworks />
+      <HomeTwitterTimeline />
 
       <UDivider site="sm" class="mt-4" />
 

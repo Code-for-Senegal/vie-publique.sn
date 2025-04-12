@@ -1,0 +1,872 @@
+[
+  {
+    "name": "MANKOO LIGGEYAL DAKAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 1
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL DAKAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 1
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL GUEDIAWAYE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 2
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL GUEDIAWAYE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 2
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL KEUR MASSAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 3
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL KEUR MASSAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 3
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL PIKINE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 4
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL PIKINE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 4
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL RUFISQUE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 5
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL RUFISQUE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 5
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL FATICK titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 9
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL FATICK suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 9
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL FOUNDIOUGNE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 10
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL FOUNDIOUGNE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 10
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL GOSSAS titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 11
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL GOSSAS suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 11
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL KAFFRINE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 13
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL KAFFRINE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 13
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL KOUNGHEUL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 14
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL KOUNGHEUL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 14
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL MALEM HODAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 15
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL MALEM HODAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 15
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL KAOLACK titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 17
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL KAOLACK suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 17
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL NIORO DU RIP titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 18
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL NIORO DU RIP suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 18
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL KOLDA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 22
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL KOLDA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 22
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL VELINGARA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 24
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL VELINGARA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 24
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL KANEL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 28
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL KANEL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 28
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL RANEROU FERLO titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 30
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL RANEROU FERLO suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 30
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL DAGANA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 31
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL DAGANA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 31
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL PODOR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 32
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL PODOR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 32
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL SEDHIOU titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 36
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL SEDHIOU suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 36
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL THIES titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 42
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL THIES suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 42
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL BIGNONA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 44
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL BIGNONA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 44
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL ZIGUINCHOR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 46
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL ZIGUINCHOR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 46
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL GOUDIRY titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 38
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL GOUDIRY suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 38
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL BOUNKILING titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 34
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL BOUNKILING suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 34
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL GOUDOMP titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 35
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL GOUDOMP suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 35
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL SARAYA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 21
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL SARAYA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 21
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL KEDOUGOU titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 19
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL KEDOUGOU suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 19
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL SALEMATA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 20
+    }
+  },
+  {
+    "name": "MANKOO LIGGEYAL SALEMATA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 111
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 20
+    }
+  }
+]

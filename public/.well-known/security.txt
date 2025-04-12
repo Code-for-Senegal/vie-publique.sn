@@ -1,0 +1,4 @@
+Contact: mailto:contact@vie-publique.sn
+Expires: 2025-12-31T00:00:00.000Z
+Preferred-Languages: fr
+Policy: https://www.vie-publique.sn/about/privacy

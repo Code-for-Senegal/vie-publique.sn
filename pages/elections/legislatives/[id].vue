@@ -442,7 +442,7 @@ function openModal(minister: Candidate) {
             <!-- Vidéo YouTube intégrée -->
             <iframe
               :src="`${video.url_youtube.replace('watch?v=', 'embed/')}`"
-              class="h-64 w-full rounded-lg"
+              class="video h-64 w-full rounded-lg"
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen

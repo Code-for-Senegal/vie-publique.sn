@@ -20,7 +20,7 @@ Il a présenté la vision Sénégal 2050 et la stratégie de développement du g
 
 Regardez l'interview complet ici dessous :
 
-<iframe width="100%" height="315" src="https://www.youtube.com/embed/A7TeYXVCeYM?rel=0&modestbranding=1&origin=https://www.vie-publique.sn" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe class="video" width="100%" height="315" src="https://www.youtube.com/embed/A7TeYXVCeYM?rel=0&modestbranding=1&origin=https://www.vie-publique.sn" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 Le président Diomaye a fait un vibrant plaidoyer à destination des investisseurs
 

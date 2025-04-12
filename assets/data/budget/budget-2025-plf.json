@@ -1,0 +1,433 @@
+{
+  "keyIndicator": [
+    {
+      "name": "Budget total",
+      "value": "6614",
+      "2025": "5755,4",
+      "unit": "Milliards",
+      "variation_percentage": "+14,90%",
+      "icon": "💰",
+      "color": "green"
+    },
+    {
+      "name": "Recettes total",
+      "value": "5014",
+      "2025": "4915,2",
+      "unit": "Milliards",
+      "variation_percentage": "+2,02%",
+      "icon": "💰",
+      "color": "green"
+    },
+    {
+      "name": "Déficit budgétaire",
+      "value": "1600",
+      "unit": "Milliards",
+      "variation_percentage": "7,08% PIB",
+      "icon": "📈",
+      "color": "red"
+    },
+    {
+      "name": "Taux de croissance",
+      "value": "8,8%",
+      "unit": "contre",
+      "variation_percentage": "6,7% 2024",
+      "icon": "📈",
+      "color": "green"
+    }
+  ],
+  "revenueData": [
+    {
+      "label": "Fiscales",
+      "value": 4359.6,
+      "percentage": 86.9,
+      "variation_absolute": 179.6,
+      "variation_percentage": 4.3
+    },
+    {
+      "label": "Non fiscales",
+      "value": 190,
+      "percentage": 3.8,
+      "variation_absolute": -20,
+      "variation_percentage": -9.5
+    },
+    {
+      "label": "Dons Capital",
+      "value": 200,
+      "percentage": 4,
+      "variation_absolute": -56.6,
+      "variation_percentage": -22.1
+    },
+    {
+      "label": "Dons Budgétaire",
+      "value": 45,
+      "percentage": 0.9,
+      "variation_absolute": -2.2,
+      "variation_percentage": -4.6
+    },
+    {
+      "label": "Comptes Spéciaux",
+      "value": 219.7,
+      "percentage": 4.4,
+      "variation_absolute": -1.8,
+      "variation_percentage": -0.8
+    }
+  ],
+  "expenseData": [
+    {
+      "label": "Intérêt de la dette",
+      "value": 932.1,
+      "variation_absolute": 353.8,
+      "variation_percentage": 61.2
+    },
+    {
+      "label": "Dépenses de personnel",
+      "value": 1485.5,
+      "variation_absolute": 43.1,
+      "variation_percentage": 3
+    },
+    {
+      "label": "Achat bien et services & Transfert courant",
+      "value": 1930.5,
+      "variation_absolute": 253.6,
+      "variation_percentage": 15.1
+    },
+    {
+      "label": "Investissements",
+      "value": 2047.0,
+      "variation_absolute": 210.7,
+      "variation_percentage": 11.5
+    },
+    {
+      "label": "Comptes Spéciaux",
+      "value": 219.7,
+      "variation_absolute": -1.8,
+      "variation_percentage": -0.8
+    }
+  ],
+
+  "institutions": [
+    {
+      "name": "Présidence",
+      "budget_2024": 80.12,
+      "budget_2025": 78.6,
+      "variation_absolute": -1.52,
+      "variation_percentage": -1.9,
+      "budget_percentage": 1.23
+    },
+    {
+      "name": "Primature",
+      "budget_2024": 25.72,
+      "budget_2025": 25,
+      "variation_absolute": -0.716,
+      "variation_percentage": -2.8,
+      "budget_percentage": 0.39
+    },
+    {
+      "name": "Assemblée nationale",
+      "budget_2024": 20.16,
+      "budget_2025": 22.47,
+      "variation_absolute": 2.3,
+      "variation_percentage": 11.5,
+      "budget_percentage": 0.35
+    },
+    {
+      "name": "Cour des Comptes",
+      "budget_2024": 13.2,
+      "budget_2025": 14.51,
+      "variation_absolute": 1.3,
+      "variation_percentage": 10,
+      "budget_percentage": 0.23
+    },
+    {
+      "name": "Cours suprême",
+      "budget_2024": 6.79,
+      "budget_2025": 5.08,
+      "variation_absolute": -1.89,
+      "variation_percentage": -1,
+      "budget_percentage": 0.08
+    },
+    {
+      "name": "Conseil constitutionnel",
+      "budget_2024": 1.75,
+      "budget_2025": 1.45,
+      "variation_absolute": -0.3,
+      "variation_percentage": -17.2,
+      "budget_percentage": 0.02
+    }
+  ],
+  "ministries": [
+    {
+      "name": "Éducation nationale",
+      "budget_2024": 909.32,
+      "budget_2025": 975.1,
+      "variation_absolute": 65.73,
+      "variation_percentage": 7.2,
+      "budget_percentage": 15.25
+    },
+    {
+      "name": "Finances et du Budget",
+      "budget_2024": 415.2,
+      "budget_2025": 827.42,
+      "variation_absolute": 412.15,
+      "variation_percentage": 99.3,
+      "budget_percentage": 12.94
+    },
+    {
+      "name": "Infrastructures, transports terrestres et aériens",
+      "budget_2024": 300.2,
+      "budget_2025": 459.72,
+      "variation_absolute": 159.52,
+      "variation_percentage": 53.14,
+      "budget_percentage": 7.19
+    },
+    {
+      "name": "Forces armées",
+      "budget_2024": 312.26,
+      "budget_2025": 315.19,
+      "variation_absolute": 2.9,
+      "variation_percentage": 0.9,
+      "budget_percentage": 4.93
+    },
+    {
+      "name": "Enseignement supérieur, Recherche et Innovation",
+      "budget_2024": 303.43,
+      "budget_2025": 308.53,
+      "variation_absolute": 5.103,
+      "variation_percentage": 1.7,
+      "budget_percentage": 4.82
+    },
+    {
+      "name": "Agriculture, souveraineté alimentaire et Elevage",
+      "budget_2024": 250,
+      "budget_2025": 304.48,
+      "variation_absolute": 54.48,
+      "variation_percentage": 21.792,
+      "budget_percentage": 4.76
+    },
+    {
+      "name": "Urbanisme, C. territoriales et Aménagement des territoires",
+      "budget_2024": 226,
+      "budget_2025": 301.79,
+      "variation_absolute": 75.79,
+      "variation_percentage": 33.54,
+      "budget_percentage": 4.72
+    },
+    {
+      "name": "Santé et de l'action sociale",
+      "budget_2024": 263.47,
+      "budget_2025": 267.36,
+      "variation_absolute": 3.89,
+      "variation_percentage": 1.5,
+      "budget_percentage": 4.18
+    },
+    {
+      "name": "intérieur et sécurité publique",
+      "budget_2024": 197,
+      "budget_2025": 204.41,
+      "variation_absolute": 7.41,
+      "variation_percentage": 3.8,
+      "budget_percentage": 3.2
+    },
+    {
+      "name": "Famille et solidarités",
+      "budget_2024": 195.2,
+      "budget_2025": 180.2,
+      "variation_absolute": -15,
+      "variation_percentage": -7.7,
+      "budget_percentage": 2.82
+    },
+    {
+      "name": "Énergie, pétrole et Mines",
+      "budget_2024": 325,
+      "budget_2025": 143.48,
+      "variation_absolute": -181.52,
+      "variation_percentage": -55.9,
+      "budget_percentage": 2.24
+    },
+    {
+      "name": "Hydraulique et de l'assainissement",
+      "budget_2024": 132.39,
+      "budget_2025": 136.38,
+      "variation_absolute": 3.99,
+      "variation_percentage": 3,
+      "budget_percentage": 2.13
+    },
+    {
+      "name": "Justice Garde des Sceaux",
+      "budget_2024": 92.36,
+      "budget_2025": 97.79,
+      "variation_absolute": 5.43,
+      "variation_percentage": 5.9,
+      "budget_percentage": 1.53
+    },
+    {
+      "name": "Formation professionnelle",
+      "budget_2024": 92.25,
+      "budget_2025": 94.33,
+      "variation_absolute": 2.07,
+      "variation_percentage": 2.2,
+      "budget_percentage": 1.48
+    },
+    {
+      "name": "Jeunesse, sports et culture",
+      "budget_2024": 67.98,
+      "budget_2025": 84.82,
+      "variation_absolute": 16.84,
+      "variation_percentage": 24.77,
+      "budget_percentage": 1.33
+    },
+    {
+      "name": "Intégration africaine et Affaires étrangères",
+      "budget_2024": 76.84,
+      "budget_2025": 79.43,
+      "variation_absolute": 2.5,
+      "variation_percentage": 3.4,
+      "budget_percentage": 1.24
+    },
+    {
+      "name": "Communication, télécommunications et numérique",
+      "budget_2024": 42.71,
+      "budget_2025": 58.42,
+      "variation_absolute": 15.71,
+      "variation_percentage": 36.8,
+      "budget_percentage": 0.91
+    },
+    {
+      "name": "Industrie et Commerce",
+      "budget_2024": 41.6,
+      "budget_2025": 50.16,
+      "variation_absolute": 8.56,
+      "variation_percentage": 20.6,
+      "budget_percentage": 0.78
+    },
+    {
+      "name": "Environnement et transition écologique",
+      "budget_2024": 48.69,
+      "budget_2025": 49.75,
+      "variation_absolute": 1.05,
+      "variation_percentage": 2.2,
+      "budget_percentage": 0.78
+    },
+    {
+      "name": "Économie, Plan et coopération",
+      "budget_2024": 41.19,
+      "budget_2025": 47.45,
+      "variation_absolute": 6.23,
+      "variation_percentage": 15.2,
+      "budget_percentage": 0.74
+    },
+    {
+      "name": "Pêches, infr. maritimes et portuaires",
+      "budget_2024": 36.72,
+      "budget_2025": 40.03,
+      "variation_absolute": 3.31,
+      "variation_percentage": 9,
+      "budget_percentage": 0.63
+    },
+    {
+      "name": "Microfinance, économie sociale et solidaire",
+      "budget_2024": 14.95,
+      "budget_2025": 15.25,
+      "variation_absolute": 0.301,
+      "variation_percentage": 2,
+      "budget_percentage": 0.24
+    },
+    {
+      "name": "Tourisme et Artisanat",
+      "budget_2024": 17.7,
+      "budget_2025": 14.39,
+      "variation_absolute": -3.31,
+      "variation_percentage": -18.7,
+      "budget_percentage": 0.23
+    },
+    {
+      "name": "Travail,Emploi et relations avec les institutions",
+      "budget_2024": 6.66,
+      "budget_2025": 11.09,
+      "variation_absolute": 4.52,
+      "variation_percentage": 68.9,
+      "budget_percentage": 0.17
+    },
+    {
+      "name": "Fonction publique et réforme du service public",
+      "budget_2024": 8.17,
+      "budget_2025": 7.87,
+      "variation_absolute": -0.297,
+      "variation_percentage": -3.6,
+      "budget_percentage": 0.12
+    }
+  ],
+  "treasuryOperations": {
+    "total": 2973.4,
+    "components": [
+      {
+        "label": "Capital dette",
+        "value": 2923.4,
+        "percentage": 98.3
+      },
+      {
+        "label": "OPEX",
+        "value": 50.0,
+        "percentage": 1.7
+      }
+    ]
+  },
+  "publicDebt": {
+    "total": 3855.52,
+    "description": "Total de la dette publique. Autrement nommé Service de la dette",
+    "components": [
+      {
+        "label": "Intérêts/commissions",
+        "value": 932.1,
+        "percentage": 24.2,
+        "details": [
+          {
+            "label": "Dette extérieure",
+            "value": 634.5
+          },
+          {
+            "label": "Dette intérieure",
+            "value": 297.5
+          }
+        ]
+      },
+      {
+        "label": "Capital",
+        "percentage": 75.8,
+        "value": 2923.4,
+        "details": [
+          {
+            "label": "Dette extérieure",
+            "value": 1295.17
+          },
+          {
+            "label": "Dette intérieure",
+            "value": 1628.27
+          }
+        ]
+      }
+    ]
+  },
+  "sources": [
+    {
+      "title": "Projet Loi de finances 2025 (PDF)",
+      "url": "/pdf/budget/2025-projet-loi-de-finance-initiale.pdf"
+    },
+    {
+      "title": "Annexe la Loi de finances 2025(PDF)",
+      "url": "/pdf/budget/2025-projet-loi-de-finance-initiale-annexes-voies-et-moyens.pdf"
+    },
+    {
+      "title": "Document budgétaire Genre (PDF)",
+      "url": "/pdf/budget/2025-document-budgetaire-genre.pdf"
+    },
+    {
+      "title": "Loi De Finances Rectificative 2024 (PDF)",
+      "url": "/pdf/budget/2024-LFR-loi-de-finances-rectificative-2024-scan-compressed.pdf"
+    }
+  ],
+  "notes": [
+    "Vie-Publique est tenu par des bénévoles, si vous voyez une erreur merci de nous aider à corriger",
+    "Les chiffres présentés sont basés sur le PLFI 2025 et ses annees, montant crédit de paiement"
+  ]
+}

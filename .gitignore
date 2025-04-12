@@ -24,7 +24,6 @@ logs
 .env.*
 !.env.example
 
-# Lock files
-pnpm-lock.yaml
-package-lock.json
-yarn.lock
+# scripts
+scripts/.env
+scripts/!.env.example

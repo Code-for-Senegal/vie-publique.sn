@@ -1,124 +1,165 @@
+<!-- index.vue -->
 <script setup lang="ts">
-// Configuration des métadonnées pour le SEO et le partage social
+const { documents, loading, error } = useDocuments({
+  type: "official_journal",
+});
+const searchQuery = ref("");
+const currentView = ref<"grid" | "list">("list");
+const router = useRouter();
+
+// Configuration SEO
 const seoTitle = "Journal officiel Sénégal";
 const seoDescription = "Journal officiel de la république du Sénégal";
 const seoImgPath = "/images/vpsn-share-jors-4.png";
 const seoPageUrl = "https://vie-publique.sn/journal-officiel-senegal/2024";
+
 useHead({
   title: seoTitle,
   meta: [
-    {
-      name: "description",
-      content: seoDescription,
-    },
-    // Twitter Card Meta Tags
-    {
-      name: "twitter:title",
-      content: seoTitle,
-    },
-    {
-      name: "twitter:description",
-      content: seoDescription,
-    },
+    { name: "description", content: seoDescription },
+    { name: "twitter:title", content: seoTitle },
+    { name: "twitter:description", content: seoDescription },
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:image", content: seoImgPath },
-    // Open Graph Meta Tags
-    {
-      property: "og:title",
-      content: seoTitle,
-    },
-    {
-      property: "og:description",
-      content: seoDescription,
-    },
+    { property: "og:title", content: seoTitle },
+    { property: "og:description", content: seoDescription },
     { property: "og:image", content: seoImgPath },
     { property: "og:url", content: seoPageUrl },
     { property: "og:type", content: "website" },
   ],
 });
 
-const searchQuery = ref("");
-
-const {
-  data: journaux,
-  pending,
-  error,
-} = await useAsyncData(
-  "journaux",
-  () => queryContent("journal-officiel-senegal").find(),
-  { server: true, lazy: false },
-);
-
 const filteredJournals = computed(() => {
-  if (!journaux.value) return [];
-  return journaux.value
-    .filter(
-      (journal) =>
-        journal.title
-          ?.toLowerCase()
-          .includes(searchQuery.value.toLowerCase()) ||
-        journal.numero
-          ?.toLowerCase()
-          .includes(searchQuery.value.toLowerCase()) ||
-        journal.subtitle
-          ?.toLowerCase()
-          .includes(searchQuery.value.toLowerCase()),
-    )
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  if (!documents.value) return [];
+
+  return documents.value.filter((doc) => {
+    const searchLower = searchQuery.value.toLowerCase();
+    return (
+      doc.title?.toLowerCase().includes(searchLower) ||
+      doc.jo_number?.toString().toLowerCase().includes(searchLower) ||
+      doc.description?.toLowerCase().includes(searchLower)
+    );
+  });
 });
+
+// Format de la date
+const formatDate = (date: string) => {
+  return new Date(date).toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+};
 </script>
 
 <template>
   <div class="container mx-auto px-4">
+    <!-- Bouton retour -->
+    <UButton
+      icon="i-heroicons-arrow-left"
+      variant="ghost"
+      label="Retour"
+      color="gray"
+      @click="router.back()"
+    />
+    <!-- En-tête -->
     <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">Journal Officiel</h1>
-    </div>
-    <div class="text-center text-sm text-gray-500">
-      <p>{{ filteredJournals.length }} Journaux référencés</p>
-      <p>
-        💡 Travail de numérisation en cours, Retrouvez ici bientôt l'historique
-        complète des JO publiés en 2024
-      </p>
+      <h1 class="text-center text-xl text-gray-900 sm:text-2xl">
+        Journal Officiel
+      </h1>
     </div>
 
-    <UInput
-      v-model="searchQuery"
-      size="md"
-      placeholder="Rechercher par numéro ou date"
-      icon="i-heroicons-magnifying-glass"
-      class="input custom-shadow my-4 w-full"
+    <!-- Recherche -->
+    <div class="mb-8">
+      <UInput
+        v-model="searchQuery"
+        size="lg"
+        placeholder="Rechercher par numéro, date ou contenu..."
+        icon="i-heroicons-magnifying-glass"
+        class="custom-shadow sm:w-full"
+      />
+      <div
+        class="mt-2 flex flex-col items-center justify-between text-sm text-gray-500 sm:flex-row"
+      >
+        <span>{{ filteredJournals.length }} Journaux référencés</span>
+      </div>
+    </div>
+
+    <!-- Loading state -->
+    <template v-if="loading">
+      <UCard v-for="n in 3" :key="n" class="mb-4">
+        <div class="flex items-start gap-4 p-4">
+          <div class="h-8 w-8 animate-pulse rounded-full bg-gray-200" />
+          <div class="flex-grow">
+            <div class="mb-2 h-6 w-3/4 animate-pulse rounded bg-gray-200" />
+            <div class="h-4 w-1/2 animate-pulse rounded bg-gray-200" />
+          </div>
+        </div>
+      </UCard>
+    </template>
+
+    <!-- Error state -->
+    <UAlert
+      v-else-if="error"
+      title="Erreur"
+      description="Une erreur s'est produite lors du chargement des journaux."
+      color="red"
+      icon="i-heroicons-exclamation-triangle"
     />
 
-    <div v-if="pending">Chargement...</div>
+    <!-- Résultats vides -->
+    <UAlert
+      v-else-if="filteredJournals.length === 0"
+      title="Aucun résultat"
+      description="Aucun journal officiel ne correspond à votre recherche."
+      color="gray"
+      icon="i-heroicons-inbox"
+    />
 
-    <div v-else-if="error">
-      Une erreur s'est produite lors du chargement des journaux.
-    </div>
-
-    <div v-else>
-      <div
-        v-if="filteredJournals.length === 0"
-        class="mt-4 flex flex-col items-center text-center text-gray-500"
+    <!-- Liste des journaux -->
+    <div v-else class="space-y-4">
+      <UCard
+        v-for="journal in filteredJournals"
+        :key="journal.id"
+        :ui="{ body: { padding: 'sm:p-4' } }"
+        class="rounded-none transition-shadow duration-200 hover:shadow-lg"
       >
-        <UIcon
-          name="i-heroicons-exclamation-circle"
-          class="mb-2 h-12 w-12 text-sm"
-        />
-        <p>Aucun résultat disponible</p>
-      </div>
-      <div v-else class="flex flex-col gap-2">
-        <UCard
-          v-for="journal in filteredJournals"
-          :key="journal._path"
-          class="custom-shadow cursor-pointer"
+        <NuxtLink
+          :to="`/documents/${journal.id}/${journal.slug || 'journal-officiel'}`"
+          class="block"
         >
-          <NuxtLink :to="journal._path">
-            <p class="font-semibold underline">{{ journal.title }}</p>
+          <div class="flex gap-4">
+            <div
+              class="w-24 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100"
+            >
+              <img
+                src="/images/default-journal-officiel.webp"
+                :alt="`Aperçu JO ${journal.jo_number || ''}`"
+                class="h-full w-full object-cover"
+                loading="lazy"
+                fetchpriority="high"
+              />
+            </div>
 
-            <p class="mt-1 text-sm text-gray-500">{{ journal.subtitle }}</p>
-          </NuxtLink>
-        </UCard>
-      </div>
+            <div>
+              <div class="flex items-start justify-between gap-4">
+                <h3 class="text-primary font-semibold">
+                  {{ journal.title }}
+                </h3>
+              </div>
+
+              <p class="mt-2 text-sm text-gray-600">
+                {{ journal.description }}
+              </p>
+
+              <div class="mt-3 flex items-center gap-2 text-sm text-gray-500">
+                <UIcon name="i-heroicons-calendar" />
+                <span>{{ formatDate(journal.publish_date) }}</span>
+              </div>
+            </div>
+          </div>
+        </NuxtLink>
+      </UCard>
     </div>
   </div>
 </template>

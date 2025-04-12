@@ -73,7 +73,8 @@ const props = defineProps<{
               :percentage="resource.percentage"
               :label="resource.name"
               :value="`${resource.value} Mrd`"
-              color="#4CAF50"
+              color-bg="#4CAF50"
+              color-text="green"
               class="flex-1"
             />
           </div>
@@ -89,7 +90,8 @@ const props = defineProps<{
               :percentage="resource.percentage"
               :label="resource.name"
               :value="`${resource.value} Mrd`"
-              color="#4CAF50"
+              color-text="green"
+              color-bg="#4CAF50"
             />
           </div>
         </div>

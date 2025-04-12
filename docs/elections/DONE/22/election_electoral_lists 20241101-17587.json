@@ -1,0 +1,286 @@
+[
+	{
+		"id": 1094,
+		"type": "national",
+		"is_substitute": false,
+		"constituency": null
+	},
+	{
+		"id": 1095,
+		"type": "national",
+		"is_substitute": true,
+		"constituency": null
+	},
+	{
+		"id": 1096,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "DAKAR"
+		}
+	},
+	{
+		"id": 1097,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "DAKAR"
+		}
+	},
+	{
+		"id": 1098,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "KEUR MASSAR"
+		}
+	},
+	{
+		"id": 1099,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "KEUR MASSAR"
+		}
+	},
+	{
+		"id": 1100,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "PIKINE"
+		}
+	},
+	{
+		"id": 1101,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "PIKINE"
+		}
+	},
+	{
+		"id": 1102,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "RUFISQUE"
+		}
+	},
+	{
+		"id": 1103,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "RUFISQUE"
+		}
+	},
+	{
+		"id": 1104,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "BAMBEY"
+		}
+	},
+	{
+		"id": 1105,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "BAMBEY"
+		}
+	},
+	{
+		"id": 1106,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "DIOURBEL"
+		}
+	},
+	{
+		"id": 1107,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "DIOURBEL"
+		}
+	},
+	{
+		"id": 1108,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "MBACKE"
+		}
+	},
+	{
+		"id": 1109,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "MBACKE"
+		}
+	},
+	{
+		"id": 1110,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "FATICK"
+		}
+	},
+	{
+		"id": 1111,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "FATICK"
+		}
+	},
+	{
+		"id": 1112,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "FOUNDIOUGNE"
+		}
+	},
+	{
+		"id": 1113,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "FOUNDIOUGNE"
+		}
+	},
+	{
+		"id": 1114,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "GOSSAS"
+		}
+	},
+	{
+		"id": 1115,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "GOSSAS"
+		}
+	},
+	{
+		"id": 1116,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "KAFFRINE"
+		}
+	},
+	{
+		"id": 1117,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "KAFFRINE"
+		}
+	},
+	{
+		"id": 1118,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "KEDOUGOU"
+		}
+	},
+	{
+		"id": 1119,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "KEDOUGOU"
+		}
+	},
+	{
+		"id": 1120,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "KOLDA"
+		}
+	},
+	{
+		"id": 1121,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "KOLDA"
+		}
+	},
+	{
+		"id": 1122,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "KEBEMER"
+		}
+	},
+	{
+		"id": 1123,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "KEBEMER"
+		}
+	},
+	{
+		"id": 1124,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "LOUGA"
+		}
+	},
+	{
+		"id": 1125,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "LOUGA"
+		}
+	},
+	{
+		"id": 1126,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "SAINT LOUIS"
+		}
+	},
+	{
+		"id": 1127,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "SAINT LOUIS"
+		}
+	},
+	{
+		"id": 1128,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "TIVAOUANE"
+		}
+	},
+	{
+		"id": 1129,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "TIVAOUANE"
+		}
+	}
+]

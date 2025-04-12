@@ -1,0 +1,540 @@
+[
+  {
+    "name": "LES NATIONALISTES nationale titulaire",
+    "type": "national",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 19
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "LES NATIONALISTES nationale suppléant",
+    "type": "national",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 19
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "LES NATIONALISTES DAKAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 19
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 1
+    }
+  },
+  {
+    "name": "LES NATIONALISTES DAKAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 19
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 1
+    }
+  },
+  {
+    "name": "LES NATIONALISTES GUEDIAWAYE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 2
+    }
+  },
+  {
+    "name": "LES NATIONALISTES GUEDIAWAYE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 2
+    }
+  },
+  {
+    "name": "LES NATIONALISTES KEUR MASSAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 3
+    }
+  },
+  {
+    "name": "LES NATIONALISTES KEUR MASSAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 3
+    }
+  },
+  {
+    "name": "LES NATIONALISTES PIKINE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 4
+    }
+  },
+
+  {
+    "name": "LES NATIONALISTES PIKINE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 4
+    }
+  },
+  {
+    "name": "LES NATIONALISTES RUFISQUE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 5
+    }
+  },
+  {
+    "name": "LES NATIONALISTES RUFISQUE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 5
+    }
+  },
+  {
+    "name": "LES NATIONALISTES BAMBEY titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 6
+    }
+  },
+  {
+    "name": "LES NATIONALISTES BAMBEY suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 6
+    }
+  },
+  {
+    "name": "LES NATIONALISTES FATICK titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 9
+    }
+  },
+  {
+    "name": "LES NATIONALISTES FATICK suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 9
+    }
+  },
+  {
+    "name": "LES NATIONALISTES KOUNGHEUL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 14
+    }
+  },
+  {
+    "name": "LES NATIONALISTES KOUNGHEUL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 14
+    }
+  },
+  {
+    "name": "LES NATIONALISTES MALEM HODAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 15
+    }
+  },
+  {
+    "name": "LES NATIONALISTES MALEM HODAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 15
+    }
+  },
+  {
+    "name": "LES NATIONALISTES GUINGUINEO titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 16
+    }
+  },
+  {
+    "name": "LES NATIONALISTES GUINGUINEO suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 16
+    }
+  },
+  {
+    "name": "LES NATIONALISTES KAOLACK titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 17
+    }
+  },
+  {
+    "name": "LES NATIONALISTES KAOLACK suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 17
+    }
+  },
+  {
+    "name": "LES NATIONALISTES LOUGA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 27
+    }
+  },
+  {
+    "name": "LES NATIONALISTES LOUGA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 27
+    }
+  },
+  {
+    "name": "LES NATIONALISTES DAGANA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 31
+    }
+  },
+  {
+    "name": "LES NATIONALISTES DAGANA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 31
+    }
+  },
+  {
+    "name": "LES NATIONALISTES SAINT LOUIS titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 33
+    }
+  },
+  {
+    "name": "LES NATIONALISTES SAINT LOUIS suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 33
+    }
+  },
+  {
+    "name": "LES NATIONALISTES TIVAOUANE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 43
+    }
+  },
+  {
+    "name": "LES NATIONALISTES TIVAOUANE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 43
+    }
+  },
+
+  {
+    "name": "LES NATIONALISTES TIVAOUANE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 43
+    }
+  },
+  {
+    "name": "LES NATIONALISTES TIVAOUANE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 43
+    }
+  },
+  {
+    "name": "LES NATIONALISTES BIGNONA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 44
+    }
+  },
+  {
+    "name": "LES NATIONALISTES BIGNONA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 19
+    },
+    "constituency": {
+      "id": 44
+    }
+  }
+]

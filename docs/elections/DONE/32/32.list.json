@@ -1,0 +1,148 @@
+[
+  {
+    "name": "ANP nationale titulaire",
+    "type": "national",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 32
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "ANP nationale suppléant",
+    "type": "national",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 32
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "ANP DIOURBEL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 32
+    },
+    "constituency": {
+      "id": 7
+    }
+  },
+  {
+    "name": "ANP DIOURBEL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 32
+    },
+    "constituency": {
+      "id": 7
+    }
+  },
+  {
+    "name": "ANP MBACKE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 32
+    },
+    "constituency": {
+      "id": 8
+    }
+  },
+  {
+    "name": "ANP MBACKE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 32
+    },
+    "constituency": {
+      "id": 8
+    }
+  },
+  {
+    "name": "ANP KANEL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 32
+    },
+    "constituency": {
+      "id": 28
+    }
+  },
+  {
+    "name": "ANP KANEL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 32
+    },
+    "constituency": {
+      "id": 28
+    }
+  },
+  {
+    "name": "ANP THIES titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 32
+    },
+    "constituency": {
+      "id": 42
+    }
+  },
+  {
+    "name": "ANP THIES suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 32
+    },
+    "constituency": {
+      "id": 42
+    }
+  }
+]

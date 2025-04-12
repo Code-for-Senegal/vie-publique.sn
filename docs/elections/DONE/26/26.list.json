@@ -1,0 +1,568 @@
+[
+  {
+    "name": "GOX YU BEES nationale titulaire",
+    "type": "national",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 26
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "GOX YU BEES nationale suppléant",
+    "type": "national",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 26
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "GOX YU BEES DAKAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 26
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 1
+    }
+  },
+  {
+    "name": "GOX YU BEES DAKAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 26
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 1
+    }
+  },
+  {
+    "name": "GOX YU BEES KEUR MASSAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 3
+    }
+  },
+  {
+    "name": "GOX YU BEES KEUR MASSAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 3
+    }
+  },
+  {
+    "name": "GOX YU BEES RUFISQUE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 5
+    }
+  },
+  {
+    "name": "GOX YU BEES RUFISQUE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 5
+    }
+  },
+  {
+    "name": "GOX YU BEES BAMBEY titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 6
+    }
+  },
+  {
+    "name": "GOX YU BEES BAMBEY suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 6
+    }
+  },
+  {
+    "name": "GOX YU BEES FOUNDIOUGNE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 10
+    }
+  },
+  {
+    "name": "GOX YU BEES FOUNDIOUGNE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 10
+    }
+  },
+  {
+    "name": "GOX YU BEES KAOLACK titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 17
+    }
+  },
+  {
+    "name": "GOX YU BEES KAOLACK suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 17
+    }
+  },
+  {
+    "name": "GOX YU BEES SALEMATA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 20
+    }
+  },
+  {
+    "name": "GOX YU BEES SALEMATA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 20
+    }
+  },
+  {
+    "name": "GOX YU BEES KOLDA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 22
+    }
+  },
+  {
+    "name": "GOX YU BEES KOLDA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 22
+    }
+  },
+  {
+    "name": "GOX YU BEES VELINGARA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 24
+    }
+  },
+  {
+    "name": "GOX YU BEES VELINGARA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 24
+    }
+  },
+  {
+    "name": "GOX YU BEES KANEL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 28
+    }
+  },
+  {
+    "name": "GOX YU BEES KANEL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 28
+    }
+  },
+  {
+    "name": "GOX YU BEES MATAM titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 29
+    }
+  },
+  {
+    "name": "GOX YU BEES MATAM suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 29
+    }
+  },
+  {
+    "name": "GOX YU BEES DAGANA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 31
+    }
+  },
+  {
+    "name": "GOX YU BEES DAGANA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 31
+    }
+  },
+  {
+    "name": "GOX YU BEES SAINT LOUIS titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 33
+    }
+  },
+  {
+    "name": "GOX YU BEES SAINT LOUIS suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 33
+    }
+  },
+  {
+    "name": "GOX YU BEES GOUDIRY titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 38
+    }
+  },
+  {
+    "name": "GOX YU BEES GOUDIRY suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 38
+    }
+  },
+  {
+    "name": "GOX YU BEES MBOUR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 41
+    }
+  },
+  {
+    "name": "GOX YU BEES MBOUR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 41
+    }
+  },
+  {
+    "name": "GOX YU BEES ZIGUINCHOR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 46
+    }
+  },
+  {
+    "name": "GOX YU BEES ZIGUINCHOR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 46
+    }
+  },
+  {
+    "name": "GOX YU BEES AMERIQUE OCEANIE titulaire",
+    "type": "diaspora",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 51
+    }
+  },
+  {
+    "name": "GOX YU BEES AMERIQUE OCEANIE suppléant",
+    "type": "diaspora",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 51
+    }
+  },
+  {
+    "name": "GOX YU BEES EUROPE OUEST CENTRE NORD titulaire",
+    "type": "diaspora",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 54
+    }
+  },
+  {
+    "name": "GOX YU BEES EUROPE OUEST CENTRE NORD suppléant",
+    "type": "diaspora",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 26
+    },
+    "constituency": {
+      "id": 54
+    }
+  }
+]
