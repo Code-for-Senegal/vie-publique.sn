@@ -131,7 +131,6 @@ onMounted(() => {
   <div
     class="lg:px-18 top-header header_top sticky top-0 z-50 flex items-center justify-between opacity-100 md:px-10 xl:px-32"
   >
-    $
 
     <!-- PWA manifest -->
     <NuxtPwaManifest />
