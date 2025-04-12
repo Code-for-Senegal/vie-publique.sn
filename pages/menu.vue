@@ -176,7 +176,7 @@ const navigationCards: NavigationCard[] = [
     title: "Annuaire",
     description: "Nominations, Sites, Medias...",
     icon: "i-heroicons-book-open",
-    to: "/annuaire",
+    to: "/annuaires",
   },
 
   {
