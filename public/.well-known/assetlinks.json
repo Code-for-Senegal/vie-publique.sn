@@ -1,8 +1,13 @@
-[{
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target": {
-        "namespace": "android_app",
-        "package_name": "sn.viepublique.app",
-        "sha256_cert_fingerprints": ["E5:35:B0:76:24:EC:D5:F1:D2:5C:D4:C8:F5:57:B6:D5:DA:12:F0:54:6D:9E:34:7D:1E:9C:79:AE:0C:57:56:D9"]
-      }
-    }]
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "sn.viepublique.app",
+      "sha256_cert_fingerprints": [
+        "E5:35:B0:76:24:EC:D5:F1:D2:5C:D4:C8:F5:57:B6:D5:DA:12:F0:54:6D:9E:34:7D:1E:9C:79:AE:0C:57:56:D9",
+        "D8:77:38:FF:B1:49:68:51:19:72:D8:E6:5C:50:60:F6:F7:4C:9D:A3:D4:67:64:CC:7F:C5:22:22:CE:62:4A:2A"
+      ]
+    }
+  }
+]
