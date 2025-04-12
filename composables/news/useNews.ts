@@ -34,7 +34,7 @@ export const useNews = (options?: {
     try {
       const config = useRuntimeConfig();
       const response = await fetch(
-        `${config.public.cmsApiUrl}/items/news?fields=${fields}&${sort}&${filters}`,
+        `${config.public.cmsApiUrl}/items/news?fields=${fields}&${sort}&${filters}&limit=1000`,
         {
           headers: {
             Authorization: `Bearer ${config.public.cmsApiKey}`,

@@ -16,37 +16,37 @@ const navigationCards = [
   {
     title: "Assemblée Nationale",
     description: "Suivez l'activité parlementaire",
-    image: "/images/menu/assemblee-nationale-1.jpg",
+    icon: "i-heroicons-building-library",
     to: "/assemblee-nationale",
   },
   {
-    title: "Annuaire Députés",
-    description: "Découvrez les députés élus",
-    image: "/images/elections/deputes.png",
-    to: "/assemblee-nationale/deputes",
+    title: "Journal officiel Sénégal",
+    description: "Lois, Décrets, Arrêtés",
+    icon: "i-heroicons-newspaper",
+    to: "/documents/journal-officiel",
   },
   {
-    title: "Budget 2025 Sénégal",
+    title: "Budget du Sénégal",
     description: "Loi de finances 2025",
-    image: "/images/menu/budget-2.jpg",
+    icon: "i-heroicons-banknotes",
     to: "/budget-senegal",
   },
   {
     title: "Conseil des ministres",
-    description: "Communiqués des conseil des ministres",
-    image: "/images/communique-conseil-des-ministres-1.jpg",
+    description: "Communiqués Comptes rendus",
+    icon: "i-heroicons-briefcase",
     to: "/conseil-des-ministres",
   },
   {
     title: "Annuaire",
-    description: "Nominations, Sites Web, Justice, Medias...",
-    image: "/images/menu/annuaire-2.svg",
+    description: "Nominations, Sites, Medias...",
+    icon: "i-heroicons-book-open",
     to: "/annuaires",
   },
   {
     title: "Documents",
-    description: "Journal officiel, Codes, Rapports audit...",
-    image: "/images/menu/document-2.svg",
+    description: "Journal officiel, Codes, Rapports",
+    icon: "i-heroicons-document-text",
     to: "/documents",
   },
 ];
@@ -54,27 +54,18 @@ const navigationCards = [
 
 <template>
   <div class="container mx-auto p-2 sm:p-4">
-    <MenuHome2 :navigation-cards="navigationCards" />
+    <MenuHomeV4 :navigation-cards="navigationCards" />
 
     <div class="">
-      <div class="prose prose-sm sm:prose mx-auto my-4">
-        <h2 class="text-center text-gray-800">À la une</h2>
-      </div>
-
       <HomeNews />
-
-      <div class="mt-4 text-center">
-        <NuxtLink to="/actualites" class="text-green-700 underline">
-          Voir toutes les actualités
-        </NuxtLink>
-      </div>
+      <!-- Dernières mises à jour -->
+      <HomeLatestUpdates />
+      <HomeSocialNetworks />
+      <HomeTwitterTimeline />
 
       <UDivider site="sm" class="mt-4" />
 
-      <!-- <PartnersSection /> -->
-      <!-- <PartnersSection2 /> -->
-
-      <div class="mb-8 mt-4 text-center text-sm text-gray-500 sm:px-8">
+      <div class="mt-4 text-center text-sm text-gray-500 sm:px-8">
         🛈 Vie-Publique est tenu par des bénévoles <br />
         si vous voyez une erreur merci de nous aider à corriger
       </div>

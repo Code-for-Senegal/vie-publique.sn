@@ -219,70 +219,74 @@ useHead({
           </section>
         </div>
 
-        <!-- Version mobile avec tabs -->
-        <div class="md:hidden">
-          <UTabs
-            :items="[
-              {
-                id: 'news',
-                label: 'Actualités',
-                icon: 'i-heroicons-newspaper',
-              },
-              {
-                id: 'questions',
-                label: 'Questions',
-                icon: 'i-heroicons-question-mark-circle',
-              },
-              { id: 'votes', label: 'Votes', icon: 'i-heroicons-check-circle' },
-            ]"
-          >
-            <template #item="{ item }">
-              <!-- En-tête de section commune -->
-              <div class="mb-4 border-b border-gray-100">
-                <div class="flex items-center justify-between p-2">
-                  <!-- Titre de la section -->
-                  <h3 class="text-lg font-semibold">
-                    {{
-                      item.id === "news"
-                        ? "Les derniers  communiqués"
-                        : item.id === "questions"
-                          ? "Les questions écrites"
-                          : "Les votes récents"
-                    }}
-                  </h3>
-                  <!-- Bouton Voir tout avec style amélioré -->
-                  <NuxtLink
-                    :to="`/assemblee-nationale/${
-                      item.id === 'news'
-                        ? 'actualites'
-                        : item.id === 'questions'
-                          ? 'questions'
-                          : 'votes'
-                    }`"
-                    class="inline-flex items-center rounded-full bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-800 transition hover:bg-blue-100"
-                  >
-                    Voir tout
-                    <UIcon
-                      name="i-heroicons-arrow-right"
-                      class="ml-1.5 h-4 w-4"
-                    />
-                  </NuxtLink>
-                </div>
-              </div>
-              <!-- Contenu des sections -->
-              <template v-if="item.id === 'news'">
-                <AssemblyHomeNews :news="news" />
-              </template>
-              <template v-if="item.id === 'questions'">
-                <AssemblyHomeQuestions :questions="questions" />
-              </template>
-              <template v-if="item.id === 'votes'">
-                <AssemblyHomeVotes :votes="votes" />
-              </template>
-            </template>
-          </UTabs>
+        <!-- Version mobile avec affichage vertical -->
+        <div class="space-y-6 md:hidden">
+          <!-- Questions -->
+          <section>
+            <div
+              class="mb-4 flex items-center justify-between border-b border-gray-100 p-2"
+            >
+              <h2 class="text-lg font-bold">Questions récentes</h2>
+              <NuxtLink
+                to="/assemblee-nationale/questions"
+                class="inline-flex items-center rounded-full bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-800 transition hover:bg-blue-100"
+              >
+                Voir tout
+                <UIcon name="i-heroicons-arrow-right" class="ml-1.5 h-4 w-4" />
+              </NuxtLink>
+            </div>
+            <AssemblyHomeQuestions :questions="questions" />
+          </section>
+
+          <!-- Actualités -->
+          <section>
+            <div
+              class="mb-4 flex items-center justify-between border-b border-gray-100 p-2"
+            >
+              <h2 class="text-lg font-bold">Actualités</h2>
+              <NuxtLink
+                to="/assemblee-nationale/actualites"
+                class="inline-flex items-center rounded-full bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-800 transition hover:bg-blue-100"
+              >
+                Voir tout
+                <UIcon name="i-heroicons-arrow-right" class="ml-1.5 h-4 w-4" />
+              </NuxtLink>
+            </div>
+            <AssemblyHomeNews :news="news" class="news-mobile" />
+          </section>
+
+          <!-- Votes -->
+          <section>
+            <div
+              class="mb-4 flex items-center justify-between border-b border-gray-100 p-2"
+            >
+              <h2 class="text-lg font-bold">Votes récents</h2>
+              <NuxtLink
+                to="/assemblee-nationale/votes"
+                class="inline-flex items-center rounded-full bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-800 transition hover:bg-blue-100"
+              >
+                Voir tout
+                <UIcon name="i-heroicons-arrow-right" class="ml-1.5 h-4 w-4" />
+              </NuxtLink>
+            </div>
+            <AssemblyHomeVotes :votes="votes" />
+          </section>
         </div>
       </div>
     </main>
   </div>
 </template>
+
+<style scoped>
+.news-mobile :deep(.news-item) {
+  @apply flex items-start gap-4;
+}
+
+.news-mobile :deep(.news-item img) {
+  @apply h-20 w-20 rounded-lg object-cover;
+}
+
+.news-mobile :deep(.news-item .content) {
+  @apply flex-1;
+}
+</style>

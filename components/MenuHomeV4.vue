@@ -1,0 +1,85 @@
+<script setup lang="ts">
+interface NavigationCard {
+  title: string;
+  description: string;
+  icon: string;
+  to: string;
+}
+
+interface CardConfig {
+  color: string;
+}
+
+interface CardConfigs {
+  [key: string]: CardConfig;
+}
+
+defineProps<{
+  navigationCards: NavigationCard[];
+}>();
+
+// Configuration des couleurs simplifiée
+const cardConfigs: CardConfigs = {
+  "Assemblée Nationale": {
+    color: "text-blue-600",
+  },
+  "Journal officiel Sénégal": {
+    color: "text-red-600",
+  },
+  "Budget du Sénégal": {
+    color: "text-emerald-600",
+  },
+  "Conseil des ministres": {
+    color: "text-amber-600",
+  },
+  Annuaire: {
+    color: "text-violet-600",
+  },
+  Documents: {
+    color: "text-indigo-600",
+  },
+} as const;
+</script>
+
+<template>
+  <div class="my-4">
+    <!-- Titre de la section -->
+    <div class="prose prose-sm sm:prose mx-auto my-4">
+      <h2 class="text-center text-gray-800">Explorez nos données</h2>
+    </div>
+
+    <!-- Grille des cartes -->
+    <div
+      class="mx-auto grid max-w-5xl grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3"
+    >
+      <NuxtLink
+        v-for="card in navigationCards"
+        :key="card.title"
+        :to="card.to"
+        class="group block"
+      >
+        <div
+          class="custom-shadow flex items-center gap-2 rounded-xl bg-white p-3 shadow-md shadow-sm transition-all duration-200 hover:translate-y-[-2px] hover:shadow-xl sm:p-4"
+        >
+          <!-- Icône -->
+          <div class="flex-shrink-0">
+            <UIcon
+              :name="card.icon"
+              class="h-6 w-6 transition-transform duration-200 group-hover:scale-110"
+              :class="[cardConfigs[card.title]?.color || 'text-gray-600']"
+            />
+          </div>
+
+          <!-- Titre -->
+          <div class="min-w-0 flex-1">
+            <h3
+              class="line-clamp-2 text-sm font-medium leading-tight text-gray-900 sm:line-clamp-1 sm:text-base"
+            >
+              {{ card.title }}
+            </h3>
+          </div>
+        </div>
+      </NuxtLink>
+    </div>
+  </div>
+</template>

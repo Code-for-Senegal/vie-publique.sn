@@ -42,9 +42,9 @@ const deputyUrl = computed(() => {
       size="3xl"
       class="m-4 shadow-md"
     />
-    <div class="text-center font-medium">
+    <div class="text-center font-medium capitalize">
       {{ deputy.first_name.toLowerCase() }}<br />
-      <span class="font-bold tracking-wider">
+      <span class="font-medium tracking-wider">
         {{ deputy.last_name.toUpperCase() }}
       </span>
     </div>

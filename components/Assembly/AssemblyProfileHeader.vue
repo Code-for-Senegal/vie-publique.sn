@@ -40,15 +40,18 @@ defineProps<ProfileHeaderProps>();
         {{ deputy.electoral_list.coalition.name }}
       </a> -->
       <div class="mb-2 flex flex-col items-center space-y-2 text-gray-600">
-        <div class="flex items-center justify-center gap-2">
+        <div
+          v-if="deputy.birthplace"
+          class="flex items-center justify-center gap-2"
+        >
           <font-awesome-icon icon="fa-solid fa-location-dot" />
           {{ deputy.gender === "M" ? "Né" : "Née" }} à {{ deputy.birthplace }}
         </div>
-        <div>
+        <div v-if="deputy.birthdate">
           <font-awesome-icon :icon="['fas', 'cake-candles']" />
           {{ $getAgeFromBirthdate(deputy.birthdate) }} ans
         </div>
-        <div class="capitalize">
+        <div v-if="deputy.profession" class="capitalize">
           <font-awesome-icon :icon="['fas', 'briefcase']" />
           {{ deputy.profession.toLowerCase() }}
         </div>

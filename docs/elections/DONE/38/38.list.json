@@ -1,0 +1,148 @@
+[
+  {
+    "name": "Bëss du Niak nationale titulaire",
+    "type": "national",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 38
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "Bëss du Niak nationale suppléant",
+    "type": "national",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 38
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "Bëss du Niak GUEDIAWAYE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 38
+    },
+    "constituency": {
+      "id": 2
+    }
+  },
+  {
+    "name": "Bëss du Niak GUEDIAWAYE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 38
+    },
+    "constituency": {
+      "id": 2
+    }
+  },
+  {
+    "name": "Bëss du Niak KEUR MASSAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 38
+    },
+    "constituency": {
+      "id": 3
+    }
+  },
+  {
+    "name": "Bëss du Niak KEUR MASSAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 38
+    },
+    "constituency": {
+      "id": 3
+    }
+  },
+  {
+    "name": "Bëss du Niak PIKINE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 38
+    },
+    "constituency": {
+      "id": 4
+    }
+  },
+  {
+    "name": "Bëss du Niak PIKINE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 38
+    },
+    "constituency": {
+      "id": 4
+    }
+  },
+  {
+    "name": "Bëss du Niak SAINT LOUIS titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 38
+    },
+    "constituency": {
+      "id": 33
+    }
+  },
+  {
+    "name": "Bëss du Niak SAINT LOUIS suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 38
+    },
+    "constituency": {
+      "id": 33
+    }
+  }
+]

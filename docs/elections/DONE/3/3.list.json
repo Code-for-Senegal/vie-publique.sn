@@ -1,0 +1,182 @@
+[
+  {
+    "name": "RV NATANGUE VELINGARA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 3
+    },
+    "constituency": {
+      "id": 24
+    }
+  },
+  {
+    "name": "RV NATANGUE VELINGARA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 3
+    },
+    "constituency": {
+      "id": 24
+    }
+  },
+  {
+    "name": "RV NATANGUE KANEL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 3
+    },
+    "constituency": {
+      "id": 28
+    }
+  },
+  {
+    "name": "RV NATANGUE KANEL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 3
+    },
+    "constituency": {
+      "id": 28
+    }
+  },
+  {
+    "name": "RV NATANGUE MATAM titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 3
+    },
+    "constituency": {
+      "id": 29
+    }
+  },
+  {
+    "name": "RV NATANGUE MATAM suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 3
+    },
+    "constituency": {
+      "id": 29
+    }
+  },
+  {
+    "name": "RV NATANGUE GOUDIRY titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 3
+    },
+    "constituency": {
+      "id": 38
+    }
+  },
+  {
+    "name": "RV NATANGUE GOUDIRY suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 3
+    },
+    "constituency": {
+      "id": 38
+    }
+  },
+  {
+    "name": "RV NATANGUE TIVAOUANE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 3
+    },
+    "constituency": {
+      "id": 43
+    }
+  },
+  {
+    "name": "RV NATANGUE TIVAOUANE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 3
+    },
+    "constituency": {
+      "id": 43
+    }
+  },
+  {
+    "name": "RV NATANGUE EUROPE OUEST CENTRE NORD titulaire",
+    "type": "diaspora",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 3
+    },
+    "constituency": {
+      "id": 54
+    }
+  },
+  {
+    "name": "RV NATANGUE EUROPE OUEST CENTRE NORD suppléant",
+    "type": "diaspora",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 3
+    },
+    "constituency": {
+      "id": 54
+    }
+  }
+]

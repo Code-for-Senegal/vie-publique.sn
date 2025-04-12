@@ -1,8 +1,11 @@
 <!-- index.vue -->
 <script setup lang="ts">
-const { journaux, loading, error } = useJournalOfficial();
+const { documents, loading, error } = useDocuments({
+  type: "official_journal",
+});
 const searchQuery = ref("");
 const currentView = ref<"grid" | "list">("list");
+const router = useRouter();
 
 // Configuration SEO
 const seoTitle = "Journal officiel Sénégal";
@@ -26,34 +29,15 @@ useHead({
   ],
 });
 
-interface Document {
-  id: string;
-  status: string;
-  title: string;
-  description: string;
-  publish_date: string;
-  content_html: string;
-  file?: string;
-}
-
-interface Journal {
-  id: string;
-  number: string;
-  type: "special" | "ordinary";
-  status: string;
-  slug: string;
-  document: Document;
-}
-
 const filteredJournals = computed(() => {
-  if (!journaux.value) return [];
+  if (!documents.value) return [];
 
-  return journaux.value.filter((journal: Journal) => {
+  return documents.value.filter((doc) => {
     const searchLower = searchQuery.value.toLowerCase();
     return (
-      journal.document.title?.toLowerCase().includes(searchLower) ||
-      journal.number?.toString().toLowerCase().includes(searchLower) ||
-      journal.document.description?.toLowerCase().includes(searchLower)
+      doc.title?.toLowerCase().includes(searchLower) ||
+      doc.jo_number?.toString().toLowerCase().includes(searchLower) ||
+      doc.description?.toLowerCase().includes(searchLower)
     );
   });
 });
@@ -70,39 +54,49 @@ const formatDate = (date: string) => {
 
 <template>
   <div class="container mx-auto px-4">
+    <!-- Bouton retour -->
+    <UButton
+      icon="i-heroicons-arrow-left"
+      variant="ghost"
+      label="Retour"
+      color="gray"
+      @click="router.back()"
+    />
     <!-- En-tête -->
-    <div class="prose prose-sm sm:prose mx-auto my-4">
-      <h1 class="text-center">Journal Officiel du Sénégal</h1>
+    <div class="prose prose-sm sm:prose mx-auto my-2">
+      <h1 class="text-center text-xl text-gray-900 sm:text-2xl">
+        Journal Officiel
+      </h1>
     </div>
 
-    <!-- Barre d'outils -->
-    <div class="mb-6 space-y-2">
-      <!-- Statistiques -->
-      <div class="text-center">
-        <UBadge size="sm" color="gray" class="custom-shadow">
-          {{ filteredJournals.length }} Journaux référencés
-        </UBadge>
-      </div>
-
-      <!-- Recherche -->
+    <!-- Recherche -->
+    <div class="mb-8">
+      <UInput
+        v-model="searchQuery"
+        size="lg"
+        placeholder="Rechercher par numéro, date ou contenu..."
+        icon="i-heroicons-magnifying-glass"
+        class="custom-shadow sm:w-full"
+      />
       <div
-        class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+        class="mt-2 flex flex-col items-center justify-between text-sm text-gray-500 sm:flex-row"
       >
-        <UInput
-          v-model="searchQuery"
-          size="lg"
-          placeholder="Rechercher par numéro, date ou contenu..."
-          icon="i-heroicons-magnifying-glass"
-          class="custom-shadow sm:w-full"
-        />
+        <span>{{ filteredJournals.length }} Journaux référencés</span>
       </div>
     </div>
 
     <!-- Loading state -->
-    <UCard v-if="loading" class="p-8 text-center">
-      <UProgress />
-      <p class="mt-4">Chargement des journaux officiels...</p>
-    </UCard>
+    <template v-if="loading">
+      <UCard v-for="n in 3" :key="n" class="mb-4">
+        <div class="flex items-start gap-4 p-4">
+          <div class="h-8 w-8 animate-pulse rounded-full bg-gray-200" />
+          <div class="flex-grow">
+            <div class="mb-2 h-6 w-3/4 animate-pulse rounded bg-gray-200" />
+            <div class="h-4 w-1/2 animate-pulse rounded bg-gray-200" />
+          </div>
+        </div>
+      </UCard>
+    </template>
 
     <!-- Error state -->
     <UAlert
@@ -131,7 +125,7 @@ const formatDate = (date: string) => {
         class="rounded-none transition-shadow duration-200 hover:shadow-lg"
       >
         <NuxtLink
-          :to="`/journal-officiel-senegal/${journal.slug}`"
+          :to="`/documents/${journal.id}/${journal.slug || 'journal-officiel'}`"
           class="block"
         >
           <div class="flex gap-4">
@@ -140,7 +134,7 @@ const formatDate = (date: string) => {
             >
               <img
                 src="/images/default-journal-officiel.webp"
-                :alt="`Aperçu JO ${journal.number}`"
+                :alt="`Aperçu JO ${journal.jo_number || ''}`"
                 class="h-full w-full object-cover"
                 loading="lazy"
                 fetchpriority="high"
@@ -150,17 +144,17 @@ const formatDate = (date: string) => {
             <div>
               <div class="flex items-start justify-between gap-4">
                 <h3 class="text-primary font-semibold">
-                  {{ journal.document.title }}
+                  {{ journal.title }}
                 </h3>
               </div>
 
               <p class="mt-2 text-sm text-gray-600">
-                {{ journal.document.description }}
+                {{ journal.description }}
               </p>
 
               <div class="mt-3 flex items-center gap-2 text-sm text-gray-500">
                 <UIcon name="i-heroicons-calendar" />
-                <span>{{ formatDate(journal.document.publish_date) }}</span>
+                <span>{{ formatDate(journal.publish_date) }}</span>
               </div>
             </div>
           </div>

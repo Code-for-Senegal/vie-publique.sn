@@ -1,0 +1,543 @@
+[
+  {
+    "name": "And Dolel Liguey nationale titulaire",
+    "type": "national",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 22
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "And Dolel Liguey nationale suppléant",
+    "type": "national",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 22
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "And Dolel Liguey DAKAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 22
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 1
+    }
+  },
+  {
+    "name": "And Dolel Liguey DAKAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 22
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 1
+    }
+  },
+  {
+    "name": "And Dolel Liguey KEUR MASSAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 3
+    }
+  },
+  {
+    "name": "And Dolel Liguey KEUR MASSAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 3
+    }
+  },
+  {
+    "name": "And Dolel Liguey PIKINE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 4
+    }
+  },
+
+  {
+    "name": "And Dolel Liguey PIKINE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 4
+    }
+  },
+  {
+    "name": "And Dolel Liguey RUFISQUE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 5
+    }
+  },
+  {
+    "name": "And Dolel Liguey RUFISQUE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 5
+    }
+  },
+  {
+    "name": "And Dolel Liguey BAMBEY titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 6
+    }
+  },
+  {
+    "name": "And Dolel Liguey BAMBEY suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 6
+    }
+  },
+
+  {
+    "name": "And Dolel Liguey DIOURBEL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 7
+    }
+  },
+  {
+    "name": "And Dolel Liguey DIOURBEL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 7
+    }
+  },
+  {
+    "name": "And Dolel Liguey MBACKE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 8
+    }
+  },
+  {
+    "name": "And Dolel Liguey MBACKE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 8
+    }
+  },
+
+  {
+    "name": "And Dolel Liguey FATICK titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 9
+    }
+  },
+  {
+    "name": "And Dolel Liguey FATICK suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 9
+    }
+  },
+  {
+    "name": "And Dolel Liguey FOUNDIOUGNE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 10
+    }
+  },
+  {
+    "name": "And Dolel Liguey FOUNDIOUGNE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 10
+    }
+  },
+
+  {
+    "name": "And Dolel Liguey GOSSAS titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 11
+    }
+  },
+  {
+    "name": "And Dolel Liguey GOSSAS suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 11
+    }
+  },
+  {
+    "name": "And Dolel Liguey KAFFRINE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 13
+    }
+  },
+  {
+    "name": "And Dolel Liguey KAFFRINE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 13
+    }
+  },
+  {
+    "name": "And Dolel Liguey KEDOUGOU titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 19
+    }
+  },
+  {
+    "name": "And Dolel Liguey KEDOUGOU suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 19
+    }
+  },
+  {
+    "name": "And Dolel Liguey KOLDA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 22
+    }
+  },
+  {
+    "name": "And Dolel Liguey KOLDA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 22
+    }
+  },
+  {
+    "name": "And Dolel Liguey KEBEMER titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 25
+    }
+  },
+  {
+    "name": "And Dolel Liguey KEBEMER suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 25
+    }
+  },
+  {
+    "name": "And Dolel Liguey LOUGA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 27
+    }
+  },
+  {
+    "name": "And Dolel Liguey LOUGA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 27
+    }
+  },
+  {
+    "name": "And Dolel Liguey SAINT LOUIS titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 33
+    }
+  },
+
+  {
+    "name": "And Dolel Liguey SAINT LOUIS suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 33
+    }
+  },
+  {
+    "name": "And Dolel Liguey TIVAOUANE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 43
+    }
+  },
+  {
+    "name": "And Dolel Liguey TIVAOUANE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 22
+    },
+    "constituency": {
+      "id": 43
+    }
+  }
+]

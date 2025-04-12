@@ -20,7 +20,7 @@ const links = [
   },
   {
     label: "Documents",
-    description: "Journal officiel, Codes, Rapports OFNAC Cours des comptes...",
+    description: "Journal officiel, Codes, Rapports OFNAC Cour des comptes...",
     icon: "i-heroicons-rectangle-stack",
     to: "/documents",
   },
@@ -53,7 +53,6 @@ const links = [
           corriger.
         </div>
         <UButton color="black" @click="handleError">Retour à l'accueil</UButton>
-        <MenuHome :menus="links" />
       </section>
     </NuxtLayout>
   </UContainer>

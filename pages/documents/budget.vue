@@ -21,7 +21,7 @@ const filteredDocuments = computed(() => {
   return documents.value.filter(
     (doc) =>
       doc.title?.toLowerCase().includes(searchLower) ||
-      doc.description?.toLowerCase().includes(searchLower),
+      (doc as any).description?.toLowerCase().includes(searchLower),
   );
 });
 
@@ -40,18 +40,20 @@ const handlePageChange = (page: number) => {
 </script>
 
 <template>
-  <div class="container mx-auto px-4 py-4">
+  <div class="container mx-auto px-4 py-2">
     <!-- Bouton retour -->
     <UButton
       icon="i-heroicons-arrow-left"
       variant="ghost"
-      label="Retour à la liste"
+      label="Retour"
       color="gray"
-      @click.native="router.back()"
+      @click="router.back()"
     />
     <ClientOnly>
-      <div class="prose prose-sm sm:prose mx-auto my-4">
-        <h1 class="text-center text-gray-900">Documents Budgétaires</h1>
+      <div class="prose prose-sm sm:prose mx-auto my-2">
+        <h1 class="text-center text-xl text-gray-900 sm:text-2xl">
+          Documents Budgétaires
+        </h1>
       </div>
 
       <div class="mb-8">
@@ -67,12 +69,6 @@ const handlePageChange = (page: number) => {
           class="mt-2 flex flex-col items-center justify-between text-sm text-gray-500 sm:flex-row"
         >
           <span>{{ filteredDocuments.length }} documents trouvés</span>
-          <USelect
-            v-model="itemsPerPage"
-            :options="[10, 20, 50]"
-            size="sm"
-            class="mt-2 w-32 sm:mt-0"
-          />
         </div>
       </div>
 
@@ -121,9 +117,9 @@ const handlePageChange = (page: number) => {
               <h3 class="mb-1 font-medium text-gray-900">
                 {{ doc.title }}
               </h3>
-              <p class="line-clamp-2 text-sm text-gray-500">
+              <!-- <p class="line-clamp-2 text-sm text-gray-500">
                 {{ doc.description }}
-              </p>
+              </p> -->
               <div class="mt-1 flex flex-wrap gap-4 text-sm text-gray-400">
                 <span class="flex items-center gap-1">
                   {{ $dateMonthYearformat(doc.publish_date) }}
@@ -138,7 +134,20 @@ const handlePageChange = (page: number) => {
         </UCard>
 
         <!-- Pagination -->
-        <div class="mt-6 flex justify-center">
+        <div
+          class="mt-6 flex flex-col items-center gap-4 sm:flex-row sm:justify-between"
+        >
+          <div class="flex items-center gap-2">
+            <span class="text-sm text-gray-500">Afficher</span>
+            <USelect
+              v-model="itemsPerPage"
+              :options="[10, 20, 50]"
+              size="sm"
+              class="w-20"
+            />
+            <span class="text-sm text-gray-500">par page</span>
+          </div>
+
           <UPagination
             v-model="currentPage"
             :total="filteredDocuments.length"

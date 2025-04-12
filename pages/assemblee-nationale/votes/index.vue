@@ -20,15 +20,12 @@
 
       <!-- En-tête avec titre et description -->
       <div class="mb-8">
-        <h1 class="mb-4 text-4xl font-bold text-gray-900">
-          Les votes décryptés par Vie Publique
-        </h1>
+        <h1 class="mb-4 text-4xl font-bold text-gray-900">Les votes</h1>
         <div class="prose max-w-3xl text-sm text-gray-600">
           <p>
-            L'équipe de Vie-Publique décrypte pour vous les votes de la
-            législature en cours. chaque vote fait l'objet d'une reformulation
-            et d'une contextualisation, afin de le rendre plus accessible et
-            plus compréhensible.
+            On décrypte pour vous les votes de la législature en cours. Chaque
+            vote fait l'objet d'une reformulation et d'une contextualisation,
+            afin de le rendre plus accessible et plus compréhensible.
           </p>
         </div>
       </div>

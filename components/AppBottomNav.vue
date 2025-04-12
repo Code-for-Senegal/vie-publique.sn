@@ -1,23 +1,25 @@
 <template>
-  <div
-    class="fixed bottom-0 left-0 right-0 z-50 border-t bg-white shadow-lg md:hidden dark:bg-gray-900"
-  >
-    <div class="flex items-center justify-around px-2 py-3">
-      <UButton
-        v-for="tab in tabs"
-        :key="tab.name"
-        :icon="tab.icon"
-        color="gray"
-        size="xs"
-        variant="ghost"
-        class="flex flex-col items-center justify-center"
-        :class="{
-          'bg-green-100 text-gray-900': isActiveTab(tab),
-          'text-gray-500': !isActiveTab(tab),
-        }"
-        :to="tab.to"
-        :label="tab.label"
-      />
+  <div>
+    <div
+      class="fixed bottom-0 left-0 right-0 z-50 border-t bg-white shadow-lg md:hidden dark:bg-gray-900"
+    >
+      <div class="flex items-center justify-around px-2 py-3">
+        <UButton
+          v-for="tab in tabs"
+          :key="tab.name"
+          :icon="tab.icon"
+          color="gray"
+          size="xs"
+          variant="ghost"
+          class="flex flex-col items-center justify-center"
+          :class="{
+            'bg-green-100 text-gray-900': isActiveTab(tab),
+            'text-gray-500': !isActiveTab(tab),
+          }"
+          :to="tab.to"
+          :label="tab.label"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -32,13 +34,7 @@ const tabs = [
     label: "Actualités",
     name: "actualites",
     icon: "i-heroicons-newspaper",
-    to: "/publications/actualites",
-  },
-  {
-    label: "Annuaires",
-    name: "annuaires",
-    icon: "i-heroicons-identification",
-    to: "/annuaires",
+    to: "/actualites",
   },
   {
     label: "Documents",
@@ -47,10 +43,16 @@ const tabs = [
     to: "/documents",
   },
   {
-    label: "Budget",
-    name: "budget",
-    icon: "i-heroicons-banknotes",
-    to: "/budget-senegal",
+    label: "Assemblée",
+    name: "assemblee",
+    icon: "i-heroicons-building-library",
+    to: "/assemblee-nationale",
+  },
+  {
+    label: "Voir plus",
+    name: "voirplus",
+    icon: "i-heroicons-squares-plus",
+    to: "/menu",
   },
 ];
 

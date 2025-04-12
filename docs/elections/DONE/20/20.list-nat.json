@@ -1,0 +1,28 @@
+[
+  {
+    "name": "MANKOO LIGGEYAL nationale titulaire",
+    "type": "national",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 20
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "MANKOO LIGGEYAL nationale suppléant",
+    "type": "national",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 20
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  }
+]

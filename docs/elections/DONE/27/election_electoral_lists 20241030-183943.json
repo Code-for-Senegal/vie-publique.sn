@@ -1,0 +1,142 @@
+[
+	{
+		"id": 760,
+		"type": "national",
+		"is_substitute": false,
+		"constituency": null
+	},
+	{
+		"id": 761,
+		"type": "national",
+		"is_substitute": true,
+		"constituency": null
+	},
+	{
+		"id": 762,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "DAKAR"
+		}
+	},
+	{
+		"id": 763,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "DAKAR"
+		}
+	},
+	{
+		"id": 764,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "GUEDIAWAYE"
+		}
+	},
+	{
+		"id": 765,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "GUEDIAWAYE"
+		}
+	},
+	{
+		"id": 766,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "PIKINE"
+		}
+	},
+	{
+		"id": 767,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "PIKINE"
+		}
+	},
+	{
+		"id": 768,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "DIOURBEL"
+		}
+	},
+	{
+		"id": 769,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "DIOURBEL"
+		}
+	},
+	{
+		"id": 770,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "MBACKE"
+		}
+	},
+	{
+		"id": 771,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "MBACKE"
+		}
+	},
+	{
+		"id": 772,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "KAFFRINE"
+		}
+	},
+	{
+		"id": 773,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "KAFFRINE"
+		}
+	},
+	{
+		"id": 774,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "DAGANA"
+		}
+	},
+	{
+		"id": 775,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "DAGANA"
+		}
+	},
+	{
+		"id": 776,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "SAINT LOUIS"
+		}
+	},
+	{
+		"id": 777,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "BOUNKILING"
+		}
+	}
+]

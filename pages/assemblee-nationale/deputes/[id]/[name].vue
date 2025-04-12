@@ -76,20 +76,6 @@
 
         <!-- QUESTIONS ECRITES -->
         <AssemblyDeputyQuestion :deputy="deputy" />
-        <!-- <UCard v-if="deputy.questions.length">
-          <h2 class="text-xl font-semibold">Questions écrites</h2>
-          <div
-            v-for="question in deputy.questions"
-            :key="question.id"
-            class="transition-all hover:shadow-lg"
-          >
-            <NuxtLink :to="`/assemblee-nationale/questions/${question.id}`">
-              <ul class="flex gap-4">
-                <li class="mb-2 text-sm underline">{{ question.title }}</li>
-              </ul>
-            </NuxtLink>
-          </div>
-          </UCard>-->
       </div>
     </div>
 

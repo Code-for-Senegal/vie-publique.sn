@@ -1,0 +1,1815 @@
+[
+  {
+    "position": 1,
+    "first_name": "CHEIKH ISSA",
+    "last_name": "SALL",
+    "voter_number": "104727237",
+    "profession": "Administrateur",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "AWA",
+    "last_name": "FALL",
+    "voter_number": "101788489",
+    "profession": "Sage Femme",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 3,
+    "first_name": "ABDOURAMANE",
+    "last_name": "SYLL",
+    "voter_number": "101178509",
+    "profession": "Juriste",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 4,
+    "first_name": "ADJI",
+    "last_name": "MBACKE",
+    "voter_number": "105992838",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 5,
+    "first_name": "MBAYE NDOUMBE",
+    "last_name": "SALL",
+    "voter_number": "105672596",
+    "profession": "Opérateur économique",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 6,
+    "first_name": "NDEYE LEMOU MARIE H",
+    "last_name": "BITEYE",
+    "voter_number": "100409823",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 7,
+    "first_name": "MOR",
+    "last_name": "SALL",
+    "voter_number": "103257457",
+    "profession": "Maeyeur",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 8,
+    "first_name": "COURA",
+    "last_name": "COULIBALY",
+    "voter_number": "100256985",
+    "profession": "Comptable",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 9,
+    "first_name": "ARONA",
+    "last_name": "SAMB",
+    "voter_number": "103259896",
+    "profession": "Transitaire",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 10,
+    "first_name": "MAGATTE",
+    "last_name": "DIOUF",
+    "voter_number": "103442695",
+    "profession": "Enseignante",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 11,
+    "first_name": "SOULEYMANE",
+    "last_name": "TAMBA",
+    "voter_number": "105186801",
+    "profession": "Commerçant",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 12,
+    "first_name": "FATOU",
+    "last_name": "NDONGO",
+    "voter_number": "101684668",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 13,
+    "first_name": "MODOU SOKHNA",
+    "last_name": "DIOP",
+    "voter_number": "120014319",
+    "profession": "Cultivateur",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 14,
+    "first_name": "AMY",
+    "last_name": "THIAM",
+    "voter_number": "103475167",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 15,
+    "first_name": "SORIBA",
+    "last_name": "JOHN",
+    "voter_number": "101974849",
+    "profession": "Agent Administratif",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 16,
+    "first_name": "SOKHNA MAI",
+    "last_name": "BOUSSO",
+    "voter_number": "104654511",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 17,
+    "first_name": "MATAR",
+    "last_name": "DIOP",
+    "voter_number": "106643630",
+    "profession": "Commerçant",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 18,
+    "first_name": "FATOU DIAGNE",
+    "last_name": "DIOP",
+    "voter_number": "100401069",
+    "profession": "Agent Commercial",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 19,
+    "first_name": "ALIOUNE",
+    "last_name": "DIOP",
+    "voter_number": "101412613",
+    "profession": "Médecin",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 20,
+    "first_name": "MARIEME FALL",
+    "last_name": "NDIR",
+    "voter_number": "104578544",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 21,
+    "first_name": "DAME",
+    "last_name": "NDIAYE",
+    "voter_number": "102766496",
+    "profession": "Logisticien",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 22,
+    "first_name": "NDATTE",
+    "last_name": "BA",
+    "voter_number": "101604824",
+    "profession": "Agent Administratif",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 23,
+    "first_name": "MORANE",
+    "last_name": "SALL",
+    "voter_number": "101913145",
+    "profession": "Ingénieur Informatique",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 24,
+    "first_name": "AMINATA",
+    "last_name": "GAYE",
+    "voter_number": "101458853",
+    "profession": "Chef d'exploitation",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 25,
+    "first_name": "ABDOU AZIZ",
+    "last_name": "SALL",
+    "voter_number": "103212454",
+    "profession": "Comptable",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 26,
+    "first_name": "SALIMATA",
+    "last_name": "NDOYE",
+    "voter_number": "105300547",
+    "profession": "Agent Municipal",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 27,
+    "first_name": "CHEIKH TIDIANE",
+    "last_name": "NDIAYE",
+    "voter_number": "104570762",
+    "profession": "Agent Municipal",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 28,
+    "first_name": "NDEYE",
+    "last_name": "TOURE",
+    "voter_number": "101768693",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 29,
+    "first_name": "OMAR SEYDI",
+    "last_name": "GASSAMA",
+    "voter_number": "104144586",
+    "profession": "Agent Administratif",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 30,
+    "first_name": "DOUSSOUDING",
+    "last_name": "SEDICORA",
+    "voter_number": "100290065",
+    "profession": "Ménagère",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 31,
+    "first_name": "ADAMA",
+    "last_name": "SALL",
+    "voter_number": "101458852",
+    "profession": "Pêcheur",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 32,
+    "first_name": "AISSATOU",
+    "last_name": "TALL",
+    "voter_number": "105499674",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 33,
+    "first_name": "CHEIKH MBABA",
+    "last_name": "DIOP",
+    "voter_number": "103919942",
+    "profession": "Cadre administratif",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 34,
+    "first_name": "MASSIRE",
+    "last_name": "CAMARA",
+    "voter_number": "103457379",
+    "profession": "Agent Municipal",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 35,
+    "first_name": "OMAR",
+    "last_name": "NIANG",
+    "voter_number": "103492049",
+    "profession": "Agroecologue",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 36,
+    "first_name": "KHADY",
+    "last_name": "SOW",
+    "voter_number": "104513574",
+    "profession": "Agent Municipal",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 37,
+    "first_name": "OUSMANE",
+    "last_name": "CAMARA",
+    "voter_number": "106235063",
+    "profession": "Chef d'établissement",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 38,
+    "first_name": "SALIMATA",
+    "last_name": "SALL",
+    "voter_number": "105972549",
+    "profession": "TAILLEUR",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 39,
+    "first_name": "SEYNI SENE",
+    "last_name": "BA",
+    "voter_number": "103204283",
+    "profession": "Agent Municipal",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 40,
+    "first_name": "ADJI SIRA",
+    "last_name": "FALL",
+    "voter_number": "106843220",
+    "profession": "Ménagère",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 41,
+    "first_name": "NDIAGA",
+    "last_name": "CISSE",
+    "voter_number": "100305790",
+    "profession": "Agent Municipal",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 42,
+    "first_name": "AICHATOU",
+    "last_name": "COULIBALY",
+    "voter_number": "102022618",
+    "profession": "Ménagère",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 43,
+    "first_name": "MBAYE NGONE",
+    "last_name": "GUEYE",
+    "voter_number": "102043314",
+    "profession": "Enseignant",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 44,
+    "first_name": "NDEYE ANTA",
+    "last_name": "FALL",
+    "voter_number": "102286286",
+    "profession": "Sage Femme d'état",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 45,
+    "first_name": "BAYE DARAW",
+    "last_name": "DIOP",
+    "voter_number": "105768861",
+    "profession": "Commerçant",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 46,
+    "first_name": "AMINATA",
+    "last_name": "CISSOKHO",
+    "voter_number": "100712736",
+    "profession": "Ménagère",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 47,
+    "first_name": "ELIMANE MANDIAYE",
+    "last_name": "BA",
+    "voter_number": "103411602",
+    "profession": "Agent Municipal",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 48,
+    "first_name": "MASSATA",
+    "last_name": "CAMARA",
+    "voter_number": "101047408",
+    "profession": "Agent de Santé",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 49,
+    "first_name": "DJICK DIAME",
+    "last_name": "FAYE",
+    "voter_number": "103425088",
+    "profession": "Etudiant",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 50,
+    "first_name": "ROKHAYA",
+    "last_name": "MARA",
+    "voter_number": "102404684",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 51,
+    "first_name": "NDIAME DIA",
+    "last_name": "FALL",
+    "voter_number": "106189781",
+    "profession": "Imprimeur",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 52,
+    "first_name": "NOUMOUCIRA",
+    "last_name": "DANFAKHA",
+    "voter_number": "104135155",
+    "profession": "Ménagère",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 53,
+    "first_name": "ABDOULAYE KHADY",
+    "last_name": "SALL",
+    "voter_number": "102147130",
+    "profession": "Agent Administratif",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 654
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "MANDIAYE",
+    "last_name": "FALL",
+    "voter_number": "103212440",
+    "profession": "Enseignant",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "BEUTOR",
+    "last_name": "SENE",
+    "voter_number": "106348234",
+    "profession": "Productrice agricole",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 3,
+    "first_name": "PAPE GUEDJI",
+    "last_name": "GUEYE",
+    "voter_number": "104369198",
+    "profession": "Technicien Agronome",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 4,
+    "first_name": "AMY",
+    "last_name": "CISSE",
+    "voter_number": "106050849",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 5,
+    "first_name": "ALIOU",
+    "last_name": "BEYE",
+    "voter_number": "101412560",
+    "profession": "Commerçant",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 6,
+    "first_name": "AIDA",
+    "last_name": "MBACKE",
+    "voter_number": "100629661",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 7,
+    "first_name": "BIRAM",
+    "last_name": "GUEYE",
+    "voter_number": "105347375",
+    "profession": "Agent Administratif",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 8,
+    "first_name": "BASSINE",
+    "last_name": "KONTE",
+    "voter_number": "104788618",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 9,
+    "first_name": "ALIOUNE",
+    "last_name": "DIAKHATE",
+    "voter_number": "106069632",
+    "profession": "Chauffeur",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 10,
+    "first_name": "SOKHNA",
+    "last_name": "MBOW",
+    "voter_number": "104799648",
+    "profession": "Agent Commercial",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 11,
+    "first_name": "FALLOU",
+    "last_name": "DIENG",
+    "voter_number": "101725291",
+    "profession": "Aide opérateur",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 12,
+    "first_name": "NDEYE",
+    "last_name": "NIASSE",
+    "voter_number": "106540807",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 13,
+    "first_name": "MOR",
+    "last_name": "LOUM",
+    "voter_number": "105806966",
+    "profession": "Biologiste",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 14,
+    "first_name": "MAME DIARRA",
+    "last_name": "MBAYE",
+    "voter_number": "106357321",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 15,
+    "first_name": "SAMBA",
+    "last_name": "LO",
+    "voter_number": "103442868",
+    "profession": "Chauffeur",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 16,
+    "first_name": "NDEYE WADE",
+    "last_name": "NIANG",
+    "voter_number": "100254905",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 17,
+    "first_name": "MBAYE",
+    "last_name": "SENE",
+    "voter_number": "101445404",
+    "profession": "Agent Municipal",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 18,
+    "first_name": "KHADY",
+    "last_name": "MBAYE",
+    "voter_number": "105457979",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 19,
+    "first_name": "SERIGNE BABA",
+    "last_name": "DIOP",
+    "voter_number": "100254538",
+    "profession": "TAILLEUR",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 20,
+    "first_name": "YAGUE",
+    "last_name": "SALL",
+    "voter_number": "106378826",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 21,
+    "first_name": "MOR",
+    "last_name": "KANE",
+    "voter_number": "104369814",
+    "profession": "Commerçant",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 22,
+    "first_name": "BOURY",
+    "last_name": "NDAO",
+    "voter_number": "100299728",
+    "profession": "Ménagère",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 23,
+    "first_name": "ELHADJI OUMAR MOUSSE",
+    "last_name": "DIOP",
+    "voter_number": "100690164",
+    "profession": "Comptable",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 24,
+    "first_name": "THIORO",
+    "last_name": "BA",
+    "voter_number": "105452955",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 25,
+    "first_name": "CHEIKHOU",
+    "last_name": "DIA",
+    "voter_number": "102342577",
+    "profession": "Agent Municipal",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 26,
+    "first_name": "NARO",
+    "last_name": "BA",
+    "voter_number": "105496156",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 27,
+    "first_name": "DOUDOU",
+    "last_name": "DANFAKHA",
+    "voter_number": "120036691",
+    "profession": "Agent minier",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 28,
+    "first_name": "NDEYE COURA",
+    "last_name": "SALL",
+    "voter_number": "103049643",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 29,
+    "first_name": "MAHAMADY",
+    "last_name": "SAMOURA",
+    "voter_number": "101200412",
+    "profession": "Cultivateur",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 30,
+    "first_name": "SORA",
+    "last_name": "KEITA",
+    "voter_number": "100181473",
+    "profession": "Ménagère",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 31,
+    "first_name": "KALLE",
+    "last_name": "DANFAKHA",
+    "voter_number": "100290018",
+    "profession": "Cultivateur",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 32,
+    "first_name": "CIRE",
+    "last_name": "CISSOKHO",
+    "voter_number": "100290178",
+    "profession": "Ménagère",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 33,
+    "first_name": "KARAMOKHO",
+    "last_name": "SINGOURA",
+    "voter_number": "100181021",
+    "profession": "Cultivateur",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 34,
+    "first_name": "AIDA",
+    "last_name": "DIOP",
+    "voter_number": "106455068",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 35,
+    "first_name": "KAMA",
+    "last_name": "DEMBELE",
+    "voter_number": "101306286",
+    "profession": "Cultivateur",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 36,
+    "first_name": "MATY",
+    "last_name": "SALL",
+    "voter_number": "104369107",
+    "profession": "Agent Municipal",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 37,
+    "first_name": "EL HADJI",
+    "last_name": "KA",
+    "voter_number": "101590751",
+    "profession": "Communauty manager",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 38,
+    "first_name": "NDEYE DIEYNABA",
+    "last_name": "MANE",
+    "voter_number": "121136019",
+    "profession": "AGENT",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 39,
+    "first_name": "GALLO",
+    "last_name": "MBAYE",
+    "voter_number": "106571074",
+    "profession": "Agent Municipal",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 40,
+    "first_name": "KHADY",
+    "last_name": "GAYE",
+    "voter_number": "121510679",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 41,
+    "first_name": "AMADOU MOUSTAPHA",
+    "last_name": "NDIAYE",
+    "voter_number": "101167001",
+    "profession": "Agent immobilier",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 42,
+    "first_name": "DALLO",
+    "last_name": "KANOUTE",
+    "voter_number": "101200155",
+    "profession": "Ménagère",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 43,
+    "first_name": "MATAR",
+    "last_name": "NIANG",
+    "voter_number": "104378423",
+    "profession": "Agent Municipal",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 44,
+    "first_name": "FATOU SORA",
+    "last_name": "LEYE",
+    "voter_number": "102663526",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 45,
+    "first_name": "OUSMANE",
+    "last_name": "NDIAYE",
+    "voter_number": "103501851",
+    "profession": "Pêcheur",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 46,
+    "first_name": "BINETA",
+    "last_name": "FALL",
+    "voter_number": "106834048",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 47,
+    "first_name": "PAPA GORA",
+    "last_name": "KANE",
+    "voter_number": "105780621",
+    "profession": "Bijoutier",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 48,
+    "first_name": "AMY COLLE",
+    "last_name": "SENE",
+    "voter_number": "121136415",
+    "profession": "JOURNALISTE",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 49,
+    "first_name": "YATMA",
+    "last_name": "DIOUF",
+    "voter_number": "104768191",
+    "profession": "Agent domanial",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 50,
+    "first_name": "AMINATA",
+    "last_name": "SOW",
+    "voter_number": "103259993",
+    "profession": "Agent Administratif",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 655
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "MOUHAMADOU",
+    "last_name": "MBOW",
+    "voter_number": "105420428",
+    "profession": "Tolier",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 656
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "KHADY",
+    "last_name": "SY",
+    "voter_number": "102748353",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 656
+    }
+  },
+  {
+    "position": 3,
+    "first_name": "MAKHARY",
+    "last_name": "NDIAYE",
+    "voter_number": "105074677",
+    "profession": "TRANSPORTEUR",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 656
+    }
+  },
+  {
+    "position": 4,
+    "first_name": "DIEYNABA",
+    "last_name": "COULIBALY",
+    "voter_number": "103580543",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 656
+    }
+  },
+  {
+    "position": 5,
+    "first_name": "MAMADOU",
+    "last_name": "BAKHAYOKHO",
+    "voter_number": "102859838",
+    "profession": "Mécanicien",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 656
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "MATAR NDOUMBE",
+    "last_name": "MBOW",
+    "voter_number": "105414385",
+    "profession": "Etudiant",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 657
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "MEDINATOU",
+    "last_name": "DIAKHATE",
+    "voter_number": "102810907",
+    "profession": "Conseillère municipale",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 657
+    }
+  },
+  {
+    "position": 3,
+    "first_name": "AMADY DIENG",
+    "last_name": "FALL",
+    "voter_number": "105432582",
+    "profession": "Commerçant",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 657
+    }
+  },
+  {
+    "position": 4,
+    "first_name": "AWA",
+    "last_name": "NGUIRANE",
+    "voter_number": "105843433",
+    "profession": "COMMERCANTE",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 657
+    }
+  },
+  {
+    "position": 5,
+    "first_name": "MAPENDA",
+    "last_name": "SECK",
+    "voter_number": "103580984",
+    "profession": "Chauffeur",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 657
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "BAYE OUSMANE",
+    "last_name": "BOUSSO",
+    "voter_number": "100325327",
+    "profession": "Commerçant",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 658
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "DIARRA BOUSSO",
+    "last_name": "MAR",
+    "voter_number": "103557353",
+    "profession": "Informaticienne",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 658
+    }
+  },
+  {
+    "position": 3,
+    "first_name": "ABDOUL AHAD",
+    "last_name": "FALL",
+    "voter_number": "106528155",
+    "profession": "Commerçant",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 658
+    }
+  },
+  {
+    "position": 4,
+    "first_name": "SOKHNA NDEYE",
+    "last_name": "BOUSSO",
+    "voter_number": "101768690",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 658
+    }
+  },
+  {
+    "position": 5,
+    "first_name": "BAYE LAHAD",
+    "last_name": "CISSE",
+    "voter_number": "100966382",
+    "profession": "Opérateur économique",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 658
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "FATOUMATA",
+    "last_name": "BOUSSO",
+    "voter_number": "101032403",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 659
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "MOUSTAPHA",
+    "last_name": "GADIAGA",
+    "voter_number": "120254757",
+    "profession": "Commerçante",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 659
+    }
+  },
+  {
+    "position": 3,
+    "first_name": "THIANE",
+    "last_name": "CISSE",
+    "voter_number": "106314818",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 659
+    }
+  },
+  {
+    "position": 4,
+    "first_name": "AHMADOU",
+    "last_name": "NDIAYE",
+    "voter_number": "103961240",
+    "profession": "Commerçant",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 659
+    }
+  },
+  {
+    "position": 5,
+    "first_name": "SOKHNA MATY",
+    "last_name": "MBACKE",
+    "voter_number": "101032404",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 659
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "KEBA",
+    "last_name": "BA",
+    "voter_number": "102147132",
+    "profession": "Etudiant",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 660
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "ADJI ANTA",
+    "last_name": "GAYE",
+    "voter_number": "100159379",
+    "profession": "Sage Femme",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 660
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "OUSSEYNOU",
+    "last_name": "MBOUP",
+    "voter_number": "106379732",
+    "profession": "Etudiant",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 661
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "SOUKEYE",
+    "last_name": "NDAO",
+    "voter_number": "100463832",
+    "profession": "Ménagère",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 661
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "ABDOULAYE",
+    "last_name": "DIALLO",
+    "voter_number": "100352889",
+    "profession": "AGENT DES POSTES",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 662
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "OUSSEYNATOU",
+    "last_name": "KEITA",
+    "voter_number": "101200459",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 663
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "FILY",
+    "last_name": "CISSOKHO",
+    "voter_number": "101698924",
+    "profession": "Enseignant",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 664
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "DIANKIMBA",
+    "last_name": "DANFAKHA",
+    "voter_number": "100718542",
+    "profession": "Ménagère",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 665
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "DAME",
+    "last_name": "FAYE",
+    "voter_number": "104940362",
+    "profession": "AGENT DES POSTES",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 666
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "PENDA",
+    "last_name": "SOW",
+    "voter_number": "100054587",
+    "profession": "COUTURIERE",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 666
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "KHALIFA ABABACAR",
+    "last_name": "DIOP",
+    "voter_number": "104182717",
+    "profession": "COACH SPORTIF",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 667
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "PENDA",
+    "last_name": "DIOP",
+    "voter_number": "100138852",
+    "profession": "RELAIS COMMUNAUTAIRE",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 667
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "CAROLINE",
+    "last_name": "GASSAMA",
+    "voter_number": "106415441",
+    "profession": "Gestionnaire",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 668
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "BOUR HAMACODOU MAYE",
+    "last_name": "DIOUF",
+    "voter_number": "106108937",
+    "profession": "Enseignant",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 668
+    }
+  },
+  {
+    "position": 3,
+    "first_name": "CODOU",
+    "last_name": "THIAM",
+    "voter_number": "104298946",
+    "profession": "Enseignante",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 668
+    }
+  },
+  {
+    "position": 4,
+    "first_name": "MAMADOU",
+    "last_name": "DIOP",
+    "voter_number": "104531892",
+    "profession": "Comptable",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 668
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "ROKHAYA",
+    "last_name": "GUEYE",
+    "voter_number": "104350836",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 669
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "PAPA OUMAR",
+    "last_name": "DIOUF",
+    "voter_number": "101137911",
+    "profession": "Agent Municipal",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 669
+    }
+  },
+  {
+    "position": 3,
+    "first_name": "DIOR",
+    "last_name": "DIAKHATE",
+    "voter_number": "100155281",
+    "profession": "COIFFEUSE",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 669
+    }
+  },
+
+  {
+    "position": 4,
+    "first_name": "MAMADOU",
+    "last_name": "SARR",
+    "voter_number": "101425161",
+    "profession": "Infirmier d'etat",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 669
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "MOUSSA",
+    "last_name": "DIALLO",
+    "voter_number": "105154507",
+    "profession": "MAREYEUR",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 670
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "ANTA MASSENE",
+    "last_name": "SENE",
+    "voter_number": "102400782",
+    "profession": "Opératrice économique",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 670
+    }
+  },
+  {
+    "position": 3,
+    "first_name": "OUSSEYNOU",
+    "last_name": "SENE",
+    "voter_number": "100427590",
+    "profession": "Assistant Social",
+    "gender": "M",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 670
+    }
+  },
+  {
+    "position": 4,
+    "first_name": "KHADIDIATOU",
+    "last_name": "TRAORE",
+    "voter_number": "105590600",
+    "profession": "Ménagère",
+    "gender": "F",
+    "is_substitute": false,
+    "electoral_list": {
+      "id": 670
+    }
+  },
+  {
+    "position": 1,
+    "first_name": "PAPA ABDOULAYE",
+    "last_name": "SENE",
+    "voter_number": "101705413",
+    "profession": "Opérateur économique",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 671
+    }
+  },
+  {
+    "position": 2,
+    "first_name": "FATOUMATA",
+    "last_name": "SOW",
+    "voter_number": "105012710",
+    "profession": "Commerçante",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 671
+    }
+  },
+  {
+    "position": 3,
+    "first_name": "OUMAR",
+    "last_name": "GAYE",
+    "voter_number": "104929936",
+    "profession": "Mareyeur",
+    "gender": "M",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 671
+    }
+  },
+  {
+    "position": 4,
+    "first_name": "BINTA",
+    "last_name": "SOW",
+    "voter_number": "105010345",
+    "profession": "Ménagère",
+    "gender": "F",
+    "is_substitute": true,
+    "electoral_list": {
+      "id": 671
+    }
+  }
+]

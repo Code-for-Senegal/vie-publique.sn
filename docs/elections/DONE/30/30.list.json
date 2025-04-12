@@ -1,0 +1,181 @@
+[
+  {
+    "name": "ALLIANCE JEF JEL nationale titulaire",
+    "type": "national",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 30
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "ALLIANCE JEF JEL nationale suppléant",
+    "type": "national",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 30
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+
+  {
+    "name": "ALLIANCE JEF JEL DAKAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 30
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 1
+    }
+  },
+  {
+    "name": "ALLIANCE JEF JEL DAKAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 30
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 1
+    }
+  },
+
+  {
+    "name": "ALLIANCE JEF JEL GUEDIAWAYE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 30
+    },
+    "constituency": {
+      "id": 2
+    }
+  },
+  {
+    "name": "ALLIANCE JEF JEL GUEDIAWAYE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 30
+    },
+    "constituency": {
+      "id": 2
+    }
+  },
+  {
+    "name": "ALLIANCE JEF JEL THIES titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 30
+    },
+    "constituency": {
+      "id": 42
+    }
+  },
+  {
+    "name": "ALLIANCE JEF JEL THIES suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 30
+    },
+    "constituency": {
+      "id": 42
+    }
+  },
+
+  {
+    "name": "ALLIANCE JEF JEL TIVAOUANE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 30
+    },
+    "constituency": {
+      "id": 43
+    }
+  },
+  {
+    "name": "ALLIANCE JEF JEL TIVAOUANE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 30
+    },
+    "constituency": {
+      "id": 43
+    }
+  },
+  {
+    "name": "ALLIANCE JEF JEL ZIGUINCHOR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 30
+    },
+    "constituency": {
+      "id": 46
+    }
+  },
+  {
+    "name": "ALLIANCE JEF JEL ZIGUINCHOR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 30
+    },
+    "constituency": {
+      "id": 46
+    }
+  }
+]

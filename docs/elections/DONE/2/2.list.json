@@ -1,0 +1,1268 @@
+[
+    {
+      "name": "SENEGAAL KESE nationale titulaire",
+      "type": "national",
+      "is_substitute": false,
+      "status": "draft",
+      "coalition": {
+        "id": 2
+      },
+      "election": {
+        "id": 1
+      },
+      "constituency": null
+    },
+    {
+      "name": "SENEGAAL KESE nationale suppléant",
+      "type": "national",
+      "is_substitute": true,
+      "status": "draft",
+      "coalition": {
+        "id": 2
+      },
+      "election": {
+        "id": 1
+      },
+      "constituency": null
+    },
+    {
+      "name": "SENEGAAL KESE DAKAR titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "coalition": {
+        "id": 2
+      },
+      "election": {
+        "id": 1
+      },
+      "constituency": {
+        "id": 1
+      }
+    },
+    {
+      "name": "SENEGAAL KESE DAKAR suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "coalition": {
+        "id": 2
+      },
+      "election": {
+        "id": 1
+      },
+      "constituency": {
+        "id": 1
+      }
+    },
+    {
+      "name": "SENEGAAL KESE GUEDIAWAYE titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 2
+      }
+    },
+    {
+      "name": "SENEGAAL KESE GUEDIAWAYE suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 2
+      }
+    },
+    {
+      "name": "SENEGAAL KESE KEUR MASSAR titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 3
+      }
+    },
+    {
+      "name": "SENEGAAL KESE KEUR MASSAR suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 3
+      }
+    },
+    {
+      "name": "SENEGAAL KESE PIKINE titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 4
+      }
+    },
+    {
+      "name": "SENEGAAL KESE PIKINE suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 4
+      }
+    },
+    {
+      "name": "SENEGAAL KESE RUFISQUE titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 5
+      }
+    },
+    {
+      "name": "SENEGAAL KESE RUFISQUE suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 5
+      }
+    },
+
+    {
+      "name": "SENEGAAL KESE DIOURBEL titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 7
+      }
+    },
+    {
+      "name": "SENEGAAL KESE DIOURBEL suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 7
+      }
+    },
+    {
+      "name": "SENEGAAL KESE MBACKE titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 8
+      }
+    },
+    {
+      "name": "SENEGAAL KESE MBACKE suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 8
+      }
+    },
+    {
+      "name": "SENEGAAL KESE FATICK titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 9
+      }
+    },
+    {
+      "name": "SENEGAAL KESE FATICK suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 9
+      }
+    },
+    {
+      "name": "SENEGAAL KESE FOUNDIOUGNE titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 10
+      }
+    },
+    {
+      "name": "SENEGAAL KESE FOUNDIOUGNE suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 10
+      }
+    },
+
+    {
+      "name": "SENEGAAL KESE MALEM HODAR titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 15
+      }
+    },
+    {
+      "name": "SENEGAAL KESE MALEM HODAR suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 15
+      }
+    },
+    {
+      "name": "SENEGAAL KESE GUINGUINEO titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 16
+      }
+    },
+    {
+      "name": "SENEGAAL KESE GUINGUINEO suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 16
+      }
+    },
+    {
+      "name": "SENEGAAL KESE KAOLACK titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 17
+      }
+    },
+    {
+      "name": "SENEGAAL KESE KAOLACK suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 17
+      }
+    },
+    {
+      "name": "SENEGAAL KESE NIORO DU RIP titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 18
+      }
+    },
+    {
+      "name": "SENEGAAL KESE NIORO DU RIP suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 18
+      }
+    },
+    {
+      "name": "SENEGAAL KESE KEDOUGOU titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 19
+      }
+    },
+    {
+      "name": "SENEGAAL KESE KEDOUGOU suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 19
+      }
+    },
+ 
+    {
+      "name": "SENEGAAL KESE KOLDA titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 22
+      }
+    },
+    {
+      "name": "SENEGAAL KESE KOLDA suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 22
+      }
+    },
+ 
+    {
+      "name": "SENEGAAL KESE VELINGARA titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 24
+      }
+    },
+    {
+      "name": "SENEGAAL KESE VELINGARA suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 24
+      }
+    },
+    {
+      "name": "SENEGAAL KESE KEBEMER titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 25
+      }
+    },
+    {
+      "name": "SENEGAAL KESE KEBEMER suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 25
+      }
+    },
+    {
+      "name": "SENEGAAL KESE LINGUERE titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 26
+      }
+    },
+    {
+      "name": "SENEGAAL KESE LINGUERE suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 26
+      }
+    },
+    {
+      "name": "SENEGAAL KESE LOUGA titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 27
+      }
+    },
+    {
+      "name": "SENEGAAL KESE LOUGA suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 27
+      }
+    },
+    {
+      "name": "SENEGAAL KESE KANEL titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 28
+      }
+    },
+    {
+      "name": "SENEGAAL KESE KANEL suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 28
+      }
+    },
+    {
+      "name": "SENEGAAL KESE MATAM titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 29
+      }
+    },
+    {
+      "name": "SENEGAAL KESE MATAM suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 29
+      }
+    },
+    {
+      "name": "SENEGAAL KESE RANEROU FERLO titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 30
+      }
+    },
+    {
+      "name": "SENEGAAL KESE RANEROU FERLO suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 30
+      }
+    },
+ 
+    {
+      "name": "SENEGAAL KESE PODOR titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 32
+      }
+    },
+    {
+      "name": "SENEGAAL KESE PODOR suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 32
+      }
+    },
+    {
+      "name": "SENEGAAL KESE SAINT LOUIS titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 33
+      }
+    },
+    {
+      "name": "SENEGAAL KESE SAINT LOUIS suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 33
+      }
+    },
+    {
+      "name": "SENEGAAL KESE BOUNKILING titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 34
+      }
+    },
+    {
+      "name": "SENEGAAL KESE BOUNKILING suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 34
+      }
+    },
+  
+    {
+      "name": "SENEGAAL KESE SEDHIOU titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 36
+      }
+    },
+    {
+      "name": "SENEGAAL KESE SEDHIOU suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 36
+      }
+    },
+    {
+      "name": "SENEGAAL KESE BAKEL titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 37
+      }
+    },
+    {
+      "name": "SENEGAAL KESE BAKEL suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 37
+      }
+    },
+    {
+      "name": "SENEGAAL KESE GOUDIRY titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 38
+      }
+    },
+    {
+      "name": "SENEGAAL KESE GOUDIRY suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 38
+      }
+    },
+    {
+      "name": "SENEGAAL KESE KOUMPENTOUM titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 39
+      }
+    },
+    {
+      "name": "SENEGAAL KESE KOUMPENTOUM suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 39
+      }
+    },
+    {
+      "name": "SENEGAAL KESE TAMBACOUNDA titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 40
+      }
+    },
+    {
+      "name": "SENEGAAL KESE TAMBACOUNDA suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 40
+      }
+    },
+  
+    {
+      "name": "SENEGAAL KESE MBOUR titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 41
+      }
+    },
+    {
+      "name": "SENEGAAL KESE MBOUR suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 41
+      }
+    },
+    {
+      "name": "SENEGAAL KESE THIES titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 42
+      }
+    },
+    {
+      "name": "SENEGAAL KESE THIES suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 42
+      }
+    },
+    {
+      "name": "SENEGAAL KESE TIVAOUANE titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 43
+      }
+    },
+    {
+      "name": "SENEGAAL KESE TIVAOUANE suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 43
+      }
+    },
+    {
+      "name": "SENEGAAL KESE BIGNONA titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 44
+      }
+    },
+    {
+      "name": "SENEGAAL KESE BIGNONA suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 44
+      }
+    },
+
+    {
+      "name": "SENEGAAL KESE ZIGUINCHOR titulaire",
+      "type": "departmental",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 46
+      }
+    },
+    {
+      "name": "SENEGAAL KESE ZIGUINCHOR suppléant",
+      "type": "departmental",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 46
+      }
+    },
+
+    {
+      "name": "SENEGAAL KESE AFRIQUE CENTRE titulaire",
+      "type": "diaspora",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 48
+      }
+    },
+    {
+      "name": "SENEGAAL KESE AFRIQUE CENTRE suppléant",
+      "type": "diaspora",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 48
+      }
+    },
+    {
+      "name": "SENEGAAL KESE AFRIQUE NORD titulaire",
+      "type": "diaspora",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 49
+      }
+    },
+    {
+      "name": "SENEGAAL KESE AFRIQUE NORD suppléant",
+      "type": "diaspora",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 49
+      }
+    },
+    {
+      "name": "SENEGAAL KESE AMERIQUE OCEANIE titulaire",
+      "type": "diaspora",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 51
+      }
+    },
+    {
+      "name": "SENEGAAL KESE AMERIQUE OCEANIE suppléant",
+      "type": "diaspora",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 51
+      }
+    },
+    {
+      "name": "SENEGAAL KESE ASIE MOYEN ORIENT titulaire",
+      "type": "diaspora",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 52
+      }
+    },
+    {
+      "name": "SENEGAAL KESE ASIE MOYEN ORIENT suppléant",
+      "type": "diaspora",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 52
+      }
+    },
+    {
+      "name": "SENEGAAL KESE EUROPE OUEST CENTRE NORD titulaire",
+      "type": "diaspora",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 54
+      }
+    },
+    {
+      "name": "SENEGAAL KESE EUROPE OUEST CENTRE NORD suppléant",
+      "type": "diaspora",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 54
+      }
+    },
+    {
+      "name": "SENEGAAL KESE EUROPE DU SUD titulaire",
+      "type": "diaspora",
+      "is_substitute": false,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 53
+      }
+    },
+    {
+      "name": "SENEGAAL KESE EUROPE DU SUD suppléant",
+      "type": "diaspora",
+      "is_substitute": true,
+      "status": "draft",
+      "election": {
+        "id": 1
+      },
+      "coalition": {
+        "id": 2
+      },
+      "constituency": {
+        "id": 53
+      }
+    }
+  ]
+  

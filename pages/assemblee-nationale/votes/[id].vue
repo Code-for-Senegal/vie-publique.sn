@@ -69,7 +69,7 @@
               <!-- :style="{ width: `${(vote?.voters_for / vote?.voters) * 100}%` }" -->
               <div class="text-center">
                 <div class="text-xl font-bold">
-                  {{ vote?.voters_for || "N/A" }}
+                  {{ vote?.voters_for ?? "N/A" }}
                 </div>
                 <div class="text-sm uppercase">Pour</div>
               </div>
@@ -80,7 +80,7 @@
             >
               <div class="text-center">
                 <div class="text-xl font-bold">
-                  {{ vote?.voters_abstention || "N/A" }}
+                  {{ vote?.voters_abstention ?? "N/A" }}
                 </div>
                 <div class="text-sm uppercase">Abstention</div>
               </div>
@@ -91,7 +91,7 @@
             >
               <div class="text-center">
                 <div class="text-xl font-bold">
-                  {{ vote?.voters_against || "N/A" }}
+                  {{ vote?.voters_against ?? "N/A" }}
                 </div>
                 <div class="text-sm uppercase">Contre</div>
               </div>

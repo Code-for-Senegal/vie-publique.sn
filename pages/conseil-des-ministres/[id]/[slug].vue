@@ -1,6 +1,7 @@
 <!-- pages/conseil-des-ministres/[slug].vue -->
 <script setup lang="ts">
 import { useNews } from "~/composables/news/useNews";
+const config = useRuntimeConfig();
 
 const route = useRoute();
 const { article, loading, error, fetchNewsById } = useNews({
@@ -67,6 +68,11 @@ useHead({
 });
 
 const links = [{ label: "communiqués", to: "/conseil-des-ministres" }];
+
+// Fonction pour obtenir l'URL de l'asset
+const getAssetUrl = (assetId: string, slug: string) => {
+  return `${config.public.cmsApiUrl}/assets/${assetId}/${slug}.pdf`;
+};
 </script>
 
 <template>
@@ -103,12 +109,11 @@ const links = [{ label: "communiqués", to: "/conseil-des-ministres" }];
         <!-- Lien PDF si disponible -->
         <div v-if="article.document" class="my-4">
           <a
-            :href="`${useRuntimeConfig().public.cmsApiUrl}/assets/${article.document?.file}/${article.slug}.pdf`"
+            :href="getAssetUrl(article.document.file, article.slug)"
             target="_blank"
-            class="text-primary flex items-center gap-2 text-blue-700"
+            class="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
           >
-            <!-- <UIcon name="i-heroicons-document" /> -->
-            📄 Télécharger le PDF
+            📥 Télécharger le PDF
           </a>
         </div>
 

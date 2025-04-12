@@ -27,20 +27,6 @@ export const useDocuments = (options?: { type?: string }) => {
 
     try {
       console.log("docCache.value before");
-      // if (docCache.value) {
-      //   console.log("docCache.value if");
-      //   try {
-      //     const cachedData = JSON.parse(docCache.value);
-      //     console.log("cachedData");
-      //     if (Array.isArray(cachedData) && cachedData.length > 0) {
-      //       documents.value = cachedData;
-      //       loading.value = false;
-      //       return;
-      //     }
-      //   } catch {
-      //     docCache.value = null;
-      //   }
-      // }
 
       const sort = `sort=-publish_date`;
 
@@ -51,7 +37,7 @@ export const useDocuments = (options?: { type?: string }) => {
       }
 
       const fields =
-        "id,title,slug,publish_date,cover_image,file.id,file.type,file.filesize,file.filename_download";
+        "id,title,slug,publish_date,description,audit_institution,cover_image,file.id,file.type,file.filesize,file.filename_download";
 
       const config = useRuntimeConfig();
       const response = await fetch(
@@ -69,9 +55,6 @@ export const useDocuments = (options?: { type?: string }) => {
 
       const dataResponse = await response.json();
       documents.value = dataResponse.data;
-      // if (Array.isArray(dataResponse.data) && dataResponse.data.length > 0) {
-      //   docCache.value = JSON.stringify(dataResponse.data);
-      // }
     } catch (e) {
       error.value =
         e instanceof Error ? e.message : "Erreur lors du chargement";
@@ -84,15 +67,8 @@ export const useDocuments = (options?: { type?: string }) => {
   const fetchDocumentById = async (id: string) => {
     loading.value = true;
     error.value = null;
-    const singleDocCache = useCookie(`doc-${id}`, { maxAge: 300 });
 
     try {
-      // if (singleDocCache.value && JSON.parse(singleDocCache.value)?.id) {
-      //   document.value = JSON.parse(singleDocCache.value);
-      //   loading.value = false;
-      //   return;
-      // }
-
       const config = useRuntimeConfig();
       const response = await fetch(
         `${config.public.cmsApiUrl}/items/documents/${id}`,
@@ -109,9 +85,6 @@ export const useDocuments = (options?: { type?: string }) => {
 
       const { data } = await response.json();
       document.value = data;
-      // if (data?.id) {
-      //   singleDocCache.value = JSON.stringify(data);
-      // }
     } catch (e) {
       error.value =
         e instanceof Error

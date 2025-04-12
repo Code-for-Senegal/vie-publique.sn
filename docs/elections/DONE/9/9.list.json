@@ -1,0 +1,423 @@
+[
+  {
+    "name": "AND-CI-KOOLUTE nationale titulaire",
+    "type": "national",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 9
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "AND-CI-KOOLUTE nationale suppléant",
+    "type": "national",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 9
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "AND-CI-KOOLUTE GUEDIAWAYE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 2
+    }
+  },
+  {
+    "name": "AND-CI-KOOLUTE GUEDIAWAYE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 2
+    }
+  },
+
+  {
+    "name": "AND-CI-KOOLUTE KEUR MASSAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 3
+    }
+  },
+  {
+    "name": "AND-CI-KOOLUTE KEUR MASSAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 3
+    }
+  },
+  {
+    "name": "AND-CI-KOOLUTE PIKINE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 4
+    }
+  },
+
+  {
+    "name": "AND-CI-KOOLUTE PIKINE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 4
+    }
+  },
+
+  {
+    "name": "AND-CI-KOOLUTE RUFISQUE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 5
+    }
+  },
+  {
+    "name": "AND-CI-KOOLUTE RUFISQUE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 5
+    }
+  },
+  {
+    "name": "AND-CI-KOOLUTE MBACKE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 8
+    }
+  },
+  {
+    "name": "AND-CI-KOOLUTE MBACKE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 8
+    }
+  },
+  {
+    "name": "AND-CI-KOOLUTE KAOLACK titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 17
+    }
+  },
+  {
+    "name": "AND-CI-KOOLUTE KAOLACK suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 17
+    }
+  },
+  {
+    "name": "AND-CI-KOOLUTE NIORO DU RIP titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 18
+    }
+  },
+  {
+    "name": "AND-CI-KOOLUTE NIORO DU RIP suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 18
+    }
+  },
+  {
+    "name": "AND-CI-KOOLUTE KANEL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 28
+    }
+  },
+  {
+    "name": "AND-CI-KOOLUTE KANEL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 28
+    }
+  },
+
+  {
+    "name": "AND-CI-KOOLUTE MATAM titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 29
+    }
+  },
+  {
+    "name": "AND-CI-KOOLUTE MATAM suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 29
+    }
+  },
+  {
+    "name": "AND-CI-KOOLUTE BOUNKILING titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 34
+    }
+  },
+
+  {
+    "name": "AND-CI-KOOLUTE BOUNKILING suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 34
+    }
+  },
+  {
+    "name": "AND-CI-KOOLUTE SEDHIOU titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 36
+    }
+  },
+  {
+    "name": "AND-CI-KOOLUTE SEDHIOU suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 36
+    }
+  },
+  {
+    "name": "AND-CI-KOOLUTE KOUMPENTOUM titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 39
+    }
+  },
+  {
+    "name": "AND-CI-KOOLUTE KOUMPENTOUM suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 39
+    }
+  },
+  {
+    "name": "AND-CI-KOOLUTE TAMBACOUNDA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 40
+    }
+  },
+  {
+    "name": "AND-CI-KOOLUTE TAMBACOUNDA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 9
+    },
+    "constituency": {
+      "id": 40
+    }
+  }
+]

@@ -1,0 +1,668 @@
+[
+  {
+    "name": "ANDU NAWLE nationale titulaire",
+    "type": "national",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 18
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "ANDU NAWLE nationale suppléant",
+    "type": "national",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 18
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "ANDU NAWLE DAKAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 18
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 1
+    }
+  },
+  {
+    "name": "ANDU NAWLE DAKAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 18
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 1
+    }
+  },
+
+  {
+    "name": "ANDU NAWLE GUEDIAWAYE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 2
+    }
+  },
+  {
+    "name": "ANDU NAWLE GUEDIAWAYE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 2
+    }
+  },
+  {
+    "name": "ANDU NAWLE KEUR MASSAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 3
+    }
+  },
+  {
+    "name": "ANDU NAWLE KEUR MASSAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 3
+    }
+  },
+
+  {
+    "name": "ANDU NAWLE PIKINE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 4
+    }
+  },
+
+  {
+    "name": "ANDU NAWLE PIKINE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 4
+    }
+  },
+  {
+    "name": "ANDU NAWLE RUFISQUE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 5
+    }
+  },
+  {
+    "name": "ANDU NAWLE RUFISQUE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 5
+    }
+  },
+
+  {
+    "name": "ANDU NAWLE BAMBEY titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 6
+    }
+  },
+  {
+    "name": "ANDU NAWLE BAMBEY suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 6
+    }
+  },
+  {
+    "name": "ANDU NAWLE DIOURBEL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 7
+    }
+  },
+  {
+    "name": "ANDU NAWLE DIOURBEL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 7
+    }
+  },
+
+  {
+    "name": "ANDU NAWLE MBACKE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 8
+    }
+  },
+  {
+    "name": "ANDU NAWLE MBACKE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 8
+    }
+  },
+  {
+    "name": "ANDU NAWLE FATICK titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 9
+    }
+  },
+  {
+    "name": "ANDU NAWLE FATICK suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 9
+    }
+  },
+
+  {
+    "name": "ANDU NAWLE GOSSAS titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 11
+    }
+  },
+  {
+    "name": "ANDU NAWLE GOSSAS suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 11
+    }
+  },
+  {
+    "name": "ANDU NAWLE KOUNGHEUL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 14
+    }
+  },
+  {
+    "name": "ANDU NAWLE KOUNGHEUL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 14
+    }
+  },
+
+  {
+    "name": "ANDU NAWLE MALEM HODAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 15
+    }
+  },
+  {
+    "name": "ANDU NAWLE MALEM HODAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 15
+    }
+  },
+  {
+    "name": "ANDU NAWLE GUINGUINEO titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 16
+    }
+  },
+  {
+    "name": "ANDU NAWLE GUINGUINEO suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 16
+    }
+  },
+
+  {
+    "name": "ANDU NAWLE KAOLACK titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 17
+    }
+  },
+  {
+    "name": "ANDU NAWLE KAOLACK suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 17
+    }
+  },
+  {
+    "name": "ANDU NAWLE NIORO DU RIP titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 18
+    }
+  },
+  {
+    "name": "ANDU NAWLE NIORO DU RIP suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 18
+    }
+  },
+  {
+    "name": "ANDU NAWLE VELINGARA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 24
+    }
+  },
+  {
+    "name": "ANDU NAWLE VELINGARA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 24
+    }
+  },
+  {
+    "name": "ANDU NAWLE MATAM titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 29
+    }
+  },
+  {
+    "name": "ANDU NAWLE MATAM suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 29
+    }
+  },
+  {
+    "name": "ANDU NAWLE BOUNKILING titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 34
+    }
+  },
+
+  {
+    "name": "ANDU NAWLE BOUNKILING suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 34
+    }
+  },
+  {
+    "name": "ANDU NAWLE MBOUR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 41
+    }
+  },
+  {
+    "name": "ANDU NAWLE MBOUR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 41
+    }
+  },
+
+  {
+    "name": "ANDU NAWLE THIES titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 42
+    }
+  },
+  {
+    "name": "ANDU NAWLE THIES suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 42
+    }
+  },
+  {
+    "name": "ANDU NAWLE TIVAOUANE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 43
+    }
+  },
+  {
+    "name": "ANDU NAWLE TIVAOUANE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 18
+    },
+    "constituency": {
+      "id": 43
+    }
+  }
+]

@@ -52,7 +52,7 @@ const isImageFile = (fileType: string) => {
       <!-- Contenu de la question -->
       <div v-else-if="question" class="space-y-6">
         <!-- En-tête avec info député -->
-        <div class="rounded-lg bg-white shadow-sm">
+        <div class="rounded-lg bg-white p-2 shadow-sm">
           <NuxtLink
             :to="`/assemblee-nationale/deputes/${question.deputy.id}/${$getSlugifyUrlPath(question.deputy.first_name + ' ' + question.deputy.last_name)}`"
             class="block"

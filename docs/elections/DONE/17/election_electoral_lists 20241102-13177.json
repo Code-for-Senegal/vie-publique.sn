@@ -1,0 +1,547 @@
+[
+	{
+		"id": 1292,
+		"name": "DUNDU LENEEN nationale titulaire",
+		"type": "national",
+		"is_substitute": false,
+		"constituency": null
+	},
+	{
+		"id": 1293,
+		"name": "DUNDU LENEEN nationale suppléant",
+		"type": "national",
+		"is_substitute": true,
+		"constituency": null
+	},
+	{
+		"id": 1294,
+		"name": "DUNDU LENEEN DAKAR titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "DAKAR"
+		}
+	},
+	{
+		"id": 1295,
+		"name": "DUNDU LENEEN DAKAR suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "DAKAR"
+		}
+	},
+	{
+		"id": 1296,
+		"name": "DUNDU LENEEN GUEDIAWAYE titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "GUEDIAWAYE"
+		}
+	},
+	{
+		"id": 1297,
+		"name": "DUNDU LENEEN GUEDIAWAYE suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "GUEDIAWAYE"
+		}
+	},
+	{
+		"id": 1298,
+		"name": "DUNDU LENEEN KEUR MASSAR titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "KEUR MASSAR"
+		}
+	},
+	{
+		"id": 1299,
+		"name": "DUNDU LENEEN KEUR MASSAR suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "KEUR MASSAR"
+		}
+	},
+	{
+		"id": 1300,
+		"name": "DUNDU LENEEN PIKINE titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "PIKINE"
+		}
+	},
+	{
+		"id": 1301,
+		"name": "DUNDU LENEEN PIKINE suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "PIKINE"
+		}
+	},
+	{
+		"id": 1302,
+		"name": "DUNDU LENEEN RUFISQUE titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "RUFISQUE"
+		}
+	},
+	{
+		"id": 1303,
+		"name": "DUNDU LENEEN RUFISQUE suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "RUFISQUE"
+		}
+	},
+	{
+		"id": 1304,
+		"name": "DUNDU LENEEN MBACKE titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "MBACKE"
+		}
+	},
+	{
+		"id": 1305,
+		"name": "DUNDU LENEEN MBACKE suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "MBACKE"
+		}
+	},
+	{
+		"id": 1306,
+		"name": "DUNDU LENEEN FATICK titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "FATICK"
+		}
+	},
+	{
+		"id": 1307,
+		"name": "DUNDU LENEEN FATICK suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "FATICK"
+		}
+	},
+	{
+		"id": 1308,
+		"name": "DUNDU LENEEN FOUNDIOUGNE titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "FOUNDIOUGNE"
+		}
+	},
+	{
+		"id": 1309,
+		"name": "DUNDU LENEEN FOUNDIOUGNE suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "FOUNDIOUGNE"
+		}
+	},
+	{
+		"id": 1310,
+		"name": "DUNDU LENEEN KAOLACK titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "KAOLACK"
+		}
+	},
+	{
+		"id": 1311,
+		"name": "DUNDU LENEEN KAOLACK suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "KAOLACK"
+		}
+	},
+	{
+		"id": 1312,
+		"name": "DUNDU LENEEN KEBEMER titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "KEBEMER"
+		}
+	},
+	{
+		"id": 1313,
+		"name": "DUNDU LENEEN KEBEMER suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "KEBEMER"
+		}
+	},
+	{
+		"id": 1314,
+		"name": "DUNDU LENEEN LOUGA titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "LOUGA"
+		}
+	},
+	{
+		"id": 1315,
+		"name": "DUNDU LENEEN LOUGA suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "LOUGA"
+		}
+	},
+	{
+		"id": 1316,
+		"name": "DUNDU LENEEN MATAM titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "MATAM"
+		}
+	},
+	{
+		"id": 1317,
+		"name": "DUNDU LENEEN MATAM suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "MATAM"
+		}
+	},
+	{
+		"id": 1318,
+		"name": "DUNDU LENEEN MBOUR titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "MBOUR"
+		}
+	},
+	{
+		"id": 1319,
+		"name": "DUNDU LENEEN MBOUR suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "MBOUR"
+		}
+	},
+	{
+		"id": 1320,
+		"name": "DUNDU LENEEN PODOR titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "PODOR"
+		}
+	},
+	{
+		"id": 1321,
+		"name": "DUNDU LENEEN PODOR suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "PODOR"
+		}
+	},
+	{
+		"id": 1322,
+		"name": "DUNDU LENEEN SAINT LOUIS titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "SAINT LOUIS"
+		}
+	},
+	{
+		"id": 1323,
+		"name": "DUNDU LENEEN SAINT LOUIS suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "SAINT LOUIS"
+		}
+	},
+	{
+		"id": 1324,
+		"name": "DUNDU LENEEN GOUDIRY titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "GOUDIRY"
+		}
+	},
+	{
+		"id": 1325,
+		"name": "DUNDU LENEEN GOUDIRY suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "GOUDIRY"
+		}
+	},
+	{
+		"id": 1326,
+		"name": "DUNDU LENEEN TIVAOUANE titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "TIVAOUANE"
+		}
+	},
+	{
+		"id": 1327,
+		"name": "DUNDU LENEEN TIVAOUANE suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "TIVAOUANE"
+		}
+	},
+	{
+		"id": 1328,
+		"name": "DUNDU LENEEN ZIGUINCHOR titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "ZIGUINCHOR"
+		}
+	},
+	{
+		"id": 1329,
+		"name": "DUNDU LENEEN ZIGUINCHOR suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "ZIGUINCHOR"
+		}
+	},
+	{
+		"id": 1330,
+		"name": "DUNDU LENEEN BAMBEY titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "BAMBEY"
+		}
+	},
+	{
+		"id": 1331,
+		"name": "DUNDU LENEEN BAMBEY suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "BAMBEY"
+		}
+	},
+	{
+		"id": 1332,
+		"name": "DUNDU LENEEN DIOURBEL titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "DIOURBEL"
+		}
+	},
+	{
+		"id": 1333,
+		"name": "DUNDU LENEEN DIOURBEL suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "DIOURBEL"
+		}
+	},
+	{
+		"id": 1334,
+		"name": "DUNDU LENEEN GOSSAS titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "GOSSAS"
+		}
+	},
+	{
+		"id": 1335,
+		"name": "DUNDU LENEEN GOSSAS suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "GOSSAS"
+		}
+	},
+	{
+		"id": 1336,
+		"name": "DUNDU LENEEN GUINGUINEO titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "GUINGUINEO"
+		}
+	},
+	{
+		"id": 1337,
+		"name": "DUNDU LENEEN GUINGUINEO suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "GUINGUINEO"
+		}
+	},
+	{
+		"id": 1338,
+		"name": "DUNDU LENEEN KAOLACK suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "KAOLACK"
+		}
+	},
+	{
+		"id": 1339,
+		"name": "DUNDU LENEEN KEDOUGOU titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "KEDOUGOU"
+		}
+	},
+	{
+		"id": 1340,
+		"name": "DUNDU LENEEN KEDOUGOU suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "KEDOUGOU"
+		}
+	},
+	{
+		"id": 1341,
+		"name": "DUNDU LENEEN SALEMATA titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "SALEMATA"
+		}
+	},
+	{
+		"id": 1342,
+		"name": "DUNDU LENEEN SALEMATA suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "SALEMATA"
+		}
+	},
+	{
+		"id": 1343,
+		"name": "DUNDU LENEEN KOLDA titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "KOLDA"
+		}
+	},
+	{
+		"id": 1344,
+		"name": "DUNDU LENEEN KOLDA suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "KOLDA"
+		}
+	},
+	{
+		"id": 1345,
+		"name": "DUNDU LENEEN VELINGARA titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "VELINGARA"
+		}
+	},
+	{
+		"id": 1346,
+		"name": "DUNDU LENEEN VELINGARA suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "VELINGARA"
+		}
+	},
+	{
+		"id": 1347,
+		"name": "DUNDU LENEEN KANEL titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "KANEL"
+		}
+	},
+	{
+		"id": 1348,
+		"name": "DUNDU LENEEN KANEL suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "KANEL"
+		}
+	},
+	{
+		"id": 1349,
+		"name": "DUNDU LENEEN RANEROU FERLO titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "RANEROU FERLO"
+		}
+	},
+	{
+		"id": 1350,
+		"name": "DUNDU LENEEN RANEROU FERLO suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "RANEROU FERLO"
+		}
+	},
+	{
+		"id": 1351,
+		"name": "DUNDU LENEEN THIES titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "THIES"
+		}
+	},
+	{
+		"id": 1352,
+		"name": "DUNDU LENEEN THIES suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "THIES"
+		}
+	}
+]

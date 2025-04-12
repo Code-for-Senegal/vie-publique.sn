@@ -1,0 +1,286 @@
+[
+	{
+		"id": 724,
+		"type": "national",
+		"is_substitute": false,
+		"constituency": null
+	},
+	{
+		"id": 725,
+		"type": "national",
+		"is_substitute": true,
+		"constituency": null
+	},
+	{
+		"id": 726,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "DAKAR"
+		}
+	},
+	{
+		"id": 727,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "DAKAR"
+		}
+	},
+	{
+		"id": 728,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "GUEDIAWAYE"
+		}
+	},
+	{
+		"id": 729,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "GUEDIAWAYE"
+		}
+	},
+	{
+		"id": 730,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "KEUR MASSAR"
+		}
+	},
+	{
+		"id": 731,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "KEUR MASSAR"
+		}
+	},
+	{
+		"id": 732,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "PIKINE"
+		}
+	},
+	{
+		"id": 733,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "PIKINE"
+		}
+	},
+	{
+		"id": 734,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "MBACKE"
+		}
+	},
+	{
+		"id": 735,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "MBACKE"
+		}
+	},
+	{
+		"id": 736,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "FOUNDIOUGNE"
+		}
+	},
+	{
+		"id": 737,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "FOUNDIOUGNE"
+		}
+	},
+	{
+		"id": 738,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "GUINGUINEO"
+		}
+	},
+	{
+		"id": 739,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "GUINGUINEO"
+		}
+	},
+	{
+		"id": 740,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "KAOLACK"
+		}
+	},
+	{
+		"id": 741,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "KAOLACK"
+		}
+	},
+	{
+		"id": 742,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "KEDOUGOU"
+		}
+	},
+	{
+		"id": 743,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "KEDOUGOU"
+		}
+	},
+	{
+		"id": 744,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "SALEMATA"
+		}
+	},
+	{
+		"id": 745,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "SALEMATA"
+		}
+	},
+	{
+		"id": 746,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "LINGUERE"
+		}
+	},
+	{
+		"id": 747,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "LINGUERE"
+		}
+	},
+	{
+		"id": 748,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "RANEROU FERLO"
+		}
+	},
+	{
+		"id": 749,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "RANEROU FERLO"
+		}
+	},
+	{
+		"id": 750,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "KOUMPENTOUM"
+		}
+	},
+	{
+		"id": 751,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "KOUMPENTOUM"
+		}
+	},
+	{
+		"id": 752,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "THIES"
+		}
+	},
+	{
+		"id": 753,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "THIES"
+		}
+	},
+	{
+		"id": 754,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "OUSSOUYE"
+		}
+	},
+	{
+		"id": 755,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "OUSSOUYE"
+		}
+	},
+	{
+		"id": 756,
+		"type": "departmental",
+		"is_substitute": false,
+		"constituency": {
+			"name": "ZIGUINCHOR"
+		}
+	},
+	{
+		"id": 757,
+		"type": "departmental",
+		"is_substitute": true,
+		"constituency": {
+			"name": "ZIGUINCHOR"
+		}
+	},
+	{
+		"id": 758,
+		"type": "diaspora",
+		"is_substitute": false,
+		"constituency": {
+			"name": "AFRIQUE NORD"
+		}
+	},
+	{
+		"id": 759,
+		"type": "diaspora",
+		"is_substitute": true,
+		"constituency": {
+			"name": "AFRIQUE NORD"
+		}
+	}
+]

@@ -1,0 +1,148 @@
+[
+  {
+    "name": "NATAL KAW GUI nationale titulaire",
+    "type": "national",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 16
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "NATAL KAW GUI nationale suppléant",
+    "type": "national",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 16
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "NATAL KAW GUI BIRKILANE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 16
+    },
+    "constituency": {
+      "id": 12
+    }
+  },
+  {
+    "name": "NATAL KAW GUI BIRKILANE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 16
+    },
+    "constituency": {
+      "id": 12
+    }
+  },
+  {
+    "name": "NATAL KAW GUI KAFFRINE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 16
+    },
+    "constituency": {
+      "id": 13
+    }
+  },
+  {
+    "name": "NATAL KAW GUI KAFFRINE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 16
+    },
+    "constituency": {
+      "id": 13
+    }
+  },
+  {
+    "name": "NATAL KAW GUI MALEM HODAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 16
+    },
+    "constituency": {
+      "id": 15
+    }
+  },
+  {
+    "name": "NATAL KAW GUI MALEM HODAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 16
+    },
+    "constituency": {
+      "id": 15
+    }
+  },
+  {
+    "name": "NATAL KAW GUI NIORO DU RIP titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 16
+    },
+    "constituency": {
+      "id": 18
+    }
+  },
+  {
+    "name": "NATAL KAW GUI NIORO DU RIP suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 16
+    },
+    "constituency": {
+      "id": 18
+    }
+  }
+]

@@ -21,7 +21,7 @@ export const useAssemblyQuestions = () => {
     try {
       const config = useRuntimeConfig();
       const response = await fetch(
-        `${config.public.cmsApiUrl}/items/assembly_question?fields=${fields}&${sort}&${filters}`,
+        `${config.public.cmsApiUrl}/items/assembly_question?fields=${fields}&${sort}&${filters}&limit=2000`,
         {
           headers: {
             Authorization: `Bearer ${config.public.cmsApiKey}`,

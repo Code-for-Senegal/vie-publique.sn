@@ -49,6 +49,30 @@ export default defineNuxtConfig({
           from: "^/nomination-senegal/conseil-des-ministres-31-juillet(.*)",
           to: "/nomination-senegal$1",
         },
+        {
+          from: "/about/us",
+          to: "/a-propos/qui-sommes-nous",
+        },
+        {
+          from: "/publications/recrutement",
+          to: "/a-propos/recrutement",
+        },
+        {
+          from: "^/conseil-des-ministres/conseil-des-ministres-[\\w-]+$",
+          to: "/conseil-des-ministres",
+        },
+        {
+          from: "/medias/liste-officielle",
+          to: "/medias",
+        },
+        {
+          from: "/code-senegal",
+          to: "/documents/codes",
+        },
+        {
+          from: "/pdf/jors/(.*)",
+          to: "/documents/journal-officiel",
+        },
       ],
     },
   },
@@ -74,7 +98,7 @@ export default defineNuxtConfig({
       titleTemplate: "%s | Vie-Publique.sn",
       title: "l'information publique au Sénégal | Vie-Publique.sn",
       charset: "utf-8",
-      viewport: "width=device-width, initial-scale=1, maximum-scale=1",
+      viewport: "width=device-width, initial-scale=1",
       meta: [
         {
           name: "keywords",
@@ -153,7 +177,20 @@ export default defineNuxtConfig({
   },
   site: {
     defaultLocale: "fr",
+    url: process.env.NUXT_PUBLIC_SITE_URL || "https://www.vie-publique.sn",
+    name: "vie-publique.sn",
   },
+  // seo: {
+  //   sitemap: {
+  //     enabled: true,
+  //     hostname: process.env.NUXT_PUBLIC_SITE_URL,
+  //     exclude: ["/admin/**"], // Exclusion des routes non publiques
+  //     routes: async () => {
+  //       // Ajoutez ici vos routes dynamiques si besoin
+  //       return [];
+  //     },
+  //   },
+  // },
   gtag: {
     enabled: !!process.env.GTAG_ID,
     id: process.env.GTAG_ID,
@@ -162,9 +199,6 @@ export default defineNuxtConfig({
     provider: "ga",
     disabled: !process.env.GTAG_ID,
     ga: { id: process.env.GTAG_ID },
-  },
-  sitemap: {
-    sources: ["/api/__sitemap__/urls"],
   },
   image: {
     directus: {
@@ -243,31 +277,31 @@ export default defineNuxtConfig({
       ],
       screenshots: [
         {
-          src: "screenshot1-vpsn.png",
+          src: "pwa-screenshot1-vpsn.png",
           type: "image/png",
           sizes: "321x321",
           form_factor: "narrow",
         },
         {
-          src: "screenshot2-vpsn.png",
+          src: "pwa-screenshot2-vpsn.png",
           type: "image/png",
           sizes: "540x332",
           form_factor: "narrow",
         },
         {
-          src: "screenshot5-vpsn.png",
+          src: "pwa-screenshot5-vpsn.png",
           type: "image/png",
           sizes: "1024x630",
           form_factor: "wide",
         },
         {
-          src: "screenshot3-vpsn.png",
+          src: "pwa-screenshot3-vpsn.png",
           type: "image/png",
           sizes: "1024x714",
           form_factor: "wide",
         },
         {
-          src: "screenshot4-vpsn.png",
+          src: "pwa-screenshot4-vpsn.png",
           type: "image/png",
           sizes: "640x480",
           form_factor: "wide",
@@ -294,7 +328,6 @@ export default defineNuxtConfig({
       cleanupOutdatedCaches: true,
       clientsClaim: true,
       skipWaiting: true,
-      version: Date.now().toString(),
       navigateFallbackAllowlist: [/^\/$/, /^\/budget-senegal(\/.*)?$/],
     },
     injectManifest: {

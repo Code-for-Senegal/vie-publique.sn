@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const currentYear = new Date().getFullYear();
-const version = "0711";
+const appConfig = useAppConfig();
+const version = appConfig.version;
 
 const linksSocial = [
   {

@@ -1,6 +1,7 @@
 //index.vue (page actualités)
 <script setup lang="ts">
-import { useNews } from "~/composables/news/useNews";
+import { useNewsStore } from "~/stores/news";
+import { useRoute } from "vue-router";
 
 // Configuration des métadonnées pour le SEO et le partage social
 const seoTitle = "Actualités de la république du Sénégal";
@@ -29,69 +30,56 @@ useHead({
   ],
 });
 
-// État local
-const searchQuery = ref("");
-const selectedCategory = ref("Toutes");
+// Utilisation du store
+const store = useNewsStore();
 
-// Utilisation du composable useNews
-const { news, loading, error, fetchNews } = useNews();
+// Computed properties pour lier les valeurs du store
+const searchQuery = computed({
+  get: () => store.searchQuery,
+  set: (value) => store.setSearchQuery(value),
+});
+
+const selectedCategory = computed({
+  get: () => store.selectedCategory,
+  set: (value) => store.setSelectedCategory(value),
+});
 
 // Chargement initial des données
-onMounted(() => {
-  fetchNews();
+onBeforeMount(async () => {
+  await store.fetchNews();
 });
 
-// Calcul des catégories uniques avec comptage
-const categoriesWithCount = computed(() => {
-  if (!news.value?.length) return [{ name: "Toutes", count: 0 }];
-
-  const categoryCounts = news.value.reduce((acc, item) => {
-    const categoryName = item.category?.name || "Non catégorisé";
-    acc[categoryName] = (acc[categoryName] || 0) + 1;
-    return acc;
-  }, {});
-
-  const allCount = news.value.length;
-
-  return [
-    { name: "Toutes", count: allCount },
-    ...Object.entries(categoryCounts).map(([name, count]) => ({ name, count })),
-  ];
-});
-
-// Filtrage et tri des actualités
-const filteredSortedNews = computed(() => {
-  if (!news.value) return [];
-
-  return news.value
-    .filter((article) => {
-      const matchesSearch = article.title
-        ?.toLowerCase()
-        .includes(searchQuery.value.toLowerCase());
-      const matchesCategory =
-        selectedCategory.value === "Toutes" ||
-        article.category?.name === selectedCategory.value;
-
-      return matchesSearch && matchesCategory;
-    })
-    .sort(
-      (a, b) =>
-        new Date(b.date_published).getTime() -
-        new Date(a.date_published).getTime(),
-    );
-});
+// Recharger les données lors du changement de route
+const route = useRoute();
+watch(
+  () => route.path,
+  async () => {
+    if (route.path === "/actualites") {
+      await store.fetchNews();
+    }
+  },
+);
 
 // Fonction pour formater l'URL des articles
-const formatNewsUrl = (article: any) => {
+const formatNewsUrl = (article: {
+  id: string;
+  title?: string;
+  slug?: string;
+  category?: {
+    slug?: string;
+  };
+}) => {
   if (!article) return "/actualites";
 
   const id = article.id;
   const slug =
     article.slug ||
-    article.title
-      ?.toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/(^-|-$)/g, "");
+    (article.title
+      ? article.title
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/(^-|-$)/g, "")
+      : "actualite");
 
   // Gestion spécifique selon la catégorie
   const categorySlug = article.category?.slug;
@@ -106,6 +94,19 @@ const formatNewsUrl = (article: any) => {
 
   return `/actualites/${id}/${slug}`;
 };
+
+// Ajout des couleurs pour les catégories
+const getCategoryColor = (categoryName: string) => {
+  const colorMap: Record<string, string> = {
+    Toutes: "#6B7280", // gray-500
+    "Conseil des ministres": "#1D4ED8", // blue-700
+    "Conseil interministériel": "#7E22CE", // purple-700
+    "Assemblée nationale": "#047857", // emerald-700
+    Article: "#EA580C", // orange-600
+    "Non catégorisé": "#4B5563", // gray-600
+  };
+  return colorMap[categoryName] || "#6B7280";
+};
 </script>
 
 <template>
@@ -115,55 +116,93 @@ const formatNewsUrl = (article: any) => {
     </div>
 
     <!-- Filtres par catégorie -->
-    <div class="mb-4 flex flex-wrap justify-center gap-2">
-      <UButton
-        v-for="category in categoriesWithCount"
-        :key="category.name"
-        :color="selectedCategory === category.name ? 'primary' : 'gray'"
-        class="rounded-none border-0 text-sm shadow-md transition-all duration-300 ease-in-out"
-        size="sm"
-        @click="selectedCategory = category.name"
-      >
-        {{ category.name }} ({{ category.count }})
-      </UButton>
+    <div class="mb-4">
+      <!-- Barre de recherche -->
+      <UInput
+        v-model="searchQuery"
+        size="md"
+        placeholder="Rechercher..."
+        icon="i-heroicons-magnifying-glass"
+        class="input custom-shadow mb-4 w-full"
+        clearable
+        :disabled="store.loading"
+      />
+
+      <!-- Skeleton pour les filtres pendant le chargement -->
+      <div v-if="store.loading" class="flex flex-wrap gap-2">
+        <div
+          v-for="n in 5"
+          :key="n"
+          class="h-10 w-32 animate-pulse rounded-full bg-gray-200"
+        ></div>
+      </div>
+
+      <!-- Liste des catégories -->
+      <div v-else class="flex flex-wrap gap-2">
+        <button
+          v-for="category in store.categories"
+          :key="category.name"
+          @click="selectedCategory = category.name"
+          class="flex items-center gap-1 rounded-full p-2 text-sm transition-colors duration-200"
+          :class="{
+            'bg-gray-100 text-gray-800 hover:bg-gray-200':
+              selectedCategory !== category.name,
+            'text-white': selectedCategory === category.name,
+          }"
+          :style="{
+            backgroundColor:
+              selectedCategory === category.name
+                ? getCategoryColor(category.name)
+                : '',
+          }"
+        >
+          <div
+            class="h-3 w-3 rounded-full"
+            :style="{
+              backgroundColor: getCategoryColor(category.name),
+              opacity: selectedCategory === category.name ? 1 : 0.3,
+            }"
+          ></div>
+          {{ category.name }}
+        </button>
+      </div>
     </div>
 
-    <!-- Barre de recherche -->
-    <UInput
-      v-model="searchQuery"
-      size="md"
-      placeholder="Rechercher..."
-      icon="i-heroicons-magnifying-glass"
-      class="input custom-shadow my-4 w-full"
-    />
-
+    <!-- Skeleton loader pendant le chargement -->
     <div
-      v-if="loading"
+      v-if="store.loading"
       class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
     >
-      <div v-for="n in 3" :key="n" class="animate-pulse">
+      <div v-for="n in 6" :key="n" class="animate-pulse">
         <div class="relative w-full">
           <div class="aspect-[16/9] rounded-t-lg bg-gray-200"></div>
         </div>
-        <div class="mt-4 h-4 w-3/4 rounded bg-gray-200"></div>
-        <div class="mt-2 h-3 w-1/4 rounded bg-gray-200"></div>
+        <div class="mt-4 space-y-3">
+          <div class="h-6 w-24 rounded bg-gray-200"></div>
+          <div class="h-4 w-32 rounded bg-gray-200"></div>
+          <div class="h-4 w-full rounded bg-gray-200"></div>
+          <div class="h-4 w-2/3 rounded bg-gray-200"></div>
+        </div>
       </div>
     </div>
 
     <!-- Error state -->
     <UAlert
-      v-else-if="error"
+      v-else-if="store.error"
       icon="i-heroicons-exclamation-triangle"
       color="red"
       title="Erreur de chargement"
-      :description="error"
+      :description="store.error"
     />
 
     <!-- Content -->
     <div v-else>
       <!-- Empty state -->
       <div
-        v-if="filteredSortedNews.length === 0"
+        v-if="
+          !store.loading &&
+          (!store.articles.length || store.paginatedNews.length === 0)
+        "
         class="mt-8 flex flex-col items-center text-center text-gray-500"
       >
         <UIcon
@@ -174,34 +213,75 @@ const formatNewsUrl = (article: any) => {
       </div>
 
       <!-- News grid -->
-      <div v-else class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <UCard
-          v-for="article in filteredSortedNews"
-          :key="article.id"
-          class="custom-shadow cursor-pointer"
-        >
-          <NuxtLink :to="formatNewsUrl(article)">
-            <img
-              :src="
-                $directusImageUrl(article.cover_image, '50') ||
-                '/default-image-2.gif'
-              "
-              :alt="article.title"
-              class="mb-4 h-48 w-full object-cover"
-            />
-            <div
-              class="siteweb-type my-1 inline-block bg-gray-200 px-2 py-1 text-xs text-gray-800"
-            >
-              {{ article.category?.name }}
-            </div>
-            <div class="text-sm text-gray-800">
-              {{ $dateformatWithDayName(article.date_published) }}
-            </div>
-            <p class="font-semibold">
-              {{ article.title }}
-            </p>
-          </NuxtLink>
-        </UCard>
+      <div v-else-if="!store.loading">
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <UCard
+            v-for="article in store.paginatedNews"
+            :key="article.id"
+            class="custom-shadow group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+          >
+            <NuxtLink :to="formatNewsUrl(article)" class="block">
+              <div class="relative">
+                <NuxtImg
+                  :src="
+                    article.cover_image
+                      ? $directusImageUrl(article.cover_image, '50')
+                      : '/default-image-2.gif'
+                  "
+                  :alt="article.title || 'Image actualité'"
+                  class="h-48 w-full object-cover"
+                  loading="lazy"
+                  fetchpriority="high"
+                  sizes="300px"
+                  :placeholder="[300, 300]"
+                />
+                <div
+                  class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4"
+                >
+                  <span
+                    class="rounded-full px-3 py-1 text-xs font-medium text-white"
+                    :style="{
+                      backgroundColor: getCategoryColor(
+                        article.category?.name || 'Non catégorisé',
+                      ),
+                    }"
+                  >
+                    {{ article.category?.name || "Non catégorisé" }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="p-2">
+                <h2
+                  class="group-hover:text-primary line-clamp-2 font-semibold transition-colors"
+                >
+                  {{ article.title }}
+                </h2>
+                <div class="mt-2 text-sm text-gray-600">
+                  {{ $dateformatWithDayName(article.date_published) }}
+                </div>
+              </div>
+            </NuxtLink>
+          </UCard>
+        </div>
+
+        <!-- Pagination -->
+        <div v-if="store.totalPages > 1" class="mt-8 flex justify-center">
+          <UPagination
+            v-model="store.currentPage"
+            :total="store.totalItems"
+            :default-page="1"
+            :show-edges="true"
+            :sibling-count="2"
+            :active-button="{ color: 'yellow' }"
+            :ui="{
+              wrapper: 'flex items-center gap-1',
+              base: 'min-w-8 min-h-8 flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed',
+              active: 'bg-gray-900 text-white',
+              inactive: 'bg-white text-gray-900 hover:bg-gray-100',
+            }"
+          />
+        </div>
       </div>
     </div>
   </div>

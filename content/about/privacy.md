@@ -31,10 +31,10 @@ Vous pouvez choisir de désactiver les cookies en sélectionnant les paramètres
 
 La sécurité de vos informations personnelles est importante pour nous, mais rappelez-vous qu'aucune méthode de transmission sur Internet ou méthode de stockage électronique n'est sécurisée à 100 %. Bien que nous nous efforcions d'utiliser des moyens commercialement acceptables pour protéger vos informations personnelles, nous ne pouvons garantir leur sécurité absolue.
 
-## Modifications de Cette Politique de Confidentialité
+## **Modifications de Cette Politique de Confidentialité**
 
 Nous pouvons mettre à jour notre Politique de Confidentialité de temps à autre. Nous vous notifierons de toute modification en publiant la nouvelle Politique de Confidentialité sur cette page. Nous vous conseillons de consulter régulièrement cette page pour vous tenir informé de tout changement.
 
-## Contactez-Nous
+## **Contactez-Nous**
 
 Si vous avez des questions sur cette politique de confidentialité, veuillez nous contacter via mail sur [contact@vie-publique.sn](contact@vie-publique.sn)

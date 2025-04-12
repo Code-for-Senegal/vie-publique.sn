@@ -1,0 +1,568 @@
+[
+  {
+    "name": "DUNDU LENEEN nationale titulaire",
+    "type": "national",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 17
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "DUNDU LENEEN nationale suppléant",
+    "type": "national",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 17
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "name": "DUNDU LENEEN DAKAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 17
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 1
+    }
+  },
+  {
+    "name": "DUNDU LENEEN DAKAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 17
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 1
+    }
+  },
+  {
+    "name": "DUNDU LENEEN GUEDIAWAYE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 2
+    }
+  },
+  {
+    "name": "DUNDU LENEEN GUEDIAWAYE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 2
+    }
+  },
+  {
+    "name": "DUNDU LENEEN KEUR MASSAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 3
+    }
+  },
+  {
+    "name": "DUNDU LENEEN KEUR MASSAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 3
+    }
+  },
+  {
+    "name": "DUNDU LENEEN PIKINE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 4
+    }
+  },
+  {
+    "name": "DUNDU LENEEN PIKINE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 4
+    }
+  },
+  {
+    "name": "DUNDU LENEEN RUFISQUE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 5
+    }
+  },
+  {
+    "name": "DUNDU LENEEN RUFISQUE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 5
+    }
+  },
+  {
+    "name": "DUNDU LENEEN MBACKE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 8
+    }
+  },
+  {
+    "name": "DUNDU LENEEN MBACKE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 8
+    }
+  },
+  {
+    "name": "DUNDU LENEEN FATICK titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 9
+    }
+  },
+  {
+    "name": "DUNDU LENEEN FATICK suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 9
+    }
+  },
+  {
+    "name": "DUNDU LENEEN FOUNDIOUGNE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 10
+    }
+  },
+  {
+    "name": "DUNDU LENEEN FOUNDIOUGNE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 10
+    }
+  },
+  {
+    "name": "DUNDU LENEEN KAOLACK titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 17
+    }
+  },
+  {
+    "name": "DUNDU LENEEN KAOLACK suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 17
+    }
+  },
+  {
+    "name": "DUNDU LENEEN KEBEMER titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 25
+    }
+  },
+  {
+    "name": "DUNDU LENEEN KEBEMER suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 25
+    }
+  },
+  {
+    "name": "DUNDU LENEEN LOUGA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 27
+    }
+  },
+  {
+    "name": "DUNDU LENEEN LOUGA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 27
+    }
+  },
+  {
+    "name": "DUNDU LENEEN MATAM titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 29
+    }
+  },
+  {
+    "name": "DUNDU LENEEN MATAM suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 29
+    }
+  },
+  {
+    "name": "DUNDU LENEEN MBOUR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 41
+    }
+  },
+  {
+    "name": "DUNDU LENEEN MBOUR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 41
+    }
+  },
+  {
+    "name": "DUNDU LENEEN PODOR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 32
+    }
+  },
+  {
+    "name": "DUNDU LENEEN PODOR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 32
+    }
+  },
+  {
+    "name": "DUNDU LENEEN SAINT LOUIS titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 33
+    }
+  },
+  {
+    "name": "DUNDU LENEEN SAINT LOUIS suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 33
+    }
+  },
+  {
+    "name": "DUNDU LENEEN GOUDIRY titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 38
+    }
+  },
+  {
+    "name": "DUNDU LENEEN GOUDIRY suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 38
+    }
+  },
+  {
+    "name": "DUNDU LENEEN TIVAOUANE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 43
+    }
+  },
+  {
+    "name": "DUNDU LENEEN TIVAOUANE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 43
+    }
+  },
+  {
+    "name": "DUNDU LENEEN ZIGUINCHOR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 46
+    }
+  },
+  {
+    "name": "DUNDU LENEEN ZIGUINCHOR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 46
+    }
+  }
+]

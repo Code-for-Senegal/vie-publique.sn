@@ -1,0 +1,1088 @@
+[
+	{
+		"id": 242,
+		"name": "SENEGAAL KESE nationale titulaire",
+		"type": "national",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": null
+	},
+	{
+		"id": 243,
+		"name": "SENEGAAL KESE nationale suppléant",
+		"type": "national",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": null
+	},
+	{
+		"id": 244,
+		"name": "SENEGAAL KESE DAKAR titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "DAKAR",
+			"id": 1
+		}
+	},
+	{
+		"id": 245,
+		"name": "SENEGAAL KESE DAKAR suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "DAKAR",
+			"id": 1
+		}
+	},
+	{
+		"id": 246,
+		"name": "SENEGAAL KESE GUEDIAWAYE titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "GUEDIAWAYE",
+			"id": 2
+		}
+	},
+	{
+		"id": 247,
+		"name": "SENEGAAL KESE GUEDIAWAYE suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "GUEDIAWAYE",
+			"id": 2
+		}
+	},
+	{
+		"id": 248,
+		"name": "SENEGAAL KESE KEUR MASSAR titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "KEUR MASSAR",
+			"id": 3
+		}
+	},
+	{
+		"id": 249,
+		"name": "SENEGAAL KESE KEUR MASSAR suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "KEUR MASSAR",
+			"id": 3
+		}
+	},
+	{
+		"id": 250,
+		"name": "SENEGAAL KESE PIKINE titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "PIKINE",
+			"id": 4
+		}
+	},
+	{
+		"id": 251,
+		"name": "SENEGAAL KESE PIKINE suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "PIKINE",
+			"id": 4
+		}
+	},
+	{
+		"id": 252,
+		"name": "SENEGAAL KESE RUFISQUE titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "RUFISQUE",
+			"id": 5
+		}
+	},
+	{
+		"id": 253,
+		"name": "SENEGAAL KESE RUFISQUE suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "RUFISQUE",
+			"id": 5
+		}
+	},
+	{
+		"id": 254,
+		"name": "SENEGAAL KESE DIOURBEL titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "DIOURBEL",
+			"id": 7
+		}
+	},
+	{
+		"id": 255,
+		"name": "SENEGAAL KESE DIOURBEL suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "DIOURBEL",
+			"id": 7
+		}
+	},
+	{
+		"id": 256,
+		"name": "SENEGAAL KESE MBACKE titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "MBACKE",
+			"id": 8
+		}
+	},
+	{
+		"id": 257,
+		"name": "SENEGAAL KESE MBACKE suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "MBACKE",
+			"id": 8
+		}
+	},
+	{
+		"id": 258,
+		"name": "SENEGAAL KESE FATICK titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "FATICK",
+			"id": 9
+		}
+	},
+	{
+		"id": 259,
+		"name": "SENEGAAL KESE FATICK suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "FATICK",
+			"id": 9
+		}
+	},
+	{
+		"id": 260,
+		"name": "SENEGAAL KESE FOUNDIOUGNE titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "FOUNDIOUGNE",
+			"id": 10
+		}
+	},
+	{
+		"id": 261,
+		"name": "SENEGAAL KESE FOUNDIOUGNE suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "FOUNDIOUGNE",
+			"id": 10
+		}
+	},
+	{
+		"id": 262,
+		"name": "SENEGAAL KESE MALEM HODAR titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "MALEM HODAR",
+			"id": 15
+		}
+	},
+	{
+		"id": 263,
+		"name": "SENEGAAL KESE MALEM HODAR suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "MALEM HODAR",
+			"id": 15
+		}
+	},
+	{
+		"id": 264,
+		"name": "SENEGAAL KESE GUINGUINEO titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "GUINGUINEO",
+			"id": 16
+		}
+	},
+	{
+		"id": 265,
+		"name": "SENEGAAL KESE GUINGUINEO suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "GUINGUINEO",
+			"id": 16
+		}
+	},
+	{
+		"id": 266,
+		"name": "SENEGAAL KESE KAOLACK titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "KAOLACK",
+			"id": 17
+		}
+	},
+	{
+		"id": 267,
+		"name": "SENEGAAL KESE KAOLACK suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "KAOLACK",
+			"id": 17
+		}
+	},
+	{
+		"id": 268,
+		"name": "SENEGAAL KESE NIORO DU RIP titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "NIORO DU RIP",
+			"id": 18
+		}
+	},
+	{
+		"id": 269,
+		"name": "SENEGAAL KESE NIORO DU RIP suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "NIORO DU RIP",
+			"id": 18
+		}
+	},
+	{
+		"id": 270,
+		"name": "SENEGAAL KESE KEDOUGOU titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "KEDOUGOU",
+			"id": 19
+		}
+	},
+	{
+		"id": 271,
+		"name": "SENEGAAL KESE KEDOUGOU suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "KEDOUGOU",
+			"id": 19
+		}
+	},
+	{
+		"id": 272,
+		"name": "SENEGAAL KESE KOLDA titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "KOLDA",
+			"id": 22
+		}
+	},
+	{
+		"id": 273,
+		"name": "SENEGAAL KESE KOLDA suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "KOLDA",
+			"id": 22
+		}
+	},
+	{
+		"id": 274,
+		"name": "SENEGAAL KESE VELINGARA titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "VELINGARA",
+			"id": 24
+		}
+	},
+	{
+		"id": 275,
+		"name": "SENEGAAL KESE VELINGARA suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "VELINGARA",
+			"id": 24
+		}
+	},
+	{
+		"id": 276,
+		"name": "SENEGAAL KESE KEBEMER titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "KEBEMER",
+			"id": 25
+		}
+	},
+	{
+		"id": 277,
+		"name": "SENEGAAL KESE KEBEMER suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "KEBEMER",
+			"id": 25
+		}
+	},
+	{
+		"id": 278,
+		"name": "SENEGAAL KESE LINGUERE titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "LINGUERE",
+			"id": 26
+		}
+	},
+	{
+		"id": 279,
+		"name": "SENEGAAL KESE LINGUERE suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "LINGUERE",
+			"id": 26
+		}
+	},
+	{
+		"id": 280,
+		"name": "SENEGAAL KESE LOUGA titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "LOUGA",
+			"id": 27
+		}
+	},
+	{
+		"id": 281,
+		"name": "SENEGAAL KESE LOUGA suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "LOUGA",
+			"id": 27
+		}
+	},
+	{
+		"id": 282,
+		"name": "SENEGAAL KESE KANEL titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "KANEL",
+			"id": 28
+		}
+	},
+	{
+		"id": 283,
+		"name": "SENEGAAL KESE KANEL suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "KANEL",
+			"id": 28
+		}
+	},
+	{
+		"id": 284,
+		"name": "SENEGAAL KESE MATAM titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "MATAM",
+			"id": 29
+		}
+	},
+	{
+		"id": 285,
+		"name": "SENEGAAL KESE MATAM suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "MATAM",
+			"id": 29
+		}
+	},
+	{
+		"id": 286,
+		"name": "SENEGAAL KESE RANEROU FERLO titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "RANEROU FERLO",
+			"id": 30
+		}
+	},
+	{
+		"id": 287,
+		"name": "SENEGAAL KESE RANEROU FERLO suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "RANEROU FERLO",
+			"id": 30
+		}
+	},
+	{
+		"id": 288,
+		"name": "SENEGAAL KESE PODOR titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "PODOR",
+			"id": 32
+		}
+	},
+	{
+		"id": 289,
+		"name": "SENEGAAL KESE PODOR suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "PODOR",
+			"id": 32
+		}
+	},
+	{
+		"id": 290,
+		"name": "SENEGAAL KESE SAINT LOUIS titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "SAINT LOUIS",
+			"id": 33
+		}
+	},
+	{
+		"id": 291,
+		"name": "SENEGAAL KESE SAINT LOUIS suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "SAINT LOUIS",
+			"id": 33
+		}
+	},
+	{
+		"id": 292,
+		"name": "SENEGAAL KESE BOUNKILING titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "BOUNKILING",
+			"id": 34
+		}
+	},
+	{
+		"id": 293,
+		"name": "SENEGAAL KESE BOUNKILING suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "BOUNKILING",
+			"id": 34
+		}
+	},
+	{
+		"id": 294,
+		"name": "SENEGAAL KESE SEDHIOU titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "SEDHIOU",
+			"id": 36
+		}
+	},
+	{
+		"id": 295,
+		"name": "SENEGAAL KESE SEDHIOU suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "SEDHIOU",
+			"id": 36
+		}
+	},
+	{
+		"id": 296,
+		"name": "SENEGAAL KESE BAKEL titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "BAKEL",
+			"id": 37
+		}
+	},
+	{
+		"id": 297,
+		"name": "SENEGAAL KESE BAKEL suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "BAKEL",
+			"id": 37
+		}
+	},
+	{
+		"id": 298,
+		"name": "SENEGAAL KESE GOUDIRY titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "GOUDIRY",
+			"id": 38
+		}
+	},
+	{
+		"id": 299,
+		"name": "SENEGAAL KESE GOUDIRY suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "GOUDIRY",
+			"id": 38
+		}
+	},
+	{
+		"id": 300,
+		"name": "SENEGAAL KESE KOUMPENTOUM titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "KOUMPENTOUM",
+			"id": 39
+		}
+	},
+	{
+		"id": 301,
+		"name": "SENEGAAL KESE KOUMPENTOUM suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "KOUMPENTOUM",
+			"id": 39
+		}
+	},
+	{
+		"id": 302,
+		"name": "SENEGAAL KESE TAMBACOUNDA titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "TAMBACOUNDA",
+			"id": 40
+		}
+	},
+	{
+		"id": 303,
+		"name": "SENEGAAL KESE TAMBACOUNDA suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "TAMBACOUNDA",
+			"id": 40
+		}
+	},
+	{
+		"id": 304,
+		"name": "SENEGAAL KESE MBOUR titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "MBOUR",
+			"id": 41
+		}
+	},
+	{
+		"id": 305,
+		"name": "SENEGAAL KESE MBOUR suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "MBOUR",
+			"id": 41
+		}
+	},
+	{
+		"id": 306,
+		"name": "SENEGAAL KESE THIES titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "THIES",
+			"id": 42
+		}
+	},
+	{
+		"id": 307,
+		"name": "SENEGAAL KESE THIES suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "THIES",
+			"id": 42
+		}
+	},
+	{
+		"id": 308,
+		"name": "SENEGAAL KESE TIVAOUANE titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "TIVAOUANE",
+			"id": 43
+		}
+	},
+	{
+		"id": 309,
+		"name": "SENEGAAL KESE TIVAOUANE suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "TIVAOUANE",
+			"id": 43
+		}
+	},
+	{
+		"id": 310,
+		"name": "SENEGAAL KESE BIGNONA titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "BIGNONA",
+			"id": 44
+		}
+	},
+	{
+		"id": 311,
+		"name": "SENEGAAL KESE BIGNONA suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "BIGNONA",
+			"id": 44
+		}
+	},
+	{
+		"id": 312,
+		"name": "SENEGAAL KESE ZIGUINCHOR titulaire",
+		"type": "departmental",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "ZIGUINCHOR",
+			"id": 46
+		}
+	},
+	{
+		"id": 313,
+		"name": "SENEGAAL KESE ZIGUINCHOR suppléant",
+		"type": "departmental",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "ZIGUINCHOR",
+			"id": 46
+		}
+	},
+	{
+		"id": 314,
+		"name": "SENEGAAL KESE AFRIQUE CENTRE titulaire",
+		"type": "diaspora",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "AFRIQUE CENTRE",
+			"id": 48
+		}
+	},
+	{
+		"id": 315,
+		"name": "SENEGAAL KESE AFRIQUE CENTRE suppléant",
+		"type": "diaspora",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "AFRIQUE CENTRE",
+			"id": 48
+		}
+	},
+	{
+		"id": 316,
+		"name": "SENEGAAL KESE AFRIQUE NORD titulaire",
+		"type": "diaspora",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "AFRIQUE NORD",
+			"id": 49
+		}
+	},
+	{
+		"id": 317,
+		"name": "SENEGAAL KESE AFRIQUE NORD suppléant",
+		"type": "diaspora",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "AFRIQUE NORD",
+			"id": 49
+		}
+	},
+	{
+		"id": 318,
+		"name": "SENEGAAL KESE AMERIQUE OCEANIE titulaire",
+		"type": "diaspora",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "AMERIQUE OCEANIE",
+			"id": 51
+		}
+	},
+	{
+		"id": 319,
+		"name": "SENEGAAL KESE AMERIQUE OCEANIE suppléant",
+		"type": "diaspora",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "AMERIQUE OCEANIE",
+			"id": 51
+		}
+	},
+	{
+		"id": 320,
+		"name": "SENEGAAL KESE ASIE MOYEN ORIENT titulaire",
+		"type": "diaspora",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "ASIE MOYEN ORIENT",
+			"id": 52
+		}
+	},
+	{
+		"id": 321,
+		"name": "SENEGAAL KESE ASIE MOYEN ORIENT suppléant",
+		"type": "diaspora",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "ASIE MOYEN ORIENT",
+			"id": 52
+		}
+	},
+	{
+		"id": 322,
+		"name": "SENEGAAL KESE EUROPE OUEST CENTRE NORD titulaire",
+		"type": "diaspora",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "EUROPE OUEST CENTRE NORD ",
+			"id": 54
+		}
+	},
+	{
+		"id": 323,
+		"name": "SENEGAAL KESE EUROPE OUEST CENTRE NORD suppléant",
+		"type": "diaspora",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "EUROPE OUEST CENTRE NORD ",
+			"id": 54
+		}
+	},
+	{
+		"id": 324,
+		"name": "SENEGAAL KESE EUROPE DU SUD titulaire",
+		"type": "diaspora",
+		"is_substitute": false,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "EUROPE DU SUD",
+			"id": 53
+		}
+	},
+	{
+		"id": 325,
+		"name": "SENEGAAL KESE EUROPE DU SUD suppléant",
+		"type": "diaspora",
+		"is_substitute": true,
+		"coalition": {
+			"id": 2
+		},
+		"constituency": {
+			"name": "EUROPE DU SUD",
+			"id": 53
+		}
+	}
+]

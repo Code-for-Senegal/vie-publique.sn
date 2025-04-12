@@ -101,7 +101,7 @@ const groupedMembers = computed<OfficeGroup[]>(() => {
       <!-- Content -->
       <div v-else class="space-y-8">
         <section v-for="group in groupedMembers" :key="group.name">
-          <h2 class="mb-4 text-center text-xl font-semibold">
+          <h2 class="mb-4 text-center text-xl font-semibold text-blue-900">
             {{ group.name }}
           </h2>
           <div :class="['grid gap-6', group.columns]">

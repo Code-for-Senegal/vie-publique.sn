@@ -1,0 +1,371 @@
+[
+  {
+    "id": 1,
+    "name": "AND LIGUEY SUNU REW",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 1
+  },
+  {
+    "id": 2,
+    "name": "SENEGAAL KESE",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 2
+  },
+  {
+    "id": 3,
+    "name": "RV NAATANGUE",
+    "acronym": "RV",
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 3
+  },
+  {
+    "id": 4,
+    "name": "UNION DES GROUPES PATRIOTIQUES",
+    "acronym": "UGP",
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 4
+  },
+  {
+    "id": 5,
+    "name": "COALITION POLE ALTERNATIF KIRAAY AK NATANGUE 3ème VOIE",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 5
+  },
+  {
+    "id": 6,
+    "name": "COALITION XAAL YOON",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 6
+  },
+  {
+    "id": 7,
+    "name": "UNION CITOYENNE BUNT- BI",
+    "acronym": "BUNT-BI",
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 7
+  },
+  {
+    "id": 8,
+    "name": "JUBANTI SENEGAL",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 8
+  },
+  {
+    "id": 9,
+    "name": "AND CI KOOLUTE NGUIR SENEGAL",
+    "acronym": "AKS",
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 9
+  },
+  {
+    "id": 10,
+    "name": "ALSAR",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 10
+  },
+  {
+    "id": 11,
+    "name": "COALITION NAFOORE SENEGAL",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 11
+  },
+  {
+    "id": 12,
+    "name": "UNION NATIONALE POUR L'INTEGRATION, LE TRAVAIL ET L'EQUITE",
+    "acronym": "U.N.I.T.E",
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 12
+  },
+  {
+    "id": 13,
+    "name": "SAMM SA GAFAKA-SAMM SA ELLEG ACSIF",
+    "acronym": "ACSIF",
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 13
+  },
+  {
+    "id": 14,
+    "name": "COALITION WAREEF",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 14
+  },
+  {
+    "id": 15,
+    "name": "COALITION ACTIONS",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 15
+  },
+  {
+    "id": 16,
+    "name": "UNION NAATALL KAAW-GUI",
+    "acronym": "U.N.K",
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 16
+  },
+  {
+    "id": 17,
+    "name": "COALITION DUNDU LENEEN",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 17
+  },
+  {
+    "id": 18,
+    "name": "LA MARCHE DES TERRITOIRES ANDU-NAWLE",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 18
+  },
+  {
+    "id": 19,
+    "name": "LES NATIONALISTES JEL LINU MOOM",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 19
+  },
+  {
+    "id": 20,
+    "name": "COALITION MANKOO LIGGEEYAL SENEGAAL",
+    "acronym": "MLS",
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 20
+  },
+  {
+    "id": 21,
+    "name": "COALITION DEKKAL TERANGA",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 21
+  },
+  {
+    "id": 22,
+    "name": "AND DOOLEL LIGUEY KAT YI",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 22
+  },
+  {
+    "id": 23,
+    "name": "PARTI ENSEMBLE POUR LE SENEGAL",
+    "acronym": "PEPS",
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 23
+  },
+  {
+    "id": 24,
+    "name": "COALITION AND BEESAL SENEGAL",
+    "acronym": "ABS",
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 24
+  },
+  {
+    "id": 25,
+    "name": "PARTI GARAP-ADS",
+    "acronym": "GARAP-ADS",
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 25
+  },
+  {
+    "id": 26,
+    "name": "COALITION GOX YU BEES",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 26
+  },
+  {
+    "id": 27,
+    "name": "COALITION REPUBLICAINE SAMM SUNU REW JOTALI KADDU ASKANWI",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 27
+  },
+  {
+    "id": 28,
+    "name": "COALITION DEFAR SA GOKH",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 28
+  },
+  {
+    "id": 29,
+    "name": "COALITION FEDERATION DU RENOUVEAU",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 29
+  },
+  {
+    "id": 30,
+    "name": "PARTI ALLIANCE JEF JEL",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 30
+  },
+  {
+    "id": 31,
+    "name": "PASTEF",
+    "acronym": "PASTEF",
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 31
+  },
+  {
+    "id": 32,
+    "name": "ENTITE ALLIANCE NATIONALE POUR LA PATRIE",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 32
+  },
+  {
+    "id": 33,
+    "name": "COALITION FARLU",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 33
+  },
+  {
+    "id": 34,
+    "name": "AND-SUXALI-PRODUCTION-TRANSPORT-AK-COMMMERCE-LAAP-FAL-JIKKO",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 34
+  },
+  {
+    "id": 35,
+    "name": "SECTEUR PRIVE",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 35
+  },
+  {
+    "id": 36,
+    "name": "COALITION DIAM AK NJARIN",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 36
+  },
+  {
+    "id": 37,
+    "name": "COALITION SAMM SA KAADU",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 37
+  },
+  {
+    "id": 38,
+    "name": "PARTI BES DU NIAKK",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 38
+  },
+  {
+    "id": 39,
+    "name": "TAKKU WALLU SENEGAL",
+    "acronym": "TWS",
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 39
+  },
+  {
+    "id": 40,
+    "name": "GRAND RASSEMBLEMENT DES ARTISANS DU SENEGAL",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 40
+  },
+  {
+    "id": 41,
+    "name": "COALITION SOPI SENEGAL",
+    "acronym": null,
+    "status": "published",
+    "logo": null,
+    "description": null,
+    "list_order": 41
+  }
+]

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Toaster, toast } from "vue-sonner";
 const isOpen = ref(false);
+
 // Appliquer le middleware globalement
 definePageMeta({
   middleware: ["maintenance"],
@@ -18,6 +19,12 @@ const links = [
     photo: "/unknown_member.webp",
     icon: "i-heroicons-newspaper",
     to: "/actualites",
+  },
+  {
+    label: "Assemblée",
+    description: "Suivez l'activité parlementaire",
+    icon: "i-heroicons-building-library",
+    to: "/assemblee-nationale",
   },
   {
     label: "Annuaires",
@@ -118,22 +125,14 @@ onMounted(() => {
     });
   }
 });
-
-defineShortcuts({
-  escape: () => navigateTo("/"),
-  "/": () => navigateTo("/"),
-  meta_k: () => navigateTo("/"),
-  a: () => navigateTo("/annuaires"),
-  b: () => navigateTo("/budget-senegal"),
-  c: () => navigateTo("/conseil-des-ministres"),
-  d: () => navigateTo("/documents"),
-});
 </script>
 
 <template>
   <div
     class="lg:px-18 top-header header_top sticky top-0 z-50 flex items-center justify-between opacity-100 md:px-10 xl:px-32"
   >
+    $
+
     <!-- PWA manifest -->
     <NuxtPwaManifest />
 
@@ -206,9 +205,10 @@ defineShortcuts({
     </NuxtLayout>
 
     <!-- <NewsletterSocial /> -->
+    <AppFooter />
+
     <!-- affichage des deux composants à rendre dynamique -->
     <AppBottomNav />
-    <AppFooter />
   </UContainer>
 </template>
 

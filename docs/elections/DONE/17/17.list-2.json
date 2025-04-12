@@ -1,0 +1,347 @@
+[
+  {
+    "name": "DUNDU LENEEN BAMBEY titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 6
+    }
+  },
+  {
+    "name": "DUNDU LENEEN BAMBEY suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 6
+    }
+  },
+  {
+    "name": "DUNDU LENEEN DIOURBEL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 7
+    }
+  },
+  {
+    "name": "DUNDU LENEEN DIOURBEL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 7
+    }
+  },
+  {
+    "name": "DUNDU LENEEN GOSSAS titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 11
+    }
+  },
+  {
+    "name": "DUNDU LENEEN GOSSAS suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 11
+    }
+  },
+  {
+    "name": "DUNDU LENEEN GUINGUINEO titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 16
+    }
+  },
+  {
+    "name": "DUNDU LENEEN GUINGUINEO suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 16
+    }
+  },
+  {
+    "name": "DUNDU LENEEN KAOLACK suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 17
+    }
+  },
+  {
+    "name": "DUNDU LENEEN KEDOUGOU titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 19
+    }
+  },
+  {
+    "name": "DUNDU LENEEN KEDOUGOU suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 19
+    }
+  },
+  {
+    "name": "DUNDU LENEEN SALEMATA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 20
+    }
+  },
+  {
+    "name": "DUNDU LENEEN SALEMATA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 20
+    }
+  },
+  {
+    "name": "DUNDU LENEEN KOLDA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 22
+    }
+  },
+  {
+    "name": "DUNDU LENEEN KOLDA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 22
+    }
+  },
+  {
+    "name": "DUNDU LENEEN VELINGARA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 24
+    }
+  },
+  {
+    "name": "DUNDU LENEEN VELINGARA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 24
+    }
+  },
+  {
+    "name": "DUNDU LENEEN KANEL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 28
+    }
+  },
+  {
+    "name": "DUNDU LENEEN KANEL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 28
+    }
+  },
+  {
+    "name": "DUNDU LENEEN RANEROU FERLO titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 30
+    }
+  },
+  {
+    "name": "DUNDU LENEEN RANEROU FERLO suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 30
+    }
+  },
+  {
+    "name": "DUNDU LENEEN THIES titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 42
+    }
+  },
+  {
+    "name": "DUNDU LENEEN THIES suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "election": {
+      "id": 1
+    },
+    "coalition": {
+      "id": 17
+    },
+    "constituency": {
+      "id": 42
+    }
+  }
+]

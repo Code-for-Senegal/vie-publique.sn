@@ -31,13 +31,29 @@ const topDeputies = computed(() => {
     .sort((a, b) => b.questionsCount - a.questionsCount)
     .slice(0, 4);
 });
+
+// Pagination
+const itemsPerPage = ref(10);
+const currentPage = ref(1);
+// Questions paginées
+const paginatedQuestions = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage.value;
+  const end = start + itemsPerPage.value;
+  return questions.value.slice(start, end);
+});
+
+const handlePageChange = (page: number) => {
+  currentPage.value = page;
+  // Faire défiler vers le haut de la liste
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
 </script>
 
 <template>
   <div class="container mx-auto py-4">
     <NuxtLink
       to="/assemblee-nationale"
-      class="mb-6 inline-flex items-center text-gray-600 hover:text-gray-800"
+      class="mb-4 inline-flex items-center text-gray-600 hover:text-gray-800"
     >
       <UIcon name="i-heroicons-arrow-left" class="mr-2 h-5 w-5" />
       15e législature Assemblée nationale
@@ -63,7 +79,7 @@ const topDeputies = computed(() => {
         <div class="mb-2 rounded-lg p-0">
           <h2 class="mb-4 text-xl font-bold">Députés les plus actifs</h2>
 
-          <div class="grid grid-cols-2 gap-2 sm:grid-cols-3">
+          <div class="grid grid-cols-2 gap-2 md:grid-cols-4">
             <div
               v-for="(deputy, index) in topDeputies"
               :key="deputy.id"
@@ -74,8 +90,9 @@ const topDeputies = computed(() => {
                 class="absolute left-1/2 top-20 -translate-x-1/2 rounded-full px-3 py-1 text-sm font-bold text-white"
                 :class="{
                   'bg-yellow-500': index === 0,
-                  'bg-gray-400': index === 1,
+                  'bg-yellow-400': index === 1,
                   'bg-amber-700': index === 2,
+                  'bg-gray-400': index === 3,
                 }"
               >
                 {{ index + 1 }}{{ index === 0 ? "er" : "ème" }}
@@ -93,7 +110,7 @@ const topDeputies = computed(() => {
                 <div class="text-center">
                   <div class="truncate font-medium capitalize text-gray-900">
                     {{ deputy.first_name.toLowerCase() }}<br />
-                    <span class="font-bold tracking-wider">
+                    <span class="tracking-wider">
                       {{ deputy.last_name.toUpperCase() }}
                     </span>
                   </div>
@@ -109,10 +126,16 @@ const topDeputies = computed(() => {
         </div>
 
         <!-- Liste des questions -->
-        <div class="space-y-2">
-          <h2 class="mb-4 text-xl font-bold">Questions des députés</h2>
+        <div id="questions-list" class="space-y-2">
+          <div class="mb-4 flex items-center justify-between">
+            <h2 class="text-xl font-bold">Questions</h2>
+            <div class="text-sm text-gray-500">
+              {{ questions.length }} questions au total
+            </div>
+          </div>
+
           <UCard
-            v-for="question in questions"
+            v-for="question in paginatedQuestions"
             :key="question.id"
             class="custom-shadow transition-all hover:shadow-lg"
           >
@@ -151,6 +174,23 @@ const topDeputies = computed(() => {
               </div>
             </NuxtLink>
           </UCard>
+
+          <!-- Pagination -->
+          <div class="mt-6 flex justify-center">
+            <UPagination
+              v-model="currentPage"
+              :total="questions.length"
+              :per-page="itemsPerPage"
+              :active-button="{ color: 'yellow' }"
+              :ui="{
+                wrapper: 'flex items-center gap-1',
+                base: 'min-w-8 min-h-8 flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed',
+                active: 'bg-gray-900 text-white',
+                inactive: 'bg-white text-gray-900 hover:bg-gray-100',
+              }"
+              @change="handlePageChange"
+            />
+          </div>
         </div>
       </div>
     </div>

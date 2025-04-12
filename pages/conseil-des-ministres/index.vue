@@ -1,6 +1,8 @@
 <!-- pages/conseil-des-ministres/index.vue -->
 <script setup lang="ts">
-import { useNews } from "~/composables/news/useNews";
+import { useConseilMinistres } from "~/composables/useConseilMinistres";
+import { useConseilMinistresStore } from "~/stores/conseilMinistres";
+import { useDebounceFn } from "@vueuse/core";
 
 const seoTitle = "Communiqué Conseil des ministres Sénégal";
 const seoDescription =
@@ -47,51 +49,85 @@ useHead({
   ],
 });
 
-const searchQuery = ref("");
-const { news, loading, error } = useNews({ category: "conseil-des-ministres" });
+const store = useConseilMinistresStore();
+const { news, loading, error, updateSearch, updatePage } =
+  useConseilMinistres();
 
-// Filtres
-const filteredPressReleases = computed(() => {
-  if (!news.value) return [];
-  return news.value.filter(
-    (item) =>
-      item.title?.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      item.content?.toLowerCase().includes(searchQuery.value.toLowerCase()),
-  );
+// Utiliser les valeurs du store
+const searchQuery = computed({
+  get: () => store.searchQuery,
+  set: (value) => {
+    store.setSearchQuery(value);
+    store.setCurrentPage(1);
+    debouncedSearch(value);
+  },
 });
 
-// Pagination
-const page = ref(1);
-const pageCount = 9;
-
-const rowsFilteredPressReleases = computed(() => {
-  return filteredPressReleases.value.slice(
-    (page.value - 1) * pageCount,
-    page.value * pageCount,
-  );
+const currentPage = computed({
+  get: () => store.currentPage,
+  set: (value) => {
+    store.setCurrentPage(value);
+    updatePage(value);
+  },
 });
 
-watch(searchQuery, () => {
-  page.value = 1;
+// Debounce pour la recherche
+const debouncedSearch = useDebounceFn((query: string) => {
+  updateSearch(query);
+}, 500);
+
+// Texte pour l'affichage du nombre de résultats
+const resultsText = computed(() => {
+  const totalCount = store.totalItems;
+  const currentPageStart = (store.currentPage - 1) * store.itemsPerPage + 1;
+  const currentPageEnd = Math.min(
+    currentPageStart + store.itemsPerPage - 1,
+    totalCount,
+  );
+
+  const searchText = store.searchQuery ? ` pour "${store.searchQuery}"` : "";
+
+  if (totalCount === 0) {
+    return store.searchQuery
+      ? `Aucun résultat trouvé${searchText}`
+      : "Aucun résultat";
+  }
+
+  if (totalCount === 1) {
+    return `1 Communiqué trouvé${searchText}`;
+  }
+
+  if (totalCount <= store.itemsPerPage) {
+    return `${totalCount} Communiqués trouvés${searchText}`;
+  }
+
+  return `${currentPageStart}-${currentPageEnd} sur ${totalCount} communiqués${searchText}`;
 });
 </script>
 
 <template>
   <div class="container mx-auto sm:px-4">
-    <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">Conseil des ministres</h1>
+    <div class="prose prose-sm sm:prose mx-auto my-4">
+      <h1
+        class="from-primary-600 to-primary-500 bg-clip-text text-center text-xl font-bold sm:text-3xl"
+      >
+        Conseil des ministres
+      </h1>
     </div>
-    <p v-if="!loading" class="text-center text-sm text-gray-600">
-      {{ filteredPressReleases.length }} Communiqués référencés
-    </p>
 
-    <div class="mb-4">
+    <div class="mb-8">
       <UInput
         v-model="searchQuery"
         placeholder="Rechercher un communiqué..."
         icon="i-heroicons-magnifying-glass"
-        class="mx-auto hidden w-full max-w-2xl"
+        class="custom-shadow mx-auto w-full"
+        size="lg"
       />
+      <div
+        class="mt-2 flex flex-col items-center justify-between text-sm text-gray-500 sm:flex-row"
+      >
+        <span>{{ resultsText }}</span>
+      </div>
     </div>
 
     <div v-if="loading" class="flex min-h-48 items-center justify-center">
@@ -105,58 +141,89 @@ watch(searchQuery, () => {
       {{ error }}
     </div>
 
+    <div v-else-if="news.length === 0" class="py-12 text-center">
+      <UIcon
+        name="i-heroicons-document-magnifying-glass"
+        class="mx-auto mb-4 h-12 w-12 text-gray-400"
+      />
+      <h3 class="mb-2 text-lg font-medium text-gray-900">
+        Aucun communiqué trouvé
+      </h3>
+      <p class="text-gray-500">Essayez de modifier vos critères de recherche</p>
+    </div>
+
     <div v-else>
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         <UCard
-          v-for="item in rowsFilteredPressReleases"
+          v-for="item in news"
           :key="item.id"
-          class="custom-shadow group rounded-none transition-shadow duration-300 hover:shadow-lg"
+          class="group relative overflow-hidden rounded-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
         >
           <NuxtLink
             :to="`/conseil-des-ministres/${item.id}/${item.slug}`"
             class="block"
           >
-            <div class="mb-0 rounded-t-lg">
+            <div class="relative">
               <NuxtImg
                 :src="
-                  $directusImageUrl(item.cover_image, '50') ||
-                  '/images/communique-conseil-des-ministres.jpeg'
+                  item.cover_image
+                    ? $directusImageUrl(item.cover_image, '50')
+                    : '/images/communique-conseil-des-ministres.jpeg'
                 "
-                :alt="item.title"
-                class="h-24 w-full object-cover sm:h-48"
+                :alt="item.title || 'Communiqué du conseil des ministres'"
+                class="h-48 w-full object-cover"
                 loading="lazy"
                 fetchpriority="high"
                 sizes="300px"
                 :placeholder="[300, 300]"
               />
-            </div>
-            <div class="p-4">
-              <h2
-                class="group-hover:text-primary mb-2 text-lg font-semibold transition-colors"
+              <div
+                class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4"
               >
-                {{ item.title }}
+                <p class="text-sm font-medium text-white">
+                  {{
+                    item.date_published
+                      ? $dateformatWithDayName(item.date_published)
+                      : ""
+                  }}
+                </p>
+              </div>
+            </div>
+
+            <div class="p-2">
+              <h2
+                class="group-hover:text-primary line-clamp-2 font-semibold transition-colors"
+              >
+                {{ item.title || "Communiqué du conseil des ministres" }}
               </h2>
-              <p class="mb-2 hidden text-xs text-gray-600">
-                {{ $dateformatWithDayName(item.date_published) }}
-              </p>
-              <div class="text-primary mt-4 flex items-center">
-                <span class="text-sm font-medium">Lire le communiqué</span>
+
+              <!-- <div
+                class="text-primary mt-4 flex items-center opacity-0 transition-opacity group-hover:opacity-100"
+              >
                 <UIcon
                   name="i-heroicons-arrow-right"
-                  class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-2"
+                  class="ml-auto h-5 w-5 transition-transform group-hover:translate-x-2"
                 />
-              </div>
+              </div> -->
             </div>
           </NuxtLink>
         </UCard>
       </div>
 
-      <div class="mt-8 flex justify-center border-t border-gray-200 pt-6">
+      <div v-if="store.totalPages > 1" class="mt-8 flex justify-center">
         <UPagination
-          v-model="page"
-          :page-count="Math.ceil(filteredPressReleases.length / pageCount)"
-          :total="filteredPressReleases.length"
-          class="justify-center"
+          v-model="currentPage"
+          :total="store.totalItems"
+          :default-page="1"
+          :show-edges="true"
+          :sibling-count="2"
+          :active-button="{ color: 'yellow' }"
+          :ui="{
+            wrapper: 'flex items-center gap-1',
+            base: 'min-w-8 min-h-8 flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed',
+            active: 'bg-gray-900 text-white',
+            inactive: 'bg-white text-gray-900 hover:bg-gray-100',
+          }"
         />
       </div>
     </div>

@@ -54,13 +54,12 @@ useHead(() => {
     <!-- Bouton retour -->
     <div class="flex flex-row items-start gap-1">
       <NuxtLink
-        to="/"
+        to="/actualites"
         class="align-center mb-2 inline-flex items-center text-sm text-gray-700 hover:text-gray-800"
       >
-        Accueil
-        <UIcon name="i-heroicons-chevron-right" class="mt-1 h-3 w-3" />
+        <UIcon name="i-heroicons-chevron-left" class="mr-2 h-3 w-3" />
+        Actualités
       </NuxtLink>
-      <span class="text-sm text-gray-500"> Actualités</span>
     </div>
 
     <!-- Loading state -->
@@ -100,6 +99,18 @@ useHead(() => {
         loading="lazy"
         fetchpriority="high"
       />
+
+      <!-- Lien PDF si disponible -->
+      <div v-if="article.document" class="my-4">
+        <a
+          :href="`${useRuntimeConfig().public.cmsApiUrl}/assets/${article.document?.file}/${article.slug}.pdf`"
+          target="_blank"
+          class="flex items-center gap-2 text-blue-700 underline"
+        >
+          <!-- <UIcon name="i-heroicons-document" /> -->
+          📥 Télécharger le PDF
+        </a>
+      </div>
 
       <!-- Tags -->
       <div v-if="article.tags?.length" class="mb-8 flex hidden flex-wrap gap-2">

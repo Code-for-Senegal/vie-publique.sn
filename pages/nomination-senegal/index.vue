@@ -38,7 +38,7 @@ onMounted(() => {
 
 /* Filters */
 const searchQuery = ref("");
-const selectedType = ref("Ministre");
+const selectedType = ref("");
 const selectedGender = ref("");
 const selectedDate = ref("");
 

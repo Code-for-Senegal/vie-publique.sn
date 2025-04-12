@@ -84,6 +84,9 @@ export default defineNuxtPlugin(() => {
         if (text === "government_bill") {
           return "Projet de loi";
         }
+        if (text === "ratification") {
+          return "Ratification";
+        }
         if (text === "election") {
           return "Élection";
         }

@@ -1,0 +1,1866 @@
+[
+  {
+    "id": 1,
+    "name": "Pastef nationale titulaire",
+    "type": "national",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "id": 2,
+    "name": "Pastef nationale suppléant",
+    "type": "national",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": null
+  },
+  {
+    "id": 3,
+    "name": "Pastef DAKAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 1,
+      "name": "DAKAR"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Pastef DAKAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 1,
+      "name": "DAKAR"
+    }
+  },
+  {
+    "id": 11,
+    "name": "Pastef GUEDIAWAYE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 2,
+      "name": "GUEDIAWAYE"
+    }
+  },
+  {
+    "id": 12,
+    "name": "Pastef GUEDIAWAYE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 2,
+      "name": "GUEDIAWAYE"
+    }
+  },
+  {
+    "id": 13,
+    "name": "Pastef KEUR MASSAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 3,
+      "name": "KEUR MASSAR"
+    }
+  },
+  {
+    "id": 14,
+    "name": "Pastef KEUR MASSAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 3,
+      "name": "KEUR MASSAR"
+    }
+  },
+  {
+    "id": 15,
+    "name": "Pastef PIKINE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 4,
+      "name": "PIKINE"
+    }
+  },
+  {
+    "id": 16,
+    "name": "Pastef PIKINE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 4,
+      "name": "PIKINE"
+    }
+  },
+  {
+    "id": 17,
+    "name": "Pastef RUFISQUE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 5,
+      "name": "RUFISQUE"
+    }
+  },
+  {
+    "id": 18,
+    "name": "Pastef RUFISQUE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 5,
+      "name": "RUFISQUE"
+    }
+  },
+  {
+    "id": 19,
+    "name": "Pastef BAMBEY titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 6,
+      "name": "BAMBEY"
+    }
+  },
+  {
+    "id": 20,
+    "name": "Pastef BAMBEY suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 6,
+      "name": "BAMBEY"
+    }
+  },
+  {
+    "id": 21,
+    "name": "Pastef DIOURBEL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 7,
+      "name": "DIOURBEL"
+    }
+  },
+  {
+    "id": 22,
+    "name": "Pastef DIOURBEL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 7,
+      "name": "DIOURBEL"
+    }
+  },
+  {
+    "id": 23,
+    "name": "Pastef MBACKE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 8,
+      "name": "MBACKE"
+    }
+  },
+  {
+    "id": 24,
+    "name": "Pastef MBACKE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 8,
+      "name": "MBACKE"
+    }
+  },
+  {
+    "id": 25,
+    "name": "Pastef FATICK titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 9,
+      "name": "FATICK"
+    }
+  },
+  {
+    "id": 26,
+    "name": "Pastef FATICK suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 9,
+      "name": "FATICK"
+    }
+  },
+  {
+    "id": 27,
+    "name": "Pastef FOUNDIOUGNE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 10,
+      "name": "FOUNDIOUGNE"
+    }
+  },
+  {
+    "id": 28,
+    "name": "Pastef FOUNDIOUGNE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 10,
+      "name": "FOUNDIOUGNE"
+    }
+  },
+  {
+    "id": 29,
+    "name": "Pastef GOSSAS titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 11,
+      "name": "GOSSAS"
+    }
+  },
+  {
+    "id": 30,
+    "name": "Pastef GOSSAS suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 11,
+      "name": "GOSSAS"
+    }
+  },
+  {
+    "id": 31,
+    "name": "Pastef BIRKILANE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 12,
+      "name": "BIRKILANE"
+    }
+  },
+  {
+    "id": 32,
+    "name": "Pastef BIRKILANE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 12,
+      "name": "BIRKILANE"
+    }
+  },
+  {
+    "id": 33,
+    "name": "Pastef KAFFRINE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 13,
+      "name": "KAFFRINE"
+    }
+  },
+  {
+    "id": 34,
+    "name": "Pastef KAFFRINE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 13,
+      "name": "KAFFRINE"
+    }
+  },
+  {
+    "id": 35,
+    "name": "Pastef KOUNGHEUL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 14,
+      "name": "KOUNGHEUL"
+    }
+  },
+  {
+    "id": 36,
+    "name": "Pastef KOUNGHEUL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 14,
+      "name": "KOUNGHEUL"
+    }
+  },
+  {
+    "id": 37,
+    "name": "Pastef MALEM HODAR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 15,
+      "name": "MALEM HODAR"
+    }
+  },
+  {
+    "id": 38,
+    "name": "Pastef MALEM HODAR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 15,
+      "name": "MALEM HODAR"
+    }
+  },
+  {
+    "id": 39,
+    "name": "Pastef GUINGUINEO titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 16,
+      "name": "GUINGUINEO"
+    }
+  },
+  {
+    "id": 40,
+    "name": "Pastef GUINGUINEO suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 16,
+      "name": "GUINGUINEO"
+    }
+  },
+  {
+    "id": 41,
+    "name": "Pastef KAOLACK titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 17,
+      "name": "KAOLACK"
+    }
+  },
+  {
+    "id": 42,
+    "name": "Pastef KAOLACK suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 17,
+      "name": "KAOLACK"
+    }
+  },
+  {
+    "id": 43,
+    "name": "Pastef NIORO DU RIP titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 18,
+      "name": "NIORO DU RIP"
+    }
+  },
+  {
+    "id": 44,
+    "name": "Pastef NIORO DU RIP suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 18,
+      "name": "NIORO DU RIP"
+    }
+  },
+  {
+    "id": 45,
+    "name": "Pastef KEDOUGOU titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 19,
+      "name": "KEDOUGOU"
+    }
+  },
+  {
+    "id": 46,
+    "name": "Pastef KEDOUGOU suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 19,
+      "name": "KEDOUGOU"
+    }
+  },
+  {
+    "id": 47,
+    "name": "Pastef SALEMATA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 20,
+      "name": "SALEMATA"
+    }
+  },
+  {
+    "id": 48,
+    "name": "Pastef SALEMATA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 20,
+      "name": "SALEMATA"
+    }
+  },
+  {
+    "id": 49,
+    "name": "Pastef SARAYA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 21,
+      "name": "SARAYA"
+    }
+  },
+  {
+    "id": 50,
+    "name": "Pastef SARAYA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 21,
+      "name": "SARAYA"
+    }
+  },
+  {
+    "id": 51,
+    "name": "Pastef KOLDA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 22,
+      "name": "KOLDA"
+    }
+  },
+  {
+    "id": 52,
+    "name": "Pastef KOLDA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 22,
+      "name": "KOLDA"
+    }
+  },
+  {
+    "id": 53,
+    "name": "Pastef MEDINA YORO FOULAH titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 23,
+      "name": "MEDINA YORO FOULAH"
+    }
+  },
+  {
+    "id": 54,
+    "name": "Pastef MEDINA YORO FOULAH suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 23,
+      "name": "MEDINA YORO FOULAH"
+    }
+  },
+  {
+    "id": 55,
+    "name": "Pastef VELINGARA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 24,
+      "name": "VELINGARA"
+    }
+  },
+  {
+    "id": 56,
+    "name": "Pastef VELINGARA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 24,
+      "name": "VELINGARA"
+    }
+  },
+  {
+    "id": 57,
+    "name": "Pastef KEBEMER titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 25,
+      "name": "KEBEMER"
+    }
+  },
+  {
+    "id": 58,
+    "name": "Pastef KEBEMER suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 25,
+      "name": "KEBEMER"
+    }
+  },
+  {
+    "id": 59,
+    "name": "Pastef LINGUERE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 26,
+      "name": "LINGUERE"
+    }
+  },
+  {
+    "id": 60,
+    "name": "Pastef LINGUERE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 26,
+      "name": "LINGUERE"
+    }
+  },
+  {
+    "id": 61,
+    "name": "Pastef LOUGA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 27,
+      "name": "LOUGA"
+    }
+  },
+  {
+    "id": 62,
+    "name": "Pastef LOUGA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 27,
+      "name": "LOUGA"
+    }
+  },
+  {
+    "id": 63,
+    "name": "Pastef KANEL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 28,
+      "name": "KANEL"
+    }
+  },
+  {
+    "id": 64,
+    "name": "Pastef KANEL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 28,
+      "name": "KANEL"
+    }
+  },
+  {
+    "id": 65,
+    "name": "Pastef MATAM titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 29,
+      "name": "MATAM"
+    }
+  },
+  {
+    "id": 66,
+    "name": "Pastef MATAM suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 29,
+      "name": "MATAM"
+    }
+  },
+  {
+    "id": 67,
+    "name": "Pastef RANEROU FERLO titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 30,
+      "name": "RANEROU FERLO"
+    }
+  },
+  {
+    "id": 68,
+    "name": "Pastef RANEROU FERLO suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 30,
+      "name": "RANEROU FERLO"
+    }
+  },
+  {
+    "id": 69,
+    "name": "Pastef DAGANA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 31,
+      "name": "DAGANA"
+    }
+  },
+  {
+    "id": 70,
+    "name": "Pastef DAGANA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 31,
+      "name": "DAGANA"
+    }
+  },
+  {
+    "id": 71,
+    "name": "Pastef PODOR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 32,
+      "name": "PODOR"
+    }
+  },
+  {
+    "id": 72,
+    "name": "Pastef PODOR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 32,
+      "name": "PODOR"
+    }
+  },
+  {
+    "id": 73,
+    "name": "Pastef SAINT LOUIS titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 33,
+      "name": "SAINT LOUIS"
+    }
+  },
+  {
+    "id": 74,
+    "name": "Pastef SAINT LOUIS suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 33,
+      "name": "SAINT LOUIS"
+    }
+  },
+  {
+    "id": 75,
+    "name": "Pastef BOUNKILING titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 34,
+      "name": "BOUNKILING"
+    }
+  },
+  {
+    "id": 76,
+    "name": "Pastef BOUNKILING suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 34,
+      "name": "BOUNKILING"
+    }
+  },
+  {
+    "id": 77,
+    "name": "Pastef GOUDOMP titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 35,
+      "name": "GOUDOMP"
+    }
+  },
+  {
+    "id": 78,
+    "name": "Pastef GOUDOMP suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 35,
+      "name": "GOUDOMP"
+    }
+  },
+  {
+    "id": 79,
+    "name": "Pastef SEDHIOU titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 36,
+      "name": "SEDHIOU"
+    }
+  },
+  {
+    "id": 80,
+    "name": "Pastef SEDHIOU suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 36,
+      "name": "SEDHIOU"
+    }
+  },
+  {
+    "id": 81,
+    "name": "Pastef BAKEL titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 37,
+      "name": "BAKEL"
+    }
+  },
+  {
+    "id": 82,
+    "name": "Pastef BAKEL suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 37,
+      "name": "BAKEL"
+    }
+  },
+  {
+    "id": 83,
+    "name": "Pastef GOUDIRY titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 38,
+      "name": "GOUDIRY"
+    }
+  },
+  {
+    "id": 84,
+    "name": "Pastef GOUDIRY suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 38,
+      "name": "GOUDIRY"
+    }
+  },
+  {
+    "id": 85,
+    "name": "Pastef KOUMPENTOUM titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 39,
+      "name": "KOUMPENTOUM"
+    }
+  },
+  {
+    "id": 86,
+    "name": "Pastef KOUMPENTOUM suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 39,
+      "name": "KOUMPENTOUM"
+    }
+  },
+  {
+    "id": 87,
+    "name": "Pastef TAMBACOUNDA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 40,
+      "name": "TAMBACOUNDA"
+    }
+  },
+  {
+    "id": 88,
+    "name": "Pastef TAMBACOUNDA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 40,
+      "name": "TAMBACOUNDA"
+    }
+  },
+  {
+    "id": 89,
+    "name": "Pastef MBOUR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 41,
+      "name": "MBOUR"
+    }
+  },
+  {
+    "id": 90,
+    "name": "Pastef MBOUR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 41,
+      "name": "MBOUR"
+    }
+  },
+  {
+    "id": 91,
+    "name": "Pastef THIES titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 42,
+      "name": "THIES"
+    }
+  },
+  {
+    "id": 92,
+    "name": "Pastef THIES suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 42,
+      "name": "THIES"
+    }
+  },
+  {
+    "id": 93,
+    "name": "Pastef TIVAOUANE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 43,
+      "name": "TIVAOUANE"
+    }
+  },
+  {
+    "id": 94,
+    "name": "Pastef TIVAOUANE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 43,
+      "name": "TIVAOUANE"
+    }
+  },
+  {
+    "id": 95,
+    "name": "Pastef BIGNONA titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 44,
+      "name": "BIGNONA"
+    }
+  },
+  {
+    "id": 96,
+    "name": "Pastef BIGNONA suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 44,
+      "name": "BIGNONA"
+    }
+  },
+  {
+    "id": 97,
+    "name": "Pastef OUSSOUYE titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 45,
+      "name": "OUSSOUYE"
+    }
+  },
+  {
+    "id": 98,
+    "name": "Pastef OUSSOUYE suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 45,
+      "name": "OUSSOUYE"
+    }
+  },
+  {
+    "id": 99,
+    "name": "Pastef ZIGUINCHOR titulaire",
+    "type": "departmental",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 46,
+      "name": "ZIGUINCHOR"
+    }
+  },
+  {
+    "id": 100,
+    "name": "Pastef ZIGUINCHOR suppléant",
+    "type": "departmental",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 46,
+      "name": "ZIGUINCHOR"
+    }
+  },
+  {
+    "id": 101,
+    "name": "Pastef AFRIQUE AUSTRALE titulaire",
+    "type": "diaspora",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 47,
+      "name": "AFRIQUE AUSTRALE"
+    }
+  },
+  {
+    "id": 102,
+    "name": "Pastef AFRIQUE AUSTRALE suppléant",
+    "type": "diaspora",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 47,
+      "name": "AFRIQUE AUSTRALE"
+    }
+  },
+  {
+    "id": 103,
+    "name": "Pastef AFRIQUE CENTRE titulaire",
+    "type": "diaspora",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 48,
+      "name": "AFRIQUE CENTRE"
+    }
+  },
+  {
+    "id": 104,
+    "name": "Pastef AFRIQUE CENTRE suppléant",
+    "type": "diaspora",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 48,
+      "name": "AFRIQUE CENTRE"
+    }
+  },
+  {
+    "id": 105,
+    "name": "Pastef AFRIQUE NORD titulaire",
+    "type": "diaspora",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 49,
+      "name": "AFRIQUE NORD"
+    }
+  },
+  {
+    "id": 106,
+    "name": "Pastef AFRIQUE NORD suppléant",
+    "type": "diaspora",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 49,
+      "name": "AFRIQUE NORD"
+    }
+  },
+  {
+    "id": 107,
+    "name": "Pastef AFRIQUE OUEST titulaire",
+    "type": "diaspora",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 50,
+      "name": "AFRIQUE OUEST"
+    }
+  },
+  {
+    "id": 108,
+    "name": "Pastef AFRIQUE OUEST suppléant",
+    "type": "diaspora",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 50,
+      "name": "AFRIQUE OUEST"
+    }
+  },
+  {
+    "id": 109,
+    "name": "Pastef AMERIQUE OCEANIE titulaire",
+    "type": "diaspora",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 51,
+      "name": "AMERIQUE OCEANIE"
+    }
+  },
+  {
+    "id": 110,
+    "name": "Pastef AMERIQUE OCEANIE suppléant",
+    "type": "diaspora",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 51,
+      "name": "AMERIQUE OCEANIE"
+    }
+  },
+  {
+    "id": 111,
+    "name": "Pastef ASIE MOYEN ORIENT titulaire",
+    "type": "diaspora",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 52,
+      "name": "ASIE MOYEN ORIENT"
+    }
+  },
+  {
+    "id": 112,
+    "name": "Pastef ASIE MOYEN ORIENT suppléant",
+    "type": "diaspora",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 52,
+      "name": "ASIE MOYEN ORIENT"
+    }
+  },
+  {
+    "id": 113,
+    "name": "Pastef EUROPE DU SUD titulaire",
+    "type": "diaspora",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 53,
+      "name": "EUROPE DU SUD"
+    }
+  },
+  {
+    "id": 114,
+    "name": "Pastef EUROPE DU SUD suppléant",
+    "type": "diaspora",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 53,
+      "name": "EUROPE DU SUD"
+    }
+  },
+  {
+    "id": 115,
+    "name": "Pastef EUROPE OUEST CENTRE NORD titulaire",
+    "type": "diaspora",
+    "is_substitute": false,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 54,
+      "name": "EUROPE OUEST CENTRE NORD "
+    }
+  },
+  {
+    "id": 116,
+    "name": "Pastef EUROPE OUEST CENTRE NORD suppléant",
+    "type": "diaspora",
+    "is_substitute": true,
+    "status": "draft",
+    "coalition": {
+      "id": 31
+    },
+    "election": {
+      "id": 1
+    },
+    "constituency": {
+      "id": 54,
+      "name": "EUROPE OUEST CENTRE NORD "
+    }
+  }
+]
