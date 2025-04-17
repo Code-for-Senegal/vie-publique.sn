@@ -12,7 +12,7 @@ useHead({
     // Twitter Card Meta Tags
     {
       name: "twitter:title",
-      content: "Quiz sur le gouvernement du Sénégal | Vie-Publique.sn",
+      content: "Quiz sur le gouvernement du Sénégal",
     },
     {
       name: "twitter:description",
@@ -23,7 +23,7 @@ useHead({
     // Open Graph Meta Tags
     {
       property: "og:title",
-      content: "Jeux Quiz sur le Sénégal | vie-publique.sn",
+      content: "Jeux Quiz sur le Sénégal",
     },
     {
       property: "og:description",

@@ -145,7 +145,6 @@ const navigationCards: NavigationCard[] = [
     title: "Documents",
     description: "Journal officiel, Codes, Rapports",
     icon: "i-heroicons-document-text",
-    // icon: "i-heroicons-rectangle-stack",
     to: "/documents",
   },
   {
@@ -178,12 +177,23 @@ const navigationCards: NavigationCard[] = [
     icon: "i-heroicons-book-open",
     to: "/annuaires",
   },
-
+  {
+    title: "Nominations",
+    description: "Nominations, Ministres, DG...",
+    icon: "i-heroicons-user-group",
+    to: "/nomination-senegal",
+  },
   {
     title: "Élections",
     description: "Informations sur les élections",
     icon: "i-heroicons-clipboard-document-check",
     to: "/elections",
+  },
+  {
+    title: "Chatbot",
+    description: "Posez vos questions sur les documents",
+    icon: "i-heroicons-chat-bubble-left-ellipsis",
+    to: "/chatbot",
   },
 ];
 
@@ -205,6 +215,9 @@ const cardConfigs: CardConfigs = {
   },
   "Conseil des ministres": {
     color: "text-violet-600",
+  },
+  Chatbot: {
+    color: "text-cyan-600",
   },
 } as const;
 </script>
