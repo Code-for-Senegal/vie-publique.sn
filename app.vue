@@ -207,6 +207,7 @@ onMounted(() => {
 
     <!-- affichage des deux composants à rendre dynamique -->
     <AppBottomNav />
+    <ThemeToggle />
   </UContainer>
 </template>
 
