@@ -1,13 +1,12 @@
 <script setup lang="ts">
 /* SEO */
 useHead({
-  title:
-    "l'information publique au Sénégal, Actualité au Sénégal | Vie-Publique.sn",
+  title: "l'information publique au Sénégal | Vie-Publique.sn",
   meta: [
     {
       name: "description",
       content:
-        "Information sur la République du Sénégal: Gouvernement de Diomaye et Sonko, journal officiel, rapports d'audit OFNAC Cours des Comptes CENTIG IGE",
+        "Information sur la République du Sénégal: Président Bassirou Diomaye FAYE, Gouvernement Ousmane SONKO, journal officiel, rapports d'audit OFNAC Cours des Comptes CENTIG IGE",
     },
   ],
 });

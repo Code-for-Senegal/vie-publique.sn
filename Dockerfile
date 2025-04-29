@@ -1,21 +1,33 @@
-# Utilise une image Node.js légère
-FROM node:18-alpine
+# Étape 1 : Build de l'application
+FROM node:20 AS builder
 
-# Définit le répertoire de travail dans le conteneur
+# Définir le dossier de travail
 WORKDIR /app
 
-# Copie les fichiers du projet et installe les dépendances
-COPY package.json package-lock.json ./
-RUN npm install --production
+# Copier les fichiers nécessaires
+COPY package*.json ./
+COPY .npmrc .npmrc
+RUN npm install
 
-# Copie le reste des fichiers
+# Copier tout le projet
 COPY . .
 
-# Build du projet NuxtJS
+# Build Nuxt
 RUN npm run build
 
-# Expose le port
+# Étape 2 : Démarrage de l'application
+FROM node:20
+
+# Définir le dossier de travail
+WORKDIR /app
+
+# Copier uniquement ce qu'il faut
+COPY --from=builder /app/.output ./.output
+COPY package*.json ./
+RUN npm install --production
+
+# Exposer le port
 EXPOSE 3000
 
-# Commande pour démarrer l'application
+# Commande de démarrage
 CMD ["node", ".output/server/index.mjs"]

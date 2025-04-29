@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-  title: "Rapports public Sénégal OFNAC Cours des compte... | Vie-Publique.sn",
+  title: "Rapports public Sénégal OFNAC Cours des compte IGE CENTIF",
   meta: [
     {
       name: "description",

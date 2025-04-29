@@ -62,8 +62,7 @@ const seoKeywords =
 const seoImgPath = "https://vie-publique.sn/seo-img-assemblee.png";
 const seoPageUrl = "https://vie-publique.sn/assemblee-nationale";
 useHead({
-  title:
-    "Assemblée nationale du Sénégal - Activité parlementaire | Vie-Publique.sn",
+  title: seoTitle,
   meta: [
     {
       name: "description",
