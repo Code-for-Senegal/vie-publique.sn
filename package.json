@@ -14,11 +14,13 @@
     "format": "prettier . --write"
   },
   "dependencies": {
+    "@ai-sdk/vue": "^1.2.9",
     "@nuxt/content": "^2.13.2",
     "@nuxt/eslint": "^0.5.4",
     "@nuxt/image": "^1.7.0",
     "@nuxt/ui": "2.18.3",
     "@nuxtjs/leaflet": "^1.2.4",
+    "@nuxtjs/mdc": "^0.17.0",
     "@nuxtjs/seo": "^2.0.2",
     "@nuxtjs/web-vitals": "^0.2.7",
     "@pinia/nuxt": "^0.5.4",
@@ -32,6 +34,7 @@
     "nuxt": "3.14.1592",
     "papaparse": "^5.4.1",
     "pinia": "^2.2.2",
+    "reka-ui": "^2.2.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
     "vue-sonner": "^1.3.0"

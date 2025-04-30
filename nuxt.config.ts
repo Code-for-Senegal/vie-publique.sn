@@ -15,6 +15,7 @@ export default defineNuxtConfig({
     "@nuxtjs/leaflet",
     "@vite-pwa/nuxt",
     "@vueuse/nuxt",
+    "@nuxtjs/mdc",
   ],
   devtools: { enabled: true },
   nitro: {
@@ -25,6 +26,8 @@ export default defineNuxtConfig({
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL,
       showPinnedPeoples: process.env.PUBLIC_SHOW_PINNED_PEOLPLES,
       showBarometer: process.env.PUBLIC_SHOW_BAROMETER,
+      chatbotApiKey: process.env.CHATBOT_API_KEY,
+      chatbotApiUrl: process.env.CHATBOT_API_URL,
       showScandals: process.env.PUBLIC_SHOW_SCANDALS,
       brevoApiKey: process.env.BREVO_API_KEY,
       brevoListId: process.env.BREVO_LIST_ID,
@@ -345,4 +348,32 @@ export default defineNuxtConfig({
     },
   },
   compatibilityDate: "2024-09-08",
+  // Used by the AI Chat to highlight code
+  mdc: {
+    headings: {
+      anchorLinks: false,
+    },
+    highlight: {
+      langs: [
+        "ts",
+        "js",
+        "html",
+        "css",
+        "json",
+        "md",
+        "yaml",
+        "bash",
+        "css",
+        "py",
+        "tsx",
+        "jsx",
+        "go",
+        "rust",
+        "java",
+        "kotlin",
+        "swift",
+        "csharp",
+      ],
+    },
+  },
 });
