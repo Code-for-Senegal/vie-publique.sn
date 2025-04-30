@@ -185,7 +185,7 @@
 
     <!-- Zone de saisie -->
     <div
-      class="border-t bg-white p-4 shadow-md dark:border-gray-700 dark:bg-gray-800"
+      class="mb-4 border-t bg-white p-4 shadow-md dark:border-gray-700 dark:bg-gray-800"
     >
       <div class="mx-auto max-w-3xl">
         <form
