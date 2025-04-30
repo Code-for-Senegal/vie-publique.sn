@@ -72,11 +72,7 @@
                 >
                   <UTooltip text="Copier le message" :delay-duration="0">
                     <UButton
-                      :icon="
-                        copied === message.text
-                          ? 'i-lucide-check'
-                          : 'i-lucide-copy'
-                      "
+                      :icon="copied ? 'i-lucide-check' : 'i-lucide-copy'"
                       variant="ghost"
                       size="xs"
                       color="gray"
@@ -121,7 +117,7 @@
                   <!-- Suggestions -->
                   <div
                     v-if="message.suggestions?.length"
-                    class="flex flex-wrap gap-2 pt-1"
+                    class="flex max-w-full flex-wrap gap-2 pt-1"
                   >
                     <UButton
                       v-for="suggestion in message.suggestions"
@@ -129,7 +125,7 @@
                       color="gray"
                       variant="soft"
                       size="xs"
-                      class="text-left"
+                      class="max-w-full whitespace-normal break-words text-left sm:max-w-[300px]"
                       @click="askQuestion(suggestion)"
                     >
                       {{ suggestion }}
@@ -141,11 +137,7 @@
                     class="opacity-0 transition-opacity duration-200 group-hover:opacity-100"
                   >
                     <UButton
-                      :icon="
-                        copied === message.text
-                          ? 'i-lucide-check'
-                          : 'i-lucide-copy'
-                      "
+                      :icon="copied ? 'i-lucide-check' : 'i-lucide-copy'"
                       variant="ghost"
                       size="xs"
                       color="gray"
