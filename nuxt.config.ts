@@ -1,5 +1,70 @@
 import tailwindTypography from "@tailwindcss/typography";
 
+const securityConfig =
+  process.env.NODE_ENV === "production"
+    ? {
+        // Configuration stricte pour la production
+        headers: {
+          crossOriginEmbedderPolicy: false,
+          crossOriginOpenerPolicy: "same-origin",
+          crossOriginResourcePolicy: "same-origin",
+          xFrameOptions: "DENY",
+          xContentTypeOptions: "nosniff",
+          referrerPolicy: "strict-origin-when-cross-origin",
+          contentSecurityPolicy: {
+            "default-src": ["'self'"],
+            "connect-src": [
+              "'self'",
+              "https://cms.vie-publique.sn",
+              "https://www.google-analytics.com",
+              "https://region1.google-analytics.com",
+            ],
+            "script-src": [
+              "'self'",
+              "'unsafe-inline'",
+              "'unsafe-eval'",
+              "https://www.googletagmanager.com",
+              "https://www.google-analytics.com",
+              "https://platform.twitter.com",
+              "https://cdn.syndication.twimg.com",
+              "https://connect.facebook.net",
+              "https://instant.page",
+            ],
+            "style-src": [
+              "'self'",
+              "'unsafe-inline'",
+              "https://fonts.googleapis.com",
+            ],
+            "font-src": ["'self'", "https://fonts.gstatic.com"],
+            "img-src": ["'self'", "data:", "https://cms.vie-publique.sn"],
+            "frame-src": [
+              "https://www.youtube.com",
+              "https://platform.twitter.com",
+              "https://syndication.twitter.com",
+              "https://cms.vie-publique.sn",
+            ],
+            "base-uri": ["'self'"],
+            "form-action": ["'self'"],
+            "frame-ancestors": ["'none'"],
+            "object-src": ["'none'"],
+            "worker-src": ["'self'", "blob:"],
+          },
+          strictTransportSecurity: {
+            maxAge: 31536000,
+            includeSubdomains: true,
+          },
+        },
+        rateLimiter: {
+          tokensPerInterval: 60,
+          interval: "minute",
+        },
+      }
+    : {
+        // Configuration permissive pour le développement
+        headers: false, // Désactive complètement les en-têtes de sécurité en développement
+        rateLimiter: false, // Désactive le rate limiter en développement
+      };
+
 export default defineNuxtConfig({
   ssr: true,
   modules: [
@@ -16,6 +81,7 @@ export default defineNuxtConfig({
     "@vite-pwa/nuxt",
     "@vueuse/nuxt",
     "@nuxtjs/mdc",
+    "nuxt-security",
   ],
   devtools: { enabled: true },
   nitro: {
@@ -176,6 +242,7 @@ export default defineNuxtConfig({
       ],
     },
   },
+  security: securityConfig as any,
   site: {
     defaultLocale: "fr",
     url: process.env.NUXT_PUBLIC_SITE_URL || "https://www.vie-publique.sn",
