@@ -26,8 +26,6 @@ export default defineNuxtConfig({
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL,
       showPinnedPeoples: process.env.PUBLIC_SHOW_PINNED_PEOLPLES,
       showBarometer: process.env.PUBLIC_SHOW_BAROMETER,
-      chatbotApiKey: process.env.CHATBOT_API_KEY,
-      chatbotApiUrl: process.env.CHATBOT_API_URL,
       showScandals: process.env.PUBLIC_SHOW_SCANDALS,
       brevoApiKey: process.env.BREVO_API_KEY,
       brevoListId: process.env.BREVO_LIST_ID,

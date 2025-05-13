@@ -192,6 +192,7 @@
           class="relative flex w-full flex-col gap-4"
           @submit.prevent="sendMessage"
         >
+          <CsrfToken />
           <UTextarea
             ref="textareaRef"
             v-model="userInput"
@@ -308,29 +309,25 @@ const sendMessage = async () => {
       requestBody.documentIds = [];
     }
 
-    const response = await fetch(`${config.public.chatbotApiUrl}/chat`, {
+    const { data, error } = await useFetch(`/api/chat`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": config.public.chatbotApiKey as string,
-      },
-      body: JSON.stringify(requestBody),
+      body: requestBody,
     });
 
-    if (!response.ok) {
+    if (error.value) {
       throw new Error("Erreur lors de la communication avec le chatbot");
     }
 
-    const data = await response.json();
+    const dataTest: any = await data.value;
 
-    if (data.chatSessionId) {
-      chatSessionId.value = data.chatSessionId;
+    if (dataTest.chatSessionId) {
+      chatSessionId.value = dataTest.chatSessionId;
     }
 
     messages.value.push({
-      text: data.answer || "Désolé, je n'ai pas pu traiter votre demande.",
+      text: dataTest.answer || "Désolé, je n'ai pas pu traiter votre demande.",
       isBot: true,
-      suggestions: data.suggestingQuestions,
+      suggestions: dataTest.suggestingQuestions,
     });
   } catch (error) {
     messages.value.push({
