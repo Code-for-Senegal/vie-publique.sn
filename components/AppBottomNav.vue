@@ -13,7 +13,7 @@
           variant="ghost"
           class="flex flex-col items-center justify-center"
           :class="{
-            'bg-green-100 text-gray-900': isActiveTab(tab),
+            'bg-green-100 text-gray-900 dark:bg-slate-900': isActiveTab(tab),
             'text-gray-500': !isActiveTab(tab),
           }"
           :to="tab.to"

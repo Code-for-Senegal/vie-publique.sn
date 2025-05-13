@@ -66,7 +66,9 @@ const cardConfigs: CardConfigs = {
   <div class="my-4">
     <!-- Titre de la section -->
     <div class="prose prose-sm sm:prose mx-auto my-4">
-      <h2 class="text-center text-gray-800">Explorez nos données</h2>
+      <h2 class="text-center text-gray-800 dark:text-white">
+        Explorez nos données
+      </h2>
     </div>
 
     <!-- Grille des cartes -->
@@ -80,22 +82,28 @@ const cardConfigs: CardConfigs = {
         class="group block"
       >
         <div
-          class="custom-shadow relative flex flex-col items-center gap-2 overflow-hidden rounded-xl border p-3 text-center transition-all duration-300 sm:h-[88px] sm:flex-row sm:items-start sm:gap-4 sm:rounded-2xl sm:p-5 sm:text-left"
+          class="custom-shadow dark:bg-gray-800 relative flex flex-col items-center gap-2 overflow-hidden rounded-xl border p-3 text-center transition-all duration-300 sm:h-[88px] sm:flex-row sm:items-start sm:gap-4 sm:rounded-2xl sm:p-5 sm:text-left"
           :class="[
-            cardConfigs[card.title]?.bgColor || 'bg-gray-50',
-            cardConfigs[card.title]?.borderColor || 'border-gray-200',
+            cardConfigs[card.title]?.bgColor || 'bg-white dark:bg-gray-800',
+            cardConfigs[card.title]?.borderColor ||
+              'border-gray-200 dark:border-gray-700',
             'hover:shadow-current/5 hover:shadow-lg',
           ]"
         >
           <!-- Icône avec fond -->
           <div
             class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg transition-transform duration-300 group-hover:scale-110 sm:h-12 sm:w-12"
-            :class="[cardConfigs[card.title]?.iconBg || 'bg-gray-100']"
+            :class="[
+              cardConfigs[card.title]?.iconBg || 'bg-gray-100 dark:bg-gray-700',
+            ]"
           >
             <UIcon
               :name="card.icon"
               class="h-5 w-5 sm:h-6 sm:w-6"
-              :class="[cardConfigs[card.title]?.color || 'text-gray-700']"
+              :class="[
+                cardConfigs[card.title]?.color ||
+                  'text-gray-700 dark:text-gray-200',
+              ]"
             />
           </div>
 
@@ -103,12 +111,15 @@ const cardConfigs: CardConfigs = {
           <div class="min-w-0 flex-1">
             <h3
               class="truncate text-sm font-semibold sm:mb-1 sm:text-base"
-              :class="[cardConfigs[card.title]?.color || 'text-gray-900']"
+              :class="[
+                cardConfigs[card.title]?.color ||
+                  'text-gray-900 dark:text-white',
+              ]"
             >
               {{ card.title }}
             </h3>
             <p
-              class="line-clamp-1 hidden truncate text-sm text-gray-600 sm:block"
+              class="line-clamp-1 hidden truncate text-sm text-gray-600 sm:block dark:text-gray-400"
             >
               {{ card.description }}
             </p>
@@ -119,7 +130,7 @@ const cardConfigs: CardConfigs = {
             class="absolute inset-x-0 bottom-0 h-0.5 scale-x-0 transform transition-transform duration-300 group-hover:scale-x-100"
             :class="[
               cardConfigs[card.title]?.color?.replace('text-', 'bg-') ||
-                'bg-gray-700',
+                'bg-gray-700 dark:bg-gray-200',
             ]"
           ></div>
         </div>
@@ -127,3 +138,4 @@ const cardConfigs: CardConfigs = {
     </div>
   </div>
 </template>
+<style scoped></style>

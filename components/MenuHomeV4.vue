@@ -45,7 +45,7 @@ const cardConfigs: CardConfigs = {
   <div class="my-4">
     <!-- Titre de la section -->
     <div class="prose prose-sm sm:prose mx-auto my-4">
-      <h2 class="text-center text-gray-800">Explorez nos données</h2>
+      <h2 class="text-center text-gray-800 dark:text-white">Explorez nos données</h2>
     </div>
 
     <!-- Grille des cartes -->

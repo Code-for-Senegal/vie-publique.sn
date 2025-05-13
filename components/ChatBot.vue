@@ -125,7 +125,7 @@
                       color="gray"
                       variant="soft"
                       size="xs"
-                      class="max-w-full whitespace-normal break-words text-left sm:max-w-[300px]"
+                      class="max-w-full whitespace-normal break-words text-left sm:max-w-[300px] dark:bg-slate-600"
                       @click="askQuestion(suggestion)"
                     >
                       {{ suggestion }}

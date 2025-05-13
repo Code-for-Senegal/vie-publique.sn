@@ -9,7 +9,15 @@
       >
         Vie-Publique.sn
       </h1> -->
-
+      <UButton
+        v-if="isChatPage"
+        class="text-white md:hidden"
+        color="white"
+        variant="link"
+        size="xl"
+        icon="i-heroicons-bars-3"
+        to="/menu"
+      />
       <img
         src="~/assets/logos/vie-publique-logo-4.svg"
         loading="lazy"
@@ -20,7 +28,15 @@
     </div>
   </NuxtLink>
 </template>
-
+<script setup lang="ts">
+const isChatPage = ref(useRoute().path === "/chatbot");
+watch(
+  () => useRoute().path,
+  (newPath) => {
+    isChatPage.value = newPath === "/chatbot";
+  },
+);
+</script>
 <style scoped>
 .flag-logo {
   height: auto;

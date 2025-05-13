@@ -5,6 +5,7 @@
       :aria-label="`Switch to ${isDark ? 'light' : 'dark'} mode`"
       color="neutral"
       variant="ghost"
+      class="dark:text-white-900 text-white"
       @click="isDark = !isDark"
     />
 

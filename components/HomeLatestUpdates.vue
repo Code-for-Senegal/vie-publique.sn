@@ -80,7 +80,7 @@ onMounted(() => {
                       class="h-5 w-5 text-blue-600"
                     />
                   </div>
-                  <span class="text-xs text-gray-500">
+                  <span class="text-xs text-gray-500 dark:text-white-900">
                     Ajouté le {{ formatDate(document.date_created) }}
                   </span>
                 </div>

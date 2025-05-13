@@ -51,7 +51,7 @@ onMounted(async () => {
 <template>
   <div class="my-4">
     <div class="prose prose-sm sm:prose mx-auto my-4">
-      <h2 class="text-center text-gray-800">À la une</h2>
+      <h2 class="text-center text-gray-800 dark:text-white">À la une</h2>
     </div>
 
     <div
@@ -101,7 +101,10 @@ onMounted(async () => {
               <p class="line-clamp-2 text-sm font-semibold sm:text-base">
                 {{ article.title }}
               </p>
-              <div v-if="article.date_published" class="text-sm text-gray-800">
+              <div
+                v-if="article.date_published"
+                class="text-sm text-gray-800 dark:text-slate-200"
+              >
                 {{ $dateformatWithDayName(article.date_published) }}
               </div>
             </div>

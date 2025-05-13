@@ -7,6 +7,13 @@ definePageMeta({
   middleware: ["maintenance"],
 });
 
+const isChatPage = ref(useRoute().path === "/chatbot");
+watch(
+  () => useRoute().path,
+  (newPath) => {
+    isChatPage.value = newPath === "/chatbot";
+  },
+);
 const links = [
   {
     label: "Accueil",
@@ -139,7 +146,6 @@ onMounted(() => {
 
     <!-- HeaderBrand à gauche -->
     <AppHeader />
-
     <!-- App alert online and offline -->
     <ClientOnly>
       <AppLineAlert />
@@ -148,14 +154,7 @@ onMounted(() => {
     <Toaster position="bottom-center" />
 
     <!-- Menu pour mobiles (toggle visibility with Tailwind CSS) -->
-    <UButton
-      class="text-white md:hidden"
-      color="white"
-      variant="link"
-      size="xl"
-      icon="i-heroicons-bars-3"
-      @click="isOpen = true"
-    />
+    <ThemeToggle />
   </div>
   <UHorizontalNavigation
     :links="links"
@@ -206,8 +205,7 @@ onMounted(() => {
     <AppFooter />
 
     <!-- affichage des deux composants à rendre dynamique -->
-    <AppBottomNav />
-    <ThemeToggle />
+    <AppBottomNav v-show="!isChatPage" />
   </UContainer>
 </template>
 

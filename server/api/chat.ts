@@ -5,6 +5,7 @@ export default defineEventHandler(async (event) => {
 
   const response = await $fetch(`${process.env.CHATBOT_API_URL}/chat`, {
     method: "POST",
+    timeout: 30000,
     headers: {
       "Content-Type": "application/json",
       "x-api-key": process.env.CHATBOT_API_KEY,
