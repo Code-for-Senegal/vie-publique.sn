@@ -48,6 +48,7 @@ const securityConfig =
             "frame-ancestors": ["'none'"],
             "object-src": ["'none'"],
             "worker-src": ["'self'", "blob:"],
+            "report-uri": ["/api/csp-report"],
           },
           strictTransportSecurity: {
             maxAge: 31536000,
