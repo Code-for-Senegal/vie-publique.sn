@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { lab } from 'd3';
+
 const currentYear = new Date().getFullYear();
 const appConfig = useAppConfig();
 const version = appConfig.version;
@@ -21,6 +23,10 @@ const linksSocial = [
   },
 ];
 const links = [
+  {
+    label: "TEST DASHBOARD",
+    to: "/dashboard/conseil-ministre",
+  },
   {
     label: "À Propos",
     to: "/a-propos/qui-sommes-nous",

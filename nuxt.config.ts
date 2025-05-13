@@ -85,9 +85,6 @@ export default defineNuxtConfig({
     "nuxt-security",
   ],
   devtools: { enabled: true },
-  nitro: {
-    plugins: ["~/server/plugins/redirects.ts"],
-  },
   runtimeConfig: {
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL,
