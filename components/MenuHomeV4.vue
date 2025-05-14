@@ -45,7 +45,9 @@ const cardConfigs: CardConfigs = {
   <div class="my-4">
     <!-- Titre de la section -->
     <div class="prose prose-sm sm:prose mx-auto my-4">
-      <h2 class="text-center text-gray-800 dark:text-white">Explorez nos données</h2>
+      <h2 class="text-center text-gray-800 dark:text-white">
+        Explorez nos données
+      </h2>
     </div>
 
     <!-- Grille des cartes -->
@@ -59,7 +61,7 @@ const cardConfigs: CardConfigs = {
         class="group block"
       >
         <div
-          class="custom-shadow flex items-center gap-2 rounded-xl bg-white p-3 shadow-md shadow-sm transition-all duration-200 hover:translate-y-[-2px] hover:shadow-xl sm:p-4"
+          class="custom-shadow flex items-center gap-2 rounded-xl bg-white p-3 shadow-md shadow-sm transition-all duration-200 hover:translate-y-[-2px] hover:bg-gray-700/80 hover:shadow-xl sm:p-4 dark:bg-gray-800/80 dark:ring-1 dark:ring-gray-700 dark:backdrop-blur-md"
         >
           <!-- Icône -->
           <div class="flex-shrink-0">
@@ -73,7 +75,7 @@ const cardConfigs: CardConfigs = {
           <!-- Titre -->
           <div class="min-w-0 flex-1">
             <h3
-              class="line-clamp-2 text-sm font-medium leading-tight text-gray-900 sm:line-clamp-1 sm:text-base"
+              class="line-clamp-2 text-sm font-medium leading-tight text-gray-900 sm:line-clamp-1 sm:text-base dark:text-white"
             >
               {{ card.title }}
             </h3>

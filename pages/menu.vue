@@ -14,7 +14,7 @@
         class="group block"
       >
         <div
-          class="custom-shadow flex items-center gap-2 rounded-xl bg-white p-3 shadow-md shadow-sm transition-all duration-200 hover:translate-y-[-2px] hover:shadow-xl sm:p-4"
+          class="custom-shadow flex items-center gap-2 rounded-xl bg-white p-3 shadow-md shadow-sm transition-all duration-200 hover:translate-y-[-2px] hover:bg-gray-700/80 hover:shadow-xl sm:p-4 dark:bg-gray-800/80 dark:ring-1 dark:ring-gray-700 dark:backdrop-blur-md"
         >
           <div class="flex-shrink-0">
             <UIcon
@@ -26,7 +26,7 @@
 
           <div class="min-w-0 flex-1">
             <h3
-              class="line-clamp-2 text-sm font-medium leading-tight text-gray-900 sm:line-clamp-1 sm:text-base"
+              class="line-clamp-2 text-sm font-medium leading-tight text-gray-900 sm:line-clamp-1 sm:text-base dark:text-white"
             >
               {{ card.title }}
             </h3>
@@ -200,6 +200,12 @@ const navigationCards: NavigationCard[] = [
     description: "Posez vos questions sur les documents",
     icon: "i-heroicons-chat-bubble-left-ellipsis",
     to: "/chat-bot",
+  },
+  {
+    title: "Dashbord Conseil des Ministres",
+    description: "TEST DASHBOARD",
+    icon: "i-heroicons-chart-bar",
+    to: "/dashboard/conseil-ministre",
   },
 ];
 

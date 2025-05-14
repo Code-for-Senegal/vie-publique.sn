@@ -15,7 +15,7 @@
         color="white"
         variant="link"
         size="xl"
-        icon="i-heroicons-bars-3"
+        icon="i-heroicons-chevron-left-20-solid"
         to="/menu"
       />
       <img
