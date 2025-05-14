@@ -68,7 +68,7 @@ onMounted(() => {
           <div
             v-for="document in store.getLatestDocuments"
             :key="document.id"
-            class="custom-shadow group relative overflow-hidden rounded-xl bg-white shadow-sm transition-all duration-200 hover:translate-y-[-2px] hover:shadow-md"
+            class="custom-shadow group relative overflow-hidden rounded-xl bg-white shadow-sm transition-all duration-200 hover:translate-y-[-2px] hover:bg-gray-700/80 hover:shadow-md dark:bg-gray-800/80 dark:ring-1 dark:ring-gray-700 dark:backdrop-blur-md"
           >
             <NuxtLink :to="document.url" class="block h-full p-4">
               <!-- En-tête avec icône et date -->
@@ -80,14 +80,16 @@ onMounted(() => {
                       class="h-5 w-5 text-blue-600"
                     />
                   </div>
-                  <span class="text-xs text-gray-500 dark:text-white-900">
+                  <span class="text-xs text-gray-500 dark:text-gray-300">
                     Ajouté le {{ formatDate(document.date_created) }}
                   </span>
                 </div>
               </div>
 
               <!-- Titre du document -->
-              <h3 class="mb-2 line-clamp-2 text-sm font-medium text-gray-900">
+              <h3
+                class="mb-2 line-clamp-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
                 {{ document.title }}
               </h3>
 

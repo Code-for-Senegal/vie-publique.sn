@@ -14,7 +14,7 @@
           class="group block"
         >
           <div
-            class="flex flex-col items-center rounded-xl bg-white p-6 text-center shadow-sm transition-all duration-200 hover:translate-y-[-2px] hover:shadow-md"
+            class="flex flex-col items-center rounded-xl bg-white p-6 text-center shadow-sm transition-all duration-200 hover:translate-y-[-2px] hover:bg-gray-700/80 hover:shadow-md dark:bg-gray-800/80 dark:ring-1 dark:ring-gray-700 dark:backdrop-blur-md"
           >
             <div class="mb-2 rounded-full bg-[#0A66C2]/10 p-3">
               <UIcon
@@ -22,9 +22,15 @@
                 class="h-8 w-8 text-[#0A66C2]"
               />
             </div>
-            <h3 class="mb-1 font-medium text-gray-900">LinkedIn</h3>
-            <p class="mb-2 text-sm font-medium text-[#0A66C2]">33K abonnés</p>
-            <p class="text-xs text-gray-600">Suivez-nous</p>
+            <h3 class="mb-1 font-medium text-gray-900 dark:text-white">
+              LinkedIn
+            </h3>
+            <p
+              class="mb-2 text-sm font-medium text-[#0A66C2] dark:text-[#60a5fa]"
+            >
+              33K abonnés
+            </p>
+            <p class="text-xs text-gray-600 dark:text-gray-300">Suivez-nous</p>
           </div>
         </a>
 
@@ -36,7 +42,7 @@
           class="group block"
         >
           <div
-            class="flex flex-col items-center rounded-xl bg-white p-6 text-center shadow-sm transition-all duration-200 hover:translate-y-[-2px] hover:shadow-md"
+            class="flex flex-col items-center rounded-xl bg-white p-6 text-center shadow-sm transition-all duration-200 hover:translate-y-[-2px] hover:bg-gray-700/80 hover:shadow-md dark:bg-gray-800/80 dark:ring-1 dark:ring-gray-700 dark:backdrop-blur-md"
           >
             <div class="mb-2 rounded-full bg-[#1877F2]/10 p-3">
               <UIcon
@@ -44,9 +50,17 @@
                 class="h-8 w-8 text-[#1877F2]"
               />
             </div>
-            <h3 class="mb-1 font-medium text-gray-900">Facebook</h3>
-            <p class="mb-2 text-sm font-medium text-[#1877F2]">16K abonnés</p>
-            <p class="text-xs text-gray-600">Rejoignez-nous</p>
+            <h3 class="mb-1 font-medium text-gray-900 dark:text-white">
+              Facebook
+            </h3>
+            <p
+              class="mb-2 text-sm font-medium text-[#1877F2] dark:text-[#60a5fa]"
+            >
+              16K abonnés
+            </p>
+            <p class="text-xs text-gray-600 dark:text-gray-300">
+              Rejoignez-nous
+            </p>
           </div>
         </a>
 
@@ -58,7 +72,7 @@
           class="group block"
         >
           <div
-            class="flex flex-col items-center rounded-xl bg-white p-6 text-center shadow-sm transition-all duration-200 hover:translate-y-[-2px] hover:shadow-md"
+            class="flex flex-col items-center rounded-xl bg-white p-6 text-center shadow-sm transition-all duration-200 hover:translate-y-[-2px] hover:bg-gray-700/80 hover:shadow-md dark:bg-gray-800/80 dark:ring-1 dark:ring-gray-700 dark:backdrop-blur-md"
           >
             <div
               class="mb-2 rounded-full bg-gradient-to-br from-[#833AB4]/10 via-[#FD1D1D]/10 to-[#F77737]/10 p-3"
@@ -70,9 +84,17 @@
                 />
               </div>
             </div>
-            <h3 class="mb-1 font-medium text-gray-900">Instagram</h3>
-            <p class="mb-2 text-sm font-medium text-[#E4405F]">500 abonnés</p>
-            <p class="text-xs text-gray-600">Découvrez nos stories</p>
+            <h3 class="mb-1 font-medium text-gray-900 dark:text-white">
+              Instagram
+            </h3>
+            <p
+              class="mb-2 text-sm font-medium text-[#E4405F] dark:text-pink-400"
+            >
+              500 abonnés
+            </p>
+            <p class="text-xs text-gray-600 dark:text-gray-300">
+              Découvrez nos stories
+            </p>
           </div>
         </a>
 
@@ -84,14 +106,20 @@
           class="group block"
         >
           <div
-            class="flex flex-col items-center rounded-xl bg-white p-6 text-center shadow-sm transition-all duration-200 hover:translate-y-[-2px] hover:shadow-md"
+            class="flex flex-col items-center rounded-xl bg-white p-6 text-center shadow-sm transition-all duration-200 hover:translate-y-[-2px] hover:bg-gray-700/80 hover:shadow-md dark:bg-gray-800/80 dark:ring-1 dark:ring-gray-700 dark:backdrop-blur-md"
           >
             <div class="mb-2 rounded-full bg-black/10 p-3">
               <UIcon name="i-simple-icons-x" class="h-8 w-8 text-black" />
             </div>
-            <h3 class="mb-1 font-medium text-gray-900">Twitter</h3>
-            <p class="mb-2 text-sm font-medium text-black">14K abonnés</p>
-            <p class="text-xs text-gray-600">Suivez nos actualités</p>
+            <h3 class="mb-1 font-medium text-gray-900 dark:text-white">
+              Twitter
+            </h3>
+            <p class="mb-2 text-sm font-medium text-black dark:text-gray-200">
+              14K abonnés
+            </p>
+            <p class="text-xs text-gray-600 dark:text-gray-300">
+              Suivez nos actualités
+            </p>
           </div>
         </a>
       </div>

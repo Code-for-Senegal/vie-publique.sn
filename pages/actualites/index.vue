@@ -111,8 +111,8 @@ const getCategoryColor = (categoryName: string) => {
 
 <template>
   <div class="container mx-auto">
-    <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">Actualités</h1>
+    <div class="prose prose-sm sm:prose dark:prose-invert mx-auto my-2">
+      <h1 class="text-center dark:text-white">Actualités</h1>
     </div>
 
     <!-- Filtres par catégorie -->
@@ -123,7 +123,7 @@ const getCategoryColor = (categoryName: string) => {
         size="md"
         placeholder="Rechercher..."
         icon="i-heroicons-magnifying-glass"
-        class="input custom-shadow mb-4 w-full"
+        class="input custom-shadow mb-4 w-full dark:bg-gray-800 dark:text-white"
         clearable
         :disabled="store.loading"
       />
@@ -133,7 +133,7 @@ const getCategoryColor = (categoryName: string) => {
         <div
           v-for="n in 5"
           :key="n"
-          class="h-10 w-32 animate-pulse rounded-full bg-gray-200"
+          class="h-10 w-32 animate-pulse rounded-full bg-gray-200 dark:bg-gray-700"
         ></div>
       </div>
 
@@ -145,7 +145,7 @@ const getCategoryColor = (categoryName: string) => {
           @click="selectedCategory = category.name"
           class="flex items-center gap-1 rounded-full p-2 text-sm transition-colors duration-200"
           :class="{
-            'bg-gray-100 text-gray-800 hover:bg-gray-200':
+            'bg-gray-100 text-gray-800 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700':
               selectedCategory !== category.name,
             'text-white': selectedCategory === category.name,
           }"
@@ -175,13 +175,15 @@ const getCategoryColor = (categoryName: string) => {
     >
       <div v-for="n in 6" :key="n" class="animate-pulse">
         <div class="relative w-full">
-          <div class="aspect-[16/9] rounded-t-lg bg-gray-200"></div>
+          <div
+            class="aspect-[16/9] rounded-t-lg bg-gray-200 dark:bg-gray-700"
+          ></div>
         </div>
         <div class="mt-4 space-y-3">
-          <div class="h-6 w-24 rounded bg-gray-200"></div>
-          <div class="h-4 w-32 rounded bg-gray-200"></div>
-          <div class="h-4 w-full rounded bg-gray-200"></div>
-          <div class="h-4 w-2/3 rounded bg-gray-200"></div>
+          <div class="h-6 w-24 rounded bg-gray-200 dark:bg-gray-700"></div>
+          <div class="h-4 w-32 rounded bg-gray-200 dark:bg-gray-700"></div>
+          <div class="h-4 w-full rounded bg-gray-200 dark:bg-gray-700"></div>
+          <div class="h-4 w-2/3 rounded bg-gray-200 dark:bg-gray-700"></div>
         </div>
       </div>
     </div>
@@ -203,11 +205,11 @@ const getCategoryColor = (categoryName: string) => {
           !store.loading &&
           (!store.articles.length || store.paginatedNews.length === 0)
         "
-        class="mt-8 flex flex-col items-center text-center text-gray-500"
+        class="mt-8 flex flex-col items-center text-center text-gray-500 dark:text-gray-400"
       >
         <UIcon
           name="i-heroicons-exclamation-circle"
-          class="mb-4 h-16 w-16 text-gray-400"
+          class="mb-4 h-16 w-16 text-gray-400 dark:text-gray-500"
         />
         <p class="text-xl">Aucun résultat disponible</p>
       </div>
@@ -218,7 +220,7 @@ const getCategoryColor = (categoryName: string) => {
           <UCard
             v-for="article in store.paginatedNews"
             :key="article.id"
-            class="custom-shadow group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+            class="custom-shadow group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:bg-gray-800 dark:text-white"
           >
             <NuxtLink :to="formatNewsUrl(article)" class="block">
               <div class="relative">
@@ -250,14 +252,13 @@ const getCategoryColor = (categoryName: string) => {
                   </span>
                 </div>
               </div>
-
               <div class="p-2">
                 <h2
-                  class="group-hover:text-primary line-clamp-2 font-semibold transition-colors"
+                  class="group-hover:text-primary line-clamp-2 font-semibold transition-colors dark:text-white"
                 >
                   {{ article.title }}
                 </h2>
-                <div class="mt-2 text-sm text-gray-600">
+                <div class="mt-2 text-sm text-gray-600 dark:text-gray-300">
                   {{ $dateformatWithDayName(article.date_published) }}
                 </div>
               </div>
@@ -277,8 +278,9 @@ const getCategoryColor = (categoryName: string) => {
             :ui="{
               wrapper: 'flex items-center gap-1',
               base: 'min-w-8 min-h-8 flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed',
-              active: 'bg-gray-900 text-white',
-              inactive: 'bg-white text-gray-900 hover:bg-gray-100',
+              active: 'bg-gray-900 text-white dark:bg-gray-700',
+              inactive:
+                'bg-white text-gray-900 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700',
             }"
           />
         </div>

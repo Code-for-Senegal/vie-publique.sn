@@ -12,6 +12,8 @@ export default defineEventHandler(async (_event) => {
           "title",
           "type",
           "status",
+          "description",
+          "ministry",
           "date_created",
           "date_updated",
         ],

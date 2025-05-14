@@ -60,7 +60,7 @@ const navigationCards = [
       <!-- Dernières mises à jour -->
       <HomeLatestUpdates />
       <HomeSocialNetworks />
-      <HomeTwitterTimeline />
+      <!-- <HomeTwitterTimeline /> -->
 
       <UDivider site="sm" class="mt-4" />
 
