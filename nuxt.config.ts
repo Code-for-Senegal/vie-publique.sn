@@ -15,9 +15,9 @@ const securityConfig =
             "default-src": ["'self'"],
             "connect-src": [
               "'self'",
-              "https://cms.vie-publique.sn",
+              "https://*.vie-publique.sn",
               "https://www.google-analytics.com",
-              "https://region1.google-analytics.com",
+              "https://*.google-analytics.com",
             ],
             "script-src": [
               "'self'",
@@ -143,7 +143,7 @@ export default defineNuxtConfig({
   },
   css: ["~/assets/css/app.css"],
   colorMode: {
-    preference: "light",
+    preference: "system", // default value of $nuxt.colorMode.preference
   },
   tailwindcss: {
     config: {
