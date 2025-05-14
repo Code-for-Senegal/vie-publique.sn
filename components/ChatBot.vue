@@ -184,7 +184,7 @@
           <UTextarea
             ref="textareaRef"
             v-model="userInput"
-            placeholder="Ask me anything..."
+            placeholder="Posez une question..."
             color="primary"
             variant="outline"
             class="w-full"

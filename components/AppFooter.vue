@@ -24,10 +24,6 @@ const linksSocial = [
 ];
 const links = [
   {
-    label: "TEST DASHBOARD",
-    to: "/dashboard/conseil-ministre",
-  },
-  {
     label: "À Propos",
     to: "/a-propos/qui-sommes-nous",
   },
