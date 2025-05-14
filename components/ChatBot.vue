@@ -1,17 +1,5 @@
 <template>
   <div class="flex h-[calc(100vh-4rem)] flex-col bg-gray-50 dark:bg-gray-900">
-    <!-- En-tête -->
-    <div
-      class="border-b bg-white px-4 py-3 shadow-sm dark:border-gray-700 dark:bg-gray-800"
-    >
-      <div class="flex items-center justify-between">
-        <h1 class="text-xl font-semibold text-gray-900 dark:text-gray-100">
-          Assistant Vie Publique
-        </h1>
-        <UColorModeButton variant="ghost" size="sm" />
-      </div>
-    </div>
-
     <!-- Zone des messages -->
     <div class="flex-1 overflow-y-auto px-4 py-4 md:py-6">
       <!-- Message d'accueil -->
@@ -93,7 +81,7 @@
             <div v-else class="group pb-4">
               <div class="flex items-start gap-3">
                 <!-- Icône bot -->
-                <div class="mt-1 flex-shrink-0">
+                <!-- <div class="mt-1 flex-shrink-0">
                   <div
                     class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900"
                   >
@@ -102,14 +90,14 @@
                       class="h-5 w-5 text-blue-600 dark:text-blue-300"
                     />
                   </div>
-                </div>
+                </div> -->
 
                 <div class="flex-1 space-y-2">
                   <!-- Contenu du message -->
                   <div
-                    class="max-w-[80%] rounded-r-xl rounded-t-xl bg-white p-4 shadow-sm md:max-w-[70%] dark:bg-gray-800"
+                    class="max-w-[100%] rounded-r-xl rounded-t-xl bg-white p-4 md:max-w-[90%] dark:bg-gray-800"
                   >
-                    <div class="prose dark:prose-invert max-w-none">
+                    <div class="max-w-none">
                       <div v-html="formatMessage(message.text)" />
                     </div>
                   </div>
