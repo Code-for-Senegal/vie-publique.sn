@@ -61,7 +61,9 @@ onMounted(() => {
       <!-- Section Documents -->
       <div v-if="store.getLatestDocuments.length > 0">
         <div class="prose prose-sm sm:prose mx-auto my-4">
-          <h2 class="text-center text-gray-800">Derniers documents ajoutés</h2>
+          <h2 class="text-center text-gray-800 dark:text-white">
+            Derniers documents ajoutés
+          </h2>
         </div>
 
         <div class="grid gap-4 sm:grid-cols-3">

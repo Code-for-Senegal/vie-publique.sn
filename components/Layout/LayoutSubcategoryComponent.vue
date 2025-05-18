@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto p-2 sm:p-4">
     <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">{{ title }}</h1>
+      <h1 class="text-center dark:text-white">{{ title }}</h1>
     </div>
 
     <div class="mt-4 grid grid-cols-1 gap-2 md:grid-cols-2">

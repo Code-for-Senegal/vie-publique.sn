@@ -62,7 +62,7 @@ const getAssetUrl = (assetId: string) => {
 
     <!-- Contenu -->
     <div v-else-if="journal" class="prose prose-sm sm:prose mx-auto">
-      <h1>{{ journal.document.title }}</h1>
+      <h1 class="dark:text-white">{{ journal.document.title }}</h1>
 
       <!-- PDF Download link -->
       <div v-if="journal.document.file" class="my-4">

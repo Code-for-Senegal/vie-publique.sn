@@ -207,6 +207,19 @@ const navigationCards: NavigationCard[] = [
     icon: "i-heroicons-chart-bar",
     to: "/dashboard/conseil-ministre",
   },
+  {
+    title: "Etat du Sénégal",
+    description:
+      "Fonctionnement de l'état, Guide, Institutions, Budget, Quiz...",
+    icon: "i-heroicons-information-circle",
+    to: "/etat-senegal",
+  },
+  {
+    title: "Quiz",
+    description: "Jeux QCM sur les institutions publiques",
+    icon: "i-heroicons-puzzle-piece",
+    to: "/quiz",
+  },
 ];
 
 const cardConfigs: CardConfigs = {
@@ -219,7 +232,13 @@ const cardConfigs: CardConfigs = {
   "Assemblée Nationale": {
     color: "text-red-600",
   },
+  "Journal officiel Sénégal": {
+    color: "text-yellow-500",
+  },
   Annuaire: {
+    color: "text-emerald-600",
+  },
+  Nominations: {
     color: "text-emerald-600",
   },
   Élections: {
@@ -228,8 +247,17 @@ const cardConfigs: CardConfigs = {
   "Conseil des ministres": {
     color: "text-violet-600",
   },
+  "Budget du Sénégal": {
+    color: "text-orange-600",
+  },
   Chatbot: {
     color: "text-cyan-600",
+  },
+  Quiz: {
+    color: "text-yellow-600",
+  },
+  "Etat du Sénégal": {
+    color: "text-blue-600",
   },
 } as const;
 </script>

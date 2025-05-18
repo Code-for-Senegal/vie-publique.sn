@@ -148,7 +148,7 @@ watch([selectedType, selectedType], () => {
 <template>
   <div class="flex flex-col items-center px-4">
     <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">Aides à la presse 2023</h1>
+      <h1 class="text-center dark:text-white">Aides à la presse 2023</h1>
     </div>
 
     <div class="text-center">

@@ -63,7 +63,7 @@ const filteredSortedContentItems = computed(() => {
 <template>
   <div class="container mx-auto px-4">
     <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">Enquêtes</h1>
+      <h1 class="text-center dark:text-white">Enquêtes</h1>
     </div>
 
     <!-- Affichage du spinner pendant le chargement des données -->

@@ -51,7 +51,7 @@ const documentCategories = [
     description: "Répartition des services de l'État",
     icon: "i-heroicons-building-office",
     to: "/etat-senegal/organisation",
-    display: false,
+    display: true,
     color: "bg-green-100 text-green-700",
   },
 ];

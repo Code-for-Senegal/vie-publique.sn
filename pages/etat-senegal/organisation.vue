@@ -6,7 +6,7 @@
      L'onglet "Liste" permet de rechercher et filtrer les entités, 
      l'onglet "Arborescence" affiche la structure hiérarchique complète. -->
     <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">Organisation de l'État</h1>
+      <h1 class="text-center dark:text-white">Organisation de l'État</h1>
     </div>
 
     <div class="mb-2 text-center text-sm text-gray-500">

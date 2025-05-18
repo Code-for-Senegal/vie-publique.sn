@@ -24,7 +24,7 @@ const stats = computed<PromesseStats>(
 <template>
   <div>
     <!-- <div class="prose prose-sm sm:prose mx-auto my-2">
-            <h1 class="text-center">
+            <h1 class="text-center dark:text-white">
                 Vérificateur de promesses électorales
             </h1>
         </div -->

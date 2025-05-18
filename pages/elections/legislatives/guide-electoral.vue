@@ -6,7 +6,9 @@
     </UButton>
 
     <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">Comment voter aux élections législatives ?</h1>
+      <h1 class="text-center dark:text-white">
+        Comment voter aux élections législatives ?
+      </h1>
     </div>
 
     <!-- Boutons de sélection de langue -->

@@ -49,7 +49,7 @@ const handleMapReady = (map: unknown) => {
     />
 
     <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">Carte électorale 2024</h1>
+      <h1 class="text-center dark:text-white">Carte électorale 2024</h1>
     </div>
 
     <UTabs :items="tabs" class="w-full">

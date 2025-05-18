@@ -70,7 +70,9 @@ const links = [{ label: "Tableau de Bord Élections", to: "/elections" }];
     </UButton>
 
     <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">Candidatures Législatives 2024</h1>
+      <h1 class="text-center dark:text-white">
+        Candidatures Législatives 2024
+      </h1>
     </div>
 
     <div class="my-3 w-full text-center">
