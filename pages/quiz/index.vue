@@ -137,7 +137,7 @@ useMotion();
 <template>
   <div class="container mx-auto px-4 sm:px-8">
     <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">
+      <h1 class="text-center dark:text-white">
         Quiz
         <span v-if="selectedQuizType === 'text'">Organisation de l'État</span>
         <span v-else-if="selectedQuizType === 'image'">Photos nominations</span>
@@ -169,7 +169,7 @@ useMotion();
             class="mx-auto"
           />
           <div class="p-2">
-            <p class="mb-2 text-lg font-semibold">
+            <p class="mb-2 font-semibold md:text-lg dark:text-white">
               Quiz Organisation de l'état
             </p>
             <!-- <UButton @click="selectQuizType('text')" class="text-center w-full rounded-3xl"
@@ -190,7 +190,9 @@ useMotion();
             class="mx-auto"
           />
           <div class="p-2">
-            <p class="mb-2 text-lg font-semibold">Quiz Photos nominations</p>
+            <p class="mb-2 font-semibold md:text-lg dark:text-white">
+              Quiz Photos nominations
+            </p>
             <!-- <UButton @click="selectQuizType('image')" class="text-center w-full rounded-3xl "
                                 label="Jouer" size="xl" icon="i-heroicons-play" color="black" /> -->
           </div>

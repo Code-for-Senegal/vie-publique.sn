@@ -32,7 +32,7 @@ const filteredContentItems = computed(() => {
 <template>
   <div class="container mx-auto px-4">
     <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">Les Institutions du Sénégal</h1>
+      <h1 class="text-center dark:text-white">Les Institutions du Sénégal</h1>
     </div>
 
     <div class="text-center">

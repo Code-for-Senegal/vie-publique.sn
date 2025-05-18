@@ -46,7 +46,7 @@ const filteredSortedContentItems = computed(() => {
 <template>
   <div class="container mx-auto px-4 py-4">
     <div class="prose prose-sm sm:prose lg:prose-md mx-auto mb-8">
-      <h1 class="text-center">
+      <h1 class="text-center dark:text-white">
         Rejoignez notre équipe
         <span class="mt-2 block text-lg font-normal text-gray-600">
           Découvrez nos opportunités

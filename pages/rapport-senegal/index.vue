@@ -68,7 +68,7 @@ watch(selectedOrganisme, () => {
     </h1>
 
     <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">Rapports publics</h1>
+      <h1 class="text-center dark:text-white">Rapports publics</h1>
     </div>
     <p v-if="rapports.length > 1" class="mb-4 text-sm text-gray-500">
       {{ rapports.length }} rapports disponibles

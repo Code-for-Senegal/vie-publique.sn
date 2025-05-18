@@ -156,7 +156,7 @@ const createPieChart = (selector, data, title) => {
     </div>
 
     <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">Budget 2025</h1>
+      <h1 class="text-center dark:text-white">Budget 2025</h1>
     </div>
     <div class="text-center">
       <p class="mb-2 text-sm text-gray-500">

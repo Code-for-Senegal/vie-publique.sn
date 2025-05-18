@@ -120,7 +120,7 @@ const toggleSortOrder = () => {
       Retour
     </NuxtLink>
     <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">Budget Sénégal 2024</h1>
+      <h1 class="text-center dark:text-white">Budget Sénégal 2024</h1>
     </div>
 
     <div class="my-3 w-full text-center">

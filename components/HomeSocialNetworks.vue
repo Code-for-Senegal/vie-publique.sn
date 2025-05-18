@@ -1,7 +1,9 @@
 <template>
   <div class="my-8">
     <div class="prose prose-sm sm:prose mx-auto mb-8">
-      <h2 class="text-center text-gray-800">Nos réseaux sociaux</h2>
+      <h2 class="text-center text-gray-800 dark:text-white">
+        Nos réseaux sociaux
+      </h2>
     </div>
 
     <div class="mx-auto max-w-5xl">

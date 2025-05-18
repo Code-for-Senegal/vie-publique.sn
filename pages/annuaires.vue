@@ -83,7 +83,7 @@ const getIconColor = (color: string) => {
 <template>
   <div class="container mx-auto">
     <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">Annuaires</h1>
+      <h1 class="text-center dark:text-white">Annuaires</h1>
     </div>
 
     <div class="mt-2 grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2">

@@ -15,7 +15,7 @@ const { data: q1Datas } = useLazyFetch("/api/budget-q1");
     <!-- <h1 class="text-2xl font-bold text-center mb-6">Budget Sénégal 2024</h1> -->
 
     <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">Graphique Budget Sénégal 2024</h1>
+      <h1 class="text-center dark:text-white">Graphique Budget Sénégal 2024</h1>
     </div>
     <div class="mt-8 text-center">
       <UDivider />

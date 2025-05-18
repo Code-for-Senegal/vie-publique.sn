@@ -14,7 +14,7 @@ useHead({
 <template>
   <div class="flex flex-col items-center px-4 sm:px-8">
     <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">Contactez-nous</h1>
+      <h1 class="text-center dark:text-white">Contactez-nous</h1>
     </div>
 
     <div class="w-full max-w-4xl text-center">

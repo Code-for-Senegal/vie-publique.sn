@@ -11,7 +11,7 @@
     />
 
     <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">Résultats Législatives 2024</h1>
+      <h1 class="text-center dark:text-white">Résultats Législatives 2024</h1>
     </div>
 
     <UTabs v-model="activeTab" :items="tabs" class="w-full" :default-index="0">
@@ -112,11 +112,11 @@ const tabs = [
     label: "Hémicycle",
     icon: "i-heroicons-document-chart-bar",
   },
-  {
-    key: "pv",
-    label: "PV",
-    icon: "i-heroicons-document-chart-bar",
-  },
+  // {
+  //   key: "pv",
+  //   label: "PV",
+  //   icon: "i-heroicons-document-chart-bar",
+  // },
   {
     key: "map",
     label: "Carte",

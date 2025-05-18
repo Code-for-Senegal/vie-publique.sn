@@ -172,7 +172,7 @@ watch(selectedJurisdictionType, () => {
 <template>
   <div class="flex flex-col items-center px-4">
     <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">Annuaire Magistrature Sénégal</h1>
+      <h1 class="text-center dark:text-white">Annuaire Magistrature Sénégal</h1>
     </div>
 
     <div class="text-center">

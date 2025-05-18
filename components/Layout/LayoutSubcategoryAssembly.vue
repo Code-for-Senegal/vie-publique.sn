@@ -22,7 +22,10 @@
           </div>
           <div>
             <h2 class="font-bold">{{ menu.title }}</h2>
-            <p v-if="menu.description" class="text-sm text-gray-600">
+            <p
+              v-if="menu.description"
+              class="text-sm text-gray-600 dark:text-white"
+            >
               {{ menu.description }}
             </p>
           </div>

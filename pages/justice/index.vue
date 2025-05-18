@@ -83,7 +83,7 @@ const links = [
 <template>
   <div class="container mx-auto px-4">
     <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">La Justice au Sénégal</h1>
+      <h1 class="text-center dark:text-white">La Justice au Sénégal</h1>
     </div>
 
     <div class="text-center">

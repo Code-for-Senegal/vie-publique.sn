@@ -93,7 +93,7 @@ const getAssetUrl = (assetId: string, slug: string) => {
 
     <template v-else-if="article">
       <div class="prose prose-sm sm:prose mx-auto">
-        <h1>{{ article.title }}</h1>
+        <h1 class="dark:text-white">{{ article.title }}</h1>
 
         <div class="text-sm text-gray-600">
           {{ $dateformatWithDayName(article.date_published) }}

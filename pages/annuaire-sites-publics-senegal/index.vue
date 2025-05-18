@@ -110,7 +110,7 @@ watch(selectedType, () => {
 <template>
   <div class="flex flex-col items-center px-4">
     <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center">Annuaire sites internets</h1>
+      <h1 class="text-center dark:text-white">Annuaire sites internets</h1>
     </div>
     <p class="mb-4 text-center text-sm text-gray-500">
       Liste non exhaustive de {{ data.sites.length }} site web publics du
