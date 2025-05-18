@@ -153,7 +153,7 @@ const hasSocialLinks = computed(() => availableSocialLinks.value.length > 0);
   <div class="space-y-2 p-0">
     <NuxtLink
       to="/annuaires"
-      class="mb-2 inline-flex items-center text-gray-600 hover:text-gray-800"
+      class="mb-2 inline-flex items-center text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-200"
     >
       <UIcon name="i-heroicons-arrow-left" class="mr-2 h-5 w-5" />
       Retour
