@@ -102,7 +102,7 @@ useHead({
 <template>
   <div>
     <!-- En-tête compacte -->
-    <header class="border-b bg-white dark:bg-gray-800">
+    <header class="border-b bg-white dark:bg-transparent">
       <div class="container mx-auto py-4 sm:px-4">
         <div class="flex items-center justify-between">
           <div class="prose prose-sm sm:prose dark:prose-invert">
