@@ -34,7 +34,7 @@ const documentCategories = [
       "Bientot disponible ici un outil de suivi des promesses électorales",
     icon: "i-heroicons-document-check",
     to: "/barometre-politique/",
-    display: false,
+    display: true,
     color: "bg-green-100 text-green-700",
   },
   {

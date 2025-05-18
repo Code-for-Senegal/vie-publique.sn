@@ -220,6 +220,13 @@ const navigationCards: NavigationCard[] = [
     icon: "i-heroicons-puzzle-piece",
     to: "/quiz",
   },
+  {
+    title: "Suivi promesses électorales",
+    description:
+      "Bientot disponible ici un outil de suivi des promesses électorales",
+    icon: "i-heroicons-document-check",
+    to: "/barometre-politique/",
+  },
 ];
 
 const cardConfigs: CardConfigs = {
