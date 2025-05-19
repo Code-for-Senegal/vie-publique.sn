@@ -114,7 +114,7 @@ const toggleSortOrder = () => {
   <div v-else-if="budgetDatas" class="mx-auto max-w-4xl p-2 text-sm sm:p-4">
     <NuxtLink
       to="/budget-senegal"
-      class="mb-2 inline-flex items-center text-gray-600 hover:text-gray-800"
+      class="mb-2 inline-flex items-center text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-200"
     >
       <UIcon name="i-heroicons-arrow-left" class="mr-2 h-5 w-5" />
       Retour

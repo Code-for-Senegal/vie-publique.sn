@@ -26,14 +26,16 @@ useHead({
   <div class="container mx-auto px-4 py-4">
     <NuxtLink
       to="/assemblee-nationale"
-      class="mb-6 inline-flex items-center text-gray-600 hover:text-gray-800"
+      class="mb-6 inline-flex items-center text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
     >
       <UIcon name="i-heroicons-arrow-left" class="mr-2 h-5 w-5" />
       Retour aux actualités
     </NuxtLink>
 
     <div class="mx-auto max-w-7xl">
-      <h1 class="mb-8 text-center text-3xl font-bold text-gray-900">
+      <h1
+        class="mb-8 text-center text-3xl font-bold text-gray-900 dark:text-white"
+      >
         Actualités Assemblée
       </h1>
 
@@ -44,17 +46,23 @@ useHead({
       >
         <div v-for="n in 6" :key="n" class="animate-pulse">
           <div class="relative w-full">
-            <div class="aspect-[16/9] rounded-t-lg bg-gray-200"></div>
+            <div
+              class="aspect-[16/9] rounded-t-lg bg-gray-200 dark:bg-gray-700"
+            ></div>
           </div>
-          <div class="mt-4 h-4 w-3/4 rounded bg-gray-200"></div>
-          <div class="mt-2 h-3 w-1/4 rounded bg-gray-200"></div>
+          <div
+            class="mt-4 h-4 w-3/4 rounded bg-gray-200 dark:bg-gray-700"
+          ></div>
+          <div
+            class="mt-2 h-3 w-1/4 rounded bg-gray-200 dark:bg-gray-700"
+          ></div>
         </div>
       </div>
 
       <!-- Error state -->
       <div
         v-else-if="error"
-        class="rounded-lg bg-red-50 p-4 text-center text-red-500"
+        class="rounded-lg bg-red-50 p-4 text-center text-red-500 dark:bg-red-900/50 dark:text-red-400"
       >
         {{ error }}
       </div>
@@ -65,7 +73,7 @@ useHead({
           v-for="article in news"
           :key="article.id"
           :to="`/assemblee-nationale/actualites/${article.id}/${article.slug}`"
-          class="group flex flex-col overflow-hidden rounded-lg bg-white shadow-xl transition-all"
+          class="group flex flex-col overflow-hidden rounded-lg bg-white shadow-xl transition-all dark:border dark:border-gray-800 dark:bg-gray-900/50 dark:backdrop-blur-sm"
         >
           <!-- Image Container avec ratio fixe -->
           <div class="relative w-full">
@@ -81,11 +89,13 @@ useHead({
           <!-- Content -->
           <div class="flex flex-1 flex-col p-4">
             <h2
-              class="mb-2 line-clamp-2 flex-grow text-lg font-semibold text-gray-900 group-hover:text-blue-600"
+              class="mb-2 line-clamp-2 flex-grow font-semibold text-gray-900 group-hover:text-blue-600 dark:text-gray-100 dark:group-hover:text-blue-400"
             >
               {{ article.title }}
             </h2>
-            <div class="flex items-center gap-2 text-sm text-gray-500">
+            <div
+              class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400"
+            >
               <UIcon name="i-heroicons-calendar" class="h-4 w-4" />
               {{ formatDate(article.date_published) }}
             </div>
@@ -95,7 +105,7 @@ useHead({
               <span
                 v-for="tag in article.tags"
                 :key="tag"
-                class="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-600"
+                class="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-600 dark:bg-gray-700 dark:text-gray-300"
               >
                 {{ tag }}
               </span>
@@ -107,7 +117,7 @@ useHead({
       <!-- Empty state -->
       <div
         v-if="!loading && !error && news.length === 0"
-        class="py-12 text-center text-gray-500"
+        class="py-12 text-center text-gray-500 dark:text-gray-400"
       >
         Aucun article disponible pour le moment
       </div>

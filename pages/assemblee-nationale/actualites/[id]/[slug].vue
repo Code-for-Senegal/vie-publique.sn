@@ -54,7 +54,7 @@ useHead(() => {
     <!-- Bouton retour -->
     <NuxtLink
       to="/assemblee-nationale/actualites"
-      class="mb-2 inline-flex items-center text-gray-600 hover:text-gray-800"
+      class="mb-2 inline-flex items-center text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-200"
     >
       <UIcon name="i-heroicons-arrow-left" class="mr-2 h-5 w-5" />
       Retour aux actualités
@@ -79,10 +79,12 @@ useHead(() => {
     <!-- Content -->
     <article v-else-if="article" class="mx-auto max-w-4xl">
       <header class="mb-4">
-        <h1 class="mb-2 text-2xl font-bold text-gray-900 md:text-4xl">
+        <h1
+          class="mb-2 text-2xl font-bold text-gray-900 md:text-4xl dark:text-white"
+        >
           {{ article.title }}
         </h1>
-        <div class="flex items-center gap-2 text-gray-500">
+        <div class="flex items-center gap-2 text-gray-500 dark:text-gray-400">
           <UIcon name="i-heroicons-calendar" class="h-5 w-5" />
           {{ formatDate(article.date_published) }}
         </div>
@@ -111,12 +113,14 @@ useHead(() => {
 
       <!-- Contenu -->
       <div
-        class="prose prose-lg prose-img:rounded-lg prose-a:text-blue-600 max-w-none"
+        class="prose prose-sm sm:prose prose-img:rounded-lg prose-a:text-blue-600 dark:prose-invert dark:prose-a:text-blue-400 max-w-none"
         v-html="article.content"
       />
     </article>
 
     <!-- Not found state -->
-    <div v-else class="py-12 text-center text-gray-500">Article non trouvé</div>
+    <div v-else class="py-12 text-center text-gray-500 dark:text-gray-400">
+      Article non trouvé
+    </div>
   </div>
 </template>

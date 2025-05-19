@@ -92,10 +92,12 @@ const getAssetUrl = (assetId: string, slug: string) => {
     </div>
 
     <template v-else-if="article">
-      <div class="prose prose-sm sm:prose mx-auto">
+      <div
+        class="prose prose-sm sm:prose dark:prose-invert dark:prose-a:text-blue-400 mx-auto"
+      >
         <h1 class="dark:text-white">{{ article.title }}</h1>
 
-        <div class="text-sm text-gray-600">
+        <div class="text-sm text-gray-600 dark:text-gray-400">
           {{ $dateformatWithDayName(article.date_published) }}
         </div>
 
@@ -111,7 +113,7 @@ const getAssetUrl = (assetId: string, slug: string) => {
           <a
             :href="getAssetUrl(article.document.file, article.slug)"
             target="_blank"
-            class="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
+            class="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:text-blue-800"
           >
             📥 Télécharger le PDF
           </a>

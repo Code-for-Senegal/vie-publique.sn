@@ -143,7 +143,7 @@ export default defineNuxtConfig({
   },
   css: ["~/assets/css/app.css"],
   colorMode: {
-    preference: "system", // default value of $nuxt.colorMode.preference
+    preference: "dark", // default value of $nuxt.colorMode.preference
   },
   tailwindcss: {
     config: {

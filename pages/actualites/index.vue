@@ -220,7 +220,7 @@ const getCategoryColor = (categoryName: string) => {
           <UCard
             v-for="article in store.paginatedNews"
             :key="article.id"
-            class="custom-shadow group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:bg-gray-800 dark:text-white"
+            class="custom-shadow group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border dark:border-gray-800 dark:bg-gray-900/50 dark:backdrop-blur-sm"
           >
             <NuxtLink :to="formatNewsUrl(article)" class="block">
               <div class="relative">
@@ -254,11 +254,11 @@ const getCategoryColor = (categoryName: string) => {
               </div>
               <div class="p-2">
                 <h2
-                  class="group-hover:text-primary line-clamp-2 font-semibold transition-colors dark:text-white"
+                  class="group-hover:text-primary line-clamp-2 font-semibold transition-colors dark:text-gray-100"
                 >
                   {{ article.title }}
                 </h2>
-                <div class="mt-2 text-sm text-gray-600 dark:text-gray-300">
+                <div class="mt-2 text-sm text-gray-600 dark:text-gray-400">
                   {{ $dateformatWithDayName(article.date_published) }}
                 </div>
               </div>

@@ -30,9 +30,8 @@
             <p
               class="mb-2 text-sm font-medium text-[#0A66C2] dark:text-[#60a5fa]"
             >
-              33K abonnés
+              40K abonnés
             </p>
-            <p class="text-xs text-gray-600 dark:text-gray-300">Suivez-nous</p>
           </div>
         </a>
 
@@ -58,10 +57,7 @@
             <p
               class="mb-2 text-sm font-medium text-[#1877F2] dark:text-[#60a5fa]"
             >
-              16K abonnés
-            </p>
-            <p class="text-xs text-gray-600 dark:text-gray-300">
-              Rejoignez-nous
+              18K abonnés
             </p>
           </div>
         </a>
@@ -92,10 +88,7 @@
             <p
               class="mb-2 text-sm font-medium text-[#E4405F] dark:text-pink-400"
             >
-              500 abonnés
-            </p>
-            <p class="text-xs text-gray-600 dark:text-gray-300">
-              Découvrez nos stories
+              1200 abonnés
             </p>
           </div>
         </a>
@@ -117,10 +110,7 @@
               Twitter
             </h3>
             <p class="mb-2 text-sm font-medium text-black dark:text-gray-200">
-              14K abonnés
-            </p>
-            <p class="text-xs text-gray-600 dark:text-gray-300">
-              Suivez nos actualités
+              15K abonnés
             </p>
           </div>
         </a>

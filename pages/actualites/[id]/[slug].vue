@@ -130,7 +130,7 @@ useHead(() => {
 
       <!-- Contenu -->
       <div
-        class="prose prose-lg prose-img:rounded-lg prose-a:text-blue-600 dark:prose-invert dark:prose-a:text-blue-400 max-w-none"
+        class="prose prose-sm sm:prose prose-img:rounded-lg prose-a:text-blue-600 dark:prose-invert dark:prose-a:text-blue-400 max-w-none"
         v-html="article.content"
       />
     </article>

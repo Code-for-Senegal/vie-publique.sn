@@ -4,7 +4,7 @@
       v-for="article in news?.slice(0, 3)"
       :key="article.id"
       :to="`/assemblee-nationale/actualites/${article.id}/${article.slug}`"
-      class="block rounded-lg bg-gray-50 p-4 transition hover:bg-gray-100"
+      class="block rounded-lg bg-gray-50 p-4 transition hover:bg-gray-100 dark:bg-gray-700"
     >
       <div class="flex gap-2">
         <div class="flex-shrink-0">

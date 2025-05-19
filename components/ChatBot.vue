@@ -102,6 +102,8 @@
                     </div>
                   </div>
 
+                  <!-- Documents -->
+
                   <!-- Suggestions -->
                   <div
                     v-if="message.suggestions?.length"
@@ -252,12 +254,18 @@ const initialQuestions = [
 const config = useRuntimeConfig();
 
 const formatMessage = (text: string) => {
-  const renderer = new marked.Renderer();
+  // Traitement des liens markdown avant de passer à marked
+  const processedText = text.replace(
+    /\[\[(.*?)\]\]\((.*?)\)/g,
+    (match, text, url) => {
+      return `<a href="${url}" class="inline-flex items-center gap-1 rounded-md bg-blue-50 px-2 py-1 text-sm font-medium text-blue-700 hover:bg-blue-100 dark:bg-blue-900/50 dark:text-blue-300 dark:hover:bg-blue-900" target="_blank" rel="noopener noreferrer">
+        ${text}
+        <UIcon name="i-heroicons-arrow-top-right-on-square" class="h-4 w-4" />
+      </a>`;
+    },
+  );
 
-  // Amélioration de la présentation des liens
-  renderer.link = (href, title, text) => {
-    return `<a href="${href}" title="${title || ""}" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 underline" target="_blank" rel="noopener noreferrer">${text}</a>`;
-  };
+  const renderer = new marked.Renderer();
 
   marked.setOptions({
     renderer,
@@ -265,7 +273,7 @@ const formatMessage = (text: string) => {
     gfm: true,
   });
 
-  return marked(text);
+  return marked(processedText);
 };
 
 const askQuestion = (question: string) => {

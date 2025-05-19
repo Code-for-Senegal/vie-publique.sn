@@ -102,15 +102,17 @@ useHead({
 <template>
   <div>
     <!-- En-tête compacte -->
-    <header class="border-b bg-white">
+    <header class="border-b bg-white dark:bg-transparent">
       <div class="container mx-auto py-4 sm:px-4">
         <div class="flex items-center justify-between">
-          <div class="prose prose-sm sm:prose">
+          <div class="prose prose-sm sm:prose dark:prose-invert">
             <h1 class="">Assemblée nationale</h1>
           </div>
           <!-- <UBadge color="emerald" class="hidden md:block"> 2024 - 2029 </UBadge> -->
         </div>
-        <p class="mt-2 text-sm text-gray-500">15ème législature 2024-2029</p>
+        <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+          15ème législature 2024-2029
+        </p>
       </div>
     </header>
 
@@ -173,12 +175,12 @@ useHead({
         <!-- Version desktop -->
         <div class="hidden gap-4 md:grid md:grid-cols-2 lg:grid-cols-3">
           <!-- Latest News -->
-          <section>
+          <section class="rounded-lg bg-white p-4 dark:bg-gray-800">
             <div class="mb-4 flex items-center justify-between">
-              <h2 class="text-xl font-bold">Actualités</h2>
+              <h2 class="text-xl font-bold dark:text-white">Actualités</h2>
               <NuxtLink
                 to="/assemblee-nationale/actualites"
-                class="flex items-center text-sm text-blue-800 hover:text-blue-800"
+                class="flex items-center text-sm text-blue-800 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
               >
                 Voir tout
                 <UIcon name="i-heroicons-arrow-right" class="ml-1 h-4 w-4" />
@@ -188,12 +190,12 @@ useHead({
           </section>
 
           <!-- Latest Questions -->
-          <section>
+          <section class="rounded-lg bg-white p-4 dark:bg-gray-800">
             <div class="mb-4 flex items-center justify-between">
-              <h2 class="text-xl font-bold">Questions</h2>
+              <h2 class="text-xl font-bold dark:text-white">Questions</h2>
               <NuxtLink
                 to="/assemblee-nationale/questions"
-                class="flex items-center text-sm text-blue-800 hover:text-blue-800"
+                class="flex items-center text-sm text-blue-800 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
               >
                 Voir tout
                 <UIcon name="i-heroicons-arrow-right" class="ml-1 h-4 w-4" />
@@ -203,12 +205,12 @@ useHead({
           </section>
 
           <!-- Latest Votes -->
-          <section>
+          <section class="rounded-lg bg-white p-4 dark:bg-gray-800">
             <div class="mb-4 flex items-center justify-between">
-              <h2 class="text-xl font-bold">Derniers votes</h2>
+              <h2 class="text-xl font-bold dark:text-white">Derniers votes</h2>
               <NuxtLink
                 to="/assemblee-nationale/votes"
-                class="flex items-center text-sm text-blue-800 hover:text-blue-800"
+                class="flex items-center text-sm text-blue-800 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
               >
                 Voir tout
                 <UIcon name="i-heroicons-arrow-right" class="ml-1 h-4 w-4" />
@@ -221,14 +223,16 @@ useHead({
         <!-- Version mobile avec affichage vertical -->
         <div class="space-y-6 md:hidden">
           <!-- Questions -->
-          <section>
+          <section class="rounded-lg bg-white p-4 dark:bg-gray-800">
             <div
-              class="mb-4 flex items-center justify-between border-b border-gray-100 p-2"
+              class="mb-4 flex items-center justify-between border-b border-gray-100 p-2 dark:border-gray-700"
             >
-              <h2 class="text-lg font-bold">Questions récentes</h2>
+              <h2 class="text-lg font-bold dark:text-white">
+                Questions récentes
+              </h2>
               <NuxtLink
                 to="/assemblee-nationale/questions"
-                class="inline-flex items-center rounded-full bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-800 transition hover:bg-blue-100"
+                class="inline-flex items-center rounded-full bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-800 transition hover:bg-blue-100 dark:bg-blue-900/50 dark:text-blue-300 dark:hover:bg-blue-900"
               >
                 Voir tout
                 <UIcon name="i-heroicons-arrow-right" class="ml-1.5 h-4 w-4" />
@@ -238,14 +242,14 @@ useHead({
           </section>
 
           <!-- Actualités -->
-          <section>
+          <section class="rounded-lg bg-white p-4 dark:bg-gray-800">
             <div
-              class="mb-4 flex items-center justify-between border-b border-gray-100 p-2"
+              class="mb-4 flex items-center justify-between border-b border-gray-100 p-2 dark:border-gray-700"
             >
-              <h2 class="text-lg font-bold">Actualités</h2>
+              <h2 class="text-lg font-bold dark:text-white">Actualités</h2>
               <NuxtLink
                 to="/assemblee-nationale/actualites"
-                class="inline-flex items-center rounded-full bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-800 transition hover:bg-blue-100"
+                class="inline-flex items-center rounded-full bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-800 transition hover:bg-blue-100 dark:bg-blue-900/50 dark:text-blue-300 dark:hover:bg-blue-900"
               >
                 Voir tout
                 <UIcon name="i-heroicons-arrow-right" class="ml-1.5 h-4 w-4" />
@@ -255,14 +259,14 @@ useHead({
           </section>
 
           <!-- Votes -->
-          <section>
+          <section class="rounded-lg bg-white p-4 dark:bg-gray-800">
             <div
-              class="mb-4 flex items-center justify-between border-b border-gray-100 p-2"
+              class="mb-4 flex items-center justify-between border-b border-gray-100 p-2 dark:border-gray-700"
             >
-              <h2 class="text-lg font-bold">Votes récents</h2>
+              <h2 class="text-lg font-bold dark:text-white">Votes récents</h2>
               <NuxtLink
                 to="/assemblee-nationale/votes"
-                class="inline-flex items-center rounded-full bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-800 transition hover:bg-blue-100"
+                class="inline-flex items-center rounded-full bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-800 transition hover:bg-blue-100 dark:bg-blue-900/50 dark:text-blue-300 dark:hover:bg-blue-900"
               >
                 Voir tout
                 <UIcon name="i-heroicons-arrow-right" class="ml-1.5 h-4 w-4" />
