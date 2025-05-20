@@ -73,7 +73,11 @@
               <div
                 class="prose dark:prose-invert max-w-[80%] rounded-l-xl rounded-t-xl bg-blue-500 px-4 py-3 text-white shadow-sm md:max-w-[70%] dark:bg-blue-600"
               >
-                <div v-html="formatMessage(message.text)" />
+                <div
+                  v-html="
+                    formatMessage(message.progressiveText ?? message.text)
+                  "
+                />
               </div>
             </div>
 
@@ -98,7 +102,11 @@
                     class="max-w-[100%] rounded-r-xl rounded-t-xl bg-white p-4 md:max-w-[90%] dark:bg-gray-800"
                   >
                     <div class="max-w-none">
-                      <div v-html="formatMessage(message.text)" />
+                      <div
+                        v-html="
+                          formatMessage(message.progressiveText ?? message.text)
+                        "
+                      />
                     </div>
                   </div>
 
@@ -228,6 +236,7 @@ interface Message {
   text: string;
   isBot: boolean;
   suggestions?: string[];
+  progressiveText?: string;
 }
 
 interface ChatbotRequest {
@@ -296,6 +305,33 @@ const askQuestion = (question: string) => {
   sendMessage();
 };
 
+const showBotMessageProgressively = async (
+  fullText: string,
+  suggestions?: string[],
+) => {
+  // Découper en lignes (par \n ou double retour à la ligne)
+  const lines = fullText.split(/(\n\n|\n)/g).filter((l) => l.trim() !== "");
+  let displayed = "";
+  const msg: Message = {
+    text: fullText,
+    isBot: true,
+    suggestions,
+    progressiveText: "",
+  };
+  messages.value.push(msg);
+  for (let i = 0; i < lines.length; i++) {
+    displayed += (i > 0 ? "\n" : "") + lines[i];
+    msg.progressiveText = displayed;
+    await nextTick();
+    scrollToBottom();
+    await new Promise((res) => setTimeout(res, 60)); // délai entre chaque ligne
+  }
+  // À la fin, on s'assure que tout le texte est bien affiché
+  msg.progressiveText = fullText;
+  await nextTick();
+  scrollToBottom();
+};
+
 const sendMessage = async () => {
   if (!userInput.value.trim() || isLoading.value) return;
 
@@ -335,11 +371,11 @@ const sendMessage = async () => {
       chatSessionId.value = dataTest.chatSessionId;
     }
 
-    messages.value.push({
-      text: dataTest.answer || "Désolé, je n'ai pas pu traiter votre demande.",
-      isBot: true,
-      suggestions: dataTest.suggestingQuestions,
-    });
+    // Affichage progressif pour le bot
+    await showBotMessageProgressively(
+      dataTest.answer || "Désolé, je n'ai pas pu traiter votre demande.",
+      dataTest.suggestingQuestions,
+    );
   } catch (error) {
     messages.value.push({
       text: "Désolé, une erreur est survenue. Veuillez réessayer.",
