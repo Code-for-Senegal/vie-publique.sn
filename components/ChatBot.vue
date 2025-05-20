@@ -34,7 +34,7 @@
             >
               <UButton
                 :label="question"
-                class="my-1 w-full py-3 text-left font-normal"
+                class="my-1 w-full py-3 text-left font-normal dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
                 color="gray"
                 variant="soft"
                 @click="askQuestion(question)"
@@ -115,7 +115,7 @@
                       color="gray"
                       variant="soft"
                       size="xs"
-                      class="max-w-full whitespace-normal break-words text-left sm:max-w-[300px] dark:bg-slate-600"
+                      class="max-w-full whitespace-normal break-words text-left sm:max-w-[300px] dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
                       @click="askQuestion(suggestion)"
                     >
                       {{ suggestion }}
@@ -245,16 +245,15 @@ const textareaRef = ref<HTMLElement | null>(null);
 
 // Questions suggérées initiales
 const initialQuestions = [
-  "Qu'est-ce que le Journal Officiel ?",
-  "Comment fonctionne l'Assemblée Nationale ?",
-  "Quelles sont les dernières actualités ?",
-  "Expliquez-moi le processus législatif",
+  "Résumé du dernier conseil des ministres ?",
+  "Quel âge faut-il avoir pour se syndiquer au Sénégal ?",
+  "Les sénégalais majeurs ont-ils le droit de prendre une autre nationalité ?",
 ];
 
 const config = useRuntimeConfig();
 
 const formatMessage = (text: string) => {
-  // Traitement des liens markdown avant de passer à marked
+  // Traitement des liens [[texte]](url) (optionnel)
   const processedText = text.replace(
     /\[\[(.*?)\]\]\((.*?)\)/g,
     (match, text, url) => {
@@ -266,6 +265,22 @@ const formatMessage = (text: string) => {
   );
 
   const renderer = new marked.Renderer();
+
+  // Surcharge du rendu des liens markdown classiques [texte](url)
+  renderer.link = function ({
+    href,
+    title: _title,
+    text,
+  }: {
+    href: string;
+    title?: string | null;
+    text?: string;
+  }) {
+    return `<a href="${href}" class="inline-flex items-center gap-1 underline underline-offset-2 text-blue-700 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300" target="_blank" rel="noopener noreferrer">
+      ${text}
+      <span class="ml-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 3h7m0 0v7m0-7L10 14m-7 7h7a2 2 0 002-2v-7" /></svg></span>
+    </a>`;
+  };
 
   marked.setOptions({
     renderer,
@@ -382,6 +397,13 @@ onMounted(() => {
 
 .prose a {
   text-decoration-thickness: 1px;
+  color: #2563eb; /* Couleur bleue */
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.prose a:hover {
+  color: #1d4ed8; /* Couleur bleue plus foncée au survol */
 }
 
 .prose pre {
