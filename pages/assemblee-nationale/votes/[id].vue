@@ -2,7 +2,7 @@
 <template>
   <div>
     <!-- Hero section avec image de fond -->
-    <div class="relative h-48 bg-gray-900">
+    <div class="relative h-48 bg-gray-900 dark:bg-gray-900">
       <div class="absolute inset-0">
         <img
           src="/images/menu/assemblee-nationale-1.jpg"
@@ -38,17 +38,20 @@
       </div>
 
       <!-- Error state -->
-      <div v-else-if="error" class="py-8 text-center text-red-500">
+      <div
+        v-else-if="error"
+        class="py-8 text-center text-red-500 dark:text-red-300"
+      >
         {{ error }}
       </div>
 
-      <UCard v-else class="mb-8">
+      <UCard v-else class="mb-8 dark:border-gray-700 dark:bg-gray-800">
         <!-- En-tête -->
         <div class="mb-6">
-          <div class="mb-2 text-sm text-gray-600">
+          <div class="mb-2 text-sm text-gray-600 dark:text-gray-300">
             VOTE n° {{ vote?.id }} du {{ formatDate(vote?.date) }}
           </div>
-          <h1 class="mb-4 text-3xl font-bold text-gray-900">
+          <h1 class="mb-4 text-3xl font-bold text-gray-900 dark:text-gray-100">
             {{ vote?.name }}
           </h1>
           <UBadge
@@ -102,8 +105,10 @@
         <!-- Résultats et Infos -->
         <!-- Colonne gauche : Résultat -->
         <div>
-          <h2 class="mb-4 text-2xl font-bold">Résultat du vote</h2>
-          <div class="prose">
+          <h2 class="mb-4 text-2xl font-bold dark:text-gray-100">
+            Résultat du vote
+          </h2>
+          <div class="prose dark:prose-invert">
             <p>
               Les députés ont
               <span class="font-medium text-emerald-500">
@@ -114,7 +119,10 @@
             <!-- <p v-if="vote" class="mt-4">
               {{ vote?.description }}
             </p> -->
-            <div class="prose prose-gray max-w-none" v-html="vote?.desc"></div>
+            <div
+              class="prose prose-gray dark:prose-invert max-w-none"
+              v-html="vote?.desc"
+            ></div>
             <!-- <p class="mt-4">
                 Au total, <strong>{{ vote?.voters }} députés</strong> ont pris
                 part au vote :
