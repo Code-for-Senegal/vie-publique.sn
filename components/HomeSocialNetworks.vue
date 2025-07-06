@@ -30,7 +30,7 @@
             <p
               class="mb-2 text-sm font-medium text-[#0A66C2] dark:text-[#60a5fa]"
             >
-              40K abonnés
+              50K abonnés
             </p>
           </div>
         </a>
@@ -57,7 +57,7 @@
             <p
               class="mb-2 text-sm font-medium text-[#1877F2] dark:text-[#60a5fa]"
             >
-              18K abonnés
+              20K abonnés
             </p>
           </div>
         </a>
@@ -88,7 +88,7 @@
             <p
               class="mb-2 text-sm font-medium text-[#E4405F] dark:text-pink-400"
             >
-              1200 abonnés
+              2000 abonnés
             </p>
           </div>
         </a>
@@ -110,7 +110,7 @@
               Twitter
             </h3>
             <p class="mb-2 text-sm font-medium text-black dark:text-gray-200">
-              15K abonnés
+              16K abonnés
             </p>
           </div>
         </a>
