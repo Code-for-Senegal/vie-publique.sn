@@ -57,7 +57,7 @@ onMounted(() => {
     />
 
     <!-- Content -->
-    <div v-else class="flex flex-col gap-8 md:flex-row md:gap-12">
+    <div v-else>
       <!-- Section Documents -->
       <div v-if="store.getLatestDocuments.length > 0">
         <div class="prose prose-sm sm:prose mx-auto my-4">
@@ -118,38 +118,6 @@ onMounted(() => {
           </NuxtLink>
         </div>
       </div>
-
-      <!-- Questions section -->
-      <!-- <div class="flex-1">
-        <h3 class="mb-4 text-lg font-medium text-gray-900">
-          Dernières questions écrites
-        </h3>
-        <div class="divide-y divide-gray-200">
-          <div
-            v-for="question in store.getLatestQuestions"
-            :key="question.id"
-            class="flex items-start gap-4 py-4"
-          >
-            <UIcon
-              :name="getIcon('question')"
-              class="mt-1 h-5 w-5 flex-shrink-0 text-gray-400"
-            />
-
-            <div class="flex-1 space-y-1">
-              <NuxtLink :to="question.url" class="group">
-                <h4
-                  class="group-hover:text-primary-600 font-medium text-gray-900"
-                >
-                  {{ question.title }}
-                </h4>
-                <p class="text-sm text-gray-500">
-                  Ajouté le {{ formatDate(question.date_created) }}
-                </p>
-              </NuxtLink>
-            </div>
-          </div>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>

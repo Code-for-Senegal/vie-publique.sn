@@ -1,7 +1,7 @@
 <template>
   <div class="my-8">
-    <div class="prose prose-sm sm:prose mx-auto mb-8">
-      <h2 class="text-center text-gray-800 dark:text-white">
+    <div class="prose prose-sm sm:prose-sm mx-auto mb-8">
+      <h2 class="text-center text-xl text-gray-800 dark:text-white">
         Nos réseaux sociaux
       </h2>
     </div>
