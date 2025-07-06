@@ -28,12 +28,12 @@ const isImageFile = (fileType: string) => {
 </script>
 
 <template>
-  <div class="container mx-auto py-2">
+  <div class="container mx-auto min-h-screen bg-white py-2 dark:bg-gray-900">
     <div class="mx-auto max-w-4xl">
       <!-- Bouton retour -->
       <NuxtLink
         to="/assemblee-nationale/questions"
-        class="mb-6 inline-flex items-center text-gray-600 hover:text-gray-800"
+        class="mb-6 inline-flex items-center text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100"
       >
         <UIcon name="i-heroicons-arrow-left" class="mr-2 h-5 w-5" />
         Retour à la liste
@@ -45,14 +45,19 @@ const isImageFile = (fileType: string) => {
       </div>
 
       <!-- Error state -->
-      <div v-else-if="error" class="py-8 text-center text-red-500">
+      <div
+        v-else-if="error"
+        class="py-8 text-center text-red-500 dark:text-red-300"
+      >
         {{ error }}
       </div>
 
       <!-- Contenu de la question -->
       <div v-else-if="question" class="space-y-6">
         <!-- En-tête avec info député -->
-        <div class="rounded-lg bg-white p-2 shadow-sm">
+        <div
+          class="rounded-lg bg-white p-2 shadow-sm dark:bg-gray-800 dark:text-gray-100"
+        >
           <NuxtLink
             :to="`/assemblee-nationale/deputes/${question.deputy.id}/${$getSlugifyUrlPath(question.deputy.first_name + ' ' + question.deputy.last_name)}`"
             class="block"
@@ -64,29 +69,29 @@ const isImageFile = (fileType: string) => {
                 class="h-20 w-20 rounded-full object-cover"
               />
               <div>
-                <h2 class="text-xl font-bold">
+                <h2 class="text-xl font-bold dark:text-gray-100">
                   {{ question.deputy.first_name }}
                   {{ question.deputy.last_name }}
                 </h2>
-                <div class="text-sm text-gray-500">
+                <div class="text-sm text-gray-500 dark:text-gray-400">
                   {{ formatDate(question.question_date) }}
                 </div>
               </div>
             </div>
           </NuxtLink>
-          <h1 class="mb-4 text-2xl font-bold">
+          <h1 class="mb-4 text-2xl font-bold dark:text-gray-100">
             {{ question.subject }}
           </h1>
 
           <!-- Corps de la question -->
           <div
-            class="prose prose-gray max-w-none"
+            class="prose prose-gray dark:prose-invert max-w-none"
             v-html="question.question_text"
           ></div>
 
           <NuxtLink
             :to="`/assemblee-nationale/deputes/${question.deputy.id}/${$getSlugifyUrlPath(question.deputy.first_name + ' ' + question.deputy.last_name)}`"
-            class="block text-blue-600 underline"
+            class="block text-blue-600 underline dark:text-blue-300 dark:hover:text-blue-200"
             >Voir son profil</NuxtLink
           >
         </div>
@@ -94,9 +99,11 @@ const isImageFile = (fileType: string) => {
         <!-- Pièces jointes -->
         <div
           v-if="question.attachments?.length > 0"
-          class="rounded-lg bg-white shadow-sm"
+          class="rounded-lg bg-white shadow-sm dark:bg-gray-800 dark:text-gray-100"
         >
-          <h3 class="mb-4 text-lg font-bold">Documents joints</h3>
+          <h3 class="mb-4 text-lg font-bold dark:text-gray-100">
+            Documents joints
+          </h3>
           <div class="grid grid-cols-1 gap-2 md:grid-cols-2">
             <div
               v-for="attachment in question.attachments"
@@ -108,14 +115,14 @@ const isImageFile = (fileType: string) => {
                 v-if="isImageFile(attachment.directus_files_id.type)"
                 :src="getImageUrl(attachment.directus_files_id.id)"
                 :alt="'Document joint'"
-                class="h-auto w-full rounded border border-gray-200"
+                class="h-auto w-full rounded border border-gray-200 dark:border-gray-700"
               />
               <!-- Non-image attachments -->
               <UButton
                 v-else
                 :href="getImageUrl(attachment.directus_files_id.id)"
                 target="_blank"
-                class="w-full"
+                class="w-full dark:bg-gray-700 dark:text-gray-100"
               >
                 <UIcon name="i-heroicons-document" class="mr-2 h-5 w-5" />
                 Télécharger le document
@@ -126,7 +133,7 @@ const isImageFile = (fileType: string) => {
       </div>
 
       <!-- Not found state -->
-      <div v-else class="py-8 text-center text-gray-500">
+      <div v-else class="py-8 text-center text-gray-500 dark:text-gray-400">
         Question non trouvée
       </div>
     </div>

@@ -34,7 +34,7 @@
             >
               <UButton
                 :label="question"
-                class="my-1 w-full py-3 text-left font-normal"
+                class="my-1 w-full py-3 text-left font-normal dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
                 color="gray"
                 variant="soft"
                 @click="askQuestion(question)"
@@ -73,7 +73,11 @@
               <div
                 class="prose dark:prose-invert max-w-[80%] rounded-l-xl rounded-t-xl bg-blue-500 px-4 py-3 text-white shadow-sm md:max-w-[70%] dark:bg-blue-600"
               >
-                <div v-html="formatMessage(message.text)" />
+                <div
+                  v-html="
+                    formatMessage(message.progressiveText ?? message.text)
+                  "
+                />
               </div>
             </div>
 
@@ -98,7 +102,11 @@
                     class="max-w-[100%] rounded-r-xl rounded-t-xl bg-white p-4 md:max-w-[90%] dark:bg-gray-800"
                   >
                     <div class="max-w-none">
-                      <div v-html="formatMessage(message.text)" />
+                      <div
+                        v-html="
+                          formatMessage(message.progressiveText ?? message.text)
+                        "
+                      />
                     </div>
                   </div>
 
@@ -115,7 +123,7 @@
                       color="gray"
                       variant="soft"
                       size="xs"
-                      class="max-w-full whitespace-normal break-words text-left sm:max-w-[300px] dark:bg-slate-600"
+                      class="max-w-full whitespace-normal break-words text-left sm:max-w-[300px] dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
                       @click="askQuestion(suggestion)"
                     >
                       {{ suggestion }}
@@ -228,6 +236,7 @@ interface Message {
   text: string;
   isBot: boolean;
   suggestions?: string[];
+  progressiveText?: string;
 }
 
 interface ChatbotRequest {
@@ -245,16 +254,15 @@ const textareaRef = ref<HTMLElement | null>(null);
 
 // Questions suggérées initiales
 const initialQuestions = [
-  "Qu'est-ce que le Journal Officiel ?",
-  "Comment fonctionne l'Assemblée Nationale ?",
-  "Quelles sont les dernières actualités ?",
-  "Expliquez-moi le processus législatif",
+  "Résumé du dernier conseil des ministres ?",
+  "Quel âge faut-il avoir pour se syndiquer au Sénégal ?",
+  "Les sénégalais majeurs ont-ils le droit de prendre une autre nationalité ?",
 ];
 
 const config = useRuntimeConfig();
 
 const formatMessage = (text: string) => {
-  // Traitement des liens markdown avant de passer à marked
+  // Traitement des liens [[texte]](url) (optionnel)
   const processedText = text.replace(
     /\[\[(.*?)\]\]\((.*?)\)/g,
     (match, text, url) => {
@@ -266,6 +274,22 @@ const formatMessage = (text: string) => {
   );
 
   const renderer = new marked.Renderer();
+
+  // Surcharge du rendu des liens markdown classiques [texte](url)
+  renderer.link = function ({
+    href,
+    title: _title,
+    text,
+  }: {
+    href: string;
+    title?: string | null;
+    text?: string;
+  }) {
+    return `<a href="${href}" class="inline-flex items-center gap-1 underline underline-offset-2 text-blue-700 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300" target="_blank" rel="noopener noreferrer">
+      ${text}
+      <span class="ml-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 3h7m0 0v7m0-7L10 14m-7 7h7a2 2 0 002-2v-7" /></svg></span>
+    </a>`;
+  };
 
   marked.setOptions({
     renderer,
@@ -279,6 +303,33 @@ const formatMessage = (text: string) => {
 const askQuestion = (question: string) => {
   userInput.value = question;
   sendMessage();
+};
+
+const showBotMessageProgressively = async (
+  fullText: string,
+  suggestions?: string[],
+) => {
+  // Découper en lignes (par \n ou double retour à la ligne)
+  const lines = fullText.split(/(\n\n|\n)/g).filter((l) => l.trim() !== "");
+  let displayed = "";
+  const msg: Message = {
+    text: fullText,
+    isBot: true,
+    suggestions,
+    progressiveText: "",
+  };
+  messages.value.push(msg);
+  for (let i = 0; i < lines.length; i++) {
+    displayed += (i > 0 ? "\n" : "") + lines[i];
+    msg.progressiveText = displayed;
+    await nextTick();
+    scrollToBottom();
+    await new Promise((res) => setTimeout(res, 60)); // délai entre chaque ligne
+  }
+  // À la fin, on s'assure que tout le texte est bien affiché
+  msg.progressiveText = fullText;
+  await nextTick();
+  scrollToBottom();
 };
 
 const sendMessage = async () => {
@@ -320,11 +371,11 @@ const sendMessage = async () => {
       chatSessionId.value = dataTest.chatSessionId;
     }
 
-    messages.value.push({
-      text: dataTest.answer || "Désolé, je n'ai pas pu traiter votre demande.",
-      isBot: true,
-      suggestions: dataTest.suggestingQuestions,
-    });
+    // Affichage progressif pour le bot
+    await showBotMessageProgressively(
+      dataTest.answer || "Désolé, je n'ai pas pu traiter votre demande.",
+      dataTest.suggestingQuestions,
+    );
   } catch (error) {
     messages.value.push({
       text: "Désolé, une erreur est survenue. Veuillez réessayer.",
@@ -382,6 +433,13 @@ onMounted(() => {
 
 .prose a {
   text-decoration-thickness: 1px;
+  color: #2563eb; /* Couleur bleue */
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.prose a:hover {
+  color: #1d4ed8; /* Couleur bleue plus foncée au survol */
 }
 
 .prose pre {

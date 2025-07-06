@@ -50,42 +50,38 @@ const handlePageChange = (page: number) => {
 </script>
 
 <template>
-  <div class="container mx-auto py-4">
+  <div class="container mx-auto min-h-screen bg-white py-4 dark:bg-gray-900">
     <NuxtLink
       to="/assemblee-nationale"
-      class="mb-4 inline-flex items-center text-gray-600 hover:text-gray-800"
+      class="mb-4 inline-flex items-center text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100"
     >
       <UIcon name="i-heroicons-arrow-left" class="mr-2 h-5 w-5" />
       15e législature Assemblée nationale
     </NuxtLink>
-
     <div class="mx-auto max-w-4xl">
-      <div class="prose prose-sm sm:prose my-2">
+      <div class="prose prose-sm sm:prose my-2 dark:text-gray-100">
         <h1 class="mb-2">Questions écrites</h1>
       </div>
-
-      <!-- Loading state -->
       <div v-if="loading" class="flex justify-center py-8">
         <UIcon name="i-heroicons-arrow-path" class="h-8 w-8 animate-spin" />
       </div>
-
-      <!-- Error state -->
-      <div v-else-if="error" class="py-8 text-center text-red-500">
+      <div
+        v-else-if="error"
+        class="py-8 text-center text-red-500 dark:text-red-300"
+      >
         {{ error }}
       </div>
-
       <div v-else>
-        <!-- Top députés statistiques -->
         <div class="mb-2 rounded-lg p-0">
-          <h2 class="mb-4 text-xl font-bold">Députés les plus actifs</h2>
-
+          <h2 class="mb-4 text-xl font-bold dark:text-gray-100">
+            Députés les plus actifs
+          </h2>
           <div class="grid grid-cols-2 gap-2 md:grid-cols-4">
             <div
               v-for="(deputy, index) in topDeputies"
               :key="deputy.id"
-              class="custom-shadow relative flex flex-col items-center rounded-lg bg-white p-4 transition-all hover:shadow-md"
+              class="custom-shadow relative flex flex-col items-center rounded-lg bg-white p-4 transition-all hover:shadow-md dark:bg-gray-800 dark:text-gray-100"
             >
-              <!-- Badge position -->
               <div
                 class="absolute left-1/2 top-20 -translate-x-1/2 rounded-full px-3 py-1 text-sm font-bold text-white"
                 :class="{
@@ -97,7 +93,6 @@ const handlePageChange = (page: number) => {
               >
                 {{ index + 1 }}{{ index === 0 ? "er" : "ème" }}
               </div>
-
               <NuxtLink
                 :to="`/assemblee-nationale/deputes/${deputy.id}/${$getSlugifyUrlPath(deputy.first_name + ' ' + deputy.last_name)}`"
                 class="flex flex-col items-center"
@@ -108,13 +103,15 @@ const handlePageChange = (page: number) => {
                   class="mb-3 h-20 w-20 rounded-full object-cover shadow-sm"
                 />
                 <div class="text-center">
-                  <div class="truncate font-medium capitalize text-gray-900">
+                  <div
+                    class="truncate font-medium capitalize text-gray-900 dark:text-gray-100"
+                  >
                     {{ deputy.first_name.toLowerCase() }}<br />
                     <span class="tracking-wider">
                       {{ deputy.last_name.toUpperCase() }}
                     </span>
                   </div>
-                  <div class="mt-1 text-sm text-gray-500">
+                  <div class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                     {{ deputy.questionsCount }} question{{
                       deputy.questionsCount > 1 ? "s" : ""
                     }}
@@ -124,24 +121,20 @@ const handlePageChange = (page: number) => {
             </div>
           </div>
         </div>
-
-        <!-- Liste des questions -->
         <div id="questions-list" class="space-y-2">
           <div class="mb-4 flex items-center justify-between">
-            <h2 class="text-xl font-bold">Questions</h2>
-            <div class="text-sm text-gray-500">
+            <h2 class="text-xl font-bold dark:text-gray-100">Questions</h2>
+            <div class="text-sm text-gray-500 dark:text-gray-400">
               {{ questions.length }} questions au total
             </div>
           </div>
-
           <UCard
             v-for="question in paginatedQuestions"
             :key="question.id"
-            class="custom-shadow transition-all hover:shadow-lg"
+            class="custom-shadow transition-all hover:shadow-lg dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
           >
             <NuxtLink :to="`/assemblee-nationale/questions/${question.id}`">
               <div class="flex gap-4">
-                <!-- Photo du député -->
                 <div class="flex-shrink-0">
                   <img
                     :src="getImageUrl(question.deputy.photo)"
@@ -149,33 +142,29 @@ const handlePageChange = (page: number) => {
                     class="h-20 w-20 rounded-full object-cover"
                   />
                 </div>
-
-                <!-- Contenu -->
                 <div class="flex-grow">
-                  <div class="mb-1 text-sm text-gray-500">
+                  <div class="mb-1 text-sm text-gray-500 dark:text-gray-400">
                     {{ $dateformat(question.question_date) }}
                   </div>
-                  <h2 class="text-normal mb-2 font-medium">
+                  <h2 class="text-normal mb-2 font-medium dark:text-gray-100">
                     {{ question.subject }}
                   </h2>
-                  <div class="text-sm font-medium text-blue-900">
+                  <div
+                    class="text-sm font-medium text-blue-900 dark:text-blue-300"
+                  >
                     {{ question.deputy.first_name }}
                     {{ question.deputy.last_name }}
                   </div>
                 </div>
-
-                <!-- Flèche -->
                 <div class="flex items-center">
                   <UIcon
                     name="i-heroicons-chevron-right"
-                    class="h-5 w-5 text-gray-400"
+                    class="h-5 w-5 text-gray-400 dark:text-gray-300"
                   />
                 </div>
               </div>
             </NuxtLink>
           </UCard>
-
-          <!-- Pagination -->
           <div class="mt-6 flex justify-center">
             <UPagination
               v-model="currentPage"
@@ -185,8 +174,10 @@ const handlePageChange = (page: number) => {
               :ui="{
                 wrapper: 'flex items-center gap-1',
                 base: 'min-w-8 min-h-8 flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed',
-                active: 'bg-gray-900 text-white',
-                inactive: 'bg-white text-gray-900 hover:bg-gray-100',
+                active:
+                  'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900',
+                inactive:
+                  'bg-white text-gray-900 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700',
               }"
               @change="handlePageChange"
             />

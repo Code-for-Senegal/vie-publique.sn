@@ -1,6 +1,6 @@
 <!-- pages/assemblee-nationale/votes/index.vue -->
 <template>
-  <div class="min-h-screen">
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
     <UButton
       icon="i-heroicons-arrow-left"
       variant="ghost"
@@ -20,8 +20,10 @@
 
       <!-- En-tête avec titre et description -->
       <div class="mb-8">
-        <h1 class="mb-4 text-4xl font-bold text-gray-900">Les votes</h1>
-        <div class="prose max-w-3xl text-sm text-gray-600">
+        <h1 class="mb-4 text-4xl font-bold text-gray-900 dark:text-gray-100">
+          Les votes
+        </h1>
+        <div class="prose max-w-3xl text-sm text-gray-600 dark:text-gray-300">
           <p>
             On décrypte pour vous les votes de la législature en cours. Chaque
             vote fait l'objet d'une reformulation et d'une contextualisation,
@@ -43,7 +45,7 @@
         icon="i-heroicons-exclamation-triangle"
         color="red"
         variant="soft"
-        class="mb-4"
+        class="mb-4 dark:bg-red-900/40 dark:text-red-200"
       >
         {{ error }}
       </UAlert>
@@ -57,13 +59,13 @@
           class="transition-shadow hover:shadow-md"
         >
           <UCard
-            class="h-full rounded-none p-0 transition-shadow hover:shadow-md"
+            class="h-full rounded-none p-0 transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
           >
             <div class="flex h-full flex-col p-0">
               <!-- Header: Date et Status -->
               <div class="mb-4 flex items-center justify-between">
                 <span
-                  class="rounded-full bg-gray-50 px-2 py-1 text-xs text-gray-600"
+                  class="rounded-full bg-gray-50 px-2 py-1 text-xs text-gray-600 dark:bg-gray-800 dark:text-gray-300"
                 >
                   {{ $getAssemblyVoteLabel(vote.type) }}
                 </span>
@@ -77,13 +79,15 @@
               </div>
 
               <!-- Titre -->
-              <h2 class="mb-auto text-lg font-medium text-gray-900">
+              <h2
+                class="mb-auto text-lg font-medium text-gray-900 dark:text-gray-100"
+              >
                 {{ vote.name }}
               </h2>
 
               <!-- Tag catégorie -->
               <div>
-                <span class="text-sm text-gray-500">
+                <span class="text-sm text-gray-500 dark:text-gray-400">
                   {{ $dateformat(vote.date) }}
                 </span>
               </div>
