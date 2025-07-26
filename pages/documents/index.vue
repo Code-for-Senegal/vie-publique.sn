@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import HomeLatestDocuments from "~/components/HomeLatestDocuments.vue";
+
 useHead({
   title: "Documents officiels du Sénégal",
   meta: [
@@ -46,6 +48,13 @@ const documentCategories = [
     to: "/documents/codes",
     color: "indigo",
   },
+  {
+    title: "Tous les documents",
+    description: "Liste complète des documents officiels",
+    icon: "i-heroicons-document-text",
+    to: "/documents/public",
+    color: "purple",
+  },
 ];
 
 // Fonction pour obtenir la couleur de fond de l'icône
@@ -56,6 +65,7 @@ const getIconBgColor = (color: string) => {
     amber: "bg-amber-100",
     red: "bg-rose-100",
     indigo: "bg-indigo-100",
+    purple: "bg-purple-100",
   };
   return colorMap[color] || "bg-gray-100";
 };
@@ -68,6 +78,7 @@ const getIconColor = (color: string) => {
     amber: "text-amber-600",
     red: "text-rose-600",
     indigo: "text-indigo-600",
+    purple: "text-purple-600",
   };
   return colorMap[color] || "text-gray-600";
 };
@@ -128,6 +139,8 @@ const getIconColor = (color: string) => {
         </UCard>
       </NuxtLink>
     </div>
+
+    <HomeLatestDocuments />
   </div>
 </template>
 

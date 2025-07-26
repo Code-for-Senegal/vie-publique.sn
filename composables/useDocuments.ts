@@ -37,11 +37,11 @@ export const useDocuments = (options?: { type?: string }) => {
       }
 
       const fields =
-        "id,title,slug,publish_date,description,audit_institution,cover_image,file.id,file.type,file.filesize,file.filename_download";
+        "id,title,slug,type,publish_date,description,audit_institution,cover_image,file.id,file.type,file.filesize,file.filename_download";
 
       const config = useRuntimeConfig();
       const response = await fetch(
-        `${config.public.cmsApiUrl}/items/documents?fields=${fields}&${sort}&${filters}`,
+        `${config.public.cmsApiUrl}/items/documents?fields=${fields}&${sort}&${filters}&limit=2000`,
         {
           headers: {
             Authorization: `Bearer ${config.public.cmsApiKey}`,

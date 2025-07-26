@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import HomeLatestDocuments from "~/components/HomeLatestDocuments.vue";
 /* SEO */
 useHead({
   title: "l'information publique au Sénégal | Vie-Publique.sn",
@@ -56,11 +57,18 @@ const navigationCards = [
     <MenuHomeV4 :navigation-cards="navigationCards" />
 
     <div class="">
-      <HomeNews />
-      <!-- Dernières mises à jour -->
-      <HomeLatestUpdates />
-      <HomeSocialNetworks />
-      <!-- <HomeTwitterTimeline /> -->
+      <div class="my-8">
+        <HomeNews />
+      </div>
+      <div class="my-8">
+        <HomeLatestDocuments />
+      </div>
+      <div class="my-8">
+        <HomeAssemblyQuestions />
+      </div>
+      <div class="my-8">
+        <HomeSocialNetworks />
+      </div>
 
       <UDivider site="sm" class="mt-4" />
 
