@@ -17,6 +17,12 @@ watchEffect(() => {
   if (document.value) {
     useHead({
       title: document.value.title,
+      link: [
+        {
+          rel: "canonical",
+          href: `https://vie-publique.sn/documents/${document.value.id}/${document.value.slug}`,
+        },
+      ],
       meta: [
         { name: "description", content: document.value.description },
         { property: "og:title", content: document.value.title },
