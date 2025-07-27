@@ -54,10 +54,10 @@ const getAssetUrl = (assetId: string, slug: string) => {
 
     <!-- Loading state -->
     <div v-if="loading" class="space-y-4">
-      <div class="h-8 w-3/4 animate-pulse rounded bg-gray-200"></div>
-      <div class="h-64 animate-pulse rounded-lg bg-gray-200"></div>
-      <div class="h-4 animate-pulse rounded bg-gray-200"></div>
-      <div class="h-4 w-3/4 animate-pulse rounded bg-gray-200"></div>
+      <div class="h-8 w-3/4 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
+      <div class="h-64 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700"></div>
+      <div class="h-4 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
+      <div class="h-4 w-3/4 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
     </div>
 
     <!-- Error state -->
@@ -70,7 +70,7 @@ const getAssetUrl = (assetId: string, slug: string) => {
     />
 
     <!-- Contenu -->
-    <div v-else-if="document" class="prose prose-sm sm:prose mx-2 mx-auto">
+    <div v-else-if="document" class="prose prose-sm sm:prose mx-2 mx-auto dark:prose-invert">
       <div class="">
         <h1>{{ document.title }}</h1>
       </div>
@@ -79,7 +79,7 @@ const getAssetUrl = (assetId: string, slug: string) => {
         <a
           :href="getAssetUrl(document.file, document.slug)"
           target="_blank"
-          class="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
+          class="inline-flex items-center gap-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700"
         >
           📥 Télécharger le PDF
         </a>
@@ -90,8 +90,8 @@ const getAssetUrl = (assetId: string, slug: string) => {
 
       <ClientOnly v-if="document.file" placeholder="Chargement en cours">
         <div class="mt-8">
-          <h3 class="mb-4 text-lg font-medium text-gray-900">Document PDF</h3>
-          <PdfViewer 
+          <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-gray-100">Document PDF</h3>
+          <PdfViewerPdfjs 
             :source="getAssetUrl(document.file, document.slug)"
             :download-name="`${document.slug}.pdf`"
           />
@@ -100,7 +100,7 @@ const getAssetUrl = (assetId: string, slug: string) => {
     </div>
 
     <!-- Not found state -->
-    <div v-else class="py-8 text-center text-gray-500">Document non trouvé</div>
+    <div v-else class="py-8 text-center text-gray-500 dark:text-gray-400">Document non trouvé</div>
 
     <ScrollToTopButton />
   </div>
@@ -108,6 +108,10 @@ const getAssetUrl = (assetId: string, slug: string) => {
 
 <style>
 .prose p a {
-  color: rgb(37 99 235);
+  @apply text-blue-600 dark:text-blue-400;
+}
+
+.dark .prose p a {
+  @apply hover:text-blue-300;
 }
 </style>

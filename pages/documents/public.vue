@@ -129,8 +129,10 @@ const handlePageChange = (page: number) => {
       @click="router.back()"
     />
     <ClientOnly>
-      <div class="prose prose-sm sm:prose mx-auto my-4">
-        <h1 class="text-center text-xl text-gray-900 sm:text-2xl">
+      <div class="prose prose-sm sm:prose dark:prose-invert mx-auto my-4">
+        <h1
+          class="text-center text-xl text-gray-900 sm:text-2xl dark:text-gray-100"
+        >
           Documents publics du Sénégal
         </h1>
         <p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
@@ -149,7 +151,7 @@ const handlePageChange = (page: number) => {
         />
 
         <div
-          class="mt-2 flex flex-col items-center justify-between text-sm text-gray-500 sm:flex-row"
+          class="mt-2 flex flex-col items-center justify-between text-sm text-gray-500 sm:flex-row dark:text-gray-400"
         >
           <span>{{ filteredDocuments.length }} documents publics trouvés</span>
         </div>
@@ -158,10 +160,16 @@ const handlePageChange = (page: number) => {
       <template v-if="loading">
         <UCard v-for="n in 3" :key="n" class="mb-4">
           <div class="flex items-start gap-4 p-4">
-            <div class="h-8 w-8 animate-pulse rounded-full bg-gray-200" />
+            <div
+              class="h-8 w-8 animate-pulse rounded-full bg-gray-200 dark:bg-gray-700"
+            />
             <div class="flex-grow">
-              <div class="mb-2 h-6 w-3/4 animate-pulse rounded bg-gray-200" />
-              <div class="h-4 w-1/2 animate-pulse rounded bg-gray-200" />
+              <div
+                class="mb-2 h-6 w-3/4 animate-pulse rounded bg-gray-200 dark:bg-gray-700"
+              />
+              <div
+                class="h-4 w-1/2 animate-pulse rounded bg-gray-200 dark:bg-gray-700"
+              />
             </div>
           </div>
         </UCard>
@@ -180,7 +188,7 @@ const handlePageChange = (page: number) => {
         <UCard
           v-for="doc in paginatedDocuments"
           :key="doc.id"
-          class="custom-shadow transition-shadow duration-200 hover:shadow-md"
+          class="custom-shadow transition-shadow duration-200 hover:shadow-md dark:bg-gray-800/80"
         >
           <NuxtLink
             :to="`/documents/${doc.id}/${doc.slug}`"
@@ -189,15 +197,15 @@ const handlePageChange = (page: number) => {
             <div class="flex-shrink-0">
               <UIcon
                 name="i-heroicons-document-text"
-                class="text-primary-600 h-8 w-8"
+                class="text-primary-600 h-8 w-8 dark:text-gray-400"
               />
             </div>
 
             <div class="flex-grow">
-              <h3 class="mb-1 font-medium text-gray-900">
+              <h3 class="mb-1 font-medium text-gray-900 dark:text-gray-100">
                 {{ doc.title }}
               </h3>
-              <p class="line-clamp-2 text-sm text-gray-500">
+              <p class="line-clamp-2 text-sm text-gray-500 dark:text-gray-400">
                 {{ (doc as any).description }}
               </p>
               <div
@@ -205,7 +213,7 @@ const handlePageChange = (page: number) => {
                 v-if="doc.publish_date"
               >
                 <span
-                  class="flex items-center gap-1 rounded-full bg-gray-50 px-2 py-1 text-xs text-gray-400"
+                  class="flex items-center gap-1 rounded-full bg-gray-50 px-2 py-1 text-xs text-gray-400 dark:bg-gray-800 dark:text-gray-500"
                 >
                   {{ $dateMonthYearformat(doc.publish_date) }}
                 </span>
@@ -215,7 +223,7 @@ const handlePageChange = (page: number) => {
                   {{ $dateMonthYearformat(doc.publish_date) }}
                 </span>
                 <span
-                  class="inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700"
+                  class="inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
                 >
                   {{ (doc as any).type }}
                 </span>
@@ -229,14 +237,18 @@ const handlePageChange = (page: number) => {
           class="mt-6 flex flex-col items-center gap-4 sm:flex-row sm:justify-between"
         >
           <div class="flex items-center gap-2">
-            <span class="text-sm text-gray-500">Afficher</span>
+            <span class="text-sm text-gray-500 dark:text-gray-400"
+              >Afficher</span
+            >
             <USelect
               v-model="itemsPerPage"
               :options="[10, 20, 50]"
               size="sm"
               class="w-20"
             />
-            <span class="text-sm text-gray-500">par page</span>
+            <span class="text-sm text-gray-500 dark:text-gray-400"
+              >par page</span
+            >
           </div>
 
           <UPagination
@@ -248,7 +260,8 @@ const handlePageChange = (page: number) => {
               wrapper: 'flex items-center gap-1',
               base: 'min-w-8 min-h-8 flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed',
               active: 'bg-blue-900 text-white',
-              inactive: 'bg-white text-gray-900 hover:bg-gray-100',
+              inactive:
+                'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700',
             }"
             @change="handlePageChange"
           />
