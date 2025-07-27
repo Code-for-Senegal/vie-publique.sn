@@ -18,6 +18,7 @@ const securityConfig =
               "https://*.vie-publique.sn",
               "https://www.google-analytics.com",
               "https://*.google-analytics.com",
+              "https://fonts.googleapis.com",
             ],
             "script-src": [
               "'self'",
