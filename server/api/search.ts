@@ -35,6 +35,9 @@ export default defineEventHandler(async (event) => {
       params: {
         q: searchTerm,
         query_by: "title,content_text",
+        highlight_fields: "title,content_text",
+        highlight_start_tag: "<mark>",
+        highlight_end_tag: "</mark>",
         per_page: 20,
         page: query.page || 1,
       },
