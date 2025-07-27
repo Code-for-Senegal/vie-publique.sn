@@ -18,6 +18,7 @@ const securityConfig =
               "https://*.vie-publique.sn",
               "https://www.google-analytics.com",
               "https://*.google-analytics.com",
+              "https://fonts.googleapis.com",
             ],
             "script-src": [
               "'self'",
@@ -86,6 +87,10 @@ export default defineNuxtConfig({
   ],
   devtools: { enabled: true },
   runtimeConfig: {
+    // Variables privées (côté serveur uniquement)
+    typesenseApiKey: process.env.TYPESENSE_API_KEY,
+    typesenseUrl: process.env.TYPESENSE_URL,
+
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL,
       showPinnedPeoples: process.env.PUBLIC_SHOW_PINNED_PEOLPLES,

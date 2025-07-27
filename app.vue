@@ -146,6 +146,7 @@ onMounted(() => {
 
     <!-- HeaderBrand à gauche -->
     <AppHeader />
+
     <!-- App alert online and offline -->
     <ClientOnly>
       <AppLineAlert />
@@ -153,6 +154,8 @@ onMounted(() => {
 
     <Toaster position="bottom-center" />
 
+    <!-- Icône de recherche -->
+    <AppSearch />
     <!-- Menu pour mobiles (toggle visibility with Tailwind CSS) -->
     <ThemeToggle />
   </div>
