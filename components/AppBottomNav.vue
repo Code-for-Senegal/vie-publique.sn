@@ -49,7 +49,7 @@ const tabs = [
     to: "/assemblee-nationale",
   },
   {
-    label: "Voir plus",
+    label: "Menu",
     name: "voirplus",
     icon: "i-heroicons-squares-plus",
     to: "/menu",
