@@ -1,6 +1,8 @@
 <template>
   <div class="pdf-viewer-container">
-    <div class="pdf-controls mb-4 flex flex-wrap items-center justify-between gap-2">
+    <div
+      class="pdf-controls mb-4 flex flex-wrap items-center justify-between gap-2"
+    >
       <div class="flex items-center gap-2">
         <UButton
           icon="i-heroicons-minus"
@@ -12,32 +14,50 @@
         <span class="text-sm font-medium">{{ Math.round(scale * 100) }}%</span>
         <UButton
           icon="i-heroicons-plus"
-          size="sm"
+          size="xs"
           variant="outline"
           @click="zoomIn"
           :disabled="scale >= 3"
         />
         <UButton
           icon="i-heroicons-arrows-pointing-out"
-          size="sm"
+          size="xs"
           variant="outline"
           @click="fitToWidth"
           title="Ajuster à la largeur"
+        />
+        <UButton
+          icon="i-heroicons-arrows-pointing-in"
+          size="xs"
+          variant="outline"
+          @click="fitToPage"
+          title="Ajuster à la page"
         />
       </div>
 
       <div class="flex items-center gap-2">
         <UButton
           icon="i-heroicons-chevron-left"
-          size="sm"
+          size="xs"
           variant="outline"
           @click="previousPage"
           :disabled="currentPage <= 1"
         />
-        <span class="text-sm"> Page {{ currentPage }} / {{ totalPages }} </span>
+        <span class="text-sm">
+          Page
+          <input
+            type="number"
+            v-model.number="currentPage"
+            @change="goToPage"
+            :min="1"
+            :max="totalPages"
+            class="w-4 rounded text-center"
+          />
+          / {{ totalPages }}
+        </span>
         <UButton
           icon="i-heroicons-chevron-right"
-          size="sm"
+          size="xs"
           variant="outline"
           @click="nextPage"
           :disabled="currentPage >= totalPages"
@@ -69,6 +89,9 @@
             />
           </div>
           <p class="text-sm text-gray-600">Chargement du PDF...</p>
+          <p v-if="loadingProgress > 0" class="mt-1 text-xs text-gray-500">
+            {{ Math.round(loadingProgress) }}%
+          </p>
         </div>
       </div>
 
@@ -79,6 +102,7 @@
             class="mb-2 h-12 w-12 text-red-500"
           />
           <p class="text-sm text-gray-600">Erreur lors du chargement du PDF</p>
+          <p class="mt-1 text-xs text-gray-500">{{ errorMessage }}</p>
           <UButton
             label="Télécharger directement"
             size="sm"
@@ -89,29 +113,13 @@
         </div>
       </div>
 
-      <div
-        v-show="!error"
-        class="pdf-canvas-container"
-        :style="{
-          transform: `scale(${scale})`,
-          transformOrigin: 'top center',
-          transition: 'transform 0.3s ease'
-        }"
-      >
-        <VuePdfEmbed
-          :key="`${currentPage}-${pdfKey}`"
-          :source="source"
-          :page="currentPage"
-          @loaded="handleLoaded"
-          @loading-failed="handleError"
-          @rendered="handleRendered"
-          style="width: 100%; height: auto;"
-        />
+      <div v-show="!loading && !error" class="pdf-canvas-wrapper p-4">
+        <canvas ref="pdfCanvas" class="pdf-canvas mx-auto shadow-lg"></canvas>
       </div>
     </div>
 
     <!-- Version mobile : boutons de navigation flottants -->
-    <div class="md:hidden">
+    <div class="md:hidden" v-if="totalPages > 1">
       <div
         class="fixed bottom-20 left-4 right-4 flex items-center justify-between rounded-lg bg-white p-2 shadow-lg"
       >
@@ -138,7 +146,13 @@
 </template>
 
 <script setup lang="ts">
-import VuePdfEmbed from "vue-pdf-embed";
+import * as pdfjsLib from "pdfjs-dist";
+import type { PDFDocumentProxy, PDFPageProxy } from "pdfjs-dist";
+
+// Configuration du worker PDF.js - utiliser le worker local
+if (typeof window !== "undefined") {
+  pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdf-worker/pdf.worker.min.mjs";
+}
 
 interface Props {
   source: string;
@@ -149,63 +163,142 @@ const props = withDefaults(defineProps<Props>(), {
   downloadName: "document.pdf",
 });
 
+// Refs
 const pdfContainer = ref<HTMLElement>();
+const pdfCanvas = ref<HTMLCanvasElement>();
 const currentPage = ref(1);
 const totalPages = ref(0);
 const scale = ref(1);
 const loading = ref(true);
 const error = ref(false);
-const pdfKey = ref(0);
+const errorMessage = ref("");
+const loadingProgress = ref(0);
 
-const fitToWidth = () => {
-  if (pdfContainer.value) {
-    // Reset to fit width
-    scale.value = 1;
-    pdfKey.value++; // Force re-render
+// PDF.js objects
+let pdfDoc: PDFDocumentProxy | null = null;
+let pageRendering = false;
+let pageNumPending: number | null = null;
+let currentRenderTask: any = null;
+
+// Render the page
+const renderPage = async (num: number) => {
+  if (!pdfDoc || !pdfCanvas.value) return;
+
+  pageRendering = true;
+
+  try {
+    // Cancel any ongoing render task
+    if (currentRenderTask) {
+      await currentRenderTask.cancel();
+    }
+  } catch (e) {
+    // Ignore cancellation errors
+  }
+
+  try {
+    const page: PDFPageProxy = await pdfDoc.getPage(num);
+    const viewport = page.getViewport({ scale: scale.value });
+
+    const canvas = pdfCanvas.value;
+    const context = canvas.getContext("2d");
+    if (!context) return;
+
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
+
+    const renderContext = {
+      canvasContext: context,
+      viewport: viewport,
+    };
+
+    currentRenderTask = page.render(renderContext);
+    await currentRenderTask.promise;
+
+    pageRendering = false;
+
+    if (pageNumPending !== null) {
+      renderPage(pageNumPending);
+      pageNumPending = null;
+    }
+  } catch (err: any) {
+    if (err.name !== "RenderingCancelledException") {
+      console.error("Error rendering page:", err);
+    }
+    pageRendering = false;
   }
 };
 
+// Queue render
+const queueRenderPage = (num: number) => {
+  if (pageRendering) {
+    pageNumPending = num;
+  } else {
+    renderPage(num);
+  }
+};
+
+// Navigation
+const previousPage = () => {
+  if (currentPage.value <= 1) return;
+  currentPage.value--;
+  queueRenderPage(currentPage.value);
+};
+
+const nextPage = () => {
+  if (currentPage.value >= totalPages.value) return;
+  currentPage.value++;
+  queueRenderPage(currentPage.value);
+};
+
+const goToPage = () => {
+  const page = Math.max(1, Math.min(currentPage.value, totalPages.value));
+  currentPage.value = page;
+  queueRenderPage(currentPage.value);
+};
+
+// Zoom controls
 const zoomIn = () => {
   if (scale.value < 3) {
     scale.value = Math.min(scale.value + 0.25, 3);
+    queueRenderPage(currentPage.value);
   }
 };
 
 const zoomOut = () => {
   if (scale.value > 0.5) {
     scale.value = Math.max(scale.value - 0.25, 0.5);
+    queueRenderPage(currentPage.value);
   }
 };
 
-const nextPage = () => {
-  if (currentPage.value < totalPages.value) {
-    currentPage.value++;
-  }
+const fitToWidth = () => {
+  if (!pdfContainer.value || !pdfDoc) return;
+
+  pdfDoc.getPage(currentPage.value).then((page) => {
+    const viewport = page.getViewport({ scale: 1 });
+    const containerWidth = pdfContainer.value!.clientWidth - 32; // 32px for padding
+    scale.value = containerWidth / viewport.width;
+    queueRenderPage(currentPage.value);
+  });
 };
 
-const previousPage = () => {
-  if (currentPage.value > 1) {
-    currentPage.value--;
-  }
+const fitToPage = () => {
+  if (!pdfContainer.value || !pdfDoc) return;
+
+  pdfDoc.getPage(currentPage.value).then((page) => {
+    const viewport = page.getViewport({ scale: 1 });
+    const containerWidth = pdfContainer.value!.clientWidth - 32;
+    const containerHeight = pdfContainer.value!.clientHeight - 32;
+
+    const scaleX = containerWidth / viewport.width;
+    const scaleY = containerHeight / viewport.height;
+    scale.value = Math.min(scaleX, scaleY);
+
+    queueRenderPage(currentPage.value);
+  });
 };
 
-const handleLoaded = (data: any) => {
-  console.log('PDF loaded:', data);
-  totalPages.value = data?.numPages || 0;
-  loading.value = false;
-  error.value = false;
-};
-
-const handleError = (err: any) => {
-  console.error('PDF loading error:', err);
-  loading.value = false;
-  error.value = true;
-};
-
-const handleRendered = () => {
-  console.log('PDF rendered');
-};
-
+// Download PDF
 const downloadPdf = () => {
   const link = document.createElement("a");
   link.href = props.source;
@@ -216,15 +309,43 @@ const downloadPdf = () => {
   document.body.removeChild(link);
 };
 
-// Gestion des touches clavier
-onMounted(() => {
-  window.addEventListener("keydown", handleKeyPress);
-});
+// Load PDF document
+const loadPdf = async () => {
+  loading.value = true;
+  error.value = false;
+  errorMessage.value = "";
+  loadingProgress.value = 0;
 
-onUnmounted(() => {
-  window.removeEventListener("keydown", handleKeyPress);
-});
+  try {
+    const loadingTask = pdfjsLib.getDocument({
+      url: props.source,
+      onProgress: (progress) => {
+        if (progress.total > 0) {
+          loadingProgress.value = (progress.loaded / progress.total) * 100;
+        }
+      },
+    });
 
+    pdfDoc = await loadingTask.promise;
+    totalPages.value = pdfDoc.numPages;
+
+    // Render first page
+    await renderPage(1);
+
+    // Auto fit to width on first load
+    await nextTick();
+    fitToWidth();
+
+    loading.value = false;
+  } catch (err: any) {
+    console.error("Error loading PDF:", err);
+    error.value = true;
+    errorMessage.value = err.message || "Erreur inconnue";
+    loading.value = false;
+  }
+};
+
+// Keyboard navigation
 const handleKeyPress = (e: KeyboardEvent) => {
   switch (e.key) {
     case "ArrowLeft":
@@ -248,6 +369,27 @@ const handleKeyPress = (e: KeyboardEvent) => {
       break;
   }
 };
+
+// Lifecycle
+onMounted(() => {
+  loadPdf();
+  window.addEventListener("keydown", handleKeyPress);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("keydown", handleKeyPress);
+  if (pdfDoc) {
+    pdfDoc.destroy();
+  }
+});
+
+// Watch for source changes
+watch(
+  () => props.source,
+  () => {
+    loadPdf();
+  },
+);
 </script>
 
 <style scoped>
@@ -267,19 +409,28 @@ const handleKeyPress = (e: KeyboardEvent) => {
   }
 }
 
-.pdf-canvas-container {
-  @apply p-4;
+.pdf-canvas-wrapper {
   width: 100%;
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.pdf-canvas {
   max-width: 100%;
-}
-
-:deep(.vue-pdf-embed) {
-  max-width: 100% !important;
-}
-
-:deep(.vue-pdf-embed > div) {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   background: white;
-  margin: 0 auto;
+  border: 1px solid #e5e7eb;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>
