@@ -27,3 +27,6 @@ logs
 # scripts
 scripts/.env
 scripts/!.env.example
+
+# PDF.js worker (generated)
+public/pdf-worker/
