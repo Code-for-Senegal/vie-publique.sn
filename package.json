@@ -3,15 +3,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
+    "build": "npm run copy-pdf-worker && nuxt build",
+    "dev": "npm run copy-pdf-worker && nuxt dev",
     "start": "node .output/server/index.mjs",
-    "generate": "nuxt generate",
+    "generate": "npm run copy-pdf-worker && nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
+    "postinstall": "nuxt prepare && npm run copy-pdf-worker",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "format": "prettier . --write"
+    "format": "prettier . --write",
+    "copy-pdf-worker": "mkdir -p public/pdf-worker && cp node_modules/pdfjs-dist/build/pdf.worker.min.mjs public/pdf-worker/"
   },
   "dependencies": {
     "@ai-sdk/vue": "^1.2.9",
@@ -35,6 +36,7 @@
     "nuxt": "3.14.1592",
     "nuxt-security": "^2.2.0",
     "papaparse": "^5.4.1",
+    "pdfjs-dist": "^5.3.93",
     "pinia": "^2.2.2",
     "reka-ui": "^2.2.0",
     "vue": "^3.4.21",
