@@ -168,7 +168,7 @@ const pdfContainer = ref<HTMLElement>();
 const pdfCanvas = ref<HTMLCanvasElement>();
 const currentPage = ref(1);
 const totalPages = ref(0);
-const scale = ref(1);
+const scale = ref(1.5); // Scale par défaut plus élevé pour mobile
 const loading = ref(true);
 const error = ref(false);
 const errorMessage = ref("");
@@ -197,14 +197,22 @@ const renderPage = async (num: number) => {
 
   try {
     const page: PDFPageProxy = await pdfDoc.getPage(num);
-    const viewport = page.getViewport({ scale: scale.value });
+    
+    // Utiliser un ratio de pixels pour améliorer la netteté
+    const pixelRatio = window.devicePixelRatio || 1;
+    const viewport = page.getViewport({ scale: scale.value * pixelRatio });
 
     const canvas = pdfCanvas.value;
     const context = canvas.getContext("2d");
     if (!context) return;
 
-    canvas.height = viewport.height;
+    // Définir la taille réelle du canvas
     canvas.width = viewport.width;
+    canvas.height = viewport.height;
+    
+    // Ajuster le style CSS pour l'affichage
+    canvas.style.width = `${viewport.width / pixelRatio}px`;
+    canvas.style.height = `${viewport.height / pixelRatio}px`;
 
     const renderContext = {
       canvasContext: context,
@@ -277,7 +285,18 @@ const fitToWidth = () => {
   pdfDoc.getPage(currentPage.value).then((page) => {
     const viewport = page.getViewport({ scale: 1 });
     const containerWidth = pdfContainer.value!.clientWidth - 32; // 32px for padding
-    scale.value = containerWidth / viewport.width;
+    let calculatedScale = containerWidth / viewport.width;
+    
+    // Sur mobile, arrondir le scale pour éviter le flou
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) {
+      // Arrondir au 0.25 le plus proche pour une meilleure netteté
+      calculatedScale = Math.round(calculatedScale * 4) / 4;
+      // S'assurer qu'on ne descend pas en dessous de 1 sur mobile
+      calculatedScale = Math.max(1, calculatedScale);
+    }
+    
+    scale.value = calculatedScale;
     queueRenderPage(currentPage.value);
   });
 };
@@ -422,6 +441,9 @@ watch(
   max-width: 100%;
   background: white;
   border: 1px solid #e5e7eb;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  -webkit-font-smoothing: antialiased;
 }
 
 input[type="number"] {
