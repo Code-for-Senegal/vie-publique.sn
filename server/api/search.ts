@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
       });
     }
 
-    const searchUrl = `${typesenseUrl}/collections/news/documents/search`;
+    const searchUrl = `${typesenseUrl}/collections/vpdata/documents/search`;
 
     const response = await $fetch(searchUrl, {
       method: "GET",
@@ -34,8 +34,8 @@ export default defineEventHandler(async (event) => {
       },
       params: {
         q: searchTerm,
-        query_by: "title,content_text",
-        highlight_fields: "title,content_text",
+        query_by: "title,content_html",
+        highlight_fields: "title,content_html",
         highlight_start_tag: "<mark>",
         highlight_end_tag: "</mark>",
         per_page: 20,
@@ -43,8 +43,46 @@ export default defineEventHandler(async (event) => {
       },
     });
 
+    const formattedData = (response.hits || []).map((hit: any) => {
+      const article = hit.document;
+      if (!article) return hit;
+
+      const id = article.id;
+      const slug =
+        article.slug ||
+        (article.title
+          ? article.title
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, "-")
+              .replace(/(^-|-$)/g, "")
+          : "actualite");
+
+      const categorySlug = article.category?.slug;
+      const documentType = article.type || "news";
+      let formattedUrl = "/actualites";
+
+      // Handle different types
+      if (documentType === "document") {
+        formattedUrl = `/documents/${id}/${slug}`;
+      } else {
+        // Handle news articles
+        if (categorySlug === "conseil-des-ministres") {
+          formattedUrl = `/conseil-des-ministres/${id}/${slug}`;
+        } else if (categorySlug === "assemblee-nationale") {
+          formattedUrl = `/assemblee-nationale/actualites/${id}/${slug}`;
+        } else {
+          formattedUrl = `/actualites/${id}/${slug}`;
+        }
+      }
+
+      return {
+        ...hit,
+        formattedUrl,
+      };
+    });
+
     return {
-      data: response.hits || [],
+      data: formattedData,
       total: response.found || 0,
       query: searchTerm,
       page: query.page || 1,
