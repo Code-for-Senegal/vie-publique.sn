@@ -3,30 +3,152 @@
 import { useNewsStore } from "~/stores/news";
 import { useRoute } from "vue-router";
 
-// Configuration des métadonnées pour le SEO et le partage social
-const seoTitle = "Actualités de la république du Sénégal";
-const seoDescription = "Information Actualités de la république du Sénégal";
-const seoImgPath = "https://vie-publique.sn/images/share-linkedin.png";
-const seoPageUrl = "https://vie-publique.sn/actualites";
+const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
+
+const title = "Actualités de la République du Sénégal | Vie-Publique.sn";
+const description = "Suivez toute l'actualité de la République du Sénégal. Conseil des ministres, Assemblée nationale, vie politique et institutionnelle sénégalaise.";
+const url = `${siteUrl}/actualites`;
+const image = `${siteUrl}/images/share-linkedin.png`;
+
+const newsCollectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": title,
+  "description": description,
+  "url": url,
+  "image": image,
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": siteName,
+    "url": siteUrl,
+  },
+  "about": {
+    "@type": "GovernmentOrganization",
+    "name": "République du Sénégal",
+    "description": "État souverain d'Afrique de l'Ouest",
+  },
+  "mainEntity": {
+    "@type": "ItemList",
+    "name": "Actualités République du Sénégal",
+    "description": "Collection des dernières actualités de la République du Sénégal",
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": siteUrl,
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Actualités",
+      "item": url,
+    },
+  ],
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "NewsMediaOrganization",
+  "name": siteName,
+  "url": siteUrl,
+  "logo": defaultImage,
+  "sameAs": [
+    "https://twitter.com/viepubliquesn",
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "SN",
+    "addressLocality": "Dakar",
+  },
+  "publishingPrinciples": `${siteUrl}/ethique`,
+  "correctionsPolicy": `${siteUrl}/corrections`,
+  "missionCoveragePrioritiesPolicy": `${siteUrl}/mission`,
+};
+
+const webSiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": siteName,
+  "url": siteUrl,
+  "description": "Site d'information sur la vie publique et politique du Sénégal",
+  "inLanguage": "fr-SN",
+  "isAccessibleForFree": true,
+  "publisher": {
+    "@type": "Organization",
+    "name": siteName,
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": `${siteUrl}/actualites?search={search_term_string}`,
+    },
+    "query-input": "required name=search_term_string",
+  },
+};
+
+useSeoMeta({
+  title,
+  ogTitle: title,
+  description,
+  ogDescription: description,
+  ogImage: image,
+  ogUrl: url,
+  twitterCard: "summary_large_image",
+  twitterTitle: title,
+  twitterDescription: description,
+  twitterImage: image,
+  keywords: [
+    ...keywords,
+    "actualités Sénégal",
+    "news République du Sénégal",
+    "Conseil des ministres actualités",
+    "Assemblée nationale news",
+    "politique sénégalaise actualités",
+    "gouvernement Sénégal news",
+    "information République Sénégal",
+  ].join(", "),
+});
 
 useHead({
-  title: seoTitle,
+  htmlAttrs: { lang: "fr-SN" },
+  link: [{ rel: "canonical", href: url }],
   meta: [
-    {
-      name: "description",
-      content: seoDescription,
-    },
-    // Twitter Card Meta Tags
-    { name: "twitter:title", content: seoTitle },
-    { name: "twitter:description", content: seoDescription },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:image", content: seoImgPath },
-    // Open Graph Meta Tags
-    { property: "og:title", content: seoTitle },
-    { property: "og:description", content: seoDescription },
-    { property: "og:image", content: seoImgPath },
-    { property: "og:url", content: seoPageUrl },
+    { name: "theme-color", content: themeColor },
+    { name: "author", content: siteName },
     { property: "og:type", content: "website" },
+    { property: "og:site_name", content: siteName },
+    { name: "robots", content: "index, follow" },
+    { name: "geo.region", content: "SN" },
+    { name: "geo.placename", content: "Dakar" },
+    { name: "geo.position", content: "14.7645042;-17.3660286" },
+    { name: "ICBM", content: "14.7645042, -17.3660286" },
+    { name: "news_keywords", content: "Sénégal, actualités, politique, gouvernement, République" },
+  ],
+  script: [
+    {
+      type: "application/ld+json",
+      children: JSON.stringify(newsCollectionSchema),
+    },
+    {
+      type: "application/ld+json",
+      children: JSON.stringify(breadcrumbSchema),
+    },
+    {
+      type: "application/ld+json",
+      children: JSON.stringify(organizationSchema),
+    },
+    {
+      type: "application/ld+json",
+      children: JSON.stringify(webSiteSchema),
+    },
   ],
 });
 
@@ -107,12 +229,16 @@ const getCategoryColor = (categoryName: string) => {
   };
   return colorMap[categoryName] || "#6B7280";
 };
+
+const formatDateISO = (date: string) => {
+  return new Date(date).toISOString();
+};
 </script>
 
 <template>
-  <div class="container mx-auto">
+  <div class="container mx-auto" itemscope itemtype="https://schema.org/CollectionPage">
     <div class="prose prose-sm sm:prose dark:prose-invert mx-auto my-2">
-      <h1 class="text-center dark:text-white">Actualités</h1>
+      <h1 class="text-center dark:text-white" itemprop="headline">Actualités</h1>
     </div>
 
     <!-- Filtres par catégorie -->
@@ -216,54 +342,98 @@ const getCategoryColor = (categoryName: string) => {
 
       <!-- News grid -->
       <div v-else-if="!store.loading">
-        <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <UCard
-            v-for="article in store.paginatedNews"
+        <div 
+          class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"
+          itemscope 
+          itemtype="https://schema.org/ItemList"
+          itemprop="mainEntity"
+        >
+          <meta itemprop="numberOfItems" :content="store.paginatedNews.length">
+          
+          <article
+            v-for="(article, index) in store.paginatedNews"
             :key="article.id"
+            itemscope
+            itemtype="https://schema.org/NewsArticle"
+            itemprop="itemListElement"
             class="custom-shadow group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border dark:border-gray-800 dark:bg-gray-900/50 dark:backdrop-blur-sm"
           >
-            <NuxtLink :to="formatNewsUrl(article)" class="block">
-              <div class="relative">
-                <NuxtImg
-                  :src="
-                    article.cover_image
-                      ? $directusImageUrl(article.cover_image, '50')
-                      : '/default-image-2.gif'
-                  "
-                  :alt="article.title || 'Image actualité'"
-                  class="h-48 w-full object-cover"
-                  loading="lazy"
-                  fetchpriority="high"
-                  sizes="300px"
-                  :placeholder="[300, 300]"
-                />
-                <div
-                  class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4"
-                >
-                  <span
-                    class="rounded-full px-3 py-1 text-xs font-medium text-white"
-                    :style="{
-                      backgroundColor: getCategoryColor(
-                        article.category?.name || 'Non catégorisé',
-                      ),
-                    }"
+            <meta itemprop="position" :content="index + 1">
+            <meta itemprop="url" :content="`${siteUrl}${formatNewsUrl(article)}`">
+            <meta itemprop="datePublished" :content="formatDateISO(article.date_published)">
+            
+            <div itemprop="author" itemscope itemtype="https://schema.org/Organization">
+              <meta itemprop="name" :content="siteName">
+            </div>
+
+            <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+              <meta itemprop="name" :content="siteName">
+              <meta itemprop="url" :content="siteUrl">
+            </div>
+
+            <UCard>
+              <NuxtLink :to="formatNewsUrl(article)" class="block" itemprop="url">
+                <div class="relative">
+                  <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+                    <NuxtImg
+                      :src="
+                        article.cover_image
+                          ? $directusImageUrl(article.cover_image, '50')
+                          : '/default-image-2.gif'
+                      "
+                      :alt="article.title || 'Image actualité'"
+                      class="h-48 w-full object-cover"
+                      loading="lazy"
+                      fetchpriority="high"
+                      sizes="300px"
+                      :placeholder="[300, 300]"
+                      itemprop="contentUrl"
+                    />
+                    <meta itemprop="url" :content="article.cover_image ? $directusImageUrl(article.cover_image, '50') : '/default-image-2.gif'">
+                    <meta itemprop="width" content="300">
+                    <meta itemprop="height" content="192">
+                  </div>
+                  
+                  <div
+                    class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4"
                   >
-                    {{ article.category?.name || "Non catégorisé" }}
-                  </span>
+                    <span
+                      class="rounded-full px-3 py-1 text-xs font-medium text-white"
+                      :style="{
+                        backgroundColor: getCategoryColor(
+                          article.category?.name || 'Non catégorisé',
+                        ),
+                      }"
+                      itemprop="articleSection"
+                    >
+                      {{ article.category?.name || "Non catégorisé" }}
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div class="p-2">
-                <h2
-                  class="group-hover:text-primary line-clamp-2 font-semibold transition-colors dark:text-gray-100"
-                >
-                  {{ article.title }}
-                </h2>
-                <div class="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                  {{ $dateformatWithDayName(article.date_published) }}
+                <div class="p-2">
+                  <h2
+                    class="group-hover:text-primary line-clamp-2 font-semibold transition-colors dark:text-gray-100"
+                    itemprop="headline"
+                  >
+                    {{ article.title }}
+                  </h2>
+                  <div class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                    <time 
+                      :datetime="formatDateISO(article.date_published)"
+                      itemprop="datePublished"
+                    >
+                      {{ $dateformatWithDayName(article.date_published) }}
+                    </time>
+                  </div>
                 </div>
-              </div>
-            </NuxtLink>
-          </UCard>
+
+                <!-- Main entity of page -->
+                <div itemprop="mainEntityOfPage" itemscope itemtype="https://schema.org/WebPage">
+                  <meta itemprop="@id" :content="`${siteUrl}${formatNewsUrl(article)}`">
+                </div>
+              </NuxtLink>
+            </UCard>
+          </article>
         </div>
 
         <!-- Pagination -->

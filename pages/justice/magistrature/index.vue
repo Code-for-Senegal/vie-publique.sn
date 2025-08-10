@@ -1,50 +1,181 @@
 <script setup lang="ts">
 import type { MagistratureType } from "~/types/magistrature-type";
 
-const seoTitle = "Annuaire magistrature Sénégal";
-const seoDescription =
-  "Liste des nominations du conseil supérieur de la magistrature avec le président Diomaye Faye au Sénégal";
-const seoImgPath = "https://vie-publique.sn/images/vpsn-share-magistrature.png";
-const seoPageUrl = "https://vie-publique.sn/justice/magistrature";
+const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
+
+const title = "Annuaire de la magistrature du Sénégal - Conseil supérieur";
+const description = "Liste des nominations du Conseil supérieur de la magistrature sous la présidence de Bassirou Diomaye Faye. Magistrats, juges et procureurs du Sénégal.";
+const url = `${siteUrl}/justice/magistrature`;
+const image = `${siteUrl}/images/vpsn-share-magistrature.png`;
+
+const magistratureSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": title,
+  "description": description,
+  "url": url,
+  "image": image,
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": siteName,
+    "url": siteUrl,
+  },
+  "about": [
+    {
+      "@type": "GovernmentOrganization",
+      "name": "Conseil supérieur de la magistrature du Sénégal",
+      "description": "Organe constitutionnel chargé de l'administration de la justice",
+    },
+    {
+      "@type": "Person",
+      "name": "Bassirou Diomaye Faye",
+      "jobTitle": "Président de la République du Sénégal",
+    },
+  ],
+  "mainEntity": {
+    "@type": "ItemList",
+    "name": "Nominations de la magistrature sénégalaise",
+    "description": "Liste des nominations officielles du Conseil supérieur de la magistrature",
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": siteUrl,
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Annuaires",
+      "item": `${siteUrl}/annuaires`,
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Justice",
+      "item": `${siteUrl}/justice`,
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Magistrature",
+      "item": url,
+    },
+  ],
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "GovernmentOrganization",
+  "name": "Conseil supérieur de la magistrature du Sénégal",
+  "url": url,
+  "description": "Institution constitutionnelle responsable de l'administration de la justice au Sénégal",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "SN",
+    "addressLocality": "Dakar",
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "Sénégal",
+  },
+  "parentOrganization": {
+    "@type": "GovernmentOrganization",
+    "name": "République du Sénégal",
+  },
+  "leader": {
+    "@type": "Person",
+    "name": "Bassirou Diomaye Faye",
+    "jobTitle": "Président de la République",
+  },
+};
+
+const legalServiceSchema = {
+  "@context": "https://schema.org",
+  "@type": "LegalService",
+  "name": "Système judiciaire sénégalais",
+  "url": url,
+  "description": "Système judiciaire du Sénégal avec ses magistrats et juridictions",
+  "areaServed": {
+    "@type": "Country",
+    "name": "Sénégal",
+  },
+  "serviceType": "Justice",
+  "provider": {
+    "@type": "GovernmentOrganization",
+    "name": "Ministère de la Justice du Sénégal",
+  },
+};
+
+useSeoMeta({
+  title,
+  ogTitle: title,
+  description,
+  ogDescription: description,
+  ogImage: image,
+  ogUrl: url,
+  twitterCard: "summary_large_image",
+  twitterTitle: title,
+  twitterDescription: description,
+  twitterImage: image,
+  keywords: [
+    ...keywords,
+    "magistrature Sénégal",
+    "Conseil supérieur magistrature",
+    "nominations magistrats Sénégal",
+    "justice sénégalaise",
+    "juges Sénégal",
+    "procureurs Sénégal",
+    "système judiciaire Sénégal",
+    "Bassirou Diomaye Faye justice",
+  ].join(", "),
+});
+
+// Head Configuration
 useHead({
-  title: seoTitle,
+  htmlAttrs: { lang: "fr-SN" },
+  link: [{ rel: "canonical", href: url }],
   meta: [
-    {
-      name: "description",
-      content: seoDescription,
-    },
-    // Twitter Card Meta Tags
-    {
-      name: "twitter:title",
-      content: seoTitle,
-    },
-    {
-      name: "twitter:description",
-      content: seoDescription,
-    },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:image", content: seoImgPath },
-    // Open Graph Meta Tags
-    {
-      property: "og:title",
-      content: seoTitle,
-    },
-    {
-      property: "og:description",
-      content: seoDescription,
-    },
-    { property: "og:image", content: seoImgPath },
-    { property: "og:url", content: seoPageUrl },
+    { name: "theme-color", content: themeColor },
+    { name: "author", content: siteName },
     { property: "og:type", content: "website" },
+    { property: "og:site_name", content: siteName },
+    { name: "robots", content: "index, follow" },
+    { name: "geo.region", content: "SN" },
+    { name: "geo.placename", content: "Dakar" },
+    { name: "geo.position", content: "14.7645042;-17.3660286" },
+    { name: "ICBM", content: "14.7645042, -17.3660286" },
+  ],
+  script: [
+    {
+      type: "application/ld+json",
+      children: JSON.stringify(magistratureSchema),
+    },
+    {
+      type: "application/ld+json",
+      children: JSON.stringify(breadcrumbSchema),
+    },
+    {
+      type: "application/ld+json",
+      children: JSON.stringify(organizationSchema),
+    },
+    {
+      type: "application/ld+json",
+      children: JSON.stringify(legalServiceSchema),
+    },
   ],
 });
 
 /* plugin */
-
 const { $dateformat } = useNuxtApp();
 
 /* Get Datas */
-
 const nuxtApp = useNuxtApp();
 const { data } = await useFetch("/api/nominations-magistrature", {
   watch: false,
@@ -78,7 +209,6 @@ const { data } = await useFetch("/api/nominations-magistrature", {
 });
 
 /* Filters */
-
 const searchQuery = ref("");
 const selectedJurisdictionType = ref("");
 const selectedGender = ref("");
@@ -105,7 +235,6 @@ const filteredAppointee = computed(() => {
 });
 
 /* Pagination */
-
 const page = ref(1);
 const pageCount = 25;
 
@@ -132,8 +261,6 @@ const totalsByJurisdictionType = computed(() => {
   return Object.fromEntries(
     Object.entries(totals).sort(([keyA], [keyB]) => keyA.localeCompare(keyB)),
   );
-
-  // return totals;
 });
 
 // FIXME move to server side
@@ -183,21 +310,14 @@ watch(selectedJurisdictionType, () => {
 
     <!-- Modal pour afficher les détails du membre -->
     <UModal v-model="isModalOpen">
-      <UCard
-        v-if="selectedAppointee"
-        :ui="{
-          ring: '',
-          divide: 'divide-y divide-gray-100 dark:divide-gray-800',
-        }"
-      >
+      <UCard v-if="selectedAppointee" :ui="{
+        ring: '',
+        divide: 'divide-y divide-gray-100 dark:divide-gray-800',
+      }">
         <template #header>
           <div class="flex items-center justify-center">
-            <NuxtImg
-              :src="selectedAppointee.photo || '/unknown_member.webp'"
-              alt="Profile Photo"
-              sizes="300px md:400px"
-              :placeholder="[300, 300]"
-            />
+            <NuxtImg :src="selectedAppointee.photo || '/unknown_member.webp'" alt="Profile Photo" sizes="300px md:400px"
+              :placeholder="[300, 300]" />
           </div>
         </template>
 
@@ -233,101 +353,56 @@ watch(selectedJurisdictionType, () => {
     </UModal>
 
     <div class="w-full max-w-4xl">
-      <UInput
-        v-model="searchQuery"
-        class="input custom-shadow mb-3 w-full"
-        size="lg"
-        icon="i-heroicons-magnifying-glass"
-        placeholder="Rechercher une nomination..."
-      >
+      <UInput v-model="searchQuery" class="input custom-shadow mb-3 w-full" size="lg"
+        icon="i-heroicons-magnifying-glass" placeholder="Rechercher une nomination...">
       </UInput>
 
       <div class="mb-1 w-full text-center">
-        <UButton
-          :ui="{ rounded: 'rounded-full' }"
-          class="custom-shadow mb-1 ml-1 text-sm font-normal"
-          :color="selectedGender === 'Monsieur' ? 'primary' : 'white'"
-          size="sm"
-          @click="
+        <UButton :ui="{ rounded: 'rounded-full' }" class="custom-shadow mb-1 ml-1 text-sm font-normal"
+          :color="selectedGender === 'Monsieur' ? 'primary' : 'white'" size="sm" @click="
             selectedGender = selectedGender === 'Monsieur' ? '' : 'Monsieur'
-          "
-        >
+            ">
           Hommes
-          <UBadge
-            :ui="{ rounded: 'rounded-full' }"
-            :label="totalsByGender.maleCount"
+          <UBadge :ui="{ rounded: 'rounded-full' }" :label="totalsByGender.maleCount"
             :color="selectedGender === 'Monsieur' ? 'primary' : 'primary'"
-            :variant="selectedGender === 'Monsieur' ? 'soft' : 'solid'"
-            size="xs"
-          ></UBadge>
+            :variant="selectedGender === 'Monsieur' ? 'soft' : 'solid'" size="xs"></UBadge>
         </UButton>
-        <UButton
-          :ui="{ rounded: 'rounded-full' }"
-          class="custom-shadow mb-1 ml-1 text-sm font-normal"
-          :color="selectedGender === 'Madame' ? 'primary' : 'white'"
-          size="sm"
-          @click="selectedGender = selectedGender === 'Madame' ? '' : 'Madame'"
-        >
+        <UButton :ui="{ rounded: 'rounded-full' }" class="custom-shadow mb-1 ml-1 text-sm font-normal"
+          :color="selectedGender === 'Madame' ? 'primary' : 'white'" size="sm"
+          @click="selectedGender = selectedGender === 'Madame' ? '' : 'Madame'">
           Femmes
-          <UBadge
-            :ui="{ rounded: 'rounded-full' }"
-            :label="totalsByGender.femaleCount"
-            color="primary"
-            :variant="selectedGender === 'Madame' ? 'soft' : 'solid'"
-            size="xs"
-          ></UBadge>
+          <UBadge :ui="{ rounded: 'rounded-full' }" :label="totalsByGender.femaleCount" color="primary"
+            :variant="selectedGender === 'Madame' ? 'soft' : 'solid'" size="xs"></UBadge>
         </UButton>
       </div>
 
       <div class="mb-1 w-full text-center">
-        <UButton
-          v-for="(total, type) in totalsByJurisdictionType"
-          :key="type"
-          :ui="{ rounded: 'rounded-full' }"
+        <UButton v-for="(total, type) in totalsByJurisdictionType" :key="type" :ui="{ rounded: 'rounded-full' }"
           :color="selectedJurisdictionType === type ? 'primary' : 'white'"
-          class="custom-shadow mb-1 ml-1 text-sm font-normal"
-          size="sm"
-          @click="
+          class="custom-shadow mb-1 ml-1 text-sm font-normal" size="sm" @click="
             selectedJurisdictionType =
-              selectedJurisdictionType === type ? '' : type
-          "
-        >
+            selectedJurisdictionType === type ? '' : type
+            ">
           {{ type }}
-          <UBadge
-            :ui="{ rounded: 'rounded-full' }"
-            :label="total"
-            color="primary"
-            :variant="selectedJurisdictionType === type ? 'soft' : 'solid'"
-            size="xs"
-          ></UBadge>
+          <UBadge :ui="{ rounded: 'rounded-full' }" :label="total" color="primary"
+            :variant="selectedJurisdictionType === type ? 'soft' : 'solid'" size="xs"></UBadge>
         </UButton>
       </div>
 
       <div class="mb-3 w-full text-center">
-        <NuxtLink
-          to="/publications/justice/conseil-superieur-de-la-magistrature-18-aout-2024"
-          class="mb-2 text-center text-sm underline"
-        >
+        <NuxtLink to="/publications/justice/conseil-superieur-de-la-magistrature-18-aout-2024"
+          class="mb-2 text-center text-sm underline">
           📄 Procès-verbal du CSM du 09 août 2024
         </NuxtLink>
       </div>
 
       <div class="space-y-2">
-        <UCard
-          v-for="appointee in rowsFilteredAppointee"
-          :key="appointee.name"
-          class="custom-shadow cursor-pointer"
-          @click="openModal(appointee)"
-        >
+        <UCard v-for="appointee in rowsFilteredAppointee" :key="appointee.name" class="custom-shadow cursor-pointer"
+          @click="openModal(appointee)">
           <div class="flex flex-row gap-2">
             <div class="h-16 w-16 flex-shrink-0 md:h-20 md:w-20">
-              <NuxtImg
-                :src="appointee.photo || '/unknown_member.webp'"
-                alt="Photo ministre"
-                sizes="64px sm:80px"
-                class="h-full w-full rounded-full object-cover"
-                placeholder
-              />
+              <NuxtImg :src="appointee.photo || '/unknown_member.webp'" alt="Photo ministre" sizes="64px sm:80px"
+                class="h-full w-full rounded-full object-cover" placeholder />
             </div>
             <div class="flex-grow">
               <h2 class="font-semibold">{{ appointee.name }}</h2>
@@ -345,16 +420,9 @@ watch(selectedJurisdictionType, () => {
         </UCard>
       </div>
 
-      <div
-        :class="{ hidden: rowsFilteredAppointee < pageCount }"
-        class="flex justify-end border-t border-gray-200 px-3 py-3.5 dark:border-gray-700"
-      >
-        <UPagination
-          v-model="page"
-          size="md"
-          :page-count="pageCount"
-          :total="filteredAppointee.length"
-        />
+      <div :class="{ hidden: rowsFilteredAppointee < pageCount }"
+        class="flex justify-end border-t border-gray-200 px-3 py-3.5 dark:border-gray-700">
+        <UPagination v-model="page" size="md" :page-count="pageCount" :total="filteredAppointee.length" />
       </div>
     </div>
   </div>
