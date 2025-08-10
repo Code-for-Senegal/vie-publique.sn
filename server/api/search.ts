@@ -3,14 +3,25 @@ import { defineEventHandler, createError, getQuery } from "h3";
 export default defineEventHandler(async (event) => {
   try {
     const query = getQuery(event);
-    const searchTerm = query.q as string;
+    let searchTerm = query.q as string;
+    const types = query.types as string;
+    const page = parseInt(query.page as string) || 1;
+    const limit = parseInt(query.limit as string) || 20;
 
+    // Permettre une recherche vide avec seulement des filtres
     if (!searchTerm || searchTerm.trim() === "") {
-      return {
-        data: [],
-        total: 0,
-        query: searchTerm,
-      };
+      if (!types || types.trim() === "") {
+        return {
+          data: [],
+          total: 0,
+          totalIndexed: 0,
+          query: searchTerm,
+          types: types,
+          page: page,
+        };
+      }
+      // Si on a des types mais pas de recherche, utiliser une recherche générale
+      searchTerm = "*";
     }
 
     const config = useRuntimeConfig();
@@ -25,6 +36,38 @@ export default defineEventHandler(async (event) => {
     }
 
     const searchUrl = `${typesenseUrl}/collections/vpdata/documents/search`;
+    
+    // Construire les paramètres de recherche
+    const searchParams: any = {
+      q: searchTerm,
+      query_by: "title,content_html",
+      highlight_fields: "title,content_html",
+      highlight_start_tag: "<mark>",
+      highlight_end_tag: "</mark>",
+      per_page: limit,
+      page: page,
+    };
+
+    // Ajouter les filtres par type si spécifiés
+    if (types && types.trim() !== "") {
+      const typesList = types.split(',').map(t => t.trim()).filter(Boolean);
+      if (typesList.length > 0) {
+        // Construire le filtre pour Typesense
+        // Format: type:=[document,actualite] ou category.slug:=[actualites,documents]
+        const typeFilters = typesList.map(type => {
+          if (type === 'document') {
+            return 'type:=document';
+          } else if (type === 'actualite') {
+            return 'type:!=document'; // Tous sauf documents
+          }
+          return null;
+        }).filter(Boolean);
+        
+        if (typeFilters.length > 0) {
+          searchParams.filter_by = typeFilters.join(' || ');
+        }
+      }
+    }
 
     const response = await $fetch(searchUrl, {
       method: "GET",
@@ -32,15 +75,7 @@ export default defineEventHandler(async (event) => {
         "x-typesense-api-key": typesenseApiKey,
         "Content-Type": "application/json",
       },
-      params: {
-        q: searchTerm,
-        query_by: "title,content_html",
-        highlight_fields: "title,content_html",
-        highlight_start_tag: "<mark>",
-        highlight_end_tag: "</mark>",
-        per_page: 20,
-        page: query.page || 1,
-      },
+      params: searchParams,
     });
 
     const formattedData = (response.hits || []).map((hit: any) => {
@@ -84,8 +119,10 @@ export default defineEventHandler(async (event) => {
     return {
       data: formattedData,
       total: response.found || 0,
+      totalIndexed: response.out_of || response.found || 0,
       query: searchTerm,
-      page: query.page || 1,
+      types: types,
+      page: page,
     };
   } catch (error) {
     console.error("Erreur lors de la recherche Typesense:", error);
