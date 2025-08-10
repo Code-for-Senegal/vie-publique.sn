@@ -9,7 +9,7 @@ export const useSiteMetadata = () => {
       "Vie Publique Sénégal - Information citoyenne et actualité politique",
     defaultDescription:
       "Suivez l'actualité politique, les débats publics et la vie démocratique au Sénégal. Informations officielles, analyses et décryptages pour une citoyenneté éclairée.",
-    defaultImage: `${siteUrl}/images/logo-vie-publique.webp`,
+    defaultImage: `${siteUrl}/logos/logo2.webp`,
     defaultLocale: "fr_SN",
     twitterHandle: "@viepubliquesn",
     twitterCardType: "summary_large_image",

@@ -1,4 +1,156 @@
 <script setup lang="ts">
+const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
+
+const title = "Commissions de l'Assemblée nationale du Sénégal | 15e législature";
+const description = "Découvrez les commissions parlementaires de l'Assemblée nationale du Sénégal. Organisation, présidents et membres des commissions de la 15e législature.";
+const url = `${siteUrl}/assemblee-nationale/commissions`;
+const image = `${siteUrl}/images/commissions-assemblee-senegal.webp`;
+
+const commissionsCollectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": title,
+  "description": description,
+  "url": url,
+  "image": image,
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": siteName,
+    "url": siteUrl,
+  },
+  "about": {
+    "@type": "GovernmentOrganization",
+    "name": "Assemblée nationale du Sénégal",
+    "description": "Parlement de la République du Sénégal",
+    "url": `${siteUrl}/assemblee-nationale`,
+  },
+  "mainEntity": {
+    "@type": "ItemList",
+    "name": "Commissions parlementaires",
+    "description": "Liste des commissions de l'Assemblée nationale du Sénégal",
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": siteUrl,
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Assemblée nationale",
+      "item": `${siteUrl}/assemblee-nationale`,
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Commissions",
+      "item": url,
+    },
+  ],
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "LegislativeBuilding",
+  "name": "Assemblée nationale du Sénégal",
+  "url": `${siteUrl}/assemblee-nationale`,
+  "description": "Institution législative avec ses commissions parlementaires spécialisées",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Avenue Léopold Sédar Senghor",
+    "addressLocality": "Dakar",
+    "addressCountry": "SN",
+  },
+  "governmentType": "Legislature",
+  "numberOfMembers": 165,
+  "legislativeTerm": "15e législature",
+  "subOrganization": {
+    "@type": "GovernmentOrganization",
+    "name": "Commissions parlementaires",
+    "description": "Organes spécialisés de l'Assemblée nationale",
+  },
+};
+
+const governmentServiceSchema = {
+  "@context": "https://schema.org",
+  "@type": "GovernmentService",
+  "name": "Commissions parlementaires du Sénégal",
+  "description": "Services des commissions spécialisées de l'Assemblée nationale pour l'examen des projets de loi",
+  "provider": {
+    "@type": "GovernmentOrganization",
+    "name": "Assemblée nationale du Sénégal",
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "Sénégal",
+  },
+  "serviceType": "Travail législatif",
+};
+
+useSeoMeta({
+  title,
+  ogTitle: title,
+  description,
+  ogDescription: description,
+  ogImage: image,
+  ogUrl: url,
+  twitterCard: "summary_large_image",
+  twitterTitle: title,
+  twitterDescription: description,
+  twitterImage: image,
+  keywords: [
+    ...keywords,
+    "commissions parlementaires Sénégal",
+    "Assemblée nationale commissions",
+    "commissions législatives Sénégal",
+    "15e législature commissions",
+    "travail parlementaire Sénégal",
+    "présidents commissions Assemblée",
+    "membres commissions députés",
+  ].join(", "),
+});
+
+useHead({
+  htmlAttrs: { lang: "fr-SN" },
+  link: [{ rel: "canonical", href: url }],
+  meta: [
+    { name: "theme-color", content: themeColor },
+    { name: "author", content: "Assemblée nationale du Sénégal" },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: siteName },
+    { name: "robots", content: "index, follow" },
+    { name: "geo.region", content: "SN" },
+    { name: "geo.placename", content: "Dakar" },
+    { name: "geo.position", content: "14.7645042;-17.3660286" },
+    { name: "ICBM", content: "14.7645042, -17.3660286" },
+  ],
+  script: [
+    {
+      type: "application/ld+json",
+      children: JSON.stringify(commissionsCollectionSchema),
+    },
+    {
+      type: "application/ld+json",
+      children: JSON.stringify(breadcrumbSchema),
+    },
+    {
+      type: "application/ld+json",
+      children: JSON.stringify(organizationSchema),
+    },
+    {
+      type: "application/ld+json",
+      children: JSON.stringify(governmentServiceSchema),
+    },
+  ],
+});
+
 const { commissions, loading, error } = useAssemblyCommissions();
 const router = useRouter();
 
@@ -14,14 +166,6 @@ const filteredCommissions = computed(() => {
 
 <template>
   <div class="container mx-auto px-2 py-4">
-    <!-- <UBreadcrumb
-      class="mt-2"
-      :links="[
-        { label: 'Accueil', to: '/' },
-        { label: '15e législature', to: '/assemblee-nationale' },
-        { label: 'Commissions' },
-      ]"
-    /> -->
     <UButton
       icon="i-heroicons-arrow-left"
       variant="ghost"
@@ -68,9 +212,6 @@ const filteredCommissions = computed(() => {
             class="flex items-center justify-between"
           >
             <div>
-              <!-- <p class="text-sm text-gray-500">
-                Commission N°{{ commission.id }}
-              </p> -->
               <h2 class="text-lg font-medium">
                 <span class="text-green-700">#{{ commission.id }} </span>
                 {{ commission.name }}

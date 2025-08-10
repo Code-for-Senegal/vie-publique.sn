@@ -1,11 +1,150 @@
 <script setup lang="ts">
-useHead({
-  title: "Annuaires du Sénégal",
-  meta: [
+const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
+
+const title = "Annuaires du Sénégal";
+const description = "Accédez aux annuaires du Sénégal: Nominations Gouvernement, Justice, Media, Sites Web publics et plus encore. Informations officielles et contacts.";
+const url = `${siteUrl}/annuaires`;
+
+const directorySchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": title,
+  "description": description,
+  "url": url,
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": siteName,
+    "url": siteUrl,
+  },
+  "about": [
     {
-      name: "description",
-      content:
-        "Accédez aux annuaires du Sénégal: Nominations Gouvernement, Justice, Media, Sites Web publics et plus encore.",
+      "@type": "Thing",
+      "name": "Annuaires gouvernementaux Sénégal",
+    },
+    {
+      "@type": "Thing", 
+      "name": "Institutions publiques sénégalaises",
+    },
+    {
+      "@type": "Thing",
+      "name": "Médias sénégalais",
+    },
+  ],
+  "mainEntity": {
+    "@type": "ItemList",
+    "name": "Annuaires du Sénégal",
+    "description": "Liste des annuaires officiels du Sénégal",
+    "numberOfItems": 6,
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Annuaire Gouvernement",
+        "description": "Nominations, Ministres, DG",
+        "url": `${siteUrl}/nomination-senegal`,
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Annuaire Sites Web",
+        "description": "Annuaire des sites publics",
+        "url": `${siteUrl}/annuaire-sites-publics-senegal`,
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Annuaire Médias",
+        "description": "Liste des Médias reconnus",
+        "url": `${siteUrl}/medias`,
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Annuaire Députés",
+        "description": "Les 165 députés élus",
+        "url": `${siteUrl}/assemblee-nationale/deputes`,
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "name": "Aide à la presse",
+        "description": "Fond d'aide à la presse",
+        "url": `${siteUrl}/medias/aide-presse`,
+      },
+      {
+        "@type": "ListItem",
+        "position": 6,
+        "name": "Annuaire Justice",
+        "description": "Magistrature, acteurs de la justice",
+        "url": `${siteUrl}/justice/magistrature`,
+      },
+    ],
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": siteUrl,
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Annuaires",
+      "item": url,
+    },
+  ],
+};
+
+useSeoMeta({
+  title,
+  ogTitle: title,
+  description,
+  ogDescription: description,
+  ogImage: defaultImage,
+  ogUrl: url,
+  twitterCard: "summary_large_image",
+  twitterTitle: title,
+  twitterDescription: description,
+  twitterImage: defaultImage,
+  keywords: [
+    ...keywords,
+    "annuaire gouvernement Sénégal",
+    "nominations officielles",
+    "annuaire médias sénégalais",
+    "députés assemblée nationale",
+    "magistrature Sénégal",
+    "sites web publics",
+  ].join(", "),
+});
+
+useHead({
+  htmlAttrs: { lang: "fr-SN" },
+  link: [{ rel: "canonical", href: url }],
+  meta: [
+    { name: "theme-color", content: themeColor },
+    { name: "author", content: siteName },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: siteName },
+    { name: "robots", content: "index, follow" },
+    { name: "geo.region", content: "SN" },
+    { name: "geo.placename", content: "Dakar" },
+    { name: "geo.position", content: "14.7645042;-17.3660286" },
+    { name: "ICBM", content: "14.7645042, -17.3660286" },
+  ],
+  script: [
+    {
+      type: "application/ld+json",
+      children: JSON.stringify(directorySchema),
+    },
+    {
+      type: "application/ld+json",
+      children: JSON.stringify(breadcrumbSchema),
     },
   ],
 });
