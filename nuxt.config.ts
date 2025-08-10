@@ -278,9 +278,9 @@ export default defineNuxtConfig({
     },
   },
   pwa: {
-    strategies: process.env.SW ? "injectManifest" : "generateSW",
-    srcDir: process.env.SW ? "service-worker" : undefined,
-    filename: process.env.SW ? "sw.ts" : undefined,
+    strategies: "generateSW",
+    srcDir: undefined,
+    filename: undefined,
     registerType: "autoUpdate",
     manifest: {
       name: "Vie Publique SN",

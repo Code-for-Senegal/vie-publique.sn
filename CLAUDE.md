@@ -29,6 +29,7 @@ cd test/locust && locust       # Run load tests (Python required)
 ## Architecture Overview
 
 ### Core Stack
+
 - **Framework**: Nuxt 3 with Vue 3, server-side rendering
 - **UI**: Nuxt UI + Tailwind CSS
 - **State**: Pinia stores in `/stores/`
@@ -42,12 +43,14 @@ cd test/locust && locust       # Run load tests (Python required)
 2. **Composables for Data Logic**: All data fetching and business logic is abstracted into composables (`/composables/`), keeping components focused on presentation.
 
 3. **Server API Routes**: Backend functionality lives in `/server/api/` with endpoints for:
+
    - Assembly data (`/api/assembly/*`)
    - Budget information (`/api/budget/*`)
    - Election data (`/api/elections/*`)
    - External service proxies (Twitter, data.gouv.sn)
 
 4. **Content Management**: Dual approach with:
+
    - Static markdown in `/content/` for pages
    - Directus CMS integration for dynamic content
 
@@ -56,6 +59,7 @@ cd test/locust && locust       # Run load tests (Python required)
 ### Environment Configuration
 
 Required environment variables (see .env.example):
+
 - `NUXT_PUBLIC_SITE_URL`: Production URL for SEO
 - `DIRECTUS_URL`: CMS backend URL
 - `NUXT_TURNSTILE_SECRET_KEY`: Cloudflare Turnstile for security
@@ -70,18 +74,22 @@ Required environment variables (see .env.example):
 ### Critical Patterns
 
 1. **API Data Fetching**:
+
    ```typescript
    // Use composables for data fetching
-   const { data, pending, error } = await useAsyncData('key', () => $fetch('/api/endpoint'))
+   const { data, pending, error } = await useAsyncData("key", () =>
+     $fetch("/api/endpoint"),
+   );
    ```
 
 2. **Component Props**: Always define with TypeScript:
+
    ```typescript
    interface Props {
-     data: AssemblyMember[]
-     loading?: boolean
+     data: AssemblyMember[];
+     loading?: boolean;
    }
-   const props = defineProps<Props>()
+   const props = defineProps<Props>();
    ```
 
 3. **SEO Optimization**: Use `useSeoMeta()` and `useHead()` in pages
@@ -100,3 +108,14 @@ Required environment variables (see .env.example):
 - Rate limiting in production
 - Input validation on all API endpoints
 - Turnstile integration for form protection
+
+### port de démarrage
+
+démarre toujours le projet sur le port 3000
+
+pour killer les autres projet sur windows
+
+identifie le process avec netstats
+
+et ensuite :
+powershell -Command "Stop-Process -Id 28032 ││ -Force"

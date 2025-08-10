@@ -75,6 +75,46 @@ Sécurité : API key protégée côté serveur
 - [] Ajouter filtres par catégories/tags
 - [] Highlighting des résultats
 
+2. Votre implémentation actuelle : Bien mais
+   basique
+
+Points positifs :
+
+- Structure claire avec composable
+- Gestion d'état correcte
+- Pagination fonctionnelle
+- UX avec debounce
+
+Points à améliorer :
+
+- Pas de highlighting (paramètres manquants)
+- Recherche limitée à une seule collection
+- Pas de filtres avancés
+- Pas de suggestions/autocomplete
+
+InstantSearch.js est une librairie qui fournit des  
+ widgets prêts à l'emploi pour créer des
+interfaces de recherche avancées :
+
+● Gardez votre approche actuelle mais améliorez-la :
+
+1. Correction immédiate : Ajoutez les paramètres  
+   de highlighting
+2. Améliorations courtes :
+
+
+    - Tri par pertinence/date
+    - Filtres par catégorie
+    - Recherche facettée
+
+3. Migration vers InstantSearch.js seulement si  
+   vous voulez :
+
+
+    - Interface ultra-avancée
+    - Analytics détaillés
+    - Moins de code custom
+
 ### Navigation
 
 - Liens vers les articles avec formatage d'URL cohérent
@@ -153,3 +193,35 @@ GET /api/search?q={query}&page={page}
 ### Logs
 
 Les erreurs sont loggées côté serveur dans la console.
+
+## instantsearch
+
+Fonctionnalités implémentées :
+
+1. InstantSearch Integration : Utilise
+   typesense-instantsearch-adapter pour une recherche en temps  
+   réel
+2. Filtre par type : Sidebar avec des cases à cocher pour  
+   filtrer entre "Document" et "Actualité"
+3. Badges de type : Chaque résultat affiche un badge coloré
+   (orange pour documents, bleu pour actualités)
+4. Highlighting : Les termes recherchés sont mis en évidence  
+   avec un fond jaune
+5. Synchronisation URL : Les paramètres de recherche sont
+   synchronisés avec l'URL pour partage et navigation
+6. Pagination : Navigation entre les pages de résultats
+7. Statistiques : Affiche le nombre de résultats et le temps de  
+   recherche
+8. Design responsive : Layout adaptatif avec sidebar sur
+   desktop
+
+Points clés :
+
+- La configuration Typesense utilise les variables
+  d'environnement existantes
+- Les résultats sont formatés avec les mêmes règles d'URL que  
+  la v1
+- Support du dark mode
+- Les highlights utilisent les balises <mark> avec style
+  personnalisé
+- Performance optimisée avec lazy loading des images

@@ -23,40 +23,28 @@ const {
   totalPages,
 } = useSearch();
 
-// Fonction pour formater l'URL des articles (identique à la page actualités)
-const formatNewsUrl = (article: {
-  id: string;
-  title?: string;
-  slug?: string;
-  category?: {
-    slug?: string;
+// Fonction pour formater les dates Unix timestamp
+const formatUnixDate = (timestamp: number | string) => {
+  if (!timestamp) return "";
+  
+  // Convertir en nombre si c'est une string
+  const ts = typeof timestamp === "string" ? parseInt(timestamp) : timestamp;
+  
+  // Créer une date à partir du timestamp Unix (en millisecondes)
+  const date = new Date(ts * 1000);
+  
+  // Options de formatage
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   };
-}) => {
-  if (!article) return "/actualites";
-
-  const id = article.id;
-  const slug =
-    article.slug ||
-    (article.title
-      ? article.title
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/(^-|-$)/g, "")
-      : "actualite");
-
-  // Gestion spécifique selon la catégorie
-  const categorySlug = article.category?.slug;
-
-  if (categorySlug === "conseil-des-ministres") {
-    return `/conseil-des-ministres/${id}/${slug}`;
-  }
-
-  if (categorySlug === "assemblee-nationale") {
-    return `/assemblee-nationale/actualites/${id}/${slug}`;
-  }
-
-  return `/actualites/${id}/${slug}`;
+  
+  // Formater en français
+  return date.toLocaleDateString("fr-FR", options);
 };
+
 </script>
 
 <template>
@@ -131,7 +119,7 @@ const formatNewsUrl = (article: {
             :key="result.document?.id"
             class="custom-shadow group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border dark:border-gray-800 dark:bg-gray-900/50 dark:backdrop-blur-sm"
           >
-            <NuxtLink :to="formatNewsUrl(result.document)" class="block">
+            <NuxtLink :to="result.formattedUrl || '/actualites'" class="block">
               <div class="flex gap-4">
                 <!-- Image -->
                 <div class="flex-shrink-0">
@@ -160,15 +148,15 @@ const formatNewsUrl = (article: {
 
                   <!-- Extrait avec mise en surbrillance -->
                   <p
-                    v-if="result.highlights?.content_text"
+                    v-if="result.highlights?.content_html"
                     class="mt-2 text-sm text-gray-600 dark:text-gray-400"
-                    v-html="result.highlights.content_text"
+                    v-html="result.highlights.content_html"
                   />
                   <p
-                    v-else-if="result.document?.content_text"
+                    v-else-if="result.document?.content_html"
                     class="mt-2 line-clamp-3 text-sm text-gray-600 dark:text-gray-400"
                   >
-                    {{ result.document.content_text.substring(0, 200) }}...
+                    {{ result.document.content_html.substring(0, 200) }}...
                   </p>
 
                   <!-- Métadonnées -->
@@ -179,9 +167,7 @@ const formatNewsUrl = (article: {
                       {{ result.document.category.name }}
                     </span>
                     <span v-if="result.document?.date_published">
-                      {{
-                        $dateformatWithDayName(result.document.date_published)
-                      }}
+                      {{ formatUnixDate(result.document.date_published) }}
                     </span>
                   </div>
                 </div>

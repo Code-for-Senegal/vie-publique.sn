@@ -5,7 +5,7 @@
     size="sm"
     icon="i-heroicons-magnifying-glass"
     class="text-white hover:text-gray-200"
-    to="/recherche"
+    to="/recherche-avancee"
     aria-label="Rechercher"
   />
 </template>
