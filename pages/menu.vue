@@ -195,6 +195,12 @@ const navigationCards: NavigationCard[] = [
     icon: "i-heroicons-chat-bubble-left-ellipsis",
     to: "/chatbot",
   },
+  {
+    title: "recherche avancée",
+    description: "Recherchez dans les actualités et documents",
+    icon: "i-heroicons-magnifying-glass",
+    to: "/recherche-avancee",
+  },
   // {
   //   title: "Chatbot V2",
   //   description: "Posez vos questions sur les documents",
