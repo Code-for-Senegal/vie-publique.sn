@@ -16,6 +16,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+    # Augmenter le timeout pour les gros builds
+    timeout-minutes: 60
     
     steps:
       - name: Checkout repository
@@ -54,7 +56,8 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/amd64,linux/arm64
+          # Build seulement pour AMD64 pour économiser des ressources (ARM64 optionnel)
+          platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -62,6 +65,7 @@ jobs:
           cache-to: type=gha,mode=max
           build-args: |
             NODE_ENV=production
+            NODE_OPTIONS=--max-old-space-size=4096
             BUILDTIME=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.created'] }}
             VERSION=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
       

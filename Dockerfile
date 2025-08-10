@@ -28,8 +28,10 @@ RUN if [ -f node_modules/pdfjs-dist/build/pdf.worker.min.mjs ]; then \
 # Variables d'environnement pour le build
 ENV NODE_ENV=production
 ENV NITRO_PRESET=node-server
+# Augmenter la limite de mémoire pour Node.js (4GB)
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 
-# Build de l'application
+# Build de l'application avec plus de mémoire
 RUN npm run build
 
 # Stage de production

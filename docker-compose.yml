@@ -1,17 +1,88 @@
-# https://markus.oberlehner.net/blog/running-nuxt-3-in-a-docker-container/
-version: "3"
-
-# volumes:
-#   node_modules:
+version: '3.8'
 
 services:
-  nuxt-app:
-    build: .
+  # Service principal de l'application
+  vie-publique-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    container_name: vie-publique-app
+    restart: unless-stopped
     ports:
-      - "3000:3000"
-    volumes:
-      - .:/app
-      - /app/node_modules
+      - "${APP_PORT:-3000}:3000"
     environment:
-      - CHOKIDAR_USEPOLLING=true
-      - HOST=0.0.0.0
+      - NODE_ENV=${NODE_ENV:-production}
+      - NUXT_HOST=0.0.0.0
+      - NUXT_PORT=3000
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - app-network
+    volumes:
+      # Volume pour les logs (optionnel)
+      - logs-volume:/app/logs
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.vie-publique.rule=Host(`localhost`)"
+      - "traefik.http.services.vie-publique.loadbalancer.server.port=3000"
+
+  # Redis pour le cache (optionnel)
+  redis:
+    image: redis:7-alpine
+    container_name: vie-publique-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - app-network
+    profiles:
+      - cache
+
+  # Service proxy avec Traefik (optionnel pour production)
+  traefik:
+    image: traefik:v3.0
+    container_name: traefik
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"  # Dashboard Traefik
+    command:
+      - --api.dashboard=true
+      - --api.insecure=true
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.myresolver.acme.httpchallenge=true
+      - --certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web
+      - --certificatesresolvers.myresolver.acme.email=${ACME_EMAIL:-contact@vie-publique.sn}
+      - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - letsencrypt-data:/letsencrypt
+    networks:
+      - app-network
+    profiles:
+      - production
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  logs-volume:
+    driver: local
+  redis-data:
+    driver: local
+  letsencrypt-data:
+    driver: local
