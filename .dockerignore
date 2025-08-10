@@ -1,4 +1,70 @@
+# Dépendances Node.js
 node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 .npm
+.yarn
+.pnpm-debug.log*
+
+# Fichiers de build et cache Nuxt
+.nuxt
+.output
+.nitro
+dist
+
+# Fichiers d'environnement (ne pas inclure dans l'image)
+.env
+.env.*
+!.env.example
+
+# Fichiers de développement
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Fichiers de logs
+logs
+*.log
+
+# Fichiers temporaires
+.tmp
+tmp
+temp
+
+# Fichiers de test
+coverage
+.nyc_output
+test-results
+.playwright
+
+# Fichiers de développement Docker
+Dockerfile.dev
+docker-compose.*.yml
+docker-compose.override.yml
+
+# Git et GitHub
 .git
-output
+.gitignore
+.github
+
+# Documentation
+README.md
+CHANGELOG.md
+docs/
+
+# Fichiers de cache
+.eslintcache
+.stylelintcache
+
+# Fichiers de backup
+*.backup
+*.bak
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
