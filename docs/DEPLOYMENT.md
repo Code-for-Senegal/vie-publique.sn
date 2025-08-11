@@ -58,7 +58,7 @@ NUXT_PUBLIC_SITE_URL=https://vie-publique.sn
 # API Keys
 TYPESENSE_API_KEY=xyz
 TYPESENSE_URL=https://search.daktic.fr
-CMS_API_KEY=UEKE4VSBPluwM9sUtUH0E-9bsL2Mnge1
+CMS_API_KEY=xxx
 CMS_API_URL=https://cms.vie-publique.sn
 
 # GitHub
@@ -144,6 +144,7 @@ crontab -e
 ### Option 3 : GitHub Actions pour déploiement
 
 Ajoutez ce secret dans votre repo GitHub :
+
 - Settings → Secrets → Actions
 - `DEPLOY_HOST` : IP de votre serveur
 - `DEPLOY_USER` : utilisateur SSH
@@ -165,7 +166,7 @@ jobs:
   deploy:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Deploy to server
         uses: appleboy/ssh-action@v0.1.5
@@ -222,24 +223,28 @@ EOF
 ### Problèmes courants
 
 **1. Erreur de permission denied**
+
 ```bash
 # Login au registry
 docker login ghcr.io -u malicktech -p $(cat ~/.github-token)
 ```
 
 **2. Image not found**
+
 ```bash
 # Vérifier le nom de l'image
 docker pull ghcr.io/malicktech/vie-publique.sn:latest
 ```
 
 **3. Port déjà utilisé**
+
 ```bash
 # Changer le port dans .env
 APP_PORT=3001
 ```
 
 **4. SSL/TLS ne fonctionne pas**
+
 ```bash
 # Vérifier Traefik
 docker logs traefik

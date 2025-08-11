@@ -102,18 +102,16 @@ interfaces de recherche avancées :
    de highlighting
 2. Améliorations courtes :
 
-
-    - Tri par pertinence/date
-    - Filtres par catégorie
-    - Recherche facettée
+   - Tri par pertinence/date
+   - Filtres par catégorie
+   - Recherche facettée
 
 3. Migration vers InstantSearch.js seulement si  
    vous voulez :
 
-
-    - Interface ultra-avancée
-    - Analytics détaillés
-    - Moins de code custom
+   - Interface ultra-avancée
+   - Analytics détaillés
+   - Moins de code custom
 
 ### Navigation
 
@@ -225,3 +223,26 @@ Points clés :
 - Les highlights utilisent les balises <mark> avec style
   personnalisé
 - Performance optimisée avec lazy loading des images
+
+1. recherche en temps  
+   réel
+2. Filtre par type : Sidebar avec des cases à cocher pour  
+   filtrer entre "Document" et "Actualité"
+3. Badges de type : Chaque résultat affiche un badge coloré
+   (orange pour documents, bleu pour actualités)
+4. Highlighting : Les termes recherchés sont mis en évidence  
+   avec un fond jaune
+5. Synchronisation URL : Les paramètres de recherche sont
+   synchronisés avec l'URL pour partage et navigation
+6. Pagination : Navigation entre les pages de résultats
+7. Statistiques : Affiche le nombre de résultats et le total indéxés
+8. Design responsive : Layout adaptatif
+
+🎯 Nouvelles fonctionnalités :
+
+- Sidebar filtres (desktop) + menu coulissant (mobile)
+- Recherches suggérées pour l'état initial
+- Statistiques détaillées dans la sidebar
+- Interface moderne avec Nuxt UI
+- Gestion d'état avancée avec synchronisation URL
+- Animations et transitions fluides

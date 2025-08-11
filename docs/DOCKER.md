@@ -215,18 +215,21 @@ docker system prune -a
 ### Problèmes courants
 
 1. **Port 3000 occupé**
+
    ```bash
    # Changer le port dans .env
    APP_PORT=3001
    ```
 
 2. **Erreur de permissions**
+
    ```bash
    # Sur Linux, ajuster les permissions
    sudo chown -R $USER:$USER .
    ```
 
 3. **Cache npm corrompu**
+
    ```bash
    # Rebuild sans cache
    docker-compose build --no-cache
