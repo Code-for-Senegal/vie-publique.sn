@@ -40,18 +40,18 @@ export function useElectionMapData() {
   const geoData = useState<GeoData[]>("geo-data", () => []);
   const isGeoDataLoaded = useState<boolean>("geo-data-loaded", () => false);
 
-  // Charger les données géographiques
+  // Charger les données géographiques depuis l'API serveur Nuxt
   const loadGeoData = async () => {
     if (isGeoDataLoaded.value) return geoData.value;
 
     try {
-      // Import dynamique du fichier JSON
-      const data = await import(
-        "~/assets/data/elections/carte-jsonminifier.json"
-      );
-      geoData.value = data.default;
+      // Appel via l'API serveur Nuxt (sécurisé, avec cache serveur)
+      const response = await $fetch<{ data: GeoData[] }>('/api/carte');
+      
+      // Stocker les données dans le state
+      geoData.value = response.data || response || [];
       isGeoDataLoaded.value = true;
-      return data.default;
+      return geoData.value;
     } catch (error) {
       console.error(
         "Erreur lors du chargement des données géographiques:",

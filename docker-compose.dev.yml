@@ -1,0 +1,83 @@
+version: '3.8'
+
+services:
+  # Service de développement avec hot reload
+  vie-publique-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: vie-publique-dev
+    ports:
+      - "3000:3000"
+      - "24678:24678"  # Port pour le HMR de Vite
+    volumes:
+      # Mount du code source pour le hot reload
+      - .:/app
+      - /app/node_modules
+      - /app/.nuxt
+      - /app/.output
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - NUXT_HOST=0.0.0.0
+      - NUXT_PORT=3000
+    env_file:
+      - .env
+    networks:
+      - dev-network
+    command: npm run dev
+
+  # Base de données pour les tests (optionnel)
+  postgres-dev:
+    image: postgres:15-alpine
+    container_name: postgres-dev
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=vie_publique_dev
+      - POSTGRES_USER=dev_user
+      - POSTGRES_PASSWORD=dev_password
+    volumes:
+      - postgres-dev-data:/var/lib/postgresql/data
+    networks:
+      - dev-network
+    profiles:
+      - database
+
+  # Redis pour le cache en développement
+  redis-dev:
+    image: redis:7-alpine
+    container_name: redis-dev
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-dev-data:/data
+    networks:
+      - dev-network
+    profiles:
+      - cache
+
+  # Mailhog pour tester les emails en développement
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: mailhog
+    restart: unless-stopped
+    ports:
+      - "1025:1025"  # SMTP port
+      - "8025:8025"  # Web UI port
+    networks:
+      - dev-network
+    profiles:
+      - email
+
+networks:
+  dev-network:
+    driver: bridge
+
+volumes:
+  postgres-dev-data:
+    driver: local
+  redis-dev-data:
+    driver: local

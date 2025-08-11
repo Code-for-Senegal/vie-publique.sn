@@ -12,20 +12,8 @@ export default defineNitroConfig({
   node: {
     asyncContext: true
   },
-  
-  // Optimisation des chunks
-  rollupConfig: {
-    output: {
-      manualChunks(id) {
-        // Séparer les gros fichiers JSON en chunks séparés
-        if (id.includes('carte-jsonminifier') || id.includes('carte-result-jsonminifier')) {
-          return 'carte-data'
-        }
-      }
-    }
-  },
 
-  // Exclure les gros fichiers du bundling si possible
+  // Exclure certains modules du bundling si nécessaire
   externals: {
     defu: 'defu'
   }
