@@ -81,29 +81,19 @@ export default defineNuxtConfig({
     }
   },
   
-  // Optimisations Vite pour le bundling
+  // Optimisations Vite pour le bundling (simplifiées pour éviter les conflits)
   vite: {
     build: {
-      chunkSizeWarningLimit: 1000,
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            'vendor': ['vue', 'vue-router', 'pinia'],
-            'ui': ['@nuxt/ui'],
-            'directus': ['@directus/sdk'],
-            'charts': ['d3'],
-            'pdf': ['pdfjs-dist']
-          }
-        }
-      }
+      chunkSizeWarningLimit: 1000
     }
   },
   
-  experimental: {
-    payloadExtraction: false,
-    treeshakeClientOnly: true,
-    inlineSSRStyles: false
-  },
+  // Optimisations expérimentales désactivées pour éviter les conflits
+  // experimental: {
+  //   payloadExtraction: false,
+  //   treeshakeClientOnly: true,
+  //   inlineSSRStyles: false
+  // },
   
   typescript: {
     shim: false,
