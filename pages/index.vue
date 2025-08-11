@@ -172,48 +172,15 @@ useHead({
   ],
 });
 
-const navigationCards = [
-  {
-    title: "Assemblée Nationale",
-    description: "Suivez l'activité parlementaire",
-    icon: "i-heroicons-building-library",
-    to: "/assemblee-nationale",
-  },
-  {
-    title: "Journal officiel Sénégal",
-    description: "Lois, Décrets, Arrêtés",
-    icon: "i-heroicons-newspaper",
-    to: "/documents/journal-officiel",
-  },
-  {
-    title: "Budget du Sénégal",
-    description: "Loi de finances 2025",
-    icon: "i-heroicons-banknotes",
-    to: "/budget-senegal",
-  },
-  {
-    title: "Conseil des ministres",
-    description: "Communiqués Comptes rendus",
-    icon: "i-heroicons-briefcase",
-    to: "/conseil-des-ministres",
-  },
-  {
-    title: "Annuaire",
-    description: "Nominations, Sites, Medias...",
-    icon: "i-heroicons-book-open",
-    to: "/annuaires",
-  },
-  {
-    title: "Documents",
-    description: "Journal officiel, Codes, Rapports",
-    icon: "i-heroicons-document-text",
-    to: "/documents",
-  },
-];
+// Utilisation du composable centralisé pour les données de navigation
+const { navigationCards } = useNavigationCards();
 </script>
 
 <template>
   <div class="container mx-auto p-2 sm:p-4">
+    <!-- Section de recherche principale -->
+    <HomeSearchSectionV2 />
+
     <MenuHomeV4 :navigation-cards="navigationCards" />
 
     <div class="">

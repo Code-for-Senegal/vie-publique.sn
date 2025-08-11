@@ -1,54 +1,22 @@
 <script setup lang="ts">
-interface NavigationCard {
-  title: string;
-  description: string;
-  icon: string;
-  to: string;
-}
-
-interface CardConfig {
-  color: string;
-}
-
-interface CardConfigs {
-  [key: string]: CardConfig;
-}
+import type { NavigationCard } from "~/composables/useNavigationCards";
 
 defineProps<{
   navigationCards: NavigationCard[];
 }>();
 
-// Configuration des couleurs simplifiée
-const cardConfigs: CardConfigs = {
-  "Assemblée Nationale": {
-    color: "text-blue-600",
-  },
-  "Journal officiel Sénégal": {
-    color: "text-red-600",
-  },
-  "Budget du Sénégal": {
-    color: "text-emerald-600",
-  },
-  "Conseil des ministres": {
-    color: "text-amber-600",
-  },
-  Annuaire: {
-    color: "text-violet-600",
-  },
-  Documents: {
-    color: "text-indigo-600",
-  },
-} as const;
+// Utilisation du composable centralisé pour les couleurs
+const { getMenuCardColor } = useNavigationCards();
 </script>
 
 <template>
   <div class="my-4">
     <!-- Titre de la section -->
-    <div class="prose prose-sm sm:prose mx-auto my-4">
+    <!-- <div class="prose prose-sm sm:prose mx-auto my-4">
       <h2 class="text-center text-gray-800 dark:text-white">
         Explorez nos données
       </h2>
-    </div>
+    </div> -->
 
     <!-- Grille des cartes -->
     <div
@@ -68,7 +36,7 @@ const cardConfigs: CardConfigs = {
             <UIcon
               :name="card.icon"
               class="h-6 w-6 transition-transform duration-200 group-hover:scale-110"
-              :class="[cardConfigs[card.title]?.color || 'text-gray-600']"
+              :class="getMenuCardColor(card.title)"
             />
           </div>
 

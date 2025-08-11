@@ -246,3 +246,44 @@ Points clés :
 - Interface moderne avec Nuxt UI
 - Gestion d'état avancée avec synchronisation URL
 - Animations et transitions fluides
+
+## v5
+
+✅ Amélioration UX Mobile Complete !
+
+🎯 Changements apportés :
+
+1. ❌ Suppression de la sidebar mobile - Plus
+   de USlideover à ouvrir
+2. ✅ Filtres toujours visibles - Directement
+   intégrés sous la recherche
+3. 🎨 Design amélioré :
+
+
+    - Grid 2 colonnes pour les filtres
+    - Boutons toggle avec transitions
+    - Compteur de filtres actifs
+    - Statistiques compactes et centrées
+    - Icônes et couleurs cohérentes
+
+📱 Avantages sur mobile :
+
+- Accès immédiat aux filtres sans clic
+  supplémentaire
+- Interface claire avec seulement 2 filtres
+  (Documents / Actualités)
+- Feedback visuel sur les filtres actifs
+- Statistiques intégrées pour le contexte
+- Plus compact et optimisé pour les petits
+  écrans
+
+🚀 Résultat :
+
+L'interface mobile est maintenant plus directe  
+ et intuitive :
+
+- Pas de menu caché
+- Filtres accessibles d'un coup d'œil
+- Design cohérent avec le reste de
+  l'application
+- Performance optimale sans composants lourds
