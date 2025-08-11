@@ -49,7 +49,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./Dockerfile.optimized
+          file: ./Dockerfile
           # Une seule architecture pour diviser le temps par 2
           platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
@@ -97,7 +97,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./Dockerfile.optimized
+          file: ./Dockerfile
           platforms: linux/arm64
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:arm64-latest

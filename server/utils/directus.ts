@@ -4,11 +4,11 @@ let client: any = null;
 
 function getDirectusClient() {
   if (!client) {
-    const directusUrl = process.env.CMS_API_URL || "https://cms.vie-publique.sn";
+    const directusUrl = process.env.CMS_API_URL;
     const directusToken = process.env.CMS_API_KEY;
 
-    if (!directusToken) {
-      throw new Error("CMS_API_KEY environment variable is required");
+    if (!directusUrl || !directusToken) {
+      throw new Error("CMS_API_URL and CMS_API_KEY environment variables are required");
     }
 
     client = createDirectus(directusUrl)
