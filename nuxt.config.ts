@@ -68,6 +68,48 @@ const securityConfig =
       };
 
 export default defineNuxtConfig({
+  // Optimisations de build pour réduire le temps
+  nitro: {
+    prerender: {
+      routes: process.env.NITRO_PRERENDER_ROUTES === 'false' ? [] : []
+    },
+    minify: true,
+    sourceMap: false,
+    compressPublicAssets: {
+      gzip: false,
+      brotli: false
+    }
+  },
+  
+  // Optimisations Vite pour le bundling
+  vite: {
+    build: {
+      chunkSizeWarningLimit: 1000,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vendor': ['vue', 'vue-router', 'pinia'],
+            'ui': ['@nuxt/ui'],
+            'directus': ['@directus/sdk'],
+            'charts': ['d3'],
+            'pdf': ['pdfjs-dist']
+          }
+        }
+      }
+    }
+  },
+  
+  experimental: {
+    payloadExtraction: false,
+    treeshakeClientOnly: true,
+    inlineSSRStyles: false
+  },
+  
+  typescript: {
+    shim: false,
+    strict: false,
+    typeCheck: false
+  },
   ssr: true,
   modules: [
     "@nuxt/ui",
