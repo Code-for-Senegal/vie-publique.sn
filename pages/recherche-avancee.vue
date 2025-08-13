@@ -93,34 +93,44 @@ const getBadgeColor = (type: string) => {
 
       <!-- Barre de recherche principale -->
       <div class="mx-auto mb-6">
-        <div class="relative">
-          <UInput
-            v-model="searchQuery"
-            size="xl"
-            placeholder="Rechercher dans tous les contenus..."
-            icon="i-heroicons-magnifying-glass"
-            class="custom-shadow w-full"
-            :ui="{
-              wrapper: 'relative',
-              base: 'pl-12 pr-4 py-3 text-base',
-              rounded: 'rounded-xl',
-              placeholder: 'placeholder-gray-400 dark:placeholder-gray-500',
-            }"
-            :loading="loading"
-            @keyup.enter="performSearch"
-          />
-          <div
-            v-if="searchQuery"
-            class="absolute right-3 top-1/2 -translate-y-1/2"
-          >
-            <UButton
-              @click="searchQuery = ''"
-              icon="i-heroicons-x-mark"
-              size="xs"
-              color="gray"
-              variant="ghost"
-              :ui="{ rounded: 'rounded-full' }"
+        <div class="group relative">
+          <div class="relative">
+            <UIcon
+              name="i-heroicons-magnifying-glass"
+              class="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400 transition-colors group-focus-within:text-blue-500"
             />
+            <input
+              v-model="searchQuery"
+              type="text"
+              placeholder="Rechercher dans tous les contenus..."
+              class="custom-shadow w-full rounded-xl border border-gray-200 py-4 pl-12 pr-16 text-base transition-all duration-200 placeholder:text-gray-400 hover:shadow-md focus:border-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-blue-400"
+              @keyup.enter="performSearch"
+            />
+            <!-- Boutons d'action dans le champ -->
+            <div
+              class="absolute right-2 top-1/2 flex -translate-y-1/2 items-center gap-1"
+            >
+              <!-- Bouton effacer -->
+              <UButton
+                v-if="searchQuery"
+                @click="searchQuery = ''"
+                icon="i-heroicons-x-mark"
+                size="sm"
+                color="gray"
+                variant="ghost"
+                class="rounded-full"
+              />
+              <!-- Bouton rechercher -->
+              <UButton
+                v-if="searchQuery.trim()"
+                @click="performSearch"
+                size="sm"
+                variant="outline"
+                icon="i-heroicons-magnifying-glass"
+                class="rounded-full"
+                :disabled="loading"
+              />
+            </div>
           </div>
         </div>
 
@@ -389,46 +399,43 @@ const getBadgeColor = (type: string) => {
         </div>
 
         <!-- État initial avec suggestions -->
-        <div v-else class="rounded-lg bg-white p-12 shadow-sm dark:bg-gray-800">
-          <div class="mx-auto max-w-md text-center">
-            <UIcon
-              name="i-heroicons-magnifying-glass-circle"
-              class="mx-auto mb-6 h-16 w-16 text-gray-400 dark:text-gray-500"
-            />
-            <h2
-              class="mb-2 text-xl font-semibold text-gray-900 dark:text-white"
+        <!-- État initial -->
+        <div
+          v-else
+          class="mx-auto mt-16 max-w-2xl text-center text-gray-500 dark:text-gray-400"
+        >
+          <UIcon
+            name="i-heroicons-magnifying-glass"
+            class="mx-auto mb-4 h-16 w-16 text-gray-400 dark:text-gray-500"
+          />
+          <p class="text-xl">Commencez votre recherche</p>
+          <p class="mt-2 text-sm">
+            Tapez votre requête dans le champ ci-dessus pour rechercher dans nos
+            actualités
+          </p>
+          <!-- Suggestions de recherche -->
+          <div class="">
+            <p
+              class="my-3 text-sm font-medium text-gray-700 dark:text-gray-300"
             >
-              Commencez votre recherche
-            </h2>
-            <p class="mb-6 text-gray-600 dark:text-gray-400">
-              Explorez nos contenus en utilisant la barre de recherche ci-dessus
-              ou en sélectionnant des filtres
+              Recherches populaires:
             </p>
-
-            <!-- Suggestions de recherche -->
-            <div class="text-left">
-              <p
-                class="mb-3 text-sm font-medium text-gray-700 dark:text-gray-300"
+            <div class="flex-center ali flex-wrap items-center gap-2">
+              <UButton
+                v-for="suggestion in [
+                  'Budget 2024',
+                  'Assemblée Nationale',
+                  'Élections',
+                  'Décrets',
+                ]"
+                :key="suggestion"
+                @click="searchQuery = suggestion"
+                size="xs"
+                color="gray"
+                variant="soft"
               >
-                Recherches populaires:
-              </p>
-              <div class="flex flex-wrap gap-2">
-                <UButton
-                  v-for="suggestion in [
-                    'Budget 2024',
-                    'Assemblée Nationale',
-                    'Élections',
-                    'Décrets',
-                  ]"
-                  :key="suggestion"
-                  @click="searchQuery = suggestion"
-                  size="xs"
-                  color="gray"
-                  variant="soft"
-                >
-                  {{ suggestion }}
-                </UButton>
-              </div>
+                {{ suggestion }}
+              </UButton>
             </div>
           </div>
         </div>

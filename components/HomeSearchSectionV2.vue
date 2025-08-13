@@ -20,7 +20,7 @@
               v-if="searchQuery.trim()"
               @click="performSearch"
               size="sm"
-              color="primary"
+              variant="outline"
               icon="i-heroicons-magnifying-glass"
               class="absolute right-2 top-1/2 -translate-y-1/2 rounded-full"
             />
