@@ -1,7 +1,15 @@
 <script setup lang="ts">
 import HomeLatestDocuments from "~/components/HomeLatestDocuments.vue";
 
-const { siteName, siteUrl, defaultTitle, defaultDescription, defaultImage, keywords, themeColor } = useSiteMetadata();
+const {
+  siteName,
+  siteUrl,
+  defaultTitle,
+  defaultDescription,
+  defaultImage,
+  keywords,
+  themeColor,
+} = useSiteMetadata();
 
 useSeoMeta({
   title: defaultTitle,
@@ -25,22 +33,22 @@ useSeoMeta({
 const governmentOrgSchema = {
   "@context": "https://schema.org",
   "@type": "GovernmentOrganization",
-  "name": siteName,
-  "url": siteUrl,
-  "logo": defaultImage,
-  "description": defaultDescription,
-  "address": {
+  name: siteName,
+  url: siteUrl,
+  logo: defaultImage,
+  description: defaultDescription,
+  address: {
     "@type": "PostalAddress",
-    "addressCountry": "SN",
-    "addressLocality": "Dakar",
-    "addressRegion": "Dakar",
+    addressCountry: "SN",
+    addressLocality: "Dakar",
+    addressRegion: "Dakar",
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Country",
-    "name": "Sénégal",
-    "identifier": "SN",
+    name: "Sénégal",
+    identifier: "SN",
   },
-  "knowsAbout": [
+  knowsAbout: [
     "Politique sénégalaise",
     "Institutions publiques du Sénégal",
     "Journal officiel du Sénégal",
@@ -55,53 +63,51 @@ const governmentOrgSchema = {
     "CENTIG",
     "IGE",
   ],
-  "sameAs": [
-    "https://twitter.com/viepubliquesn",
-  ],
-  "parentOrganization": {
+  sameAs: ["https://twitter.com/viepubliquesn"],
+  parentOrganization: {
     "@type": "GovernmentOrganization",
-    "name": "République du Sénégal",
+    name: "République du Sénégal",
   },
 };
 
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": siteName,
-  "url": siteUrl,
-  "description": defaultDescription,
-  "inLanguage": "fr-SN",
-  "isAccessibleForFree": true,
-  "copyrightYear": new Date().getFullYear(),
-  "publisher": {
+  name: siteName,
+  url: siteUrl,
+  description: defaultDescription,
+  inLanguage: "fr-SN",
+  isAccessibleForFree: true,
+  copyrightYear: new Date().getFullYear(),
+  publisher: {
     "@type": "Organization",
-    "name": siteName,
-    "url": siteUrl,
-    "logo": defaultImage,
+    name: siteName,
+    url: siteUrl,
+    logo: defaultImage,
   },
-  "mainEntity": {
+  mainEntity: {
     "@type": "GovernmentOrganization",
-    "name": "République du Sénégal",
+    name: "République du Sénégal",
   },
-  "about": [
+  about: [
     {
       "@type": "Thing",
-      "name": "Politique sénégalaise",
+      name: "Politique sénégalaise",
     },
     {
       "@type": "Thing",
-      "name": "Institutions démocratiques",
+      name: "Institutions démocratiques",
     },
     {
       "@type": "Thing",
-      "name": "Transparence gouvernementale",
+      name: "Transparence gouvernementale",
     },
   ],
-  "potentialAction": {
+  potentialAction: {
     "@type": "SearchAction",
-    "target": {
+    target: {
       "@type": "EntryPoint",
-      "urlTemplate": `${siteUrl}/recherche?q={search_term_string}`,
+      urlTemplate: `${siteUrl}/recherche?q={search_term_string}`,
     },
     "query-input": "required name=search_term_string",
   },
@@ -110,12 +116,12 @@ const websiteSchema = {
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  "itemListElement": [
+  itemListElement: [
     {
       "@type": "ListItem",
-      "position": 1,
-      "name": "Accueil",
-      "item": siteUrl,
+      position: 1,
+      name: "Accueil",
+      item: siteUrl,
     },
   ],
 };
@@ -123,19 +129,17 @@ const breadcrumbSchema = {
 const newsMediaSchema = {
   "@context": "https://schema.org",
   "@type": "NewsMediaOrganization",
-  "name": siteName,
-  "url": siteUrl,
-  "logo": defaultImage,
-  "sameAs": [
-    "https://twitter.com/viepubliquesn",
-  ],
-  "address": {
+  name: siteName,
+  url: siteUrl,
+  logo: defaultImage,
+  sameAs: ["https://twitter.com/viepubliquesn"],
+  address: {
     "@type": "PostalAddress",
-    "addressCountry": "SN",
-    "addressLocality": "Dakar",
+    addressCountry: "SN",
+    addressLocality: "Dakar",
   },
-  "foundingDate": "2020",
-  "missionCoveragePrioritiesPolicy": `${siteUrl}/a-propos/qui-sommes-nous`,
+  foundingDate: "2020",
+  missionCoveragePrioritiesPolicy: `${siteUrl}/a-propos/qui-sommes-nous`,
 };
 
 useHead({

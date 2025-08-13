@@ -2,7 +2,7 @@
   <section class="pt-4 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
     <!-- Barre de recherche principale style Google -->
     <div class="mb-4 sm:mb-10">
-      <div class="mx-auto max-w-2xl">
+      <div class="w-full">
         <div class="group relative">
           <div class="relative">
             <UIcon

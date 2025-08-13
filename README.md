@@ -60,23 +60,41 @@ yarn install
 
 4. Start the development server:
 
+**For Linux/macOS:**
+
 ```bash
 npm run dev
 # or
 yarn dev
 ```
 
+**For Windows PowerShell:**
+
+```bash
+npm run dev-win
+# or
+yarn dev-win
+```
+
 ## Development
 
 ### Available Scripts
 
-- `npm run dev` - Start development server
+- `npm run dev` - Start development server (Linux/macOS)
+- `npm run dev-win` - Start development server (Windows PowerShell)
 - `npm run build` - Build for production
 - `npm run generate` - Generate static project
 - `npm run preview` - Preview production build
 - `npm run lint` - Run ESLint
 - `npm run lint:fix` - Fix ESLint issues
 - `npm run format` - Format code with Prettier
+
+### Cross-Platform Development
+
+The project includes separate scripts for different operating systems to handle PDF worker file copying:
+
+- **Linux/macOS**: Uses Unix commands (`mkdir -p`, `cp`)
+- **Windows**: Uses PowerShell commands (`if not exist`, `mkdir`, `copy`)
 
 ## Contributing
 

@@ -36,35 +36,51 @@ export default defineEventHandler(async (event) => {
     }
 
     const searchUrl = `${typesenseUrl}/collections/vpdata/documents/search`;
-    
-    // Construire les paramètres de recherche
+
+    // Construire les paramètres de recherche avec une stratégie de recherche multi-passes
+    // Première recherche prioritaire sur le titre uniquement
     const searchParams: any = {
       q: searchTerm,
-      query_by: "title,content_html",
-      highlight_fields: "title,content_html",
+      query_by: "title,content_text,tags",
+      query_by_weights: "100,10,5", // Très forte priorité au titre (100x), puis contenu (10x), puis tags (5x)
+      sort_by: "_text_match:desc,date_published:desc", // Tri par pertinence puis par date
+      highlight_fields: "title,content_text", // Highlight sur le texte brut
       highlight_start_tag: "<mark>",
       highlight_end_tag: "</mark>",
+      highlight_affix_num_tokens: 5, // Contexte autour des mots trouvés
       per_page: limit,
       page: page,
+      prioritize_exact_match: true, // Prioriser les correspondances exactes
+      typo_tokens_threshold: 2, // Tolérance aux fautes de frappe uniquement après 2 caractères
+      drop_tokens_threshold: 2, // Ne pas ignorer les mots courts
+      // Optimisation : ne récupérer que les champs nécessaires
+      include_fields:
+        "id,title,content_text,type,category,date_published,cover_image,slug",
+      exclude_fields: "content_html,raw_content,metadata", // Exclure les champs lourds
     };
 
     // Ajouter les filtres par type si spécifiés
     if (types && types.trim() !== "") {
-      const typesList = types.split(',').map(t => t.trim()).filter(Boolean);
+      const typesList = types
+        .split(",")
+        .map((t) => t.trim())
+        .filter(Boolean);
       if (typesList.length > 0) {
         // Construire le filtre pour Typesense
         // Format: type:=[document,actualite] ou category.slug:=[actualites,documents]
-        const typeFilters = typesList.map(type => {
-          if (type === 'document') {
-            return 'type:=document';
-          } else if (type === 'actualite') {
-            return 'type:!=document'; // Tous sauf documents
-          }
-          return null;
-        }).filter(Boolean);
-        
+        const typeFilters = typesList
+          .map((type) => {
+            if (type === "document") {
+              return "type:=document";
+            } else if (type === "actualite") {
+              return "type:!=document"; // Tous sauf documents
+            }
+            return null;
+          })
+          .filter(Boolean);
+
         if (typeFilters.length > 0) {
-          searchParams.filter_by = typeFilters.join(' || ');
+          searchParams.filter_by = typeFilters.join(" || ");
         }
       }
     }

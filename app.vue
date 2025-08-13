@@ -155,7 +155,7 @@ onMounted(() => {
     <Toaster position="bottom-center" />
 
     <!-- Icône de recherche -->
-    <AppSearch />
+    <!-- <AppSearch /> -->
     <!-- Menu pour mobiles (toggle visibility with Tailwind CSS) -->
     <ThemeToggle />
   </div>
