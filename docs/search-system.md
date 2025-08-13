@@ -295,3 +295,23 @@ Plus cohérent : Même comportement sur mobile et desktop
 Plus moderne : Design épuré et minimaliste
 Meilleure UX : Les filtres sont toujours visibles sous la recherche
 La page est maintenant beaucoup plus claire et les résultats ont plus d'espace pour s'afficher ! 🚀
+
+## v5
+
+Les améliorations apportées :
+
+1. Poids très différenciés : 100,10,5 au lieu de 10,2,1 - donne une  
+   priorité massive aux titres
+2. prioritize_exact_match: true : Priorise les correspondances exactes  
+   de la phrase recherchée
+3. typo_tokens_threshold: 2 : Réduit la tolérance aux fautes pour éviter des résultats trop larges
+4. drop_tokens_threshold: 2 : Empêche d'ignorer les mots courts
+   importants comme "de" dans "loi de finance"
+
+Maintenant le système s'adapte intelligemment :
+
+- Recherches courtes (1-2 mots comme "loi finance") : Poids
+  100,10,5 - priorité maximale aux titres
+- Recherches longues (3+ mots ou phrases entre guillemets) : Poids  
+  50,20,10 - équilibre entre titre et contenu car l'utilisateur
+  cherche probablement une information spécifique dans le texte

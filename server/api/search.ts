@@ -37,12 +37,19 @@ export default defineEventHandler(async (event) => {
 
     const searchUrl = `${typesenseUrl}/collections/vpdata/documents/search`;
 
-    // Construire les paramètres de recherche avec une stratégie de recherche multi-passes
-    // Première recherche prioritaire sur le titre uniquement
+    // Détection du type de recherche pour adapter la stratégie
+    const isPhrasalSearch = searchTerm.includes('"') || searchTerm.split(' ').length > 2;
+    const isShortQuery = searchTerm.split(' ').length <= 2;
+    
+    // Adapter les poids selon le type de recherche
+    // Pour les recherches courtes ou de titres (ex: "loi de finance"), prioriser fortement le titre
+    // Pour les recherches longues ou phrasales, équilibrer titre et contenu
+    const queryWeights = isShortQuery ? "100,10,5" : "50,20,10";
+    
     const searchParams: any = {
       q: searchTerm,
       query_by: "title,content_text,tags",
-      query_by_weights: "100,10,5", // Très forte priorité au titre (100x), puis contenu (10x), puis tags (5x)
+      query_by_weights: queryWeights, // Poids adaptés selon le type de recherche
       sort_by: "_text_match:desc,date_published:desc", // Tri par pertinence puis par date
       highlight_fields: "title,content_text", // Highlight sur le texte brut
       highlight_start_tag: "<mark>",
@@ -51,7 +58,7 @@ export default defineEventHandler(async (event) => {
       per_page: limit,
       page: page,
       prioritize_exact_match: true, // Prioriser les correspondances exactes
-      typo_tokens_threshold: 2, // Tolérance aux fautes de frappe uniquement après 2 caractères
+      typo_tokens_threshold: isPhrasalSearch ? 3 : 2, // Plus de tolérance pour les phrases longues
       drop_tokens_threshold: 2, // Ne pas ignorer les mots courts
       // Optimisation : ne récupérer que les champs nécessaires
       include_fields:

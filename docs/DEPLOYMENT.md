@@ -95,6 +95,34 @@ docker-compose -f docker-compose.production.yml up -d
 ./deploy.sh
 ```
 
+### 📦 Tags Docker disponibles
+
+L'image Docker `ghcr.io/malicktech/vie-publique.sn` est automatiquement construite avec plusieurs tags :
+
+- **`:latest`** - Dernière version stable de la branche principale
+- **`:develop`** - Dernière version de la branche develop
+- **`:sha-xxxxxxx`** - Version spécifique basée sur le commit SHA (ex: `:sha-1129d5b`)
+- **`:buildcache`** - Tag de cache pour optimiser les builds (usage interne CI/CD)
+
+#### Utilisation des tags
+
+```bash
+# Pour la production (version stable)
+docker pull ghcr.io/malicktech/vie-publique.sn:latest
+
+# Pour le développement/staging
+docker pull ghcr.io/malicktech/vie-publique.sn:develop
+
+# Pour une version spécifique (rollback)
+docker pull ghcr.io/malicktech/vie-publique.sn:sha-1129d5b
+```
+
+#### Stratégie de déploiement recommandée
+
+- **Production** : Utiliser le tag `:latest` ou un tag SHA spécifique pour la stabilité
+- **Staging** : Utiliser le tag `:develop` pour tester les nouvelles fonctionnalités
+- **Rollback** : Utiliser un tag SHA précédent en cas de problème
+
 ## 🔄 Mise à jour automatique
 
 ### Option 1 : Webhook GitHub (Recommandé)
@@ -232,8 +260,14 @@ docker login ghcr.io -u malicktech -p $(cat ~/.github-token)
 **2. Image not found**
 
 ```bash
-# Vérifier le nom de l'image
+# Vérifier le nom de l'image et les tags disponibles
 docker pull ghcr.io/malicktech/vie-publique.sn:latest
+
+# Ou essayer avec le tag develop
+docker pull ghcr.io/malicktech/vie-publique.sn:develop
+
+# Lister les tags disponibles (via GitHub UI)
+# https://github.com/malicktech/vie-publique.sn/pkgs/container/vie-publique.sn
 ```
 
 **3. Port déjà utilisé**
