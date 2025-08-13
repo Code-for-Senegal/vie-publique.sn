@@ -420,7 +420,7 @@ const getBadgeColor = (type: string) => {
             >
               Recherches populaires:
             </p>
-            <div class="flex-center ali flex-wrap items-center gap-2">
+            <div class="flex-center flex-wrap items-center gap-3">
               <UButton
                 v-for="suggestion in [
                   'Budget 2024',
