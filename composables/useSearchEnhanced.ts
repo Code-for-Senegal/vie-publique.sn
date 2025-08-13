@@ -82,14 +82,13 @@ export const useSearchEnhanced = () => {
         // Traiter les résultats avec highlighting (en gardant les données originales)
         searchResults.value = (data.value.data || []).map((result: any) => ({
           ...result,
-          highlightedTitle: highlightText(
-            result.document?.title || "",
-            searchQuery.value,
-          ),
-          highlightedContent: result.highlights?.content_html
-            ? highlightText(result.highlights.content_html, searchQuery.value)
+          highlightedTitle: result.highlights?.title?.[0]?.snippet
+            ? result.highlights.title[0].snippet
+            : highlightText(result.document?.title || "", searchQuery.value),
+          highlightedContent: result.highlights?.content_text?.[0]?.snippet
+            ? result.highlights.content_text[0].snippet
             : highlightText(
-                result.document?.content_html?.substring(0, 200) || "",
+                result.document?.content_text?.substring(0, 300) || "",
                 searchQuery.value,
               ),
         }));
