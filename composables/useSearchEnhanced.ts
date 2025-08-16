@@ -14,6 +14,12 @@ export const useSearchEnhanced = () => {
     (route.query.types as string)?.split(",").filter(Boolean) || [],
   );
   const itemsPerPage = 10;
+  
+  // Compteurs par type
+  const resultCountsByType = ref<Record<string, number>>({
+    document: 0,
+    actualite: 0,
+  });
 
   // Fonction pour mettre en surbrillance les termes recherchés
   const highlightText = (text: string, query: string) => {
@@ -95,6 +101,12 @@ export const useSearchEnhanced = () => {
 
         totalResults.value = data.value.total || 0;
         totalIndexed.value = data.value.totalIndexed || data.value.total || 0;
+        
+        // Utiliser les comptages par type depuis les facets Typesense
+        resultCountsByType.value = {
+          document: data.value.typeCounts?.document || 0,
+          actualite: data.value.typeCounts?.news || 0, // Mapper "news" vers "actualite"
+        };
       }
     } catch (error) {
       searchResults.value = [];
@@ -183,5 +195,6 @@ export const useSearchEnhanced = () => {
     getTypeBadgeColor,
     toggleType,
     highlightText,
+    resultCountsByType,
   };
 };

@@ -24,6 +24,7 @@ const {
   performSearch,
   totalPages,
   toggleType,
+  resultCountsByType,
 } = useSearchEnhanced();
 
 // Types disponibles pour les filtres
@@ -81,8 +82,8 @@ const getBadgeColor = (type: string) => {
 <template>
   <div class="min-h-screen">
     <div class="container mx-auto px-4 py-4">
-      <!-- En-tête de la page -->
-      <div class="mb-8 text-center">
+      <!-- En-tête de la page (masqué après recherche) -->
+      <div v-if="!hasSearched" class="mb-8 text-center">
         <h1 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
           Recherche
         </h1>
@@ -176,6 +177,12 @@ const getBadgeColor = (type: string) => {
               ]"
             >
               {{ type.label }}
+              <span
+                v-if="hasSearched && resultCountsByType[type.value] > 0"
+                class="ml-1 inline-flex items-center justify-center rounded-full bg-white/30 px-1.5 py-0.5 text-xs font-semibold"
+              >
+                {{ resultCountsByType[type.value] }}
+              </span>
             </span>
           </div>
 
@@ -413,29 +420,41 @@ const getBadgeColor = (type: string) => {
             Tapez votre requête dans le champ ci-dessus pour rechercher dans nos
             actualités
           </p>
-          <!-- Suggestions de recherche -->
-          <div class="">
+          <!-- Suggestions de recherche comme Google Mobile -->
+          <div class="mt-8">
             <p
-              class="my-3 text-sm font-medium text-gray-700 dark:text-gray-300"
+              class="mb-4 text-left text-sm font-medium text-gray-700 dark:text-gray-300"
             >
-              Recherches populaires:
+              Recherches populaires
             </p>
-            <div class="flex-center flex-wrap items-center gap-3">
-              <UButton
+            <div class="space-y-2">
+              <div
                 v-for="suggestion in [
                   'Budget 2024',
                   'Assemblée Nationale',
                   'Élections',
                   'Décrets',
+                  'Lois et règlements',
+                  'Communiqués de presse',
+                  'Ministère de l\'Économie',
+                  'Projets de développement',
                 ]"
                 :key="suggestion"
-                @click="searchQuery = suggestion"
-                size="xs"
-                color="gray"
-                variant="soft"
+                @click="searchQuery = suggestion; performSearch()"
+                class="flex cursor-pointer items-center rounded-lg bg-white p-3 transition-colors hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
               >
-                {{ suggestion }}
-              </UButton>
+                <UIcon
+                  name="i-heroicons-magnifying-glass"
+                  class="mr-3 h-4 w-4 text-gray-400"
+                />
+                <span class="text-sm text-gray-700 dark:text-gray-300">
+                  {{ suggestion }}
+                </span>
+                <UIcon
+                  name="i-heroicons-arrow-up-left"
+                  class="ml-auto h-4 w-4 text-gray-400"
+                />
+              </div>
             </div>
           </div>
         </div>

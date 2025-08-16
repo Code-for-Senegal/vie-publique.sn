@@ -27,6 +27,7 @@ export default defineEventHandler(async (event) => {
     const config = useRuntimeConfig();
     const typesenseApiKey = config.typesenseApiKey;
     const typesenseUrl = config.typesenseUrl;
+    const typesenseCollection = config.typesenseCollection || 'vie-publique-senegal';
 
     if (!typesenseApiKey) {
       throw createError({
@@ -35,7 +36,7 @@ export default defineEventHandler(async (event) => {
       });
     }
 
-    const searchUrl = `${typesenseUrl}/collections/vpdata/documents/search`;
+    const searchUrl = `${typesenseUrl}/collections/${typesenseCollection}/documents/search`;
 
     // Détection du type de recherche pour adapter la stratégie
     const isPhrasalSearch = searchTerm.includes('"') || searchTerm.split(' ').length > 2;
@@ -64,6 +65,8 @@ export default defineEventHandler(async (event) => {
       include_fields:
         "id,title,content_text,type,category,date_published,cover_image,slug",
       exclude_fields: "content_html,raw_content,metadata", // Exclure les champs lourds
+      facet_by: "type", // Activer les facettes pour compter par type
+      max_facet_values: 10,
     };
 
     // Ajouter les filtres par type si spécifiés
@@ -139,6 +142,17 @@ export default defineEventHandler(async (event) => {
       };
     });
 
+    // Extraire les comptages par type des facettes
+    const typeCounts: Record<string, number> = {};
+    if (response.facet_counts && response.facet_counts.length > 0) {
+      const typeFacet = response.facet_counts.find((f: any) => f.field_name === "type");
+      if (typeFacet && typeFacet.counts) {
+        typeFacet.counts.forEach((count: any) => {
+          typeCounts[count.value] = count.count;
+        });
+      }
+    }
+
     return {
       data: formattedData,
       total: response.found || 0,
@@ -146,6 +160,7 @@ export default defineEventHandler(async (event) => {
       query: searchTerm,
       types: types,
       page: page,
+      typeCounts: typeCounts, // Ajouter les comptages par type
     };
   } catch (error) {
     console.error("Erreur lors de la recherche Typesense:", error);
