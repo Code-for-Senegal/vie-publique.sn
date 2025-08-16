@@ -26,8 +26,6 @@ export const useDocuments = (options?: { type?: string }) => {
     error.value = null;
 
     try {
-      console.log("docCache.value before");
-
       const sort = `sort=-publish_date`;
 
       let filters = `filter[status]=published`;

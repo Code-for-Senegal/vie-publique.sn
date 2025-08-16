@@ -1,0 +1,75 @@
+# Dockerfile optimisé pour builds plus rapides
+FROM node:20-alpine AS base
+
+# Installation des dépendances système
+RUN apk add --no-cache libc6-compat curl
+
+WORKDIR /app
+
+# === STAGE: Dependencies ===
+FROM base AS deps
+
+# Copier uniquement les fichiers de dépendances
+COPY package*.json ./
+COPY .npmrc* ./
+
+# Installer toutes les dépendances et les mettre en cache
+RUN npm ci --frozen-lockfile
+
+# === STAGE: Builder ===
+FROM base AS builder
+
+ARG NODE_ENV=production
+ARG BUILDTIME
+ARG VERSION
+
+# Copier les dépendances installées depuis le stage deps
+COPY --from=deps /app/node_modules ./node_modules
+COPY package*.json ./
+
+# Copier le code source
+COPY . .
+
+# Créer le dossier PDF worker
+RUN mkdir -p public/pdf-worker && \
+    if [ -f node_modules/pdfjs-dist/build/pdf.worker.min.mjs ]; then \
+      cp node_modules/pdfjs-dist/build/pdf.worker.min.mjs public/pdf-worker/; \
+    fi
+
+# Variables d'environnement pour le build
+ENV NODE_ENV=${NODE_ENV}
+ENV NITRO_PRESET=node-server
+# Désactiver le prerendering pour accélérer le build
+ENV NITRO_PRERENDER_ROUTES=false
+
+# Build de l'application
+RUN npm run build
+
+# === STAGE: Production ===
+FROM base AS runner
+
+# Créer un utilisateur non-root
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nuxtjs
+
+# Copier seulement les fichiers nécessaires
+COPY --from=builder --chown=nuxtjs:nodejs /app/.output /app/.output
+COPY --from=builder --chown=nuxtjs:nodejs /app/package.json /app/package.json
+COPY --from=builder --chown=nuxtjs:nodejs /app/package-lock.json /app/package-lock.json
+
+# Installer uniquement les dépendances de production (optimisé)
+RUN npm ci --only=production --frozen-lockfile && \
+    npm cache clean --force
+
+USER nuxtjs
+
+EXPOSE 3000
+
+ENV NODE_ENV=production
+ENV NUXT_HOST=0.0.0.0
+ENV NUXT_PORT=3000
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:3000/api/health || exit 1
+
+CMD ["node", ".output/server/index.mjs"]

@@ -12,7 +12,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier . --write",
-    "copy-pdf-worker": "mkdir -p public/pdf-worker && cp node_modules/pdfjs-dist/build/pdf.worker.min.mjs public/pdf-worker/"
+    "copy-pdf-worker": "mkdir -p public/pdf-worker && cp node_modules/pdfjs-dist/build/pdf.worker.min.mjs public/pdf-worker/",
+    "copy-pdf-worker-win": "if not exist public\\pdf-worker mkdir public\\pdf-worker && copy node_modules\\pdfjs-dist\\build\\pdf.worker.min.mjs public\\pdf-worker\\",
+    "dev-win": "npm run copy-pdf-worker-win && nuxt dev"
   },
   "dependencies": {
     "@ai-sdk/vue": "^1.2.9",
@@ -41,7 +43,8 @@
     "reka-ui": "^2.2.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
-    "vue-sonner": "^1.3.0"
+    "vue-sonner": "^1.3.0",
+    "nuxt-gtag": "^3.0.3"
   },
   "devDependencies": {
     "@nuxt/eslint-config": "^0.5.4",
@@ -52,7 +55,6 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "execa": "^9.3.0",
-    "nuxt-gtag": "^2.0.5",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.6"
   }

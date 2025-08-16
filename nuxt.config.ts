@@ -68,6 +68,38 @@ const securityConfig =
       };
 
 export default defineNuxtConfig({
+  // Optimisations de build pour réduire le temps
+  nitro: {
+    prerender: {
+      routes: process.env.NITRO_PRERENDER_ROUTES === 'false' ? [] : []
+    },
+    minify: true,
+    sourceMap: false,
+    compressPublicAssets: {
+      gzip: false,
+      brotli: false
+    }
+  },
+  
+  // Optimisations Vite pour le bundling (simplifiées pour éviter les conflits)
+  vite: {
+    build: {
+      chunkSizeWarningLimit: 1000
+    }
+  },
+  
+  // Optimisations expérimentales désactivées pour éviter les conflits
+  // experimental: {
+  //   payloadExtraction: false,
+  //   treeshakeClientOnly: true,
+  //   inlineSSRStyles: false
+  // },
+  
+  typescript: {
+    shim: false,
+    strict: false,
+    typeCheck: false
+  },
   ssr: true,
   modules: [
     "@nuxt/ui",
@@ -90,6 +122,7 @@ export default defineNuxtConfig({
     // Variables privées (côté serveur uniquement)
     typesenseApiKey: process.env.TYPESENSE_API_KEY,
     typesenseUrl: process.env.TYPESENSE_URL,
+    typesenseCollection: process.env.TYPESENSE_COLLECTION || 'vie-publique-senegal',
 
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL,

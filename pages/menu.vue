@@ -136,6 +136,18 @@ const links = [
 
 const navigationCards: NavigationCard[] = [
   {
+    title: "Recherche v1",
+    description: "Recherchez dans les actualités et documents",
+    icon: "i-heroicons-magnifying-glass",
+    to: "/recherche",
+  },
+  {
+    title: "Recherche v2",
+    description: "Recherchez dans les actualités et documents",
+    icon: "i-heroicons-magnifying-glass",
+    to: "/recherche-avancee",
+  },
+  {
     title: "Actualités",
     description: "Toutes les actualités",
     icon: "i-heroicons-newspaper",
@@ -146,6 +158,18 @@ const navigationCards: NavigationCard[] = [
     description: "Journal officiel, Codes, Rapports",
     icon: "i-heroicons-document-text",
     to: "/documents",
+  },
+  {
+    title: "Annuaire",
+    description: "Nominations, Sites, Medias...",
+    icon: "i-heroicons-book-open",
+    to: "/annuaires",
+  },
+  {
+    title: "Conseil des ministres",
+    description: "Communiqués du conseil des ministres",
+    icon: "i-heroicons-building-office-2",
+    to: "/conseil-des-ministres",
   },
   {
     title: "Assemblée Nationale",
@@ -159,24 +183,14 @@ const navigationCards: NavigationCard[] = [
     icon: "i-heroicons-newspaper",
     to: "/documents/journal-officiel",
   },
-  {
-    title: "Conseil des ministres",
-    description: "Communiqués du conseil des ministres",
-    icon: "i-heroicons-building-office-2",
-    to: "/conseil-des-ministres",
-  },
+
   {
     title: "Budget du Sénégal",
     description: "Loi de finances 2025",
     icon: "i-heroicons-banknotes",
     to: "/budget-senegal",
   },
-  {
-    title: "Annuaire",
-    description: "Nominations, Sites, Medias...",
-    icon: "i-heroicons-book-open",
-    to: "/annuaires",
-  },
+
   {
     title: "Nominations",
     description: "Nominations, Ministres, DG...",
@@ -195,12 +209,7 @@ const navigationCards: NavigationCard[] = [
     icon: "i-heroicons-chat-bubble-left-ellipsis",
     to: "/chatbot",
   },
-  {
-    title: "recherche avancée",
-    description: "Recherchez dans les actualités et documents",
-    icon: "i-heroicons-magnifying-glass",
-    to: "/recherche-avancee",
-  },
+
   // {
   //   title: "Chatbot V2",
   //   description: "Posez vos questions sur les documents",

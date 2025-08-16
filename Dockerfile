@@ -13,6 +13,11 @@ COPY .npmrc* ./
 # Stage de build
 FROM base AS builder
 
+# Déclaration des arguments de build (minimal)
+ARG NODE_ENV=production
+ARG BUILDTIME
+ARG VERSION
+
 # Installer toutes les dépendances
 RUN npm ci --frozen-lockfile
 
@@ -25,11 +30,12 @@ RUN if [ -f node_modules/pdfjs-dist/build/pdf.worker.min.mjs ]; then \
       cp node_modules/pdfjs-dist/build/pdf.worker.min.mjs public/pdf-worker/; \
     fi
 
-# Variables d'environnement pour le build
-ENV NODE_ENV=production
+# Variables d'environnement pour le build (minimal)
+ENV NODE_ENV=${NODE_ENV}
 ENV NITRO_PRESET=node-server
 
-# Build de l'application
+# Build de l'application avec configuration minimale
+# TOUTES les variables seront fournies au runtime via docker-compose
 RUN npm run build
 
 # Stage de production

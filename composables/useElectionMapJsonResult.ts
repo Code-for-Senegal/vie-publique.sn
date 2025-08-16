@@ -38,25 +38,31 @@ interface TransformedRegion {
 }
 
 export function useElectionMapDataResult() {
-  // État global pour le cache des données
-  const geoData = useState<GeoData[]>("geo-data", () => []);
-  const isGeoDataLoaded = useState<boolean>("geo-data-loaded", () => false);
+  const config = useRuntimeConfig();
 
-  // Charger les données géographiques
+  // État global pour le cache des données (avec un nom unique pour éviter les conflits)
+  const geoData = useState<GeoData[]>("geo-data-result", () => []);
+  const isGeoDataLoaded = useState<boolean>(
+    "geo-data-result-loaded",
+    () => false,
+  );
+
+  // Charger les données géographiques depuis l'API serveur Nuxt
   const loadGeoDataWithWinner = async () => {
     if (isGeoDataLoaded.value) return geoData.value;
 
     try {
-      // Import dynamique du fichier JSON
-      const data = await import(
-        "~/assets/data/elections/carte-result-jsonminifier.json"
-      );
-      geoData.value = data.default;
+      // Appel via l'API serveur Nuxt (sécurisé, avec cache serveur)
+      // L'API serveur gère les fields et l'authentification
+      const response = await $fetch<{ data: GeoData[] }>('/api/carte/result');
+
+      // Stocker les données dans le state
+      geoData.value = response.data || response || [];
       isGeoDataLoaded.value = true;
-      return data.default;
+      return geoData.value;
     } catch (error) {
       console.error(
-        "Erreur lors du chargement des données géographiques:",
+        "Erreur lors du chargement des données de résultats:",
         error,
       );
       return [];
