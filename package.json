@@ -13,7 +13,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier . --write",
     "copy-pdf-worker": "mkdir -p public/pdf-worker && cp node_modules/pdfjs-dist/build/pdf.worker.min.mjs public/pdf-worker/",
-    "copy-pdf-worker-win": "if not exist public\\pdf-worker mkdir public\\pdf-worker && copy node_modules\\pdfjs-dist\\build\\pdf.worker.min.mjs public\\pdf-worker\\",
+    "copy-pdf-worker": "if not exist public\\pdf-worker mkdir public\\pdf-worker && copy node_modules\\pdfjs-dist\\build\\pdf.worker.min.mjs public\\pdf-worker\\",
     "dev-win": "npm run copy-pdf-worker-win && nuxt dev"
   },
   "dependencies": {
