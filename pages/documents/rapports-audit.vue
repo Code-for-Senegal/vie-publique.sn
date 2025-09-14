@@ -18,7 +18,7 @@ const searchQuery = ref("");
 const selectedOrganisme = ref("");
 const selectedYear = ref("");
 
-const organismes = ["Cours des Comptes", "OFNAC", "CENTIF", "IGE", "ARMP"];
+const organismes = ["Cour des Comptes", "OFNAC", "CENTIF", "IGE", "ARMP"];
 
 const filteredRapports = computed(() => {
   if (!documents.value) return [];
@@ -127,9 +127,15 @@ watch(selectedOrganisme, () => {
       </div>
 
       <template v-if="loading">
-        <div v-for="n in 3" :key="`skeleton-${n}`">
-          <USkeleton class="custom-shadow mb-2 h-24 w-full bg-white" />
-        </div>
+        <UCard v-for="n in 3" :key="n" class="mb-4">
+          <div class="flex items-start gap-4 p-4">
+            <div class="h-8 w-8 animate-pulse rounded-full bg-gray-200" />
+            <div class="flex-grow">
+              <div class="mb-2 h-6 w-3/4 animate-pulse rounded bg-gray-200" />
+              <div class="h-4 w-1/2 animate-pulse rounded bg-gray-200" />
+            </div>
+          </div>
+        </UCard>
       </template>
 
       <UAlert
