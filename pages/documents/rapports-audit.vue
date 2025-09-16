@@ -13,24 +13,43 @@ useHead({
   ],
 });
 
+const rapports = ref<any[]>([]);
 const searchQuery = ref("");
 const selectedOrganisme = ref("");
+const selectedYear = ref("");
 
 const organismes = ["Cour des Comptes", "OFNAC", "CENTIF", "IGE", "ARMP"];
 
-const filteredRapports = computed(() =>
-  documents.value.filter((rapport) => {
-    return (
-      (searchQuery.value.length === 0 ||
-        rapport.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-        rapport.description
-          .toLowerCase()
-          .includes(searchQuery.value.toLowerCase())) &&
-      (selectedOrganisme.value === "" ||
-        rapport.audit_institution === selectedOrganisme.value)
-    );
-  }),
-);
+const filteredRapports = computed(() => {
+  if (!documents.value) return [];
+
+  const query = searchQuery.value.toLowerCase().trim();
+
+  return documents.value.filter((rapport) => {
+    // Vérification des valeurs nulles
+    const title = rapport.title?.toLowerCase() || "";
+    const description = rapport.description?.toLowerCase() || "";
+    const institution = rapport.audit_institution || "";
+    const annee = rapport.annee || null;
+
+    // Recherche dans le titre et la description
+    const matchesSearch =
+      query.length === 0 ||
+      title.includes(query) ||
+      description.includes(query);
+
+    // Filtre par organisme
+    const matchesOrganisme =
+      selectedOrganisme.value === "" || institution === selectedOrganisme.value;
+
+    // Filtre par année
+    const matchesYear =
+      selectedYear.value === "" ||
+      (annee && annee === parseInt(selectedYear.value));
+
+    return matchesSearch && matchesOrganisme && matchesYear;
+  });
+});
 
 /* Pagination */
 
@@ -58,7 +77,7 @@ watch(selectedOrganisme, () => {
       variant="ghost"
       label="Retour"
       color="gray"
-      @click.native="router.back()"
+      @click="router.back()"
     />
 
     <h1 class="sr-only">
@@ -121,12 +140,29 @@ watch(selectedOrganisme, () => {
 
       <UAlert
         v-else-if="error"
-        title="Erreur"
+        title="Erreur lors du chargement des rapports"
         color="red"
         icon="i-heroicons-exclamation-triangle"
+        description="Impossible de charger les rapports. Veuillez réessayer plus tard."
       >
-        {{ error }}
+        <template #description>
+          <p class="text-sm text-gray-500">
+            {{ error }}
+          </p>
+        </template>
       </UAlert>
+
+      <div
+        v-else-if="filteredRapports.length === 0 && searchQuery"
+        class="mt-4 text-center"
+      >
+        <UAlert
+          title="Aucun résultat"
+          description="Aucun rapport ne correspond à votre recherche"
+          color="gray"
+          icon="i-heroicons-information-circle"
+        />
+      </div>
 
       <div v-else class="flex flex-col gap-2">
         <!-- Afficher les cartes de rapport une fois chargées -->
