@@ -42,12 +42,7 @@ const filteredRapports = computed(() => {
     const matchesOrganisme =
       selectedOrganisme.value === "" || institution === selectedOrganisme.value;
 
-    // Filtre par année
-    const matchesYear =
-      selectedYear.value === "" ||
-      (annee && annee === parseInt(selectedYear.value));
-
-    return matchesSearch && matchesOrganisme && matchesYear;
+    return matchesSearch && matchesOrganisme;
   });
 });
 
