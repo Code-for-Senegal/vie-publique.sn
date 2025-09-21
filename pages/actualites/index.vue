@@ -375,12 +375,9 @@ const formatDateISO = (date: string) => {
               <NuxtLink :to="formatNewsUrl(article)" class="block" itemprop="url">
                 <div class="relative">
                   <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-                    <NuxtImg
-                      :src="
-                        article.cover_image
-                          ? $directusImageUrl(article.cover_image, '50')
-                          : '/default-image-2.gif'
-                      "
+                    <CmsImage
+                      :src="article.cover_image"
+                      :fallback="'/default-image-2.gif'"
                       :alt="article.title || 'Image actualité'"
                       class="h-48 w-full object-cover"
                       loading="lazy"
@@ -389,7 +386,7 @@ const formatDateISO = (date: string) => {
                       :placeholder="[300, 300]"
                       itemprop="contentUrl"
                     />
-                    <meta itemprop="url" :content="article.cover_image ? $directusImageUrl(article.cover_image, '50') : '/default-image-2.gif'">
+                    <meta itemprop="url" :content="article.cover_image ? useCmsImageAbsolute(article.cover_image) : '/default-image-2.gif'">
                     <meta itemprop="width" content="300">
                     <meta itemprop="height" content="192">
                   </div>

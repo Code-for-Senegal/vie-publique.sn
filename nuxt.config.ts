@@ -81,6 +81,27 @@ export default defineNuxtConfig({
     },
     externals: {
       defu: 'defu'
+    },
+    // Configuration proxy pour les images en développement
+    devProxy: process.env.CMS_API_URL ? {
+      '/api/cms-images': {
+        target: `${process.env.CMS_API_URL}/assets`,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/cms-images/, '')
+      }
+    } : {}
+  },
+  
+  // Routes règles pour la production
+  routeRules: {
+    '/api/cms-images/**': { 
+      proxy: { 
+        to: 'https://cms.vie-publique.sn/assets/**',
+        headers: {
+          'accept': 'image/*',
+          'cache-control': 'max-age=31536000'
+        }
+      }
     }
   },
   
@@ -308,6 +329,21 @@ export default defineNuxtConfig({
     ga: { id: process.env.GTAG_ID },
   },
   image: {
+    // Provider pour les images locales et du proxy
+    providers: {
+      cms: {
+        provider: '~/providers/cms-image.ts',
+        options: {
+          baseURL: '/api/cms-images'
+        }
+      }
+    },
+    // Domaines autorisés pour l'optimisation
+    domains: ['localhost', 'vie-publique.sn'],
+    // Alias pour simplifier l'usage
+    alias: {
+      cms: '/api/cms-images'
+    },
     directus: {
       // This URL needs to include the final `assets/` directory
       baseURL: process.env.CMS_API_URL_ASSETS,

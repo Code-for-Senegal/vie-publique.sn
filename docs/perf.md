@@ -41,3 +41,46 @@ Les actualités sont affichées sur plusieurs pages (accueil et page actualités
 On veut éviter de refaire des appels API inutiles
 On veut conserver les filtres et la recherche pendant la navigation
 On veut une source unique de vérité pour les actualités
+
+# images
+
+- utilisation du proxy via /api/cms-images pour plus de sécurité (cache l'url réell du cms), performance (cache optimisé avec header appropriés), flexible, on peut changer de cms sans modifier otu le code; seo (image servi depuis notre domaine)
+
+https://nuxt.com/docs/api/composables/use-fetch#example-usage-of-proxy
+
+https://nuxt.com/docs/4.x/getting-started/deployment#cdn-proxy
+
+Voici comment remplacer $directusImageUrl par le nouveau
+composable :
+
+📝 Migration avec paramètre de qualité
+
+Sans paramètre de qualité :
+
+Avant :
+<img :src="$directusImageUrl(article.cover_image)" />
+
+Après :
+<img :src="useCmsImage(article.cover_image)" />
+
+Avec paramètre de qualité (comme '50') :
+
+Avant :
+<img :src="$directusImageUrl(article.cover_image, '50')" />
+
+Après :
+<img :src="useCmsImage(article.cover_image, 50)" />
+
+Dans les meta tags avec qualité :
+
+Avant :
+
+  <meta itemprop="url" :content="$directusImageUrl(article.cover_image,         
+  '50')">
+
+Après :
+
+  <meta itemprop="url" :content="useCmsImageAbsolute(article.cover_image,       
+  50)">
+
+## call api

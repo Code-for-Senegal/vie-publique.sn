@@ -83,12 +83,9 @@ onMounted(async () => {
             class="flex flex-row sm:flex-col"
           >
             <div class="mb-0 mr-4 w-1/3 sm:mb-4 sm:mr-0 sm:w-full">
-              <NuxtImg
-                :src="
-                  article.cover_image
-                    ? $directusImageUrl(article.cover_image, '50')
-                    : '/default-image-2.gif'
-                "
+              <CmsImage
+                :src="article.cover_image"
+                :fallback="'/default-image-2.gif'"
                 :alt="article.title || 'Image actualité'"
                 class="h-20 w-full object-cover sm:h-48"
                 loading="lazy"

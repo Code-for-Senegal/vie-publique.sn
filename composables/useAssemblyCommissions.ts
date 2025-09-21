@@ -1,4 +1,3 @@
-// composables/useElectionElectedCandidates.ts
 export const useAssemblyCommissions = () => {
   const commissions = ref([]);
   const commission = ref<any>(null);
@@ -8,8 +7,6 @@ export const useAssemblyCommissions = () => {
   const fetchAssemblyCommissions = async () => {
     loading.value = true;
     error.value = null;
-
-    // const fields = "";
 
     console.log(
       "fetchAssemblyCommissions " + useRuntimeConfig().public.cmsApiUrl,
