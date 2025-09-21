@@ -13,7 +13,7 @@
       <div class="flex items-center">
         <div class="mr-2 h-12 w-12 flex-shrink-0 md:w-16">
           <UAvatar
-            :src="$directusImageUrl(getCoalitionLogoById(item.coalition), '25')"
+            :src="useCmsImage(getCoalitionLogoById(item.coalition), '25')"
             size="lg"
             loading="lazy"
             fetchpriority="high"

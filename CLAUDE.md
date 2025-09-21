@@ -47,6 +47,7 @@ cd test/locust && locust       # Run load tests (Python required)
    - Assembly data (`/api/assembly/*`)
    - Budget information (`/api/budget/*`)
    - Election data (`/api/elections/*`)
+   - **CMS Asset Proxy** (`/medias/*`, `/documents/*`) - SEO-friendly proxy to CMS
    - External service proxies (Twitter, data.gouv.sn)
 
 4. **Content Management**: Dual approach with:
@@ -61,8 +62,11 @@ cd test/locust && locust       # Run load tests (Python required)
 Required environment variables (see .env.example):
 
 - `NUXT_PUBLIC_SITE_URL`: Production URL for SEO
-- `DIRECTUS_URL`: CMS backend URL
+- `CMS_API_URL`: CMS backend URL (without trailing slash)
+- `CMS_API_URL_ASSETS`: Direct CMS assets URL (without trailing slash)
 - `NUXT_TURNSTILE_SECRET_KEY`: Cloudflare Turnstile for security
+
+**⚠️ IMPORTANT**: All URLs must be WITHOUT trailing slash to avoid double-slash issues in the CMS proxy system.
 
 ### Development Workflow
 

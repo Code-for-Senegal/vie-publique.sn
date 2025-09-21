@@ -35,9 +35,9 @@ watchEffect(() => {
   }
 });
 
-// Fonction pour obtenir l'URL de l'asset
+// Fonction pour obtenir l'URL de l'asset via le nouveau proxy
 const getAssetUrl = (assetId: string, slug: string) => {
-  return `${config.public.cmsApiUrl}/assets/${assetId}/${slug}.pdf`;
+  return useCmsFile(`${assetId}/${slug}.pdf`);
 };
 </script>
 

@@ -1,5 +1,5 @@
-import { writeFile, appendFile } from "node:fs/promises";
-import { join } from "node:path";
+import { writeFile, appendFile, mkdir } from "node:fs/promises";
+import { join, dirname } from "node:path";
 import { defineEventHandler, readBody } from "h3";
 
 // Fonction pour formater la date
@@ -30,18 +30,20 @@ export default defineEventHandler(async (event) => {
     if (body["csp-report"]) {
       const logMessage = createLogMessage(body);
 
-      // Chemin du fichier de log
-      const logPath = join(process.cwd(), "logs", "csp-violations.log");
-
-      // Créer le dossier logs s'il n'existe pas
-      try {
-        await appendFile(logPath, logMessage, "utf-8");
-      } catch (error: any) {
-        if (error.code === "ENOENT") {
-          // Si le dossier n'existe pas, créer le fichier
-          await writeFile(logPath, logMessage, "utf-8");
-        } else {
-          throw error;
+      // En production, utiliser console.log au lieu d'écrire dans un fichier
+      if (process.env.NODE_ENV === 'production') {
+        console.log('CSP Violation:', JSON.stringify(body["csp-report"], null, 2));
+      } else {
+        // En développement, écrire dans un fichier
+        const logPath = join(process.cwd(), "logs", "csp-violations.log");
+        
+        try {
+          // Créer le dossier logs s'il n'existe pas
+          await mkdir(dirname(logPath), { recursive: true });
+          await appendFile(logPath, logMessage, "utf-8");
+        } catch (error: any) {
+          // Fallback vers console.log si l'écriture échoue
+          console.log('CSP Violation (file write failed):', JSON.stringify(body["csp-report"], null, 2));
         }
       }
 

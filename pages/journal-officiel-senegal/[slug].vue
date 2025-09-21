@@ -28,7 +28,7 @@ const image = computed(() => {
 
 const pdfUrl = computed(() => {
   if (!journal.value?.document.file) return "";
-  return `${config.public.cmsApiUrl}/assets/${journal.value.document.file}`;
+  return useCmsFile(journal.value.document.file);
 });
 
 const publicationIssueSchema = computed(() => {
@@ -233,9 +233,9 @@ onMounted(async () => {
   }
 });
 
-// Fonction pour obtenir l'URL de l'asset
+// Fonction pour obtenir l'URL de l'asset via le nouveau proxy
 const getAssetUrl = (assetId: string) => {
-  return `${config.public.cmsApiUrl}/assets/${assetId}`;
+  return useCmsFile(assetId);
 };
 
 const formatDateISO = (date: string) => {

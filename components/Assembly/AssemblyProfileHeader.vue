@@ -11,13 +11,12 @@ defineProps<ProfileHeaderProps>();
 <template>
   <div v-if="deputy" class="rounded-lg border bg-white p-4 shadow-sm">
     <div class="flex flex-col items-center text-center">
-      <img
+      <CmsImage
         v-if="deputy.photo"
-        :src="$directusImageUrl(deputy.photo, '50')"
+        :src="deputy.photo"
+        :quality="50"
         :alt="deputy.first_name + ' ' + deputy.last_name"
         class="mb-4 h-full w-full object-cover"
-        loading="lazy"
-        fetchpriority="high"
       />
       <UAvatar
         v-else

@@ -2,8 +2,7 @@
 import { lab } from 'd3';
 
 const currentYear = new Date().getFullYear();
-const appConfig = useAppConfig();
-const version = appConfig.version;
+const { fullVersion } = useAppVersion();
 
 const linksSocial = [
   {
@@ -86,7 +85,10 @@ const links = [
     <div
       class="flex flex-col items-center py-4 text-sm text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
     >
-      Version {{ version }} &copy; {{ currentYear }}
+      <div class="flex items-center gap-2">
+        <AppVersion />
+        <span>&copy; {{ currentYear }}</span>
+      </div>
     </div>
   </footer>
 </template>

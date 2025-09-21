@@ -319,21 +319,16 @@ const formatDateISO = (date: string) => {
             >
               <div class="relative">
                 <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-                  <NuxtImg
-                    :src="
-                      item.cover_image
-                        ? $directusImageUrl(item.cover_image, '50')
-                        : '/images/communique-conseil-des-ministres.jpeg'
-                    "
+                  <CmsImage
+                    :src="item.cover_image"
                     :alt="item.title || 'Communiqué du conseil des ministres'"
+                    :quality="50"
+                    :fallback="'/images/communique-conseil-des-ministres.jpeg'"
                     class="h-48 w-full object-cover"
                     loading="lazy"
-                    fetchpriority="high"
-                    sizes="300px"
-                    :placeholder="[300, 300]"
                     itemprop="contentUrl"
                   />
-                  <meta itemprop="url" :content="item.cover_image ? $directusImageUrl(item.cover_image, '50') : '/images/communique-conseil-des-ministres.jpeg'">
+                  <meta itemprop="url" :content="item.cover_image ? useCmsImageAbsolute(item.cover_image, 50) : '/images/communique-conseil-des-ministres.jpeg'">
                   <meta itemprop="width" content="300">
                   <meta itemprop="height" content="192">
                 </div>

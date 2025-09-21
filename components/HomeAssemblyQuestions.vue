@@ -42,8 +42,9 @@
           >
             <!-- En-tête avec photo du député et date -->
             <div class="mb-3 flex items-start gap-3">
-              <img
-                :src="$directusImageUrl(question.deputy.photo, '50')"
+              <CmsImage
+                :src="question.deputy.photo"
+                :quality="50"
                 :alt="
                   question.deputy.first_name + ' ' + question.deputy.last_name
                 "

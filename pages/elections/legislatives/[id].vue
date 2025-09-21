@@ -107,10 +107,9 @@ function openModal(minister: Candidate) {
       >
         <UAvatar
           v-if="coalition.logo"
-          :src="$directusImageUrl(coalition.logo, '50')"
+          :src="useCmsImage(coalition.logo, 50)"
           :alt="coalition.name"
           size="lg"
-          loading="lazy"
         />
         <UAvatar
           v-else
@@ -149,12 +148,13 @@ function openModal(minister: Candidate) {
         >
           <template #header>
             <div class="flex items-center justify-center">
-              <img
+              <CmsImage
                 v-if="selectedCandidat.photo"
-                :src="$directusImageUrl(selectedCandidat.photo, '50')"
+                :src="selectedCandidat.photo"
                 :alt="
                   selectedCandidat.first_name + ' ' + selectedCandidat.last_name
                 "
+                :quality="50"
                 class="h-full w-full object-cover"
                 loading="lazy"
                 fetchpriority="high"
@@ -297,10 +297,11 @@ function openModal(minister: Candidate) {
                     @click="openModal(candidate)"
                   >
                     <!-- Image du candidat ou image par défaut -->
-                    <img
+                    <CmsImage
                       v-if="candidate.photo"
-                      :src="$directusImageUrl(candidate.photo, '50')"
+                      :src="candidate.photo"
                       :alt="candidate.first_name + ' ' + candidate.last_name"
+                      :quality="50"
                       class="h-full w-full object-cover"
                       loading="lazy"
                       fetchpriority="high"

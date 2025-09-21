@@ -230,9 +230,9 @@ useHead({
 
 const links = [{ label: "communiqués", to: "/conseil-des-ministres" }];
 
-// Fonction pour obtenir l'URL de l'asset
+// Fonction pour obtenir l'URL de l'asset via le nouveau proxy
 const getAssetUrl = (assetId: string, slug: string) => {
-  return `${config.public.cmsApiUrl}/assets/${assetId}/${slug}.pdf`;
+  return useCmsFile(`${assetId}/${slug}.pdf`);
 };
 
 const formatDateISO = (date: string) => {
@@ -304,9 +304,10 @@ const formatDateISO = (date: string) => {
         </div>
 
         <div v-if="article.cover_image" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-          <img
-            :src="$directusImageUrl(article.cover_image, '100')"
+          <CmsImage
+            :src="article.cover_image"
             :alt="article.title"
+            :quality="100"
             class="w-full object-cover"
             itemprop="contentUrl url"
           />

@@ -131,11 +131,10 @@
                 <!-- Image du candidat ou image par défaut -->
                 <img
                   v-if="deputy.photo"
-                  :src="$directusImageUrl(deputy.photo, '50')"
+                  :src="useCmsImage(deputy.photo, '50')"
                   :alt="deputy.first_name + ' ' + deputy.last_name"
                   class="h-full w-full object-cover"
                   loading="lazy"
-                  fetchpriority="high"
                 />
                 <img
                   v-else

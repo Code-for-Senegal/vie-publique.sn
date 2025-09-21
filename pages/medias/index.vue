@@ -246,10 +246,6 @@ const getInitials = (name: string): string => {
 };
 
 const config = useRuntimeConfig();
-const getLogoUrl = (logoId: string | null) => {
-  if (!logoId) return null;
-  return `${config.public.cmsApiUrl}/assets/${logoId}`;
-};
 
 // Ajoutez ces refs pour la modal
 const isOpen = ref(false);
@@ -438,7 +434,7 @@ const hasSocialLinks = computed(() => availableSocialLinks.value.length > 0);
                   <td class="p-2">
                     <div class="flex items-center gap-3">
                       <UAvatar
-                        :src="getLogoUrl(media.logo)"
+                        :src="useCmsImage(media.logo)"
                         :alt="media.name"
                         :text="getInitials(media.name)"
                         size="sm"
@@ -479,7 +475,11 @@ const hasSocialLinks = computed(() => availableSocialLinks.value.length > 0);
     <div>
       <a
         class="text-sm text-blue-700"
-        href="https://cms.vie-publique.sn/assets/e703d8f8-d175-4950-a909-92d567782b47/medias-2025.pdf"
+        :href="
+          useCmsFile(
+            `e703d8f8-d175-4950-a909-92d567782b47/liste-medias-enregistres-mctn.pdf`,
+          )
+        "
         target="_blank"
       >
         📄 Source MCTN - Mis à jour du 06 Février 2025
@@ -492,7 +492,7 @@ const hasSocialLinks = computed(() => availableSocialLinks.value.length > 0);
         <template #header>
           <div class="flex items-center gap-4">
             <UAvatar
-              :src="getLogoUrl(selectedMedia.logo)"
+              :src="useCmsImage(selectedMedia.logo)"
               :alt="selectedMedia.name"
               :text="getInitials(selectedMedia.name)"
               size="lg"

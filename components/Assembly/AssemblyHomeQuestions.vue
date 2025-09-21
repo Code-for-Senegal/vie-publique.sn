@@ -8,8 +8,9 @@
     >
       <div class="flex items-center gap-3">
         <!-- Ajout de l'image du député -->
-        <img
-          :src="$directusImageUrl(question.deputy.photo, '50')"
+        <CmsImage
+          :src="question.deputy.photo"
+          :quality="25"
           :alt="question.deputy.first_name + ' ' + question.deputy.last_name"
           class="h-10 w-10 rounded-full object-cover"
         />

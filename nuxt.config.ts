@@ -1,4 +1,16 @@
 import tailwindTypography from "@tailwindcss/typography";
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
+// Lire la version depuis package.json
+const packageJson = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf-8'));
+
+// Variables de build
+const buildTime = new Date().toISOString();
+const gitCommit = process.env.VERCEL_GIT_COMMIT_SHA || 
+                 process.env.GITHUB_SHA || 
+                 process.env.GIT_COMMIT || 
+                 null; // null au lieu de 'unknown' pour les conditions
 
 const securityConfig =
   process.env.NODE_ENV === "production"
@@ -81,6 +93,36 @@ export default defineNuxtConfig({
     },
     externals: {
       defu: 'defu'
+    },
+    // Configuration proxy pour les images et fichiers en développement
+    devProxy: process.env.CMS_API_URL ? {
+      '/medias': {
+        target: `${process.env.CMS_API_URL}/assets`,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/medias/, '')
+      },
+      '/documents': {
+        target: `${process.env.CMS_API_URL}/assets`,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/documents/, '')
+      }
+    } : {}
+  },
+  
+  // Configuration hybride : routeRules + fallback API
+  routeRules: {
+    // Essayer routeRules en premier
+    '/medias/**': { 
+      proxy: `https://cms.vie-publique.sn/assets/**`,
+      headers: { 'cache-control': 'max-age=31536000, immutable' }
+    },
+    '/documents/**': { 
+      proxy: `https://cms.vie-publique.sn/assets/**`,
+      headers: { 'cache-control': 'max-age=86400' }
+    },
+    // Headers pour les API de fallback
+    '/api/**': { 
+      headers: { 'cache-control': 'no-cache' }
     }
   },
   
@@ -140,6 +182,11 @@ export default defineNuxtConfig({
       sunuElectionApiKey: process.env.SUNU_ELECTION_API_KEY,
       fbPixelId: process.env.FACEBOOK_PIXEL_ID || "",
       maintenanceMode: process.env.NUXT_PUBLIC_MAINTENANCE_MODE === "true",
+      // Informations de version de l'application
+      appVersion: packageJson.version,
+      buildTime: buildTime,
+      gitCommit: gitCommit,
+      nodeEnv: process.env.NODE_ENV || 'development',
       redirects: [
         { from: "^/reports(.*)", to: "/rapport-senegal$1" },
         { from: "^/budget-etat-senegal(.*)", to: "/budget-senegal$1" },
@@ -308,6 +355,21 @@ export default defineNuxtConfig({
     ga: { id: process.env.GTAG_ID },
   },
   image: {
+    // Provider pour les images locales et du proxy
+    providers: {
+      cms: {
+        provider: '~/providers/cms-image.ts',
+        options: {
+          baseURL: '/medias'
+        }
+      }
+    },
+    // Domaines autorisés pour l'optimisation
+    domains: ['localhost', 'vie-publique.sn'],
+    // Alias pour simplifier l'usage
+    alias: {
+      cms: '/medias'
+    },
     directus: {
       // This URL needs to include the final `assets/` directory
       baseURL: process.env.CMS_API_URL_ASSETS,

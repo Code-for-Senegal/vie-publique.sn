@@ -96,11 +96,10 @@
                 <div class="flex-shrink-0">
                   <UAvatar
                     v-if="coalition.logo"
-                    :src="$directusImageUrl(coalition.logo, '25')"
+                    :src="useCmsImage(coalition.logo, '25')"
                     :alt="coalition.nom"
                     size="sm"
                     loading="lazy"
-                    fetchpriority="high"
                   />
                   <UAvatar v-else icon="i-heroicons-photo" size="lg" />
                 </div>

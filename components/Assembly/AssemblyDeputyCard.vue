@@ -25,9 +25,11 @@ const deputyUrl = computed(() => {
     :to="deputyUrl"
     class="flex flex-col items-center transition-opacity hover:opacity-90"
   >
-    <img
+    <CmsImage
       v-if="deputy.photo"
-      :src="$directusImageUrl(deputy.photo, '50')"
+      :src="deputy.photo"
+      :quality="50"
+      loading="lazy"
       :alt="`Photo de ${deputy.first_name} ${deputy.last_name}`"
       class="mb-3 h-32 w-32 rounded-full object-cover shadow-md"
     />

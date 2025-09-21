@@ -42,13 +42,13 @@ const deputyUrl = computed(() => {
   <div class="relative flex h-56 flex-col overflow-hidden rounded-lg shadow-lg">
     <NuxtLink :to="deputyUrl" class="block">
       <!-- Image du candidat ou image par défaut -->
-      <img
+      <CmsImage
         v-if="deputy.photo"
-        :src="$directusImageUrl(deputy.photo, '50')"
+        :src="deputy.photo"
+        :quality="50"
+        loading="lazy"
         :alt="deputy.first_name + ' ' + deputy.last_name"
         class="h-full w-full object-cover"
-        loading="lazy"
-        fetchpriority="high"
       />
       <img
         v-else
