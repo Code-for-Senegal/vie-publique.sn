@@ -96,6 +96,33 @@ The project includes separate scripts for different operating systems to handle 
 - **Linux/macOS**: Uses Unix commands (`mkdir -p`, `cp`)
 - **Windows**: Uses PowerShell commands (`if not exist`, `mkdir`, `copy`)
 
+### Code Formatting & Quality
+
+This project uses standardized code formatting and quality tools to ensure consistency across all developers:
+
+#### **Prettier (Code Formatting)**
+- Configuration in `.prettierrc`
+- Automatic line ending handling (`"endOfLine": "auto"`)
+- Tailwind CSS class sorting via `prettier-plugin-tailwindcss`
+
+#### **ESLint (Code Quality)**
+- Configuration in `eslint.config.mjs`
+- Based on official Nuxt ESLint config
+- Integrated with Prettier for consistent formatting
+- Prettier violations show as warnings (non-blocking)
+
+#### **IDE Setup**
+Configure your IDE to format code automatically on save using these rules for the best development experience.
+
+#### **Commands**
+```bash
+npm run lint          # Check code quality
+npm run lint:fix       # Auto-fix linting issues  
+npm run format         # Format code with Prettier
+```
+
+**Note**: All formatting rules are shared across developers through version-controlled config files and package.json dependencies.
+
 ## Contributing
 
 We welcome contributions! Please feel free to submit a Pull Request.

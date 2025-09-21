@@ -47,10 +47,13 @@ const keyPoints = [
   "Les chiffres présentés sont basés sur les crédits de paiement de l'Annexe II de la LFI 2024",
 ];
 
+// TODO 1 migrer et remplacer par les urls directus
+// TODO 2 migrer le json schema et les données du budgets dans le cms directus
 const sources = [
   {
     title: "Loi de finances 2024",
-    url: "/pdf/budget/2024-lois-de-finances-2023-18.pdf",
+    // url: "/pdf/budget/2024-lois-de-finances-2023-18.pdf",
+    url: "https://cms.vie-publique.sn/assets/fd4aee74-c199-48a1-bab3-f7cebaf10bff/lfi-2024.pdf",
   },
   {
     title: "Annexe la Loi de finances 2024",

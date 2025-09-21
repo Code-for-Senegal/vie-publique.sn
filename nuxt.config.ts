@@ -1,16 +1,19 @@
 import tailwindTypography from "@tailwindcss/typography";
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { readFileSync } from "fs";
+import { join } from "path";
 
 // Lire la version depuis package.json
-const packageJson = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf-8'));
+const packageJson = JSON.parse(
+  readFileSync(join(process.cwd(), "package.json"), "utf-8"),
+);
 
 // Variables de build
 const buildTime = new Date().toISOString();
-const gitCommit = process.env.VERCEL_GIT_COMMIT_SHA || 
-                 process.env.GITHUB_SHA || 
-                 process.env.GIT_COMMIT || 
-                 null; // null au lieu de 'unknown' pour les conditions
+const gitCommit =
+  process.env.VERCEL_GIT_COMMIT_SHA ||
+  process.env.GITHUB_SHA ||
+  process.env.GIT_COMMIT ||
+  null; // null au lieu de 'unknown' pour les conditions
 
 const securityConfig =
   process.env.NODE_ENV === "production"
@@ -83,67 +86,69 @@ export default defineNuxtConfig({
   // Optimisations de build pour réduire le temps
   nitro: {
     prerender: {
-      routes: process.env.NITRO_PRERENDER_ROUTES === 'false' ? [] : []
+      routes: process.env.NITRO_PRERENDER_ROUTES === "false" ? [] : [],
     },
     minify: true,
     sourceMap: false,
     compressPublicAssets: true,
     node: {
-      asyncContext: true
+      asyncContext: true,
     },
     externals: {
-      defu: 'defu'
+      defu: "defu",
     },
     // Configuration proxy pour les images et fichiers en développement
-    devProxy: process.env.CMS_API_URL ? {
-      '/medias': {
-        target: `${process.env.CMS_API_URL}/assets`,
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/medias/, '')
-      },
-      '/documents': {
-        target: `${process.env.CMS_API_URL}/assets`,
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/documents/, '')
-      }
-    } : {}
+    devProxy: process.env.CMS_API_URL
+      ? {
+          "/medias": {
+            target: `${process.env.CMS_API_URL}/assets`,
+            changeOrigin: true,
+            rewrite: (path) => path.replace(/^\/medias/, ""),
+          },
+          "/documents": {
+            target: `${process.env.CMS_API_URL}/assets`,
+            changeOrigin: true,
+            rewrite: (path) => path.replace(/^\/documents/, ""),
+          },
+        }
+      : {},
   },
-  
+
   // Configuration hybride : routeRules + fallback API
   routeRules: {
     // Essayer routeRules en premier
-    '/medias/**': { 
+    "/medias/**": {
       proxy: `https://cms.vie-publique.sn/assets/**`,
-      headers: { 'cache-control': 'max-age=31536000, immutable' }
+      headers: { "cache-control": "max-age=31536000, immutable" },
     },
-    '/documents/**': { 
+    "/documents/**": {
       proxy: `https://cms.vie-publique.sn/assets/**`,
-      headers: { 'cache-control': 'max-age=86400' }
+      headers: { "cache-control": "max-age=86400" },
     },
     // Headers pour les API de fallback
-    '/api/**': { 
-      headers: { 'cache-control': 'no-cache' }
-    }
+    "/api/**": {
+      headers: { "cache-control": "no-cache" },
+    },
   },
-  
+
   // Optimisations Vite pour le bundling (simplifiées pour éviter les conflits)
   vite: {
     build: {
-      chunkSizeWarningLimit: 1000
-    }
+      chunkSizeWarningLimit: 1000,
+    },
   },
-  
+
   // Optimisations expérimentales désactivées pour éviter les conflits
   // experimental: {
   //   payloadExtraction: false,
   //   treeshakeClientOnly: true,
   //   inlineSSRStyles: false
   // },
-  
+
   typescript: {
     shim: false,
     strict: false,
-    typeCheck: false
+    typeCheck: false,
   },
   ssr: true,
   modules: [
@@ -167,7 +172,8 @@ export default defineNuxtConfig({
     // Variables privées (côté serveur uniquement)
     typesenseApiKey: process.env.TYPESENSE_API_KEY,
     typesenseUrl: process.env.TYPESENSE_URL,
-    typesenseCollection: process.env.TYPESENSE_COLLECTION || 'vie-publique-senegal',
+    typesenseCollection:
+      process.env.TYPESENSE_COLLECTION || "vie-publique-senegal",
 
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL,
@@ -186,7 +192,7 @@ export default defineNuxtConfig({
       appVersion: packageJson.version,
       buildTime: buildTime,
       gitCommit: gitCommit,
-      nodeEnv: process.env.NODE_ENV || 'development',
+      nodeEnv: process.env.NODE_ENV || "development",
       redirects: [
         { from: "^/reports(.*)", to: "/rapport-senegal$1" },
         { from: "^/budget-etat-senegal(.*)", to: "/budget-senegal$1" },
@@ -225,6 +231,10 @@ export default defineNuxtConfig({
         {
           from: "/pdf/jors/(.*)",
           to: "/documents/journal-officiel",
+        },
+        {
+          from: "/pdf/budget/2024-lois-de-finances-2023-18.pdf",
+          to: "https://cms.vie-publique.sn/assets/fd4aee74-c199-48a1-bab3-f7cebaf10bff/lfi-2024.pdf",
         },
       ],
     },
@@ -358,17 +368,17 @@ export default defineNuxtConfig({
     // Provider pour les images locales et du proxy
     providers: {
       cms: {
-        provider: '~/providers/cms-image.ts',
+        provider: "~/providers/cms-image.ts",
         options: {
-          baseURL: '/medias'
-        }
-      }
+          baseURL: "/medias",
+        },
+      },
     },
     // Domaines autorisés pour l'optimisation
-    domains: ['localhost', 'vie-publique.sn'],
+    domains: ["localhost", "vie-publique.sn"],
     // Alias pour simplifier l'usage
     alias: {
-      cms: '/medias'
+      cms: "/medias",
     },
     directus: {
       // This URL needs to include the final `assets/` directory
