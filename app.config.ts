@@ -1,7 +1,7 @@
 export default defineAppConfig({
   version: "12042025",
   ui: {
-    primary: "neutral", // https://tailwindcss.com/docs/customizing-colors#color-palette-reference
+    primary: "neutral",
     gray: "cool",
     container: {
       padding: "px-2 sm:px-6 lg:px-8",

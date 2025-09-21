@@ -28,7 +28,7 @@ const url = computed(() => {
 const image = computed(() => {
   if (!article.value) return defaultImage;
   return article.value.cover_image 
-    ? `${config.public.cmsApiUrl}/assets/${article.value.cover_image}`
+    ? useCmsImageAbsolute(article.value.cover_image)
     : defaultImage;
 });
 
@@ -159,10 +159,7 @@ const digitalDocumentSchema = computed(() => {
   };
 });
 
-// Helper functions
-const getImageUrl = (imageId: string) => {
-  return `${config.public.cmsApiUrl}/assets/${imageId}`;
-};
+// Helper functions - Utilisation du composable pour le proxy d'images
 
 const formatDate = (date: string) => {
   return new Date(date).toLocaleDateString("fr-FR", {
@@ -354,14 +351,14 @@ onMounted(async () => {
         class="mb-2"
       >
         <img
-          :src="getImageUrl(article.cover_image)"
+          :src="useCmsImage(article.cover_image)"
           :alt="article.title"
           class="w-full rounded-lg object-contain shadow-sm"
           loading="lazy"
           fetchpriority="high"
           itemprop="contentUrl"
         />
-        <meta itemprop="url" :content="getImageUrl(article.cover_image)">
+        <meta itemprop="url" :content="useCmsImageAbsolute(article.cover_image)">
         <meta itemprop="width" content="800">
         <meta itemprop="height" content="450">
         <meta itemprop="caption" :content="article.title">

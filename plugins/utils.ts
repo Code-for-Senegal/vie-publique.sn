@@ -53,6 +53,9 @@ export default defineNuxtPlugin(() => {
           maximumFractionDigits: 0,
         }).format(amount);
       },
+      // TODO remplacer par le proxy dans le compsable useCmsImages
+      // voir https://nuxt.com/docs/api/composables/use-fetch#example-usage-of-proxy
+      // et https://nuxt.com/docs/api/composables/use-runtime-config
       directusImageUrl: (photoId: string, quality: string) => {
         return `${config.public.cmsApiUrl}/assets/${photoId}?fit=cover&quality=${quality}`;
       },
