@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
   // Récupérer l'URL du CMS depuis la configuration
   const config = useRuntimeConfig()
   
-  // Priorité : CMS_API_URL_ASSETS > CMS_API_URL/assets > cmsApiUrl/assets
+  // Priorité : CMS_API_URL_ASSETS > CMS_API_URL/assets > cmsApiUrl/assets > fallback
   let targetUrl = ''
   
   if (process.env.CMS_API_URL_ASSETS) {
@@ -23,10 +23,9 @@ export default defineEventHandler(async (event) => {
   } else if (config.public.cmsApiUrl) {
     targetUrl = `${config.public.cmsApiUrl}/assets/${path}`
   } else {
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'CMS URL not configured'
-    })
+    // Fallback URL en dur pour la production (temporaire)
+    targetUrl = `https://cms.vie-publique.sn/assets/${path}`
+    console.warn('Using fallback CMS URL - configure environment variables')
   }
   
   try {
@@ -60,7 +59,8 @@ export default defineEventHandler(async (event) => {
       'Content-Disposition': `inline; filename="${filename}"`,
       'Cache-Control': 'public, max-age=86400', // Cache 24h pour les documents
       'X-Proxied-From': new URL(targetUrl).hostname,
-      'X-Content-Type-Options': 'nosniff'
+      'X-Content-Type-Options': 'nosniff',
+      'X-Frame-Options': 'SAMEORIGIN' // Permet l'ouverture dans iframe
     })
 
     // Retourner le document

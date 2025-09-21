@@ -1,4 +1,16 @@
 import tailwindTypography from "@tailwindcss/typography";
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
+// Lire la version depuis package.json
+const packageJson = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf-8'));
+
+// Variables de build
+const buildTime = new Date().toISOString();
+const gitCommit = process.env.VERCEL_GIT_COMMIT_SHA || 
+                 process.env.GITHUB_SHA || 
+                 process.env.GIT_COMMIT || 
+                 'unknown';
 
 const securityConfig =
   process.env.NODE_ENV === "production"
@@ -97,27 +109,22 @@ export default defineNuxtConfig({
     } : {}
   },
   
-  // Routes règles pour la production - utiliser variables d'environnement
-  routeRules: process.env.CMS_API_URL_ASSETS || process.env.CMS_API_URL ? {
+  // Configuration hybride : routeRules + fallback API
+  routeRules: {
+    // Essayer routeRules en premier
     '/medias/**': { 
-      proxy: { 
-        to: `${process.env.CMS_API_URL_ASSETS || process.env.CMS_API_URL + '/assets'}/**`,
-        headers: {
-          'accept': 'image/*',
-          'cache-control': 'max-age=31536000'
-        }
-      }
+      proxy: `https://cms.vie-publique.sn/assets/**`,
+      headers: { 'cache-control': 'max-age=31536000, immutable' }
     },
     '/documents/**': { 
-      proxy: { 
-        to: `${process.env.CMS_API_URL_ASSETS || process.env.CMS_API_URL + '/assets'}/**`,
-        headers: {
-          'accept': 'application/pdf,application/*',
-          'cache-control': 'max-age=86400'
-        }
-      }
+      proxy: `https://cms.vie-publique.sn/assets/**`,
+      headers: { 'cache-control': 'max-age=86400' }
+    },
+    // Headers pour les API de fallback
+    '/api/**': { 
+      headers: { 'cache-control': 'no-cache' }
     }
-  } : {},
+  },
   
   // Optimisations Vite pour le bundling (simplifiées pour éviter les conflits)
   vite: {
@@ -175,6 +182,11 @@ export default defineNuxtConfig({
       sunuElectionApiKey: process.env.SUNU_ELECTION_API_KEY,
       fbPixelId: process.env.FACEBOOK_PIXEL_ID || "",
       maintenanceMode: process.env.NUXT_PUBLIC_MAINTENANCE_MODE === "true",
+      // Informations de version de l'application
+      appVersion: packageJson.version,
+      buildTime: buildTime,
+      gitCommit: gitCommit,
+      nodeEnv: process.env.NODE_ENV || 'development',
       redirects: [
         { from: "^/reports(.*)", to: "/rapport-senegal$1" },
         { from: "^/budget-etat-senegal(.*)", to: "/budget-senegal$1" },

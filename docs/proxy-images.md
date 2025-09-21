@@ -334,15 +334,31 @@ const pdfUrl = computed(() => {
 ## 🔧 Configuration environnement
 
 ```env
-# Option 1: URL spécifique assets
+# Option 1: URL spécifique assets (RECOMMANDÉE)
 CMS_API_URL_ASSETS=https://cms.vie-publique.sn/assets
 
 # Option 2: URL base + /assets automatique  
 CMS_API_URL=https://cms.vie-publique.sn
 
 # Nuxt public (pour les composables côté client)
-CMS_API_URL=https://cms.vie-publique.sn
+NUXT_PUBLIC_CMS_API_URL=https://cms.vie-publique.sn
 ```
+
+### ⚠️ **IMPORTANT : Convention des URLs**
+
+**TOUTES les URLs doivent être SANS slash final** :
+
+```env
+✅ CORRECT
+CMS_API_URL_ASSETS=https://cms.vie-publique.sn/assets
+CMS_API_URL=https://cms.vie-publique.sn
+
+❌ INCORRECT  
+CMS_API_URL_ASSETS=https://cms.vie-publique.sn/assets/
+CMS_API_URL=https://cms.vie-publique.sn/
+```
+
+Cette convention évite les problèmes de doubles slashes et simplifie le code.
 
 ## 📝 Notes importantes
 
