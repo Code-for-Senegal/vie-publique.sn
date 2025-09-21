@@ -6,9 +6,7 @@
         Notre site est actuellement en maintenance. Nous serons bientôt de
         retour !
       </p>
-      <div class="maintenance-image">
-        <!-- <img src="/maintenance.svg" alt="Maintenance en cours" /> -->
-      </div>
+      <div class="maintenance-image"></div>
       <p class="eta">Temps estimé : 2 heures</p>
     </div>
   </div>

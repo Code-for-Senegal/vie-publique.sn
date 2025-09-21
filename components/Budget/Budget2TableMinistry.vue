@@ -62,20 +62,6 @@
                       })
                     }}
                   </span>
-                  <!-- <div>
-                    <UBadge
-                      variant="subtle"
-                      class="custom-shadow sm:hidden"
-                      :class="
-                        ministry.variation_percentage >= 0
-                          ? 'text-green-600'
-                          : 'text-red-600'
-                      "
-                    >
-                      {{ ministry.variation_percentage >= 0 ? "+" : ""
-                      }}{{ ministry.variation_percentage.toFixed(1) }}%
-                    </UBadge>
-                  </div> -->
                 </td>
                 <td class="px-1 py-2 text-right text-sm sm:table-cell">
                   <UBadge

@@ -84,20 +84,7 @@
             <!-- Message bot -->
             <div v-else class="group pb-4">
               <div class="flex items-start gap-3">
-                <!-- Icône bot -->
-                <!-- <div class="mt-1 flex-shrink-0">
-                  <div
-                    class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900"
-                  >
-                    <UIcon
-                      name="i-heroicons-cpu-chip"
-                      class="h-5 w-5 text-blue-600 dark:text-blue-300"
-                    />
-                  </div>
-                </div> -->
-
                 <div class="flex-1 space-y-2">
-                  <!-- Contenu du message -->
                   <div
                     class="max-w-[100%] rounded-r-xl rounded-t-xl bg-white p-4 md:max-w-[90%] dark:bg-gray-800"
                   >

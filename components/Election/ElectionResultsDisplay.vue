@@ -1,5 +1,3 @@
-<!-- // components/elections/ElectionHemicycleChart.vue -->
-<!-- // components/elections/ResultsDisplay.vue -->
 <template>
   <div class="mx-auto w-full max-w-7xl p-4">
     <!-- En-tête -->
@@ -29,12 +27,9 @@
       </template>
     </UCard>
 
-    <!-- Tabs -->
     <UTabs :items="tabs" class="w-full">
       <template #item="{ item }">
-        <div v-if="item.id === 'national'" class="w-full">
-          <!-- <ElectionResultProjectionHemicycle :data="coalitionResults" /> -->
-        </div>
+        <div v-if="item.id === 'national'" class="w-full"></div>
         <div v-if="item.id === 'hemicycle'" class="w-full">
           <ElectionResultProjectionHemicycle :data="coalitionResults" />
         </div>
@@ -42,7 +37,6 @@
           <ElectionResultProjectionHistogram :data="coalitionResults" />
         </div>
       </template>
-      <!-- Autres onglets... -->
     </UTabs>
   </div>
 </template>
@@ -50,9 +44,6 @@
 <script setup lang="ts">
 const tabs = [
   { id: "hemicycle", label: "Hémicycle", icon: "i-heroicons-chart-pie" },
-  // { id: "national", label: "Nationale", icon: "i-heroicons-chart-pie" },
-  // { id: "map", label: "Carte", icon: "i-heroicons-map" },
-  // { id: "departments", label: "Départements", icon: "i-heroicons-chart-bar" },
   { id: "histogram", label: "histogram", icon: "i-heroicons-document-text" },
 ];
 

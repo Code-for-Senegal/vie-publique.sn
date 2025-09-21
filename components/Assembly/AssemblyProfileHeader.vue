@@ -36,9 +36,6 @@ defineProps<ProfileHeaderProps>();
           {{ deputy.last_name.toUpperCase() }}
         </span>
       </h1>
-      <!-- <a href="#" class="mb-4 text-red-700 hover:underline">
-        {{ deputy.electoral_list.coalition.name }}
-      </a> -->
       <div class="mb-2 flex flex-col items-center space-y-2 text-gray-600">
         <div
           v-if="deputy.birthplace"

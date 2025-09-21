@@ -73,45 +73,10 @@ const filteredContentItems = computed(() => {
             <span class="font-semibold text-blue-600 underline"
               >{{ link.subtitle }}
             </span>
-            <!-- <UIcon name="i-heroicons-arrow-right" size="sm" />  -->
           </p>
           <p class="text-sm text-gray-500">{{ link.category }}</p>
         </NuxtLink>
       </UCard>
     </div>
-
-    <!-- <div
-        v-else="contentItems && contentItems.length > 0"
-        class="grid grid-cols-1 gap-2"
-      >
-        <UCard
-          v-for="item in contentItems"
-          :key="item._path"
-          class="cursor-pointer custom-shadow"
-        >
-          <NuxtLink :to="item._path" class="flex flex-row gap-2">
-            <div class="hidden flex-shrink-0 w-16 md:w-16">
-              <NuxtImg
-                :src="item.image || '/default-image-2.gif'"
-                :alt="item.title"
-                class="w-full object-cover"
-                loading="lazy" fetchpriority="high"
-                sizes="300px"
-                :placeholder="[300, 300]"
-              />
-            </div>
-            <div class="flex-grow">
-              <p class="font-semibold">
-                {{ item.title }}
-              </p>
-              <div
-                class="inline-block px-2 py-1 my-1 text-xs bg-gray-200 text-gray-800"
-              >
-                {{ item.category }}
-              </div>
-            </div>
-          </NuxtLink>
-        </UCard>
-      </div> -->
   </div>
 </template>

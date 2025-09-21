@@ -1,6 +1,5 @@
 <template>
   <div class="mb-2">
-    <!-- <pre>{{ title }}</pre> -->
     <div class="mb-1 flex justify-between">
       <span class="text-sm font-medium">{{ title }}</span>
       <span class="text-sm font-medium">{{ executionRate }}%</span>
@@ -13,7 +12,6 @@
       ></div>
     </div>
     <div class="flex justify-end text-xs">
-      <!-- <span>Réalisé: {{ formattedRealizedValue }} Mrd</span> -->
       <span
         >{{ formattedRealizedValue }} sur
         {{ formattedLfiValue }} milliards</span

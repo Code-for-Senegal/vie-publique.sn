@@ -10,8 +10,6 @@ image: "/images/actualites/journee-nationale-daara-2024-senegal.jpeg"
 
 📅 Jeudi 28 Novembre 2024
 
-<!-- <img src="/images/actualites/journee-nationale-daara-2024-senegal.jpeg" alt="Diomaye Turquie" loading="lazy" fetchpriority="high"> -->
-
 <iframe class="video" width="100%" height="315" src="https://www.youtube.com/embed/gZfrJLikeAE?rel=0&modestbranding=1&origin=https://www.vie-publique.sn" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 Monsieur le Ministre de l’Éducation nationale,

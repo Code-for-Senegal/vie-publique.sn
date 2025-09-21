@@ -12,8 +12,6 @@ const { data: q1Datas } = useLazyFetch("/api/budget-q1");
 <template>
   <div v-if="pending">Chargement en cours...</div>
   <div v-else-if="budgetDatas" class="mx-auto max-w-4xl p-4 text-sm">
-    <!-- <h1 class="text-2xl font-bold text-center mb-6">Budget Sénégal 2024</h1> -->
-
     <div class="prose prose-sm sm:prose mx-auto my-2">
       <h1 class="text-center dark:text-white">Graphique Budget Sénégal 2024</h1>
     </div>

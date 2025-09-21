@@ -51,10 +51,6 @@ const props = defineProps<{
         <span class="text-2xl font-bold md:text-4xl">
           {{ budgetDatas.growthRate }} %
         </span>
-        <!-- <span class="text-md ml-2 font-semibold text-green-600 sm:text-2xl"
-          >{{ budgetDatas.balance.pibPercentage }}%</span
-        > -->
-        <!-- <div class="font-semibold">{{ budgetDatas.balance.unit }} FCFA</div> -->
       </div>
     </div>
 

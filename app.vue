@@ -79,13 +79,6 @@ const aboutUslinks = [
     icon: "i-heroicons-envelope",
     to: "/newsletter",
   },
-  // {
-  //   label: "Quiz",
-  //   description: "Jeux QCM sur les institutions publiques",
-  //   photo: "/unknown_member.webp",
-  //   icon: "i-heroicons-puzzle-piece",
-  //   to: "/quiz",
-  // },
   {
     label: "À Propos",
     to: "/a-propos/qui-sommes-nous",
@@ -136,7 +129,7 @@ onMounted(() => {
 
 <template>
   <div
-    class="lg:px-18 top-header header_top sticky top-0 z-50 flex items-center justify-between opacity-100 md:px-10 xl:px-32"
+    class="lg:px-18 header_top sticky top-0 z-50 flex items-center justify-between opacity-100 md:px-10 xl:px-32"
   >
     <!-- PWA manifest -->
     <NuxtPwaManifest />
@@ -154,8 +147,6 @@ onMounted(() => {
 
     <Toaster position="bottom-center" />
 
-    <!-- Icône de recherche -->
-    <!-- <AppSearch /> -->
     <!-- Menu pour mobiles (toggle visibility with Tailwind CSS) -->
     <ThemeToggle />
   </div>
@@ -204,7 +195,6 @@ onMounted(() => {
       <NuxtPage />
     </NuxtLayout>
 
-    <!-- <NewsletterSocial /> -->
     <AppFooter />
 
     <!-- affichage des deux composants à rendre dynamique -->
@@ -223,7 +213,7 @@ onMounted(() => {
 }
 
 nav ul li a span {
-  text-transform: uppercase;
+  text-transform: capitalize;
   font-family: "Quicksand", sans-serif;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
 }

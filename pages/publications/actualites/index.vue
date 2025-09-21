@@ -115,7 +115,6 @@ const filteredSortedContentItems = computed(() => {
       <div
         class="h-20 w-20 animate-spin rounded-full border-8 border-gray-300 border-t-green-700"
       ></div>
-      <!-- <p class="text-gray-600">Chargement des actualités...</p> -->
     </div>
 
     <!-- Affichage d'une alerte en cas d'erreur -->

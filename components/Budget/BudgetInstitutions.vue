@@ -143,13 +143,6 @@ const toggleInstitution = (index: number) => {
         </div>
       </transition>
     </div>
-
-    <!-- <div class="mt-6">
-      <h2 class="mb-2 text-lg font-semibold">💡 NB</h2>
-      <ul class="list-disc space-y-1 pl-5">
-        <li v-for="point in keyPoints" :key="point">{{ point }}</li>
-      </ul>
-    </div> -->
   </div>
 </template>
 

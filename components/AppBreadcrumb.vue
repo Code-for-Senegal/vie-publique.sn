@@ -12,8 +12,6 @@
     >
       <span class="underline">{{ link.label }}</span>
     </ULink>
-    <!-- <UIcon name="i-heroicons-chevron-right" size="sm" /> -->
-    <!-- <p class="truncate">{{ props.lastText }}</p> -->
   </div>
 </template>
 

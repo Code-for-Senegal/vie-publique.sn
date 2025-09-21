@@ -1,30 +1,44 @@
 <template>
-  <section class="pt-4 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-    <!-- Barre de recherche principale style Google -->
-    <div class="mb-4 sm:mb-10">
-      <div class="w-full">
+  <section class="pb-4 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <!-- Barre de recherche principale style Google/ChatGPT -->
+    <div class="flex justify-center">
+      <div class="w-full sm:max-w-2xl">
         <div class="group relative">
           <div class="relative">
             <UIcon
               name="i-heroicons-magnifying-glass"
-              class="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400 transition-colors group-focus-within:text-blue-500"
+              class="absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400 transition-colors group-focus-within:text-blue-500"
             />
             <input
               v-model="searchQuery"
               type="text"
-              placeholder="Rechercher dans Vie Publique"
-              class="custom-shadow w-full py-4 pl-12 pr-16 text-base transition-all duration-200 placeholder:text-gray-400 hover:shadow-md focus:border-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-blue-400"
+              placeholder="Rechercher dans Vie Publique..."
+              class="w-full rounded-full border-2 border-gray-200 bg-white py-4 pl-14 pr-20 text-base shadow-sm transition-all duration-300 placeholder:text-gray-400 hover:border-gray-300 hover:shadow-md focus:border-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 dark:hover:border-gray-500 dark:focus:border-blue-400"
               @keyup.enter="performSearch"
             />
-            <UButton
+            <button
               v-if="searchQuery.trim()"
               @click="performSearch"
-              size="sm"
-              variant="outline"
-              icon="i-heroicons-magnifying-glass"
-              class="absolute right-2 top-1/2 -translate-y-1/2 rounded-full"
-            />
+              class="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-gray-300 text-white shadow-sm transition-all duration-200 hover:from-[#0000ff] hover:to-[#0003aa] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-300"
+            >
+              <UIcon name="i-heroicons-magnifying-glass" class="h-4 w-4" />
+            </button>
           </div>
+        </div>
+
+        <!-- Suggestions de recherche optionnelles -->
+        <div class="mt-4 flex hidden flex-wrap justify-center gap-2 opacity-75">
+          <button
+            v-for="suggestion in searchSuggestions"
+            :key="suggestion"
+            @click="
+              searchQuery = suggestion;
+              performSearch();
+            "
+            class="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-600 transition-colors duration-200 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+          >
+            {{ suggestion }}
+          </button>
         </div>
       </div>
     </div>
@@ -64,6 +78,15 @@ const router = useRouter();
 
 // État de la recherche
 const searchQuery = ref("");
+
+// Suggestions de recherche populaires
+const searchSuggestions = ref([
+  "Assemblée nationale",
+  "Budget 2024",
+  "Journal officiel",
+  "Décrets",
+  "Elections",
+]);
 
 // Fonction de recherche
 const performSearch = () => {

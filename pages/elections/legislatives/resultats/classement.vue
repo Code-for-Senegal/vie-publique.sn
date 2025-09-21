@@ -11,10 +11,6 @@
       ]"
     />
 
-    <!-- <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center dark:text-white">Législative 2024 classement des listes</h1>
-    </div> -->
-
     <div class="w-full">
       <UCard v-if="loadingCoalitions">
         <USkeleton class="custom-shadow h-21 bg-gray mb-2 w-full" />

@@ -1,5 +1,4 @@
 <template>
-  <!-- <div class="container mx-auto p-4"> -->
   <div class="flex flex-col items-center px-4">
     <UButton size="xs" class="bg-gray b-0 mb-1 w-full hover:bg-white">
       <AppBreadcrumb :links="links" :last-text="route.params.slug" />

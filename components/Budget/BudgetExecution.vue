@@ -12,8 +12,6 @@ const props = defineProps<{
     <h1 class="mb-2 text-center text-xl font-bold">
       Situation d'exécution au 2ème Trimestre 2024
     </h1>
-    <!-- <pre class="bg-red-100">{{ dataQ1.expenseCategories }}</pre>
-    <pre class="bg-blue-100">{{ dataLfi.institutionBudgets }}</pre> -->
 
     <div class="mb-2 grid grid-cols-2 gap-2">
       <BudgetExecutionIndicatorBox
@@ -55,13 +53,6 @@ const props = defineProps<{
       :realized-value="institution.execution_q2.amount"
       :color="institution.color"
     />
-
-    <!-- <div class="mt-6">
-      <h2 class="mb-2 text-lg font-semibold">💡 NB</h2>
-      <ul class="list-disc space-y-1 pl-5">
-        <li v-for="point in dataQ1.keyPoints" :key="point">{{ point }}</li>
-      </ul>
-    </div> -->
   </div>
 </template>
 

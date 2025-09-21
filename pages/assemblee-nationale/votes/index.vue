@@ -9,15 +9,6 @@
       @click.native="router.back()"
     />
     <UContainer>
-      <!-- <UBreadcrumb
-        class="mt-2"
-        :links="[
-          { label: 'Accueil', to: '/' },
-          { label: '15e législature', to: '/assemblee-nationale' },
-          { label: 'votes' },
-        ]"
-      /> -->
-
       <!-- En-tête avec titre et description -->
       <div class="mb-8">
         <h1 class="mb-4 text-4xl font-bold text-gray-900 dark:text-gray-100">

@@ -255,7 +255,6 @@ function openModal(minister: Candidate) {
             color="green"
           >
             <!-- Slot pour le titre de chaque liste -->
-            <!-- <UCard></UCard> -->
             <template #default="{ item, index, open }">
               <UButton
                 color="gray"
@@ -273,7 +272,6 @@ function openModal(minister: Candidate) {
                   {{ item.constituency?.name || "" }}
                   {{ item.is_substitute ? "Suppléants" : "Titulaires" }}
                 </span>
-                <!-- <span>{{ open }} {{ index }}</span> -->
                 <template #trailing>
                   <UIcon
                     name="i-heroicons-chevron-right-20-solid"

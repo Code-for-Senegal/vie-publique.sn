@@ -6,9 +6,6 @@
         <h2 class="mb-2 text-xl font-semibold text-gray-800">
           Abonnez-vous à notre Newsletter
         </h2>
-        <!-- <p class="mb-4 text-sm text-gray-600">
-        Suivez nos actualités et publications
-      </p> -->
         <NuxtLink to="/newsletter" class="text-green-700 underline">
           <UButton color="gray" class="">S'abonner</UButton>
         </NuxtLink>

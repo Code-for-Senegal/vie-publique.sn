@@ -75,9 +75,12 @@ export default defineNuxtConfig({
     },
     minify: true,
     sourceMap: false,
-    compressPublicAssets: {
-      gzip: false,
-      brotli: false
+    compressPublicAssets: true,
+    node: {
+      asyncContext: true
+    },
+    externals: {
+      defu: 'defu'
     }
   },
   

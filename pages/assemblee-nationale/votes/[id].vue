@@ -116,24 +116,11 @@
               </span>
               le {{ formatDate(vote?.date) }}:
             </p>
-            <!-- <p v-if="vote" class="mt-4">
-              {{ vote?.description }}
-            </p> -->
+
             <div
               class="prose prose-gray dark:prose-invert max-w-none"
               v-html="vote?.desc"
             ></div>
-            <!-- <p class="mt-4">
-                Au total, <strong>{{ vote?.voters }} députés</strong> ont pris
-                part au vote :
-                {{ Math.round((vote?.voters_for / vote?.voters) * 100) }}% ont
-                voté en faveur,
-                {{ Math.round((vote?.voters_against / vote?.voters) * 100) }}%
-                ont voté contre, et
-                {{
-                  Math.round((vote?.voters_abstention / vote?.voters) * 100)
-                }}% se sont abstenus.
-              </p> -->
           </div>
         </div>
       </UCard>

@@ -153,7 +153,6 @@ useMotion();
         </p>
       </div>
 
-      <!-- <div class="flex flex-col sm:flex-row justify-center items-center gap-2 mt-4"> -->
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <UCard
           class="custom-shadow cursor-pointer text-center"
@@ -172,8 +171,6 @@ useMotion();
             <p class="mb-2 font-semibold md:text-lg dark:text-white">
               Quiz Organisation de l'état
             </p>
-            <!-- <UButton @click="selectQuizType('text')" class="text-center w-full rounded-3xl"
-                                label="Jouer" size="xl" icon="i-heroicons-play" color="black" /> -->
           </div>
         </UCard>
         <UCard
@@ -193,8 +190,6 @@ useMotion();
             <p class="mb-2 font-semibold md:text-lg dark:text-white">
               Quiz Photos nominations
             </p>
-            <!-- <UButton @click="selectQuizType('image')" class="text-center w-full rounded-3xl "
-                                label="Jouer" size="xl" icon="i-heroicons-play" color="black" /> -->
           </div>
         </UCard>
       </div>

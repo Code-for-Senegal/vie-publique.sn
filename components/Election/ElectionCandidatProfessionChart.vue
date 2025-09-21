@@ -14,7 +14,6 @@
     </template>
 
     <div class="flex flex-col gap-4">
-      <!-- <div class="mt-4 overflow-x-auto"> -->
       <div
         v-for="item in professions"
         :key="item.profession"
@@ -39,22 +38,8 @@
         </div>
 
         <UDivider class="mb-2" />
-        <!-- Percentage Bar -->
-        <!-- <div class="mt-2 flex hidden items-center">
-          <div class="h-2.5 w-full rounded-full bg-gray-200">
-            <div
-              class="h-2.5 rounded-full bg-green-500"
-              :style="{ width: `${calculatePercentage(item.count.id)}%` }"
-            ></div>
-          </div>
-          <span class="ml-2 text-sm text-gray-600">
-            {{ calculatePercentage(item.count.id) }}%
-          </span>
-        </div> -->
       </div>
     </div>
-
-    <!-- </div> -->
   </UCard>
 </template>
 

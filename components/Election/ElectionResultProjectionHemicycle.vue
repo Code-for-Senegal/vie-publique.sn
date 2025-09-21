@@ -2,7 +2,6 @@
 <template>
   <div class="w-full">
     <div class="mb-4 text-center">
-      <!-- <h2 class="text-2xl font-bold">Projections Assemblé Nationale</h2> -->
       <h4 class="text-sm text-gray-500">
         Proclamation des résultats par la Commission Electorale Nationale
       </h4>

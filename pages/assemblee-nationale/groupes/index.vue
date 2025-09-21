@@ -1,13 +1,5 @@
 <template>
   <UContainer>
-    <!-- <UBreadcrumb
-      class="mt-2"
-      :links="[
-        { label: 'Accueil', to: '/' },
-        { label: 'Assemblée', to: '/assemblee-nationale' },
-        { label: 'Groupes' },
-      ]"
-    /> -->
     <UButton
       icon="i-heroicons-arrow-left"
       variant="ghost"

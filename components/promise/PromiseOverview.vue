@@ -31,10 +31,6 @@
       </div>
     </div>
 
-    <!-- <UButton to="/barometre-politique/diomaye-faye" class="mb-4">
-            Explorer les promesses
-        </UButton> -->
-
     <NuxtLink to="/barometre-politique/diomaye-faye" class="mt-4">
       <p class="font-semibold underline">Explorer les promesses ›</p>
     </NuxtLink>

@@ -74,8 +74,6 @@
               <div class="p-2">
                 <h3 class="text-lg font-bold">{{ region.departement }}</h3>
                 <div>Région: {{ region.region }}</div>
-                <!-- <pre>{{ region }}</pre> -->
-                <!-- <div v-if="region.stats" class="mt-2 text-sm"> -->
                 <div>
                   Communes:
                   <span class="font-bold text-red-700">{{

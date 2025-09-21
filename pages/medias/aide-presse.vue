@@ -209,7 +209,6 @@ watch([selectedType, selectedType], () => {
         </a>
       </div>
 
-      <!-- <div class="space-y-2"> -->
       <div class="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
         <UCard
           v-for="press in rowsfilteredAides"

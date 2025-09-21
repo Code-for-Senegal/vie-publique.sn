@@ -6,9 +6,6 @@
       :to="`/assemblee-nationale/votes/${vote.id}`"
       class="block rounded-lg bg-gray-50 p-2 transition hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600"
     >
-      <!-- <time class="mt-2 block text-xs text-gray-500">
-                {{ $dateformat(vote.date) }}
-              </time> -->
       <!-- Header: Date et Status -->
       <div class="mb-2 flex items-center justify-between">
         <span

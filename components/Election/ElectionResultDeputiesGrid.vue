@@ -206,19 +206,6 @@
       </div>
     </div>
 
-    <!-- Refresh button -->
-    <!-- <div class="fixed bottom-4 right-4">
-      <UButton
-        :loading="loading"
-        :disabled="loading"
-        icon="i-heroicons-arrow-path"
-        color="gray"
-        variant="soft"
-        @click="scrollToTop"
-      >
-        Actualiser
-      </UButton>
-    </div> -->
     <UButton
       v-show="showButton"
       :ui="{ rounded: 'rounded-full' }"
