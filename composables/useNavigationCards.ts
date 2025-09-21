@@ -5,6 +5,7 @@ export interface NavigationCard {
   description?: string;
   icon: string;
   to: string;
+  count?: number;
 }
 
 /**
@@ -14,34 +15,40 @@ export interface NavigationCard {
 export function useNavigationCards() {
   const navigationCards: NavigationCard[] = [
     {
-      title: "Journal officiel",
-      description: "Lois, Décrets, Arrêtés",
-      icon: "i-heroicons-newspaper",
-      to: "/documents/journal-officiel",
-    },
-    {
-      title: "Conseil des ministres",
-      description: "Communiqués Comptes rendus",
-      icon: "i-heroicons-briefcase",
-      to: "/conseil-des-ministres",
-    },
-    {
       title: "Documents",
       description: "Journal officiel, Codes, Rapports",
       icon: "i-heroicons-document-text",
       to: "/documents",
-    },
-    {
-      title: "Annuaire",
-      description: "Nominations, Sites, Medias...",
-      icon: "i-heroicons-book-open",
-      to: "/annuaires",
+      count: 1354,
     },
     {
       title: "Assemblée",
       description: "Suivez l'activité parlementaire",
       icon: "i-heroicons-building-library",
       to: "/assemblee-nationale",
+      count: 147,
+    },
+    {
+      title: "Journal officiel",
+      description: "Lois, Décrets, Arrêtés",
+      icon: "i-heroicons-newspaper",
+      to: "/documents/journal-officiel",
+      count: 1354,
+    },
+    {
+      title: "Conseil des ministres",
+      description: "Communiqués Comptes rendus",
+      icon: "i-heroicons-briefcase",
+      to: "/conseil-des-ministres",
+      count: 54,
+    },
+
+    {
+      title: "Annuaire",
+      description: "Nominations, Sites, Medias...",
+      icon: "i-heroicons-book-open",
+      to: "/annuaires",
+      count: 89,
     },
 
     {
@@ -49,6 +56,7 @@ export function useNavigationCards() {
       description: "Loi de finances 2025",
       icon: "i-heroicons-banknotes",
       to: "/budget-senegal",
+      count: 8,
     },
   ];
 
@@ -131,6 +139,42 @@ export function useNavigationCards() {
     );
   };
 
+  // Fonctions pour HomeQuickAccess - Arrière-plans des icônes
+  const getQuickAccessIconBackground = (title: string): string => {
+    const backgrounds: Record<string, string> = {
+      Assemblée: "bg-blue-50 dark:bg-blue-900/20",
+      Budget: "bg-green-50 dark:bg-green-900/20",
+      Documents: "bg-purple-50 dark:bg-purple-900/20",
+      Elections: "bg-red-50 dark:bg-red-900/20",
+      Annuaires: "bg-yellow-50 dark:bg-yellow-900/20",
+      Actualités: "bg-indigo-50 dark:bg-indigo-900/20",
+      "Journal officiel": "bg-red-50 dark:bg-red-900/20",
+      "Conseil des ministres": "bg-amber-50 dark:bg-amber-900/20",
+      "Budget du Sénégal": "bg-green-50 dark:bg-green-900/20",
+      Annuaire: "bg-yellow-50 dark:bg-yellow-900/20",
+    };
+
+    return backgrounds[title] || "bg-gray-50 dark:bg-gray-700";
+  };
+
+  // Fonctions pour HomeQuickAccess - Couleurs des icônes
+  const getQuickAccessIconColor = (title: string): string => {
+    const colors: Record<string, string> = {
+      Assemblée: "text-blue-600 dark:text-blue-400",
+      Budget: "text-green-600 dark:text-green-400",
+      Documents: "text-purple-600 dark:text-purple-400",
+      Elections: "text-red-600 dark:text-red-400",
+      Annuaires: "text-yellow-600 dark:text-yellow-400",
+      Actualités: "text-indigo-600 dark:text-indigo-400",
+      "Journal officiel": "text-red-600 dark:text-red-400",
+      "Conseil des ministres": "text-amber-600 dark:text-amber-400",
+      "Budget du Sénégal": "text-green-600 dark:text-green-400",
+      Annuaire: "text-yellow-600 dark:text-yellow-400",
+    };
+
+    return colors[title] || "text-gray-600 dark:text-gray-400";
+  };
+
   return {
     navigationCards,
     // Pour HomeSearch
@@ -139,5 +183,8 @@ export function useNavigationCards() {
     getTextColor,
     // Pour MenuHomeV4
     getMenuCardColor,
+    // Pour HomeQuickAccess
+    getQuickAccessIconBackground,
+    getQuickAccessIconColor,
   };
 }
