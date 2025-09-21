@@ -48,6 +48,5 @@ const deputyUrl = computed(() => {
         {{ deputy.last_name.toUpperCase() }}
       </span>
     </div>
-    <!-- <div class="text-center text-sm text-gray-600">{{ deputy.profession }}</div> -->
   </NuxtLink>
 </template>

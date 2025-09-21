@@ -16,8 +16,6 @@ Au cours de cet événement, il a répondu aux questions de Richard Attias.
 
 Il a présenté la vision Sénégal 2050 et la stratégie de développement du gouvernement, ainsi que les atouts du Sénégal à un groupe d’investisseurs.
 
-<!-- <img src="/images/actualites/interview-president-diomaye-forum-fii-2024-riyad.jpg" alt="Diomaye Faye à RIYAD" loading="lazy" fetchpriority="high"> -->
-
 Regardez l'interview complet ici dessous :
 
 <iframe class="video" width="100%" height="315" src="https://www.youtube.com/embed/A7TeYXVCeYM?rel=0&modestbranding=1&origin=https://www.vie-publique.sn" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>

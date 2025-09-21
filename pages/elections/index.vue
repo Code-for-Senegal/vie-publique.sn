@@ -115,12 +115,6 @@ const electionCategories = [
 
 <template>
   <div>
-    <!-- <div class="mb-6 mt-2 grid grid-cols-1 gap-4 md:grid-cols-2"> -->
-    <!-- <ElectionMenuSieges /> -->
-    <!-- <ElectionMenuDepute /> -->
-    <!-- <ElectionMenuClassement /> -->
-    <!-- <ElectionMenuInfo /> -->
-    <!-- </div> -->
     <LayoutSubcategoryComponent
       :item="electionCategories"
       :title="`Élections Législatives 2024`"

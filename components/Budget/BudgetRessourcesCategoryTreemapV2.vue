@@ -4,7 +4,6 @@
     <div class="mb-2 text-4xl font-bold text-blue-600">
       {{ totalValue }} {{ unit }}
     </div>
-    <!-- <pre>{{ items }}</pre> -->
     <div class="flex h-20 w-full overflow-hidden rounded-lg">
       <div
         v-for="(item, index) in items"

@@ -79,26 +79,6 @@ https://www.pngitem.com/pimgs/m/618-6183618_transparent-unknown-person-png-trans
 palette colors tailwind css
 https://tailwindcss.com/docs/customizing-colors#color-palette-reference
 
-## Ajout rapport details
-
-```
-{
-        "id": "xxx",
-        "summary": [
-            {
-                "title": "",
-                "content": ""
-            },
-            {
-                "title": "",
-                "content": ""
-            }
-        ],
-        "title": "",
-        "investigations": []
-    }
-```
-
 ## Site web
 
 - liste site
@@ -155,78 +135,6 @@ useStore or cache
 ##JO
 
 Ajout du plugin @tailwindcss/typography qui ajoute un ensemble de classes utilitaires pour styler du contenu typographique riche, particulièrement utile pour le contenu généré par un CMS ou des fichiers Markdown.
-
-## menu
-
-```
-<script setup lang="ts">
-const route = useRoute()
-
-const people = [{
-  id: 'benjamincanac',
-  label: 'benjamincanac',
-  href: 'https://github.com/benjamincanac',
-  target: '_blank',
-  icon: 'i-heroicons-user',
-}, {
-  id: 'smarroufin',
-  label: 'smarroufin',
-  href: 'https://github.com/smarroufin',
-  target: '_blank',
-  icon: 'i-heroicons-newspaper',
-}, {
-  id: 'nobody',
-  label: 'Nobody',
-  icon: 'i-heroicons-user-circle'
-}]
-
-const selected = ref('');
-</script>
-
-<template>
-  <UContainer class="mt-2 px-0 sm:px-10 md:px-20 lg:px-40">
-
-    <div class="flex flex-row	items-center">
-      <HeaderBrand />
-
-      <!-- <USelectMenu v-model="selected" :options="links">
-    <template #leading>
-      <NuxtLink :to="${selected.to}" class="flex flex-row gap-2">
-      <UIcon v-if="selected.icon" :name="(selected.icon as string)" class="w-5 h-5" />
-      <UAvatar v-else-if="selected.avatar" v-bind="(selected.avatar as Avatar)" size="2xs" />
-    </NuxtLink>
-    </template>
-</USelectMenu> -->
-
-      <!-- <USelectMenu v-slot="{ open }" v-model="selected" :options="people">
-        <template #leading>
-          <UIcon v-if="selected.icon" :name="(selected.icon as string)" class="w-5 h-5" />
-        </template>
-      </USelectMenu> -->
-    </div>
-
-    <UDivider />
-
-    <UHorizontalNavigation :links="links"
-      class="border-b border-gray-200 dark:border-gray-800 mx-auto mb-3 top-0 z-50 sm:justify-center">
-      <template #default="{ link }">
-        <span class="group-hover:text-primary relative">{{ link.label }}</span>
-      </template>
-    </UHorizontalNavigation>
-
-
-    <NuxtLoadingIndicator />
-
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
-
-    <Footer />
-
-  </UContainer>
-</template>
-
-```
 
 ##
 

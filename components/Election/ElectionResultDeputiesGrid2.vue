@@ -1,11 +1,8 @@
-<!-- # components/Election/ElectionResultPvGrid.vue -->
 <template>
   <div>
     <div class="py-2">
       <div class="container">
-        <template v-if="!loading && props.deputies">
-          <!-- <p class="mt-2 text-gray-600">{{ deputies.length }} candidats élus</p> -->
-        </template>
+        <template v-if="!loading && props.deputies"> </template>
       </div>
     </div>
 

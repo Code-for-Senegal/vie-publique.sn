@@ -117,9 +117,6 @@ const handlePageChange = (page: number) => {
               <h3 class="mb-1 font-medium text-gray-900">
                 {{ doc.title }}
               </h3>
-              <!-- <p class="line-clamp-2 text-sm text-gray-500">
-                {{ doc.description }}
-              </p> -->
               <div class="mt-1 flex flex-wrap gap-4 text-sm text-gray-400">
                 <span class="flex items-center gap-1">
                   {{ $dateMonthYearformat(doc.publish_date) }}

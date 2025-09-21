@@ -1,9 +1,5 @@
 <template>
   <div class="container mx-auto px-4 py-8">
-    <!-- <h1 class="mb-8 text-center text-2xl font-bold text-gray-800">
-      Tous les menus
-    </h1> -->
-
     <div
       class="mx-auto grid max-w-5xl grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3"
     >

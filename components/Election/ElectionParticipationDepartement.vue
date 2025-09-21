@@ -158,30 +158,5 @@ onMounted(() => {
         </table>
       </div>
     </div>
-
-    <!-- <UTable
-      :rows="filteredDepartments"
-      :columns="[
-        { key: 'departement', label: 'Département' },
-        { key: 'voters', label: 'Inscrits' },
-        { key: 'participation_10h', label: '10h' },
-        { key: 'participation_12h', label: '12h' },
-        { key: 'participation_17h', label: '17h' },
-      ]"
-    >
-      <template #departement-data="{ row }">
-        <p>{{ row.departement }}</p>
-        <p class="text-sm text-gray-600">{{ row.region }}</p>
-      </template>
-      <template #participation_10h-data="{ row }">
-        {{ row.participation_10h ? `${row.participation_10h}%` : "-" }}
-      </template>
-      <template #participation_12h-data="{ row }">
-        {{ row.participation_12h ? `${row.participation_12h}%` : "-" }}
-      </template>
-      <template #participation_17h-data="{ row }">
-        {{ row.participation_17h ? `${row.participation_17h}%` : "-" }}
-      </template>
-    </UTable> -->
   </div>
 </template>

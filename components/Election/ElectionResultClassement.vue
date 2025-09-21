@@ -94,14 +94,6 @@
                 class="col-span-6 flex items-center gap-3 px-4 sm:col-span-7"
               >
                 <div class="flex-shrink-0">
-                  <!-- <UAvatar
-                    v-if="coalition.logo"
-                    :src="$directusImageUrl(coalition.logo, '25')"
-                    :alt="coalition.name"
-                    size="lg"
-                    loading="lazy"
-                    fetchpriority="high"
-                  /> -->
                   <UAvatar
                     v-if="coalition.logo"
                     :src="$directusImageUrl(coalition.logo, '25')"
@@ -130,7 +122,6 @@
                 <p>
                   {{ new Intl.NumberFormat("fr-FR").format(coalition.voix) }}
                 </p>
-                <!-- <UBadge :color="getBadgeColor(coalition.pourcentage)"> -->
                 <UBadge
                   variant="subtle"
                   class="custom-shadow"

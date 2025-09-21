@@ -24,21 +24,6 @@
             open ? 'bg-primary-50' : 'hover:bg-primary-50/50 bg-white',
           ]"
         >
-          <!-- Gauche: Icône et Titre -->
-          <!-- <div class="flex items-center space-x-4">
-            <div
-              :class="[
-                'rounded-lg p-3 transition-colors duration-200',
-                open ? 'bg-primary-200' : 'bg-primary-100',
-              ]"
-            >
-              <Icon :name="item.icon" class="text-primary-700 h-6 w-6" />
-            </div>
-            <h3 class="text-primary-900 text-lg font-semibold">
-              {{ item.nom }}
-            </h3>
-          </div> -->
-
           <!-- Droite: Stats -->
           <div class="flex items-center space-x-3">
             <UBadge color="primary" class="text-sm font-medium">

@@ -19,7 +19,6 @@ function goToScandaleDetails(scandal: any) {
         class="custom-shadow mb-2 cursor-pointer"
         @click="goToScandaleDetails(scandale)"
       >
-        <!-- <NuxtLink :to="{name: ''}"> -->
         <div class="flex flex-col md:flex-row">
           <!-- left desktop & tab -->
           <div class="mb-1 md:w-1/3">
@@ -39,11 +38,9 @@ function goToScandaleDetails(scandal: any) {
             </div>
             <div>
               <span>Date: {{ scandale.annee }}</span>
-              <!-- <span class="block mt-1">Publié le: {{ new Date(scandale.date_publication).toLocaleDateString() }}</span> -->
             </div>
           </div>
         </div>
-        <!-- </NuxtLink> -->
       </UCard>
     </div>
     <div v-else class="justify-center text-sm text-gray-500">

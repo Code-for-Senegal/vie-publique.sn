@@ -193,16 +193,6 @@ onMounted(async () => {
       />
     </UDropdown>
 
-    <!-- <USelectMenu v-model="selectedOptions" :options="itemsSelect">
-      <template #leading>
-        <UIcon
-          v-if="selectedOptions.icon"
-          :name="selectedOptions.icon as string"
-          class="h-5 w-5"
-        />
-      </template>
-    </USelectMenu> -->
-
     <!-- CARTE 1 -->
     <ElectionMapComponent1
       v-if="selectedOptions == optionMap1"
@@ -266,7 +256,6 @@ onMounted(async () => {
       <UCard v-for="item in regions" :key="item.id" class="custom-shadow 0">
         <p>{{ item.departement }}</p>
         <p class="text-sm text-gray-600">{{ item.region }}</p>
-        <!-- <UDivider class="pt-1" /> -->
       </UCard>
     </div>
   </div>

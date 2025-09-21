@@ -185,19 +185,6 @@ const getBadgeColor = (type: string) => {
               </span>
             </span>
           </div>
-
-          <!-- Bouton effacer si filtres actifs -->
-          <!-- <UButton
-            v-if="selectedTypes.length > 0"
-            @click="clearAllFilters"
-            size="xs"
-            color="gray"
-            variant="ghost"
-            icon="i-heroicons-x-mark"
-            class="text-gray-500 hover:text-gray-700"
-          >
-            Effacer
-          </UButton> -->
         </div>
       </div>
 
@@ -440,7 +427,10 @@ const getBadgeColor = (type: string) => {
                   'Projets de développement',
                 ]"
                 :key="suggestion"
-                @click="searchQuery = suggestion; performSearch()"
+                @click="
+                  searchQuery = suggestion;
+                  performSearch();
+                "
                 class="flex cursor-pointer items-center rounded-lg bg-white p-3 transition-colors hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
               >
                 <UIcon

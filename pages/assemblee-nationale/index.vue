@@ -108,7 +108,6 @@ useHead({
           <div class="prose prose-sm sm:prose dark:prose-invert">
             <h1 class="">Assemblée nationale</h1>
           </div>
-          <!-- <UBadge color="emerald" class="hidden md:block"> 2024 - 2029 </UBadge> -->
         </div>
         <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
           15ème législature 2024-2029

@@ -73,12 +73,8 @@ const filteredEntities = computed(() => {
 
 <template>
   <div>
-    <!-- <UTabs :items="items" :default-index="1" /> -->
-
-    <!-- <h1>TEST</h1> -->
     <UTabs :items="tabs" class="w-full">
       <template #item="{ item }">
-        <!-- <div v-if="selected"> -->
         <div v-if="item.key === 'list'" class="w-full">
           <UInput
             v-model="searchTerm"
@@ -94,7 +90,6 @@ const filteredEntities = computed(() => {
             class="input custom-shadow mb-4 w-full"
           />
 
-          <!-- <pre>Nombre: {{ filteredEntities.length }} </pre> -->
           <div class="text-semibold mb-2 text-sm">
             Total: {{ filteredEntities.length }}
           </div>
@@ -105,9 +100,6 @@ const filteredEntities = computed(() => {
               :key="entity.name"
               class="custom-shadow cursor-pointer"
             >
-              <!-- <template #header> </template> -->
-              <!-- <p class="text-sm text-gray-600">{{ entity.type }}</p> -->
-              <!-- <p class="text-sm text-gray-600">{{ entity.parent }}</p> -->
               <h3 class="font-bold">{{ entity.name }}</h3>
               <div class="mt-2 flex flex-col gap-2 sm:flex-row">
                 <span
@@ -124,7 +116,6 @@ const filteredEntities = computed(() => {
         <div v-else-if="item.key === 'tree'" class="w-full">
           <EtatTreeView :data="data.brutData" />
         </div>
-        <!-- </div> -->
       </template>
     </UTabs>
   </div>

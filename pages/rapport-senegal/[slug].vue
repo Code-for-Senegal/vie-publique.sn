@@ -53,7 +53,6 @@ const siteUrl = ref(runtimeConfig.public.siteUrl);
       v-if="rapport"
       class="bg-gray custom-shadow mb-2 w-full hover:bg-white"
     >
-      <!-- <UBreadcrumb divider=">" :links=links class="px-2.5" /> -->
       <AppBreadcrumb :links="links" :last-text="route.params.slug" />
     </UButton>
 
@@ -123,9 +122,6 @@ const siteUrl = ref(runtimeConfig.public.siteUrl);
 
       <h1 class="text-xl sm:text-2xl">{{ rapport.titre }}</h1>
       <p class="mb-2 text-sm text-gray-500">{{ rapport.sous_titre }}</p>
-      <!-- <p class="text-gray-500 text-sm mb-2">
-      Période contrôlée: {{ rapport.period }}
-    </p> -->
       <p class="mb-2 text-sm text-gray-500">
         Date de publication:
         {{ $dateMonthYearformat(rapport.date_publication) }}

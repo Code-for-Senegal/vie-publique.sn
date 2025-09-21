@@ -142,7 +142,6 @@
             <!-- Informations -->
             <div class="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
               <div class="rounded-lg bg-gray-50 p-4">
-                <!-- <h3 class="mb-3 font-semibold">Informations générales</h3> -->
                 <div class="space-y-2">
                   <!-- Pour la diaspora -->
                   <template v-if="currentSource === 'etranger'">
@@ -169,7 +168,6 @@
               </div>
 
               <div class="rounded-lg bg-gray-50 p-4">
-                <!-- <h3 class="mb-3 font-semibold">Statistiques</h3> -->
                 <div class="space-y-2">
                   <p>
                     <strong>Inscrits:</strong>

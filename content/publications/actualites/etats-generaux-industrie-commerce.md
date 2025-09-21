@@ -30,32 +30,3 @@ Un forum sur le financement aura lieu les 9-10 décembre pour explorer des solut
   width="100%"
   height="600px"
 />
-
-<!-- <iframe
-  src="/pdf/programmes/etats-generaux-industrie-commerce-pre-rappord-diagnostic-industrialisation.pdf#zoom=100&view=FitH&toolbar=0&navpanes=0"
-  width="100%"
-  height="300px"
-  style="border: none;"
-></iframe>
-
-<div style="position: relative; width: 100%; height: 100%;">
-  <iframe
-    src="/pdf/programmes/etats-generaux-industrie-commerce-pre-rappord-diagnostic-industrialisation.pdf#zoom=100&view=FitH&toolbar=0&navpanes=0"
-    width="100%"
-    height="600px"
-    style="border: none;"
-  ></iframe>
-  <div style="position: absolute; top: 10px; right: 10px;">
-    <a href="/pdf/programmes/etats-generaux-industrie-commerce-pre-rappord-diagnostic-industrialisation.pdf" download>
-      <button style="padding: 10px 20px; font-size: 16px;">Télécharger le PDF</button>
-    </a>
-  </div>
-</div> -->
-
-<!-- Le ministre a souligné l’importance de faire progresser la part de l’industrie dans le PIB, actuellement stagnante entre 24 et 25 %. Huit (8) pôles de développement, comprenant des agropoles et des zones économiques spéciales, seront au cœur de cette initiative.
-
-Les États Généraux ont abordé aussi d'autres sujets suivants :
-
-- la fiscalité des entreprises, les réformes nécessaires
-- le financement des petites et moyennes entreprises
-- la question du foncier au Senegal -->

@@ -83,12 +83,6 @@
                     {{ region.winnerName }}
                   </span>
                 </div>
-                <!-- <NuxtLink
-                  :to="`/elections/legislatives/carte-electorale/nationale/${region.departement.toUpperCase()}`"
-                  class="text-black-800 mt-2 inline-block rounded-md bg-green-100 px-3 py-1.5 text-sm font-semibold hover:bg-green-200 md:px-4 md:py-2 md:text-base"
-                >
-                  Voir plus
-                </NuxtLink> -->
               </div>
             </LPopup>
           </LPolygon>

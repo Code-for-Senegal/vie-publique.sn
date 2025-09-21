@@ -96,13 +96,6 @@ const links = [{ label: "Tableau de Bord Élections", to: "/elections" }];
     </div>
 
     <div class="w-full">
-      <!-- <USelect
-        v-model="selectedlistViewType"
-        :options="listViewTypes"
-        placeholder="Choisir un mode d'affichage"
-        class="input custom-shadow mb-4 w-full"
-      /> -->
-
       <UCard v-if="loadingCoalitions">
         <USkeleton class="custom-shadow h-21 bg-gray mb-2 w-full" />
       </UCard>

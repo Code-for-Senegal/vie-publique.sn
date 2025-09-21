@@ -235,7 +235,6 @@ watch(selectedOrganisme, () => {
 
             <div class="flex-grow">
               <p class="text-sm font-normal">{{ rapport.title }}</p>
-              <!-- <p class="text-sm text-gray-500">{{ rapport.description }}</p> -->
             </div>
           </NuxtLink>
         </UCard>

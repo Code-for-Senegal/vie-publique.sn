@@ -23,17 +23,10 @@ const stats = computed<PromesseStats>(
 
 <template>
   <div>
-    <!-- <div class="prose prose-sm sm:prose mx-auto my-2">
-            <h1 class="text-center dark:text-white">
-                Vérificateur de promesses électorales
-            </h1>
-        </div -->
-
     <h1 class="my-2 text-center text-2xl font-bold">
       Vérificateur de promesses électorales
     </h1>
 
-    <!-- <div v-if="showBarometer">test</div> -->
     <PromiseOverview v-if="showBarometer" :stats="stats" />
 
     <div v-else class="text-center text-gray-500">

@@ -1,7 +1,5 @@
 <template>
   <div class="container mx-auto mb-4">
-    <!-- <h2 class="mb-2 text-center text-xl font-bold">{{ title }}</h2> -->
-
     <div class="mb-8 grid grid-cols-2 gap-2 lg:grid-cols-4">
       <NuxtLink
         v-for="card in item"

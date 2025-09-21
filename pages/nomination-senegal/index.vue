@@ -1,64 +1,66 @@
 <script setup lang="ts">
 import type { GovernmentMember } from "~/types/government-member";
 
-const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
+const { siteName, siteUrl, defaultImage, keywords, themeColor } =
+  useSiteMetadata();
 
 const title = "Nominations du Président Diomaye Faye | Annuaire Sénégal";
-const description = "Liste complète des nominations du président Bassirou Diomaye Faye au Sénégal. Ministres, Directeurs généraux, PCA et toutes les nominations officielles.";
+const description =
+  "Liste complète des nominations du président Bassirou Diomaye Faye au Sénégal. Ministres, Directeurs généraux, PCA et toutes les nominations officielles.";
 const url = `${siteUrl}/nomination-senegal`;
 const image = `${siteUrl}/nomination-3.png`;
 
 const nominationsSchema = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": title,
-  "description": description,
-  "url": url,
-  "image": image,
-  "isPartOf": {
+  name: title,
+  description: description,
+  url: url,
+  image: image,
+  isPartOf: {
     "@type": "WebSite",
-    "name": siteName,
-    "url": siteUrl,
+    name: siteName,
+    url: siteUrl,
   },
-  "about": [
+  about: [
     {
       "@type": "Person",
-      "name": "Bassirou Diomaye Faye",
-      "jobTitle": "Président de la République du Sénégal",
+      name: "Bassirou Diomaye Faye",
+      jobTitle: "Président de la République du Sénégal",
     },
     {
       "@type": "GovernmentOrganization",
-      "name": "Gouvernement du Sénégal",
+      name: "Gouvernement du Sénégal",
     },
   ],
-  "mainEntity": {
+  mainEntity: {
     "@type": "ItemList",
-    "name": "Nominations présidentielles Sénégal",
-    "description": "Liste des nominations officielles du président Diomaye Faye",
+    name: "Nominations présidentielles Sénégal",
+    description: "Liste des nominations officielles du président Diomaye Faye",
   },
 };
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  "itemListElement": [
+  itemListElement: [
     {
       "@type": "ListItem",
-      "position": 1,
-      "name": "Accueil",
-      "item": siteUrl,
+      position: 1,
+      name: "Accueil",
+      item: siteUrl,
     },
     {
       "@type": "ListItem",
-      "position": 2,
-      "name": "Annuaires",
-      "item": `${siteUrl}/annuaires`,
+      position: 2,
+      name: "Annuaires",
+      item: `${siteUrl}/annuaires`,
     },
     {
       "@type": "ListItem",
-      "position": 3,
-      "name": "Nominations",
-      "item": url,
+      position: 3,
+      name: "Nominations",
+      item: url,
     },
   ],
 };
@@ -66,22 +68,23 @@ const breadcrumbSchema = {
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "GovernmentOrganization",
-  "name": "Gouvernement du Sénégal",
-  "url": url,
-  "description": "Nominations officielles du gouvernement sénégalais sous la présidence de Bassirou Diomaye Faye",
-  "leader": {
+  name: "Gouvernement du Sénégal",
+  url: url,
+  description:
+    "Nominations officielles du gouvernement sénégalais sous la présidence de Bassirou Diomaye Faye",
+  leader: {
     "@type": "Person",
-    "name": "Bassirou Diomaye Faye",
-    "jobTitle": "Président de la République",
+    name: "Bassirou Diomaye Faye",
+    jobTitle: "Président de la République",
   },
-  "address": {
+  address: {
     "@type": "PostalAddress",
-    "addressCountry": "SN",
-    "addressLocality": "Dakar",
+    addressCountry: "SN",
+    addressLocality: "Dakar",
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Country",
-    "name": "Sénégal",
+    name: "Sénégal",
   },
 };
 
@@ -252,14 +255,20 @@ watch([selectedType, selectedGender], () => {
 
     <!-- Modal pour afficher les détails du membre -->
     <UModal v-model="isModalOpen">
-      <UCard v-if="selectedMinister" :ui="{
-        ring: '',
-        divide: 'divide-y divide-gray-100 dark:divide-gray-800',
-      }">
+      <UCard
+        v-if="selectedMinister"
+        :ui="{
+          ring: '',
+          divide: 'divide-y divide-gray-100 dark:divide-gray-800',
+        }"
+      >
         <template #header>
-          <!-- <Placeholder v-else class="h-8" /> -->
           <div class="flex items-center justify-center">
-            <img :src="selectedMinister.photo || '/unknown_member.webp'" alt="Profile Photo" sizes="300px md:400px" />
+            <img
+              :src="selectedMinister.photo || '/unknown_member.webp'"
+              alt="Profile Photo"
+              sizes="300px md:400px"
+            />
           </div>
         </template>
 
@@ -288,8 +297,11 @@ watch([selectedType, selectedGender], () => {
             <p class="text-sm">{{ selectedMinister.predecessor }}</p>
           </div>
 
-          <ULink v-if="selectedMinister.portrait" :to="selectedMinister.portrait"
-            class="text-sm font-semibold text-blue-600 underline hover:text-blue-800">
+          <ULink
+            v-if="selectedMinister.portrait"
+            :to="selectedMinister.portrait"
+            class="text-sm font-semibold text-blue-600 underline hover:text-blue-800"
+          >
             Voir le portrait complet
           </ULink>
         </div>
@@ -310,51 +322,92 @@ watch([selectedType, selectedGender], () => {
         <!-- Colonne des filtres (1/4 en desktop) -->
         <div class="lg:col-span-1">
           <!-- recherche -->
-          <UInput v-model="searchQuery" class="input custom-shadow mb-3 w-full" size="lg"
-            icon="i-heroicons-magnifying-glass" placeholder="Rechercher une nomination...">
+          <UInput
+            v-model="searchQuery"
+            class="input custom-shadow mb-3 w-full"
+            size="lg"
+            icon="i-heroicons-magnifying-glass"
+            placeholder="Rechercher une nomination..."
+          >
           </UInput>
 
           <div class="mb-1 w-full text-center">
-            <UButton :ui="{ rounded: 'rounded-full' }"
+            <UButton
+              :ui="{ rounded: 'rounded-full' }"
               class="custom-shadow mb-1 ml-1 text-sm font-normal transition-all duration-300 ease-in-out"
-              :color="selectedGender === 'Monsieur' ? 'primary' : 'white'" size="sm" @click="
+              :color="selectedGender === 'Monsieur' ? 'primary' : 'white'"
+              size="sm"
+              @click="
                 selectedGender = selectedGender === 'Monsieur' ? '' : 'Monsieur'
-                ">
+              "
+            >
               Hommes
-              <UBadge :ui="{ rounded: 'rounded-full' }" :label="totalsByGender.maleCount"
+              <UBadge
+                :ui="{ rounded: 'rounded-full' }"
+                :label="totalsByGender.maleCount"
                 :color="selectedGender === 'Monsieur' ? 'primary' : 'primary'"
-                :variant="selectedGender === 'Monsieur' ? 'soft' : 'solid'" size="xs"></UBadge>
+                :variant="selectedGender === 'Monsieur' ? 'soft' : 'solid'"
+                size="xs"
+              ></UBadge>
             </UButton>
-            <UButton :ui="{ rounded: 'rounded-full' }"
+            <UButton
+              :ui="{ rounded: 'rounded-full' }"
               class="custom-shadow mb-1 ml-1 text-sm font-normal transition-all duration-300 ease-in-out"
-              :color="selectedGender === 'Madame' ? 'primary' : 'white'" size="sm" @click="
+              :color="selectedGender === 'Madame' ? 'primary' : 'white'"
+              size="sm"
+              @click="
                 selectedGender = selectedGender === 'Madame' ? '' : 'Madame'
-                ">
+              "
+            >
               Femmes
-              <UBadge :ui="{ rounded: 'rounded-full' }" :label="totalsByGender.femaleCount" color="primary"
-                :variant="selectedGender === 'Madame' ? 'soft' : 'solid'" size="xs"></UBadge>
+              <UBadge
+                :ui="{ rounded: 'rounded-full' }"
+                :label="totalsByGender.femaleCount"
+                color="primary"
+                :variant="selectedGender === 'Madame' ? 'soft' : 'solid'"
+                size="xs"
+              ></UBadge>
             </UButton>
           </div>
 
           <div class="mb-2 w-full text-center">
-            <UButton v-for="(total, type) in totalsByType" :key="type" :ui="{ rounded: 'rounded-full' }"
+            <UButton
+              v-for="(total, type) in totalsByType"
+              :key="type"
+              :ui="{ rounded: 'rounded-full' }"
               :color="selectedType === type ? 'primary' : 'white'"
-              class="custom-shadow mb-1 ml-1 text-sm font-normal transition-all duration-300 ease-in-out" size="sm"
-              @click="selectedType = selectedType === type ? '' : type">
+              class="custom-shadow mb-1 ml-1 text-sm font-normal transition-all duration-300 ease-in-out"
+              size="sm"
+              @click="selectedType = selectedType === type ? '' : type"
+            >
               {{ type }}
-              <UBadge :ui="{ rounded: 'rounded-full' }" :label="total" color="primary"
-                :variant="selectedType === type ? 'soft' : 'solid'" size="xs"></UBadge>
+              <UBadge
+                :ui="{ rounded: 'rounded-full' }"
+                :label="total"
+                color="primary"
+                :variant="selectedType === type ? 'soft' : 'solid'"
+                size="xs"
+              ></UBadge>
             </UButton>
           </div>
         </div>
         <!-- Colonne de la liste des députés (3/4 en desktop) -->
         <div class="space-y-2 lg:col-span-3">
-          <UCard v-for="minister in rowsfilteredMinisters" :key="minister.name" class="custom-shadow cursor-pointer"
-            @click="openModal(minister)">
+          <UCard
+            v-for="minister in rowsfilteredMinisters"
+            :key="minister.name"
+            class="custom-shadow cursor-pointer"
+            @click="openModal(minister)"
+          >
             <div class="flex flex-row gap-2">
               <div class="h-16 w-16 flex-shrink-0 md:h-20 md:w-20">
-                <img :src="minister.photo || '/unknown_member.webp'" alt="Photo ministre" sizes="64px sm:80px"
-                  class="h-full w-full rounded-full object-cover" loading="lazy" />
+                <img
+                  :src="minister.photo || '/unknown_member.webp'"
+                  alt="Photo ministre"
+                  sizes="64px sm:80px"
+                  class="h-full w-full rounded-full object-cover"
+                  loading="lazy"
+                />
               </div>
               <div class="flex-grow">
                 <h2 class="font-semibold">{{ minister.name }}</h2>
@@ -376,9 +429,16 @@ watch([selectedType, selectedGender], () => {
         </div>
       </div>
 
-      <div :class="{ hidden: rowsfilteredMinisters < pageCount }"
-        class="flex justify-end border-t border-gray-200 px-3 py-3.5 dark:border-gray-700">
-        <UPagination v-model="page" size="md" :page-count="pageCount" :total="filteredMinisters.length" />
+      <div
+        :class="{ hidden: rowsfilteredMinisters < pageCount }"
+        class="flex justify-end border-t border-gray-200 px-3 py-3.5 dark:border-gray-700"
+      >
+        <UPagination
+          v-model="page"
+          size="md"
+          :page-count="pageCount"
+          :total="filteredMinisters.length"
+        />
       </div>
     </div>
   </div>

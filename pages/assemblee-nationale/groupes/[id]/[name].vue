@@ -107,7 +107,6 @@
                   </div>
 
                   <!-- Nom et infos -->
-                  <!-- <div class="text-sm text-gray-600">Groupe</div> -->
                   <h1 class="mb-4 text-2xl font-bold">{{ groupById?.name }}</h1>
                   <div class="w-full space-y-2 text-center">
                     <div class="flex flex-col text-sm">
@@ -138,15 +137,6 @@
                       </span>
                     </div>
                   </div>
-
-                  <!-- <UButton
-                    :to="`/assemblee-nationale/groupes/${groupById?.id}/membres`"
-                    class="mt-6 w-full"
-                    color="primary"
-                    variant="soft"
-                  >
-                    Voir les {{ groupById?.members?.length }} membres
-                  </UButton> -->
                 </div>
               </div>
 

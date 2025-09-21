@@ -3,10 +3,12 @@ import type { Media, MediaType } from "~/types/media";
 import { typeDisplayMap, typeColorMap, typeIconMap } from "~/types/media";
 
 // Utilisation du composable pour les métadonnées
-const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
+const { siteName, siteUrl, defaultImage, keywords, themeColor } =
+  useSiteMetadata();
 
 const title = "Liste des médias reconnus au Sénégal | Vie-Publique.sn";
-const description = "Liste officielle des médias reconnus au Sénégal par le MCTN. Télévisions, radios, presse écrite et médias en ligne sénégalais.";
+const description =
+  "Liste officielle des médias reconnus au Sénégal par le MCTN. Télévisions, radios, presse écrite et médias en ligne sénégalais.";
 const url = `${siteUrl}/medias`;
 const image = `${siteUrl}/images/share-media.JPG`;
 
@@ -14,54 +16,55 @@ const image = `${siteUrl}/images/share-media.JPG`;
 const mediasSchema = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": title,
-  "description": description,
-  "url": url,
-  "image": image,
-  "isPartOf": {
+  name: title,
+  description: description,
+  url: url,
+  image: image,
+  isPartOf: {
     "@type": "WebSite",
-    "name": siteName,
-    "url": siteUrl,
+    name: siteName,
+    url: siteUrl,
   },
-  "about": [
+  about: [
     {
       "@type": "Thing",
-      "name": "Médias sénégalais",
+      name: "Médias sénégalais",
     },
     {
       "@type": "Organization",
-      "name": "MCTN Sénégal",
-      "description": "Ministère de la Communication, des Télécommunications et du Numérique",
+      name: "MCTN Sénégal",
+      description:
+        "Ministère de la Communication, des Télécommunications et du Numérique",
     },
   ],
-  "mainEntity": {
+  mainEntity: {
     "@type": "ItemList",
-    "name": "Médias reconnus au Sénégal",
-    "description": "Liste officielle des médias reconnus par le MCTN",
+    name: "Médias reconnus au Sénégal",
+    description: "Liste officielle des médias reconnus par le MCTN",
   },
 };
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  "itemListElement": [
+  itemListElement: [
     {
       "@type": "ListItem",
-      "position": 1,
-      "name": "Accueil",
-      "item": siteUrl,
+      position: 1,
+      name: "Accueil",
+      item: siteUrl,
     },
     {
       "@type": "ListItem",
-      "position": 2,
-      "name": "Annuaires",
-      "item": `${siteUrl}/annuaires`,
+      position: 2,
+      name: "Annuaires",
+      item: `${siteUrl}/annuaires`,
     },
     {
       "@type": "ListItem",
-      "position": 3,
-      "name": "Médias",
-      "item": url,
+      position: 3,
+      name: "Médias",
+      item: url,
     },
   ],
 };
@@ -69,38 +72,40 @@ const breadcrumbSchema = {
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "NewsMediaOrganization",
-  "name": "Médias du Sénégal",
-  "url": url,
-  "description": "Ensemble des médias reconnus officiellement au Sénégal",
-  "address": {
+  name: "Médias du Sénégal",
+  url: url,
+  description: "Ensemble des médias reconnus officiellement au Sénégal",
+  address: {
     "@type": "PostalAddress",
-    "addressCountry": "SN",
-    "addressLocality": "Dakar",
+    addressCountry: "SN",
+    addressLocality: "Dakar",
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Country",
-    "name": "Sénégal",
+    name: "Sénégal",
   },
-  "publishingPrinciples": `${siteUrl}/ethique-medias`,
-  "correctionsPolicy": `${siteUrl}/corrections`,
+  publishingPrinciples: `${siteUrl}/ethique-medias`,
+  correctionsPolicy: `${siteUrl}/corrections`,
 };
 
 const datasetSchema = {
   "@context": "https://schema.org",
   "@type": "Dataset",
-  "name": "Liste des médias reconnus au Sénégal",
-  "description": "Base de données officielle des médias reconnus par le MCTN du Sénégal",
-  "url": url,
-  "publisher": {
+  name: "Liste des médias reconnus au Sénégal",
+  description:
+    "Base de données officielle des médias reconnus par le MCTN du Sénégal",
+  url: url,
+  publisher: {
     "@type": "GovernmentOrganization",
-    "name": "MCTN Sénégal",
+    name: "MCTN Sénégal",
   },
-  "dateModified": "2025-02-06",
-  "license": "https://creativecommons.org/licenses/by/4.0/",
-  "distribution": {
+  dateModified: "2025-02-06",
+  license: "https://creativecommons.org/licenses/by/4.0/",
+  distribution: {
     "@type": "DataDownload",
-    "encodingFormat": "application/pdf",
-    "contentUrl": "https://cms.vie-publique.sn/assets/e703d8f8-d175-4950-a909-92d567782b47/medias-2025.pdf",
+    encodingFormat: "application/pdf",
+    contentUrl:
+      "https://cms.vie-publique.sn/assets/e703d8f8-d175-4950-a909-92d567782b47/medias-2025.pdf",
   },
 };
 
@@ -289,8 +294,10 @@ const hasSocialLinks = computed(() => availableSocialLinks.value.length > 0);
 
 <template>
   <div class="space-y-2 p-0">
-    <NuxtLink to="/annuaires"
-      class="mb-2 inline-flex items-center text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-200">
+    <NuxtLink
+      to="/annuaires"
+      class="mb-2 inline-flex items-center text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-200"
+    >
       <UIcon name="i-heroicons-arrow-left" class="mr-2 h-5 w-5" />
       Retour
     </NuxtLink>
@@ -306,18 +313,30 @@ const hasSocialLinks = computed(() => availableSocialLinks.value.length > 0);
             <p class="mb-2 text-sm text-gray-500">Mis à jour 06 Février 2025</p>
           </div>
 
-          <div class="grid w-full grid-cols-2 gap-1 md:grid-cols-3 lg:grid-cols-6">
-            <div v-for="stat in mediaStats" :key="stat.type"
-              class="cursor-pointer rounded-lg p-1 transition-all hover:scale-105" :class="[
+          <div
+            class="grid w-full grid-cols-2 gap-1 md:grid-cols-3 lg:grid-cols-6"
+          >
+            <div
+              v-for="stat in mediaStats"
+              :key="stat.type"
+              class="cursor-pointer rounded-lg p-1 transition-all hover:scale-105"
+              :class="[
                 typeColorMap[stat.type as MediaType],
                 selectedType === stat.type ? 'ring-primary ring-2' : '',
-              ]" @click="
+              ]"
+              @click="
                 selectedType = selectedType === stat.type ? null : stat.type
-                ">
+              "
+            >
               <div class="mb-2 flex items-center gap-2">
-                <UIcon :name="typeIconMap[stat.type as MediaType]" class="h-4 w-4 text-gray-600" />
-                <h3 class="truncate text-xs font-medium text-gray-600 sm:text-sm"
-                  :title="typeDisplayMap[stat.type as MediaType]">
+                <UIcon
+                  :name="typeIconMap[stat.type as MediaType]"
+                  class="h-4 w-4 text-gray-600"
+                />
+                <h3
+                  class="truncate text-xs font-medium text-gray-600 sm:text-sm"
+                  :title="typeDisplayMap[stat.type as MediaType]"
+                >
                   {{ typeDisplayMap[stat.type as MediaType] }}
                 </h3>
               </div>
@@ -334,19 +353,36 @@ const hasSocialLinks = computed(() => availableSocialLinks.value.length > 0);
       </div>
 
       <!-- Error state -->
-      <UAlert v-else-if="error" title="Erreur" :description="error" color="red"
-        icon="i-heroicons-exclamation-triangle" />
+      <UAlert
+        v-else-if="error"
+        title="Erreur"
+        :description="error"
+        color="red"
+        icon="i-heroicons-exclamation-triangle"
+      />
 
       <template v-else>
         <!-- Filtres -->
         <div class="mb-2 flex flex-col gap-2 sm:flex-row">
-          <UInput v-model="searchQuery" placeholder="Rechercher un média..." icon="i-heroicons-magnifying-glass"
-            class="w-full sm:w-1/2" />
-          <USelect v-model="selectedType" :options="types.map((type) => ({
-            label: typeDisplayMap[type as MediaType],
-            value: type,
-          }))
-            " placeholder="Filtrer par type" clearable class="w-full sm:w-1/2" icon="i-heroicons-funnel" />
+          <UInput
+            v-model="searchQuery"
+            placeholder="Rechercher un média..."
+            icon="i-heroicons-magnifying-glass"
+            class="w-full sm:w-1/2"
+          />
+          <USelect
+            v-model="selectedType"
+            :options="
+              types.map((type) => ({
+                label: typeDisplayMap[type as MediaType],
+                value: type,
+              }))
+            "
+            placeholder="Filtrer par type"
+            clearable
+            class="w-full sm:w-1/2"
+            icon="i-heroicons-funnel"
+          />
         </div>
 
         <!-- Table -->
@@ -355,39 +391,63 @@ const hasSocialLinks = computed(() => availableSocialLinks.value.length > 0);
             <table class="w-full">
               <thead class="sticky top-0 z-10 bg-white shadow-sm">
                 <tr class="border-b">
-                  <th class="w-3/4 cursor-pointer p-2 text-left hover:bg-gray-50" @click="toggleSort('name')">
+                  <th
+                    class="w-3/4 cursor-pointer p-2 text-left hover:bg-gray-50"
+                    @click="toggleSort('name')"
+                  >
                     <div class="flex items-center gap-2">
                       Média
-                      <UIcon :name="sortField === 'name'
-                          ? sortOrder === 'asc'
-                            ? 'i-heroicons-arrow-up'
-                            : 'i-heroicons-arrow-down'
-                          : 'i-heroicons-arrows-up-down'
-                        " class="h-4 w-4" />
+                      <UIcon
+                        :name="
+                          sortField === 'name'
+                            ? sortOrder === 'asc'
+                              ? 'i-heroicons-arrow-up'
+                              : 'i-heroicons-arrow-down'
+                            : 'i-heroicons-arrows-up-down'
+                        "
+                        class="h-4 w-4"
+                      />
                     </div>
                   </th>
-                  <th class="w-1/4 cursor-pointer p-2 text-left hover:bg-gray-50">
+                  <th
+                    class="w-1/4 cursor-pointer p-2 text-left hover:bg-gray-50"
+                  >
                     <div class="flex items-center gap-2">
                       Type
-                      <UIcon :name="sortField === 'type'
-                          ? sortOrder === 'asc'
-                            ? 'i-heroicons-arrow-up'
-                            : 'i-heroicons-arrow-down'
-                          : 'i-heroicons-arrows-up-down'
-                        " class="hidden h-4 w-4" />
+                      <UIcon
+                        :name="
+                          sortField === 'type'
+                            ? sortOrder === 'asc'
+                              ? 'i-heroicons-arrow-up'
+                              : 'i-heroicons-arrow-down'
+                            : 'i-heroicons-arrows-up-down'
+                        "
+                        class="hidden h-4 w-4"
+                      />
                     </div>
                   </th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="media in sortedMedias" :key="media.id" class="border-b hover:bg-gray-50"
-                  @click="openMediaDetails(media)">
+                <tr
+                  v-for="media in sortedMedias"
+                  :key="media.id"
+                  class="border-b hover:bg-gray-50"
+                  @click="openMediaDetails(media)"
+                >
                   <td class="p-2">
                     <div class="flex items-center gap-3">
-                      <UAvatar :src="getLogoUrl(media.logo)" :alt="media.name" :text="getInitials(media.name)" size="sm"
-                        class="flex-shrink-0" />
+                      <UAvatar
+                        :src="getLogoUrl(media.logo)"
+                        :alt="media.name"
+                        :text="getInitials(media.name)"
+                        size="sm"
+                        class="flex-shrink-0"
+                      />
                       <div class="min-w-0 flex-1">
-                        <div class="sm:text-normal break-words text-sm font-medium">
+                        <div
+                          class="sm:text-normal break-words text-sm font-medium"
+                        >
                           {{ media.name }}
                         </div>
                       </div>
@@ -395,8 +455,16 @@ const hasSocialLinks = computed(() => availableSocialLinks.value.length > 0);
                   </td>
                   <td class="p-2">
                     <div class="flex items-center gap-1">
-                      <UBadge variant="soft" color="gray" class="gray whitespace-normal text-xs" size="sm">
-                        <UIcon :name="typeIconMap[media.type]" class="h-4 w-4 text-gray-600" />
+                      <UBadge
+                        variant="soft"
+                        color="gray"
+                        class="gray whitespace-normal text-xs"
+                        size="sm"
+                      >
+                        <UIcon
+                          :name="typeIconMap[media.type]"
+                          class="h-4 w-4 text-gray-600"
+                        />
                         {{ typeDisplayMap[media.type] }}
                       </UBadge>
                     </div>
@@ -409,8 +477,11 @@ const hasSocialLinks = computed(() => availableSocialLinks.value.length > 0);
       </template>
     </UCard>
     <div>
-      <a class="text-sm text-blue-700"
-        href="https://cms.vie-publique.sn/assets/e703d8f8-d175-4950-a909-92d567782b47/medias-2025.pdf" target="_blank">
+      <a
+        class="text-sm text-blue-700"
+        href="https://cms.vie-publique.sn/assets/e703d8f8-d175-4950-a909-92d567782b47/medias-2025.pdf"
+        target="_blank"
+      >
         📄 Source MCTN - Mis à jour du 06 Février 2025
       </a>
     </div>
@@ -420,12 +491,19 @@ const hasSocialLinks = computed(() => availableSocialLinks.value.length > 0);
       <UCard v-if="selectedMedia">
         <template #header>
           <div class="flex items-center gap-4">
-            <UAvatar :src="getLogoUrl(selectedMedia.logo)" :alt="selectedMedia.name"
-              :text="getInitials(selectedMedia.name)" size="lg" />
+            <UAvatar
+              :src="getLogoUrl(selectedMedia.logo)"
+              :alt="selectedMedia.name"
+              :text="getInitials(selectedMedia.name)"
+              size="lg"
+            />
             <div>
               <h3 class="text-xl font-semibold">{{ selectedMedia.name }}</h3>
               <UBadge variant="soft" class="gray" size="sm">
-                <UIcon :name="typeIconMap[selectedMedia.type as MediaType]" class="mr-1 h-4 w-4" />
+                <UIcon
+                  :name="typeIconMap[selectedMedia.type as MediaType]"
+                  class="mr-1 h-4 w-4"
+                />
                 {{ typeDisplayMap[selectedMedia.type as MediaType] }}
               </UBadge>
             </div>
@@ -446,9 +524,12 @@ const hasSocialLinks = computed(() => availableSocialLinks.value.length > 0);
           <div v-if="selectedMedia.website" class="mt-0">
             <p class="mb-2 text-sm text-gray-500">Site web</p>
             <div class="flex flex-row gap-2">
-              <ULink :to="selectedMedia.website"
-                class="text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300" target="_blank"
-                aria-label="social.label">
+              <ULink
+                :to="selectedMedia.website"
+                class="text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
+                target="_blank"
+                aria-label="social.label"
+              >
                 <UIcon name="i-heroicons-globe-alt" class="h-8 w-8" />
               </ULink>
             </div>
@@ -457,12 +538,15 @@ const hasSocialLinks = computed(() => availableSocialLinks.value.length > 0);
           <div v-if="hasSocialLinks" class="mb-4 mt-0">
             <p class="mb-2 text-sm text-gray-500">Réseaux sociaux</p>
             <div class="flex flex-row gap-2">
-              <ULink v-for="platform in availableSocialLinks" :key="platform"
+              <ULink
+                v-for="platform in availableSocialLinks"
+                :key="platform"
                 :to="selectedMedia[platform as keyof Media] as string"
-                class="text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300" target="_blank"
-                aria-label="social.label">
+                class="text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
+                target="_blank"
+                aria-label="social.label"
+              >
                 <UIcon :name="getSocialIcon(platform)" class="h-8 w-8" />
-                <!-- <span class="text-sm ">{{ platform }}</span> -->
               </ULink>
             </div>
           </div>

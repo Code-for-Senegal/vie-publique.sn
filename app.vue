@@ -147,8 +147,6 @@ onMounted(() => {
 
     <Toaster position="bottom-center" />
 
-    <!-- Icône de recherche -->
-    <!-- <AppSearch /> -->
     <!-- Menu pour mobiles (toggle visibility with Tailwind CSS) -->
     <ThemeToggle />
   </div>
@@ -197,7 +195,6 @@ onMounted(() => {
       <NuxtPage />
     </NuxtLayout>
 
-    <!-- <NewsletterSocial /> -->
     <AppFooter />
 
     <!-- affichage des deux composants à rendre dynamique -->

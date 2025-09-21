@@ -15,13 +15,6 @@
         />
         <UAvatar v-else icon="i-heroicons-photo" size="lg" />
 
-        <!-- <div
-        v-else
-        class="flex h-full w-full items-center justify-center bg-gray-100"
-      >
-        <UIcon name="i-heroicons-user-group" class="h-12 w-12 text-gray-400" />
-      </div> -->
-
         <div class="text-center">
           <h3 class="text-lg font-semibold">{{ group.name }}</h3>
           <div class="mt-1 text-sm text-gray-500">

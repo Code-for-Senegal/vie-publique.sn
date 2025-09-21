@@ -22,7 +22,6 @@ const getPercentage = (value, total) => ((value / total) * 100).toFixed(1);
 
 <template>
   <div class="mx-auto space-y-4">
-    <!-- <div class="mx-auto max-w-4xl p-2 text-sm sm:px-4"> -->
     <!-- Recettes -->
     <div class="mt-2 overflow-hidden">
       <h2 class="mb-2 p-2 text-center font-bold">Répartition des Recettes</h2>
@@ -41,11 +40,6 @@ const getPercentage = (value, total) => ((value / total) * 100).toFixed(1);
               >
                 Montant
               </th>
-              <!-- <th
-                class="text-black-800 px-2 py-2 text-right text-sm font-medium"
-              >
-                Variation
-              </th> -->
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-200 bg-white">
@@ -82,19 +76,6 @@ const getPercentage = (value, total) => ((value / total) * 100).toFixed(1);
                   {{ item.variation_percentage }}%</UBadge
                 >
               </td>
-              <!-- <td class="px-2 py-2 text-right text-sm text-gray-900">
-                <UBadge
-                  variant="subtle"
-                  class="custom-shadow w-13 px-1"
-                  :class="[
-                    item.variation_percentage > 0
-                      ? 'text-green-600'
-                      : 'text-red-600',
-                  ]"
-                  >{{ item.variation_percentage > 0 ? "↑" : "↓" }}
-                  {{ item.variation_percentage }}%</UBadge
-                >
-              </td> -->
             </tr>
           </tbody>
           <tfoot>
@@ -107,15 +88,6 @@ const getPercentage = (value, total) => ((value / total) * 100).toFixed(1);
               >
                 {{ revenueTotal.toLocaleString() }} Mds
               </td>
-              <!-- <td
-                class="px-2 py-2 text-right text-sm font-semibold text-green-800"
-              >
-                <UBadge
-                  variant="subtle"
-                  class="custom-shadow w-12 px-1 text-green-800"
-                  >100%</UBadge
-                >
-              </td> -->
             </tr>
           </tfoot>
         </table>

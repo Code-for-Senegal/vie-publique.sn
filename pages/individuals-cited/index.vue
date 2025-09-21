@@ -56,7 +56,6 @@ function goToIndividualCitedDetails(item) {
             alt="Photo de profil"
             class="profile-photo mb-1"
           />
-          <!-- <UDivider/> -->
           <h2 class="font-semibold">{{ item.nom }}</h2>
           <p class="text-sm text-gray-500">{{ item.fonction }}</p>
         </div>

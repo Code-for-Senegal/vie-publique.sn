@@ -87,22 +87,12 @@ onMounted(() => {
                   </span>
                 </div>
               </div>
-
               <!-- Titre du document -->
               <h3
                 class="mb-2 line-clamp-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 {{ document.title }}
               </h3>
-
-              <!-- Type de document -->
-              <!-- <div class="mt-auto flex items-center gap-2">
-                <span
-                  class="inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700"
-                >
-                  {{ document.type }}
-                </span>
-              </div> -->
             </NuxtLink>
           </div>
         </div>

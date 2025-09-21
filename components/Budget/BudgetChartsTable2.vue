@@ -24,11 +24,6 @@ const getPercentage = (value, total) => ((value / total) * 100).toFixed(1);
   <div class="space-y-4">
     <!-- Recettes -->
     <div class="custom-shadow mt-2 overflow-hidden rounded-lg shadow">
-      <!-- <div class="border-b border-green-100 bg-green-700 p-2">
-        <h3 class="text-center text-lg font-semibold text-white">
-          Répartition des Recettes
-        </h3>
-      </div> -->
       <h2 class="mb-2 p-2 text-center font-bold">Répartition des Recettes</h2>
       <!-- Tableau -->
       <div class="relative overflow-hidden rounded-lg shadow">
@@ -119,11 +114,6 @@ const getPercentage = (value, total) => ((value / total) * 100).toFixed(1);
 
     <!-- Dépenses -->
     <div class="custom-shadow overflow-hidden rounded-lg shadow">
-      <!-- <div class="border-b border-red-100 bg-red-700 p-2">
-        <h3 class="text-center text-lg font-semibold text-white">
-          Répartition des Dépenses
-        </h3>
-      </div> -->
       <h2 class="mb-2 p-2 text-center font-bold">Répartition des Dépenses</h2>
 
       <div class="overflow-hidden">

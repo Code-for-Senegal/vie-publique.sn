@@ -14,7 +14,6 @@ onMounted(async () => {
   <div class="p-4">
     <UCard v-if="scandal != null">
       <template #header>
-        <!-- <Placeholder class="h-8" /> -->
         <h1 class="text-2xl">{{ scandal.titre }}</h1>
         <h3 class="mb-2">{{ scandal.sous_titre }}</h3>
         <p>Année de l'affaire: {{ scandal.annee }}</p>
@@ -22,10 +21,7 @@ onMounted(async () => {
           Date de publication:
           {{ new Date(scandal.date_publication).toLocaleDateString() }}
         </p>
-
-        <!-- <img :src="scandal.image_url" :alt="scandal.titre" class="w-full h-auto"> -->
       </template>
-      <!-- <img :src="scandal.image_url" :alt="scandal.titre" class="w-full h-auto"> -->
     </UCard>
   </div>
 </template>
