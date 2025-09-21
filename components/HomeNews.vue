@@ -88,8 +88,6 @@ onMounted(async () => {
                 :fallback="'/default-image-2.gif'"
                 :alt="article.title || 'Image actualité'"
                 class="h-20 w-full object-cover sm:h-48"
-                loading="lazy"
-                fetchpriority="high"
                 sizes="300px"
                 :placeholder="[300, 300]"
               />

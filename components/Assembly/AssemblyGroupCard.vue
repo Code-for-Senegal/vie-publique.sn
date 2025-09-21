@@ -7,10 +7,9 @@
       <div class="flex flex-col items-center">
         <UAvatar
           v-if="group.logo"
-          :src="$directusImageUrl(group.logo, '50')"
+          :src="useCmsImage(group.logo, '50')"
           :alt="`Logo ${group.name}`"
           size="2xl"
-          loading="lazy"
           fetchpriority="high"
         />
         <UAvatar v-else icon="i-heroicons-photo" size="lg" />

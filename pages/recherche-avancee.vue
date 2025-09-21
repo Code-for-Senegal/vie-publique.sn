@@ -285,16 +285,11 @@ const getBadgeColor = (type: string) => {
                   <div class="flex gap-3">
                     <!-- Image (toujours à côté, même sur mobile) -->
                     <div class="flex-shrink-0">
-                      <NuxtImg
-                        :src="
-                          result.document?.cover_image
-                            ? $directusImageUrl(
-                                result.document.cover_image,
-                                '50',
-                              )
-                            : '/default-image-2.gif'
-                        "
+                      <CmsImage
+                        :src="result.document?.cover_image"
                         :alt="result.document?.title || 'Image actualité'"
+                        :quality="50"
+                        :fallback="'/default-image-2.gif'"
                         class="h-20 w-20 rounded-lg object-cover sm:h-20 sm:w-32 lg:h-28 lg:w-36"
                         loading="lazy"
                         sizes="80px sm:128px lg:144px"

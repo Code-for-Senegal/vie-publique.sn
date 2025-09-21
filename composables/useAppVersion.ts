@@ -23,13 +23,21 @@ export const useAppVersion = () => {
   const fullVersion = computed(() => {
     let versionString = `v${version}`
     
-    if (gitCommit) {
+    // Ajouter le commit hash s'il est disponible
+    if (gitCommit && gitCommit !== 'unknown') {
       versionString += ` (${gitCommit.substring(0, 7)})`
     }
     
+    // Ajouter la date en production
     if (buildTime && isProduction) {
-      const date = new Date(buildTime)
-      versionString += ` - ${date.toLocaleDateString('fr-FR')}`
+      try {
+        const date = new Date(buildTime)
+        if (!isNaN(date.getTime())) {
+          versionString += ` - ${date.toLocaleDateString('fr-FR')}`
+        }
+      } catch (error) {
+        // Ignorer les erreurs de date
+      }
     }
     
     return versionString

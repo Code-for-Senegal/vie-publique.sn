@@ -197,10 +197,11 @@ const formatDateISO = (date: string) => {
             <!-- Image Container avec ratio fixe -->
             <div class="relative w-full" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
               <div class="aspect-[16/9] overflow-hidden">
-                <img :src="$directusImageUrl(article.cover_image, '50')" :alt="article.title"
+                <CmsImage :src="article.cover_image" :alt="article.title"
+                  :quality="50"
                   class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   itemprop="contentUrl" />
-                <meta itemprop="url" :content="$directusImageUrl(article.cover_image, '50')">
+                <meta itemprop="url" :content="useCmsImageAbsolute(article.cover_image, 50)">
                 <meta itemprop="width" content="800">
                 <meta itemprop="height" content="450">
               </div>

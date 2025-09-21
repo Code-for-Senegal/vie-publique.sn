@@ -8,9 +8,10 @@
     >
       <div class="flex gap-2">
         <div class="flex-shrink-0">
-          <img
+          <CmsImage
             v-if="article.cover_image"
-            :src="$directusImageUrl(article.cover_image, '25')"
+            :src="article.cover_image"
+            :quality="25"
             :alt="`Image ${article.title}`"
             class="h-12 w-12 rounded-md object-cover"
             loading="lazy"

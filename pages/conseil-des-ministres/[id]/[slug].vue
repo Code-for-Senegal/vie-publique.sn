@@ -304,9 +304,10 @@ const formatDateISO = (date: string) => {
         </div>
 
         <div v-if="article.cover_image" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-          <img
-            :src="$directusImageUrl(article.cover_image, '100')"
+          <CmsImage
+            :src="article.cover_image"
             :alt="article.title"
+            :quality="100"
             class="w-full object-cover"
             itemprop="contentUrl url"
           />

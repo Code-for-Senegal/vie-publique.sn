@@ -104,13 +104,13 @@ const handlePageChange = (page: number) => {
             class="flex items-start gap-4"
           >
             <div class="flex-shrink-0">
-              <img
+              <CmsImage
                 v-if="doc.cover_image"
-                :src="$directusImageUrl(doc.cover_image, '25')"
+                :src="doc.cover_image"
                 :alt="`Aperçu Doc ${doc.title}`"
+                :quality="25"
                 class="h-full w-16 object-cover"
                 loading="lazy"
-                fetchpriority="high"
               />
               <UIcon
                 v-else

@@ -22,12 +22,12 @@
         :to="`/elections/legislatives/${coalition.id}`"
         class="group block"
       >
-        <img
-          :src="$directusImageUrl(coalition.head_of_list?.photo, '25')"
+        <CmsImage
+          :src="coalition.head_of_list?.photo"
+          :quality="25"
           alt="Photo tête de liste"
           class="h-full w-full object-contain"
           loading="lazy"
-          fetchpriority="high"
         />
 
         <!-- Overlay sombre pour le texte -->

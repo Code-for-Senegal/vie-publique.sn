@@ -88,12 +88,10 @@
                   <div class="mb-2 overflow-hidden rounded-lg bg-white">
                     <UAvatar
                       v-if="groupById?.logo"
-                      :src="$directusImageUrl(groupById.logo, '100')"
+                      :src="useCmsImage(groupById.logo, 100)"
                       :alt="`Logo ${groupById?.name}`"
                       class="h-full w-full object-contain"
                       size="2xl"
-                      loading="lazy"
-                      fetchpriority="high"
                     />
                     <div
                       v-else

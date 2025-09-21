@@ -10,7 +10,7 @@ const buildTime = new Date().toISOString();
 const gitCommit = process.env.VERCEL_GIT_COMMIT_SHA || 
                  process.env.GITHUB_SHA || 
                  process.env.GIT_COMMIT || 
-                 'unknown';
+                 null; // null au lieu de 'unknown' pour les conditions
 
 const securityConfig =
   process.env.NODE_ENV === "production"

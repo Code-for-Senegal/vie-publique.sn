@@ -44,6 +44,12 @@ On veut une source unique de vérité pour les actualités
 
 # images
 
+- loading="lazy" : "Charge cette image plus tard, quand elle sera
+  proche du viewport"
+
+  - fetchpriority="high" : "Cette image est importante, charge-la en  
+    priorité"
+
 - utilisation du proxy via /api/cms-images pour plus de sécurité (cache l'url réell du cms), performance (cache optimisé avec header appropriés), flexible, on peut changer de cms sans modifier otu le code; seo (image servi depuis notre domaine)
 
 https://nuxt.com/docs/api/composables/use-fetch#example-usage-of-proxy
@@ -84,3 +90,7 @@ Après :
   50)">
 
 ## call api
+
+## google core vitals
+
+https://dev.to/jacobandrewsky/optimizing-nuxt-apps-for-core-web-vitals-106j

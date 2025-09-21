@@ -63,11 +63,10 @@
           <!-- Image du candidat ou image par défaut -->
           <img
             v-if="deputy.photo"
-            :src="$directusImageUrl(deputy.photo, '50')"
+            :src="useCmsImage(deputy.photo, '50')"
             :alt="deputy.first_name + ' ' + deputy.last_name"
             class="h-full w-full object-cover"
             loading="lazy"
-            fetchpriority="high"
           />
           <img
             v-else
@@ -156,7 +155,7 @@
             <div class="mb-6">
               <img
                 v-if="selectedCandidate.photo"
-                :src="$directusImageUrl(selectedCandidate.photo, '50')"
+                :src="useCmsImage(selectedCandidate.photo, '50')"
                 alt="PV"
                 class="h-auto max-w-full rounded-lg shadow-md"
               />

@@ -31,11 +31,9 @@
           <div class="h-12 w-12 flex-shrink-0 md:w-16">
             <UAvatar
               v-if="coalition.logo"
-              :src="$directusImageUrl(coalition.logo, '25')"
+              :src="useCmsImage(coalition.logo, '25')"
               :alt="coalition.name"
               size="lg"
-              loading="lazy"
-              fetchpriority="high"
             />
             <UAvatar v-else icon="i-heroicons-photo" size="lg" />
           </div>

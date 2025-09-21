@@ -149,9 +149,7 @@ useHead({
 const config = useRuntimeConfig();
 const { questions, loading, error } = useAssemblyQuestions();
 
-const getImageUrl = (imageId: string) => {
-  return `${config.public.cmsApiUrl}/assets/${imageId}`;
-};
+// Supprimé : utiliser useCmsImage() à la place
 
 // Calcul des statistiques
 const topDeputies = computed(() => {
@@ -250,7 +248,7 @@ const formatDateISO = (date: string) => {
               <NuxtLink
                 :to="`/assemblee-nationale/deputes/${deputy.id}/${$getSlugifyUrlPath(deputy.first_name + ' ' + deputy.last_name)}`"
                 class="flex flex-col items-center" itemprop="url">
-                <img :src="getImageUrl(deputy.photo)" :alt="deputy.first_name"
+                <CmsImage :src="deputy.photo" :alt="deputy.first_name"
                   class="mb-3 h-20 w-20 rounded-full object-cover shadow-sm" itemprop="image" />
                 <div class="text-center">
                   <div class="truncate font-medium capitalize text-gray-900 dark:text-gray-100">
@@ -293,14 +291,14 @@ const formatDateISO = (date: string) => {
             <div itemprop="author" itemscope itemtype="https://schema.org/Person">
               <meta itemprop="name" :content="`${question.deputy.first_name} ${question.deputy.last_name}`">
               <meta itemprop="jobTitle" content="Député">
-              <meta itemprop="image" :content="getImageUrl(question.deputy.photo)">
+              <meta itemprop="image" :content="useCmsImageAbsolute(question.deputy.photo)">
             </div>
 
             <UCard>
               <NuxtLink :to="`/assemblee-nationale/questions/${question.id}`">
                 <div class="flex gap-4">
                   <div class="flex-shrink-0">
-                    <img :src="getImageUrl(question.deputy.photo)" :alt="question.deputy.first_name"
+                    <CmsImage :src="question.deputy.photo" :alt="question.deputy.first_name"
                       class="h-20 w-20 rounded-full object-cover" itemprop="image" />
                   </div>
                   <div class="flex-grow">
