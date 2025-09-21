@@ -25,7 +25,7 @@ export const useCmsImage = (imagePath: string | null | undefined, quality?: numb
       const assetsIndex = imagePath.indexOf('/assets/')
       if (assetsIndex !== -1) {
         const path = imagePath.substring(assetsIndex + 8) // 8 = longueur de '/assets/'
-        return `/api/cms-images/${path}`
+        return `/medias/${path}`
       }
     }
     // Sinon, retourner l'URL telle quelle
@@ -37,8 +37,8 @@ export const useCmsImage = (imagePath: string | null | undefined, quality?: numb
     return imagePath
   }
 
-  // Sinon, c'est un chemin relatif du CMS, utiliser le proxy
-  let proxyUrl = `/api/cms-images/${imagePath}`
+  // Sinon, c'est un chemin relatif du CMS, utiliser le proxy SEO-friendly
+  let proxyUrl = `/medias/${imagePath}`
   
   // Ajouter le paramètre de qualité si fourni
   if (quality) {

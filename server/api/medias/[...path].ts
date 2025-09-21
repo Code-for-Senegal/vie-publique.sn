@@ -1,16 +1,16 @@
 /**
- * Proxy handler pour les images du CMS
- * Route: /api/cms-images/[...path]
+ * Proxy handler pour les médias (images, vidéos)
+ * Route: /medias/[...path]
  * 
- * Cette route fait office de proxy pour servir les images depuis le CMS
- * sans exposer l'URL du backend directement au client
+ * URLs SEO-friendly pour les médias
+ * Exemple: /medias/photos/actualite-senegal.jpg
  */
 
 export default defineEventHandler(async (event) => {
-  // Récupérer le chemin de l'image depuis l'URL
+  // Récupérer le chemin du média depuis l'URL
   const path = getRouterParam(event, 'path') || ''
   
-  // Récupérer les paramètres de requête
+  // Récupérer les paramètres de requête (pour la qualité des images)
   const query = getQuery(event)
   const quality = query.quality as string | undefined
   
@@ -43,7 +43,7 @@ export default defineEventHandler(async (event) => {
     const response = await $fetch.raw(targetUrl, {
       responseType: 'arrayBuffer',
       headers: {
-        'User-Agent': 'Nuxt-Proxy',
+        'User-Agent': 'Nuxt-Proxy-Media',
       }
     })
 
@@ -54,18 +54,19 @@ export default defineEventHandler(async (event) => {
     setHeaders(event, {
       'Content-Type': contentType,
       'Cache-Control': 'public, max-age=31536000, immutable', // Cache pendant 1 an
-      'X-Proxied-From': new URL(targetUrl).hostname
+      'X-Proxied-From': new URL(targetUrl).hostname,
+      'X-Content-Type-Options': 'nosniff'
     })
 
-    // Retourner l'image
+    // Retourner le média
     return response._data
   } catch (error) {
-    console.error('Erreur lors de la récupération de l\'image:', error)
+    console.error('Erreur lors de la récupération du média:', error)
     
     // En cas d'erreur, retourner une erreur 404
     throw createError({
       statusCode: 404,
-      statusMessage: 'Image non trouvée'
+      statusMessage: 'Média non trouvé'
     })
   }
 })

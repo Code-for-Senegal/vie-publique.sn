@@ -48,7 +48,7 @@ const { getQuickAccessIconBackground, getQuickAccessIconColor } =
 
               <!-- Badge avec nombre -->
               <span
-                class="rounded-full bg-gray-200 px-1.5 py-0.5 text-xs font-medium text-gray-700 sm:px-2 dark:bg-gray-600 dark:text-gray-300"
+                class="rounded-full bg-gray-100 px-1.5 py-0.5 text-xs font-medium text-gray-600 sm:px-2 dark:bg-gray-600 dark:text-gray-300"
               >
                 {{ card.count || 0 }}
               </span>

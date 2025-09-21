@@ -82,28 +82,42 @@ export default defineNuxtConfig({
     externals: {
       defu: 'defu'
     },
-    // Configuration proxy pour les images en développement
+    // Configuration proxy pour les images et fichiers en développement
     devProxy: process.env.CMS_API_URL ? {
-      '/api/cms-images': {
+      '/medias': {
         target: `${process.env.CMS_API_URL}/assets`,
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/cms-images/, '')
+        rewrite: (path) => path.replace(/^\/medias/, '')
+      },
+      '/documents': {
+        target: `${process.env.CMS_API_URL}/assets`,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/documents/, '')
       }
     } : {}
   },
   
-  // Routes règles pour la production
-  routeRules: {
-    '/api/cms-images/**': { 
+  // Routes règles pour la production - utiliser variables d'environnement
+  routeRules: process.env.CMS_API_URL_ASSETS || process.env.CMS_API_URL ? {
+    '/medias/**': { 
       proxy: { 
-        to: 'https://cms.vie-publique.sn/assets/**',
+        to: `${process.env.CMS_API_URL_ASSETS || process.env.CMS_API_URL + '/assets'}/**`,
         headers: {
           'accept': 'image/*',
           'cache-control': 'max-age=31536000'
         }
       }
+    },
+    '/documents/**': { 
+      proxy: { 
+        to: `${process.env.CMS_API_URL_ASSETS || process.env.CMS_API_URL + '/assets'}/**`,
+        headers: {
+          'accept': 'application/pdf,application/*',
+          'cache-control': 'max-age=86400'
+        }
+      }
     }
-  },
+  } : {},
   
   // Optimisations Vite pour le bundling (simplifiées pour éviter les conflits)
   vite: {
@@ -334,7 +348,7 @@ export default defineNuxtConfig({
       cms: {
         provider: '~/providers/cms-image.ts',
         options: {
-          baseURL: '/api/cms-images'
+          baseURL: '/medias'
         }
       }
     },
@@ -342,7 +356,7 @@ export default defineNuxtConfig({
     domains: ['localhost', 'vie-publique.sn'],
     // Alias pour simplifier l'usage
     alias: {
-      cms: '/api/cms-images'
+      cms: '/medias'
     },
     directus: {
       // This URL needs to include the final `assets/` directory
