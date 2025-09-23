@@ -140,6 +140,20 @@ onMounted(() => {
     <!-- HeaderBrand à gauche -->
     <AppHeader />
 
+    <!-- Menu horizontal pour desktop uniquement -->
+    <UHorizontalNavigation
+      :links="links"
+      class="navbar-menu hidden flex-1 items-center justify-end lg:flex"
+      :ui="{
+        base: 'flex items-center gap-x-4',
+        active: 'font-semibold !bg-transparent',
+        inactive: 'transition-colors duration-200 !bg-transparent hover:!bg-transparent',
+        icon: {
+          base: 'mr-0.5',
+        },
+      }"
+    />
+
     <!-- App alert online and offline -->
     <ClientOnly>
       <AppLineAlert />
@@ -150,11 +164,6 @@ onMounted(() => {
     <!-- Menu pour mobiles (toggle visibility with Tailwind CSS) -->
     <ThemeToggle />
   </div>
-  <UHorizontalNavigation
-    :links="links"
-    class="second-header hidden w-auto items-center justify-center md:flex"
-  >
-  </UHorizontalNavigation>
   <UContainer class="px-0 sm:px-10 md:px-14 lg:px-28 xl:px-40">
     <!-- Navigation verticale pour mobiles (toggle visibility with Tailwind CSS) -->
     <USlideover v-model="isOpen">
@@ -203,19 +212,56 @@ onMounted(() => {
 </template>
 
 <style>
-.second-header {
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.second-header ul li a {
-  padding-top: 0.35rem;
-  padding-bottom: 0.35rem;
-}
-
 nav ul li a span {
   text-transform: capitalize;
   font-family: "Quicksand", sans-serif;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+  font-weight: 500;
+}
+
+/* Styles spécifiques pour le menu horizontal dans la navbar */
+.header_top nav ul li a {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.25rem;
+  font-size: 0.9rem;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9) !important;
+  background-color: transparent !important;
+}
+
+.header_top nav ul li a span {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 600;
+}
+
+.header_top nav ul li a:hover {
+  color: white !important;
+  background-color: transparent !important;
+  background: none !important;
+}
+
+.header_top nav ul li a svg,
+.header_top nav ul li a i {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.header_top nav ul li a:hover svg,
+.header_top nav ul li a:hover i {
+  color: white !important;
+}
+
+.header_top nav ul li a.router-link-active,
+.header_top nav ul li a.router-link-exact-active {
+  color: white !important;
+  border-bottom: 2px solid white;
+  padding-bottom: calc(0.5rem - 2px);
+}
+
+.header_top nav ul li a.router-link-active svg,
+.header_top nav ul li a.router-link-active i,
+.header_top nav ul li a.router-link-exact-active svg,
+.header_top nav ul li a.router-link-exact-active i {
+  color: white !important;
 }
 
 .vertical-nav ul li a {
