@@ -46,16 +46,10 @@ const links = [
     to: "/documents",
   },
   {
-    label: "Budget",
-    description: "....",
-    icon: "i-heroicons-banknotes",
-    to: "/budget-senegal",
-  },
-  {
-    label: "Elections",
-    description: "Élections législatives du 17 Novembre.",
-    icon: "i-heroicons-information-circle",
-    to: "/elections",
+    label: "Menu",
+    description: "",
+    icon: "i-heroicons-bars-3",
+    to: "/menu",
   },
 ];
 
@@ -141,18 +135,7 @@ onMounted(() => {
     <AppHeader />
 
     <!-- Menu horizontal pour desktop uniquement -->
-    <UHorizontalNavigation
-      :links="links"
-      class="navbar-menu hidden flex-1 items-center justify-end lg:flex"
-      :ui="{
-        base: 'flex items-center gap-x-4',
-        active: 'font-semibold !bg-transparent',
-        inactive: 'transition-colors duration-200 !bg-transparent hover:!bg-transparent',
-        icon: {
-          base: 'mr-0.5',
-        },
-      }"
-    />
+    <AppNavbar :links="links" />
 
     <!-- App alert online and offline -->
     <ClientOnly>
@@ -218,50 +201,10 @@ nav ul li a span {
   font-weight: 500;
 }
 
-/* Styles spécifiques pour le menu horizontal dans la navbar */
-.header_top nav ul li a {
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.25rem;
-  font-size: 0.9rem;
+/* Style global pour la police du menu */
+nav ul li a span {
   font-family: "Quicksand", sans-serif;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.9) !important;
-  background-color: transparent !important;
-}
-
-.header_top nav ul li a span {
-  font-family: "Quicksand", sans-serif;
-  font-weight: 600;
-}
-
-.header_top nav ul li a:hover {
-  color: white !important;
-  background-color: transparent !important;
-  background: none !important;
-}
-
-.header_top nav ul li a svg,
-.header_top nav ul li a i {
-  color: rgba(255, 255, 255, 0.9) !important;
-}
-
-.header_top nav ul li a:hover svg,
-.header_top nav ul li a:hover i {
-  color: white !important;
-}
-
-.header_top nav ul li a.router-link-active,
-.header_top nav ul li a.router-link-exact-active {
-  color: white !important;
-  border-bottom: 2px solid white;
-  padding-bottom: calc(0.5rem - 2px);
-}
-
-.header_top nav ul li a.router-link-active svg,
-.header_top nav ul li a.router-link-active i,
-.header_top nav ul li a.router-link-exact-active svg,
-.header_top nav ul li a.router-link-exact-active i {
-  color: white !important;
+  font-weight: 500;
 }
 
 .vertical-nav ul li a {
@@ -275,7 +218,30 @@ nav ul li a span {
   background-color: transparent;
 }
 .header_top {
+  /* Option 0 */
   background: linear-gradient(90deg, #0000d3 0%, #010272);
-  /* background: linear-gradient(90deg, #000000 0%, #3533cd); */
+
+  /* Option 1: Dégradé moderne violet/bleu */
+  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+
+  /* Option 2: Dégradé élégant bleu profond */
+  /* background: linear-gradient(120deg, #1e3c72 0%, #2a5298 100%); */
+
+  /* Option 3: Dégradé moderne indigo/purple avec effet glassmorphism */
+  /* background: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.95) 0%,
+    rgba(139, 92, 246, 0.95) 100%
+  );
+  backdrop-filter: blur(10px); */
+
+  /* Option 4: Dégradé sombre élégant */
+  /* background: linear-gradient(135deg, #1a1c20 0%, #2d3561 100%); */
+
+  /* Option 5: Monochrome moderne */
+  /* background: rgba(15, 23, 42, 0.97);
+  backdrop-filter: saturate(200%) blur(20px); */
+
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 </style>

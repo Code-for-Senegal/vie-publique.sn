@@ -132,18 +132,6 @@ const links = [
 
 const navigationCards: NavigationCard[] = [
   {
-    title: "Recherche v1",
-    description: "Recherchez dans les actualités et documents",
-    icon: "i-heroicons-magnifying-glass",
-    to: "/recherche",
-  },
-  {
-    title: "Recherche v2",
-    description: "Recherchez dans les actualités et documents",
-    icon: "i-heroicons-magnifying-glass",
-    to: "/recherche-avancee",
-  },
-  {
     title: "Actualités",
     description: "Toutes les actualités",
     icon: "i-heroicons-newspaper",
@@ -205,7 +193,18 @@ const navigationCards: NavigationCard[] = [
     icon: "i-heroicons-chat-bubble-left-ellipsis",
     to: "/chatbot",
   },
-
+  {
+    title: "Recherche v1",
+    description: "Recherchez dans les actualités et documents",
+    icon: "i-heroicons-magnifying-glass",
+    to: "/recherche",
+  },
+  {
+    title: "Recherche v2",
+    description: "Recherchez dans les actualités et documents",
+    icon: "i-heroicons-magnifying-glass",
+    to: "/recherche-avancee",
+  },
   // {
   //   title: "Chatbot V2",
   //   description: "Posez vos questions sur les documents",

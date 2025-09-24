@@ -184,8 +184,11 @@ const { navigationCards } = useNavigationCards();
   <div class="container mx-auto p-2 sm:p-4">
     <!-- Titre d'accueil -->
     <div class="py-4 text-center">
-      <h1 class="text-2xl font-light leading-tight text-gray-900 dark:text-white md:text-4xl">
-        Accès facilité à<br /><span class="font-medium text-gray-700 dark:text-gray-300"
+      <h1
+        class="text-2xl font-light leading-tight text-gray-900 md:text-4xl dark:text-white"
+      >
+        Accès facilité à<br /><span
+          class="font-medium text-gray-700 dark:text-gray-300"
           >l'information publique</span
         >
       </h1>
@@ -209,10 +212,15 @@ const { navigationCards } = useNavigationCards();
       <div class="my-8">
         <HomeSocialNetworks />
       </div>
+      <div class="my-8">
+        <HomeWhatsAppChannel />
+      </div>
 
       <UDivider site="sm" class="mt-4" />
 
-      <div class="mt-4 text-center text-sm text-gray-500 dark:text-gray-400 sm:px-8">
+      <div
+        class="mt-4 text-center text-sm text-gray-500 sm:px-8 dark:text-gray-400"
+      >
         🛈 Vie-Publique est tenu par des bénévoles <br />
         si vous voyez une erreur merci de nous aider à corriger
       </div>
