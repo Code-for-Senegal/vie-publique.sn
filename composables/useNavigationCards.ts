@@ -6,6 +6,7 @@ export interface NavigationCard {
   icon: string;
   to: string;
   count?: number;
+  display: boolean;
 }
 
 /**
@@ -20,6 +21,15 @@ export function useNavigationCards() {
       icon: "i-heroicons-document-text",
       to: "/documents",
       count: 1354,
+      display: true,
+    },
+    {
+      title: "Annuaire",
+      description: "Nominations, Sites, Medias...",
+      icon: "i-heroicons-book-open",
+      to: "/annuaires",
+      count: 89,
+      display: true,
     },
     {
       title: "Assemblée",
@@ -27,6 +37,7 @@ export function useNavigationCards() {
       icon: "i-heroicons-building-library",
       to: "/assemblee-nationale",
       count: 147,
+      display: true,
     },
     {
       title: "Journal officiel",
@@ -34,6 +45,7 @@ export function useNavigationCards() {
       icon: "i-heroicons-newspaper",
       to: "/documents/journal-officiel",
       count: 1354,
+      display: true,
     },
     {
       title: "Conseil des ministres",
@@ -41,22 +53,15 @@ export function useNavigationCards() {
       icon: "i-heroicons-briefcase",
       to: "/conseil-des-ministres",
       count: 54,
+      display: true,
     },
-
-    {
-      title: "Annuaire",
-      description: "Nominations, Sites, Medias...",
-      icon: "i-heroicons-book-open",
-      to: "/annuaires",
-      count: 89,
-    },
-
     {
       title: "Budget du Sénégal",
       description: "Loi de finances 2025",
       icon: "i-heroicons-banknotes",
       to: "/budget-senegal",
       count: 8,
+      display: false,
     },
   ];
 

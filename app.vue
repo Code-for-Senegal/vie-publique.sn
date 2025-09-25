@@ -46,16 +46,10 @@ const links = [
     to: "/documents",
   },
   {
-    label: "Budget",
-    description: "....",
-    icon: "i-heroicons-banknotes",
-    to: "/budget-senegal",
-  },
-  {
-    label: "Elections",
-    description: "Élections législatives du 17 Novembre.",
-    icon: "i-heroicons-information-circle",
-    to: "/elections",
+    label: "Menu",
+    description: "",
+    icon: "i-heroicons-bars-3",
+    to: "/menu",
   },
 ];
 
@@ -140,6 +134,9 @@ onMounted(() => {
     <!-- HeaderBrand à gauche -->
     <AppHeader />
 
+    <!-- Menu horizontal pour desktop uniquement -->
+    <AppNavbar :links="links" />
+
     <!-- App alert online and offline -->
     <ClientOnly>
       <AppLineAlert />
@@ -150,11 +147,6 @@ onMounted(() => {
     <!-- Menu pour mobiles (toggle visibility with Tailwind CSS) -->
     <ThemeToggle />
   </div>
-  <UHorizontalNavigation
-    :links="links"
-    class="second-header hidden w-auto items-center justify-center md:flex"
-  >
-  </UHorizontalNavigation>
   <UContainer class="px-0 sm:px-10 md:px-14 lg:px-28 xl:px-40">
     <!-- Navigation verticale pour mobiles (toggle visibility with Tailwind CSS) -->
     <USlideover v-model="isOpen">
@@ -203,19 +195,16 @@ onMounted(() => {
 </template>
 
 <style>
-.second-header {
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.second-header ul li a {
-  padding-top: 0.35rem;
-  padding-bottom: 0.35rem;
-}
-
 nav ul li a span {
   text-transform: capitalize;
   font-family: "Quicksand", sans-serif;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+  font-weight: 500;
+}
+
+/* Style global pour la police du menu */
+nav ul li a span {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
 }
 
 .vertical-nav ul li a {
@@ -229,7 +218,30 @@ nav ul li a span {
   background-color: transparent;
 }
 .header_top {
+  /* Option 0 */
   background: linear-gradient(90deg, #0000d3 0%, #010272);
-  /* background: linear-gradient(90deg, #000000 0%, #3533cd); */
+
+  /* Option 1: Dégradé moderne violet/bleu */
+  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+
+  /* Option 2: Dégradé élégant bleu profond */
+  /* background: linear-gradient(120deg, #1e3c72 0%, #2a5298 100%); */
+
+  /* Option 3: Dégradé moderne indigo/purple avec effet glassmorphism */
+  /* background: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.95) 0%,
+    rgba(139, 92, 246, 0.95) 100%
+  );
+  backdrop-filter: blur(10px); */
+
+  /* Option 4: Dégradé sombre élégant */
+  /* background: linear-gradient(135deg, #1a1c20 0%, #2d3561 100%); */
+
+  /* Option 5: Monochrome moderne */
+  /* background: rgba(15, 23, 42, 0.97);
+  backdrop-filter: saturate(200%) blur(20px); */
+
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 </style>

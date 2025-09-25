@@ -1,0 +1,83 @@
+{
+  "networks": [
+    {
+      "id": "linkedin",
+      "name": "LinkedIn",
+      "href": "https://www.linkedin.com/company/vie-publique-sn",
+      "icon": "i-simple-icons-linkedin",
+      "color": "#0A66C2",
+      "colorDark": "#60a5fa",
+      "followers": "55K abonnés",
+      "bgGradient": false,
+      "display": true
+    },
+    {
+      "id": "facebook",
+      "name": "Facebook",
+      "href": "https://www.facebook.com/ViePubliqueSenegal",
+      "icon": "i-simple-icons-facebook",
+      "color": "#1877F2",
+      "colorDark": "#60a5fa",
+      "followers": "28K abonnés",
+      "bgGradient": false,
+      "display": true
+    },
+    {
+      "id": "instagram",
+      "name": "Instagram",
+      "href": "https://www.instagram.com/viepubliquesn",
+      "icon": "i-simple-icons-instagram",
+      "color": "#E4405F",
+      "colorDark": "pink-400",
+      "followers": "3500 abonnés",
+      "bgGradient": true,
+      "bgGradientColors": "from-[#833AB4]/10 via-[#FD1D1D]/10 to-[#F77737]/10",
+      "display": true
+    },
+    {
+      "id": "twitter",
+      "name": "Twitter",
+      "href": "https://x.com/ViePubliqueSN",
+      "icon": "i-simple-icons-x",
+      "color": "black",
+      "colorDark": "gray-200",
+      "followers": "18K abonnés",
+      "bgGradient": false,
+      "display": true
+    },
+    {
+      "id": "youtube",
+      "name": "YouTube",
+      "href": "https://www.youtube.com/@ViePubliqueSenegal",
+      "icon": "i-simple-icons-youtube",
+      "color": "#FF0000",
+      "colorDark": "red-400",
+      "followers": "6K abonnés",
+      "bgGradient": false,
+      "display": true
+    },
+    {
+      "id": "whatsapp",
+      "name": "WhatsApp",
+      "href": "https://whatsapp.com/channel/0029VawbhaFLikg1htAGXc2I",
+      "icon": "i-simple-icons-whatsapp",
+      "color": "#25D366",
+      "colorDark": "green-400",
+      "followers": "Contactez-nous",
+      "bgGradient": false,
+      "display": false
+    },
+    {
+      "id": "tiktok",
+      "name": "TikTok",
+      "href": "https://www.tiktok.com/@viepubliquesn",
+      "icon": "i-simple-icons-tiktok",
+      "color": "#000000",
+      "colorDark": "white",
+      "followers": "10K abonnés",
+      "bgGradient": true,
+      "bgGradientColors": "from-[#FF0050]/10 via-[#00F2EA]/10 to-[#000000]/10",
+      "display": true
+    }
+  ]
+}

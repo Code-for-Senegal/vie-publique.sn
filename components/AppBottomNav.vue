@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="fixed bottom-0 left-0 right-0 z-50 border-t bg-white shadow-lg md:hidden dark:bg-gray-900"
+      class="fixed bottom-0 left-0 right-0 z-50 border-t bg-white shadow-lg lg:hidden dark:bg-gray-900"
     >
       <div class="flex items-center justify-around px-2 py-3">
         <UButton
