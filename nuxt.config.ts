@@ -232,6 +232,30 @@ export default defineNuxtConfig({
           from: "/pdf/jors/(.*)",
           to: "/documents/journal-officiel",
         },
+        {
+          from: "/pdf/textes/Decret-2024-940.pdf",
+          to: "/documents/551/decret-2024-940-portant-repartition-des-services-de-letat",
+        },
+        {
+          from: "/pdf/programmes/senegal-2050-brochure.pdf",
+          to: "/documents/415/senegal-2050",
+        },
+        {
+          from: "/pdf/programmes/senegal-2050-brochure_compressed.pdf",
+          to: "/documents/415/senegal-2050",
+        },
+        {
+          from: "/pdf/programmes/etats-generaux-industrie-commerce-pre-rappord-diagnostic-industrialisation.pdf",
+          to: "/actualites/133/etats-generaux-industrie-commerce",
+        },
+        {
+          from: "/pdf/justice/arrete-7934-du-31-mai-2016-relatif-au-bareme-de-remunerations-des-mandataires-judiciaires.pdf",
+          to: "/documents/1402/JO-6937-du-02-juin-2016",
+        },
+        {
+          from: "/pdf/communiques/reunion-interministerielle-rentree-scolaire-2024-2025.pdf",
+          to: "/actualites/136/reunion-interministerielle-rentree-scolaire-2024-2025",
+        },
       ],
     },
   },
