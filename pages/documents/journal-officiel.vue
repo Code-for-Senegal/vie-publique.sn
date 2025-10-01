@@ -1,22 +1,10 @@
 <!-- index.vue -->
 <script setup lang="ts">
-import { useRouter } from "vue-router";
 import { useJournalOfficielStore } from "~/stores/journalOfficiel";
 import { useDebounceFn } from "@vueuse/core";
 import { useJournalOfficiel } from "~/composables/useJournalOfficiel";
 
-interface Document {
-  id: string;
-  title?: string;
-  publish_date: string;
-  slug?: string;
-  jo_number?: string;
-  description?: string;
-}
-
 const store = useJournalOfficielStore();
-const _router = useRouter();
-const config = useRuntimeConfig();
 
 // Utiliser le composable
 const { documents, loading, error, updateSearch, updateYear, updatePage } =
@@ -62,95 +50,7 @@ const yearOptions = [
   { label: "2018", value: "2018" },
   { label: "2017", value: "2017" },
   { label: "2016", value: "2016" },
-  // { label: "2015", value: "2015" },
-  // { label: "2014", value: "2014" },
-  // { label: "2013", value: "2013" },
-  // { label: "2012", value: "2012" },
-  // { label: "2011", value: "2011" },
-  // { label: "2010", value: "2010" },
 ];
-
-// Fonction pour charger les documents
-const fetchDocuments = async () => {
-  try {
-    loading.value = true;
-    store.setLoading(true);
-    error.value = null;
-
-    // Construire les paramètres de requête
-    const params = new URLSearchParams({
-      filter: JSON.stringify({
-        status: "published",
-        type: "official_journal",
-      }),
-      page: store.currentPage.toString(),
-      limit: store.itemsPerPage.toString(),
-    });
-
-    // Ajouter la recherche si présente
-    if (searchQuery.value) {
-      params.append("search", searchQuery.value);
-    }
-
-    // Ajouter le filtre par année si sélectionnée
-    if (selectedYear.value !== "all") {
-      const year = parseInt(selectedYear.value);
-      params.append(
-        "filter",
-        JSON.stringify({
-          status: "published",
-          type: "official_journal",
-          publish_date: {
-            _gte: `${year}-01-01`,
-            _lte: `${year}-12-31`,
-          },
-        }),
-      );
-    }
-
-    // Récupérer le nombre total de documents
-    const totalResponse = await fetch(
-      `${config.public.cmsApiUrl}/items/documents?aggregate[countDistinct]=id&filter[status]=published&filter[type]=official_journal`,
-      {
-        headers: {
-          Authorization: `Bearer ${config.public.cmsApiKey}`,
-        },
-      },
-    );
-
-    if (!totalResponse.ok) {
-      throw new Error(
-        "Erreur lors de la récupération du nombre total de documents",
-      );
-    }
-
-    const totalData = await totalResponse.json();
-    store.setTotalItems(totalData.data[0].count);
-
-    // Récupérer les documents paginés
-    const response = await fetch(
-      `${config.public.cmsApiUrl}/items/documents?${params.toString()}`,
-      {
-        headers: {
-          Authorization: `Bearer ${config.public.cmsApiKey}`,
-        },
-      },
-    );
-
-    if (!response.ok) {
-      throw new Error("Erreur lors de la récupération des documents");
-    }
-
-    const data = await response.json();
-    documents.value = data.data;
-  } catch (e) {
-    error.value = e instanceof Error ? e.message : "Une erreur est survenue";
-    documents.value = [];
-  } finally {
-    loading.value = false;
-    store.setLoading(false);
-  }
-};
 
 // Debounce pour la recherche
 const debouncedSearch = useDebounceFn((query: string) => {
