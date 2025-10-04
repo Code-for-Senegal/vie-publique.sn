@@ -1,12 +1,11 @@
-<!-- [slug].vue -->
 <script setup lang="ts">
 const route = useRoute();
-const { document, loading, error, fetchDocumentById } = useDocuments();
 const router = useRouter();
+const { document, documentLoading, documentError, fetchDocumentById } =
+  useDocuments();
 
 onMounted(async () => {
   if (route.params.id) {
-    console.log(route.params.id);
     await fetchDocumentById(route.params.id as string);
   }
 });
@@ -23,11 +22,14 @@ watchEffect(() => {
         },
       ],
       meta: [
-        { name: "description", content: document.value.description },
+        {
+          name: "description",
+          content: document.value.description || document.value.title,
+        },
         { property: "og:title", content: document.value.title },
         {
           property: "og:description",
-          content: document.value.description,
+          content: document.value.description || document.value.title,
         },
       ],
     });
@@ -48,11 +50,11 @@ const getAssetUrl = (assetId: string, slug: string) => {
       variant="ghost"
       label="Retour à la liste"
       color="gray"
-      @click.native="router.back()"
+      @click="router.back()"
     />
 
     <!-- Loading state -->
-    <div v-if="loading" class="space-y-4">
+    <div v-if="documentLoading" class="space-y-4">
       <div
         class="h-8 w-3/4 animate-pulse rounded bg-gray-200 dark:bg-gray-700"
       ></div>
@@ -67,9 +69,9 @@ const getAssetUrl = (assetId: string, slug: string) => {
 
     <!-- Error state -->
     <UAlert
-      v-else-if="error"
+      v-else-if="documentError"
       title="Erreur"
-      description="Une erreur s'est produite lors du chargement du document officiel."
+      description="Une erreur s'est produite lors du chargement du document."
       color="red"
       icon="i-heroicons-exclamation-triangle"
     />
@@ -77,15 +79,16 @@ const getAssetUrl = (assetId: string, slug: string) => {
     <!-- Contenu -->
     <div
       v-else-if="document"
-      class="prose prose-sm sm:prose dark:prose-invert mx-2 mx-auto"
+      class="prose prose-sm sm:prose dark:prose-invert mx-auto"
     >
       <div class="">
         <h1>{{ document.title }}</h1>
       </div>
+
       <!-- PDF Download link -->
       <div v-if="document.file && document.content_html" class="my-4">
         <a
-          :href="getAssetUrl(document.file, document.slug)"
+          :href="getAssetUrl(document.file.id, document.slug)"
           target="_blank"
           class="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
         >
@@ -94,15 +97,16 @@ const getAssetUrl = (assetId: string, slug: string) => {
       </div>
 
       <!-- Contenu HTML -->
-      <div v-html="document.content_html"></div>
+      <div v-if="document.content_html" v-html="document.content_html"></div>
 
+      <!-- PDF Viewer -->
       <ClientOnly v-if="document.file" placeholder="Chargement en cours">
-        <div class="mt-8">
+        <div class="not-prose mt-8">
           <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-gray-100">
             Document PDF
           </h3>
           <PdfViewer
-            :source="getAssetUrl(document.file, document.slug)"
+            :source="getAssetUrl(document.file.id, document.slug)"
             :download-name="`${document.slug}.pdf`"
           />
         </div>
@@ -122,7 +126,6 @@ const getAssetUrl = (assetId: string, slug: string) => {
 .prose p a {
   @apply text-blue-600 dark:text-blue-400;
 }
-
 .dark .prose p a {
   @apply hover:text-blue-300;
 }

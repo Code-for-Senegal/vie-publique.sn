@@ -1,12 +1,22 @@
 <script setup lang="ts">
 import { useSchemaOrg } from "@unhead/schema-org";
 
-const { documents, loading, error } = useDocuments({ type: undefined }); // Pas de filtre
 const searchQuery = ref("");
 const itemsPerPage = ref(10);
 const currentPage = ref(1);
+const sortBy = ref("-publish_date");
+const filterType = ref("");
 
 const router = useRouter();
+
+// Utilisation du composable avec les options de filtrage
+const { documents, loading, error, pagination, totalDocuments } = useDocuments({
+  page: currentPage,
+  limit: itemsPerPage,
+  search: searchQuery,
+  sortBy,
+  filterType,
+});
 
 // SEO optimisé pour "documents publics"
 useHead({
@@ -93,22 +103,28 @@ useSchemaOrg([
   },
 ]);
 
-const filteredDocuments = computed(() => {
-  if (!documents.value) return [];
-  const searchLower = searchQuery.value.toLowerCase();
-  return documents.value.filter(
-    (doc) =>
-      doc.title?.toLowerCase().includes(searchLower) ||
-      (doc as any).description?.toLowerCase().includes(searchLower) ||
-      (doc as any).type?.toLowerCase().includes(searchLower),
-  );
-});
+// Options de tri
+const sortOptions = [
+  { label: "Plus récent", value: "-publish_date" },
+  { label: "Plus ancien", value: "publish_date" },
+  { label: "Titre (A-Z)", value: "title" },
+  { label: "Titre (Z-A)", value: "-title" },
+];
 
-const paginatedDocuments = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage.value;
-  const end = start + itemsPerPage.value;
-  return filteredDocuments.value.slice(start, end);
-});
+const perPageOptions = [
+  { label: "10", value: 10 },
+  { label: "20", value: 20 },
+  { label: "30", value: 30 },
+];
+// Options de type de document
+const typeOptions = [
+  { label: "Tous les types", value: "" },
+  { label: "Rapport d'audit", value: "audit_report" },
+  { label: "Journal officiel", value: "official_journal" },
+  { label: "Loi", value: "law" },
+  { label: "Codes généraux", value: "code" },
+  { label: "Stratégies", value: "strategy" },
+];
 
 // Fonction pour gérer le changement de page
 const handlePageChange = (page: number) => {
@@ -116,6 +132,31 @@ const handlePageChange = (page: number) => {
   // Faire défiler vers le haut de la liste
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
+
+// Calcul du nombre total de pages
+const totalPages = computed(() => {
+  return (
+    pagination.value?.totalPages ||
+    Math.ceil(totalDocuments.value / itemsPerPage.value)
+  );
+});
+
+// Fonction pour aller à une page spécifique
+const goToPage = (page: number) => {
+  if (page >= 1 && page <= totalPages.value) {
+    currentPage.value = page;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+};
+
+// Réinitialiser la page lors d'un changement de recherche ou filtre
+watch([searchQuery, filterType, sortBy, itemsPerPage], () => {
+  currentPage.value = 1;
+});
+
+const shouldShowPagination = computed(() => {
+  return totalDocuments.value > itemsPerPage.value;
+});
 </script>
 
 <template>
@@ -141,7 +182,8 @@ const handlePageChange = (page: number) => {
         </p>
       </div>
 
-      <div class="mb-8">
+      <div class="mb-8 space-y-4">
+        <!-- Barre de recherche -->
         <UInput
           v-model="searchQuery"
           size="lg"
@@ -150,10 +192,50 @@ const handlePageChange = (page: number) => {
           class="mx-auto w-full"
         />
 
+        <!-- Filtres et tri -->
         <div
-          class="mt-2 flex flex-col items-center justify-between text-sm text-gray-500 sm:flex-row dark:text-gray-400"
+          class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
         >
-          <span>{{ filteredDocuments.length }} documents publics trouvés</span>
+          <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+            <span class="text-sm text-gray-600 dark:text-gray-400"
+              >Filtrer par:</span
+            >
+            <USelect
+              v-model="filterType"
+              :options="typeOptions"
+              size="md"
+              class="w-full sm:w-48"
+            />
+          </div>
+
+          <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+            <span class="text-sm text-gray-600 dark:text-gray-400"
+              >Trier par:</span
+            >
+            <USelect
+              v-model="sortBy"
+              :options="sortOptions"
+              size="md"
+              class="w-full sm:w-48"
+            />
+          </div>
+        </div>
+
+        <!-- Compteur de résultats -->
+        <div
+          class="flex flex-col items-center justify-between text-sm text-gray-500 sm:flex-row dark:text-gray-400"
+        >
+          <span v-if="totalDocuments > 0">
+            {{
+              totalDocuments > 1
+                ? ` ${totalDocuments} documents trouvés`
+                : `1 document trouvé`
+            }}
+            <template v-if="totalDocuments > itemsPerPage">
+              - Page {{ currentPage }} sur {{ pagination.totalPages || 1 }}
+            </template>
+          </span>
+          <span v-else>Aucun document trouvé</span>
         </div>
       </div>
 
@@ -180,13 +262,13 @@ const handlePageChange = (page: number) => {
         title="Erreur"
         color="red"
         icon="i-heroicons-exclamation-triangle"
+        description="Une erreur est survenue lors de la récupération des documents"
       >
-        {{ error }}
       </UAlert>
 
       <div v-else class="space-y-2">
         <UCard
-          v-for="doc in paginatedDocuments"
+          v-for="doc in documents"
           :key="doc.id"
           class="custom-shadow transition-shadow duration-200 hover:shadow-md dark:bg-gray-800/80"
         >
@@ -209,8 +291,8 @@ const handlePageChange = (page: number) => {
                 {{ (doc as any).description }}
               </p>
               <div
-                class="mt-1 flex flex-wrap gap-4 text-sm text-gray-400"
                 v-if="doc.publish_date"
+                class="mt-1 flex flex-wrap gap-4 text-sm text-gray-400"
               >
                 <span
                   class="flex items-center gap-1 rounded-full bg-gray-50 px-2 py-1 text-xs text-gray-400 dark:bg-gray-800 dark:text-gray-500"
@@ -218,22 +300,24 @@ const handlePageChange = (page: number) => {
                   {{ $dateMonthYearformat(doc.publish_date) }}
                 </span>
               </div>
-              <div class="mt-1 hidden">
-                <span class="flex items-center gap-1">
-                  {{ $dateMonthYearformat(doc.publish_date) }}
-                </span>
-                <span
-                  class="inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
-                >
-                  {{ (doc as any).type }}
-                </span>
-              </div>
             </div>
           </NuxtLink>
         </UCard>
 
+        <!-- Message si aucun résultat -->
+        <div v-if="documents.length === 0" class="py-12 text-center">
+          <UIcon
+            name="i-heroicons-document-magnifying-glass"
+            class="mx-auto mb-4 h-12 w-12 text-gray-400"
+          />
+          <p class="text-gray-600 dark:text-gray-400">
+            Aucun document trouvé pour votre recherche
+          </p>
+        </div>
+
         <!-- Pagination -->
         <div
+          v-if="shouldShowPagination"
           class="mt-6 flex flex-col items-center gap-4 sm:flex-row sm:justify-between"
         >
           <div class="flex items-center gap-2">
@@ -242,7 +326,7 @@ const handlePageChange = (page: number) => {
             >
             <USelect
               v-model="itemsPerPage"
-              :options="[10, 20, 50]"
+              :options="perPageOptions"
               size="sm"
               class="w-20"
             />
@@ -251,10 +335,10 @@ const handlePageChange = (page: number) => {
             >
           </div>
 
-          <UPagination
+          <!-- <UPagination
             v-model="currentPage"
-            :total="filteredDocuments.length"
-            :per-page="itemsPerPage"
+            :page-count="pagination?.totalPages || 1"
+            :total="totalDocuments"
             :active-button="{ color: 'yellow' }"
             :ui="{
               wrapper: 'flex items-center gap-1',
@@ -263,8 +347,27 @@ const handlePageChange = (page: number) => {
               inactive:
                 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700',
             }"
-            @change="handlePageChange"
-          />
+            @update:model-value="handlePageChange"
+          /> -->
+          <div class="flex items-center gap-2">
+            <UButton
+              :disabled="currentPage === 1"
+              icon="i-heroicons-chevron-left"
+              variant="ghost"
+              @click="goToPage(currentPage - 1)"
+            />
+
+            <span class="text-sm text-gray-600 dark:text-gray-400">
+              Page {{ currentPage }} sur {{ totalPages }}
+            </span>
+
+            <UButton
+              :disabled="currentPage === totalPages"
+              icon="i-heroicons-chevron-right"
+              variant="ghost"
+              @click="goToPage(currentPage + 1)"
+            />
+          </div>
         </div>
       </div>
     </ClientOnly>

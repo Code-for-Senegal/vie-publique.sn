@@ -1,109 +1,116 @@
-// composables/useDocuments.ts
-export const useDocuments = (options?: { type?: string }) => {
-  interface Document {
-    id: string;
-    title: string;
-    slug: string;
-    publish_date: string;
-    cover_image: string;
-    file?: {
-      id: string;
-      type: string;
-      filesize: string;
-      filename_download: string;
-    };
-  }
+import type { Document } from "~/types/document.ts";
 
-  const documents = ref<Document[]>([]);
-  const document = ref<Document | null>(null);
-  const loading = ref(true);
-  const error = ref<string | null>(null);
+interface UseDocumentsOptions {
+  type?: string;
+  page?: Ref<number> | number;
+  limit?: Ref<number> | number;
+  search?: Ref<string> | string;
+  sortBy?: Ref<string> | string;
+  filterType?: Ref<string> | string;
+}
 
-  const docCache = useCookie(`docs-${options?.type || "all"}`, { maxAge: 300 });
+export const useDocuments = (options?: UseDocumentsOptions) => {
+  // Construction des query params
+  const query = computed(() => {
+    const params: Record<string, any> = {};
 
-  const fetchDocuments = async () => {
-    loading.value = true;
-    error.value = null;
-
-    try {
-      const sort = `sort=-publish_date`;
-
-      let filters = `filter[status]=published`;
-
-      if (options?.type) {
-        filters += `&filter[type]=${options.type}`;
-      }
-
-      const fields =
-        "id,title,slug,type,publish_date,description,audit_institution,cover_image,file.id,file.type,file.filesize,file.filename_download";
-
-      const config = useRuntimeConfig();
-      const response = await fetch(
-        `${config.public.cmsApiUrl}/items/documents?fields=${fields}&${sort}&${filters}&limit=2000`,
-        {
-          headers: {
-            Authorization: `Bearer ${config.public.cmsApiKey}`,
-          },
-        },
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const dataResponse = await response.json();
-      documents.value = dataResponse.data;
-    } catch (e) {
-      error.value =
-        e instanceof Error ? e.message : "Erreur lors du chargement";
-      documents.value = [];
-    } finally {
-      loading.value = false;
+    // Ajout du type dans les query params
+    if (options?.type) {
+      params.type = options.type;
     }
-  };
+
+    if (options?.page) {
+      params.page = unref(options.page);
+    }
+
+    if (options?.limit) {
+      params.limit = unref(options.limit);
+    }
+
+    if (options?.search) {
+      const searchValue = unref(options.search);
+      if (searchValue && searchValue.trim() !== "") {
+        params.search = searchValue.trim();
+      }
+    }
+
+    if (options?.sortBy) {
+      const sortValue = unref(options.sortBy);
+      if (sortValue) {
+        params.sortBy = sortValue;
+      }
+    }
+
+    if (options?.filterType) {
+      const filterValue = unref(options.filterType);
+      if (filterValue !== undefined && filterValue !== null) {
+        params.filterType = filterValue;
+      }
+    }
+
+    return params;
+  });
+
+  const { data, pending, error, refresh } = useFetch("/api/documents", {
+    query,
+    transform: (response: any) => {
+      return {
+        documents: response.documents as Document[],
+        pagination: {
+          ...response.pagination,
+          total: Number(response.pagination?.total || 0),
+          totalPages: Number(response.pagination?.totalPages || 0),
+        },
+        totalDocuments: Number(response.totalDocuments || 0),
+      };
+    },
+    getCachedData(key) {
+      return useNuxtData(key).data.value;
+    },
+    watch: [query],
+  });
+
+  const documents = computed(() => data.value?.documents || []);
+  const pagination = computed(() => data.value?.pagination);
+  const totalDocuments = computed(() => data.value?.totalDocuments || 0);
+  const loading = computed(() => pending.value);
+
+  // Pour le détail d'un document
+  const document = ref<Document | null>(null);
+  const documentLoading = ref(false);
+  const documentError = ref<string | null>(null);
 
   const fetchDocumentById = async (id: string) => {
-    loading.value = true;
-    error.value = null;
+    documentLoading.value = true;
+    documentError.value = null;
 
     try {
-      const config = useRuntimeConfig();
-      const response = await fetch(
-        `${config.public.cmsApiUrl}/items/documents/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${config.public.cmsApiKey}`,
-          },
-        },
+      const response = await $fetch<{ document: Document }>(
+        `/api/documents/${id}`,
       );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const { data } = await response.json();
-      document.value = data;
-    } catch (e) {
-      error.value =
-        e instanceof Error
-          ? e.message
-          : "Erreur lors du chargement du document officiel";
+      document.value = response.document;
+    } catch (err: any) {
+      console.error("Erreur lors de la récupération du document:", err);
+      documentError.value =
+        err.message || "Erreur lors du chargement du document";
       document.value = null;
     } finally {
-      loading.value = false;
+      documentLoading.value = false;
     }
   };
 
-  if (import.meta.client) {
-    fetchDocuments();
-  }
-
   return {
+    // Pour la liste
     documents,
-    document,
     loading,
     error,
-    fetchDocuments,
+    refresh,
+    pagination,
+    totalDocuments,
+    // Pour le détail
+    document,
+    documentLoading,
+    documentError,
     fetchDocumentById,
   };
 };
