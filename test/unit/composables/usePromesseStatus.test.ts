@@ -4,7 +4,7 @@ import {
   getStatusBackgroundClass,
   getStatusIconClass,
   getStatusTextClass,
-} from './usePromesseStatus'
+} from '~/composables/usePromesseStatus'
 
 describe('usePromesseStatus', () => {
   describe('getStatusIcon', () => {

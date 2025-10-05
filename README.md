@@ -161,12 +161,29 @@ npm run test:coverage
 
 ### Writing Tests
 
-Tests should be placed next to the files they test with a `.spec.ts` or `.test.ts` extension:
+Tests are organized following [Nuxt.js testing best practices](https://nuxt.com/docs/getting-started/testing) in a centralized `test/` directory:
 
 ```plaintext
-composables/
-  usePromesseStatus.ts
-  usePromesseStatus.spec.ts
+test/
+├── unit/              # Unit tests for composables, utils, stores
+│   └── composables/
+│       └── usePromesseStatus.test.ts
+├── e2e/               # End-to-end tests (future)
+└── nuxt/              # Nuxt runtime tests (future)
+```
+
+**Example test:**
+
+```typescript
+// test/unit/composables/usePromesseStatus.test.ts
+import { describe, it, expect } from 'vitest'
+import { getStatusIcon } from '~/composables/usePromesseStatus'
+
+describe('usePromesseStatus', () => {
+  it('should return correct icon', () => {
+    expect(getStatusIcon('tenue')).toBe('i-heroicons-check-circle')
+  })
+})
 ```
 
 ### Coverage Reports

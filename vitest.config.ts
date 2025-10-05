@@ -6,22 +6,25 @@ export default defineConfig({
   plugins: [vue()],
   test: {
     environment: 'happy-dom',
+    // Test files location
+    include: ['test/**/*.test.ts'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'lcov', 'html'],
       include: [
         'components/**/*.{js,ts,vue}',
         'composables/**/*.{js,ts}',
-        'utils/**/*.{js,ts}',
         'stores/**/*.{js,ts}',
+        'plugins/**/*.{js,ts}',
+        'server/**/*.{js,ts}',
+        'layouts/**/*.{js,ts,vue}',
       ],
       exclude: [
         'node_modules/',
         'test/',
-        '**/*.spec.ts',
-        '**/*.test.ts',
         '.nuxt/',
         '.output/',
+        'coverage/',
       ],
     },
   },
