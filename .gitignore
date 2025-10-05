@@ -34,4 +34,8 @@ scripts/!.env.example
 # PDF.js worker (generated)
 public/pdf-worker/
 
+# Test coverage
+coverage/
+*.lcov
+
 .vscode/
