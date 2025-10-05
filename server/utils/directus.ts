@@ -1,27 +1,16 @@
-import { createDirectus, staticToken, rest, realtime } from "@directus/sdk";
+import { createDirectus, rest, staticToken } from "@directus/sdk";
+import type { DirectusClient, RestClient } from "@directus/sdk";
 
-let client: any = null;
+let directusClient: DirectusClient<any> & RestClient<any>;
 
-function getDirectusClient() {
-  if (!client) {
-    const directusUrl = process.env.CMS_API_URL;
-    const directusToken = process.env.CMS_API_KEY;
+export const getDirectusClient = () => {
+  const config = useRuntimeConfig();
 
-    if (!directusUrl || !directusToken) {
-      throw new Error("CMS_API_URL and CMS_API_KEY environment variables are required");
-    }
-
-    client = createDirectus(directusUrl)
-      .with(staticToken(directusToken))
+  if (!directusClient) {
+    directusClient = createDirectus(config.cmsApiUrl)
       .with(rest())
-      .with(realtime());
+      .with(staticToken(config.cmsApiKey));
   }
-  
-  return client;
-}
 
-export const directus = new Proxy({}, {
-  get(target, prop) {
-    return getDirectusClient()[prop];
-  }
-});
+  return directusClient;
+};

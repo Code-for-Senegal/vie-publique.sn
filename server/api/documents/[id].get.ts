@@ -1,24 +1,6 @@
 // server/api/documents/detail/[id].ts
-import { createDirectus, rest, staticToken, readItem } from "@directus/sdk";
-
-interface DirectusDocument {
-  id: string;
-  status: string;
-  title: string;
-  slug: string;
-  type: string;
-  publish_date: string;
-  description: string;
-  audit_institution: string;
-  cover_image: string;
-  content_html: string;
-  file: {
-    id: string;
-    type: string;
-    filesize: string;
-    filename_download: string;
-  };
-}
+import { readItem } from "@directus/sdk";
+import { getDirectusClient } from "~/server/utils/directus";
 
 interface Document {
   id: string;
@@ -51,11 +33,7 @@ export default defineCachedEventHandler(
     }
 
     try {
-      const directus = createDirectus<{ documents: DirectusDocument }>(
-        config.cmsApiUrl,
-      )
-        .with(rest())
-        .with(staticToken(config.cmsApiKey));
+      const directus = getDirectusClient();
 
       const documentData = await directus.request(
         readItem("documents", id, {

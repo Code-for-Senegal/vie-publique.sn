@@ -1,6 +1,6 @@
-import { createDirectus, rest, staticToken, readItems } from "@directus/sdk";
+import { readItems } from "@directus/sdk";
+import { getDirectusClient } from "~/server/utils/directus";
 import type { Document } from "~/types/document";
-import type { DirectusDocument } from "~/server/utils/directus-types";
 
 export default defineCachedEventHandler(
   async (event) => {
@@ -16,11 +16,7 @@ export default defineCachedEventHandler(
     const type = query.type as string;
 
     try {
-      const directus = createDirectus<{ documents: DirectusDocument }>(
-        config.cmsApiUrl,
-      )
-        .with(rest())
-        .with(staticToken(config.cmsApiKey));
+      const directus = getDirectusClient();
 
       // Construction du filtre dynamique
       const filter: any = {

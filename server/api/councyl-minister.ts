@@ -1,9 +1,10 @@
 import { defineEventHandler, createError } from "h3";
-import { directus } from "../utils/directus";
+import { getDirectusClient } from "../utils/directus";
 import { readItems } from "@directus/sdk";
 
 export default defineEventHandler(async (_event) => {
   try {
+    const directus = getDirectusClient();
     // Exécution parallèle des requêtes pour optimiser les performances
     const response = await directus.request(
       readItems("dash_council_ministers", {
