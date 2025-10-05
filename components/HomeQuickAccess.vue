@@ -37,16 +37,17 @@ const { getQuickAccessIconBackground, getQuickAccessIconColor } =
 
               <!-- Titre -->
               <span
-                class="whitespace-nowrap text-[10px] font-medium text-gray-900 sm:text-xs dark:text-white"
+                class="whitespace-nowrap text-xs font-medium text-gray-900 sm:text-sm dark:text-white"
               >
                 {{ card.title }}
               </span>
 
               <!-- Badge avec nombre -->
               <span
-                class="rounded-full bg-gray-100 px-1 py-0.5 text-[10px] font-medium text-gray-600 sm:px-1.5 sm:text-xs dark:bg-gray-600 dark:text-gray-300"
+                v-if="card.count"
+                class="rounded-full bg-gray-100 px-1 py-0.5 text-[10px] font-medium text-gray-700 sm:px-1.5 sm:text-xs dark:bg-gray-600 dark:text-gray-300"
               >
-                {{ card.count || 0 }}
+                {{ card.count }}
               </span>
             </div>
           </NuxtLink>

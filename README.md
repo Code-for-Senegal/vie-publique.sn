@@ -96,6 +96,49 @@ The project includes separate scripts for different operating systems to handle 
 - **Linux/macOS**: Uses Unix commands (`mkdir -p`, `cp`)
 - **Windows**: Uses PowerShell commands (`if not exist`, `mkdir`, `copy`)
 
+## Code Style & Formatting
+
+This project uses a strict code style to ensure consistency across the team.
+
+### VSCode Setup (Recommended)
+
+When you open the project in VSCode, you'll be prompted to install recommended extensions. Click **"Install All"** or install them manually:
+
+- **ESLint** - JavaScript/TypeScript linting
+- **Prettier** - Code formatting
+- **Volar** - Vue 3 support
+- **Tailwind CSS IntelliSense** - Tailwind autocompletion
+- **EditorConfig** - Universal editor configuration
+
+### Auto-formatting
+
+Once extensions are installed, your code will be **automatically formatted on save** (Ctrl+S / Cmd+S).
+
+### Code Conventions
+
+- **Quotes**: Single quotes `'` (not double quotes `"`)
+- **Semicolons**: None (disabled)
+- **Indentation**: 2 spaces
+- **Trailing commas**: Always
+- **Line endings**: Auto (LF on Unix, CRLF on Windows)
+
+### Before Committing
+
+Always run before creating a commit to ensure code quality:
+
+```bash
+npm run format && npm run lint:fix
+```
+
+### Configuration Files
+
+- `.prettierrc` - Prettier formatting rules
+- `.editorconfig` - Universal editor settings
+- `.vscode/settings.json` - VSCode-specific settings
+- `eslint.config.mjs` - ESLint rules
+
+For more details on VSCode setup, see [`.vscode/README.md`](.vscode/README.md)
+
 ## Contributing
 
 We welcome contributions! Please feel free to submit a Pull Request.

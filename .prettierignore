@@ -1,0 +1,12 @@
+node_modules
+.nuxt
+.output
+dist
+.build
+coverage
+docs
+scripts
+.vscode
+.idea
+.DS_Store
+
