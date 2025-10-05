@@ -1,21 +1,31 @@
+<!-- public.vue -->
 <script setup lang="ts">
-import { useSchemaOrg } from "@unhead/schema-org";
-
-const searchQuery = ref("");
-const itemsPerPage = ref(10);
-const currentPage = ref(1);
-const sortBy = ref("-publish_date");
-const filterType = ref("");
-
+const route = useRoute();
 const router = useRouter();
+const store = useDocumentsStore();
 
-// Utilisation du composable avec les options de filtrage
-const { documents, loading, error, pagination, totalDocuments } = useDocuments({
-  page: currentPage,
-  limit: itemsPerPage,
-  search: searchQuery,
-  sortBy,
-  filterType,
+// Lire les query params au montage seulement
+onMounted(() => {
+  const query = route.query;
+
+  if (query.page) {
+    const page = parseInt(query.page as string);
+    if (!isNaN(page)) store.currentPage = page;
+  }
+  if (query.q) store.searchQuery = query.q as string;
+  if (query.type) store.selectedType = query.type as string;
+  if (query.sort) store.sortBy = query.sort as string;
+});
+
+// Utiliser le composable
+const { documents, loading, error, pagination } = useDocuments({
+  page: computed(() => store.currentPage),
+  limit: computed(() => store.itemsPerPage),
+  search: computed(() => store.searchQuery),
+  filterType: computed(() =>
+    store.selectedType !== "all" ? store.selectedType : undefined,
+  ),
+  sortBy: computed(() => store.sortBy),
 });
 
 // SEO optimisé pour "documents publics"
@@ -103,6 +113,68 @@ useSchemaOrg([
   },
 ]);
 
+// Watcher pour mettre à jour le store avec les données de pagination
+watchEffect(() => {
+  if (pagination.value) {
+    store.setTotalItems(pagination.value.total);
+  }
+});
+
+// Mettre à jour l'URL quand les filtres changent
+const updateURL = useDebounceFn(() => {
+  const query: any = {};
+
+  if (store.currentPage > 1) query.page = store.currentPage.toString();
+  if (store.searchQuery) query.q = store.searchQuery;
+  if (store.selectedType !== "all") query.type = store.selectedType;
+  if (store.sortBy !== "-publish_date") query.sort = store.sortBy;
+
+  router.replace({ query });
+}, 300);
+
+// Watchers pour la synchronisation URL
+watch(
+  [
+    () => store.currentPage,
+    () => store.searchQuery,
+    () => store.selectedType,
+    () => store.sortBy,
+  ],
+  updateURL,
+  { deep: true },
+);
+
+// Computed pour les liaisons avec le template
+const searchQuery = computed({
+  get: () => store.searchQuery,
+  set: (value) => {
+    store.setSearchQuery(value);
+    store.setCurrentPage(1);
+  },
+});
+
+const selectedType = computed({
+  get: () => store.selectedType,
+  set: (value) => {
+    store.setSelectedType(value);
+    store.setCurrentPage(1);
+  },
+});
+
+const currentPage = computed({
+  get: () => store.currentPage,
+  set: (value) => {
+    store.setCurrentPage(value);
+  },
+});
+
+const sortBy = computed({
+  get: () => store.sortBy,
+  set: (value) => {
+    store.setSortBy(value);
+  },
+});
+
 // Options de tri
 const sortOptions = [
   { label: "Plus récent", value: "-publish_date" },
@@ -116,9 +188,10 @@ const perPageOptions = [
   { label: "20", value: 20 },
   { label: "30", value: 30 },
 ];
+
 // Options de type de document
 const typeOptions = [
-  { label: "Tous les types", value: "" },
+  { label: "Tous les documents", value: "all" },
   { label: "Rapport d'audit", value: "audit_report" },
   { label: "Journal officiel", value: "official_journal" },
   { label: "Loi", value: "law" },
@@ -126,37 +199,44 @@ const typeOptions = [
   { label: "Stratégies", value: "strategy" },
 ];
 
-// Fonction pour gérer le changement de page
-const handlePageChange = (page: number) => {
-  currentPage.value = page;
-  // Faire défiler vers le haut de la liste
+// Texte pour l'affichage du nombre de résultats
+const resultsText = computed(() => {
+  const totalCount = store.totalItems;
+  const currentPageStart = (store.currentPage - 1) * store.itemsPerPage + 1;
+  const currentPageEnd = Math.min(
+    currentPageStart + store.itemsPerPage - 1,
+    totalCount,
+  );
+
+  const searchText = store.searchQuery ? ` pour "${store.searchQuery}"` : "";
+  const typeText =
+    store.selectedType !== "all"
+      ? ` de type "${typeOptions.find((t) => t.value === store.selectedType)?.label}"`
+      : "";
+
+  if (totalCount === 0) {
+    return store.searchQuery
+      ? `Aucun résultat trouvé pour "${store.searchQuery}"`
+      : "Aucun résultat trouvé";
+  }
+
+  if (totalCount === 1) {
+    return `1 document trouvé${searchText}${typeText}`;
+  }
+
+  if (totalCount <= store.itemsPerPage) {
+    return `${totalCount} documents trouvés${searchText}${typeText}`;
+  }
+
+  return `${currentPageStart}-${currentPageEnd} sur ${totalCount} documents${searchText}${typeText}`;
+});
+
+// Fonction pour changer le nombre d'items par page
+const updateItemsPerPage = (value: number) => {
+  store.itemsPerPage = value;
+  store.currentPage = 1;
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
-
-// Calcul du nombre total de pages
-const totalPages = computed(() => {
-  return (
-    pagination.value?.totalPages ||
-    Math.ceil(totalDocuments.value / itemsPerPage.value)
-  );
-});
-
-// Fonction pour aller à une page spécifique
-const goToPage = (page: number) => {
-  if (page >= 1 && page <= totalPages.value) {
-    currentPage.value = page;
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-};
-
-// Réinitialiser la page lors d'un changement de recherche ou filtre
-watch([searchQuery, filterType, sortBy, itemsPerPage], () => {
-  currentPage.value = 1;
-});
-
-const shouldShowPagination = computed(() => {
-  return totalDocuments.value > itemsPerPage.value;
-});
 </script>
 
 <template>
@@ -187,7 +267,7 @@ const shouldShowPagination = computed(() => {
         <UInput
           v-model="searchQuery"
           size="lg"
-          placeholder="Rechercher un document public..."
+          placeholder="Rechercher un document..."
           icon="i-heroicons-magnifying-glass"
           class="mx-auto w-full"
         />
@@ -201,7 +281,7 @@ const shouldShowPagination = computed(() => {
               >Filtrer par:</span
             >
             <USelect
-              v-model="filterType"
+              v-model="selectedType"
               :options="typeOptions"
               size="md"
               class="w-full sm:w-48"
@@ -221,21 +301,21 @@ const shouldShowPagination = computed(() => {
           </div>
         </div>
 
-        <!-- Compteur de résultats -->
+        <!-- Résultats et bouton réinitialiser -->
         <div
-          class="flex flex-col items-center justify-between text-sm text-gray-500 sm:flex-row dark:text-gray-400"
+          class="mt-4 flex flex-col items-center justify-between gap-2 sm:flex-row"
         >
-          <span v-if="totalDocuments > 0">
-            {{
-              totalDocuments > 1
-                ? ` ${totalDocuments} documents trouvés`
-                : `1 document trouvé`
-            }}
-            <template v-if="totalDocuments > itemsPerPage">
-              - Page {{ currentPage }} sur {{ pagination.totalPages || 1 }}
-            </template>
-          </span>
-          <span v-else>Aucun document trouvé</span>
+          <span class="text-sm text-gray-600">{{ resultsText }}</span>
+
+          <!-- Bouton réinitialiser -->
+          <UButton
+            v-if="store.hasActiveFilters"
+            variant="ghost"
+            color="gray"
+            label="Réinitialiser les filtres"
+            class="text-sm"
+            @click="store.resetFilters()"
+          />
         </div>
       </div>
 
@@ -262,19 +342,29 @@ const shouldShowPagination = computed(() => {
         title="Erreur"
         color="red"
         icon="i-heroicons-exclamation-triangle"
-        description="Une erreur est survenue lors de la récupération des documents"
-      >
-      </UAlert>
+        description="Une erreur s'est produite lors du chargement des documents"
+      />
 
+      <!-- Résultats vides -->
+      <UAlert
+        v-else-if="documents.length === 0 && !loading"
+        title="Aucun résultat"
+        description="Aucun document ne correspond à votre recherche."
+        color="blue"
+        icon="i-heroicons-information-circle"
+        class="mb-6"
+      />
+
+      <!-- Liste des documents -->
       <div v-else class="space-y-2">
         <UCard
-          v-for="doc in documents"
-          :key="doc.id"
+          v-for="document in documents"
+          :key="document.id"
           class="custom-shadow transition-shadow duration-200 hover:shadow-md dark:bg-gray-800/80"
         >
           <NuxtLink
-            :to="`/documents/${doc.id}/${doc.slug}`"
-            class="flex items-start gap-4"
+            :to="`/documents/${document.id}/${document.slug}`"
+            class="flex items-start gap-4 p-4"
           >
             <div class="flex-shrink-0">
               <UIcon
@@ -282,42 +372,29 @@ const shouldShowPagination = computed(() => {
                 class="text-primary-600 h-8 w-8 dark:text-gray-400"
               />
             </div>
-
             <div class="flex-grow">
               <h3 class="mb-1 font-medium text-gray-900 dark:text-gray-100">
-                {{ doc.title }}
+                {{ document.title }}
               </h3>
               <p class="line-clamp-2 text-sm text-gray-500 dark:text-gray-400">
-                {{ (doc as any).description }}
+                {{ (document as any).description }}
               </p>
               <div
-                v-if="doc.publish_date"
+                v-if="document.publish_date"
                 class="mt-1 flex flex-wrap gap-4 text-sm text-gray-400"
               >
                 <span
                   class="flex items-center gap-1 rounded-full bg-gray-50 px-2 py-1 text-xs text-gray-400 dark:bg-gray-800 dark:text-gray-500"
                 >
-                  {{ $dateMonthYearformat(doc.publish_date) }}
+                  {{ $dateMonthYearformat(document.publish_date) }}
                 </span>
               </div>
             </div>
           </NuxtLink>
         </UCard>
-
-        <!-- Message si aucun résultat -->
-        <div v-if="documents.length === 0" class="py-12 text-center">
-          <UIcon
-            name="i-heroicons-document-magnifying-glass"
-            class="mx-auto mb-4 h-12 w-12 text-gray-400"
-          />
-          <p class="text-gray-600 dark:text-gray-400">
-            Aucun document trouvé pour votre recherche
-          </p>
-        </div>
-
         <!-- Pagination -->
         <div
-          v-if="shouldShowPagination"
+          v-if="store.totalPages > 1"
           class="mt-6 flex flex-col items-center gap-4 sm:flex-row sm:justify-between"
         >
           <div class="flex items-center gap-2">
@@ -325,47 +402,32 @@ const shouldShowPagination = computed(() => {
               >Afficher</span
             >
             <USelect
-              v-model="itemsPerPage"
+              :model-value="store.itemsPerPage"
               :options="perPageOptions"
               size="sm"
               class="w-20"
+              @update:model-value="updateItemsPerPage"
             />
             <span class="text-sm text-gray-500 dark:text-gray-400"
               >par page</span
             >
           </div>
 
-          <!-- <UPagination
-            v-model="currentPage"
-            :page-count="pagination?.totalPages || 1"
-            :total="totalDocuments"
-            :active-button="{ color: 'yellow' }"
-            :ui="{
-              wrapper: 'flex items-center gap-1',
-              base: 'min-w-8 min-h-8 flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed',
-              active: 'bg-blue-900 text-white',
-              inactive:
-                'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700',
-            }"
-            @update:model-value="handlePageChange"
-          /> -->
           <div class="flex items-center gap-2">
-            <UButton
-              :disabled="currentPage === 1"
-              icon="i-heroicons-chevron-left"
-              variant="ghost"
-              @click="goToPage(currentPage - 1)"
-            />
-
-            <span class="text-sm text-gray-600 dark:text-gray-400">
-              Page {{ currentPage }} sur {{ totalPages }}
-            </span>
-
-            <UButton
-              :disabled="currentPage === totalPages"
-              icon="i-heroicons-chevron-right"
-              variant="ghost"
-              @click="goToPage(currentPage + 1)"
+            <UPagination
+              v-model="currentPage"
+              :total="store.totalItems"
+              :page-count="store.itemsPerPage"
+              :default-page="1"
+              :show-edges="true"
+              :sibling-count="2"
+              :active-button="{ color: 'yellow' }"
+              :ui="{
+                wrapper: 'flex items-center gap-1',
+                base: 'min-w-8 min-h-8 flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed',
+                active: 'bg-gray-900 text-white',
+                inactive: 'bg-white text-gray-900 hover:bg-gray-100',
+              }"
             />
           </div>
         </div>

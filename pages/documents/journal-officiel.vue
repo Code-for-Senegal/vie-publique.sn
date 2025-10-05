@@ -1,14 +1,57 @@
-<!-- index.vue -->
 <script setup lang="ts">
-import { useJournalOfficielStore } from "~/stores/journalOfficiel";
 import { useDebounceFn } from "@vueuse/core";
-import { useJournalOfficiel } from "~/composables/useJournalOfficiel";
+import { useJournalOfficielStore } from "~/stores/journalOfficiel";
 
+const route = useRoute();
+const router = useRouter();
 const store = useJournalOfficielStore();
 
-// Utiliser le composable
-const { documents, loading, error, updateSearch, updateYear, updatePage } =
-  useJournalOfficiel();
+// Lire les query params au montage seulement
+onMounted(() => {
+  const query = route.query;
+
+  if (query.page) {
+    const page = parseInt(query.page as string);
+    if (!isNaN(page)) store.currentPage = page;
+  }
+  if (query.q) store.searchQuery = query.q as string;
+  if (query.year) store.selectedYear = query.year as string;
+});
+
+const { documents, loading, error, pagination, refresh } = useDocuments({
+  type: "official_journal",
+  page: computed(() => store.currentPage),
+  limit: computed(() => store.itemsPerPage),
+  search: computed(() => store.searchQuery),
+  filterType: computed(() =>
+    store.selectedYear !== "all" ? store.selectedYear : undefined,
+  ),
+});
+
+// Mettre à jour l'URL quand les filtres changent
+const updateURL = useDebounceFn(() => {
+  const query: any = {};
+
+  if (store.currentPage > 1) query.page = store.currentPage.toString();
+  if (store.searchQuery) query.q = store.searchQuery;
+  if (store.selectedYear !== "all") query.year = store.selectedYear;
+
+  router.replace({ query });
+}, 300);
+
+// Watchers pour la synchronisation URL
+watch(
+  [() => store.currentPage, () => store.searchQuery, () => store.selectedYear],
+  updateURL,
+  { deep: true },
+);
+
+// Watcher pour mettre à jour le store avec les données de pagination
+watchEffect(() => {
+  if (pagination.value) {
+    store.setTotalItems(pagination.value.total);
+  }
+});
 
 // Utiliser les valeurs du store
 const searchQuery = computed({
@@ -16,7 +59,6 @@ const searchQuery = computed({
   set: (value) => {
     store.setSearchQuery(value);
     store.setCurrentPage(1);
-    debouncedSearch(value);
   },
 });
 
@@ -25,7 +67,6 @@ const selectedYear = computed({
   set: (value) => {
     store.setSelectedYear(value);
     store.setCurrentPage(1);
-    updateYear(value);
   },
 });
 
@@ -33,7 +74,6 @@ const currentPage = computed({
   get: () => store.currentPage,
   set: (value) => {
     store.setCurrentPage(value);
-    updatePage(value);
   },
 });
 
@@ -51,11 +91,6 @@ const yearOptions = [
   { label: "2017", value: "2017" },
   { label: "2016", value: "2016" },
 ];
-
-// Debounce pour la recherche
-const debouncedSearch = useDebounceFn((query: string) => {
-  updateSearch(query);
-}, 500);
 
 // Format de la date
 const formatDate = (date: string) => {
@@ -168,11 +203,11 @@ const resultsText = computed(() => {
 
     <!-- Résultats vides -->
     <UAlert
-      v-else-if="documents.length === 0"
+      v-else-if="documents.length === 0 && !loading"
       title="Aucun résultat"
       description="Aucun journal officiel ne correspond à votre recherche."
       color="blue"
-      icon="i-heroicons-inbox"
+      icon="i-heroicons-information-circle"
     />
 
     <!-- Liste des journaux -->
@@ -193,7 +228,7 @@ const resultsText = computed(() => {
             >
               <img
                 src="/images/default-journal-officiel.webp"
-                :alt="`Aperçu JO ${journal.jo_number || ''}`"
+                :alt="`${journal.title}`"
                 class="h-auto w-full object-contain"
                 loading="lazy"
                 fetchpriority="high"
@@ -227,6 +262,7 @@ const resultsText = computed(() => {
         <UPagination
           v-model="currentPage"
           :total="store.totalItems"
+          :page-count="store.itemsPerPage"
           :default-page="1"
           :show-edges="true"
           :sibling-count="2"

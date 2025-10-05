@@ -43,7 +43,11 @@ export const useDocuments = (options?: UseDocumentsOptions) => {
 
     if (options?.filterType) {
       const filterValue = unref(options.filterType);
-      if (filterValue !== undefined && filterValue !== null) {
+      if (
+        filterValue !== undefined &&
+        filterValue !== null &&
+        filterValue !== "all"
+      ) {
         params.filterType = filterValue;
       }
     }
@@ -63,9 +67,6 @@ export const useDocuments = (options?: UseDocumentsOptions) => {
         },
         totalDocuments: Number(response.totalDocuments || 0),
       };
-    },
-    getCachedData(key) {
-      return useNuxtData(key).data.value;
     },
     watch: [query],
   });

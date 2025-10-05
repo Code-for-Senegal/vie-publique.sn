@@ -29,22 +29,36 @@ export default defineCachedEventHandler(
         },
       };
 
-      // Filtre par type depuis les query params
+      // Filtre par type (prioritaire)
       if (type && type !== "all") {
         filter.type = {
           _eq: type,
         };
       }
 
+      // Filtre par année
       if (filterType && filterType !== "" && filterType !== "all") {
-        filter.type = {
-          _eq: filterType,
-        };
-      } else if (type && type !== "" && type !== "all") {
-        filter.type = {
-          _eq: type,
-        };
+        const year = parseInt(filterType);
+        if (!isNaN(year)) {
+          filter.publish_date = {
+            _between: [`${year}-01-01`, `${year}-12-31`],
+          };
+        } else {
+          // Si ce n'est pas une année, c'est un type OU un audit_institution
+          // Pour les rapports d'audit, on filtre par audit_institution
+          if (type === "audit_report") {
+            filter.audit_institution = {
+              _eq: filterType,
+            };
+          } else {
+            // Pour les autres types, on filtre par type
+            filter.type = {
+              _eq: filterType,
+            };
+          }
+        }
       }
+
       // Recherche textuelle
       if (search) {
         filter._or = [
@@ -69,6 +83,14 @@ export default defineCachedEventHandler(
       // Calcul de l'offset pour la pagination
       const offset = (page - 1) * limit;
 
+      // Gérer le tri (support de date_created) pour la recuperation des 3 derniers documents
+      let sortField = sortBy;
+      if (sortBy === "-date_created") {
+        sortField = "-date_created";
+      } else if (sortBy === "date_created") {
+        sortField = "date_created";
+      }
+
       // Récupération des documents avec pagination et meta
       const documentData = await directus
         .request(
@@ -79,6 +101,7 @@ export default defineCachedEventHandler(
               "slug",
               "type",
               "publish_date",
+              "date_created",
               "description",
               "audit_institution",
               "cover_image",
@@ -90,7 +113,7 @@ export default defineCachedEventHandler(
             filter,
             limit,
             offset,
-            sort: [sortBy],
+            sort: [sortField],
           }),
         )
         .catch((error) => {

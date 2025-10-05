@@ -1,17 +1,19 @@
 import { defineStore } from "pinia";
 
-interface JournalOfficielState {
+interface PublicDocumentsState {
   searchQuery: string;
-  selectedYear: string;
+  selectedType: string;
+  sortBy: string;
   currentPage: number;
-  itemsPerPage: number;
+  itemsPerPage: number | 10;
   totalItems: number;
 }
 
-export const useJournalOfficielStore = defineStore("journalOfficiel", {
-  state: (): JournalOfficielState => ({
+export const useDocumentsStore = defineStore("documents", {
+  state: (): PublicDocumentsState => ({
     searchQuery: "",
-    selectedYear: "all",
+    selectedType: "all",
+    sortBy: "-publish_date",
     currentPage: 1,
     itemsPerPage: 10,
     totalItems: 0,
@@ -20,14 +22,21 @@ export const useJournalOfficielStore = defineStore("journalOfficiel", {
   getters: {
     totalPages: (state): number =>
       Math.ceil(state.totalItems / state.itemsPerPage),
+    hasActiveFilters: (state): boolean =>
+      state.searchQuery !== "" ||
+      state.selectedType !== "all" ||
+      state.sortBy !== "-publish_date",
   },
 
   actions: {
     setSearchQuery(query: string) {
       this.searchQuery = query;
     },
-    setSelectedYear(year: string) {
-      this.selectedYear = year;
+    setSelectedType(type: string) {
+      this.selectedType = type;
+    },
+    setSortBy(sort: string) {
+      this.sortBy = sort;
     },
     setCurrentPage(page: number) {
       this.currentPage = page;
@@ -37,7 +46,8 @@ export const useJournalOfficielStore = defineStore("journalOfficiel", {
     },
     resetFilters() {
       this.searchQuery = "";
-      this.selectedYear = "all";
+      this.selectedType = "all";
+      this.sortBy = "-publish_date";
       this.currentPage = 1;
     },
   },
