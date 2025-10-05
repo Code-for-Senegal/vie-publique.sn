@@ -55,20 +55,20 @@ Actuellement **3 patterns différents** coexistent :
 └──────────────┬──────────────┘
                │
 ┌──────────────▼──────────────┐
-│  Composables + Stores       │  ← Appelle server routes (business logic)
-│  - useNews()                │     via useFetch/useAsyncData
-│  - useJournalOfficiel()     │  ← Gestion état + cache client
+│  Composables + Stores       │  ← Appelle server routes (business logic) via useFetch/useAsyncData
+│  - useNews()                │  ← stockage des paramètres recherche/filtres/pagination dans le store PINIA
+│  - useDocuments()           │  ← Gestion état + cache client
 └──────────────┬──────────────┘
                │
 ┌──────────────▼──────────────┐
-│   Server Routes             │  ← Communication Directus (API gateway)
-│   /server/api/directus/*    │  ← URLs/tokens cachés côté serveur
+│   Server Routes             │  ← Communication CMS ou API gateway, via SDK
+│   /server/api/cms/*         │  ← URLs/tokens cachés côté serveur
 │  - Cache HTTP               │  ← Point unique de modification
-│  - Validation               │
+│  - Validation et transfo    │
 └─────────────────────────────┘
                │
 ┌──────────────▼──────────────┐
-│      Directus CMS           │
+│             CMS             │
 └─────────────────────────────┘
 ```
 
