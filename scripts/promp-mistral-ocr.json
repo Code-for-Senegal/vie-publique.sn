@@ -1,9 +1,0 @@
-{
-  "model": "mistral-small-latest",
-  "messages": [
-    {
-      "role": "user",
-      "content": "Analyse le document PDF du Journal Officiel de la République du Sénégal disponible à cette URL: https://cms.vie-publique.sn/assets/{{ $json.data[0].file }}.\n\nExtrait les informations suivantes et retourne-les dans un format JSON structuré uniquement, sans explication supplémentaire:\n\n1. Le numéro du Journal Officiel (format: numéro)\n2. La date de publication (format: YYYY-MM-DD)\n3. Le statut du journal (spécial ou ordinaire)\n4. Le sommaire complet avec les actes réglementaires (arrêtés, décrets, lois) structurés par ministère/catégorie\n5. Les tags pertinents pour la recherche (numéro JO, année, types d'actes, numéros d'actes, ministères concernés)\n\nGénère la sortie exactement selon cette structure:\n\n```json\n{\n  \"title\": \"Journal Officiel n°[numéro] du [date au format YYYY-MM-DD]\",\n  \"publish_date\": \"[date au format YYYY-MM-DD]\",\n  \"description\": \"[résumé concis des principaux actes réglementaires]\",\n  \"tags\": [\"JO-[numéro]\", \"ANNÉE-[année]\", \"NUMÉRO-[ORDINAIRE/SPÉCIAL]\", \"[ARRÊTÉ/DÉCRET/LOI]-[numéro]\", \"MINISTÈRE-[nom_ministère]\"],\n  \"content_html\": \"<h1>Sommaire du Journal Officiel</h1><h2>PARTIE OFFICIELLE</h2>...[sommaire formaté en HTML]...\"\n}\n```\n\nAssure-toi que:\n- Le champ \"title\" soit au format \"Journal Officiel n°[numéro] du [date]\"\n- Le champ \"publish_date\" soit au format \"YYYY-MM-DD\"\n- Le champ \"description\" résume les principales lois/décrets/arrêtés\n- Le champ \"tags\" contienne une liste de tags pour faciliter la recherche\n- Le champ \"content_html\" contienne le sommaire formaté en HTML pour affichage dans un CMS\n\nGénère uniquement le JSON demandé, sans autre texte ni explication."
-    }
-  ]
-}
