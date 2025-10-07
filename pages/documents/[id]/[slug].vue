@@ -1,14 +1,32 @@
 <script setup lang="ts">
 const route = useRoute();
 const router = useRouter();
-const { document, documentLoading, documentError, fetchDocumentById } =
-  useDocuments();
+const collection = useCollection();
 
-onMounted(async () => {
+const {
+  data: documentData,
+  pending: documentLoading,
+  error: documentError,
+} = useAsyncData(`document-${route.params.id}`, async () => {
   if (route.params.id) {
-    await fetchDocumentById(route.params.id as string);
+    const document = await collection.fetchDocumentById(
+      route.params.id as string,
+    );
+    return { document };
   }
+  return { document: null };
 });
+
+const document = computed(() => documentData.value?.document || null);
+
+watch(
+  () => route.params.id,
+  async (newId) => {
+    if (newId) {
+      await refreshNuxtData(`document-${newId}`);
+    }
+  },
+);
 
 // Configuration SEO dynamique
 watchEffect(() => {
@@ -31,8 +49,32 @@ watchEffect(() => {
           property: "og:description",
           content: document.value.description || document.value.title,
         },
+        {
+          property: "og:image",
+          content:
+            document.value.cover_image ||
+            "https://vie-publique.sn/images/vpsn-share-jors.png",
+        },
+        { property: "og:type", content: "article" },
+        {
+          property: "og:url",
+          content: `https://vie-publique.sn/documents/${document.value.id}/${document.value.slug}`,
+        },
       ],
     });
+
+    // Données structurées pour le document
+    useSchemaOrg([
+      {
+        "@type": "Document",
+        name: document.value.title,
+        description: document.value.description || document.value.title,
+        datePublished: document.value.publish_date,
+        ...(document.value.cover_image && {
+          image: document.value.cover_image,
+        }),
+      },
+    ]);
   }
 });
 

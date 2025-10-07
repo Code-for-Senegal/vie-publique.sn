@@ -1,7 +1,8 @@
 <script setup lang="ts">
 const route = useRoute();
 const router = useRouter();
-const store = useDocumentsStore();
+const store = useCollectionStore();
+const collection = useCollection();
 
 useSeoMeta({
   title: "Documents Stratégies Sénégal",
@@ -11,6 +12,32 @@ useSeoMeta({
   ogUrl: "https://vie-publique.sn/documents/strategies",
   twitterCard: "summary_large_image",
 });
+
+const {
+  data: documentsData,
+  pending: loading,
+  error,
+  refresh,
+} = useAsyncData(
+  "documents-strategies",
+  async () => {
+    const response = await collection.fetchDocuments({
+      type: "strategy",
+      page: store.currentPage,
+      limit: store.itemsPerPage,
+      search: store.searchQuery,
+      sortBy: store.sortBy,
+    });
+    return response;
+  },
+  {
+    watch: [
+      () => store.currentPage,
+      () => store.searchQuery,
+      () => store.sortBy,
+    ],
+  },
+);
 
 // Lire les query params au montage seulement
 onMounted(() => {
@@ -25,18 +52,11 @@ onMounted(() => {
 });
 
 // Utiliser le composable avec le type "strategy"
-const { documents, loading, error, pagination } = useDocuments({
-  type: "strategy",
-  page: computed(() => store.currentPage),
-  limit: computed(() => store.itemsPerPage),
-  search: computed(() => store.searchQuery),
-  sortBy: computed(() => store.sortBy),
-});
 
 // Watcher pour mettre à jour le store avec les données de pagination
 watchEffect(() => {
-  if (pagination.value) {
-    store.setTotalItems(pagination.value.total);
+  if (documentsData.value) {
+    store.setTotalItems(documentsData.value.pagination.total);
   }
 });
 
@@ -54,7 +74,10 @@ const updateURL = useDebounceFn(() => {
 // Watchers pour la synchronisation URL
 watch(
   [() => store.currentPage, () => store.searchQuery, () => store.sortBy],
-  updateURL,
+  () => {
+    refresh();
+    updateURL();
+  },
   { deep: true },
 );
 
@@ -73,6 +96,8 @@ const currentPage = computed({
     store.setCurrentPage(value);
   },
 });
+
+const documents = computed(() => documentsData.value?.documents || []);
 
 const perPageOptions = [
   { label: "10", value: 10 },

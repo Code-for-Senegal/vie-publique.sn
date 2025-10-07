@@ -8,6 +8,9 @@ export interface Document {
   description?: string;
   audit_institution?: string;
   cover_image?: string;
+  jo_number?: string;
+  jo_type?: string;
+  content_html?: string;
   file?: {
     id: string;
     type: string;

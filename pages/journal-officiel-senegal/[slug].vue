@@ -1,20 +1,47 @@
 <script setup lang="ts">
-const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
-
+const { siteName, siteUrl, defaultImage, keywords, themeColor } =
+  useSiteMetadata();
 const route = useRoute();
-const config = useRuntimeConfig();
-const { journal, loading, error, fetchJournalBySlug } = useJournalOfficial();
+const collection = useCollection();
+
+// Utilisation de useAsyncData pour le SSR
+const {
+  data: journalData,
+  pending: loading,
+  error,
+} = useAsyncData(`journal-officiel-${route.params.slug}`, async () => {
+  if (route.params.slug) {
+    // Pour récupérer par slug, on peut d'abord chercher dans la liste
+    const documents = await collection.fetchDocuments({
+      type: "official_journal",
+      search: route.params.slug as string,
+      limit: 1,
+    });
+
+    if (documents.documents.length > 0) {
+      const document = documents.documents[0];
+      return { document };
+    }
+  }
+  return { document: null };
+});
+
+// Computed pour le journal
+const journal = computed(() => journalData.value?.document || null);
 
 const links = [{ label: "Journaux", to: "/journal-officiel-senegal" }];
 
 const title = computed(() => {
   if (!journal.value) return "Chargement...";
-  return `${journal.value.document.title} | Journal Officiel Sénégal`;
+  return `${journal.value.title} | Journal Officiel Sénégal`;
 });
 
 const description = computed(() => {
   if (!journal.value) return "";
-  return journal.value.document.description || `Numéro du Journal Officiel de la République du Sénégal - ${journal.value.document.title}`;
+  return (
+    journal.value.description ||
+    `Numéro du Journal Officiel de la République du Sénégal - ${journal.value.title}`
+  );
 });
 
 const url = computed(() => {
@@ -27,125 +54,130 @@ const image = computed(() => {
 });
 
 const pdfUrl = computed(() => {
-  if (!journal.value?.document.file) return "";
-  return useCmsFile(journal.value.document.file);
+  if (!journal.value?.file) return "";
+  return useCmsFile(journal.value.file.id);
 });
 
 const publicationIssueSchema = computed(() => {
   if (!journal.value) return null;
-  
+
   return {
     "@context": "https://schema.org",
     "@type": "PublicationIssue",
-    "name": journal.value.document.title,
-    "description": description.value,
-    "url": url.value,
-    "datePublished": journal.value.document.publish_date || journal.value.document.date_created,
-    "issueNumber": journal.value.document.jo_number || undefined,
-    "pageStart": "1",
-    "inLanguage": "fr-SN",
-    "isPartOf": {
+    name: journal.value.title,
+    description: description.value,
+    url: url.value,
+    datePublished: journal.value.publish_date || journal.value.date_created,
+    issueNumber: journal.value.jo_number || undefined,
+    pageStart: "1",
+    inLanguage: "fr-SN",
+    isPartOf: {
       "@type": "Periodical",
-      "name": "Journal Officiel de la République du Sénégal",
-      "issn": "0851-8025",
-      "publisher": {
+      name: "Journal Officiel de la République du Sénégal",
+      issn: "0851-8025",
+      publisher: {
         "@type": "GovernmentOrganization",
-        "name": "République du Sénégal",
+        name: "République du Sénégal",
       },
     },
-    "publisher": {
+    publisher: {
       "@type": "GovernmentOrganization",
-      "name": "République du Sénégal",
+      name: "République du Sénégal",
     },
-    "author": {
+    author: {
       "@type": "GovernmentOrganization",
-      "name": "République du Sénégal",
+      name: "République du Sénégal",
     },
-    "genre": "Official publication",
-    "keywords": ["Journal Officiel", "JORS", "République du Sénégal", "textes officiels"],
+    genre: "Official publication",
+    keywords: [
+      "Journal Officiel",
+      "JORS",
+      "République du Sénégal",
+      "textes officiels",
+    ],
   };
 });
 
 const breadcrumbSchema = computed(() => ({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  "itemListElement": [
+  itemListElement: [
     {
       "@type": "ListItem",
-      "position": 1,
-      "name": "Accueil",
-      "item": siteUrl,
+      position: 1,
+      name: "Accueil",
+      item: siteUrl,
     },
     {
       "@type": "ListItem",
-      "position": 2,
-      "name": "Documents",
-      "item": `${siteUrl}/documents`,
+      position: 2,
+      name: "Documents",
+      item: `${siteUrl}/documents`,
     },
     {
       "@type": "ListItem",
-      "position": 3,
-      "name": "Journal Officiel",
-      "item": `${siteUrl}/documents/journal-officiel`,
+      position: 3,
+      name: "Journal Officiel",
+      item: `${siteUrl}/documents/journal-officiel`,
     },
     {
       "@type": "ListItem",
-      "position": 4,
-      "name": journal.value?.document.title || "Numéro",
-      "item": url.value,
+      position: 4,
+      name: journal.value?.title || "Numéro",
+      item: url.value,
     },
   ],
 }));
 
 const digitalDocumentSchema = computed(() => {
-  if (!journal.value?.document.file) return null;
-  
+  if (!journal.value?.file) return null;
+
   return {
     "@context": "https://schema.org",
     "@type": "DigitalDocument",
-    "name": journal.value.document.title,
-    "description": description.value,
-    "url": pdfUrl.value,
-    "encodingFormat": "application/pdf",
-    "datePublished": journal.value.document.publish_date || journal.value.document.date_created,
-    "inLanguage": "fr-SN",
-    "isAccessibleForFree": true,
-    "creator": {
+    name: journal.value.title,
+    description: description.value,
+    url: pdfUrl.value,
+    encodingFormat: "application/pdf",
+    datePublished: journal.value.publish_date || journal.value.date_created,
+    inLanguage: "fr-SN",
+    isAccessibleForFree: true,
+    creator: {
       "@type": "GovernmentOrganization",
-      "name": "République du Sénégal",
+      name: "République du Sénégal",
     },
-    "publisher": {
+    publisher: {
       "@type": "GovernmentOrganization",
-      "name": "République du Sénégal",
+      name: "République du Sénégal",
     },
-    "genre": "Legal document",
-    "audience": {
+    genre: "Legal document",
+    audience: {
       "@type": "Audience",
-      "audienceType": "General public",
+      audienceType: "General public",
     },
   };
 });
 
 const webPageSchema = computed(() => {
   if (!journal.value) return null;
-  
+
   return {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": title.value,
-    "description": description.value,
-    "url": url.value,
-    "image": image.value,
-    "isPartOf": {
+    name: title.value,
+    description: description.value,
+    url: url.value,
+    image: image.value,
+    isPartOf: {
       "@type": "WebSite",
-      "name": siteName,
-      "url": siteUrl,
+      name: siteName,
+      url: siteUrl,
     },
-    "about": {
+    about: {
       "@type": "GovernmentOrganization",
-      "name": "République du Sénégal",
+      name: "République du Sénégal",
     },
-    "mainEntity": publicationIssueSchema.value,
+    mainEntity: publicationIssueSchema.value,
   };
 });
 
@@ -168,11 +200,13 @@ watchEffect(() => {
         ...keywords,
         "Journal Officiel Sénégal",
         "JORS",
-        journal.value.document.title,
-        journal.value.document.jo_number ? `numéro ${journal.value.document.jo_number}` : "",
+        journal.value.title,
+        journal.value.jo_number ? `numéro ${journal.value.jo_number}` : "",
         "textes officiels",
         "République du Sénégal",
-      ].filter(Boolean).join(", "),
+      ]
+        .filter(Boolean)
+        .join(", "),
     });
 
     // Head Configuration
@@ -180,18 +214,23 @@ watchEffect(() => {
       htmlAttrs: { lang: "fr-SN" },
       link: [
         { rel: "canonical", href: url.value },
-        journal.value.document.file ? {
-          rel: "alternate",
-          type: "application/pdf",
-          href: pdfUrl.value,
-        } : null,
+        journal.value.file
+          ? {
+              rel: "alternate",
+              type: "application/pdf",
+              href: pdfUrl.value,
+            }
+          : null,
       ].filter(Boolean),
       meta: [
         { name: "theme-color", content: themeColor },
         { name: "author", content: "République du Sénégal" },
         { property: "og:type", content: "article" },
         { property: "og:site_name", content: siteName },
-        { property: "article:published_time", content: journal.value.document.publish_date || journal.value.document.date_created },
+        {
+          property: "article:published_time",
+          content: journal.value.publish_date || journal.value.date_created,
+        },
         { property: "article:author", content: "République du Sénégal" },
         { property: "article:section", content: "Journal Officiel" },
         { name: "robots", content: "index, follow" },
@@ -206,32 +245,42 @@ watchEffect(() => {
         { name: "DC.subject", content: "Journal Officiel, Législation" },
       ],
       script: [
-        publicationIssueSchema.value ? {
-          type: "application/ld+json",
-          children: JSON.stringify(publicationIssueSchema.value),
-        } : null,
+        publicationIssueSchema.value
+          ? {
+              type: "application/ld+json",
+              children: JSON.stringify(publicationIssueSchema.value),
+            }
+          : null,
         {
           type: "application/ld+json",
           children: JSON.stringify(breadcrumbSchema.value),
         },
-        digitalDocumentSchema.value ? {
-          type: "application/ld+json",
-          children: JSON.stringify(digitalDocumentSchema.value),
-        } : null,
-        webPageSchema.value ? {
-          type: "application/ld+json",
-          children: JSON.stringify(webPageSchema.value),
-        } : null,
+        digitalDocumentSchema.value
+          ? {
+              type: "application/ld+json",
+              children: JSON.stringify(digitalDocumentSchema.value),
+            }
+          : null,
+        webPageSchema.value
+          ? {
+              type: "application/ld+json",
+              children: JSON.stringify(webPageSchema.value),
+            }
+          : null,
       ].filter(Boolean),
     });
   }
 });
 
-onMounted(async () => {
-  if (route.params.slug) {
-    await fetchJournalBySlug(route.params.slug as string);
-  }
-});
+// Recharger les données si le slug change
+watch(
+  () => route.params.slug,
+  async (newSlug) => {
+    if (newSlug) {
+      await refreshNuxtData(`journal-officiel-${newSlug}`);
+    }
+  },
+);
 
 // Fonction pour obtenir l'URL de l'asset via le nouveau proxy
 const getAssetUrl = (assetId: string) => {
@@ -263,51 +312,79 @@ const formatDateISO = (date: string) => {
     />
 
     <!-- Contenu -->
-    <article 
-      v-else-if="journal" 
+    <article
+      v-else-if="journal"
       class="prose prose-sm sm:prose mx-auto"
-      itemscope 
+      itemscope
       itemtype="https://schema.org/PublicationIssue"
       itemprop="mainEntity"
     >
       <!-- Schema.org hidden metadata -->
-      <meta itemprop="url" :content="url">
-      <meta itemprop="datePublished" :content="formatDateISO(journal.document.publish_date || journal.document.date_created)">
-      <meta itemprop="issueNumber" :content="journal.document.jo_number || ''">
-      <meta itemprop="inLanguage" content="fr-SN">
-      <meta itemprop="genre" content="Official publication">
-      
+      <meta itemprop="url" :content="url" />
+      <meta
+        itemprop="datePublished"
+        :content="formatDateISO(journal.publish_date || journal.date_created)"
+      />
+      <meta itemprop="issueNumber" :content="journal.jo_number || ''" />
+      <meta itemprop="inLanguage" content="fr-SN" />
+      <meta itemprop="genre" content="Official publication" />
+
       <!-- Publisher info -->
-      <div itemprop="publisher" itemscope itemtype="https://schema.org/GovernmentOrganization">
-        <meta itemprop="name" content="République du Sénégal">
+      <div
+        itemprop="publisher"
+        itemscope
+        itemtype="https://schema.org/GovernmentOrganization"
+      >
+        <meta itemprop="name" content="République du Sénégal" />
       </div>
-      
+
       <!-- Author info -->
-      <div itemprop="author" itemscope itemtype="https://schema.org/GovernmentOrganization">
-        <meta itemprop="name" content="République du Sénégal">
+      <div
+        itemprop="author"
+        itemscope
+        itemtype="https://schema.org/GovernmentOrganization"
+      >
+        <meta itemprop="name" content="République du Sénégal" />
       </div>
 
       <!-- Part of periodical -->
-      <div itemprop="isPartOf" itemscope itemtype="https://schema.org/Periodical">
-        <meta itemprop="name" content="Journal Officiel de la République du Sénégal">
-        <meta itemprop="issn" content="0851-8025">
-        
-        <div itemprop="publisher" itemscope itemtype="https://schema.org/GovernmentOrganization">
-          <meta itemprop="name" content="République du Sénégal">
+      <div
+        itemprop="isPartOf"
+        itemscope
+        itemtype="https://schema.org/Periodical"
+      >
+        <meta
+          itemprop="name"
+          content="Journal Officiel de la République du Sénégal"
+        />
+        <meta itemprop="issn" content="0851-8025" />
+
+        <div
+          itemprop="publisher"
+          itemscope
+          itemtype="https://schema.org/GovernmentOrganization"
+        >
+          <meta itemprop="name" content="République du Sénégal" />
         </div>
       </div>
 
-      <h1 class="dark:text-white" itemprop="headline">{{ journal.document.title }}</h1>
+      <h1 class="dark:text-white" itemprop="headline">
+        {{ journal.title }}
+      </h1>
 
       <!-- PDF Download link -->
-      <div v-if="journal.document.file" class="my-4">
-        <div itemprop="encoding" itemscope itemtype="https://schema.org/DigitalDocument">
-          <meta itemprop="encodingFormat" content="application/pdf">
-          <meta itemprop="url" :content="getAssetUrl(journal.document.file)">
-          <meta itemprop="isAccessibleForFree" content="true">
-          
+      <div v-if="journal.file" class="my-4">
+        <div
+          itemprop="encoding"
+          itemscope
+          itemtype="https://schema.org/DigitalDocument"
+        >
+          <meta itemprop="encodingFormat" content="application/pdf" />
+          <meta itemprop="url" :content="getAssetUrl(journal.file.id)" />
+          <meta itemprop="isAccessibleForFree" content="true" />
+
           <a
-            :href="getAssetUrl(journal.document.file)"
+            :href="getAssetUrl(journal.file.id)"
             target="_blank"
             class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800"
             itemprop="url"
@@ -318,16 +395,20 @@ const formatDateISO = (date: string) => {
       </div>
 
       <!-- Description -->
-      <div v-if="journal.document.description" itemprop="description" class="text-gray-600 italic mb-4">
-        {{ journal.document.description }}
+      <div
+        v-if="journal.description"
+        itemprop="description"
+        class="mb-4 italic text-gray-600"
+      >
+        {{ journal.description }}
       </div>
 
       <!-- Contenu HTML -->
-      <div itemprop="text" v-html="journal.document.content_html"></div>
+      <div itemprop="text" v-html="journal.content_html"></div>
 
       <ClientOnly placeholder="Chargement en cours">
         <embed
-          :src="getAssetUrl(journal.document.file)"
+          :src="getAssetUrl(journal.file.id)"
           type="application/pdf"
           width="100%"
           height="700px"
@@ -335,7 +416,10 @@ const formatDateISO = (date: string) => {
       </ClientOnly>
 
       <!-- Keywords -->
-      <meta itemprop="keywords" content="Journal Officiel, JORS, République du Sénégal, textes officiels">
+      <meta
+        itemprop="keywords"
+        content="Journal Officiel, JORS, République du Sénégal, textes officiels"
+      />
     </article>
 
     <!-- Not found state -->

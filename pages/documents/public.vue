@@ -1,8 +1,37 @@
-<!-- public.vue -->
 <script setup lang="ts">
 const route = useRoute();
 const router = useRouter();
-const store = useDocumentsStore();
+const store = useCollectionStore();
+const collection = useCollection();
+
+// Utilisation de useAsyncData pour le SSR
+const {
+  data: documentsData,
+  pending: loading,
+  error,
+  refresh,
+} = useAsyncData(
+  "documents-public",
+  async () => {
+    const response = await collection.fetchDocuments({
+      page: store.currentPage,
+      limit: store.itemsPerPage,
+      search: store.searchQuery,
+      sortBy: store.sortBy,
+      filterType:
+        store.selectedFilter !== "all" ? store.selectedFilter : undefined,
+    });
+    return response;
+  },
+  {
+    watch: [
+      () => store.currentPage,
+      () => store.searchQuery,
+      () => store.selectedFilter,
+      () => store.sortBy,
+    ],
+  },
+);
 
 // Lire les query params au montage seulement
 onMounted(() => {
@@ -13,19 +42,8 @@ onMounted(() => {
     if (!isNaN(page)) store.currentPage = page;
   }
   if (query.q) store.searchQuery = query.q as string;
-  if (query.type) store.selectedType = query.type as string;
+  if (query.type) store.selectedFilter = query.type as string;
   if (query.sort) store.sortBy = query.sort as string;
-});
-
-// Utiliser le composable
-const { documents, loading, error, pagination } = useDocuments({
-  page: computed(() => store.currentPage),
-  limit: computed(() => store.itemsPerPage),
-  search: computed(() => store.searchQuery),
-  filterType: computed(() =>
-    store.selectedType !== "all" ? store.selectedType : undefined,
-  ),
-  sortBy: computed(() => store.sortBy),
 });
 
 // SEO optimisé pour "documents publics"
@@ -115,8 +133,8 @@ useSchemaOrg([
 
 // Watcher pour mettre à jour le store avec les données de pagination
 watchEffect(() => {
-  if (pagination.value) {
-    store.setTotalItems(pagination.value.total);
+  if (documentsData.value) {
+    store.setTotalItems(documentsData.value.pagination.total);
   }
 });
 
@@ -126,7 +144,7 @@ const updateURL = useDebounceFn(() => {
 
   if (store.currentPage > 1) query.page = store.currentPage.toString();
   if (store.searchQuery) query.q = store.searchQuery;
-  if (store.selectedType !== "all") query.type = store.selectedType;
+  if (store.selectedFilter !== "all") query.type = store.selectedFilter;
   if (store.sortBy !== "-publish_date") query.sort = store.sortBy;
 
   router.replace({ query });
@@ -137,10 +155,13 @@ watch(
   [
     () => store.currentPage,
     () => store.searchQuery,
-    () => store.selectedType,
+    () => store.selectedFilter,
     () => store.sortBy,
   ],
-  updateURL,
+  () => {
+    refresh();
+    updateURL();
+  },
   { deep: true },
 );
 
@@ -154,9 +175,9 @@ const searchQuery = computed({
 });
 
 const selectedType = computed({
-  get: () => store.selectedType,
+  get: () => store.selectedFilter,
   set: (value) => {
-    store.setSelectedType(value);
+    store.setSelectedFilter(value);
     store.setCurrentPage(1);
   },
 });
@@ -174,6 +195,9 @@ const sortBy = computed({
     store.setSortBy(value);
   },
 });
+
+// Computed pour les documents
+const documents = computed(() => documentsData.value?.documents || []);
 
 // Options de tri
 const sortOptions = [
@@ -210,8 +234,8 @@ const resultsText = computed(() => {
 
   const searchText = store.searchQuery ? ` pour "${store.searchQuery}"` : "";
   const typeText =
-    store.selectedType !== "all"
-      ? ` de type "${typeOptions.find((t) => t.value === store.selectedType)?.label}"`
+    store.selectedFilter !== "all"
+      ? ` de type "${typeOptions.find((t) => t.value === store.selectedFilter)?.label}"`
       : "";
 
   if (totalCount === 0) {

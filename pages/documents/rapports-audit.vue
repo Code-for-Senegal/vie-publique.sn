@@ -1,8 +1,35 @@
-<!-- rapports-audit.vue -->
 <script setup lang="ts">
 const route = useRoute();
 const router = useRouter();
-const store = useDocumentsStore();
+const store = useCollectionStore();
+const collection = useCollection();
+
+const {
+  data: documentsData,
+  pending: loading,
+  error,
+  refresh,
+} = useAsyncData(
+  "documents-rapports-audit",
+  async () => {
+    const response = await collection.fetchDocuments({
+      type: "audit_report",
+      page: store.currentPage,
+      limit: store.itemsPerPage,
+      search: store.searchQuery,
+      filterType:
+        store.selectedFilter !== "all" ? store.selectedFilter : undefined,
+    });
+    return response;
+  },
+  {
+    watch: [
+      () => store.currentPage,
+      () => store.searchQuery,
+      () => store.selectedFilter,
+    ],
+  },
+);
 
 // Lire les query params au montage seulement
 onMounted(() => {
@@ -13,24 +40,13 @@ onMounted(() => {
     if (!isNaN(page)) store.currentPage = page;
   }
   if (query.q) store.searchQuery = query.q as string;
-  if (query.organisme) store.selectedType = query.organisme as string;
-});
-
-// Utiliser le composable avec filterType pour audit_institution
-const { documents, loading, error, pagination } = useDocuments({
-  type: "audit_report",
-  page: computed(() => store.currentPage),
-  limit: computed(() => store.itemsPerPage),
-  search: computed(() => store.searchQuery),
-  filterType: computed(() =>
-    store.selectedType !== "all" ? store.selectedType : undefined,
-  ),
+  if (query.organisme) store.selectedFilter = query.organisme as string;
 });
 
 // Watcher pour mettre à jour le store avec les données de pagination
 watchEffect(() => {
-  if (pagination.value) {
-    store.setTotalItems(pagination.value.total);
+  if (documentsData.value) {
+    store.setTotalItems(documentsData.value.pagination.total);
   }
 });
 
@@ -40,15 +56,22 @@ const updateURL = useDebounceFn(() => {
 
   if (store.currentPage > 1) query.page = store.currentPage.toString();
   if (store.searchQuery) query.q = store.searchQuery;
-  if (store.selectedType !== "all") query.organisme = store.selectedType;
+  if (store.selectedFilter !== "all") query.organisme = store.selectedFilter;
 
   router.replace({ query });
 }, 300);
 
 // Watchers pour la synchronisation URL
 watch(
-  [() => store.currentPage, () => store.searchQuery, () => store.selectedType],
-  updateURL,
+  [
+    () => store.currentPage,
+    () => store.searchQuery,
+    () => store.selectedFilter,
+  ],
+  () => {
+    refresh();
+    updateURL();
+  },
   { deep: true },
 );
 
@@ -62,12 +85,14 @@ const searchQuery = computed({
 });
 
 const selectedOrganisme = computed({
-  get: () => store.selectedType,
+  get: () => store.selectedFilter,
   set: (value) => {
-    store.setSelectedType(value);
+    store.setSelectedFilter(value);
     store.setCurrentPage(1);
   },
 });
+
+const documents = computed(() => documentsData.value?.documents || []);
 
 // Options d'organismes
 const organismes = [
@@ -84,7 +109,7 @@ const resultsText = computed(() => {
   const totalCount = store.totalItems;
   const searchText = store.searchQuery ? ` pour "${store.searchQuery}"` : "";
   const organismeText =
-    store.selectedType !== "all" ? ` de ${store.selectedType}` : "";
+    store.selectedFilter !== "all" ? ` de ${store.selectedFilter}` : "";
 
   if (totalCount === 0) {
     return store.searchQuery

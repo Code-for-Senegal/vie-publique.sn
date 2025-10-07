@@ -1,10 +1,38 @@
 <script setup lang="ts">
 import { useDebounceFn } from "@vueuse/core";
-import { useJournalOfficielStore } from "~/stores/journalOfficiel";
 
 const route = useRoute();
 const router = useRouter();
-const store = useJournalOfficielStore();
+const store = useCollectionStore();
+const collection = useCollection();
+
+// Utilisation de useAsyncData pour le SSR
+const {
+  data: documentsData,
+  pending: loading,
+  error,
+  refresh,
+} = useAsyncData(
+  "documents-journal-officiel",
+  async () => {
+    const response = await collection.fetchDocuments({
+      type: "official_journal",
+      page: store.currentPage,
+      limit: store.itemsPerPage,
+      search: store.searchQuery,
+      filterType:
+        store.selectedFilter !== "all" ? store.selectedFilter : undefined,
+    });
+    return response;
+  },
+  {
+    watch: [
+      () => store.currentPage,
+      () => store.searchQuery,
+      () => store.selectedFilter,
+    ],
+  },
+);
 
 // Lire les query params au montage seulement
 onMounted(() => {
@@ -15,17 +43,7 @@ onMounted(() => {
     if (!isNaN(page)) store.currentPage = page;
   }
   if (query.q) store.searchQuery = query.q as string;
-  if (query.year) store.selectedYear = query.year as string;
-});
-
-const { documents, loading, error, pagination, refresh } = useDocuments({
-  type: "official_journal",
-  page: computed(() => store.currentPage),
-  limit: computed(() => store.itemsPerPage),
-  search: computed(() => store.searchQuery),
-  filterType: computed(() =>
-    store.selectedYear !== "all" ? store.selectedYear : undefined,
-  ),
+  if (query.year) store.selectedFilter = query.year as string;
 });
 
 // Mettre à jour l'URL quand les filtres changent
@@ -34,22 +52,29 @@ const updateURL = useDebounceFn(() => {
 
   if (store.currentPage > 1) query.page = store.currentPage.toString();
   if (store.searchQuery) query.q = store.searchQuery;
-  if (store.selectedYear !== "all") query.year = store.selectedYear;
+  if (store.selectedFilter !== "all") query.year = store.selectedFilter;
 
   router.replace({ query });
 }, 300);
 
 // Watchers pour la synchronisation URL
 watch(
-  [() => store.currentPage, () => store.searchQuery, () => store.selectedYear],
-  updateURL,
+  [
+    () => store.currentPage,
+    () => store.searchQuery,
+    () => store.selectedFilter,
+  ],
+  () => {
+    refresh();
+    updateURL();
+  },
   { deep: true },
 );
 
 // Watcher pour mettre à jour le store avec les données de pagination
 watchEffect(() => {
-  if (pagination.value) {
-    store.setTotalItems(pagination.value.total);
+  if (documentsData.value) {
+    store.setTotalItems(documentsData.value.pagination.total);
   }
 });
 
@@ -63,9 +88,9 @@ const searchQuery = computed({
 });
 
 const selectedYear = computed({
-  get: () => store.selectedYear,
+  get: () => store.selectedFilter,
   set: (value) => {
-    store.setSelectedYear(value);
+    store.setSelectedFilter(value);
     store.setCurrentPage(1);
   },
 });
@@ -76,6 +101,9 @@ const currentPage = computed({
     store.setCurrentPage(value);
   },
 });
+
+// Computed pour les documents
+const documents = computed(() => documentsData.value?.documents || []);
 
 // Options pour le sélecteur d'années
 const yearOptions = [
@@ -110,9 +138,7 @@ const resultsText = computed(() => {
     totalCount,
   );
 
-  // Construction des suffixes conditionnels
-  const yearText =
-    selectedYear.value !== "all" ? ` en ${selectedYear.value}` : "";
+  const yearText = store.selectedFilter !== "all" ? `` : "";
   const searchText = store.searchQuery ? ` pour "${store.searchQuery}"` : "";
 
   if (totalCount === 0) {

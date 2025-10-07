@@ -1,39 +1,39 @@
 import { defineStore } from "pinia";
 
-interface PublicDocumentsState {
+interface CollectionState {
   searchQuery: string;
-  selectedType: string;
+  selectedFilter: string;
   sortBy: string;
   currentPage: number;
-  itemsPerPage: number | 10;
+  itemsPerPage: number;
   totalItems: number;
+  currentCollection?: string;
 }
 
-export const useDocumentsStore = defineStore("documents", {
-  state: (): PublicDocumentsState => ({
+export const useCollectionStore = defineStore("collection", {
+  state: (): CollectionState => ({
     searchQuery: "",
-    selectedType: "all",
-    sortBy: "-publish_date",
+    selectedFilter: "all",
+    sortBy: "-publish_date", // ou '-date_created' selon le contexte
     currentPage: 1,
     itemsPerPage: 10,
     totalItems: 0,
+    currentCollection: undefined,
   }),
 
   getters: {
     totalPages: (state): number =>
       Math.ceil(state.totalItems / state.itemsPerPage),
     hasActiveFilters: (state): boolean =>
-      state.searchQuery !== "" ||
-      state.selectedType !== "all" ||
-      state.sortBy !== "-publish_date",
+      state.searchQuery !== "" || state.selectedFilter !== "all",
   },
 
   actions: {
     setSearchQuery(query: string) {
       this.searchQuery = query;
     },
-    setSelectedType(type: string) {
-      this.selectedType = type;
+    setSelectedFilter(filter: string) {
+      this.selectedFilter = filter;
     },
     setSortBy(sort: string) {
       this.sortBy = sort;
@@ -44,10 +44,12 @@ export const useDocumentsStore = defineStore("documents", {
     setTotalItems(total: number) {
       this.totalItems = total;
     },
+    setCurrentCollection(collection: string) {
+      this.currentCollection = collection;
+    },
     resetFilters() {
       this.searchQuery = "";
-      this.selectedType = "all";
-      this.sortBy = "-publish_date";
+      this.selectedFilter = "all";
       this.currentPage = 1;
     },
   },

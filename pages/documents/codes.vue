@@ -1,8 +1,34 @@
-<!-- codes.vue -->
 <script setup lang="ts">
 const route = useRoute();
 const router = useRouter();
-const store = useDocumentsStore();
+const store = useCollectionStore();
+const collection = useCollection();
+
+// Utilisation de useAsyncData pour le SSR
+const {
+  data: documentsData,
+  pending: loading,
+  error,
+} = useAsyncData(
+  "documents-codes",
+  async () => {
+    const response = await collection.fetchDocuments({
+      type: "code",
+      page: store.currentPage,
+      limit: store.itemsPerPage,
+      search: store.searchQuery,
+      sortBy: store.sortBy,
+    });
+    return response;
+  },
+  {
+    watch: [
+      () => store.currentPage,
+      () => store.searchQuery,
+      () => store.sortBy,
+    ],
+  },
+);
 
 // Lire les query params au montage seulement
 onMounted(() => {
@@ -16,22 +42,10 @@ onMounted(() => {
   if (query.sort) store.sortBy = query.sort as string;
 });
 
-// Forcer le type "code" et désactiver le filtre de type
-const forcedType = "code";
-
-// Utiliser le composable avec le type forcé
-const { documents, loading, error, pagination } = useDocuments({
-  type: forcedType,
-  page: computed(() => store.currentPage),
-  limit: computed(() => store.itemsPerPage),
-  search: computed(() => store.searchQuery),
-  sortBy: computed(() => store.sortBy),
-});
-
 // Watcher pour mettre à jour le store avec les données de pagination
 watchEffect(() => {
-  if (pagination.value) {
-    store.setTotalItems(pagination.value.total);
+  if (documentsData.value) {
+    store.setTotalItems(documentsData.value.pagination.total);
   }
 });
 
@@ -68,6 +82,8 @@ const currentPage = computed({
     store.setCurrentPage(value);
   },
 });
+
+const documents = computed(() => documentsData.value?.documents || []);
 
 const perPageOptions = [
   { label: "10", value: 10 },

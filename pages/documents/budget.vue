@@ -1,7 +1,8 @@
 <script setup lang="ts">
 const route = useRoute();
 const router = useRouter();
-const store = useDocumentsStore();
+const store = useCollectionStore();
+const collection = useCollection();
 
 useSeoMeta({
   title: "Documents Budgétaire sur le Sénégal",
@@ -12,6 +13,32 @@ useSeoMeta({
   twitterCard: "summary_large_image",
 });
 
+const {
+  data: documentsData,
+  pending: loading,
+  error,
+  refresh,
+} = useAsyncData(
+  "documents-budget",
+  async () => {
+    const response = await collection.fetchDocuments({
+      type: "budget",
+      page: store.currentPage,
+      limit: store.itemsPerPage,
+      search: store.searchQuery,
+      sortBy: store.sortBy,
+    });
+    return response;
+  },
+  {
+    watch: [
+      () => store.currentPage,
+      () => store.searchQuery,
+      () => store.sortBy,
+    ],
+  },
+);
+
 // Lire les query params au montage seulement
 onMounted(() => {
   const query = route.query;
@@ -21,20 +48,13 @@ onMounted(() => {
     if (!isNaN(page)) store.currentPage = page;
   }
   if (query.q) store.searchQuery = query.q as string;
-});
-
-// Utiliser le composable avec le type "budget"
-const { documents, loading, error, pagination } = useDocuments({
-  type: "budget",
-  page: computed(() => store.currentPage),
-  limit: computed(() => store.itemsPerPage),
-  search: computed(() => store.searchQuery),
+  if (query.sort) store.sortBy = query.sort as string;
 });
 
 // Watcher pour mettre à jour le store avec les données de pagination
 watchEffect(() => {
-  if (pagination.value) {
-    store.setTotalItems(pagination.value.total);
+  if (documentsData.value) {
+    store.setTotalItems(documentsData.value.pagination.total);
   }
 });
 
@@ -52,7 +72,10 @@ const updateURL = useDebounceFn(() => {
 // Watchers pour la synchronisation URL
 watch(
   [() => store.currentPage, () => store.searchQuery, () => store.sortBy],
-  updateURL,
+  () => {
+    refresh();
+    updateURL();
+  },
   { deep: true },
 );
 
@@ -71,6 +94,9 @@ const currentPage = computed({
     store.setCurrentPage(value);
   },
 });
+
+// Computed pour les documents
+const documents = computed(() => documentsData.value?.documents || []);
 
 const perPageOptions = [
   { label: "10", value: 10 },
