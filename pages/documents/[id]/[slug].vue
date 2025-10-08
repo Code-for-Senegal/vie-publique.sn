@@ -1,23 +1,16 @@
 <script setup lang="ts">
 const route = useRoute();
 const router = useRouter();
-const collection = useCollection();
+
+const documentId = computed(() => route.params.id as string);
 
 const {
-  data: documentData,
-  pending: documentLoading,
+  document,
+  loading: documentLoading,
   error: documentError,
-} = useAsyncData(`document-${route.params.id}`, async () => {
-  if (route.params.id) {
-    const document = await collection.fetchDocumentById(
-      route.params.id as string,
-    );
-    return { document };
-  }
-  return { document: null };
+} = useDocuments({
+  id: documentId.value,
 });
-
-const document = computed(() => documentData.value?.document || null);
 
 watch(
   () => route.params.id,

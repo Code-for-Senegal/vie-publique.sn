@@ -1,109 +1,54 @@
 <script setup lang="ts">
-import { useDebounceFn } from "@vueuse/core";
-
-const route = useRoute();
-const router = useRouter();
-const store = useCollectionStore();
-const collection = useCollection();
-
-// Utilisation de useAsyncData pour le SSR
 const {
-  data: documentsData,
-  pending: loading,
+  documents,
+  loading,
   error,
-  refresh,
-} = useAsyncData(
-  "documents-journal-officiel",
-  async () => {
-    const response = await collection.fetchDocuments({
-      type: "official_journal",
-      page: store.currentPage,
-      limit: store.itemsPerPage,
-      search: store.searchQuery,
-      filterType:
-        store.selectedFilter !== "all" ? store.selectedFilter : undefined,
-    });
-    return response;
-  },
-  {
-    watch: [
-      () => store.currentPage,
-      () => store.searchQuery,
-      () => store.selectedFilter,
-    ],
-  },
+  currentPage,
+  searchQuery,
+  filterType: selectedYear,
+  totalItems,
+  totalPages,
+  itemsPerPage,
+  setSearchQuery,
+  setSelectedFilter,
+  setCurrentPage,
+} = useDocuments({
+  type: "official_journal",
+  limit: 10,
+});
+
+const selectedYearUI = computed({
+  get: () => selectedYear.value,
+  set: (value) => setSelectedFilter(value),
+});
+
+// Computed pour l'UI
+const searchQueryUI = computed({
+  get: () => searchQuery.value,
+  set: (value) => setSearchQuery(value),
+});
+
+const currentPageUI = computed({
+  get: () => currentPage.value,
+  set: (value) => setCurrentPage(value),
+});
+
+const resultsText = computed(() =>
+  useResultsText({
+    totalItems,
+    currentPage,
+    itemsPerPage,
+    searchQuery,
+    filterType: selectedYear.value,
+    documentType: "official_journal",
+    customLabels: {
+      singular: "journal",
+      plural: "journaux",
+      noResults: "Aucun journal trouvé",
+      noResultsWithSearch: 'Aucun journal trouvé pour "{search}"',
+    },
+  }),
 );
-
-// Lire les query params au montage seulement
-onMounted(() => {
-  const query = route.query;
-
-  if (query.page) {
-    const page = parseInt(query.page as string);
-    if (!isNaN(page)) store.currentPage = page;
-  }
-  if (query.q) store.searchQuery = query.q as string;
-  if (query.year) store.selectedFilter = query.year as string;
-});
-
-// Mettre à jour l'URL quand les filtres changent
-const updateURL = useDebounceFn(() => {
-  const query: any = {};
-
-  if (store.currentPage > 1) query.page = store.currentPage.toString();
-  if (store.searchQuery) query.q = store.searchQuery;
-  if (store.selectedFilter !== "all") query.year = store.selectedFilter;
-
-  router.replace({ query });
-}, 300);
-
-// Watchers pour la synchronisation URL
-watch(
-  [
-    () => store.currentPage,
-    () => store.searchQuery,
-    () => store.selectedFilter,
-  ],
-  () => {
-    refresh();
-    updateURL();
-  },
-  { deep: true },
-);
-
-// Watcher pour mettre à jour le store avec les données de pagination
-watchEffect(() => {
-  if (documentsData.value) {
-    store.setTotalItems(documentsData.value.pagination.total);
-  }
-});
-
-// Utiliser les valeurs du store
-const searchQuery = computed({
-  get: () => store.searchQuery,
-  set: (value) => {
-    store.setSearchQuery(value);
-    store.setCurrentPage(1);
-  },
-});
-
-const selectedYear = computed({
-  get: () => store.selectedFilter,
-  set: (value) => {
-    store.setSelectedFilter(value);
-    store.setCurrentPage(1);
-  },
-});
-
-const currentPage = computed({
-  get: () => store.currentPage,
-  set: (value) => {
-    store.setCurrentPage(value);
-  },
-});
-
-// Computed pour les documents
-const documents = computed(() => documentsData.value?.documents || []);
 
 // Options pour le sélecteur d'années
 const yearOptions = [
@@ -128,35 +73,6 @@ const formatDate = (date: string) => {
     year: "numeric",
   });
 };
-
-// Texte pour l'affichage du nombre de résultats
-const resultsText = computed(() => {
-  const totalCount = store.totalItems;
-  const currentPageStart = (store.currentPage - 1) * store.itemsPerPage + 1;
-  const currentPageEnd = Math.min(
-    currentPageStart + store.itemsPerPage - 1,
-    totalCount,
-  );
-
-  const yearText = store.selectedFilter !== "all" ? `` : "";
-  const searchText = store.searchQuery ? ` pour "${store.searchQuery}"` : "";
-
-  if (totalCount === 0) {
-    return store.searchQuery
-      ? `Aucun résultat trouvé pour "${store.searchQuery}"`
-      : "Aucun résultat";
-  }
-
-  if (totalCount === 1) {
-    return `1 Journal trouvé${searchText}${yearText}`;
-  }
-
-  if (totalCount <= store.itemsPerPage) {
-    return `${totalCount} Journaux trouvés${searchText}${yearText}`;
-  }
-
-  return `${currentPageStart}-${currentPageEnd} sur ${totalCount} journaux${searchText}${yearText}`;
-});
 </script>
 
 <template>
@@ -182,7 +98,7 @@ const resultsText = computed(() => {
     <div class="mb-8">
       <div class="flex flex-col gap-3 sm:flex-row">
         <UInput
-          v-model="searchQuery"
+          v-model="searchQueryUI"
           size="lg"
           placeholder="Rechercher par numéro, date ou contenu..."
           icon="i-heroicons-magnifying-glass"
@@ -190,7 +106,7 @@ const resultsText = computed(() => {
         />
 
         <USelect
-          v-model="selectedYear"
+          v-model="selectedYearUI"
           :options="yearOptions"
           placeholder="Année"
           size="lg"
@@ -284,11 +200,11 @@ const resultsText = computed(() => {
       </UCard>
 
       <!-- Pagination -->
-      <div v-if="store.totalPages > 1" class="mt-8 flex justify-center">
+      <div v-if="totalPages > 1" class="mt-8 flex justify-center">
         <UPagination
-          v-model="currentPage"
-          :total="store.totalItems"
-          :page-count="store.itemsPerPage"
+          v-model="currentPageUI"
+          :total="totalItems"
+          :page-count="itemsPerPage"
           :default-page="1"
           :show-edges="true"
           :sibling-count="2"

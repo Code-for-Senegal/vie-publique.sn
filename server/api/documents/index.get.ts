@@ -1,5 +1,5 @@
 import { readItems } from "@directus/sdk";
-import { getDirectusClient } from "~/server/utils/directus";
+import { getCmsClient } from "~/server/utils/cms-client";
 import type { Document } from "~/types/document";
 
 export default defineCachedEventHandler(
@@ -16,7 +16,7 @@ export default defineCachedEventHandler(
     const type = query.type as string;
 
     try {
-      const directus = getDirectusClient();
+      const directus = getCmsClient();
 
       // Construction du filtre dynamique
       const filter: any = {

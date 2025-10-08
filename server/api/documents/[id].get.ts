@@ -1,6 +1,6 @@
 // server/api/documents/detail/[id].ts
 import { readItem } from "@directus/sdk";
-import { getDirectusClient } from "~/server/utils/directus";
+import { getCmsClient } from "~/server/utils/cms-client";
 
 interface Document {
   id: string;
@@ -33,7 +33,7 @@ export default defineCachedEventHandler(
     }
 
     try {
-      const directus = getDirectusClient();
+      const directus = getCmsClient();
 
       const documentData = await directus.request(
         readItem("documents", id, {

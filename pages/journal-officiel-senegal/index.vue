@@ -1,13 +1,84 @@
 <script setup lang="ts">
 const { siteName, siteUrl, defaultImage, keywords, themeColor } =
   useSiteMetadata();
-const collection = useCollection();
+const router = useRouter();
 
 const title = "Journal Officiel de la République du Sénégal | Vie-Publique.sn";
 const description =
   "Consultez tous les numéros du Journal Officiel de la République du Sénégal. Lois, décrets, arrêtés et textes officiels publiés au JORS.";
 const url = `${siteUrl}/documents/journal-officiel`;
 const image = `${siteUrl}/images/vpsn-share-jors-4.png`;
+
+// Utilisation du composable useDocuments
+const {
+  documents,
+  loading,
+  error,
+  searchQuery,
+  filterType: selectedYear,
+  totalItems,
+  setSearchQuery,
+  setSelectedFilter,
+} = useDocuments({
+  type: "official_journal",
+});
+
+// Computed pour l'UI
+const searchQueryUI = computed({
+  get: () => searchQuery.value,
+  set: (value) => setSearchQuery(value),
+});
+
+const selectedYearUI = computed({
+  get: () => selectedYear.value,
+  set: (value) => setSelectedFilter(value),
+});
+
+// Options pour le sélecteur d'années
+const yearOptions = [
+  { label: "Toutes les années", value: "all" },
+  { label: "2025", value: "2025" },
+  { label: "2024", value: "2024" },
+  { label: "2023", value: "2023" },
+  { label: "2022", value: "2022" },
+  { label: "2021", value: "2021" },
+  { label: "2020", value: "2020" },
+  { label: "2019", value: "2019" },
+  { label: "2018", value: "2018" },
+  { label: "2017", value: "2017" },
+  { label: "2016", value: "2016" },
+];
+
+// Utilisation de l'utilitaire resultsText
+const resultsText = computed(() =>
+  useResultsText({
+    totalItems,
+    currentPage: ref(1),
+    itemsPerPage: ref(10),
+    searchQuery,
+    filterType: selectedYear.value,
+    documentType: "official_journal",
+    customLabels: {
+      singular: "journal",
+      plural: "journaux",
+      noResults: "Aucun journal trouvé",
+      noResultsWithSearch: 'Aucun journal trouvé pour "{search}"',
+    },
+  }),
+);
+
+// Format de la date
+const formatDate = (date: string) => {
+  return new Date(date).toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+};
+
+const formatDateISO = (date: string) => {
+  return new Date(date).toISOString();
+};
 
 // Schema.org
 const journalOfficielSchema = {
@@ -117,50 +188,6 @@ const periodicalSchema = {
   },
 };
 
-// Utilisation de useAsyncData pour le SSR
-const {
-  data: documentsData,
-  pending: loading,
-  error,
-} = useAsyncData("journal-officiel-list", async () => {
-  const response = await collection.fetchDocuments({
-    type: "official_journal",
-  });
-  return response;
-});
-
-// Computed pour les documents
-const documents = computed(() => documentsData.value?.documents || []);
-
-const searchQuery = ref("");
-const router = useRouter();
-
-const filteredJournals = computed(() => {
-  if (!documents.value) return [];
-
-  return documents.value.filter((doc) => {
-    const searchLower = searchQuery.value.toLowerCase();
-    return (
-      doc.title?.toLowerCase().includes(searchLower) ||
-      doc.jo_number?.toString().toLowerCase().includes(searchLower) ||
-      doc.description?.toLowerCase().includes(searchLower)
-    );
-  });
-});
-
-// Format de la date
-const formatDate = (date: string) => {
-  return new Date(date).toLocaleDateString("fr-FR", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-};
-
-const formatDateISO = (date: string) => {
-  return new Date(date).toISOString();
-};
-
 // SEO
 useSeoMeta({
   title,
@@ -235,7 +262,6 @@ useHead({
     itemscope
     itemtype="https://schema.org/CollectionPage"
   >
-    <!-- Bouton retour -->
     <UButton
       icon="i-heroicons-arrow-left"
       variant="ghost"
@@ -278,19 +304,30 @@ useHead({
       </div>
     </div>
 
-    <!-- Recherche -->
+    <!-- Recherche et filtres -->
     <div class="mb-8">
-      <UInput
-        v-model="searchQuery"
-        size="lg"
-        placeholder="Rechercher par numéro, date ou contenu..."
-        icon="i-heroicons-magnifying-glass"
-        class="custom-shadow sm:w-full"
-      />
+      <div class="flex flex-col gap-3 sm:flex-row">
+        <UInput
+          v-model="searchQueryUI"
+          size="lg"
+          placeholder="Rechercher par numéro, date ou contenu..."
+          icon="i-heroicons-magnifying-glass"
+          class="custom-shadow flex-1"
+        />
+
+        <USelect
+          v-model="selectedYearUI"
+          :options="yearOptions"
+          placeholder="Année"
+          size="lg"
+          class="custom-shadow w-full sm:w-48"
+        />
+      </div>
+
       <div
         class="mt-2 flex flex-col items-center justify-between text-sm text-gray-500 sm:flex-row"
       >
-        <span>{{ filteredJournals.length }} Journaux référencés</span>
+        <span>{{ resultsText }}</span>
       </div>
     </div>
 
@@ -318,7 +355,7 @@ useHead({
 
     <!-- Résultats vides -->
     <UAlert
-      v-else-if="filteredJournals.length === 0"
+      v-else-if="documents.length === 0 && !loading"
       title="Aucun résultat"
       description="Aucun journal officiel ne correspond à votre recherche."
       color="gray"
@@ -332,10 +369,10 @@ useHead({
       itemscope
       itemtype="https://schema.org/ItemList"
     >
-      <meta itemprop="numberOfItems" :content="`${filteredJournals.length}`" />
+      <meta itemprop="numberOfItems" :content="`${documents.length}`" />
 
       <article
-        v-for="(journal, index) in filteredJournals"
+        v-for="(journal, index) in documents"
         :key="journal.id"
         itemscope
         itemtype="https://schema.org/PublicationIssue"

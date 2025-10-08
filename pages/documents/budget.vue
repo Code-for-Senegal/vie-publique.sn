@@ -1,8 +1,47 @@
 <script setup lang="ts">
-const route = useRoute();
 const router = useRouter();
-const store = useCollectionStore();
-const collection = useCollection();
+
+const {
+  documents,
+  loading,
+  error,
+  currentPage,
+  searchQuery,
+  totalItems,
+  totalPages,
+  itemsPerPage,
+  setSearchQuery,
+  setCurrentPage,
+} = useDocuments({
+  type: "budget",
+  limit: 10,
+});
+
+// Computed pour l'UI
+const searchQueryUI = computed({
+  get: () => searchQuery.value,
+  set: (value) => setSearchQuery(value),
+});
+
+const currentPageUI = computed({
+  get: () => currentPage.value,
+  set: (value) => setCurrentPage(value),
+});
+
+const resultsText = computed(() =>
+  useResultsText({
+    totalItems,
+    currentPage,
+    itemsPerPage,
+    searchQuery,
+    customLabels: {
+      singular: "document budgétaire",
+      plural: "documents budgétaires",
+      noResults: "Aucun document budgétaire trouvé",
+      noResultsWithSearch: 'Aucun document budgétaire trouvé pour "{search}"',
+    },
+  }),
+);
 
 useSeoMeta({
   title: "Documents Budgétaire sur le Sénégal",
@@ -13,129 +52,15 @@ useSeoMeta({
   twitterCard: "summary_large_image",
 });
 
-const {
-  data: documentsData,
-  pending: loading,
-  error,
-  refresh,
-} = useAsyncData(
-  "documents-budget",
-  async () => {
-    const response = await collection.fetchDocuments({
-      type: "budget",
-      page: store.currentPage,
-      limit: store.itemsPerPage,
-      search: store.searchQuery,
-      sortBy: store.sortBy,
-    });
-    return response;
-  },
-  {
-    watch: [
-      () => store.currentPage,
-      () => store.searchQuery,
-      () => store.sortBy,
-    ],
-  },
-);
-
-// Lire les query params au montage seulement
-onMounted(() => {
-  const query = route.query;
-
-  if (query.page) {
-    const page = parseInt(query.page as string);
-    if (!isNaN(page)) store.currentPage = page;
-  }
-  if (query.q) store.searchQuery = query.q as string;
-  if (query.sort) store.sortBy = query.sort as string;
-});
-
-// Watcher pour mettre à jour le store avec les données de pagination
-watchEffect(() => {
-  if (documentsData.value) {
-    store.setTotalItems(documentsData.value.pagination.total);
-  }
-});
-
-// Mettre à jour l'URL quand les filtres changent
-const updateURL = useDebounceFn(() => {
-  const query: any = {};
-
-  if (store.currentPage > 1) query.page = store.currentPage.toString();
-  if (store.searchQuery) query.q = store.searchQuery;
-  if (store.sortBy !== "-publish_date") query.sort = store.sortBy;
-
-  router.replace({ query });
-}, 300);
-
-// Watchers pour la synchronisation URL
-watch(
-  [() => store.currentPage, () => store.searchQuery, () => store.sortBy],
-  () => {
-    refresh();
-    updateURL();
-  },
-  { deep: true },
-);
-
-// Computed pour les liaisons avec le template
-const searchQuery = computed({
-  get: () => store.searchQuery,
-  set: (value) => {
-    store.setSearchQuery(value);
-    store.setCurrentPage(1);
-  },
-});
-
-const currentPage = computed({
-  get: () => store.currentPage,
-  set: (value) => {
-    store.setCurrentPage(value);
-  },
-});
-
-// Computed pour les documents
-const documents = computed(() => documentsData.value?.documents || []);
-
 const perPageOptions = [
   { label: "10", value: 10 },
   { label: "20", value: 20 },
   { label: "30", value: 30 },
 ];
 
-// Texte pour l'affichage du nombre de résultats
-const resultsText = computed(() => {
-  const totalCount = store.totalItems;
-  const currentPageStart = (store.currentPage - 1) * store.itemsPerPage + 1;
-  const currentPageEnd = Math.min(
-    currentPageStart + store.itemsPerPage - 1,
-    totalCount,
-  );
-
-  const searchText = store.searchQuery ? ` pour "${store.searchQuery}"` : "";
-
-  if (totalCount === 0) {
-    return store.searchQuery
-      ? `Aucun résultat trouvé pour "${store.searchQuery}"`
-      : "Aucun résultat trouvé";
-  }
-
-  if (totalCount === 1) {
-    return `1 document budgétaire trouvé${searchText}`;
-  }
-
-  if (totalCount <= store.itemsPerPage) {
-    return `${totalCount} documents budgétaires trouvés${searchText}`;
-  }
-
-  return `${currentPageStart}-${currentPageEnd} sur ${totalCount} documents budgétaires${searchText}`;
-});
-
-// Fonction pour changer le nombre d'items par page
 const updateItemsPerPage = (value: number) => {
-  store.itemsPerPage = value;
-  store.currentPage = 1;
+  itemsPerPage.value = value;
+  currentPage.value = 1;
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
 </script>
@@ -163,7 +88,7 @@ const updateItemsPerPage = (value: number) => {
       <div class="mb-8 space-y-4">
         <!-- Barre de recherche -->
         <UInput
-          v-model="searchQuery"
+          v-model="searchQueryUI"
           size="lg"
           placeholder="Rechercher un document..."
           icon="i-heroicons-magnifying-glass"
@@ -248,13 +173,13 @@ const updateItemsPerPage = (value: number) => {
 
         <!-- Pagination -->
         <div
-          v-if="store.totalPages > 1"
+          v-if="totalPages > 1"
           class="mt-6 flex flex-col items-center gap-4 sm:flex-row sm:justify-between"
         >
           <div class="flex items-center gap-2">
             <span class="text-sm text-gray-500">Afficher</span>
             <USelect
-              :model-value="store.itemsPerPage"
+              :model-value="itemsPerPage"
               :options="perPageOptions"
               size="sm"
               class="w-20"
@@ -265,9 +190,9 @@ const updateItemsPerPage = (value: number) => {
 
           <div class="flex items-center gap-2">
             <UPagination
-              v-model="currentPage"
-              :total="store.totalItems"
-              :page-count="store.itemsPerPage"
+              v-model="currentPageUI"
+              :total="totalItems"
+              :page-count="itemsPerPage"
               :default-page="1"
               :show-edges="true"
               :sibling-count="2"

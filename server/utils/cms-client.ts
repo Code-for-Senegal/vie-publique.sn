@@ -1,16 +1,16 @@
 import { createDirectus, rest, staticToken } from "@directus/sdk";
 import type { DirectusClient, RestClient } from "@directus/sdk";
 
-let directusClient: DirectusClient<any> & RestClient<any>;
+let cmsClient: DirectusClient<any> & RestClient<any>;
 
-export const getDirectusClient = () => {
+export const getCmsClient = () => {
   const config = useRuntimeConfig();
 
-  if (!directusClient) {
-    directusClient = createDirectus(config.cmsApiUrl)
+  if (!cmsClient) {
+    cmsClient = createDirectus(config.cmsApiUrl)
       .with(rest())
       .with(staticToken(config.cmsApiKey));
   }
 
-  return directusClient;
+  return cmsClient;
 };

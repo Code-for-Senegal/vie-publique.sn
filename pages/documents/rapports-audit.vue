@@ -1,100 +1,42 @@
 <script setup lang="ts">
-const route = useRoute();
 const router = useRouter();
-const store = useCollectionStore();
-const collection = useCollection();
 
 const {
-  data: documentsData,
-  pending: loading,
+  documents,
+  loading,
   error,
-  refresh,
-} = useAsyncData(
-  "documents-rapports-audit",
-  async () => {
-    const response = await collection.fetchDocuments({
-      type: "audit_report",
-      page: store.currentPage,
-      limit: store.itemsPerPage,
-      search: store.searchQuery,
-      filterType:
-        store.selectedFilter !== "all" ? store.selectedFilter : undefined,
-    });
-    return response;
-  },
-  {
-    watch: [
-      () => store.currentPage,
-      () => store.searchQuery,
-      () => store.selectedFilter,
-    ],
-  },
-);
-
-// Lire les query params au montage seulement
-onMounted(() => {
-  const query = route.query;
-
-  if (query.page) {
-    const page = parseInt(query.page as string);
-    if (!isNaN(page)) store.currentPage = page;
-  }
-  if (query.q) store.searchQuery = query.q as string;
-  if (query.organisme) store.selectedFilter = query.organisme as string;
+  currentPage,
+  searchQuery,
+  filterType: selectedOrganisme,
+  totalItems,
+  totalPages,
+  itemsPerPage,
+  setSearchQuery,
+  setSelectedFilter,
+  setCurrentPage,
+} = useDocuments({
+  type: "audit_report",
+  limit: 10,
 });
-
-// Watcher pour mettre à jour le store avec les données de pagination
-watchEffect(() => {
-  if (documentsData.value) {
-    store.setTotalItems(documentsData.value.pagination.total);
-  }
-});
-
-// Mettre à jour l'URL quand les filtres changent
-const updateURL = useDebounceFn(() => {
-  const query: any = {};
-
-  if (store.currentPage > 1) query.page = store.currentPage.toString();
-  if (store.searchQuery) query.q = store.searchQuery;
-  if (store.selectedFilter !== "all") query.organisme = store.selectedFilter;
-
-  router.replace({ query });
-}, 300);
-
-// Watchers pour la synchronisation URL
-watch(
-  [
-    () => store.currentPage,
-    () => store.searchQuery,
-    () => store.selectedFilter,
-  ],
-  () => {
-    refresh();
-    updateURL();
-  },
-  { deep: true },
-);
 
 // Computed pour les liaisons avec le template
-const searchQuery = computed({
-  get: () => store.searchQuery,
+const searchQueryUI = computed({
+  get: () => searchQuery.value,
   set: (value) => {
-    store.setSearchQuery(value);
-    store.setCurrentPage(1);
+    setSearchQuery(value);
   },
 });
 
-const selectedOrganisme = computed({
-  get: () => store.selectedFilter,
-  set: (value) => {
-    store.setSelectedFilter(value);
-    store.setCurrentPage(1);
-  },
+const selectedOrganismeUI = computed({
+  get: () => selectedOrganisme.value,
+  set: (value) => setSelectedFilter(value),
 });
 
-const documents = computed(() => documentsData.value?.documents || []);
+const currentPageUI = computed({
+  get: () => currentPage.value,
+  set: (value) => setCurrentPage(value),
+});
 
-// Options d'organismes
 const organismes = [
   "all",
   "Cour des Comptes",
@@ -104,25 +46,20 @@ const organismes = [
   "ARMP",
 ];
 
-// Texte pour l'affichage du nombre de résultats
-const resultsText = computed(() => {
-  const totalCount = store.totalItems;
-  const searchText = store.searchQuery ? ` pour "${store.searchQuery}"` : "";
-  const organismeText =
-    store.selectedFilter !== "all" ? ` de ${store.selectedFilter}` : "";
-
-  if (totalCount === 0) {
-    return store.searchQuery
-      ? `Aucun rapport trouvé pour "${store.searchQuery}"`
-      : "Aucun rapport trouvé";
-  }
-
-  if (totalCount === 1) {
-    return `1 rapport trouvé${searchText}${organismeText}`;
-  }
-
-  return `${totalCount} rapports disponibles${searchText}${organismeText}`;
-});
+const resultsText = computed(() =>
+  useResultsText({
+    totalItems,
+    currentPage,
+    itemsPerPage,
+    searchQuery,
+    customLabels: {
+      singular: "rappor",
+      plural: "rapports",
+      noResults: "Aucun rapport trouvé",
+      noResultsWithSearch: 'Aucun rapport trouvé pour "{search}"',
+    },
+  }),
+);
 
 useHead({
   title: "Rapports public Sénégal OFNAC Cours des compte",
@@ -138,7 +75,6 @@ useHead({
 
 <template>
   <div class="container mx-auto px-4 py-4">
-    <!-- Bouton retour -->
     <UButton
       icon="i-heroicons-arrow-left"
       variant="ghost"
@@ -163,7 +99,7 @@ useHead({
       </p>
 
       <UInput
-        v-model="searchQuery"
+        v-model="searchQueryUI"
         size="md"
         placeholder="Rechercher..."
         icon="i-heroicons-magnifying-glass"
@@ -175,8 +111,8 @@ useHead({
           v-for="organisme in organismes"
           :key="organisme"
           class="custom-shadow mb-1 ml-1"
-          :color="selectedOrganisme === organisme ? 'primary' : 'white'"
-          @click="selectedOrganisme = organisme"
+          :color="selectedOrganismeUI === organisme ? 'primary' : 'white'"
+          @click="selectedOrganismeUI = organisme"
         >
           {{ organisme === "all" ? "Tous" : organisme }}
         </UButton>
@@ -303,16 +239,15 @@ useHead({
         </UCard>
       </div>
 
-      <!-- Pagination -->
       <div
-        v-if="store.totalPages > 1"
+        v-if="totalPages > 1"
         class="flex justify-center border-t border-gray-200 px-3 py-3.5 dark:border-gray-700"
       >
         <div class="flex items-center gap-2">
           <UPagination
-            v-model="store.currentPage"
-            :total="store.totalItems"
-            :page-count="store.itemsPerPage"
+            v-model="currentPageUI"
+            :total="totalItems"
+            :page-count="itemsPerPage"
             :default-page="1"
             :show-edges="true"
             :sibling-count="2"

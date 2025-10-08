@@ -2,32 +2,17 @@
 const { siteName, siteUrl, defaultImage, keywords, themeColor } =
   useSiteMetadata();
 const route = useRoute();
-const collection = useCollection();
 
-// Utilisation de useAsyncData pour le SSR
+// Utilisation du composable useDocuments pour les détails
+const documentId = computed(() => route.params.id as string);
+
 const {
-  data: journalData,
-  pending: loading,
+  document: journal,
+  loading,
   error,
-} = useAsyncData(`journal-officiel-${route.params.slug}`, async () => {
-  if (route.params.slug) {
-    // Pour récupérer par slug, on peut d'abord chercher dans la liste
-    const documents = await collection.fetchDocuments({
-      type: "official_journal",
-      search: route.params.slug as string,
-      limit: 1,
-    });
-
-    if (documents.documents.length > 0) {
-      const document = documents.documents[0];
-      return { document };
-    }
-  }
-  return { document: null };
+} = useDocuments({
+  id: documentId.value,
 });
-
-// Computed pour le journal
-const journal = computed(() => journalData.value?.document || null);
 
 const links = [{ label: "Journaux", to: "/journal-officiel-senegal" }];
 
@@ -272,12 +257,12 @@ watchEffect(() => {
   }
 });
 
-// Recharger les données si le slug change
+// Recharger les données si l'ID change
 watch(
-  () => route.params.slug,
-  async (newSlug) => {
-    if (newSlug) {
-      await refreshNuxtData(`journal-officiel-${newSlug}`);
+  () => route.params.id,
+  async (newId) => {
+    if (newId) {
+      await refreshNuxtData(`document-${newId}`);
     }
   },
 );
