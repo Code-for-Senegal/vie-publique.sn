@@ -3,7 +3,7 @@ import { useNews } from "~/composables/news/useNews";
 import { useAssemblyQuestions } from "~/composables/useAssemblyQuestions";
 import { useAssemblyVotes } from "~/composables/useAssemblyVotes";
 
-const { news } = useNews({ category: "assemblee-nationale" });
+const { articles: news } = useNews({ category: "Assemblée nationale" });
 const { questions } = useAssemblyQuestions();
 const { votes } = useAssemblyVotes();
 

@@ -114,7 +114,7 @@ export const useCmsCollection = <T>(options: CmsCollectionOptions) => {
 
   return {
     items: computed(() => data.value?.items || []) as ComputedRef<T[]>,
-    item: computed(() => data.value?.items[0] as T | undefined), // Pour les détails
+    item: computed(() => data.value?.items[0] as T | undefined),
     loading: computed(() => pending.value),
     pagination: computed(() => data.value?.pagination),
     error,
