@@ -1,6 +1,65 @@
 <script setup lang="ts">
-const { documents, loading, error } = useDocuments({ type: "audit_report" });
 const router = useRouter();
+
+const {
+  documents,
+  loading,
+  error,
+  currentPage,
+  searchQuery,
+  filterType: selectedOrganisme,
+  totalItems,
+  totalPages,
+  itemsPerPage,
+  setSearchQuery,
+  setSelectedFilter,
+  setCurrentPage,
+} = useDocuments({
+  type: "audit_report",
+  limit: 10,
+});
+
+// Computed pour les liaisons avec le template
+const searchQueryUI = computed({
+  get: () => searchQuery.value,
+  set: (value) => {
+    setSearchQuery(value);
+  },
+});
+
+const selectedOrganismeUI = computed({
+  get: () => selectedOrganisme.value,
+  set: (value) => setSelectedFilter(value),
+});
+
+const currentPageUI = computed({
+  get: () => currentPage.value,
+  set: (value) => setCurrentPage(value),
+});
+
+const organismes = [
+  "all",
+  "Cour des Comptes",
+  "OFNAC",
+  "CENTIF",
+  "IGE",
+  "ARMP",
+];
+
+const resultsText = computed(() =>
+  useResultsText({
+    totalItems,
+    currentPage,
+    itemsPerPage,
+    searchQuery,
+    customLabels: {
+      singular: "rappor",
+      plural: "rapports",
+      noResults: "Aucun rapport trouvé",
+      noResultsWithSearch: 'Aucun rapport trouvé pour "{search}"',
+    },
+  }),
+);
 
 useHead({
   title: "Rapports public Sénégal OFNAC Cours des compte",
@@ -12,61 +71,10 @@ useHead({
     },
   ],
 });
-
-const rapports = ref<any[]>([]);
-const searchQuery = ref("");
-const selectedOrganisme = ref("");
-const selectedYear = ref("");
-
-const organismes = ["Cour des Comptes", "OFNAC", "CENTIF", "IGE", "ARMP"];
-
-const filteredRapports = computed(() => {
-  if (!documents.value) return [];
-
-  const query = searchQuery.value.toLowerCase().trim();
-
-  return documents.value.filter((rapport) => {
-    // Vérification des valeurs nulles
-    const title = rapport.title?.toLowerCase() || "";
-    const description = rapport.description?.toLowerCase() || "";
-    const institution = rapport.audit_institution || "";
-    const annee = rapport.annee || null;
-
-    // Recherche dans le titre et la description
-    const matchesSearch =
-      query.length === 0 ||
-      title.includes(query) ||
-      description.includes(query);
-
-    // Filtre par organisme
-    const matchesOrganisme =
-      selectedOrganisme.value === "" || institution === selectedOrganisme.value;
-
-    return matchesSearch && matchesOrganisme;
-  });
-});
-
-/* Pagination */
-
-const page = ref(1);
-const pageCount = 20;
-
-const rowsfilteredRapports = computed(() => {
-  return filteredRapports.value.slice(
-    (page.value - 1) * pageCount,
-    page.value * pageCount,
-  );
-});
-
-// Réinitialiser la page lors du changement de type
-watch(selectedOrganisme, () => {
-  page.value = 1;
-});
 </script>
 
 <template>
   <div class="container mx-auto px-4 py-4">
-    <!-- Bouton retour -->
     <UButton
       icon="i-heroicons-arrow-left"
       variant="ghost"
@@ -85,15 +93,13 @@ watch(selectedOrganisme, () => {
           Rapports publics
         </h1>
       </div>
-      <p
-        v-if="rowsfilteredRapports.length > 1"
-        class="mb-4 text-center text-sm text-gray-500"
-      >
-        {{ documents.length }} rapports disponibles
+
+      <p v-if="!loading" class="mb-4 text-center text-sm text-gray-500">
+        {{ resultsText }}
       </p>
 
       <UInput
-        v-model="searchQuery"
+        v-model="searchQueryUI"
         size="md"
         placeholder="Rechercher..."
         icon="i-heroicons-magnifying-glass"
@@ -102,22 +108,13 @@ watch(selectedOrganisme, () => {
 
       <div class="my-3 w-full text-center">
         <UButton
-          class="custom-shadow mb-1 ml-1"
-          :color="selectedOrganisme === '' ? 'primary' : 'white'"
-          @click="selectedOrganisme = ''"
-        >
-          Tous
-        </UButton>
-        <UButton
           v-for="organisme in organismes"
           :key="organisme"
           class="custom-shadow mb-1 ml-1"
-          :color="selectedOrganisme === organisme ? 'primary' : 'white'"
-          @click="
-            selectedOrganisme = selectedOrganisme === organisme ? '' : organisme
-          "
+          :color="selectedOrganismeUI === organisme ? 'primary' : 'white'"
+          @click="selectedOrganismeUI = organisme"
         >
-          {{ organisme }}
+          {{ organisme === "all" ? "Tous" : organisme }}
         </UButton>
       </div>
 
@@ -148,13 +145,15 @@ watch(selectedOrganisme, () => {
       </UAlert>
 
       <div
-        v-else-if="filteredRapports.length === 0 && searchQuery"
+        v-else-if="
+          documents.length === 0 && (searchQuery || selectedOrganisme !== 'all')
+        "
         class="mt-4 text-center"
       >
         <UAlert
           title="Aucun résultat"
           description="Aucun rapport ne correspond à votre recherche"
-          color="gray"
+          color="blue"
           icon="i-heroicons-information-circle"
         />
       </div>
@@ -162,13 +161,13 @@ watch(selectedOrganisme, () => {
       <div v-else class="flex flex-col gap-2">
         <!-- Afficher les cartes de rapport une fois chargées -->
         <UCard
-          v-for="rapport in rowsfilteredRapports"
+          v-for="rapport in documents"
           :key="rapport.id"
           class="custom-shadow cursor-pointer"
         >
           <NuxtLink
             :to="`/documents/${rapport.id}/${rapport.slug}`"
-            class="flex flex-row gap-2"
+            class="flex flex-row gap-2 p-4"
           >
             <div class="w-12 flex-shrink-0 md:w-16">
               <img
@@ -241,15 +240,26 @@ watch(selectedOrganisme, () => {
       </div>
 
       <div
+        v-if="totalPages > 1"
         class="flex justify-center border-t border-gray-200 px-3 py-3.5 dark:border-gray-700"
       >
-        <UPagination
-          v-model="page"
-          size="md"
-          :page-count="pageCount"
-          :total="filteredRapports.length"
-          :active-button="{ color: 'gray' }"
-        />
+        <div class="flex items-center gap-2">
+          <UPagination
+            v-model="currentPageUI"
+            :total="totalItems"
+            :page-count="itemsPerPage"
+            :default-page="1"
+            :show-edges="true"
+            :sibling-count="2"
+            :active-button="{ color: 'yellow' }"
+            :ui="{
+              wrapper: 'flex items-center gap-1',
+              base: 'min-w-8 min-h-8 flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed',
+              active: 'bg-gray-900 text-white',
+              inactive: 'bg-white text-gray-900 hover:bg-gray-100',
+            }"
+          />
+        </div>
       </div>
     </ClientOnly>
   </div>
@@ -258,14 +268,11 @@ watch(selectedOrganisme, () => {
 <style scoped>
 .scrollable-hidden {
   overflow-x: auto;
-  /* Masque la barre sur Firefox */
   scrollbar-width: none;
-  /* Masque la barre sur Internet Explorer et Edge */
   -ms-overflow-style: none;
 }
 
 .scrollable-hidden::-webkit-scrollbar {
-  /* Masque la barre sur Chrome, Safari et Opera */
   display: none;
 }
 </style>

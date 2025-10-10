@@ -1,10 +1,47 @@
 <script setup lang="ts">
-const { documents, loading, error } = useDocuments({ type: "budget" });
-const searchQuery = ref("");
-const itemsPerPage = ref(10);
-const currentPage = ref(1);
-
 const router = useRouter();
+
+const {
+  documents,
+  loading,
+  error,
+  currentPage,
+  searchQuery,
+  totalItems,
+  totalPages,
+  itemsPerPage,
+  setSearchQuery,
+  setCurrentPage,
+} = useDocuments({
+  type: "budget",
+  limit: 10,
+});
+
+// Computed pour l'UI
+const searchQueryUI = computed({
+  get: () => searchQuery.value,
+  set: (value) => setSearchQuery(value),
+});
+
+const currentPageUI = computed({
+  get: () => currentPage.value,
+  set: (value) => setCurrentPage(value),
+});
+
+const resultsText = computed(() =>
+  useResultsText({
+    totalItems,
+    currentPage,
+    itemsPerPage,
+    searchQuery,
+    customLabels: {
+      singular: "document budgétaire",
+      plural: "documents budgétaires",
+      noResults: "Aucun document budgétaire trouvé",
+      noResultsWithSearch: 'Aucun document budgétaire trouvé pour "{search}"',
+    },
+  }),
+);
 
 useSeoMeta({
   title: "Documents Budgétaire sur le Sénégal",
@@ -15,26 +52,15 @@ useSeoMeta({
   twitterCard: "summary_large_image",
 });
 
-const filteredDocuments = computed(() => {
-  if (!documents.value) return [];
-  const searchLower = searchQuery.value.toLowerCase();
-  return documents.value.filter(
-    (doc) =>
-      doc.title?.toLowerCase().includes(searchLower) ||
-      (doc as any).description?.toLowerCase().includes(searchLower),
-  );
-});
+const perPageOptions = [
+  { label: "10", value: 10 },
+  { label: "20", value: 20 },
+  { label: "30", value: 30 },
+];
 
-const paginatedDocuments = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage.value;
-  const end = start + itemsPerPage.value;
-  return filteredDocuments.value.slice(start, end);
-});
-
-// Fonction pour gérer le changement de page
-const handlePageChange = (page: number) => {
-  currentPage.value = page;
-  // Faire défiler vers le haut de la liste
+const updateItemsPerPage = (value: number) => {
+  itemsPerPage.value = value;
+  currentPage.value = 1;
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
 </script>
@@ -50,26 +76,31 @@ const handlePageChange = (page: number) => {
       @click="router.back()"
     />
     <ClientOnly>
-      <div class="prose prose-sm sm:prose mx-auto my-2">
+      <div class="prose prose-sm sm:prose mx-auto my-4">
         <h1 class="text-center text-xl text-gray-900 sm:text-2xl">
-          Documents Budgétaires
+          Documents Budgétaires du Sénégal
         </h1>
+        <p class="mt-2 text-center text-sm text-gray-600">
+          Documents budgétaires, lois de finances, budgets de l'État
+        </p>
       </div>
 
-      <div class="mb-8">
+      <div class="mb-8 space-y-4">
+        <!-- Barre de recherche -->
         <UInput
-          v-model="searchQuery"
+          v-model="searchQueryUI"
           size="lg"
           placeholder="Rechercher un document..."
           icon="i-heroicons-magnifying-glass"
           class="mx-auto w-full"
         />
+      </div>
 
-        <div
-          class="mt-2 flex flex-col items-center justify-between text-sm text-gray-500 sm:flex-row"
-        >
-          <span>{{ filteredDocuments.length }} documents trouvés</span>
-        </div>
+      <!-- Résultats de recherche -->
+      <div
+        class="mt-1 flex flex-col items-center justify-between text-sm text-gray-500 sm:flex-row"
+      >
+        <span class="mb-3 text-sm text-gray-600">{{ resultsText }}</span>
       </div>
 
       <template v-if="loading">
@@ -89,24 +120,34 @@ const handlePageChange = (page: number) => {
         title="Erreur"
         color="red"
         icon="i-heroicons-exclamation-triangle"
-      >
-        {{ error }}
-      </UAlert>
+        description="Une erreur s'est produite lors du chargement des documents budgétaires"
+      />
 
+      <!-- Résultats vides -->
+      <UAlert
+        v-else-if="documents.length === 0 && !loading"
+        title="Aucun résultat"
+        description="Aucun document budgétaire ne correspond à votre recherche."
+        color="blue"
+        icon="i-heroicons-information-circle"
+        class="mb-6"
+      />
+
+      <!-- Liste des documents -->
       <div v-else class="space-y-2">
         <UCard
-          v-for="doc in paginatedDocuments"
-          :key="doc.id"
+          v-for="document in documents"
+          :key="document.id"
           class="custom-shadow transition-shadow duration-200 hover:shadow-md"
         >
           <NuxtLink
-            :to="`/documents/${doc.id}/${doc.slug}`"
-            class="flex items-start gap-4"
+            :to="`/documents/${document.id}/${document.slug}`"
+            class="flex items-start gap-4 p-4"
           >
             <div class="flex-shrink-0">
               <CmsImage
-                :src="doc.cover_image"
-                :alt="`Aperçu Doc ${doc.title}`"
+                :src="document.cover_image"
+                :alt="`Aperçu document ${document.title}`"
                 :quality="25"
                 class="h-full w-16 object-cover"
                 loading="lazy"
@@ -115,13 +156,13 @@ const handlePageChange = (page: number) => {
 
             <div class="flex-grow">
               <h3 class="mb-1 font-medium text-gray-900">
-                {{ doc.title }}
+                {{ document.title }}
               </h3>
               <div class="mt-1 flex flex-wrap gap-4 text-sm text-gray-400">
                 <span class="flex items-center gap-1">
-                  {{ $dateMonthYearformat(doc.publish_date) }}
+                  {{ $dateMonthYearformat(document.publish_date) }}
                 </span>
-                <span v-if="doc.file" class="flex hidden items-center gap-1">
+                <span v-if="document.file" class="flex items-center gap-1">
                   <UIcon name="i-heroicons-document" class="h-4 w-4" />
                   PDF
                 </span>
@@ -132,32 +173,38 @@ const handlePageChange = (page: number) => {
 
         <!-- Pagination -->
         <div
+          v-if="totalPages > 1"
           class="mt-6 flex flex-col items-center gap-4 sm:flex-row sm:justify-between"
         >
           <div class="flex items-center gap-2">
             <span class="text-sm text-gray-500">Afficher</span>
             <USelect
-              v-model="itemsPerPage"
-              :options="[10, 20, 50]"
+              :model-value="itemsPerPage"
+              :options="perPageOptions"
               size="sm"
               class="w-20"
+              @update:model-value="updateItemsPerPage"
             />
             <span class="text-sm text-gray-500">par page</span>
           </div>
 
-          <UPagination
-            v-model="currentPage"
-            :total="filteredDocuments.length"
-            :per-page="itemsPerPage"
-            :active-button="{ color: 'yellow' }"
-            :ui="{
-              wrapper: 'flex items-center gap-1',
-              base: 'min-w-8 min-h-8 flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed',
-              active: 'bg-blue-900 text-white',
-              inactive: 'bg-white text-gray-900 hover:bg-gray-100',
-            }"
-            @change="handlePageChange"
-          />
+          <div class="flex items-center gap-2">
+            <UPagination
+              v-model="currentPageUI"
+              :total="totalItems"
+              :page-count="itemsPerPage"
+              :default-page="1"
+              :show-edges="true"
+              :sibling-count="2"
+              :active-button="{ color: 'yellow' }"
+              :ui="{
+                wrapper: 'flex items-center gap-1',
+                base: 'min-w-8 min-h-8 flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed',
+                active: 'bg-gray-900 text-white',
+                inactive: 'bg-white text-gray-900 hover:bg-gray-100',
+              }"
+            />
+          </div>
         </div>
       </div>
     </ClientOnly>

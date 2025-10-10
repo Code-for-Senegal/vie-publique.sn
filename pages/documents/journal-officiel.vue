@@ -1,41 +1,54 @@
-<!-- index.vue -->
 <script setup lang="ts">
-import { useJournalOfficielStore } from "~/stores/journalOfficiel";
-import { useDebounceFn } from "@vueuse/core";
-import { useJournalOfficiel } from "~/composables/useJournalOfficiel";
-
-const store = useJournalOfficielStore();
-
-// Utiliser le composable
-const { documents, loading, error, updateSearch, updateYear, updatePage } =
-  useJournalOfficiel();
-
-// Utiliser les valeurs du store
-const searchQuery = computed({
-  get: () => store.searchQuery,
-  set: (value) => {
-    store.setSearchQuery(value);
-    store.setCurrentPage(1);
-    debouncedSearch(value);
-  },
+const {
+  documents,
+  loading,
+  error,
+  currentPage,
+  searchQuery,
+  filterType: selectedYear,
+  totalItems,
+  totalPages,
+  itemsPerPage,
+  setSearchQuery,
+  setSelectedFilter,
+  setCurrentPage,
+} = useDocuments({
+  type: "official_journal",
+  limit: 10,
 });
 
-const selectedYear = computed({
-  get: () => store.selectedYear,
-  set: (value) => {
-    store.setSelectedYear(value);
-    store.setCurrentPage(1);
-    updateYear(value);
-  },
+const selectedYearUI = computed({
+  get: () => selectedYear.value,
+  set: (value) => setSelectedFilter(value),
 });
 
-const currentPage = computed({
-  get: () => store.currentPage,
-  set: (value) => {
-    store.setCurrentPage(value);
-    updatePage(value);
-  },
+// Computed pour l'UI
+const searchQueryUI = computed({
+  get: () => searchQuery.value,
+  set: (value) => setSearchQuery(value),
 });
+
+const currentPageUI = computed({
+  get: () => currentPage.value,
+  set: (value) => setCurrentPage(value),
+});
+
+const resultsText = computed(() =>
+  useResultsText({
+    totalItems,
+    currentPage,
+    itemsPerPage,
+    searchQuery,
+    filterType: selectedYear.value,
+    documentType: "official_journal",
+    customLabels: {
+      singular: "journal",
+      plural: "journaux",
+      noResults: "Aucun journal trouvé",
+      noResultsWithSearch: 'Aucun journal trouvé pour "{search}"',
+    },
+  }),
+);
 
 // Options pour le sélecteur d'années
 const yearOptions = [
@@ -52,11 +65,6 @@ const yearOptions = [
   { label: "2016", value: "2016" },
 ];
 
-// Debounce pour la recherche
-const debouncedSearch = useDebounceFn((query: string) => {
-  updateSearch(query);
-}, 500);
-
 // Format de la date
 const formatDate = (date: string) => {
   return new Date(date).toLocaleDateString("fr-FR", {
@@ -65,37 +73,6 @@ const formatDate = (date: string) => {
     year: "numeric",
   });
 };
-
-// Texte pour l'affichage du nombre de résultats
-const resultsText = computed(() => {
-  const totalCount = store.totalItems;
-  const currentPageStart = (store.currentPage - 1) * store.itemsPerPage + 1;
-  const currentPageEnd = Math.min(
-    currentPageStart + store.itemsPerPage - 1,
-    totalCount,
-  );
-
-  // Construction des suffixes conditionnels
-  const yearText =
-    selectedYear.value !== "all" ? ` en ${selectedYear.value}` : "";
-  const searchText = store.searchQuery ? ` pour "${store.searchQuery}"` : "";
-
-  if (totalCount === 0) {
-    return store.searchQuery
-      ? `Aucun résultat trouvé pour "${store.searchQuery}"`
-      : "Aucun résultat";
-  }
-
-  if (totalCount === 1) {
-    return `1 Journal trouvé${searchText}${yearText}`;
-  }
-
-  if (totalCount <= store.itemsPerPage) {
-    return `${totalCount} Journaux trouvés${searchText}${yearText}`;
-  }
-
-  return `${currentPageStart}-${currentPageEnd} sur ${totalCount} journaux${searchText}${yearText}`;
-});
 </script>
 
 <template>
@@ -121,7 +98,7 @@ const resultsText = computed(() => {
     <div class="mb-8">
       <div class="flex flex-col gap-3 sm:flex-row">
         <UInput
-          v-model="searchQuery"
+          v-model="searchQueryUI"
           size="lg"
           placeholder="Rechercher par numéro, date ou contenu..."
           icon="i-heroicons-magnifying-glass"
@@ -129,7 +106,7 @@ const resultsText = computed(() => {
         />
 
         <USelect
-          v-model="selectedYear"
+          v-model="selectedYearUI"
           :options="yearOptions"
           placeholder="Année"
           size="lg"
@@ -168,11 +145,11 @@ const resultsText = computed(() => {
 
     <!-- Résultats vides -->
     <UAlert
-      v-else-if="documents.length === 0"
+      v-else-if="documents.length === 0 && !loading"
       title="Aucun résultat"
       description="Aucun journal officiel ne correspond à votre recherche."
       color="blue"
-      icon="i-heroicons-inbox"
+      icon="i-heroicons-information-circle"
     />
 
     <!-- Liste des journaux -->
@@ -193,7 +170,7 @@ const resultsText = computed(() => {
             >
               <img
                 src="/images/default-journal-officiel.webp"
-                :alt="`Aperçu JO ${journal.jo_number || ''}`"
+                :alt="`${journal.title}`"
                 class="h-auto w-full object-contain"
                 loading="lazy"
                 fetchpriority="high"
@@ -223,10 +200,11 @@ const resultsText = computed(() => {
       </UCard>
 
       <!-- Pagination -->
-      <div v-if="store.totalPages > 1" class="mt-8 flex justify-center">
+      <div v-if="totalPages > 1" class="mt-8 flex justify-center">
         <UPagination
-          v-model="currentPage"
-          :total="store.totalItems"
+          v-model="currentPageUI"
+          :total="totalItems"
+          :page-count="itemsPerPage"
           :default-page="1"
           :show-edges="true"
           :sibling-count="2"

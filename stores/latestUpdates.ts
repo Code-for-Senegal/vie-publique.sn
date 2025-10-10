@@ -10,14 +10,6 @@ interface Update {
   slug?: string;
 }
 
-interface DirectusDocument {
-  id: string;
-  title: string;
-  publish_date: string;
-  date_created: string;
-  slug?: string;
-}
-
 interface DirectusQuestion {
   id: string;
   subject: string;
@@ -70,53 +62,39 @@ export const useLatestUpdatesStore = defineStore("latestUpdates", {
         const apiUrl = config.public.cmsApiUrl;
         const apiKey = config.public.cmsApiKey;
 
-        // Paramètres pour les documents
-        const documentsFields = "id,title,slug,publish_date,date_created,type";
-        const documentsSort = "sort=-date_created";
-        const documentsFilters = "filter[status]=published";
+        const documentsData = await $fetch("/api/documents", {
+          params: {
+            limit: 3,
+            sortBy: "-date_created",
+          },
+        });
 
         // Paramètres pour les questions
         const questionsFields = "id,subject,question_date,date_created";
         const questionsSort = "sort=-date_created";
         const questionsFilters = "filter[status]=published";
 
-        const [documentsRes, questionsRes] = await Promise.all([
-          fetch(
-            `${apiUrl}/items/documents?fields=${documentsFields}&${documentsSort}&${documentsFilters}&limit=3`,
-            {
-              headers: {
-                Authorization: `Bearer ${apiKey}`,
-              },
+        const questionsRes = await fetch(
+          `${apiUrl}/items/assembly_question?fields=${questionsFields}&${questionsSort}&${questionsFilters}&limit=3`,
+          {
+            headers: {
+              Authorization: `Bearer ${apiKey}`,
             },
-          ),
-          fetch(
-            `${apiUrl}/items/assembly_question?fields=${questionsFields}&${questionsSort}&${questionsFilters}&limit=3`,
-            {
-              headers: {
-                Authorization: `Bearer ${apiKey}`,
-              },
-            },
-          ),
-        ]);
+          },
+        );
 
-        if (!documentsRes.ok || !questionsRes.ok) {
-          throw new Error("Error fetching updates");
+        if (!questionsRes.ok) {
+          throw new Error("Erreur lors de la récupération des questions");
         }
 
-        const [documents, questions] = (await Promise.all([
-          documentsRes.json(),
-          questionsRes.json(),
-        ])) as [
-          DirectusResponse<DirectusDocument>,
-          DirectusResponse<DirectusQuestion>,
-        ];
-
+        const questions =
+          (await questionsRes.json()) as DirectusResponse<DirectusQuestion>;
         // Formater les résultats
-        this.documents = documents.data.map((doc) => ({
+        this.documents = documentsData.documents.map((doc) => ({
           id: doc.id,
           title: doc.title,
           type: "document" as const,
-          date_created: doc.date_created,
+          date_created: doc.publish_date,
           publish_date: doc.publish_date,
           url: `/documents/${doc.id}/${doc.slug || "document"}`,
           slug: doc.slug,

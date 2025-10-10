@@ -1,109 +1,193 @@
-// composables/useDocuments.ts
-export const useDocuments = (options?: { type?: string }) => {
-  interface Document {
-    id: string;
-    title: string;
-    slug: string;
-    publish_date: string;
-    cover_image: string;
-    file?: {
-      id: string;
-      type: string;
-      filesize: string;
-      filename_download: string;
-    };
+import type { Document } from "~/types/document";
+
+export interface DocumentsOptions {
+  id?: string;
+  type?: string;
+  filterType?: string;
+  sort?: string;
+  limit?: number;
+}
+
+export const useDocuments = (options: DocumentsOptions = {}) => {
+  const route = useRoute();
+  const router = useRouter();
+
+  // États réactifs pour les paramètres
+  const currentPage = ref(1);
+  const searchQuery = ref("");
+  const sortBy = ref(options.sort || "-publish_date");
+  const documentType = ref(options.type || "");
+  const filterType = ref(options.filterType || "all");
+  const itemsPerPage = ref(options.limit || 10);
+
+  // Récupération des paramètres depuis l'URL au montage (seulement pour les collections)
+  onMounted(() => {
+    if (!options.id) {
+      const query = route.query;
+
+      if (query.page) {
+        const page = parseInt(query.page as string);
+        if (!isNaN(page)) currentPage.value = page;
+      }
+      if (query.q) {
+        searchQuery.value = query.q as string;
+      }
+      if (query.sort) {
+        sortBy.value = query.sort as string;
+      }
+      if (query.type) {
+        documentType.value = query.type as string;
+      }
+      if (query.organisme) {
+        filterType.value = query.organisme as string;
+      }
+      if (query.year) {
+        filterType.value = query.year as string;
+      }
+    }
+  });
+
+  // Construction des filtres spécifiques aux documents
+  const filters = computed(() => {
+    if (options.id) return {};
+
+    const filters: any = {};
+
+    if (documentType.value) {
+      filters.type = documentType.value;
+    }
+
+    if (filterType.value && filterType.value !== "all") {
+      if (documentType.value === "official_journal") {
+        filters.filterType = filterType.value;
+      } else if (documentType.value === "audit_report") {
+        filters.filterType = filterType.value;
+      } else if (!documentType.value) {
+        filters.type = filterType.value;
+      }
+    }
+
+    return filters;
+  });
+
+  // Mise à jour de l'URL (seulement pour les collections)
+  const updateURL = useDebounceFn(() => {
+    if (options.id) return;
+
+    const query: any = {};
+
+    if (currentPage.value > 1) query.page = currentPage.value.toString();
+    if (searchQuery.value) query.q = searchQuery.value;
+    if (sortBy.value !== "-publish_date") query.sort = sortBy.value;
+
+    if (documentType.value === "audit_report" && filterType.value !== "all") {
+      query.organisme = filterType.value;
+    } else if (
+      documentType.value === "official_journal" &&
+      filterType.value !== "all"
+    ) {
+      query.year = filterType.value;
+    } else if (!documentType.value && filterType.value !== "all") {
+      query.type = filterType.value;
+    }
+
+    router.replace({ query });
+  }, 300);
+
+  // Watchers pour la synchronisation URL (seulement pour les collections)
+  if (!options.id) {
+    watch([currentPage, searchQuery, sortBy, filterType], () => {
+      updateURL();
+    });
   }
 
-  const documents = ref<Document[]>([]);
-  const document = ref<Document | null>(null);
-  const loading = ref(true);
-  const error = ref<string | null>(null);
+  // Utilisation du composable générique
+  const collection = useCmsCollection<Document>({
+    collection: "documents", // Collection spécifique
+    id: options.id,
+    filters,
+    sort: sortBy,
+    limit: itemsPerPage,
+    page: currentPage,
+    search: searchQuery,
+  });
 
-  const docCache = useCookie(`docs-${options?.type || "all"}`, { maxAge: 300 });
-
-  const fetchDocuments = async () => {
-    loading.value = true;
-    error.value = null;
-
-    try {
-      const sort = `sort=-publish_date`;
-
-      let filters = `filter[status]=published`;
-
-      if (options?.type) {
-        filters += `&filter[type]=${options.type}`;
-      }
-
-      const fields =
-        "id,title,slug,type,publish_date,description,audit_institution,cover_image,file.id,file.type,file.filesize,file.filename_download";
-
-      const config = useRuntimeConfig();
-      const response = await fetch(
-        `${config.public.cmsApiUrl}/items/documents?fields=${fields}&${sort}&${filters}&limit=2000`,
-        {
-          headers: {
-            Authorization: `Bearer ${config.public.cmsApiKey}`,
-          },
-        },
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const dataResponse = await response.json();
-      documents.value = dataResponse.data;
-    } catch (e) {
-      error.value =
-        e instanceof Error ? e.message : "Erreur lors du chargement";
-      documents.value = [];
-    } finally {
-      loading.value = false;
-    }
-  };
-
-  const fetchDocumentById = async (id: string) => {
-    loading.value = true;
-    error.value = null;
-
-    try {
-      const config = useRuntimeConfig();
-      const response = await fetch(
-        `${config.public.cmsApiUrl}/items/documents/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${config.public.cmsApiKey}`,
-          },
-        },
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const { data } = await response.json();
-      document.value = data;
-    } catch (e) {
-      error.value =
-        e instanceof Error
-          ? e.message
-          : "Erreur lors du chargement du document officiel";
-      document.value = null;
-    } finally {
-      loading.value = false;
-    }
-  };
-
-  if (import.meta.client) {
-    fetchDocuments();
-  }
+  // Computed pour la compatibilité
+  const totalItems = computed(() => collection.pagination.value?.total || 0);
+  const totalPages = computed(
+    () => collection.pagination.value?.totalPages || 1,
+  );
 
   return {
-    documents,
-    document,
-    loading,
-    error,
-    fetchDocuments,
-    fetchDocumentById,
+    // Données
+    documents: collection.items,
+    document: collection.item, // Pour les détails
+    loading: collection.loading,
+    pagination: collection.pagination,
+    error: collection.error,
+    refresh: collection.refresh,
+
+    // États réactifs (seulement pour les collections)
+    currentPage: options.id ? ref(1) : currentPage,
+    searchQuery: options.id ? ref("") : searchQuery,
+    sortBy: options.id ? ref("-publish_date") : sortBy,
+    documentType: options.id ? ref("") : documentType,
+    filterType: options.id ? ref("all") : filterType,
+    itemsPerPage: options.id ? ref(10) : itemsPerPage,
+
+    // Computed pour la compatibilité
+    totalItems,
+    totalPages,
+
+    // Méthodes (seulement pour les collections)
+    setCurrentPage: options.id
+      ? () => {}
+      : (page: number) => {
+          currentPage.value = page;
+        },
+    setSearchQuery: options.id
+      ? () => {}
+      : (search: string) => {
+          searchQuery.value = search;
+          currentPage.value = 1;
+        },
+    setSelectedFilter: options.id
+      ? () => {}
+      : (filter: string) => {
+          filterType.value = filter;
+          currentPage.value = 1;
+        },
+    setSortBy: options.id
+      ? () => {}
+      : (sort: string) => {
+          sortBy.value = sort;
+        },
+    setType: options.id
+      ? () => {}
+      : (type: string) => {
+          documentType.value = type;
+          filterType.value = "all";
+          currentPage.value = 1;
+        },
+    setTotalItems: () => {},
+    resetFilters: options.id
+      ? () => {}
+      : () => {
+          currentPage.value = 1;
+          searchQuery.value = "";
+          sortBy.value = "-publish_date";
+          filterType.value = "all";
+        },
+
+    hasActiveFilters: options.id
+      ? computed(() => false)
+      : computed(() => {
+          return (
+            searchQuery.value !== "" ||
+            filterType.value !== "all" ||
+            sortBy.value !== "-publish_date" ||
+            documentType.value !== ""
+          );
+        }),
   };
 };

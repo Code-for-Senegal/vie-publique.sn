@@ -1,54 +1,55 @@
-//index.vue (page actualités)
 <script setup lang="ts">
-import { useNewsStore } from "~/stores/news";
-import { useRoute } from "vue-router";
+import { useNews } from "~/composables/news/useNews";
 
-const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
+const { siteName, siteUrl, defaultImage, keywords, themeColor } =
+  useSiteMetadata();
 
 const title = "Actualités de la République du Sénégal | Vie-Publique.sn";
-const description = "Suivez toute l'actualité de la République du Sénégal. Conseil des ministres, Assemblée nationale, vie politique et institutionnelle sénégalaise.";
+const description =
+  "Suivez toute l'actualité de la République du Sénégal. Conseil des ministres, Assemblée nationale, vie politique et institutionnelle sénégalaise.";
 const url = `${siteUrl}/actualites`;
 const image = `${siteUrl}/images/share-linkedin.png`;
 
 const newsCollectionSchema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "name": title,
-  "description": description,
-  "url": url,
-  "image": image,
-  "isPartOf": {
+  name: title,
+  description: description,
+  url: url,
+  image: image,
+  isPartOf: {
     "@type": "WebSite",
-    "name": siteName,
-    "url": siteUrl,
+    name: siteName,
+    url: siteUrl,
   },
-  "about": {
+  about: {
     "@type": "GovernmentOrganization",
-    "name": "République du Sénégal",
-    "description": "État souverain d'Afrique de l'Ouest",
+    name: "République du Sénégal",
+    description: "État souverain d'Afrique de l'Ouest",
   },
-  "mainEntity": {
+  mainEntity: {
     "@type": "ItemList",
-    "name": "Actualités République du Sénégal",
-    "description": "Collection des dernières actualités de la République du Sénégal",
+    name: "Actualités République du Sénégal",
+    description:
+      "Collection des dernières actualités de la République du Sénégal",
   },
 };
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  "itemListElement": [
+  itemListElement: [
     {
       "@type": "ListItem",
-      "position": 1,
-      "name": "Accueil",
-      "item": siteUrl,
+      position: 1,
+      name: "Accueil",
+      item: siteUrl,
     },
     {
       "@type": "ListItem",
-      "position": 2,
-      "name": "Actualités",
-      "item": url,
+      position: 2,
+      name: "Actualités",
+      item: url,
     },
   ],
 };
@@ -56,39 +57,37 @@ const breadcrumbSchema = {
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "NewsMediaOrganization",
-  "name": siteName,
-  "url": siteUrl,
-  "logo": defaultImage,
-  "sameAs": [
-    "https://twitter.com/viepubliquesn",
-  ],
-  "address": {
+  name: siteName,
+  url: siteUrl,
+  logo: defaultImage,
+  sameAs: ["https://twitter.com/viepubliquesn"],
+  address: {
     "@type": "PostalAddress",
-    "addressCountry": "SN",
-    "addressLocality": "Dakar",
+    addressCountry: "SN",
+    addressLocality: "Dakar",
   },
-  "publishingPrinciples": `${siteUrl}/ethique`,
-  "correctionsPolicy": `${siteUrl}/corrections`,
-  "missionCoveragePrioritiesPolicy": `${siteUrl}/mission`,
+  publishingPrinciples: `${siteUrl}/ethique`,
+  correctionsPolicy: `${siteUrl}/corrections`,
+  missionCoveragePrioritiesPolicy: `${siteUrl}/mission`,
 };
 
 const webSiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": siteName,
-  "url": siteUrl,
-  "description": "Site d'information sur la vie publique et politique du Sénégal",
-  "inLanguage": "fr-SN",
-  "isAccessibleForFree": true,
-  "publisher": {
+  name: siteName,
+  url: siteUrl,
+  description: "Site d'information sur la vie publique et politique du Sénégal",
+  inLanguage: "fr-SN",
+  isAccessibleForFree: true,
+  publisher: {
     "@type": "Organization",
-    "name": siteName,
+    name: siteName,
   },
-  "potentialAction": {
+  potentialAction: {
     "@type": "SearchAction",
-    "target": {
+    target: {
       "@type": "EntryPoint",
-      "urlTemplate": `${siteUrl}/actualites?search={search_term_string}`,
+      urlTemplate: `${siteUrl}/actualites?search={search_term_string}`,
     },
     "query-input": "required name=search_term_string",
   },
@@ -130,7 +129,10 @@ useHead({
     { name: "geo.placename", content: "Dakar" },
     { name: "geo.position", content: "14.7645042;-17.3660286" },
     { name: "ICBM", content: "14.7645042, -17.3660286" },
-    { name: "news_keywords", content: "Sénégal, actualités, politique, gouvernement, République" },
+    {
+      name: "news_keywords",
+      content: "Sénégal, actualités, politique, gouvernement, République",
+    },
   ],
   script: [
     {
@@ -152,35 +154,21 @@ useHead({
   ],
 });
 
-// Utilisation du store
-const store = useNewsStore();
-
-// Computed properties pour lier les valeurs du store
-const searchQuery = computed({
-  get: () => store.searchQuery,
-  set: (value) => store.setSearchQuery(value),
-});
-
-const selectedCategory = computed({
-  get: () => store.selectedCategory,
-  set: (value) => store.setSelectedCategory(value),
-});
-
-// Chargement initial des données
-onBeforeMount(async () => {
-  await store.fetchNews();
-});
-
-// Recharger les données lors du changement de route
-const route = useRoute();
-watch(
-  () => route.path,
-  async () => {
-    if (route.path === "/actualites") {
-      await store.fetchNews();
-    }
-  },
-);
+// Utilisation du composable useNews
+const {
+  articles,
+  loading,
+  error,
+  categories,
+  searchQuery,
+  selectedCategory,
+  currentPage,
+  totalPages,
+  totalItems,
+  paginatedNews,
+  setSearchQuery,
+  setSelectedCategory,
+} = useNews();
 
 // Fonction pour formater l'URL des articles
 const formatNewsUrl = (article: {
@@ -220,12 +208,12 @@ const formatNewsUrl = (article: {
 // Ajout des couleurs pour les catégories
 const getCategoryColor = (categoryName: string) => {
   const colorMap: Record<string, string> = {
-    Toutes: "#6B7280", // gray-500
-    "Conseil des ministres": "#1D4ED8", // blue-700
-    "Conseil interministériel": "#7E22CE", // purple-700
-    "Assemblée nationale": "#047857", // emerald-700
-    Article: "#EA580C", // orange-600
-    "Non catégorisé": "#4B5563", // gray-600
+    Toutes: "#6B7280",
+    "Conseil des ministres": "#1D4ED8",
+    "Conseil interministériel": "#7E22CE",
+    "Assemblée nationale": "#047857",
+    Article: "#EA580C",
+    "Non catégorisé": "#4B5563",
   };
   return colorMap[categoryName] || "#6B7280";
 };
@@ -236,26 +224,31 @@ const formatDateISO = (date: string) => {
 </script>
 
 <template>
-  <div class="container mx-auto" itemscope itemtype="https://schema.org/CollectionPage">
+  <div
+    class="container mx-auto"
+    itemscope
+    itemtype="https://schema.org/CollectionPage"
+  >
     <div class="prose prose-sm sm:prose dark:prose-invert mx-auto my-2">
-      <h1 class="text-center dark:text-white" itemprop="headline">Actualités</h1>
+      <h1 class="text-center dark:text-white" itemprop="headline">
+        Actualités
+      </h1>
     </div>
 
     <!-- Filtres par catégorie -->
     <div class="mb-4">
       <!-- Barre de recherche -->
       <UInput
-        v-model="searchQuery"
-        size="md"
+        :model-value="searchQuery"
         placeholder="Rechercher..."
         icon="i-heroicons-magnifying-glass"
         class="input custom-shadow mb-4 w-full dark:bg-gray-800 dark:text-white"
-        clearable
-        :disabled="store.loading"
+        size="lg"
+        @update:model-value="setSearchQuery"
       />
 
       <!-- Skeleton pour les filtres pendant le chargement -->
-      <div v-if="store.loading" class="flex flex-wrap gap-2">
+      <div v-if="loading" class="flex flex-wrap gap-2">
         <div
           v-for="n in 5"
           :key="n"
@@ -266,9 +259,8 @@ const formatDateISO = (date: string) => {
       <!-- Liste des catégories -->
       <div v-else class="flex flex-wrap gap-2">
         <button
-          v-for="category in store.categories"
+          v-for="category in categories"
           :key="category.name"
-          @click="selectedCategory = category.name"
           class="flex items-center gap-1 rounded-full p-2 text-sm transition-colors duration-200"
           :class="{
             'bg-gray-100 text-gray-800 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700':
@@ -281,6 +273,7 @@ const formatDateISO = (date: string) => {
                 ? getCategoryColor(category.name)
                 : '',
           }"
+          @click="setSelectedCategory(category.name)"
         >
           <div
             class="h-3 w-3 rounded-full"
@@ -296,7 +289,7 @@ const formatDateISO = (date: string) => {
 
     <!-- Skeleton loader pendant le chargement -->
     <div
-      v-if="store.loading"
+      v-if="loading"
       class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
     >
       <div v-for="n in 6" :key="n" class="animate-pulse">
@@ -316,21 +309,18 @@ const formatDateISO = (date: string) => {
 
     <!-- Error state -->
     <UAlert
-      v-else-if="store.error"
+      v-else-if="error"
       icon="i-heroicons-exclamation-triangle"
       color="red"
       title="Erreur de chargement"
-      :description="store.error"
+      description="Une erreur est survenue lors du chargement des actualités"
     />
 
     <!-- Content -->
     <div v-else>
       <!-- Empty state -->
       <div
-        v-if="
-          !store.loading &&
-          (!store.articles.length || store.paginatedNews.length === 0)
-        "
+        v-if="!loading && (!articles.length || paginatedNews.length === 0)"
         class="mt-8 flex flex-col items-center text-center text-gray-500 dark:text-gray-400"
       >
         <UIcon
@@ -341,40 +331,62 @@ const formatDateISO = (date: string) => {
       </div>
 
       <!-- News grid -->
-      <div v-else-if="!store.loading">
-        <div 
+      <div v-else-if="!loading">
+        <div
           class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"
-          itemscope 
+          itemscope
           itemtype="https://schema.org/ItemList"
           itemprop="mainEntity"
         >
-          <meta itemprop="numberOfItems" :content="store.paginatedNews.length">
-          
+          <meta itemprop="numberOfItems" :content="`${paginatedNews.length}`" />
+
           <article
-            v-for="(article, index) in store.paginatedNews"
+            v-for="(article, index) in paginatedNews"
             :key="article.id"
             itemscope
             itemtype="https://schema.org/NewsArticle"
             itemprop="itemListElement"
             class="custom-shadow group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border dark:border-gray-800 dark:bg-gray-900/50 dark:backdrop-blur-sm"
           >
-            <meta itemprop="position" :content="index + 1">
-            <meta itemprop="url" :content="`${siteUrl}${formatNewsUrl(article)}`">
-            <meta itemprop="datePublished" :content="formatDateISO(article.date_published)">
-            
-            <div itemprop="author" itemscope itemtype="https://schema.org/Organization">
-              <meta itemprop="name" :content="siteName">
+            <meta itemprop="position" :content="`${index + 1}`" />
+            <meta
+              itemprop="url"
+              :content="`${siteUrl}${formatNewsUrl(article)}`"
+            />
+            <meta
+              itemprop="datePublished"
+              :content="formatDateISO(article.date_published)"
+            />
+
+            <div
+              itemprop="author"
+              itemscope
+              itemtype="https://schema.org/Organization"
+            >
+              <meta itemprop="name" :content="siteName" />
             </div>
 
-            <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-              <meta itemprop="name" :content="siteName">
-              <meta itemprop="url" :content="siteUrl">
+            <div
+              itemprop="publisher"
+              itemscope
+              itemtype="https://schema.org/Organization"
+            >
+              <meta itemprop="name" :content="siteName" />
+              <meta itemprop="url" :content="siteUrl" />
             </div>
 
             <UCard>
-              <NuxtLink :to="formatNewsUrl(article)" class="block" itemprop="url">
+              <NuxtLink
+                :to="formatNewsUrl(article)"
+                class="block"
+                itemprop="url"
+              >
                 <div class="relative">
-                  <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+                  <div
+                    itemprop="image"
+                    itemscope
+                    itemtype="https://schema.org/ImageObject"
+                  >
                     <CmsImage
                       :src="article.cover_image"
                       :fallback="'/default-image-2.gif'"
@@ -386,11 +398,18 @@ const formatDateISO = (date: string) => {
                       :placeholder="[300, 300]"
                       itemprop="contentUrl"
                     />
-                    <meta itemprop="url" :content="article.cover_image ? useCmsImageAbsolute(article.cover_image) : '/default-image-2.gif'">
-                    <meta itemprop="width" content="300">
-                    <meta itemprop="height" content="192">
+                    <meta
+                      itemprop="url"
+                      :content="
+                        article.cover_image
+                          ? useCmsImageAbsolute(article.cover_image)
+                          : '/default-image-2.gif'
+                      "
+                    />
+                    <meta itemprop="width" content="300" />
+                    <meta itemprop="height" content="192" />
                   </div>
-                  
+
                   <div
                     class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4"
                   >
@@ -415,7 +434,7 @@ const formatDateISO = (date: string) => {
                     {{ article.title }}
                   </h2>
                   <div class="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                    <time 
+                    <time
                       :datetime="formatDateISO(article.date_published)"
                       itemprop="datePublished"
                     >
@@ -425,8 +444,15 @@ const formatDateISO = (date: string) => {
                 </div>
 
                 <!-- Main entity of page -->
-                <div itemprop="mainEntityOfPage" itemscope itemtype="https://schema.org/WebPage">
-                  <meta itemprop="@id" :content="`${siteUrl}${formatNewsUrl(article)}`">
+                <div
+                  itemprop="mainEntityOfPage"
+                  itemscope
+                  itemtype="https://schema.org/WebPage"
+                >
+                  <meta
+                    itemprop="@id"
+                    :content="`${siteUrl}${formatNewsUrl(article)}`"
+                  />
                 </div>
               </NuxtLink>
             </UCard>
@@ -434,10 +460,10 @@ const formatDateISO = (date: string) => {
         </div>
 
         <!-- Pagination -->
-        <div v-if="store.totalPages > 1" class="mt-8 flex justify-center">
+        <div v-if="totalPages > 1" class="mt-8 flex justify-center">
           <UPagination
-            v-model="store.currentPage"
-            :total="store.totalItems"
+            v-model="currentPage"
+            :total="totalItems"
             :default-page="1"
             :show-edges="true"
             :sibling-count="2"
