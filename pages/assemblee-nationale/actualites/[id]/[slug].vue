@@ -5,7 +5,11 @@ const { siteName, siteUrl, defaultImage, keywords, themeColor } =
   useSiteMetadata();
 
 const route = useRoute();
-const { article, loading, error, fetchNewsById } = useNews();
+
+// Utilisation du composable useNews avec l'ID
+const { article, loading, error } = useNews({
+  id: route.params.id as string,
+});
 
 const formatDate = (date: string) => {
   return new Date(date).toLocaleDateString("fr-FR", {
@@ -202,13 +206,6 @@ watchEffect(() => {
     });
   }
 });
-
-// Chargement de l'article
-onMounted(async () => {
-  if (route.params.id) {
-    await fetchNewsById(route.params.id as string);
-  }
-});
 </script>
 
 <template>
@@ -350,7 +347,7 @@ onMounted(async () => {
       </figure>
 
       <!-- Tags -->
-      <div v-if="article.tags?.length" class="mb-8 flex hidden flex-wrap gap-2">
+      <div v-if="article.tags?.length" class="mb-8 hidden flex-wrap gap-2">
         <span
           v-for="tag in article.tags"
           :key="tag"

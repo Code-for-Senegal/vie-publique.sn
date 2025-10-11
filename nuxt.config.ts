@@ -174,6 +174,8 @@ export default defineNuxtConfig({
     typesenseUrl: process.env.TYPESENSE_URL,
     typesenseCollection:
       process.env.TYPESENSE_COLLECTION || "vie-publique-senegal",
+    cmsApiUrl: process.env.CMS_API_URL,
+    cmsApiKey: process.env.CMS_API_KEY,
 
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL,

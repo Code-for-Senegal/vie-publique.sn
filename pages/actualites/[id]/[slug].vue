@@ -6,7 +6,21 @@ const { siteName, siteUrl, defaultImage, keywords, themeColor } =
 
 const route = useRoute();
 const config = useRuntimeConfig();
-const { article, loading, error, fetchNewsById } = useNews();
+
+// Utilisation de useNews avec l'ID
+const { article, loading, error, refresh } = useNews({
+  id: route.params.id as string,
+});
+
+// Recharger l'article si l'ID change
+watch(
+  () => route.params.id,
+  (newId) => {
+    if (newId) {
+      refresh();
+    }
+  },
+);
 
 const title = computed(() => {
   if (!article.value) return "Chargement...";
@@ -15,7 +29,6 @@ const title = computed(() => {
 
 const description = computed(() => {
   if (!article.value) return "";
-  // Extraire du texte brut du contenu HTML si disponible
   const plainText =
     article.value.content?.replace(/<[^>]*>/g, "") || article.value.title;
   const excerpt =
@@ -37,7 +50,7 @@ const image = computed(() => {
 
 const pdfUrl = computed(() => {
   if (!article.value?.document?.file) return "";
-  return useCmsFile(`${article.value.document.file}/${article.value.slug}.pdf`);
+  return `${config.public.cmsApiUrl}/assets/${article.value.document.file}`;
 });
 
 const articleSchema = computed(() => {
@@ -165,8 +178,7 @@ const digitalDocumentSchema = computed(() => {
   };
 });
 
-// Helper functions - Utilisation du composable pour le proxy d'images
-
+// Helper functions
 const formatDate = (date: string) => {
   return new Date(date).toLocaleDateString("fr-FR", {
     year: "numeric",
@@ -180,112 +192,109 @@ const formatDateISO = (date: string) => {
 };
 
 // SEO setup
-watchEffect(() => {
-  if (article.value) {
-    // SEO Meta Tags
-    useSeoMeta({
-      title: title.value,
-      ogTitle: title.value,
-      description: description.value,
-      ogDescription: description.value,
-      ogImage: image.value,
-      ogUrl: url.value,
-      twitterCard: "summary_large_image",
-      twitterTitle: title.value,
-      twitterDescription: description.value,
-      twitterImage: image.value,
-      keywords: [
-        ...keywords,
-        ...(article.value.tags || []),
-        "actualités République Sénégal",
-        "news Sénégal",
-        article.value.category?.name || "",
-      ]
-        .filter(Boolean)
-        .join(", "),
-    });
+watch(
+  [article, route],
+  () => {
+    if (article.value) {
+      // SEO Meta Tags
+      useSeoMeta({
+        title: title.value,
+        ogTitle: title.value,
+        description: description.value,
+        ogDescription: description.value,
+        ogImage: image.value,
+        ogUrl: url.value,
+        twitterCard: "summary_large_image",
+        twitterTitle: title.value,
+        twitterDescription: description.value,
+        twitterImage: image.value,
+        keywords: [
+          ...keywords,
+          ...(article.value.tags || []),
+          "actualités République Sénégal",
+          "news Sénégal",
+          article.value.category?.name || "",
+        ]
+          .filter(Boolean)
+          .join(", "),
+      });
 
-    // Head Configuration
-    useHead({
-      htmlAttrs: { lang: "fr-SN" },
-      link: [
-        { rel: "canonical", href: url.value },
-        article.value.document?.file
-          ? {
-              rel: "alternate",
-              type: "application/pdf",
-              href: pdfUrl.value,
-            }
-          : null,
-      ].filter(Boolean),
-      meta: [
-        { name: "theme-color", content: themeColor },
-        { name: "author", content: siteName },
-        { property: "og:type", content: "article" },
-        { property: "og:site_name", content: siteName },
-        {
-          property: "article:published_time",
-          content: formatDateISO(article.value.date_published),
-        },
-        {
-          property: "article:modified_time",
-          content: article.value.date_updated
-            ? formatDateISO(article.value.date_updated)
-            : formatDateISO(article.value.date_published),
-        },
-        { property: "article:author", content: siteName },
-        {
-          property: "article:section",
-          content: article.value.category?.name || "Actualités",
-        },
-        {
-          property: "article:tag",
-          content: article.value.tags?.join(", ") || "",
-        },
-        { name: "robots", content: "index, follow" },
-        { name: "geo.region", content: "SN" },
-        { name: "geo.placename", content: "Dakar" },
-        { name: "geo.position", content: "14.7645042;-17.3660286" },
-        { name: "ICBM", content: "14.7645042, -17.3660286" },
-        {
-          name: "news_keywords",
-          content: article.value.tags?.join(", ") || "République du Sénégal",
-        },
-      ],
-      script: [
-        articleSchema.value
-          ? {
-              type: "application/ld+json",
-              children: JSON.stringify(articleSchema.value),
-            }
-          : null,
-        {
-          type: "application/ld+json",
-          children: JSON.stringify(breadcrumbSchema.value),
-        },
-        webPageSchema.value
-          ? {
-              type: "application/ld+json",
-              children: JSON.stringify(webPageSchema.value),
-            }
-          : null,
-        digitalDocumentSchema.value
-          ? {
-              type: "application/ld+json",
-              children: JSON.stringify(digitalDocumentSchema.value),
-            }
-          : null,
-      ].filter(Boolean),
-    });
-  }
-});
-
-// Chargement de l'article
-onMounted(async () => {
-  if (route.params.id) {
-    await fetchNewsById(route.params.id as string);
-  }
-});
+      // Head Configuration
+      useHead({
+        htmlAttrs: { lang: "fr-SN" },
+        link: [
+          { rel: "canonical", href: url.value },
+          article.value.document?.file
+            ? {
+                rel: "alternate",
+                type: "application/pdf",
+                href: pdfUrl.value,
+              }
+            : null,
+        ].filter(Boolean),
+        meta: [
+          { name: "theme-color", content: themeColor },
+          { name: "author", content: siteName },
+          { property: "og:type", content: "article" },
+          { property: "og:site_name", content: siteName },
+          {
+            property: "article:published_time",
+            content: formatDateISO(article.value.date_published),
+          },
+          {
+            property: "article:modified_time",
+            content: article.value.date_updated
+              ? formatDateISO(article.value.date_updated)
+              : formatDateISO(article.value.date_published),
+          },
+          { property: "article:author", content: siteName },
+          {
+            property: "article:section",
+            content: article.value.category?.name || "Actualités",
+          },
+          {
+            property: "article:tag",
+            content: article.value.tags?.join(", ") || "",
+          },
+          { name: "robots", content: "index, follow" },
+          { name: "geo.region", content: "SN" },
+          { name: "geo.placename", content: "Dakar" },
+          { name: "geo.position", content: "14.7645042;-17.3660286" },
+          { name: "ICBM", content: "14.7645042, -17.3660286" },
+          {
+            name: "news_keywords",
+            content: article.value.tags?.join(", ") || "République du Sénégal",
+          },
+        ],
+        script: [
+          articleSchema.value
+            ? {
+                type: "application/ld+json",
+                children: JSON.stringify(articleSchema.value),
+              }
+            : null,
+          {
+            type: "application/ld+json",
+            children: JSON.stringify(breadcrumbSchema.value),
+          },
+          webPageSchema.value
+            ? {
+                type: "application/ld+json",
+                children: JSON.stringify(webPageSchema.value),
+              }
+            : null,
+          digitalDocumentSchema.value
+            ? {
+                type: "application/ld+json",
+                children: JSON.stringify(digitalDocumentSchema.value),
+              }
+            : null,
+        ].filter(Boolean),
+      });
+    }
+  },
+  { immediate: true, deep: true },
+);
 </script>
 
 <template>
@@ -318,12 +327,14 @@ onMounted(async () => {
     </div>
 
     <!-- Error state -->
-    <div
+    <UAlert
       v-else-if="error"
-      class="rounded-lg bg-red-50 p-4 text-center text-red-500 dark:bg-red-900/50 dark:text-red-400"
-    >
-      {{ error }}
-    </div>
+      class="mt-4"
+      title="Erreur"
+      color="red"
+      icon="i-heroicons-exclamation-triangle"
+      description="Une erreur est survenue lors du chargement de l'article"
+    />
 
     <!-- Content -->
     <article
@@ -457,7 +468,7 @@ onMounted(async () => {
       </div>
 
       <!-- Tags -->
-      <div v-if="article.tags?.length" class="mb-8 flex hidden flex-wrap gap-2">
+      <div v-if="article.tags?.length" class="mb-8 hidden flex-wrap gap-2">
         <span
           v-for="tag in article.tags"
           :key="tag"

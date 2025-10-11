@@ -1,119 +1,90 @@
 <script setup lang="ts">
-import { useSchemaOrg } from "@unhead/schema-org";
-
-const { documents, loading, error } = useDocuments({ type: undefined }); // Pas de filtre
-const searchQuery = ref("");
-const itemsPerPage = ref(10);
-const currentPage = ref(1);
-
 const router = useRouter();
 
-// SEO optimisé pour "documents publics"
-useHead({
-  title:
-    "Documents publics du Sénégal - Journal officiel, Lois, Décrets, Arrêtés | Vie-Publique.sn",
-  meta: [
-    {
-      name: "description",
-      content:
-        "Consultez tous les documents publics du Sénégal : Journal officiel, lois, décrets, arrêtés, rapports d'audit, codes généraux. Accès direct aux textes officiels de la République du Sénégal.",
-    },
-    {
-      name: "keywords",
-      content:
-        "documents publics Sénégal, journal officiel, lois Sénégal, décrets, arrêtés, rapports audit, codes généraux, textes officiels, gouvernement Sénégal",
-    },
-    {
-      name: "robots",
-      content: "index, follow",
-    },
-    {
-      name: "author",
-      content: "Vie-Publique.sn",
-    },
-    // Open Graph
-    {
-      property: "og:title",
-      content:
-        "Documents publics du Sénégal - Journal officiel, Lois, Décrets, Arrêtés",
-    },
-    {
-      property: "og:description",
-      content:
-        "Consultez tous les documents publics du Sénégal : Journal officiel, lois, décrets, arrêtés, rapports d'audit, codes généraux.",
-    },
-    {
-      property: "og:type",
-      content: "website",
-    },
-    {
-      property: "og:url",
-      content: "https://vie-publique.sn/documents/public",
-    },
-    {
-      property: "og:image",
-      content: "https://vie-publique.sn/images/vpsn-share-jors.png",
-    },
-    // Twitter Card
-    {
-      name: "twitter:card",
-      content: "summary_large_image",
-    },
-    {
-      name: "twitter:title",
-      content:
-        "Documents publics du Sénégal - Journal officiel, Lois, Décrets, Arrêtés",
-    },
-    {
-      name: "twitter:description",
-      content:
-        "Consultez tous les documents publics du Sénégal : Journal officiel, lois, décrets, arrêtés, rapports d'audit, codes généraux.",
-    },
-    {
-      name: "twitter:image",
-      content: "https://vie-publique.sn/images/vpsn-share-jors.png",
-    },
-  ],
-  link: [
-    {
-      rel: "canonical",
-      href: "https://vie-publique.sn/documents/public",
-    },
-  ],
+const {
+  documents,
+  loading,
+  error,
+  currentPage,
+  searchQuery,
+  totalItems,
+  totalPages,
+  itemsPerPage,
+  filterType,
+  setSearchQuery,
+  setCurrentPage,
+  setSortBy,
+  setSelectedFilter,
+  sortBy,
+  hasActiveFilters,
+  resetFilters,
+} = useDocuments({
+  limit: 10,
 });
 
-// Données structurées pour Google
-useSchemaOrg([
-  {
-    "@type": "WebPage",
-    name: "Documents publics du Sénégal",
-    description:
-      "Consultez tous les documents publics du Sénégal : Journal officiel, lois, décrets, arrêtés, rapports d'audit, codes généraux.",
-    url: "https://vie-publique.sn/documents/public",
-  },
-]);
-
-const filteredDocuments = computed(() => {
-  if (!documents.value) return [];
-  const searchLower = searchQuery.value.toLowerCase();
-  return documents.value.filter(
-    (doc) =>
-      doc.title?.toLowerCase().includes(searchLower) ||
-      (doc as any).description?.toLowerCase().includes(searchLower) ||
-      (doc as any).type?.toLowerCase().includes(searchLower),
-  );
+// Computed pour l'UI
+const searchQueryUI = computed({
+  get: () => searchQuery.value,
+  set: (value) => setSearchQuery(value),
 });
 
-const paginatedDocuments = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage.value;
-  const end = start + itemsPerPage.value;
-  return filteredDocuments.value.slice(start, end);
+const currentPageUI = computed({
+  get: () => currentPage.value,
+  set: (value) => setCurrentPage(value),
 });
 
-// Fonction pour gérer le changement de page
-const handlePageChange = (page: number) => {
-  currentPage.value = page;
-  // Faire défiler vers le haut de la liste
+const sortByUI = computed({
+  get: () => sortBy.value,
+  set: (value) => setSortBy(value),
+});
+
+const selectedTypeUI = computed({
+  get: () => filterType.value || "all",
+  set: (value) => setSelectedFilter(value === "all" ? "" : value),
+});
+
+const resultsText = computed(() =>
+  useResultsText({
+    totalItems,
+    currentPage,
+    itemsPerPage,
+    searchQuery,
+    filterType: filterType.value,
+    customLabels: {
+      singular: "document",
+      plural: "documents",
+      noResults: "Aucun document trouvé",
+      noResultsWithSearch: 'Aucun document trouvé pour "{search}"',
+    },
+  }),
+);
+
+const sortOptions = [
+  { label: "Plus récent", value: "-publish_date" },
+  { label: "Plus ancien", value: "publish_date" },
+  { label: "Titre (A-Z)", value: "title" },
+  { label: "Titre (Z-A)", value: "-title" },
+];
+
+const perPageOptions = [
+  { label: "10", value: 10 },
+  { label: "20", value: 20 },
+  { label: "30", value: 30 },
+];
+
+const typeOptions = [
+  { label: "Tous les documents", value: "all" },
+  { label: "Rapport d'audit", value: "audit_report" },
+  { label: "Journal officiel", value: "official_journal" },
+  { label: "Loi", value: "law" },
+  { label: "Codes généraux", value: "code" },
+  { label: "Stratégies", value: "strategy" },
+];
+
+// Fonction pour changer le nombre d'items par page
+const updateItemsPerPage = (value: number) => {
+  itemsPerPage.value = value;
+  currentPage.value = 1;
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
 </script>
@@ -141,19 +112,58 @@ const handlePageChange = (page: number) => {
         </p>
       </div>
 
-      <div class="mb-8">
+      <div class="mb-8 space-y-4">
+        <!-- Barre de recherche -->
         <UInput
-          v-model="searchQuery"
+          v-model="searchQueryUI"
           size="lg"
-          placeholder="Rechercher un document public..."
+          placeholder="Rechercher un document..."
           icon="i-heroicons-magnifying-glass"
           class="mx-auto w-full"
         />
 
+        <!-- Filtres et tri -->
         <div
-          class="mt-2 flex flex-col items-center justify-between text-sm text-gray-500 sm:flex-row dark:text-gray-400"
+          class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
         >
-          <span>{{ filteredDocuments.length }} documents publics trouvés</span>
+          <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+            <span class="text-sm text-gray-600 dark:text-gray-400"
+              >Filtrer par:</span
+            >
+            <USelect
+              v-model="selectedTypeUI"
+              :options="typeOptions"
+              size="md"
+              class="w-full sm:w-48"
+            />
+          </div>
+
+          <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+            <span class="text-sm text-gray-600 dark:text-gray-400"
+              >Trier par:</span
+            >
+            <USelect
+              v-model="sortByUI"
+              :options="sortOptions"
+              size="md"
+              class="w-full sm:w-48"
+            />
+          </div>
+        </div>
+
+        <div
+          class="mt-4 flex flex-col items-center justify-between gap-2 sm:flex-row"
+        >
+          <span class="text-sm text-gray-600">{{ resultsText }}</span>
+
+          <UButton
+            v-if="hasActiveFilters"
+            variant="ghost"
+            color="gray"
+            label="Réinitialiser les filtres"
+            class="text-sm"
+            @click="resetFilters()"
+          />
         </div>
       </div>
 
@@ -180,19 +190,28 @@ const handlePageChange = (page: number) => {
         title="Erreur"
         color="red"
         icon="i-heroicons-exclamation-triangle"
-      >
-        {{ error }}
-      </UAlert>
+        description="Une erreur s'est produite lors du chargement des documents"
+      />
 
+      <UAlert
+        v-else-if="documents.length === 0 && !loading"
+        title="Aucun résultat"
+        description="Aucun document ne correspond à votre recherche."
+        color="blue"
+        icon="i-heroicons-information-circle"
+        class="mb-6"
+      />
+
+      <!-- Liste des documents -->
       <div v-else class="space-y-2">
         <UCard
-          v-for="doc in paginatedDocuments"
-          :key="doc.id"
+          v-for="document in documents"
+          :key="document.id"
           class="custom-shadow transition-shadow duration-200 hover:shadow-md dark:bg-gray-800/80"
         >
           <NuxtLink
-            :to="`/documents/${doc.id}/${doc.slug}`"
-            class="flex items-start gap-4"
+            :to="`/documents/${document.id}/${document.slug}`"
+            class="flex items-start gap-4 p-4"
           >
             <div class="flex-shrink-0">
               <UIcon
@@ -200,40 +219,29 @@ const handlePageChange = (page: number) => {
                 class="text-primary-600 h-8 w-8 dark:text-gray-400"
               />
             </div>
-
             <div class="flex-grow">
               <h3 class="mb-1 font-medium text-gray-900 dark:text-gray-100">
-                {{ doc.title }}
+                {{ document.title }}
               </h3>
               <p class="line-clamp-2 text-sm text-gray-500 dark:text-gray-400">
-                {{ (doc as any).description }}
+                {{ (document as any).description }}
               </p>
               <div
+                v-if="document.publish_date"
                 class="mt-1 flex flex-wrap gap-4 text-sm text-gray-400"
-                v-if="doc.publish_date"
               >
                 <span
                   class="flex items-center gap-1 rounded-full bg-gray-50 px-2 py-1 text-xs text-gray-400 dark:bg-gray-800 dark:text-gray-500"
                 >
-                  {{ $dateMonthYearformat(doc.publish_date) }}
-                </span>
-              </div>
-              <div class="mt-1 hidden">
-                <span class="flex items-center gap-1">
-                  {{ $dateMonthYearformat(doc.publish_date) }}
-                </span>
-                <span
-                  class="inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
-                >
-                  {{ (doc as any).type }}
+                  {{ $dateMonthYearformat(document.publish_date) }}
                 </span>
               </div>
             </div>
           </NuxtLink>
         </UCard>
 
-        <!-- Pagination -->
         <div
+          v-if="totalPages > 1"
           class="mt-6 flex flex-col items-center gap-4 sm:flex-row sm:justify-between"
         >
           <div class="flex items-center gap-2">
@@ -241,30 +249,34 @@ const handlePageChange = (page: number) => {
               >Afficher</span
             >
             <USelect
-              v-model="itemsPerPage"
-              :options="[10, 20, 50]"
+              :model-value="itemsPerPage"
+              :options="perPageOptions"
               size="sm"
               class="w-20"
+              @update:model-value="updateItemsPerPage"
             />
             <span class="text-sm text-gray-500 dark:text-gray-400"
               >par page</span
             >
           </div>
 
-          <UPagination
-            v-model="currentPage"
-            :total="filteredDocuments.length"
-            :per-page="itemsPerPage"
-            :active-button="{ color: 'yellow' }"
-            :ui="{
-              wrapper: 'flex items-center gap-1',
-              base: 'min-w-8 min-h-8 flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed',
-              active: 'bg-blue-900 text-white',
-              inactive:
-                'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700',
-            }"
-            @change="handlePageChange"
-          />
+          <div class="flex items-center gap-2">
+            <UPagination
+              v-model="currentPageUI"
+              :total="totalItems"
+              :page-count="itemsPerPage"
+              :default-page="1"
+              :show-edges="true"
+              :sibling-count="2"
+              :active-button="{ color: 'yellow' }"
+              :ui="{
+                wrapper: 'flex items-center gap-1',
+                base: 'min-w-8 min-h-8 flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed',
+                active: 'bg-gray-900 text-white',
+                inactive: 'bg-white text-gray-900 hover:bg-gray-100',
+              }"
+            />
+          </div>
         </div>
       </div>
     </ClientOnly>

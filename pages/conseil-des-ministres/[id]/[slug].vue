@@ -1,18 +1,13 @@
 <script setup lang="ts">
 import { useNews } from "~/composables/news/useNews";
 
-const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
-const config = useRuntimeConfig();
+const { siteName, siteUrl, defaultImage, keywords, themeColor } =
+  useSiteMetadata();
 const route = useRoute();
 
-const { article, loading, error, fetchNewsById } = useNews({
-  category: "conseil-des-ministres",
-});
-
-onMounted(async () => {
-  if (route.params.id) {
-    await fetchNewsById(route.params.id as string);
-  }
+// Utilisation du composable useNews avec l'ID
+const { article, loading, error } = useNews({
+  id: route.params.id as string,
 });
 
 const title = computed(() => {
@@ -21,142 +16,153 @@ const title = computed(() => {
 });
 
 const description = computed(() => {
-  if (!article.value) return "Communiqué conseil des ministres du gouvernement du Sénégal";
-  
+  if (!article.value)
+    return "Communiqué conseil des ministres du gouvernement du Sénégal";
+
   // Extraire du contenu HTML pour créer une description
   const htmlContent = article.value.content || article.value.title;
-  const textContent = htmlContent.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
-  const truncatedContent = textContent.length > 160 
-    ? `${textContent.substring(0, 157)}...` 
-    : textContent;
-  
+  const textContent = htmlContent
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  const truncatedContent =
+    textContent.length > 160
+      ? `${textContent.substring(0, 157)}...`
+      : textContent;
+
   return truncatedContent || article.value.title;
 });
 
-const url = computed(() => 
-  `${siteUrl}/conseil-des-ministres/${route.params.id}/${route.params.slug}`
+const url = computed(
+  () =>
+    `${siteUrl}/conseil-des-ministres/${route.params.id}/${route.params.slug}`,
 );
 
 const image = computed(() => {
   if (article.value?.cover_image) {
-    return article.value.cover_image.startsWith('http') 
-      ? article.value.cover_image 
+    return article.value.cover_image.startsWith("http")
+      ? article.value.cover_image
       : `${siteUrl}${article.value.cover_image}`;
   }
   return `${siteUrl}/images/share-conseil-des-ministres-nomination-full.jfif`;
 });
 
-const publishedDate = computed(() => 
-  article.value?.date_published ? new Date(article.value.date_published).toISOString() : null
+const publishedDate = computed(() =>
+  article.value?.date_published
+    ? new Date(article.value.date_published).toISOString()
+    : null,
 );
 
-const modifiedDate = computed(() => 
-  article.value?.date_updated ? new Date(article.value.date_updated).toISOString() : publishedDate.value
+const modifiedDate = computed(() =>
+  article.value?.date_updated
+    ? new Date(article.value.date_updated).toISOString()
+    : publishedDate.value,
 );
 
 const articleSchema = computed(() => ({
   "@context": "https://schema.org",
   "@type": "GovernmentAnnouncement",
-  "headline": article.value?.title || "Communiqué du Conseil des ministres",
-  "name": article.value?.title || "Communiqué du Conseil des ministres",
-  "description": description.value,
-  "url": url.value,
-  "image": {
+  headline: article.value?.title || "Communiqué du Conseil des ministres",
+  name: article.value?.title || "Communiqué du Conseil des ministres",
+  description: description.value,
+  url: url.value,
+  image: {
     "@type": "ImageObject",
-    "url": image.value,
-    "width": 1200,
-    "height": 630
+    url: image.value,
+    width: 1200,
+    height: 630,
   },
-  "datePublished": publishedDate.value,
-  "dateModified": modifiedDate.value || publishedDate.value,
-  "author": {
+  datePublished: publishedDate.value,
+  dateModified: modifiedDate.value || publishedDate.value,
+  author: {
     "@type": "GovernmentOrganization",
-    "name": "Conseil des ministres du Sénégal",
-    "url": `${siteUrl}/conseil-des-ministres`
+    name: "Conseil des ministres du Sénégal",
+    url: `${siteUrl}/conseil-des-ministres`,
   },
-  "publisher": {
+  publisher: {
     "@type": "GovernmentOrganization",
-    "name": "Conseil des ministres du Sénégal",
-    "url": `${siteUrl}/conseil-des-ministres`,
-    "logo": {
+    name: "Conseil des ministres du Sénégal",
+    url: `${siteUrl}/conseil-des-ministres`,
+    logo: {
       "@type": "ImageObject",
-      "url": `${siteUrl}/images/logo-senegal.png`,
-      "width": 200,
-      "height": 200
-    }
+      url: `${siteUrl}/images/logo-senegal.png`,
+      width: 200,
+      height: 200,
+    },
   },
-  "mainEntityOfPage": {
+  mainEntityOfPage: {
     "@type": "WebPage",
-    "@id": url.value
+    "@id": url.value,
   },
-  "articleSection": "Gouvernement",
-  "genre": "Communiqué officiel",
-  "keywords": [
+  articleSection: "Gouvernement",
+  genre: "Communiqué officiel",
+  keywords: [
     "Conseil des ministres",
     "Sénégal",
     "Gouvernement",
     "Communiqué officiel",
     "Bassirou Diomaye Faye",
-    "Ousmane Sonko"
+    "Ousmane Sonko",
   ],
-  "about": {
+  about: {
     "@type": "GovernmentOrganization",
-    "name": "Conseil des ministres du Sénégal",
-    "parentOrganization": {
+    name: "Conseil des ministres du Sénégal",
+    parentOrganization: {
       "@type": "GovernmentOrganization",
-      "name": "République du Sénégal"
-    }
+      name: "République du Sénégal",
+    },
   },
-  "isPartOf": {
+  isPartOf: {
     "@type": "WebSite",
-    "name": siteName,
-    "url": siteUrl
-  }
+    name: siteName,
+    url: siteUrl,
+  },
 }));
 
 const breadcrumbSchema = computed(() => ({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  "itemListElement": [
+  itemListElement: [
     {
       "@type": "ListItem",
-      "position": 1,
-      "name": "Accueil",
-      "item": siteUrl
-    },
-    {
-      "@type": "ListItem", 
-      "position": 2,
-      "name": "Conseil des ministres",
-      "item": `${siteUrl}/conseil-des-ministres`
+      position: 1,
+      name: "Accueil",
+      item: siteUrl,
     },
     {
       "@type": "ListItem",
-      "position": 3,
-      "name": article.value?.title || "Communiqué",
-      "item": url.value
-    }
-  ]
+      position: 2,
+      name: "Conseil des ministres",
+      item: `${siteUrl}/conseil-des-ministres`,
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: article.value?.title || "Communiqué",
+      item: url.value,
+    },
+  ],
 }));
 
 const governmentServiceSchema = computed(() => ({
   "@context": "https://schema.org",
   "@type": "GovernmentService",
-  "name": "Publication des communiqués du Conseil des ministres",
-  "description": "Service officiel de publication des décisions et communications du Conseil des ministres du Sénégal",
-  "provider": {
+  name: "Publication des communiqués du Conseil des ministres",
+  description:
+    "Service officiel de publication des décisions et communications du Conseil des ministres du Sénégal",
+  provider: {
     "@type": "GovernmentOrganization",
-    "name": "Conseil des ministres du Sénégal"
+    name: "Conseil des ministres du Sénégal",
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Country",
-    "name": "Sénégal"
+    name: "Sénégal",
   },
-  "serviceType": "Communication gouvernementale",
-  "audience": {
+  serviceType: "Communication gouvernementale",
+  audience: {
     "@type": "Audience",
-    "audienceType": "Citizens, Media, Public officials"
-  }
+    audienceType: "Citizens, Media, Public officials",
+  },
 }));
 
 useSeoMeta({
@@ -179,7 +185,7 @@ useSeoMeta({
     "Bassirou Diomaye Faye",
     "Ousmane Sonko",
     "politique sénégalaise",
-    "République du Sénégal"
+    "République du Sénégal",
   ].join(", "),
 });
 
@@ -188,7 +194,7 @@ useHead({
   link: [
     { rel: "canonical", href: url.value },
     { rel: "alternate", hreflang: "fr-SN", href: url.value },
-    { rel: "alternate", hreflang: "fr", href: url.value }
+    { rel: "alternate", hreflang: "fr", href: url.value },
   ],
   meta: [
     { name: "theme-color", content: themeColor },
@@ -199,33 +205,43 @@ useHead({
     { property: "article:modified_time", content: modifiedDate.value },
     { property: "article:author", content: "Conseil des ministres du Sénégal" },
     { property: "article:section", content: "Gouvernement" },
-    { property: "article:tag", content: "Conseil des ministres, Sénégal, Gouvernement" },
+    {
+      property: "article:tag",
+      content: "Conseil des ministres, Sénégal, Gouvernement",
+    },
     { name: "robots", content: "index, follow, max-image-preview:large" },
-    { name: "googlebot", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
+    {
+      name: "googlebot",
+      content:
+        "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+    },
     { name: "geo.region", content: "SN" },
     { name: "geo.placename", content: "Dakar" },
     { name: "geo.position", content: "14.7645042;-17.3660286" },
     { name: "ICBM", content: "14.7645042, -17.3660286" },
-    { name: "news_keywords", content: "Conseil des ministres, Sénégal, gouvernement, communiqué" },
+    {
+      name: "news_keywords",
+      content: "Conseil des ministres, Sénégal, gouvernement, communiqué",
+    },
     { name: "category", content: "Government" },
     { name: "coverage", content: "Worldwide" },
     { name: "distribution", content: "Global" },
-    { name: "rating", content: "General" }
+    { name: "rating", content: "General" },
   ],
   script: [
     {
       type: "application/ld+json",
-      children: () => JSON.stringify(articleSchema.value)
-    },
-    {
-      type: "application/ld+json", 
-      children: () => JSON.stringify(breadcrumbSchema.value)
+      children: () => JSON.stringify(articleSchema.value),
     },
     {
       type: "application/ld+json",
-      children: () => JSON.stringify(governmentServiceSchema.value)
-    }
-  ]
+      children: () => JSON.stringify(breadcrumbSchema.value),
+    },
+    {
+      type: "application/ld+json",
+      children: () => JSON.stringify(governmentServiceSchema.value),
+    },
+  ],
 });
 
 const links = [{ label: "communiqués", to: "/conseil-des-ministres" }];
@@ -257,53 +273,67 @@ const formatDateISO = (date: string) => {
     </div>
 
     <template v-else-if="article">
-      <article 
-        itemscope 
+      <article
+        itemscope
         itemtype="https://schema.org/GovernmentAnnouncement"
         class="prose prose-sm sm:prose dark:prose-invert dark:prose-a:text-blue-400 mx-auto"
       >
         <!-- Schema.org hidden metadata -->
-        <div itemprop="publisher" itemscope itemtype="https://schema.org/GovernmentOrganization">
-          <meta itemprop="name" content="Conseil des ministres du Sénégal">
-          <meta itemprop="url" :content="`${siteUrl}/conseil-des-ministres`">
+        <div
+          itemprop="publisher"
+          itemscope
+          itemtype="https://schema.org/GovernmentOrganization"
+        >
+          <meta itemprop="name" content="Conseil des ministres du Sénégal" />
+          <meta itemprop="url" :content="`${siteUrl}/conseil-des-ministres`" />
         </div>
 
-        <div itemprop="about" itemscope itemtype="https://schema.org/GovernmentOrganization">
-          <meta itemprop="name" content="Conseil des ministres du Sénégal">
-          
-          <div itemprop="parentOrganization" itemscope itemtype="https://schema.org/GovernmentOrganization">
-            <meta itemprop="name" content="République du Sénégal">
+        <div
+          itemprop="about"
+          itemscope
+          itemtype="https://schema.org/GovernmentOrganization"
+        >
+          <meta itemprop="name" content="Conseil des ministres du Sénégal" />
+
+          <div
+            itemprop="parentOrganization"
+            itemscope
+            itemtype="https://schema.org/GovernmentOrganization"
+          >
+            <meta itemprop="name" content="République du Sénégal" />
           </div>
         </div>
 
-        <meta itemprop="url" :content="url">
-        <meta itemprop="genre" content="Communiqué officiel">
-        <meta itemprop="articleSection" content="Gouvernement">
-        
-        <h1 
-          class="dark:text-white" 
-          itemprop="headline name"
-        >
+        <meta itemprop="url" :content="url" />
+        <meta itemprop="genre" content="Communiqué officiel" />
+        <meta itemprop="articleSection" content="Gouvernement" />
+
+        <h1 class="dark:text-white" itemprop="headline name">
           {{ article.title }}
         </h1>
 
         <div class="text-sm text-gray-600 dark:text-gray-400">
-          <time 
+          <time
             v-if="article.date_published"
             :datetime="formatDateISO(article.date_published)"
             itemprop="datePublished"
           >
             {{ $dateformatWithDayName(article.date_published) }}
           </time>
-          
-          <meta 
+
+          <meta
             v-if="article.date_updated"
-            itemprop="dateModified" 
+            itemprop="dateModified"
             :content="formatDateISO(article.date_updated)"
-          >
+          />
         </div>
 
-        <div v-if="article.cover_image" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+        <div
+          v-if="article.cover_image"
+          itemprop="image"
+          itemscope
+          itemtype="https://schema.org/ImageObject"
+        >
           <CmsImage
             :src="article.cover_image"
             :alt="article.title"
@@ -311,8 +341,8 @@ const formatDateISO = (date: string) => {
             class="w-full object-cover"
             itemprop="contentUrl url"
           />
-          <meta itemprop="width" content="800">
-          <meta itemprop="height" content="450">
+          <meta itemprop="width" content="800" />
+          <meta itemprop="height" content="450" />
         </div>
 
         <!-- Lien PDF si disponible -->
@@ -328,13 +358,13 @@ const formatDateISO = (date: string) => {
         </div>
 
         <!-- Contenu HTML -->
-        <div 
-          v-html="article.content" 
-          itemprop="articleBody"
-        ></div>
+        <div v-html="article.content" itemprop="articleBody"></div>
 
         <!-- Mots-clés cachés pour le SEO -->
-        <meta itemprop="keywords" content="Conseil des ministres, Sénégal, Gouvernement, Communiqué officiel">
+        <meta
+          itemprop="keywords"
+          content="Conseil des ministres, Sénégal, Gouvernement, Communiqué officiel"
+        />
       </article>
     </template>
 
@@ -353,11 +383,11 @@ const formatDateISO = (date: string) => {
 }
 
 :deep(.prose h1) {
-  @apply text-2xl sm:text-3xl font-bold mb-4;
+  @apply mb-4 text-2xl font-bold sm:text-3xl;
 }
 
 :deep(.prose h2) {
-  @apply text-xl sm:text-2xl font-semibold mt-8 mb-4;
+  @apply mb-4 mt-8 text-xl font-semibold sm:text-2xl;
 }
 
 :deep(.prose p) {

@@ -38,14 +38,7 @@
 </template>
 
 <script setup lang="ts">
-interface NewsArticle {
-  id: string | number;
-  title: string;
-  slug: string;
-  date_published: string;
-  cover_image?: string;
-  [key: string]: any;
-}
+import type { NewsArticle } from "~/composables/news/useNews";
 
 defineProps<{
   news?: NewsArticle[];

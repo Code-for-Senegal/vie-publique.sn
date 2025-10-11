@@ -1,65 +1,139 @@
-<!-- index.vue -->
 <script setup lang="ts">
-const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
+const { siteName, siteUrl, defaultImage, keywords, themeColor } =
+  useSiteMetadata();
+const router = useRouter();
 
 const title = "Journal Officiel de la République du Sénégal | Vie-Publique.sn";
-const description = "Consultez tous les numéros du Journal Officiel de la République du Sénégal. Lois, décrets, arrêtés et textes officiels publiés au JORS.";
+const description =
+  "Consultez tous les numéros du Journal Officiel de la République du Sénégal. Lois, décrets, arrêtés et textes officiels publiés au JORS.";
 const url = `${siteUrl}/documents/journal-officiel`;
 const image = `${siteUrl}/images/vpsn-share-jors-4.png`;
 
+// Utilisation du composable useDocuments
+const {
+  documents,
+  loading,
+  error,
+  searchQuery,
+  filterType: selectedYear,
+  totalItems,
+  setSearchQuery,
+  setSelectedFilter,
+} = useDocuments({
+  type: "official_journal",
+});
+
+// Computed pour l'UI
+const searchQueryUI = computed({
+  get: () => searchQuery.value,
+  set: (value) => setSearchQuery(value),
+});
+
+const selectedYearUI = computed({
+  get: () => selectedYear.value,
+  set: (value) => setSelectedFilter(value),
+});
+
+// Options pour le sélecteur d'années
+const yearOptions = [
+  { label: "Toutes les années", value: "all" },
+  { label: "2025", value: "2025" },
+  { label: "2024", value: "2024" },
+  { label: "2023", value: "2023" },
+  { label: "2022", value: "2022" },
+  { label: "2021", value: "2021" },
+  { label: "2020", value: "2020" },
+  { label: "2019", value: "2019" },
+  { label: "2018", value: "2018" },
+  { label: "2017", value: "2017" },
+  { label: "2016", value: "2016" },
+];
+
+// Utilisation de l'utilitaire resultsText
+const resultsText = computed(() =>
+  useResultsText({
+    totalItems,
+    currentPage: ref(1),
+    itemsPerPage: ref(10),
+    searchQuery,
+    filterType: selectedYear.value,
+    documentType: "official_journal",
+    customLabels: {
+      singular: "journal",
+      plural: "journaux",
+      noResults: "Aucun journal trouvé",
+      noResultsWithSearch: 'Aucun journal trouvé pour "{search}"',
+    },
+  }),
+);
+
+// Format de la date
+const formatDate = (date: string) => {
+  return new Date(date).toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+};
+
+const formatDateISO = (date: string) => {
+  return new Date(date).toISOString();
+};
+
+// Schema.org
 const journalOfficielSchema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "name": title,
-  "description": description,
-  "url": url,
-  "image": image,
-  "isPartOf": {
+  name: title,
+  description: description,
+  url: url,
+  image: image,
+  isPartOf: {
     "@type": "WebSite",
-    "name": siteName,
-    "url": siteUrl,
+    name: siteName,
+    url: siteUrl,
   },
-  "about": {
+  about: {
     "@type": "GovernmentOrganization",
-    "name": "République du Sénégal",
-    "description": "État souverain d'Afrique de l'Ouest",
+    name: "République du Sénégal",
   },
-  "mainEntity": {
+  mainEntity: {
     "@type": "Periodical",
-    "name": "Journal Officiel de la République du Sénégal",
-    "alternateName": "JORS",
-    "description": "Publication officielle de la République du Sénégal contenant les lois, décrets et arrêtés",
-    "publisher": {
+    name: "Journal Officiel de la République du Sénégal",
+    alternateName: "JORS",
+    description:
+      "Publication officielle de la République du Sénégal contenant les lois, décrets et arrêtés",
+    publisher: {
       "@type": "GovernmentOrganization",
-      "name": "République du Sénégal",
+      name: "République du Sénégal",
     },
-    "issn": "0851-8025",
-    "inLanguage": "fr-SN",
-    "frequency": "Weekly",
+    issn: "0851-8025",
+    inLanguage: "fr-SN",
+    frequency: "Weekly",
   },
 };
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  "itemListElement": [
+  itemListElement: [
     {
       "@type": "ListItem",
-      "position": 1,
-      "name": "Accueil",
-      "item": siteUrl,
+      position: 1,
+      name: "Accueil",
+      item: siteUrl,
     },
     {
       "@type": "ListItem",
-      "position": 2,
-      "name": "Documents",
-      "item": `${siteUrl}/documents`,
+      position: 2,
+      name: "Documents",
+      item: `${siteUrl}/documents`,
     },
     {
       "@type": "ListItem",
-      "position": 3,
-      "name": "Journal Officiel",
-      "item": url,
+      position: 3,
+      name: "Journal Officiel",
+      item: url,
     },
   ],
 };
@@ -67,43 +141,54 @@ const breadcrumbSchema = {
 const datasetSchema = {
   "@context": "https://schema.org",
   "@type": "Dataset",
-  "name": "Archives du Journal Officiel du Sénégal",
-  "description": "Collection complète des numéros du Journal Officiel de la République du Sénégal",
-  "url": url,
-  "keywords": ["Journal Officiel", "JORS", "lois", "décrets", "arrêtés", "Sénégal", "textes officiels"],
-  "creator": {
+  name: "Archives du Journal Officiel du Sénégal",
+  description:
+    "Collection complète des numéros du Journal Officiel de la République du Sénégal",
+  url: url,
+  keywords: [
+    "Journal Officiel",
+    "JORS",
+    "lois",
+    "décrets",
+    "arrêtés",
+    "Sénégal",
+    "textes officiels",
+  ],
+  creator: {
     "@type": "GovernmentOrganization",
-    "name": "République du Sénégal",
+    name: "République du Sénégal",
   },
-  "publisher": {
+  publisher: {
     "@type": "Organization",
-    "name": siteName,
+    name: siteName,
   },
-  "license": "https://creativecommons.org/publicdomain/mark/1.0/",
-  "isAccessibleForFree": true,
-  "inLanguage": "fr-SN",
+  license: "https://creativecommons.org/publicdomain/mark/1.0/",
+  isAccessibleForFree: true,
+  inLanguage: "fr-SN",
 };
 
 const periodicalSchema = {
   "@context": "https://schema.org",
   "@type": "GovernmentService",
-  "name": "Service de publication du Journal Officiel",
-  "description": "Service gouvernemental de publication des textes officiels au Journal Officiel",
-  "provider": {
+  name: "Service de publication du Journal Officiel",
+  description:
+    "Service gouvernemental de publication des textes officiels au Journal Officiel",
+  provider: {
     "@type": "GovernmentOrganization",
-    "name": "République du Sénégal",
+    name: "République du Sénégal",
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Country",
-    "name": "Sénégal",
+    name: "Sénégal",
   },
-  "serviceType": "Publication officielle",
-  "audience": {
+  serviceType: "Publication officielle",
+  audience: {
     "@type": "Audience",
-    "audienceType": "Citizens, Legal professionals, Researchers",
+    audienceType: "Citizens, Legal professionals, Researchers",
   },
 };
 
+// SEO
 useSeoMeta({
   title,
   ogTitle: title,
@@ -145,7 +230,10 @@ useHead({
     { name: "DC.format", content: "text/html" },
     { name: "DC.language", content: "fr-SN" },
     { name: "DC.coverage", content: "Sénégal" },
-    { name: "DC.subject", content: "Journal Officiel, Législation, Gouvernement" },
+    {
+      name: "DC.subject",
+      content: "Journal Officiel, Législation, Gouvernement",
+    },
   ],
   script: [
     {
@@ -166,44 +254,14 @@ useHead({
     },
   ],
 });
-
-const { documents, loading, error } = useDocuments({
-  type: "official_journal",
-});
-const searchQuery = ref("");
-const currentView = ref<"grid" | "list">("list");
-const router = useRouter();
-
-const filteredJournals = computed(() => {
-  if (!documents.value) return [];
-
-  return documents.value.filter((doc) => {
-    const searchLower = searchQuery.value.toLowerCase();
-    return (
-      doc.title?.toLowerCase().includes(searchLower) ||
-      doc.jo_number?.toString().toLowerCase().includes(searchLower) ||
-      doc.description?.toLowerCase().includes(searchLower)
-    );
-  });
-});
-
-// Format de la date
-const formatDate = (date: string) => {
-  return new Date(date).toLocaleDateString("fr-FR", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-};
-
-const formatDateISO = (date: string) => {
-  return new Date(date).toISOString();
-};
 </script>
 
 <template>
-  <div class="container mx-auto px-4" itemscope itemtype="https://schema.org/CollectionPage">
-    <!-- Bouton retour -->
+  <div
+    class="container mx-auto px-4"
+    itemscope
+    itemtype="https://schema.org/CollectionPage"
+  >
     <UButton
       icon="i-heroicons-arrow-left"
       variant="ghost"
@@ -211,40 +269,65 @@ const formatDateISO = (date: string) => {
       color="gray"
       @click="router.back()"
     />
-    
+
     <!-- En-tête -->
     <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center text-xl text-gray-900 sm:text-2xl" itemprop="headline">
+      <h1
+        class="text-center text-xl text-gray-900 sm:text-2xl"
+        itemprop="headline"
+      >
         Journal Officiel
       </h1>
     </div>
 
     <!-- Schema.org hidden metadata -->
-    <div itemprop="mainEntity" itemscope itemtype="https://schema.org/Periodical">
-      <meta itemprop="name" content="Journal Officiel de la République du Sénégal">
-      <meta itemprop="alternateName" content="JORS">
-      <meta itemprop="issn" content="0851-8025">
-      <meta itemprop="inLanguage" content="fr-SN">
-      <meta itemprop="frequency" content="Weekly">
-      
-      <div itemprop="publisher" itemscope itemtype="https://schema.org/GovernmentOrganization">
-        <meta itemprop="name" content="République du Sénégal">
+    <div
+      itemprop="mainEntity"
+      itemscope
+      itemtype="https://schema.org/Periodical"
+    >
+      <meta
+        itemprop="name"
+        content="Journal Officiel de la République du Sénégal"
+      />
+      <meta itemprop="alternateName" content="JORS" />
+      <meta itemprop="issn" content="0851-8025" />
+      <meta itemprop="inLanguage" content="fr-SN" />
+      <meta itemprop="frequency" content="Weekly" />
+
+      <div
+        itemprop="publisher"
+        itemscope
+        itemtype="https://schema.org/GovernmentOrganization"
+      >
+        <meta itemprop="name" content="République du Sénégal" />
       </div>
     </div>
 
-    <!-- Recherche -->
+    <!-- Recherche et filtres -->
     <div class="mb-8">
-      <UInput
-        v-model="searchQuery"
-        size="lg"
-        placeholder="Rechercher par numéro, date ou contenu..."
-        icon="i-heroicons-magnifying-glass"
-        class="custom-shadow sm:w-full"
-      />
+      <div class="flex flex-col gap-3 sm:flex-row">
+        <UInput
+          v-model="searchQueryUI"
+          size="lg"
+          placeholder="Rechercher par numéro, date ou contenu..."
+          icon="i-heroicons-magnifying-glass"
+          class="custom-shadow flex-1"
+        />
+
+        <USelect
+          v-model="selectedYearUI"
+          :options="yearOptions"
+          placeholder="Année"
+          size="lg"
+          class="custom-shadow w-full sm:w-48"
+        />
+      </div>
+
       <div
         class="mt-2 flex flex-col items-center justify-between text-sm text-gray-500 sm:flex-row"
       >
-        <span>{{ filteredJournals.length }} Journaux référencés</span>
+        <span>{{ resultsText }}</span>
       </div>
     </div>
 
@@ -272,7 +355,7 @@ const formatDateISO = (date: string) => {
 
     <!-- Résultats vides -->
     <UAlert
-      v-else-if="filteredJournals.length === 0"
+      v-else-if="documents.length === 0 && !loading"
       title="Aucun résultat"
       description="Aucun journal officiel ne correspond à votre recherche."
       color="gray"
@@ -280,30 +363,43 @@ const formatDateISO = (date: string) => {
     />
 
     <!-- Liste des journaux -->
-    <div 
-      v-else 
+    <div
+      v-else
       class="space-y-4"
-      itemscope 
+      itemscope
       itemtype="https://schema.org/ItemList"
     >
-      <meta itemprop="numberOfItems" :content="filteredJournals.length">
-      
+      <meta itemprop="numberOfItems" :content="`${documents.length}`" />
+
       <article
-        v-for="(journal, index) in filteredJournals"
+        v-for="(journal, index) in documents"
         :key="journal.id"
         itemscope
         itemtype="https://schema.org/PublicationIssue"
         itemprop="itemListElement"
         class="rounded-none transition-shadow duration-200 hover:shadow-lg"
       >
-        <meta itemprop="position" :content="index + 1">
-        <meta itemprop="url" :content="`${siteUrl}/documents/${journal.id}/${journal.slug || 'journal-officiel'}`">
-        <meta itemprop="datePublished" :content="formatDateISO(journal.publish_date)">
-        <meta itemprop="issueNumber" :content="journal.jo_number || ''">
-        
-        <div itemprop="isPartOf" itemscope itemtype="https://schema.org/Periodical">
-          <meta itemprop="name" content="Journal Officiel de la République du Sénégal">
-          <meta itemprop="issn" content="0851-8025">
+        <meta itemprop="position" :content="`${index + 1}`" />
+        <meta
+          itemprop="url"
+          :content="`${siteUrl}/documents/${journal.id}/${journal.slug || 'journal-officiel'}`"
+        />
+        <meta
+          itemprop="datePublished"
+          :content="formatDateISO(journal.publish_date)"
+        />
+        <meta itemprop="issueNumber" :content="journal.jo_number || ''" />
+
+        <div
+          itemprop="isPartOf"
+          itemscope
+          itemtype="https://schema.org/Periodical"
+        >
+          <meta
+            itemprop="name"
+            content="Journal Officiel de la République du Sénégal"
+          />
+          <meta itemprop="issn" content="0851-8025" />
         </div>
 
         <UCard :ui="{ body: { padding: 'sm:p-4' } }">
@@ -327,7 +423,10 @@ const formatDateISO = (date: string) => {
                   fetchpriority="high"
                   itemprop="contentUrl"
                 />
-                <meta itemprop="url" content="/images/default-journal-officiel.webp">
+                <meta
+                  itemprop="url"
+                  content="/images/default-journal-officiel.webp"
+                />
               </div>
 
               <div>
@@ -343,7 +442,7 @@ const formatDateISO = (date: string) => {
 
                 <div class="mt-3 flex items-center gap-2 text-sm text-gray-500">
                   <UIcon name="i-heroicons-calendar" />
-                  <time 
+                  <time
                     :datetime="formatDateISO(journal.publish_date)"
                     itemprop="datePublished"
                   >
@@ -352,9 +451,13 @@ const formatDateISO = (date: string) => {
                 </div>
 
                 <!-- Additional metadata -->
-                <meta itemprop="name" :content="journal.title">
-                <div itemprop="publisher" itemscope itemtype="https://schema.org/GovernmentOrganization">
-                  <meta itemprop="name" content="République du Sénégal">
+                <meta itemprop="name" :content="journal.title" />
+                <div
+                  itemprop="publisher"
+                  itemscope
+                  itemtype="https://schema.org/GovernmentOrganization"
+                >
+                  <meta itemprop="name" content="République du Sénégal" />
                 </div>
               </div>
             </div>

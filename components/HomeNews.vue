@@ -1,8 +1,5 @@
 <script lang="ts" setup>
-import { useNewsStore } from "~/stores/news";
-
-// Utilisation du store
-const store = useNewsStore();
+import { useNews } from "~/composables/news/useNews";
 
 // Fonction pour formater l'URL selon le nouveau format /categorie/id/slug
 const formatNewsUrl = (article: {
@@ -42,9 +39,13 @@ const formatNewsUrl = (article: {
   return `/actualites/${id}/${slug}`;
 };
 
-// Récupération des articles au montage du composant
-onMounted(async () => {
-  await store.fetchNews({ featured: true });
+const {
+  articles: featuredNews,
+  error,
+  loading,
+} = useNews({
+  featured: true,
+  limit: 3,
 });
 </script>
 
@@ -55,7 +56,7 @@ onMounted(async () => {
     </div>
 
     <div
-      v-if="store.loading"
+      v-if="loading"
       class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
     >
       <div v-for="n in 3" :key="n" class="animate-pulse">
@@ -67,14 +68,14 @@ onMounted(async () => {
       </div>
     </div>
 
-    <div v-else-if="store.error" class="p-4 text-red-600">
+    <div v-else-if="error" class="p-4 text-red-600">
       Une erreur est survenue lors du chargement des actualités.
     </div>
 
     <div v-else>
       <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
         <UCard
-          v-for="article in store.featuredNews?.slice(0, 3)"
+          v-for="article in featuredNews?.slice(0, 3)"
           :key="article.id"
           class="custom-shadow cursor-pointer"
         >
