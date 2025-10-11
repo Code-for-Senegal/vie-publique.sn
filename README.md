@@ -88,6 +88,9 @@ yarn dev-win
 - `npm run lint` - Run ESLint
 - `npm run lint:fix` - Fix ESLint issues
 - `npm run format` - Format code with Prettier
+- `npm run test` - Run tests with Vitest
+- `npm run test:ui` - Run tests with UI
+- `npm run test:coverage` - Generate test coverage report
 
 ### Cross-Platform Development
 
@@ -138,6 +141,60 @@ npm run format && npm run lint:fix
 - `eslint.config.mjs` - ESLint rules
 
 For more details on VSCode setup, see [`.vscode/README.md`](.vscode/README.md)
+
+## Testing
+
+This project uses [Vitest](https://vitest.dev/) for unit testing with Vue Test Utils.
+
+### Running Tests
+
+```bash
+# Run tests in watch mode
+npm run test
+
+# Run tests with UI
+npm run test:ui
+
+# Run tests with coverage
+npm run test:coverage
+```
+
+### Writing Tests
+
+Tests are organized following [Nuxt.js testing best practices](https://nuxt.com/docs/getting-started/testing) in a centralized `test/` directory:
+
+```plaintext
+test/
+├── unit/              # Unit tests for composables, utils, stores
+│   └── composables/
+│       └── usePromesseStatus.test.ts
+├── e2e/               # End-to-end tests (future)
+└── nuxt/              # Nuxt runtime tests (future)
+```
+
+**Example test:**
+
+```typescript
+// test/unit/composables/usePromesseStatus.test.ts
+import { describe, it, expect } from 'vitest'
+import { getStatusIcon } from '~/composables/usePromesseStatus'
+
+describe('usePromesseStatus', () => {
+  it('should return correct icon', () => {
+    expect(getStatusIcon('tenue')).toBe('i-heroicons-check-circle')
+  })
+})
+```
+
+### Coverage Reports
+
+Coverage reports are generated in the `coverage/` directory and are excluded from version control. The project is configured to send coverage data to [SonarCloud](https://sonarcloud.io/) for continuous code quality analysis.
+
+## Code Quality
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=malicktech_vie-publique.sn&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=malicktech_vie-publique.sn)
+
+This project uses [SonarCloud](https://sonarcloud.io/) for continuous code quality and security analysis. Code quality metrics are automatically analyzed on every push and pull request.
 
 ## Contributing
 
