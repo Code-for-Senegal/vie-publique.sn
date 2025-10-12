@@ -77,7 +77,13 @@ export const useCmsCollection = <T>(options: CmsCollectionOptions) => {
 
       if (id) {
         // Pour les détails
-        items = [response.document || response.item || response.data];
+        items = [
+          response.document ||
+          response.nomination ||
+          response.media ||
+          response.item ||
+          response.data
+        ];
         paginationData = {
           page: 1,
           limit: 1,
@@ -89,6 +95,8 @@ export const useCmsCollection = <T>(options: CmsCollectionOptions) => {
         items =
           response.documents ||
           response.news ||
+          response.nominations ||
+          response.medias ||
           response.media ||
           response.items ||
           response.data ||

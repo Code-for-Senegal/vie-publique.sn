@@ -2,6 +2,21 @@
 import { Toaster, toast } from "vue-sonner";
 const isOpen = ref(false);
 
+// Configuration SEO selon l'environnement
+const config = useRuntimeConfig();
+const isProduction = config.public.siteUrl === 'https://vie-publique.sn';
+
+// Bloquer l'indexation en environnement de test
+if (!isProduction) {
+  useHead({
+    meta: [
+      { name: 'robots', content: 'noindex, nofollow' },
+      { name: 'googlebot', content: 'noindex, nofollow' },
+      { name: 'bingbot', content: 'noindex, nofollow' },
+    ],
+  });
+}
+
 // Appliquer le middleware globalement
 definePageMeta({
   middleware: ["maintenance"],

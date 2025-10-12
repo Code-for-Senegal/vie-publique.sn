@@ -1,193 +1,195 @@
 import type { Document } from "~/types/document";
 
 export interface DocumentsOptions {
+  /** ID du document pour récupération unitaire */
   id?: string;
+
+  /** Type de document fixe (ex: 'audit_report', 'official_journal') */
   type?: string;
-  filterType?: string;
+
+  /** Tri par défaut */
   sort?: string;
+
+  /** Nombre d'items par page */
   limit?: number;
+
+  /** Synchroniser avec l'URL */
+  syncUrl?: boolean;
 }
 
+/**
+ * Composable pour gérer les documents
+ * Utilise useCmsCollection pour le fetch et useCollectionState pour l'état UI
+ *
+ * @example
+ * // Liste avec filtres
+ * const { documents, loading, searchQuery, setSearchQuery } = useDocuments({ type: 'audit_report' });
+ *
+ * // Détail d'un document
+ * const { document, loading } = useDocuments({ id: '123' });
+ */
 export const useDocuments = (options: DocumentsOptions = {}) => {
   const route = useRoute();
-  const router = useRouter();
 
-  // États réactifs pour les paramètres
-  const currentPage = ref(1);
-  const searchQuery = ref("");
-  const sortBy = ref(options.sort || "-publish_date");
-  const documentType = ref(options.type || "");
-  const filterType = ref(options.filterType || "all");
-  const itemsPerPage = ref(options.limit || 10);
+  // Pour un document unique, pas besoin de state UI
+  if (options.id) {
+    const collection = useCmsCollection<Document>({
+      collection: "documents",
+      id: options.id,
+    });
 
-  // Récupération des paramètres depuis l'URL au montage (seulement pour les collections)
+    return {
+      // Données
+      document: collection.item,
+      loading: collection.loading,
+      error: collection.error,
+      refresh: collection.refresh,
+
+      // États vides pour compatibilité
+      documents: computed(() => []),
+      currentPage: ref(1),
+      searchQuery: ref(""),
+      sortBy: ref(options.sort || "-publish_date"),
+      filterValue: ref("all"),
+      itemsPerPage: ref(options.limit || 10),
+      pagination: computed(() => undefined),
+      totalItems: computed(() => 0),
+      totalPages: computed(() => 0),
+      hasActiveFilters: computed(() => false),
+
+      // Méthodes vides pour compatibilité
+      setCurrentPage: () => {},
+      setSearchQuery: () => {},
+      setSortBy: () => {},
+      setFilterValue: () => {},
+      setItemsPerPage: () => {},
+      resetFilters: () => {},
+    };
+  }
+
+  // État UI géré par useCollectionState
+  const state = useCollectionState({
+    defaultSort: options.sort || "-publish_date",
+    defaultItemsPerPage: options.limit || 10,
+    defaultFilter: "all",
+    syncUrl: options.syncUrl !== false,
+    urlParamsMapping: {
+      search: "q", // ?q=audit
+      filter: options.type === "audit_report" ? "organisme" : "type", // ?organisme=OFNAC ou ?type=law
+      page: "page",
+      sort: "sort",
+    },
+  });
+
+  // Gestion du filtre par année pour journal officiel
+  const yearFilter = ref<string>("all");
+
+  // Lecture du filtre année depuis l'URL
   onMounted(() => {
-    if (!options.id) {
-      const query = route.query;
+    if (options.type === "official_journal" && route.query.year) {
+      yearFilter.value = route.query.year as string;
+    }
+  });
 
-      if (query.page) {
-        const page = parseInt(query.page as string);
-        if (!isNaN(page)) currentPage.value = page;
+  // Synchronisation du filtre année avec l'URL
+  watch(yearFilter, () => {
+    if (options.type === "official_journal") {
+      const query: any = { ...route.query };
+      if (yearFilter.value !== "all") {
+        query.year = yearFilter.value;
+      } else {
+        delete query.year;
       }
-      if (query.q) {
-        searchQuery.value = query.q as string;
-      }
-      if (query.sort) {
-        sortBy.value = query.sort as string;
-      }
-      if (query.type) {
-        documentType.value = query.type as string;
-      }
-      if (query.organisme) {
-        filterType.value = query.organisme as string;
-      }
-      if (query.year) {
-        filterType.value = query.year as string;
-      }
+      useRouter().replace({ query });
     }
   });
 
   // Construction des filtres spécifiques aux documents
   const filters = computed(() => {
-    if (options.id) return {};
+    const filters: Record<string, any> = {};
 
-    const filters: any = {};
-
-    if (documentType.value) {
-      filters.type = documentType.value;
+    // Type de document fixe (passé en option)
+    if (options.type) {
+      filters.type = options.type;
     }
 
-    if (filterType.value && filterType.value !== "all") {
-      if (documentType.value === "official_journal") {
-        filters.filterType = filterType.value;
-      } else if (documentType.value === "audit_report") {
-        filters.filterType = filterType.value;
-      } else if (!documentType.value) {
-        filters.type = filterType.value;
+    // Filtre dynamique selon le type de document
+    const filterVal = state.filterValue.value;
+
+    if (filterVal && filterVal !== "all") {
+      if (options.type === "official_journal") {
+        // Pour journal officiel : filtre par année
+        filters.filterType = yearFilter.value !== "all" ? yearFilter.value : filterVal;
+      } else if (options.type === "audit_report") {
+        // Pour rapports d'audit : filtre par organisme
+        filters.filterType = filterVal;
+      } else if (!options.type) {
+        // Sans type spécifique : filtre par type de document
+        filters.type = filterVal;
       }
     }
 
     return filters;
   });
 
-  // Mise à jour de l'URL (seulement pour les collections)
-  const updateURL = useDebounceFn(() => {
-    if (options.id) return;
-
-    const query: any = {};
-
-    if (currentPage.value > 1) query.page = currentPage.value.toString();
-    if (searchQuery.value) query.q = searchQuery.value;
-    if (sortBy.value !== "-publish_date") query.sort = sortBy.value;
-
-    if (documentType.value === "audit_report" && filterType.value !== "all") {
-      query.organisme = filterType.value;
-    } else if (
-      documentType.value === "official_journal" &&
-      filterType.value !== "all"
-    ) {
-      query.year = filterType.value;
-    } else if (!documentType.value && filterType.value !== "all") {
-      query.type = filterType.value;
-    }
-
-    router.replace({ query });
-  }, 300);
-
-  // Watchers pour la synchronisation URL (seulement pour les collections)
-  if (!options.id) {
-    watch([currentPage, searchQuery, sortBy, filterType], () => {
-      updateURL();
-    });
-  }
-
-  // Utilisation du composable générique
+  // Utilisation du composable générique pour le fetch
   const collection = useCmsCollection<Document>({
-    collection: "documents", // Collection spécifique
-    id: options.id,
+    collection: "documents",
     filters,
-    sort: sortBy,
-    limit: itemsPerPage,
-    page: currentPage,
-    search: searchQuery,
+    sort: state.sortBy,
+    limit: state.itemsPerPage,
+    page: state.currentPage,
+    search: state.searchQuery,
   });
 
-  // Computed pour la compatibilité
+  // Computed pour compatibilité avec l'ancien code
   const totalItems = computed(() => collection.pagination.value?.total || 0);
   const totalPages = computed(
-    () => collection.pagination.value?.totalPages || 1,
+    () => collection.pagination.value?.totalPages || 1
   );
 
   return {
     // Données
     documents: collection.items,
-    document: collection.item, // Pour les détails
+    document: collection.item,
     loading: collection.loading,
     pagination: collection.pagination,
     error: collection.error,
     refresh: collection.refresh,
 
-    // États réactifs (seulement pour les collections)
-    currentPage: options.id ? ref(1) : currentPage,
-    searchQuery: options.id ? ref("") : searchQuery,
-    sortBy: options.id ? ref("-publish_date") : sortBy,
-    documentType: options.id ? ref("") : documentType,
-    filterType: options.id ? ref("all") : filterType,
-    itemsPerPage: options.id ? ref(10) : itemsPerPage,
+    // États réactifs (depuis useCollectionState)
+    currentPage: state.currentPage,
+    searchQuery: state.searchQuery,
+    sortBy: state.sortBy,
+    filterValue: state.filterValue,
+    itemsPerPage: state.itemsPerPage,
 
-    // Computed pour la compatibilité
+    // État spécifique aux documents
+    yearFilter, // Pour journal officiel
+
+    // Méthodes (depuis useCollectionState)
+    setCurrentPage: state.setCurrentPage,
+    setSearchQuery: state.setSearchQuery,
+    setSortBy: state.setSortBy,
+    setFilterValue: state.setFilterValue,
+    setItemsPerPage: state.setItemsPerPage,
+    resetFilters: state.resetFilters,
+
+    // Computed
     totalItems,
     totalPages,
+    hasActiveFilters: state.hasActiveFilters,
 
-    // Méthodes (seulement pour les collections)
-    setCurrentPage: options.id
-      ? () => {}
-      : (page: number) => {
-          currentPage.value = page;
-        },
-    setSearchQuery: options.id
-      ? () => {}
-      : (search: string) => {
-          searchQuery.value = search;
-          currentPage.value = 1;
-        },
-    setSelectedFilter: options.id
-      ? () => {}
-      : (filter: string) => {
-          filterType.value = filter;
-          currentPage.value = 1;
-        },
-    setSortBy: options.id
-      ? () => {}
-      : (sort: string) => {
-          sortBy.value = sort;
-        },
-    setType: options.id
-      ? () => {}
-      : (type: string) => {
-          documentType.value = type;
-          filterType.value = "all";
-          currentPage.value = 1;
-        },
-    setTotalItems: () => {},
-    resetFilters: options.id
-      ? () => {}
-      : () => {
-          currentPage.value = 1;
-          searchQuery.value = "";
-          sortBy.value = "-publish_date";
-          filterType.value = "all";
-        },
-
-    hasActiveFilters: options.id
-      ? computed(() => false)
-      : computed(() => {
-          return (
-            searchQuery.value !== "" ||
-            filterType.value !== "all" ||
-            sortBy.value !== "-publish_date" ||
-            documentType.value !== ""
-          );
-        }),
+    // Alias pour compatibilité avec ancien code
+    setSelectedFilter: state.setFilterValue,
+    documentType: computed(() => options.type || ""),
+    filterType: state.filterValue,
+    setTotalItems: () => {}, // Deprecated - géré automatiquement
+    setType: (type: string) => {
+      // Note: changer le type nécessite une nouvelle instance du composable
+      console.warn(
+        "setType is deprecated - create a new useDocuments instance with the new type"
+      );
+    },
   };
 };
