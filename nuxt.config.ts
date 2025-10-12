@@ -364,7 +364,10 @@ export default defineNuxtConfig({
     defaultLocale: 'fr',
     url: process.env.NUXT_PUBLIC_SITE_URL || 'https://www.vie-publique.sn',
     name: 'vie-publique.sn',
+    // Désactiver l'indexation si ce n'est PAS la production
+    indexable: process.env.NUXT_PUBLIC_SITE_URL === 'https://vie-publique.sn',
   },
+
   // seo: {
   //   sitemap: {
   //     enabled: true,
