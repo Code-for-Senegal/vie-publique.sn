@@ -154,31 +154,19 @@ export const useNominations = (options: NominationsOptions = {}) => {
     state.currentPage.value = 1;
   };
 
-  // Computed pour les totaux par type
-  const totalsByType = computed(() => {
-    const totals: Record<string, number> = {};
-    collection.items.value.forEach((member: GovernmentMember) => {
-      if (member.type) {
-        totals[member.type] = (totals[member.type] || 0) + 1;
-      }
-    });
-    return Object.fromEntries(
-      Object.entries(totals).sort(([a], [b]) => a.localeCompare(b)),
-    );
+  // Récupération des statistiques globales (tous les totaux)
+  const { data: stats } = useFetch("/api/nominations/stats", {
+    key: "nominations-stats",
   });
 
-  // Computed pour les totaux par genre
+  // Computed pour les totaux par type (depuis l'API stats)
+  const totalsByType = computed(() => {
+    return stats.value?.totalsByType || {};
+  });
+
+  // Computed pour les totaux par genre (depuis l'API stats)
   const totalsByGender = computed(() => {
-    let maleCount = 0,
-      femaleCount = 0;
-    collection.items.value.forEach((member: GovernmentMember) => {
-      if (member.sexe === "Monsieur") {
-        maleCount++;
-      } else if (member.sexe === "Madame") {
-        femaleCount++;
-      }
-    });
-    return { maleCount, femaleCount };
+    return stats.value?.totalsByGender || { maleCount: 0, femaleCount: 0 };
   });
 
   return {

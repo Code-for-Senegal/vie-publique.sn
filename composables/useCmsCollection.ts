@@ -89,6 +89,7 @@ export const useCmsCollection = <T>(options: CmsCollectionOptions) => {
         items =
           response.documents ||
           response.news ||
+          response.nominations ||
           response.media ||
           response.items ||
           response.data ||

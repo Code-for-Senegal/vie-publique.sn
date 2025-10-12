@@ -193,7 +193,7 @@ watch([filterType, filterGender], () => {
     <div class="container">
       <div class="prose prose-sm sm:prose my-2">
         <h1 class="">
-          {{ totalItems }} Nominations
+          {{ totalsByGender.maleCount + totalsByGender.femaleCount }} Nominations
           <!--du président Diomaye-->
         </h1>
       </div>
@@ -339,10 +339,28 @@ watch([filterType, filterGender], () => {
 
         <!-- Colonne de la liste des nominations (3/4 en desktop) -->
         <div class="space-y-2 lg:col-span-3">
-          <!-- État de chargement -->
-          <div v-if="loading" class="py-8 text-center">
-            <p>Chargement des nominations...</p>
-          </div>
+          <!-- État de chargement - Skeleton loaders -->
+          <template v-if="loading">
+            <UCard
+              v-for="i in 5"
+              :key="`skeleton-${i}`"
+              class="custom-shadow"
+            >
+              <div class="flex flex-row gap-2 animate-pulse">
+                <!-- Skeleton photo -->
+                <div
+                  class="h-16 w-16 flex-shrink-0 rounded-full bg-gray-300 dark:bg-gray-700 md:h-20 md:w-20"
+                ></div>
+                <!-- Skeleton texte -->
+                <div class="flex-grow space-y-2">
+                  <div class="h-4 w-3/4 rounded bg-gray-300 dark:bg-gray-700"></div>
+                  <div class="h-3 w-full rounded bg-gray-200 dark:bg-gray-600"></div>
+                  <div class="h-3 w-1/2 rounded bg-gray-200 dark:bg-gray-600"></div>
+                  <div class="h-3 w-2/3 rounded bg-gray-200 dark:bg-gray-600"></div>
+                </div>
+              </div>
+            </UCard>
+          </template>
 
           <!-- État d'erreur -->
           <div v-else-if="error" class="py-8 text-center text-red-500">

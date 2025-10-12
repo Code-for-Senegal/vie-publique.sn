@@ -1,6 +1,6 @@
 {
   "name": "nuxt-app",
-  "version": "1.8.6",
+  "version": "1.8.8",
   "private": true,
   "type": "module",
   "scripts": {
@@ -40,6 +40,7 @@
     "@vite-pwa/nuxt": "^1.0.0",
     "@vueuse/motion": "^2.2.3",
     "@vueuse/nuxt": "^13.1.0",
+    "caniuse-lite": "^1.0.30001750",
     "d3": "^7.9.0",
     "marked": "^15.0.8",
     "nuxt": "3.14.1592",
