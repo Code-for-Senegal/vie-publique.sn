@@ -1,0 +1,5 @@
+# robots.txt - Généré dynamiquement selon l'environnement
+# Production: Allow all
+# Test/Staging: Disallow all
+
+{{ROBOTS_CONTENT}}

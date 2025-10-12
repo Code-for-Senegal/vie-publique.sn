@@ -46,6 +46,8 @@ RUN mkdir -p public/pdf-worker && \
 # Variables d'environnement pour le build
 ENV NODE_ENV=${NODE_ENV}
 ENV NITRO_PRESET=node-server
+# Désactiver le prerendering pour accélérer le build
+ENV NITRO_PRERENDER_ROUTES=false
 
 # Build de l'application
 RUN npm run build
@@ -62,6 +64,7 @@ RUN addgroup --system --gid 1001 nodejs && \
 # Copier seulement les fichiers nécessaires
 COPY --from=builder --chown=nuxtjs:nodejs /app/.output /app/.output
 COPY --from=builder --chown=nuxtjs:nodejs /app/package.json /app/package.json
+COPY --from=builder --chown=nuxtjs:nodejs /app/package-lock.json /app/package-lock.json
 
 # Installer SEULEMENT les dépendances de production et nettoyer le cache
 RUN npm ci --only=production --frozen-lockfile && \
