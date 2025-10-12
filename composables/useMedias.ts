@@ -1,106 +1,186 @@
-// composables/useMedias.ts
-export const useMedias = () => {
-  const medias = ref([]);
-  const media = ref<any>(null);
-  const loading = ref(true);
-  const error = ref(null);
+import type { Media } from "~/types/media";
 
-  const fetchMedias = async () => {
-    loading.value = true;
-    error.value = null;
+export interface MediasOptions {
+  /** ID du média pour récupération unitaire */
+  id?: string;
 
-    console.log("fetchMedias " + useRuntimeConfig().public.cmsApiUrl);
+  /** Tri par défaut */
+  sort?: string;
 
-    const sort = `sort=-id`;
+  /** Nombre d'items par page */
+  limit?: number;
 
-    const filters = `filter[status]=compliant`;
+  /** Synchroniser avec l'URL */
+  syncUrl?: boolean;
+}
 
-    const fields =
-      "id,name,type,group.name,logo,facebook,website,instagram,tiktok,twitter,youtube,description";
+/**
+ * Composable pour gérer les médias
+ * Utilise useCmsCollection pour le fetch et useCollectionState pour l'état UI
+ *
+ * @example
+ * // Liste avec filtres
+ * const { medias, loading, searchQuery, filterType } = useMedias();
+ *
+ * // Détail d'un média
+ * const { media, loading } = useMedias({ id: '123' });
+ */
+export const useMedias = (options: MediasOptions = {}) => {
+  const route = useRoute();
 
-    const limit = "limit=1000";
-    try {
-      const config = useRuntimeConfig();
-      const response = await fetch(
-        `${config.public.cmsApiUrl}/items/media?fields=${fields}&${filters}&${limit}`,
-        {
-          headers: {
-            Authorization: `Bearer ${config.public.cmsApiKey}`,
-          },
-        },
-      );
+  // Pour un média unique, pas besoin de state UI
+  if (options.id) {
+    const collection = useCmsCollection<Media>({
+      collection: "medias",
+      id: options.id,
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+    return {
+      // Données
+      media: collection.item,
+      loading: collection.loading,
+      error: collection.error,
+      refresh: collection.refresh,
 
-      const dataResponse = await response.json();
-      medias.value = dataResponse.data;
-    } catch (e) {
-      error.value =
-        e instanceof Error
-          ? e.message
-          : "Erreur lors du chargement des groupes";
-      medias.value = [];
-    } finally {
-      loading.value = false;
-    }
-  };
+      // États vides pour compatibilité
+      medias: computed(() => []),
+      currentPage: ref(1),
+      searchQuery: ref(""),
+      sortBy: ref(options.sort || "-id"),
+      filterType: ref("all"),
+      itemsPerPage: ref(options.limit || 25),
+      pagination: computed(() => undefined),
+      totalItems: computed(() => 0),
+      totalPages: computed(() => 0),
+      hasActiveFilters: computed(() => false),
 
-  const fetchMediaById = async (id: string) => {
-    loading.value = true;
-    error.value = null;
+      // Méthodes vides pour compatibilité
+      setCurrentPage: () => {},
+      setSearchQuery: () => {},
+      setSortBy: () => {},
+      setFilterType: () => {},
+      setItemsPerPage: () => {},
+      resetFilters: () => {},
+    };
+  }
 
-    const fields =
-      "id,title,slug,content,date_published,cover_image,tags,document.file";
+  // Gestion des filtres spécifiques aux médias
+  const filterType = ref<string>("all"); // Type de média (TV, Radio, etc.)
 
-    try {
-      const config = useRuntimeConfig();
-      const response = await fetch(
-        `${config.public.cmsApiUrl}/items/medias/${id}?fields=${fields}`,
-        {
-          headers: {
-            Authorization: `Bearer ${config.public.cmsApiKey}`,
-          },
-        },
-      );
+  // État UI géré par useCollectionState
+  const state = useCollectionState({
+    defaultSort: options.sort || "-id",
+    defaultItemsPerPage: options.limit || 25,
+    defaultFilter: "all",
+    syncUrl: options.syncUrl !== false,
+    urlParamsMapping: {
+      search: "q", // ?q=rts
+      filter: "type", // ?type=television
+      page: "page",
+      sort: "sort",
+    },
+  });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const dataResponse = await response.json();
-      media.value = dataResponse.data;
-    } catch (e) {
-      error.value =
-        e instanceof Error
-          ? e.message
-          : "Erreur lors du chargement des groupes";
-      media.value = [];
-    } finally {
-      loading.value = false;
-    }
-  };
-
-  // Pour réinitialiser l'état
-  const resetMedia = () => {
-    media.value = [];
-    loading.value = false;
-    error.value = null;
-  };
-
-  // Charger les données initiales
+  // Lecture des filtres depuis l'URL
   onMounted(() => {
-    fetchMedias();
+    if (route.query.type) {
+      filterType.value = route.query.type as string;
+    }
+  });
+
+  // Synchronisation du filtre type avec l'URL
+  watch(filterType, () => {
+    const query: any = { ...route.query };
+    if (filterType.value !== "all") {
+      query.type = filterType.value;
+    } else {
+      delete query.type;
+    }
+    useRouter().replace({ query });
+  });
+
+  // Construction des filtres spécifiques aux médias
+  const filters = computed(() => {
+    const filters: Record<string, any> = {};
+
+    // Filtre par type de média
+    if (filterType.value && filterType.value !== "all") {
+      filters.filterType = filterType.value;
+    }
+
+    return filters;
+  });
+
+  // Utilisation du composable générique pour le fetch
+  const collection = useCmsCollection<Media>({
+    collection: "medias",
+    filters,
+    sort: state.sortBy,
+    limit: state.itemsPerPage,
+    page: state.currentPage,
+    search: state.searchQuery,
+  });
+
+  // Computed pour compatibilité avec l'ancien code
+  const totalItems = computed(() => collection.pagination.value?.total || 0);
+  const totalPages = computed(
+    () => collection.pagination.value?.totalPages || 1,
+  );
+
+  // Méthodes spécifiques aux médias
+  const setFilterType = (type: string) => {
+    filterType.value = type;
+    // Reset à la page 1 lors d'un changement de filtre
+    state.currentPage.value = 1;
+  };
+
+  // Récupération des statistiques globales (tous les totaux)
+  const { data: stats } = useFetch("/api/medias/stats", {
+    key: "medias-stats",
+  });
+
+  // Computed pour les totaux par type (depuis l'API stats)
+  const totalsByType = computed(() => {
+    return stats.value?.totalsByType || {};
   });
 
   return {
-    medias,
-    loading,
-    error,
-    fetchMedias,
-    media,
-    fetchMediaById,
-    resetMedia,
+    // Données
+    medias: collection.items,
+    media: collection.item,
+    loading: collection.loading,
+    pagination: collection.pagination,
+    error: collection.error,
+    refresh: collection.refresh,
+
+    // États réactifs (depuis useCollectionState)
+    currentPage: state.currentPage,
+    searchQuery: state.searchQuery,
+    sortBy: state.sortBy,
+    itemsPerPage: state.itemsPerPage,
+
+    // États spécifiques aux médias
+    filterType,
+
+    // Méthodes (depuis useCollectionState)
+    setCurrentPage: state.setCurrentPage,
+    setSearchQuery: state.setSearchQuery,
+    setSortBy: state.setSortBy,
+    setItemsPerPage: state.setItemsPerPage,
+    resetFilters: () => {
+      state.resetFilters();
+      filterType.value = "all";
+    },
+
+    // Méthodes spécifiques
+    setFilterType,
+
+    // Computed
+    totalItems,
+    totalPages,
+    totalsByType,
+    hasActiveFilters: computed(
+      () => state.hasActiveFilters.value || filterType.value !== "all",
+    ),
   };
 };

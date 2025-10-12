@@ -169,53 +169,59 @@ useHead({
   ],
 });
 
-// État et composable
-const { medias, loading, error } = useMedias();
+// Utilisation du nouveau composable
+const route = useRoute();
+const {
+  medias,
+  loading,
+  error,
+  searchQuery,
+  filterType,
+  totalsByType,
+  setSearchQuery,
+  setFilterType,
+} = useMedias();
 
-const searchQuery = ref("");
-const selectedType = ref<MediaType | null>(null);
+// Fonction pour créer l'URL vers détails en gardant les filtres actuels
+const getDetailUrl = (media: Media) => {
+  const slug = media.name
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+  const query = { ...route.query };
+
+  return {
+    path: `/medias/${media.id}/${slug}`,
+    query,
+  };
+};
+
+// État pour le tri
 const sortOrder = ref<"asc" | "desc" | null>(null);
 const sortField = ref<"name" | "type" | null>(null);
 
 // Computed properties
 const types = computed(() => {
-  if (!medias.value) return [];
-  return [...new Set(medias.value.map((media) => media.type))];
+  return Object.keys(totalsByType.value) as MediaType[];
 });
 
 const mediaStats = computed(() => {
-  if (!medias.value) return [];
   return types.value.map((type) => ({
     type,
-    count: medias.value.filter((media) => media.type === type).length,
+    count: totalsByType.value[type] || 0,
   }));
 });
 
-const filteredMedias = computed<Media[]>(() => {
-  if (!medias.value) return [];
-
-  let filtered = [...medias.value];
-
-  if (selectedType.value) {
-    filtered = filtered.filter((media) => media.type === selectedType.value);
-  }
-
-  if (searchQuery.value.trim()) {
-    const query = searchQuery.value.toLowerCase();
-    filtered = filtered.filter((media) =>
-      media.name.toLowerCase().includes(query),
-    );
-  }
-
-  return filtered;
-});
-
 const sortedMedias = computed(() => {
+  if (!medias.value) return [];
   if (!sortField.value || !sortOrder.value) {
-    return filteredMedias.value;
+    return medias.value;
   }
 
-  return [...filteredMedias.value].sort((a, b) => {
+  return [...medias.value].sort((a, b) => {
     const comparison =
       sortField.value === "name"
         ? a.name.localeCompare(b.name)
@@ -224,7 +230,9 @@ const sortedMedias = computed(() => {
   });
 });
 
-const totalMedias = computed(() => medias.value?.length || 0);
+const totalMedias = computed(() => {
+  return Object.values(totalsByType.value).reduce((sum, count) => sum + count, 0);
+});
 
 // Méthodes
 const toggleSort = (field: "name" | "type") => {
@@ -245,47 +253,6 @@ const getInitials = (name: string): string => {
     .toUpperCase();
 };
 
-const config = useRuntimeConfig();
-
-// Ajoutez ces refs pour la modal
-const isOpen = ref(false);
-const selectedMedia = ref<Media | null>(null);
-
-// Ajoutez cette méthode pour ouvrir la modal
-const openMediaDetails = (media: Media) => {
-  selectedMedia.value = media;
-  isOpen.value = true;
-};
-
-// Méthode pour formater les URLs des réseaux sociaux
-const getSocialIcon = (type: string): string => {
-  const icons = {
-    facebook: "i-simple-icons-facebook",
-    instagram: "i-simple-icons-instagram",
-    twitter: "i-simple-icons-x",
-    tiktok: "i-simple-icons-tiktok",
-    youtube: "i-simple-icons-youtube",
-  };
-  return icons[type as keyof typeof icons] || "i-heroicons-link";
-};
-
-const socialPlatforms = [
-  "facebook",
-  "instagram",
-  "twitter",
-  "tiktok",
-  "youtube",
-];
-
-const availableSocialLinks = computed(() => {
-  if (!selectedMedia.value) return [];
-  return socialPlatforms.filter(
-    (platform) =>
-      typeof selectedMedia.value?.[platform as keyof Media] === "string",
-  );
-});
-
-const hasSocialLinks = computed(() => availableSocialLinks.value.length > 0);
 </script>
 
 <template>
@@ -318,10 +285,10 @@ const hasSocialLinks = computed(() => availableSocialLinks.value.length > 0);
               class="cursor-pointer rounded-lg p-1 transition-all hover:scale-105"
               :class="[
                 typeColorMap[stat.type as MediaType],
-                selectedType === stat.type ? 'ring-primary ring-2' : '',
+                filterType === stat.type ? 'ring-primary ring-2' : '',
               ]"
               @click="
-                selectedType = selectedType === stat.type ? null : stat.type
+                setFilterType(filterType === stat.type ? 'all' : stat.type)
               "
             >
               <div class="mb-2 flex items-center gap-2">
@@ -342,11 +309,28 @@ const hasSocialLinks = computed(() => availableSocialLinks.value.length > 0);
         </div>
       </template>
 
-      <!-- Loading state -->
-      <div v-if="loading" class="p-8 text-center">
-        <UProgress color="blue" />
-        <p class="mt-4">Chargement des médias...</p>
-      </div>
+      <!-- Loading state avec skeleton -->
+      <template v-if="loading">
+        <div class="space-y-4">
+          <div class="flex gap-2">
+            <div class="h-10 w-full animate-pulse rounded bg-gray-200 dark:bg-gray-700 sm:w-1/2"></div>
+            <div class="h-10 w-full animate-pulse rounded bg-gray-200 dark:bg-gray-700 sm:w-1/2"></div>
+          </div>
+          <div class="space-y-2">
+            <div
+              v-for="i in 10"
+              :key="`skeleton-${i}`"
+              class="flex animate-pulse gap-3 border-b p-2"
+            >
+              <div class="h-10 w-10 flex-shrink-0 rounded-full bg-gray-300 dark:bg-gray-700"></div>
+              <div class="flex-1 space-y-2">
+                <div class="h-4 w-3/4 rounded bg-gray-300 dark:bg-gray-700"></div>
+                <div class="h-3 w-1/4 rounded bg-gray-200 dark:bg-gray-600"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
 
       <!-- Error state -->
       <UAlert
@@ -361,13 +345,14 @@ const hasSocialLinks = computed(() => availableSocialLinks.value.length > 0);
         <!-- Filtres -->
         <div class="mb-2 flex flex-col gap-2 sm:flex-row">
           <UInput
-            v-model="searchQuery"
+            :model-value="searchQuery"
             placeholder="Rechercher un média..."
             icon="i-heroicons-magnifying-glass"
             class="w-full sm:w-1/2"
+            @update:model-value="setSearchQuery"
           />
           <USelect
-            v-model="selectedType"
+            :model-value="filterType === 'all' ? null : filterType"
             :options="
               types.map((type) => ({
                 label: typeDisplayMap[type as MediaType],
@@ -378,6 +363,7 @@ const hasSocialLinks = computed(() => availableSocialLinks.value.length > 0);
             clearable
             class="w-full sm:w-1/2"
             icon="i-heroicons-funnel"
+            @update:model-value="(value) => setFilterType(value || 'all')"
           />
         </div>
 
@@ -429,10 +415,12 @@ const hasSocialLinks = computed(() => availableSocialLinks.value.length > 0);
                   v-for="media in sortedMedias"
                   :key="media.id"
                   class="border-b hover:bg-gray-50"
-                  @click="openMediaDetails(media)"
                 >
                   <td class="p-2">
-                    <div class="flex items-center gap-3">
+                    <NuxtLink
+                      :to="getDetailUrl(media)"
+                      class="flex items-center gap-3"
+                    >
                       <UAvatar
                         :src="useCmsImage(media.logo)"
                         :alt="media.name"
@@ -447,7 +435,7 @@ const hasSocialLinks = computed(() => availableSocialLinks.value.length > 0);
                           {{ media.name }}
                         </div>
                       </div>
-                    </div>
+                    </NuxtLink>
                   </td>
                   <td class="p-2">
                     <div class="flex items-center gap-1">
@@ -485,81 +473,6 @@ const hasSocialLinks = computed(() => availableSocialLinks.value.length > 0);
         📄 Source MCTN - Mis à jour du 06 Février 2025
       </a>
     </div>
-
-    <!-- Ajoutez la modal à la fin de votre template, avant la fermeture de la div principale -->
-    <UModal v-model="isOpen">
-      <UCard v-if="selectedMedia">
-        <template #header>
-          <div class="flex items-center gap-4">
-            <UAvatar
-              :src="useCmsImage(selectedMedia.logo)"
-              :alt="selectedMedia.name"
-              :text="getInitials(selectedMedia.name)"
-              size="lg"
-            />
-            <div>
-              <h3 class="text-xl font-semibold">{{ selectedMedia.name }}</h3>
-              <UBadge variant="soft" class="gray" size="sm">
-                <UIcon
-                  :name="typeIconMap[selectedMedia.type as MediaType]"
-                  class="mr-1 h-4 w-4"
-                />
-                {{ typeDisplayMap[selectedMedia.type as MediaType] }}
-              </UBadge>
-            </div>
-          </div>
-        </template>
-
-        <div class="space-y-2">
-          <div v-if="selectedMedia.group" class="mt-4">
-            <p class="text-sm text-gray-500">Groupe de presse</p>
-            <p class="font-medium">{{ selectedMedia.group.name }}</p>
-          </div>
-
-          <div v-if="selectedMedia.description" class="mb-4 mt-0">
-            <p class="text-sm text-gray-500">Description</p>
-            <p class="text-sm">{{ selectedMedia.description }}</p>
-          </div>
-
-          <div v-if="selectedMedia.website" class="mt-0">
-            <p class="mb-2 text-sm text-gray-500">Site web</p>
-            <div class="flex flex-row gap-2">
-              <ULink
-                :to="selectedMedia.website"
-                class="text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
-                target="_blank"
-                aria-label="social.label"
-              >
-                <UIcon name="i-heroicons-globe-alt" class="h-8 w-8" />
-              </ULink>
-            </div>
-          </div>
-
-          <div v-if="hasSocialLinks" class="mb-4 mt-0">
-            <p class="mb-2 text-sm text-gray-500">Réseaux sociaux</p>
-            <div class="flex flex-row gap-2">
-              <ULink
-                v-for="platform in availableSocialLinks"
-                :key="platform"
-                :to="selectedMedia[platform as keyof Media] as string"
-                class="text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
-                target="_blank"
-                aria-label="social.label"
-              >
-                <UIcon :name="getSocialIcon(platform)" class="h-8 w-8" />
-              </ULink>
-            </div>
-          </div>
-        </div>
-        <template #footer>
-          <div class="flex justify-end">
-            <UButton color="gray" variant="soft" @click="isOpen = false">
-              Fermer
-            </UButton>
-          </div>
-        </template>
-      </UCard>
-    </UModal>
   </div>
 </template>
 

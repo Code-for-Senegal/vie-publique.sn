@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import type { GovernmentMember } from '~/types/government-member'
-
-const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata()
+const { siteName, siteUrl, keywords, themeColor } = useSiteMetadata()
 
 const title = 'Nominations du Président Diomaye Faye | Annuaire Sénégal'
 const description =
@@ -143,6 +141,7 @@ useHead({
 })
 
 const { $dateformat } = useNuxtApp()
+const route = useRoute()
 
 const {
   nominations,
@@ -162,13 +161,22 @@ const {
   setFilterGender,
 } = useNominations()
 
-/* Modal pour afficher les détails */
-const selectedMinister = ref<GovernmentMember | null>(null)
-const isModalOpen = ref(false)
+// Fonction pour créer l'URL vers détails en gardant les filtres actuels
+const getDetailUrl = (minister: any) => {
+  const slug = minister.name
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
 
-function openModal(minister: GovernmentMember) {
-  selectedMinister.value = minister
-  isModalOpen.value = true
+  // Récupère les query params actuels
+  const query = { ...route.query }
+
+  return {
+    path: `/nomination-senegal/${minister.id}/${slug}`,
+    query
+  }
 }
 
 // Reset de la page lors du changement de recherche
@@ -200,68 +208,6 @@ watch([filterType, filterGender], () => {
     </div>
 
     <p class="sr-only mb-4 text-sm text-gray-500">Ministres, Secrétaires, Directeurs, PCA...</p>
-
-    <!-- Modal pour afficher les détails du membre -->
-    <UModal v-model="isModalOpen">
-      <UCard
-        v-if="selectedMinister"
-        :ui="{
-          ring: '',
-          divide: 'divide-y divide-gray-100 dark:divide-gray-800',
-        }"
-      >
-        <template #header>
-          <div class="flex items-center justify-center">
-            <img
-              :src="selectedMinister.photo || '/unknown_member.webp'"
-              alt="Profile Photo"
-              sizes="300px md:400px"
-            />
-          </div>
-        </template>
-
-        <div class="px-4 text-center">
-          <h2 class="text-xl font-semibold">{{ selectedMinister.name }}</h2>
-          <p class="text-sm">{{ selectedMinister.role }}</p>
-          <p v-if="selectedMinister.organisation" class="text-sm text-gray-500">
-            {{ selectedMinister.organisation }}
-          </p>
-          <div v-if="selectedMinister.nominationDate" class="mt-1">
-            <p class="text-sm text-gray-500">Nommé le</p>
-            <p class="text-sm">
-              {{ $dateformat(selectedMinister.nominationDate) }}
-            </p>
-          </div>
-          <div v-if="selectedMinister.endDate" class="mt-1">
-            <p class="text-sm text-gray-500">Fin de fonction le</p>
-            <p class="text-sm">{{ $dateformat(selectedMinister.endDate) }}</p>
-          </div>
-          <div v-if="selectedMinister.formation" class="mt-1">
-            <p class="text-sm text-gray-500">Formation</p>
-            <p class="text-sm">{{ selectedMinister.formation }}</p>
-          </div>
-          <div v-if="selectedMinister.predecessor" class="mt-1">
-            <p class="text-sm text-gray-500">Prédécesseur</p>
-            <p class="text-sm">{{ selectedMinister.predecessor }}</p>
-          </div>
-
-          <ULink
-            v-if="selectedMinister.portrait"
-            :to="selectedMinister.portrait"
-            class="text-sm font-semibold text-blue-600 underline hover:text-blue-800"
-          >
-            Voir le portrait complet
-          </ULink>
-        </div>
-
-        <template #footer>
-          <Placeholder class="h-8" />
-          <div class="p-2 text-right">
-            <UButton color="white" @click="isModalOpen = false">Fermer</UButton>
-          </div>
-        </template>
-      </UCard>
-    </UModal>
 
     <div class="w-full max-w-4xl">
       <!-- Conteneur principal avec grid -->
@@ -369,39 +315,41 @@ watch([filterType, filterGender], () => {
 
           <!-- Liste des nominations -->
           <template v-else>
-            <UCard
+            <NuxtLink
               v-for="minister in nominations"
               :key="minister.name"
-              class="custom-shadow cursor-pointer"
-              @click="openModal(minister)"
+              :to="getDetailUrl(minister)"
+              class="block"
             >
-              <div class="flex flex-row gap-2">
-                <div class="h-16 w-16 flex-shrink-0 md:h-20 md:w-20">
-                  <img
-                    :src="minister.photo || '/unknown_member.webp'"
-                    alt="Photo ministre"
-                    sizes="64px sm:80px"
-                    class="h-full w-full rounded-full object-cover"
-                    loading="lazy"
-                  />
+              <UCard class="custom-shadow transition-shadow hover:shadow-lg">
+                <div class="flex flex-row gap-2">
+                  <div class="h-16 w-16 flex-shrink-0 md:h-20 md:w-20">
+                    <img
+                      :src="minister.photo || '/unknown_member.webp'"
+                      alt="Photo ministre"
+                      sizes="64px sm:80px"
+                      class="h-full w-full rounded-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="flex-grow">
+                    <h2 class="font-semibold">{{ minister.name }}</h2>
+                    <p class="text-sm">{{ minister.role }}</p>
+                    <p v-if="minister.organisation" class="text-sm text-gray-500">
+                      {{ minister.organisation }}
+                    </p>
+                    <p class="text-sm text-gray-500">
+                      Nommé le
+                      {{ $dateformat(minister.nominationDate) }}
+                    </p>
+                    <p v-if="minister.endDate" class="text-sm text-gray-500">
+                      Limogé le
+                      {{ $dateformat(minister.endDate) }}
+                    </p>
+                  </div>
                 </div>
-                <div class="flex-grow">
-                  <h2 class="font-semibold">{{ minister.name }}</h2>
-                  <p class="text-sm">{{ minister.role }}</p>
-                  <p v-if="minister.organisation" class="text-sm text-gray-500">
-                    {{ minister.organisation }}
-                  </p>
-                  <p class="text-sm text-gray-500">
-                    Nommé le
-                    {{ $dateformat(minister.nominationDate) }}
-                  </p>
-                  <p v-if="minister.endDate" class="text-sm text-gray-500">
-                    Limogé le
-                    {{ $dateformat(minister.endDate) }}
-                  </p>
-                </div>
-              </div>
-            </UCard>
+              </UCard>
+            </NuxtLink>
 
             <!-- Message si aucun résultat -->
             <div v-if="nominations.length === 0" class="py-8 text-center">
