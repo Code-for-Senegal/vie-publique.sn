@@ -12,6 +12,46 @@
 
 ---
 
+## ⚠️ RÈGLE D'OR : JAMAIS `onMounted` pour les données critiques
+
+**Problème** : `onMounted()` ne s'exécute **QUE** côté client (navigateur), **JAMAIS** côté serveur.
+
+```typescript
+// ❌ INTERDIT - Données INVISIBLES pour Google, robots SEO, partage social
+onMounted(async () => {
+  const data = await $fetch('/api/documents');
+  documents.value = data;
+});
+```
+
+**Conséquences** :
+- 🔴 **SEO = 0/100** : Google ne voit rien (HTML initial vide)
+- 🔴 **Pas d'aperçu social** : WhatsApp/Twitter/Facebook affichent une page vide
+- 🔴 **Performance dégradée** : Délai de ~2s avant affichage (client fetch)
+- 🔴 **Pas de SSR** : Perte totale des avantages de Nuxt
+
+```typescript
+// ✅ OBLIGATOIRE - Utiliser useFetch (SSR-friendly)
+const { data: documents } = await useFetch('/api/documents');
+
+// ✅ MIEUX - Via composable métier (recommandé)
+const { documents, loading } = useDocuments();
+```
+
+**Avantages** :
+- ✅ **SEO = 100/100** : Données dans le HTML initial
+- ✅ **Aperçu social parfait** : Titre + description + image
+- ✅ **Performance optimale** : ~500ms (SSR)
+- ✅ **SSR complet** : Toute la puissance de Nuxt
+
+**Quand utiliser `onMounted` ?** :
+- ✅ Interactions client uniquement (event listeners, animations)
+- ✅ Code qui nécessite le DOM (ex: `document.getElementById`)
+- ✅ Code qui ne peut PAS tourner sur le serveur (ex: `window`, `localStorage`)
+- ❌ **JAMAIS** pour des données destinées au SEO/contenu
+
+---
+
 ## 🏗️ Architecture en couches
 
 ```
@@ -465,6 +505,7 @@ Avant de committer votre code, vérifiez :
   - [ ] Pagination et filtres dans l'UI
 
 - [ ] **Tests manuels**
+  - [ ] ⚠️ **Aucun `onMounted` pour fetch** (vérifié dans le code)
   - [ ] SSR fonctionne (view-source: contient les données)
   - [ ] URL params reflètent les filtres
   - [ ] Pagination fonctionne
@@ -543,12 +584,20 @@ Avant de committer votre code, vérifiez :
    watch([currentPage, searchQuery], () => { /* update URL */ });
    ```
 
-4. **Oublier le SSR**
+4. **Oublier le SSR - ⚠️ CRITIQUE POUR LE SEO**
    ```typescript
-   // ❌ MAUVAIS - Ne fonctionne que côté client
+   // ❌ MAUVAIS - Ne fonctionne que côté client (données INVISIBLES pour Google)
    onMounted(async () => {
      documents.value = await $fetch('/api/documents');
    });
+   // Problème : onMounted ne s'exécute PAS côté serveur
+   // → HTML initial vide → SEO = 0/100 → Google ne voit rien
+
+   // ✅ BON - SSR-friendly (données dans le HTML initial)
+   const { data: documents } = await useFetch('/api/documents');
+   // Ou via composable générique
+   const { documents } = useDocuments();
+   // → HTML contient les données → SEO = 100/100 → Google indexe tout
    ```
 
 5. **Pas de cache serveur**
@@ -770,6 +819,47 @@ export default defineCachedEventHandler(
 ---
 
 ## 🤔 FAQ : Questions fréquentes
+
+### Q: Pourquoi ne JAMAIS utiliser `onMounted` pour charger des données ?
+
+**Réponse : Parce que `onMounted` ne s'exécute PAS côté serveur = SEO cassé**
+
+**Test simple** :
+```bash
+# Avec onMounted
+curl http://localhost:3000/documents
+# Résultat : HTML vide (pas de données)
+
+# Avec useFetch
+curl http://localhost:3000/documents
+# Résultat : HTML complet avec toutes les données
+```
+
+**Impact concret** :
+- **Google Search** : Indexe 0 document vs 100% des documents
+- **Facebook/Twitter** : Aperçu vide vs aperçu complet
+- **Performance** : 2000ms vs 500ms (First Contentful Paint)
+
+**Solution** :
+```typescript
+// ❌ Ne JAMAIS faire ça
+onMounted(async () => {
+  data.value = await $fetch('/api/...');
+});
+
+// ✅ TOUJOURS faire ça
+const { data } = await useFetch('/api/...');
+// Ou via composable
+const { data } = useDocuments();
+```
+
+**Exception** : `onMounted` est OK pour :
+- Event listeners (click, scroll)
+- Animations
+- Code nécessitant `window`, `document`, `localStorage`
+- Code qui **ne peut pas** tourner côté serveur
+
+---
 
 ### Q: Store Pinia ou URL params pour les filtres ?
 

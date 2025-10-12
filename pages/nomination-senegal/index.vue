@@ -1,92 +1,91 @@
 <script setup lang="ts">
-import type { GovernmentMember } from "~/types/government-member";
+import type { GovernmentMember } from '~/types/government-member'
 
-const { siteName, siteUrl, defaultImage, keywords, themeColor } =
-  useSiteMetadata();
+const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata()
 
-const title = "Nominations du Président Diomaye Faye | Annuaire Sénégal";
+const title = 'Nominations du Président Diomaye Faye | Annuaire Sénégal'
 const description =
-  "Liste complète des nominations du président Bassirou Diomaye Faye au Sénégal. Ministres, Directeurs généraux, PCA et toutes les nominations officielles.";
-const url = `${siteUrl}/nomination-senegal`;
-const image = `${siteUrl}/nomination-3.png`;
+  'Liste complète des nominations du président Bassirou Diomaye Faye au Sénégal. Ministres, Directeurs généraux, PCA et toutes les nominations officielles.'
+const url = `${siteUrl}/nomination-senegal`
+const image = `${siteUrl}/nomination-3.png`
 
 const nominationsSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
   name: title,
   description: description,
   url: url,
   image: image,
   isPartOf: {
-    "@type": "WebSite",
+    '@type': 'WebSite',
     name: siteName,
     url: siteUrl,
   },
   about: [
     {
-      "@type": "Person",
-      name: "Bassirou Diomaye Faye",
-      jobTitle: "Président de la République du Sénégal",
+      '@type': 'Person',
+      name: 'Bassirou Diomaye Faye',
+      jobTitle: 'Président de la République du Sénégal',
     },
     {
-      "@type": "GovernmentOrganization",
-      name: "Gouvernement du Sénégal",
+      '@type': 'GovernmentOrganization',
+      name: 'Gouvernement du Sénégal',
     },
   ],
   mainEntity: {
-    "@type": "ItemList",
-    name: "Nominations présidentielles Sénégal",
-    description: "Liste des nominations officielles du président Diomaye Faye",
+    '@type': 'ItemList',
+    name: 'Nominations présidentielles Sénégal',
+    description: 'Liste des nominations officielles du président Diomaye Faye',
   },
-};
+}
 
 const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
   itemListElement: [
     {
-      "@type": "ListItem",
+      '@type': 'ListItem',
       position: 1,
-      name: "Accueil",
+      name: 'Accueil',
       item: siteUrl,
     },
     {
-      "@type": "ListItem",
+      '@type': 'ListItem',
       position: 2,
-      name: "Annuaires",
+      name: 'Annuaires',
       item: `${siteUrl}/annuaires`,
     },
     {
-      "@type": "ListItem",
+      '@type': 'ListItem',
       position: 3,
-      name: "Nominations",
+      name: 'Nominations',
       item: url,
     },
   ],
-};
+}
 
 const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "GovernmentOrganization",
-  name: "Gouvernement du Sénégal",
+  '@context': 'https://schema.org',
+  '@type': 'GovernmentOrganization',
+  name: 'Gouvernement du Sénégal',
   url: url,
   description:
-    "Nominations officielles du gouvernement sénégalais sous la présidence de Bassirou Diomaye Faye",
+    'Nominations officielles du gouvernement sénégalais sous la présidence de Bassirou Diomaye Faye',
   leader: {
-    "@type": "Person",
-    name: "Bassirou Diomaye Faye",
-    jobTitle: "Président de la République",
+    '@type': 'Person',
+    name: 'Bassirou Diomaye Faye',
+    jobTitle: 'Président de la République',
   },
   address: {
-    "@type": "PostalAddress",
-    addressCountry: "SN",
-    addressLocality: "Dakar",
+    '@type': 'PostalAddress',
+    addressCountry: 'SN',
+    addressLocality: 'Dakar',
   },
   areaServed: {
-    "@type": "Country",
-    name: "Sénégal",
+    '@type': 'Country',
+    name: 'Sénégal',
   },
-};
+}
 
 // SEO Meta Tags
 useSeoMeta({
@@ -96,162 +95,111 @@ useSeoMeta({
   ogDescription: description,
   ogImage: image,
   ogUrl: url,
-  twitterCard: "summary_large_image",
+  twitterCard: 'summary_large_image',
   twitterTitle: title,
   twitterDescription: description,
   twitterImage: image,
   keywords: [
     ...keywords,
-    "nominations Bassirou Diomaye Faye",
-    "gouvernement Sénégal 2024",
-    "ministres Sénégal",
-    "directeurs généraux Sénégal",
-    "PCA Sénégal",
-    "nominations présidentielles",
-    "nouveau gouvernement sénégalais",
-    "conseil des ministres",
-  ].join(", "),
-});
+    'nominations Bassirou Diomaye Faye',
+    'gouvernement Sénégal 2024',
+    'ministres Sénégal',
+    'directeurs généraux Sénégal',
+    'PCA Sénégal',
+    'nominations présidentielles',
+    'nouveau gouvernement sénégalais',
+    'conseil des ministres',
+  ].join(', '),
+})
 
 useHead({
-  htmlAttrs: { lang: "fr-SN" },
-  link: [{ rel: "canonical", href: url }],
+  htmlAttrs: { lang: 'fr-SN' },
+  link: [{ rel: 'canonical', href: url }],
   meta: [
-    { name: "theme-color", content: themeColor },
-    { name: "author", content: siteName },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: siteName },
-    { name: "robots", content: "index, follow" },
-    { name: "geo.region", content: "SN" },
-    { name: "geo.placename", content: "Dakar" },
-    { name: "geo.position", content: "14.7645042;-17.3660286" },
-    { name: "ICBM", content: "14.7645042, -17.3660286" },
+    { name: 'theme-color', content: themeColor },
+    { name: 'author', content: siteName },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:site_name', content: siteName },
+    { name: 'robots', content: 'index, follow' },
+    { name: 'geo.region', content: 'SN' },
+    { name: 'geo.placename', content: 'Dakar' },
+    { name: 'geo.position', content: '14.7645042;-17.3660286' },
+    { name: 'ICBM', content: '14.7645042, -17.3660286' },
   ],
   script: [
     {
-      type: "application/ld+json",
+      type: 'application/ld+json',
       children: JSON.stringify(nominationsSchema),
     },
     {
-      type: "application/ld+json",
+      type: 'application/ld+json',
       children: JSON.stringify(breadcrumbSchema),
     },
     {
-      type: "application/ld+json",
+      type: 'application/ld+json',
       children: JSON.stringify(organizationSchema),
     },
   ],
-});
+})
 
-const { $dateformat } = useNuxtApp();
+const { $dateformat } = useNuxtApp()
 
-// Use the new nominations composable
-const { nominations, loading, error, fetchNominations } = useNominations();
+const {
+  nominations,
+  loading,
+  error,
+  currentPage,
+  searchQuery,
+  filterType,
+  filterGender,
+  totalItems,
+  totalPages,
+  totalsByType,
+  totalsByGender,
+  setCurrentPage,
+  setSearchQuery,
+  setFilterType,
+  setFilterGender,
+} = useNominations()
 
-// Fetch data on component mount
-onMounted(() => {
-  fetchNominations();
-});
-
-/* Filters */
-const searchQuery = ref("");
-const selectedType = ref("");
-const selectedGender = ref("");
-const selectedDate = ref("");
-
-const filteredMinisters = computed(() => {
-  return (
-    nominations.value?.filter(
-      (member: GovernmentMember) =>
-        (member.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-          member.role
-            .toLowerCase()
-            .includes(searchQuery.value.toLowerCase())) &&
-        (!selectedType.value || member.type === selectedType.value) &&
-        (!selectedGender.value || member.sexe === selectedGender.value) &&
-        (!selectedDate.value || member.sexe === selectedDate.value),
-    ) || []
-  ).sort(
-    (a, b) =>
-      new Date(b.nominationDate).getTime() -
-      new Date(a.nominationDate).getTime(),
-  );
-});
-
-/* Pagination */
-const page = ref(1);
-const pageCount = 25;
-
-const rowsfilteredMinisters = computed(() =>
-  filteredMinisters.value.slice(
-    (page.value - 1) * pageCount,
-    page.value * pageCount,
-  ),
-);
-
-const totalsByType = computed(() => {
-  const totals: Record<string, number> = {};
-  nominations.value?.forEach((member: GovernmentMember) => {
-    if (member.type) {
-      totals[member.type] = (totals[member.type] || 0) + 1;
-    }
-  });
-
-  return Object.fromEntries(
-    Object.entries(totals).sort(([a], [b]) => a.localeCompare(b)),
-  );
-});
-
-const totalsByGender = computed(() => {
-  let maleCount = 0,
-    femaleCount = 0;
-  nominations.value?.forEach((member: GovernmentMember) => {
-    if (member.sexe === "Monsieur") {
-      maleCount++;
-    } else if (member.sexe === "Madame") {
-      femaleCount++;
-    }
-  });
-  return { maleCount, femaleCount };
-});
-
-const selectedMinister = ref<GovernmentMember | null>(null);
-const isModalOpen = ref(false);
+/* Modal pour afficher les détails */
+const selectedMinister = ref<GovernmentMember | null>(null)
+const isModalOpen = ref(false)
 
 function openModal(minister: GovernmentMember) {
-  selectedMinister.value = minister;
-  isModalOpen.value = true;
+  selectedMinister.value = minister
+  isModalOpen.value = true
 }
 
+// Reset de la page lors du changement de recherche
 watch(searchQuery, () => {
-  selectedType.value = "";
-  selectedGender.value = "";
-  page.value = 1;
-});
+  filterType.value = 'all'
+  filterGender.value = 'all'
+  currentPage.value = 1
+})
 
-watch([selectedType, selectedGender], () => {
-  page.value = 1;
-});
+// Reset de la page lors du changement de filtres
+watch([filterType, filterGender], () => {
+  currentPage.value = 1
+})
 </script>
 
 <template>
   <div class="flex flex-col items-center px-4">
     <h1 class="sr-only mb-4 text-sm text-gray-500">
-      Membres du gouvernement du Sénégal, Nouveau gouvernement Sénégal Diomaye
-      Sonko, Conseil des ministres, Liste des ministres du Sénégal,
+      Membres du gouvernement du Sénégal, Nouveau gouvernement Sénégal Diomaye Sonko, Conseil des
+      ministres, Liste des ministres du Sénégal,
     </h1>
     <div class="container">
       <div class="prose prose-sm sm:prose my-2">
         <h1 class="">
-          {{ nominations?.length }} Nominations
+          {{ totalItems }} Nominations
           <!--du président Diomaye-->
         </h1>
       </div>
     </div>
 
-    <p class="sr-only mb-4 text-sm text-gray-500">
-      Ministres, Secrétaires, Directeurs, PCA...
-    </p>
+    <p class="sr-only mb-4 text-sm text-gray-500">Ministres, Secrétaires, Directeurs, PCA...</p>
 
     <!-- Modal pour afficher les détails du membre -->
     <UModal v-model="isModalOpen">
@@ -323,11 +271,12 @@ watch([selectedType, selectedGender], () => {
         <div class="lg:col-span-1">
           <!-- recherche -->
           <UInput
-            v-model="searchQuery"
+            :model-value="searchQuery"
             class="input custom-shadow mb-3 w-full"
             size="lg"
             icon="i-heroicons-magnifying-glass"
             placeholder="Rechercher une nomination..."
+            @update:model-value="setSearchQuery"
           >
           </UInput>
 
@@ -335,36 +284,32 @@ watch([selectedType, selectedGender], () => {
             <UButton
               :ui="{ rounded: 'rounded-full' }"
               class="custom-shadow mb-1 ml-1 text-sm font-normal transition-all duration-300 ease-in-out"
-              :color="selectedGender === 'Monsieur' ? 'primary' : 'white'"
+              :color="filterGender === 'Monsieur' ? 'primary' : 'white'"
               size="sm"
-              @click="
-                selectedGender = selectedGender === 'Monsieur' ? '' : 'Monsieur'
-              "
+              @click="setFilterGender(filterGender === 'Monsieur' ? 'all' : 'Monsieur')"
             >
               Hommes
               <UBadge
                 :ui="{ rounded: 'rounded-full' }"
                 :label="totalsByGender.maleCount"
-                :color="selectedGender === 'Monsieur' ? 'primary' : 'primary'"
-                :variant="selectedGender === 'Monsieur' ? 'soft' : 'solid'"
+                :color="filterGender === 'Monsieur' ? 'primary' : 'primary'"
+                :variant="filterGender === 'Monsieur' ? 'soft' : 'solid'"
                 size="xs"
               ></UBadge>
             </UButton>
             <UButton
               :ui="{ rounded: 'rounded-full' }"
               class="custom-shadow mb-1 ml-1 text-sm font-normal transition-all duration-300 ease-in-out"
-              :color="selectedGender === 'Madame' ? 'primary' : 'white'"
+              :color="filterGender === 'Madame' ? 'primary' : 'white'"
               size="sm"
-              @click="
-                selectedGender = selectedGender === 'Madame' ? '' : 'Madame'
-              "
+              @click="setFilterGender(filterGender === 'Madame' ? 'all' : 'Madame')"
             >
               Femmes
               <UBadge
                 :ui="{ rounded: 'rounded-full' }"
                 :label="totalsByGender.femaleCount"
                 color="primary"
-                :variant="selectedGender === 'Madame' ? 'soft' : 'solid'"
+                :variant="filterGender === 'Madame' ? 'soft' : 'solid'"
                 size="xs"
               ></UBadge>
             </UButton>
@@ -375,69 +320,90 @@ watch([selectedType, selectedGender], () => {
               v-for="(total, type) in totalsByType"
               :key="type"
               :ui="{ rounded: 'rounded-full' }"
-              :color="selectedType === type ? 'primary' : 'white'"
+              :color="filterType === type ? 'primary' : 'white'"
               class="custom-shadow mb-1 ml-1 text-sm font-normal transition-all duration-300 ease-in-out"
               size="sm"
-              @click="selectedType = selectedType === type ? '' : type"
+              @click="setFilterType(filterType === type ? 'all' : type)"
             >
               {{ type }}
               <UBadge
                 :ui="{ rounded: 'rounded-full' }"
                 :label="total"
                 color="primary"
-                :variant="selectedType === type ? 'soft' : 'solid'"
+                :variant="filterType === type ? 'soft' : 'solid'"
                 size="xs"
               ></UBadge>
             </UButton>
           </div>
         </div>
-        <!-- Colonne de la liste des députés (3/4 en desktop) -->
+
+        <!-- Colonne de la liste des nominations (3/4 en desktop) -->
         <div class="space-y-2 lg:col-span-3">
-          <UCard
-            v-for="minister in rowsfilteredMinisters"
-            :key="minister.name"
-            class="custom-shadow cursor-pointer"
-            @click="openModal(minister)"
-          >
-            <div class="flex flex-row gap-2">
-              <div class="h-16 w-16 flex-shrink-0 md:h-20 md:w-20">
-                <img
-                  :src="minister.photo || '/unknown_member.webp'"
-                  alt="Photo ministre"
-                  sizes="64px sm:80px"
-                  class="h-full w-full rounded-full object-cover"
-                  loading="lazy"
-                />
+          <!-- État de chargement -->
+          <div v-if="loading" class="py-8 text-center">
+            <p>Chargement des nominations...</p>
+          </div>
+
+          <!-- État d'erreur -->
+          <div v-else-if="error" class="py-8 text-center text-red-500">
+            <p>Erreur lors du chargement des nominations</p>
+          </div>
+
+          <!-- Liste des nominations -->
+          <template v-else>
+            <UCard
+              v-for="minister in nominations"
+              :key="minister.name"
+              class="custom-shadow cursor-pointer"
+              @click="openModal(minister)"
+            >
+              <div class="flex flex-row gap-2">
+                <div class="h-16 w-16 flex-shrink-0 md:h-20 md:w-20">
+                  <img
+                    :src="minister.photo || '/unknown_member.webp'"
+                    alt="Photo ministre"
+                    sizes="64px sm:80px"
+                    class="h-full w-full rounded-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="flex-grow">
+                  <h2 class="font-semibold">{{ minister.name }}</h2>
+                  <p class="text-sm">{{ minister.role }}</p>
+                  <p v-if="minister.organisation" class="text-sm text-gray-500">
+                    {{ minister.organisation }}
+                  </p>
+                  <p class="text-sm text-gray-500">
+                    Nommé le
+                    {{ $dateformat(minister.nominationDate) }}
+                  </p>
+                  <p v-if="minister.endDate" class="text-sm text-gray-500">
+                    Limogé le
+                    {{ $dateformat(minister.endDate) }}
+                  </p>
+                </div>
               </div>
-              <div class="flex-grow">
-                <h2 class="font-semibold">{{ minister.name }}</h2>
-                <p class="text-sm">{{ minister.role }}</p>
-                <p v-if="minister.organisation" class="text-sm text-gray-500">
-                  {{ minister.organisation }}
-                </p>
-                <p class="text-sm text-gray-500">
-                  Nommé le
-                  {{ $dateformat(minister.nominationDate) }}
-                </p>
-                <p v-if="minister.endDate" class="text-sm text-gray-500">
-                  Limogé le
-                  {{ $dateformat(minister.endDate) }}
-                </p>
-              </div>
+            </UCard>
+
+            <!-- Message si aucun résultat -->
+            <div v-if="nominations.length === 0" class="py-8 text-center">
+              <p>Aucune nomination trouvée</p>
             </div>
-          </UCard>
+          </template>
         </div>
       </div>
 
+      <!-- Pagination -->
       <div
-        :class="{ hidden: rowsfilteredMinisters < pageCount }"
+        v-if="totalPages > 1"
         class="flex justify-end border-t border-gray-200 px-3 py-3.5 dark:border-gray-700"
       >
         <UPagination
-          v-model="page"
+          :model-value="currentPage"
           size="md"
-          :page-count="pageCount"
-          :total="filteredMinisters.length"
+          :page-count="25"
+          :total="totalItems"
+          @update:model-value="setCurrentPage"
         />
       </div>
     </div>

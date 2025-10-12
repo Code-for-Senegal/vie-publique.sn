@@ -1,4 +1,5 @@
 export type GovernmentMember = {
+  id?: string;
   sexe: string;
   name: string;
   type: string | null;
@@ -11,4 +12,5 @@ export type GovernmentMember = {
   rating: number | null;
   portrait: string | null;
   organisation: string | null;
+  description?: string | null;
 };
