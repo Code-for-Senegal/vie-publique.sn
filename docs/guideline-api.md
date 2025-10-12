@@ -1,10 +1,571 @@
-# Guidelines : Appels API Directus dans Nuxt
+# Guidelines : Architecture des appels API dans Nuxt
+
+> **Guide complet pour ajouter de nouvelles pages avec collections Directus**
+
+## 🎯 Objectifs de l'architecture
+
+✅ **Sécurité** : Credentials côté serveur uniquement
+✅ **Performance** : SSR + cache Nitro + useFetch
+✅ **SEO** : URL params pour filtres/recherche
+✅ **Maintenabilité** : Code DRY (Don't Repeat Yourself)
+✅ **Réutilisabilité** : Composables génériques
+
+---
+
+## 🏗️ Architecture en couches
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  Pages Vue (.vue)                                       │
+│  → Présentation UI uniquement                          │
+│  → Pas de logique métier                               │
+└──────────────────┬──────────────────────────────────────┘
+                   │
+                   ▼
+┌─────────────────────────────────────────────────────────┐
+│  Composables métier (useDocuments, useNews)            │
+│  → Logique spécifique à la collection                  │
+│  → Construction des filtres métier                      │
+│  → Délègue l'état UI et le fetch                       │
+└──────────────┬────────────────────┬─────────────────────┘
+               │                    │
+               ▼                    ▼
+┌──────────────────────┐  ┌──────────────────────────────┐
+│ useCollectionState   │  │ useCmsCollection             │
+│ → Pagination         │  │ → useFetch + SSR             │
+│ → Recherche          │  │ → Construction query params  │
+│ → Filtres            │  │ → Transformation réponse     │
+│ → Sync URL           │  │ → Loading/Error states       │
+└──────────┬───────────┘  └────────────┬─────────────────┘
+           │                           │
+           │                           ▼
+           │              ┌───────────────────────────────┐
+           │              │ Server API Routes             │
+           │              │ → SDK Directus                │
+           │              │ → defineCachedEventHandler    │
+           │              │ → Validation params           │
+           │              └──────────┬────────────────────┘
+           │                         │
+           │                         ▼
+           │              ┌───────────────────────────────┐
+           │              │ Directus CMS                  │
+           │              │ → Base de données             │
+           │              └───────────────────────────────┘
+           │
+           └─────► URL Query Params (?page=2&search=audit)
+                   → Source de vérité pour l'état UI
+                   → SEO-friendly & Bookmarkable
+```
+
+---
+
+## 📦 Composables génériques (déjà créés)
+
+### 1. `useCmsCollection<T>` - Fetch générique
+
+**Responsabilité** : Récupérer des données depuis une API route
+
+```typescript
+// ✅ Déjà implémenté dans composables/useCmsCollection.ts
+const { items, loading, error, pagination, refresh } = useCmsCollection<Document>({
+  collection: 'documents',
+  id: '123', // Optionnel (pour détail)
+  filters: { type: 'audit_report' },
+  sort: '-publish_date',
+  limit: 10,
+  page: 1,
+  search: 'audit'
+});
+```
+
+### 2. `useCollectionState` - État UI générique
+
+**Responsabilité** : Gérer pagination, recherche, filtres, sync URL
+
+```typescript
+// ✅ Déjà implémenté dans composables/useCollectionState.ts
+const state = useCollectionState({
+  defaultSort: '-publish_date',
+  defaultItemsPerPage: 10,
+  syncUrl: true, // Synchronise avec URL
+  urlParamsMapping: {
+    search: 'q',      // ?q=audit
+    filter: 'type',   // ?type=law
+    page: 'page',     // ?page=2
+    sort: 'sort'      // ?sort=-date
+  }
+});
+
+// Retourne
+state.currentPage       // Ref<number>
+state.searchQuery       // Ref<string>
+state.sortBy           // Ref<string>
+state.filterValue      // Ref<string>
+state.setSearchQuery(query)
+state.resetFilters()
+state.hasActiveFilters // ComputedRef<boolean>
+```
+
+---
+
+## 🚀 Guide : Ajouter une nouvelle collection
+
+Suivez ces étapes pour ajouter une nouvelle collection (ex: `medias`, `nominations`, etc.)
+
+### Étape 1 : Créer les routes API server-side
+
+📁 `server/api/medias/index.get.ts`
+
+```typescript
+import { readItems } from "@directus/sdk";
+import { getDirectusClient } from "~/server/utils/directus";
+
+export default defineCachedEventHandler(
+  async (event) => {
+    const query = getQuery(event);
+    const page = parseInt(query.page as string) || 1;
+    const limit = parseInt(query.limit as string) || 10;
+    const search = query.search as string;
+    const sortBy = (query.sortBy as string) || "-id";
+
+    try {
+      const directus = getDirectusClient();
+
+      // Construction des filtres
+      const filter: any = { status: { _eq: "published" } };
+
+      if (search) {
+        filter._or = [
+          { title: { _icontains: search } },
+          { description: { _icontains: search } }
+        ];
+      }
+
+      // Fetch des données
+      const offset = (page - 1) * limit;
+      const data = await directus.request(
+        readItems("medias", {
+          fields: ["id", "title", "slug", "cover_image", "date_created"],
+          filter,
+          limit,
+          offset,
+          sort: [sortBy],
+        })
+      );
+
+      // Compte total pour pagination
+      const totalCount = await directus.request(
+        readItems("medias", {
+          fields: ["id"],
+          filter,
+          aggregate: { count: ["id"] },
+        })
+      ).then((result: any) => result?.[0]?.count?.id || 0);
+
+      return {
+        medias: data, // Nom de la collection
+        totalMedias: totalCount,
+        pagination: {
+          page,
+          limit,
+          total: totalCount,
+          totalPages: Math.ceil(totalCount / limit),
+        },
+      };
+    } catch (error) {
+      throw createError({
+        statusCode: 500,
+        statusMessage: "Erreur lors de la récupération des médias",
+      });
+    }
+  },
+  {
+    maxAge: 60 * 60, // 1 heure
+    name: "medias-list",
+    getKey: (event) => `medias-${JSON.stringify(getQuery(event))}`,
+  }
+);
+```
+
+📁 `server/api/medias/[id].get.ts`
+
+```typescript
+import { readItem } from "@directus/sdk";
+import { getDirectusClient } from "~/server/utils/directus";
+
+export default defineCachedEventHandler(
+  async (event) => {
+    const id = getRouterParam(event, "id");
+    if (!id) {
+      throw createError({ statusCode: 400, statusMessage: "ID manquant" });
+    }
+
+    try {
+      const directus = getDirectusClient();
+      const data = await directus.request(
+        readItem("medias", id, {
+          fields: ["id", "title", "slug", "content", "cover_image", "date_created"],
+        })
+      );
+
+      return { media: data };
+    } catch (error) {
+      throw createError({
+        statusCode: 404,
+        statusMessage: "Média non trouvé",
+      });
+    }
+  },
+  {
+    maxAge: 60 * 60,
+    name: "media-detail",
+    getKey: (event) => `media-${getRouterParam(event, "id")}`,
+  }
+);
+```
+
+---
+
+### Étape 2 : Créer le composable métier
+
+📁 `composables/useMedias.ts`
+
+```typescript
+export interface Media {
+  id: string;
+  title: string;
+  slug: string;
+  cover_image?: string;
+  date_created: string;
+}
+
+export interface MediasOptions {
+  id?: string;
+  limit?: number;
+  sort?: string;
+  syncUrl?: boolean;
+}
+
+export const useMedias = (options: MediasOptions = {}) => {
+  // Mode détail : fetch d'un item unique
+  if (options.id) {
+    const collection = useCmsCollection<Media>({
+      collection: "medias",
+      id: options.id,
+    });
+
+    return {
+      media: collection.item,
+      loading: collection.loading,
+      error: collection.error,
+      refresh: collection.refresh,
+
+      // États vides pour compatibilité
+      medias: computed(() => []),
+      currentPage: ref(1),
+      searchQuery: ref(""),
+      pagination: computed(() => undefined),
+    };
+  }
+
+  // Mode liste : avec état UI
+  const state = useCollectionState({
+    defaultSort: options.sort || "-date_created",
+    defaultItemsPerPage: options.limit || 10,
+    syncUrl: options.syncUrl !== false,
+    urlParamsMapping: {
+      search: "q",
+      page: "page",
+      sort: "sort",
+    },
+  });
+
+  // Construction des filtres métier spécifiques
+  const filters = computed(() => {
+    const filters: Record<string, any> = {};
+    // Ajoutez ici vos filtres spécifiques
+    return filters;
+  });
+
+  // Utilisation des composables génériques
+  const collection = useCmsCollection<Media>({
+    collection: "medias",
+    filters,
+    sort: state.sortBy,
+    limit: state.itemsPerPage,
+    page: state.currentPage,
+    search: state.searchQuery,
+  });
+
+  return {
+    // Données
+    medias: collection.items,
+    media: collection.item,
+    loading: collection.loading,
+    pagination: collection.pagination,
+    error: collection.error,
+    refresh: collection.refresh,
+
+    // États UI
+    currentPage: state.currentPage,
+    searchQuery: state.searchQuery,
+    sortBy: state.sortBy,
+    itemsPerPage: state.itemsPerPage,
+
+    // Méthodes
+    setCurrentPage: state.setCurrentPage,
+    setSearchQuery: state.setSearchQuery,
+    setSortBy: state.setSortBy,
+    resetFilters: state.resetFilters,
+
+    // Computed
+    totalItems: computed(() => collection.pagination.value?.total || 0),
+    totalPages: computed(() => collection.pagination.value?.totalPages || 1),
+    hasActiveFilters: state.hasActiveFilters,
+  };
+};
+```
+
+---
+
+### Étape 3 : Utiliser dans une page
+
+📁 `pages/medias/index.vue`
+
+```vue
+<script setup lang="ts">
+const {
+  medias,
+  loading,
+  currentPage,
+  searchQuery,
+  sortBy,
+  totalItems,
+  totalPages,
+  setCurrentPage,
+  setSearchQuery,
+  hasActiveFilters,
+  resetFilters,
+} = useMedias();
+
+// SEO
+useHead({
+  title: "Médias du Sénégal",
+  meta: [
+    { name: "description", content: "Liste des médias sénégalais" }
+  ]
+});
+</script>
+
+<template>
+  <div class="container mx-auto px-4 py-8">
+    <h1>Médias</h1>
+
+    <!-- Barre de recherche -->
+    <UInput
+      v-model="searchQuery"
+      placeholder="Rechercher..."
+      @input="setSearchQuery($event.target.value)"
+    />
+
+    <!-- État de chargement -->
+    <div v-if="loading">Chargement...</div>
+
+    <!-- Liste des résultats -->
+    <div v-else-if="medias.length > 0" class="grid gap-4">
+      <UCard v-for="media in medias" :key="media.id">
+        <NuxtLink :to="`/medias/${media.id}/${media.slug}`">
+          <h2>{{ media.title }}</h2>
+        </NuxtLink>
+      </UCard>
+    </div>
+
+    <!-- Aucun résultat -->
+    <div v-else>Aucun média trouvé</div>
+
+    <!-- Pagination -->
+    <UPagination
+      v-if="totalPages > 1"
+      v-model="currentPage"
+      :total="totalItems"
+      :page-count="itemsPerPage"
+      @update:model-value="setCurrentPage"
+    />
+
+    <!-- Reset filtres -->
+    <UButton v-if="hasActiveFilters" @click="resetFilters">
+      Réinitialiser
+    </UButton>
+  </div>
+</template>
+```
+
+📁 `pages/medias/[id]/[slug].vue`
+
+```vue
+<script setup lang="ts">
+const route = useRoute();
+const { media, loading, error } = useMedias({
+  id: route.params.id as string
+});
+
+// SEO dynamique
+watchEffect(() => {
+  if (media.value) {
+    useHead({
+      title: media.value.title,
+      meta: [
+        { name: "description", content: media.value.title }
+      ]
+    });
+  }
+});
+</script>
+
+<template>
+  <div>
+    <div v-if="loading">Chargement...</div>
+    <div v-else-if="error">Erreur</div>
+    <div v-else-if="media">
+      <h1>{{ media.title }}</h1>
+      <!-- Contenu du média -->
+    </div>
+  </div>
+</template>
+```
+
+---
+
+---
+
+## ✅ Checklist pour une nouvelle collection
+
+Avant de committer votre code, vérifiez :
+
+- [ ] **Routes API server-side** (`server/api/[collection]/`)
+  - [ ] `index.get.ts` avec pagination/filtres/recherche
+  - [ ] `[id].get.ts` pour le détail
+  - [ ] `defineCachedEventHandler` avec maxAge approprié
+  - [ ] Validation des paramètres d'entrée
+  - [ ] Gestion des erreurs avec `createError`
+
+- [ ] **Composable métier** (`composables/use[Collection].ts`)
+  - [ ] Interface TypeScript pour le type
+  - [ ] Support mode liste ET détail (via `options.id`)
+  - [ ] Utilise `useCmsCollection` pour le fetch
+  - [ ] Utilise `useCollectionState` pour l'état UI
+  - [ ] Construction des filtres métier spécifiques
+  - [ ] Retourne l'API complète (data, loading, error, methods)
+
+- [ ] **Pages Vue**
+  - [ ] Page liste (`pages/[collection]/index.vue`)
+  - [ ] Page détail (`pages/[collection]/[id]/[slug].vue`)
+  - [ ] SEO avec `useHead()` et méta tags
+  - [ ] Gestion des états (loading, error, empty)
+  - [ ] Pagination et filtres dans l'UI
+
+- [ ] **Tests manuels**
+  - [ ] SSR fonctionne (view-source: contient les données)
+  - [ ] URL params reflètent les filtres
+  - [ ] Pagination fonctionne
+  - [ ] Recherche fonctionne
+  - [ ] Navigation back/forward préserve les filtres
+  - [ ] F5 préserve les filtres (via URL)
+
+---
+
+## 🏆 Bonnes pratiques
+
+### ✅ DO (À faire)
+
+1. **État UI dans URL**
+   ```typescript
+   // ✅ BON - SEO-friendly, bookmarkable
+   useCollectionState({ syncUrl: true })
+   // URL: /documents?page=2&search=audit&type=law
+   ```
+
+2. **Séparation des responsabilités**
+   ```typescript
+   // ✅ BON - Chaque composable a un rôle clair
+   useCollectionState()  → État UI (pagination, recherche)
+   useCmsCollection()    → Fetch data (SSR, cache)
+   useDocuments()        → Logique métier (filtres spécifiques)
+   ```
+
+3. **Cache serveur agressif**
+   ```typescript
+   // ✅ BON - 1h de cache pour données statiques
+   defineCachedEventHandler(handler, { maxAge: 60 * 60 })
+   ```
+
+4. **TypeScript strict**
+   ```typescript
+   // ✅ BON - Types explicites
+   export interface Media {
+     id: string;
+     title: string;
+     slug: string;
+   }
+   ```
+
+5. **Gestion d'erreurs explicite**
+   ```typescript
+   // ✅ BON - Erreurs HTTP standard
+   throw createError({
+     statusCode: 404,
+     statusMessage: "Document non trouvé"
+   });
+   ```
+
+### ❌ DON'T (À éviter)
+
+1. **État UI dans store Pinia**
+   ```typescript
+   // ❌ MAUVAIS - Perdu au F5, pas SEO-friendly
+   const store = useDocumentsStore();
+   store.currentPage = 2; // Pas dans URL
+   ```
+
+2. **Appels API direct depuis composants**
+   ```typescript
+   // ❌ MAUVAIS - Token exposé, pas de cache, pas de SSR
+   const data = await $fetch('https://cms.example.com/items/documents', {
+     headers: { Authorization: 'Bearer SECRET_TOKEN' }
+   });
+   ```
+
+3. **Duplication de logique**
+   ```typescript
+   // ❌ MAUVAIS - Copier/coller entre useDocuments et useNews
+   const currentPage = ref(1);
+   const searchQuery = ref("");
+   watch([currentPage, searchQuery], () => { /* update URL */ });
+   ```
+
+4. **Oublier le SSR**
+   ```typescript
+   // ❌ MAUVAIS - Ne fonctionne que côté client
+   onMounted(async () => {
+     documents.value = await $fetch('/api/documents');
+   });
+   ```
+
+5. **Pas de cache serveur**
+   ```typescript
+   // ❌ MAUVAIS - Chaque requête tape Directus
+   export default defineEventHandler(async (event) => {
+     // Sans defineCachedEventHandler
+   });
+   ```
+
+---
 
 ## 🎯 Principe général
 
 **Toujours faire les appels API côté serveur via les routes `server/api/`** pour maximiser la sécurité, le SEO et la performance.
 
-## 📋 Architecture recommandée
+## 📋 Patterns d'utilisation (legacy - pour référence)
 
 ### 1. Routes API côté serveur (OBLIGATOIRE)
 
@@ -206,9 +767,124 @@ export default defineCachedEventHandler(
 );
 ```
 
-### Quoi utiliser entre le store ou le query param ?
-L’utilisation des query params est préférable pour le SEO. Les moteurs de recherche peuvent indexer les URLs contenant des paramètres de recherche, ce qui permet de référencer des pages de résultats spécifiques. Cela n’est pas possible si les termes de recherche sont uniquement stockés dans le store, car cette information n’est pas visible dans l’URL et donc inaccessible aux robots d’indexation.
-Donc si dans des pages on doit faire des recherches sur des termes spécifiques, il est préférable d’utiliser les query params pour stocker ces termes et de les récupérer dans le composable.
+---
+
+## 🤔 FAQ : Questions fréquentes
+
+### Q: Store Pinia ou URL params pour les filtres ?
+
+**Réponse : URL params (via `useCollectionState`)**
+
+**Pourquoi ?**
+- ✅ **SEO** : Google indexe `/documents?search=audit&type=law`
+- ✅ **Bookmarkable** : L'utilisateur peut sauvegarder l'URL avec filtres
+- ✅ **Shareable** : Partager le lien = partager les résultats filtrés
+- ✅ **Browser back/forward** : Navigation naturelle
+- ✅ **F5 preserve state** : Rafraîchir garde les filtres
+
+**Quand utiliser store Pinia ?**
+- Préférences utilisateur (dark mode, langue)
+- Auth session (token, user info)
+- Panier e-commerce
+- Notifications globales
+
+### Q: `useFetch` ou `useAsyncData` ?
+
+**Réponse : `useFetch` dans 90% des cas**
+
+```typescript
+// ✅ BON - Simple et direct
+const { data } = useFetch('/api/documents', {
+  query: { page: 1 }
+});
+
+// ⚠️ useAsyncData uniquement si logique complexe
+const { data } = useAsyncData('key', async () => {
+  const [docs, news] = await Promise.all([
+    $fetch('/api/documents'),
+    $fetch('/api/news')
+  ]);
+  return { docs, news }; // Combinaison
+});
+```
+
+### Q: Où mettre la logique de filtres métier ?
+
+**Réponse : Dans le composable métier (`useDocuments`, `useNews`)**
+
+```typescript
+// ✅ BON - Logique métier dans useDocuments
+export const useDocuments = (options) => {
+  const state = useCollectionState(); // État UI générique
+
+  // Filtres spécifiques aux documents
+  const filters = computed(() => {
+    const f: any = {};
+    if (options.type === 'audit_report') {
+      f.filterType = state.filterValue.value;
+    }
+    return f;
+  });
+
+  return useCmsCollection({ collection: 'documents', filters });
+};
+```
+
+### Q: Comment gérer des filtres custom (ex: année, catégorie) ?
+
+**Réponse : Via `additionalFilters` ou refs locales**
+
+```typescript
+// Option 1: additionalFilters
+const yearFilter = ref('2024');
+const state = useCollectionState({
+  additionalFilters: { year: yearFilter }
+});
+
+// Option 2: Ref locale + watch manuel
+const categoryFilter = ref('conseil');
+watch(categoryFilter, () => {
+  router.replace({ query: { ...route.query, category: categoryFilter.value } });
+});
+```
+
+### Q: Combien de temps de cache pour `defineCachedEventHandler` ?
+
+**Réponse : Dépend de la fréquence de mise à jour**
+
+```typescript
+// Données statiques (codes, lois) → 1 jour
+{ maxAge: 60 * 60 * 24 }
+
+// Données semi-statiques (documents, rapports) → 1 heure
+{ maxAge: 60 * 60 }
+
+// Données dynamiques (actualités) → 5 minutes
+{ maxAge: 60 * 5 }
+
+// Données temps réel (notifications) → Pas de cache
+// Ne pas utiliser defineCachedEventHandler
+```
+
+---
+
+## 📚 Exemples réels dans le projet
+
+### Documents
+- Routes API : [server/api/documents/index.get.ts](../server/api/documents/index.get.ts)
+- Composable : [composables/useDocuments.ts](../composables/useDocuments.ts)
+- Page : [pages/documents/public.vue](../pages/documents/public.vue)
+
+### News
+- Routes API : [server/api/news/index.get.ts](../server/api/news/index.get.ts)
+- Composable : [composables/news/useNews.ts](../composables/news/useNews.ts)
+- Page : [pages/actualites/index.vue](../pages/actualites/index.vue)
+
+### Composables génériques
+- État UI : [composables/useCollectionState.ts](../composables/useCollectionState.ts)
+- Fetch : [composables/useCmsCollection.ts](../composables/useCmsCollection.ts)
+
+---
 
 ## 📚 Ressources
 

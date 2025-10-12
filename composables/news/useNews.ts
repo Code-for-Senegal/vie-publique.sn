@@ -18,54 +18,107 @@ export interface NewsArticle {
 }
 
 export interface NewsOptions {
+  /** ID de l'article pour récupération unitaire */
   id?: string;
+
+  /** Filtrer uniquement les articles featured */
   featured?: boolean;
+
+  /** Catégorie spécifique */
   category?: string;
+
+  /** Tri par défaut */
   sort?: string;
+
+  /** Nombre d'items par page */
   limit?: number;
+
+  /** Synchroniser avec l'URL */
+  syncUrl?: boolean;
 }
 
+/**
+ * Composable pour gérer les actualités/news
+ * Utilise useCmsCollection pour le fetch et useCollectionState pour l'état UI
+ *
+ * @example
+ * // Liste avec filtres
+ * const { articles, loading, selectedCategory, setSelectedCategory } = useNews();
+ *
+ * // Articles featured uniquement
+ * const { articles, loading } = useNews({ featured: true, limit: 6 });
+ *
+ * // Détail d'un article
+ * const { article, loading } = useNews({ id: '123' });
+ */
 export const useNews = (options: NewsOptions = {}) => {
-  const route = useRoute();
-  const router = useRouter();
+  // Pour un article unique, pas besoin de state UI
+  if (options.id) {
+    const collection = useCmsCollection<NewsArticle>({
+      collection: "news",
+      id: options.id,
+    });
 
-  // États réactifs pour les paramètres
-  const currentPage = ref(1);
-  const searchQuery = ref("");
-  const sortBy = ref(options.sort || "-date_published");
-  const selectedCategory = ref(options.category || "Toutes");
-  const itemsPerPage = ref(options.limit || 9);
+    return {
+      // Données
+      article: collection.item,
+      loading: collection.loading,
+      error: collection.error,
+      refresh: collection.refresh,
 
-  // Récupération des paramètres depuis l'URL au montage
-  onMounted(() => {
-    if (!options.id) {
-      const query = route.query;
+      // États vides pour compatibilité
+      articles: computed(() => []),
+      currentPage: ref(1),
+      searchQuery: ref(""),
+      sortBy: ref(options.sort || "-date_published"),
+      selectedCategory: ref("Toutes"),
+      itemsPerPage: ref(options.limit || 9),
+      pagination: computed(() => undefined),
+      totalItems: computed(() => 0),
+      totalPages: computed(() => 0),
+      hasActiveFilters: computed(() => false),
+      categories: computed(() => []),
+      featuredNews: computed(() => []),
+      paginatedNews: computed(() => []),
 
-      if (query.page) {
-        const page = parseInt(query.page as string);
-        if (!isNaN(page)) currentPage.value = page;
-      }
-      if (query.search) {
-        searchQuery.value = query.search as string;
-      }
-      if (query.sort) {
-        sortBy.value = query.sort as string;
-      }
-      if (query.category) {
-        selectedCategory.value = query.category as string;
-      }
-    }
+      // Méthodes vides pour compatibilité
+      setCurrentPage: () => {},
+      setSearchQuery: () => {},
+      setSortBy: () => {},
+      setSelectedCategory: () => {},
+      setItemsPerPage: () => {},
+      resetFilters: () => {},
+    };
+  }
+
+  // État UI géré par useCollectionState
+  const state = useCollectionState({
+    defaultSort: options.sort || "-date_published",
+    defaultItemsPerPage: options.limit || 9,
+    defaultFilter: options.category || "Toutes",
+    syncUrl: options.syncUrl !== false,
+    urlParamsMapping: {
+      search: "search",
+      filter: "category",
+      page: "page",
+      sort: "sort",
+    },
   });
 
+  // Alias pour compatibilité avec le code existant
+  const selectedCategory = state.filterValue;
+
+  // Construction des filtres spécifiques aux news
   const filters = computed(() => {
-    if (options.id) return {};
+    const filters: Record<string, any> = {};
 
-    const filters: any = {};
-
-    if (selectedCategory.value && selectedCategory.value !== "Toutes") {
-      filters.category = selectedCategory.value;
+    // Filtre par catégorie
+    const category = selectedCategory.value;
+    if (category && category !== "Toutes") {
+      filters.category = category;
     }
 
+    // Filtre featured
     if (options.featured) {
       filters.featured = "true";
     }
@@ -73,37 +126,14 @@ export const useNews = (options: NewsOptions = {}) => {
     return filters;
   });
 
-  // Mise à jour de l'URL
-  const updateURL = useDebounceFn(() => {
-    if (options.id) return;
-
-    const query: any = {};
-
-    if (currentPage.value > 1) query.page = currentPage.value.toString();
-    if (searchQuery.value) query.search = searchQuery.value;
-    if (sortBy.value !== "-date_published") query.sort = sortBy.value;
-    if (selectedCategory.value !== "Toutes")
-      query.category = selectedCategory.value;
-
-    router.replace({ query });
-  }, 300);
-
-  // Watchers pour la synchronisation URL
-  if (!options.id) {
-    watch([currentPage, searchQuery, sortBy, selectedCategory], () => {
-      updateURL();
-    });
-  }
-
-  // Utilisation du composable générique
+  // Utilisation du composable générique pour le fetch
   const collection = useCmsCollection<NewsArticle>({
     collection: "news",
-    id: options.id,
     filters,
-    sort: sortBy,
-    limit: itemsPerPage,
-    page: currentPage,
-    search: searchQuery,
+    sort: state.sortBy,
+    limit: state.itemsPerPage,
+    page: state.currentPage,
+    search: state.searchQuery,
   });
 
   // Computed pour TOUTES les catégories disponibles
@@ -127,16 +157,17 @@ export const useNews = (options: NewsOptions = {}) => {
       .sort(
         (a, b) =>
           new Date(b.date_published).getTime() -
-          new Date(a.date_published).getTime(),
+          new Date(a.date_published).getTime()
       )
       .slice(0, 6);
   });
 
-  // Computed pour la compatibilité
+  // Computed pour compatibilité avec l'ancien code
   const totalItems = computed(() => {
     const total = collection.pagination.value?.total;
     return typeof total === "number" ? total : 0;
   });
+
   const totalPages = computed(() => {
     const totalPages = collection.pagination.value?.totalPages;
     return typeof totalPages === "number" ? totalPages : 1;
@@ -151,62 +182,29 @@ export const useNews = (options: NewsOptions = {}) => {
     error: collection.error,
     refresh: collection.refresh,
 
-    // États réactifs
-    currentPage: options.id ? ref(1) : currentPage,
-    searchQuery: options.id ? ref("") : searchQuery,
-    sortBy: options.id ? ref("-date_published") : sortBy,
-    selectedCategory: options.id ? ref("Toutes") : selectedCategory,
-    itemsPerPage: options.id ? ref(9) : itemsPerPage,
+    // États réactifs (depuis useCollectionState)
+    currentPage: state.currentPage,
+    searchQuery: state.searchQuery,
+    sortBy: state.sortBy,
+    selectedCategory, // Alias de filterValue
+    itemsPerPage: state.itemsPerPage,
+
+    // Méthodes (depuis useCollectionState)
+    setCurrentPage: state.setCurrentPage,
+    setSearchQuery: state.setSearchQuery,
+    setSortBy: state.setSortBy,
+    setSelectedCategory: state.setFilterValue, // Alias pour setFilterValue
+    setItemsPerPage: state.setItemsPerPage,
+    resetFilters: state.resetFilters,
 
     // Computed supplémentaires
     categories,
     featuredNews,
     totalItems,
     totalPages,
+    hasActiveFilters: state.hasActiveFilters,
 
-    // Méthodes
-    setCurrentPage: options.id
-      ? () => {}
-      : (page: number) => {
-          currentPage.value = page;
-        },
-    setSearchQuery: options.id
-      ? () => {}
-      : (search: string) => {
-          searchQuery.value = search;
-          currentPage.value = 1;
-        },
-    setSelectedCategory: options.id
-      ? () => {}
-      : (category: string) => {
-          selectedCategory.value = category;
-          currentPage.value = 1;
-        },
-    setSortBy: options.id
-      ? () => {}
-      : (sort: string) => {
-          sortBy.value = sort;
-        },
-    resetFilters: options.id
-      ? () => {}
-      : () => {
-          currentPage.value = 1;
-          searchQuery.value = "";
-          sortBy.value = "-date_published";
-          selectedCategory.value = "Toutes";
-        },
-
-    hasActiveFilters: options.id
-      ? computed(() => false)
-      : computed(() => {
-          return (
-            searchQuery.value !== "" ||
-            selectedCategory.value !== "Toutes" ||
-            sortBy.value !== "-date_published"
-          );
-        }),
-
-    // Computed pour les articles paginés
-    paginatedNews: computed(() => collection.items.value),
+    // Computed pour les articles paginés (alias)
+    paginatedNews: collection.items,
   };
 };
