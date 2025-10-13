@@ -608,6 +608,34 @@ Avant de committer votre code, vérifiez :
    });
    ```
 
+6. **Navigation avec @click au lieu de NuxtLink - ⚠️ CRITIQUE POUR LE SEO**
+   ```vue
+   <!-- ❌ MAUVAIS - Les robots ne peuvent PAS suivre les liens JavaScript -->
+   <div @click="router.push(`/medias/${media.id}`)">
+     {{ media.name }}
+   </div>
+
+   <!-- Problèmes :
+        - Google ne voit PAS le lien dans le HTML
+        - Pas de crawl des pages détails
+        - Pas d'indexation des sous-pages
+        - Pas de préchargement au hover
+   -->
+
+   <!-- ✅ BON - Lien HTML natif, crawlable par Google -->
+   <NuxtLink :to="`/medias/${media.id}/${slug}`">
+     {{ media.name }}
+   </NuxtLink>
+
+   <!-- Avantages :
+        - Google crawle automatiquement tous les liens
+        - Indexation de chaque page détail
+        - SEO optimal pour chaque élément
+        - Préchargement automatique au hover
+        - URL visible dans le HTML source
+   -->
+   ```
+
 ---
 
 ## 🎯 Principe général
