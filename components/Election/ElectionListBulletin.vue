@@ -21,16 +21,13 @@
         :to="`/elections/legislatives/${coalition.id}`"
         class="group block"
       >
-        <NuxtPicture
-          provider="directus"
+        <CmsImage
           :src="coalition.bulletin"
-          fit="cover"
-          quality="25"
-          width="100%"
-          class="h-48 w-full transform rounded-lg transition-transform duration-200 ease-in-out group-hover:scale-105"
+          :alt="`Bulletin de ${coalition.name}`"
+          :quality="25"
+          class="h-48 w-full transform rounded-lg object-cover transition-transform duration-200 ease-in-out group-hover:scale-105"
           loading="lazy"
           fetchpriority="high"
-          alt="Bulletin de la coalition"
         />
       </NuxtLink>
     </div>
@@ -40,7 +37,7 @@
 <script setup lang="ts">
 import type { Coalition } from "~/types/coalition";
 
-const props = defineProps<{
+defineProps<{
   coalitions: Coalition[];
   loading: boolean;
 }>();

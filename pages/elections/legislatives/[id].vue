@@ -274,7 +274,7 @@ function openModal(minister: Candidate) {
             color="green"
           >
             <!-- Slot pour le titre de chaque liste -->
-            <template #default="{ item, index, open }">
+            <template #default="{ item, open }">
               <UButton
                 color="gray"
                 size="md"
@@ -390,13 +390,13 @@ function openModal(minister: Candidate) {
                     <p>
                       {{ candidate.position }}.
                       <span class="capitalize text-gray-700"
-                        >{{ candidate.first_name.toLowerCase() }}&nbsp</span
+                        >{{ candidate.first_name.toLowerCase() }}&nbsp;</span
                       >
                       <span class="tracking-wider text-gray-700">
                         {{ candidate.last_name.toUpperCase() }}</span
                       >
                       <span class="text-sm font-normal text-gray-500">
-                        &nbsp{{ candidate.profession.toLowerCase() }}
+                        &nbsp;{{ candidate.profession.toLowerCase() }}
                       </span>
                     </p>
 
@@ -418,13 +418,12 @@ function openModal(minister: Candidate) {
         v-if="viewType === 'bulletin' && !loadingCoalition && coalition"
         class="mx-auto flex w-full items-center justify-center"
       >
-        <NuxtPicture
+        <CmsImage
           v-if="coalition.bulletin"
-          provider="directus"
           :src="coalition.bulletin"
-          fit="inside"
-          quality="100"
-          width="100%"
+          :alt="`Bulletin de ${coalition.name}`"
+          :quality="100"
+          class="w-full"
           loading="lazy"
           fetchpriority="high"
         />
