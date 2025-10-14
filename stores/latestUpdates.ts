@@ -10,16 +10,13 @@ interface Update {
   slug?: string;
 }
 
-interface DirectusQuestion {
+interface Question {
   id: string;
   subject: string;
   question_date: string;
   date_created: string;
 }
 
-interface DirectusResponse<T> {
-  data: T[];
-}
 
 export const useLatestUpdatesStore = defineStore("latestUpdates", {
   state: () => ({
@@ -58,10 +55,7 @@ export const useLatestUpdatesStore = defineStore("latestUpdates", {
       this.error = null;
 
       try {
-        const config = useRuntimeConfig();
-        const apiUrl = config.public.cmsApiUrl;
-        const apiKey = config.public.cmsApiKey;
-
+        // ✅ Utilisation des API Nuxt server pour tout
         const documentsData = await $fetch("/api/documents", {
           params: {
             limit: 3,
@@ -69,26 +63,15 @@ export const useLatestUpdatesStore = defineStore("latestUpdates", {
           },
         });
 
-        // Paramètres pour les questions
-        const questionsFields = "id,subject,question_date,date_created";
-        const questionsSort = "sort=-date_created";
-        const questionsFilters = "filter[status]=published";
-
-        const questionsRes = await fetch(
-          `${apiUrl}/items/assembly_question?fields=${questionsFields}&${questionsSort}&${questionsFilters}&limit=3`,
+        const questionsData = await $fetch<{ questions: Question[] }>(
+          "/api/assembly/questions/latest",
           {
-            headers: {
-              Authorization: `Bearer ${apiKey}`,
+            params: {
+              limit: 3,
             },
-          },
+          }
         );
 
-        if (!questionsRes.ok) {
-          throw new Error("Erreur lors de la récupération des questions");
-        }
-
-        const questions =
-          (await questionsRes.json()) as DirectusResponse<DirectusQuestion>;
         // Formater les résultats
         this.documents = documentsData.documents.map((doc) => ({
           id: doc.id,
@@ -100,7 +83,7 @@ export const useLatestUpdatesStore = defineStore("latestUpdates", {
           slug: doc.slug,
         }));
 
-        this.questions = questions.data.map((q) => ({
+        this.questions = questionsData.questions.map((q) => ({
           id: q.id,
           title: q.subject,
           type: "question" as const,

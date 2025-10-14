@@ -1,99 +1,166 @@
-// composables/useElectionElectedCandidates.ts
-export const useAssemblyVotes = () => {
-  const votes = ref([]);
-  const vote = ref<any>(null);
-  const loading = ref(true);
-  const error = ref(null);
+import type { AssemblyVote } from "~/types/assembly";
 
-  const fetchAssemblyVotes = async () => {
-    loading.value = true;
-    error.value = null;
+export interface AssemblyVotesOptions {
+  /** ID du vote pour récupération unitaire */
+  id?: string;
 
-    // const fields = "";
+  /** Tri par défaut */
+  sort?: string;
 
-    const votesSort = `sort=-date`;
+  /** Nombre d'items par page */
+  limit?: number;
 
-    console.log("fetchAssemblyVotes " + useRuntimeConfig().public.cmsApiUrl);
+  /** Synchroniser avec l'URL */
+  syncUrl?: boolean;
+}
 
-    try {
-      const config = useRuntimeConfig();
-      const response = await fetch(
-        `${config.public.cmsApiUrl}/items/assembly_vote?${votesSort}`,
-        {
-          headers: {
-            Authorization: `Bearer ${config.public.cmsApiKey}`,
-          },
-        },
-      );
+/**
+ * Composable pour gérer les votes parlementaires
+ * Utilise useCmsCollection pour le fetch et useCollectionState pour l'état UI
+ *
+ * @example
+ * // Liste avec filtres
+ * const { votes, loading, searchQuery, filterStatus } = useAssemblyVotes();
+ *
+ * // Détail d'un vote
+ * const { vote, loading } = useAssemblyVotes({ id: '123' });
+ */
+export const useAssemblyVotes = (options: AssemblyVotesOptions = {}) => {
+  // Pour un vote unique, pas besoin de state UI
+  if (options.id) {
+    const collection = useCmsCollection<AssemblyVote>({
+      collection: "assembly/votes",
+      id: options.id,
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+    return {
+      // Données
+      vote: collection.item,
+      loading: collection.loading,
+      error: collection.error,
+      refresh: collection.refresh,
 
-      const dataResponse = await response.json();
-      votes.value = dataResponse.data;
-    } catch (e) {
-      error.value =
-        e instanceof Error
-          ? e.message
-          : "Erreur lors du chargement des groupes";
-      votes.value = [];
-    } finally {
-      loading.value = false;
-    }
-  };
+      // États vides pour compatibilité avec l'ancien code
+      votes: computed(() => []),
+      currentPage: ref(1),
+      searchQuery: ref(""),
+      sortBy: ref(options.sort || "-date"),
+      filterStatus: ref("all"),
+      itemsPerPage: ref(options.limit || 50),
+      pagination: computed(() => undefined),
+      totalItems: computed(() => 0),
+      totalPages: computed(() => 0),
+      hasActiveFilters: computed(() => false),
 
-  const fetchAssemblyVoteById = async (id: string) => {
-    loading.value = true;
-    error.value = null;
+      // Méthodes vides pour compatibilité
+      setCurrentPage: () => {},
+      setSearchQuery: () => {},
+      setSortBy: () => {},
+      setFilterStatus: () => {},
+      setItemsPerPage: () => {},
+      resetFilters: () => {},
+      fetchAssemblyVotes: () => {},
+      fetchAssemblyVoteById: async () => {},
+      resetVotes: () => {},
+    };
+  }
 
-    try {
-      const config = useRuntimeConfig();
-      const response = await fetch(
-        `${config.public.cmsApiUrl}/items/assembly_vote/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${config.public.cmsApiKey}`,
-          },
-        },
-      );
+  // Gestion des filtres spécifiques aux votes
+  const filterStatus = ref<string>("all"); // Status du vote
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const dataResponse = await response.json();
-      vote.value = dataResponse.data;
-    } catch (e) {
-      error.value =
-        e instanceof Error
-          ? e.message
-          : "Erreur lors du chargement des groupes";
-      vote.value = [];
-    } finally {
-      loading.value = false;
-    }
-  };
-
-  // Pour réinitialiser l'état
-  const resetVotes = () => {
-    votes.value = [];
-    loading.value = false;
-    error.value = null;
-  };
-
-  // Charger les données initiales
-  onMounted(() => {
-    fetchAssemblyVotes();
+  // État UI géré par useCollectionState
+  const state = useCollectionState({
+    defaultSort: options.sort || "-date",
+    defaultItemsPerPage: options.limit || 50,
+    defaultFilter: "all",
+    syncUrl: options.syncUrl !== false,
+    urlParamsMapping: {
+      search: "q",
+      filter: "status",
+      page: "page",
+      sort: "sort",
+    },
   });
 
+  // Construction des filtres spécifiques aux votes
+  const filters = computed(() => {
+    const filters: Record<string, any> = {};
+
+    // Filtre par statut
+    if (filterStatus.value && filterStatus.value !== "all") {
+      filters.filterStatus = filterStatus.value;
+    }
+
+    return filters;
+  });
+
+  // Utilisation du composable générique pour le fetch
+  const collection = useCmsCollection<AssemblyVote>({
+    collection: "assembly/votes",
+    filters,
+    sort: state.sortBy,
+    limit: state.itemsPerPage,
+    page: state.currentPage,
+    search: state.searchQuery,
+  });
+
+  // Computed pour compatibilité avec l'ancien code
+  const totalItems = computed(() => collection.pagination.value?.total || 0);
+  const totalPages = computed(
+    () => collection.pagination.value?.totalPages || 1,
+  );
+
+  // Méthodes spécifiques aux votes
+  const setFilterStatus = (status: string) => {
+    filterStatus.value = status;
+    // Reset à la page 1 lors d'un changement de filtre
+    state.currentPage.value = 1;
+  };
+
   return {
-    votes,
-    loading,
-    error,
-    fetchAssemblyVotes,
-    vote,
-    fetchAssemblyVoteById,
-    resetVotes,
+    // Données
+    votes: collection.items,
+    vote: collection.item,
+    loading: collection.loading,
+    pagination: collection.pagination,
+    error: collection.error,
+    refresh: collection.refresh,
+
+    // États réactifs (depuis useCollectionState)
+    currentPage: state.currentPage,
+    searchQuery: state.searchQuery,
+    sortBy: state.sortBy,
+    itemsPerPage: state.itemsPerPage,
+
+    // États spécifiques aux votes
+    filterStatus,
+
+    // Méthodes (depuis useCollectionState)
+    setCurrentPage: state.setCurrentPage,
+    setSearchQuery: state.setSearchQuery,
+    setSortBy: state.setSortBy,
+    setItemsPerPage: state.setItemsPerPage,
+    resetFilters: () => {
+      state.resetFilters();
+      filterStatus.value = "all";
+    },
+
+    // Méthodes spécifiques
+    setFilterStatus,
+
+    // Computed
+    totalItems,
+    totalPages,
+    hasActiveFilters: computed(
+      () => state.hasActiveFilters.value || filterStatus.value !== "all",
+    ),
+
+    // Méthodes de compatibilité avec l'ancien code (deprecated)
+    fetchAssemblyVotes: collection.refresh,
+    fetchAssemblyVoteById: async () => collection.refresh(),
+    resetVotes: () => {
+      state.resetFilters();
+      filterStatus.value = "all";
+    },
   };
 };

@@ -48,10 +48,10 @@
           <LPolygon
             :lat-lngs="region.coordinates"
             :color="getPolygonBorderColor(region.winnerColor)"
-            :fillColor="region.winnerColor"
+            :fill-color="region.winnerColor"
             :weight="isMobile ? 1 : 2"
             :fill="true"
-            :fillOpacity="0.85"
+            :fill-opacity="0.85"
             :options="polygonOptions"
           >
             <LTooltip

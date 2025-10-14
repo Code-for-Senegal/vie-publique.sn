@@ -147,16 +147,28 @@ useHead({
 });
 
 const config = useRuntimeConfig();
-const { questions, loading, error } = useAssemblyQuestions();
 
-// Supprimé : utiliser useCmsImage() à la place
+// ✅ Nouvelle architecture : useCmsCollection + useCollectionState
+// Plus de onMounted() → SSR-friendly, pagination et recherche intégrées
+const {
+  questions,
+  loading,
+  error,
+  currentPage,
+  itemsPerPage,
+  totalItems,
+  setCurrentPage,
+  setItemsPerPage
+} = useAssemblyQuestions({ limit: 50 }); // Charger 50 questions au lieu de 2000
 
-// Calcul des statistiques
+// Calcul des statistiques sur toutes les questions
 const topDeputies = computed(() => {
-  if (!questions.value) return [];
+  if (!questions.value || questions.value.length === 0) return [];
 
   // Grouper les questions par député
-  const questionsByDeputy = questions.value.reduce((acc, question) => {
+  const questionsByDeputy = questions.value.reduce((acc: any, question: any) => {
+    if (!question.deputy) return acc;
+
     const deputyId = question.deputy.id;
     if (!acc[deputyId]) {
       acc[deputyId] = {
@@ -173,22 +185,15 @@ const topDeputies = computed(() => {
 
   // Convertir en tableau et trier
   return Object.values(questionsByDeputy)
-    .sort((a, b) => b.questionsCount - a.questionsCount)
+    .sort((a: any, b: any) => b.questionsCount - a.questionsCount)
     .slice(0, 4);
 });
 
-// Pagination
-const itemsPerPage = ref(10);
-const currentPage = ref(1);
-// Questions paginées
-const paginatedQuestions = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage.value;
-  const end = start + itemsPerPage.value;
-  return questions.value.slice(start, end);
-});
+// Les questions sont déjà paginées côté serveur via useCmsCollection
+const paginatedQuestions = computed(() => questions.value || []);
 
 const handlePageChange = (page: number) => {
-  currentPage.value = page;
+  setCurrentPage(page);
   // Faire défiler vers le haut de la liste
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
@@ -199,9 +204,11 @@ const formatDateISO = (date: string) => {
 </script>
 
 <template>
-  <div class="container mx-auto min-h-screen bg-white py-4 dark:bg-gray-900" itemscope
+  <div
+class="container mx-auto min-h-screen bg-white py-4 dark:bg-gray-900" itemscope
     itemtype="https://schema.org/CollectionPage">
-    <NuxtLink to="/assemblee-nationale"
+    <NuxtLink
+to="/assemblee-nationale"
       class="mb-4 inline-flex items-center text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100">
       <UIcon name="i-heroicons-arrow-left" class="mr-2 h-5 w-5" />
       15e législature Assemblée nationale
@@ -229,13 +236,15 @@ const formatDateISO = (date: string) => {
             <meta itemprop="name" content="Députés les plus actifs">
             <meta itemprop="numberOfItems" :content="topDeputies.length">
 
-            <div v-for="(deputy, index) in topDeputies" :key="deputy.id"
+            <div
+v-for="(deputy, index) in topDeputies" :key="deputy.id"
               class="custom-shadow relative flex flex-col items-center rounded-lg bg-white p-4 transition-all hover:shadow-md dark:bg-gray-800 dark:text-gray-100"
               itemscope itemtype="https://schema.org/Person" itemprop="itemListElement">
               <meta itemprop="position" :content="index + 1">
               <meta itemprop="identifier" :content="deputy.id">
 
-              <div class="absolute left-1/2 top-20 -translate-x-1/2 rounded-full px-3 py-1 text-sm font-bold text-white"
+              <div
+class="absolute left-1/2 top-20 -translate-x-1/2 rounded-full px-3 py-1 text-sm font-bold text-white"
                 :class="{
                   'bg-yellow-500': index === 0,
                   'bg-yellow-400': index === 1,
@@ -248,7 +257,8 @@ const formatDateISO = (date: string) => {
               <NuxtLink
                 :to="`/assemblee-nationale/deputes/${deputy.id}/${$getSlugifyUrlPath(deputy.first_name + ' ' + deputy.last_name)}`"
                 class="flex flex-col items-center" itemprop="url">
-                <CmsImage :src="deputy.photo" :alt="deputy.first_name"
+                <CmsImage
+:src="deputy.photo" :alt="deputy.first_name"
                   class="mb-3 h-20 w-20 rounded-full object-cover shadow-sm" itemprop="image" />
                 <div class="text-center">
                   <div class="truncate font-medium capitalize text-gray-900 dark:text-gray-100">
@@ -272,16 +282,17 @@ const formatDateISO = (date: string) => {
 
         <div id="questions-list" class="space-y-2" itemscope itemtype="https://schema.org/ItemList">
           <meta itemprop="name" content="Questions écrites parlementaires">
-          <meta itemprop="numberOfItems" :content="questions.length">
+          <meta itemprop="numberOfItems" :content="totalItems">
 
           <div class="mb-4 flex items-center justify-between">
             <h2 class="text-xl font-bold dark:text-gray-100">Questions</h2>
             <div class="text-sm text-gray-500 dark:text-gray-400">
-              {{ questions.length }} questions au total
+              {{ totalItems }} questions au total
             </div>
           </div>
 
-          <article v-for="(question, index) in paginatedQuestions" :key="question.id" itemscope
+          <article
+v-for="(question, index) in paginatedQuestions" :key="question.id" itemscope
             itemtype="https://schema.org/Question" itemprop="itemListElement"
             class="custom-shadow transition-all hover:shadow-lg dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100">
             <meta itemprop="position" :content="(currentPage - 1) * itemsPerPage + index + 1">
@@ -298,7 +309,8 @@ const formatDateISO = (date: string) => {
               <NuxtLink :to="`/assemblee-nationale/questions/${question.id}`">
                 <div class="flex gap-4">
                   <div class="flex-shrink-0">
-                    <CmsImage :src="question.deputy.photo" :alt="question.deputy.first_name"
+                    <CmsImage
+:src="question.deputy.photo" :alt="question.deputy.first_name"
                       class="h-20 w-20 rounded-full object-cover" itemprop="image" />
                   </div>
                   <div class="flex-grow">
@@ -324,7 +336,8 @@ const formatDateISO = (date: string) => {
           </article>
 
           <div class="mt-6 flex justify-center">
-            <UPagination v-model="currentPage" :total="questions.length" :per-page="itemsPerPage"
+            <UPagination
+:model-value="currentPage" :total="totalItems" :per-page="itemsPerPage"
               :active-button="{ color: 'yellow' }" :ui="{
                 wrapper: 'flex items-center gap-1',
                 base: 'min-w-8 min-h-8 flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed',

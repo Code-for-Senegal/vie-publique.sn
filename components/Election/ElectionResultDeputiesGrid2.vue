@@ -75,7 +75,6 @@
                 <button
                   v-for="group in groupOptions"
                   :key="group.value"
-                  @click="toggleGroup(group.value)"
                   class="rounded-full px-4 py-1 text-[0.8rem] transition-colors duration-200"
                   :class="{
                     'bg-gray-100 text-gray-800 hover:bg-gray-200':
@@ -88,6 +87,7 @@
                         ? getGroupColor(group.value)
                         : '',
                   }"
+                  @click="toggleGroup(group.value)"
                 >
                   {{ group.label }}
                 </button>
@@ -99,7 +99,7 @@
       <!-- Colonne de la liste des députés (3/4 en desktop) -->
       <div class="lg:col-span-2">
         <!-- Loading State -->
-        <template v-if="loading && !props.deputies.length">
+        <template v-if="loading && (!props.deputies || !Array.isArray(props.deputies) || props.deputies.length === 0)">
           <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             <USkeleton v-for="i in 6" :key="i" class="h-48" />
           </div>

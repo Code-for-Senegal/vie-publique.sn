@@ -7,19 +7,18 @@ const route = useRoute();
 const router = useRouter();
 const department = decodeURIComponent(route.params.department as string);
 
-// État local
-const search = ref("");
+// ✅ État local initialisé avec les query params de l'URL pour partage
+const search = ref((route.query.q as string) || "");
 const pageSize = ref(10);
-const sortBy = ref("municipality");
-const sortDesc = ref(false);
+const sortBy = ref((route.query.sort as string) || "municipality");
+const sortDesc = ref(route.query.order === "desc");
 const isRefreshing = ref(false);
-const selectedMunicipality = ref("");
+const selectedMunicipality = ref((route.query.commune as string) || "");
 
-// Initialisation du composable
-const { fetchDepartmentDetails, getDepartmentStats, refreshData } =
-  useElectionData();
+// ✅ Initialisation du composable SSR
+const { fetchDepartmentDetails, getDepartmentStats } = useElectionData();
 
-// Charger les données avec le cache
+// Charger les données avec le cache et SSR
 const {
   data: details,
   pending: detailsPending,
@@ -27,7 +26,7 @@ const {
   refresh: refreshDetails,
 } = await fetchDepartmentDetails(department);
 
-// Charger les statistiques
+// Charger les statistiques avec SSR
 const {
   data: stats,
   pending: statsPending,
@@ -120,7 +119,6 @@ const handleRefresh = async () => {
 
   isRefreshing.value = true;
   try {
-    await refreshData(department);
     await Promise.all([refreshDetails(), refreshStats()]);
   } finally {
     isRefreshing.value = false;
@@ -157,6 +155,32 @@ const municipalities = computed(() => {
   if (!details.value) return [];
   return [...new Set(details.value.map((item) => item.municipality))].sort();
 });
+
+// ✅ Synchroniser les filtres et recherche avec l'URL
+watch([search, selectedMunicipality, sortBy, sortDesc], ([newSearch, newMunicipality, newSort, newDesc]) => {
+  const query: Record<string, string> = {};
+
+  if (newSearch) {
+    query.q = newSearch;
+  }
+
+  if (newMunicipality) {
+    query.commune = newMunicipality;
+  }
+
+  if (newSort && newSort !== "municipality") {
+    query.sort = newSort;
+  }
+
+  if (newDesc) {
+    query.order = "desc";
+  }
+
+  // Mettre à jour l'URL sans recharger la page
+  router.replace({
+    query: Object.keys(query).length > 0 ? query : undefined,
+  });
+});
 </script>
 
 <template>
@@ -166,7 +190,7 @@ const municipalities = computed(() => {
       <UButton
         icon="i-heroicons-arrow-left"
         variant="ghost"
-        @click.native="router.back()"
+        @click="router.back()"
       />
       <h1 class="text-2xl font-bold">Département {{ department }}</h1>
     </div>

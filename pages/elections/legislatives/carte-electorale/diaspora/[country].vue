@@ -1,118 +1,37 @@
 <script setup lang="ts">
+/**
+ * Page de détails d'un pays de la diaspora
+ * Suit le pattern: page -> composable -> server -> Directus
+ */
+
 const route = useRoute();
 const router = useRouter();
 
 const country = computed(() =>
   decodeURIComponent(route.params.country as string),
 );
+
+// États réactifs pour la recherche et la pagination
 const search = ref("");
-
-// Types
-interface DiasporaLocation {
-  id: number;
-  diplomatic_representation: string;
-  country: string;
-  locality: string;
-  polling_place: string;
-  office_number: number;
-  voters: string;
-}
-
-interface CountryStats {
-  country: string;
-  count: {
-    office_number: number;
-    polling_place: number;
-  };
-  sum: {
-    voters: number;
-  };
-  countDistinct: {
-    locality: number;
-    polling_place: number;
-  };
-}
-
-// Récupérer les stats globales du pays
-const { data: countryStats } = await useFetch<{ data: CountryStats[] }>(
-  "https://cms.vie-publique.sn/items/election_map_diaspora",
-  {
-    params: {
-      filter: {
-        country: { _eq: country.value },
-      },
-      groupBy: ["country"],
-      aggregate: {
-        count: ["office_number", "polling_place"],
-        sum: ["voters"],
-        countDistinct: ["locality", "polling_place"],
-      },
-    },
-    headers: {
-      Authorization: `Bearer ${useRuntimeConfig().public.cmsApiKey}`,
-    },
-  },
-);
-
-// Récupérer les données détaillées du pays avec pagination
 const page = ref(1);
-const itemsPerPage = 1000;
+const q = ref(""); // Filtre local côté client
 
-const { data: countryDetails, pending } = await useFetch<{
-  data: DiasporaLocation[];
-  meta: { total_count: number };
-}>("https://cms.vie-publique.sn/items/election_map_diaspora", {
-  params: {
-    filter: {
-      country: { _eq: country.value },
-      ...(search.value
-        ? {
-            _or: [
-              { locality: { _contains: search.value } },
-              { polling_place: { _contains: search.value } },
-            ],
-          }
-        : {}),
-    },
-    sort: ["locality", "polling_place", "office_number"],
-    page: page.value,
-    limit: itemsPerPage,
-  },
-  headers: {
-    Authorization: `Bearer ${useRuntimeConfig().public.cmsApiKey}`,
-  },
-  watch: [search, page], // Rafraîchir quand la recherche ou la page change
+// ✅ Utilisation du composable pour récupérer les données
+const { stats, locations, pending, totalPages } = useDiasporaCountry({
+  country: country.value,
+  search,
+  page,
+  limit: 1000,
 });
 
-// Calcul du nombre total de pages
-const totalPages = computed(() => {
-  return countryDetails.value?.meta?.total_count
-    ? Math.ceil(countryDetails.value.meta.total_count / itemsPerPage)
-    : 0;
-});
-
-// Stats du pays pour les badges
-const stats = computed(() => {
-  const data = countryStats.value?.data?.[0];
-  return data
-    ? {
-        localities: data.countDistinct.locality,
-        pollingPlaces: data.countDistinct.polling_place,
-        offices: data.count.office_number,
-        voters: data.sum.voters,
-      }
-    : null;
-});
-
-const q = ref("");
-
+// Filtrage local côté client (pour le champ de recherche dans le tableau)
 const filteredRows = computed(() => {
   if (!q.value) {
-    return countryDetails.value?.data;
+    return locations.value;
   }
 
-  return countryDetails.value?.data.filter((person) => {
-    return Object.values(person).some((value) => {
+  return locations.value.filter((location) => {
+    return Object.values(location).some((value) => {
       return String(value).toLowerCase().includes(q.value.toLowerCase());
     });
   });
@@ -140,7 +59,7 @@ const filteredRows = computed(() => {
               icon="i-heroicons-arrow-left"
               to="'/elections/legislatives/carte-electorale'"
               variant="ghost"
-              @click.native="router.back()"
+              @click="router.back()"
             />
           </div>
 
@@ -251,7 +170,7 @@ const filteredRows = computed(() => {
 
       <!-- Pagination -->
       <template #footer>
-        <div class="mt-4 flex justify-center" v-if="totalPages > 1">
+        <div v-if="totalPages > 1" class="mt-4 flex justify-center">
           <UPagination
             v-model="page"
             :total="totalPages"

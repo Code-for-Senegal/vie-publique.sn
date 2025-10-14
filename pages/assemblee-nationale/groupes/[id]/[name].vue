@@ -40,13 +40,7 @@
       >
         <template #description>
           {{ error }}
-          <UButton
-            label="Réessayer"
-            color="red"
-            variant="ghost"
-            class="mt-4"
-            @click="fetchAssemblyGroupById(groupId)"
-          />
+          <UButton label="Réessayer" color="red" variant="ghost" class="mt-4" @click="refresh()" />
         </template>
       </UAlert>
     </UContainer>
@@ -58,10 +52,7 @@
         <div class="lg:w-64">
           <div class="sticky top-8">
             <!-- Squelette pendant le chargement -->
-            <div
-              v-if="loading"
-              class="overflow-hidden rounded-lg bg-white shadow-sm"
-            >
+            <div v-if="loading" class="overflow-hidden rounded-lg bg-white shadow-sm">
               <div class="p-6">
                 <div class="flex flex-col items-center">
                   <USkeleton class="mb-6 h-32 w-32 rounded-lg" />
@@ -93,14 +84,8 @@
                       class="h-full w-full object-contain"
                       size="2xl"
                     />
-                    <div
-                      v-else
-                      class="flex h-full w-full items-center justify-center bg-gray-100"
-                    >
-                      <UIcon
-                        name="i-heroicons-user-group"
-                        class="h-16 w-16 text-gray-400"
-                      />
+                    <div v-else class="flex h-full w-full items-center justify-center bg-gray-100">
+                      <UIcon name="i-heroicons-user-group" class="h-16 w-16 text-gray-400" />
                     </div>
                   </div>
 
@@ -110,11 +95,7 @@
                     <div class="flex flex-col text-sm">
                       <span class="text-gray-600">Création</span>
                       <span class="font-medium">
-                        {{
-                          groupById?.creation_date
-                            ? formatDate(groupById.creation_date)
-                            : "N/A"
-                        }}
+                        {{ groupById?.creation_date ? formatDate(groupById.creation_date) : 'N/A' }}
                       </span>
                     </div>
                     <div class="flex flex-col text-sm">
@@ -124,10 +105,7 @@
                         {{ groupById?.president?.last_name }}
                       </span>
                     </div>
-                    <div
-                      v-if="groupById?.vice_president"
-                      class="flex flex-col text-sm"
-                    >
+                    <div v-if="groupById?.vice_president" class="flex flex-col text-sm">
                       <span class="text-gray-600">Vice-président(e)</span>
                       <span class="truncate font-medium">
                         {{ groupById.vice_president.first_name }}
@@ -151,10 +129,7 @@
         <!-- Contenu principal -->
         <div class="flex-1">
           <!-- Squelette pendant le chargement -->
-          <div
-            v-if="loadingGroupsById"
-            class="rounded-lg bg-white p-6 shadow-sm"
-          >
+          <div v-if="loading" class="rounded-lg bg-white p-6 shadow-sm">
             <USkeleton class="mb-4 h-8 w-64" />
             <USkeleton class="mb-3 h-4 w-full" />
             <USkeleton class="mb-3 h-4 w-full" />
@@ -164,29 +139,33 @@
           <!-- Contenu réel -->
           <div v-else class="rounded-lg bg-white shadow-sm">
             <div class="p-4">
-              <h2 class="text-normal mb-2 font-semibold">
-                Le groupe en quelques mots
-              </h2>
-              <p class="text-sm text-gray-700" v-if="groupById?.description">
+              <h2 class="text-normal mb-2 font-semibold">Le groupe en quelques mots</h2>
+              <p v-if="groupById?.description" class="text-sm text-gray-700">
                 {{ groupById?.description }}
               </p>
-              <p
-                v-if="groupById?.president"
-                class="mt-2 hidden text-sm text-gray-700"
-              >
-                Dirigé par {{ groupById.president.first_name }}
-                {{ groupById.president.last_name }}, à ce poste depuis
-                {{ formatDate(groupById.creation_date) }}.
+              <p v-if="groupById?.president" class="mt-2 hidden text-sm text-gray-700">
+                Dirigé par {{ groupById.president.first_name }} {{ groupById.president.last_name }},
+                à ce poste depuis {{ formatDate(groupById.creation_date) }}.
               </p>
             </div>
 
-            <div
-              class="grid grid-cols-2 gap-2 px-2 md:grid-cols-2 lg:grid-cols-3"
-            >
+            <div class="grid grid-cols-2 gap-2 px-2 md:grid-cols-2 lg:grid-cols-3">
               <AssemblyDeputyCard2
-                v-for="deputy in deputies"
+                v-for="deputy in groupById?.members"
                 :key="deputy.id"
-                :deputy="deputy"
+                :deputy="{
+                  ...deputy,
+                  group: {
+                    name: groupById?.name || '',
+                    color: groupById?.color || '#gray-500',
+                  },
+                  electoral_list: {
+                    type: '',
+                    name: '',
+                    coalition: undefined,
+                    constituency: undefined,
+                  },
+                }"
               />
             </div>
           </div>
@@ -197,28 +176,24 @@
 </template>
 
 <script setup lang="ts">
-const route = useRoute();
-const { fetchAssemblyGroupById, groupById, loading, error } =
-  useAssemblyGroups();
+const route = useRoute()
 
-import { useDeputev2 } from "@/composables/parliament/useDeputev2";
-
-const { deputies, fetchElectedDeputies } = useDeputev2();
-
-const groupId = route.params.id as string;
-
-// Chargement des données au montage
-onMounted(async () => {
-  await fetchAssemblyGroupById(groupId);
-  await fetchElectedDeputies(groupId);
-});
+// ✅ Nouvelle architecture : useCmsCollection avec mode détail (id)
+const {
+  group: groupById,
+  loading,
+  error,
+  refresh,
+} = useAssemblyGroups({
+  id: route.params.id as string,
+})
 
 // Fonction de formatage de date
 const formatDate = (date: string) => {
-  return new Date(date).toLocaleDateString("fr-FR", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-};
+  return new Date(date).toLocaleDateString('fr-FR', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  })
+}
 </script>

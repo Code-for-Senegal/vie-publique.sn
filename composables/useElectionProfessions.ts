@@ -1,18 +1,22 @@
 import type { ElectionStatsProfession } from "~/types/election-stats-profession";
 
+/**
+ * Composable pour récupérer les statistiques des professions des candidats
+ * Architecture SSR : les appels passent par le serveur Nuxt
+ *
+ * @param coalitionId - ID de la coalition pour filtrer (optionnel)
+ * @example
+ * const { data: professions, pending, error } = useElectionProfessions();
+ * const { data: professionsByCoalition } = useElectionProfessions('coalition-id');
+ */
 export const useElectionProfessions = (coalitionId?: string) => {
   console.debug("useElectionProfessions");
-  const config = useRuntimeConfig();
-
-  const apiUrl = `${config.public.cmsApiUrl}/items/election_candidates?aggregate[count]=id&groupBy[]=profession&sort=-count.id`;
 
   return useAsyncData(
     `candidatesProfessions${coalitionId ? `-${coalitionId}` : ""}`,
     () =>
-      $fetch<{ data: ElectionStatsProfession[] }>(apiUrl, {
-        headers: {
-          Authorization: `Bearer ${config.public.cmsApiKey}`,
-        },
+      $fetch<{ data: ElectionStatsProfession[] }>('/api/elections/stats/professions', {
+        query: coalitionId ? { coalition: coalitionId } : {},
       }),
     {
       transform: (response) => response.data,

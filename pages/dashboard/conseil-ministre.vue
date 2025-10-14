@@ -106,8 +106,8 @@
               class="whitespace-nowrap px-6 py-4 text-right text-sm font-medium"
             >
               <button
-                @click="openModal(decision)"
                 class="rounded-md bg-blue-50 px-3 py-1 text-blue-600 transition-colors hover:bg-blue-100 hover:text-blue-900"
+                @click="openModal(decision)"
               >
                 Voir détails
               </button>
@@ -128,8 +128,8 @@
             {{ selectedDecision.title }}
           </h2>
           <button
-            @click="closeModal"
             class="text-gray-500 transition-colors hover:text-gray-700"
+            @click="closeModal"
           >
             <span class="text-2xl">&times;</span>
           </button>

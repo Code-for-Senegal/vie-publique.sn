@@ -53,7 +53,7 @@
             :color="getRegionColor(region.id)"
             :weight="1.5"
             :fill="true"
-            :fillOpacity="0.7"
+            :fill-opacity="0.7"
             :options="polygonOptions"
           >
             <LTooltip

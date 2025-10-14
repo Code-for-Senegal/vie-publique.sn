@@ -1,29 +1,28 @@
 <script setup lang="ts">
-const config = useRuntimeConfig();
 
 const props = defineProps<{
   deputy: {
     id: number;
     first_name: string;
-    last_name: string;
-    profession: string;
-    photo: string;
-    gender: string;
-    birthplace: string;
-    birthdate: string;
-    biography: string;
-    group: {
+    last_name?: string;
+    profession?: string;
+    photo?: string;
+    gender?: string;
+    birthplace?: string;
+    birthdate?: string;
+    biography?: string;
+    group?: {
       name: string;
       color: string;
     };
-    electoral_list: {
+    electoral_list?: {
       type: string;
       name: string;
-      coalition: {
+      coalition?: {
         name: string;
         color: string;
       };
-      constituency: any;
+      constituency?: any;
     };
   };
 }>();

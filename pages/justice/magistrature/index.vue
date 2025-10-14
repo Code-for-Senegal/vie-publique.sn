@@ -310,13 +310,15 @@ watch(selectedJurisdictionType, () => {
 
     <!-- Modal pour afficher les détails du membre -->
     <UModal v-model="isModalOpen">
-      <UCard v-if="selectedAppointee" :ui="{
+      <UCard
+v-if="selectedAppointee" :ui="{
         ring: '',
         divide: 'divide-y divide-gray-100 dark:divide-gray-800',
       }">
         <template #header>
           <div class="flex items-center justify-center">
-            <NuxtImg :src="selectedAppointee.photo || '/unknown_member.webp'" alt="Profile Photo" sizes="300px md:400px"
+            <NuxtImg
+:src="selectedAppointee.photo || '/unknown_member.webp'" alt="Profile Photo" sizes="300px md:400px"
               :placeholder="[300, 300]" />
           </div>
         </template>
@@ -353,55 +355,65 @@ watch(selectedJurisdictionType, () => {
     </UModal>
 
     <div class="w-full max-w-4xl">
-      <UInput v-model="searchQuery" class="input custom-shadow mb-3 w-full" size="lg"
+      <UInput
+v-model="searchQuery" class="input custom-shadow mb-3 w-full" size="lg"
         icon="i-heroicons-magnifying-glass" placeholder="Rechercher une nomination...">
       </UInput>
 
       <div class="mb-1 w-full text-center">
-        <UButton :ui="{ rounded: 'rounded-full' }" class="custom-shadow mb-1 ml-1 text-sm font-normal"
+        <UButton
+:ui="{ rounded: 'rounded-full' }" class="custom-shadow mb-1 ml-1 text-sm font-normal"
           :color="selectedGender === 'Monsieur' ? 'primary' : 'white'" size="sm" @click="
             selectedGender = selectedGender === 'Monsieur' ? '' : 'Monsieur'
             ">
           Hommes
-          <UBadge :ui="{ rounded: 'rounded-full' }" :label="totalsByGender.maleCount"
+          <UBadge
+:ui="{ rounded: 'rounded-full' }" :label="totalsByGender.maleCount"
             :color="selectedGender === 'Monsieur' ? 'primary' : 'primary'"
             :variant="selectedGender === 'Monsieur' ? 'soft' : 'solid'" size="xs"></UBadge>
         </UButton>
-        <UButton :ui="{ rounded: 'rounded-full' }" class="custom-shadow mb-1 ml-1 text-sm font-normal"
+        <UButton
+:ui="{ rounded: 'rounded-full' }" class="custom-shadow mb-1 ml-1 text-sm font-normal"
           :color="selectedGender === 'Madame' ? 'primary' : 'white'" size="sm"
           @click="selectedGender = selectedGender === 'Madame' ? '' : 'Madame'">
           Femmes
-          <UBadge :ui="{ rounded: 'rounded-full' }" :label="totalsByGender.femaleCount" color="primary"
+          <UBadge
+:ui="{ rounded: 'rounded-full' }" :label="totalsByGender.femaleCount" color="primary"
             :variant="selectedGender === 'Madame' ? 'soft' : 'solid'" size="xs"></UBadge>
         </UButton>
       </div>
 
       <div class="mb-1 w-full text-center">
-        <UButton v-for="(total, type) in totalsByJurisdictionType" :key="type" :ui="{ rounded: 'rounded-full' }"
+        <UButton
+v-for="(total, type) in totalsByJurisdictionType" :key="type" :ui="{ rounded: 'rounded-full' }"
           :color="selectedJurisdictionType === type ? 'primary' : 'white'"
           class="custom-shadow mb-1 ml-1 text-sm font-normal" size="sm" @click="
             selectedJurisdictionType =
             selectedJurisdictionType === type ? '' : type
             ">
           {{ type }}
-          <UBadge :ui="{ rounded: 'rounded-full' }" :label="total" color="primary"
+          <UBadge
+:ui="{ rounded: 'rounded-full' }" :label="total" color="primary"
             :variant="selectedJurisdictionType === type ? 'soft' : 'solid'" size="xs"></UBadge>
         </UButton>
       </div>
 
       <div class="mb-3 w-full text-center">
-        <NuxtLink to="/publications/justice/conseil-superieur-de-la-magistrature-18-aout-2024"
+        <NuxtLink
+to="/publications/justice/conseil-superieur-de-la-magistrature-18-aout-2024"
           class="mb-2 text-center text-sm underline">
           📄 Procès-verbal du CSM du 09 août 2024
         </NuxtLink>
       </div>
 
       <div class="space-y-2">
-        <UCard v-for="appointee in rowsFilteredAppointee" :key="appointee.name" class="custom-shadow cursor-pointer"
+        <UCard
+v-for="appointee in rowsFilteredAppointee" :key="appointee.name" class="custom-shadow cursor-pointer"
           @click="openModal(appointee)">
           <div class="flex flex-row gap-2">
             <div class="h-16 w-16 flex-shrink-0 md:h-20 md:w-20">
-              <NuxtImg :src="appointee.photo || '/unknown_member.webp'" alt="Photo ministre" sizes="64px sm:80px"
+              <NuxtImg
+:src="appointee.photo || '/unknown_member.webp'" alt="Photo ministre" sizes="64px sm:80px"
                 class="h-full w-full rounded-full object-cover" placeholder />
             </div>
             <div class="flex-grow">
@@ -420,7 +432,8 @@ watch(selectedJurisdictionType, () => {
         </UCard>
       </div>
 
-      <div :class="{ hidden: rowsFilteredAppointee < pageCount }"
+      <div
+:class="{ hidden: rowsFilteredAppointee < pageCount }"
         class="flex justify-end border-t border-gray-200 px-3 py-3.5 dark:border-gray-700">
         <UPagination v-model="page" size="md" :page-count="pageCount" :total="filteredAppointee.length" />
       </div>

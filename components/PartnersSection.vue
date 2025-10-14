@@ -1,41 +1,36 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+/**
+ * Composant de section des partenaires
+ */
 
-const partners = ref([]);
-
-const API_URL = "https://cms.vie-publique.sn/items/vp_partners";
-const API_TOKEN = "7FnM4F9fp2YXzrknODG57Nv54-HxH_uk";
-
-const fetchPartners = async () => {
-  try {
-    const response = await fetch(API_URL, {
-      headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
-      },
-    });
-    const data = await response.json();
-    if (data && data.data) {
-      partners.value = data.data.map((partner) => ({
-        ...partner,
-        logo: `https://cms.vie-publique.sn/assets/${partner.logo}`,
-      }));
-    }
-  } catch (error) {
-    console.error("Erreur lors de la récupération des partenaires:", error);
-  }
-};
-
-onMounted(() => {
-  fetchPartners();
-});
+// Utilisation du composable pour récupérer les partenaires
+const { partners, loading, error } = usePartners();
 </script>
 
 <template>
-  <div class="mt-8">
+  <section class="my-8">
     <h2 class="text-center text-2xl font-semibold text-gray-800">
       Nos Partenaires
     </h2>
+
+    <!-- État de chargement -->
+    <div v-if="loading" class="mt-8 flex justify-center">
+      <UIcon name="i-heroicons-arrow-path" class="h-8 w-8 animate-spin" />
+    </div>
+
+    <!-- Message d'erreur -->
+    <UAlert
+      v-else-if="error"
+      color="red"
+      variant="soft"
+      title="Erreur de chargement"
+      description="Impossible de charger les partenaires pour le moment."
+      class="mx-auto mt-8 max-w-lg"
+    />
+
+    <!-- Liste des partenaires -->
     <div
+      v-else-if="partners.length > 0"
       class="mt-8 flex flex-wrap justify-center gap-8"
       aria-label="Logos des partenaires"
     >
@@ -57,7 +52,12 @@ onMounted(() => {
         </span>
       </a>
     </div>
-  </div>
+
+    <!-- Message si aucun partenaire -->
+    <div v-else class="mt-8 text-center text-gray-500">
+      Aucun partenaire disponible pour le moment.
+    </div>
+  </section>
 </template>
 
 <style scoped>

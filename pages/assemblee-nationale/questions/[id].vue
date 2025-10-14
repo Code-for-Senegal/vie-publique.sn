@@ -3,7 +3,12 @@ const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadat
 
 const route = useRoute();
 const config = useRuntimeConfig();
-const { question, loading, error, fetchAssemblyQuestionById } = useAssemblyQuestions();
+
+// ✅ Nouvelle architecture : useCmsCollection avec mode détail (id)
+// Plus besoin de onMounted ni de fetchById
+const { question, loading, error } = useAssemblyQuestions({
+  id: route.params.id as string
+});
 
 const questionFullName = computed(() => {
   if (!question.value) return "";
@@ -30,8 +35,8 @@ const url = computed(() => {
 
 const image = computed(() => {
   if (!question.value) return defaultImage;
-  return question.value.deputy.photo 
-    ? `${config.public.cmsApiUrl}/assets/${question.value.deputy.photo}`
+  return question.value.deputy.photo
+    ? useCmsImage(question.value.deputy.photo)
     : defaultImage;
 });
 
@@ -51,7 +56,7 @@ const questionSchema = computed(() => {
       "givenName": question.value.deputy.first_name,
       "familyName": question.value.deputy.last_name,
       "jobTitle": "Député",
-      "image": question.value.deputy.photo ? `${config.public.cmsApiUrl}/assets/${question.value.deputy.photo}` : undefined,
+      "image": question.value.deputy.photo ? useCmsImage(question.value.deputy.photo) : undefined,
       "worksFor": {
         "@type": "GovernmentOrganization",
         "name": "Assemblée nationale du Sénégal",
@@ -142,7 +147,7 @@ const formatDateISO = (date: string) => {
 };
 
 const getImageUrl = (imageId: string) => {
-  return `${config.public.cmsApiUrl}/assets/${imageId}`;
+  return useCmsImage(imageId);
 };
 
 const isImageFile = (fileType: string) => {
@@ -209,11 +214,7 @@ watchEffect(() => {
   }
 });
 
-onMounted(async () => {
-  if (route.params.id) {
-    await fetchAssemblyQuestionById(route.params.id as string);
-  }
-});
+// ✅ Plus besoin de onMounted : les données sont chargées automatiquement via SSR
 </script>
 
 <template>

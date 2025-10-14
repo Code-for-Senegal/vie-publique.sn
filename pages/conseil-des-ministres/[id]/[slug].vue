@@ -358,7 +358,7 @@ const formatDateISO = (date: string) => {
         </div>
 
         <!-- Contenu HTML -->
-        <div v-html="article.content" itemprop="articleBody"></div>
+        <div itemprop="articleBody" v-html="article.content"></div>
 
         <!-- Mots-clés cachés pour le SEO -->
         <meta

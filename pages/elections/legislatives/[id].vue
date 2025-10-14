@@ -2,6 +2,7 @@
 import type { Candidate } from "~/types/candidate";
 
 const route = useRoute();
+const router = useRouter();
 const coalitionId = route.params.id as string;
 
 useHead({
@@ -18,9 +19,9 @@ const {
 
 const { data: lists, pending: loading, error } = useElectoralLists(coalitionId);
 
-const listTypeFilter = ref("national");
-
-const searchQuery = ref("");
+// ✅ Initialiser avec les query params de l'URL pour partage
+const listTypeFilter = ref((route.query.type as string) || "national");
+const searchQuery = ref((route.query.q as string) || "");
 
 const filteredLists = computed(() => {
   if (!lists.value) return [];
@@ -67,6 +68,24 @@ const viewOptions = [
   { label: "Bulletin", value: "bulletin" },
   // { label: "Vidéos", value: "videos" },
 ];
+
+// ✅ Synchroniser les filtres et recherche avec l'URL
+watch([searchQuery, listTypeFilter], ([newSearch, newType]) => {
+  const query: Record<string, string> = {};
+
+  if (newSearch) {
+    query.q = newSearch;
+  }
+
+  if (newType && !newSearch) {
+    query.type = newType;
+  }
+
+  // Mettre à jour l'URL sans recharger la page
+  router.replace({
+    query: Object.keys(query).length > 0 ? query : undefined,
+  });
+});
 
 watch(searchQuery, () => {
   if (!searchQuery.value) {
@@ -220,8 +239,8 @@ function openModal(minister: Candidate) {
               ? 'border-b border-green-700 text-green-700'
               : ''
           "
-          @click="selectFilter(option.value)"
           size="lg"
+          @click="selectFilter(option.value)"
         >
           {{ option.label }}
         </UButton>
@@ -231,8 +250,8 @@ function openModal(minister: Candidate) {
           class="custom-shadow mb-1 ml-1"
           :color="viewType === option.value ? 'white' : 'gray'"
           :class="viewType === option.value ? 'text-green-700' : ''"
-          @click="selectView(option.value)"
           size="lg"
+          @click="selectView(option.value)"
         >
           {{ option.label }}
         </UButton>

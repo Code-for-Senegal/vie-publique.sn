@@ -18,8 +18,8 @@
             />
             <button
               v-if="searchQuery.trim()"
-              @click="performSearch"
               class="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-gray-300 text-white shadow-sm transition-all duration-200 hover:from-[#0000ff] hover:to-[#0003aa] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-300"
+              @click="performSearch"
             >
               <UIcon name="i-heroicons-magnifying-glass" class="h-4 w-4" />
             </button>
@@ -31,11 +31,11 @@
           <button
             v-for="suggestion in searchSuggestions"
             :key="suggestion"
+            class="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-600 transition-colors duration-200 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
             @click="
               searchQuery = suggestion;
               performSearch();
             "
-            class="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-600 transition-colors duration-200 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
           >
             {{ suggestion }}
           </button>

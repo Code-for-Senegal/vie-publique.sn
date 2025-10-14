@@ -53,14 +53,14 @@ const stats = ref({
   participationRate: 47,
 });
 
+// ✅ Données statiques - URLs corrigées pour utiliser le proxy Nuxt
 const coalitionResults = [
   {
     coalition: "PASTEF",
     color: "#B13131",
     seats: 130,
     head_of_list: {
-      photo_url:
-        "https://cms.vie-publique.sn/assets/4e1c3427-ae2d-4090-a5fb-8460f7ef8ac3",
+      photo_url: "4e1c3427-ae2d-4090-a5fb-8460f7ef8ac3",
       full_name: "OUSMANE SONKO",
     },
   },
@@ -69,8 +69,7 @@ const coalitionResults = [
     color: "#e8d417",
     seats: 3,
     head_of_list: {
-      photo_url:
-        "https://cms.vie-publique.sn/assets/aadfcb81-f15f-444f-9faf-120918647cd1",
+      photo_url: "aadfcb81-f15f-444f-9faf-120918647cd1",
       full_name: "BARTHELEMY TOYE DIAS",
     },
   },
@@ -79,8 +78,7 @@ const coalitionResults = [
     color: "#5c5300",
     seats: 16,
     head_of_list: {
-      photo_url:
-        "https://cms.vie-publique.sn/assets/99371091-1155-4e66-95ca-b9ee21eb2320",
+      photo_url: "99371091-1155-4e66-95ca-b9ee21eb2320",
       full_name: "MACKY SALL",
     },
   },
@@ -89,8 +87,7 @@ const coalitionResults = [
     color: "#24C239",
     seats: 7,
     head_of_list: {
-      photo_url:
-        "https://cms.vie-publique.sn/assets/99371091-1155-4e66-95ca-b9ee21eb2320",
+      photo_url: "99371091-1155-4e66-95ca-b9ee21eb2320",
       full_name: "Amadou Ba",
     },
   },

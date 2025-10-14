@@ -9,7 +9,7 @@
       </div>
     </template>
 
-    <div class="w-full" ref="chartContainer">
+    <div ref="chartContainer" class="w-full">
       <svg ref="chartSvg" class="w-full"></svg>
     </div>
 

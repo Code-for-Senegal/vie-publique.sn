@@ -205,6 +205,7 @@ const tableHeaders = [
   { key: "implantation", label: "Implantation", sortable: true },
 ];
 
+// ✅ Utilisation du composable SSR
 const {
   bureaux,
   loading,
@@ -224,7 +225,8 @@ const {
   filterLoading,
 } = useBureauxTemoins();
 
-// Chargement initial
+// ⚠️ Chargement initial uniquement côté client
+// Les données ne sont pas disponibles en SSR car elles dépendent de filtres interactifs
 onMounted(() => {
   fetchBureaux();
 });

@@ -8,26 +8,18 @@ interface ElectoralList {
   constituency: { name: string } | null;
 }
 
+/**
+ * Composable pour récupérer les listes électorales d'une coalition
+ * Architecture SSR : les appels passent par le serveur Nuxt
+ *
+ * @param coalitionId - ID de la coalition
+ * @example
+ * const { data: lists, pending, error } = useElectoralLists('coalition-id');
+ */
 export const useElectoralLists = (coalitionId: string) => {
-  const config = useRuntimeConfig();
-
   return useAsyncData(
     `electoral-lists-${coalitionId}`,
-    () =>
-      $fetch<{ data: ElectoralList[] }>(
-        `${config.public.cmsApiUrl}/items/election_electoral_lists`,
-        {
-          params: {
-            filter: { coalition: coalitionId },
-            limit: 400,
-            fields:
-              "name,type,is_substitute,candidates.first_name,candidates.last_name,candidates.profession,candidates.gender,candidates.position,candidates.photo,candidates.biography,candidates.voter_number,constituency.name",
-          },
-          headers: {
-            Authorization: `Bearer ${config.public.cmsApiKey}`,
-          },
-        },
-      ),
+    () => $fetch<{ data: ElectoralList[] }>(`/api/elections/lists/${coalitionId}`),
     {
       transform: (response) => response.data,
       server: true, // Exécution côté serveur pour le rendu initial

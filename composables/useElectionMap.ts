@@ -44,18 +44,8 @@ export const useRegionsData = () => {
     error.value = null;
 
     try {
-      const config = useRuntimeConfig();
-      const response = await fetch(`${config.public.cmsApiUrl}/items/carte`, {
-        headers: {
-          Authorization: `Bearer ${config.public.cmsApiKey}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = (await response.json()) as DirectusResponse<Department>;
+      // ✅ Utilisation de l'API serveur Nuxt
+      const data = await $fetch<DirectusResponse<Department>>('/api/carte');
       regions.value = transformRegionData(data.data);
     } catch (e) {
       error.value = handleError(e);

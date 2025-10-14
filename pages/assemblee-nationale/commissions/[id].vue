@@ -4,7 +4,12 @@ const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadat
 const route = useRoute();
 const router = useRouter();
 const config = useRuntimeConfig();
-const { commission, loading, error, fetchAssemblyCommissionById } = useAssemblyCommissions();
+
+// ✅ Nouvelle architecture : useCmsCollection avec mode détail (id)
+// Plus besoin de onMounted ni de fetchById
+const { commission, loading, error } = useAssemblyCommissions({
+  id: route.params.id as string
+});
 
 const title = computed(() => {
   if (!commission.value) return "Chargement...";
@@ -13,7 +18,7 @@ const title = computed(() => {
 
 const description = computed(() => {
   if (!commission.value) return "";
-  const presidentText = commission.value.president 
+  const presidentText = commission.value.president
     ? ` Présidée par ${commission.value.president.first_name} ${commission.value.president.last_name}.`
     : "";
   const membersCount = commission.value.members?.length || 0;
@@ -27,14 +32,14 @@ const url = computed(() => {
 
 const image = computed(() => {
   if (!commission.value) return defaultImage;
-  return commission.value.president?.photo 
-    ? `${config.public.cmsApiUrl}/assets/${commission.value.president.photo}`
+  return commission.value.president?.photo
+    ? useCmsImage(commission.value.president.photo)
     : defaultImage;
 });
 
 const commissionSchema = computed(() => {
   if (!commission.value) return null;
-  
+
   const schema = {
     "@context": "https://schema.org",
     "@type": "GovernmentOrganization",
@@ -63,7 +68,7 @@ const commissionSchema = computed(() => {
       "givenName": commission.value.president.first_name,
       "familyName": commission.value.president.last_name,
       "jobTitle": "Président de commission",
-      "image": commission.value.president.photo ? `${config.public.cmsApiUrl}/assets/${commission.value.president.photo}` : undefined,
+      "image": commission.value.president.photo ? useCmsImage(commission.value.president.photo) : undefined,
       "worksFor": {
         "@type": "GovernmentOrganization",
         "name": "Assemblée nationale du Sénégal",
@@ -73,7 +78,7 @@ const commissionSchema = computed(() => {
 
   // Ajouter les membres du bureau
   const organizationalMembers = [];
-  
+
   if (commission.value.vice_president) {
     organizationalMembers.push({
       "@type": "Person",
@@ -154,7 +159,7 @@ const breadcrumbSchema = computed(() => ({
 
 const webPageSchema = computed(() => {
   if (!commission.value) return null;
-  
+
   return {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -232,15 +237,11 @@ watchEffect(() => {
   }
 });
 
-onMounted(async () => {
-  if (route.params.id) {
-    await fetchAssemblyCommissionById(route.params.id as string);
-  }
-});
+// ✅ Plus besoin de onMounted : les données sont chargées automatiquement via SSR
 
-// Function to get full image URL
+// Function to get full image URL using CMS proxy
 const getImageUrl = (imageId: string) => {
-  return `${config.public.cmsApiUrl}/assets/${imageId}`;
+  return useCmsImage(imageId);
 };
 
 // Get bureau members IDs to filter them out from regular members
@@ -263,7 +264,7 @@ const regularMembers = computed(() => {
   if (!commission.value?.members) return [];
 
   return commission.value.members.filter(
-    (member) => !getBureauMembersIds.value.includes(member.assembly_deputy_id.id),
+    (member: any) => !getBureauMembersIds.value.includes(member.id),
   );
 });
 
@@ -285,7 +286,7 @@ const deputyUrl = computed((deputy: any) => {
         variant="ghost"
         label="Retour à la liste"
         color="gray"
-        @click.native="router.back()"
+        @click="router.back()"
       />
 
       <!-- Loading state -->
@@ -461,8 +462,8 @@ const deputyUrl = computed((deputy: any) => {
           <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
             <AssemblyDeputyCard
               v-for="deputy in regularMembers"
-              :key="deputy.assembly_deputy_id.id"
-              :deputy="deputy.assembly_deputy_id"
+              :key="deputy.id"
+              :deputy="deputy"
             />
           </div>
         </div>

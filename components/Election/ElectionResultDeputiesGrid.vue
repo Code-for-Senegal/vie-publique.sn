@@ -142,8 +142,8 @@
                 {{ selectedCandidate.electoral_list.name }}
               </h2>
               <button
-                @click="closeModal"
                 class="text-gray-500 hover:text-gray-700"
+                @click="closeModal"
               >
                 <span class="text-2xl">&times;</span>
               </button>
@@ -239,9 +239,8 @@ interface Deputy {
   };
 }
 
-// Initialiser le composable avec la source appropriée
-const { deputies, loading, error, fetchElectedDeputies } =
-  useElectionElectedCandidates();
+// ✅ Nouvelle architecture SSR : les données sont chargées automatiquement
+const { candidates: deputies, loading, error } = useElections();
 
 const selectedCandidate = ref<Deputy | null>(null);
 const selectedCoalition = ref<string | null>(null);

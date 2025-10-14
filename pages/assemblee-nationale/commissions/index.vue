@@ -151,15 +151,28 @@ useHead({
   ],
 });
 
-const { commissions, loading, error } = useAssemblyCommissions();
+// ✅ Nouvelle architecture : useCmsCollection + useCollectionState
+// Plus de onMounted() → SSR-friendly
+const {
+  commissions,
+  loading,
+  error,
+  searchQuery,
+  setSearchQuery
+} = useAssemblyCommissions();
+
 const router = useRouter();
 
-const searchQuery = ref("");
-
+// Compatibilité avec l'ancien code : filtrage local
 const filteredCommissions = computed(() => {
   if (!commissions.value) return [];
+
+  // Si searchQuery est vide, retourner toutes les commissions
+  if (!searchQuery.value) return commissions.value;
+
+  // Sinon, filtrer localement (la recherche côté serveur est déjà active via useCmsCollection)
   return commissions.value.filter((commission) =>
-    commission.name.toLowerCase().includes(searchQuery.value.toLowerCase()),
+    commission.name?.toLowerCase().includes(searchQuery.value.toLowerCase()),
   );
 });
 </script>
@@ -171,7 +184,7 @@ const filteredCommissions = computed(() => {
       variant="ghost"
       label="15e législature"
       color="gray"
-      @click.native="router.back()"
+      @click="router.back()"
     />
     <div class="mx-auto max-w-4xl">
       <div class="prose prose-sm sm:prose my-2">
@@ -181,12 +194,13 @@ const filteredCommissions = computed(() => {
       <!-- Barre de recherche -->
       <div class="mb-4">
         <UInput
-          v-model="searchQuery"
+          :model-value="searchQuery"
           placeholder="Rechercher une commission..."
           icon="i-heroicons-magnifying-glass-20-solid"
           size="lg"
           color="gray"
           class="w-full"
+          @update:model-value="setSearchQuery"
         />
       </div>
 
@@ -221,7 +235,7 @@ const filteredCommissions = computed(() => {
                 {{ commission.president.last_name }}
               </p>
               <p class="text-sm text-gray-500">
-                {{ commission.members.length }} membres
+                {{ commission.membersCount || 0 }} membres
               </p>
             </div>
             <UIcon
