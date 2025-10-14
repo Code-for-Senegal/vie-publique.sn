@@ -215,6 +215,9 @@ const { navigationCards } = useNavigationCards();
       <div class="my-8">
         <HomeWhatsAppChannel />
       </div>
+      <div class="my-8">
+        <PartnersSection />
+      </div>
 
       <UDivider site="sm" class="mt-4" />
 

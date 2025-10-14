@@ -33,9 +33,6 @@ interface TransformedRegion {
 }
 
 export function useElectionMapData() {
-  const config = useRuntimeConfig();
-  const baseURL = `${config.public.cmsApiUrl}/items/election_map_national`;
-
   // État global pour le cache des données
   const geoData = useState<GeoData[]>("geo-data", () => []);
   const isGeoDataLoaded = useState<boolean>("geo-data-loaded", () => false);
@@ -89,31 +86,22 @@ export function useElectionMapData() {
 
   // Obtenir les statistiques des départements
   const getDepartmentStats = (department?: string) => {
-    const params: any = {
-      aggregate: {
-        count: ["office_number"],
-        sum: ["voters"],
-        countDistinct: ["municipality", "polling_place"],
-      },
-    };
+    // ✅ Utilisation de l'endpoint serveur Nuxt (sécurisé, avec cache serveur)
+    const url = "/api/elections/map/department-stats";
+    const params = department ? { department } : {};
 
-    if (department) {
-      params.filter = {
-        department: {
-          _eq: department,
-        },
-      };
-      params.groupBy = ["department"];
-    }
-
-    return useFetch<{ data: DepartmentStats[] }>(baseURL, {
+    return useFetch<{ data: DepartmentStats[] } | DepartmentStats>(url, {
       key: department ? `department-stats-${department}` : "departments-stats",
       params,
-      headers: {
-        Authorization: `Bearer ${config.public.cmsApiKey}`,
+      transform: (response) => {
+        // Si département spécifique, on retourne directement l'objet
+        if (department && response && !Array.isArray(response)) {
+          return response;
+        }
+        // Sinon on retourne le tableau
+        return Array.isArray(response) ? response : response.data;
       },
-      transform: (response) => (department ? response.data[0] : response.data),
-      cache: "force-cache",
+      server: true,
     });
   };
 
@@ -157,19 +145,13 @@ export function useElectionMapData() {
 
   // Fonction pour obtenir les détails d'un département
   const getDepartmentDetails = (department: string) => {
-    return useFetch<{ data: PollingStation[] }>(baseURL, {
-      params: {
-        filter: {
-          department: {
-            _eq: department,
-          },
-        },
-        sort: ["municipality", "polling_place", "office_number"],
-      },
-      headers: {
-        Authorization: `Bearer ${config.public.cmsApiKey}`,
-      },
+    // ✅ Utilisation de l'endpoint serveur Nuxt (sécurisé, avec cache serveur)
+    const url = `/api/elections/map/department-details/${encodeURIComponent(department)}`;
+
+    return useFetch<{ data: PollingStation[] }>(url, {
+      key: `department-details-${department}`,
       transform: (response) => response.data,
+      server: true,
     });
   };
 
