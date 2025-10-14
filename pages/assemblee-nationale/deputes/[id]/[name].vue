@@ -75,21 +75,17 @@
 </template>
 
 <script setup lang="ts">
-import { useDeputev2 } from "@/composables/parliament/useDeputev2";
-
 const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
 
 const route = useRoute();
 const router = useRouter();
 
-const {
-  deputy,
-  deputiesCommissions,
-  loading,
-  error,
-  fetchElectedDeputyById,
-  fetchElectedDeputyCommissions,
-} = useDeputev2();
+// ✅ Utilisation de la nouvelle architecture SSR
+const deputyId = computed(() => route.params.id as string);
+
+const { deputy, loading, error } = useAssemblyDeputies({ id: deputyId.value });
+const { commissions: deputiesCommissions } =
+  useAssemblyDeputyCommissions(deputyId.value);
 
 const deputyFullName = computed(() => {
   if (!deputy.value) return "";
@@ -285,17 +281,6 @@ watchEffect(() => {
         } : null,
       ].filter(Boolean),
     });
-  }
-});
-
-onMounted(async () => {
-  const deputyId = route.params.id as string;
-
-  if (deputyId) {
-    await Promise.all([
-      fetchElectedDeputyById(deputyId),
-      fetchElectedDeputyCommissions(deputyId),
-    ]);
   }
 });
 

@@ -180,7 +180,8 @@
 <script setup lang="ts">
 import type { Candidate } from "~/types/election";
 
-const { results, loading, error, fetchResults } = useElectionResults();
+// ✅ Nouvelle architecture SSR : les données sont chargées automatiquement
+const { results, loading, error, refresh: fetchResults } = useElectionResultsServer();
 
 // Global stats computation
 const globalStats = computed(() => {
@@ -279,8 +280,5 @@ const getBadgeColor = (percentage: number) => {
   return "gray";
 };
 
-// Initial data load
-onMounted(() => {
-  fetchResults();
-});
+// ✅ Plus besoin de onMounted, les données sont chargées automatiquement via SSR
 </script>

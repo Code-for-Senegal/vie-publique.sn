@@ -32,8 +32,8 @@
       </p>
       <button
         v-if="retryEnabled"
-        @click="retryLoad"
         class="mt-2 text-sm text-blue-500 hover:text-blue-700"
+        @click="retryLoad"
       >
         Réessayer
       </button>

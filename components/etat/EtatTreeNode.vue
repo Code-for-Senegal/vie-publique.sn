@@ -1,6 +1,6 @@
 <template>
   <div class="tree-node">
-    <div @click="toggle" class="node-content">
+    <div class="node-content" @click="toggle">
       <UIcon
         v-if="node.children"
         :name="

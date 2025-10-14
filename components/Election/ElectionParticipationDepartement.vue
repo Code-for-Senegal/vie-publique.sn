@@ -4,22 +4,9 @@ import { ref, computed } from "vue";
 import type { DepartmentData } from "~/types/election-participation";
 
 const searchTerm = ref("");
-const departments = ref<DepartmentData[]>([]);
-const lastUpdate = ref("");
 
-// Charger les données depuis votre API
-const loadData = async () => {
-  try {
-    const response = await fetch(
-      "https://cms.vie-publique.sn/items/carte?fields=*",
-    );
-    const data = await response.json();
-    departments.value = data.data;
-    lastUpdate.value = new Date().toLocaleTimeString();
-  } catch (error) {
-    console.error("Erreur de chargement:", error);
-  }
-};
+// ✅ Nouvelle architecture SSR : les données sont chargées automatiquement
+const { departments, loading, lastUpdate, refresh } = useElectionParticipation();
 
 // Calculer les taux globaux
 const globalRates = computed(() => {
@@ -51,11 +38,17 @@ const filteredDepartments = computed(() => {
   );
 });
 
-// Charger les données au montage
+// ✅ Plus besoin de onMounted, les données sont chargées automatiquement via SSR
+// Rafraîchir toutes les 5 minutes
+let refreshInterval: NodeJS.Timeout;
 onMounted(() => {
-  loadData();
-  // Optionnel: Rafraîchir toutes les 5 minutes
-  setInterval(loadData, 300000);
+  refreshInterval = setInterval(refresh, 300000);
+});
+
+onUnmounted(() => {
+  if (refreshInterval) {
+    clearInterval(refreshInterval);
+  }
 });
 </script>
 

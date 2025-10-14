@@ -20,7 +20,7 @@
       >
         165
       </text>
-      <g style="fill: #b13131" id="0-PASTEF">
+      <g id="0-PASTEF" style="fill: #b13131">
         <title>PASTEF</title>
         <circle cx="11.87" cy="173.27" r="5.38" />
         <circle cx="25.34" cy="173.27" r="5.38" />
@@ -153,7 +153,7 @@
         <circle cx="248.34" cy="125.35" r="5.38" />
         <circle cx="270.14" cy="109.52" r="5.38" />
       </g>
-      <g style="fill: #5d5400" id="1-TAKKU-WALLU">
+      <g id="1-TAKKU-WALLU" style="fill: #5d5400">
         <title>TAKKU WALLU</title>
         <circle cx="291.93" cy="93.68" r="5.38" />
         <circle cx="313.72" cy="77.85" r="5.38" />
@@ -172,7 +172,7 @@
         <circle cx="324.29" cy="123.91" r="5.38" />
         <circle cx="287.04" cy="139.56" r="5.38" />
       </g>
-      <g style="fill: #24c239" id="2-JAM-AK-NJARIN">
+      <g id="2-JAM-AK-NJARIN" style="fill: #24c239">
         <title>JAM AK NJARIN</title>
         <circle cx="338.29" cy="122.91" r="5.38" />
         <circle cx="301.04" cy="138.72" r="5.38" />
@@ -182,42 +182,42 @@
         <circle cx="343.28" cy="139.33" r="5.38" />
         <circle cx="278.21" cy="156.61" r="5.38" />
       </g>
-      <g style="fill: #e8d417" id="3-SAMM-SA-KAADU">
+      <g id="3-SAMM-SA-KAADU" style="fill: #e8d417">
         <title>SAMM SA KAADU</title>
         <circle cx="291.91" cy="156.14" r="5.38" />
         <circle cx="305.57" cy="155.76" r="5.38" />
         <circle cx="319.32" cy="156.16" r="5.38" />
       </g>
-      <g style="fill: #26b8f7" id="4-ANDU-NAWLE">
+      <g id="4-ANDU-NAWLE" style="fill: #26b8f7">
         <title>ANDU NAWLE</title>
         <circle cx="333.01" cy="156.47" r="5.38" />
         <circle cx="346.57" cy="156.18" r="5.38" />
       </g>
-      <g style="fill: #6c6fd3" id="5-Nationalistes">
+      <g id="5-Nationalistes" style="fill: #6c6fd3">
         <title>Nationalistes</title>
         <circle cx="267.24" cy="173.27" r="5.38" />
       </g>
-      <g style="fill: #121270" id="6-Senegal-Kese">
+      <g id="6-Senegal-Kese" style="fill: #121270">
         <title>Senegal Kese</title>
         <circle cx="280.74" cy="173.27" r="5.38" />
       </g>
-      <g style="fill: #f3f782" id="7-Sopi-Senegal">
+      <g id="7-Sopi-Senegal" style="fill: #f3f782">
         <title>Sopi Senegal</title>
         <circle cx="294.22" cy="173.27" r="5.38" />
       </g>
-      <g style="fill: #55b361" id="8-Kiraay-Natangu-">
+      <g id="8-Kiraay-Natangu-" style="fill: #55b361">
         <title>Kiraay Natangué</title>
         <circle cx="307.71" cy="173.27" r="5.38" />
       </g>
-      <g style="fill: #848040" id="9-And-Ci-Kolute">
+      <g id="9-And-Ci-Kolute" style="fill: #848040">
         <title>And Ci Kolute</title>
         <circle cx="321.19" cy="173.27" r="5.38" />
       </g>
-      <g style="fill: #19bbe3" id="10-Farlu">
+      <g id="10-Farlu" style="fill: #19bbe3">
         <title>Farlu</title>
         <circle cx="334.66" cy="173.27" r="5.38" />
       </g>
-      <g style="fill: #ff8000" id="11-Bes-Du-niak">
+      <g id="11-Bes-Du-niak" style="fill: #ff8000">
         <title>Bes Du niak</title>
         <circle cx="348.13" cy="173.27" r="5.38" />
       </g>

@@ -8,8 +8,8 @@
       variant="ghost"
       size="sm"
       icon="i-heroicons-magnifying-glass"
-      @click="openMobileSearch"
       aria-label="Rechercher"
+      @click="openMobileSearch"
     />
     
     <!-- Desktop: Barre de recherche compacte -->
@@ -21,9 +21,9 @@
           variant="ghost"
           size="sm"
           icon="i-heroicons-magnifying-glass"
-          @click="expandSearch"
           class="text-white hover:text-gray-200"
           aria-label="Rechercher"
+          @click="expandSearch"
         />
       </div>
       
@@ -105,8 +105,8 @@
             variant="ghost"
             size="sm"
             icon="i-heroicons-x-mark"
-            @click="closeMobileSearch"
             aria-label="Fermer"
+            @click="closeMobileSearch"
           />
         </div>
         
@@ -118,8 +118,8 @@
             placeholder="Que recherchez-vous ?"
             icon="i-heroicons-magnifying-glass"
             class="mb-4"
-            @keyup.enter="performMobileSearch"
             autofocus
+            @keyup.enter="performMobileSearch"
           />
           
           <!-- Recherches rapides populaires -->
@@ -131,11 +131,11 @@
               <UButton
                 v-for="suggestion in ['Budget 2024', 'Assemblée Nationale', 'Élections', 'Décrets']"
                 :key="suggestion"
-                @click="mobileSearchQuery = suggestion; performMobileSearch()"
                 size="xs"
                 color="gray"
                 variant="soft"
                 class="text-xs"
+                @click="mobileSearchQuery = suggestion; performMobileSearch()"
               >
                 {{ suggestion }}
               </UButton>

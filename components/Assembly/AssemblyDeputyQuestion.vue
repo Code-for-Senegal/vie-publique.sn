@@ -44,9 +44,9 @@
         <UButton
           variant="ghost"
           color="primary"
-          @click="isModalOpen = true"
           label="Voir toutes les questions"
           icon="i-heroicons-arrow-right"
+          @click="isModalOpen = true"
         />
       </div>
     </div>
@@ -63,8 +63,8 @@
               color="gray"
               variant="ghost"
               icon="i-heroicons-x-mark"
-              @click="isModalOpen = false"
               aria-label="Fermer"
+              @click="isModalOpen = false"
             />
           </div>
         </template>
@@ -114,45 +114,17 @@ const props = defineProps<{
   deputy: Deputy;
 }>();
 
-const loadingQuestions = ref(true);
-const questions = ref<Question[]>([]);
 const isModalOpen = ref(false);
+
+// ✅ Utilisation de la nouvelle architecture SSR
+const { data, pending: loadingQuestions } = await useFetch<{
+  questions: Question[];
+}>(`/api/assembly/deputies/${props.deputy.id}/questions`);
+
+const questions = computed(() => data.value?.questions || []);
 
 // Calculer les 3 dernières questions à afficher
 const displayedQuestions = computed(() => {
   return questions.value.slice(0, 3);
-});
-
-const fetchDeputyQuestions = async () => {
-  try {
-    const config = useRuntimeConfig();
-    const fields = "id,subject,question_date";
-    const sort = `sort=-question_date`;
-    const filters = `filter[status]=published`;
-    const response = await fetch(
-      `${config.public.cmsApiUrl}/items/assembly_question?fields=${fields}&${sort}&filter[deputy][id][_eq]=${props.deputy.id}&${filters}&limit=2000`,
-      {
-        headers: {
-          Authorization: `Bearer ${config.public.cmsApiKey}`,
-        },
-      },
-    );
-
-    if (!response.ok)
-      throw new Error("Erreur lors du chargement des questions");
-
-    const data = await response.json();
-    questions.value = data.data;
-  } catch (error) {
-    console.error(error);
-  } finally {
-    loadingQuestions.value = false;
-  }
-};
-
-onMounted(() => {
-  if (props.deputy?.id) {
-    fetchDeputyQuestions();
-  }
 });
 </script>

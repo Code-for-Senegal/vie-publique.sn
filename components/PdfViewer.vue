@@ -8,30 +8,30 @@
           icon="i-heroicons-minus"
           size="sm"
           variant="outline"
-          @click="zoomOut"
           :disabled="scale <= 0.5"
+          @click="zoomOut"
         />
         <span class="text-sm font-medium">{{ Math.round(scale * 100) }}%</span>
         <UButton
           icon="i-heroicons-plus"
           size="xs"
           variant="outline"
-          @click="zoomIn"
           :disabled="scale >= 3"
+          @click="zoomIn"
         />
         <UButton
           icon="i-heroicons-arrows-pointing-out"
           size="xs"
           variant="outline"
-          @click="fitToWidth"
           title="Ajuster à la largeur"
+          @click="fitToWidth"
         />
         <UButton
           icon="i-heroicons-arrows-pointing-in"
           size="xs"
           variant="outline"
-          @click="fitToPage"
           title="Ajuster à la page"
+          @click="fitToPage"
         />
       </div>
 
@@ -40,18 +40,18 @@
           icon="i-heroicons-chevron-left"
           size="xs"
           variant="outline"
-          @click="previousPage"
           :disabled="currentPage <= 1"
+          @click="previousPage"
         />
         <span class="text-sm">
           Page
           <input
-            type="number"
             v-model.number="currentPage"
-            @change="goToPage"
+            type="number"
             :min="1"
             :max="totalPages"
             class="w-4 rounded text-center"
+            @change="goToPage"
           />
           / {{ totalPages }}
         </span>
@@ -59,8 +59,8 @@
           icon="i-heroicons-chevron-right"
           size="xs"
           variant="outline"
-          @click="nextPage"
           :disabled="currentPage >= totalPages"
+          @click="nextPage"
         />
       </div>
 
@@ -119,7 +119,7 @@
     </div>
 
     <!-- Version mobile : boutons de navigation flottants -->
-    <div class="md:hidden" v-if="totalPages > 1">
+    <div v-if="totalPages > 1" class="md:hidden">
       <div
         class="fixed bottom-20 left-4 right-4 flex items-center justify-between rounded-lg bg-white p-2 shadow-lg"
       >
@@ -127,8 +127,8 @@
           icon="i-heroicons-chevron-left"
           size="sm"
           variant="ghost"
-          @click="previousPage"
           :disabled="currentPage <= 1"
+          @click="previousPage"
         />
         <span class="text-sm font-medium"
           >{{ currentPage }} / {{ totalPages }}</span
@@ -137,8 +137,8 @@
           icon="i-heroicons-chevron-right"
           size="sm"
           variant="ghost"
-          @click="nextPage"
           :disabled="currentPage >= totalPages"
+          @click="nextPage"
         />
       </div>
     </div>

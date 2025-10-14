@@ -11,8 +11,8 @@
     </div>
 
     <div
-      v-else
       v-for="coalition in coalitions"
+      v-else
       :key="coalition.id"
       class="custom-shadow w-full"
     >

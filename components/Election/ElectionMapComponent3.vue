@@ -50,7 +50,7 @@
             :color="getRegionColor(region)"
             :weight="1"
             :fill="true"
-            :fillOpacity="0.6"
+            :fill-opacity="0.6"
             :options="polygonOptions"
             @click="handleRegionClick(region)"
           >

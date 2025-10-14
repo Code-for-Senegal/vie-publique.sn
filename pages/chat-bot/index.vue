@@ -7,7 +7,7 @@
           <p class="text-2xl">Comment puis-je aider ?</p>
         </div>
         <AiChatMessagesList ref="messagesListRef" />
-        <AiChatInputBox @submit="handleStaticSubmit" ref="inputBoxRef" />
+        <AiChatInputBox ref="inputBoxRef" @submit="handleStaticSubmit" />
         <div class="mt-8">
           <AiChatStarterMessages @on-select="handleStarterMessageSelect" />
         </div>

@@ -88,7 +88,7 @@ const toggleInstitution = (index: number) => {
   <div class="mx-auto max-w-4xl bg-white p-2 text-sm sm:p-4">
     <h1 class="mb-2 text-center text-xl font-bold">
       Budget par Institution
-      <button @click="toggleSortOrder" class="text-primary">
+      <button class="text-primary" @click="toggleSortOrder">
         {{ isSortedDescending ? "↑" : "↓" }}
       </button>
     </h1>

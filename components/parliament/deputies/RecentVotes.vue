@@ -21,7 +21,8 @@ defineProps<RecentVotesProps>();
         <h2 class="text-2xl font-semibold mb-4">Ses derniers votes</h2>
         <div class="space-y-4">
             <div v-for="(vote, index) in votes" :key="index" class="flex gap-4 items-center">
-                <div :class="{
+                <div
+:class="{
                     'text-red-600 font-semibold': vote.vote === 0,
                     'text-green-600 font-semibold': vote.vote === 1,
                     'text-gray-600': vote.vote === null

@@ -14,9 +14,9 @@
 
       <!-- Switch de thème style iOS/Material - version réduite -->
       <button
-        @click="isDark = !isDark"
         :aria-label="`Switch to ${isDark ? 'light' : 'dark'} mode`"
         class="group relative inline-flex h-5 w-10 items-center rounded-full bg-gray-200 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 dark:bg-gray-700"
+        @click="isDark = !isDark"
       >
         <!-- Track du switch -->
         <span

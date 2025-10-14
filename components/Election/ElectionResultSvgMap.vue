@@ -193,6 +193,7 @@
 
         <path
           aria-describedby="leaflet-tooltip-145"
+          id="gossas"
           d="M283 263L290 261L313 270L314 278L289 288L292 291L281 289L269 305L253 302L235 307L233 303L217 299L222 286L227 282L246 284L246 287L267 280L272 274L272 257L276 255L283 263z"
           fill-rule="evenodd"
           fill-opacity="0.7"
@@ -203,7 +204,6 @@
           stroke-opacity="1"
           stroke="white"
           class="leaflet-interactive"
-          id="gossas"
         ></path>
 
         <path
@@ -250,6 +250,7 @@
 
         <path
           aria-describedby="leaflet-tooltip-149"
+          id="guediawaye"
           d="M69 252L63 255L62 253L70 249L70 252z"
           fill-rule="evenodd"
           fill-opacity="0.7"
@@ -260,11 +261,11 @@
           stroke-opacity="1"
           stroke="white"
           class="leaflet-interactive"
-          id="guediawaye"
         ></path>
 
         <path
           aria-describedby="leaflet-tooltip-150"
+          id="pikine"
           d="M78 255L78 259L63 257L63 254L77 247L73 248L77 254z"
           fill-rule="evenodd"
           fill-opacity="0.7"
@@ -275,7 +276,6 @@
           stroke-opacity="1"
           stroke="white"
           class="leaflet-interactive"
-          id="pikine"
         ></path>
 
         <path
@@ -294,6 +294,7 @@
 
         <path
           aria-describedby="leaflet-tooltip-152"
+          id="rufisque"
           d="M99 277L90 265L78 259L79 245L93 238L101 251L99 276z"
           fill-rule="evenodd"
           fill-opacity="0.7"
@@ -304,7 +305,6 @@
           stroke-opacity="1"
           stroke="white"
           class="leaflet-interactive"
-          id="rufisque"
         ></path>
 
         <path
@@ -351,6 +351,7 @@
 
         <path
           aria-describedby="leaflet-tooltip-156"
+          id="kanel"
           d="M620 144L619 155L625 158L637 155L638 163L642 164L639 167L640 175L651 179L654 185L651 188L647 186L646 189L652 195L658 194L660 202L670 209L680 222L684 239L678 258L668 274L658 278L639 281L623 276L601 274L563 301L563 265L560 259L564 254L565 240L571 230L545 210L556 206L560 195L575 183L587 165L605 159L612 141L620 144z"
           fill-rule="evenodd"
           fill-opacity="0.7"
@@ -361,7 +362,6 @@
           stroke-opacity="1"
           stroke="white"
           class="leaflet-interactive"
-          id="kanel"
         ></path>
 
         <path
@@ -380,6 +380,7 @@
 
         <path
           aria-describedby="leaflet-tooltip-158"
+          id="ranerou"
           d="M465 152L470 153L471 147L477 146L521 150L573 183L559 196L555 207L546 210L571 231L565 241L560 261L563 267L563 300L523 300L498 288L468 279L458 268L450 270L439 281L422 285L423 280L394 271L401 263L402 255L412 245L403 220L407 216L435 212L429 207L439 172L425 175L406 167L408 130L420 126L437 114L451 139L449 156L459 156L465 152z"
           fill-rule="evenodd"
           fill-opacity="0.7"
@@ -390,11 +391,11 @@
           stroke-opacity="1"
           stroke="white"
           class="leaflet-interactive"
-          id="ranerou"
         ></path>
 
         <path
           aria-describedby="leaflet-tooltip-159"
+          id="matam"
           d="M569 69L571 70L567 77L569 78L571 74L584 82L585 91L592 99L590 103L598 117L594 119L605 130L600 132L603 141L612 140L605 158L586 166L575 182L571 182L521 150L471 146L523 88L536 82L540 70L544 75L569 69z"
           fill-rule="evenodd"
           fill-opacity="0.7"
@@ -405,11 +406,11 @@
           stroke-opacity="1"
           stroke="white"
           class="leaflet-interactive"
-          id="matam"
         ></path>
 
         <path
           aria-describedby="leaflet-tooltip-160"
+          id="stlouis"
           d="M203 76L203 85L217 83L228 89L208 108L178 112L181 79L193 78L198 74L199 76L203 70L203 75z"
           fill-rule="evenodd"
           fill-opacity="0.7"
@@ -420,7 +421,6 @@
           stroke-opacity="1"
           stroke="#63cb97"
           class="leaflet-interactive"
-          id="stlouis"
         ></path>
 
         <path
@@ -623,6 +623,7 @@
 
         <path
           aria-describedby="leaflet-tooltip-176"
+          id="dakar"
           d="M61 269L56 269L49 257L51 255L63 252L66 267L62 269z"
           fill-rule="evenodd"
           fill-opacity="0.7"
@@ -633,11 +634,11 @@
           stroke-opacity="1"
           stroke="white"
           class="leaflet-interactive"
-          id="dakar"
         ></path>
 
         <path
           aria-describedby="leaflet-tooltip-177"
+          id="keurmassar"
           d="M74 248L74 254L78 255L80 251L77 246z"
           fill-rule="evenodd"
           fill-opacity="0.7"
@@ -648,7 +649,6 @@
           stroke-opacity="1"
           stroke="white"
           class="leaflet-interactive"
-          id="keurmassar"
         ></path>
       </g>
 

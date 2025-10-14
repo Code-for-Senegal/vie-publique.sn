@@ -31,7 +31,7 @@
             :color="getRegionColor(region)"
             :weight="2"
             :fill="true"
-            :fillOpacity="0.4"
+            :fill-opacity="0.4"
             @click="handleRegionClick(region)"
           >
             <LPopup>

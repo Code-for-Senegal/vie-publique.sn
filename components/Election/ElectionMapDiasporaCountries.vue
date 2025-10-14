@@ -13,30 +13,16 @@ interface CountryStats {
   };
 }
 
-// Appel API avec agrégation
-const { data: countriesStats } = await useFetch<{ data: CountryStats[] }>(
-  "https://cms.vie-publique.sn/items/election_map_diaspora",
-  {
-    params: {
-      limit: 2000,
-      groupBy: ["country"],
-      aggregate: {
-        count: ["polling_place", "office_number"],
-        sum: ["voters"],
-        countDistinct: ["polling_place"],
-      },
-    },
-    headers: {
-      Authorization: `Bearer ${useRuntimeConfig().public.cmsApiKey}`,
-    },
-  },
+// ✅ Appel API via le serveur Nuxt (SSR-friendly et sécurisé)
+const { data: countriesStats } = await useFetch<{ countries: CountryStats[] }>(
+  "/api/elections/diaspora/countries"
 );
 
 const q = ref("");
 
 // Données triées et filtrées
 const filteredRows = computed(() => {
-  let rows = countriesStats.value?.data || [];
+  let rows = countriesStats.value?.countries || [];
 
   // Appliquer le tri
   if (sortConfig.value.column) {

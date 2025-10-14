@@ -114,8 +114,8 @@ const statsTypes = [
       />
 
       <ElectionStatsElectoralList
-        :statsDepartmental="statsDepartmental"
         v-if="statsType == 'departmental' && coalitions?.length > 0"
+        :stats-departmental="statsDepartmental"
         :coalitions="coalitions"
       />
 

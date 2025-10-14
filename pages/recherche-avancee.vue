@@ -114,22 +114,22 @@ const getBadgeColor = (type: string) => {
               <!-- Bouton effacer -->
               <UButton
                 v-if="searchQuery"
-                @click="searchQuery = ''"
                 icon="i-heroicons-x-mark"
                 size="sm"
                 color="gray"
                 variant="ghost"
                 class="rounded-full"
+                @click="searchQuery = ''"
               />
               <!-- Bouton rechercher -->
               <UButton
                 v-if="searchQuery.trim()"
-                @click="performSearch"
                 size="sm"
                 variant="outline"
                 icon="i-heroicons-magnifying-glass"
                 class="rounded-full"
                 :disabled="loading"
+                @click="performSearch"
               />
             </div>
           </div>
@@ -151,13 +151,13 @@ const getBadgeColor = (type: string) => {
           <div
             v-for="type in availableTypes"
             :key="type.value"
-            @click="toggleType(type.value)"
             :class="[
               'flex cursor-pointer items-center rounded-lg px-4 py-2 transition-all duration-200 hover:scale-105',
               selectedTypes.includes(type.value)
                 ? type.color
                 : 'bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600',
             ]"
+            @click="toggleType(type.value)"
           >
             <UIcon
               :name="type.icon"
@@ -422,11 +422,11 @@ const getBadgeColor = (type: string) => {
                   'Projets de développement',
                 ]"
                 :key="suggestion"
+                class="flex cursor-pointer items-center rounded-lg bg-white p-3 transition-colors hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
                 @click="
                   searchQuery = suggestion;
                   performSearch();
                 "
-                class="flex cursor-pointer items-center rounded-lg bg-white p-3 transition-colors hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
               >
                 <UIcon
                   name="i-heroicons-magnifying-glass"

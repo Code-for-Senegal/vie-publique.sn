@@ -1,35 +1,37 @@
 import type { Coalition } from "~/types/coalition";
 
+/**
+ * Composable pour récupérer les coalitions électorales
+ * Architecture SSR : les appels passent par le serveur Nuxt
+ *
+ * @param coalitionId - ID de la coalition pour récupération unitaire
+ * @param ranking - Inclure les données de classement (voix, pourcentage, sièges)
+ * @example
+ * // Liste des coalitions
+ * const { data: coalitions } = useCoalitions();
+ *
+ * // Liste avec classement
+ * const { data: coalitionsRanked } = useCoalitions(null, true);
+ *
+ * // Détails d'une coalition
+ * const { data: coalition } = useCoalitions('coalition-id');
+ */
 export const useCoalitions = (
   coalitionId?: string | null,
   ranking?: boolean,
 ) => {
   console.debug("useCoalitions");
-  const config = useRuntimeConfig();
 
   // Détermine l'URL en fonction de la présence d'un `coalitionId`
-  // head_of_list.first_name,head_of_list.last_name
-  const detailsFields = `fields=name,logo,list_order,bulletin,videos.date,videos.url_youtube`;
-  const listFields = `fields=id,name,logo,list_order,bulletin,head_of_list.photo,head_of_list.first_name,head_of_list.last_name`;
-  const listFieldsRanking = `fields=id,name,logo,list_order,bulletin,voix,pourcentage,sieges,sieges_departement,head_of_list.photo,head_of_list.first_name,head_of_list.last_name`;
-  const rankingSort = `sort:-voix`;
-  const videoSort = `sort:-videos.date`;
   const apiUrl = coalitionId
-    ? `${config.public.cmsApiUrl}/items/election_coalition/${coalitionId}?${detailsFields}&${videoSort}`
-    : ranking
-      ? `${config.public.cmsApiUrl}/items/election_coalition?sort=list_order&${listFieldsRanking}&${rankingSort}`
-      : `${config.public.cmsApiUrl}/items/election_coalition?sort=list_order&${listFields}`;
+    ? `/api/elections/coalitions/${coalitionId}`
+    : `/api/elections/coalitions`;
 
   return useAsyncData(
-    `coalitions${coalitionId ? `-${coalitionId}` : ""}`,
+    `coalitions${coalitionId ? `-${coalitionId}` : ""}${ranking ? "-ranking" : ""}`,
     () =>
       $fetch<{ data: Coalition[] | Coalition }>(apiUrl, {
-        params: {
-          filter: { status: "published" },
-        },
-        headers: {
-          Authorization: `Bearer ${config.public.cmsApiKey}`,
-        },
+        query: ranking && !coalitionId ? { ranking: "true" } : {},
       }),
     {
       transform: (response) => response.data,

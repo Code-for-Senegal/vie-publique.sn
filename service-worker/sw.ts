@@ -176,7 +176,7 @@ self.addEventListener('push', event => {
   console.log('Push message received:', event);
   if (event.data) {
     try {
-      let data = JSON.parse(event.data.text());
+      const data = JSON.parse(event.data.text());
       
       // Valider que les champs obligatoires sont présents
       if (!data.title) {

@@ -31,9 +31,9 @@
           <LPolygon
             :lat-lngs="region.coordinates"
             :color="getRegionStyle(region).color"
-            :fillColor="getRegionStyle(region).fillColor"
+            :fill-color="getRegionStyle(region).fillColor"
             :weight="getRegionStyle(region).weight"
-            :fillOpacity="getRegionStyle(region).fillOpacity"
+            :fill-opacity="getRegionStyle(region).fillOpacity"
             @mouseover="handleMouseOver(region)"
             @mouseout="handleMouseOut()"
             @click="handleRegionClick(region)"

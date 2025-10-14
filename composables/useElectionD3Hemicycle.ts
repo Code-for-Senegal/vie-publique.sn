@@ -41,7 +41,7 @@ export function useHemicycle() {
     const anglePerSeat = Math.PI / totalSeats;
 
     // Créer un tableau avec la position de chaque siège
-    let seats: Array<{ index: number; coalition: string; color: string }> = [];
+    const seats: Array<{ index: number; coalition: string; color: string }> = [];
     let currentSeat = 0;
 
     data.forEach((coalition) => {

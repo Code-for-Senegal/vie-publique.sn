@@ -4,6 +4,7 @@
     @submit.prevent="handleSubmit"
   >
     <UTextarea
+      ref="textareaRef"
       v-model="inputValue"
       placeholder="Ask me anything..."
       color="primary"
@@ -13,7 +14,6 @@
       :max-rows="12"
       size="xl"
       :autoresize="true"
-      ref="textareaRef"
       :ui="{
         base: 'rounded-3xl resize-none pb-12 px-4 pt-4 md:text-sm',
       }"

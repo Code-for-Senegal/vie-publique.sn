@@ -251,7 +251,7 @@ const filteredRows = computed(() => {
 
       <!-- Pagination -->
       <template #footer>
-        <div class="mt-4 flex justify-center" v-if="totalPages > 1">
+        <div v-if="totalPages > 1" class="mt-4 flex justify-center">
           <UPagination
             v-model="page"
             :total="totalPages"

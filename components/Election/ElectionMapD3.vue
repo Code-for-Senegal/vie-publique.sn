@@ -2,7 +2,7 @@
 <template>
   <UCard>
     <div ref="svgContainer"></div>
-    <UButton @click="downloadSVG" icon="i-heroicons-download" class="mt-4">
+    <UButton icon="i-heroicons-download" class="mt-4" @click="downloadSVG">
       Télécharger SVG
     </UButton>
   </UCard>

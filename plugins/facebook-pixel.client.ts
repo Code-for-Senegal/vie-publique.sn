@@ -1,5 +1,5 @@
 export default defineNuxtPlugin(() => {
-  if (process.client && process.env.NODE_ENV === "production") {
+  if (import.meta.client && process.env.NODE_ENV === "production") {
     const config = useRuntimeConfig();
     const fbPixelId = config.public.fbPixelId as string;
 

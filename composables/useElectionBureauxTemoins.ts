@@ -21,7 +21,7 @@ export const useBureauxTemoins = () => {
   });
 
   const departements = computed(() => {
-    let deps = bureaux.value
+    const deps = bureaux.value
       .filter((b) => !selectedRegion.value || b.region === selectedRegion.value)
       .map((b) => b.departement);
     return [...new Set(deps)].sort();
@@ -123,22 +123,9 @@ export const useBureauxTemoins = () => {
     loading.value = true;
     error.value = null;
     try {
-      const config = useRuntimeConfig();
-      const response = await fetch(
-        config.public.sunuElectionApiUrl + "/bureaux/temoins",
-        {
-          headers: {
-            "api-key": config.public.sunuElectionApiKey,
-          },
-        },
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      bureaux.value = await response.json();
-      applyFilters(); // Ajout de cette ligne pour initialiser les données filtrées
+      // ✅ Utilisation de l'API serveur Nuxt
+      bureaux.value = await $fetch('/api/elections/bureaux-temoins');
+      applyFilters(); // Initialiser les données filtrées
     } catch (e) {
       error.value = e instanceof Error ? e.message : "Une erreur est survenue";
       bureaux.value = [];

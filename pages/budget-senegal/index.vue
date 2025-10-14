@@ -269,7 +269,8 @@ const createPieChart = (selector, data, title) => {
 
     <!-- Onglets -->
     <div class="rounded-xl border-none bg-white">
-      <UTabs v-if="budget" :default-index="0" :items="[
+      <UTabs
+v-if="budget" :default-index="0" :items="[
         { id: 'overview', label: 'Résumé' },
         { id: 'ministries', label: 'Ministères' },
         { id: 'institutions', label: 'Institutions' },
@@ -279,16 +280,19 @@ const createPieChart = (selector, data, title) => {
           <template v-if="item.id === 'overview'">
             <!-- KPIs dans une grille responsive -->
             <div class="grid grid-cols-2 gap-2">
-              <BudgetBudget2OverviewCard v-for="indicator in budget?.keyIndicator" :key="indicator.name"
+              <BudgetBudget2OverviewCard
+v-for="indicator in budget?.keyIndicator" :key="indicator.name"
                 :name="indicator.name" :value="indicator.value" :unit="indicator.unit"
                 :variation_percentage="indicator.variation_percentage" :color="indicator.color" />
             </div>
             <!-- répartition recettes -->
-            <Budget2TableRevenueExpense :budget-data="budget?.revenueData" title="Répartition des Recettes"
+            <Budget2TableRevenueExpense
+:budget-data="budget?.revenueData" title="Répartition des Recettes"
               color="green" />
 
             <!-- répartition Dépenses -->
-            <Budget2TableRevenueExpense :budget-data="budget?.expenseData" title="Répartition des Dépenses"
+            <Budget2TableRevenueExpense
+:budget-data="budget?.expenseData" title="Répartition des Dépenses"
               color="indigo" />
 
             <!-- opération trésorerie -->
@@ -302,7 +306,8 @@ const createPieChart = (selector, data, title) => {
               </p>
             </div>
             <div class="flex flex-row md:gap-4">
-              <BudgetRessourcesCircleProgress v-for="treasuryOperation in budget?.treasuryOperations
+              <BudgetRessourcesCircleProgress
+v-for="treasuryOperation in budget?.treasuryOperations
                 .components" :key="treasuryOperation.label" :percentage="treasuryOperation.percentage"
                 :label="treasuryOperation.label" :value="`${treasuryOperation.value} Mrd`" color-bg="#5924b2"
                 color-text="purple" class="flex-1" />
@@ -320,7 +325,8 @@ const createPieChart = (selector, data, title) => {
               </p>
             </div>
             <div class="flex flex-row md:gap-4">
-              <BudgetRessourcesCircleProgress v-for="treasuryOperation in budget?.publicDebt.components"
+              <BudgetRessourcesCircleProgress
+v-for="treasuryOperation in budget?.publicDebt.components"
                 :key="treasuryOperation.label" :percentage="treasuryOperation.percentage"
                 :label="treasuryOperation.label" :value="`${treasuryOperation.value} Mrd`" color-bg="#f97316"
                 color-text="yellow" class="flex-1" />
@@ -342,7 +348,8 @@ const createPieChart = (selector, data, title) => {
       <!-- Sources -->
       <div class="mt-6 bg-white p-4 shadow-lg">
         <h2 class="mb-2 text-lg font-semibold">🗂️ Sources</h2>
-        <UButton icon="i-heroicons-document-text" size="sm" color="blue" variant="solid"
+        <UButton
+icon="i-heroicons-document-text" size="sm" color="blue" variant="solid"
           label="Voir les documents budgétaires" to="/documents/budget" :trailing="false" />
       </div>
       <div class="mt-6 border-b border-gray-200 bg-white p-4 shadow-lg">

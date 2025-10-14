@@ -81,6 +81,11 @@ export const useCmsCollection = <T>(options: CmsCollectionOptions) => {
           response.document ||
           response.nomination ||
           response.media ||
+          response.commission ||
+          response.group ||
+          response.question ||
+          response.vote ||
+          response.deputy ||
           response.item ||
           response.data
         ];
@@ -98,15 +103,21 @@ export const useCmsCollection = <T>(options: CmsCollectionOptions) => {
           response.nominations ||
           response.medias ||
           response.media ||
+          response.commissions ||
+          response.groups ||
+          response.office ||
+          response.questions ||
+          response.votes ||
+          response.deputies ||
           response.items ||
           response.data ||
           [];
         paginationData = response.pagination || {
           page: unref(page),
           limit: unref(limit),
-          total: response.total || response.totalCount || 0,
+          total: response.total || response.totalCount || response.totalCommissions || response.totalGroups || response.totalQuestions || response.totalVotes || response.totalDeputies || 0,
           totalPages: Math.ceil(
-            (response.total || response.totalCount || 0) / unref(limit),
+            (response.total || response.totalCount || response.totalCommissions || response.totalGroups || response.totalQuestions || response.totalVotes || response.totalDeputies || 0) / unref(limit),
           ),
         };
       }

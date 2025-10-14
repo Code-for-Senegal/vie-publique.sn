@@ -1,63 +1,46 @@
-// composables/useAssemblyOffice.ts
-export const useAssemblyOffice = () => {
-  const office = ref([]);
-  const loading = ref(true);
-  const error = ref(null);
+import type { AssemblyOfficeMember } from "~/types/assembly";
 
-  const fetchAssemblyOffice = async () => {
-    loading.value = true;
-    error.value = null;
+export interface AssemblyOfficeOptions {
+  /** Tri par défaut */
+  sort?: string;
 
-    console.log("fetchAssemblyOffice " + useRuntimeConfig().public.cmsApiUrl);
+  /** Synchroniser avec l'URL */
+  syncUrl?: boolean;
+}
 
-    const fields =
-      "id,role,rank,deputy.id,deputy.gender,vice_president.id,vice_president.photo,vice_president.first_name,vice_president.last_name,deputy.first_name,deputy.last_name,deputy.profession,deputy.birthplace,deputy.birthdate,deputy.photo";
-
-    try {
-      const config = useRuntimeConfig();
-      const response = await fetch(
-        `${config.public.cmsApiUrl}/items/assembly_office?fields=${fields}`,
-        {
-          headers: {
-            Authorization: `Bearer ${config.public.cmsApiKey}`,
-          },
-        },
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const dataResponse = await response.json();
-      office.value = dataResponse.data;
-    } catch (e) {
-      error.value =
-        e instanceof Error
-          ? e.message
-          : "Erreur lors du chargement des groupes";
-      office.value = [];
-    } finally {
-      loading.value = false;
-    }
-  };
-
-  // Pour réinitialiser l'état
-  const resetOffice = () => {
-    office.value = [];
-    loading.value = false;
-    error.value = null;
-  };
-
-  // Charger les données initiales
-  onMounted(() => {
-    fetchAssemblyOffice();
+/**
+ * Composable pour gérer le bureau de l'assemblée nationale
+ * Utilise useCmsCollection pour le fetch (pas de pagination, liste limitée)
+ *
+ * @example
+ * const { office, loading } = useAssemblyOffice();
+ */
+export const useAssemblyOffice = (options: AssemblyOfficeOptions = {}) => {
+  // Le bureau n'a pas besoin de pagination ni de filtres complexes
+  // C'est une liste limitée et fixe
+  const { data, pending, error, refresh } = useFetch("/api/assembly/office", {
+    key: "assembly-office",
+    query: {
+      sortBy: options.sort || "rank",
+    },
   });
 
+  // Computed pour extraire les données
+  const office = computed(() => (data.value as any)?.office || []);
+  const totalMembers = computed(() => (data.value as any)?.totalMembers || 0);
+
   return {
+    // Données
     office,
-    loading,
+    totalMembers,
+    loading: pending,
     error,
-    fetchAssemblyOffice,
-    resetOffice,
+    refresh,
+
+    // Méthodes de compatibilité avec l'ancien code (deprecated)
+    fetchAssemblyOffice: refresh,
+    resetOffice: () => {
+      // Pas besoin de reset, useFetch gère déjà l'état
+    },
   };
 };

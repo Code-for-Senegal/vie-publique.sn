@@ -1,105 +1,168 @@
-// composables/useAssemblyQuestions.ts
-export const useAssemblyQuestions = () => {
-  const questions = ref([]);
-  const question = ref<any>(null);
-  const loading = ref(true);
-  const error = ref(null);
+import type { AssemblyQuestion } from "~/types/assembly";
 
-  const fetchAssemblyQuestions = async () => {
-    loading.value = true;
-    error.value = null;
+export interface AssemblyQuestionsOptions {
+  /** ID de la question pour récupération unitaire */
+  id?: string;
 
-    console.log(
-      "fetchAssemblyQuestions " + useRuntimeConfig().public.cmsApiUrl,
-    );
+  /** Tri par défaut */
+  sort?: string;
 
-    const sort = `sort=-question_date`;
+  /** Nombre d'items par page */
+  limit?: number;
 
-    const filters = `filter[status]=published`;
-    const fields =
-      "id,subject,question_date,deputy.id,deputy.first_name,deputy.last_name,deputy.photo";
-    try {
-      const config = useRuntimeConfig();
-      const response = await fetch(
-        `${config.public.cmsApiUrl}/items/assembly_question?fields=${fields}&${sort}&${filters}&limit=2000`,
-        {
-          headers: {
-            Authorization: `Bearer ${config.public.cmsApiKey}`,
-          },
-        },
-      );
+  /** Synchroniser avec l'URL */
+  syncUrl?: boolean;
+}
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+/**
+ * Composable pour gérer les questions parlementaires
+ * Utilise useCmsCollection pour le fetch et useCollectionState pour l'état UI
+ *
+ * @example
+ * // Liste avec filtres
+ * const { questions, loading, searchQuery, filterStatus } = useAssemblyQuestions();
+ *
+ * // Détail d'une question
+ * const { question, loading } = useAssemblyQuestions({ id: '123' });
+ */
+export const useAssemblyQuestions = (
+  options: AssemblyQuestionsOptions = {},
+) => {
+  // Pour une question unique, pas besoin de state UI
+  if (options.id) {
+    const collection = useCmsCollection<AssemblyQuestion>({
+      collection: "assembly/questions",
+      id: options.id,
+    });
 
-      const dataResponse = await response.json();
-      questions.value = dataResponse.data;
-    } catch (e) {
-      error.value =
-        e instanceof Error
-          ? e.message
-          : "Erreur lors du chargement des groupes";
-      questions.value = [];
-    } finally {
-      loading.value = false;
-    }
-  };
+    return {
+      // Données
+      question: collection.item,
+      loading: collection.loading,
+      error: collection.error,
+      refresh: collection.refresh,
 
-  const fetchAssemblyQuestionById = async (id: string) => {
-    loading.value = true;
-    error.value = null;
+      // États vides pour compatibilité avec l'ancien code
+      questions: computed(() => []),
+      currentPage: ref(1),
+      searchQuery: ref(""),
+      sortBy: ref(options.sort || "-question_date"),
+      filterStatus: ref("published"),
+      itemsPerPage: ref(options.limit || 50),
+      pagination: computed(() => undefined),
+      totalItems: computed(() => 0),
+      totalPages: computed(() => 0),
+      hasActiveFilters: computed(() => false),
 
-    const fields =
-      "id,subject,question_text,question_date,attachments.directus_files_id.id,attachments.directus_files_id.type,deputy.id,deputy.first_name,deputy.last_name,deputy.photo";
+      // Méthodes vides pour compatibilité
+      setCurrentPage: () => {},
+      setSearchQuery: () => {},
+      setSortBy: () => {},
+      setFilterStatus: () => {},
+      setItemsPerPage: () => {},
+      resetFilters: () => {},
+      fetchAssemblyQuestions: () => {},
+      fetchAssemblyQuestionById: async () => {},
+      resetCommissions: () => {},
+    };
+  }
 
-    try {
-      const config = useRuntimeConfig();
-      const response = await fetch(
-        `${config.public.cmsApiUrl}/items/assembly_question/${id}?fields=${fields}`,
-        {
-          headers: {
-            Authorization: `Bearer ${config.public.cmsApiKey}`,
-          },
-        },
-      );
+  // Gestion des filtres spécifiques aux questions
+  const filterStatus = ref<string>("published"); // Status de la question (draft, published, answered)
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const dataResponse = await response.json();
-      question.value = dataResponse.data;
-    } catch (e) {
-      error.value =
-        e instanceof Error
-          ? e.message
-          : "Erreur lors du chargement des groupes";
-      question.value = [];
-    } finally {
-      loading.value = false;
-    }
-  };
-
-  // Pour réinitialiser l'état
-  const resetCommissions = () => {
-    questions.value = [];
-    loading.value = false;
-    error.value = null;
-  };
-
-  // Charger les données initiales
-  onMounted(() => {
-    fetchAssemblyQuestions();
+  // État UI géré par useCollectionState
+  const state = useCollectionState({
+    defaultSort: options.sort || "-question_date",
+    defaultItemsPerPage: options.limit || 50,
+    defaultFilter: "published",
+    syncUrl: options.syncUrl !== false,
+    urlParamsMapping: {
+      search: "q",
+      filter: "status",
+      page: "page",
+      sort: "sort",
+    },
   });
 
+  // Construction des filtres spécifiques aux questions
+  const filters = computed(() => {
+    const filters: Record<string, any> = {};
+
+    // Filtre par statut
+    if (filterStatus.value && filterStatus.value !== "all") {
+      filters.filterStatus = filterStatus.value;
+    }
+
+    return filters;
+  });
+
+  // Utilisation du composable générique pour le fetch
+  const collection = useCmsCollection<AssemblyQuestion>({
+    collection: "assembly/questions",
+    filters,
+    sort: state.sortBy,
+    limit: state.itemsPerPage,
+    page: state.currentPage,
+    search: state.searchQuery,
+  });
+
+  // Computed pour compatibilité avec l'ancien code
+  const totalItems = computed(() => collection.pagination.value?.total || 0);
+  const totalPages = computed(
+    () => collection.pagination.value?.totalPages || 1,
+  );
+
+  // Méthodes spécifiques aux questions
+  const setFilterStatus = (status: string) => {
+    filterStatus.value = status;
+    // Reset à la page 1 lors d'un changement de filtre
+    state.currentPage.value = 1;
+  };
+
   return {
-    questions,
-    loading,
-    error,
-    fetchAssemblyQuestions,
-    question,
-    fetchAssemblyQuestionById,
-    resetCommissions,
+    // Données
+    questions: collection.items,
+    question: collection.item,
+    loading: collection.loading,
+    pagination: collection.pagination,
+    error: collection.error,
+    refresh: collection.refresh,
+
+    // États réactifs (depuis useCollectionState)
+    currentPage: state.currentPage,
+    searchQuery: state.searchQuery,
+    sortBy: state.sortBy,
+    itemsPerPage: state.itemsPerPage,
+
+    // États spécifiques aux questions
+    filterStatus,
+
+    // Méthodes (depuis useCollectionState)
+    setCurrentPage: state.setCurrentPage,
+    setSearchQuery: state.setSearchQuery,
+    setSortBy: state.setSortBy,
+    setItemsPerPage: state.setItemsPerPage,
+    resetFilters: () => {
+      state.resetFilters();
+      filterStatus.value = "published";
+    },
+
+    // Méthodes spécifiques
+    setFilterStatus,
+
+    // Computed
+    totalItems,
+    totalPages,
+    hasActiveFilters: computed(
+      () => state.hasActiveFilters.value || filterStatus.value !== "published",
+    ),
+
+    // Méthodes de compatibilité avec l'ancien code (deprecated)
+    fetchAssemblyQuestions: collection.refresh,
+    fetchAssemblyQuestionById: async () => collection.refresh(),
+    resetCommissions: () => {
+      state.resetFilters();
+      filterStatus.value = "published";
+    },
   };
 };

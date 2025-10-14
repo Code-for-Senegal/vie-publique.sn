@@ -91,20 +91,10 @@
 </template>
 
 <script setup lang="ts">
-const { fetchAssemblyVotes, votes, loading, error } = useAssemblyVotes();
 const router = useRouter();
 
-onMounted(() => {
-  fetchAssemblyVotes();
-});
-
-// const formatDate = (date: string) => {
-//   return new Date(date).toLocaleDateString("fr-FR", {
-//     day: "numeric",
-//     month: "long",
-//     year: "numeric",
-//   });
-// };
+// ✅ Nouvelle architecture SSR : les données sont chargées automatiquement
+const { votes, loading, error } = useAssemblyVotes();
 
 const getBgColor = (voteType: string): string => {
   const colors: Record<string, string> = {

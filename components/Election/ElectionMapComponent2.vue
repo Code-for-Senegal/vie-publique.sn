@@ -32,7 +32,7 @@
             :color="getRegionColor(region)"
             :weight="1.5"
             :fill="true"
-            :fillOpacity="0.3"
+            :fill-opacity="0.3"
             @click="handleRegionClick(region)"
           >
             <LTooltip :options="{ permanent: true, direction: 'center' }">

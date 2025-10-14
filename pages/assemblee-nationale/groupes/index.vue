@@ -5,7 +5,7 @@
       variant="ghost"
       label="Retour à la liste"
       color="gray"
-      @click.native="router.back()"
+      @click="router.back()"
     />
     <!-- En-tête -->
     <div class="mb-8">
@@ -51,10 +51,6 @@
 </template>
 
 <script setup lang="ts">
-const { groups, loading, error, fetchAssemblyGroups } = useAssemblyGroups();
+const { groups, loading, error } = useAssemblyGroups();
 const router = useRouter();
-
-onMounted(() => {
-  fetchAssemblyGroups();
-});
 </script>

@@ -25,16 +25,12 @@
         <div
           v-for="deputy in deputies"
           :key="deputy.id"
-          @click="openModal(deputy)"
           class="cursor-pointer rounded-lg bg-white p-4 shadow-md transition-shadow duration-300 hover:shadow-lg"
+          @click="openModal(deputy)"
         >
           <div class="flex flex-col items-center">
             <UAvatar
-              :src="
-                deputy.photo
-                  ? `https://cms.vie-publique.sn/assets/${deputy.photo}`
-                  : ''
-              "
+              :src="deputy.photo ? useCmsImage(deputy.photo, '50') : ''"
               :alt="`Photo de ${deputy.first_name} ${deputy.last_name}`"
               size="lg"
               class="mb-3"
@@ -75,7 +71,7 @@
             <UAvatar
               :src="
                 selectedDeputy.photo
-                  ? `https://cms.vie-publique.sn/assets/${selectedDeputy.photo}`
+                  ? useCmsImage(selectedDeputy.photo, '50')
                   : ''
               "
               :alt="`Photo de ${selectedDeputy.first_name} ${selectedDeputy.last_name}`"
@@ -124,8 +120,8 @@
 const isModalOpen = ref(false);
 const selectedDeputy = ref(null);
 
-// Récupération des données via le composable
-const { deputies, loading, error } = useDeputies();
+// ✅ Récupération des députés élus via le composable SSR
+const { candidates: deputies, loading, error } = useElections();
 
 const openModal = (deputy) => {
   selectedDeputy.value = deputy;

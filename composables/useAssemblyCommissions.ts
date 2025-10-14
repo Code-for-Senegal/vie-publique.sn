@@ -1,101 +1,168 @@
-export const useAssemblyCommissions = () => {
-  const commissions = ref([]);
-  const commission = ref<any>(null);
-  const loading = ref(true);
-  const error = ref(null);
+import type { AssemblyCommission } from "~/types/assembly";
 
-  const fetchAssemblyCommissions = async () => {
-    loading.value = true;
-    error.value = null;
+export interface AssemblyCommissionsOptions {
+  /** ID de la commission pour récupération unitaire */
+  id?: string;
 
-    console.log(
-      "fetchAssemblyCommissions " + useRuntimeConfig().public.cmsApiUrl,
-    );
+  /** Tri par défaut */
+  sort?: string;
 
-    const fields =
-      "id,name,description,type,president,members,president.id,president.first_name,president.last_name";
-    try {
-      const config = useRuntimeConfig();
-      const response = await fetch(
-        `${config.public.cmsApiUrl}/items/assembly_commission?fields=${fields}`,
-        {
-          headers: {
-            Authorization: `Bearer ${config.public.cmsApiKey}`,
-          },
-        },
-      );
+  /** Nombre d'items par page */
+  limit?: number;
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+  /** Synchroniser avec l'URL */
+  syncUrl?: boolean;
+}
 
-      const dataResponse = await response.json();
-      commissions.value = dataResponse.data;
-    } catch (e) {
-      error.value =
-        e instanceof Error
-          ? e.message
-          : "Erreur lors du chargement des groupes";
-      commissions.value = [];
-    } finally {
-      loading.value = false;
-    }
-  };
+/**
+ * Composable pour gérer les commissions parlementaires
+ * Utilise useCmsCollection pour le fetch et useCollectionState pour l'état UI
+ *
+ * @example
+ * // Liste avec filtres
+ * const { commissions, loading, searchQuery, filterType } = useAssemblyCommissions();
+ *
+ * // Détail d'une commission
+ * const { commission, loading } = useAssemblyCommissions({ id: '123' });
+ */
+export const useAssemblyCommissions = (
+  options: AssemblyCommissionsOptions = {},
+) => {
+  // Pour une commission unique, pas besoin de state UI
+  if (options.id) {
+    const collection = useCmsCollection<AssemblyCommission>({
+      collection: "assembly/commissions",
+      id: options.id,
+    });
 
-  const fetchAssemblyCommissionById = async (id: string) => {
-    loading.value = true;
-    error.value = null;
+    return {
+      // Données
+      commission: collection.item,
+      loading: collection.loading,
+      error: collection.error,
+      refresh: collection.refresh,
 
-    const fields =
-      "id,name,description,type,president.id,president.first_name,president.last_name,president.photo,members.assembly_deputy_id.id,members.assembly_deputy_id.gender,vice_president.id,vice_president.photo,vice_president.first_name,vice_president.last_name,members.assembly_deputy_id.first_name,members.assembly_deputy_id.last_name,members.assembly_deputy_id.profession,members.assembly_deputy_id.birthplace,members.assembly_deputy_id.birthdate,members.assembly_deputy_id.photo,group.name,group.color, 1st_vice_president.*, 2nd_vice_president.*,secretary.*,reporter.*";
+      // États vides pour compatibilité avec l'ancien code
+      commissions: computed(() => []),
+      currentPage: ref(1),
+      searchQuery: ref(""),
+      sortBy: ref(options.sort || "id"),
+      filterType: ref("all"),
+      itemsPerPage: ref(options.limit || 50),
+      pagination: computed(() => undefined),
+      totalItems: computed(() => 0),
+      totalPages: computed(() => 0),
+      hasActiveFilters: computed(() => false),
 
-    try {
-      const config = useRuntimeConfig();
-      const response = await fetch(
-        `${config.public.cmsApiUrl}/items/assembly_commission/${id}?fields=${fields}`,
-        {
-          headers: {
-            Authorization: `Bearer ${config.public.cmsApiKey}`,
-          },
-        },
-      );
+      // Méthodes vides pour compatibilité
+      setCurrentPage: () => {},
+      setSearchQuery: () => {},
+      setSortBy: () => {},
+      setFilterType: () => {},
+      setItemsPerPage: () => {},
+      resetFilters: () => {},
+      fetchAssemblyCommissions: () => {},
+      fetchAssemblyCommissionById: async () => {},
+      resetCommissions: () => {},
+    };
+  }
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+  // Gestion des filtres spécifiques aux commissions
+  const filterType = ref<string>("all"); // Type de commission (permanent, special, ad_hoc)
 
-      const dataResponse = await response.json();
-      commission.value = dataResponse.data;
-    } catch (e) {
-      error.value =
-        e instanceof Error
-          ? e.message
-          : "Erreur lors du chargement des groupes";
-      commission.value = [];
-    } finally {
-      loading.value = false;
-    }
-  };
-
-  // Pour réinitialiser l'état
-  const resetCommissions = () => {
-    commissions.value = [];
-    loading.value = false;
-    error.value = null;
-  };
-
-  // Charger les données initiales
-  onMounted(() => {
-    fetchAssemblyCommissions();
+  // État UI géré par useCollectionState
+  const state = useCollectionState({
+    defaultSort: options.sort || "id",
+    defaultItemsPerPage: options.limit || 50,
+    defaultFilter: "all",
+    syncUrl: options.syncUrl !== false,
+    urlParamsMapping: {
+      search: "q",
+      filter: "type",
+      page: "page",
+      sort: "sort",
+    },
   });
 
+  // Construction des filtres spécifiques aux commissions
+  const filters = computed(() => {
+    const filters: Record<string, any> = {};
+
+    // Filtre par type de commission
+    if (filterType.value && filterType.value !== "all") {
+      filters.filterType = filterType.value;
+    }
+
+    return filters;
+  });
+
+  // Utilisation du composable générique pour le fetch
+  const collection = useCmsCollection<AssemblyCommission>({
+    collection: "assembly/commissions",
+    filters,
+    sort: state.sortBy,
+    limit: state.itemsPerPage,
+    page: state.currentPage,
+    search: state.searchQuery,
+  });
+
+  // Computed pour compatibilité avec l'ancien code
+  const totalItems = computed(() => collection.pagination.value?.total || 0);
+  const totalPages = computed(
+    () => collection.pagination.value?.totalPages || 1,
+  );
+
+  // Méthodes spécifiques aux commissions
+  const setFilterType = (type: string) => {
+    filterType.value = type;
+    // Reset à la page 1 lors d'un changement de filtre
+    state.currentPage.value = 1;
+  };
+
   return {
-    commissions,
-    loading,
-    error,
-    fetchAssemblyCommissions,
-    commission,
-    fetchAssemblyCommissionById,
-    resetCommissions,
+    // Données
+    commissions: collection.items,
+    commission: collection.item,
+    loading: collection.loading,
+    pagination: collection.pagination,
+    error: collection.error,
+    refresh: collection.refresh,
+
+    // États réactifs (depuis useCollectionState)
+    currentPage: state.currentPage,
+    searchQuery: state.searchQuery,
+    sortBy: state.sortBy,
+    itemsPerPage: state.itemsPerPage,
+
+    // États spécifiques aux commissions
+    filterType,
+
+    // Méthodes (depuis useCollectionState)
+    setCurrentPage: state.setCurrentPage,
+    setSearchQuery: state.setSearchQuery,
+    setSortBy: state.setSortBy,
+    setItemsPerPage: state.setItemsPerPage,
+    resetFilters: () => {
+      state.resetFilters();
+      filterType.value = "all";
+    },
+
+    // Méthodes spécifiques
+    setFilterType,
+
+    // Computed
+    totalItems,
+    totalPages,
+    hasActiveFilters: computed(
+      () => state.hasActiveFilters.value || filterType.value !== "all",
+    ),
+
+    // Méthodes de compatibilité avec l'ancien code (deprecated)
+    fetchAssemblyCommissions: collection.refresh,
+    fetchAssemblyCommissionById: async () => collection.refresh(),
+    resetCommissions: () => {
+      state.resetFilters();
+      filterType.value = "all";
+    },
   };
 };

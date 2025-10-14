@@ -26,8 +26,8 @@
         <div
           v-for="pv in pvs"
           :key="pv.id"
-          @click="openModal(pv)"
           class="cursor-pointer overflow-hidden rounded-lg bg-white shadow-md transition-shadow duration-300 hover:shadow-lg"
+          @click="openModal(pv)"
         >
           <!-- Thumbnail -->
           <div class="relative aspect-[4/3] bg-gray-100">
@@ -120,8 +120,8 @@
                 {{ getLocationLabel(selectedPv) }}
               </h2>
               <button
-                @click="closeModal"
                 class="text-gray-500 hover:text-gray-700"
+                @click="closeModal"
               >
                 <span class="text-2xl">&times;</span>
               </button>
@@ -257,15 +257,16 @@ const props = withDefaults(
   },
 );
 
-// Initialiser le composable avec la source appropriée
-const { pvs, loading, error, fetchPvs, currentSource } = usePvs(props.source);
+// ✅ Nouvelle architecture SSR : les données sont chargées automatiquement
+const { pvs, loading, error, currentSource, switchSource, refresh } =
+  useElectionPvsServer({ source: props.source });
 const selectedPv = ref(null);
 
 // Surveiller les changements de source
 watch(
   () => props.source,
   (newSource) => {
-    fetchPvs(newSource);
+    switchSource(newSource);
   },
 );
 
@@ -279,7 +280,7 @@ const getLocationLabel = (pv: any) => {
 
 // Handle refresh
 const handleRefresh = () => {
-  fetchPvs(props.source);
+  refresh();
 };
 
 // Modal functions

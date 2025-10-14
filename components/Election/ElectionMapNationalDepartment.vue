@@ -3,8 +3,8 @@
 import type { DepartmentStats } from "~/types/election-map-national";
 // import { useElectionData } from "~/composables/useElectionData";
 
-// Initialisation du composable
-const { fetchDepartmentsStats, refreshData } = useElectionData();
+// ✅ Initialisation du composable SSR
+const { fetchDepartmentsStats } = useElectionData();
 
 // État local
 const search = ref("");
@@ -14,7 +14,7 @@ const sortBy = ref("department");
 const sortDesc = ref(false);
 const isRefreshing = ref(false);
 
-// Charger les données avec le cache
+// Charger les données avec le cache et SSR
 const {
   data: departments,
   pending,
@@ -92,7 +92,6 @@ const handleRefresh = async () => {
 
   isRefreshing.value = true;
   try {
-    await refreshData();
     await refresh();
   } finally {
     isRefreshing.value = false;

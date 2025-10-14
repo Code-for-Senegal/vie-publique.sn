@@ -16,8 +16,8 @@
           variant="ghost"
           label="Retour à la liste"
           color="white"
-          @click.native="router.back()"
           class="text-white"
+          @click.native="router.back()"
         />
       </div>
       <div class="absolute right-4 top-4">
@@ -63,7 +63,7 @@
         </div>
 
         <!-- Barre de résultats -->
-        <div class="mb-8" v-if="vote?.voters_for">
+        <div v-if="vote?.voters_for" class="mb-8">
           <div class="flex overflow-hidden rounded-lg">
             <!-- Pour -->
             <div
