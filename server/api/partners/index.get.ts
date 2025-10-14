@@ -21,6 +21,11 @@ export default defineCachedEventHandler(
           readItems("vp_partners", {
             fields: ["id", "name", "logo", "website", "status"],
             sort: ["name"],
+            filter: {
+              status: {
+                _eq: "published"
+              }
+            }
           }),
         )
         .catch((error) => {

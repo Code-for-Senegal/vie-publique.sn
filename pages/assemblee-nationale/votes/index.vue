@@ -6,7 +6,7 @@
       variant="ghost"
       label="15e législature"
       color="gray"
-      @click.native="router.back()"
+      @click="router.back()"
     />
     <UContainer>
       <!-- En-tête avec titre et description -->

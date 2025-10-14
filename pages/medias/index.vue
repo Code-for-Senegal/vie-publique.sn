@@ -11,6 +11,7 @@ const description =
   "Liste officielle des médias reconnus au Sénégal par le MCTN. Télévisions, radios, presse écrite et médias en ligne sénégalais.";
 const url = `${siteUrl}/medias`;
 const image = `${siteUrl}/images/share-media.JPG`;
+const config = useRuntimeConfig();
 
 // Schema JSON-LD pour les médias
 const mediasSchema = {
@@ -105,7 +106,7 @@ const datasetSchema = {
     "@type": "DataDownload",
     encodingFormat: "application/pdf",
     contentUrl:
-      "https://cms.vie-publique.sn/assets/e703d8f8-d175-4950-a909-92d567782b47/medias-2025.pdf",
+      `${config.public.cmsApiUrl}/assets/e703d8f8-d175-4950-a909-92d567782b47/medias-2025.pdf`,
   },
 };
 
@@ -336,7 +337,7 @@ const getInitials = (name: string): string => {
       <UAlert
         v-else-if="error"
         title="Erreur"
-        :description="error"
+        :description="`${error}`"
         color="red"
         icon="i-heroicons-exclamation-triangle"
       />

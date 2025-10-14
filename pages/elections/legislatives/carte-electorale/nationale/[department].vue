@@ -190,7 +190,7 @@ watch([search, selectedMunicipality, sortBy, sortDesc], ([newSearch, newMunicipa
       <UButton
         icon="i-heroicons-arrow-left"
         variant="ghost"
-        @click.native="router.back()"
+        @click="router.back()"
       />
       <h1 class="text-2xl font-bold">Département {{ department }}</h1>
     </div>

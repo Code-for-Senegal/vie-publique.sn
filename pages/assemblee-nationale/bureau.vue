@@ -74,7 +74,7 @@ const groupedMembers = computed<OfficeGroup[]>(() => {
       variant="ghost"
       label="15e législature"
       color="gray"
-      @click.native="router.back()"
+      @click="router.back()"
     />
     <div class="mx-auto max-w-7xl">
       <h1 class="mb- text-center text-2xl font-bold md:text-3xl">

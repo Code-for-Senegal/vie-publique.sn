@@ -124,6 +124,8 @@ const tabs = [
   },
 ];
 
+const config = useRuntimeConfig();
+
 const entityTypeNational = "national";
 const entityTypeDiaspora = "etranger";
 const entityTypes = [
@@ -142,7 +144,7 @@ const coalitionResults = [
     seatMajority: 29,
     head_of_list: {
       photo_url:
-        "https://cms.vie-publique.sn/assets/4e1c3427-ae2d-4090-a5fb-8460f7ef8ac3",
+        `${config.public.cmsApiUrl}/assets/4e1c3427-ae2d-4090-a5fb-8460f7ef8ac3`,
       full_name: "OUSMANE SONKO",
     },
   },
@@ -154,7 +156,7 @@ const coalitionResults = [
     departementsWon: 4,
     head_of_list: {
       photo_url:
-        "https://cms.vie-publique.sn/assets/99371091-1155-4e66-95ca-b9ee21eb2320",
+        `${config.public.cmsApiUrl}/assets/99371091-1155-4e66-95ca-b9ee21eb2320`,
       full_name: "MACKY SALL",
     },
   },
@@ -166,7 +168,7 @@ const coalitionResults = [
     seatMajority: 5,
     head_of_list: {
       photo_url:
-        "https://cms.vie-publique.sn/assets/99371091-1155-4e66-95ca-b9ee21eb2320",
+        `${config.public.cmsApiUrl}/assets/99371091-1155-4e66-95ca-b9ee21eb2320`,
       full_name: "Amadou Ba",
     },
   },
@@ -178,7 +180,7 @@ const coalitionResults = [
     departementsWon: null,
     head_of_list: {
       photo_url:
-        "https://cms.vie-publique.sn/assets/aadfcb81-f15f-444f-9faf-120918647cd1",
+        `${config.public.cmsApiUrl}/assets/aadfcb81-f15f-444f-9faf-120918647cd1`,
       full_name: "BARTHELEMY TOYE DIAS",
     },
   },

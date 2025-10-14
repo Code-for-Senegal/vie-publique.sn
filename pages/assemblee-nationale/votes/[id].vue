@@ -17,7 +17,7 @@
           label="Retour à la liste"
           color="white"
           class="text-white"
-          @click.native="router.back()"
+          @click="router.back()"
         />
       </div>
       <div class="absolute right-4 top-4">

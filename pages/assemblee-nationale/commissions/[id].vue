@@ -18,7 +18,7 @@ const title = computed(() => {
 
 const description = computed(() => {
   if (!commission.value) return "";
-  const presidentText = commission.value.president 
+  const presidentText = commission.value.president
     ? ` Présidée par ${commission.value.president.first_name} ${commission.value.president.last_name}.`
     : "";
   const membersCount = commission.value.members?.length || 0;
@@ -39,7 +39,7 @@ const image = computed(() => {
 
 const commissionSchema = computed(() => {
   if (!commission.value) return null;
-  
+
   const schema = {
     "@context": "https://schema.org",
     "@type": "GovernmentOrganization",
@@ -78,7 +78,7 @@ const commissionSchema = computed(() => {
 
   // Ajouter les membres du bureau
   const organizationalMembers = [];
-  
+
   if (commission.value.vice_president) {
     organizationalMembers.push({
       "@type": "Person",
@@ -159,7 +159,7 @@ const breadcrumbSchema = computed(() => ({
 
 const webPageSchema = computed(() => {
   if (!commission.value) return null;
-  
+
   return {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -286,7 +286,7 @@ const deputyUrl = computed((deputy: any) => {
         variant="ghost"
         label="Retour à la liste"
         color="gray"
-        @click.native="router.back()"
+        @click="router.back()"
       />
 
       <!-- Loading state -->
