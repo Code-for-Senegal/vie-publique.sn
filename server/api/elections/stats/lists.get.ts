@@ -1,6 +1,5 @@
 // server/api/elections/stats/lists.get.ts
 import { aggregate } from "@directus/sdk";
-import { getCmsClient } from "~/server/utils/cms-client";
 
 /**
  * Endpoint pour récupérer les statistiques des listes électorales

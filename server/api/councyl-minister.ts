@@ -1,5 +1,4 @@
 import { defineEventHandler, createError } from "h3";
-import { getCmsClient } from "../utils/cms-client";
 import { readItems } from "@directus/sdk";
 
 export default defineEventHandler(async (_event) => {

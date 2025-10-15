@@ -1,6 +1,5 @@
 // server/api/elections/map/national.get.ts
 import { readItems, aggregate } from "@directus/sdk";
-import { getCmsClient } from "~/server/utils/cms-client";
 
 /**
  * Endpoint pour récupérer les données de la carte électorale nationale

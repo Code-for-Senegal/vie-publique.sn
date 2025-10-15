@@ -1,6 +1,5 @@
 import { readItems } from "@directus/sdk";
 import type { Partner } from "~/types/partner";
-import { getCmsClient } from "~/server/utils/cms-client";
 
 /**
  * Endpoint pour récupérer la liste des partenaires depuis Directus

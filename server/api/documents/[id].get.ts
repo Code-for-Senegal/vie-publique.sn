@@ -1,6 +1,5 @@
 // server/api/documents/detail/[id].ts
 import { readItem } from "@directus/sdk";
-import { getCmsClient } from "~/server/utils/cms-client";
 
 interface Document {
   id: string;

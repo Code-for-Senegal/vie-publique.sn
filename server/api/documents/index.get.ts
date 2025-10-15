@@ -1,5 +1,4 @@
 import { readItems } from "@directus/sdk";
-import { getCmsClient } from "~/server/utils/cms-client";
 import type { Document } from "~/types/document";
 
 export default defineCachedEventHandler(

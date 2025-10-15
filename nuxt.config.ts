@@ -73,6 +73,9 @@ const securityConfig =
       }
 
 export default defineNuxtConfig({
+  future: {
+    compatibilityVersion: 4,
+  },
   // Optimisations de build pour réduire le temps
   nitro: {
     prerender: {
@@ -125,6 +128,7 @@ export default defineNuxtConfig({
   vite: {
     build: {
       chunkSizeWarningLimit: 1000,
+      modulePreload: { polyfill: false }, // Désactive le modulepreload polyfill qui cause des problèmes sur Windows avec Nuxt 4
     },
     server: {
       fs: {
@@ -157,7 +161,7 @@ export default defineNuxtConfig({
     '@nuxt/content',
     'nuxt-gtag',
     '@nuxtjs/seo',
-    '@nuxtjs/web-vitals',
+    // '@nuxtjs/web-vitals', // Temporairement désactivé - incompatible avec Nuxt 4
     '@nuxt/image',
     '@vueuse/motion/nuxt',
     '@nuxt/eslint',
@@ -168,6 +172,8 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxtjs/mdc',
     'nuxt-security',
+    'nuxt-og-image',
+    'nuxt-seo-utils',
   ],
   devtools: { enabled: true },
   runtimeConfig: {
@@ -384,16 +390,16 @@ export default defineNuxtConfig({
     enabled: !!process.env.GTAG_ID,
     id: process.env.GTAG_ID,
   },
-  webVitals: {
-    provider: 'ga',
-    disabled: !process.env.GTAG_ID,
-    ga: { id: process.env.GTAG_ID },
-  },
+  // webVitals: {
+  //   provider: 'ga',
+  //   disabled: !process.env.GTAG_ID,
+  //   ga: { id: process.env.GTAG_ID },
+  // },
   image: {
     // Provider pour les images locales et du proxy
     providers: {
       cms: {
-        provider: '~/providers/cms-image.ts',
+        provider: './app/providers/cms-image.ts',
         options: {
           baseURL: '/medias',
         },
