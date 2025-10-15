@@ -1,6 +1,5 @@
 // server/api/elections/coalitions/index.get.ts
 import { readItems } from "@directus/sdk";
-import { getCmsClient } from "~/server/utils/cms-client";
 
 /**
  * Endpoint pour récupérer la liste des coalitions

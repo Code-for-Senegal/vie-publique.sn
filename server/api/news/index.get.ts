@@ -1,6 +1,5 @@
 import { readItems } from "@directus/sdk";
 import type { NewsArticle } from "~/composables/news/useNews";
-import { getCmsClient } from "~/server/utils/cms-client";
 
 export default defineCachedEventHandler(
   async (event) => {

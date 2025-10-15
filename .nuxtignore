@@ -1,0 +1,3 @@
+# Ignore virtual vite files that cause issues on Windows with Nuxt 4
+vite/preload-helper.js
+vite/modulepreload-polyfill.js

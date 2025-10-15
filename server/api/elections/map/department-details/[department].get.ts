@@ -1,6 +1,5 @@
 import { readItems } from "@directus/sdk";
 import type { PollingStation } from "~/types/election-map-national";
-import { getCmsClient } from "~/server/utils/cms-client";
 
 /**
  * Endpoint pour récupérer les détails d'un département (bureaux de vote)

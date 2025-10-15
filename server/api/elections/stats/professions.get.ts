@@ -1,6 +1,5 @@
 // server/api/elections/stats/professions.get.ts
 import { readItems } from "@directus/sdk";
-import { getCmsClient } from "~/server/utils/cms-client";
 
 /**
  * Endpoint pour récupérer les statistiques des professions des candidats
