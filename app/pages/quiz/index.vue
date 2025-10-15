@@ -312,10 +312,6 @@ useMotion();
           <div
             v-if="feedback[currentQuestionIndex] !== null"
             class="my-2 text-center text-sm text-gray-500"
-            :class="{
-              '': feedback[currentQuestionIndex],
-              '': !feedback[currentQuestionIndex],
-            }"
           >
             <div v-if="feedback[currentQuestionIndex] === true" v-motion>
               <p class="text-emerald-600">

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Media, MediaType } from "~/types/media";
-import { typeDisplayMap, typeColorMap, typeIconMap } from "~/types/media";
+import type { Media, MediaType } from "../../../types/media";
+import { typeDisplayMap, typeColorMap, typeIconMap } from "../../../types/media";
 
 // Utilisation du composable pour les métadonnées
 const { siteName, siteUrl, defaultImage, keywords, themeColor } =

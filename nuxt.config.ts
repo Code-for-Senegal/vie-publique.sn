@@ -172,8 +172,6 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxtjs/mdc',
     'nuxt-security',
-    'nuxt-og-image',
-    'nuxt-seo-utils',
   ],
   devtools: { enabled: true },
   runtimeConfig: {
@@ -554,7 +552,7 @@ export default defineNuxtConfig({
       type: 'module',
     },
   },
-  compatibilityDate: '2024-09-08',
+  compatibilityDate: '2025-07-15',
   // Used by the AI Chat to highlight code
   mdc: {
     headings: {
