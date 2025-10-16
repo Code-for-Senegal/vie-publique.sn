@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { MediaType } from "~/types/media";
-import { typeDisplayMap, typeColorMap, typeIconMap } from "~/types/media";
+import type { MediaType } from "../../../../types/media";
+import { typeDisplayMap, typeColorMap, typeIconMap } from "../../../../types/media";
 
 const route = useRoute();
 const router = useRouter();

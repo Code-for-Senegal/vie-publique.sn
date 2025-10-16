@@ -184,7 +184,7 @@ const {
   setSearchQuery,
   setCurrentPage,
 } = useNews({
-  category: "conseil-des-ministres",
+  category: "Conseil des ministres",
   sort: "-date_published",
   limit: 9,
 });
