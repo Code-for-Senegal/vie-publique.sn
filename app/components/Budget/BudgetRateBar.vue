@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-2">
     <div v-for="item in items" :key="item.name" class="mb-4">
-      <div class="mb-1 flex justify-between">
+      <div class="mb-1 flex justify-between dark:text-black">
         <span class="text-sm font-medium">{{ item.name }}</span>
         <span class="text-sm font-medium">{{ item.value.toFixed(1) }} Mrd</span>
       </div>

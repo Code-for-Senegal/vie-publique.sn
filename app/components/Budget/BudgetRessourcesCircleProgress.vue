@@ -21,8 +21,8 @@
       <div class="text-wrap text-xl" :class="`text-${colorText}-700`">
         {{ Math.floor(percentage) }}%
       </div>
-      <div class="text-wrap text-xs">{{ label }}</div>
-      <div class="text-sm font-bold">{{ value }}</div>
+      <div class="text-wrap text-xs dark:text-black">{{ label }}</div>
+      <div class="text-sm font-bold dark:text-black">{{ value }}</div>
     </div>
   </div>
 </template>

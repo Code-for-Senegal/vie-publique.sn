@@ -69,8 +69,8 @@
                     class="custom-shadow w-12 px-1"
                     :class="
                       ministry.variation_percentage >= 0
-                        ? 'text-green-600'
-                        : 'text-red-600'
+                        ? 'text-green-600 dark:text-green-600'
+                        : 'text-red-600 dark:text-red-600'
                     "
                   >
                     {{ ministry.variation_percentage >= 0 ? "+" : ""
@@ -80,7 +80,7 @@
                 <td
                   class="px-1 py-2 text-right text-sm font-medium text-gray-900 sm:table-cell"
                 >
-                  <UBadge variant="subtle" class="custom-shadow w-10 px-1"
+                  <UBadge variant="subtle" class="custom-shadow w-10 px-1 dark:text-gray-700"
                     >{{ ministry.budget_percentage.toFixed(1) }}%</UBadge
                   >
                 </td>

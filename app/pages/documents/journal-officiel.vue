@@ -88,7 +88,7 @@ const formatDate = (date: string) => {
     <!-- En-tête -->
     <div class="prose prose-sm sm:prose mx-auto my-4">
       <h1
-        class="from-primary-600 to-primary-500 bg-clip-text text-center text-xl font-bold sm:text-3xl"
+        class="from-primary-600 to-primary-500 bg-clip-text text-center text-xl font-bold sm:text-3xl dark:text-gray-200"
       >
         Journal Officiel du Sénégal
       </h1>

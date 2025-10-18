@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center px-4">
-    <UButton size="xs" class="bg-gray b-0 mb-1 w-full hover:bg-white">
+    <UButton size="xs" class="bg-gray b-0 mb-1 w-full hover:bg-white dark:bg-white dark:hover:bg-gray-100">
       <AppBreadcrumb :links="links" :last-text="route.params.slug" />
     </UButton>
 

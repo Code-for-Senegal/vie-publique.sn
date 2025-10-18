@@ -94,7 +94,7 @@ const filteredSortedContentItems = computed(() => {
           <NuxtLink :to="item._path" class="block h-full">
             <!-- Job title -->
             <h3
-              class="mb-4 text-xl font-bold text-gray-900 transition-colors group-hover:text-emerald-700"
+              class="mb-4 text-xl font-bold text-gray-900 transition-colors group-hover:text-emerald-700 dark:text-white"
             >
               {{ item.title }}
             </h3>
@@ -103,11 +103,11 @@ const filteredSortedContentItems = computed(() => {
             <div class="space-y-2 text-sm">
               <div class="flex items-center text-gray-800">
                 <UIcon name="i-heroicons-calendar" class="mr-2 h-5 w-5" />
-                <span>Publié le {{ $dateformatWithDayName(item.date) }}</span>
+                <span class="dark:text-gray-300">Publié le {{ $dateformatWithDayName(item.date) }}</span>
               </div>
               <div class="flex items-center text-gray-700">
                 <UIcon name="i-heroicons-clock" class="mr-2 h-5 w-5" />
-                <span
+                <span class="dark:text-gray-300"
                   >Date limite :
                   {{ $dateformatWithDayName(item.deadline) }}</span
                 >

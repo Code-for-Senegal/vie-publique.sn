@@ -199,7 +199,7 @@ watch([search, selectedMunicipality, sortBy, sortDesc], ([newSearch, newMunicipa
     <div v-if="stats" class="grid grid-cols-2 gap-4 md:grid-cols-4">
       <UCard class="custom-shadow bg-gray-50">
         <div class="text-center">
-          <div class="text-sm text-gray-500">Total Électeurs</div>
+          <div class="text-sm text-gray-500 dark:text-white">Total Électeurs</div>
           <div
             class="text-2xl font-semibold tabular-nums text-red-700 md:text-4xl"
           >
@@ -209,7 +209,7 @@ watch([search, selectedMunicipality, sortBy, sortDesc], ([newSearch, newMunicipa
       >
       <UCard class="custom-shadow bg-gray-50">
         <div class="text-center">
-          <div class="text-sm text-gray-500">Communes</div>
+          <div class="text-sm text-gray-500 dark:text-white">Communes</div>
           <div
             class="text-2xl font-semibold tabular-nums text-red-700 md:text-4xl"
           >
@@ -219,7 +219,7 @@ watch([search, selectedMunicipality, sortBy, sortDesc], ([newSearch, newMunicipa
       >
       <UCard class="custom-shadow bg-gray-50">
         <div class="text-center">
-          <div class="text-sm text-gray-500">Lieux de vote</div>
+          <div class="text-sm text-gray-500 dark:text-white">Lieux de vote</div>
           <div
             class="text-2xl font-semibold tabular-nums text-red-700 md:text-4xl"
           >
@@ -229,7 +229,7 @@ watch([search, selectedMunicipality, sortBy, sortDesc], ([newSearch, newMunicipa
       >
       <UCard class="custom-shadow bg-gray-50">
         <div class="text-center">
-          <div class="text-sm text-gray-500">Bureaux</div>
+          <div class="text-sm text-gray-500 dark:text-white">Bureaux</div>
           <div
             class="text-2xl font-semibold tabular-nums text-red-700 md:text-4xl"
           >

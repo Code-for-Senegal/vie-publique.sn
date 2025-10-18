@@ -6,14 +6,14 @@ const props = defineProps<{
 
 <template>
   <div class="mx-auto max-w-4xl bg-white p-2 text-sm sm:p-4">
-    <h1 class="mb-2 text-center text-xl font-bold">
+    <h1 class="mb-2 text-center text-xl font-bold dark:text-black">
       Budget prévisionnel Loi de finances 2024
     </h1>
 
     <div class="grid grid-cols-2 gap-2">
       <div class="bg-beige-100 rounded-lg p-2 sm:p-4">
-        <h3 class="text-sm font-semibold">Budget Global</h3>
-        <span class="text-2xl font-bold md:text-4xl">{{
+        <h3 class="text-sm font-semibold dark:text-black">Budget Global</h3>
+        <span class="text-2xl font-bold md:text-4xl dark:text-black">{{
           budgetDatas.totalBudget.toFixed(0)
         }}</span>
         <span class="text-md ml-1 font-semibold text-green-600 sm:text-2xl"
@@ -22,7 +22,7 @@ const props = defineProps<{
         <div class="text-primary text-sm">milliards FCFA</div>
       </div>
 
-      <div class="bg-beige-100 rounded-lg p-2 sm:p-4">
+      <div class="bg-beige-100 rounded-lg p-2 sm:p-4 dark:text-black">
         <h3 class="text-sm font-semibold">Déficit budgétaire</h3>
         <span class="text-2xl font-bold md:text-4xl">
           {{ budgetDatas.balance.amount.toFixed(0) }}
@@ -35,7 +35,7 @@ const props = defineProps<{
         </div>
       </div>
 
-      <div class="bg-beige-100 rounded-lg p-2 sm:p-4">
+      <div class="bg-beige-100 rounded-lg p-2 sm:p-4 dark:text-black">
         <h3 class="text-sm font-semibold">Ressources du budget général</h3>
         <span class="text-2xl font-bold md:text-4xl">{{
           budgetDatas.resources.totalResources.toFixed(0)
@@ -46,7 +46,7 @@ const props = defineProps<{
         <div class="text-primary text-sm">milliards FCFA</div>
       </div>
 
-      <div class="bg-beige-100 rounded-lg p-2 sm:p-4">
+      <div class="bg-beige-100 rounded-lg p-2 sm:p-4 dark:text-black">
         <h3 class="text-sm font-semibold">Taux de croissance prévu</h3>
         <span class="text-2xl font-bold md:text-4xl">
           {{ budgetDatas.growthRate }} %
@@ -55,12 +55,12 @@ const props = defineProps<{
     </div>
 
     <div class="my-2">
-      <h2 class="bg-beige-100 mb-2 p-2 text-center font-bold">
+      <h2 class="bg-beige-100 mb-2 p-2 text-center font-bold dark:text-black">
         Ressources du budget général
       </h2>
       <div class="flex items-center justify-around">
         <div class="text-center">
-          <div class="mb-2">Ressources Internes</div>
+          <div class="mb-2 dark:text-black">Ressources Internes</div>
           <div class="flex flex-col md:flex-row md:gap-4">
             <BudgetRessourcesCircleProgress
               v-for="resource in budgetDatas.resources.internalResources
@@ -77,7 +77,7 @@ const props = defineProps<{
         </div>
 
         <div class="text-center">
-          <div class="mb-2">Ressources Externes</div>
+          <div class="mb-2 dark:text-black">Ressources Externes</div>
           <div class="flex flex-col md:flex-row md:gap-4">
             <BudgetRessourcesCircleProgress
               v-for="resource in budgetDatas.resources.externalResources
@@ -96,10 +96,10 @@ const props = defineProps<{
 
     <div class="my-4">
       <div class="bg-beige-100 mb-2 p-2 text-center">
-        <span class="font-bold">Dépenses du budget général</span>
+        <span class="font-bold dark:text-black">Dépenses du budget général</span>
       </div>
 
-      <div class="mt-2 text-center">
+      <div class="mt-2 text-center dark:text-black">
         <span class="text-xl font-bold sm:text-3xl">{{
           budgetDatas.expenses.totalExpenses
         }}</span>
@@ -115,7 +115,7 @@ const props = defineProps<{
       />
     </div>
 
-    <div class="my-4">
+    <div class="my-4 dark:text-black">
       <div class="bg-beige-100 mb-2 p-2 text-center">
         <span class="font-bold"> Comptes Spéciaux du Trésor</span>
       </div>

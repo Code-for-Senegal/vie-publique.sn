@@ -30,11 +30,11 @@
       <!-- En-tête fixe -->
       <div class="sticky top-0 z-10 bg-gray-50">
         <div
-          class="grid min-w-full grid-cols-12 bg-gray-50 text-sm font-semibold text-gray-900"
+          class="grid min-w-full grid-cols-12 bg-gray-50 text-sm font-semibold text-gray-900 dark:bg-gray-600 dark:text-white"
         >
           <div class="col-span-6 p-4 sm:col-span-7">
             <div class="prose prose-sm mx-auto my-2">
-              <h2 class="">Classement</h2>
+              <h2 class="dark:text-white">Classement</h2>
             </div>
           </div>
           <div
@@ -86,7 +86,7 @@
           <div
             v-for="coalition in sortedAndFilteredCoalitions"
             :key="coalition.id"
-            class="block cursor-pointer border-b border-gray-200 transition-colors hover:bg-gray-50"
+            class="block cursor-pointer border-b border-gray-200 transition-colors hover:bg-gray-50 dark:hover:bg-gray-800"
           >
             <div class="grid min-w-full grid-cols-12 items-center py-3">
               <!-- Coalition nom et logo -->
@@ -104,10 +104,10 @@
                   <UAvatar v-else icon="i-heroicons-photo" size="lg" />
                 </div>
                 <div>
-                  <h2 class="line-clamp-1 text-sm font-semibold text-gray-900">
+                  <h2 class="line-clamp-1 text-sm font-semibold text-gray-900 dark:text-white">
                     {{ coalition.name }}
                   </h2>
-                  <p class="text-sm capitalize text-gray-600">
+                  <p class="text-sm capitalize text-gray-600 dark:text-gray-400">
                     {{ coalition.head_of_list?.first_name.toLowerCase() }}
                     {{ coalition.head_of_list?.last_name.toLowerCase() }}
                   </p>
@@ -118,7 +118,7 @@
               <div
                 class="col-span-3 px-4 text-right text-gray-900 sm:col-span-3"
               >
-                <p>
+                <p class="dark:text-gray-50">
                   {{ new Intl.NumberFormat("fr-FR").format(coalition.voix) }}
                 </p>
                 <UBadge
@@ -132,7 +132,7 @@
 
               <!-- Pourcentage -->
               <div
-                class="col-span-3 px-4 text-right text-gray-900 sm:col-span-2"
+                class="col-span-3 px-4 text-right text-gray-900 sm:col-span-2 dark:text-gray-50"
               >
                 {{ coalition.sieges + coalition.sieges_departement }}
               </div>

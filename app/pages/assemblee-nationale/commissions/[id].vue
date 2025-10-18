@@ -300,7 +300,7 @@ const deputyUrl = computed((deputy: any) => {
       </div>
 
       <!-- Contenu de la commission -->
-      <div v-else-if="commission" class="space-y-8">
+      <div v-else-if="commission" class="space-y-8 dark:text-black">
         <!-- En-tête de la commission -->
         <div class="rounded-lg bg-white p-2 shadow-sm">
           <h1 class="mb-2 text-2xl font-bold md:text-3xl">

@@ -146,8 +146,6 @@ useHead({
   ],
 });
 
-const config = useRuntimeConfig();
-
 // ✅ Nouvelle architecture : useCmsCollection + useCollectionState
 // Plus de onMounted() → SSR-friendly, pagination et recherche intégrées
 const {
@@ -215,8 +213,8 @@ to="/assemblee-nationale"
     </NuxtLink>
 
     <div class="mx-auto max-w-4xl">
-      <div class="prose prose-sm sm:prose my-2 dark:text-gray-100">
-        <h1 class="mb-2" itemprop="headline">Questions écrites</h1>
+      <div class="prose prose-sm sm:prose my-2">
+        <h1 class="mb-2 dark:text-gray-100" itemprop="headline">Questions écrites</h1>
       </div>
 
       <div v-if="loading" class="flex justify-center py-8">

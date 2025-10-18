@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { GovernmentMember } from '~/types/government-member'
 
 const route = useRoute()
 const nominationId = route.params.id as string

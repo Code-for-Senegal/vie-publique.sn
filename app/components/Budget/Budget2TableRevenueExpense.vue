@@ -24,7 +24,7 @@ const getPercentage = (value, total) => ((value / total) * 100).toFixed(1);
 <template>
   <div class="mx-auto space-y-4">
     <div class="mt-2">
-      <h2 class="mb-2 p-2 text-center font-bold">{{ title }}</h2>
+      <h2 class="mb-2 p-2 text-center font-bold dark:text-black">{{ title }}</h2>
 
       <div class="space-y-2 bg-white shadow-lg">
         <!-- En-têtes -->
@@ -68,8 +68,8 @@ const getPercentage = (value, total) => ((value / total) * 100).toFixed(1);
                     class="custom-shadow ml-2 px-1 text-xs"
                     :class="[
                       item.variation_percentage > 0
-                        ? 'text-green-600'
-                        : 'text-red-600',
+                        ? 'text-green-600 dark:text-green-600'
+                        : 'text-red-600 dark:text-red-600',
                     ]"
                   >
                     {{ item.variation_percentage > 0 ? "↑" : "↓" }}

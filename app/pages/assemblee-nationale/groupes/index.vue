@@ -10,9 +10,9 @@
     <!-- En-tête -->
     <div class="mb-8">
       <div class="prose prose-sm sm:prose my-2">
-        <h1 class="">Les groupes parlementaires</h1>
+        <h1 class="dark:text-white">Les groupes parlementaires</h1>
       </div>
-      <p class="text-sm text-gray-600">
+      <p class="text-sm text-gray-600 dark:text-gray-400">
         Les groupes politiques rassemblent des députés selon leur affinité
         politique. Un groupe doit être composé au minimum de 16 députés.
       </p>

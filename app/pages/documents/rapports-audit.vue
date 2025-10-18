@@ -89,7 +89,7 @@ useHead({
 
     <ClientOnly>
       <div class="prose prose-sm sm:prose mx-auto my-2">
-        <h1 class="text-center text-xl text-gray-900 sm:text-2xl">
+        <h1 class="text-center text-xl text-gray-900 sm:text-2xl dark:text-gray-200">
           Rapports publics
         </h1>
       </div>
