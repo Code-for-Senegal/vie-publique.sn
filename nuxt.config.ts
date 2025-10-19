@@ -181,6 +181,9 @@ export default defineNuxtConfig({
     typesenseCollection: process.env.TYPESENSE_COLLECTION,
     cmsApiUrl: process.env.CMS_API_URL,
     cmsApiKey: process.env.CMS_API_KEY,
+    bictorysApiKey: process.env.BICTORYS_API_KEY,
+    bictorysApiUrl: process.env.BICTORYS_API_URL,
+    bictorysWebhookSecret: process.env.BICTORYS_WEBHOOK_SECRET,
 
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL,
@@ -195,6 +198,7 @@ export default defineNuxtConfig({
       sunuElectionApiKey: process.env.SUNU_ELECTION_API_KEY,
       fbPixelId: process.env.FACEBOOK_PIXEL_ID || '',
       maintenanceMode: process.env.NUXT_PUBLIC_MAINTENANCE_MODE === 'true',
+      bictorysPublicKey: process.env.BICTORYS_PUBLIC_KEY,
       // Informations de version de l'application
       appVersion: packageJson.version,
       buildTime: buildTime,
