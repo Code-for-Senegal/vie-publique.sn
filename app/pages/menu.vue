@@ -237,6 +237,18 @@ const navigationCards: NavigationCard[] = [
     icon: "i-heroicons-document-check",
     to: "/barometre-politique/",
   },
+  {
+    title: "Don avec Bictorys",
+    description: "Soutenez-nous via Bictorys",
+    icon: "i-heroicons-heart",
+    to: "/don/bictorys",
+  },
+  {
+    title: "Don avec Paydunya",
+    description: "Soutenez-nous via Paydunya",
+    icon: "i-heroicons-heart",
+    to: "/don/paydunya",
+  },
 ];
 
 const cardConfigs: CardConfigs = {
@@ -276,6 +288,12 @@ const cardConfigs: CardConfigs = {
   "Etat du Sénégal": {
     color: "text-blue-600",
   },
+  "Don avec Bictorys": {
+    color: "text-red-600"
+  },
+  "Don avec Paydunya": {
+    color: "text-red-600"
+  }
 } as const;
 </script>
 

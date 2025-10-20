@@ -296,7 +296,7 @@ v-for="indicator in budget?.keyIndicator" :key="indicator.name"
               color="indigo" />
 
             <!-- opération trésorerie -->
-            <h2 class="mt-4 p-2 text-center font-bold">
+            <h2 class="mt-4 p-2 text-center font-bold dark:text-black">
               Opérations de trésorerie
             </h2>
             <div class="text-center">
@@ -314,7 +314,7 @@ v-for="treasuryOperation in budget?.treasuryOperations
             </div>
             <Budget2TableRevenueExpense :budget-data="budget?.treasuryOperations.components" title="" color="purple" />
             <!-- Dettes -->
-            <h2 class="mt-4 p-2 text-center font-bold">
+            <h2 class="mt-4 p-2 text-center font-bold dark:text-black">
               Répartition de la Dette publique
             </h2>
             <div class="text-center">
@@ -347,12 +347,12 @@ v-for="treasuryOperation in budget?.publicDebt.components"
 
       <!-- Sources -->
       <div class="mt-6 bg-white p-4 shadow-lg">
-        <h2 class="mb-2 text-lg font-semibold">🗂️ Sources</h2>
+        <h2 class="mb-2 text-lg font-semibold dark:text-black">🗂️ Sources</h2>
         <UButton
 icon="i-heroicons-document-text" size="sm" color="blue" variant="solid"
           label="Voir les documents budgétaires" to="/documents/budget" :trailing="false" />
       </div>
-      <div class="mt-6 border-b border-gray-200 bg-white p-4 shadow-lg">
+      <div class="mt-6 border-b border-gray-200 bg-white p-4 shadow-lg dark:text-black">
         <h2 class="mb-2 text-lg font-semibold">💡 NB</h2>
         <ul class="list-disc space-y-1 pl-5">
           <li v-for="point in budget?.notes" :key="point">{{ point }}</li>

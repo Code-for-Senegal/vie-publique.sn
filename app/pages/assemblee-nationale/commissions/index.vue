@@ -188,7 +188,7 @@ const filteredCommissions = computed(() => {
     />
     <div class="mx-auto max-w-4xl">
       <div class="prose prose-sm sm:prose my-2">
-        <h1 class="">Commissions de l'Assemblée</h1>
+        <h1 class="dark:text-white">Commissions de l'Assemblée</h1>
       </div>
 
       <!-- Barre de recherche -->

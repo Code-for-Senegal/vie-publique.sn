@@ -82,7 +82,7 @@ useSeoMeta({
     />
     <ClientOnly>
       <div class="prose prose-sm sm:prose mx-auto my-4">
-        <h1 class="text-center text-xl text-gray-900 sm:text-2xl">
+        <h1 class="text-center text-xl text-gray-900 sm:text-2xl dark:text-gray-200">
           Codes du Sénégal
         </h1>
         <p class="mt-2 text-center text-sm text-gray-600">
@@ -167,7 +167,7 @@ useSeoMeta({
             </div>
 
             <div class="flex-grow">
-              <h3 class="mb-1 font-medium text-gray-900">
+              <h3 class="mb-1 font-medium text-gray-900 dark:text-gray-200">
                 {{ document.title }}
               </h3>
               <p class="line-clamp-2 text-sm text-gray-500">

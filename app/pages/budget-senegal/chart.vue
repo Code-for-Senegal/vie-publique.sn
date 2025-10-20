@@ -19,7 +19,7 @@ const { data: q1Datas } = useLazyFetch("/api/budget-q1");
       <UDivider />
       <pre>BudgetTendanceDebtCompositionChart</pre>
       <h2
-        class="bg-beige-300 mb-4 p-2 text-center font-bold font-semibold text-black"
+        class="bg-beige-300 mb-4 p-2 text-center font-bold text-black"
       >
         Composition de la dette publique du Sénégal
       </h2>
@@ -31,7 +31,7 @@ const { data: q1Datas } = useLazyFetch("/api/budget-q1");
       <UDivider />
       <pre>BudgetBarChart</pre>
       <h2
-        class="bg-beige-300 mb-4 p-2 text-center font-bold font-semibold text-black"
+        class="bg-beige-300 mb-4 p-2 text-center font-bold text-black"
       >
         Ressources du budget général
       </h2>

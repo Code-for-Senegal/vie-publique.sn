@@ -11,7 +11,7 @@
     <div class="">
       <div class="container">
         <div class="prose prose-sm sm:prose my-2">
-          <h1 class="">Annuaire des députés</h1>
+          <h1 class="dark:text-white">Annuaire des députés</h1>
         </div>
       </div>
     </div>

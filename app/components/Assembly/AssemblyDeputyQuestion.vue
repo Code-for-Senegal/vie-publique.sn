@@ -12,7 +12,7 @@
 
     <div
       v-else-if="questions.length === 0"
-      class="py-4 text-center text-gray-500"
+      class="py-4 text-center text-gray-500 dark:text-gray-200"
     >
       Aucune question référencée pour le moment
     </div>
@@ -28,7 +28,7 @@
           class="block"
         >
           <div>
-            <div class="text-xs text-gray-500">
+            <div class="text-xs text-gray-500 dark:text-gray-50">
               {{ $dateformat(question.question_date) }}
             </div>
             <h3 class="font-xs">

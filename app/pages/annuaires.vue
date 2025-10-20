@@ -22,7 +22,7 @@ const directorySchema = {
       "name": "Annuaires gouvernementaux Sénégal",
     },
     {
-      "@type": "Thing", 
+      "@type": "Thing",
       "name": "Institutions publiques sénégalaises",
     },
     {
@@ -263,10 +263,10 @@ const getIconColor = (color: string) => {
 
             <!-- Partie droite avec le texte -->
             <div class="flex flex-1 flex-col justify-center p-4">
-              <h2 class="text-base font-bold text-gray-800">
+              <h2 class="text-base font-bold text-gray-800 dark:text-gray-200">
                 {{ menu.title }}
               </h2>
-              <p class="text-xs text-gray-600 sm:text-sm">
+              <p class="text-xs text-gray-600 sm:text-sm dark:text-gray-400">
                 {{ menu.description }}
               </p>
             </div>

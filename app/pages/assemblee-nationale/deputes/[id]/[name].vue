@@ -38,7 +38,7 @@
             <p class="text-sm text-gray-500">Aucune commission</p>
           </div>
           <div v-else>
-            <p class="my-4 text-sm text-gray-500">
+            <p class="my-4 text-sm text-gray-500 dark:text-gray-50">
               Membres des commissions suivantes:
             </p>
 
@@ -121,7 +121,7 @@ const image = computed(() => {
 
 const deputySchema = computed(() => {
   if (!deputy.value) return null;
-  
+
   return {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -197,7 +197,7 @@ const breadcrumbSchema = computed(() => ({
 
 const profilePageSchema = computed(() => {
   if (!deputy.value) return null;
-  
+
   return {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
