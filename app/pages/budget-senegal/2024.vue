@@ -176,13 +176,13 @@ const toggleSortOrder = () => {
     </div>
     <!-- END IF -->
 
-    <div class="mt-6">
+    <div class="mt-6 bg-white p-4 shadow-lg dark:text-black">
       <h2 class="mb-2 text-lg font-semibold">💡 NB</h2>
       <ul class="list-disc space-y-1 pl-5">
         <li v-for="point in keyPoints" :key="point">{{ point }}</li>
       </ul>
     </div>
-    <div class="mt-6">
+    <div class="mt-6 border-b border-gray-200 bg-white p-4 shadow-lg dark:text-black">
       <h2 class="mb-2 text-lg font-semibold">🗂️ Sources</h2>
       <ul class="list-disc space-y-1 pl-5">
         <li v-for="source in sources" :key="source.url">

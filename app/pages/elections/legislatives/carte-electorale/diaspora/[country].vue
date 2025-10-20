@@ -57,7 +57,7 @@ const filteredRows = computed(() => {
             <h1 class="text-2xl font-bold">{{ country }}</h1>
             <UButton
               icon="i-heroicons-arrow-left"
-              to="'/elections/legislatives/carte-electorale'"
+              to="/elections/legislatives/carte-electorale"
               variant="ghost"
               @click="router.back()"
             />
@@ -70,7 +70,7 @@ const filteredRows = computed(() => {
           >
             <UCard class="custom-shadow bg-gray-50">
               <div class="text-center">
-                <div class="text-sm text-gray-600">Localités</div>
+                <div class="text-sm text-gray-600 dark:text-white">Localités</div>
                 <div class="text-2xl font-bold text-red-700 md:text-4xl">
                   {{ stats.localities }}
                 </div>
@@ -79,7 +79,7 @@ const filteredRows = computed(() => {
 
             <UCard class="custom-shadow bg-gray-50">
               <div class="text-center">
-                <div class="text-sm text-gray-600">Lieux de vote</div>
+                <div class="text-sm text-gray-600 dark:text-white">Lieux de vote</div>
                 <div class="text-2xl font-bold text-red-700 md:text-4xl">
                   {{ stats.pollingPlaces }}
                 </div>
@@ -88,7 +88,7 @@ const filteredRows = computed(() => {
 
             <UCard class="custom-shadow bg-gray-50">
               <div class="text-center">
-                <div class="text-sm text-gray-600">Bureaux</div>
+                <div class="text-sm text-gray-600 dark:text-white">Bureaux</div>
                 <div class="text-2xl font-bold text-red-700 md:text-4xl">
                   {{ stats.offices }}
                 </div>
@@ -97,7 +97,7 @@ const filteredRows = computed(() => {
 
             <UCard class="custom-shadow bg-gray-50">
               <div class="text-center">
-                <div class="text-sm text-gray-600">Électeurs</div>
+                <div class="text-sm text-gray-600 dark:text-white">Électeurs</div>
                 <div class="text-2xl font-bold text-red-700 md:text-4xl">
                   {{ stats.voters.toLocaleString() }}
                 </div>

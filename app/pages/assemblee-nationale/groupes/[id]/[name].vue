@@ -72,7 +72,7 @@
             </div>
 
             <!-- Contenu réel -->
-            <div v-else class="overflow-hidden rounded-lg bg-white shadow-sm">
+            <div v-else class="overflow-hidden rounded-lg bg-white shadow-sm dark:text-black">
               <div class="p-2">
                 <div class="flex flex-col items-center">
                   <!-- Logo -->

@@ -17,9 +17,9 @@
           variant="solid"
           class="rounded-full border-none px-1 text-center text-xs font-medium tracking-wide sm:px-2 sm:text-sm"
           :class="{
-            'bg-green-100 text-green-700': color === 'green',
-            'bg-red-100 text-red-700': color === 'red',
-            'bg-gray-100 text-gray-700': !color || color === 'gray',
+            'bg-green-100 text-green-700 dark:text-green-700 dark:bg-green-100': color === 'green',
+            'bg-red-100 text-red-700 dark:text-red-700 dark:bg-red-100': color === 'red',
+            'bg-gray-100 text-gray-700 dark:text-gray-700 dark:bg-gray-100': !color || color === 'gray',
           }"
         >
           {{ variation_percentage }}

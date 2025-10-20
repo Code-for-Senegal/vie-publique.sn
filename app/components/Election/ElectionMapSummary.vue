@@ -77,7 +77,7 @@ const summaryData: StatSection[] = [
 
 <template>
   <!-- En-tête -->
-  <h2 class="mb-4 text-center text-2xl font-bold text-gray-800">
+  <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 dark:text-white">
     Résumé du fichier électoral
   </h2>
 
@@ -90,7 +90,7 @@ const summaryData: StatSection[] = [
     <!-- Titre de section avec barres -->
     <div class="flex items-center justify-center gap-4 px-4">
       <div :class="`h-[1px] w-full bg-${section.color}-300`"></div>
-      <h3 class="text-lg font-bold" :class="`text-${section.color}-700`">
+      <h3 class="text-lg font-bold dark:text-white" :class="`text-${section.color}-700`">
         {{ section.title }}
       </h3>
       <div :class="`h-[1px] w-full bg-${section.color}-300`"></div>
@@ -104,7 +104,7 @@ const summaryData: StatSection[] = [
         class="custom-shadow bg-gray-50"
       >
         <div class="mb-1 flex items-center justify-between">
-          <span class="flex items-center gap-2 text-sm text-gray-600">
+          <span class="flex items-center gap-2 text-sm text-gray-600 dark:text-white">
             <UIcon :name="stat.icon" class="h-4 w-4 transition-colors" />
             {{ stat.label }}
           </span>

@@ -5,7 +5,7 @@
     <!-- Filtres -->
     <div class="mb-6 flex flex-wrap gap-4">
       <div class="min-w-[200px] flex-1">
-        <label class="mb-1 block text-sm font-medium text-gray-700"
+        <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-white"
           >Filtrer par statut</label
         >
         <select
@@ -19,7 +19,7 @@
         </select>
       </div>
       <div class="min-w-[200px] flex-1">
-        <label class="mb-1 block text-sm font-medium text-gray-700"
+        <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-white"
           >Filtrer par type</label
         >
         <select

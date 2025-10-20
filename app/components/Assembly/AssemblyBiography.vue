@@ -13,7 +13,7 @@ defineProps<ProfileHeaderProps>();
     <h2 class="mb-4 text-xl font-bold">
       Qui {{ deputy.gender === "F" ? "est-elle" : "est-il" }} ?
     </h2>
-    <div class="space-y-4 text-gray-700">
+    <div class="space-y-4 text-gray-700 dark:text-gray-200">
       <p>
         {{ `${deputy.first_name} ${deputy.last_name.toUpperCase()}` }}
         {{ deputy.gender === "F" ? "est une députée" : "est un député" }} du
@@ -27,7 +27,7 @@ defineProps<ProfileHeaderProps>();
 
       <div
         v-if="deputy.bio"
-        class="prose prose-gray max-w-none"
+        class="prose prose-gray max-w-none dark:text-gray-200"
         v-html="deputy.bio"
       ></div>
     </div>

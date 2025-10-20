@@ -200,7 +200,7 @@ watch([filterType, filterGender], () => {
     </h1>
     <div class="container">
       <div class="prose prose-sm sm:prose my-2">
-        <h1 class="">
+        <h1 class="dark:text-white">
           {{ totalsByGender.maleCount + totalsByGender.femaleCount }} Nominations
           <!--du président Diomaye-->
         </h1>

@@ -80,7 +80,7 @@ const statsTypes = [
     />
 
     <div class="prose prose-sm sm:prose mx-auto my-4">
-      <h1 class="mb-2 text-center">Statistiques Législatives 2024</h1>
+      <h1 class="mb-2 text-center dark:text-white">Statistiques Législatives 2024</h1>
     </div>
 
     <UCard v-if="loadingProfessions">

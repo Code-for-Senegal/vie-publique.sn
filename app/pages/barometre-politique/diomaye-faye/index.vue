@@ -161,7 +161,7 @@ const links = [{ label: "Barometre", to: "/barometre-politique" }];
 
     <div class="container mx-auto px-4">
       <div v-if="data" class="prose prose-sm sm:prose mx-auto my-4">
-        <h1 class="text-center text-2xl font-bold sm:text-3xl">
+        <h1 class="text-center text-2xl font-bold sm:text-3xl dark:text-white">
           {{ data.stats.total }} promesses de Diomaye
         </h1>
       </div>
@@ -178,8 +178,8 @@ const links = [{ label: "Barometre", to: "/barometre-politique" }];
               <div
                 class="mr-2 flex w-32 flex-shrink-0 items-center justify-between"
               >
-                <span class="text-sm uppercase">{{ value.label }}</span>
-                <span class="font-bold">{{ value.count }}</span>
+                <span class="text-sm uppercase dark:text-black">{{ value.label }}</span>
+                <span class="font-bold dark:text-black">{{ value.count }}</span>
               </div>
               <div class="h-4 flex-grow bg-gray-200">
                 <div

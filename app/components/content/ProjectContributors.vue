@@ -18,7 +18,7 @@ const contributors = ref<ContributorsData>(contributorsData);
 </script>
 
 <template>
-  <div class="bg-white py-2">
+  <div class="bg-white py-2 dark:text-black">
     <div class="container mx-auto">
       <div class="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-3">
         <div

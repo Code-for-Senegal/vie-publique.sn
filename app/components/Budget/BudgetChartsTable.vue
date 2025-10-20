@@ -24,7 +24,7 @@ const getPercentage = (value, total) => ((value / total) * 100).toFixed(1);
   <div class="mx-auto space-y-4">
     <!-- Recettes -->
     <div class="mt-2 overflow-hidden">
-      <h2 class="mb-2 p-2 text-center font-bold">Répartition des Recettes</h2>
+      <h2 class="mb-2 p-2 text-center font-bold dark:text-gray-200">Répartition des Recettes</h2>
 
       <div class="overflow-hidden">
         <table class="w-full divide-y divide-gray-200">
