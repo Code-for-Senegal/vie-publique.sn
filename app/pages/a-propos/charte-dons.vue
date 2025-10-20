@@ -21,10 +21,10 @@
             Charte des Dons
           </h1>
           <p class="text-lg text-gray-600 dark:text-gray-300">
-            Vie-Publique.sn - Plateforme citoyenne indépendante
+            Vie Publique Sénégal - Plateforme citoyenne indépendante
           </p>
           <div class="mt-4 flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
-            <span>Dernière mise à jour : Janvier 2025</span>
+            <span>Dernière mise à jour : Octobre 2025</span>
             <span>•</span>
             <span>Version 1.0</span>
           </div>
@@ -34,39 +34,6 @@
         <div class="prose prose-lg dark:prose-invert max-w-none">
           <ContentDoc path="/a-propos/charte-dons" />
         </div>
-
-        <!-- Actions en bas -->
-        <div class="mt-12 border-t border-gray-200 pt-8 dark:border-gray-700">
-          <div class="flex flex-col gap-4 sm:flex-row sm:justify-between">
-            <UButton
-              to="/don/bictorys"
-              color="primary"
-              size="lg"
-              icon="i-heroicons-heart"
-            >
-              Faire un don via Bictorys
-            </UButton>
-            <UButton
-              to="/don/paydunya"
-              color="primary"
-              variant="outline"
-              size="lg"
-              icon="i-heroicons-heart"
-            >
-              Faire un don via Paydunya
-            </UButton>
-          </div>
-
-          <p class="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
-            Des questions ? Contactez-nous à
-            <a
-              href="mailto:contact@vie-publique.sn"
-              class="font-medium text-primary-600 hover:underline dark:text-primary-400"
-            >
-              contact@vie-publique.sn
-            </a>
-          </p>
-        </div>
       </div>
     </UContainer>
   </div>
@@ -75,10 +42,10 @@
 <script setup lang="ts">
 // Meta tags SEO
 useSeoMeta({
-  title: 'Charte des Dons - Vie-Publique.sn',
+  title: 'Charte des Dons - Vie Publique Sénégal',
   description:
     'Découvrez notre charte des dons et comment nous utilisons vos contributions pour maintenir une plateforme d\'information publique transparente au Sénégal.',
-  ogTitle: 'Charte des Dons - Vie-Publique.sn',
+  ogTitle: 'Charte des Dons - Vie Publique Sénégal',
   ogDescription:
     'Transparence et engagement : comment vos dons soutiennent l\'information publique au Sénégal',
 })
