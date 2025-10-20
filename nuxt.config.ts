@@ -185,6 +185,20 @@ export default defineNuxtConfig({
     bictorysApiUrl: process.env.BICTORYS_API_URL,
     bictorysWebhookSecret: process.env.BICTORYS_WEBHOOK_SECRET,
 
+    // Configuration Paydunya
+    paydunyaMasterKey: process.env.PAYDUNYA_MASTER_KEY,
+    paydunyaPrivateKey: process.env.PAYDUNYA_PRIVATE_KEY,
+    paydunyaToken: process.env.PAYDUNYA_TOKEN,
+    paydunyaApiUrl: process.env.PAYDUNYA_API_URL,
+
+    // Configuration SMTP pour Nodemailer
+    smtpHost: process.env.SMTP_HOST,
+    smtpPort: process.env.SMTP_PORT,
+    smtpSecure: process.env.SMTP_SECURE,
+    smtpUser: process.env.SMTP_USER,
+    smtpPassword: process.env.SMTP_PASSWORD,
+    smtpFromEmail: process.env.SMTP_FROM_EMAIL,
+
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL,
       showPinnedPeoples: process.env.PUBLIC_SHOW_PINNED_PEOLPLES,

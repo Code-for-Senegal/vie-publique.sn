@@ -2,6 +2,7 @@
  * Webhook endpoint pour recevoir les notifications de paiement de Bictorys
  * Ce endpoint sera appelé par Bictorys lorsqu'un paiement est complété
  */
+
 export default defineEventHandler(async (event) => {
   try {
     const config = useRuntimeConfig()
@@ -83,11 +84,28 @@ async function handleSuccessfulPayment(data: any) {
     email: data.customer?.email,
   })
 
-  // TODO: Implémenter la logique métier
-  // - Enregistrer le don dans la base de données
-  // - Envoyer un email de remerciement au donateur
+  // TODO: Enregistrer le don dans la base de données
+  // - Sauvegarder dans une table donations
   // - Mettre à jour les statistiques de dons
   // - Émettre un reçu fiscal si applicable
+
+  // Envoyer un email de remerciement au donateur
+  try {
+    await sendDonationConfirmationEmail({
+      gateway: 'bictorys',
+      transaction_id: data.reference || data.transaction_id,
+      amount: data.amount,
+      donor_name: data.customer?.name || data.customerObject?.name || 'Donateur',
+      donor_email: data.customer?.email || data.customerObject?.email,
+      donor_phone: data.customer?.phone || data.customerObject?.phone,
+      invoice_ref: data.merchantReference || data.reference,
+      created_at: new Date().toISOString(),
+    })
+    console.log('✉️ Email de confirmation envoyé avec succès')
+  } catch (emailError) {
+    console.error('❌ Erreur lors de l\'envoi de l\'email:', emailError)
+    // Ne pas faire échouer le webhook si l'email échoue
+  }
 }
 
 /**

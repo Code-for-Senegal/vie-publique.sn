@@ -24,17 +24,19 @@ export default defineEventHandler(async (event) => {
     }
 
     // Générer des références uniques pour ce paiement
-    const paymentReference = `VPS-DON-${Date.now()}-${Math.random().toString(36).substring(7)}`
+    const paymentReference = `VPSN-DON-${Date.now()}-${Math.random().toString(36).substring(7)}`
     const merchantReference = crypto.randomUUID()
 
+    const successRedirectUrl = "https://client.co/redirect_url";
+    const errorRedirectUrl = "https://client.co/redirect_url";
 
     const bictorysPayload = {
       amount: Math.round(amount),
       currency: 'XOF',
       paymentReference,
       merchantReference,
-      successRedirectUrl: 'https://client.co/redirect_url',
-      errorRedirectUrl: 'https://client.co/redirect_url',
+      successRedirectUrl: successRedirectUrl,
+      errorRedirectUrl: errorRedirectUrl,
       customerObject: {
         name,
         email,
@@ -42,18 +44,8 @@ export default defineEventHandler(async (event) => {
         city: 'Dakar',
         country: 'SN',
         locale: 'fr-FR',
-      },
-      allowUpdateCustomer: false,
+      }
     }
-
-    console.log('Initialisation du paiement Bictorys:', {
-      amount: bictorysPayload.amount,
-      reference: paymentReference,
-      apiUrl: config.bictorysApiUrl,
-      apiKey: config.bictorysApiKey ? `${config.bictorysApiKey.substring(0, 20)}...` : 'NON DEFINIE',
-    })
-
-    console.log('Payload complet:', JSON.stringify(bictorysPayload, null, 2))
 
     // Appeler l'API Bictorys pour initialiser le paiement
     const response: any = await $fetch(`${config.bictorysApiUrl}`, {
@@ -64,8 +56,6 @@ export default defineEventHandler(async (event) => {
       },
       body: bictorysPayload,
     })
-
-    console.log('Réponse Bictorys:', response)
 
     // Retourner l'URL de paiement et les détails de la transaction
     // Bictorys retourne: { type, link, chargeId, opToken }
@@ -82,8 +72,6 @@ export default defineEventHandler(async (event) => {
       },
     }
   } catch (error: any) {
-    console.error('Erreur lors de l\'initialisation du paiement Bictorys:', error)
-
     throw createError({
       statusCode: error.statusCode || 500,
       message: error.message || 'Erreur lors de l\'initialisation du paiement',

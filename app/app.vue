@@ -206,8 +206,6 @@ onMounted(() => {
 
     <!-- affichage des deux composants à rendre dynamique -->
     <AppBottomNav v-show="!isChatPage" />
-
-    <DonateButton />
   </UContainer>
 </template>
 
