@@ -42,7 +42,7 @@ const image = computed(() => {
 
 const questionSchema = computed(() => {
   if (!question.value) return null;
-  
+
   return {
     "@context": "https://schema.org",
     "@type": "Question",
@@ -112,7 +112,7 @@ const breadcrumbSchema = computed(() => ({
 
 const webPageSchema = computed(() => {
   if (!question.value) return null;
-  
+
   return {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -235,12 +235,13 @@ watchEffect(() => {
       </div>
 
       <!-- Error state -->
-      <div
-        v-else-if="error"
-        class="py-8 text-center text-red-500 dark:text-red-300"
-      >
-        {{ error }}
-      </div>
+      <UAlert v-else-if="error"
+        title="Erreur de chargement"
+        description="Une erreur est survenue lors du chargement de la question"
+        color="red"
+        class="dark:text-white"
+        icon="i-heroicons-exclamation-triangle"
+      />
 
       <!-- Contenu de la question -->
       <div v-else-if="question" class="space-y-6">
@@ -249,7 +250,7 @@ watchEffect(() => {
           <meta itemprop="url" :content="url">
           <meta itemprop="dateCreated" :content="formatDateISO(question.question_date)">
           <meta itemprop="name" :content="question.subject">
-          
+
           <!-- En-tête avec info député -->
           <div
             class="rounded-lg bg-white p-2 shadow-sm dark:bg-gray-800 dark:text-gray-100"
@@ -260,7 +261,7 @@ watchEffect(() => {
               <meta itemprop="familyName" :content="question.deputy.last_name">
               <meta itemprop="jobTitle" content="Député">
               <meta itemprop="image" :content="getImageUrl(question.deputy.photo)">
-              
+
               <div itemprop="worksFor" itemscope itemtype="https://schema.org/GovernmentOrganization">
                 <meta itemprop="name" content="Assemblée nationale du Sénégal">
                 <meta itemprop="url" :content="`${siteUrl}/assemblee-nationale`">
@@ -292,7 +293,7 @@ watchEffect(() => {
                 </div>
               </NuxtLink>
             </div>
-            
+
             <h1 class="mb-4 text-2xl font-bold dark:text-gray-100" itemprop="name">
               {{ question.subject }}
             </h1>
@@ -341,7 +342,7 @@ watchEffect(() => {
             >
               <meta itemprop="contentUrl" :content="getImageUrl(attachment.directus_files_id.id)">
               <meta itemprop="encodingFormat" :content="attachment.directus_files_id.type">
-              
+
               <!-- Image attachments -->
               <img
                 v-if="isImageFile(attachment.directus_files_id.type)"

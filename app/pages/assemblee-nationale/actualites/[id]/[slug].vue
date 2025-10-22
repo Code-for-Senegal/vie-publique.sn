@@ -232,12 +232,13 @@ watchEffect(() => {
     </div>
 
     <!-- Error state -->
-    <div
-      v-else-if="error"
-      class="rounded-lg bg-red-50 p-4 text-center text-red-500"
-    >
-      {{ error }}
-    </div>
+    <UAlert v-else-if="error"
+        title="Erreur de chargement"
+        description="Une erreur est survenue lors du chargement de l'article"
+        color="red"
+        icon="i-heroicons-exclamation-triangle"
+        class="dark:text-white"
+    />
 
     <!-- Content -->
     <article
