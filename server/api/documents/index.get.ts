@@ -146,7 +146,7 @@ export default defineCachedEventHandler(
           ? { audit_institution: doc.audit_institution }
           : {}),
         ...(doc.cover_image
-          ? { cover_image: `${config.cmsApiUrl}/assets/${doc.cover_image}` }
+          ? { cover_image: doc.cover_image }
           : {}),
         ...(doc.file ? { file: doc.file } : {}),
       }));

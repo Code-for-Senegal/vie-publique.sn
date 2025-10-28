@@ -105,8 +105,7 @@ const datasetSchema = {
   distribution: {
     "@type": "DataDownload",
     encodingFormat: "application/pdf",
-    contentUrl:
-      `${config.public.cmsApiUrl}/assets/e703d8f8-d175-4950-a909-92d567782b47/medias-2025.pdf`,
+    contentUrl: useCmsFileAbsolute('e703d8f8-d175-4950-a909-92d567782b47/medias-2025.pdf'),
   },
 };
 

@@ -14,21 +14,8 @@ export const useCmsImage = (imagePath: string | null | undefined, quality?: numb
     return '/images/placeholder.jpg'
   }
 
-  // Si l'image est déjà une URL complète (commence par http ou https)
+  // Si l'image est déjà une URL externe complète (http/https), retourner telle quelle
   if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
-    const config = useRuntimeConfig()
-    const cmsUrl = config.public.cmsApiUrl || ''
-    
-    // Si c'est une URL du CMS, la transformer en proxy
-    if (cmsUrl && imagePath.includes(cmsUrl)) {
-      // Extraire le chemin après /assets/
-      const assetsIndex = imagePath.indexOf('/assets/')
-      if (assetsIndex !== -1) {
-        const path = imagePath.substring(assetsIndex + 8) // 8 = longueur de '/assets/'
-        return `/medias/${path}`
-      }
-    }
-    // Sinon, retourner l'URL telle quelle
     return imagePath
   }
 
@@ -37,14 +24,14 @@ export const useCmsImage = (imagePath: string | null | undefined, quality?: numb
     return imagePath
   }
 
-  // Sinon, c'est un chemin relatif du CMS, utiliser le proxy SEO-friendly
+  // Sinon, c'est un ID du CMS, transformer en URL proxy SEO-friendly
   let proxyUrl = `/medias/${imagePath}`
-  
+
   // Ajouter le paramètre de qualité si fourni
   if (quality) {
     proxyUrl += `?quality=${quality}`
   }
-  
+
   return proxyUrl
 }
 

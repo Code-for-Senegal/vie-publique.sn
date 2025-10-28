@@ -39,9 +39,7 @@ export default defineCachedEventHandler(
       const transformedPartners: Partner[] = partnersData.map((partner) => ({
         id: partner.id,
         name: partner.name,
-        logo: partner.logo
-          ? `${config.cmsApiUrl}/assets/${partner.logo}`
-          : "",
+        logo: partner.logo || "",
         website: partner.website || "",
         status: partner.status,
       }));

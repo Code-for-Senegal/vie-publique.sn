@@ -97,9 +97,7 @@ export default defineCachedEventHandler(
               id: question.deputy.id,
               first_name: question.deputy.first_name,
               last_name: question.deputy.last_name,
-              photo: question.deputy.photo
-                ? `${config.cmsApiUrl}/assets/${question.deputy.photo}`
-                : null,
+              photo: question.deputy.photo || null,
               group: question.deputy.group || null,
             }
           : null,

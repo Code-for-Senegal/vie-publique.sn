@@ -55,9 +55,7 @@ export default defineCachedEventHandler(
         organisation: nominationData.organisation || null,
         nominationDate: nominationData.nominationDate,
         endDate: nominationData.endDate || "",
-        photo: nominationData.photo
-          ? `${config.cmsApiUrl}/assets/${nominationData.photo}`
-          : null,
+        photo: nominationData.photo || null,
         formation: nominationData.formation || null,
         predecessor: nominationData.predecessor || null,
         rating: nominationData.rating || null,

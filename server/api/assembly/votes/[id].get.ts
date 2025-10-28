@@ -66,7 +66,7 @@ export default defineCachedEventHandler(
                   id: dv.deputy.id,
                   first_name: dv.deputy.first_name,
                   last_name: dv.deputy.last_name,
-                  photo: dv.deputy.photo ? `${config.cmsApiUrl}/assets/${dv.deputy.photo}` : null,
+                  photo: dv.deputy.photo || null,
                   group: dv.deputy.group || null,
                 }
               : null,

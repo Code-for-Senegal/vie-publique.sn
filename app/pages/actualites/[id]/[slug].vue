@@ -50,7 +50,7 @@ const image = computed(() => {
 
 const pdfUrl = computed(() => {
   if (!article.value?.document?.file) return "";
-  return `${config.public.cmsApiUrl}/assets/${article.value.document.file}`;
+  return useCmsFile(article.value.document.file);
 });
 
 const articleSchema = computed(() => {

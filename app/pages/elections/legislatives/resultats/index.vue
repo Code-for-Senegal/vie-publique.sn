@@ -143,8 +143,7 @@ const coalitionResults = [
     departementsWon: 40,
     seatMajority: 29,
     head_of_list: {
-      photo_url:
-        `${config.public.cmsApiUrl}/assets/4e1c3427-ae2d-4090-a5fb-8460f7ef8ac3`,
+      photo_url: useCmsImage('4e1c3427-ae2d-4090-a5fb-8460f7ef8ac3'),
       full_name: "OUSMANE SONKO",
     },
   },
@@ -155,8 +154,7 @@ const coalitionResults = [
     seatMajority: 8,
     departementsWon: 4,
     head_of_list: {
-      photo_url:
-        `${config.public.cmsApiUrl}/assets/99371091-1155-4e66-95ca-b9ee21eb2320`,
+      photo_url: useCmsImage('99371091-1155-4e66-95ca-b9ee21eb2320'),
       full_name: "MACKY SALL",
     },
   },
@@ -167,8 +165,7 @@ const coalitionResults = [
     departementsWon: 1,
     seatMajority: 5,
     head_of_list: {
-      photo_url:
-        `${config.public.cmsApiUrl}/assets/99371091-1155-4e66-95ca-b9ee21eb2320`,
+      photo_url: useCmsImage('99371091-1155-4e66-95ca-b9ee21eb2320'),
       full_name: "Amadou Ba",
     },
   },
@@ -179,8 +176,7 @@ const coalitionResults = [
     seatMajority: 3,
     departementsWon: null,
     head_of_list: {
-      photo_url:
-        `${config.public.cmsApiUrl}/assets/aadfcb81-f15f-444f-9faf-120918647cd1`,
+      photo_url: useCmsImage('aadfcb81-f15f-444f-9faf-120918647cd1'),
       full_name: "BARTHELEMY TOYE DIAS",
     },
   },
