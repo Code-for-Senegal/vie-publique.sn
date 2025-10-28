@@ -3,12 +3,12 @@
  * Statistiques sur les entités publiques
  */
 
-import { readItems } from '@directus/sdk'
-import type { StateEntityStats } from '~/types/state-entity'
+import { readItems } from '@directus/sdk';
+import type { StateEntityStats } from '~/types/state-entity';
 
 export default defineCachedEventHandler(
   async (): Promise<StateEntityStats> => {
-    const cmsClient = getCmsClient()
+    const cmsClient = getCmsClient();
 
     try {
       // Récupérer toutes les entités pour calculer les stats
@@ -17,7 +17,7 @@ export default defineCachedEventHandler(
           fields: ['id', 'type', 'status'],
           limit: -1,
         }),
-      )
+      );
 
       // Calculer les statistiques
       const byType: Record<string, number> = {
@@ -31,7 +31,7 @@ export default defineCachedEventHandler(
         commission: 0,
         conseil: 0,
         autre: 0,
-      }
+      };
 
       const byStatus: Record<string, number> = {
         active: 0,
@@ -39,19 +39,19 @@ export default defineCachedEventHandler(
         dissolved: 0,
         merged: 0,
         renamed: 0,
-      }
+      };
 
       entities.forEach((entity) => {
         // Comptage par type
         if (entity.type && byType[entity.type] !== undefined) {
-          byType[entity.type]++
+          byType[entity.type]++;
         }
 
         // Comptage par statut
         if (entity.status && byStatus[entity.status] !== undefined) {
-          byStatus[entity.status]++
+          byStatus[entity.status]++;
         }
-      })
+      });
 
       return {
         total: entities.length,
@@ -60,17 +60,17 @@ export default defineCachedEventHandler(
         active_ministries: byType.ministere,
         total_agencies: byType.agence,
         total_directions: byType.direction,
-      }
+      };
     } catch (error) {
-      console.error('Error fetching state stats:', error)
+      console.error('Error fetching state stats:', error);
       throw createError({
         statusCode: 500,
         message: 'Erreur lors de la récupération des statistiques',
-      })
+      });
     }
   },
   {
     maxAge: 60 * 60, // Cache 1 heure
     name: 'state-stats',
   },
-)
+);

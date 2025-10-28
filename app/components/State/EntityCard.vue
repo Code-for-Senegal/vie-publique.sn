@@ -1,30 +1,30 @@
 <script setup lang="ts">
-import type { StateEntity } from '~/types/state-entity'
+import type { StateEntity } from '~/types/state-entity';
 
 interface Props {
-  entity: StateEntity
-  showParent?: boolean
+  entity: StateEntity;
+  showParent?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   showParent: false,
-})
+});
 
 // Affichage du nom (avec acronyme si disponible)
 const displayName = computed(() => {
   if (props.entity.acronym) {
-    return `${props.entity.name} (${props.entity.acronym})`
+    return `${props.entity.name} (${props.entity.acronym})`;
   }
-  return props.entity.name
-})
+  return props.entity.name;
+});
 
 // Parent entity
 const parentEntity = computed(() => {
   if (typeof props.entity.parent_entity === 'object' && props.entity.parent_entity !== null) {
-    return props.entity.parent_entity
+    return props.entity.parent_entity;
   }
-  return null
-})
+  return null;
+});
 </script>
 
 <template>

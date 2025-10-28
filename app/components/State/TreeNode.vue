@@ -1,38 +1,38 @@
 <script setup lang="ts">
-import type { StateEntityTreeNode } from '~/types/state-entity'
+import type { StateEntityTreeNode } from '~/types/state-entity';
 
 interface Props {
-  node: StateEntityTreeNode
-  isExpanded: boolean
-  level?: number
+  node: StateEntityTreeNode;
+  isExpanded: boolean;
+  level?: number;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   level: 0,
-})
+});
 
 const emit = defineEmits<{
-  toggle: [nodeId: number]
-}>()
+  toggle: [nodeId: number];
+}>();
 
 // Padding basé sur le niveau
-const paddingLeft = computed(() => `${props.level * 1.5}rem`)
+const paddingLeft = computed(() => `${props.level * 1.5}rem`);
 
-const hasChildren = computed(() => props.node.children && props.node.children.length > 0)
+const hasChildren = computed(() => props.node.children && props.node.children.length > 0);
 
 const handleToggle = () => {
   if (hasChildren.value) {
-    emit('toggle', props.node.id)
+    emit('toggle', props.node.id);
   }
-}
+};
 
 // Affichage du nom
 const displayName = computed(() => {
   if (props.node.acronym) {
-    return `${props.node.name} (${props.node.acronym})`
+    return `${props.node.name} (${props.node.acronym})`;
   }
-  return props.node.name
-})
+  return props.node.name;
+});
 </script>
 
 <template>

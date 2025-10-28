@@ -3,19 +3,19 @@
  * Détail d'une entité publique avec historique, enfants et fil d'Ariane
  */
 
-import { readItems } from '@directus/sdk'
-import type { StateEntityDetailResponse } from '~/types/state-entity'
+import { readItems } from '@directus/sdk';
+import type { StateEntityDetailResponse } from '~/types/state-entity';
 
 export default defineCachedEventHandler(
   async (event): Promise<StateEntityDetailResponse> => {
-    const slug = getRouterParam(event, 'slug')
-    const cmsClient = getCmsClient()
+    const slug = getRouterParam(event, 'slug');
+    const cmsClient = getCmsClient();
 
     if (!slug) {
       throw createError({
         statusCode: 400,
         message: 'Le slug est requis',
-      })
+      });
     }
 
     try {
@@ -34,16 +34,16 @@ export default defineCachedEventHandler(
           ],
           limit: 1,
         }),
-      )
+      );
 
       if (!entityData || entityData.length === 0) {
         throw createError({
           statusCode: 404,
           message: 'Entité non trouvée',
-        })
+        });
       }
 
-      const entity = entityData[0]
+      const entity = entityData[0];
 
       // 2. Récupérer les enfants directs
       const children = await cmsClient.request(
@@ -67,7 +67,7 @@ export default defineCachedEventHandler(
           sort: ['type', 'name'],
           limit: -1, // Tous les enfants
         }),
-      )
+      );
 
       // 3. Récupérer l'historique des événements
       const history = await cmsClient.request(
@@ -94,11 +94,11 @@ export default defineCachedEventHandler(
           sort: ['-event_date'],
           limit: -1,
         }),
-      )
+      );
 
       // 4. Construire le fil d'Ariane (breadcrumb)
-      const breadcrumb = []
-      let currentEntity = entity
+      const breadcrumb = [];
+      let currentEntity = entity;
 
       while (currentEntity.parent_entity) {
         // Si parent_entity est un objet
@@ -106,7 +106,7 @@ export default defineCachedEventHandler(
           typeof currentEntity.parent_entity === 'object' &&
           currentEntity.parent_entity !== null
         ) {
-          breadcrumb.unshift(currentEntity.parent_entity)
+          breadcrumb.unshift(currentEntity.parent_entity);
 
           // Charger le parent suivant
           const parentData = await cmsClient.request(
@@ -124,15 +124,15 @@ export default defineCachedEventHandler(
               ],
               limit: 1,
             }),
-          )
+          );
 
           if (parentData && parentData.length > 0) {
-            currentEntity = parentData[0]
+            currentEntity = parentData[0];
           } else {
-            break
+            break;
           }
         } else {
-          break
+          break;
         }
       }
 
@@ -141,24 +141,24 @@ export default defineCachedEventHandler(
         children: children || [],
         history: history || [],
         breadcrumb,
-      }
+      };
     } catch (error: any) {
       if (error.statusCode === 404) {
-        throw error
+        throw error;
       }
-      console.error('Error fetching state entity detail:', error)
+      console.error('Error fetching state entity detail:', error);
       throw createError({
         statusCode: 500,
         message: "Erreur lors de la récupération des détails de l'entité",
-      })
+      });
     }
   },
   {
     maxAge: 60 * 60, // Cache 1 heure
     name: 'state-entity-detail',
     getKey: (event) => {
-      const slug = getRouterParam(event, 'slug')
-      return `state-entity-${slug}`
+      const slug = getRouterParam(event, 'slug');
+      return `state-entity-${slug}`;
     },
   },
-)
+);

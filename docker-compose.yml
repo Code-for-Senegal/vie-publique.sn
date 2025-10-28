@@ -10,7 +10,7 @@ services:
     container_name: vie-publique-app
     restart: unless-stopped
     ports:
-      - "${APP_PORT:-3000}:3000"
+      - '${APP_PORT:-3000}:3000'
     environment:
       - NODE_ENV=${NODE_ENV:-production}
       - NUXT_HOST=0.0.0.0
@@ -33,7 +33,7 @@ services:
     env_file:
       - .env
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000/api/health']
       interval: 30s
       timeout: 10s
       retries: 3
@@ -44,9 +44,9 @@ services:
       # Volume pour les logs (optionnel)
       - logs-volume:/app/logs
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.vie-publique.rule=Host(`localhost`)"
-      - "traefik.http.services.vie-publique.loadbalancer.server.port=3000"
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.vie-publique.rule=Host(`localhost`)'
+      - 'traefik.http.services.vie-publique.loadbalancer.server.port=3000'
 
   # Redis pour le cache (optionnel)
   redis:
@@ -54,7 +54,7 @@ services:
     container_name: vie-publique-redis
     restart: unless-stopped
     ports:
-      - "6379:6379"
+      - '6379:6379'
     volumes:
       - redis-data:/data
     networks:
@@ -68,9 +68,9 @@ services:
     container_name: traefik
     restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
-      - "8080:8080"  # Dashboard Traefik
+      - '80:80'
+      - '443:443'
+      - '8080:8080' # Dashboard Traefik
     command:
       - --api.dashboard=true
       - --api.insecure=true

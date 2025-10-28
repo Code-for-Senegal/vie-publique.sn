@@ -8,8 +8,8 @@ services:
       dockerfile: Dockerfile.dev
     container_name: vie-publique-dev
     ports:
-      - "3000:3000"
-      - "24678:24678"  # Port pour le HMR de Vite
+      - '3000:3000'
+      - '24678:24678' # Port pour le HMR de Vite
     volumes:
       # Mount du code source pour le hot reload
       - .:/app
@@ -33,7 +33,7 @@ services:
     container_name: postgres-dev
     restart: unless-stopped
     ports:
-      - "5432:5432"
+      - '5432:5432'
     environment:
       - POSTGRES_DB=vie_publique_dev
       - POSTGRES_USER=dev_user
@@ -51,7 +51,7 @@ services:
     container_name: redis-dev
     restart: unless-stopped
     ports:
-      - "6379:6379"
+      - '6379:6379'
     volumes:
       - redis-dev-data:/data
     networks:
@@ -65,8 +65,8 @@ services:
     container_name: mailhog
     restart: unless-stopped
     ports:
-      - "1025:1025"  # SMTP port
-      - "8025:8025"  # Web UI port
+      - '1025:1025' # SMTP port
+      - '8025:8025' # Web UI port
     networks:
       - dev-network
     profiles:

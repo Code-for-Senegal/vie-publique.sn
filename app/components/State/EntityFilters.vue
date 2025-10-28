@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import type { StateEntityType, StateEntityStatus } from '~/types/state-entity'
+import type { StateEntityType, StateEntityStatus } from '~/types/state-entity';
 
 interface Props {
-  search?: string
-  type?: StateEntityType
-  status?: StateEntityStatus
+  search?: string;
+  type?: StateEntityType;
+  status?: StateEntityStatus;
 }
 
-const props = defineProps<Props>()
+const props = defineProps<Props>();
 
 const emit = defineEmits<{
-  'update:search': [value: string]
-  'update:type': [value: StateEntityType | undefined]
-  'update:status': [value: StateEntityStatus | undefined]
-  reset: []
-}>()
+  'update:search': [value: string];
+  'update:type': [value: StateEntityType | undefined];
+  'update:status': [value: StateEntityStatus | undefined];
+  reset: [];
+}>();
 
 // Options pour les filtres
 const typeOptions = [
@@ -29,7 +29,7 @@ const typeOptions = [
   { value: 'commission', label: 'Commissions' },
   { value: 'conseil', label: 'Conseils' },
   { value: 'autre', label: 'Autres' },
-]
+];
 
 const statusOptions = [
   { value: 'active', label: 'Actives' },
@@ -37,34 +37,34 @@ const statusOptions = [
   { value: 'dissolved', label: 'Dissoutes' },
   { value: 'merged', label: 'Fusionnées' },
   { value: 'renamed', label: 'Renommées' },
-]
+];
 
 // Recherche locale avec debounce
-const searchInput = ref(props.search || '')
-const searchDebounced = refDebounced(searchInput, 500)
+const searchInput = ref(props.search || '');
+const searchDebounced = refDebounced(searchInput, 500);
 
 watch(searchDebounced, (value) => {
-  emit('update:search', value)
-})
+  emit('update:search', value);
+});
 
 // Type et status
-const typeSelected = ref(props.type)
-const statusSelected = ref(props.status || 'active')
+const typeSelected = ref(props.type);
+const statusSelected = ref(props.status || 'active');
 
 watch(typeSelected, (value) => {
-  emit('update:type', value)
-})
+  emit('update:type', value);
+});
 
 watch(statusSelected, (value) => {
-  emit('update:status', value as StateEntityStatus)
-})
+  emit('update:status', value as StateEntityStatus);
+});
 
 const handleReset = () => {
-  searchInput.value = ''
-  typeSelected.value = undefined
-  statusSelected.value = 'active'
-  emit('reset')
-}
+  searchInput.value = '';
+  typeSelected.value = undefined;
+  statusSelected.value = 'active';
+  emit('reset');
+};
 </script>
 
 <template>

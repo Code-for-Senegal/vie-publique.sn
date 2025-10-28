@@ -1,6 +1,6 @@
 <script setup lang="ts">
-const route = useRoute()
-const slug = computed(() => route.params.slug as string)
+const route = useRoute();
+const slug = computed(() => route.params.slug as string);
 
 // Charger les détails
 const {
@@ -13,14 +13,14 @@ const {
   hasChildren,
   hasHistory,
   childrenByType,
-} = useStateEntityDetail(slug)
+} = useStateEntityDetail(slug);
 
 // Erreur 404
 if (error.value) {
   throw createError({
     statusCode: 404,
     message: 'Entité non trouvée',
-  })
+  });
 }
 
 // SEO dynamique
@@ -31,21 +31,21 @@ useSeoMeta({
     `Détails de l'entité publique ${entity.value?.name} - Organisation de l'État sénégalais`,
   ogTitle: () => entity.value?.name,
   ogDescription: () => entity.value?.description,
-})
+});
 
 useHead({
   title: () => entity.value?.name || 'Entité publique',
-})
+});
 
 // Formater les dates
 const formatDate = (dateString?: string) => {
-  if (!dateString) return null
+  if (!dateString) return null;
   return new Date(dateString).toLocaleDateString('fr-FR', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-  })
-}
+  });
+};
 
 // Grouper les types d'événements
 const eventTypeLabels: Record<string, string> = {
@@ -55,7 +55,7 @@ const eventTypeLabels: Record<string, string> = {
   dissolved: 'Dissolution',
   moved: 'Déplacement',
   other: 'Autre',
-}
+};
 </script>
 
 <template>

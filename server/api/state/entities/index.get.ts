@@ -3,21 +3,21 @@
  * Liste paginée des entités publiques avec filtres
  */
 
-import { readItems } from '@directus/sdk'
-import type { StateEntityListResponse, StateEntityFilters } from '~/types/state-entity'
+import { readItems } from '@directus/sdk';
+import type { StateEntityListResponse, StateEntityFilters } from '~/types/state-entity';
 
 export default defineCachedEventHandler(
   async (event): Promise<StateEntityListResponse> => {
-    const query = getQuery(event) as StateEntityFilters
-    const cmsClient = getCmsClient()
+    const query = getQuery(event) as StateEntityFilters;
+    const cmsClient = getCmsClient();
 
     // Pagination
-    const page = Number(query.page) || 1
-    const limit = Number(query.limit) || 20
-    const offset = (page - 1) * limit
+    const page = Number(query.page) || 1;
+    const limit = Number(query.limit) || 20;
+    const offset = (page - 1) * limit;
 
     // Construction des filtres Directus
-    const filters: any = {}
+    const filters: any = {};
 
     // Filtre par recherche (nom, acronyme, short_name)
     if (query.search) {
@@ -25,33 +25,33 @@ export default defineCachedEventHandler(
         { name: { _icontains: query.search } },
         { acronym: { _icontains: query.search } },
         { short_name: { _icontains: query.search } },
-      ]
+      ];
     }
 
     // Filtre par type
     if (query.type) {
-      filters.type = { _eq: query.type }
+      filters.type = { _eq: query.type };
     }
 
     // Filtre par statut (par défaut: active)
     if (query.status) {
-      filters.status = { _eq: query.status }
+      filters.status = { _eq: query.status };
     } else {
-      filters.status = { _eq: 'active' }
+      filters.status = { _eq: 'active' };
     }
 
     // Filtre par entité parente
     if (query.parent_id !== undefined) {
       if (query.parent_id === null) {
         // Racines seulement (ministères)
-        filters.parent_entity = { _null: true }
+        filters.parent_entity = { _null: true };
       } else {
-        filters.parent_entity = { _eq: query.parent_id }
+        filters.parent_entity = { _eq: query.parent_id };
       }
     }
 
     // Tri
-    const sort = query.sort || ['name']
+    const sort = query.sort || ['name'];
 
     try {
       // Requête avec pagination et filtres
@@ -89,7 +89,7 @@ export default defineCachedEventHandler(
           limit,
           offset,
         }),
-      )
+      );
 
       // Compte total
       const totalCount = await cmsClient
@@ -103,7 +103,7 @@ export default defineCachedEventHandler(
           }),
         )
         .then((result: any) => result?.[0]?.count?.id || 0)
-        .catch(() => data.length)
+        .catch(() => data.length);
 
       return {
         data: data || [],
@@ -114,21 +114,21 @@ export default defineCachedEventHandler(
           limit,
           total_pages: Math.ceil(Number(totalCount) / limit),
         },
-      }
+      };
     } catch (error) {
-      console.error('Error fetching state entities:', error)
+      console.error('Error fetching state entities:', error);
       throw createError({
         statusCode: 500,
         message: 'Erreur lors de la récupération des entités publiques',
-      })
+      });
     }
   },
   {
     maxAge: 60 * 60, // Cache 1 heure
     name: 'state-entities-list',
     getKey: (event) => {
-      const query = getQuery(event)
-      return `state-entities-${JSON.stringify(query)}`
+      const query = getQuery(event);
+      return `state-entities-${JSON.stringify(query)}`;
     },
   },
-)
+);

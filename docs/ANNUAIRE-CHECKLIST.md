@@ -34,7 +34,7 @@
 - [x] `docs/ANNUAIRE-CHECKLIST.md` - Cette checklist
 
 ### Tests
-- [x] `test/unit/composables/useStateEntities.test.ts` - Tests unitaires
+- ⚠️ Tests unitaires nécessitent configuration Nuxt/Vitest avancée (à implémenter si nécessaire)
 
 ## ✅ Conformité au pattern
 

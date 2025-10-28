@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // Composables
 const { entities, meta, filters, pending, setSearch, setType, setStatus, setPage, resetFilters } =
-  useStateEntities()
+  useStateEntities();
 const {
   tree,
   pending: treePending,
@@ -9,22 +9,22 @@ const {
   collapseAll,
   toggleNode,
   isExpanded,
-} = useStateTree()
-const { stats } = useStateStats()
+} = useStateTree();
+const { stats } = useStateStats();
 
 // Onglets
 const tabs = [
   { key: 'list', label: 'Liste', icon: 'i-heroicons-list-bullet' },
   { key: 'tree', label: 'Arbre hiérarchique', icon: 'i-heroicons-rectangle-group' },
-]
+];
 
-const route = useRoute()
-const router = useRouter()
-const activeTab = ref((route.query.view as string) || 'list')
+const route = useRoute();
+const router = useRouter();
+const activeTab = ref((route.query.view as string) || 'list');
 
 watch(activeTab, (value) => {
-  router.push({ query: { ...route.query, view: value } })
-})
+  router.push({ query: { ...route.query, view: value } });
+});
 
 // SEO
 useSeoMeta({
@@ -35,11 +35,11 @@ useSeoMeta({
   ogDescription:
     "Organisation complète de l'État sénégalais avec ministères, agences et établissements publics",
   ogImage: '/og-image.png',
-})
+});
 
 useHead({
   title: 'Annuaire des Entités Publiques',
-})
+});
 </script>
 
 <template>

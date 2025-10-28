@@ -1,13 +1,13 @@
-import { readFileSync } from 'fs'
-import { join } from 'path'
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
 // Lire la version depuis package.json
-const packageJson = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf-8'))
+const packageJson = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf-8'));
 
 // Variables de build
-const buildTime = new Date().toISOString()
+const buildTime = new Date().toISOString();
 const gitCommit =
-  process.env.VERCEL_GIT_COMMIT_SHA || process.env.GITHUB_SHA || process.env.GIT_COMMIT || null // null au lieu de 'unknown' pour les conditions
+  process.env.VERCEL_GIT_COMMIT_SHA || process.env.GITHUB_SHA || process.env.GIT_COMMIT || null; // null au lieu de 'unknown' pour les conditions
 
 const securityConfig =
   process.env.NODE_ENV === 'production'
@@ -83,7 +83,7 @@ const securityConfig =
         // Configuration permissive pour le développement
         headers: false, // Désactive complètement les en-têtes de sécurité en développement
         rateLimiter: false, // Désactive le rate limiter en développement
-      }
+      };
 
 export default defineNuxtConfig({
   future: {
@@ -607,4 +607,4 @@ export default defineNuxtConfig({
       ],
     },
   },
-})
+});

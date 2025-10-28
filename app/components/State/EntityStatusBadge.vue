@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { StateEntityStatus } from '~/types/state-entity'
+import type { StateEntityStatus } from '~/types/state-entity';
 
 interface Props {
-  status: StateEntityStatus
+  status: StateEntityStatus;
 }
 
-const props = defineProps<Props>()
+const props = defineProps<Props>();
 
 // Configuration des statuts
 const statusConfig: Record<StateEntityStatus, { label: string; color: string }> = {
@@ -14,9 +14,9 @@ const statusConfig: Record<StateEntityStatus, { label: string; color: string }> 
   dissolved: { label: 'Dissoute', color: 'red' },
   merged: { label: 'Fusionnée', color: 'orange' },
   renamed: { label: 'Renommée', color: 'blue' },
-}
+};
 
-const config = computed(() => statusConfig[props.status] || statusConfig.inactive)
+const config = computed(() => statusConfig[props.status] || statusConfig.inactive);
 </script>
 
 <template>

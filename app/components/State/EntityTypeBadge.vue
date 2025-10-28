@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { StateEntityType } from '~/types/state-entity'
+import type { StateEntityType } from '~/types/state-entity';
 
 interface Props {
-  type: StateEntityType
+  type: StateEntityType;
 }
 
-const props = defineProps<Props>()
+const props = defineProps<Props>();
 
 // Configuration des types avec couleurs et labels
 const typeConfig: Record<StateEntityType, { label: string; color: string }> = {
@@ -19,9 +19,9 @@ const typeConfig: Record<StateEntityType, { label: string; color: string }> = {
   commission: { label: 'Commission', color: 'pink' },
   conseil: { label: 'Conseil', color: 'teal' },
   autre: { label: 'Autre', color: 'gray' },
-}
+};
 
-const config = computed(() => typeConfig[props.type] || typeConfig.autre)
+const config = computed(() => typeConfig[props.type] || typeConfig.autre);
 </script>
 
 <template>

@@ -43,7 +43,6 @@ cd test/locust && locust       # Run load tests (Python required)
 2. **Composables for Data Logic**: All data fetching and business logic is abstracted into composables (`/composables/`), keeping components focused on presentation.
 
 3. **Server API Routes**: Backend functionality lives in `/server/api/` with endpoints for:
-
    - Assembly data (`/api/assembly/*`)
    - Budget information (`/api/budget/*`)
    - Election data (`/api/elections/*`)
@@ -51,7 +50,6 @@ cd test/locust && locust       # Run load tests (Python required)
    - External service proxies (Twitter, data.gouv.sn)
 
 4. **Content Management**: Dual approach with:
-
    - Static markdown in `/content/` for pages
    - Directus CMS integration for dynamic content
 
@@ -81,9 +79,7 @@ Required environment variables (see .env.example):
 
    ```typescript
    // Use composables for data fetching
-   const { data, pending, error } = await useAsyncData("key", () =>
-     $fetch("/api/endpoint"),
-   );
+   const { data, pending, error } = await useAsyncData('key', () => $fetch('/api/endpoint'));
    ```
 
 2. **Component Props**: Always define with TypeScript:
