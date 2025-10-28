@@ -40,9 +40,22 @@ const securityConfig =
               'https://connect.facebook.net',
               'https://instant.page',
             ],
+            'script-src-attr': ["'unsafe-inline'", "'unsafe-hashes'"],
             'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
             'font-src': ["'self'", 'https://fonts.gstatic.com'],
-            'img-src': ["'self'", 'data:', 'https://cms.vie-publique.sn'],
+            'img-src': [
+              "'self'",
+              'data:',
+              'https:',
+              'https://cms.vie-publique.sn',
+              'https://www.google-analytics.com',
+              'https://*.google-analytics.com',
+              'https://www.googletagmanager.com',
+              'https://www.facebook.com',
+              'https://*.facebook.com',
+              'https://pbs.twimg.com',
+              'https://syndication.twitter.com',
+            ],
             'frame-src': [
               'https://www.youtube.com',
               'https://platform.twitter.com',
@@ -135,10 +148,7 @@ export default defineNuxtConfig({
         // Autorise l'accès aux fichiers hors du dossier racine
         strict: false,
         // Autorise explicitement le dossier node_modules
-        allow: [
-          process.cwd(),
-          `${process.cwd()}/node_modules`,
-        ],
+        allow: [process.cwd(), `${process.cwd()}/node_modules`],
       },
     },
   },
@@ -206,8 +216,6 @@ export default defineNuxtConfig({
       showScandals: process.env.PUBLIC_SHOW_SCANDALS,
       brevoApiKey: process.env.BREVO_API_KEY,
       brevoListId: process.env.BREVO_LIST_ID,
-      cmsApiUrl: process.env.CMS_API_URL,
-      cmsApiKey: process.env.CMS_API_KEY,
       sunuElectionApiUrl: process.env.SUNU_ELECTION_API_URL,
       sunuElectionApiKey: process.env.SUNU_ELECTION_API_KEY,
       fbPixelId: process.env.FACEBOOK_PIXEL_ID || '',
@@ -290,7 +298,7 @@ export default defineNuxtConfig({
   },
   tailwindcss: {
     configPath: './tailwind.config.ts',
-    quiet: true,  // Supprime les warnings
+    quiet: true, // Supprime les warnings
   },
   content: {
     defaultLocale: 'fr',
@@ -565,7 +573,7 @@ export default defineNuxtConfig({
       periodicSyncForUpdates: 3600,
     },
     devOptions: {
-      enabled: false,  // ✅ Désactive PWA en dev (gain de performance)
+      enabled: false, // ✅ Désactive PWA en dev (gain de performance)
       suppressWarnings: true,
       type: 'module',
     },
