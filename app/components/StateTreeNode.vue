@@ -15,6 +15,9 @@ const paddingLeft = computed(() => `${props.level * 1.5}rem`)
 // L'entité est cliquable si has_public_page = true
 const isClickable = computed(() => props.node.has_public_page === true)
 
+// Les groupes ne sont jamais cliquables
+const isGroup = computed(() => props.node.is_group === true)
+
 const handleToggle = () => {
   if (props.node.children_count > 0 || props.node.children?.length > 0) {
     emit('toggle', props.node.id)
@@ -39,15 +42,26 @@ const handleToggle = () => {
       </button>
       <div v-else class="w-5 flex-shrink-0"></div>
 
-      <!-- Nom de l'entité -->
+      <!-- Nom de l'entité ou groupe -->
       <div class="flex-1 min-w-0 flex items-center justify-between gap-2">
+        <!-- Groupe (jamais cliquable, en gras) -->
+        <span
+          v-if="isGroup"
+          class="font-semibold text-gray-900 dark:text-white truncate"
+        >
+          {{ node.name }}
+        </span>
+
+        <!-- Entité cliquable -->
         <NuxtLink
-          v-if="isClickable"
+          v-else-if="isClickable"
           :to="`/etat-senegal/annuaire/${node.public_slug}`"
           class="text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors truncate"
         >
           {{ node.name }}
         </NuxtLink>
+
+        <!-- Entité non cliquable -->
         <span
           v-else
           class="text-gray-600 dark:text-gray-400 truncate"

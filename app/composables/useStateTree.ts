@@ -6,12 +6,57 @@ import type { StateEntityTreeNode } from '~/types/state-entity';
 
 export function useStateTree() {
   const {
-    data: tree,
+    data: rawTree,
     pending,
     error,
     refresh,
-  } = useAsyncData<StateEntityTreeNode[]>('state-tree', () => $fetch('/api/state/tree'), {
+  } = useAsyncData<any[]>('state-tree', () => $fetch('/api/state/tree'), {
     server: true,
+  });
+
+  // Grouper les entités par type (Institutions vs Ministères)
+  const tree = computed(() => {
+    if (!rawTree.value) return []
+
+    const institutions: any[] = []
+    const ministries: any[] = []
+
+    rawTree.value.forEach((entity: any) => {
+      const typeCode = entity.type_info?.code || 'other'
+
+      if (typeCode === 'presidency' || typeCode === 'primature') {
+        institutions.push(entity)
+      } else if (typeCode === 'ministry') {
+        ministries.push(entity)
+      }
+    })
+
+    // Créer les groupes
+    const groups: any[] = []
+
+    if (institutions.length > 0) {
+      groups.push({
+        id: 'group-institutions',
+        name: 'Institutions',
+        children: institutions,
+        children_count: institutions.length,
+        is_group: true,
+        has_public_page: false,
+      })
+    }
+
+    if (ministries.length > 0) {
+      groups.push({
+        id: 'group-ministries',
+        name: 'Ministères',
+        children: ministries,
+        children_count: ministries.length,
+        is_group: true,
+        has_public_page: false,
+      })
+    }
+
+    return groups
   });
 
   // État d'expansion des noeuds (côté client uniquement)

@@ -34,9 +34,9 @@ watch(searchValue, (value) => {
   debouncedSearch(value)
 })
 
-const selectType = (typeCode: string | undefined) => {
+const selectType = (typeCode: StateEntityType | undefined) => {
   console.log('StateEntityFilters - selectType called with:', typeCode, typeof typeCode)
-  emit('update:type', typeCode as StateEntityType | undefined)
+  emit('update:type', typeCode)
 }
 </script>
 

@@ -96,56 +96,107 @@ export function useStateEntities() {
 
   // Méthode pour mettre à jour les filtres et l'URL
   const updateFilters = (newFilters: Partial<StateEntityFilters>) => {
+    console.log('updateFilters called with:', newFilters)
+
     // Réinitialiser la page si on change un filtre autre que la page
-    if (!('page' in newFilters)) {
-      newFilters.page = 1
-    }
+    const resetPage = !('page' in newFilters)
 
-    // Mettre à jour les filtres
-    filters.value = {
-      ...filters.value,
-      ...newFilters,
-    }
+    // Mettre à jour les filtres UN PAR UN pour éviter les problèmes de proxy
+    if ('search' in newFilters) filters.value.search = newFilters.search
+    if ('type' in newFilters) filters.value.type = newFilters.type
+    if ('parent_id' in newFilters) filters.value.parent_id = newFilters.parent_id
+    if ('page' in newFilters) filters.value.page = newFilters.page
+    if (resetPage) filters.value.page = 1
 
-    // Construire la query proprement en convertissant tout en string
-    const cleanQuery: Record<string, string> = {}
+    // Construire la query proprement (only primitives)
+    const queryParams: any = {}
 
-    // Conserver la vue
+    // Vue
     if (route.query.view) {
-      cleanQuery.view = String(route.query.view)
+      queryParams.view = route.query.view
     }
 
-    // Ajouter les filtres actifs (conversion explicite en string)
-    if (filters.value.search && filters.value.search.trim()) {
-      cleanQuery.search = String(filters.value.search)
+    // Filtres
+    if (filters.value.search?.trim()) {
+      queryParams.search = filters.value.search.trim()
     }
 
-    if (filters.value.type) {
-      cleanQuery.type = String(filters.value.type)
+    if (filters.value.type && filters.value.type !== 'ministry') {
+      queryParams.type = filters.value.type
     }
 
-    if (filters.value.parent_id !== undefined && filters.value.parent_id !== null) {
-      cleanQuery.parent_id = String(filters.value.parent_id)
+    if (filters.value.parent_id) {
+      queryParams.parent_id = String(filters.value.parent_id)
     }
 
-    if (filters.value.page && filters.value.page !== 1) {
-      cleanQuery.page = String(filters.value.page)
+    if (filters.value.page && filters.value.page > 1) {
+      queryParams.page = String(filters.value.page)
     }
 
-    // Sync avec l'URL (seulement les strings)
-    router.push({
-      query: cleanQuery,
+    console.log('Pushing query:', queryParams)
+
+    // Sync avec l'URL
+    router.replace({
+      query: queryParams,
     })
   }
 
-  // Méthodes utilitaires - conversion explicite
-  const setSearch = (search: string) => updateFilters({ search: search || undefined })
-  const setType = (type: StateEntityType | undefined) => {
-    console.log('setType called with:', type, typeof type)
-    updateFilters({ type })
+  // Méthodes utilitaires - conversion explicite et sans spread
+  const setSearch = (search: string) => {
+    filters.value.search = search || ''
+    filters.value.page = 1
+
+    const q: any = {}
+    if (route.query.view) q.view = route.query.view
+    if (search) q.search = search
+    if (filters.value.type && filters.value.type !== 'ministry') q.type = filters.value.type
+
+    router.replace({ query: q })
   }
-  const setParentId = (parent_id: number | undefined) => updateFilters({ parent_id })
-  const setPage = (page: number) => updateFilters({ page })
+
+  const setType = (type: StateEntityType | undefined) => {
+    console.log('setType called with:', type, typeof type, 'is string?', typeof type === 'string')
+
+    // Force conversion en string pur
+    const typeStr = type ? String(type) : 'ministry'
+    console.log('typeStr:', typeStr, typeof typeStr)
+
+    filters.value.type = typeStr as StateEntityType
+    filters.value.page = 1
+
+    const q: any = {}
+    if (route.query.view) q.view = route.query.view
+    if (filters.value.search) q.search = filters.value.search
+    if (typeStr && typeStr !== 'ministry') q.type = typeStr
+
+    console.log('query to push:', q)
+    router.replace({ query: q })
+  }
+
+  const setParentId = (parent_id: number | undefined) => {
+    filters.value.parent_id = parent_id
+    filters.value.page = 1
+
+    const q: any = {}
+    if (route.query.view) q.view = route.query.view
+    if (filters.value.search) q.search = filters.value.search
+    if (filters.value.type && filters.value.type !== 'ministry') q.type = filters.value.type
+    if (parent_id) q.parent_id = String(parent_id)
+
+    router.replace({ query: q })
+  }
+
+  const setPage = (page: number) => {
+    filters.value.page = page
+
+    const q: any = {}
+    if (route.query.view) q.view = route.query.view
+    if (filters.value.search) q.search = filters.value.search
+    if (filters.value.type && filters.value.type !== 'ministry') q.type = filters.value.type
+    if (page > 1) q.page = String(page)
+
+    router.replace({ query: q })
+  }
 
   return {
     // État
