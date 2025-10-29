@@ -4,10 +4,9 @@
  */
 
 import { readItems } from '@directus/sdk';
-import type { StateEntityDetailResponse } from '~/types/state-entity';
 
 export default defineCachedEventHandler(
-  async (event): Promise<StateEntityDetailResponse> => {
+  async (event): Promise<any> => {
     const slug = getRouterParam(event, 'slug');
     const cmsClient = getCmsClient();
 
@@ -21,7 +20,7 @@ export default defineCachedEventHandler(
     try {
       // 1. Récupérer l'entité principale
       const entityData = await cmsClient.request(
-        readItems('state_entities', {
+        readItems('state_entity', {
           filter: {
             public_slug: { _eq: slug },
           },
@@ -45,102 +44,55 @@ export default defineCachedEventHandler(
 
       const entity = entityData[0];
 
-      // 2. Récupérer les enfants directs
-      const children = await cmsClient.request(
-        readItems('state_entities', {
+      // 2. Récupérer les enfants directs via state_structure (relations actives seulement)
+      const structureData = await cmsClient.request(
+        readItems('state_structure', {
           filter: {
             parent_entity: { _eq: entity.id },
-            status: { _eq: 'active' },
+            date_valid_to: { _null: true }, // Relations actives uniquement
           },
           fields: [
             'id',
-            'public_slug',
-            'name',
-            'short_name',
-            'acronym',
-            'type',
-            'status',
-            'director_name',
-            'director_title',
-            'website',
+            'child_entity.id',
+            'child_entity.public_slug',
+            'child_entity.name',
+            'child_entity.slug',
+            'child_entity.has_public_page',
+            'child_entity.type.code',
+            'child_entity.type.label',
           ],
-          sort: ['type', 'name'],
-          limit: -1, // Tous les enfants
-        }),
-      );
-
-      // 3. Récupérer l'historique des événements
-      const history = await cmsClient.request(
-        readItems('state_entity_events', {
-          filter: {
-            entity_id: { _eq: entity.id },
-          },
-          fields: [
-            'id',
-            'entity_id',
-            'event_type',
-            'event_date',
-            'description',
-            'legal_reference',
-            'decree_number',
-            'old_name',
-            'new_name',
-            'old_parent.id',
-            'old_parent.name',
-            'new_parent.id',
-            'new_parent.name',
-            'date_created',
-          ],
-          sort: ['-event_date'],
+          sort: ['child_entity.name'],
           limit: -1,
         }),
       );
 
-      // 4. Construire le fil d'Ariane (breadcrumb)
-      const breadcrumb = [];
-      let currentEntity = entity;
+      // Extraire les enfants
+      const children = structureData.map((s: any) => s.child_entity);
 
-      while (currentEntity.parent_entity) {
-        // Si parent_entity est un objet
-        if (
-          typeof currentEntity.parent_entity === 'object' &&
-          currentEntity.parent_entity !== null
-        ) {
-          breadcrumb.unshift(currentEntity.parent_entity);
-
-          // Charger le parent suivant
-          const parentData = await cmsClient.request(
-            readItems('state_entities', {
-              filter: { id: { _eq: currentEntity.parent_entity.id } },
-              fields: [
-                'id',
-                'name',
-                'public_slug',
-                'type',
-                'parent_entity.id',
-                'parent_entity.name',
-                'parent_entity.public_slug',
-                'parent_entity.type',
-              ],
-              limit: 1,
-            }),
-          );
-
-          if (parentData && parentData.length > 0) {
-            currentEntity = parentData[0];
-          } else {
-            break;
-          }
-        } else {
-          break;
-        }
-      }
+      // 3. Récupérer l'historique des rattachements (via state_structure)
+      const historyData = await cmsClient.request(
+        readItems('state_structure', {
+          filter: {
+            child_entity: { _eq: entity.id },
+          },
+          fields: [
+            'id',
+            'parent_entity.id',
+            'parent_entity.name',
+            'parent_entity.public_slug',
+            'date_valid_from',
+            'date_valid_to',
+            'decree_reference',
+          ],
+          sort: ['-date_valid_from'],
+          limit: -1,
+        }),
+      );
 
       return {
         entity,
         children: children || [],
-        history: history || [],
-        breadcrumb,
+        history: historyData || [],
       };
     } catch (error: any) {
       if (error.statusCode === 404) {

@@ -4,22 +4,21 @@
  */
 
 /**
- * Type d'entité publique
+ * Type d'entité publique (codes utilisés dans state_type)
  */
 export type StateEntityType =
-  | 'ministere'
-  | 'secretariat_etat'
-  | 'direction'
-  | 'agence'
-  | 'autorite'
-  | 'societe_nationale'
-  | 'etablissement'
-  | 'commission'
-  | 'conseil'
-  | 'autre';
+  | 'ministry'
+  | 'agency'
+  | 'directorate'
+  | 'public_institution'
+  | 'state_owned_enterprise'
+  | 'presidency'
+  | 'primature'
+  | 'service'
+  | 'other';
 
 /**
- * Statut d'une entité publique
+ * Statut d'une entité publique (DEPRECATED - pas utilisé dans le nouveau modèle)
  */
 export type StateEntityStatus = 'active' | 'inactive' | 'dissolved' | 'merged' | 'renamed';
 
@@ -27,44 +26,22 @@ export type StateEntityStatus = 'active' | 'inactive' | 'dissolved' | 'merged' |
  * Entité publique du Sénégal
  */
 export interface StateEntity {
-  id: number;
+  id: string;
   public_slug: string;
   name: string;
-  short_name?: string;
-  acronym?: string;
-  type: StateEntityType;
-  status: StateEntityStatus;
-  description?: string;
-  mission?: string;
+  slug: string;
+  has_public_page: boolean;
+  type: string | number; // ID de la relation vers state_type
+  type_info?: { code: string; label: string }; // Infos enrichies depuis state_type
+  business_key?: string;
+  last_decree_reference?: string;
 
-  // Relations hiérarchiques
-  parent_entity?: number | StateEntity | null;
-
-  // Informations de contact
-  address?: string;
-  phone?: string;
-  email?: string;
-  website?: string;
-
-  // Responsables
-  director_name?: string;
-  director_title?: string;
-
-  // Dates
-  created_at?: string;
-  dissolved_at?: string;
-
-  // Référence légale
-  legal_reference?: string;
-  decree_number?: string;
-  decree_date?: string;
-
-  // Métadonnées
-  date_created?: string;
-  date_updated?: string;
+  // Relations hiérarchiques (via state_structure)
+  parent_entity?: { id: string; name: string; public_slug: string } | null;
 
   // Relations calculées (côté client)
   children?: StateEntity[];
+  children_count?: number;
   level?: number;
 }
 
@@ -92,8 +69,7 @@ export interface StateEntityEvent {
 export interface StateEntityFilters {
   search?: string;
   type?: StateEntityType;
-  status?: StateEntityStatus;
-  parent_id?: number | null;
+  parent_id?: string | null;
   has_children?: boolean;
   page?: number;
   limit?: number;
@@ -137,9 +113,4 @@ export interface StateEntityTreeNode extends StateEntity {
  */
 export interface StateEntityStats {
   total: number;
-  by_type: Record<StateEntityType, number>;
-  by_status: Record<StateEntityStatus, number>;
-  active_ministries: number;
-  total_agencies: number;
-  total_directions: number;
 }

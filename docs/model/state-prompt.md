@@ -22,7 +22,8 @@ Les données proviennent des décrets de répartition des services de l'État (e
    - Champs : `entity`, `alias`, `date_valid_from`, `date_valid_to`, `note`
 
 5. **`state_type`** : Types d'entités (ministry, agency, directorate...)
-   - Champs : `code`, `label`, `icon`, `color`
+   - Champs : `code`, `label`
+   - **Note** : Les icônes et couleurs doivent être gérées côté frontend (mapping statique)
 
 ### Règles importantes :
 

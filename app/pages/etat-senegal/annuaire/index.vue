@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Composables
-const { entities, meta, filters, pending, setSearch, setType, setStatus, setPage, resetFilters } =
+const { entities, meta, filters, pending, setSearch, setType, setPage } =
   useStateEntities();
 const {
   tree,
@@ -20,10 +20,24 @@ const tabs = [
 
 const route = useRoute();
 const router = useRouter();
-const activeTab = ref((route.query.view as string) || 'list');
 
-watch(activeTab, (value) => {
-  router.push({ query: { ...route.query, view: value } });
+// Convertir la vue de l'URL en index (0 = list, 1 = tree)
+const getTabIndex = () => {
+  const view = route.query.view as string;
+  return view === 'tree' ? 1 : 0;
+};
+
+const activeTab = ref(getTabIndex());
+
+// Synchroniser l'index avec l'URL
+watch(activeTab, (index) => {
+  const view = index === 1 ? 'tree' : 'list';
+  router.push({ query: { ...route.query, view } });
+});
+
+// Mettre à jour l'index si l'URL change
+watch(() => route.query.view, () => {
+  activeTab.value = getTabIndex();
 });
 
 // SEO
@@ -55,56 +69,22 @@ useHead({
       </p>
     </div>
 
-    <!-- Statistiques -->
-    <div v-if="stats" class="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
-      <UCard>
-        <div class="text-center">
-          <div class="text-primary-600 dark:text-primary-400 text-3xl font-bold">
-            {{ stats.total }}
-          </div>
-          <div class="mt-1 text-sm text-gray-600 dark:text-gray-400">Entités totales</div>
-        </div>
-      </UCard>
-      <UCard>
-        <div class="text-center">
-          <div class="text-primary-600 dark:text-primary-400 text-3xl font-bold">
-            {{ stats.active_ministries }}
-          </div>
-          <div class="mt-1 text-sm text-gray-600 dark:text-gray-400">Ministères</div>
-        </div>
-      </UCard>
-      <UCard>
-        <div class="text-center">
-          <div class="text-primary-600 dark:text-primary-400 text-3xl font-bold">
-            {{ stats.total_agencies }}
-          </div>
-          <div class="mt-1 text-sm text-gray-600 dark:text-gray-400">Agences</div>
-        </div>
-      </UCard>
-      <UCard>
-        <div class="text-center">
-          <div class="text-primary-600 dark:text-primary-400 text-3xl font-bold">
-            {{ stats.total_directions }}
-          </div>
-          <div class="mt-1 text-sm text-gray-600 dark:text-gray-400">Directions</div>
-        </div>
-      </UCard>
+    <!-- Statistiques simples -->
+    <div v-if="stats" class="mb-6 text-sm text-gray-600 dark:text-gray-400">
+      {{ stats.total }} entités publiques
     </div>
 
     <!-- Onglets -->
-    <UTabs v-model="activeTab" :items="tabs" class="mb-6">
-      <!-- Onglet Liste -->
-      <template #list>
-        <div class="space-y-6">
+    <UTabs v-model="activeTab" :items="tabs" class="mb-6" :default-index="0">
+      <template #item="{ item }">
+        <!-- Onglet Liste -->
+        <div v-if="item.key === 'list'" class="space-y-6">
           <!-- Filtres -->
           <StateEntityFilters
-            :search="filters.search"
+            :search="String(filters.search || '')"
             :type="filters.type"
-            :status="filters.status"
             @update:search="setSearch"
             @update:type="setType"
-            @update:status="setStatus"
-            @reset="resetFilters"
           />
 
           <!-- Résultats -->
@@ -125,8 +105,8 @@ useHead({
               <span>Page {{ meta?.page }} sur {{ meta?.total_pages }}</span>
             </div>
 
-            <!-- Grille des entités -->
-            <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <!-- Liste des entités (1 colonne - vraie liste) -->
+            <div class="space-y-3">
               <StateEntityCard
                 v-for="entity in entities"
                 :key="entity.id"
@@ -148,11 +128,9 @@ useHead({
             </div>
           </div>
         </div>
-      </template>
 
-      <!-- Onglet Arbre -->
-      <template #tree>
-        <div class="space-y-6">
+        <!-- Onglet Arbre -->
+        <div v-else-if="item.key === 'tree'" class="space-y-6">
           <!-- Actions -->
           <div class="flex gap-3">
             <UButton

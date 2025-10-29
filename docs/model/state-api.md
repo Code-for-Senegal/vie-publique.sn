@@ -26,6 +26,8 @@ GET /items/state_entity?filter[type][code][_eq]=ministry
                        &limit=-1
 ```
 
+**⚠️ Note** : Les champs `icon` et `color` n'existent PAS dans `state_type`. Les icônes et couleurs doivent être gérées côté frontend via un mapping statique dans les composants.
+
 **Réponse** :
 ```json
 {
