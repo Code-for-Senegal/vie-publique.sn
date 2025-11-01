@@ -50,6 +50,7 @@ export interface BudgetYearsData {
 export interface UseBudgetOptions {
   year?: number;
   version?: number;
+  enableComparison?: boolean; // Activer la comparaison par défaut
 }
 
 export const useBudget = (options: UseBudgetOptions = {}) => {
@@ -66,6 +67,9 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
 
   const year = ref(initialYear);
   const version = ref(initialVersion);
+
+  // La comparaison est toujours activée, avec l'année N-1 par défaut
+  const compareYear = ref<number | undefined>(undefined);
 
   // Computed pour les années disponibles
   const availableYears = computed(() => yearsData.value?.years || []);
@@ -122,6 +126,62 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
     }
   );
 
+  // Fetch des données de comparaison (toujours activé)
+  const comparisonQueryParams = computed(() => {
+    const params: Record<string, any> = {
+      currentYear: year.value,
+      currentVersion: version.value,
+    };
+
+    if (compareYear.value) {
+      params.compareYear = compareYear.value;
+    }
+
+    return params;
+  });
+
+  const { data: comparisonData } = useFetch(
+    "/api/budget/compare",
+    {
+      key: computed(() =>
+        `budget-compare-${year.value}-${version.value || "latest"}-vs-${compareYear.value || year.value - 1}`
+      ),
+      query: comparisonQueryParams,
+      watch: [year, version, compareYear],
+      server: true,
+      default: () => ({
+        current: null,
+        compare: null,
+        hasComparison: false,
+      }),
+    }
+  );
+
+  // Fonction utilitaire pour calculer le pourcentage de variation
+  const calculateVariation = (current: number, previous: number): string => {
+    if (previous === 0) return "N/A";
+    const variation = ((current - previous) / previous) * 100;
+    const sign = variation > 0 ? "+" : "";
+    return `${sign}${variation.toFixed(1)}%`;
+  };
+
+  // Fonction utilitaire pour déterminer la couleur du badge
+  // Pour le déficit, une baisse (négatif) est positive, donc on inverse les couleurs
+  const getVariationColor = (variation: string, indicatorCode: string): 'green' | 'red' | 'gray' => {
+    if (variation === "N/A" || variation === "0%" || variation === "+0.0%") return 'gray';
+
+    const isPositive = variation.startsWith('+');
+    const isDeficit = indicatorCode === 'deficit_total' || indicatorCode === 'deficit_pct_gdp';
+
+    // Pour le déficit, on inverse : baisse = vert, hausse = rouge
+    if (isDeficit) {
+      return isPositive ? 'red' : 'green';
+    }
+
+    // Pour les autres indicateurs : hausse = vert, baisse = rouge
+    return isPositive ? 'green' : 'red';
+  };
+
   // Computed pour les indicateurs clés formatés (pour affichage)
   const formattedKeyIndicators = computed(() => {
     if (!data.value?.keyIndicators) return [];
@@ -137,13 +197,30 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
       growth_rate: "#00897B",
     };
 
-    return data.value.keyIndicators.map((indicator) => ({
-      name: indicator.label,
-      value: Math.round(indicator.value).toString(), // Convertir en string sans décimale
-      unit: indicator.unit === "mds_fcfa" ? "Mrd FCFA" : "%",
-      color: colorMap[indicator.code] || "#60A5FA",
-      variation_percentage: "0", // À calculer si on compare avec N-1
-    }));
+    return data.value.keyIndicators.map((indicator) => {
+      let variation = "N/A";
+      let variationColor: 'green' | 'red' | 'gray' = 'gray';
+
+      // Calculer la variation si on a des données de comparaison
+      if (comparisonData.value?.hasComparison && comparisonData.value.compare) {
+        const compareIndicator = comparisonData.value.compare.keyIndicators.find(
+          (item: any) => item.code === indicator.code
+        );
+        if (compareIndicator) {
+          variation = calculateVariation(indicator.value, compareIndicator.value);
+          variationColor = getVariationColor(variation, indicator.code);
+        }
+      }
+
+      return {
+        name: indicator.label,
+        value: Math.round(indicator.value).toString(),
+        unit: indicator.unit === "mds_fcfa" ? "Mrd FCFA" : "%",
+        color: colorMap[indicator.code] || "#60A5FA",
+        variation_percentage: variation,
+        variation_color: variationColor,
+      };
+    });
   });
 
   // Computed pour les données de recettes (format graphique)
@@ -153,11 +230,53 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
     // Couleurs fixes pour les recettes (palette verte)
     const colors = ["#2E7D32", "#43A047", "#66BB6A", "#81C784", "#A5D6A7"];
 
-    return data.value.revenues.map((item, index) => ({
-      label: item.label,
-      value: item.value,
-      color: colors[index % colors.length],
-    }));
+    return data.value.revenues.map((item, index) => {
+      let variation = "N/A";
+      let variationColor: 'green' | 'red' | 'gray' = 'gray';
+
+      // Calculer la variation si on a des données de comparaison
+      if (comparisonData.value?.hasComparison && comparisonData.value.compare) {
+        const compareItem = comparisonData.value.compare.revenues.find(
+          (r: any) => r.code === item.code
+        );
+        if (compareItem) {
+          variation = calculateVariation(item.value, compareItem.value);
+          variationColor = getVariationColor(variation, item.code);
+        }
+      }
+
+      return {
+        label: item.label,
+        value: item.value,
+        color: colors[index % colors.length],
+        variation_percentage: variation,
+        variation_color: variationColor,
+      };
+    });
+  });
+
+  // Computed pour le total des recettes avec variation
+  const revenueTotalWithVariation = computed(() => {
+    const total = revenueChartData.value.reduce((sum, item) => sum + item.value, 0);
+    let variation = "N/A";
+    let variationColor: 'green' | 'red' | 'gray' = 'gray';
+
+    if (comparisonData.value?.hasComparison && comparisonData.value.compare) {
+      const compareTotal = comparisonData.value.compare.revenues.reduce(
+        (sum: number, item: any) => sum + item.value,
+        0
+      );
+      if (compareTotal > 0) {
+        variation = calculateVariation(total, compareTotal);
+        variationColor = getVariationColor(variation, 'revenue_total');
+      }
+    }
+
+    return {
+      total,
+      variation_percentage: variation,
+      variation_color: variationColor,
+    };
   });
 
   // Computed pour les données de dépenses (format graphique)
@@ -167,16 +286,58 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
     // Couleurs fixes pour les dépenses (palette indigo)
     const colors = ["#3F51B5", "#5C6BC0", "#7986CB", "#9FA8DA", "#C5CAE9"];
 
-    return data.value.expenses.map((item, index) => ({
-      label: item.label,
-      value: item.value,
-      color: colors[index % colors.length],
-    }));
+    return data.value.expenses.map((item, index) => {
+      let variation = "N/A";
+      let variationColor: 'green' | 'red' | 'gray' = 'gray';
+
+      // Calculer la variation si on a des données de comparaison
+      if (comparisonData.value?.hasComparison && comparisonData.value.compare) {
+        const compareItem = comparisonData.value.compare.expenses.find(
+          (e: any) => e.code === item.code
+        );
+        if (compareItem) {
+          variation = calculateVariation(item.value, compareItem.value);
+          variationColor = getVariationColor(variation, item.code);
+        }
+      }
+
+      return {
+        label: item.label,
+        value: item.value,
+        color: colors[index % colors.length],
+        variation_percentage: variation,
+        variation_color: variationColor,
+      };
+    });
+  });
+
+  // Computed pour le total des dépenses avec variation
+  const expenseTotalWithVariation = computed(() => {
+    const total = expenseChartData.value.reduce((sum, item) => sum + item.value, 0);
+    let variation = "N/A";
+    let variationColor: 'green' | 'red' | 'gray' = 'gray';
+
+    if (comparisonData.value?.hasComparison && comparisonData.value.compare) {
+      const compareTotal = comparisonData.value.compare.expenses.reduce(
+        (sum: number, item: any) => sum + item.value,
+        0
+      );
+      if (compareTotal > 0) {
+        variation = calculateVariation(total, compareTotal);
+        variationColor = getVariationColor(variation, 'expense_total');
+      }
+    }
+
+    return {
+      total,
+      variation_percentage: variation,
+      variation_color: variationColor,
+    };
   });
 
   // Computed pour les opérations de trésorerie (financement)
   const treasuryOperations = computed(() => {
-    if (!data.value?.financing) return { total: 0, components: [] };
+    if (!data.value?.financing) return { total: 0, components: [], variation_percentage: "N/A", variation_color: 'gray' as const };
 
     // Filtrer pour ne garder que les composantes (exclure le total s'il existe)
     const components = data.value.financing.filter(
@@ -186,20 +347,58 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
     // Calculer le total à partir des composantes
     const total = components.reduce((sum, item) => sum + item.value, 0);
 
+    // Calculer la variation du total
+    let totalVariation = "N/A";
+    let totalVariationColor: 'green' | 'red' | 'gray' = 'gray';
+
+    if (comparisonData.value?.hasComparison && comparisonData.value.compare) {
+      const compareComponents = comparisonData.value.compare.financing.filter(
+        (f: any) => f.code !== "financing_need_total"
+      );
+      const compareTotal = compareComponents.reduce((sum: number, item: any) => sum + item.value, 0);
+      if (compareTotal > 0) {
+        totalVariation = calculateVariation(total, compareTotal);
+        totalVariationColor = getVariationColor(totalVariation, 'financing_need_total');
+      }
+    }
+
     return {
       total,
-      components: components.map((item) => ({
-        label: item.label,
-        value: item.value,
-        percentage: total > 0 ? (item.value / total) * 100 : 0,
-        color: item.color || "#5924b2",
-      })),
+      variation_percentage: totalVariation,
+      variation_color: totalVariationColor,
+      components: components.map((item) => {
+        let variation = "N/A";
+        let variationColor: 'green' | 'red' | 'gray' = 'gray';
+
+        // Calculer la variation si on a des données de comparaison
+        if (comparisonData.value?.hasComparison && comparisonData.value.compare) {
+          const compareComponents = comparisonData.value.compare.financing.filter(
+            (f: any) => f.code !== "financing_need_total"
+          );
+          const compareItem = compareComponents.find(
+            (f: any) => f.code === item.code
+          );
+          if (compareItem) {
+            variation = calculateVariation(item.value, compareItem.value);
+            variationColor = getVariationColor(variation, item.code);
+          }
+        }
+
+        return {
+          label: item.label,
+          value: item.value,
+          percentage: total > 0 ? (item.value / total) * 100 : 0,
+          color: item.color || "#5924b2",
+          variation_percentage: variation,
+          variation_color: variationColor,
+        };
+      }),
     };
   });
 
   // Computed pour la dette publique
   const publicDebt = computed(() => {
-    if (!data.value?.debt) return { total: 0, components: [] };
+    if (!data.value?.debt) return { total: 0, components: [], variation_percentage: "N/A", variation_color: 'gray' as const };
 
     // Filtrer pour ne garder que les composantes (intérêts et principal)
     // debt_service_total est le total, pas une composante
@@ -213,14 +412,58 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
     );
     const total = totalItem ? totalItem.value : components.reduce((sum, item) => sum + item.value, 0);
 
+    // Calculer la variation du total
+    let totalVariation = "N/A";
+    let totalVariationColor: 'green' | 'red' | 'gray' = 'gray';
+
+    if (comparisonData.value?.hasComparison && comparisonData.value.compare) {
+      const compareTotalItem = comparisonData.value.compare.debt.find(
+        (d: any) => d.code === "debt_service_total"
+      );
+      const compareComponents = comparisonData.value.compare.debt.filter(
+        (d: any) => d.code !== "debt_service_total"
+      );
+      const compareTotal = compareTotalItem
+        ? compareTotalItem.value
+        : compareComponents.reduce((sum: number, item: any) => sum + item.value, 0);
+
+      if (compareTotal > 0) {
+        totalVariation = calculateVariation(total, compareTotal);
+        totalVariationColor = getVariationColor(totalVariation, 'debt_service_total');
+      }
+    }
+
     return {
       total,
-      components: components.map((item) => ({
-        label: item.label,
-        value: item.value,
-        percentage: total > 0 ? (item.value / total) * 100 : 0,
-        color: "#f97316", // Couleur orange fixe
-      })),
+      variation_percentage: totalVariation,
+      variation_color: totalVariationColor,
+      components: components.map((item) => {
+        let variation = "N/A";
+        let variationColor: 'green' | 'red' | 'gray' = 'gray';
+
+        // Calculer la variation si on a des données de comparaison
+        if (comparisonData.value?.hasComparison && comparisonData.value.compare) {
+          const compareComponents = comparisonData.value.compare.debt.filter(
+            (d: any) => d.code !== "debt_service_total"
+          );
+          const compareItem = compareComponents.find(
+            (d: any) => d.code === item.code
+          );
+          if (compareItem) {
+            variation = calculateVariation(item.value, compareItem.value);
+            variationColor = getVariationColor(variation, item.code);
+          }
+        }
+
+        return {
+          label: item.label,
+          value: item.value,
+          percentage: total > 0 ? (item.value / total) * 100 : 0,
+          color: "#f97316", // Couleur orange fixe
+          variation_percentage: variation,
+          variation_color: variationColor,
+        };
+      }),
     };
   });
 
@@ -263,6 +506,11 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
     return versionObj?.label || "";
   });
 
+  // Méthode pour gérer la comparaison
+  const setCompareYear = (newYear: number | undefined) => {
+    compareYear.value = newYear;
+  };
+
   return {
     // État
     year,
@@ -274,6 +522,14 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
     availableYears,
     availableVersions,
     currentVersionLabel,
+
+    // États de comparaison
+    compareYear,
+    hasComparison: computed(() => comparisonData.value?.hasComparison || false),
+    comparisonYearLabel: computed(() => {
+      if (!comparisonData.value?.hasComparison) return '';
+      return `${comparisonData.value.compareYear || year.value - 1}`;
+    }),
 
     // Données brutes
     budgetData: data,
@@ -288,13 +544,16 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
     // Données formatées pour affichage
     formattedKeyIndicators,
     revenueChartData,
+    revenueTotalWithVariation,
     expenseChartData,
+    expenseTotalWithVariation,
     treasuryOperations,
     publicDebt,
 
     // Méthodes
     setYear,
     setVersion,
+    setCompareYear,
     refresh,
   };
 };

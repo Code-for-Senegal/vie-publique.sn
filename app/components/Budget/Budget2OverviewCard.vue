@@ -14,8 +14,16 @@
           {{ unit }}
         </span>
         <UBadge
+          v-if="variation_percentage && variation_percentage !== 'N/A'"
           variant="solid"
-          class="rounded-full border-none bg-gray-200 px-1 text-center text-xs font-medium tracking-wide text-gray-600 sm:px-2 sm:text-sm dark:bg-gray-700 dark:text-gray-300"
+          :class="[
+            'rounded-full border-none px-1 text-center text-xs font-medium tracking-wide sm:px-2 sm:text-sm',
+            {
+              'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400': variation_color === 'green',
+              'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400': variation_color === 'red',
+              'bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300': variation_color === 'gray',
+            }
+          ]"
         >
           {{ variation_percentage }}
         </UBadge>
@@ -31,10 +39,12 @@ interface Props {
   unit?: string;
   variation_percentage: string;
   color?: 'green' | 'red' | 'gray';
+  variation_color?: 'green' | 'red' | 'gray';
 }
 
 const props = withDefaults(defineProps<Props>(), {
   unit: '',
   color: 'gray',
+  variation_color: 'gray',
 });
 </script>

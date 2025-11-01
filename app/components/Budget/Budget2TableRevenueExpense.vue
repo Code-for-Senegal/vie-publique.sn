@@ -60,20 +60,22 @@ const getPercentage = (value, total) => ((value / total) * 100).toFixed(1);
                 <span class="line-clamp-1 block flex-1 text-sm">{{
                   item.label
                 }}</span>
-                <div class="flex shrink-0 items-center">
-                  <span class="text-sm">{{ item.value.toLocaleString() }}</span>
+                <div class="flex shrink-0 items-center gap-2">
+                  <span class="text-sm font-medium">{{ item.value.toLocaleString() }}</span>
                   <UBadge
-                    v-if="item.variation_percentage"
-                    variant="subtle"
-                    class="custom-shadow ml-2 px-1 text-xs"
+                    v-if="item.variation_percentage && item.variation_percentage !== 'N/A'"
+                    variant="solid"
                     :class="[
-                      item.variation_percentage > 0
-                        ? 'text-green-600 dark:text-green-600'
-                        : 'text-red-600 dark:text-red-600',
+                      'rounded-full border-none px-2 text-xs font-medium',
+                      {
+                        'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400': item.variation_color === 'green',
+                        'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400': item.variation_color === 'red',
+                        'bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300': item.variation_color === 'gray',
+                      }
                     ]"
                   >
-                    {{ item.variation_percentage > 0 ? "↑" : "↓" }}
-                    {{ item.variation_percentage }}%
+                    {{ item.variation_percentage.startsWith('+') ? '↑' : item.variation_percentage.startsWith('-') ? '↓' : '' }}
+                    {{ item.variation_percentage.replace('+', '').replace('-', '') }}
                   </UBadge>
                 </div>
               </div>
