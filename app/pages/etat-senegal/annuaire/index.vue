@@ -12,32 +12,25 @@ const {
 } = useStateTree();
 const { stats } = useStateStats();
 
-// Onglets
-const tabs = [
-  { key: 'list', label: 'Liste', icon: 'i-heroicons-list-bullet' },
-  { key: 'tree', label: 'Arbre hiérarchique', icon: 'i-heroicons-rectangle-group' },
-];
-
 const route = useRoute();
 const router = useRouter();
 
-// Convertir la vue de l'URL en index (0 = list, 1 = tree)
-const getTabIndex = () => {
+// Gestion du tab actif - persiste lors des changements de filtres
+const activeTab = ref('list');
+
+// Restaurer depuis l'URL ou sessionStorage
+if (import.meta.client) {
   const view = route.query.view as string;
-  return view === 'tree' ? 1 : 0;
-};
+  const savedTab = sessionStorage.getItem('annuaire-active-tab');
+  activeTab.value = view || savedTab || 'list';
+}
 
-const activeTab = ref(getTabIndex());
-
-// Synchroniser l'index avec l'URL
-watch(activeTab, (index) => {
-  const view = index === 1 ? 'tree' : 'list';
-  router.push({ query: { ...route.query, view } });
-});
-
-// Mettre à jour l'index si l'URL change
-watch(() => route.query.view, () => {
-  activeTab.value = getTabIndex();
+// Synchroniser avec sessionStorage
+watch(activeTab, (newTab) => {
+  if (import.meta.client) {
+    sessionStorage.setItem('annuaire-active-tab', newTab);
+    router.push({ query: { ...route.query, view: newTab } });
+  }
 });
 
 // SEO
@@ -74,11 +67,36 @@ useHead({
       {{ stats.total }} entités publiques
     </div>
 
-    <!-- Onglets -->
-    <UTabs v-model="activeTab" :items="tabs" class="mb-6" :default-index="0">
-      <template #item="{ item }">
-        <!-- Onglet Liste -->
-        <div v-if="item.key === 'list'" class="space-y-6">
+    <!-- Boutons de navigation (style tabs) -->
+    <div class="mb-6 flex items-center justify-center gap-1 border-b border-gray-200 dark:border-gray-700">
+      <button
+        @click="activeTab = 'list'"
+        :class="[
+          'px-4 py-2 text-sm font-medium transition-all',
+          activeTab === 'list'
+            ? 'border-b-2 border-gray-900 text-gray-900 dark:border-gray-100 dark:text-gray-100'
+            : 'border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:text-gray-300',
+        ]"
+      >
+        Liste
+      </button>
+      <button
+        @click="activeTab = 'tree'"
+        :class="[
+          'px-4 py-2 text-sm font-medium transition-all',
+          activeTab === 'tree'
+            ? 'border-b-2 border-gray-900 text-gray-900 dark:border-gray-100 dark:text-gray-100'
+            : 'border-b-2 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:text-gray-300',
+        ]"
+      >
+        Arbre hiérarchique
+      </button>
+    </div>
+
+    <!-- Contenu des onglets -->
+    <div>
+      <!-- Onglet Liste -->
+      <div v-show="activeTab === 'list'" class="space-y-6">
           <!-- Filtres -->
           <StateEntityFilters
             :search="String(filters.search || '')"
@@ -127,58 +145,57 @@ useHead({
               />
             </div>
           </div>
+      </div>
+
+      <!-- Onglet Arbre -->
+      <div v-show="activeTab === 'tree'" class="space-y-6">
+        <!-- Actions -->
+        <div class="flex gap-3">
+          <UButton
+            color="gray"
+            variant="outline"
+            icon="i-heroicons-plus-circle"
+            @click="expandAll"
+          >
+            Tout déplier
+          </UButton>
+          <UButton
+            color="gray"
+            variant="outline"
+            icon="i-heroicons-minus-circle"
+            @click="collapseAll"
+          >
+            Tout replier
+          </UButton>
         </div>
 
-        <!-- Onglet Arbre -->
-        <div v-else-if="item.key === 'tree'" class="space-y-6">
-          <!-- Actions -->
-          <div class="flex gap-3">
-            <UButton
-              color="gray"
-              variant="outline"
-              icon="i-heroicons-plus-circle"
-              @click="expandAll"
-            >
-              Tout déplier
-            </UButton>
-            <UButton
-              color="gray"
-              variant="outline"
-              icon="i-heroicons-minus-circle"
-              @click="collapseAll"
-            >
-              Tout replier
-            </UButton>
-          </div>
+        <!-- Arbre -->
+        <UCard v-if="treePending" class="py-12 text-center">
+          <UIcon
+            name="i-heroicons-arrow-path"
+            class="text-primary-600 mx-auto h-8 w-8 animate-spin"
+          />
+          <p class="mt-2 text-gray-600 dark:text-gray-400">Chargement de l'arbre...</p>
+        </UCard>
 
-          <!-- Arbre -->
-          <UCard v-if="treePending" class="py-12 text-center">
-            <UIcon
-              name="i-heroicons-arrow-path"
-              class="text-primary-600 mx-auto h-8 w-8 animate-spin"
+        <UCard v-else-if="!tree || tree.length === 0" class="py-12 text-center">
+          <UIcon name="i-heroicons-folder-open" class="mx-auto mb-4 h-16 w-16 text-gray-400" />
+          <p class="text-gray-600 dark:text-gray-400">Aucune donnée disponible</p>
+        </UCard>
+
+        <UCard v-else>
+          <div class="space-y-1">
+            <StateTreeNode
+              v-for="node in tree"
+              :key="node.id"
+              :node="node"
+              :is-expanded="isExpanded(node.id)"
+              :level="0"
+              @toggle="toggleNode"
             />
-            <p class="mt-2 text-gray-600 dark:text-gray-400">Chargement de l'arbre...</p>
-          </UCard>
-
-          <UCard v-else-if="!tree || tree.length === 0" class="py-12 text-center">
-            <UIcon name="i-heroicons-folder-open" class="mx-auto mb-4 h-16 w-16 text-gray-400" />
-            <p class="text-gray-600 dark:text-gray-400">Aucune donnée disponible</p>
-          </UCard>
-
-          <UCard v-else>
-            <div class="space-y-1">
-              <StateTreeNode
-                v-for="node in tree"
-                :key="node.id"
-                :node="node"
-                :is-expanded="isExpanded(node.id)"
-                :level="0"
-                @toggle="toggleNode"
-              />
-            </div>
-          </UCard>
-        </div>
-      </template>
-    </UTabs>
+          </div>
+        </UCard>
+      </div>
+    </div>
   </div>
 </template>

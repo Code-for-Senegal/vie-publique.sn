@@ -168,6 +168,24 @@ const handleVersionChange = (versionId: number) => {
 const isDataReady = computed(() => {
   return !loading.value && !error.value;
 });
+
+// Gestion des onglets - persiste lors des changements de filtres
+const activeTab = ref('overview');
+
+// Sauvegarder le tab actif dans sessionStorage pour le préserver
+if (import.meta.client) {
+  const savedTab = sessionStorage.getItem('budget-active-tab');
+  if (savedTab) {
+    activeTab.value = savedTab;
+  }
+}
+
+// Watcher pour sauvegarder le tab actif
+watch(activeTab, (newTab) => {
+  if (import.meta.client) {
+    sessionStorage.setItem('budget-active-tab', newTab);
+  }
+});
 </script>
 
 <template>
@@ -270,17 +288,60 @@ const isDataReady = computed(() => {
 
     <!-- Contenu principal -->
     <div v-else-if="isDataReady">
-      <UTabs
-        :default-index="0"
-        :items="[
-          { id: 'overview', label: 'Résumé' },
-          { id: 'documents', label: 'Documents' },
-        ]"
-        class="border-b border-gray-200 dark:border-gray-700"
-      >
-        <template #item="{ item }">
-          <!-- Vue d'ensemble -->
-          <template v-if="item.id === 'overview'">
+      <!-- Boutons de navigation (style tabs) -->
+      <div class="mb-6 border-b border-gray-200 dark:border-gray-700">
+        <div class="flex items-center justify-center gap-1">
+          <button
+            @click="activeTab = 'overview'"
+            :class="[
+              'px-4 py-2 text-sm font-medium transition-colors',
+              activeTab === 'overview'
+                ? 'border-b-2 border-gray-900 text-gray-900 dark:border-gray-100 dark:text-gray-100'
+                : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300',
+            ]"
+          >
+            Résumé
+          </button>
+          <button
+            @click="activeTab = 'ministries'"
+            :class="[
+              'px-4 py-2 text-sm font-medium transition-colors',
+              activeTab === 'ministries'
+                ? 'border-b-2 border-gray-900 text-gray-900 dark:border-gray-100 dark:text-gray-100'
+                : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300',
+            ]"
+          >
+            Ministères
+          </button>
+          <button
+            @click="activeTab = 'institutions'"
+            :class="[
+              'px-4 py-2 text-sm font-medium transition-colors',
+              activeTab === 'institutions'
+                ? 'border-b-2 border-gray-900 text-gray-900 dark:border-gray-100 dark:text-gray-100'
+                : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300',
+            ]"
+          >
+            Institutions
+          </button>
+          <button
+            @click="activeTab = 'documents'"
+            :class="[
+              'px-4 py-2 text-sm font-medium transition-colors',
+              activeTab === 'documents'
+                ? 'border-b-2 border-gray-900 text-gray-900 dark:border-gray-100 dark:text-gray-100'
+                : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300',
+            ]"
+          >
+            Documents
+          </button>
+        </div>
+      </div>
+
+      <!-- Contenu des onglets -->
+      <div>
+        <!-- Vue d'ensemble -->
+        <div v-show="activeTab === 'overview'">
             <div class="space-y-6">
               <!-- KPIs dans une grille responsive -->
               <div class="grid grid-cols-2 gap-3 lg:grid-cols-3">
@@ -308,7 +369,7 @@ const isDataReady = computed(() => {
 
                 <!-- Total des recettes en grand -->
                 <div class="mb-6 text-center">
-                  <div class="flex items-center justify-center gap-3">
+                  <div class="flex items-baseline justify-center gap-2">
                     <div class="text-4xl font-bold text-green-600">
                       {{ Math.round(revenueTotalWithVariation.total) }}
                       <span class="text-2xl">Mrd FCFA</span>
@@ -316,8 +377,7 @@ const isDataReady = computed(() => {
                     <UBadge
                       v-if="revenueTotalWithVariation.variation_percentage !== 'N/A'"
                       variant="solid"
-                      size="sm"
-                      class="rounded-full border-none bg-gray-200 px-2 py-1 text-sm font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+                      class="rounded-full border-none bg-gray-200 px-2 py-0.5 text-xs font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
                     >
                       {{ revenueTotalWithVariation.variation_percentage }}
                     </UBadge>
@@ -345,7 +405,7 @@ const isDataReady = computed(() => {
 
                 <!-- Total des dépenses en grand -->
                 <div class="mb-6 text-center">
-                  <div class="flex items-center justify-center gap-3">
+                  <div class="flex items-baseline justify-center gap-2">
                     <div class="text-4xl font-bold text-red-600">
                       {{ Math.round(expenseTotalWithVariation.total) }}
                       <span class="text-2xl">Mrd FCFA</span>
@@ -353,7 +413,7 @@ const isDataReady = computed(() => {
                     <UBadge
                       v-if="expenseTotalWithVariation.variation_percentage !== 'N/A'"
                       variant="solid"
-                      class="rounded-full border-none bg-gray-200 px-3 py-1 text-sm font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+                      class="rounded-full border-none bg-gray-200 px-2 py-0.5 text-xs font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
                     >
                       {{ expenseTotalWithVariation.variation_percentage }}
                     </UBadge>
@@ -381,7 +441,7 @@ const isDataReady = computed(() => {
 
                 <!-- Total des besoins de financement en grand -->
                 <div class="mb-6 text-center">
-                  <div class="flex items-center justify-center gap-3">
+                  <div class="flex items-baseline justify-center gap-2">
                     <div class="text-4xl font-bold text-purple-600">
                       {{ Math.round(treasuryOperations.total) }}
                       <span class="text-2xl">Mrd FCFA</span>
@@ -389,7 +449,7 @@ const isDataReady = computed(() => {
                     <UBadge
                       v-if="treasuryOperations.variation_percentage !== 'N/A'"
                       variant="solid"
-                      class="rounded-full border-none bg-gray-200 px-3 py-1 text-sm font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+                      class="rounded-full border-none bg-gray-200 px-2 py-0.5 text-xs font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
                     >
                       {{ treasuryOperations.variation_percentage }}
                     </UBadge>
@@ -429,14 +489,14 @@ const isDataReady = computed(() => {
 
                 <!-- Total de la dette en grand -->
                 <div class="mb-6 text-center">
-                  <div class="flex items-center justify-center gap-3">
+                  <div class="flex items-baseline justify-center gap-2">
                     <div class="text-4xl font-bold text-orange-600">
                       {{ Math.round(publicDebt.total) }} <span class="text-2xl">Mrd FCFA</span>
                     </div>
                     <UBadge
                       v-if="publicDebt.variation_percentage !== 'N/A'"
                       variant="solid"
-                      class="rounded-full border-none bg-gray-200 px-3 py-1 text-sm font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+                      class="rounded-full border-none bg-gray-200 px-2 py-0.5 text-xs font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
                     >
                       {{ publicDebt.variation_percentage }}
                     </UBadge>
@@ -465,61 +525,80 @@ const isDataReady = computed(() => {
                 />
               </div>
             </div>
-          </template>
+        </div>
 
-          <!-- Onglet Documents -->
-          <template v-if="item.id === 'documents'">
-            <div class="p-4">
-              <!-- Message si aucun document -->
-              <div v-if="documents.length === 0" class="py-12 text-center">
-                <UIcon name="i-heroicons-document" class="mx-auto mb-4 h-16 w-16 text-gray-400" />
-                <p class="text-gray-600 dark:text-gray-400">
-                  Aucun document disponible pour cette année budgétaire
-                </p>
-              </div>
+        <!-- Ministères -->
+        <div v-show="activeTab === 'ministries'">
+          <div class="rounded-xl bg-white p-6 shadow-sm dark:bg-gray-800">
+            <h2 class="mb-4 text-center text-xl font-bold text-gray-900 dark:text-white">
+              Budgets des Ministères {{ year }}
+            </h2>
+            <MinistryTable :year="year" :version="version" level="ministry" />
+          </div>
+        </div>
 
-              <!-- Grille de documents -->
-              <div v-else class="grid grid-cols-2 gap-4 sm:grid-cols-3">
-                <NuxtLink
-                  v-for="document in documents"
-                  :key="document.id"
-                  :to="`/documents/${document.id}/${document.slug}`"
-                  class="group block overflow-hidden rounded-lg border border-gray-200 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg dark:border-gray-700"
-                >
-                  <!-- Image de couverture -->
-                  <div class="aspect-[3/4] overflow-hidden bg-gray-100 dark:bg-gray-800">
-                    <CmsImage
-                      v-if="document.cover_image"
-                      :src="document.cover_image"
-                      :alt="`Couverture ${document.title}`"
-                      class="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
-                      loading="lazy"
-                      :quality="60"
-                    />
-                    <div v-else class="flex h-full w-full items-center justify-center">
-                      <UIcon name="i-heroicons-document-text" class="h-16 w-16 text-gray-400" />
-                    </div>
-                  </div>
+        <!-- Institutions -->
+        <div v-show="activeTab === 'institutions'">
+          <div class="rounded-xl bg-white p-6 shadow-sm dark:bg-gray-800">
+            <h2 class="mb-4 text-center text-xl font-bold text-gray-900 dark:text-white">
+              Budgets des Institutions {{ year }}
+            </h2>
+            <MinistryTable :year="year" :version="version" level="institution" />
+          </div>
+        </div>
 
-                  <!-- Titre du document -->
-                  <div class="p-3">
-                    <h3 class="line-clamp-2 text-sm font-medium text-gray-900 dark:text-white">
-                      {{ document.title }}
-                    </h3>
-                    <div
-                      v-if="document.file"
-                      class="mt-2 flex items-center gap-1 text-xs text-gray-500"
-                    >
-                      <UIcon name="i-heroicons-document" class="h-3 w-3" />
-                      PDF
-                    </div>
-                  </div>
-                </NuxtLink>
-              </div>
+        <!-- Documents -->
+        <div v-show="activeTab === 'documents'">
+          <div class="p-4">
+            <!-- Message si aucun document -->
+            <div v-if="documents.length === 0" class="py-12 text-center">
+              <UIcon name="i-heroicons-document" class="mx-auto mb-4 h-16 w-16 text-gray-400" />
+              <p class="text-gray-600 dark:text-gray-400">
+                Aucun document disponible pour cette année budgétaire
+              </p>
             </div>
-          </template>
-        </template>
-      </UTabs>
+
+            <!-- Grille de documents -->
+            <div v-else class="grid grid-cols-2 gap-4 sm:grid-cols-3">
+              <NuxtLink
+                v-for="document in documents"
+                :key="document.id"
+                :to="`/documents/${document.id}/${document.slug}`"
+                class="group block overflow-hidden rounded-lg border border-gray-200 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg dark:border-gray-700"
+              >
+                <!-- Image de couverture -->
+                <div class="aspect-[3/4] overflow-hidden bg-gray-100 dark:bg-gray-800">
+                  <CmsImage
+                    v-if="document.cover_image"
+                    :src="document.cover_image"
+                    :alt="`Couverture ${document.title}`"
+                    class="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
+                    loading="lazy"
+                    :quality="60"
+                  />
+                  <div v-else class="flex h-full w-full items-center justify-center">
+                    <UIcon name="i-heroicons-document-text" class="h-16 w-16 text-gray-400" />
+                  </div>
+                </div>
+
+                <!-- Titre du document -->
+                <div class="p-3">
+                  <h3 class="line-clamp-2 text-sm font-medium text-gray-900 dark:text-white">
+                    {{ document.title }}
+                  </h3>
+                  <div
+                    v-if="document.file"
+                    class="mt-2 flex items-center gap-1 text-xs text-gray-500"
+                  >
+                    <UIcon name="i-heroicons-document" class="h-3 w-3" />
+                    PDF
+                  </div>
+                </div>
+              </NuxtLink>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
