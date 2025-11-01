@@ -26,9 +26,9 @@ const getPercentage = (value, total) => ((value / total) * 100).toFixed(1);
     <div class="mt-2">
       <h2 class="mb-2 p-2 text-center font-bold text-gray-900 dark:text-white">{{ title }}</h2>
 
-      <div class="space-y-2 bg-white shadow-lg dark:bg-gray-800">
+      <div class="overflow-hidden rounded-lg bg-white shadow-lg dark:bg-gray-800">
         <!-- En-têtes -->
-        <div class="bg-gray-50 px-2 py-2 text-sm font-medium text-gray-500 dark:bg-gray-700 dark:text-gray-400">
+        <div class="bg-gray-100 px-2 py-3 text-sm font-semibold text-gray-700 dark:bg-gray-700 dark:text-gray-300">
           <div class="flex items-center justify-between gap-2">
             <span class="flex-1">Nature</span>
             <div class="flex shrink-0 items-center gap-4">
@@ -40,7 +40,7 @@ const getPercentage = (value, total) => ((value / total) * 100).toFixed(1);
         <div
           v-for="item in budgetData"
           :key="item.label"
-          class="px-2 py-2 text-sm text-gray-900 dark:text-gray-100"
+          class="border-b border-gray-100 px-2 py-2 text-sm text-gray-900 last:border-b-0 dark:border-gray-700 dark:text-gray-100"
         >
           <div class="flex items-start gap-2">
             <!-- Pourcentage cercle -->

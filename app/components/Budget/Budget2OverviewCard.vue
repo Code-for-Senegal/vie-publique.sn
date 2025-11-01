@@ -14,7 +14,7 @@
           {{ unit }}
         </span>
         <UBadge
-          v-if="variation_percentage && variation_percentage !== 'N/A'"
+          v-if="showVariationBadge && variation_percentage && variation_percentage !== 'N/A'"
           variant="solid"
           :class="[
             'rounded-full border-none px-1 text-center text-xs font-medium tracking-wide sm:px-2 sm:text-sm',
@@ -40,11 +40,13 @@ interface Props {
   variation_percentage: string;
   color?: 'green' | 'red' | 'gray';
   variation_color?: 'green' | 'red' | 'gray';
+  showVariationBadge?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   unit: '',
   color: 'gray',
   variation_color: 'gray',
+  showVariationBadge: true,
 });
 </script>

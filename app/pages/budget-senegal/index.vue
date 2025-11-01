@@ -292,6 +292,7 @@ const isDataReady = computed(() => {
                   :unit="indicator.unit"
                   :variation_percentage="indicator.variation_percentage"
                   :variation_color="indicator.variation_color"
+                  :show-variation-badge="indicator.showVariationBadge"
                   :color="indicator.color"
                 />
               </div>

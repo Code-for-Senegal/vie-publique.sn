@@ -200,6 +200,7 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
     return data.value.keyIndicators.map((indicator) => {
       let variation = "N/A";
       let variationColor: 'green' | 'red' | 'gray' = 'gray';
+      let compareValue = null;
 
       // Calculer la variation si on a des données de comparaison
       if (comparisonData.value?.hasComparison && comparisonData.value.compare) {
@@ -209,16 +210,29 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
         if (compareIndicator) {
           variation = calculateVariation(indicator.value, compareIndicator.value);
           variationColor = getVariationColor(variation, indicator.code);
+          compareValue = compareIndicator.value;
         }
+      }
+
+      // Pour les indicateurs en %, afficher la valeur de l'année de comparaison au lieu du % de variation
+      let displayValue = Math.round(indicator.value).toString();
+      let displayVariation = variation;
+
+      // Si l'unité est en pourcentage, on affiche la valeur comparative directement
+      if (indicator.unit !== "mds_fcfa" && compareValue !== null && comparisonData.value?.hasComparison) {
+        displayVariation = `${compareValue.toFixed(1)}% en ${comparisonData.value.compareYear}`;
+        // Pour le déficit en %, ne pas afficher de couleur (gris par défaut)
+        variationColor = 'gray';
       }
 
       return {
         name: indicator.label,
-        value: Math.round(indicator.value).toString(),
+        value: displayValue,
         unit: indicator.unit === "mds_fcfa" ? "Mrd FCFA" : "%",
         color: colorMap[indicator.code] || "#60A5FA",
-        variation_percentage: variation,
+        variation_percentage: displayVariation,
         variation_color: variationColor,
+        showVariationBadge: true,
       };
     });
   });
