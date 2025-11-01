@@ -96,7 +96,8 @@ const aboutUslinks = [
 ];
 
 onMounted(() => {
-  if (import.meta.client && "serviceWorker" in navigator) {
+  // Service Worker uniquement en production
+  if (import.meta.client && config.public.nodeEnv === 'production' && "serviceWorker" in navigator) {
     navigator.serviceWorker.addEventListener("controllerchange", () => {});
 
     navigator.serviceWorker.ready.then((registration) => {
@@ -140,9 +141,6 @@ onMounted(() => {
   <div
     class="lg:px-18 header_top sticky top-0 z-50 flex items-center justify-between opacity-100 md:px-10 xl:px-32"
   >
-    <!-- PWA manifest -->
-    <NuxtPwaManifest />
-
     <!-- loader quand on change de page -->
     <NuxtLoadingIndicator />
 
