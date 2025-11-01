@@ -147,18 +147,42 @@ const {
 } = useBudget();
 
 // Gestion du changement d'année
+// Le watcher dans useBudget() met automatiquement à jour la version
 const handleYearChange = (newYear: number) => {
+  console.log(`[Page] handleYearChange appelé avec année: ${newYear}`);
+  console.log(`[Page] Versions disponibles avant changement:`, availableVersions.value);
   setYear(newYear);
-  // Réinitialiser la version à la première disponible pour cette année
-  if (availableVersions.value.length > 0) {
-    setVersion(availableVersions.value[0].id);
-  }
+  // Attendre le prochain tick pour que availableVersions soit mis à jour
+  nextTick(() => {
+    console.log(`[Page] Versions disponibles après changement:`, availableVersions.value);
+    console.log(`[Page] Version sélectionnée:`, version.value);
+  });
 };
 
 // Gestion du changement de version
 const handleVersionChange = (versionId: number) => {
+  console.log(`[Page] handleVersionChange appelé avec version: ${versionId}`);
   setVersion(versionId);
 };
+
+// Computed pour savoir si les données sont prêtes
+const isDataReady = computed(() => {
+  // Ne pas vérifier la longueur des indicateurs, juste l'état de chargement et d'erreur
+  return !loading.value && !error.value;
+});
+
+// Watcher pour debugger les changements de versions disponibles
+watch(availableVersions, (newVersions) => {
+  console.log(`[Page Watch] availableVersions changé:`, newVersions);
+  console.log(`[Page Watch] Version actuelle:`, version.value);
+  console.log(`[Page Watch] Type de version:`, typeof version.value);
+  console.log(`[Page Watch] Options mappées:`, newVersions.map(v => ({ label: v.label, value: v.id, type: typeof v.id })));
+}, { deep: true });
+
+// Watcher pour debugger le changement de version
+watch(version, (newVersion) => {
+  console.log(`[Page Watch version] Version changée →`, newVersion, `(type: ${typeof newVersion})`);
+});
 </script>
 
 <template>
@@ -183,12 +207,13 @@ const handleVersionChange = (versionId: number) => {
         </label>
         <USelect
           id="year-select"
-          :model-value="year"
+          :model-value="year || undefined"
           :options="availableYears.map(y => ({ label: y.year.toString(), value: y.year }))"
           value-attribute="value"
           option-attribute="label"
           size="md"
           class="w-32"
+          :disabled="availableYears.length === 0"
           @update:model-value="handleYearChange"
         />
       </div>
@@ -199,16 +224,19 @@ const handleVersionChange = (versionId: number) => {
           Version :
         </label>
         <USelect
+          :key="`version-${year}-${version}`"
           id="version-select"
-          :model-value="version"
+          v-model="version"
           :options="availableVersions.map(v => ({ label: v.label, value: v.id }))"
           value-attribute="value"
           option-attribute="label"
           size="md"
           class="w-32"
-          :disabled="availableVersions.length === 0"
-          @update:model-value="handleVersionChange"
+          :disabled="!availableVersions || availableVersions.length === 0 || loading"
         />
+        <span v-if="availableVersions.length === 0" class="text-xs text-red-500">
+          (Debug: {{ availableVersions.length }} versions, year={{ year }})
+        </span>
       </div>
     </div>
 
@@ -232,7 +260,7 @@ const handleVersionChange = (versionId: number) => {
     />
 
     <!-- Contenu principal -->
-    <div v-else-if="!loading && !error" class="rounded-xl border-none bg-white">
+    <div v-else-if="isDataReady" class="rounded-xl border-none bg-white">
       <UTabs
           :default-index="0"
           :items="[
@@ -257,31 +285,68 @@ const handleVersionChange = (versionId: number) => {
             </div>
 
             <!-- Répartition recettes -->
-            <Budget2TableRevenueExpense
-              v-if="revenueChartData.length > 0"
-              :budget-data="revenueChartData"
-              title="Répartition des Recettes"
-              color="green"
-            />
+            <div v-if="revenueChartData.length > 0">
+              <h2 class="mt-4 p-2 text-center font-bold dark:text-black">
+                Répartition des Recettes
+              </h2>
+
+              <!-- Total des recettes en grand -->
+              <div class="my-4 text-center">
+                <div class="text-4xl font-bold text-green-600">
+                  {{ revenueChartData.reduce((sum, item) => sum + item.value, 0).toFixed(1) }} <span class="text-2xl">Mrd FCFA</span>
+                </div>
+                <p class="mt-2 text-sm text-gray-500">
+                  Montant total des recettes du budget général
+                </p>
+              </div>
+
+              <BudgetBudget2TableRevenueExpense
+                :budget-data="revenueChartData"
+                title=""
+                color="green"
+              />
+            </div>
 
             <!-- Répartition Dépenses -->
-            <Budget2TableRevenueExpense
-              v-if="expenseChartData.length > 0"
-              :budget-data="expenseChartData"
-              title="Répartition des Dépenses"
-              color="indigo"
-            />
+            <div v-if="expenseChartData.length > 0">
+              <h2 class="mt-4 p-2 text-center font-bold dark:text-black">
+                Répartition des Dépenses
+              </h2>
+
+              <!-- Total des dépenses en grand -->
+              <div class="my-4 text-center">
+                <div class="text-4xl font-bold text-indigo-600">
+                  {{ expenseChartData.reduce((sum, item) => sum + item.value, 0).toFixed(1) }} <span class="text-2xl">Mrd FCFA</span>
+                </div>
+                <p class="mt-2 text-sm text-gray-500">
+                  Montant total des dépenses du budget général
+                </p>
+              </div>
+
+              <BudgetBudget2TableRevenueExpense
+                :budget-data="expenseChartData"
+                title=""
+                color="indigo"
+              />
+            </div>
 
             <!-- Opérations de trésorerie (Besoins de financement) -->
             <div v-if="treasuryOperations.components.length > 0">
               <h2 class="mt-4 p-2 text-center font-bold dark:text-black">
                 Besoins de financement
               </h2>
-              <div class="text-center">
-                <p class="mb-2 text-sm text-gray-500">
-                  C'est l'argent que l'État doit mobiliser pour couvrir ses besoins de financement.
+
+              <!-- Total des besoins de financement en grand -->
+              <div class="my-4 text-center">
+                <div class="text-4xl font-bold text-purple-600">
+                  {{ treasuryOperations.total.toFixed(1) }} <span class="text-2xl">Mrd FCFA</span>
+                </div>
+                <p class="mt-2 text-sm text-gray-500">
+                  Montant total à mobiliser pour couvrir les besoins de financement
                 </p>
               </div>
+
+              <!-- Répartition en cercles -->
               <div class="flex flex-row md:gap-4">
                 <BudgetRessourcesCircleProgress
                   v-for="component in treasuryOperations.components"
@@ -294,7 +359,7 @@ const handleVersionChange = (versionId: number) => {
                   class="flex-1"
                 />
               </div>
-              <Budget2TableRevenueExpense
+              <BudgetBudget2TableRevenueExpense
                 :budget-data="treasuryOperations.components"
                 title=""
                 color="purple"
@@ -306,11 +371,18 @@ const handleVersionChange = (versionId: number) => {
               <h2 class="mt-4 p-2 text-center font-bold dark:text-black">
                 Service de la Dette publique
               </h2>
-              <div class="text-center">
-                <p class="mb-2 text-sm text-gray-500">
-                  Montant total que l'État devra payer pour le service de sa dette (intérêts + capital).
+
+              <!-- Total de la dette en grand -->
+              <div class="my-4 text-center">
+                <div class="text-4xl font-bold text-orange-600">
+                  {{ publicDebt.total.toFixed(1) }} <span class="text-2xl">Mrd FCFA</span>
+                </div>
+                <p class="mt-2 text-sm text-gray-500">
+                  Montant total du service de la dette (intérêts + capital)
                 </p>
               </div>
+
+              <!-- Répartition en cercles -->
               <div class="flex flex-row md:gap-4">
                 <BudgetRessourcesCircleProgress
                   v-for="component in publicDebt.components"
@@ -323,7 +395,7 @@ const handleVersionChange = (versionId: number) => {
                   class="flex-1"
                 />
               </div>
-              <Budget2TableRevenueExpense
+              <BudgetBudget2TableRevenueExpense
                 :budget-data="publicDebt.components"
                 title=""
                 color="orange"

@@ -9,6 +9,27 @@ export default defineCachedEventHandler(
     try {
       const directus = getCmsClient();
 
+      // 0. Récupérer l'ID de budget_year correspondant à l'année demandée
+      const budgetYears = await directus.request(
+        readItems('budget_year', {
+          fields: ['id', 'year'],
+          filter: {
+            year: { _eq: year },
+          },
+          limit: 1,
+        }),
+      );
+
+      if (!budgetYears || budgetYears.length === 0) {
+        throw createError({
+          statusCode: 404,
+          statusMessage: `Aucune année budgétaire ${year} trouvée`,
+        });
+      }
+
+      const budgetYearId = budgetYears[0].id;
+      console.log(`[Budget Global] Année ${year} → budget_year.id = ${budgetYearId}`);
+
       // 1. Récupérer la version si non fournie (dernière version publiée de l'année)
       let budgetVersionId = versionId;
       if (!budgetVersionId) {
@@ -16,7 +37,7 @@ export default defineCachedEventHandler(
           readItems('budget_version', {
             fields: ['id', 'label', 'status'],
             filter: {
-              year: { _eq: year },
+              year: { _eq: budgetYearId }, // Utiliser l'ID de budget_year
               status: { _eq: 'published' },
             },
             sort: ['-id'],
@@ -33,6 +54,7 @@ export default defineCachedEventHandler(
 
         budgetVersionId = versions[0].id;
       }
+      console.log(`[Budget Global] Version ID = ${budgetVersionId}`);
 
       // 2. Récupérer tous les indicateurs globaux avec leurs valeurs
       const budgetGlobalData = await directus.request(
@@ -51,7 +73,7 @@ export default defineCachedEventHandler(
             'metric.color',
           ],
           filter: {
-            year: { _eq: year },
+            year: { _eq: budgetYearId }, // Utiliser l'ID de budget_year
             version: { _eq: budgetVersionId },
             status: { _eq: 'published' },
           },
@@ -59,6 +81,8 @@ export default defineCachedEventHandler(
           limit: -1,
         }),
       );
+
+      console.log(`[Budget Global] Données trouvées : ${budgetGlobalData.length} items`);
 
       if (!budgetGlobalData || budgetGlobalData.length === 0) {
         throw createError({
@@ -88,9 +112,7 @@ export default defineCachedEventHandler(
 
       const documents =
         yearData && yearData.length > 0 && yearData[0].documents
-          ? yearData[0].documents
-              .map((doc: any) => doc.documents_id)
-              .filter((d: any) => d && d.id)
+          ? yearData[0].documents.map((doc: any) => doc.documents_id).filter((d: any) => d && d.id)
           : [];
 
       // 4. Organiser les données par groupes
@@ -171,7 +193,7 @@ export default defineCachedEventHandler(
     }
   },
   {
-    maxAge: 60 * 60, // Cache 1 heure
+    maxAge: process.env.NODE_ENV === 'production' ? 60 * 60 : 0, // 1h en prod, pas de cache en dev
     name: 'budget-global',
     getKey: (event) => {
       const query = getQuery(event);
