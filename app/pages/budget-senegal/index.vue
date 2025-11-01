@@ -184,9 +184,9 @@ const isDataReady = computed(() => {
     </div>
 
     <!-- Filtres année et version -->
-    <div class="mb-6 space-y-4">
+    <div class="mb-6 space-y-3">
       <!-- Sélection année courante et version -->
-      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center">
+      <div class="flex items-center justify-center gap-2">
         <!-- Select Année -->
         <USelect
           id="year-select"
@@ -194,52 +194,52 @@ const isDataReady = computed(() => {
           :options="availableYears.map((y) => ({ label: y.year.toString(), value: y.year }))"
           value-attribute="value"
           option-attribute="label"
-          size="lg"
-          class="w-32"
+          size="sm"
+          class="w-28"
           :disabled="availableYears.length === 0"
         />
 
         <!-- Boutons Version (PLF/LFI/LFR) -->
-        <div class="flex gap-2">
-          <button
-            v-for="versionLabel in ['PLF', 'LFI', 'LFR']"
-            :key="versionLabel"
-            :disabled="!getVersionByLabel(versionLabel)"
-            :class="[
-              'rounded-lg px-4 py-2 text-sm font-medium transition-all',
-              getVersionByLabel(versionLabel) && version === getVersionByLabel(versionLabel)?.id
-                ? 'border-2 border-primary-600 bg-primary-50 text-primary-700 dark:border-primary-400 dark:bg-primary-950 dark:text-primary-300'
-                : getVersionByLabel(versionLabel)
-                  ? 'border-2 border-gray-300 bg-white text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
-                  : 'cursor-not-allowed border-2 border-gray-200 bg-gray-50 text-gray-400 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-600',
-            ]"
-            @click="
-              getVersionByLabel(versionLabel) &&
-              handleVersionChange(getVersionByLabel(versionLabel)!.id)
-            "
-          >
-            {{ versionLabel }}
-          </button>
-        </div>
+        <button
+          v-for="versionLabel in ['PLF', 'LFI', 'LFR']"
+          :key="versionLabel"
+          :disabled="!getVersionByLabel(versionLabel)"
+          :class="[
+            'custom-shadow p-1 text-sm font-medium transition-all',
+            getVersionByLabel(versionLabel) && version === getVersionByLabel(versionLabel)?.id
+              ? 'border-primary-600 bg-primary-50 text-primary-700 dark:border-primary-400 dark:bg-primary-950 dark:text-primary-300 border-2'
+              : getVersionByLabel(versionLabel)
+                ? 'border-1 border-gray-300 bg-white text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
+                : 'border-1 cursor-not-allowed border-gray-200 bg-gray-50 text-gray-400 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-600',
+          ]"
+          @click="
+            getVersionByLabel(versionLabel) &&
+            handleVersionChange(getVersionByLabel(versionLabel)!.id)
+          "
+        >
+          {{ versionLabel }}
+        </button>
       </div>
 
       <!-- Section comparaison (optionnelle) -->
       <div v-if="hasComparison" class="flex flex-wrap items-center justify-center gap-2 text-sm">
-        <span class="text-gray-600 dark:text-gray-400">
-          Évolutions par rapport à
-        </span>
+        <span class="text-gray-600 dark:text-gray-400"> Évolutions par rapport à </span>
         <USelect
           v-model="compareYear"
-          :options="availableYears.filter(y => y.year < year).map((y) => ({ label: `${y.year}`, value: y.year }))"
+          :options="
+            availableYears
+              .filter((y) => y.year < year)
+              .map((y) => ({ label: `${y.year}`, value: y.year }))
+          "
           value-attribute="value"
           option-attribute="label"
           size="sm"
           class="w-24"
           @update:model-value="setCompareYear"
         />
-        <span class="text-gray-600 dark:text-gray-400">
+        <!-- <span class="text-gray-600 dark:text-gray-400">
           ({{ currentVersionLabel }})
-        </span>
+        </span> -->
       </div>
     </div>
 
@@ -316,14 +316,8 @@ const isDataReady = computed(() => {
                     <UBadge
                       v-if="revenueTotalWithVariation.variation_percentage !== 'N/A'"
                       variant="solid"
-                      :class="[
-                        'rounded-full border-none px-3 py-1 text-sm font-medium',
-                        {
-                          'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400': revenueTotalWithVariation.variation_color === 'green',
-                          'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400': revenueTotalWithVariation.variation_color === 'red',
-                          'bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300': revenueTotalWithVariation.variation_color === 'gray',
-                        }
-                      ]"
+                      size="sm"
+                      class="rounded-full border-none bg-gray-200 px-2 py-1 text-sm font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
                     >
                       {{ revenueTotalWithVariation.variation_percentage }}
                     </UBadge>
@@ -352,21 +346,14 @@ const isDataReady = computed(() => {
                 <!-- Total des dépenses en grand -->
                 <div class="mb-6 text-center">
                   <div class="flex items-center justify-center gap-3">
-                    <div class="text-4xl font-bold text-indigo-600">
+                    <div class="text-4xl font-bold text-red-600">
                       {{ Math.round(expenseTotalWithVariation.total) }}
                       <span class="text-2xl">Mrd FCFA</span>
                     </div>
                     <UBadge
                       v-if="expenseTotalWithVariation.variation_percentage !== 'N/A'"
                       variant="solid"
-                      :class="[
-                        'rounded-full border-none px-3 py-1 text-sm font-medium',
-                        {
-                          'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400': expenseTotalWithVariation.variation_color === 'green',
-                          'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400': expenseTotalWithVariation.variation_color === 'red',
-                          'bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300': expenseTotalWithVariation.variation_color === 'gray',
-                        }
-                      ]"
+                      class="rounded-full border-none bg-gray-200 px-3 py-1 text-sm font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
                     >
                       {{ expenseTotalWithVariation.variation_percentage }}
                     </UBadge>
@@ -379,7 +366,7 @@ const isDataReady = computed(() => {
                 <BudgetBudget2TableRevenueExpense
                   :budget-data="expenseChartData"
                   title=""
-                  color="indigo"
+                  color="red"
                 />
               </div>
 
@@ -402,14 +389,7 @@ const isDataReady = computed(() => {
                     <UBadge
                       v-if="treasuryOperations.variation_percentage !== 'N/A'"
                       variant="solid"
-                      :class="[
-                        'rounded-full border-none px-3 py-1 text-sm font-medium',
-                        {
-                          'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400': treasuryOperations.variation_color === 'green',
-                          'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400': treasuryOperations.variation_color === 'red',
-                          'bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300': treasuryOperations.variation_color === 'gray',
-                        }
-                      ]"
+                      class="rounded-full border-none bg-gray-200 px-3 py-1 text-sm font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
                     >
                       {{ treasuryOperations.variation_percentage }}
                     </UBadge>
@@ -456,14 +436,7 @@ const isDataReady = computed(() => {
                     <UBadge
                       v-if="publicDebt.variation_percentage !== 'N/A'"
                       variant="solid"
-                      :class="[
-                        'rounded-full border-none px-3 py-1 text-sm font-medium',
-                        {
-                          'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400': publicDebt.variation_color === 'green',
-                          'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400': publicDebt.variation_color === 'red',
-                          'bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300': publicDebt.variation_color === 'gray',
-                        }
-                      ]"
+                      class="rounded-full border-none bg-gray-200 px-3 py-1 text-sm font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
                     >
                       {{ publicDebt.variation_percentage }}
                     </UBadge>

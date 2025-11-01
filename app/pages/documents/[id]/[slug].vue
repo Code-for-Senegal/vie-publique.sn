@@ -28,29 +28,28 @@ watchEffect(() => {
       title: document.value.title,
       link: [
         {
-          rel: "canonical",
+          rel: 'canonical',
           href: `https://vie-publique.sn/documents/${document.value.id}/${document.value.slug}`,
         },
       ],
       meta: [
         {
-          name: "description",
+          name: 'description',
           content: document.value.description || document.value.title,
         },
-        { property: "og:title", content: document.value.title },
+        { property: 'og:title', content: document.value.title },
         {
-          property: "og:description",
+          property: 'og:description',
           content: document.value.description || document.value.title,
         },
         {
-          property: "og:image",
+          property: 'og:image',
           content:
-            document.value.cover_image ||
-            "https://vie-publique.sn/images/vpsn-share-jors.png",
+            document.value.cover_image || 'https://vie-publique.sn/images/vpsn-share-jors.png',
         },
-        { property: "og:type", content: "article" },
+        { property: 'og:type', content: 'article' },
         {
-          property: "og:url",
+          property: 'og:url',
           content: `https://vie-publique.sn/documents/${document.value.id}/${document.value.slug}`,
         },
       ],
@@ -59,7 +58,7 @@ watchEffect(() => {
     // Données structurées pour le document
     useSchemaOrg([
       {
-        "@type": "Document",
+        '@type': 'Document',
         name: document.value.title,
         description: document.value.description || document.value.title,
         datePublished: document.value.publish_date,
@@ -83,23 +82,17 @@ const getAssetUrl = (assetId: string, slug: string) => {
     <UButton
       icon="i-heroicons-arrow-left"
       variant="ghost"
-      label="Retour à la liste"
+      label="Retour"
       color="gray"
       @click="router.back()"
     />
 
     <!-- Loading state -->
     <div v-if="documentLoading" class="space-y-4">
-      <div
-        class="h-8 w-3/4 animate-pulse rounded bg-gray-200 dark:bg-gray-700"
-      ></div>
-      <div
-        class="h-64 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700"
-      ></div>
+      <div class="h-8 w-3/4 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
+      <div class="h-64 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700"></div>
       <div class="h-4 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
-      <div
-        class="h-4 w-3/4 animate-pulse rounded bg-gray-200 dark:bg-gray-700"
-      ></div>
+      <div class="h-4 w-3/4 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
     </div>
 
     <!-- Error state -->
@@ -112,10 +105,7 @@ const getAssetUrl = (assetId: string, slug: string) => {
     />
 
     <!-- Contenu -->
-    <div
-      v-else-if="document"
-      class="prose prose-sm sm:prose dark:prose-invert mx-auto"
-    >
+    <div v-else-if="document" class="prose prose-sm mx-auto sm:prose dark:prose-invert">
       <div class="">
         <h1>{{ document.title }}</h1>
       </div>
@@ -137,9 +127,7 @@ const getAssetUrl = (assetId: string, slug: string) => {
       <!-- PDF Viewer -->
       <ClientOnly v-if="document.file" placeholder="Chargement en cours">
         <div class="not-prose mt-8">
-          <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-gray-100">
-            Document PDF
-          </h3>
+          <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-gray-100">Document PDF</h3>
           <PdfViewer
             :source="getAssetUrl(document.file.id, document.slug)"
             :download-name="`${document.slug}.pdf`"
@@ -149,9 +137,7 @@ const getAssetUrl = (assetId: string, slug: string) => {
     </div>
 
     <!-- Not found state -->
-    <div v-else class="py-8 text-center text-gray-500 dark:text-gray-400">
-      Document non trouvé
-    </div>
+    <div v-else class="py-8 text-center text-gray-500 dark:text-gray-400">Document non trouvé</div>
 
     <ScrollToTopButton />
   </div>

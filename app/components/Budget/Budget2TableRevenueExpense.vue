@@ -14,9 +14,7 @@ const props = defineProps({
   },
 });
 
-const total = computed(() =>
-  props.budgetData.reduce((sum, item) => sum + item.value, 0),
-);
+const total = computed(() => props.budgetData.reduce((sum, item) => sum + item.value, 0));
 
 const getPercentage = (value, total) => ((value / total) * 100).toFixed(1);
 </script>
@@ -28,7 +26,9 @@ const getPercentage = (value, total) => ((value / total) * 100).toFixed(1);
 
       <div class="overflow-hidden rounded-lg bg-white shadow-lg dark:bg-gray-800">
         <!-- En-têtes -->
-        <div class="bg-gray-100 px-2 py-3 text-sm font-semibold text-gray-700 dark:bg-gray-700 dark:text-gray-300">
+        <div
+          class="bg-gray-50 px-2 py-3 text-sm font-semibold text-gray-700 dark:bg-gray-700 dark:text-gray-300"
+        >
           <div class="flex items-center justify-between gap-2">
             <span class="flex-1">Nature</span>
             <div class="flex shrink-0 items-center gap-4">
@@ -47,9 +47,7 @@ const getPercentage = (value, total) => ((value / total) * 100).toFixed(1);
             <span
               class="relative inline-flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gray-100 text-xl dark:bg-gray-800"
             >
-              <span
-                class="text-xs font-medium leading-none text-gray-900 dark:text-white"
-              >
+              <span class="text-xs font-medium leading-none text-gray-900 dark:text-white">
                 {{ getPercentage(item.value, total) }}%
               </span>
             </span>
@@ -57,9 +55,7 @@ const getPercentage = (value, total) => ((value / total) * 100).toFixed(1);
             <!-- Contenu principal -->
             <div class="min-w-0 flex-1">
               <div class="flex items-center justify-between gap-2">
-                <span class="line-clamp-1 block flex-1 text-sm">{{
-                  item.label
-                }}</span>
+                <span class="line-clamp-1 block flex-1 text-sm">{{ item.label }}</span>
                 <div class="flex shrink-0 items-center gap-2">
                   <span class="text-sm font-medium">{{ item.value.toLocaleString() }}</span>
                   <UBadge
@@ -68,13 +64,22 @@ const getPercentage = (value, total) => ((value / total) * 100).toFixed(1);
                     :class="[
                       'rounded-full border-none px-2 text-xs font-medium',
                       {
-                        'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400': item.variation_color === 'green',
-                        'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400': item.variation_color === 'red',
-                        'bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300': item.variation_color === 'gray',
-                      }
+                        'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400':
+                          item.variation_color === 'green',
+                        'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400':
+                          item.variation_color === 'red',
+                        'bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300':
+                          item.variation_color === 'gray',
+                      },
                     ]"
                   >
-                    {{ item.variation_percentage.startsWith('+') ? '↑' : item.variation_percentage.startsWith('-') ? '↓' : '' }}
+                    {{
+                      item.variation_percentage.startsWith('+')
+                        ? '↑'
+                        : item.variation_percentage.startsWith('-')
+                          ? '↓'
+                          : ''
+                    }}
                     {{ item.variation_percentage.replace('+', '').replace('-', '') }}
                   </UBadge>
                 </div>
