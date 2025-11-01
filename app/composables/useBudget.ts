@@ -57,57 +57,36 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
   const { data: yearsData } = useFetch<BudgetYearsData>("/api/budget/years", {
     key: "budget-years",
     default: () => ({ years: [], latest: null }),
-    server: true, // S'assurer que le fetch se fait bien côté serveur
+    server: true,
   });
 
   // Initialiser avec la version la plus récente ou les options passées
-  // Utiliser directement yearsData.value qui sera disponible en SSR
   const initialYear = options.year || yearsData.value?.latest?.year || 2026;
   const initialVersion = options.version || yearsData.value?.latest?.versionId;
 
   const year = ref(initialYear);
   const version = ref(initialVersion);
 
-  // Watcher pour mettre à jour automatiquement quand yearsData est chargé (client-side)
+  // Computed pour les années disponibles
+  const availableYears = computed(() => yearsData.value?.years || []);
+
+  // Computed pour les versions disponibles de l'année sélectionnée
+  const availableVersions = computed(() => {
+    const yearData = availableYears.value.find((y) => y.year === year.value);
+    return yearData?.versions || [];
+  });
+
+  // Watcher pour initialiser avec latest quand yearsData est chargé
   watch(
     () => yearsData.value?.latest,
     (latest) => {
-      if (latest && !options.year && !options.version) {
-        // Ne mettre à jour que si les valeurs n'ont pas été initialisées correctement
-        if (!year.value || year.value === 2026) {
-          year.value = latest.year;
-        }
-        if (!version.value) {
-          version.value = latest.versionId;
-        }
+      if (latest && !options.year && !options.version && !year.value) {
+        year.value = latest.year;
+        version.value = latest.versionId;
       }
     },
     { immediate: true }
   );
-
-  // Computed pour les versions disponibles de l'année sélectionnée (défini ici pour être utilisé dans le watcher)
-  const availableVersions = computed(() => {
-    console.log(`[useBudget availableVersions] Recherche versions pour année:`, year.value);
-    console.log(`[useBudget availableVersions] yearsData.value?.years:`, yearsData.value?.years);
-    const yearData = yearsData.value?.years?.find((y) => y.year === year.value);
-    console.log(`[useBudget availableVersions] yearData trouvé:`, yearData);
-    const versions = yearData?.versions || [];
-    console.log(`[useBudget availableVersions] Versions retournées:`, versions);
-    return versions;
-  });
-
-  // Watcher pour mettre à jour la version quand l'année change
-  watch(year, (newYear, oldYear) => {
-    console.log(`[useBudget] Année changée: ${oldYear} → ${newYear}`);
-    console.log(`[useBudget] Versions disponibles:`, availableVersions.value);
-
-    // Si l'année change, sélectionner automatiquement la première version disponible
-    if (newYear !== oldYear && availableVersions.value.length > 0) {
-      const newVersionId = availableVersions.value[0].id;
-      console.log(`[useBudget] Changement auto version → ${newVersionId}`);
-      version.value = newVersionId;
-    }
-  });
 
   // Construction des query params
   const queryParams = computed(() => {
@@ -121,13 +100,14 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
   });
 
   // Fetch des données via server API route
+  // On utilise watch: true avec un computed key qui change uniquement quand year ET version sont définis
   const { data, pending, error, refresh } = useFetch<BudgetGlobalData>(
     "/api/budget/global",
     {
       key: computed(() => `budget-global-${year.value}-${version.value || "latest"}`),
       query: queryParams,
-      watch: false, // Désactiver le watch automatique pour éviter le double-fetch
-      server: true, // S'assurer que le fetch se fait bien côté serveur
+      watch: [year, version], // Watch automatique réactivé car on gère l'ordre différemment
+      server: true,
       default: () => ({
         year: year.value,
         versionId: 0,
@@ -141,18 +121,6 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
       }),
     }
   );
-
-  // Watcher manuel pour refresh uniquement quand on ne change PAS d'année
-  watch([year, version], ([newYear, newVersion], [oldYear, oldVersion]) => {
-    console.log(`[useBudget watch] Triggered - year: ${oldYear}→${newYear}, version: ${oldVersion}→${newVersion}, isChangingYear: ${isChangingYear.value}`);
-
-    if (!isChangingYear.value) {
-      console.log(`[useBudget watch] Refresh data - year=${newYear}, version=${newVersion}`);
-      refresh();
-    } else {
-      console.log(`[useBudget watch] Skipped refresh (isChangingYear=true)`);
-    }
-  });
 
   // Computed pour les indicateurs clés formatés (pour affichage)
   const formattedKeyIndicators = computed(() => {
@@ -171,7 +139,7 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
 
     return data.value.keyIndicators.map((indicator) => ({
       name: indicator.label,
-      value: indicator.value.toFixed(1), // Convertir en string avec 1 décimale
+      value: Math.round(indicator.value).toString(), // Convertir en string sans décimale
       unit: indicator.unit === "mds_fcfa" ? "Mrd FCFA" : "%",
       color: colorMap[indicator.code] || "#60A5FA",
       variation_percentage: "0", // À calculer si on compare avec N-1
@@ -256,38 +224,30 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
     };
   });
 
-  // Flag pour éviter les double-fetch pendant le changement d'année
-  const isChangingYear = ref(false);
-
-  // Méthode pour changer l'année
+  // Méthode pour changer l'année (sélectionne automatiquement la version prioritaire)
   const setYear = (newYear: number) => {
-    console.log(`[useBudget setYear] Changement année: ${year.value} → ${newYear}`);
+    const yearData = availableYears.value.find((y) => y.year === newYear);
 
-    // Marquer qu'on est en train de changer d'année pour éviter le double-fetch
-    isChangingYear.value = true;
-    year.value = newYear;
+    if (yearData && yearData.versions.length > 0) {
+      // Priorité de sélection : LFR > LFI > PLF > autre
+      const priorityOrder = ['LFR', 'LFI', 'PLF'];
+      let selectedVersion = yearData.versions[0]; // Par défaut la première
 
-    // Attendre le prochain tick pour que availableVersions soit mis à jour
-    nextTick(() => {
-      console.log(`[useBudget setYear] Versions disponibles après changement:`, availableVersions.value);
-
-      // Sélectionner automatiquement la première version disponible
-      if (availableVersions.value.length > 0) {
-        const newVersionId = availableVersions.value[0].id;
-        console.log(`[useBudget setYear] Auto-sélection version → ${newVersionId}`);
-        version.value = newVersionId;
-      } else {
-        console.warn(`[useBudget setYear] Aucune version disponible pour l'année ${newYear}`);
-        version.value = undefined;
+      for (const label of priorityOrder) {
+        const found = yearData.versions.find((v) => v.label === label);
+        if (found) {
+          selectedVersion = found;
+          break;
+        }
       }
 
-      // Démarquer après la mise à jour de la version et appeler refresh manuellement
-      nextTick(() => {
-        isChangingYear.value = false;
-        console.log(`[useBudget setYear] Appel manuel refresh() - year=${year.value}, version=${version.value}`);
-        refresh();
-      });
-    });
+      // Changer l'année ET la version en même temps pour éviter le double-fetch
+      year.value = newYear;
+      version.value = selectedVersion.id;
+    } else {
+      year.value = newYear;
+      version.value = undefined;
+    }
   };
 
   // Méthode pour changer la version
@@ -311,7 +271,7 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
     error,
 
     // Listes disponibles
-    availableYears: computed(() => yearsData.value?.years || []),
+    availableYears,
     availableVersions,
     currentVersionLabel,
 
