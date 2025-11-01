@@ -1,20 +1,15 @@
-<script setup>
-import * as d3 from "d3";
-import budgetData from "@/assets/data/budget/budget-2025-plf.json";
-import Budget2TableMinistry from "~/components/Budget/Budget2TableMinistry.vue";
-import Budget2TableRevenueExpense from "~/components/Budget/Budget2TableRevenueExpense.vue";
-
+<script setup lang="ts">
 const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
 
-const title = "Budget de l'État du Sénégal 2025 | Loi de finances";
-const description = "Découvrez le budget 2025 de l'État du Sénégal. Projet de loi de finances, répartition des recettes et dépenses, budgets ministériels et institutions.";
-const url = `${siteUrl}/budget-senegal`;
+const title = "Budget de l'État du Sénégal | Loi de finances";
+const description = "Découvrez le budget de l'État du Sénégal. Répartition des recettes et dépenses, indicateurs clés, dette publique et besoins de financement.";
+const url = `${siteUrl}/budget`;
 const image = `${siteUrl}/images/vpsn-share-budget.png`;
 
 const budgetSchema = {
   "@context": "https://schema.org",
   "@type": "GovernmentService",
-  "name": "Budget de l'État du Sénégal 2025",
+  "name": "Budget de l'État du Sénégal",
   "description": description,
   "url": url,
   "image": image,
@@ -40,10 +35,10 @@ const budgetSchema = {
 const datasetSchema = {
   "@context": "https://schema.org",
   "@type": "Dataset",
-  "name": "Données budgétaires Sénégal 2025",
-  "description": "Jeu de données complet du budget de l'État sénégalais pour 2025 incluant recettes, dépenses et allocations ministérielles",
+  "name": "Données budgétaires Sénégal",
+  "description": "Jeu de données complet du budget de l'État sénégalais incluant recettes, dépenses et allocations",
   "url": url,
-  "keywords": ["budget", "finances publiques", "Sénégal", "2025", "ministères", "recettes", "dépenses"],
+  "keywords": ["budget", "finances publiques", "Sénégal", "recettes", "dépenses"],
   "creator": {
     "@type": "GovernmentOrganization",
     "name": "Ministère des Finances et du Budget du Sénégal",
@@ -52,8 +47,8 @@ const datasetSchema = {
     "@type": "Organization",
     "name": siteName,
   },
-  "datePublished": "2025-01-02",
-  "dateModified": "2025-01-02",
+  "datePublished": new Date().toISOString().split('T')[0],
+  "dateModified": new Date().toISOString().split('T')[0],
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "isAccessibleForFree": true,
   "inLanguage": "fr-SN",
@@ -72,24 +67,10 @@ const breadcrumbSchema = {
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "Budget Sénégal",
+      "name": "Budget",
       "item": url,
     },
   ],
-};
-
-const financialProductSchema = {
-  "@context": "https://schema.org",
-  "@type": "FinancialProduct",
-  "name": "Loi de finances 2025 Sénégal",
-  "description": "Projet de loi de finances de l'État du Sénégal pour l'exercice 2025",
-  "url": url,
-  "provider": {
-    "@type": "GovernmentOrganization",
-    "name": "Assemblée nationale du Sénégal",
-  },
-  "feesAndCommissionsSpecification": "Transparent - Données publiques gratuites",
-  "category": "Public Finance",
 };
 
 useSeoMeta({
@@ -105,18 +86,14 @@ useSeoMeta({
   twitterImage: image,
   keywords: [
     ...keywords,
-    "Budget Sénégal 2025",
+    "Budget Sénégal",
     "loi de finances Sénégal",
-    "LFI Sénégal",
     "finances publiques Sénégal",
     "recettes État Sénégal",
     "dépenses gouvernement Sénégal",
-    "budget ministères Sénégal",
-    "institutions budgétaires",
   ].join(", "),
 });
 
-// Head Configuration
 useHead({
   htmlAttrs: { lang: "fr-SN" },
   link: [{ rel: "canonical", href: url }],
@@ -128,8 +105,6 @@ useHead({
     { name: "robots", content: "index, follow" },
     { name: "geo.region", content: "SN" },
     { name: "geo.placename", content: "Dakar" },
-    { name: "geo.position", content: "14.7645042;-17.3660286" },
-    { name: "ICBM", content: "14.7645042, -17.3660286" },
     { name: "DC.type", content: "Dataset" },
     { name: "DC.format", content: "text/html" },
     { name: "DC.language", content: "fr-SN" },
@@ -149,226 +124,268 @@ useHead({
       type: "application/ld+json",
       children: JSON.stringify(breadcrumbSchema),
     },
-    {
-      type: "application/ld+json",
-      children: JSON.stringify(financialProductSchema),
-    },
   ],
 });
 
-const budget = ref(budgetData);
+// Utilisation du composable useBudget
+const {
+  loading,
+  error,
+  formattedKeyIndicators,
+  revenueChartData,
+  expenseChartData,
+  treasuryOperations,
+  publicDebt,
+  documents,
+  year,
+  version,
+  availableYears,
+  availableVersions,
+  currentVersionLabel,
+  setYear,
+  setVersion,
+} = useBudget();
 
-onMounted(async () => {
-  createCharts();
-});
-
-const createCharts = () => {
-  createPieChart(
-    "#revenueChart",
-    budget.value.revenueData,
-    "Répartition des recettes",
-  );
-  createPieChart(
-    "#expenseChart",
-    budget.value.expenseData,
-    "Répartition des dépenses",
-  );
+// Gestion du changement d'année
+const handleYearChange = (newYear: number) => {
+  setYear(newYear);
+  // Réinitialiser la version à la première disponible pour cette année
+  if (availableVersions.value.length > 0) {
+    setVersion(availableVersions.value[0].id);
+  }
 };
 
-const createPieChart = (selector, data, title) => {
-  const width = 400;
-  const height = 400;
-  const radius = Math.min(width, height) / 2;
-  const margin = 40;
-
-  const color = d3
-    .scaleOrdinal()
-    .domain(data.map((d) => d.label))
-    .range(["#60A5FA", "#34D399", "#F472B6", "#FBBF24"]);
-
-  const pie = d3
-    .pie()
-    .value((d) => d.value)
-    .sort(null);
-
-  const arc = d3
-    .arc()
-    .innerRadius(radius * 0.4)
-    .outerRadius(radius - margin);
-
-  // Supprime le graphique existant s'il y en a un
-  d3.select(selector).selectAll("*").remove();
-
-  const svg = d3
-    .select(selector)
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height)
-    .append("g")
-    .attr("transform", `translate(${width / 2}, ${height / 2})`);
-
-  // Ajoute les segments
-  const g = svg.selectAll("arc").data(pie(data)).enter().append("g");
-
-  g.append("path")
-    .attr("d", arc)
-    .style("fill", (d) => color(d.data.label))
-    .style("opacity", 0.8)
-    .style("stroke", "white")
-    .style("stroke-width", 2);
-
-  // Ajoute les étiquettes
-  const label = g
-    .append("text")
-    .attr("transform", (d) => {
-      const pos = arc.centroid(d);
-      const x = pos[0] * 1.5;
-      const y = pos[1] * 1.5;
-      return `translate(${x},${y})`;
-    })
-    .attr("dy", ".35em")
-    .style("text-anchor", "middle")
-    .style("font-size", "12px");
-
-  label
-    .append("tspan")
-    .text((d) => d.data.label)
-    .attr("x", 0)
-    .attr("dy", "0em");
-
-  label
-    .append("tspan")
-    .text((d) => `${d.data.value.toLocaleString()} Mrd`)
-    .attr("x", 0)
-    .attr("dy", "1.2em");
+// Gestion du changement de version
+const handleVersionChange = (versionId: number) => {
+  setVersion(versionId);
 };
 </script>
 
 <template>
   <div class="container mx-auto py-2 md:px-8">
-    <div class="mb-2 flex flex-row justify-between space-y-0 sm:items-center">
+    <div class="mb-2">
       <NuxtLink to="/" class="inline-flex items-center text-sm text-gray-600 hover:text-gray-800">
         <UIcon name="i-heroicons-arrow-left" class="mr-2 h-5 w-5" />
         Retour
       </NuxtLink>
-
-      <NuxtLink to="/budget-senegal/2024" class="inline-flex items-center text-sm text-gray-600 hover:text-gray-800">
-        Budget 2024
-        <UIcon name="i-heroicons-arrow-right" class="ml-2 h-5 w-5" />
-      </NuxtLink>
     </div>
 
     <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center dark:text-white">Budget 2025</h1>
-    </div>
-    <div class="text-center">
-      <p class="mb-2 text-sm text-gray-500">
-        Projet de loi de finances - Mis à jour 02 Janv 2025
-      </p>
+      <h1 class="text-center dark:text-white">Budget du Sénégal</h1>
     </div>
 
-    <!-- Onglets -->
-    <div class="rounded-xl border-none bg-white">
+    <!-- Filtres année et version -->
+    <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center">
+      <!-- Filtre Année -->
+      <div class="flex items-center gap-2">
+        <label for="year-select" class="text-sm font-medium text-gray-700 dark:text-gray-300">
+          Année :
+        </label>
+        <USelect
+          id="year-select"
+          :model-value="year"
+          :options="availableYears.map(y => ({ label: y.year.toString(), value: y.year }))"
+          value-attribute="value"
+          option-attribute="label"
+          size="md"
+          class="w-32"
+          @update:model-value="handleYearChange"
+        />
+      </div>
+
+      <!-- Filtre Version -->
+      <div class="flex items-center gap-2">
+        <label for="version-select" class="text-sm font-medium text-gray-700 dark:text-gray-300">
+          Version :
+        </label>
+        <USelect
+          id="version-select"
+          :model-value="version"
+          :options="availableVersions.map(v => ({ label: v.label, value: v.id }))"
+          value-attribute="value"
+          option-attribute="label"
+          size="md"
+          class="w-32"
+          :disabled="availableVersions.length === 0"
+          @update:model-value="handleVersionChange"
+        />
+      </div>
+    </div>
+
+    <!-- État de chargement -->
+    <div v-if="loading" class="flex justify-center py-12">
+      <div class="text-center">
+        <div class="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+          <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Chargement...</span>
+        </div>
+        <p class="mt-4 text-gray-600">Chargement des données budgétaires...</p>
+      </div>
+    </div>
+
+    <!-- Erreur -->
+    <UAlert
+      v-else-if="error"
+      icon="i-heroicons-exclamation-triangle"
+      color="red"
+      title="Erreur de chargement"
+      description="Impossible de charger les données budgétaires. Veuillez réessayer plus tard."
+    />
+
+    <!-- Contenu principal -->
+    <div v-else-if="!loading && !error" class="rounded-xl border-none bg-white">
       <UTabs
-v-if="budget" :default-index="0" :items="[
-        { id: 'overview', label: 'Résumé' },
-        { id: 'ministries', label: 'Ministères' },
-        { id: 'institutions', label: 'Institutions' },
-      ]">
-        <template #item="{ item }">
+          :default-index="0"
+          :items="[
+            { id: 'overview', label: 'Résumé' },
+            { id: 'documents', label: 'Documents' },
+          ]"
+        >
+          <template #item="{ item }">
           <!-- Vue d'ensemble -->
           <template v-if="item.id === 'overview'">
             <!-- KPIs dans une grille responsive -->
             <div class="grid grid-cols-2 gap-2">
               <BudgetBudget2OverviewCard
-v-for="indicator in budget?.keyIndicator" :key="indicator.name"
-                :name="indicator.name" :value="indicator.value" :unit="indicator.unit"
-                :variation_percentage="indicator.variation_percentage" :color="indicator.color" />
+                v-for="indicator in formattedKeyIndicators"
+                :key="indicator.name"
+                :name="indicator.name"
+                :value="indicator.value"
+                :unit="indicator.unit"
+                :variation_percentage="indicator.variation_percentage"
+                :color="indicator.color"
+              />
             </div>
-            <!-- répartition recettes -->
-            <Budget2TableRevenueExpense
-:budget-data="budget?.revenueData" title="Répartition des Recettes"
-              color="green" />
 
-            <!-- répartition Dépenses -->
+            <!-- Répartition recettes -->
             <Budget2TableRevenueExpense
-:budget-data="budget?.expenseData" title="Répartition des Dépenses"
-              color="indigo" />
+              v-if="revenueChartData.length > 0"
+              :budget-data="revenueChartData"
+              title="Répartition des Recettes"
+              color="green"
+            />
 
-            <!-- opération trésorerie -->
-            <h2 class="mt-4 p-2 text-center font-bold dark:text-black">
-              Opérations de trésorerie
-            </h2>
-            <div class="text-center">
-              <p class="mb-2 text-sm text-gray-500">
-                C'est l'argent que l'État doit trouver pour rembourser les
-                emprunts qui arrivent à échéance.
-              </p>
+            <!-- Répartition Dépenses -->
+            <Budget2TableRevenueExpense
+              v-if="expenseChartData.length > 0"
+              :budget-data="expenseChartData"
+              title="Répartition des Dépenses"
+              color="indigo"
+            />
+
+            <!-- Opérations de trésorerie (Besoins de financement) -->
+            <div v-if="treasuryOperations.components.length > 0">
+              <h2 class="mt-4 p-2 text-center font-bold dark:text-black">
+                Besoins de financement
+              </h2>
+              <div class="text-center">
+                <p class="mb-2 text-sm text-gray-500">
+                  C'est l'argent que l'État doit mobiliser pour couvrir ses besoins de financement.
+                </p>
+              </div>
+              <div class="flex flex-row md:gap-4">
+                <BudgetRessourcesCircleProgress
+                  v-for="component in treasuryOperations.components"
+                  :key="component.label"
+                  :percentage="component.percentage"
+                  :label="component.label"
+                  :value="`${component.value.toFixed(1)} Mrd`"
+                  color-bg="#5924b2"
+                  color-text="purple"
+                  class="flex-1"
+                />
+              </div>
+              <Budget2TableRevenueExpense
+                :budget-data="treasuryOperations.components"
+                title=""
+                color="purple"
+              />
             </div>
-            <div class="flex flex-row md:gap-4">
-              <BudgetRessourcesCircleProgress
-v-for="treasuryOperation in budget?.treasuryOperations
-                .components" :key="treasuryOperation.label" :percentage="treasuryOperation.percentage"
-                :label="treasuryOperation.label" :value="`${treasuryOperation.value} Mrd`" color-bg="#5924b2"
-                color-text="purple" class="flex-1" />
+
+            <!-- Dette publique -->
+            <div v-if="publicDebt.components.length > 0">
+              <h2 class="mt-4 p-2 text-center font-bold dark:text-black">
+                Service de la Dette publique
+              </h2>
+              <div class="text-center">
+                <p class="mb-2 text-sm text-gray-500">
+                  Montant total que l'État devra payer pour le service de sa dette (intérêts + capital).
+                </p>
+              </div>
+              <div class="flex flex-row md:gap-4">
+                <BudgetRessourcesCircleProgress
+                  v-for="component in publicDebt.components"
+                  :key="component.label"
+                  :percentage="component.percentage"
+                  :label="component.label"
+                  :value="`${component.value.toFixed(1)} Mrd`"
+                  color-bg="#f97316"
+                  color-text="yellow"
+                  class="flex-1"
+                />
+              </div>
+              <Budget2TableRevenueExpense
+                :budget-data="publicDebt.components"
+                title=""
+                color="orange"
+              />
             </div>
-            <Budget2TableRevenueExpense :budget-data="budget?.treasuryOperations.components" title="" color="purple" />
-            <!-- Dettes -->
-            <h2 class="mt-4 p-2 text-center font-bold dark:text-black">
-              Répartition de la Dette publique
-            </h2>
-            <div class="text-center">
-              <p class="mb-2 text-sm text-gray-500">
-                l'État devra payer au total 3855 milliards FCFA pour sa dette,
-                ce qu'on appelle le 'service de la dette'. Ce montant se
-                décompose en deux parties :
-              </p>
-            </div>
-            <div class="flex flex-row md:gap-4">
-              <BudgetRessourcesCircleProgress
-v-for="treasuryOperation in budget?.publicDebt.components"
-                :key="treasuryOperation.label" :percentage="treasuryOperation.percentage"
-                :label="treasuryOperation.label" :value="`${treasuryOperation.value} Mrd`" color-bg="#f97316"
-                color-text="yellow" class="flex-1" />
-            </div>
-            <Budget2TableRevenueExpense :budget-data="budget?.publicDebt.components" title="" color="orange" />
           </template>
 
-          <!-- Ministères -->
-          <template v-if="item.id === 'ministries'">
-            <Budget2TableMinistry :ministries="budget.ministries" type="ministries" />
-          </template>
-          <!-- Ministères -->
-          <template v-if="item.id === 'institutions'">
-            <Budget2TableMinistry :ministries="budget.institutions" type="institutions" />
+          <!-- Onglet Documents -->
+          <template v-if="item.id === 'documents'">
+            <div class="p-4">
+              <!-- Message si aucun document -->
+              <div v-if="documents.length === 0" class="py-12 text-center">
+                <UIcon name="i-heroicons-document" class="mx-auto mb-4 h-16 w-16 text-gray-400" />
+                <p class="text-gray-600 dark:text-gray-400">
+                  Aucun document disponible pour cette année budgétaire
+                </p>
+              </div>
+
+              <!-- Grille de documents -->
+              <div v-else class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+                <NuxtLink
+                  v-for="document in documents"
+                  :key="document.id"
+                  :to="`/documents/${document.id}/${document.slug}`"
+                  class="group block overflow-hidden rounded-lg border border-gray-200 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg dark:border-gray-700"
+                >
+                  <!-- Image de couverture -->
+                  <div class="aspect-[3/4] overflow-hidden bg-gray-100 dark:bg-gray-800">
+                    <CmsImage
+                      v-if="document.cover_image"
+                      :src="document.cover_image"
+                      :alt="`Couverture ${document.title}`"
+                      class="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
+                      loading="lazy"
+                      :quality="60"
+                    />
+                    <div v-else class="flex h-full w-full items-center justify-center">
+                      <UIcon name="i-heroicons-document-text" class="h-16 w-16 text-gray-400" />
+                    </div>
+                  </div>
+
+                  <!-- Titre du document -->
+                  <div class="p-3">
+                    <h3 class="line-clamp-2 text-sm font-medium text-gray-900 dark:text-white">
+                      {{ document.title }}
+                    </h3>
+                    <div v-if="document.file" class="mt-2 flex items-center gap-1 text-xs text-gray-500">
+                      <UIcon name="i-heroicons-document" class="h-3 w-3" />
+                      PDF
+                    </div>
+                  </div>
+                </NuxtLink>
+              </div>
+            </div>
           </template>
         </template>
       </UTabs>
-
-      <!-- Sources -->
-      <div class="mt-6 bg-white p-4 shadow-lg">
-        <h2 class="mb-2 text-lg font-semibold dark:text-black">🗂️ Sources</h2>
-        <UButton
-icon="i-heroicons-document-text" size="sm" color="blue" variant="solid"
-          label="Voir les documents budgétaires" to="/documents/budget" :trailing="false" />
-      </div>
-      <div class="mt-6 border-b border-gray-200 bg-white p-4 shadow-lg dark:text-black">
-        <h2 class="mb-2 text-lg font-semibold">💡 NB</h2>
-        <ul class="list-disc space-y-1 pl-5">
-          <li v-for="point in budget?.notes" :key="point">{{ point }}</li>
-        </ul>
-      </div>
     </div>
   </div>
 </template>
 
 <style>
-.chart-container {
-  position: relative;
-  height: 400px;
-}
-
-/* Animations pour les cartes */
 .custom-shadow {
   transition: all 0.3s ease;
 }
@@ -378,41 +395,5 @@ icon="i-heroicons-document-text" size="sm" color="blue" variant="solid"
   box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-
-/* Styles responsives pour le tableau */
-@media (max-width: 640px) {
-  table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-
-  td:first-child {
-    max-width: 200px;
-    white-space: normal;
-  }
-}
-
-.bg-beige-300 {
-  background-color: #d7ccc8;
-}
-
-.text-beige-500 {
-  color: #a1887f;
-}
-
-.bg-beige-300 {
-  background-color: #d7ccc8;
-}
-
-.bg-beige-100 {
-  background-color: #efebe9;
-}
-
-.bg-blue-custom {
-  background-color: #f3f4fa;
-  box-shadow: 0 2px 4px #0000001a;
-  border-radius: 0px;
 }
 </style>
