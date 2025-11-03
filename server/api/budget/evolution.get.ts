@@ -19,6 +19,8 @@ export default defineCachedEventHandler(
       const priorityOrder = ['LFR', 'LFI', 'PLF'];
       const revenueEvolution: any[] = [];
       const expenseEvolution: any[] = [];
+      const financingEvolution: any[] = [];
+      const debtEvolution: any[] = [];
 
       // 2. Pour chaque année, trouver la version prioritaire et calculer les totaux
       for (const yearData of years) {
@@ -58,21 +60,31 @@ export default defineCachedEventHandler(
         );
 
         // Calculer le total des recettes
-        const revenueMetrics = metrics.filter(
-          (m: any) => m.metric?.group === 'revenues'
-        );
+        const revenueMetrics = metrics.filter((m: any) => m.metric?.group === 'revenues');
         const revenueTotal = revenueMetrics.reduce(
           (sum: number, m: any) => sum + parseFloat(m.amount || 0),
-          0
+          0,
         );
 
         // Calculer le total des dépenses
-        const expenseMetrics = metrics.filter(
-          (m: any) => m.metric?.group === 'expenses'
-        );
+        const expenseMetrics = metrics.filter((m: any) => m.metric?.group === 'expenses');
         const expenseTotal = expenseMetrics.reduce(
           (sum: number, m: any) => sum + parseFloat(m.amount || 0),
-          0
+          0,
+        );
+
+        // Calculer le total des besoins de financement (trésorerie)
+        const financingMetrics = metrics.filter((m: any) => m.metric?.group === 'financing');
+        const financingTotal = financingMetrics.reduce(
+          (sum: number, m: any) => sum + parseFloat(m.amount || 0),
+          0,
+        );
+
+        // Calculer le total du service de la dette
+        const debtMetrics = metrics.filter((m: any) => m.metric?.group === 'debt');
+        const debtTotal = debtMetrics.reduce(
+          (sum: number, m: any) => sum + parseFloat(m.amount || 0),
+          0,
         );
 
         revenueEvolution.push({
@@ -88,17 +100,33 @@ export default defineCachedEventHandler(
           label: `${yearData.year} (${selectedVersion.label})`,
           versionLabel: selectedVersion.label,
         });
+
+        financingEvolution.push({
+          year: yearData.year.toString(),
+          amount: financingTotal,
+          label: `${yearData.year} (${selectedVersion.label})`,
+          versionLabel: selectedVersion.label,
+        });
+
+        debtEvolution.push({
+          year: yearData.year.toString(),
+          amount: debtTotal,
+          label: `${yearData.year} (${selectedVersion.label})`,
+          versionLabel: selectedVersion.label,
+        });
       }
 
       return {
         revenueEvolution,
         expenseEvolution,
+        financingEvolution,
+        debtEvolution,
       };
     } catch (error: any) {
-      console.error('Erreur lors de la récupération de l\'évolution budgétaire:', error);
+      console.error("Erreur lors de la récupération de l'évolution budgétaire:", error);
       throw createError({
         statusCode: error.statusCode || 500,
-        message: error.message || 'Erreur lors de la récupération de l\'évolution',
+        message: error.message || "Erreur lors de la récupération de l'évolution",
       });
     }
   },

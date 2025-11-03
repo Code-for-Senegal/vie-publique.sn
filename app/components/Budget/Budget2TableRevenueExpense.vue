@@ -29,7 +29,7 @@ const getPercentage = (value, total) => ((value / total) * 100).toFixed(1);
       <div class="overflow-hidden rounded-lg bg-white shadow-lg dark:bg-gray-800">
         <!-- En-têtes -->
         <div
-          class="bg-gray-50 px-2 py-3 text-sm font-semibold text-gray-700 dark:bg-gray-700 dark:text-gray-300"
+          class="bg-gray-200 px-2 py-3 text-sm font-semibold text-gray-700 dark:bg-gray-700 dark:text-gray-300"
         >
           <div class="flex items-center justify-between gap-2">
             <span class="flex-1">Type</span>

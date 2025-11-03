@@ -143,6 +143,8 @@ const {
   documents,
   revenueEvolution,
   expenseEvolution,
+  financingEvolution,
+  debtEvolution,
   year,
   version,
   availableYears,
@@ -296,7 +298,7 @@ watch(activeTab, (newTab) => {
           <button
             @click="activeTab = 'overview'"
             :class="[
-              'text-sm font-medium transition-colors sm:px-4 sm:py-2',
+              'px-1 text-sm font-medium transition-colors sm:px-4 sm:py-2',
               activeTab === 'overview'
                 ? 'border-b-2 border-gray-900 text-gray-900 dark:border-gray-100 dark:text-gray-100'
                 : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300',
@@ -307,7 +309,7 @@ watch(activeTab, (newTab) => {
           <button
             @click="activeTab = 'ministries'"
             :class="[
-              'px-4 py-2 text-sm font-medium transition-colors',
+              'px-1 py-2 text-sm font-medium transition-colors sm:px-4',
               activeTab === 'ministries'
                 ? 'border-b-2 border-gray-900 text-gray-900 dark:border-gray-100 dark:text-gray-100'
                 : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300',
@@ -318,7 +320,7 @@ watch(activeTab, (newTab) => {
           <button
             @click="activeTab = 'institutions'"
             :class="[
-              'px-4 py-2 text-sm font-medium transition-colors',
+              'px-1 py-2 text-sm font-medium transition-colors sm:px-4',
               activeTab === 'institutions'
                 ? 'border-b-2 border-gray-900 text-gray-900 dark:border-gray-100 dark:text-gray-100'
                 : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300',
@@ -329,7 +331,7 @@ watch(activeTab, (newTab) => {
           <button
             @click="activeTab = 'documents'"
             :class="[
-              'px-4 py-2 text-sm font-medium transition-colors',
+              'px-1 py-2 text-sm font-medium transition-colors sm:px-4',
               activeTab === 'documents'
                 ? 'border-b-2 border-gray-900 text-gray-900 dark:border-gray-100 dark:text-gray-100'
                 : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300',
@@ -478,7 +480,7 @@ watch(activeTab, (newTab) => {
               </div>
 
               <!-- Répartition en cercles -->
-              <div class="mb-4 flex flex-wrap justify-center gap-6">
+              <div class="mb-4 flex flex-wrap justify-center gap-2">
                 <BudgetRessourcesCircleProgress
                   v-for="component in treasuryOperations.components"
                   :key="component.label"
@@ -495,6 +497,14 @@ watch(activeTab, (newTab) => {
                 color="purple"
               />
             </div>
+
+            <!-- Évolution des Besoins de financement -->
+            <BudgetEvolutionLineChart
+              v-if="financingEvolution.length > 0"
+              :data="financingEvolution"
+              title="Évolution des besoins de financement par année"
+              color="purple"
+            />
 
             <!-- Dette publique -->
             <div
@@ -542,6 +552,14 @@ watch(activeTab, (newTab) => {
                 color="orange"
               />
             </div>
+
+            <!-- Évolution du Service de la dette -->
+            <BudgetEvolutionLineChart
+              v-if="debtEvolution.length > 0"
+              :data="debtEvolution"
+              title="Évolution du service de la dette par année"
+              color="orange"
+            />
           </div>
         </div>
 

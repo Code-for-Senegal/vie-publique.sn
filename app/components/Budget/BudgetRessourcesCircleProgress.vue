@@ -18,7 +18,7 @@
     <div
       class="absolute inset-0 flex flex-col items-center justify-center text-center px-2"
     >
-      <div class="text-2xl font-bold" :class="`text-${colorText}-700 dark:text-${colorText}-400`">
+      <div class="text-2xl font-bold" :style="{ color: colorBg }">
         {{ Math.floor(percentage) }}%
       </div>
       <div class="w-full text-[0.65rem] leading-tight text-gray-700 dark:text-gray-300 line-clamp-2">{{ label }}</div>

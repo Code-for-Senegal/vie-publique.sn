@@ -11,7 +11,7 @@ interface EvolutionData {
 interface Props {
   data: EvolutionData[];
   title: string;
-  color?: 'green' | 'red' | 'blue';
+  color?: 'green' | 'red' | 'blue' | 'purple' | 'orange';
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -26,6 +26,8 @@ const colorMap = {
   green: { line: '#10B981', gradient1: '#34D399', gradient2: '#10B981', area: '#10B98120' },
   red: { line: '#EF4444', gradient1: '#F87171', gradient2: '#EF4444', area: '#EF444420' },
   blue: { line: '#3B82F6', gradient1: '#60A5FA', gradient2: '#3B82F6', area: '#3B82F620' },
+  purple: { line: '#5924b2', gradient1: '#7c3aed', gradient2: '#5924b2', area: '#5924b220' },
+  orange: { line: '#f97316', gradient1: '#fb923c', gradient2: '#f97316', area: '#f9731620' },
 };
 
 const selectedColor = computed(() => colorMap[props.color]);
@@ -37,7 +39,7 @@ const drawChart = () => {
   d3.select(chartSvg.value).selectAll('*').remove();
 
   const containerWidth = chartContainer.value.offsetWidth;
-  const margin = { top: 20, right: 30, bottom: 50, left: 70 };
+  const margin = { top: 20, right: 30, bottom: 50, left: 30 };
   const width = containerWidth - margin.left - margin.right;
   const height = Math.min(containerWidth * 0.5, 350) - margin.top - margin.bottom;
 
@@ -48,10 +50,10 @@ const drawChart = () => {
 
   const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
 
-  // Échelles
+  // Échelles - utiliser le label complet (année + version) pour l'axe X
   const x = d3
     .scalePoint()
-    .domain(props.data.map((d) => d.year))
+    .domain(props.data.map((d) => d.label))
     .range([0, width])
     .padding(0.5);
 
@@ -82,66 +84,27 @@ const drawChart = () => {
     .attr('offset', '100%')
     .attr('stop-color', selectedColor.value.gradient2);
 
-  // Axe X
+  // Axe X avec année + version
   g.append('g')
     .attr('transform', `translate(0,${height})`)
     .call(d3.axisBottom(x))
     .selectAll('text')
     .style('text-anchor', 'middle')
-    .style('font-size', '12px')
+    .style('font-size', '11px')
     .style('font-weight', '500')
     .style('fill', '#6B7280');
-
-  // Axe Y
-  g.append('g')
-    .call(
-      d3.axisLeft(y).tickFormat((d) => {
-        const value = d as number;
-        if (value >= 1000) {
-          return `${(value / 1000).toFixed(0)}k`;
-        }
-        return value.toFixed(0);
-      }),
-    )
-    .selectAll('text')
-    .style('font-size', '11px')
-    .style('fill', '#6B7280');
-
-  // Label axe Y
-  g.append('text')
-    .attr('transform', 'rotate(-90)')
-    .attr('y', 0 - margin.left)
-    .attr('x', 0 - height / 2)
-    .attr('dy', '1em')
-    .style('text-anchor', 'middle')
-    .style('font-size', '11px')
-    .style('fill', '#6B7280')
-    .text('Montant (Mrd FCFA)');
-
-  // Grille horizontale légère
-  g.append('g')
-    .attr('class', 'grid')
-    .call(
-      d3
-        .axisLeft(y)
-        .tickSize(-width)
-        .tickFormat(() => ''),
-    )
-    .style('stroke', '#E5E7EB')
-    .style('stroke-opacity', 0.2)
-    .style('stroke-dasharray', '3,3');
 
   // Générateur de ligne
   const line = d3
     .line<EvolutionData>()
-    .x((d) => x(d.year)!)
+    .x((d) => x(d.label)!)
     .y((d) => y(d.amount))
     .curve(d3.curveMonotoneX);
 
   // Générateur d'aire
   const area = d3
     .area<EvolutionData>()
-    .x((d) => x(d.year)!)
+    .x((d) => x(d.label)!)
     .y0(height)
     .y1((d) => y(d.amount))
     .curve(d3.curveMonotoneX);
@@ -181,7 +144,7 @@ const drawChart = () => {
     .enter()
     .append('circle')
     .attr('class', 'dot')
-    .attr('cx', (d) => x(d.year)!)
+    .attr('cx', (d) => x(d.label)!)
     .attr('cy', (d) => y(d.amount))
     .attr('r', 0)
     .attr('fill', 'white')
@@ -192,20 +155,20 @@ const drawChart = () => {
     .duration(400)
     .attr('r', 5);
 
-  // Labels au-dessus des points
+  // Labels au-dessus des points (arrondis sans décimales)
   g.selectAll('.label')
     .data(props.data)
     .enter()
     .append('text')
     .attr('class', 'label')
-    .attr('x', (d) => x(d.year)!)
+    .attr('x', (d) => x(d.label)!)
     .attr('y', (d) => y(d.amount) - 10)
     .attr('text-anchor', 'middle')
     .style('font-size', '11px')
     .style('font-weight', 'bold')
     .style('fill', selectedColor.value.line)
     .style('opacity', 0)
-    .text((d) => d.amount.toFixed(1))
+    .text((d) => Math.round(d.amount).toLocaleString())
     .transition()
     .delay(1600)
     .duration(400)
