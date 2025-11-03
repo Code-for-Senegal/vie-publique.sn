@@ -262,6 +262,46 @@ export default defineNuxtConfig({
           to: '/documents/codes',
         },
         {
+          from: '/budget-senegal/2024',
+          to: '/budget-senegal',
+        },
+        {
+          from: '/budget-senegal/2025',
+          to: '/budget-senegal',
+        },
+        {
+          from: '/pdf/budget/2024-lois-de-finances-2023-18.pdf',
+          to: '/documents/budget',
+        },
+        {
+          from: '/pdf/budget/2024-loi-de-finances-annexes.pdf',
+          to: '/documents/budget',
+        },
+        {
+          from: '/pdf/budget/2024-rapport-execution-budgetaire-premier-trimestre.pdf',
+          to: '/documents/budget',
+        },
+        {
+          from: '/pdf/budget/2024-rapport-execution-budgetaire-deuxieme-trimestre.pdf',
+          to: '/documents/budget',
+        },
+        {
+          from: '/pdf/budget/2025-projet-loi-de-finance-initiale.pdf',
+          to: '/documents/budget',
+        },
+        {
+          from: '/pdf/budget/2025-projet-loi-de-finance-initiale-annexes-voies-et-moyens.pdf',
+          to: '/documents/budget',
+        },
+        {
+          from: '/pdf/budget/2025-document-budgetaire-genre.pdf',
+          to: '/documents/budget',
+        },
+        {
+          from: '/pdf/budget/2024-LFR-loi-de-finances-rectificative-2024-scan-compressed.pdf',
+          to: '/documents/budget',
+        },
+        {
           from: '/pdf/jors/(.*)',
           to: '/documents/journal-officiel',
         },
@@ -445,6 +485,7 @@ export default defineNuxtConfig({
     srcDir: undefined,
     filename: undefined,
     registerType: 'autoUpdate',
+    injectRegister: 'auto',
     manifest: {
       name: 'Vie Publique SN',
       short_name: 'ViePubliqueSN',
@@ -575,6 +616,8 @@ export default defineNuxtConfig({
     devOptions: {
       enabled: false, // ✅ Désactive PWA en dev (gain de performance)
       suppressWarnings: true,
+      navigateFallback: null, // Fix dev-sw.js error (null au lieu de undefined)
+      navigateFallbackAllowlist: [],
       type: 'module',
     },
   },
