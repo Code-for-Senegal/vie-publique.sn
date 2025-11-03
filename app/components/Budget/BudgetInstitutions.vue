@@ -1,15 +1,17 @@
+<!-- TO DELETE -->
+
 <script setup lang="ts">
-import { getInstitutionColor } from "@/composables/useInstitution";
+import { getInstitutionColor } from '@/composables/useInstitution';
 
 const keyPoints = [
-  "Source: Document de loi de finance 2024",
-  "Vie-Publique est tenu par des bénévoles",
-  "si vous voyez une erreur merci de nous aider à corriger",
+  'Source: Document de loi de finance 2024',
+  'Vie-Publique est tenu par des bénévoles',
+  'si vous voyez une erreur merci de nous aider à corriger',
 ];
 
 interface Budget {
   amount: number;
-  unit: "milliards" | "millions";
+  unit: 'milliards' | 'millions';
 }
 
 interface Category {
@@ -29,14 +31,14 @@ const props = defineProps<{
 
 const formatBudget = (budget: Budget): string => {
   const formattedMontant = budget.amount.toFixed(1);
-  const uniteAbrev = budget.unit === "milliards" ? "Mrd" : "Millions";
+  const uniteAbrev = budget.unit === 'milliards' ? 'Mrd' : 'Millions';
   return `${formattedMontant} ${uniteAbrev}`;
 };
 
 const totalBudget = computed(() => {
   return props.institutions.reduce((total, inst) => {
     const montantInMilliards =
-      inst.totalBudget.unit === "milliards"
+      inst.totalBudget.unit === 'milliards'
         ? inst.totalBudget.amount
         : inst.totalBudget.amount / 1000;
     return total + montantInMilliards;
@@ -46,7 +48,7 @@ const totalBudget = computed(() => {
 const institutionsWithPercentage = computed(() => {
   return props.institutions.map((inst) => {
     const montantInMilliards =
-      inst.totalBudget.unit === "milliards"
+      inst.totalBudget.unit === 'milliards'
         ? inst.totalBudget.amount
         : inst.totalBudget.amount / 1000;
     const percentage = (montantInMilliards / totalBudget.value) * 100;
@@ -60,13 +62,9 @@ const isSortedDescending = ref(true);
 const sortedInstitutions = computed(() => {
   return [...institutionsWithPercentage.value].sort((a, b) => {
     const aAmount =
-      a.totalBudget.unit === "milliards"
-        ? a.totalBudget.amount
-        : a.totalBudget.amount / 1000;
+      a.totalBudget.unit === 'milliards' ? a.totalBudget.amount : a.totalBudget.amount / 1000;
     const bAmount =
-      b.totalBudget.unit === "milliards"
-        ? b.totalBudget.amount
-        : b.totalBudget.amount / 1000;
+      b.totalBudget.unit === 'milliards' ? b.totalBudget.amount : b.totalBudget.amount / 1000;
     return isSortedDescending.value ? bAmount - aAmount : aAmount - bAmount;
   });
 });
@@ -79,8 +77,7 @@ const toggleSortOrder = () => {
 const expandedInstitutionIndex = ref<number | null>(null);
 
 const toggleInstitution = (index: number) => {
-  expandedInstitutionIndex.value =
-    expandedInstitutionIndex.value === index ? null : index;
+  expandedInstitutionIndex.value = expandedInstitutionIndex.value === index ? null : index;
 };
 </script>
 
@@ -89,7 +86,7 @@ const toggleInstitution = (index: number) => {
     <h1 class="mb-2 text-center text-xl font-bold">
       Budget par Institution
       <button class="text-primary" @click="toggleSortOrder">
-        {{ isSortedDescending ? "↑" : "↓" }}
+        {{ isSortedDescending ? '↑' : '↓' }}
       </button>
     </h1>
 

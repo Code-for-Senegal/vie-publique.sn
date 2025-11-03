@@ -158,6 +158,20 @@ watchEffect(() => {
           </div>
         </div>
       </div>
+
+      <!-- Lien vers la page annuaire en fin de page -->
+      <div class="mt-8 text-center">
+        <UButton
+          v-if="entity.public_slug"
+          :to="`/etat-senegal/annuaire/${entity.public_slug}`"
+          variant="outline"
+          color="primary"
+          icon="i-heroicons-building-office-2"
+          size="lg"
+        >
+          Voir la fiche complète de cette entité
+        </UButton>
+      </div>
     </div>
   </div>
 </template>

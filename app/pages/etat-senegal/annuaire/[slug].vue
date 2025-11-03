@@ -214,6 +214,22 @@ const eventTypeLabels: Record<string, string> = {
 
         <!-- Colonne latérale -->
         <div class="space-y-6">
+          <!-- Budget -->
+          <UCard v-if="entity.public_slug">
+            <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Budget</h2>
+            <p class="mb-4 text-sm text-gray-600 dark:text-gray-400">
+              Consultez le budget détaillé, l'évolution par année et la répartition par programmes.
+            </p>
+            <UButton
+              :to="`/budget-senegal/${entity.public_slug}`"
+              color="primary"
+              icon="i-heroicons-chart-bar"
+              block
+            >
+              Voir le budget détaillé
+            </UButton>
+          </UCard>
+
           <!-- Coordonnées -->
           <UCard>
             <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Coordonnées</h2>
