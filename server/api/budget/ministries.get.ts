@@ -72,7 +72,20 @@ export default defineCachedEventHandler(
       // Récupérer les lignes budgétaires (ministères ou institutions)
       const items = await directus.request(
         readItems('budget_line', {
-          fields: ['id', 'year', 'label', 'version', 'entity', 'level', 'code', 'amount_cp', 'unit', 'entity.name', 'entity.id'],
+          fields: [
+            'id',
+            'year',
+            'label',
+            'version',
+            'entity',
+            'level',
+            'code',
+            'amount_cp',
+            'unit',
+            'entity.name',
+            'entity.id',
+            'entity.public_slug',
+          ],
           filter: {
             year: { _eq: year },
             version: { _eq: resolvedVersionId },
@@ -96,7 +109,7 @@ export default defineCachedEventHandler(
     }
   },
   {
-    maxAge: 60 * 60, // Cache de 1 heure
+    maxAge: process.env.NODE_ENV === 'production' ? 5 * 60 : 0, // 5 minutes en prod, pas de cache en dev
     getKey: (event) => {
       const query = getQuery(event);
       return `budget-ministries-${query.year || 2025}-${query.version || 'latest'}-${query.level || 'ministry'}`;

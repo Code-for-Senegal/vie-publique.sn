@@ -43,7 +43,16 @@
               >
                 <td class="whitespace-normal border-b border-gray-200 px-2 py-2 text-sm text-gray-900 dark:border-gray-700 dark:text-gray-100">
                   <div class="max-w-xs sm:max-w-none">
-                    {{ ministry.entity?.name || ministry.label }}
+                    <NuxtLink
+                      v-if="ministry.entity?.public_slug"
+                      :to="`/budget-senegal/${ministry.entity.public_slug}`"
+                      class="text-blue-600 hover:text-blue-800 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
+                    >
+                      {{ ministry.entity?.name || ministry.label }}
+                    </NuxtLink>
+                    <span v-else>
+                      {{ ministry.entity?.name || ministry.label }}
+                    </span>
                   </div>
                 </td>
                 <td class="border-b border-gray-200 px-1 py-2 text-right text-sm dark:border-gray-700">

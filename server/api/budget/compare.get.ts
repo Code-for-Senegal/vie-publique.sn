@@ -3,8 +3,12 @@ import { readItems } from '@directus/sdk';
 export default defineCachedEventHandler(
   async (event) => {
     const query = getQuery(event);
-    const currentYear = query.currentYear ? parseInt(query.currentYear as string) : new Date().getFullYear();
-    const currentVersionId = query.currentVersion ? parseInt(query.currentVersion as string) : undefined;
+    const currentYear = query.currentYear
+      ? parseInt(query.currentYear as string)
+      : new Date().getFullYear();
+    const currentVersionId = query.currentVersion
+      ? parseInt(query.currentVersion as string)
+      : undefined;
     const compareYear = query.compareYear ? parseInt(query.compareYear as string) : currentYear - 1;
 
     try {
@@ -108,7 +112,7 @@ export default defineCachedEventHandler(
     }
   },
   {
-    maxAge: process.env.NODE_ENV === 'production' ? 60 * 60 : 0,
+    maxAge: process.env.NODE_ENV === 'production' ? 5 * 60 : 0, // 5 minutes en prod, pas de cache en dev
     name: 'budget-compare',
     getKey: (event) => {
       const query = getQuery(event);

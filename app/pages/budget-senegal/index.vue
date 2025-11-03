@@ -294,7 +294,7 @@ watch(activeTab, (newTab) => {
           <button
             @click="activeTab = 'overview'"
             :class="[
-              'px-4 py-2 text-sm font-medium transition-colors',
+              'text-sm font-medium transition-colors sm:px-4 sm:py-2',
               activeTab === 'overview'
                 ? 'border-b-2 border-gray-900 text-gray-900 dark:border-gray-100 dark:text-gray-100'
                 : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300',
@@ -342,194 +342,194 @@ watch(activeTab, (newTab) => {
       <div>
         <!-- Vue d'ensemble -->
         <div v-show="activeTab === 'overview'">
-            <div class="space-y-6">
-              <!-- KPIs dans une grille responsive -->
-              <div class="grid grid-cols-2 gap-3 lg:grid-cols-3">
-                <BudgetBudget2OverviewCard
-                  v-for="indicator in formattedKeyIndicators"
-                  :key="indicator.name"
-                  :name="indicator.name"
-                  :value="indicator.value"
-                  :unit="indicator.unit"
-                  :variation_percentage="indicator.variation_percentage"
-                  :variation_color="indicator.variation_color"
-                  :show-variation-badge="indicator.showVariationBadge"
-                  :color="indicator.color"
-                />
-              </div>
-
-              <!-- Répartition recettes -->
-              <div
-                v-if="revenueChartData.length > 0"
-                class="rounded-xl bg-white p-6 shadow-xl dark:bg-gray-800"
-              >
-                <h2 class="mb-4 text-center text-xl font-bold text-gray-900 dark:text-white">
-                  Répartition des Recettes
-                </h2>
-
-                <!-- Total des recettes en grand -->
-                <div class="mb-6 text-center">
-                  <div class="flex items-baseline justify-center gap-2">
-                    <div class="text-4xl font-bold text-green-600">
-                      {{ Math.round(revenueTotalWithVariation.total) }}
-                      <span class="text-2xl">Mrd FCFA</span>
-                    </div>
-                    <UBadge
-                      v-if="revenueTotalWithVariation.variation_percentage !== 'N/A'"
-                      variant="solid"
-                      class="rounded-full border-none bg-gray-200 px-2 py-0.5 text-xs font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
-                    >
-                      {{ revenueTotalWithVariation.variation_percentage }}
-                    </UBadge>
-                  </div>
-                  <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                    Montant total des recettes du budget général
-                  </p>
-                </div>
-
-                <BudgetBudget2TableRevenueExpense
-                  :budget-data="revenueChartData"
-                  title=""
-                  color="green"
-                />
-              </div>
-
-              <!-- Répartition Dépenses -->
-              <div
-                v-if="expenseChartData.length > 0"
-                class="rounded-xl bg-white p-6 shadow-sm dark:bg-gray-800"
-              >
-                <h2 class="mb-4 text-center text-xl font-bold text-gray-900 dark:text-white">
-                  Répartition des Dépenses
-                </h2>
-
-                <!-- Total des dépenses en grand -->
-                <div class="mb-6 text-center">
-                  <div class="flex items-baseline justify-center gap-2">
-                    <div class="text-4xl font-bold text-red-600">
-                      {{ Math.round(expenseTotalWithVariation.total) }}
-                      <span class="text-2xl">Mrd FCFA</span>
-                    </div>
-                    <UBadge
-                      v-if="expenseTotalWithVariation.variation_percentage !== 'N/A'"
-                      variant="solid"
-                      class="rounded-full border-none bg-gray-200 px-2 py-0.5 text-xs font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
-                    >
-                      {{ expenseTotalWithVariation.variation_percentage }}
-                    </UBadge>
-                  </div>
-                  <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                    Montant total des dépenses du budget général
-                  </p>
-                </div>
-
-                <BudgetBudget2TableRevenueExpense
-                  :budget-data="expenseChartData"
-                  title=""
-                  color="red"
-                />
-              </div>
-
-              <!-- Opérations de trésorerie (Besoins de financement) -->
-              <div
-                v-if="treasuryOperations.components.length > 0"
-                class="rounded-xl bg-white p-6 shadow-sm dark:bg-gray-800"
-              >
-                <h2 class="mb-4 text-center text-xl font-bold text-gray-900 dark:text-white">
-                  Besoins de financement
-                </h2>
-
-                <!-- Total des besoins de financement en grand -->
-                <div class="mb-6 text-center">
-                  <div class="flex items-baseline justify-center gap-2">
-                    <div class="text-4xl font-bold text-purple-600">
-                      {{ Math.round(treasuryOperations.total) }}
-                      <span class="text-2xl">Mrd FCFA</span>
-                    </div>
-                    <UBadge
-                      v-if="treasuryOperations.variation_percentage !== 'N/A'"
-                      variant="solid"
-                      class="rounded-full border-none bg-gray-200 px-2 py-0.5 text-xs font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
-                    >
-                      {{ treasuryOperations.variation_percentage }}
-                    </UBadge>
-                  </div>
-                  <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                    Montant total à mobiliser pour couvrir les besoins de financement
-                  </p>
-                </div>
-
-                <!-- Répartition en cercles -->
-                <div class="mb-4 flex flex-wrap justify-center gap-6">
-                  <BudgetRessourcesCircleProgress
-                    v-for="component in treasuryOperations.components"
-                    :key="component.label"
-                    :percentage="component.percentage"
-                    :label="component.label"
-                    :value="`${component.value.toFixed(1)} Mrd`"
-                    color-bg="#5924b2"
-                    color-text="purple"
-                  />
-                </div>
-                <BudgetBudget2TableRevenueExpense
-                  :budget-data="treasuryOperations.components"
-                  title=""
-                  color="purple"
-                />
-              </div>
-
-              <!-- Dette publique -->
-              <div
-                v-if="publicDebt.components.length > 0"
-                class="rounded-xl bg-white p-6 shadow-sm dark:bg-gray-800"
-              >
-                <h2 class="mb-4 text-center text-xl font-bold text-gray-900 dark:text-white">
-                  Service de la Dette publique
-                </h2>
-
-                <!-- Total de la dette en grand -->
-                <div class="mb-6 text-center">
-                  <div class="flex items-baseline justify-center gap-2">
-                    <div class="text-4xl font-bold text-orange-600">
-                      {{ Math.round(publicDebt.total) }} <span class="text-2xl">Mrd FCFA</span>
-                    </div>
-                    <UBadge
-                      v-if="publicDebt.variation_percentage !== 'N/A'"
-                      variant="solid"
-                      class="rounded-full border-none bg-gray-200 px-2 py-0.5 text-xs font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
-                    >
-                      {{ publicDebt.variation_percentage }}
-                    </UBadge>
-                  </div>
-                  <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                    Montant total du service de la dette (intérêts + capital)
-                  </p>
-                </div>
-
-                <!-- Répartition en cercles -->
-                <div class="mb-4 flex flex-wrap justify-center gap-6">
-                  <BudgetRessourcesCircleProgress
-                    v-for="component in publicDebt.components"
-                    :key="component.label"
-                    :percentage="component.percentage"
-                    :label="component.label"
-                    :value="`${component.value.toFixed(1)} Mrd`"
-                    color-bg="#f97316"
-                    color-text="yellow"
-                  />
-                </div>
-                <BudgetBudget2TableRevenueExpense
-                  :budget-data="publicDebt.components"
-                  title=""
-                  color="orange"
-                />
-              </div>
+          <div class="space-y-6">
+            <!-- KPIs dans une grille responsive -->
+            <div class="grid grid-cols-2 gap-3 lg:grid-cols-3">
+              <BudgetBudget2OverviewCard
+                v-for="indicator in formattedKeyIndicators"
+                :key="indicator.name"
+                :name="indicator.name"
+                :value="indicator.value"
+                :unit="indicator.unit"
+                :variation_percentage="indicator.variation_percentage"
+                :variation_color="indicator.variation_color"
+                :show-variation-badge="indicator.showVariationBadge"
+                :color="indicator.color"
+              />
             </div>
+
+            <!-- Répartition recettes -->
+            <div
+              v-if="revenueChartData.length > 0"
+              class="rounded-xl bg-white p-2 shadow-xl sm:p-6 dark:bg-gray-800"
+            >
+              <h2 class="mb-4 text-center text-xl font-bold text-gray-900 dark:text-white">
+                Répartition des Recettes
+              </h2>
+
+              <!-- Total des recettes en grand -->
+              <div class="mb-6 text-center">
+                <div class="flex items-baseline justify-center gap-2">
+                  <div class="text-4xl font-bold text-green-600">
+                    {{ Math.round(revenueTotalWithVariation.total) }}
+                    <span class="text-2xl">Mrd FCFA</span>
+                  </div>
+                  <UBadge
+                    v-if="revenueTotalWithVariation.variation_percentage !== 'N/A'"
+                    variant="solid"
+                    class="rounded-full border-none bg-gray-200 px-2 py-0.5 text-xs font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+                  >
+                    {{ revenueTotalWithVariation.variation_percentage }}
+                  </UBadge>
+                </div>
+                <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                  Montant total des recettes du budget général
+                </p>
+              </div>
+
+              <BudgetBudget2TableRevenueExpense
+                :budget-data="revenueChartData"
+                title=""
+                color="green"
+              />
+            </div>
+
+            <!-- Répartition Dépenses -->
+            <div
+              v-if="expenseChartData.length > 0"
+              class="rounded-xl bg-white p-2 shadow-sm sm:p-6 dark:bg-gray-800"
+            >
+              <h2 class="mb-4 text-center text-xl font-bold text-gray-900 dark:text-white">
+                Répartition des Dépenses
+              </h2>
+
+              <!-- Total des dépenses en grand -->
+              <div class="mb-6 text-center">
+                <div class="flex items-baseline justify-center gap-2">
+                  <div class="text-4xl font-bold text-red-600">
+                    {{ Math.round(expenseTotalWithVariation.total) }}
+                    <span class="text-2xl">Mrd FCFA</span>
+                  </div>
+                  <UBadge
+                    v-if="expenseTotalWithVariation.variation_percentage !== 'N/A'"
+                    variant="solid"
+                    class="rounded-full border-none bg-gray-200 px-2 py-0.5 text-xs font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+                  >
+                    {{ expenseTotalWithVariation.variation_percentage }}
+                  </UBadge>
+                </div>
+                <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                  Montant total des dépenses du budget général
+                </p>
+              </div>
+
+              <BudgetBudget2TableRevenueExpense
+                :budget-data="expenseChartData"
+                title=""
+                color="red"
+              />
+            </div>
+
+            <!-- Opérations de trésorerie (Besoins de financement) -->
+            <div
+              v-if="treasuryOperations.components.length > 0"
+              class="rounded-xl bg-white p-2 shadow-sm sm:p-6 dark:bg-gray-800"
+            >
+              <h2 class="mb-4 text-center text-xl font-bold text-gray-900 dark:text-white">
+                Besoins de financement
+              </h2>
+
+              <!-- Total des besoins de financement en grand -->
+              <div class="mb-6 text-center">
+                <div class="flex items-baseline justify-center gap-2">
+                  <div class="text-4xl font-bold text-purple-600">
+                    {{ Math.round(treasuryOperations.total) }}
+                    <span class="text-2xl">Mrd FCFA</span>
+                  </div>
+                  <UBadge
+                    v-if="treasuryOperations.variation_percentage !== 'N/A'"
+                    variant="solid"
+                    class="rounded-full border-none bg-gray-200 px-2 py-0.5 text-xs font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+                  >
+                    {{ treasuryOperations.variation_percentage }}
+                  </UBadge>
+                </div>
+                <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                  Montant total à mobiliser pour couvrir les besoins de financement
+                </p>
+              </div>
+
+              <!-- Répartition en cercles -->
+              <div class="mb-4 flex flex-wrap justify-center gap-6">
+                <BudgetRessourcesCircleProgress
+                  v-for="component in treasuryOperations.components"
+                  :key="component.label"
+                  :percentage="component.percentage"
+                  :label="component.label"
+                  :value="`${component.value.toFixed(1)} Mrd`"
+                  color-bg="#5924b2"
+                  color-text="purple"
+                />
+              </div>
+              <BudgetBudget2TableRevenueExpense
+                :budget-data="treasuryOperations.components"
+                title=""
+                color="purple"
+              />
+            </div>
+
+            <!-- Dette publique -->
+            <div
+              v-if="publicDebt.components.length > 0"
+              class="rounded-xl bg-white p-2 shadow-sm sm:p-6 dark:bg-gray-800"
+            >
+              <h2 class="mb-4 text-center text-xl font-bold text-gray-900 dark:text-white">
+                Service de la Dette publique
+              </h2>
+
+              <!-- Total de la dette en grand -->
+              <div class="mb-6 text-center">
+                <div class="flex items-baseline justify-center gap-2">
+                  <div class="text-4xl font-bold text-orange-600">
+                    {{ Math.round(publicDebt.total) }} <span class="text-2xl">Mrd FCFA</span>
+                  </div>
+                  <UBadge
+                    v-if="publicDebt.variation_percentage !== 'N/A'"
+                    variant="solid"
+                    class="rounded-full border-none bg-gray-200 px-2 py-0.5 text-xs font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+                  >
+                    {{ publicDebt.variation_percentage }}
+                  </UBadge>
+                </div>
+                <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                  Montant total du service de la dette (intérêts + capital)
+                </p>
+              </div>
+
+              <!-- Répartition en cercles -->
+              <div class="mb-4 flex flex-wrap justify-center gap-6">
+                <BudgetRessourcesCircleProgress
+                  v-for="component in publicDebt.components"
+                  :key="component.label"
+                  :percentage="component.percentage"
+                  :label="component.label"
+                  :value="`${component.value.toFixed(1)} Mrd`"
+                  color-bg="#f97316"
+                  color-text="yellow"
+                />
+              </div>
+              <BudgetBudget2TableRevenueExpense
+                :budget-data="publicDebt.components"
+                title=""
+                color="orange"
+              />
+            </div>
+          </div>
         </div>
 
         <!-- Ministères -->
         <div v-show="activeTab === 'ministries'">
-          <div class="rounded-xl bg-white p-6 shadow-sm dark:bg-gray-800">
+          <div class="rounded-xl bg-white p-2 shadow-sm sm:p-6 dark:bg-gray-800">
             <h2 class="mb-4 text-center text-xl font-bold text-gray-900 dark:text-white">
               Budgets des Ministères {{ year }}
             </h2>
@@ -539,7 +539,7 @@ watch(activeTab, (newTab) => {
 
         <!-- Institutions -->
         <div v-show="activeTab === 'institutions'">
-          <div class="rounded-xl bg-white p-6 shadow-sm dark:bg-gray-800">
+          <div class="rounded-xl bg-white p-2 shadow-sm sm:p-6 dark:bg-gray-800">
             <h2 class="mb-4 text-center text-xl font-bold text-gray-900 dark:text-white">
               Budgets des Institutions {{ year }}
             </h2>

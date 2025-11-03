@@ -193,7 +193,7 @@ export default defineCachedEventHandler(
     }
   },
   {
-    maxAge: process.env.NODE_ENV === 'production' ? 60 * 60 : 0, // 1h en prod, pas de cache en dev
+    maxAge: process.env.NODE_ENV === 'production' ? 5 * 60 : 0, // 5 minutes en prod, pas de cache en dev
     name: 'budget-global',
     getKey: (event) => {
       const query = getQuery(event);

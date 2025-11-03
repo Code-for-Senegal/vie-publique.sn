@@ -22,7 +22,9 @@ const getPercentage = (value, total) => ((value / total) * 100).toFixed(1);
 <template>
   <div class="mx-auto space-y-4">
     <div class="mt-2">
-      <h2 class="mb-2 p-2 text-center font-bold text-gray-900 dark:text-white">{{ title }}</h2>
+      <h2 v-if="title" class="mb-2 p-2 text-center font-bold text-gray-900 dark:text-white">
+        {{ title }}
+      </h2>
 
       <div class="overflow-hidden rounded-lg bg-white shadow-lg dark:bg-gray-800">
         <!-- En-têtes -->
@@ -30,7 +32,7 @@ const getPercentage = (value, total) => ((value / total) * 100).toFixed(1);
           class="bg-gray-50 px-2 py-3 text-sm font-semibold text-gray-700 dark:bg-gray-700 dark:text-gray-300"
         >
           <div class="flex items-center justify-between gap-2">
-            <span class="flex-1">Nature</span>
+            <span class="flex-1">Type</span>
             <div class="flex shrink-0 items-center gap-4">
               <span>Montant</span>
             </div>
@@ -47,7 +49,7 @@ const getPercentage = (value, total) => ((value / total) * 100).toFixed(1);
             <span
               class="relative inline-flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gray-100 text-xl dark:bg-gray-800"
             >
-              <span class="text-xs font-medium leading-none text-gray-900 dark:text-white">
+              <span class="text-xs font-medium leading-none text-gray-900 dark:text-gray-300">
                 {{ getPercentage(item.value, total) }}%
               </span>
             </span>

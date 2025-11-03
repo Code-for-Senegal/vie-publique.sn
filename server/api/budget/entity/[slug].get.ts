@@ -1,0 +1,160 @@
+import { readItems } from '@directus/sdk';
+
+export default defineCachedEventHandler(
+  async (event) => {
+    const slug = getRouterParam(event, 'slug');
+
+    if (!slug) {
+      throw createError({
+        statusCode: 400,
+        message: "Le slug de l'entité est requis",
+      });
+    }
+
+    const directus = getCmsClient();
+
+    try {
+      // 1. UNE SEULE REQUÊTE : Récupérer toutes les lignes budgétaires de l'entité
+      const allBudgetLines = await directus.request(
+        readItems('budget_line', {
+          fields: [
+            'id',
+            'year',
+            'version',
+            'level',
+            'label',
+            'code',
+            'amount_ae',
+            'amount_cp',
+            'entity.id',
+            'entity.name',
+            'entity.public_slug',
+            'version.id',
+            'version.label',
+          ],
+          filter: {
+            entity: {
+              public_slug: { _eq: slug },
+            },
+            status: { _eq: 'published' },
+          },
+          sort: ['-year', 'level'],
+        }),
+      );
+
+      if (!allBudgetLines || allBudgetLines.length === 0) {
+        throw createError({
+          statusCode: 404,
+          message: 'Entité non trouvée ou aucune donnée budgétaire disponible',
+        });
+      }
+
+      // 2. Extraire les infos de l'entité depuis la première ligne
+      const entity = {
+        id: allBudgetLines[0].entity.id,
+        name: allBudgetLines[0].entity.name,
+        public_slug: allBudgetLines[0].entity.public_slug,
+      };
+
+      // 3. Séparer les lignes par level
+      const ministryOrInstitutionLines = allBudgetLines.filter(
+        (line: any) => line.level === 'ministry' || line.level === 'institution',
+      );
+      const programLines = allBudgetLines.filter((line: any) => line.level === 'program');
+
+      // Déterminer le level (ministry ou institution) depuis les données
+      const level =
+        ministryOrInstitutionLines.length > 0 ? ministryOrInstitutionLines[0].level : 'ministry';
+
+      // Filtrer uniquement les lignes du bon level pour l'évolution
+      const budgetLines = ministryOrInstitutionLines.filter((line: any) => line.level === level);
+
+      // 4. Grouper les données par année pour l'évolution
+      const evolutionByYear = budgetLines.reduce((acc: any, line: any) => {
+        const year = line.year;
+        if (!acc[year]) {
+          acc[year] = {
+            year,
+            amount_cp: 0,
+            version_label: line.version?.label || 'N/A',
+          };
+        }
+        acc[year].amount_cp = parseFloat(line.amount_cp || 0);
+        return acc;
+      }, {});
+
+      const evolution = Object.values(evolutionByYear).sort((a: any, b: any) => a.year - b.year);
+
+      // 5. Récupérer la dernière année disponible
+      const latestYear = evolution.length > 0 ? evolution[evolution.length - 1] : null;
+
+      // 6. Filtrer les programmes de la dernière année (déjà récupérés dans allBudgetLines)
+      let programs = [];
+      if (latestYear) {
+        programs = programLines.filter((line: any) => line.year === latestYear.year);
+
+        // Trier par montant décroissant
+        programs.sort(
+          (a: any, b: any) => parseFloat(b.amount_cp || 0) - parseFloat(a.amount_cp || 0),
+        );
+      }
+
+      // 7. Calculer les variations année N vs N-1 pour les programmes
+      // Utiliser les données déjà récupérées au lieu de faire de nouvelles requêtes
+      const programsWithVariation = programs.map((program: any) => {
+        const currentYear = program.year;
+        const previousYear = currentYear - 1;
+
+        // Chercher le même programme l'année précédente dans programLines
+        const previousYearProgram = programLines.find(
+          (line: any) => line.year === previousYear && line.code === program.code,
+        );
+
+        let variation_percentage = 'N/A';
+        let variation_color = 'gray';
+
+        if (previousYearProgram) {
+          const previousAmount = parseFloat(previousYearProgram.amount_cp || 0);
+          const currentAmount = parseFloat(program.amount_cp || 0);
+
+          if (previousAmount > 0) {
+            const variation = ((currentAmount - previousAmount) / previousAmount) * 100;
+            variation_percentage = `${variation > 0 ? '+' : ''}${variation.toFixed(1)}%`;
+            variation_color = variation > 0 ? 'green' : variation < 0 ? 'red' : 'gray';
+          }
+        }
+
+        return {
+          ...program,
+          variation_percentage,
+          variation_color,
+        };
+      });
+
+      return {
+        entity: {
+          id: entity.id,
+          name: entity.name,
+          public_slug: entity.public_slug,
+        },
+        level,
+        evolution,
+        latestYear,
+        programs: programsWithVariation,
+      };
+    } catch (error: any) {
+      console.error("Erreur lors de la récupération de l'entité budgétaire:", error);
+      throw createError({
+        statusCode: error.statusCode || 500,
+        message: error.message || "Erreur lors de la récupération des données de l'entité",
+      });
+    }
+  },
+  {
+    maxAge: process.env.NODE_ENV === 'production' ? 60 * 60 : 0, // 1h en prod, pas de cache en dev
+    getKey: (event) => {
+      const slug = getRouterParam(event, 'slug');
+      return `budget-entity-${slug}`;
+    },
+  },
+);
