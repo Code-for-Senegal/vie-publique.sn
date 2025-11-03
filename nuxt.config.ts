@@ -177,8 +177,8 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@pinia/nuxt',
     '@nuxtjs/leaflet',
-    // ⚠️ PWA désactivé en dev (voir pwa.devOptions.enabled ci-dessous)
-    '@vite-pwa/nuxt',
+    // ⚠️ PWA chargé uniquement en production pour éviter les erreurs dev-sw.js
+    ...(process.env.NODE_ENV === 'production' ? ['@vite-pwa/nuxt'] : []),
     '@vueuse/nuxt',
     '@nuxtjs/mdc',
     'nuxt-security',
