@@ -525,6 +525,19 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
     compareYear.value = newYear;
   };
 
+  // Fetch de l'évolution multi-années (recettes et dépenses)
+  const { data: evolutionData } = useFetch('/api/budget/evolution', {
+    key: 'budget-evolution',
+    server: true,
+    default: () => ({
+      revenueEvolution: [],
+      expenseEvolution: [],
+    }),
+  });
+
+  const revenueEvolution = computed(() => evolutionData.value?.revenueEvolution || []);
+  const expenseEvolution = computed(() => evolutionData.value?.expenseEvolution || []);
+
   return {
     // État
     year,
@@ -563,6 +576,10 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
     expenseTotalWithVariation,
     treasuryOperations,
     publicDebt,
+
+    // Évolutions multi-années
+    revenueEvolution,
+    expenseEvolution,
 
     // Méthodes
     setYear,

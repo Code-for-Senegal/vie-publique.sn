@@ -141,6 +141,8 @@ const {
   treasuryOperations,
   publicDebt,
   documents,
+  revenueEvolution,
+  expenseEvolution,
   year,
   version,
   availableYears,
@@ -394,6 +396,14 @@ watch(activeTab, (newTab) => {
               />
             </div>
 
+            <!-- Évolution des Recettes -->
+            <BudgetEvolutionLineChart
+              v-if="revenueEvolution.length > 0"
+              :data="revenueEvolution"
+              title="Évolution des recettes par année"
+              color="green"
+            />
+
             <!-- Répartition Dépenses -->
             <div
               v-if="expenseChartData.length > 0"
@@ -429,6 +439,14 @@ watch(activeTab, (newTab) => {
                 color="red"
               />
             </div>
+
+            <!-- Évolution des Dépenses -->
+            <BudgetEvolutionLineChart
+              v-if="expenseEvolution.length > 0"
+              :data="expenseEvolution"
+              title="Évolution des dépenses par année"
+              color="red"
+            />
 
             <!-- Opérations de trésorerie (Besoins de financement) -->
             <div
