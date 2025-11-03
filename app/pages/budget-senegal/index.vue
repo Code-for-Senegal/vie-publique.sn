@@ -212,13 +212,14 @@ watch(activeTab, (newTab) => {
         <!-- Select Année -->
         <USelect
           id="year-select"
-          v-model="year"
+          :model-value="year"
           :options="availableYears.map((y) => ({ label: y.year.toString(), value: y.year }))"
           value-attribute="value"
           option-attribute="label"
           size="sm"
           class="w-28"
           :disabled="availableYears.length === 0"
+          @update:model-value="setYear"
         />
 
         <!-- Boutons Version (PLF/LFI/LFR) -->
