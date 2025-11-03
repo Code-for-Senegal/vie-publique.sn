@@ -221,9 +221,13 @@ to="/assemblee-nationale"
         <UIcon name="i-heroicons-arrow-path" class="h-8 w-8 animate-spin" />
       </div>
 
-      <div v-else-if="error" class="py-8 text-center text-red-500 dark:text-red-300">
-        {{ error }}
-      </div>
+      <UAlert
+        v-else-if="error"
+        title="Erreur de chargement"
+        description="Impossible de charger les questions écrites"
+        color="red"
+        icon="i-heroicons-exclamation-triangle"
+      />
 
       <div v-else>
         <div class="mb-2 rounded-lg p-0">
