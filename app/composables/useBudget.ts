@@ -61,12 +61,9 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
     server: true,
   });
 
-  // Initialiser avec la version la plus récente ou les options passées
-  const initialYear = options.year || yearsData.value?.latest?.year || 2026;
-  const initialVersion = options.version || yearsData.value?.latest?.versionId;
-
-  const year = ref(initialYear);
-  const version = ref(initialVersion);
+  // Initialiser avec des valeurs stables pour éviter hydration mismatch
+  const year = ref(options.year || 2026);
+  const version = ref<number | undefined>(options.version);
 
   // La comparaison est toujours activée, avec l'année N-1 par défaut
   const compareYear = ref<number | undefined>(undefined);
@@ -81,15 +78,20 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
   });
 
   // Watcher pour initialiser avec latest quand yearsData est chargé
+  // IMPORTANT: Ne pas utiliser immediate: true pour éviter hydration mismatch
   watch(
     () => yearsData.value?.latest,
     (latest) => {
-      if (latest && !options.year && !options.version && !year.value) {
-        year.value = latest.year;
-        version.value = latest.versionId;
+      if (latest && !options.year && !options.version) {
+        // Seulement mettre à jour si pas encore défini
+        if (year.value === 2026 || !year.value) {
+          year.value = latest.year;
+        }
+        if (!version.value) {
+          version.value = latest.versionId;
+        }
       }
     },
-    { immediate: true },
   );
 
   // Construction des query params
@@ -110,6 +112,7 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
     query: queryParams,
     watch: [year, version], // Watch automatique réactivé car on gère l'ordre différemment
     server: true,
+    lazy: false, // Force le fetch immédiat côté serveur
     default: () => ({
       year: year.value,
       versionId: 0,
@@ -145,6 +148,7 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
     query: comparisonQueryParams,
     watch: [year, version, compareYear],
     server: true,
+    lazy: false, // Force le fetch immédiat côté serveur
     default: () => ({
       current: null,
       compare: null,

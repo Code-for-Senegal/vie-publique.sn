@@ -34,6 +34,7 @@ const { data: ministriesData, pending, error } = await useFetch('/api/budget/min
   })),
   watch: [() => props.year, () => props.version, () => props.level],
   server: true,
+  lazy: false, // Force le fetch immédiat pour éviter hydration mismatch
 });
 
 // Computed pour les données

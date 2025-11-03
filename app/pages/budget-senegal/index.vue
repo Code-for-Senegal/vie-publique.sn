@@ -176,13 +176,13 @@ const isDataReady = computed(() => {
 // Gestion des onglets - persiste lors des changements de filtres
 const activeTab = ref('overview');
 
-// Sauvegarder le tab actif dans sessionStorage pour le préserver
-if (import.meta.client) {
+// Restaurer le tab actif depuis sessionStorage après montage
+onMounted(() => {
   const savedTab = sessionStorage.getItem('budget-active-tab');
   if (savedTab) {
     activeTab.value = savedTab;
   }
-}
+});
 
 // Watcher pour sauvegarder le tab actif
 watch(activeTab, (newTab) => {
