@@ -30,12 +30,12 @@ export default defineCachedEventHandler(
         years.map(async (year: any) => {
           const versions = await directus.request(
             readItems('budget_version', {
-              fields: ['id', 'label', 'status'],
+              fields: ['id', 'label', 'status', 'date'],
               filter: {
                 year: { _eq: year.id }, // Utiliser l'ID de l'année, pas year.year
                 status: { _eq: 'published' },
               },
-              sort: ['label'], // PLF, LFI, LFR dans l'ordre
+              sort: ['date'], // Trier par date chronologique
               limit: -1,
             }),
           );
@@ -46,6 +46,7 @@ export default defineCachedEventHandler(
             versions: versions.map((v: any) => ({
               id: v.id,
               label: v.label,
+              date: v.date,
             })),
           };
         }),

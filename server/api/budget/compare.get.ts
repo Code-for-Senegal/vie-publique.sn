@@ -10,6 +10,9 @@ export default defineCachedEventHandler(
       ? parseInt(query.currentVersion as string)
       : undefined;
     const compareYear = query.compareYear ? parseInt(query.compareYear as string) : currentYear - 1;
+    const compareVersionId = query.compareVersion
+      ? parseInt(query.compareVersion as string)
+      : undefined;
 
     try {
       const directus = getCmsClient();
@@ -41,40 +44,47 @@ export default defineCachedEventHandler(
 
       const compareBudgetYearId = compareBudgetYears[0].id;
 
-      // Récupérer toutes les versions publiées de l'année de comparaison
-      const allVersions = await directus.request(
-        readItems('budget_version', {
-          fields: ['id', 'label', 'status'],
-          filter: {
-            year: { _eq: compareBudgetYearId },
-            status: { _eq: 'published' },
-          },
-        }),
-      );
-
-      if (!allVersions || allVersions.length === 0) {
-        return {
-          current: currentData,
-          compare: null,
-          hasComparison: false,
-        };
-      }
-
-      // Appliquer la priorité : LFR > LFI > PLF
-      const priorityOrder = ['LFR', 'LFI', 'PLF'];
       let compareVersionIdResolved;
 
-      for (const label of priorityOrder) {
-        const found = allVersions.find((v: any) => v.label === label);
-        if (found) {
-          compareVersionIdResolved = found.id;
-          break;
-        }
-      }
+      // Si une version de comparaison est explicitement fournie, l'utiliser
+      if (compareVersionId) {
+        compareVersionIdResolved = compareVersionId;
+      } else {
+        // Sinon, appliquer la logique automatique de priorité
+        // Récupérer toutes les versions publiées de l'année de comparaison
+        const allVersions = await directus.request(
+          readItems('budget_version', {
+            fields: ['id', 'label', 'status'],
+            filter: {
+              year: { _eq: compareBudgetYearId },
+              status: { _eq: 'published' },
+            },
+          }),
+        );
 
-      // Si aucune version avec ces labels, prendre la première disponible
-      if (!compareVersionIdResolved) {
-        compareVersionIdResolved = allVersions[0].id;
+        if (!allVersions || allVersions.length === 0) {
+          return {
+            current: currentData,
+            compare: null,
+            hasComparison: false,
+          };
+        }
+
+        // Appliquer la priorité : LFR > LFI > PLF
+        const priorityOrder = ['LFR', 'LFI', 'PLF'];
+
+        for (const label of priorityOrder) {
+          const found = allVersions.find((v: any) => v.label === label);
+          if (found) {
+            compareVersionIdResolved = found.id;
+            break;
+          }
+        }
+
+        // Si aucune version avec ces labels, prendre la première disponible
+        if (!compareVersionIdResolved) {
+          compareVersionIdResolved = allVersions[0].id;
+        }
       }
 
       // Récupérer les données de comparaison
@@ -116,7 +126,7 @@ export default defineCachedEventHandler(
     name: 'budget-compare',
     getKey: (event) => {
       const query = getQuery(event);
-      return `budget-compare-${query.currentYear || 'current'}-${query.currentVersion || 'latest'}-vs-${query.compareYear || 'prev'}`;
+      return `budget-compare-${query.currentYear || 'current'}-${query.currentVersion || 'latest'}-vs-${query.compareYear || 'prev'}-${query.compareVersion || 'auto'}`;
     },
   },
 );

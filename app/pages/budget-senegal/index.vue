@@ -153,25 +153,131 @@ const {
   setYear,
   setVersion,
   compareYear,
+  compareVersion,
   hasComparison,
   comparisonYearLabel,
   setCompareYear,
 } = useBudget();
 
-// Fonction helper pour trouver une version par son label (PLF/LFI/LFR)
-const getVersionByLabel = (label: string) => {
-  return availableVersions.value.find((v) => v.label === label);
+// Computed pour créer une liste combinée année + version pour le select unique
+const yearVersionOptions = computed(() => {
+  const options: Array<{
+    label: string;
+    value: string;
+    year: number;
+    versionId: number;
+    date: string;
+  }> = [];
+
+  availableYears.value.forEach((yearData) => {
+    yearData.versions.forEach((ver) => {
+      options.push({
+        label: `${yearData.year} - ${ver.label}`,
+        value: `${yearData.year}-${ver.id}`, // Clé unique
+        year: yearData.year,
+        versionId: ver.id,
+        date: ver.date,
+      });
+    });
+  });
+
+  // Trier par date décroissante (plus récent en premier)
+  return options.sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
+});
+
+// Computed pour la valeur sélectionnée actuelle
+const selectedYearVersion = computed(() => `${year.value}-${version.value}`);
+
+// Gestion du changement de sélection
+const handleYearVersionChange = (value: string) => {
+  const option = yearVersionOptions.value.find((opt) => opt.value === value);
+  if (option) {
+    year.value = option.year;
+    version.value = option.versionId;
+  }
 };
 
-// Gestion du changement de version
-const handleVersionChange = (versionId: number) => {
-  setVersion(versionId);
+// Options pour le select de comparaison (uniquement les versions antérieures)
+const compareYearVersionOptions = computed(() => {
+  // Trouver la version actuelle pour obtenir sa date
+  const currentOption = yearVersionOptions.value.find(
+    (opt) => opt.year === year.value && opt.versionId === version.value,
+  );
+
+  if (!currentOption) return [];
+
+  const currentDate = new Date(currentOption.date);
+
+  // Filtrer pour ne garder que les versions dont la date est strictement antérieure
+  return yearVersionOptions.value.filter((opt) => {
+    // Exclure la version actuelle
+    if (opt.versionId === version.value && opt.year === year.value) return false;
+
+    // Comparer les dates : ne garder que les versions antérieures
+    const optionDate = new Date(opt.date);
+    return optionDate < currentDate;
+  });
+});
+
+// Computed pour la valeur sélectionnée de comparaison (utilise les refs du composable)
+const selectedCompareYearVersion = computed(() => {
+  if (!compareYear.value || !compareVersion.value) return '';
+  return `${compareYear.value}-${compareVersion.value}`;
+});
+
+// Gestion du changement de comparaison
+const handleCompareYearVersionChange = (value: string) => {
+  const option = yearVersionOptions.value.find((opt) => opt.value === value);
+  if (option) {
+    // Mettre à jour le composable avec l'année ET la version de comparaison
+    setCompareYear(option.year, option.versionId);
+  }
 };
+
+// Réinitialiser la comparaison quand on change de période budgétaire
+watch([year, version], () => {
+  // Reset la comparaison pour forcer la réinitialisation
+  compareYear.value = undefined;
+  compareVersion.value = undefined;
+});
+
+// Initialiser la comparaison par défaut quand les données sont chargées
+watch(
+  [year, version, () => compareYearVersionOptions.value.length],
+  ([currentYear, currentVersion, optionsLength]) => {
+    // Si pas encore de comparaison sélectionnée et qu'on a des options
+    if (!compareYear.value && optionsLength > 0) {
+      // Les options sont déjà triées par date décroissante (plus récent en premier)
+      // Donc le premier élément est la version antérieure la plus récente
+      const defaultCompare = compareYearVersionOptions.value[0];
+      setCompareYear(defaultCompare.year, defaultCompare.versionId);
+    }
+  },
+  { immediate: true },
+);
 
 // Computed pour savoir si les données sont prêtes
 const isDataReady = computed(() => {
   return !loading.value && !error.value;
 });
+
+// Debug: afficher les valeurs d'évolution
+if (import.meta.client) {
+  watch(
+    [revenueEvolution, expenseEvolution, financingEvolution, debtEvolution],
+    ([rev, exp, fin, debt]) => {
+      console.log('Evolution data:', {
+        revenueEvolution: rev,
+        expenseEvolution: exp,
+        financingEvolution: fin,
+        debtEvolution: debt,
+      });
+    },
+    { immediate: true },
+  );
+}
 
 // Gestion des onglets - persiste lors des changements de filtres
 const activeTab = ref('overview');
@@ -207,62 +313,41 @@ watch(activeTab, (newTab) => {
 
     <!-- Filtres année et version -->
     <div class="mb-6 space-y-3">
-      <!-- Sélection année courante et version -->
+      <!-- Sélection année et version combinées -->
       <div class="flex items-center justify-center gap-2">
-        <!-- Select Année -->
+        <label
+          for="year-version-select"
+          class="text-sm font-medium text-gray-700 dark:text-gray-300"
+        >
+          Version :
+        </label>
         <USelect
-          id="year-select"
-          :model-value="year"
-          :options="availableYears.map((y) => ({ label: y.year.toString(), value: y.year }))"
+          id="year-version-select"
+          :model-value="selectedYearVersion"
+          :options="yearVersionOptions"
           value-attribute="value"
           option-attribute="label"
-          size="sm"
-          class="w-28"
-          :disabled="availableYears.length === 0"
-          @update:model-value="setYear"
+          size="md"
+          class="w-48"
+          :disabled="yearVersionOptions.length === 0"
+          @update:model-value="handleYearVersionChange"
         />
-
-        <!-- Boutons Version (PLF/LFI/LFR) -->
-        <button
-          v-for="versionLabel in ['PLF', 'LFI', 'LFR']"
-          :key="versionLabel"
-          :disabled="!getVersionByLabel(versionLabel)"
-          :class="[
-            'custom-shadow p-1 text-sm font-medium transition-all',
-            getVersionByLabel(versionLabel) && version === getVersionByLabel(versionLabel)?.id
-              ? 'border-primary-600 bg-primary-50 text-primary-700 dark:border-primary-400 dark:bg-primary-950 dark:text-primary-300 border-2'
-              : getVersionByLabel(versionLabel)
-                ? 'border-1 border-gray-300 bg-white text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
-                : 'border-1 cursor-not-allowed border-gray-200 bg-gray-50 text-gray-400 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-600',
-          ]"
-          @click="
-            getVersionByLabel(versionLabel) &&
-            handleVersionChange(getVersionByLabel(versionLabel)!.id)
-          "
-        >
-          {{ versionLabel }}
-        </button>
       </div>
 
-      <!-- Section comparaison (optionnelle) -->
-      <div v-if="hasComparison" class="flex flex-wrap items-center justify-center gap-2 text-sm">
-        <span class="text-gray-600 dark:text-gray-400"> Évolutions par rapport à </span>
+      <!-- Section comparaison -->
+      <div class="flex flex-wrap items-center justify-center gap-2 text-sm">
+        <span class="text-gray-600 dark:text-gray-400">Comparer avec :</span>
         <USelect
-          v-model="compareYear"
-          :options="
-            availableYears
-              .filter((y) => y.year < year)
-              .map((y) => ({ label: `${y.year}`, value: y.year }))
-          "
+          :model-value="selectedCompareYearVersion"
+          :options="compareYearVersionOptions"
           value-attribute="value"
           option-attribute="label"
           size="sm"
-          class="w-24"
-          @update:model-value="setCompareYear"
+          class="w-40"
+          placeholder="Sélectionner..."
+          :disabled="compareYearVersionOptions.length === 0"
+          @update:model-value="handleCompareYearVersionChange"
         />
-        <!-- <span class="text-gray-600 dark:text-gray-400">
-          ({{ currentVersionLabel }})
-        </span> -->
       </div>
     </div>
 
@@ -388,7 +473,7 @@ watch(activeTab, (newTab) => {
                   </UBadge>
                 </div>
                 <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                  Montant total des recettes du budget général
+                  Montant total des recettes
                 </p>
               </div>
 
@@ -432,7 +517,7 @@ watch(activeTab, (newTab) => {
                   </UBadge>
                 </div>
                 <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                  Montant total des dépenses du budget général
+                  Montant total des dépenses
                 </p>
               </div>
 

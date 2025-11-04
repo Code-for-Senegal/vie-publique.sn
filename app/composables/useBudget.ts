@@ -36,6 +36,7 @@ export interface BudgetYear {
 export interface BudgetVersion {
   id: number;
   label: string;
+  date: string; // Format: YYYY-MM-DD
 }
 
 export interface BudgetYearsData {
@@ -67,6 +68,7 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
 
   // La comparaison est toujours activée, avec l'année N-1 par défaut
   const compareYear = ref<number | undefined>(undefined);
+  const compareVersion = ref<number | undefined>(undefined);
 
   // Computed pour les années disponibles
   const availableYears = computed(() => yearsData.value?.years || []);
@@ -137,16 +139,20 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
       params.compareYear = compareYear.value;
     }
 
+    if (compareVersion.value) {
+      params.compareVersion = compareVersion.value;
+    }
+
     return params;
   });
 
   const { data: comparisonData } = useFetch('/api/budget/compare', {
     key: computed(
       () =>
-        `budget-compare-${year.value}-${version.value || 'latest'}-vs-${compareYear.value || year.value - 1}`,
+        `budget-compare-${year.value}-${version.value || 'latest'}-vs-${compareYear.value || year.value - 1}-${compareVersion.value || 'auto'}`,
     ),
     query: comparisonQueryParams,
-    watch: [year, version, compareYear],
+    watch: [year, version, compareYear, compareVersion],
     server: true,
     lazy: false, // Force le fetch immédiat côté serveur
     default: () => ({
@@ -532,8 +538,11 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
   });
 
   // Méthode pour gérer la comparaison
-  const setCompareYear = (newYear: number | undefined) => {
+  const setCompareYear = (newYear: number | undefined, newVersion?: number | undefined) => {
     compareYear.value = newYear;
+    if (newVersion !== undefined) {
+      compareVersion.value = newVersion;
+    }
   };
 
   // Fetch de l'évolution multi-années (recettes, dépenses, financement, dette)
@@ -567,6 +576,7 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
 
     // États de comparaison
     compareYear,
+    compareVersion,
     hasComparison: computed(() => comparisonData.value?.hasComparison || false),
     comparisonYearLabel: computed(() => {
       if (!comparisonData.value?.hasComparison) return '';

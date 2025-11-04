@@ -101,7 +101,9 @@ const getPercentage = (value, total) => ((value / total) * 100).toFixed(1);
         </div>
 
         <!-- Total -->
-        <div :class="`px-2 py-2 text-sm font-semibold text-${color}-800 dark:text-${color}-300`">
+        <div
+          :class="`hidden px-2 py-2 text-sm font-semibold text-${color}-800 dark:text-${color}-300`"
+        >
           <div class="flex items-center justify-between">
             <span class="pl-1">Total</span>
             <span>{{ total.toLocaleString() }} Mds</span>
