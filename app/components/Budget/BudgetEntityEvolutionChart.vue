@@ -34,10 +34,10 @@ const drawChart = () => {
 
   const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
 
-  // Échelles
+  // Échelles - utiliser le label complet (année + version)
   const x = d3
     .scaleBand()
-    .domain(props.data.map((d) => d.year))
+    .domain(props.data.map((d) => d.label))
     .range([0, width])
     .padding(0.3);
 
@@ -92,7 +92,7 @@ const drawChart = () => {
     .enter()
     .append('rect')
     .attr('class', 'bar')
-    .attr('x', (d) => x(d.year)!)
+    .attr('x', (d) => x(d.label)!)
     .attr('width', x.bandwidth())
     .attr('y', height)
     .attr('height', 0)
@@ -104,20 +104,20 @@ const drawChart = () => {
     .attr('y', (d) => y(d.amount))
     .attr('height', (d) => height - y(d.amount));
 
-  // Labels au-dessus des barres
+  // Labels au-dessus des barres (montants arrondis)
   g.selectAll('.label')
     .data(props.data)
     .enter()
     .append('text')
     .attr('class', 'label')
-    .attr('x', (d) => x(d.year)! + x.bandwidth() / 2)
+    .attr('x', (d) => x(d.label)! + x.bandwidth() / 2)
     .attr('y', (d) => y(d.amount) - 5)
     .attr('text-anchor', 'middle')
     .style('font-size', '12px')
     .style('font-weight', 'bold')
     .style('fill', '#2563EB')
     .style('opacity', 0)
-    .text((d) => d.amount.toFixed(1))
+    .text((d) => Math.round(d.amount).toLocaleString())
     .transition()
     .delay(800)
     .duration(400)

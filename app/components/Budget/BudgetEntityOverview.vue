@@ -13,15 +13,15 @@ const props = defineProps<Props>();
 </script>
 
 <template>
-  <div class="white:custom-shadow rounded-xl bg-white p-6 shadow-sm dark:bg-gray-800">
-    <h2 class="mb-4 text-center text-xl font-bold text-gray-900 dark:text-white">
+  <div class="white:custom-shadow rounded-xl bg-white p-2 shadow-sm sm:p-6 dark:bg-gray-800">
+    <div class="mb-4 text-center font-bold text-gray-900 sm:text-xl dark:text-white">
       Budget total {{ latestYear }}
-    </h2>
+    </div>
 
     <!-- Total du budget en grand -->
-    <div class="mb-6 text-center">
+    <div class="mb-0 text-center">
       <div class="flex items-baseline justify-center gap-2">
-        <div class="text-5xl font-bold text-blue-600">
+        <div class="text-3xl font-bold text-blue-600 sm:text-5xl">
           {{ currentBudget.toLocaleString(undefined, { maximumFractionDigits: 1 }) }}
           <span class="text-3xl">Mrd FCFA</span>
         </div>
@@ -29,7 +29,7 @@ const props = defineProps<Props>();
           v-if="variation.percentage !== 'N/A'"
           variant="solid"
           :class="[
-            'rounded-full border-none px-3 py-1 text-sm font-medium',
+            'rounded-full border-none px-2 py-1 text-sm font-medium',
             {
               'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400':
                 variation.color === 'green',

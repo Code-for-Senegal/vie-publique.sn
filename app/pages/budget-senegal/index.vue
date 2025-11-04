@@ -263,22 +263,6 @@ const isDataReady = computed(() => {
   return !loading.value && !error.value;
 });
 
-// Debug: afficher les valeurs d'évolution
-if (import.meta.client) {
-  watch(
-    [revenueEvolution, expenseEvolution, financingEvolution, debtEvolution],
-    ([rev, exp, fin, debt]) => {
-      console.log('Evolution data:', {
-        revenueEvolution: rev,
-        expenseEvolution: exp,
-        financingEvolution: fin,
-        debtEvolution: debt,
-      });
-    },
-    { immediate: true },
-  );
-}
-
 // Gestion des onglets - persiste lors des changements de filtres
 const activeTab = ref('overview');
 

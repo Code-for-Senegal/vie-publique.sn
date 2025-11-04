@@ -38,7 +38,7 @@ export default defineCachedEventHandler(
             },
             status: { _eq: 'published' },
           },
-          sort: ['-year', 'level'],
+          sort: ['year', 'version', 'level'],
         }),
       );
 
@@ -69,29 +69,40 @@ export default defineCachedEventHandler(
       // Filtrer uniquement les lignes du bon level pour l'évolution
       const budgetLines = ministryOrInstitutionLines.filter((line: any) => line.level === level);
 
-      // 4. Grouper les données par année pour l'évolution
-      const evolutionByYear = budgetLines.reduce((acc: any, line: any) => {
+      // 4. Grouper les données par année ET version pour l'évolution
+      const evolutionByYearVersion = budgetLines.reduce((acc: any, line: any) => {
         const year = line.year;
-        if (!acc[year]) {
-          acc[year] = {
+        const versionId = line.version?.id || 0;
+        const key = `${year}-${versionId}`; // Clé unique par année + version
+
+        if (!acc[key]) {
+          acc[key] = {
             year,
             amount_cp: 0,
             version_label: line.version?.label || 'N/A',
+            version_id: versionId,
           };
         }
-        acc[year].amount_cp = parseFloat(line.amount_cp || 0);
+        acc[key].amount_cp = parseFloat(line.amount_cp || 0);
         return acc;
       }, {});
 
-      const evolution = Object.values(evolutionByYear).sort((a: any, b: any) => a.year - b.year);
+      // Trier par année, puis par version (en utilisant l'ordre naturel)
+      const evolution = Object.values(evolutionByYearVersion).sort((a: any, b: any) => {
+        if (a.year !== b.year) {
+          return a.year - b.year;
+        }
+        // Si même année, trier par version_id
+        return a.version_id - b.version_id;
+      });
 
       // 5. Récupérer la dernière année disponible
-      const latestYear = evolution.length > 0 ? evolution[evolution.length - 1] : null;
+      const latestYear = evolution.length > 0 ? (evolution[evolution.length - 1] as any) : null;
 
       // 6. Filtrer les programmes de la dernière année (déjà récupérés dans allBudgetLines)
-      let programs = [];
+      let programs: any[] = [];
       if (latestYear) {
-        programs = programLines.filter((line: any) => line.year === latestYear.year);
+        programs = programLines.filter((line: any) => line.year === (latestYear as any).year);
 
         // Trier par montant décroissant
         programs.sort(

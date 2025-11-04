@@ -127,9 +127,9 @@ watchEffect(() => {
           v-if="evolutionChartData.length > 0"
           class="rounded-xl bg-white p-6 shadow-sm dark:bg-gray-800"
         >
-          <h2 class="mb-4 text-center text-xl font-bold text-gray-900 dark:text-white">
-            Évolution du budget par année
-          </h2>
+          <div class="mb-2 text-center font-bold text-gray-900 sm:text-xl dark:text-white">
+            Évolution du budget par version budgétaire
+          </div>
           <BudgetEntityEvolutionChart :data="evolutionChartData" />
         </div>
 
@@ -138,29 +138,27 @@ watchEffect(() => {
           v-if="formattedPrograms.length > 0"
           class="rounded-xl bg-white p-2 shadow-sm sm:p-6 dark:bg-gray-800"
         >
-          <h2 class="mb-4 text-center text-xl font-bold text-gray-900 dark:text-white">
+          <div class="font-boldtext-gray-900 mb-2 text-center sm:text-xl dark:text-white">
             Répartition du budget par programmes ({{ latestYear?.year }})
-          </h2>
+          </div>
 
           <BudgetEntityProgramsTable :programs="formattedPrograms" />
         </div>
 
         <!-- Message si aucun programme -->
         <div v-else class="rounded-xl bg-white p-6 shadow-sm dark:bg-gray-800">
-          <div class="py-12 text-center">
+          <div class="py-6 text-center">
             <UIcon
               name="i-heroicons-document-chart-bar"
               class="mx-auto mb-4 h-16 w-16 text-gray-400"
             />
-            <p class="text-gray-600 dark:text-gray-400">
-              Aucun programme budgétaire disponible pour cette entité
-            </p>
+            <p class="text-gray-600 dark:text-gray-400">Programme budgétaire non renseigné</p>
           </div>
         </div>
       </div>
 
       <!-- Lien vers la page annuaire en fin de page -->
-      <div class="mt-8 text-center">
+      <div class="mt-8 hidden text-center">
         <UButton
           v-if="entity.public_slug"
           :to="`/etat-senegal/annuaire/${entity.public_slug}`"
