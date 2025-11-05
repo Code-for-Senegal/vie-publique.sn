@@ -56,10 +56,10 @@ export function useNavigationCards() {
       display: false,
     },
     {
-      title: 'Budget du Sénégal',
+      title: 'Budget',
       description: 'Loi de finances 2025',
       icon: 'i-heroicons-banknotes',
-      to: '/budget-senegal',
+      to: '/budget',
       count: 8,
       display: true,
     },

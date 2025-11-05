@@ -196,6 +196,11 @@ const handleYearVersionChange = (value: string) => {
   if (option) {
     year.value = option.year;
     version.value = option.versionId;
+
+    // Reset la comparaison quand on change la sélection principale
+    // pour forcer la sélection de la meilleure option antérieure
+    compareYear.value = undefined;
+    compareVersion.value = undefined;
   }
 };
 
@@ -224,7 +229,12 @@ const compareYearVersionOptions = computed(() => {
 // Computed pour la valeur sélectionnée de comparaison (utilise les refs du composable)
 const selectedCompareYearVersion = computed(() => {
   if (!compareYear.value || !compareVersion.value) return '';
-  return `${compareYear.value}-${compareVersion.value}`;
+  const key = `${compareYear.value}-${compareVersion.value}`;
+
+  // Vérifier que cette valeur existe bien dans les options disponibles
+  const exists = compareYearVersionOptions.value.some((opt) => opt.value === key);
+
+  return exists ? key : '';
 });
 
 // Gestion du changement de comparaison
@@ -236,26 +246,44 @@ const handleCompareYearVersionChange = (value: string) => {
   }
 };
 
-// Réinitialiser la comparaison quand on change de période budgétaire
-watch([year, version], () => {
-  // Reset la comparaison pour forcer la réinitialisation
-  compareYear.value = undefined;
-  compareVersion.value = undefined;
-});
+// Fonction pour initialiser la comparaison par défaut
+const initializeDefaultComparison = () => {
+  const options = compareYearVersionOptions.value;
 
-// Initialiser la comparaison par défaut quand les données sont chargées
-watch(
-  [year, version, () => compareYearVersionOptions.value.length],
-  ([currentYear, currentVersion, optionsLength]) => {
-    // Si pas encore de comparaison sélectionnée et qu'on a des options
-    if (!compareYear.value && optionsLength > 0) {
-      // Les options sont déjà triées par date décroissante (plus récent en premier)
-      // Donc le premier élément est la version antérieure la plus récente
-      const defaultCompare = compareYearVersionOptions.value[0];
+  if (options.length === 0) return;
+
+  // Vérifier si la comparaison actuelle est valide
+  const currentCompareKey =
+    compareYear.value && compareVersion.value ? `${compareYear.value}-${compareVersion.value}` : '';
+
+  const isCurrentValid =
+    currentCompareKey && options.some((opt) => opt.value === currentCompareKey);
+
+  // Si pas de comparaison valide, initialiser avec la première option
+  if (!isCurrentValid) {
+    const defaultCompare = options[0];
+    if (defaultCompare) {
       setCompareYear(defaultCompare.year, defaultCompare.versionId);
     }
+  }
+};
+
+// Initialiser au montage du composant
+onMounted(() => {
+  nextTick(() => {
+    initializeDefaultComparison();
+  });
+});
+
+// Réinitialiser quand les options changent (ex: changement de version principale)
+watch(
+  () => compareYearVersionOptions.value,
+  () => {
+    nextTick(() => {
+      initializeDefaultComparison();
+    });
   },
-  { immediate: true },
+  { deep: true },
 );
 
 // Computed pour savoir si les données sont prêtes
@@ -284,12 +312,14 @@ watch(activeTab, (newTab) => {
 
 <template>
   <div class="container mx-auto py-2 pb-10 md:px-8">
-    <div class="mb-2">
-      <NuxtLink to="/" class="inline-flex items-center text-sm text-gray-600 hover:text-gray-800">
-        <UIcon name="i-heroicons-arrow-left" class="mr-2 h-5 w-5" />
-        Retour
-      </NuxtLink>
-    </div>
+    <!-- Breadcrumb -->
+    <nav class="mb-6 flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+      <NuxtLink to="/" class="hover:text-primary">Accueil</NuxtLink>
+      <UIcon name="i-heroicons-chevron-right" class="h-4 w-4" />
+      <NuxtLink to="/budget" class="hover:text-primary">Budget</NuxtLink>
+      <UIcon name="i-heroicons-chevron-right" class="h-4 w-4" />
+      <span class="font-medium text-gray-900 dark:text-white">Dashboard</span>
+    </nav>
 
     <div class="prose prose-sm mx-auto my-2 sm:prose">
       <h1 class="text-center dark:text-white">Budget du Sénégal</h1>
@@ -459,6 +489,12 @@ watch(activeTab, (newTab) => {
                 <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
                   Montant total des recettes
                 </p>
+                <p class="mx-auto mt-3 max-w-2xl text-sm text-gray-600 dark:text-gray-400">
+                  Les recettes représentent l'ensemble des ressources financières collectées par
+                  l'État, principalement à travers les impôts et taxes (recettes fiscales), les
+                  revenus de ses activités et services (recettes non fiscales), ainsi que les dons
+                  et subventions reçus des partenaires internationaux.
+                </p>
               </div>
 
               <BudgetBudget2TableRevenueExpense
@@ -503,6 +539,12 @@ watch(activeTab, (newTab) => {
                 <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
                   Montant total des dépenses
                 </p>
+                <p class="mx-auto mt-3 max-w-2xl text-sm text-gray-600 dark:text-gray-400">
+                  Les dépenses publiques regroupent toutes les dépenses de l'État : les dépenses
+                  courantes (salaires des fonctionnaires, achats de biens et services, subventions,
+                  intérêts de la dette), les investissements publics (infrastructures, équipements)
+                  et les dépenses en capital pour le développement du pays.
+                </p>
               </div>
 
               <BudgetBudget2TableRevenueExpense
@@ -546,6 +588,12 @@ watch(activeTab, (newTab) => {
                 </div>
                 <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
                   Montant total à mobiliser pour couvrir les besoins de financement
+                </p>
+                <p class="mx-auto mt-3 max-w-2xl text-sm text-gray-600 dark:text-gray-400">
+                  Les besoins de financement correspondent à l'écart entre les dépenses totales et
+                  les recettes de l'État (déficit budgétaire), que le gouvernement doit combler en
+                  empruntant sur les marchés financiers nationaux et internationaux, ou en
+                  mobilisant des ressources exceptionnelles.
                 </p>
               </div>
 
@@ -601,6 +649,12 @@ watch(activeTab, (newTab) => {
                 </div>
                 <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
                   Montant total du service de la dette (intérêts + capital)
+                </p>
+                <p class="mx-auto mt-3 max-w-2xl text-sm text-gray-600 dark:text-gray-400">
+                  Le service de la dette représente les montants que l'État doit payer chaque année
+                  pour honorer ses engagements financiers : le remboursement du capital emprunté
+                  (amortissement) et le paiement des intérêts sur les emprunts contractés auprès des
+                  créanciers nationaux et internationaux.
                 </p>
               </div>
 
@@ -665,7 +719,7 @@ watch(activeTab, (newTab) => {
             </div>
 
             <!-- Grille de documents -->
-            <div v-else class="grid grid-cols-2 gap-4 sm:grid-cols-3">
+            <div v-else class="grid grid-cols-2 gap-2 sm:grid-cols-3">
               <NuxtLink
                 v-for="document in documents"
                 :key="document.id"
@@ -680,7 +734,7 @@ watch(activeTab, (newTab) => {
                     :alt="`Couverture ${document.title}`"
                     class="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
                     loading="lazy"
-                    :quality="60"
+                    :quality="50"
                   />
                   <div v-else class="flex h-full w-full items-center justify-center">
                     <UIcon name="i-heroicons-document-text" class="h-16 w-16 text-gray-400" />
@@ -688,17 +742,8 @@ watch(activeTab, (newTab) => {
                 </div>
 
                 <!-- Titre du document -->
-                <div class="p-3">
-                  <h3 class="line-clamp-2 text-sm font-medium text-gray-900 dark:text-white">
-                    {{ document.title }}
-                  </h3>
-                  <div
-                    v-if="document.file"
-                    class="mt-2 flex items-center gap-1 text-xs text-gray-500"
-                  >
-                    <UIcon name="i-heroicons-document" class="h-3 w-3" />
-                    PDF
-                  </div>
+                <div class="line-clamp-2 text-sm font-medium text-gray-900 dark:text-white">
+                  {{ document.title }}
                 </div>
               </NuxtLink>
             </div>
@@ -708,16 +753,3 @@ watch(activeTab, (newTab) => {
     </div>
   </div>
 </template>
-
-<style>
-.custom-shadow {
-  transition: all 0.3s ease;
-}
-
-.custom-shadow:hover {
-  transform: translateY(-5px);
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-</style>

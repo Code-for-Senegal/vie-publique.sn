@@ -8,6 +8,7 @@ interface Update {
   publish_date?: string;
   url: string;
   slug?: string;
+  cover_image?: string;
 }
 
 interface Question {
@@ -55,11 +56,10 @@ export const useLatestUpdatesStore = defineStore("latestUpdates", {
       this.error = null;
 
       try {
-        // ✅ Utilisation des API Nuxt server pour tout
-        const documentsData = await $fetch("/api/documents", {
+        // ✅ Utilisation des API Nuxt server pour tout - récupération des documents featured
+        const documentsData = await $fetch("/api/documents/featured", {
           params: {
             limit: 3,
-            sortBy: "-date_created",
           },
         });
 
@@ -81,6 +81,7 @@ export const useLatestUpdatesStore = defineStore("latestUpdates", {
           publish_date: doc.publish_date,
           url: `/documents/${doc.id}/${doc.slug || "document"}`,
           slug: doc.slug,
+          cover_image: doc.cover_image,
         }));
 
         this.questions = questionsData.questions.map((q) => ({

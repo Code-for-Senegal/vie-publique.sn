@@ -3,7 +3,7 @@
     <div class="mx-auto grid max-w-5xl grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3">
       <NuxtLink v-for="card in navigationCards" :key="card.title" :to="card.to" class="group block">
         <div
-          class="custom-shadow flex items-center gap-2 rounded-xl bg-white p-3 shadow-md shadow-sm transition-all duration-200 sm:p-4 dark:bg-gray-800/80 dark:ring-1 dark:ring-gray-700 dark:backdrop-blur-md"
+          class="custom-shadow flex items-center gap-2 rounded-xl bg-white p-3 shadow-md shadow-sm transition-all duration-200 sm:p-4 dark:bg-gray-800 dark:ring-1 dark:ring-gray-700 dark:backdrop-blur-md"
         >
           <div class="flex-shrink-0">
             <UIcon
@@ -163,9 +163,9 @@ const navigationCards: NavigationCard[] = [
 
   {
     title: 'Budget du Sénégal',
-    description: 'Loi de finances 2025',
+    description: 'Transparence des finances publiques',
     icon: 'i-heroicons-banknotes',
-    to: '/budget-senegal',
+    to: '/budget',
   },
 
   {

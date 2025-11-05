@@ -1,43 +1,39 @@
 <template>
   <div class="rounded-lg bg-white p-2 shadow-lg sm:p-4 dark:bg-gray-800">
-    <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300">{{ name }}</h3>
-    <div class="mt-3 flex items-start">
-      <div class="flex items-baseline">
-        <span
-          class="font-display text-2xl font-bold tracking-tight text-gray-800 sm:text-4xl dark:text-white"
-        >
-          {{ value }}
-        </span>
-      </div>
-      <div
-        class="ml-2 flex flex-col gap-0"
-        :class="
-          showVariationBadge && variation_percentage && variation_percentage !== 'N/A'
-            ? 'justify-between'
-            : 'justify-end'
-        "
+    <!-- Titre de l'indicateur -->
+    <h3 class="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-300">{{ name }}</h3>
+
+    <!-- Valeur + Variation (côte à côte) -->
+    <div class="mb-1 flex items-baseline gap-2">
+      <!-- Valeur principale -->
+      <span
+        class="text-2xl font-bold tracking-tight text-gray-800 sm:text-3xl dark:text-white"
       >
-        <span class="font-mono text-xs text-gray-500 dark:text-gray-400">
-          {{ unit }}
-        </span>
-        <UBadge
-          v-if="showVariationBadge && variation_percentage && variation_percentage !== 'N/A'"
-          variant="solid"
-          :class="[
-            'rounded-full border-none px-1 py-0 text-center text-xs font-medium tracking-wide sm:text-sm',
-            {
-              'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400':
-                variation_color === 'green',
-              'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400':
-                variation_color === 'red',
-              'bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300':
-                variation_color === 'gray',
-            },
-          ]"
-        >
-          {{ variation_percentage }}
-        </UBadge>
-      </div>
+        {{ formattedValue }}{{ isPercentage ? '%' : '' }}
+      </span>
+
+      <!-- Badge de variation (toujours à côté) -->
+      <UBadge
+        v-if="showVariationBadge && variation_percentage && !isComparisonText"
+        :color="variation_color"
+        variant="solid"
+        size="xs"
+      >
+        {{ variation_percentage }}
+      </UBadge>
+    </div>
+
+    <!-- Unité (en dessous pour les valeurs en milliards) -->
+    <div v-if="!isPercentage" class="text-xs text-gray-500 dark:text-gray-400">
+      {{ unit }}
+    </div>
+
+    <!-- Comparaison année précédente (petit texte en dessous) -->
+    <div
+      v-if="isComparisonText && variation_percentage"
+      class="mt-1 text-xs text-gray-500 dark:text-gray-400"
+    >
+      {{ variation_percentage }}
     </div>
   </div>
 </template>
@@ -58,5 +54,23 @@ const props = withDefaults(defineProps<Props>(), {
   color: 'gray',
   variation_color: 'gray',
   showVariationBadge: true,
+});
+
+// Détecter si c'est un pourcentage
+const isPercentage = computed(() => props.unit === '%');
+
+// Formater la valeur : 1 décimale pour les pourcentages
+const formattedValue = computed(() => {
+  if (!isPercentage.value) return props.value;
+
+  const numValue = parseFloat(props.value);
+  if (isNaN(numValue)) return props.value;
+
+  return numValue.toFixed(1);
+});
+
+// Détecter si la variation est un texte de comparaison (ex: "5.2% en 2025")
+const isComparisonText = computed(() => {
+  return props.variation_percentage && props.variation_percentage.includes('en');
 });
 </script>

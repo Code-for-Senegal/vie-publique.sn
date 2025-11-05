@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const router = useRouter()
+const router = useRouter();
 
 const {
   documents,
@@ -20,28 +20,28 @@ const {
   resetFilters,
 } = useDocuments({
   limit: 10,
-})
+});
 
 // Computed pour l'UI
 const searchQueryUI = computed({
   get: () => searchQuery.value,
   set: (value) => setSearchQuery(value),
-})
+});
 
 const currentPageUI = computed({
   get: () => currentPage.value,
   set: (value) => setCurrentPage(value),
-})
+});
 
 const sortByUI = computed({
   get: () => sortBy.value,
   set: (value) => setSortBy(value),
-})
+});
 
 const selectedTypeUI = computed({
   get: () => filterType.value || 'all',
   set: (value) => setSelectedFilter(value === 'all' ? '' : value),
-})
+});
 
 const resultsText = computed(() =>
   useResultsText({
@@ -57,20 +57,20 @@ const resultsText = computed(() =>
       noResultsWithSearch: 'Aucun document trouvé pour "{search}"',
     },
   }),
-)
+);
 
 const sortOptions = [
   { label: 'Plus récent', value: '-publish_date' },
   { label: 'Plus ancien', value: 'publish_date' },
   { label: 'Titre (A-Z)', value: 'title' },
   { label: 'Titre (Z-A)', value: '-title' },
-]
+];
 
 const perPageOptions = [
   { label: '10', value: 10 },
   { label: '20', value: 20 },
   { label: '30', value: 30 },
-]
+];
 
 const typeOptions = [
   { label: 'Tous les documents', value: 'all' },
@@ -79,14 +79,14 @@ const typeOptions = [
   { label: 'Loi', value: 'law' },
   { label: 'Codes généraux', value: 'code' },
   { label: 'Stratégies', value: 'strategy' },
-]
+];
 
 // Fonction pour changer le nombre d'items par page
 const updateItemsPerPage = (value: number) => {
-  itemsPerPage.value = value
-  currentPage.value = 1
-  window.scrollTo({ top: 0, behavior: 'smooth' })
-}
+  itemsPerPage.value = value;
+  currentPage.value = 1;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
 </script>
 
 <template>
@@ -183,7 +183,7 @@ const updateItemsPerPage = (value: number) => {
         <UCard
           v-for="document in documents"
           :key="document.id"
-          class="custom-shadow transition-shadow duration-200 hover:shadow-md dark:bg-gray-800/80"
+          class="custom-shadow transition-shadow duration-200 hover:shadow-md dark:bg-gray-800"
         >
           <NuxtLink
             :to="`/documents/${document.id}/${document.slug}`"

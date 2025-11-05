@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useNews } from "~/composables/news/useNews";
+import { useNews } from '~/composables/news/useNews';
 
 // Fonction pour formater l'URL selon le nouveau format /categorie/id/slug
 const formatNewsUrl = (article: {
@@ -10,7 +10,7 @@ const formatNewsUrl = (article: {
     slug?: string;
   };
 }) => {
-  if (!article) return "/actualites";
+  if (!article) return '/actualites';
 
   const id = article.id;
   const slug =
@@ -18,20 +18,20 @@ const formatNewsUrl = (article: {
     (article.title
       ? article.title
           .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/(^-|-$)/g, "")
-      : "actualite");
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/(^-|-$)/g, '')
+      : 'actualite');
 
   // Gestion spécifique selon la catégorie
   const categorySlug = article.category?.slug;
 
   // Cas du conseil des ministres
-  if (categorySlug === "conseil-des-ministres") {
+  if (categorySlug === 'conseil-des-ministres') {
     return `/conseil-des-ministres/${id}/${slug}`;
   }
 
   // Cas de l'assemblée nationale
-  if (categorySlug === "assemblee-nationale") {
+  if (categorySlug === 'assemblee-nationale') {
     return `/assemblee-nationale/actualites/${id}/${slug}`;
   }
 
@@ -51,14 +51,11 @@ const {
 
 <template>
   <div class="my-4">
-    <div class="prose prose-sm sm:prose mx-auto my-4">
+    <div class="prose prose-sm mx-auto my-4 sm:prose">
       <h2 class="text-center text-gray-800 dark:text-white">À la une</h2>
     </div>
 
-    <div
-      v-if="loading"
-      class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-    >
+    <div v-if="loading" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       <div v-for="n in 3" :key="n" class="animate-pulse">
         <div class="relative w-full">
           <div class="aspect-[16/9] rounded-t-lg bg-gray-200"></div>
@@ -77,12 +74,9 @@ const {
         <UCard
           v-for="article in featuredNews?.slice(0, 3)"
           :key="article.id"
-          class="custom-shadow cursor-pointer"
+          class="custom-shadow cursor-pointer dark:bg-gray-800/90"
         >
-          <NuxtLink
-            :to="formatNewsUrl(article)"
-            class="flex flex-row sm:flex-col"
-          >
+          <NuxtLink :to="formatNewsUrl(article)" class="flex flex-row sm:flex-col">
             <div class="mb-0 mr-4 w-1/3 sm:mb-4 sm:mr-0 sm:w-full">
               <CmsImage
                 :src="article.cover_image"
@@ -97,10 +91,7 @@ const {
               <p class="line-clamp-2 text-sm font-semibold sm:text-base">
                 {{ article.title }}
               </p>
-              <div
-                v-if="article.date_published"
-                class="text-sm text-gray-800 dark:text-slate-200"
-              >
+              <div v-if="article.date_published" class="text-sm text-gray-800 dark:text-slate-200">
                 {{ $dateformatWithDayName(article.date_published) }}
               </div>
             </div>

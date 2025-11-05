@@ -1,70 +1,68 @@
 <script setup lang="ts">
-import { useNews } from "~/composables/news/useNews";
+import { useNews } from '~/composables/news/useNews';
 
-const { siteName, siteUrl, defaultImage, keywords, themeColor } =
-  useSiteMetadata();
+const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
 
-const title = "Actualités de la République du Sénégal | Vie-Publique.sn";
+const title = 'Actualités de la République du Sénégal | Vie-Publique.sn';
 const description =
   "Suivez toute l'actualité de la République du Sénégal. Conseil des ministres, Assemblée nationale, vie politique et institutionnelle sénégalaise.";
 const url = `${siteUrl}/actualites`;
 const image = `${siteUrl}/images/share-linkedin.png`;
 
 const newsCollectionSchema = {
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
   name: title,
   description: description,
   url: url,
   image: image,
   isPartOf: {
-    "@type": "WebSite",
+    '@type': 'WebSite',
     name: siteName,
     url: siteUrl,
   },
   about: {
-    "@type": "GovernmentOrganization",
-    name: "République du Sénégal",
+    '@type': 'GovernmentOrganization',
+    name: 'République du Sénégal',
     description: "État souverain d'Afrique de l'Ouest",
   },
   mainEntity: {
-    "@type": "ItemList",
-    name: "Actualités République du Sénégal",
-    description:
-      "Collection des dernières actualités de la République du Sénégal",
+    '@type': 'ItemList',
+    name: 'Actualités République du Sénégal',
+    description: 'Collection des dernières actualités de la République du Sénégal',
   },
 };
 
 const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
   itemListElement: [
     {
-      "@type": "ListItem",
+      '@type': 'ListItem',
       position: 1,
-      name: "Accueil",
+      name: 'Accueil',
       item: siteUrl,
     },
     {
-      "@type": "ListItem",
+      '@type': 'ListItem',
       position: 2,
-      name: "Actualités",
+      name: 'Actualités',
       item: url,
     },
   ],
 };
 
 const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "NewsMediaOrganization",
+  '@context': 'https://schema.org',
+  '@type': 'NewsMediaOrganization',
   name: siteName,
   url: siteUrl,
   logo: defaultImage,
-  sameAs: ["https://twitter.com/viepubliquesn"],
+  sameAs: ['https://twitter.com/viepubliquesn'],
   address: {
-    "@type": "PostalAddress",
-    addressCountry: "SN",
-    addressLocality: "Dakar",
+    '@type': 'PostalAddress',
+    addressCountry: 'SN',
+    addressLocality: 'Dakar',
   },
   publishingPrinciples: `${siteUrl}/ethique`,
   correctionsPolicy: `${siteUrl}/corrections`,
@@ -72,24 +70,24 @@ const organizationSchema = {
 };
 
 const webSiteSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
   name: siteName,
   url: siteUrl,
   description: "Site d'information sur la vie publique et politique du Sénégal",
-  inLanguage: "fr-SN",
+  inLanguage: 'fr-SN',
   isAccessibleForFree: true,
   publisher: {
-    "@type": "Organization",
+    '@type': 'Organization',
     name: siteName,
   },
   potentialAction: {
-    "@type": "SearchAction",
+    '@type': 'SearchAction',
     target: {
-      "@type": "EntryPoint",
+      '@type': 'EntryPoint',
       urlTemplate: `${siteUrl}/actualites?search={search_term_string}`,
     },
-    "query-input": "required name=search_term_string",
+    'query-input': 'required name=search_term_string',
   },
 };
 
@@ -100,55 +98,55 @@ useSeoMeta({
   ogDescription: description,
   ogImage: image,
   ogUrl: url,
-  twitterCard: "summary_large_image",
+  twitterCard: 'summary_large_image',
   twitterTitle: title,
   twitterDescription: description,
   twitterImage: image,
   keywords: [
     ...keywords,
-    "actualités Sénégal",
-    "news République du Sénégal",
-    "Conseil des ministres actualités",
-    "Assemblée nationale news",
-    "politique sénégalaise actualités",
-    "gouvernement Sénégal news",
-    "information République Sénégal",
-  ].join(", "),
+    'actualités Sénégal',
+    'news République du Sénégal',
+    'Conseil des ministres actualités',
+    'Assemblée nationale news',
+    'politique sénégalaise actualités',
+    'gouvernement Sénégal news',
+    'information République Sénégal',
+  ].join(', '),
 });
 
 useHead({
-  htmlAttrs: { lang: "fr-SN" },
-  link: [{ rel: "canonical", href: url }],
+  htmlAttrs: { lang: 'fr-SN' },
+  link: [{ rel: 'canonical', href: url }],
   meta: [
-    { name: "theme-color", content: themeColor },
-    { name: "author", content: siteName },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: siteName },
-    { name: "robots", content: "index, follow" },
-    { name: "geo.region", content: "SN" },
-    { name: "geo.placename", content: "Dakar" },
-    { name: "geo.position", content: "14.7645042;-17.3660286" },
-    { name: "ICBM", content: "14.7645042, -17.3660286" },
+    { name: 'theme-color', content: themeColor },
+    { name: 'author', content: siteName },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:site_name', content: siteName },
+    { name: 'robots', content: 'index, follow' },
+    { name: 'geo.region', content: 'SN' },
+    { name: 'geo.placename', content: 'Dakar' },
+    { name: 'geo.position', content: '14.7645042;-17.3660286' },
+    { name: 'ICBM', content: '14.7645042, -17.3660286' },
     {
-      name: "news_keywords",
-      content: "Sénégal, actualités, politique, gouvernement, République",
+      name: 'news_keywords',
+      content: 'Sénégal, actualités, politique, gouvernement, République',
     },
   ],
   script: [
     {
-      type: "application/ld+json",
+      type: 'application/ld+json',
       children: JSON.stringify(newsCollectionSchema),
     },
     {
-      type: "application/ld+json",
+      type: 'application/ld+json',
       children: JSON.stringify(breadcrumbSchema),
     },
     {
-      type: "application/ld+json",
+      type: 'application/ld+json',
       children: JSON.stringify(organizationSchema),
     },
     {
-      type: "application/ld+json",
+      type: 'application/ld+json',
       children: JSON.stringify(webSiteSchema),
     },
   ],
@@ -179,7 +177,7 @@ const formatNewsUrl = (article: {
     slug?: string;
   };
 }) => {
-  if (!article) return "/actualites";
+  if (!article) return '/actualites';
 
   const id = article.id;
   const slug =
@@ -187,18 +185,18 @@ const formatNewsUrl = (article: {
     (article.title
       ? article.title
           .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/(^-|-$)/g, "")
-      : "actualite");
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/(^-|-$)/g, '')
+      : 'actualite');
 
   // Gestion spécifique selon la catégorie
   const categorySlug = article.category?.slug;
 
-  if (categorySlug === "conseil-des-ministres") {
+  if (categorySlug === 'conseil-des-ministres') {
     return `/conseil-des-ministres/${id}/${slug}`;
   }
 
-  if (categorySlug === "assemblee-nationale") {
+  if (categorySlug === 'assemblee-nationale') {
     return `/assemblee-nationale/actualites/${id}/${slug}`;
   }
 
@@ -208,14 +206,15 @@ const formatNewsUrl = (article: {
 // Ajout des couleurs pour les catégories
 const getCategoryColor = (categoryName: string) => {
   const colorMap: Record<string, string> = {
-    Toutes: "#6B7280",
-    "Conseil des ministres": "#1D4ED8",
-    "Conseil interministériel": "#7E22CE",
-    "Assemblée nationale": "#047857",
-    Article: "#EA580C",
-    "Non catégorisé": "#4B5563",
+    Toutes: '#6B7280',
+    'Conseil des ministres': '#1D4ED8',
+    'Conseil interministériel': '#7E22CE',
+    'Assemblée nationale': '#047857',
+    Article: '#EA580C',
+    Budget: '#B91C1C',
+    'Non catégorisé': '#4B5563',
   };
-  return colorMap[categoryName] || "#6B7280";
+  return colorMap[categoryName] || '#6B7280';
 };
 
 const formatDateISO = (date: string) => {
@@ -224,15 +223,9 @@ const formatDateISO = (date: string) => {
 </script>
 
 <template>
-  <div
-    class="container mx-auto"
-    itemscope
-    itemtype="https://schema.org/CollectionPage"
-  >
-    <div class="prose prose-sm sm:prose dark:prose-invert mx-auto my-2">
-      <h1 class="text-center dark:text-white" itemprop="headline">
-        Actualités
-      </h1>
+  <div class="container mx-auto" itemscope itemtype="https://schema.org/CollectionPage">
+    <div class="prose prose-sm mx-auto my-2 sm:prose dark:prose-invert">
+      <h1 class="text-center dark:text-white" itemprop="headline">Actualités</h1>
     </div>
 
     <!-- Filtres par catégorie -->
@@ -269,9 +262,7 @@ const formatDateISO = (date: string) => {
           }"
           :style="{
             backgroundColor:
-              selectedCategory === category.name
-                ? getCategoryColor(category.name)
-                : '',
+              selectedCategory === category.name ? getCategoryColor(category.name) : '',
           }"
           @click="setSelectedCategory(category.name)"
         >
@@ -288,15 +279,10 @@ const formatDateISO = (date: string) => {
     </div>
 
     <!-- Skeleton loader pendant le chargement -->
-    <div
-      v-if="loading"
-      class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-    >
+    <div v-if="loading" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       <div v-for="n in 6" :key="n" class="animate-pulse">
         <div class="relative w-full">
-          <div
-            class="aspect-[16/9] rounded-t-lg bg-gray-200 dark:bg-gray-700"
-          ></div>
+          <div class="aspect-[16/9] rounded-t-lg bg-gray-200 dark:bg-gray-700"></div>
         </div>
         <div class="mt-4 space-y-3">
           <div class="h-6 w-24 rounded bg-gray-200 dark:bg-gray-700"></div>
@@ -349,44 +335,22 @@ const formatDateISO = (date: string) => {
             class="custom-shadow group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border dark:border-gray-800 dark:bg-gray-900/50 dark:backdrop-blur-sm"
           >
             <meta itemprop="position" :content="`${index + 1}`" />
-            <meta
-              itemprop="url"
-              :content="`${siteUrl}${formatNewsUrl(article)}`"
-            />
-            <meta
-              itemprop="datePublished"
-              :content="formatDateISO(article.date_published)"
-            />
+            <meta itemprop="url" :content="`${siteUrl}${formatNewsUrl(article)}`" />
+            <meta itemprop="datePublished" :content="formatDateISO(article.date_published)" />
 
-            <div
-              itemprop="author"
-              itemscope
-              itemtype="https://schema.org/Organization"
-            >
+            <div itemprop="author" itemscope itemtype="https://schema.org/Organization">
               <meta itemprop="name" :content="siteName" />
             </div>
 
-            <div
-              itemprop="publisher"
-              itemscope
-              itemtype="https://schema.org/Organization"
-            >
+            <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
               <meta itemprop="name" :content="siteName" />
               <meta itemprop="url" :content="siteUrl" />
             </div>
 
             <UCard>
-              <NuxtLink
-                :to="formatNewsUrl(article)"
-                class="block"
-                itemprop="url"
-              >
+              <NuxtLink :to="formatNewsUrl(article)" class="block" itemprop="url">
                 <div class="relative">
-                  <div
-                    itemprop="image"
-                    itemscope
-                    itemtype="https://schema.org/ImageObject"
-                  >
+                  <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
                     <CmsImage
                       :src="article.cover_image"
                       :fallback="'/default-image-2.gif'"
@@ -422,7 +386,7 @@ const formatDateISO = (date: string) => {
                       }"
                       itemprop="articleSection"
                     >
-                      {{ article.category?.name || "Non catégorisé" }}
+                      {{ article.category?.name || 'Non catégorisé' }}
                     </span>
                   </div>
                 </div>
@@ -444,15 +408,8 @@ const formatDateISO = (date: string) => {
                 </div>
 
                 <!-- Main entity of page -->
-                <div
-                  itemprop="mainEntityOfPage"
-                  itemscope
-                  itemtype="https://schema.org/WebPage"
-                >
-                  <meta
-                    itemprop="@id"
-                    :content="`${siteUrl}${formatNewsUrl(article)}`"
-                  />
+                <div itemprop="mainEntityOfPage" itemscope itemtype="https://schema.org/WebPage">
+                  <meta itemprop="@id" :content="`${siteUrl}${formatNewsUrl(article)}`" />
                 </div>
               </NuxtLink>
             </UCard>
