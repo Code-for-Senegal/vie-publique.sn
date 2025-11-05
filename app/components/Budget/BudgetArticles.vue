@@ -98,10 +98,13 @@ const {
     <div v-if="budgetArticles && budgetArticles.length > 0" class="mt-6 text-center">
       <NuxtLink
         to="/actualites?category=Budget"
-        class="text-primary hover:text-primary-600 inline-flex items-center gap-2 text-sm font-medium underline"
+        class="group inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 transition-all duration-200 hover:bg-gray-50 hover:shadow-md hover:ring-gray-400 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:hover:bg-gray-700 dark:hover:ring-gray-600"
       >
-        Voir tous les articles sur le budget
-        <UIcon name="i-heroicons-arrow-right" class="h-4 w-4" />
+        Voir toutes les actualités
+        <UIcon
+          name="i-heroicons-arrow-right"
+          class="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+        />
       </NuxtLink>
     </div>
   </div>

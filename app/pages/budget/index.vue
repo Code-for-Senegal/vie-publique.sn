@@ -25,63 +25,73 @@
           </div>
           <div>
             <h3 class="text-2xl font-semibold text-gray-900 dark:text-white">
-              Aperçu Budgétaire 2026
+              Dashboard Budget 2026
             </h3>
             <p class="text-sm text-gray-600 dark:text-gray-400">Projet de Loi de Finances</p>
           </div>
         </div>
 
-        <!-- Barres proportionnelles -->
-        <div class="mb-6 space-y-4">
-          <!-- Barre Dépenses (100% largeur) -->
-          <div>
-            <!-- Label au-dessus -->
-            <div class="mb-2 flex items-center justify-between">
-              <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Dépenses</span>
-            </div>
-            <!-- Barre pleine avec gradient -->
+        <!-- 2 colonnes : Indicateurs + Texte (texte masqué sur mobile) -->
+        <div class="mb-6 grid grid-cols-1 gap-6 md:grid-cols-[2fr,1fr]">
+          <!-- Colonne gauche : 3 cartes d'indicateurs -->
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <!-- Dépenses -->
             <div
-              class="flex items-center justify-between rounded-lg bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 px-2 py-2 shadow-lg sm:px-3"
+              class="rounded-lg bg-gradient-to-br from-orange-50 via-orange-100 to-orange-200 p-4 shadow-md dark:from-orange-900/30 dark:via-orange-800/25 dark:to-orange-900/20"
             >
-              <span class="text-xl font-bold text-white sm:text-xl"
-                >7 434 Mrd <span color="white" class="mt-1 text-xs">+13,0%</span></span
-              >
+              <h3 class="mb-3 text-sm font-semibold text-orange-800 dark:text-orange-300">
+                Dépenses
+              </h3>
+              <div class="mb-2 flex flex-wrap items-baseline gap-2">
+                <span
+                  class="text-2xl font-bold tracking-tight text-orange-900 sm:text-3xl dark:text-orange-200"
+                  >7 434</span
+                >
+                <UBadge color="orange" variant="solid" size="xs">+13,0%</UBadge>
+              </div>
+              <div class="text-xs text-orange-700 dark:text-orange-400">Milliards FCFA</div>
+            </div>
+
+            <!-- Recettes -->
+            <div
+              class="rounded-lg bg-gradient-to-br from-emerald-50 via-green-100 to-teal-200 p-4 shadow-md dark:from-emerald-900/30 dark:via-green-800/25 dark:to-teal-900/20"
+            >
+              <h3 class="mb-3 text-sm font-semibold text-emerald-800 dark:text-emerald-300">
+                Recettes
+              </h3>
+              <div class="mb-2 flex flex-wrap items-baseline gap-2">
+                <span
+                  class="text-2xl font-bold tracking-tight text-emerald-900 sm:text-3xl dark:text-emerald-200"
+                  >6 189</span
+                >
+                <UBadge color="green" variant="solid" size="xs">+26,7%</UBadge>
+              </div>
+              <div class="text-xs text-emerald-700 dark:text-emerald-400">Milliards FCFA</div>
+            </div>
+
+            <!-- Déficit -->
+            <div
+              class="rounded-lg bg-gradient-to-br from-red-50 via-rose-100 to-pink-200 p-4 shadow-md dark:from-red-900/30 dark:via-rose-800/25 dark:to-pink-900/20"
+            >
+              <h3 class="mb-3 text-sm font-semibold text-red-800 dark:text-red-300">Déficit</h3>
+              <div class="mb-2 flex flex-wrap items-baseline gap-2">
+                <span
+                  class="text-2xl font-bold tracking-tight text-red-900 sm:text-3xl dark:text-red-200"
+                  >1 245</span
+                >
+                <UBadge color="red" variant="solid" size="xs">-26,6%</UBadge>
+              </div>
+              <div class="text-xs text-red-700 dark:text-red-400">Milliards FCFA</div>
             </div>
           </div>
 
-          <!-- Barres Recettes + Déficit (proportionnelles) -->
-          <div class="flex gap-2">
-            <!-- Recettes (83% de 7434 = 6189) -->
-            <div class="flex-[67]">
-              <!-- Label au-dessus -->
-              <div class="mb-2 flex items-center justify-between">
-                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Recettes</span>
-              </div>
-              <!-- Barre avec gradient vert -->
-              <div
-                class="flex items-center justify-between rounded-lg bg-gradient-to-br from-emerald-500 via-green-600 to-teal-600 px-2 py-2 shadow-lg sm:px-3"
-              >
-                <span class="text-lg font-bold text-white sm:text-xl"
-                  >6 189 Mrd <span color="white" class="mt-1 text-xs">+26,7%</span></span
-                >
-              </div>
-            </div>
-
-            <!-- Déficit (17% de 7434 = 1245) -->
-            <div class="flex-[33]">
-              <!-- Label au-dessus -->
-              <div class="mb-2 flex items-center justify-between">
-                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Déficit</span>
-              </div>
-              <!-- Barre avec gradient rouge -->
-              <div
-                class="flex flex-col items-center justify-center rounded-lg bg-gradient-to-br from-red-500 via-rose-600 to-pink-600 px-2 py-2 shadow-lg sm:px-3"
-              >
-                <span class="text-lg font-bold text-white sm:text-xl"
-                  >1 245 <span color="white" class="mt-1 text-xs">-26,6%</span></span
-                >
-              </div>
-            </div>
+          <!-- Colonne droite : Texte intro (masqué sur mobile) -->
+          <div class="hidden md:block">
+            <p class="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+              Le Projet de Loi de Finances 2026 présente les prévisions de ressources et de dépenses
+              de l'État pour l'année. Il sert de cadre d'exécution pour l'action publique et
+              s'appuie sur des hypothèses macroéconomiques définies pour l'économie nationale.
+            </p>
           </div>
         </div>
 
