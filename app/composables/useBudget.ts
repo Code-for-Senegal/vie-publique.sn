@@ -194,15 +194,15 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
   const formattedKeyIndicators = computed(() => {
     if (!data.value?.keyIndicators) return [];
 
-    // Map des couleurs par code d'indicateur (comme dans 2025.vue)
-    const colorMap: Record<string, string> = {
-      budget_total: '#2B7A0B',
-      revenue_total: '#1A73E8',
-      expense_total: '#C62828',
-      deficit_total: '#E64A19',
-      deficit_pct_gdp: '#E64A19',
-      gdp_total: '#5E35B1',
-      growth_rate: '#00897B',
+    // Map des couleurs thématiques par code d'indicateur
+    const colorMap: Record<string, 'green' | 'red' | 'gray' | 'orange' | 'purple' | 'yellow'> = {
+      budget_total: 'green',
+      revenue_total: 'green',
+      expense_total: 'yellow',
+      deficit_total: 'red',
+      deficit_pct_gdp: 'red',
+      gdp_total: 'gray',
+      growth_rate: 'purple',
     };
 
     return data.value.keyIndicators.map((indicator) => {
@@ -241,7 +241,7 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
         name: indicator.label,
         value: displayValue,
         unit: indicator.unit === 'mds_fcfa' ? 'Millards' : '%',
-        color: colorMap[indicator.code] || '#60A5FA',
+        color: colorMap[indicator.code] || 'gray',
         variation_percentage: displayVariation,
         variation_color: variationColor,
         showVariationBadge: true,
@@ -309,8 +309,8 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
   const expenseChartData = computed(() => {
     if (!data.value?.expenses) return [];
 
-    // Couleurs fixes pour les dépenses (palette indigo)
-    const colors = ['#3F51B5', '#5C6BC0', '#7986CB', '#9FA8DA', '#C5CAE9'];
+    // Couleurs fixes pour les dépenses (palette orange/jaune)
+    const colors = ['#F97316', '#FB923C', '#FDBA74', '#FCD34D', '#FDE047'];
 
     return data.value.expenses.map((item, index) => {
       let variation = 'N/A';

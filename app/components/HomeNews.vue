@@ -91,7 +91,7 @@ const {
               <p class="line-clamp-2 text-sm font-semibold sm:text-base">
                 {{ article.title }}
               </p>
-              <div v-if="article.date_published" class="text-sm text-gray-800 dark:text-slate-200">
+              <div v-if="article.date_published" class="text-xs text-gray-800 dark:text-slate-200">
                 {{ $dateformatWithDayName(article.date_published) }}
               </div>
             </div>

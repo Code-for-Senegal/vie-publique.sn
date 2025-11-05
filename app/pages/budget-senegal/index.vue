@@ -524,7 +524,7 @@ watch(activeTab, (newTab) => {
               <!-- Total des dépenses en grand -->
               <div class="mb-6 text-center">
                 <div class="flex items-baseline justify-center gap-2">
-                  <div class="text-4xl font-bold text-red-600">
+                  <div class="text-4xl font-bold text-yellow-600">
                     {{ Math.round(expenseTotalWithVariation.total) }}
                     <span class="text-2xl">Mrd FCFA</span>
                   </div>
@@ -550,7 +550,7 @@ watch(activeTab, (newTab) => {
               <BudgetBudget2TableRevenueExpense
                 :budget-data="expenseChartData"
                 title=""
-                color="red"
+                color="yellow"
               />
             </div>
 
@@ -559,7 +559,7 @@ watch(activeTab, (newTab) => {
               v-if="expenseEvolution.length > 0"
               :data="expenseEvolution"
               title="Évolution des dépenses par année"
-              color="red"
+              color="yellow"
             />
 
             <!-- Opérations de trésorerie (Besoins de financement) -->
