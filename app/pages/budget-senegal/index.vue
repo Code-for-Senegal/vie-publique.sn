@@ -693,7 +693,13 @@ watch(activeTab, (newTab) => {
             <h2 class="mb-4 text-center text-xl font-bold text-gray-900 dark:text-white">
               Budgets des Ministères {{ year }}
             </h2>
-            <MinistryTable :year="year" :version="version" level="ministry" />
+            <MinistryTable
+              :year="year"
+              :version="version"
+              :compare-year="compareYear"
+              :compare-version="compareVersion"
+              level="ministry"
+            />
           </div>
         </div>
 
@@ -703,7 +709,13 @@ watch(activeTab, (newTab) => {
             <h2 class="mb-4 text-center text-xl font-bold text-gray-900 dark:text-white">
               Budgets des Institutions {{ year }}
             </h2>
-            <MinistryTable :year="year" :version="version" level="institution" />
+            <MinistryTable
+              :year="year"
+              :version="version"
+              :compare-year="compareYear"
+              :compare-version="compareVersion"
+              level="institution"
+            />
           </div>
         </div>
 

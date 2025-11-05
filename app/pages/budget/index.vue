@@ -31,10 +31,10 @@
           </div>
         </div>
 
-        <!-- 2 colonnes : Indicateurs + Texte (texte masqué sur mobile) -->
-        <div class="mb-6 grid grid-cols-1 gap-6 md:grid-cols-[2fr,1fr]">
-          <!-- Colonne gauche : 3 cartes d'indicateurs -->
-          <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <!-- 2 colonnes : Indicateurs + Texte (sur desktop) / 4 cartes en 2x2 (sur mobile) -->
+        <div class="mb-6 grid grid-cols-2 gap-4 md:grid-cols-[2fr,1fr] md:gap-6">
+          <!-- Colonne gauche : 3 cartes sur desktop, 4 cartes en 2x2 sur mobile -->
+          <div class="col-span-2 grid grid-cols-2 gap-4 md:col-span-1 md:grid-cols-3">
             <!-- Dépenses -->
             <div
               class="rounded-lg bg-gradient-to-br from-orange-50 via-orange-100 to-orange-200 p-4 shadow-md dark:from-orange-900/30 dark:via-orange-800/25 dark:to-orange-900/20"
@@ -83,9 +83,27 @@
               </div>
               <div class="text-xs text-red-700 dark:text-red-400">Milliards FCFA</div>
             </div>
+
+            <!-- CTA Card (visible uniquement sur mobile) -->
+            <NuxtLink
+              to="/budget-senegal"
+              class="group flex flex-col items-center justify-center rounded-lg bg-gradient-to-br from-blue-50 via-blue-100 to-indigo-200 p-4 shadow-md transition hover:shadow-lg md:hidden dark:from-blue-900/30 dark:via-blue-800/25 dark:to-indigo-900/20"
+            >
+              <UIcon
+                name="i-heroicons-chart-bar-square"
+                class="mb-2 h-8 w-8 text-blue-600 transition group-hover:scale-110 dark:text-blue-400"
+              />
+              <span class="text-center text-xs font-semibold text-blue-800 dark:text-blue-300">
+                Tableau de bord complet
+              </span>
+              <UIcon
+                name="i-heroicons-arrow-right"
+                class="mt-1 h-4 w-4 text-blue-600 transition group-hover:translate-x-1 dark:text-blue-400"
+              />
+            </NuxtLink>
           </div>
 
-          <!-- Colonne droite : Texte intro (masqué sur mobile) -->
+          <!-- Colonne droite : Texte intro (visible uniquement sur desktop) -->
           <div class="hidden md:block">
             <p class="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
               Le Projet de Loi de Finances 2026 présente les prévisions de ressources et de dépenses

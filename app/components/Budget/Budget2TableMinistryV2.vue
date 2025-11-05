@@ -1,77 +1,118 @@
 <template>
   <div>
     <div class="text-center">
-      <p class="mb-2 text-sm text-gray-500">Montant en Milliards FCFA</p>
+      <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">Montant en Milliards FCFA</p>
     </div>
-    <div class="overflow-x-auto shadow-lg">
-      <div class="min-w-full align-middle">
-        <div class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
-          <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-100 dark:bg-gray-700">
-              <tr>
-                <th
-                  scope="col"
-                  class="border-b border-gray-200 px-2 py-2 text-left text-xs font-semibold tracking-wider text-gray-500 dark:border-gray-600 dark:text-gray-300 sm:text-sm"
+    <div class="overflow-hidden rounded-lg bg-white shadow-lg dark:bg-gray-800">
+      <!-- En-têtes -->
+      <div
+        class="flex items-center justify-between gap-2 bg-gray-200 px-2 py-3 text-sm font-semibold text-gray-700 dark:bg-gray-700 dark:text-gray-300"
+      >
+        <span class="flex-1">Ministère</span>
+        <div class="flex shrink-0 items-center gap-4">
+          <span class="hidden cursor-pointer sm:inline" @click="toggleSort">
+            Budget {{ year }} {{ sortDirection === 'asc' ? '↑' : '↓' }}
+          </span>
+          <span class="cursor-pointer sm:hidden" @click="toggleSort">
+            {{ year }} {{ sortDirection === 'asc' ? '↑' : '↓' }}
+          </span>
+          <span v-if="hasVariations" class="hidden sm:inline">Variation</span>
+        </div>
+      </div>
+
+      <!-- Items -->
+      <div
+        v-for="ministry in sortedMinistries"
+        :key="ministry.id"
+        class="border-b border-gray-100 px-2 py-3 text-sm text-gray-900 last:border-b-0 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-100 dark:hover:bg-gray-700"
+      >
+        <div class="flex items-start gap-2">
+          <!-- Logo + Pourcentage cercle -->
+          <div class="flex flex-col items-center gap-1">
+            <!--   <CmsImage
+              v-if="ministry.entity?.logo"
+              :src="ministry.entity.logo"
+              :alt="ministry.entity?.name || ministry.label"
+              class="h-10 w-10 rounded-full object-cover"
+              :quality="60"
+            />
+            <div
+              v-else -->
+            <div
+              class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800"
+            >
+              <UIcon name="i-heroicons-building-office" class="h-5 w-5 text-gray-400" />
+            </div>
+            <span class="text-xs font-medium leading-none text-gray-600 dark:text-gray-400">
+              {{ ministry.budget_percentage.toFixed(1) }}%
+            </span>
+          </div>
+
+          <!-- Contenu principal -->
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center justify-between gap-2">
+              <!-- Nom du ministère -->
+              <div class="line-clamp-2 flex-1">
+                <NuxtLink
+                  v-if="ministry.entity?.public_slug"
+                  :to="`/budget-senegal/${ministry.entity.public_slug}`"
+                  class="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
                 >
-                  Ministère
-                </th>
-                <th
-                  scope="col"
-                  class="group cursor-pointer border-b border-gray-200 px-1 py-2 text-right text-xs font-semibold tracking-wider text-gray-500 dark:border-gray-600 dark:text-gray-300 sm:text-sm"
-                  @click="toggleSort"
-                >
-                  <div class="inline-flex items-center">
-                    Budget <br />{{ year }}
-                    <span class="m-0">
-                      {{ sortDirection === 'asc' ? '↑' : '↓' }}
-                    </span>
-                  </div>
-                </th>
-                <th
-                  scope="col"
-                  class="border-b border-gray-200 px-1 py-2 text-right text-xs font-semibold tracking-wider text-gray-500 dark:border-gray-600 dark:text-gray-300 sm:table-cell sm:text-sm"
-                >
-                  Poids <br />budget
-                </th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
-              <tr
-                v-for="ministry in sortedMinistries"
-                :key="ministry.id"
-                class="hover:bg-gray-50 dark:hover:bg-gray-700"
+                  {{ ministry.entity?.name || ministry.label }}
+                </NuxtLink>
+                <span v-else class="text-sm font-medium">
+                  {{ ministry.entity?.name || ministry.label }}
+                </span>
+              </div>
+
+              <!-- Montant -->
+              <span class="shrink-0 text-sm font-semibold">{{
+                parseFloat(ministry.amount_cp).toLocaleString(undefined, {
+                  maximumFractionDigits: 1,
+                })
+              }}</span>
+            </div>
+
+            <!-- Barre de progression -->
+            <div class="mt-2 h-2 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+              <div
+                class="h-2 rounded-full bg-yellow-500"
+                :style="{
+                  width: `${ministry.budget_percentage}%`,
+                }"
+              ></div>
+            </div>
+
+            <!-- Badge variation (ligne après la barre) -->
+            <div
+              v-if="hasVariations && ministry.variation_percentage"
+              class="mt-1 flex justify-end"
+            >
+              <UBadge
+                variant="solid"
+                :class="[
+                  'shrink-0 rounded-full border-none px-2 text-xs font-medium',
+                  {
+                    'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400':
+                      ministry.variation_color === 'green',
+                    'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400':
+                      ministry.variation_color === 'red',
+                    'bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300':
+                      ministry.variation_color === 'gray',
+                  },
+                ]"
               >
-                <td class="whitespace-normal border-b border-gray-200 px-2 py-2 text-sm text-gray-900 dark:border-gray-700 dark:text-gray-100">
-                  <div class="max-w-xs sm:max-w-none">
-                    <NuxtLink
-                      v-if="ministry.entity?.public_slug"
-                      :to="`/budget-senegal/${ministry.entity.public_slug}`"
-                      class="text-blue-600 hover:text-blue-800 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
-                    >
-                      {{ ministry.entity?.name || ministry.label }}
-                    </NuxtLink>
-                    <span v-else>
-                      {{ ministry.entity?.name || ministry.label }}
-                    </span>
-                  </div>
-                </td>
-                <td class="border-b border-gray-200 px-1 py-2 text-right text-sm dark:border-gray-700">
-                  <span class="font-medium text-gray-900 dark:text-gray-100">
-                    {{
-                      parseFloat(ministry.amount_cp).toLocaleString(undefined, {
-                        maximumFractionDigits: 2,
-                      })
-                    }}
-                  </span>
-                </td>
-                <td class="border-b border-gray-200 px-1 py-2 text-right text-sm font-medium text-gray-900 dark:border-gray-700 dark:text-gray-100 sm:table-cell">
-                  <UBadge variant="subtle" class="w-10 px-1 dark:text-gray-300">
-                    {{ ministry.budget_percentage.toFixed(1) }}%
-                  </UBadge>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                {{
+                  ministry.variation_percentage.startsWith('+')
+                    ? '↑'
+                    : ministry.variation_percentage.startsWith('-')
+                      ? '↓'
+                      : ''
+                }}
+                {{ ministry.variation_percentage.replace('+', '').replace('-', '') }}
+              </UBadge>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -88,27 +129,51 @@ const props = defineProps({
     type: Number,
     required: true,
   },
+  version: {
+    type: [Number, null],
+    default: null,
+  },
 });
 
 const sortDirection = ref('desc');
 
-// Calculer le total du budget
-const totalBudget = computed(() => {
-  if (!props.ministries || props.ministries.length === 0) return 0;
-  return props.ministries.reduce((sum, ministry) => {
-    return sum + parseFloat(ministry.amount_cp || 0);
-  }, 0);
+// Vérifier si au moins un ministère a des données de variation
+const hasVariations = computed(() => {
+  return props.ministries.some(
+    (ministry) => ministry.variation_percentage && ministry.variation_percentage !== null,
+  );
 });
 
-// Données avec pourcentage
+// Récupérer le budget global (expense_total) pour calculer les pourcentages
+const { data: budgetGlobalData } = await useFetch('/api/budget/global', {
+  key: computed(() => `budget-global-${props.year}-${props.version || 'latest'}`),
+  query: computed(() => ({
+    year: props.year,
+    version: props.version,
+  })),
+  watch: [() => props.year, () => props.version],
+});
+
+// Total des dépenses (expense_total) - chercher dans allMetrics
+const totalExpenses = computed(() => {
+  if (!budgetGlobalData.value) return 0;
+
+  // Chercher expense_total dans allMetrics
+  const expenseTotal = budgetGlobalData.value.allMetrics?.find(
+    (item) => item.code === 'expense_total',
+  );
+
+  return expenseTotal ? parseFloat(expenseTotal.value) : 0;
+});
+
+// Données avec pourcentage basé sur le budget global
 const sortedMinistries = computed(() => {
   if (!props.ministries) return [];
 
   const data = props.ministries.map((ministry) => ({
     ...ministry,
-    budget_percentage: totalBudget.value > 0
-      ? (parseFloat(ministry.amount_cp) / totalBudget.value) * 100
-      : 0,
+    budget_percentage:
+      totalExpenses.value > 0 ? (parseFloat(ministry.amount_cp) / totalExpenses.value) * 100 : 0,
   }));
 
   // Tri des données

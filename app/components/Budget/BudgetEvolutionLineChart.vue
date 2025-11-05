@@ -11,7 +11,7 @@ interface EvolutionData {
 interface Props {
   data: EvolutionData[];
   title: string;
-  color?: 'green' | 'red' | 'blue' | 'purple' | 'orange';
+  color?: 'green' | 'red' | 'blue' | 'purple' | 'orange' | 'yellow';
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -28,6 +28,7 @@ const colorMap = {
   blue: { line: '#3B82F6', gradient1: '#60A5FA', gradient2: '#3B82F6', area: '#3B82F620' },
   purple: { line: '#5924b2', gradient1: '#7c3aed', gradient2: '#5924b2', area: '#5924b220' },
   orange: { line: '#f97316', gradient1: '#fb923c', gradient2: '#f97316', area: '#f9731620' },
+  yellow: { line: '#EAB308', gradient1: '#FDE047', gradient2: '#EAB308', area: '#EAB30820' },
 };
 
 const selectedColor = computed(() => colorMap[props.color]);

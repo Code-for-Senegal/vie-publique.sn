@@ -16,6 +16,14 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  compareYear: {
+    type: [Number, null],
+    default: null,
+  },
+  compareVersion: {
+    type: [Number, null],
+    default: null,
+  },
 });
 
 // Titre dynamique
@@ -25,14 +33,25 @@ const displayTitle = computed(() => {
 });
 
 // Fetch des données
-const { data: ministriesData, pending, error } = await useFetch('/api/budget/ministries', {
-  key: computed(() => `ministries-${props.year}-${props.version || 'latest'}-${props.level}`),
+const {
+  data: ministriesData,
+  pending,
+  error,
+} = await useFetch('/api/budget/ministries', {
+  key: computed(() => {
+    const compareKey = props.compareYear && props.compareVersion
+      ? `-vs-${props.compareYear}-${props.compareVersion}`
+      : '';
+    return `ministries-${props.year}-${props.version || 'latest'}-${props.level}${compareKey}`;
+  }),
   query: computed(() => ({
     year: props.year,
     version: props.version,
     level: props.level,
+    compareYear: props.compareYear,
+    compareVersion: props.compareVersion,
   })),
-  watch: [() => props.year, () => props.version, () => props.level],
+  watch: [() => props.year, () => props.version, () => props.level, () => props.compareYear, () => props.compareVersion],
   server: true,
   lazy: false, // Force le fetch immédiat pour éviter hydration mismatch
 });
@@ -73,12 +92,10 @@ const ministries = computed(() => {
     <!-- Message si aucune donnée -->
     <div v-else-if="ministries.length === 0" class="py-12 text-center">
       <UIcon name="i-heroicons-building-office" class="mx-auto mb-4 h-16 w-16 text-gray-400" />
-      <p class="text-gray-600 dark:text-gray-400">
-        Aucun budget disponible pour cette année
-      </p>
+      <p class="text-gray-600 dark:text-gray-400">Données non renseignées pour cette année</p>
     </div>
 
     <!-- Tableau des ministères -->
-    <BudgetBudget2TableMinistryV2 v-else :ministries="ministries" :year="year" />
+    <BudgetBudget2TableMinistryV2 v-else :ministries="ministries" :year="year" :version="version" />
   </div>
 </template>

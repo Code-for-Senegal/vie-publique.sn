@@ -10,6 +10,8 @@ export default defineCachedEventHandler(
     const year = query.year ? parseInt(query.year as string) : 2025;
     const versionId = query.version ? parseInt(query.version as string) : null;
     const level = (query.level as string) || 'ministry'; // ministry ou institution
+    const compareYear = query.compareYear ? parseInt(query.compareYear as string) : null;
+    const compareVersion = query.compareVersion ? parseInt(query.compareVersion as string) : null;
 
     try {
       // Si pas de version spécifiée, récupérer la dernière version publiée
@@ -85,6 +87,7 @@ export default defineCachedEventHandler(
             'entity.name',
             'entity.id',
             'entity.public_slug',
+            'entity.logo',
           ],
           filter: {
             year: { _eq: year },
@@ -94,11 +97,66 @@ export default defineCachedEventHandler(
         }),
       );
 
+      // Récupérer les données pour comparaison si demandé
+      let compareItems: any[] = [];
+
+      if (compareYear && compareVersion) {
+        try {
+          // Récupérer les lignes budgétaires de comparaison
+          compareItems = await directus.request(
+            readItems('budget_line', {
+              fields: ['id', 'entity', 'amount_cp'],
+              filter: {
+                year: { _eq: compareYear },
+                version: { _eq: compareVersion },
+                level: { _eq: level },
+              },
+            }),
+          );
+        } catch (err) {
+          console.warn(
+            `[Ministries API] Impossible de récupérer les données de ${compareYear}:`,
+            err,
+          );
+        }
+      }
+
+      // Enrichir les données avec la variation
+      const enrichedItems = items.map((item: any) => {
+        // Matching par ID d'entité (item.entity est un objet, compareItem.entity est un ID)
+        const itemEntityId = typeof item.entity === 'object' ? item.entity.id : item.entity;
+        const compareItem = compareItems.find((c: any) => {
+          const compareEntityId = typeof c.entity === 'object' ? c.entity.id : c.entity;
+          return compareEntityId === itemEntityId;
+        });
+        let variation_percentage = null;
+        let variation_color: 'green' | 'red' | 'gray' = 'gray';
+        let previous_amount = null;
+
+        if (compareItem && compareItem.amount_cp) {
+          previous_amount = parseFloat(compareItem.amount_cp);
+          const currentAmount = parseFloat(item.amount_cp);
+
+          if (previous_amount > 0) {
+            const variation = ((currentAmount - previous_amount) / previous_amount) * 100;
+            variation_percentage = `${variation >= 0 ? '+' : ''}${variation.toFixed(1)}%`;
+            variation_color = variation >= 0 ? 'green' : 'red';
+          }
+        }
+
+        return {
+          ...item,
+          variation_percentage,
+          variation_color,
+          previous_amount,
+        };
+      });
+
       return {
         year,
         version: resolvedVersionId,
         level,
-        ministries: items || [], // Nom générique conservé pour compatibilité
+        ministries: enrichedItems || [], // Nom générique conservé pour compatibilité
       };
     } catch (error: any) {
       console.error('Erreur lors de la récupération des ministères:', error);
@@ -112,7 +170,10 @@ export default defineCachedEventHandler(
     maxAge: process.env.NODE_ENV === 'production' ? 5 * 60 : 0, // 5 minutes en prod, pas de cache en dev
     getKey: (event) => {
       const query = getQuery(event);
-      return `budget-ministries-${query.year || 2025}-${query.version || 'latest'}-${query.level || 'ministry'}`;
+      const compareKey = query.compareYear && query.compareVersion
+        ? `-vs-${query.compareYear}-${query.compareVersion}`
+        : '';
+      return `budget-ministries-${query.year || 2025}-${query.version || 'latest'}-${query.level || 'ministry'}${compareKey}`;
     },
   },
 );

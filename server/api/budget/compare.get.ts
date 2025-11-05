@@ -17,10 +17,14 @@ export default defineCachedEventHandler(
     try {
       const directus = getCmsClient();
 
+      console.log(`[Budget Compare] Comparaison ${currentYear}v${currentVersionId} vs ${compareYear}v${compareVersionId || 'auto'}`);
+
       // Récupérer les données courantes
       const currentData = await $fetch('/api/budget/global', {
         query: { year: currentYear, version: currentVersionId },
       });
+
+      console.log(`[Budget Compare] Données courantes récupérées: ${currentData?.keyIndicators?.length || 0} indicateurs`);
 
       // Récupérer l'ID de budget_year pour l'année de comparaison
       const compareBudgetYears = await directus.request(
@@ -91,6 +95,9 @@ export default defineCachedEventHandler(
       const compareData = await $fetch('/api/budget/global', {
         query: { year: compareYear, version: compareVersionIdResolved },
       });
+
+      console.log(`[Budget Compare] Données comparaison récupérées: ${compareData?.keyIndicators?.length || 0} indicateurs`);
+      console.log(`[Budget Compare] hasComparison=true, compareYear=${compareYear}, compareVersion=${compareVersionIdResolved}`);
 
       return {
         current: currentData,

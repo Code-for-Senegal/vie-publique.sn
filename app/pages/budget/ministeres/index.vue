@@ -9,43 +9,64 @@
 
     <!-- Header -->
     <div class="mb-8">
-      <h1 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
-        Budgets des Ministères
-      </h1>
+      <h1 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">Budgets des Ministères</h1>
       <p class="text-gray-600 dark:text-gray-400">
         Répartition budgétaire par ministère pour l'année {{ selectedYear }}
       </p>
     </div>
 
     <!-- Filtres -->
-    <div class="mb-6 flex flex-col gap-3 rounded-lg bg-gray-50 p-4 dark:bg-gray-800 sm:flex-row">
-      <!-- Sélecteur année-version combiné -->
-      <USelect
-        v-model="selectedYearVersion"
-        :options="yearVersionOptions"
-        option-attribute="label"
-        value-attribute="value"
-        size="md"
-        :loading="loadingYears"
-        placeholder="Sélectionner une version"
-        class="w-full sm:w-64"
-        @update:model-value="handleYearVersionChange"
-      />
+    <div class="mb-6 flex flex-col gap-3 rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+      <!-- Ligne 1: Sélecteurs année-version -->
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+          <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Version :</span>
+          <USelect
+            v-model="selectedYearVersion"
+            :options="yearVersionOptions"
+            option-attribute="label"
+            value-attribute="value"
+            size="md"
+            :loading="loadingYears"
+            placeholder="Sélectionner une version"
+            class="w-full sm:w-64"
+            @update:model-value="handleYearVersionChange"
+          />
+        </div>
 
-      <!-- Recherche -->
+        <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+          <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Comparer avec :</span>
+          <USelect
+            v-model="selectedCompareYearVersion"
+            :options="compareYearVersionOptions"
+            option-attribute="label"
+            value-attribute="value"
+            size="md"
+            placeholder="Sélectionner..."
+            class="w-full sm:w-64"
+            :disabled="compareYearVersionOptions.length === 0"
+            @update:model-value="handleCompareYearVersionChange"
+          />
+        </div>
+      </div>
+
+      <!-- Ligne 2: Recherche -->
       <UInput
         v-model="searchQuery"
         icon="i-heroicons-magnifying-glass"
         placeholder="Rechercher un ministère..."
         size="md"
-        class="flex-1"
+        class="w-full"
       />
     </div>
 
     <!-- Loading state -->
     <div v-if="pending" class="flex justify-center py-12">
       <div class="text-center">
-        <UIcon name="i-heroicons-arrow-path" class="mx-auto mb-4 h-12 w-12 animate-spin text-gray-400" />
+        <UIcon
+          name="i-heroicons-arrow-path"
+          class="mx-auto mb-4 h-12 w-12 animate-spin text-gray-400"
+        />
         <p class="text-gray-600 dark:text-gray-400">Chargement des budgets...</p>
       </div>
     </div>
@@ -66,17 +87,19 @@
       class="rounded-lg bg-gray-50 p-12 text-center dark:bg-gray-800"
     >
       <UIcon name="i-heroicons-building-office" class="mx-auto mb-4 h-16 w-16 text-gray-400" />
-      <p class="mb-2 text-lg font-medium text-gray-900 dark:text-white">
-        Aucun ministère trouvé
-      </p>
+      <p class="mb-2 text-lg font-medium text-gray-900 dark:text-white">Aucun ministère trouvé</p>
       <p class="text-gray-600 dark:text-gray-400">
-        {{ searchQuery ? `Aucun résultat pour "${searchQuery}"` : 'Aucune donnée disponible pour cette sélection' }}
+        {{
+          searchQuery
+            ? `Aucun résultat pour "${searchQuery}"`
+            : 'Aucune donnée disponible pour cette sélection'
+        }}
       </p>
     </div>
 
     <!-- Tableau des ministères -->
     <div v-else>
-      <BudgetBudget2TableMinistryV2 :ministries="filteredMinistries" :year="selectedYear" />
+      <BudgetBudget2TableMinistryV2 :ministries="filteredMinistries" :year="selectedYear" :version="selectedVersion" />
     </div>
 
     <!-- Navigation buttons -->
@@ -89,12 +112,7 @@
       >
         Voir les Institutions
       </UButton>
-      <UButton
-        to="/budget-senegal"
-        color="gray"
-        variant="outline"
-        icon="i-heroicons-chart-bar"
-      >
+      <UButton to="/budget-senegal" color="gray" variant="outline" icon="i-heroicons-chart-bar">
         Dashboard complet
       </UButton>
       <UButton to="/budget" icon="i-heroicons-arrow-left" color="gray" variant="soft">
@@ -117,13 +135,18 @@ interface Ministry {
   entity: {
     name: string;
     id: number;
+    logo?: string;
+    public_slug?: string;
   };
+  variation_percentage?: string | null;
+  variation_color?: 'green' | 'red' | 'gray';
+  previous_amount?: number | null;
 }
 
 // SEO
 const title = 'Budgets des Ministères du Sénégal | Répartition par ministère';
 const description =
-  "Découvrez la répartition détaillée des budgets par ministère au Sénégal : montants alloués, évolutions et comparaisons pour une transparence totale des finances publiques.";
+  'Découvrez la répartition détaillée des budgets par ministère au Sénégal : montants alloués, évolutions et comparaisons pour une transparence totale des finances publiques.';
 
 useSeoMeta({
   title,
@@ -161,6 +184,8 @@ useHead({
 const searchQuery = ref('');
 const selectedYear = ref(2026);
 const selectedVersion = ref<number | null>(null);
+const selectedCompareYear = ref<number | null>(null);
+const selectedCompareVersion = ref<number | null>(null);
 
 // Fetch available years
 const { data: yearsData, pending: loadingYears } = await useFetch('/api/budget/years');
@@ -205,6 +230,38 @@ const selectedYearVersion = computed(() => {
   return `${selectedYear.value}-${selectedVersion.value}`;
 });
 
+// Options pour le select de comparaison (uniquement les versions antérieures)
+const compareYearVersionOptions = computed(() => {
+  const currentOption = yearVersionOptions.value.find(
+    (opt) => opt.year === selectedYear.value && opt.versionId === selectedVersion.value,
+  );
+
+  if (!currentOption) return [];
+
+  const currentDate = new Date(currentOption.date);
+
+  // Filtrer pour ne garder que les versions dont la date est strictement antérieure
+  return yearVersionOptions.value.filter((opt) => {
+    if (opt.versionId === selectedVersion.value && opt.year === selectedYear.value) return false;
+    const optionDate = new Date(opt.date);
+    return optionDate < currentDate;
+  });
+});
+
+// Valeur sélectionnée de comparaison
+const selectedCompareYearVersion = computed({
+  get: () => {
+    if (!selectedCompareYear.value || !selectedCompareVersion.value) return '';
+    return `${selectedCompareYear.value}-${selectedCompareVersion.value}`;
+  },
+  set: (value: string) => {
+    if (!value) {
+      selectedCompareYear.value = null;
+      selectedCompareVersion.value = null;
+    }
+  },
+});
+
 // Initialiser avec la version la plus récente (2026)
 onMounted(() => {
   if (yearVersionOptions.value.length > 0) {
@@ -212,6 +269,18 @@ onMounted(() => {
     selectedYear.value = latest.year;
     selectedVersion.value = latest.versionId;
   }
+
+  // Initialiser la comparaison par défaut
+  nextTick(() => {
+    initializeDefaultComparison();
+  });
+});
+
+// Réinitialiser la comparaison quand les options changent
+watch(compareYearVersionOptions, () => {
+  nextTick(() => {
+    initializeDefaultComparison();
+  });
 });
 
 // Gestion du changement de sélection
@@ -220,6 +289,33 @@ const handleYearVersionChange = (value: string) => {
   if (option) {
     selectedYear.value = option.year;
     selectedVersion.value = option.versionId;
+    // Reset la comparaison
+    selectedCompareYear.value = null;
+    selectedCompareVersion.value = null;
+  }
+};
+
+// Gestion du changement de comparaison
+const handleCompareYearVersionChange = (value: string) => {
+  if (!value) {
+    selectedCompareYear.value = null;
+    selectedCompareVersion.value = null;
+    return;
+  }
+  const option = yearVersionOptions.value.find((opt) => opt.value === value);
+  if (option) {
+    selectedCompareYear.value = option.year;
+    selectedCompareVersion.value = option.versionId;
+  }
+};
+
+// Initialiser la comparaison par défaut
+const initializeDefaultComparison = () => {
+  const options = compareYearVersionOptions.value;
+  if (options.length > 0 && !selectedCompareYear.value) {
+    const defaultCompare = options[0];
+    selectedCompareYear.value = defaultCompare.year;
+    selectedCompareVersion.value = defaultCompare.versionId;
   }
 };
 
@@ -233,12 +329,24 @@ const {
     year: selectedYear.value,
     version: selectedVersion.value,
     level: 'ministry',
+    compareYear: selectedCompareYear.value,
+    compareVersion: selectedCompareVersion.value,
   })),
-  watch: [selectedYear, selectedVersion],
+  watch: [selectedYear, selectedVersion, selectedCompareYear, selectedCompareVersion],
 });
 
 const ministries = computed<Ministry[]>(() => {
-  return ministriesData.value?.ministries || [];
+  const data = ministriesData.value?.ministries || [];
+  // Debug: afficher les 2 premiers items
+  if (data.length > 0) {
+    console.log('[Ministères Page] Premier ministère:', {
+      name: data[0].entity?.name,
+      amount: data[0].amount_cp,
+      variation: data[0].variation_percentage,
+      variation_color: data[0].variation_color,
+    });
+  }
+  return data;
 });
 
 // Filter ministries based on search
@@ -250,7 +358,7 @@ const filteredMinistries = computed(() => {
     (m) =>
       m.entity.name.toLowerCase().includes(query) ||
       m.label.toLowerCase().includes(query) ||
-      m.code.includes(query)
+      m.code.includes(query),
   );
 });
 </script>

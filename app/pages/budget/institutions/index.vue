@@ -32,6 +32,22 @@
         @update:model-value="handleYearVersionChange"
       />
 
+      <!-- Sélecteur de comparaison -->
+      <USelect
+        v-model="selectedCompareYearVersion"
+        :options="compareYearVersionOptions"
+        option-attribute="label"
+        value-attribute="value"
+        size="md"
+        placeholder="Comparer avec..."
+        class="w-full sm:w-64"
+        @update:model-value="handleCompareChange"
+      >
+        <template #leading>
+          <UIcon name="i-heroicons-arrows-right-left" class="h-4 w-4" />
+        </template>
+      </USelect>
+
       <!-- Recherche -->
       <UInput
         v-model="searchQuery"
@@ -76,7 +92,7 @@
 
     <!-- Tableau des institutions -->
     <div v-else>
-      <BudgetBudget2TableMinistryV2 :ministries="filteredInstitutions" :year="selectedYear" />
+      <BudgetBudget2TableMinistryV2 :ministries="filteredInstitutions" :year="selectedYear" :version="selectedVersion" />
     </div>
 
     <!-- Navigation buttons -->
@@ -117,7 +133,12 @@ interface Institution {
   entity: {
     name: string;
     id: number;
+    logo?: string;
+    public_slug?: string;
   };
+  variation_percentage?: string | null;
+  variation_color?: 'green' | 'red' | 'gray';
+  previous_amount?: number | null;
 }
 
 // SEO
@@ -161,6 +182,8 @@ useHead({
 const searchQuery = ref('');
 const selectedYear = ref(2026);
 const selectedVersion = ref<number | null>(null);
+const selectedCompareYear = ref<number | null>(null);
+const selectedCompareVersion = ref<number | null>(null);
 
 // Fetch available years
 const { data: yearsData, pending: loadingYears } = await useFetch('/api/budget/years');
@@ -197,6 +220,29 @@ const yearVersionOptions = computed(() => {
   });
 });
 
+// Options de comparaison (seulement les versions antérieures à la sélection actuelle)
+const compareYearVersionOptions = computed(() => {
+  const currentOption = yearVersionOptions.value.find(
+    (opt) => opt.year === selectedYear.value && opt.versionId === selectedVersion.value
+  );
+
+  if (!currentOption) return [];
+
+  const currentDate = new Date(currentOption.date);
+
+  // Filtrer uniquement les versions antérieures
+  const olderOptions = yearVersionOptions.value.filter((opt) => {
+    const optionDate = new Date(opt.date);
+    return optionDate < currentDate;
+  });
+
+  // Ajouter l'option "Aucune comparaison"
+  return [
+    { label: 'Aucune comparaison', value: 'none', year: 0, versionId: null, date: '' },
+    ...olderOptions,
+  ];
+});
+
 // Valeur sélectionnée actuelle
 const selectedYearVersion = computed(() => {
   if (selectedVersion.value === null) {
@@ -204,6 +250,9 @@ const selectedYearVersion = computed(() => {
   }
   return `${selectedYear.value}-${selectedVersion.value}`;
 });
+
+// Valeur de comparaison sélectionnée
+const selectedCompareYearVersion = ref<string>('none');
 
 // Initialiser avec la version la plus récente (2026)
 onMounted(() => {
@@ -220,6 +269,24 @@ const handleYearVersionChange = (value: string) => {
   if (option) {
     selectedYear.value = option.year;
     selectedVersion.value = option.versionId;
+    // Réinitialiser la comparaison quand on change la version principale
+    selectedCompareYearVersion.value = 'none';
+    selectedCompareYear.value = null;
+    selectedCompareVersion.value = null;
+  }
+};
+
+// Gestion du changement de comparaison
+const handleCompareChange = (value: string) => {
+  if (value === 'none') {
+    selectedCompareYear.value = null;
+    selectedCompareVersion.value = null;
+  } else {
+    const option = yearVersionOptions.value.find((opt) => opt.value === value);
+    if (option) {
+      selectedCompareYear.value = option.year;
+      selectedCompareVersion.value = option.versionId;
+    }
   }
 };
 
@@ -233,8 +300,10 @@ const {
     year: selectedYear.value,
     version: selectedVersion.value,
     level: 'institution',
+    compareYear: selectedCompareYear.value,
+    compareVersion: selectedCompareVersion.value,
   })),
-  watch: [selectedYear, selectedVersion],
+  watch: [selectedYear, selectedVersion, selectedCompareYear, selectedCompareVersion],
 });
 
 const institutions = computed<Institution[]>(() => {
