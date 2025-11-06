@@ -1,6 +1,6 @@
 {
   "name": "nuxt-app",
-  "version": "1.8.8",
+  "version": "1.9.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -13,7 +13,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier . --write",
-    "copy-pdf-worker": "mkdir -p public/pdf-worker && cp node_modules/pdfjs-dist/build/pdf.worker.min.mjs public/pdf-worker/",
+    "copy-pdf-worker": "node -e \"const fs=require('fs');const path=require('path');const dir='public/pdf-worker';if(!fs.existsSync(dir))fs.mkdirSync(dir,{recursive:true});fs.copyFileSync('node_modules/pdfjs-dist/build/pdf.worker.min.mjs',path.join(dir,'pdf.worker.min.mjs'))\"",
     "copy-pdf-worker-win": "if not exist public\\pdf-worker mkdir public\\pdf-worker && copy node_modules\\pdfjs-dist\\build\\pdf.worker.min.mjs public\\pdf-worker\\",
     "dev-win": "npm run copy-pdf-worker-win && nuxt dev",
     "build-win": "npm run copy-pdf-worker-win && nuxt build",

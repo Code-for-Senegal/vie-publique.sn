@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import type { NavigationCard } from "~/composables/useNavigationCards";
+import type { NavigationCard } from '~/composables/useNavigationCards';
 
 defineProps<{
   navigationCards: NavigationCard[];
 }>();
 
-const { getQuickAccessIconBackground, getQuickAccessIconColor } =
-  useNavigationCards();
+const { getQuickAccessIconBackground, getQuickAccessIconColor } = useNavigationCards();
 </script>
 
 <template>
@@ -45,7 +44,7 @@ const { getQuickAccessIconBackground, getQuickAccessIconColor } =
               <!-- Badge avec nombre -->
               <span
                 v-if="card.count"
-                class="rounded-full bg-gray-100 px-1 py-0.5 text-[10px] font-medium text-gray-700 sm:px-1.5 sm:text-xs dark:bg-gray-600 dark:text-gray-300"
+                class="hidden rounded-full bg-gray-100 px-1 py-0.5 text-[10px] font-medium text-gray-700 sm:px-1.5 sm:text-xs dark:bg-gray-600 dark:text-gray-300"
               >
                 {{ card.count }}
               </span>

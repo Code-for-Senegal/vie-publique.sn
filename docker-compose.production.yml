@@ -7,7 +7,7 @@ services:
     container_name: vie-publique-app
     restart: unless-stopped
     ports:
-      - "${APP_PORT:-3000}:3000"
+      - '${APP_PORT:-3000}:3000'
     environment:
       - NODE_ENV=production
       - NUXT_HOST=0.0.0.0
@@ -15,7 +15,7 @@ services:
     env_file:
       - .env
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000/api/health']
       interval: 30s
       timeout: 10s
       retries: 3
@@ -24,24 +24,24 @@ services:
       - web
     labels:
       # Configuration pour Traefik (si utilisé)
-      - "traefik.enable=true"
-      - "traefik.http.routers.vie-publique.rule=Host(`vie-publique.sn`) || Host(`www.vie-publique.sn`)"
-      - "traefik.http.routers.vie-publique.entrypoints=websecure"
-      - "traefik.http.routers.vie-publique.tls.certresolver=myresolver"
-      - "traefik.http.services.vie-publique.loadbalancer.server.port=3000"
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.vie-publique.rule=Host(`vie-publique.sn`) || Host(`www.vie-publique.sn`)'
+      - 'traefik.http.routers.vie-publique.entrypoints=websecure'
+      - 'traefik.http.routers.vie-publique.tls.certresolver=myresolver'
+      - 'traefik.http.services.vie-publique.loadbalancer.server.port=3000'
       # Redirect HTTP to HTTPS
-      - "traefik.http.routers.vie-publique-http.rule=Host(`vie-publique.sn`) || Host(`www.vie-publique.sn`)"
-      - "traefik.http.routers.vie-publique-http.entrypoints=web"
-      - "traefik.http.routers.vie-publique-http.middlewares=redirect-to-https"
-      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - 'traefik.http.routers.vie-publique-http.rule=Host(`vie-publique.sn`) || Host(`www.vie-publique.sn`)'
+      - 'traefik.http.routers.vie-publique-http.entrypoints=web'
+      - 'traefik.http.routers.vie-publique-http.middlewares=redirect-to-https'
+      - 'traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https'
     volumes:
       # Volume pour les logs
       - ./logs:/app/logs:rw
     logging:
-      driver: "json-file"
+      driver: 'json-file'
       options:
-        max-size: "10m"
-        max-file: "3"
+        max-size: '10m'
+        max-file: '3'
 
   # Service de reverse proxy avec SSL automatique
   traefik:
@@ -49,28 +49,28 @@ services:
     container_name: traefik
     restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
+      - '80:80'
+      - '443:443'
     command:
-      - "--api.dashboard=true"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
-      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
-      - "--certificatesresolvers.myresolver.acme.email=${ACME_EMAIL:-contact@vie-publique.sn}"
-      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      - '--api.dashboard=true'
+      - '--providers.docker=true'
+      - '--providers.docker.exposedbydefault=false'
+      - '--entrypoints.web.address=:80'
+      - '--entrypoints.websecure.address=:443'
+      - '--certificatesresolvers.myresolver.acme.httpchallenge=true'
+      - '--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web'
+      - '--certificatesresolvers.myresolver.acme.email=${ACME_EMAIL:-contact@vie-publique.sn}'
+      - '--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./letsencrypt:/letsencrypt
     networks:
       - web
     labels:
-      - "traefik.http.routers.dashboard.rule=Host(`traefik.${DOMAIN:-localhost}`)"
-      - "traefik.http.routers.dashboard.service=api@internal"
-      - "traefik.http.routers.dashboard.middlewares=auth"
-      - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_AUTH:-admin:$$2y$$10$$...}"
+      - 'traefik.http.routers.dashboard.rule=Host(`traefik.${DOMAIN:-localhost}`)'
+      - 'traefik.http.routers.dashboard.service=api@internal'
+      - 'traefik.http.routers.dashboard.middlewares=auth'
+      - 'traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_AUTH:-admin:$$2y$$10$$...}'
 
 networks:
   web:

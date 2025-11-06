@@ -99,9 +99,7 @@ export default defineCachedEventHandler(
               id: commission.president.id,
               first_name: commission.president.first_name,
               last_name: commission.president.last_name,
-              photo: commission.president.photo
-                ? `${config.cmsApiUrl}/assets/${commission.president.photo}`
-                : null,
+              photo: commission.president.photo || null,
             }
           : null,
         membersCount: Array.isArray(commission.members)

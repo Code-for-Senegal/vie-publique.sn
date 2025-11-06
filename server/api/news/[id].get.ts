@@ -43,7 +43,7 @@ export default defineCachedEventHandler(
         });
       }
 
-      // Construction de l'article avec les URLs complètes
+      // Retourne uniquement les IDs - les composables client transformeront en URLs proxy
       const article = {
         id: newsData.id,
         title: newsData.title,
@@ -54,9 +54,7 @@ export default defineCachedEventHandler(
           ? { date_updated: newsData.date_updated }
           : {}),
         ...(newsData.cover_image
-          ? {
-              cover_image: `${config.cmsApiUrl}/assets/${newsData.cover_image}`,
-            }
+          ? { cover_image: newsData.cover_image }
           : {}),
         ...(newsData.featured !== undefined
           ? { featured: newsData.featured }

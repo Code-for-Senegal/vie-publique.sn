@@ -1,5 +1,5 @@
 <template>
-  <div class="relative h-32 w-32">
+  <div class="relative mx-auto h-32 w-32">
     <svg class="h-full w-full" viewBox="0 0 35 35">
       <path
         d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
@@ -16,13 +16,12 @@
       />
     </svg>
     <div
-      class="absolute inset-0 flex flex-col items-center justify-center text-center"
+      class="absolute inset-0 flex flex-col items-center justify-center text-center px-2"
     >
-      <div class="text-wrap text-xl" :class="`text-${colorText}-700`">
+      <div class="text-2xl font-bold" :style="{ color: colorBg }">
         {{ Math.floor(percentage) }}%
       </div>
-      <div class="text-wrap text-xs dark:text-black">{{ label }}</div>
-      <div class="text-sm font-bold dark:text-black">{{ value }}</div>
+      <div class="w-full text-[0.65rem] leading-tight text-gray-700 dark:text-gray-300 line-clamp-2">{{ label }}</div>
     </div>
   </div>
 </template>

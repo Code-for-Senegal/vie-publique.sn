@@ -48,9 +48,7 @@ export default defineCachedEventHandler(
         id: mediaData.id,
         name: mediaData.name,
         type: mediaData.type,
-        logo: mediaData.logo
-          ? `${config.cmsApiUrl}/assets/${mediaData.logo}`
-          : null,
+        logo: mediaData.logo || null,
         facebook: mediaData.facebook || null,
         website: mediaData.website || null,
         instagram: mediaData.instagram || null,

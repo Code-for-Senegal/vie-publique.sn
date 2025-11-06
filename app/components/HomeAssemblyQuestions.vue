@@ -25,7 +25,7 @@
 
     <!-- Content -->
     <div v-else>
-      <div class="prose prose-sm sm:prose-sm mx-auto my-4">
+      <div class="prose prose-sm mx-auto my-4 sm:prose-sm">
         <h2 class="text-center text-gray-800 dark:text-white">
           Dernières initiatives parlementaires
         </h2>
@@ -35,20 +35,15 @@
         <div
           v-for="question in questions?.slice(0, 3)"
           :key="question.id"
-          class="custom-shadow group relative overflow-hidden rounded-xl bg-white shadow-sm transition-all duration-200 hover:translate-y-[-2px] hover:shadow-md dark:bg-gray-800/80 dark:ring-1 dark:ring-gray-700 dark:backdrop-blur-md"
+          class="custom-shadow group relative overflow-hidden rounded-xl bg-white shadow-sm transition-all duration-200 hover:translate-y-[-2px] hover:shadow-md dark:bg-gray-800 dark:ring-1 dark:ring-gray-700 dark:backdrop-blur-md"
         >
-          <NuxtLink
-            :to="`/assemblee-nationale/questions/${question.id}`"
-            class="block h-full p-4"
-          >
+          <NuxtLink :to="`/assemblee-nationale/questions/${question.id}`" class="block h-full p-4">
             <!-- En-tête avec photo du député et date -->
             <div class="mb-3 flex items-start gap-3">
               <CmsImage
                 :src="question.deputy.photo"
                 :quality="50"
-                :alt="
-                  question.deputy.first_name + ' ' + question.deputy.last_name
-                "
+                :alt="question.deputy.first_name + ' ' + question.deputy.last_name"
                 class="h-10 w-10 rounded-full object-cover"
               />
               <div class="flex-1">
@@ -63,9 +58,7 @@
             </div>
 
             <!-- Sujet de la question -->
-            <h3
-              class="line-clamp-3 text-sm font-medium text-gray-900 dark:text-white"
-            >
+            <h3 class="line-clamp-3 text-sm font-medium text-gray-900 dark:text-white">
               {{ question.subject }}
             </h3>
           </NuxtLink>
@@ -73,13 +66,16 @@
       </div>
 
       <!-- Lien "Voir toute l'activité parlementaire" -->
-      <div class="mt-6 text-center">
+      <div class="mt-8 text-center">
         <NuxtLink
-          to="/assemblee-nationale"
-          class="inline-flex items-center gap-2 text-sm font-medium text-green-700 underline"
+          to="/actualites"
+          class="group inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 transition-all duration-200 hover:bg-gray-50 hover:shadow-md hover:ring-gray-400 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:hover:bg-gray-700 dark:hover:ring-gray-600"
         >
           Voir toute l'activité parlementaire
-          <UIcon name="i-heroicons-arrow-right" class="h-4 w-4" />
+          <UIcon
+            name="i-heroicons-arrow-right"
+            class="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+          />
         </NuxtLink>
       </div>
     </div>
@@ -95,7 +91,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAssemblyQuestions } from "~/composables/useAssemblyQuestions";
+import { useAssemblyQuestions } from '~/composables/useAssemblyQuestions';
 
 const { questions, loading, error } = useAssemblyQuestions();
 </script>

@@ -1,13 +1,13 @@
-import { readFileSync } from 'fs'
-import { join } from 'path'
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
 // Lire la version depuis package.json
-const packageJson = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf-8'))
+const packageJson = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf-8'));
 
 // Variables de build
-const buildTime = new Date().toISOString()
+const buildTime = new Date().toISOString();
 const gitCommit =
-  process.env.VERCEL_GIT_COMMIT_SHA || process.env.GITHUB_SHA || process.env.GIT_COMMIT || null // null au lieu de 'unknown' pour les conditions
+  process.env.VERCEL_GIT_COMMIT_SHA || process.env.GITHUB_SHA || process.env.GIT_COMMIT || null; // null au lieu de 'unknown' pour les conditions
 
 const securityConfig =
   process.env.NODE_ENV === 'production'
@@ -40,9 +40,22 @@ const securityConfig =
               'https://connect.facebook.net',
               'https://instant.page',
             ],
+            'script-src-attr': ["'unsafe-inline'", "'unsafe-hashes'"],
             'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
             'font-src': ["'self'", 'https://fonts.gstatic.com'],
-            'img-src': ["'self'", 'data:', 'https://cms.vie-publique.sn'],
+            'img-src': [
+              "'self'",
+              'data:',
+              'https:',
+              'https://cms.vie-publique.sn',
+              'https://www.google-analytics.com',
+              'https://*.google-analytics.com',
+              'https://www.googletagmanager.com',
+              'https://www.facebook.com',
+              'https://*.facebook.com',
+              'https://pbs.twimg.com',
+              'https://syndication.twitter.com',
+            ],
             'frame-src': [
               'https://www.youtube.com',
               'https://platform.twitter.com',
@@ -70,7 +83,7 @@ const securityConfig =
         // Configuration permissive pour le développement
         headers: false, // Désactive complètement les en-têtes de sécurité en développement
         rateLimiter: false, // Désactive le rate limiter en développement
-      }
+      };
 
 export default defineNuxtConfig({
   future: {
@@ -135,10 +148,7 @@ export default defineNuxtConfig({
         // Autorise l'accès aux fichiers hors du dossier racine
         strict: false,
         // Autorise explicitement le dossier node_modules
-        allow: [
-          process.cwd(),
-          `${process.cwd()}/node_modules`,
-        ],
+        allow: [process.cwd(), `${process.cwd()}/node_modules`],
       },
     },
   },
@@ -167,8 +177,8 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@pinia/nuxt',
     '@nuxtjs/leaflet',
-    // ⚠️ PWA désactivé en dev (voir pwa.devOptions.enabled ci-dessous)
-    '@vite-pwa/nuxt',
+    // ⚠️ PWA chargé uniquement en production pour éviter les erreurs dev-sw.js
+    ...(process.env.NODE_ENV === 'production' ? ['@vite-pwa/nuxt'] : []),
     '@vueuse/nuxt',
     '@nuxtjs/mdc',
     'nuxt-security',
@@ -206,8 +216,6 @@ export default defineNuxtConfig({
       showScandals: process.env.PUBLIC_SHOW_SCANDALS,
       brevoApiKey: process.env.BREVO_API_KEY,
       brevoListId: process.env.BREVO_LIST_ID,
-      cmsApiUrl: process.env.CMS_API_URL,
-      cmsApiKey: process.env.CMS_API_KEY,
       sunuElectionApiUrl: process.env.SUNU_ELECTION_API_URL,
       sunuElectionApiKey: process.env.SUNU_ELECTION_API_KEY,
       fbPixelId: process.env.FACEBOOK_PIXEL_ID || '',
@@ -254,6 +262,46 @@ export default defineNuxtConfig({
           to: '/documents/codes',
         },
         {
+          from: '/budget-senegal/2024',
+          to: '/budget-senegal',
+        },
+        {
+          from: '/budget-senegal/2025',
+          to: '/budget-senegal',
+        },
+        {
+          from: '/pdf/budget/2024-lois-de-finances-2023-18.pdf',
+          to: '/documents/budget',
+        },
+        {
+          from: '/pdf/budget/2024-loi-de-finances-annexes.pdf',
+          to: '/documents/budget',
+        },
+        {
+          from: '/pdf/budget/2024-rapport-execution-budgetaire-premier-trimestre.pdf',
+          to: '/documents/budget',
+        },
+        {
+          from: '/pdf/budget/2024-rapport-execution-budgetaire-deuxieme-trimestre.pdf',
+          to: '/documents/budget',
+        },
+        {
+          from: '/pdf/budget/2025-projet-loi-de-finance-initiale.pdf',
+          to: '/documents/budget',
+        },
+        {
+          from: '/pdf/budget/2025-projet-loi-de-finance-initiale-annexes-voies-et-moyens.pdf',
+          to: '/documents/budget',
+        },
+        {
+          from: '/pdf/budget/2025-document-budgetaire-genre.pdf',
+          to: '/documents/budget',
+        },
+        {
+          from: '/pdf/budget/2024-LFR-loi-de-finances-rectificative-2024-scan-compressed.pdf',
+          to: '/documents/budget',
+        },
+        {
           from: '/pdf/jors/(.*)',
           to: '/documents/journal-officiel',
         },
@@ -290,7 +338,7 @@ export default defineNuxtConfig({
   },
   tailwindcss: {
     configPath: './tailwind.config.ts',
-    quiet: true,  // Supprime les warnings
+    quiet: true, // Supprime les warnings
   },
   content: {
     defaultLocale: 'fr',
@@ -437,6 +485,7 @@ export default defineNuxtConfig({
     srcDir: undefined,
     filename: undefined,
     registerType: 'autoUpdate',
+    injectRegister: 'auto',
     manifest: {
       name: 'Vie Publique SN',
       short_name: 'ViePubliqueSN',
@@ -565,8 +614,10 @@ export default defineNuxtConfig({
       periodicSyncForUpdates: 3600,
     },
     devOptions: {
-      enabled: false,  // ✅ Désactive PWA en dev (gain de performance)
+      enabled: false, // ✅ Désactive PWA en dev (gain de performance)
       suppressWarnings: true,
+      navigateFallback: null, // Fix dev-sw.js error (null au lieu de undefined)
+      navigateFallbackAllowlist: [],
       type: 'module',
     },
   },
@@ -599,4 +650,4 @@ export default defineNuxtConfig({
       ],
     },
   },
-})
+});

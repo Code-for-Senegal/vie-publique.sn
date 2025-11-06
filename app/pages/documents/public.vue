@@ -39,8 +39,8 @@ const sortByUI = computed({
 });
 
 const selectedTypeUI = computed({
-  get: () => filterType.value || "all",
-  set: (value) => setSelectedFilter(value === "all" ? "" : value),
+  get: () => filterType.value || 'all',
+  set: (value) => setSelectedFilter(value === 'all' ? '' : value),
 });
 
 const resultsText = computed(() =>
@@ -51,41 +51,41 @@ const resultsText = computed(() =>
     searchQuery,
     filterType: filterType.value,
     customLabels: {
-      singular: "document",
-      plural: "documents",
-      noResults: "Aucun document trouvé",
+      singular: 'document',
+      plural: 'documents',
+      noResults: 'Aucun document trouvé',
       noResultsWithSearch: 'Aucun document trouvé pour "{search}"',
     },
   }),
 );
 
 const sortOptions = [
-  { label: "Plus récent", value: "-publish_date" },
-  { label: "Plus ancien", value: "publish_date" },
-  { label: "Titre (A-Z)", value: "title" },
-  { label: "Titre (Z-A)", value: "-title" },
+  { label: 'Plus récent', value: '-publish_date' },
+  { label: 'Plus ancien', value: 'publish_date' },
+  { label: 'Titre (A-Z)', value: 'title' },
+  { label: 'Titre (Z-A)', value: '-title' },
 ];
 
 const perPageOptions = [
-  { label: "10", value: 10 },
-  { label: "20", value: 20 },
-  { label: "30", value: 30 },
+  { label: '10', value: 10 },
+  { label: '20', value: 20 },
+  { label: '30', value: 30 },
 ];
 
 const typeOptions = [
-  { label: "Tous les documents", value: "all" },
-  { label: "Rapport d'audit", value: "audit_report" },
-  { label: "Journal officiel", value: "official_journal" },
-  { label: "Loi", value: "law" },
-  { label: "Codes généraux", value: "code" },
-  { label: "Stratégies", value: "strategy" },
+  { label: 'Tous les documents', value: 'all' },
+  { label: "Rapport d'audit", value: 'audit_report' },
+  { label: 'Journal officiel', value: 'official_journal' },
+  { label: 'Loi', value: 'law' },
+  { label: 'Codes généraux', value: 'code' },
+  { label: 'Stratégies', value: 'strategy' },
 ];
 
 // Fonction pour changer le nombre d'items par page
 const updateItemsPerPage = (value: number) => {
   itemsPerPage.value = value;
   currentPage.value = 1;
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 </script>
 
@@ -100,15 +100,12 @@ const updateItemsPerPage = (value: number) => {
       @click="router.back()"
     />
     <ClientOnly>
-      <div class="prose prose-sm sm:prose dark:prose-invert mx-auto my-4">
-        <h1
-          class="text-center text-xl text-gray-900 sm:text-2xl dark:text-gray-100"
-        >
+      <div class="prose prose-sm mx-auto my-4 sm:prose dark:prose-invert">
+        <h1 class="text-center text-xl text-gray-900 sm:text-2xl dark:text-gray-100">
           Documents publics du Sénégal
         </h1>
         <p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
-          Journal officiel, lois, décrets, arrêtés, rapports d'audit, codes
-          généraux
+          Journal officiel, lois, décrets, arrêtés, rapports d'audit, codes généraux
         </p>
       </div>
 
@@ -123,13 +120,8 @@ const updateItemsPerPage = (value: number) => {
         />
 
         <!-- Filtres et tri -->
-        <div
-          class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
-        >
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
-            <span class="text-sm text-gray-600 dark:text-gray-400"
-              >Filtrer par:</span
-            >
             <USelect
               v-model="selectedTypeUI"
               :options="typeOptions"
@@ -139,21 +131,11 @@ const updateItemsPerPage = (value: number) => {
           </div>
 
           <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
-            <span class="text-sm text-gray-600 dark:text-gray-400"
-              >Trier par:</span
-            >
-            <USelect
-              v-model="sortByUI"
-              :options="sortOptions"
-              size="md"
-              class="w-full sm:w-48"
-            />
+            <USelect v-model="sortByUI" :options="sortOptions" size="md" class="w-full sm:w-48" />
           </div>
         </div>
 
-        <div
-          class="mt-4 flex flex-col items-center justify-between gap-2 sm:flex-row"
-        >
+        <div class="mt-4 flex flex-col items-center justify-between gap-2 sm:flex-row">
           <span class="text-sm text-gray-600">{{ resultsText }}</span>
 
           <UButton
@@ -170,16 +152,10 @@ const updateItemsPerPage = (value: number) => {
       <template v-if="loading">
         <UCard v-for="n in 3" :key="n" class="mb-4">
           <div class="flex items-start gap-4 p-4">
-            <div
-              class="h-8 w-8 animate-pulse rounded-full bg-gray-200 dark:bg-gray-700"
-            />
+            <div class="h-8 w-8 animate-pulse rounded-full bg-gray-200 dark:bg-gray-700" />
             <div class="flex-grow">
-              <div
-                class="mb-2 h-6 w-3/4 animate-pulse rounded bg-gray-200 dark:bg-gray-700"
-              />
-              <div
-                class="h-4 w-1/2 animate-pulse rounded bg-gray-200 dark:bg-gray-700"
-              />
+              <div class="mb-2 h-6 w-3/4 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
+              <div class="h-4 w-1/2 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
             </div>
           </div>
         </UCard>
@@ -207,7 +183,7 @@ const updateItemsPerPage = (value: number) => {
         <UCard
           v-for="document in documents"
           :key="document.id"
-          class="custom-shadow transition-shadow duration-200 hover:shadow-md dark:bg-gray-800/80"
+          class="custom-shadow transition-shadow duration-200 hover:shadow-md dark:bg-gray-800"
         >
           <NuxtLink
             :to="`/documents/${document.id}/${document.slug}`"
@@ -245,9 +221,7 @@ const updateItemsPerPage = (value: number) => {
           class="mt-6 flex flex-col items-center gap-4 sm:flex-row sm:justify-between"
         >
           <div class="flex items-center gap-2">
-            <span class="text-sm text-gray-500 dark:text-gray-400"
-              >Afficher</span
-            >
+            <span class="text-sm text-gray-500 dark:text-gray-400">Afficher</span>
             <USelect
               :model-value="itemsPerPage"
               :options="perPageOptions"
@@ -255,9 +229,7 @@ const updateItemsPerPage = (value: number) => {
               class="w-20"
               @update:model-value="updateItemsPerPage"
             />
-            <span class="text-sm text-gray-500 dark:text-gray-400"
-              >par page</span
-            >
+            <span class="text-sm text-gray-500 dark:text-gray-400">par page</span>
           </div>
 
           <div class="flex items-center gap-2">

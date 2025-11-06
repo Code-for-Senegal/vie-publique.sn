@@ -55,7 +55,7 @@ export const useNews = (options: NewsOptions = {}) => {
   // Pour un article unique, pas besoin de state UI
   if (options.id) {
     const collection = useCmsCollection<NewsArticle>({
-      collection: "news",
+      collection: 'news',
       id: options.id,
     });
 
@@ -69,9 +69,9 @@ export const useNews = (options: NewsOptions = {}) => {
       // États vides pour compatibilité
       articles: computed(() => []),
       currentPage: ref(1),
-      searchQuery: ref(""),
-      sortBy: ref(options.sort || "-date_published"),
-      selectedCategory: ref("Toutes"),
+      searchQuery: ref(''),
+      sortBy: ref(options.sort || '-date_published'),
+      selectedCategory: ref('Toutes'),
       itemsPerPage: ref(options.limit || 9),
       pagination: computed(() => undefined),
       totalItems: computed(() => 0),
@@ -93,15 +93,15 @@ export const useNews = (options: NewsOptions = {}) => {
 
   // État UI géré par useCollectionState
   const state = useCollectionState({
-    defaultSort: options.sort || "-date_published",
+    defaultSort: options.sort || '-date_published',
     defaultItemsPerPage: options.limit || 9,
-    defaultFilter: options.category || "Toutes",
+    defaultFilter: options.category || 'Toutes',
     syncUrl: options.syncUrl !== false,
     urlParamsMapping: {
-      search: "search",
-      filter: "category",
-      page: "page",
-      sort: "sort",
+      search: 'search',
+      filter: 'category',
+      page: 'page',
+      sort: 'sort',
     },
   });
 
@@ -114,13 +114,13 @@ export const useNews = (options: NewsOptions = {}) => {
 
     // Filtre par catégorie
     const category = selectedCategory.value;
-    if (category && category !== "Toutes") {
+    if (category && category !== 'Toutes') {
       filters.category = category;
     }
 
     // Filtre featured
     if (options.featured) {
-      filters.featured = "true";
+      filters.featured = 'true';
     }
 
     return filters;
@@ -128,7 +128,7 @@ export const useNews = (options: NewsOptions = {}) => {
 
   // Utilisation du composable générique pour le fetch
   const collection = useCmsCollection<NewsArticle>({
-    collection: "news",
+    collection: 'news',
     filters,
     sort: state.sortBy,
     limit: state.itemsPerPage,
@@ -139,12 +139,13 @@ export const useNews = (options: NewsOptions = {}) => {
   // Computed pour TOUTES les catégories disponibles
   const categories = computed(() => {
     const allCategories = [
-      { name: "Toutes" },
-      { name: "Conseil des ministres" },
-      { name: "Conseil interministériel" },
-      { name: "Assemblée nationale" },
-      { name: "Article" },
-      { name: "Podcasts" },
+      { name: 'Toutes' },
+      { name: 'Conseil des ministres' },
+      { name: 'Conseil interministériel' },
+      { name: 'Assemblée nationale' },
+      { name: 'Article' },
+      { name: 'Podcasts' },
+      { name: 'Budget' },
     ];
 
     return allCategories;
@@ -154,23 +155,19 @@ export const useNews = (options: NewsOptions = {}) => {
   const featuredNews = computed(() => {
     return collection.items.value
       .filter((article) => article.featured)
-      .sort(
-        (a, b) =>
-          new Date(b.date_published).getTime() -
-          new Date(a.date_published).getTime()
-      )
+      .sort((a, b) => new Date(b.date_published).getTime() - new Date(a.date_published).getTime())
       .slice(0, 6);
   });
 
   // Computed pour compatibilité avec l'ancien code
   const totalItems = computed(() => {
     const total = collection.pagination.value?.total;
-    return typeof total === "number" ? total : 0;
+    return typeof total === 'number' ? total : 0;
   });
 
   const totalPages = computed(() => {
     const totalPages = collection.pagination.value?.totalPages;
-    return typeof totalPages === "number" ? totalPages : 1;
+    return typeof totalPages === 'number' ? totalPages : 1;
   });
 
   return {

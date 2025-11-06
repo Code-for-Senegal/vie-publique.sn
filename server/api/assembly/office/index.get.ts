@@ -52,9 +52,7 @@ export default defineCachedEventHandler(
               first_name: member.deputy.first_name,
               last_name: member.deputy.last_name,
               gender: member.deputy.gender || null,
-              photo: member.deputy.photo
-                ? `${config.cmsApiUrl}/assets/${member.deputy.photo}`
-                : null,
+              photo: member.deputy.photo || null,
               profession: member.deputy.profession || null,
               birthplace: member.deputy.birthplace || null,
               birthdate: member.deputy.birthdate || null,

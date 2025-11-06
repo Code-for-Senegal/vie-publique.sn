@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "term": "ADMINISTRATEUR DE CREDIT",
+    "definition": "Agent de l'ordre administratif qui constate et liquide les recettes propose les engagements de dépenses et en prépare la liquidation."
+  },
+  {
+    "id": 2,
+    "term": "ANNUALITE BUDGETAIRE",
+    "definition": "Principe budgétaire selon lequel le budget doit autoriser les dépenses et les recettes d'une année et le parlement discuter et voter ce budget chaque année."
+  },
+  {
+    "id": 3,
+    "term": "ANNULATION DE CREDIT",
+    "definition": "Suppression d'un crédit ouvert au budget de l'Etat, mais devenu sans emploi en cours d'exercice"
+  },
+  {
+    "id": 4,
+    "term": "ARTICLE BUDGETAIRE",
+    "definition": "Terme qui identifie la catégorie de la dépense conformément à la codification du plan comptable de l'Etat. Il est numéroté par un code à deux chiffres."
+  },
+  {
+    "id": 5,
+    "term": "AUTORISATION DE DEPENSE",
+    "definition": "Décision prise sous forme de loi par laquelle l'assemblée nationale met à la disposition du gouvernement des crédits lui permettant d'effectuer des dépenses jusqu'à concurrence du montant inscrit."
+  },
+  {
+    "id": 6,
+    "term": "AUTORISATION D'ENGAGEMENT",
+    "definition": "Limite supérieure des dépenses pouvant être juridiquement engagées au cours d'exercice pour la réalisation des investissements prévus par la loi de finances. (Art 18 de la LOLF)"
+  },
+  {
+    "id": 7,
+    "term": "AUTORISATIONS NOUVELLES",
+    "definition": "Crédits en supplément accordés par l'Assemblée nationale et ouverts au budget de l'Etat en réponse aux mesures demandées par les ministères dépensiers pour le fonctionnement de leurs services, soit dans le cadre des dépenses de fonctionnement, soit dans le cadre des dépenses en capital."
+  },
+  {
+    "id": 8,
+    "term": "AVANCES DE TRESORERIE",
+    "definition": "Fonds confié anticipativement par le trésor aux comptables assignataires ou aux régisseurs d'avance leur permettant de payer des dépenses avant ordonnancement ou des dépenses urgentes qui seront ultérieurement ordonnancées et passées en dépenses définitives."
+  }
+]

@@ -176,14 +176,14 @@ test/
 
 ```typescript
 // test/unit/composables/usePromesseStatus.test.ts
-import { describe, it, expect } from 'vitest'
-import { getStatusIcon } from '~/composables/usePromesseStatus'
+import { describe, it, expect } from 'vitest';
+import { getStatusIcon } from '~/composables/usePromesseStatus';
 
 describe('usePromesseStatus', () => {
   it('should return correct icon', () => {
-    expect(getStatusIcon('tenue')).toBe('i-heroicons-check-circle')
-  })
-})
+    expect(getStatusIcon('tenue')).toBe('i-heroicons-check-circle');
+  });
+});
 ```
 
 ### Coverage Reports

@@ -77,9 +77,7 @@ export default defineCachedEventHandler(
               first_name: deputy.first_name,
               last_name: deputy.last_name,
               gender: deputy.gender || null,
-              photo: deputy.photo
-                ? `${config.cmsApiUrl}/assets/${deputy.photo}`
-                : null,
+              photo: deputy.photo || null,
               profession: deputy.profession || null,
               birthplace: deputy.birthplace || null,
               birthdate: deputy.birthdate || null,

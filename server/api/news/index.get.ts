@@ -91,7 +91,8 @@ export default defineCachedEventHandler(
         })
         .catch(() => newsData.length);
 
-      // Transformation des données
+      // Transformation des données - retourne uniquement les IDs, pas les URLs complètes
+      // Les composables useCmsImage() et useCmsFile() se chargeront de générer les URLs proxy
       const transformedNews: NewsArticle[] = newsData.map((article) => ({
         id: article.id,
         title: article.title,
@@ -100,9 +101,7 @@ export default defineCachedEventHandler(
         date_published: article.date_published,
         ...(article.date_updated ? { date_updated: article.date_updated } : {}),
         ...(article.cover_image
-          ? {
-              cover_image: `${config.cmsApiUrl}/assets/${article.cover_image}`,
-            }
+          ? { cover_image: article.cover_image }
           : {}),
         ...(article.featured !== undefined
           ? { featured: article.featured }

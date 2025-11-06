@@ -59,9 +59,7 @@ export default defineCachedEventHandler(
               id: questionData.deputy.id,
               first_name: questionData.deputy.first_name,
               last_name: questionData.deputy.last_name,
-              photo: questionData.deputy.photo
-                ? `${config.cmsApiUrl}/assets/${questionData.deputy.photo}`
-                : null,
+              photo: questionData.deputy.photo || null,
               group: questionData.deputy.group || null,
             }
           : null,
@@ -71,9 +69,7 @@ export default defineCachedEventHandler(
               type: attachment.directus_files_id?.type,
               filename: attachment.directus_files_id?.filename_download,
               filesize: attachment.directus_files_id?.filesize,
-              url: attachment.directus_files_id?.id
-                ? `${config.cmsApiUrl}/assets/${attachment.directus_files_id.id}`
-                : null,
+              url: attachment.directus_files_id?.id || null,
             }))
           : [],
       };

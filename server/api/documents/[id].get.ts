@@ -77,9 +77,7 @@ export default defineCachedEventHandler(
           ? { audit_institution: documentData.audit_institution }
           : {}),
         ...(documentData.cover_image
-          ? {
-              cover_image: `${config.cmsApiUrl}/assets/${documentData.cover_image}`,
-            }
+          ? { cover_image: documentData.cover_image }
           : {}),
         ...(documentData.content_html
           ? { content_html: documentData.content_html }

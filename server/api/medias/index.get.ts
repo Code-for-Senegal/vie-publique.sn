@@ -95,7 +95,7 @@ export default defineCachedEventHandler(
         id: media.id,
         name: media.name,
         type: media.type,
-        logo: media.logo ? `${config.cmsApiUrl}/assets/${media.logo}` : null,
+        logo: media.logo || null,
         facebook: media.facebook || null,
         website: media.website || null,
         instagram: media.instagram || null,

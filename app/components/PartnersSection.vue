@@ -31,7 +31,7 @@ const { partners, loading, error } = usePartners();
     <!-- Liste des partenaires -->
     <div
       v-else-if="partners.length > 0"
-      class="mt-8 flex flex-wrap justify-center gap-8"
+      class="mt-8 flex flex-wrap justify-center gap-4"
       aria-label="Logos des partenaires"
     >
       <a
@@ -40,14 +40,14 @@ const { partners, loading, error } = usePartners();
         :href="partner.website"
         target="_blank"
         rel="noopener noreferrer"
-        class="partner-card flex w-48 transform flex-col items-center rounded-lg bg-white p-6 shadow-md transition-shadow hover:scale-105 hover:shadow-lg"
+        class="partner-card flex w-48 transform flex-col items-center rounded-lg bg-white p-2 shadow-md transition-shadow hover:scale-105 hover:shadow-lg"
       >
         <img
-          :src="partner.logo"
+          :src="useCmsImage(partner.logo, '50')"
           :alt="`Logo de ${partner.name}`"
           class="partner-logo h-24 w-auto object-contain transition-transform duration-300 hover:scale-110"
         />
-        <span class="mt-4 text-center text-sm font-medium text-gray-700">
+        <span class="sr-only mt-4 text-center text-sm font-medium text-gray-700">
           {{ partner.name }}
         </span>
       </a>

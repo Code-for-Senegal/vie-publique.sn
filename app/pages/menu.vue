@@ -1,16 +1,9 @@
 <template>
   <div class="container mx-auto px-4 py-8">
-    <div
-      class="mx-auto grid max-w-5xl grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3"
-    >
-      <NuxtLink
-        v-for="card in navigationCards"
-        :key="card.title"
-        :to="card.to"
-        class="group block"
-      >
+    <div class="mx-auto grid max-w-5xl grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3">
+      <NuxtLink v-for="card in navigationCards" :key="card.title" :to="card.to" class="group block">
         <div
-          class="custom-shadow flex items-center gap-2 rounded-xl bg-white p-3 shadow-md shadow-sm transition-all duration-200 hover:translate-y-[-2px] hover:bg-gray-700/80 hover:shadow-xl sm:p-4 dark:bg-gray-800/80 dark:ring-1 dark:ring-gray-700 dark:backdrop-blur-md"
+          class="custom-shadow flex items-center gap-2 rounded-xl bg-white p-3 shadow-md shadow-sm transition-all duration-200 sm:p-4 dark:bg-gray-800 dark:ring-1 dark:ring-gray-700 dark:backdrop-blur-md"
         >
           <div class="flex-shrink-0">
             <UIcon
@@ -87,123 +80,123 @@ const version = appConfig.version;
 
 const linksSocial = [
   {
-    label: "Linkedin",
-    to: "https://www.linkedin.com/company/vie-publique-sn",
-    icon: "i-simple-icons-linkedin",
+    label: 'Linkedin',
+    to: 'https://www.linkedin.com/company/vie-publique-sn',
+    icon: 'i-simple-icons-linkedin',
   },
   {
-    label: "Twitter",
-    to: "https://twitter.com/ViePubliqueSN",
-    icon: "i-simple-icons-x",
+    label: 'Twitter',
+    to: 'https://twitter.com/ViePubliqueSN',
+    icon: 'i-simple-icons-x',
   },
   {
-    label: "Facebook",
-    to: "https://www.facebook.com/ViePubliqueSenegal",
-    icon: "i-simple-icons-facebook",
+    label: 'Facebook',
+    to: 'https://www.facebook.com/ViePubliqueSenegal',
+    icon: 'i-simple-icons-facebook',
   },
 ];
 
 const links = [
   {
-    label: "À Propos",
-    to: "/a-propos/qui-sommes-nous",
+    label: 'À Propos',
+    to: '/a-propos/qui-sommes-nous',
   },
   {
-    label: "Contact",
-    to: "/contact",
+    label: 'Contact',
+    to: '/contact',
   },
   {
-    label: "Newsletter",
-    to: "/newsletter",
+    label: 'Newsletter',
+    to: '/newsletter',
   },
   {
-    label: "Règles de confidentialité",
-    to: "/about/privacy",
+    label: 'Règles de confidentialité',
+    to: '/about/privacy',
   },
   {
-    label: "Recrutement",
-    to: "/a-propos/recrutement",
+    label: 'Recrutement',
+    to: '/a-propos/recrutement',
   },
   {
-    label: "Partenariat",
-    to: "/a-propos/travailler-avec-nous",
+    label: 'Partenariat',
+    to: '/a-propos/travailler-avec-nous',
   },
 ];
 
 const navigationCards: NavigationCard[] = [
   {
-    title: "Actualités",
-    description: "Toutes les actualités",
-    icon: "i-heroicons-newspaper",
-    to: "/actualites",
+    title: 'Actualités',
+    description: 'Toutes les actualités',
+    icon: 'i-heroicons-newspaper',
+    to: '/actualites',
   },
   {
-    title: "Documents",
-    description: "Journal officiel, Codes, Rapports",
-    icon: "i-heroicons-document-text",
-    to: "/documents",
+    title: 'Documents',
+    description: 'Journal officiel, Codes, Rapports',
+    icon: 'i-heroicons-document-text',
+    to: '/documents',
   },
   {
-    title: "Annuaire",
-    description: "Nominations, Sites, Medias...",
-    icon: "i-heroicons-book-open",
-    to: "/annuaires",
+    title: 'Annuaire',
+    description: 'Nominations, Sites, Medias...',
+    icon: 'i-heroicons-book-open',
+    to: '/annuaires',
   },
   {
-    title: "Conseil des ministres",
-    description: "Communiqués du conseil des ministres",
-    icon: "i-heroicons-building-office-2",
-    to: "/conseil-des-ministres",
+    title: 'Conseil des ministres',
+    description: 'Communiqués du conseil des ministres',
+    icon: 'i-heroicons-building-office-2',
+    to: '/conseil-des-ministres',
   },
   {
-    title: "Assemblée Nationale",
+    title: 'Assemblée Nationale',
     description: "Informations sur l'Assemblée Nationale",
-    icon: "i-heroicons-building-library",
-    to: "/assemblee-nationale",
+    icon: 'i-heroicons-building-library',
+    to: '/assemblee-nationale',
   },
   {
-    title: "Journal officiel Sénégal",
-    description: "Lois, Décrets, Arrêtés",
-    icon: "i-heroicons-newspaper",
-    to: "/documents/journal-officiel",
-  },
-
-  {
-    title: "Budget du Sénégal",
-    description: "Loi de finances 2025",
-    icon: "i-heroicons-banknotes",
-    to: "/budget-senegal",
+    title: 'Journal officiel Sénégal',
+    description: 'Lois, Décrets, Arrêtés',
+    icon: 'i-heroicons-newspaper',
+    to: '/documents/journal-officiel',
   },
 
   {
-    title: "Nominations",
-    description: "Nominations, Ministres, DG...",
-    icon: "i-heroicons-user-group",
-    to: "/nomination-senegal",
+    title: 'Budget du Sénégal',
+    description: 'Transparence des finances publiques',
+    icon: 'i-heroicons-banknotes',
+    to: '/budget',
+  },
+
+  {
+    title: 'Nominations',
+    description: 'Nominations, Ministres, DG...',
+    icon: 'i-heroicons-user-group',
+    to: '/nomination-senegal',
   },
   {
-    title: "Élections",
-    description: "Informations sur les élections",
-    icon: "i-heroicons-clipboard-document-check",
-    to: "/elections",
+    title: 'Élections',
+    description: 'Informations sur les élections',
+    icon: 'i-heroicons-clipboard-document-check',
+    to: '/elections',
   },
   {
-    title: "Chatbot",
-    description: "Posez vos questions sur les documents",
-    icon: "i-heroicons-chat-bubble-left-ellipsis",
-    to: "/chatbot",
+    title: 'Chatbot',
+    description: 'Posez vos questions sur les documents',
+    icon: 'i-heroicons-chat-bubble-left-ellipsis',
+    to: '/chatbot',
   },
   {
-    title: "Recherche v1",
-    description: "Recherchez dans les actualités et documents",
-    icon: "i-heroicons-magnifying-glass",
-    to: "/recherche",
+    title: 'Recherche v1',
+    description: 'Recherchez dans les actualités et documents',
+    icon: 'i-heroicons-magnifying-glass',
+    to: '/recherche',
   },
   {
-    title: "Recherche v2",
-    description: "Recherchez dans les actualités et documents",
-    icon: "i-heroicons-magnifying-glass",
-    to: "/recherche-avancee",
+    title: 'Recherche v2',
+    description: 'Recherchez dans les actualités et documents',
+    icon: 'i-heroicons-magnifying-glass',
+    to: '/recherche-avancee',
   },
   // {
   //   title: "Chatbot V2",
@@ -212,88 +205,92 @@ const navigationCards: NavigationCard[] = [
   //   to: "/chat-bot",
   // },
   {
-    title: "Dashbord Conseil des Ministres",
-    description: "TEST DASHBOARD",
-    icon: "i-heroicons-chart-bar",
-    to: "/dashboard/conseil-ministre",
+    title: 'Dashbord Conseil des Ministres',
+    description: 'TEST DASHBOARD',
+    icon: 'i-heroicons-chart-bar',
+    to: '/dashboard/conseil-ministre',
   },
   {
-    title: "Etat du Sénégal",
-    description:
-      "Fonctionnement de l'état, Guide, Institutions, Budget, Quiz...",
-    icon: "i-heroicons-information-circle",
-    to: "/etat-senegal",
+    title: 'Etat du Sénégal',
+    description: "Fonctionnement de l'état, Guide, Institutions, Budget, Quiz...",
+    icon: 'i-heroicons-information-circle',
+    to: '/etat-senegal',
   },
   {
-    title: "Quiz",
-    description: "Jeux QCM sur les institutions publiques",
-    icon: "i-heroicons-puzzle-piece",
-    to: "/quiz",
+    title: "Organigramme de l'etat",
+    description: "Annuaire de l'état",
+    icon: 'i-heroicons-information-circle',
+    to: '/etat-senegal/annuaire',
   },
   {
-    title: "Suivi promesses électorales",
-    description:
-      "Bientot disponible ici un outil de suivi des promesses électorales",
-    icon: "i-heroicons-document-check",
-    to: "/barometre-politique/",
+    title: 'Quiz',
+    description: 'Jeux QCM sur les institutions publiques',
+    icon: 'i-heroicons-puzzle-piece',
+    to: '/quiz',
   },
   {
-    title: "Don avec Bictorys",
-    description: "Soutenez-nous via Bictorys",
-    icon: "i-heroicons-heart",
-    to: "/don/bictorys",
+    title: 'Suivi promesses électorales',
+    description: 'Bientot disponible ici un outil de suivi des promesses électorales',
+    icon: 'i-heroicons-document-check',
+    to: '/barometre-politique/',
   },
   {
-    title: "Don avec Paydunya",
-    description: "Soutenez-nous via Paydunya",
-    icon: "i-heroicons-heart",
-    to: "/don/paydunya",
+    title: 'Don avec Bictorys',
+    description: 'Soutenez-nous via Bictorys',
+    icon: 'i-heroicons-heart',
+    to: '/don/bictorys',
+  },
+  {
+    title: 'Don avec Paydunya',
+    description: 'Soutenez-nous via Paydunya',
+    icon: 'i-heroicons-heart',
+    to: '/don/paydunya',
   },
 ];
 
 const cardConfigs: CardConfigs = {
   Actualités: {
-    color: "text-blue-600",
+    color: 'text-blue-600',
   },
   Documents: {
-    color: "text-indigo-600",
+    color: 'text-indigo-600',
   },
-  "Assemblée Nationale": {
-    color: "text-red-600",
+  'Assemblée Nationale': {
+    color: 'text-red-600',
   },
-  "Journal officiel Sénégal": {
-    color: "text-yellow-500",
+  'Journal officiel Sénégal': {
+    color: 'text-yellow-500',
   },
   Annuaire: {
-    color: "text-emerald-600",
+    color: 'text-emerald-600',
   },
   Nominations: {
-    color: "text-emerald-600",
+    color: 'text-emerald-600',
   },
   Élections: {
-    color: "text-amber-600",
+    color: 'text-amber-600',
   },
-  "Conseil des ministres": {
-    color: "text-violet-600",
+  'Conseil des ministres': {
+    color: 'text-violet-600',
   },
-  "Budget du Sénégal": {
-    color: "text-orange-600",
+  'Budget du Sénégal': {
+    color: 'text-orange-600',
   },
   Chatbot: {
-    color: "text-cyan-600",
+    color: 'text-cyan-600',
   },
   Quiz: {
-    color: "text-yellow-600",
+    color: 'text-yellow-600',
   },
-  "Etat du Sénégal": {
-    color: "text-blue-600",
+  'Etat du Sénégal': {
+    color: 'text-blue-600',
   },
-  "Don avec Bictorys": {
-    color: "text-red-600"
+  'Don avec Bictorys': {
+    color: 'text-red-600',
   },
-  "Don avec Paydunya": {
-    color: "text-red-600"
-  }
+  'Don avec Paydunya': {
+    color: 'text-red-600',
+  },
 } as const;
 </script>
 
