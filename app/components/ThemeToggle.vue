@@ -3,12 +3,13 @@
     <div class="flex items-center gap-3">
       <!-- Bouton de recherche -->
       <UButton
+        v-if="isFeatureEnabled('menu_recherche')"
         class="text-white hover:text-gray-200"
         color="white"
         variant="ghost"
         size="sm"
         icon="i-heroicons-magnifying-glass"
-        to="/recherche-avancee"
+        to="/recherche"
         aria-label="Rechercher"
       />
 
@@ -21,9 +22,7 @@
         <!-- Track du switch -->
         <span
           class="absolute inset-0 rounded-full bg-gradient-to-r transition-all duration-200"
-          :class="isDark
-            ? 'from-indigo-500 to-purple-600'
-            : 'from-yellow-300 to-orange-400'"
+          :class="isDark ? 'from-indigo-500 to-purple-600' : 'from-yellow-300 to-orange-400'"
         />
 
         <!-- Indicateur mobile -->
@@ -56,12 +55,15 @@ defineOptions({
 
 const colorMode = useColorMode();
 
+// Feature flags
+const { isFeatureEnabled } = useFeatureFlags();
+
 const isDark = computed({
   get() {
-    return colorMode.value === "dark";
+    return colorMode.value === 'dark';
   },
   set() {
-    colorMode.preference = colorMode.value === "dark" ? "light" : "dark";
+    colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark';
   },
 });
 </script>

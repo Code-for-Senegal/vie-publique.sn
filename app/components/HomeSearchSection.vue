@@ -1,5 +1,5 @@
 <template>
-  <section class="pb-4 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+  <section v-if="isFeatureEnabled('menu_recherche')" class="pb-4 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
     <!-- Barre de recherche principale style Google/ChatGPT -->
     <div class="flex justify-center">
       <div class="w-full sm:max-w-2xl">
@@ -16,7 +16,7 @@
               type="text"
               placeholder="Rechercher dans Vie Publique..."
               :class="[
-                'w-full rounded-full border-2 border-gray-200 bg-white py-4 pr-20 text-base shadow-sm transition-all duration-300 placeholder:text-gray-400 hover:border-gray-300 hover:shadow-md focus:border-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 dark:hover:border-gray-500 dark:focus:border-blue-400',
+                'border-1 w-full rounded-full border-gray-200 bg-white py-4 pr-20 text-base shadow-md transition-all duration-300 placeholder:text-gray-400 hover:border-gray-300 hover:shadow-md focus:border-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 dark:hover:border-gray-500 dark:focus:border-blue-400',
                 searchQuery.trim() ? 'pl-5' : 'pl-14',
               ]"
               @keyup.enter="performSearch"
@@ -79,6 +79,9 @@
 <script setup lang="ts">
 const router = useRouter();
 
+// Feature flags
+const { isFeatureEnabled } = useFeatureFlags();
+
 // État de la recherche
 const searchQuery = ref('');
 
@@ -94,7 +97,7 @@ const searchSuggestions = ref([
 // Fonction de recherche
 const performSearch = () => {
   if (searchQuery.value.trim()) {
-    router.push(`/recherche-avancee?q=${encodeURIComponent(searchQuery.value)}`);
+    router.push(`/recherche?q=${encodeURIComponent(searchQuery.value)}`);
   }
 };
 

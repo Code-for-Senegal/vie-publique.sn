@@ -64,6 +64,7 @@ interface NavigationCard {
   description: string;
   icon: string;
   to: string;
+  featureKey?: string; // Clé du feature flag pour contrôler la visibilité
 }
 
 interface CardConfig {
@@ -77,6 +78,9 @@ interface CardConfigs {
 const currentYear = new Date().getFullYear();
 const appConfig = useAppConfig();
 const version = appConfig.version;
+
+// Utiliser le composable des feature flags
+const { isFeatureEnabled } = useFeatureFlags();
 
 const linksSocial = [
   {
@@ -123,130 +127,145 @@ const links = [
   },
 ];
 
-const navigationCards: NavigationCard[] = [
+const allNavigationCards: NavigationCard[] = [
   {
     title: 'Actualités',
     description: 'Toutes les actualités',
     icon: 'i-heroicons-newspaper',
     to: '/actualites',
+    featureKey: 'menu_actualites',
   },
   {
     title: 'Documents',
     description: 'Journal officiel, Codes, Rapports',
     icon: 'i-heroicons-document-text',
     to: '/documents',
+    featureKey: 'menu_documents',
   },
   {
     title: 'Annuaire',
     description: 'Nominations, Sites, Medias...',
     icon: 'i-heroicons-book-open',
     to: '/annuaires',
+    featureKey: 'menu_annuaire',
   },
   {
     title: 'Conseil des ministres',
     description: 'Communiqués du conseil des ministres',
     icon: 'i-heroicons-building-office-2',
     to: '/conseil-des-ministres',
+    featureKey: 'menu_conseil_ministres',
   },
   {
     title: 'Assemblée Nationale',
     description: "Informations sur l'Assemblée Nationale",
     icon: 'i-heroicons-building-library',
     to: '/assemblee-nationale',
+    featureKey: 'menu_assemblee_nationale',
   },
   {
     title: 'Journal officiel Sénégal',
     description: 'Lois, Décrets, Arrêtés',
     icon: 'i-heroicons-newspaper',
     to: '/documents/journal-officiel',
+    featureKey: 'menu_journal_officiel',
   },
-
   {
     title: 'Budget du Sénégal',
     description: 'Transparence des finances publiques',
     icon: 'i-heroicons-banknotes',
     to: '/budget',
+    featureKey: 'menu_budget',
   },
-
   {
     title: 'Nominations',
     description: 'Nominations, Ministres, DG...',
     icon: 'i-heroicons-user-group',
     to: '/nomination-senegal',
+    featureKey: 'menu_nominations',
   },
   {
     title: 'Élections',
     description: 'Informations sur les élections',
     icon: 'i-heroicons-clipboard-document-check',
     to: '/elections',
+    featureKey: 'menu_elections',
   },
   {
     title: 'Chatbot',
     description: 'Posez vos questions sur les documents',
     icon: 'i-heroicons-chat-bubble-left-ellipsis',
     to: '/chatbot',
+    featureKey: 'menu_chatbot',
   },
   {
-    title: 'Recherche v1',
+    title: 'Recherche',
     description: 'Recherchez dans les actualités et documents',
     icon: 'i-heroicons-magnifying-glass',
     to: '/recherche',
+    featureKey: 'menu_recherche',
   },
-  {
-    title: 'Recherche v2',
-    description: 'Recherchez dans les actualités et documents',
-    icon: 'i-heroicons-magnifying-glass',
-    to: '/recherche-avancee',
-  },
-  // {
-  //   title: "Chatbot V2",
-  //   description: "Posez vos questions sur les documents",
-  //   icon: "i-heroicons-chat-bubble-left-ellipsis",
-  //   to: "/chat-bot",
-  // },
   {
     title: 'Dashbord Conseil des Ministres',
     description: 'TEST DASHBOARD',
     icon: 'i-heroicons-chart-bar',
     to: '/dashboard/conseil-ministre',
+    featureKey: 'menu_dashboard_conseil',
   },
   {
     title: 'Etat du Sénégal',
     description: "Fonctionnement de l'état, Guide, Institutions, Budget, Quiz...",
     icon: 'i-heroicons-information-circle',
     to: '/etat-senegal',
+    featureKey: 'menu_etat_senegal',
   },
   {
     title: "Organigramme de l'etat",
     description: "Annuaire de l'état",
     icon: 'i-heroicons-information-circle',
     to: '/etat-senegal/annuaire',
+    featureKey: 'menu_organigramme_etat',
   },
   {
     title: 'Quiz',
     description: 'Jeux QCM sur les institutions publiques',
     icon: 'i-heroicons-puzzle-piece',
     to: '/quiz',
+    featureKey: 'menu_quiz',
   },
   {
     title: 'Suivi promesses électorales',
     description: 'Bientot disponible ici un outil de suivi des promesses électorales',
     icon: 'i-heroicons-document-check',
     to: '/barometre-politique/',
+    featureKey: 'menu_suivi_promesses',
   },
   {
     title: 'Don avec Bictorys',
     description: 'Soutenez-nous via Bictorys',
     icon: 'i-heroicons-heart',
     to: '/don/bictorys',
+    featureKey: 'menu_don_bictorys',
   },
   {
     title: 'Don avec Paydunya',
     description: 'Soutenez-nous via Paydunya',
     icon: 'i-heroicons-heart',
     to: '/don/paydunya',
+    featureKey: 'menu_don_paydunya',
   },
 ];
+
+// Filtrer les cartes en fonction des feature flags
+const navigationCards = computed(() =>
+  allNavigationCards.filter((card) => {
+    // Si pas de feature key définie, afficher par défaut
+    if (!card.featureKey) return true;
+
+    // Vérifier si la feature est activée
+    return isFeatureEnabled(card.featureKey);
+  }),
+);
 
 const cardConfigs: CardConfigs = {
   Actualités: {

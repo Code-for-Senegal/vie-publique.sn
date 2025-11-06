@@ -221,6 +221,9 @@ export default defineNuxtConfig({
       fbPixelId: process.env.FACEBOOK_PIXEL_ID || '',
       maintenanceMode: process.env.NUXT_PUBLIC_MAINTENANCE_MODE === 'true',
       bictorysPublicKey: process.env.BICTORYS_PUBLIC_KEY,
+      // Feature Flags
+      appEnv: process.env.NUXT_PUBLIC_APP_ENV || 'production',
+      featureFlagsEnabled: process.env.NUXT_FEATURE_FLAGS_ENABLED !== 'false',
       // Informations de version de l'application
       appVersion: packageJson.version,
       buildTime: buildTime,
