@@ -18,9 +18,13 @@
     ></div>
 
     <!-- Error State -->
-    <div v-if="error" class="rounded bg-red-50 p-4 text-center text-red-500">
-      Impossible de charger l'image
-    </div>
+    <UAlert
+      v-if="error"
+      title="Erreur de chargement"
+      description="Impossible de charger l'image"
+      color="red"
+      icon="i-heroicons-exclamation-triangle"
+    />
   </div>
 </template>
 

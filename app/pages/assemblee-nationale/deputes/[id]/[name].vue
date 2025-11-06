@@ -15,9 +15,13 @@
     </div>
 
     <!-- Error state -->
-    <div v-else-if="error" class="py-8 text-center text-red-500">
-      {{ error }}
-    </div>
+    <UAlert
+      v-else-if="error"
+      title="Erreur"
+      description="Une erreur est survenue lors de l'affichage des informations du député."
+      color="red"
+      icon="i-heroicons-exclamation-triangle"
+    />
 
     <div v-else-if="deputy" class="mt-3 flex flex-col gap-4 md:flex-row">
       <div class="w-full md:w-1/3">

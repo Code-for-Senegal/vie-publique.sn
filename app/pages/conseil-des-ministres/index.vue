@@ -273,9 +273,13 @@ const formatDateISO = (date: string) => {
       />
     </div>
 
-    <div v-else-if="error" class="py-4 text-center text-red-500">
-      {{ error }}
-    </div>
+    <UAlert
+      v-else-if="error"
+      title="Erreur de chargement"
+      description="Impossible de charger les communiqués du Conseil des ministres"
+      color="red"
+      icon="i-heroicons-exclamation-triangle"
+    />
 
     <div v-else-if="articles.length === 0" class="py-12 text-center">
       <UIcon

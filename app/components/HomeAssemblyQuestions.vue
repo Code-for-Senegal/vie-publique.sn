@@ -15,9 +15,13 @@
     </div>
 
     <!-- Error state -->
-    <div v-else-if="error" class="p-4 text-center text-red-500 dark:text-red-300">
-      {{ error }}
-    </div>
+    <UAlert
+      v-else-if="error"
+      title="Erreur de chargement"
+      description="Impossible de charger les questions écrites"
+      color="red"
+      icon="i-heroicons-exclamation-triangle"
+    />
 
     <!-- Content -->
     <div v-else>

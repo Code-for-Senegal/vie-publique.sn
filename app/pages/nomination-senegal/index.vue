@@ -309,9 +309,13 @@ watch([filterType, filterGender], () => {
           </template>
 
           <!-- État d'erreur -->
-          <div v-else-if="error" class="py-8 text-center text-red-500">
-            <p>Erreur lors du chargement des nominations</p>
-          </div>
+          <UAlert
+            v-else-if="error"
+            title="Erreur de chargement"
+            description="Impossible de charger les nominations"
+            color="red"
+            icon="i-heroicons-exclamation-triangle"
+          />
 
           <!-- Liste des nominations -->
           <template v-else>

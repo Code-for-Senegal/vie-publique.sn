@@ -38,12 +38,13 @@
       </div>
 
       <!-- Error state -->
-      <div
+      <UAlert
         v-else-if="error"
-        class="py-8 text-center text-red-500 dark:text-red-300"
-      >
-        {{ error }}
-      </div>
+        title="Erreur de chargement"
+        description="Impossible de charger les informations du vote"
+        color="red"
+        icon="i-heroicons-exclamation-triangle"
+      />
 
       <UCard v-else class="mb-8 dark:border-gray-700 dark:bg-gray-800">
         <!-- En-tête -->

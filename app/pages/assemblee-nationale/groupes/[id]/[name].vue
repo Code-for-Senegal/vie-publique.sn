@@ -37,11 +37,9 @@
         title="Erreur de chargement"
         description="Impossible de charger les informations du groupe parlementaire"
         color="red"
+        class="dark:text-white"
+        icon="i-heroicons-exclamation-triangle"
       >
-        <template #description>
-          {{ error }}
-          <UButton label="Réessayer" color="red" variant="ghost" class="mt-4" @click="refresh()" />
-        </template>
       </UAlert>
     </UContainer>
 
