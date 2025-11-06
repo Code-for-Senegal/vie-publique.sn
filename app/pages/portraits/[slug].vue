@@ -8,7 +8,7 @@ const links = [{ label: "Nominations", to: "/nomination-senegal" }];
   <ContentDoc v-slot="{ doc }">
     <AppBreadcrumb :links="links" :last-text="route.params.slug" />
 
-    <div class="prose prose-sm sm:prose lg:prose-md mx-auto">
+    <div class="prose prose-sm sm:prose lg:prose-md dark:prose-invert mx-auto">
       <ContentRenderer :value="doc" />
     </div>
   </ContentDoc>

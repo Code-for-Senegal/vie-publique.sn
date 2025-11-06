@@ -204,12 +204,13 @@ const formatDateISO = (date: string) => {
       </div>
 
       <!-- Error state -->
-      <div
+      <UAlert
         v-else-if="error"
-        class="rounded-lg bg-red-50 p-4 text-center text-red-500 dark:bg-red-900/50 dark:text-red-400"
-      >
-        {{ error }}
-      </div>
+        title="Erreur de chargement"
+        description="Impossible de charger les actualités"
+        color="red"
+        icon="i-heroicons-exclamation-triangle"
+      />
 
       <!-- Content -->
       <div

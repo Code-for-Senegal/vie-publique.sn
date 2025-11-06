@@ -131,11 +131,11 @@ const filteredSortedContentItems = computed(() => {
       <!-- Message si aucun résultat n'est trouvé -->
       <div
         v-if="filteredSortedContentItems.length === 0"
-        class="mt-8 flex flex-col items-center text-center text-gray-500"
+        class="mt-8 flex flex-col items-center text-center text-gray-500 dark:text-gray-400"
       >
         <UIcon
           name="i-heroicons-exclamation-circle"
-          class="mb-4 h-16 w-16 text-gray-400"
+          class="mb-4 h-16 w-16 text-gray-400 dark:text-gray-500"
         />
         <p class="text-xl">Aucun résultat disponible</p>
       </div>
@@ -158,14 +158,14 @@ const filteredSortedContentItems = computed(() => {
               :placeholder="[300, 300]"
             />
             <div
-              class="siteweb-type my-1 inline-block bg-gray-200 px-2 py-1 text-xs text-gray-800"
+              class="siteweb-type my-1 inline-block bg-gray-200 dark:bg-gray-700 px-2 py-1 text-xs text-gray-800 dark:text-gray-200"
             >
               {{ item.category }}
             </div>
-            <div class="text-sm text-gray-800">
+            <div class="text-sm text-gray-800 dark:text-gray-300">
               {{ $dateformatWithDayName(item.date) }}
             </div>
-            <p class="font-semibold">
+            <p class="font-semibold text-gray-900 dark:text-white">
               {{ item.title }}
             </p>
           </NuxtLink>

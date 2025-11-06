@@ -268,9 +268,13 @@ const formatDateISO = (date: string) => {
       <div class="h-4 w-3/4 animate-pulse rounded bg-gray-200"></div>
     </div>
 
-    <div v-else-if="error" class="py-4 text-center text-red-500">
-      {{ error }}
-    </div>
+    <UAlert
+      v-else-if="error"
+      title="Erreur"
+      description="Une erreur est survenue lors du chargement de l'article."
+      color="red"
+      icon="i-heroicons-exclamation-triangle"
+    />
 
     <template v-else-if="article">
       <article

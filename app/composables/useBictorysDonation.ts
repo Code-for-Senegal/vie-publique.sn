@@ -55,7 +55,21 @@ export const useBictorysDonation = () => {
         throw new Error('Impossible d\'initialiser le paiement')
       }
     } catch (err: any) {
-      error.value = err.message || 'Une erreur est survenue'
+      // Gestion des erreurs de manière user-friendly
+      if (err.statusCode === 404) {
+        error.value = 'Le service de paiement est temporairement indisponible. Veuillez réessayer plus tard.'
+      } else if (err.statusCode === 500 || err.statusCode >= 500) {
+        error.value = 'Une erreur serveur est survenue. Veuillez réessayer dans quelques instants.'
+      } else if (err.statusCode === 400) {
+        error.value = 'Les informations fournies sont invalides. Veuillez vérifier vos données.'
+      } else if (err.message?.includes('Network') || err.message?.includes('fetch')) {
+        error.value = 'Impossible de contacter le serveur. Vérifiez votre connexion internet.'
+      } else if (err.message && !err.message.includes('POST') && !err.message.includes('GET') && !err.message.includes('api/')) {
+        // Utiliser le message d'erreur s'il est user-friendly (ne contient pas de détails techniques)
+        error.value = err.message
+      } else {
+        error.value = 'Une erreur est survenue lors de l\'initialisation du paiement. Veuillez réessayer.'
+      }
 
       return {
         success: false,

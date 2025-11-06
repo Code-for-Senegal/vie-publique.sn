@@ -17,7 +17,7 @@ const links = [
   <ContentDoc v-slot="{ doc }">
     <AppBreadcrumb :links="links" :last-text="route.params.slug[1]" />
 
-    <div class="prose prose-sm sm:prose lg:prose-md mx-auto">
+    <div class="prose prose-sm sm:prose lg:prose-md dark:prose-invert mx-auto">
       <ContentRenderer :value="doc" />
     </div>
   </ContentDoc>
@@ -26,10 +26,5 @@ const links = [
 <style>
 .prose div h3 a {
   text-decoration: none;
-}
-
-.prose p a {
-  /* text-decoration: none; */
-  color: rgb(37 99 235);
 }
 </style>

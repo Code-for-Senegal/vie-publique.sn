@@ -295,9 +295,13 @@ const deputyUrl = computed((deputy: any) => {
       </div>
 
       <!-- Error state -->
-      <div v-else-if="error" class="py-8 text-center text-red-500">
-        {{ error }}
-      </div>
+      <UAlert
+        v-else-if="error"
+        title="Erreur de chargement"
+        description="Impossible de charger les informations de la commission"
+        color="red"
+        icon="i-heroicons-exclamation-triangle"
+      />
 
       <!-- Contenu de la commission -->
       <div v-else-if="commission" class="space-y-8 dark:text-black">

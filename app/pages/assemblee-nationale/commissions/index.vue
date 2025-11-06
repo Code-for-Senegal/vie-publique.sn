@@ -210,9 +210,13 @@ const filteredCommissions = computed(() => {
       </div>
 
       <!-- Error state -->
-      <div v-else-if="error" class="py-8 text-center text-red-500">
-        {{ error }}
-      </div>
+      <UAlert
+        v-else-if="error"
+        title="Erreur de chargement"
+        description="Impossible de charger la liste des commissions"
+        color="red"
+        icon="i-heroicons-exclamation-triangle"
+      />
 
       <!-- Liste des commissions -->
       <div v-else class="grid gap-2">
