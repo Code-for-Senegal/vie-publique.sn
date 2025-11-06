@@ -10,27 +10,35 @@
     </nav>
 
     <!-- Header -->
-    <div class="mb-8 text-center">
-      <h1 class="mb-4 text-4xl font-bold text-gray-900 dark:text-white">Glossaire Budgétaire</h1>
-      <p class="mx-auto max-w-2xl text-lg text-gray-600 dark:text-gray-400">
+    <div class="mb-8">
+      <h1 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">Glossaire Budgétaire</h1>
+      <p class="text-gray-600 dark:text-gray-400">
         Découvrez les termes et définitions essentiels pour comprendre le budget de l'État du
         Sénégal
       </p>
     </div>
 
-    <!-- Search -->
-    <div class="mb-8">
+    <!-- Filtres -->
+    <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center">
+      <!-- Recherche -->
       <UInput
         v-model="searchQuery"
         icon="i-heroicons-magnifying-glass"
         placeholder="Rechercher un terme..."
-        size="xl"
-        class="mx-auto max-w-2xl"
+        size="lg"
+        class="flex-1 sm:max-w-md"
       />
+
+      <!-- Filtre par catégorie -->
+      <USelect v-model="selectedCategory" :options="categories" size="lg" class="w-full sm:w-64">
+        <template #leading>
+          <UIcon name="i-heroicons-funnel" class="h-4 w-4" />
+        </template>
+      </USelect>
     </div>
 
     <!-- Loading state -->
-    <div v-if="pending" class="flex justify-center py-12">
+    <div v-if="loading" class="flex justify-center py-12">
       <UIcon name="i-heroicons-arrow-path" class="h-8 w-8 animate-spin text-gray-400" />
     </div>
 
@@ -42,7 +50,7 @@
     </div>
 
     <!-- Glossary content -->
-    <div v-else-if="glossaryData" class="mx-auto max-w-4xl">
+    <div v-else class="mx-auto max-w-4xl">
       <!-- Stats -->
       <div class="mb-6 text-center text-sm text-gray-500 dark:text-gray-400">
         {{ filteredTerms.length }} terme{{ filteredTerms.length > 1 ? 's' : '' }} trouvé{{
@@ -56,7 +64,7 @@
         class="rounded-lg bg-gray-50 p-8 text-center dark:bg-gray-800"
       >
         <UIcon name="i-heroicons-magnifying-glass" class="mx-auto mb-4 h-12 w-12 text-gray-400" />
-        <p class="text-gray-600 dark:text-gray-400">Aucun terme trouvé pour "{{ searchQuery }}"</p>
+        <p class="text-gray-600 dark:text-gray-400">Aucun terme trouvé</p>
       </div>
 
       <!-- Glossary accordion -->
@@ -113,21 +121,10 @@
 </template>
 
 <script setup lang="ts">
-interface GlossaryTerm {
-  id: number;
-  term: string;
-  definition: string;
-}
-
-interface GlossaryResponse {
-  terms: GlossaryTerm[];
-  total: number;
-}
-
 // SEO
 const title = 'Glossaire Budgétaire | Budget du Sénégal';
 const description =
-  "Découvrez les termes et définitions essentiels pour comprendre le budget de l'État du Sénégal : administrateur de crédit, annualité budgétaire, autorisation d'engagement, et bien plus.";
+  "Découvrez les termes et définitions essentiels pour comprendre le budget de l'État du Sénégal : déficit budgétaire, crédits de paiement, service de la dette, et bien plus.";
 
 useSeoMeta({
   title,
@@ -138,35 +135,56 @@ useSeoMeta({
   twitterDescription: description,
 });
 
-// Fetch glossary data
-const {
-  data: glossaryData,
-  pending,
-  error,
-} = await useFetch<GlossaryResponse>('/api/budget/glossary');
+// Use budget glossary composable
+const { allTerms, categories, loading, error } = useBudgetGlossary();
 
-// Search
+// Recherche et filtre locaux
 const searchQuery = ref('');
+const selectedCategory = ref('Toutes');
 
-// Filter terms based on search
+// Termes filtrés par recherche et catégorie
 const filteredTerms = computed(() => {
-  if (!glossaryData.value?.terms) return [];
+  let filtered = allTerms.value;
 
+  // Filtre par catégorie
+  if (selectedCategory.value !== 'Toutes') {
+    filtered = filtered.filter((term) => term.category === selectedCategory.value);
+  }
+
+  // Filtre par recherche
   const query = searchQuery.value.toLowerCase().trim();
-  if (!query) return glossaryData.value.terms;
+  if (query) {
+    filtered = filtered.filter((term) => {
+      const inTerm = term.term.toLowerCase().includes(query);
+      const inDef = term.definition_short.toLowerCase().includes(query);
+      const inDefLong = term.definition_long?.toLowerCase().includes(query);
+      const inAliases = term.aliases?.some((alias) => alias.toLowerCase().includes(query));
 
-  return glossaryData.value.terms.filter(
-    (term) =>
-      term.term.toLowerCase().includes(query) || term.definition.toLowerCase().includes(query),
-  );
+      return inTerm || inDef || inDefLong || inAliases;
+    });
+  }
+
+  return filtered;
 });
 
 // Format for UAccordion
 const accordionItems = computed(() =>
-  filteredTerms.value.map((term) => ({
-    label: term.term,
-    content: term.definition,
-    defaultOpen: false,
-  })),
+  filteredTerms.value.map((term) => {
+    // Prioriser definition_long si disponible, sinon definition_short
+    const definition = term.definition_long || term.definition_short;
+
+    // Ajouter les aliases sur une nouvelle ligne si disponibles
+    let content = definition;
+    if (term.aliases && term.aliases.length > 0) {
+      content += `\n\n_Aussi appelé : ${term.aliases.join(', ')}_`;
+    }
+
+    return {
+      label: term.term,
+      content,
+      defaultOpen: false,
+      category: term.category,
+    };
+  }),
 );
 </script>

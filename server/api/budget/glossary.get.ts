@@ -1,26 +1,58 @@
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { readItems } from '@directus/sdk';
 
 interface GlossaryTerm {
   id: number;
+  slug: string;
   term: string;
-  definition: string;
+  category: string;
+  aliases?: string[] | null;
+  definition_short: string;
+  definition_long?: string | null;
+  unit?: string | null;
 }
 
 export default defineCachedEventHandler(
   async () => {
-    // Lire le fichier JSON depuis server/data/
-    const filePath = resolve(process.cwd(), 'server/data/budget-glossary.json');
-    const fileContent = readFileSync(filePath, 'utf-8');
-    const glossaryData: GlossaryTerm[] = JSON.parse(fileContent);
+    try {
+      const directus = getCmsClient();
 
-    return {
-      terms: glossaryData,
-      total: glossaryData.length,
-    };
+      // Récupérer tous les termes du glossaire (recherche/filtrage côté client)
+      const terms = await directus.request(
+        readItems('budget_glossary', {
+          fields: [
+            'id',
+            'slug',
+            'term',
+            'category',
+            'aliases',
+            'definition_short',
+            'definition_long',
+            'unit',
+          ],
+          filter: {
+            status: { _eq: 'published' },
+          },
+          sort: ['term'], // Tri alphabétique
+          limit: -1, // Tous les termes
+        }),
+      );
+
+      return {
+        terms: terms || [],
+        total: terms?.length || 0,
+      };
+    } catch (error: any) {
+      console.error('Erreur récupération glossaire budget:', error);
+
+      throw createError({
+        statusCode: 500,
+        statusMessage: 'Erreur lors de la récupération du glossaire budgétaire',
+      });
+    }
   },
   {
-    maxAge: 60 * 60 * 24, // Cache 24h (données statiques)
-    getKey: () => 'budget-glossary',
-  }
+    maxAge: process.env.NODE_ENV === 'production' ? 24 * 60 * 60 : 0, // 24h en prod, pas de cache en dev
+    name: 'budget-glossary',
+    getKey: () => 'budget-glossary-all',
+  },
 );
