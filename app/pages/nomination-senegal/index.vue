@@ -329,8 +329,17 @@ watch([filterType, filterGender], () => {
                 <div class="flex flex-row gap-2">
                   <div class="h-16 w-16 flex-shrink-0 md:h-20 md:w-20">
                     <img
-                      :src="minister.photo || '/unknown_member.webp'"
-                      alt="Photo ministre"
+                      v-if="minister.photo"
+                      :src="useCmsImage(minister.photo)"
+                      :alt="minister.name"
+                      sizes="64px sm:80px"
+                      class="h-full w-full rounded-full object-cover"
+                      loading="lazy"
+                    />
+                    <img
+                      v-else
+                      src="/unknown_member.webp"
+                      :alt="minister.name"
                       sizes="64px sm:80px"
                       class="h-full w-full rounded-full object-cover"
                       loading="lazy"
