@@ -4,15 +4,16 @@ import { VALID_ENVIRONMENTS } from '~/config/features.config'
 interface UseFeatureFlagsReturn {
   isFeatureEnabled: (featureKey: string) => boolean
   getFeatureFlag: (featureKey: string) => FeatureFlag | undefined
-  flags: Ref<FeatureFlag[]>
+  flags: Ref<FeatureFlag[] | null>
   loading: Ref<boolean>
-  error: Ref<Error | null>
+  error: Ref<any>
   refresh: () => Promise<void>
   currentEnv: Ref<AppEnvironment>
 }
 
 /**
  * Composable pour gérer les feature flags
+ * Compatible SSR + Client avec useAsyncData
  *
  * @example
  * const { isFeatureEnabled } = useFeatureFlags()
@@ -22,9 +23,6 @@ interface UseFeatureFlagsReturn {
  */
 export function useFeatureFlags(): UseFeatureFlagsReturn {
   const config = useRuntimeConfig()
-  const flags = useState<FeatureFlag[]>('feature-flags', () => [])
-  const loading = useState<boolean>('feature-flags-loading', () => false)
-  const error = useState<Error | null>('feature-flags-error', () => null)
 
   // Récupérer l'environnement actuel depuis la config runtime
   const currentEnv = computed<AppEnvironment>(() => {
@@ -39,36 +37,14 @@ export function useFeatureFlags(): UseFeatureFlagsReturn {
     return 'production'
   })
 
-  /**
-   * Charge les feature flags depuis l'API
-   */
-  async function loadFlags() {
-    if (flags.value.length > 0) {
-      // Déjà chargé, pas besoin de recharger
-      return
+  // Utiliser useFetch pour charger les flags (SSR + Client automatique)
+  const { data: flags, pending: loading, error, refresh } = useFetch<FeatureFlag[]>(
+    '/api/features/flags',
+    {
+      key: 'feature-flags',
+      default: () => [], // Valeur par défaut si erreur
     }
-
-    loading.value = true
-    error.value = null
-
-    try {
-      const data = await $fetch<FeatureFlag[]>('/api/features/flags')
-      flags.value = data
-    } catch (err) {
-      error.value = err instanceof Error ? err : new Error('Failed to load feature flags')
-      console.error('Error loading feature flags:', err)
-    } finally {
-      loading.value = false
-    }
-  }
-
-  /**
-   * Rafraîchit les feature flags
-   */
-  async function refresh() {
-    flags.value = []
-    await loadFlags()
-  }
+  )
 
   /**
    * Vérifie si une feature est activée
@@ -78,11 +54,16 @@ export function useFeatureFlags(): UseFeatureFlagsReturn {
    * 2. L'environnement actuel est dans la liste environments
    */
   function isFeatureEnabled(featureKey: string): boolean {
+    // Si les flags ne sont pas encore chargés, retourner false
+    if (!flags.value || flags.value.length === 0) {
+      return false
+    }
+
     const flag = flags.value.find((f) => f.key === featureKey)
 
     if (!flag) {
       // Feature non trouvée, on la considère comme désactivée
-      console.warn(`Feature flag not found: ${featureKey}`)
+      // console.warn(`Feature flag not found: ${featureKey}`)
       return false
     }
 
@@ -101,12 +82,8 @@ export function useFeatureFlags(): UseFeatureFlagsReturn {
    * Récupère un feature flag par sa clé
    */
   function getFeatureFlag(featureKey: string): FeatureFlag | undefined {
+    if (!flags.value) return undefined
     return flags.value.find((f) => f.key === featureKey)
-  }
-
-  // Charger les flags au premier appel
-  if (process.client && flags.value.length === 0 && !loading.value) {
-    loadFlags()
   }
 
   return {
