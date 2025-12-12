@@ -8,9 +8,9 @@ import type { ProviderGetImage } from '@nuxt/image'
 export const getImage: ProviderGetImage = (src, { modifiers = {}, baseURL } = {}) => {
   // Si l'URL contient déjà des paramètres de qualité, on la retourne directement
   if (src.includes('?quality=')) {
-    // Si elle ne commence pas par /medias, on ajoute le préfixe
-    if (!src.startsWith('/medias/')) {
-      const base = baseURL || '/medias'
+    // Si elle ne commence pas par /cms, on ajoute le préfixe
+    if (!src.startsWith('/cms/')) {
+      const base = baseURL || '/cms'
       return {
         url: joinURL(base, src)
       }
@@ -19,9 +19,9 @@ export const getImage: ProviderGetImage = (src, { modifiers = {}, baseURL } = {}
       url: src
     }
   }
-  
-  // Si l'URL commence déjà par /medias, on la retourne directement
-  if (src.startsWith('/medias/')) {
+
+  // Si l'URL commence déjà par /cms, on la retourne directement
+  if (src.startsWith('/cms/')) {
     let url = src
     // Ajouter la qualité si elle est dans les modifiers
     if (modifiers.quality) {
@@ -33,7 +33,7 @@ export const getImage: ProviderGetImage = (src, { modifiers = {}, baseURL } = {}
   }
 
   // Si baseURL est défini, on l'utilise, sinon utiliser la nouvelle URL SEO
-  const base = baseURL || '/medias'
+  const base = baseURL || '/cms'
   
   // Construction de l'URL avec les modificateurs si nécessaire
   let url = joinURL(base, src)

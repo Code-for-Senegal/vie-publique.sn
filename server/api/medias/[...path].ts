@@ -1,9 +1,9 @@
 /**
  * Proxy handler pour les médias (images, vidéos)
- * Route: /medias/[...path]
- * 
- * URLs SEO-friendly pour les médias
- * Exemple: /medias/photos/actualite-senegal.jpg
+ * Route: /api/medias/[...path]
+ *
+ * URLs SEO-friendly pour les médias (LEGACY - utiliser /cms/ pour les nouveaux assets)
+ * Exemple: /api/medias/photos/actualite-senegal.jpg
  */
 
 export default defineEventHandler(async (event) => {

@@ -25,7 +25,7 @@ export const useCmsImage = (imagePath: string | null | undefined, quality?: numb
   }
 
   // Sinon, c'est un ID du CMS, transformer en URL proxy SEO-friendly
-  let proxyUrl = `/medias/${imagePath}`
+  let proxyUrl = `/cms/${imagePath}`
 
   // Ajouter le paramètre de qualité si fourni
   if (quality) {

@@ -25,7 +25,7 @@ Follow us on our social networks to stay updated:
 
 ## Technical Stack
 
-- **Frontend**: Nuxt.js 3
+- **Frontend**: Nuxt 4
 - **UI Framework**: Nuxt UI
 - **State Management**: Pinia
 - **Styling**: Tailwind CSS
