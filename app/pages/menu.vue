@@ -115,7 +115,7 @@ const links = [
   },
   {
     label: 'Règles de confidentialité',
-    to: '/about/privacy',
+    to: '/a-propos/confidentialite',
   },
   {
     label: 'Recrutement',
@@ -176,6 +176,13 @@ const allNavigationCards: NavigationCard[] = [
     icon: 'i-heroicons-banknotes',
     to: '/budget',
     featureKey: 'menu_budget',
+  },
+  {
+    title: 'Gouvernement du Sénégal',
+    description: 'Composition du gouvernement actuel',
+    icon: 'i-heroicons-building-office',
+    to: '/gouvernement-senegal',
+    featureKey: 'menu_gouvernement',
   },
   {
     title: 'Nominations',
@@ -294,6 +301,9 @@ const cardConfigs: CardConfigs = {
   },
   'Budget du Sénégal': {
     color: 'text-orange-600',
+  },
+  'Gouvernement du Sénégal': {
+    color: 'text-purple-600',
   },
   Chatbot: {
     color: 'text-cyan-600',

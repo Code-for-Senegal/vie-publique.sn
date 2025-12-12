@@ -36,7 +36,7 @@ const stats = computed<PromesseStats>(
         diomaye
       </p>
 
-      <NuxtLink to="/about/barometre">
+      <NuxtLink to="/a-propos/barometre-politique">
         <p class="text-md mt-4 text-gray-500 underline">
           En savoir plus sur la démarche ›
         </p>

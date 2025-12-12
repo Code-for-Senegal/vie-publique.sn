@@ -132,7 +132,7 @@ const filteredSortedContentItems = computed(() => {
 
       <div class="w-full px-4 py-4">
         <NuxtLink
-          to="/about/us"
+          to="/a-propos/qui-sommes-nous"
           class="texte-center mt-2 block text-lg font-normal text-blue-600 underline"
         >
           En savoir plus sur nous

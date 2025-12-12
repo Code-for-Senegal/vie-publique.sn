@@ -135,6 +135,9 @@ export default defineNuxtConfig({
     '/api/**': {
       headers: { 'cache-control': 'no-cache' },
     },
+    // Redirections des anciennes URLs anglaises vers françaises
+    '/about/privacy': { redirect: '/a-propos/confidentialite', prerender: true },
+    '/about/barometre': { redirect: '/a-propos/barometre-politique', prerender: true },
   },
 
   // Optimisations Vite pour le bundling (simplifiées pour éviter les conflits)
@@ -263,6 +266,10 @@ export default defineNuxtConfig({
         {
           from: '/code-senegal',
           to: '/documents/codes',
+        },
+        {
+          from: '/portraits(.*)',
+          to: '/personnalites$1',
         },
         {
           from: '/budget-senegal/2024',
