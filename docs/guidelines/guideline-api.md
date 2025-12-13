@@ -2,6 +2,32 @@
 
 > **Guide complet pour ajouter de nouvelles pages avec collections Directus**
 
+## 📁 Structure du projet
+
+**IMPORTANT** : Ce projet utilise la structure Nuxt avec dossier `app/`
+
+```
+vie-publique.sn/
+├── app/                          ⚠️ Tout le code frontend est ici
+│   ├── components/              ✅ Composants Vue
+│   ├── composables/             ✅ Composables (useDocuments, useNews, etc.)
+│   ├── pages/                   ✅ Pages Vue Router
+│   └── ...
+├── server/                      ✅ Code backend (pas dans app/)
+│   ├── api/                    ✅ Routes API
+│   ├── utils/                  ✅ Utilitaires serveur (cms-client.ts, etc.)
+│   └── ...
+├── composables/                ❌ NE PAS UTILISER (à la racine)
+├── components/                 ❌ NE PAS UTILISER (à la racine)
+└── pages/                      ❌ NE PAS UTILISER (à la racine)
+```
+
+**⚠️ Toujours créer les fichiers dans `app/` et non à la racine** :
+- ✅ `app/composables/useBudget.ts`
+- ❌ `composables/useBudget.ts`
+
+---
+
 ## 🎯 Objectifs de l'architecture
 
 ✅ **Sécurité** : Credentials côté serveur uniquement
@@ -123,7 +149,7 @@ const { items, loading, error, pagination, refresh } = useCmsCollection<Document
 **Responsabilité** : Gérer pagination, recherche, filtres, sync URL
 
 ```typescript
-// ✅ Déjà implémenté dans composables/useCollectionState.ts
+// ✅ Déjà implémenté dans app/composables/useCollectionState.ts
 const state = useCollectionState({
   defaultSort: '-publish_date',
   defaultItemsPerPage: 10,
@@ -158,7 +184,7 @@ Suivez ces étapes pour ajouter une nouvelle collection (ex: `medias`, `nominati
 
 ```typescript
 import { readItems } from "@directus/sdk";
-import { getDirectusClient } from "~/server/utils/directus";
+import { getCmsClient } from "~/server/utils/cms-client";
 
 export default defineCachedEventHandler(
   async (event) => {
@@ -169,7 +195,7 @@ export default defineCachedEventHandler(
     const sortBy = (query.sortBy as string) || "-id";
 
     try {
-      const directus = getDirectusClient();
+      const directus = getCmsClient();
 
       // Construction des filtres
       const filter: any = { status: { _eq: "published" } };
@@ -241,7 +267,7 @@ export default defineCachedEventHandler(
     }
 
     try {
-      const directus = getDirectusClient();
+      const directus = getCmsClient();
       const data = await directus.request(
         readItem("medias", id, {
           fields: ["id", "title", "slug", "content", "cover_image", "date_created"],
@@ -268,7 +294,7 @@ export default defineCachedEventHandler(
 
 ### Étape 2 : Créer le composable métier
 
-📁 `composables/useMedias.ts`
+📁 `app/composables/useMedias.ts` ⚠️ **Important : dans le dossier `app/`**
 
 ```typescript
 export interface Media {
@@ -370,7 +396,7 @@ export const useMedias = (options: MediasOptions = {}) => {
 
 ### Étape 3 : Utiliser dans une page
 
-📁 `pages/medias/index.vue`
+📁 `app/pages/medias/index.vue` ⚠️ **Important : dans le dossier `app/`**
 
 ```vue
 <script setup lang="ts">
@@ -440,7 +466,7 @@ useHead({
 </template>
 ```
 
-📁 `pages/medias/[id]/[slug].vue`
+📁 `app/pages/medias/[id]/[slug].vue`
 
 ```vue
 <script setup lang="ts">

@@ -4,11 +4,11 @@
 
 **Les APIs serveur retournent uniquement des IDs, jamais des URLs complètes.**
 
-Les composables côté client (`useCmsImage`, `useCmsFile`) transforment ces IDs en URLs proxy (`/medias/`, `/docs/`) qui sont ensuite redirigées par Nitro vers le CMS.
+Les composables côté client (`useCmsImage`, `useCmsFile`) transforment ces IDs en URLs proxy (`/cms/`, `/docs/`) qui sont ensuite redirigées par Nitro vers le CMS.
 
 **Architecture :**
 ```
-API Directus → API Serveur Nuxt (retourne ID) → Composable Client (transforme en /medias/ID) → Proxy Nitro → CMS
+API Directus → API Serveur Nuxt (retourne ID) → Composable Client (transforme en /cms/ID ou /docs/ID) → Proxy Nitro → CMS
 ```
 
 ---
@@ -59,9 +59,10 @@ export default defineEventHandler(async (event) => {
 ```
 
 **Résultat** :
+
 - L'API retourne `{ cover_image: "abc-123-def-456" }`
-- Le composable `useCmsImage("abc-123-def-456")` retourne `/medias/abc-123-def-456`
-- Le navigateur charge `/medias/abc-123-def-456`
+- Le composable `useCmsImage("abc-123-def-456")` retourne `/cms/abc-123-def-456`
+- Le navigateur charge `/cms/abc-123-def-456`
 - Le proxy Nitro redirige vers `https://cms.vie-publique.sn/assets/abc-123-def-456`
 
 ---

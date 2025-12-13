@@ -1,0 +1,21 @@
+key,enabled,environments,description
+menu_actualites,true,"[""dev"",""test"",""production""]",Menu Actualités - Toutes les actualités
+menu_documents,true,"[""dev"",""test"",""production""]",Menu Documents - Journal officiel, Codes, Rapports
+menu_annuaire,true,"[""dev"",""test"",""production""]",Menu Annuaire - Nominations, Sites, Medias
+menu_conseil_ministres,true,"[""dev"",""test"",""production""]",Menu Conseil des ministres - Communiqués
+menu_assemblee_nationale,true,"[""dev"",""test"",""production""]",Menu Assemblée Nationale
+menu_journal_officiel,true,"[""dev"",""test"",""production""]",Menu Journal officiel - Lois, Décrets, Arrêtés
+menu_budget,true,"[""dev"",""test"",""production""]",Menu Budget du Sénégal - Transparence finances publiques
+menu_nominations,true,"[""dev"",""test"",""production""]",Menu Nominations - Ministres, DG
+menu_elections,true,"[""dev"",""test"",""production""]",Menu Élections
+menu_chatbot,true,"[""dev"",""test""]",Menu Chatbot - Questions sur documents (beta)
+menu_recherche,true,"[""dev"",""test"",""production""]","Fonctionnalité de recherche (menu, header, page d'accueil)"
+menu_dashboard_conseil,false,"[""dev""]",Menu Dashboard Conseil des Ministres (dev only)
+menu_etat_senegal,true,"[""dev"",""test"",""production""]","Menu État du Sénégal - Fonctionnement, Guide, Institutions"
+menu_organigramme_etat,true,"[""dev"",""test"",""production""]",Menu Organigramme de l'état - Annuaire
+menu_quiz,true,"[""dev"",""test"",""production""]",Menu Quiz - QCM sur institutions publiques
+menu_suivi_promesses,false,"[""dev"",""test""]",Menu Suivi promesses électorales (bientôt disponible)
+menu_don_bictorys,true,"[""dev"",""test"",""production""]",Menu Don avec Bictorys
+menu_don_paydunya,true,"[""dev"",""test"",""production""]",Menu Don avec Paydunya
+social_networks,true,"[""dev"",""test"",""production""]",Affichage des réseaux sociaux (footer mobile)
+footer_links,true,"[""dev"",""test"",""production""]",Affichage des liens footer (À Propos, Contact, etc.)

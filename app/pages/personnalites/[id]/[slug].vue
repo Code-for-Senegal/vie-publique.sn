@@ -1,35 +1,34 @@
 <script setup lang="ts">
-
-const route = useRoute()
-const nominationId = route.params.id as string
+const route = useRoute();
+const nominationId = route.params.id as string;
 
 // Utilisation du composable pour récupérer la nomination
-const { nomination, loading, error } = useNominations({ id: nominationId })
+const { nomination, loading, error } = useNominations({ id: nominationId });
 
 // Utilisation du composable pour les métadonnées
-const { siteName, siteUrl, keywords, themeColor } = useSiteMetadata()
+const { siteName, siteUrl, keywords, themeColor } = useSiteMetadata();
 
 // Computed pour les métadonnées dynamiques
 const title = computed(() =>
   nomination.value
     ? `${nomination.value.name} - ${nomination.value.role} | Vie-Publique.sn`
     : 'Nomination | Vie-Publique.sn',
-)
+);
 
 const description = computed(() => {
-  if (!nomination.value) return 'Détails de la nomination présidentielle'
-  const org = nomination.value.organisation ? ` à ${nomination.value.organisation}` : ''
+  if (!nomination.value) return 'Détails de la nomination présidentielle';
+  const org = nomination.value.organisation ? ` à ${nomination.value.organisation}` : '';
   return nomination.value.description
     ? `${nomination.value.description.substring(0, 155)}...`
-    : `${nomination.value.name} - ${nomination.value.role}${org}. Nomination du président Bassirou Diomaye Faye.`
-})
+    : `${nomination.value.name} - ${nomination.value.role}${org}. Nomination du président Bassirou Diomaye Faye.`;
+});
 
-const url = computed(() => `${siteUrl}/personnalites/${route.params.id}/${route.params.slug}`)
+const url = computed(() => `${siteUrl}/personnalites/${route.params.id}/${route.params.slug}`);
 
 const image = computed(() => {
-  if (!nomination.value?.photo) return `${siteUrl}/nomination-3.png`
-  return useCmsImage(nomination.value.photo)
-})
+  if (!nomination.value?.photo) return `${siteUrl}/nomination-3.png`;
+  return useCmsImage(nomination.value.photo);
+});
 
 // SEO Meta Tags
 useSeoMeta({
@@ -53,11 +52,11 @@ useSeoMeta({
       'Diomaye Faye',
     ].join(', '),
   ),
-})
+});
 
 // Schema.org pour le référencement
 const personSchema = computed(() => {
-  if (!nomination.value) return null
+  if (!nomination.value) return null;
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
@@ -79,8 +78,8 @@ const personSchema = computed(() => {
           name: nomination.value.formation,
         }
       : undefined,
-  }
-})
+  };
+});
 
 const breadcrumbSchema = computed(() => ({
   '@context': 'https://schema.org',
@@ -105,7 +104,7 @@ const breadcrumbSchema = computed(() => ({
       item: url.value,
     },
   ],
-}))
+}));
 
 // Head Configuration
 useHead({
@@ -119,31 +118,31 @@ useHead({
     { name: 'robots', content: 'index, follow' },
   ],
   script: computed(() => {
-    const scripts = []
+    const scripts = [];
     if (personSchema.value) {
       scripts.push({
         type: 'application/ld+json',
         children: JSON.stringify(personSchema.value),
-      })
+      });
     }
     scripts.push({
       type: 'application/ld+json',
       children: JSON.stringify(breadcrumbSchema.value),
-    })
-    return scripts
+    });
+    return scripts;
   }),
-})
+});
 
 // Formatage de la date
 const formatDate = (dateString: string) => {
-  if (!dateString) return 'N/A'
-  const date = new Date(dateString)
+  if (!dateString) return 'N/A';
+  const date = new Date(dateString);
   return new Intl.DateTimeFormat('fr-SN', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-  }).format(date)
-}
+  }).format(date);
+};
 
 // Type labels
 const typeLabels: Record<string, string> = {
@@ -152,28 +151,28 @@ const typeLabels: Record<string, string> = {
   pca: 'PCA',
   sg: 'Secrétaire Général',
   autre: 'Autre',
-}
+};
 
 const getTypeLabel = (type: string | null) => {
-  if (!type) return 'Non spécifié'
-  return typeLabels[type.toLowerCase()] || type
-}
+  if (!type) return 'Non spécifié';
+  return typeLabels[type.toLowerCase()] || type;
+};
 
 // Conserver les query params pour le retour
 const backUrl = computed(() => {
   // Si venu depuis gouvernement, retourner au gouvernement
-  const referer = route.query.ref as string
+  const referer = route.query.ref as string;
   if (referer === 'gouvernement') {
-    return '/gouvernement-senegal'
+    return '/gouvernement-senegal';
   }
   // Sinon retourner aux nominations
-  const query = { ...route.query }
-  delete query.ref // Supprimer le paramètre ref
+  const query = { ...route.query };
+  delete query.ref; // Supprimer le paramètre ref
   return {
     path: '/nomination-senegal',
     query,
-  }
-})
+  };
+});
 </script>
 
 <template>
@@ -191,7 +190,9 @@ const backUrl = computed(() => {
     <UCard v-if="loading" class="custom-shadow">
       <div class="animate-pulse space-y-6">
         <div class="flex flex-col items-center gap-6 md:flex-row md:items-start">
-          <div class="h-48 w-48 flex-shrink-0 rounded-full bg-gray-300 dark:bg-gray-700 md:h-56 md:w-56"></div>
+          <div
+            class="h-48 w-48 flex-shrink-0 rounded-full bg-gray-300 md:h-56 md:w-56 dark:bg-gray-700"
+          ></div>
           <div class="flex-1 space-y-3">
             <div class="h-8 w-3/4 rounded bg-gray-300 dark:bg-gray-700"></div>
             <div class="h-6 w-1/2 rounded bg-gray-200 dark:bg-gray-600"></div>
@@ -231,14 +232,6 @@ const backUrl = computed(() => {
           <p class="mb-3 text-xl text-gray-600 dark:text-gray-400">
             {{ nomination.role }}
           </p>
-          <div class="flex flex-wrap justify-center gap-2 md:justify-start">
-            <UBadge v-if="nomination.type" variant="soft" size="lg">
-              {{ getTypeLabel(nomination.type) }}
-            </UBadge>
-            <UBadge :color="nomination.sexe === 'M' ? 'blue' : 'pink'" variant="soft" size="lg">
-              {{ nomination.sexe === 'Monsieur' ? 'Homme' : 'Femme' }}
-            </UBadge>
-          </div>
         </div>
       </div>
 
@@ -283,7 +276,10 @@ const backUrl = computed(() => {
         <!-- Biographie (HTML depuis Directus) -->
         <div v-if="nomination.bio" class="border-t pt-6">
           <h2 class="mb-4 text-2xl font-bold">Biographie et Parcours</h2>
-          <div class="prose prose-sm dark:prose-invert max-w-none sm:prose" v-html="nomination.bio"></div>
+          <div
+            class="prose prose-sm max-w-none sm:prose dark:prose-invert"
+            v-html="nomination.bio"
+          ></div>
         </div>
 
         <!-- Portrait (texte simple - deprecated, remplacé par bio) -->

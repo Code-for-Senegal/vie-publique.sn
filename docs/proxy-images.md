@@ -7,15 +7,17 @@ Le système de proxy permet de servir les images et documents du CMS avec des UR
 ## 🎯 URLs SEO-Optimisées
 
 ### Structure des URLs
-- **Médias (images, vidéos)** : `/medias/[id-ou-nom-fichier]`
-- **Documents (PDFs, docs)** : `/documents/[id-ou-nom-fichier]`
+- **Médias (images, vidéos)** : `/cms/[id-ou-nom-fichier]`
+- **Documents (PDFs, docs)** : `/docs/[id-ou-nom-fichier]`
 
 ### Exemples d'URLs générées
 ```
 AVANT (technique) :          APRÈS (SEO-friendly) :
-/api/cms-images/abc-123  →   /medias/abc-123
-/api/cms-files/doc.pdf   →   /documents/rapport-budget-2024.pdf
+/api/medias/abc-123      →   /cms/abc-123
+/api/docs/doc.pdf        →   /docs/rapport-budget-2024.pdf
 ```
+
+**⚠️ Note importante** : Les routes `/medias` et `/documents` sont réservées aux **pages Nuxt**, pas aux assets CMS.
 
 ## 🔧 Architecture
 
@@ -26,40 +28,31 @@ export default defineNuxtConfig({
   nitro: {
     // Proxy en développement pour URLs SEO
     devProxy: process.env.CMS_API_URL ? {
-      '/medias': {
+      '/cms': {
         target: `${process.env.CMS_API_URL}/assets`,
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/medias/, '')
+        rewrite: (path) => path.replace(/^\/cms/, '')
       },
-      '/documents': {
+      '/docs': {
         target: `${process.env.CMS_API_URL}/assets`,
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/documents/, '')
-      },
-      // Compatibilité anciennes URLs
-      '/api/cms-images': { /* ... */ },
-      '/api/cms-files': { /* ... */ }
+        rewrite: (path) => path.replace(/^\/docs/, '')
+      }
     } : {}
   },
-  
+
   // Routes proxy pour la production
   routeRules: {
-    '/medias/**': { 
-      proxy: { 
-        to: 'https://cms.vie-publique.sn/assets/**',
-        headers: {
-          'accept': 'image/*',
-          'cache-control': 'max-age=31536000'
-        }
+    '/cms/**': {
+      proxy: 'https://cms.vie-publique.sn/assets/**',
+      headers: {
+        'cache-control': 'max-age=31536000, immutable'
       }
     },
-    '/documents/**': { 
-      proxy: { 
-        to: 'https://cms.vie-publique.sn/assets/**',
-        headers: {
-          'accept': 'application/pdf,application/*',
-          'cache-control': 'max-age=86400'
-        }
+    '/docs/**': {
+      proxy: 'https://cms.vie-publique.sn/assets/**',
+      headers: {
+        'cache-control': 'max-age=86400'
       }
     }
   },
@@ -67,15 +60,15 @@ export default defineNuxtConfig({
   image: {
     providers: {
       cms: {
-        provider: '~/providers/cms-image.ts',
+        provider: './app/providers/cms-image.ts',
         options: {
-          baseURL: '/api/cms-images'
+          baseURL: '/cms'
         }
       }
     },
     domains: ['localhost', 'vie-publique.sn'],
     alias: {
-      cms: '/medias'
+      cms: '/cms'
     }
   }
 })
@@ -83,15 +76,16 @@ export default defineNuxtConfig({
 
 ### Routes API Serveur
 
-#### Médias (`server/api/medias/[...path].ts`)
-#### Documents (`server/api/documents/[...path].ts`)
-#### Compatibilité (`server/api/cms-images/[...path].ts`, `server/api/cms-files/[...path].ts`)
+#### Médias (`server/api/medias/[...path].ts`) - LEGACY
+#### Documents (`server/api/docs/[...path].ts`)
+
+**Note** : Les routes API `/api/medias/` et `/api/docs/` existent toujours pour compatibilité, mais les nouveaux assets utilisent directement les proxys Nitro `/cms/` et `/docs/`.
 
 ```typescript
 export default defineEventHandler(async (event) => {
   const path = getRouterParam(event, 'path') || ''
   const quality = getQuery(event).quality as string | undefined
-  
+
   // Configuration dynamique de l'URL CMS
   let targetUrl = ''
   if (process.env.CMS_API_URL_ASSETS) {
@@ -99,18 +93,18 @@ export default defineEventHandler(async (event) => {
   } else if (process.env.CMS_API_URL) {
     targetUrl = `${process.env.CMS_API_URL}/assets/${path}`
   }
-  
+
   // Support des transformations Directus
   if (quality) {
     targetUrl += `?quality=${quality}`
   }
-  
+
   // Proxy avec cache optimisé
   const response = await $fetch.raw(targetUrl)
   setHeaders(event, {
     'Cache-Control': 'public, max-age=31536000, immutable'
   })
-  
+
   return response._data
 })
 ```
@@ -122,15 +116,15 @@ export default defineEventHandler(async (event) => {
 ```typescript
 // Sans transformation
 const imageUrl = useCmsImage('image-id-123')
-// Résultat: /medias/image-id-123
+// Résultat: /cms/image-id-123
 
 // Avec qualité
 const imageUrl = useCmsImage('image-id-123', 70)
-// Résultat: /medias/image-id-123?quality=70
+// Résultat: /cms/image-id-123?quality=70
 
 // URL absolue (pour meta tags)
 const absoluteUrl = useCmsImageAbsolute('image-id-123', 80)
-// Résultat: https://vie-publique.sn/medias/image-id-123?quality=80
+// Résultat: https://vie-publique.sn/cms/image-id-123?quality=80
 ```
 
 ### 1b. Composables pour documents `useCmsFile()`
@@ -138,11 +132,11 @@ const absoluteUrl = useCmsImageAbsolute('image-id-123', 80)
 ```typescript
 // Fichier PDF
 const pdfUrl = useCmsFile('rapport-2024.pdf')
-// Résultat: /documents/rapport-2024.pdf
+// Résultat: /docs/rapport-2024.pdf
 
 // UUID Directus
 const docUrl = useCmsFile('abc-123-def-456')
-// Résultat: /documents/abc-123-def-456
+// Résultat: /docs/abc-123-def-456
 
 // Ouvrir dans un nouvel onglet
 openCmsFile('rapport.pdf', 'Rapport Budget 2024')
@@ -156,14 +150,14 @@ downloadCmsFile('document.pdf', 'Mon Document.pdf')
 ```vue
 <template>
   <!-- Usage basique -->
-  <CmsImage 
+  <CmsImage
     :src="article.cover_image"
     :alt="article.title"
     class="w-full object-cover"
   />
 
   <!-- Avec qualité personnalisée -->
-  <CmsImage 
+  <CmsImage
     :src="article.cover_image"
     :alt="article.title"
     :quality="70"
@@ -171,7 +165,7 @@ downloadCmsFile('document.pdf', 'Mon Document.pdf')
   />
 
   <!-- Avec fallback personnalisé -->
-  <CmsImage 
+  <CmsImage
     :src="article.cover_image"
     :alt="article.title"
     :fallback="'/custom-placeholder.jpg'"
@@ -179,7 +173,7 @@ downloadCmsFile('document.pdf', 'Mon Document.pdf')
   />
 
   <!-- Désactiver le proxy (pour URLs externes) -->
-  <CmsImage 
+  <CmsImage
     :src="externalImageUrl"
     :use-proxy="false"
     class="w-full object-cover"
@@ -204,7 +198,7 @@ downloadCmsFile('document.pdf', 'Mon Document.pdf')
 ### 3. NuxtImg avec provider
 
 ```vue
-<NuxtImg 
+<NuxtImg
   provider="cms"
   :src="article.cover_image"
   :quality="70"
@@ -215,7 +209,7 @@ downloadCmsFile('document.pdf', 'Mon Document.pdf')
 ### 4. Image HTML normale
 
 ```vue
-<img 
+<img
   :src="useCmsImage(article.cover_image, 60)"
   :alt="article.title"
   class="w-full object-cover"
@@ -314,16 +308,19 @@ const pdfUrl = computed(() => {
 - **Variables d'environnement dynamiques** : Plus d'URLs en dur
 
 ### 🎯 Simplicité d'utilisation
+
 - **Composant unifié `CmsImage`** : Remplacement direct de `<img>`
 - **Migration facile** : Remplace `getAssetUrl()`, `$directusImageUrl()`, etc.
 - **Compatible avec NuxtImg** : Provider personnalisé sans conflit IPX
-- **URLs SEO-friendly** : `/medias/` et `/documents/` au lieu de `/api/cms-*`
+- **URLs SEO-friendly** : `/cms/` et `/docs/` au lieu de `/api/*`
 
 ### 🌍 SEO et UX
-- **URLs descriptives** : `/medias/photo.jpg` au lieu de `/api/cms-images/uuid`
+
+- **URLs descriptives** : `/cms/photo.jpg` au lieu de `/api/medias/uuid`
 - **Partage social amélioré** : URLs plus engageantes sur les réseaux
 - **Indexation optimisée** : Moteurs de recherche préfèrent les URLs sémantiques
 - **Expérience utilisateur** : URLs compréhensibles dans la barre d'adresse
+- **Pas de conflit** : `/medias` et `/documents` réservés aux pages
 
 ### 🔄 Maintenabilité
 - **Code unifié** : Un seul système pour tous les assets
@@ -337,7 +334,7 @@ const pdfUrl = computed(() => {
 # Option 1: URL spécifique assets (RECOMMANDÉE)
 CMS_API_URL_ASSETS=https://cms.vie-publique.sn/assets
 
-# Option 2: URL base + /assets automatique  
+# Option 2: URL base + /assets automatique
 CMS_API_URL=https://cms.vie-publique.sn
 
 # Nuxt public (pour les composables côté client)
@@ -353,7 +350,7 @@ NUXT_PUBLIC_CMS_API_URL=https://cms.vie-publique.sn
 CMS_API_URL_ASSETS=https://cms.vie-publique.sn/assets
 CMS_API_URL=https://cms.vie-publique.sn
 
-❌ INCORRECT  
+❌ INCORRECT
 CMS_API_URL_ASSETS=https://cms.vie-publique.sn/assets/
 CMS_API_URL=https://cms.vie-publique.sn/
 ```
@@ -374,18 +371,22 @@ Cette convention évite les problèmes de doubles slashes et simplifie le code.
 ## 📋 Checklist de migration complétée
 
 ✅ **Configuration Nuxt** :
-- Variables d'environnement dynamiques dans `routeRules`
-- Suppression des anciennes routes de compatibilité
-- Proxy unifié pour `/medias/` et `/documents/`
 
-✅ **Routes serveur supprimées** :
-- `server/api/cms-images/` 
-- `server/api/cms-files/`
+- Variables d'environnement dynamiques dans `routeRules`
+- Migration `/medias` → `/cms` pour éviter conflits avec pages
+- Migration `/documents` → `/docs` pour cohérence
+- Proxy unifié pour `/cms/` et `/docs/`
+
+✅ **Routes serveur** :
+
+- `server/api/medias/` - Conservé pour compatibilité (LEGACY)
+- `server/api/docs/` - Route active pour documents
 
 ✅ **Composables mis à jour** :
-- `useCmsImage()` utilise `/medias/`
-- `useCmsFile()` utilise `/documents/`
-- Provider NuxtImg mis à jour
+
+- `useCmsImage()` utilise `/cms/`
+- `useCmsFile()` utilise `/docs/`
+- Provider NuxtImg mis à jour avec baseURL `/cms`
 
 ✅ **Pages migrées** :
 - `pages/documents/[id]/[slug].vue`
@@ -402,10 +403,12 @@ Cette convention évite les problèmes de doubles slashes et simplifie le code.
 ## 🎯 Optimisation SEO des UUIDs Directus
 
 ### Problématique actuelle
+
 Directus utilise des UUIDs pour les fichiers, ce qui génère des URLs peu SEO-friendly :
+
 ```
-❌ /medias/d461072d-5f9e-432a-a905-d5cbfa236e0a
-❌ /documents/abc-123-def-456-789
+❌ /cms/d461072d-5f9e-432a-a905-d5cbfa236e0a
+❌ /docs/abc-123-def-456-789
 ```
 
 ### Solutions d'optimisation
@@ -453,7 +456,7 @@ const getSeoFilename = (file) => {
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '')
-    
+
     const extension = file.filename_download?.split('.').pop() || 'jpg'
     return `${slug}.${extension}`
   }
@@ -472,7 +475,7 @@ export default ({ action }, { services, database }) => {
       const slug = payload.title
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, '-')
-      
+
       await database('directus_files')
         .where('id', payload.id)
         .update({ seo_filename: `${slug}.${payload.type.split('/')[1]}` })
@@ -482,10 +485,11 @@ export default ({ action }, { services, database }) => {
 ```
 
 ### URLs résultantes optimisées
+
 ```
-✅ /medias/rapport-budget-senegal-2024.pdf
-✅ /documents/strategie-nationale-numerique.pdf
-✅ /medias/photo-assemblee-nationale-seance.jpg
+✅ /docs/rapport-budget-senegal-2024.pdf
+✅ /docs/strategie-nationale-numerique.pdf
+✅ /cms/photo-assemblee-nationale-seance.jpg
 ```
 
 ### Impact SEO attendu
