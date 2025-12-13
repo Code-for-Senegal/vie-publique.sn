@@ -51,7 +51,7 @@ export default defineCachedEventHandler(
     }
   },
   {
-    maxAge: process.env.NODE_ENV === 'production' ? 24 * 60 * 60 : 0, // 24h en prod, pas de cache en dev
+    maxAge: process.env.NODE_ENV === 'production' ? 5 * 60 : 0, // 24h en prod, pas de cache en dev
     name: 'budget-glossary',
     getKey: () => 'budget-glossary-all',
   },

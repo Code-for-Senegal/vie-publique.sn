@@ -135,6 +135,8 @@ export default defineNuxtConfig({
     '/api/**': {
       headers: { 'cache-control': 'no-cache' },
     },
+    // Redirections SEO
+    '/budget': { redirect: { to: '/budget-senegal', statusCode: 301 }, prerender: true },
     // Redirections des anciennes URLs anglaises vers françaises
     '/about/privacy': { redirect: '/a-propos/confidentialite', prerender: true },
     '/about/barometre': { redirect: '/a-propos/barometre-politique', prerender: true },
