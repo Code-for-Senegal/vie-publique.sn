@@ -36,7 +36,7 @@ const links = [
   },
   {
     label: "Règles de confidentialité",
-    to: "/about/privacy",
+    to: "/a-propos/confidentialite",
   },
   {
     label: "Recrutement",

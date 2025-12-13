@@ -1,9 +1,9 @@
 /**
  * Proxy handler pour les documents (PDFs, Word, Excel, etc.)
- * Route: /documents/[...path]
- * 
+ * Route: /api/docs/[...path]
+ *
  * URLs SEO-friendly pour les documents
- * Exemple: /documents/rapports/rapport-annuel-2024.pdf
+ * Exemple: /api/docs/rapports/rapport-annuel-2024.pdf
  */
 
 export default defineEventHandler(async (event) => {

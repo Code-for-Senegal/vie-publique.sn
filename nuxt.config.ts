@@ -106,15 +106,15 @@ export default defineNuxtConfig({
     // Configuration proxy pour les images et fichiers en développement
     devProxy: process.env.CMS_API_URL
       ? {
-          '/medias': {
+          '/cms': {
             target: `${process.env.CMS_API_URL}/assets`,
             changeOrigin: true,
-            rewrite: (path) => path.replace(/^\/medias/, ''),
+            rewrite: (path) => path.replace(/^\/cms/, ''),
           },
-          '/documents': {
+          '/docs': {
             target: `${process.env.CMS_API_URL}/assets`,
             changeOrigin: true,
-            rewrite: (path) => path.replace(/^\/documents/, ''),
+            rewrite: (path) => path.replace(/^\/docs/, ''),
           },
         }
       : {},
@@ -123,7 +123,7 @@ export default defineNuxtConfig({
   // Configuration hybride : routeRules + fallback API
   routeRules: {
     // Essayer routeRules en premier
-    '/medias/**': {
+    '/cms/**': {
       proxy: `https://cms.vie-publique.sn/assets/**`,
       headers: { 'cache-control': 'max-age=31536000, immutable' },
     },
@@ -135,6 +135,9 @@ export default defineNuxtConfig({
     '/api/**': {
       headers: { 'cache-control': 'no-cache' },
     },
+    // Redirections des anciennes URLs anglaises vers françaises
+    '/about/privacy': { redirect: '/a-propos/confidentialite', prerender: true },
+    '/about/barometre': { redirect: '/a-propos/barometre-politique', prerender: true },
   },
 
   // Optimisations Vite pour le bundling (simplifiées pour éviter les conflits)
@@ -221,6 +224,9 @@ export default defineNuxtConfig({
       fbPixelId: process.env.FACEBOOK_PIXEL_ID || '',
       maintenanceMode: process.env.NUXT_PUBLIC_MAINTENANCE_MODE === 'true',
       bictorysPublicKey: process.env.BICTORYS_PUBLIC_KEY,
+      // Feature Flags
+      appEnv: process.env.NUXT_PUBLIC_APP_ENV || 'production',
+      featureFlagsEnabled: process.env.NUXT_FEATURE_FLAGS_ENABLED !== 'false',
       // Informations de version de l'application
       appVersion: packageJson.version,
       buildTime: buildTime,
@@ -260,6 +266,10 @@ export default defineNuxtConfig({
         {
           from: '/code-senegal',
           to: '/documents/codes',
+        },
+        {
+          from: '/portraits(.*)',
+          to: '/personnalites$1',
         },
         {
           from: '/budget-senegal/2024',
@@ -465,7 +475,7 @@ export default defineNuxtConfig({
       cms: {
         provider: './app/providers/cms-image.ts',
         options: {
-          baseURL: '/medias',
+          baseURL: '/cms',
         },
       },
     },
@@ -473,7 +483,7 @@ export default defineNuxtConfig({
     domains: ['localhost', 'vie-publique.sn'],
     // Alias pour simplifier l'usage
     alias: {
-      cms: '/medias',
+      cms: '/cms',
     },
     directus: {
       // This URL needs to include the final `assets/` directory

@@ -23,6 +23,7 @@ export default defineCachedEventHandler(
             fields: [
               "id",
               "name",
+              "slug",
               "sexe",
               "type",
               "role",
@@ -33,7 +34,7 @@ export default defineCachedEventHandler(
               "formation",
               "predecessor",
               "rating",
-              "description",
+              "bio",
             ],
           }),
         )
@@ -45,10 +46,11 @@ export default defineCachedEventHandler(
           });
         });
 
-      // Transformation des données
+      // Transformation des données avec génération du slug si nécessaire
       const transformedNomination: GovernmentMember = {
         id: nominationData.id,
         name: nominationData.name,
+        slug: nominationData.slug || generateSlugFromName(nominationData.name),
         sexe: nominationData.sexe,
         type: nominationData.type || null,
         role: nominationData.role,
@@ -59,8 +61,8 @@ export default defineCachedEventHandler(
         formation: nominationData.formation || null,
         predecessor: nominationData.predecessor || null,
         rating: nominationData.rating || null,
-        portrait: null, // TODO: Ajouter ce champ dans Directus si nécessaire
-        description: nominationData.description || null,
+        portrait: null,
+        bio: nominationData.bio || null,
       };
 
       return {

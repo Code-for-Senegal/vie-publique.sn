@@ -37,7 +37,7 @@
 
     <p class="mt-4 text-sm text-gray-500">Mis à jour le 17 Aout 2024</p>
 
-    <NuxtLink to="/about/barometre">
+    <NuxtLink to="/a-propos/barometre-politique">
       <p class="text-md mt-4 text-gray-500 underline">
         En savoir plus sur la démarche ›
       </p>

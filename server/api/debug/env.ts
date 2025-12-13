@@ -34,9 +34,9 @@ export default defineEventHandler(async (event) => {
       hasTrailingSlash: process.env.CMS_API_URL_ASSETS?.endsWith('/') || false
     },
     testUrls: {
-      proxyImage: `/medias/${testPath}`,
+      proxyImage: `/cms/${testPath}`,
       directCMS: constructedUrl,
-      qualityTest: `/medias/${testPath}?quality=50`
+      qualityTest: `/cms/${testPath}?quality=50`
     }
   }
 })

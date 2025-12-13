@@ -1,0 +1,3 @@
+key,enabled,environments,description
+home_search_bar,true,"[""dev"",""test"",""production""]",Barre de recherche sur la page d'accueil
+header_search_button,true,"[""dev"",""test"",""production""]",Bouton de recherche dans le header
