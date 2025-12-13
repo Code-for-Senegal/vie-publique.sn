@@ -327,7 +327,6 @@ watch([filterType, filterGender], () => {
                     <img
                       v-if="minister.photo"
                       :src="useCmsImage(minister.photo)"
-                      :src="useCmsImage(nomination.photo)"
                       :alt="minister.name"
                       sizes="64px sm:80px"
                       class="h-full w-full rounded-full object-cover"
