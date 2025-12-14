@@ -1,5 +1,8 @@
 <template>
-  <section v-if="isFeatureEnabled('menu_recherche')" class="pb-4 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+  <section
+    v-if="isFeatureEnabled('menu_recherche')"
+    class="dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
+  >
     <!-- Barre de recherche principale style Google/ChatGPT -->
     <div class="flex justify-center">
       <div class="w-full sm:max-w-2xl">

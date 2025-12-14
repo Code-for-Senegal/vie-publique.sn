@@ -161,6 +161,7 @@ export function useNavigationCards() {
   };
 
   // Fonctions pour HomeQuickAccess - Couleurs des icônes
+  // deprecated
   const getQuickAccessIconColor = (title: string): string => {
     const colors: Record<string, string> = {
       Assemblée: 'text-blue-600 dark:text-blue-400',

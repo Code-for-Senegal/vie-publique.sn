@@ -346,7 +346,7 @@ export default defineNuxtConfig({
   },
   css: ['~/assets/css/app.css'],
   colorMode: {
-    preference: 'dark', // default value of $nuxt.colorMode.preference
+    preference: 'light', // default value of $nuxt.colorMode.preference
   },
   tailwindcss: {
     configPath: './tailwind.config.ts',
@@ -474,7 +474,7 @@ export default defineNuxtConfig({
       },
     },
     // Domaines autorisés pour l'optimisation
-    domains: ['localhost', 'vie-publique.sn'],
+    domains: ['localhost', 'vie-publique.sn', 'www.vie-publique.sn'],
     // Alias pour simplifier l'usage
     alias: {
       cms: '/cms',
