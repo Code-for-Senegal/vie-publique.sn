@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Toaster, toast } from "vue-sonner";
+import { Toaster, toast } from 'vue-sonner';
 
 // Configuration SEO selon l'environnement
 const config = useRuntimeConfig();
@@ -18,88 +18,86 @@ if (!isProduction) {
 
 // Appliquer le middleware globalement
 definePageMeta({
-  middleware: ["maintenance"],
+  middleware: ['maintenance'],
 });
 
-const isChatPage = ref(useRoute().path === "/chatbot");
+const isChatPage = ref(useRoute().path === '/chatbot');
 watch(
   () => useRoute().path,
   (newPath) => {
-    isChatPage.value = newPath === "/chatbot";
+    isChatPage.value = newPath === '/chatbot';
   },
 );
 const links = [
   {
-    label: "Accueil",
-    icon: "i-heroicons-home",
-    to: "/",
+    label: 'Accueil',
+    icon: 'i-heroicons-home',
+    to: '/',
   },
   {
-    label: "Actualités",
-    description: "Communiqués, Annonces, Articles",
-    photo: "/unknown_member.webp",
-    icon: "i-heroicons-newspaper",
-    to: "/actualites",
+    label: 'Actualités',
+    description: 'Communiqués, Annonces, Articles',
+    photo: '/unknown_member.webp',
+    icon: 'i-heroicons-newspaper',
+    to: '/actualites',
   },
   {
-    label: "Assemblée",
+    label: 'Assemblée',
     description: "Suivez l'activité parlementaire",
-    icon: "i-heroicons-building-library",
-    to: "/assemblee-nationale",
+    icon: 'i-heroicons-building-library',
+    to: '/assemblee-nationale',
   },
   {
-    label: "Annuaires",
-    description: "Gouvernement, Sites Web, Justice...",
-    icon: "i-heroicons-identification",
-    to: "/annuaires",
+    label: 'Budget',
+    description: 'Analyse et suivi du budget sénégalais',
+    icon: 'i-heroicons-currency-dollar',
+    to: '/budget-senegal',
   },
   {
-    label: "Documents",
-    description: "Journal officiel, Codes, Rapports OFNAC Cour des comptes...",
-    icon: "i-heroicons-rectangle-stack",
-    to: "/documents",
+    label: 'Documents',
+    description: 'Journal officiel, Codes, Rapports OFNAC Cour des comptes...',
+    icon: 'i-heroicons-rectangle-stack',
+    to: '/documents',
   },
   {
-    label: "Menu",
-    description: "",
-    icon: "i-heroicons-bars-3",
-    to: "/menu",
+    label: 'Menu',
+    description: '',
+    icon: 'i-heroicons-bars-3',
+    to: '/menu',
   },
 ];
 
 onMounted(() => {
   // Service Worker uniquement en production
-  if (import.meta.client && config.public.nodeEnv === 'production' && "serviceWorker" in navigator) {
-    navigator.serviceWorker.addEventListener("controllerchange", () => {});
+  if (
+    import.meta.client &&
+    config.public.nodeEnv === 'production' &&
+    'serviceWorker' in navigator
+  ) {
+    navigator.serviceWorker.addEventListener('controllerchange', () => {});
 
     navigator.serviceWorker.ready.then((registration) => {
       // Vérifier si une mise à jour est disponible immédiatement
       if (registration.waiting) {
-        toast("Nouvelle version trouvée. Actualiser pour mettre à jour.", {
+        toast('Nouvelle version trouvée. Actualiser pour mettre à jour.', {
           action: {
-            label: "Recharger",
+            label: 'Recharger',
             onClick: () => location.reload(),
           },
         });
       }
 
-      registration.addEventListener("updatefound", () => {
+      registration.addEventListener('updatefound', () => {
         const newWorker = registration.installing;
         if (newWorker) {
-          newWorker.addEventListener("statechange", () => {
-            if (
-              newWorker.state === "installed" &&
-              navigator.serviceWorker.controller
-            ) {
-              toast(
-                "Nouvelle version trouvée. Actualiser pour mettre à jour.",
-                {
-                  action: {
-                    label: "Recharger",
-                    onClick: () => location.reload(),
-                  },
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              toast('Nouvelle version trouvée. Actualiser pour mettre à jour.', {
+                action: {
+                  label: 'Recharger',
+                  onClick: () => location.reload(),
                 },
-              );
+              });
             }
           });
         }
@@ -139,13 +137,13 @@ onMounted(() => {
 <style>
 nav ul li a span {
   text-transform: capitalize;
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 500;
 }
 
 /* Style global pour la police du menu */
 nav ul li a span {
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 500;
 }
 </style>

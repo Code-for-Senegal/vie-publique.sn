@@ -189,6 +189,9 @@ const { navigationCards } = useNavigationCards();
 
     <HomeQuickAccess :navigation-cards="navigationCards" />
 
+    <!-- Mise en avant du nouveau dashboard budget -->
+    <HomeBudgetHighlight />
+
     <div class="">
       <div class="my-8">
         <HomeNews />
