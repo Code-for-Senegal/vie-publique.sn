@@ -1,11 +1,11 @@
 <script setup lang="ts">
-const { siteName, siteUrl, keywords, themeColor } = useSiteMetadata()
+const { siteName, siteUrl, keywords, themeColor } = useSiteMetadata();
 
-const title = 'Nominations du Président Diomaye Faye | Annuaire Sénégal'
+const title = 'Nominations du Président Diomaye Faye | Annuaire Sénégal';
 const description =
-  'Liste complète des nominations du président Bassirou Diomaye Faye au Sénégal. Ministres, Directeurs généraux, PCA et toutes les nominations officielles.'
-const url = `${siteUrl}/nomination-senegal`
-const image = `${siteUrl}/nomination-3.png`
+  'Liste complète des nominations du président Bassirou Diomaye Faye au Sénégal. Ministres, Directeurs généraux, PCA et toutes les nominations officielles.';
+const url = `${siteUrl}/nomination-senegal`;
+const image = `${siteUrl}/nomination-3.png`;
 
 const nominationsSchema = {
   '@context': 'https://schema.org',
@@ -35,7 +35,7 @@ const nominationsSchema = {
     name: 'Nominations présidentielles Sénégal',
     description: 'Liste des nominations officielles du président Diomaye Faye',
   },
-}
+};
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -60,7 +60,7 @@ const breadcrumbSchema = {
       item: url,
     },
   ],
-}
+};
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -83,7 +83,7 @@ const organizationSchema = {
     '@type': 'Country',
     name: 'Sénégal',
   },
-}
+};
 
 // SEO Meta Tags
 useSeoMeta({
@@ -108,7 +108,7 @@ useSeoMeta({
     'nouveau gouvernement sénégalais',
     'conseil des ministres',
   ].join(', '),
-})
+});
 
 useHead({
   htmlAttrs: { lang: 'fr-SN' },
@@ -138,10 +138,10 @@ useHead({
       children: JSON.stringify(organizationSchema),
     },
   ],
-})
+});
 
-const { $dateformat } = useNuxtApp()
-const route = useRoute()
+const { $dateformat } = useNuxtApp();
+const route = useRoute();
 
 const {
   nominations,
@@ -159,7 +159,7 @@ const {
   setSearchQuery,
   setFilterType,
   setFilterGender,
-} = useNominations()
+} = useNominations();
 
 // Fonction pour créer l'URL vers détails en gardant les filtres actuels
 const getDetailUrl = (minister: any) => {
@@ -168,28 +168,28 @@ const getDetailUrl = (minister: any) => {
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
+    .replace(/^-+|-+$/g, '');
 
   // Récupère les query params actuels
-  const query = { ...route.query }
+  const query = { ...route.query };
 
   return {
-    path: `/nomination-senegal/${minister.id}/${slug}`,
-    query
-  }
-}
+    path: `/personnalites/${minister.id}/${slug}`,
+    query,
+  };
+};
 
 // Reset de la page lors du changement de recherche
 watch(searchQuery, () => {
-  filterType.value = 'all'
-  filterGender.value = 'all'
-  currentPage.value = 1
-})
+  filterType.value = 'all';
+  filterGender.value = 'all';
+  currentPage.value = 1;
+});
 
 // Reset de la page lors du changement de filtres
 watch([filterType, filterGender], () => {
-  currentPage.value = 1
-})
+  currentPage.value = 1;
+});
 </script>
 
 <template>
@@ -199,7 +199,7 @@ watch([filterType, filterGender], () => {
       ministres, Liste des ministres du Sénégal,
     </h1>
     <div class="container">
-      <div class="prose prose-sm sm:prose my-2">
+      <div class="prose prose-sm my-2 sm:prose">
         <h1 class="dark:text-white">
           {{ totalsByGender.maleCount + totalsByGender.femaleCount }} Nominations
           <!--du président Diomaye-->
@@ -287,15 +287,11 @@ watch([filterType, filterGender], () => {
         <div class="space-y-2 lg:col-span-3">
           <!-- État de chargement - Skeleton loaders -->
           <template v-if="loading">
-            <UCard
-              v-for="i in 5"
-              :key="`skeleton-${i}`"
-              class="custom-shadow"
-            >
-              <div class="flex flex-row gap-2 animate-pulse">
+            <UCard v-for="i in 5" :key="`skeleton-${i}`" class="custom-shadow">
+              <div class="flex animate-pulse flex-row gap-2">
                 <!-- Skeleton photo -->
                 <div
-                  class="h-16 w-16 flex-shrink-0 rounded-full bg-gray-300 dark:bg-gray-700 md:h-20 md:w-20"
+                  class="h-16 w-16 flex-shrink-0 rounded-full bg-gray-300 md:h-20 md:w-20 dark:bg-gray-700"
                 ></div>
                 <!-- Skeleton texte -->
                 <div class="flex-grow space-y-2">

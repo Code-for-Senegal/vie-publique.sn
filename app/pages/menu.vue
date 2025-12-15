@@ -174,7 +174,7 @@ const allNavigationCards: NavigationCard[] = [
     title: 'Budget du Sénégal',
     description: 'Transparence des finances publiques',
     icon: 'i-heroicons-banknotes',
-    to: '/budget',
+    to: '/budget-senegal',
     featureKey: 'menu_budget',
   },
   {

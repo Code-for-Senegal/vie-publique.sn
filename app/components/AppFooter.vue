@@ -6,45 +6,45 @@ const { fullVersion } = useAppVersion();
 
 const linksSocial = [
   {
-    label: "Linkedin",
-    to: "https://www.linkedin.com/company/vie-publique-sn",
-    icon: "i-simple-icons-linkedin", // Exemple d'icône, peut être ajusté selon votre bibliothèque d'icônes
+    label: 'Linkedin',
+    to: 'https://www.linkedin.com/company/vie-publique-sn',
+    icon: 'i-simple-icons-linkedin', // Exemple d'icône, peut être ajusté selon votre bibliothèque d'icônes
   },
   {
-    label: "Twitter",
-    to: "https://twitter.com/ViePubliqueSN",
-    icon: "i-simple-icons-x",
+    label: 'Twitter',
+    to: 'https://twitter.com/ViePubliqueSN',
+    icon: 'i-simple-icons-x',
   },
   {
-    label: "Facebook",
-    to: "https://www.facebook.com/ViePubliqueSenegal",
-    icon: "i-simple-icons-facebook",
+    label: 'Facebook',
+    to: 'https://www.facebook.com/ViePubliqueSenegal',
+    icon: 'i-simple-icons-facebook',
   },
 ];
 const links = [
   {
-    label: "À Propos",
-    to: "/a-propos/qui-sommes-nous",
+    label: 'À Propos',
+    to: '/a-propos/qui-sommes-nous',
   },
   {
-    label: "Contact",
-    to: "/contact",
+    label: 'Contact',
+    to: '/contact',
   },
   {
-    label: "Newsletter",
-    to: "/newsletter",
+    label: 'Newsletter',
+    to: '/newsletter',
   },
   {
-    label: "Règles de confidentialité",
-    to: "/a-propos/confidentialite",
+    label: 'Règles de confidentialité',
+    to: '/a-propos/confidentialite',
   },
+  // {
+  //   label: "Recrutement",
+  //   to: "/a-propos/recrutement",
+  // },
   {
-    label: "Recrutement",
-    to: "/a-propos/recrutement",
-  },
-  {
-    label: "Partenariat",
-    to: "/a-propos/travailler-avec-nous",
+    label: 'Partenariat',
+    to: '/a-propos/travailler-avec-nous',
   },
 ];
 </script>
@@ -68,9 +68,7 @@ const links = [
     </div>
 
     <!-- Footer Links Row -->
-    <div
-      class="flex flex-col items-center justify-center gap-4 md:flex-row lg:gap-6"
-    >
+    <div class="flex flex-col items-center justify-center gap-4 md:flex-row lg:gap-6">
       <ul class="flex flex-col items-center gap-4 md:flex-row lg:gap-6">
         <li v-for="link in links" :key="link.label">
           <ULink

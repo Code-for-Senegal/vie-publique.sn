@@ -43,7 +43,6 @@ export default defineNuxtConfig({
   // Optimiser les modules
   modules: [
     // Garder seulement les modules essentiels
-    '@nuxt/content',
     '@nuxt/ui',
     '@nuxt/image',
     '@pinia/nuxt',

@@ -33,7 +33,6 @@ cd test/locust && locust       # Run load tests (Python required)
 - **Framework**: Nuxt 3 with Vue 3, server-side rendering
 - **UI**: Nuxt UI + Tailwind CSS
 - **State**: Pinia stores in `/stores/`
-- **Content**: @nuxt/content for static pages + Directus CMS integration
 - **Type Safety**: TypeScript with types in `/types/`
 
 ### Key Architectural Decisions
@@ -49,11 +48,7 @@ cd test/locust && locust       # Run load tests (Python required)
    - **CMS Asset Proxy** (`/medias/*`, `/documents/*`) - SEO-friendly proxy to CMS
    - External service proxies (Twitter, data.gouv.sn)
 
-4. **Content Management**: Dual approach with:
-   - Static markdown in `/content/` for pages
-   - Directus CMS integration for dynamic content
-
-5. **Type Definitions**: Centralized in `/types/` with separate files for each domain (assembly.ts, budget.ts, election.ts).
+4. **Type Definitions**: Centralized in `/types/` with separate files for each domain (assembly.ts, budget.ts, election.ts).
 
 ### Environment Configuration
 

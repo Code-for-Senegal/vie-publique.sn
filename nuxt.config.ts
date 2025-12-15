@@ -135,6 +135,9 @@ export default defineNuxtConfig({
     '/api/**': {
       headers: { 'cache-control': 'no-cache' },
     },
+    // Redirections SEO
+    '/budget': { redirect: { to: '/budget-senegal', statusCode: 301 }, prerender: true },
+    '/publications/**': { redirect: { to: '/actualites', statusCode: 301 }, prerender: true },
     // Redirections des anciennes URLs anglaises vers françaises
     '/about/privacy': { redirect: '/a-propos/confidentialite', prerender: true },
     '/about/barometre': { redirect: '/a-propos/barometre-politique', prerender: true },
@@ -171,7 +174,6 @@ export default defineNuxtConfig({
   ssr: true,
   modules: [
     '@nuxt/ui',
-    '@nuxt/content',
     'nuxt-gtag',
     '@nuxtjs/seo',
     // '@nuxtjs/web-vitals', // Temporairement désactivé - incompatible avec Nuxt 4
@@ -344,19 +346,11 @@ export default defineNuxtConfig({
   },
   css: ['~/assets/css/app.css'],
   colorMode: {
-    preference: 'dark', // default value of $nuxt.colorMode.preference
+    preference: 'light', // default value of $nuxt.colorMode.preference
   },
   tailwindcss: {
     configPath: './tailwind.config.ts',
     quiet: true, // Supprime les warnings
-  },
-  content: {
-    defaultLocale: 'fr',
-    experimental: {
-      search: true,
-      payloadExtraction: true,
-      renderJsonPayloads: true,
-    },
   },
   app: {
     head: {
@@ -480,7 +474,7 @@ export default defineNuxtConfig({
       },
     },
     // Domaines autorisés pour l'optimisation
-    domains: ['localhost', 'vie-publique.sn'],
+    domains: ['localhost', 'vie-publique.sn', 'www.vie-publique.sn'],
     // Alias pour simplifier l'usage
     alias: {
       cms: '/cms',

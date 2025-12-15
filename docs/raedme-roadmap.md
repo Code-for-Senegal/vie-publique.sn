@@ -57,11 +57,28 @@ Cette feuille de route présente les grandes évolutions prévues pour la platef
 - [ ] **Sécurisation du backend**
   - Renforcement des accès à Directus (authentification, rôles)
   - Protection des documents (PDF, images) hébergés sur `cms.vie-publique.sn`
-  - Gestion des permissions fines pour l’API
+  - Gestion des permissions fines pour l'API
 
 - [ ] **Cohérence entre front et backend**
   - Frontend : `https://vie-publique.sn`
   - Backend (CMS + API + fichiers) : `https://cms.vie-publique.sn`
+
+---
+
+## ⚡ Performance & Optimisation
+
+- [ ] **Optimisation du cache API** 🔴 PRIORITÉ
+  - **Problème** : 48 routes API avec cache fixe identique dev/prod (1h-24h en dev = modifications Directus invisibles)
+  - **Solution** : Utiliser `getCacheMaxAge()` pour cache court en dev (30s-5min), long en prod (1h-24h)
+  - **Fichier** : `server/utils/cache.ts` déjà créé avec `CacheDuration` constants
+  - **Routes à modifier** : 46 fichiers restants (2/48 déjà fait : `budget/years` et `budget/global`)
+  - **Détails** : Voir [docs/TODO-cache-optimization.md](./TODO-cache-optimization.md)
+  - **Temps estimé** : 30-45 min
+  - **Impact** : 🚀 Dev plus rapide, 📈 performance prod maintenue
+
+- [ ] **Migration redirections vers routeRules**
+  - Migrer les redirections de `runtimeConfig.public.redirects` vers `routeRules` pour meilleures performances
+  - Gain : Redirection serveur (Nitro) au lieu de JavaScript client
 
 ---
 

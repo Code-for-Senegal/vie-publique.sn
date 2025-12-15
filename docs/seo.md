@@ -1,3 +1,45 @@
+## Problème n°1 — incohérence domaine (IMPORTANT)
+
+👉 Il faut UNE seule version canonique du domaine.
+
+Action recommandée (priorité haute)
+
+Décide officiellement :
+
+soit avec www
+
+soit sans www
+
+Ensuite :
+
+redirige l’autre en 301
+
+aligne robots.txt, sitemap, Search Console
+
+## sitemap.xml
+État actuel
+
+68 URLs
+
+Essentiellement :
+
+pages piliers
+
+pages catégories
+
+dashboards
+
+Aucun article
+
+Aucun document
+
+Aucun PDF
+
+👉 Sitemap insuffisant pour ton volume réel de contenu.
+👉 Sans sitemap détaillé = indexation lente, incomplète, aléatoire
+
+Pour un site comme Vie-publique.sn :
+
 ## Route URL
 
 Plus l’URL est courte, lisible, ciblée, mieux c’est.
