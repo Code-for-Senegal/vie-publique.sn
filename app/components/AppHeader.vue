@@ -1,6 +1,6 @@
 <template>
   <header class="header_top sticky top-0 z-50 w-full">
-    <div class="container-page flex items-center justify-between py-3">
+    <div class="sm:container-page flex items-center justify-between px-4 py-1">
       <!-- Logo -->
       <NuxtLink to="/" class="flex items-center">
         <img
@@ -56,8 +56,8 @@ const props = defineProps<{
 const route = useRoute();
 
 const isActive = (path: string) => {
-  if (path === "/") {
-    return route.path === "/";
+  if (path === '/') {
+    return route.path === '/';
   }
   return route.path.startsWith(path);
 };
@@ -101,10 +101,10 @@ const isActive = (path: string) => {
 /* Typography for navigation */
 .nav-link-text {
   font-family:
-    "Quicksand",
+    'Quicksand',
     -apple-system,
     BlinkMacSystemFont,
-    "Segoe UI",
+    'Segoe UI',
     sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
@@ -119,7 +119,7 @@ nav a {
 }
 
 nav a::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 2px;
   left: 50%;
