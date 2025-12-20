@@ -247,7 +247,7 @@ const calculateBounds = (regions: TransformedRegion[]) => {
 }
 
 .leaflet-interactive:hover {
-  fillopacity: 0.8 !important;
+  fill-opacity: 0.8 !important;
   cursor: pointer;
 }
 </style>

@@ -2,7 +2,7 @@
 import type {
   PollingStation,
   DepartmentStats,
-} from "~/types/election-map-national";
+} from "~~/types/election-map-national";
 
 interface GeoData {
   departement: string;
@@ -44,7 +44,7 @@ export function useElectionMapData() {
     try {
       // Appel via l'API serveur Nuxt (sécurisé, avec cache serveur)
       const response = await $fetch<{ data: GeoData[] }>('/api/carte');
-      
+
       // Stocker les données dans le state
       geoData.value = response.data || response || [];
       isGeoDataLoaded.value = true;

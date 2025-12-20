@@ -124,8 +124,6 @@ const tabs = [
   },
 ];
 
-const config = useRuntimeConfig();
-
 const entityTypeNational = "national";
 const entityTypeDiaspora = "etranger";
 const entityTypes = [

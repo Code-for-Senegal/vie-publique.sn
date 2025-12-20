@@ -1,5 +1,5 @@
 // composables/useElectionMapDataResult.ts
-import type { DepartmentStats } from "~/types/election-map-national";
+import type { DepartmentStats } from "~~/types/election-map-national";
 
 interface GeoData {
   departement: string;

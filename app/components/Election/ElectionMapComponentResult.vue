@@ -93,7 +93,7 @@
 </template>
 
 <script setup lang="ts">
-import type { TransformedRegion } from "~/types/election-map";
+import type { TransformedRegion } from "~~/types/election-map";
 import { useElectionMapDataResult } from "~/composables/useElectionMapJsonResult";
 
 interface Props {
