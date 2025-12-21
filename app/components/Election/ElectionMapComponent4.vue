@@ -120,7 +120,7 @@
 </template>
 
 <script setup lang="ts">
-import type { TransformedRegion } from "~/types/election-map";
+import type { TransformedRegion } from "~~/types/election-map";
 import { useElectionMapData } from "~/composables/useElectionMapJson";
 
 interface Props {
@@ -302,7 +302,7 @@ const formatNumber = (value?: number) => {
 }
 
 .leaflet-interactive:hover {
-  fillopacity: 0.8 !important;
+  fill-opacity: 0.8 !important;
   cursor: pointer;
   filter: brightness(0.95);
 }
