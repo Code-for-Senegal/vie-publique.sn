@@ -2,14 +2,14 @@
 
 ARG NODE_VERSION=21
 
-FROM node:${NODE_VERSION}-slim as base
+FROM node:${NODE_VERSION}-slim AS base
 
 ENV NODE_ENV=development
 
 WORKDIR /src
 
 # Build
-FROM base as build
+FROM base AS build
 
 # COPY --link package.json package-lock.json .
 COPY ./package*.json .

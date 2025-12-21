@@ -140,10 +140,4 @@ nav ul li a span {
   font-family: 'Quicksand', sans-serif;
   font-weight: 500;
 }
-
-/* Style global pour la police du menu */
-nav ul li a span {
-  font-family: 'Quicksand', sans-serif;
-  font-weight: 500;
-}
 </style>
