@@ -8,19 +8,19 @@ const config = useRuntimeConfig();
 // ✅ Nouvelle architecture : useCmsCollection avec mode détail (id)
 // Plus besoin de onMounted ni de fetchById
 const { commission, loading, error } = useAssemblyCommissions({
-  id: route.params.id as string
+  id: route.params.id as string,
 });
 
 const title = computed(() => {
-  if (!commission.value) return "Chargement...";
+  if (!commission.value) return 'Chargement...';
   return `${commission.value.name} | Commission Assemblée nationale Sénégal`;
 });
 
 const description = computed(() => {
-  if (!commission.value) return "";
+  if (!commission.value) return '';
   const presidentText = commission.value.president
     ? ` Présidée par ${commission.value.president.first_name} ${commission.value.president.last_name}.`
-    : "";
+    : '';
   const membersCount = commission.value.members?.length || 0;
   return `${commission.value.description || commission.value.name}${presidentText} Commission composée de ${membersCount} députés de l'Assemblée nationale du Sénégal.`;
 });
@@ -33,7 +33,7 @@ const url = computed(() => {
 const image = computed(() => {
   if (!commission.value) return defaultImage;
   return commission.value.president?.photo
-    ? useCmsImage(commission.value.president.photo)
+    ? useCmsImageAbsolute(commission.value.president.photo)
     : defaultImage;
 });
 
@@ -41,37 +41,41 @@ const commissionSchema = computed(() => {
   if (!commission.value) return null;
 
   const schema = {
-    "@context": "https://schema.org",
-    "@type": "GovernmentOrganization",
-    "name": commission.value.name,
-    "description": commission.value.description || `Commission parlementaire spécialisée de l'Assemblée nationale du Sénégal`,
-    "url": url.value,
-    "identifier": commission.value.id,
-    "organizationType": "Commission parlementaire",
-    "parentOrganization": {
-      "@type": "GovernmentOrganization",
-      "name": "Assemblée nationale du Sénégal",
-      "url": `${siteUrl}/assemblee-nationale`,
+    '@context': 'https://schema.org',
+    '@type': 'GovernmentOrganization',
+    name: commission.value.name,
+    description:
+      commission.value.description ||
+      `Commission parlementaire spécialisée de l'Assemblée nationale du Sénégal`,
+    url: url.value,
+    identifier: commission.value.id,
+    organizationType: 'Commission parlementaire',
+    parentOrganization: {
+      '@type': 'GovernmentOrganization',
+      name: 'Assemblée nationale du Sénégal',
+      url: `${siteUrl}/assemblee-nationale`,
     },
-    "areaServed": {
-      "@type": "Country",
-      "name": "Sénégal",
+    areaServed: {
+      '@type': 'Country',
+      name: 'Sénégal',
     },
-    "numberOfEmployees": commission.value.members?.length || 0,
+    numberOfEmployees: commission.value.members?.length || 0,
   };
 
   // Ajouter le président si disponible
   if (commission.value.president) {
     schema.leader = {
-      "@type": "Person",
-      "name": `${commission.value.president.first_name} ${commission.value.president.last_name}`,
-      "givenName": commission.value.president.first_name,
-      "familyName": commission.value.president.last_name,
-      "jobTitle": "Président de commission",
-      "image": commission.value.president.photo ? useCmsImage(commission.value.president.photo) : undefined,
-      "worksFor": {
-        "@type": "GovernmentOrganization",
-        "name": "Assemblée nationale du Sénégal",
+      '@type': 'Person',
+      name: `${commission.value.president.first_name} ${commission.value.president.last_name}`,
+      givenName: commission.value.president.first_name,
+      familyName: commission.value.president.last_name,
+      jobTitle: 'Président de commission',
+      image: commission.value.president.photo
+        ? useCmsImage(commission.value.president.photo)
+        : undefined,
+      worksFor: {
+        '@type': 'GovernmentOrganization',
+        name: 'Assemblée nationale du Sénégal',
       },
     };
   }
@@ -81,41 +85,41 @@ const commissionSchema = computed(() => {
 
   if (commission.value.vice_president) {
     organizationalMembers.push({
-      "@type": "Person",
-      "name": `${commission.value.vice_president.first_name} ${commission.value.vice_president.last_name}`,
-      "jobTitle": "Vice-président de commission",
+      '@type': 'Person',
+      name: `${commission.value.vice_president.first_name} ${commission.value.vice_president.last_name}`,
+      jobTitle: 'Vice-président de commission',
     });
   }
 
-  if (commission.value["1st_vice_president"]) {
+  if (commission.value['1st_vice_president']) {
     organizationalMembers.push({
-      "@type": "Person",
-      "name": `${commission.value["1st_vice_president"].first_name} ${commission.value["1st_vice_president"].last_name}`,
-      "jobTitle": "1er Vice-président de commission",
+      '@type': 'Person',
+      name: `${commission.value['1st_vice_president'].first_name} ${commission.value['1st_vice_president'].last_name}`,
+      jobTitle: '1er Vice-président de commission',
     });
   }
 
-  if (commission.value["2nd_vice_president"]) {
+  if (commission.value['2nd_vice_president']) {
     organizationalMembers.push({
-      "@type": "Person",
-      "name": `${commission.value["2nd_vice_president"].first_name} ${commission.value["2nd_vice_president"].last_name}`,
-      "jobTitle": "2e Vice-président de commission",
+      '@type': 'Person',
+      name: `${commission.value['2nd_vice_president'].first_name} ${commission.value['2nd_vice_president'].last_name}`,
+      jobTitle: '2e Vice-président de commission',
     });
   }
 
   if (commission.value.secretary) {
     organizationalMembers.push({
-      "@type": "Person",
-      "name": `${commission.value.secretary.first_name} ${commission.value.secretary.last_name}`,
-      "jobTitle": "Secrétaire de commission",
+      '@type': 'Person',
+      name: `${commission.value.secretary.first_name} ${commission.value.secretary.last_name}`,
+      jobTitle: 'Secrétaire de commission',
     });
   }
 
   if (commission.value.reporter) {
     organizationalMembers.push({
-      "@type": "Person",
-      "name": `${commission.value.reporter.first_name} ${commission.value.reporter.last_name}`,
-      "jobTitle": "Rapporteur de commission",
+      '@type': 'Person',
+      name: `${commission.value.reporter.first_name} ${commission.value.reporter.last_name}`,
+      jobTitle: 'Rapporteur de commission',
     });
   }
 
@@ -127,32 +131,32 @@ const commissionSchema = computed(() => {
 });
 
 const breadcrumbSchema = computed(() => ({
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
     {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Accueil",
-      "item": siteUrl,
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Accueil',
+      item: siteUrl,
     },
     {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Assemblée nationale",
-      "item": `${siteUrl}/assemblee-nationale`,
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Assemblée nationale',
+      item: `${siteUrl}/assemblee-nationale`,
     },
     {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Commissions",
-      "item": `${siteUrl}/assemblee-nationale/commissions`,
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Commissions',
+      item: `${siteUrl}/assemblee-nationale/commissions`,
     },
     {
-      "@type": "ListItem",
-      "position": 4,
-      "name": commission.value?.name || "Commission",
-      "item": url.value,
+      '@type': 'ListItem',
+      position: 4,
+      name: commission.value?.name || 'Commission',
+      item: url.value,
     },
   ],
 }));
@@ -161,81 +165,109 @@ const webPageSchema = computed(() => {
   if (!commission.value) return null;
 
   return {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": title.value,
-    "description": description.value,
-    "url": url.value,
-    "image": image.value,
-    "isPartOf": {
-      "@type": "WebSite",
-      "name": siteName,
-      "url": siteUrl,
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: title.value,
+    description: description.value,
+    url: url.value,
+    image: image.value,
+    isPartOf: {
+      '@type': 'WebSite',
+      name: siteName,
+      url: siteUrl,
     },
-    "about": {
-      "@type": "GovernmentOrganization",
-      "name": "Assemblée nationale du Sénégal",
+    about: {
+      '@type': 'GovernmentOrganization',
+      name: 'Assemblée nationale du Sénégal',
     },
-    "mainEntity": commissionSchema.value,
+    mainEntity: commissionSchema.value,
   };
 });
 
-watchEffect(() => {
-  if (commission.value) {
-    useSeoMeta({
-      title: title.value,
-      ogTitle: title.value,
-      description: description.value,
-      ogDescription: description.value,
-      ogImage: image.value,
-      ogUrl: url.value,
-      twitterCard: "summary_large_image",
-      twitterTitle: title.value,
-      twitterDescription: description.value,
-      twitterImage: image.value,
-      keywords: [
-        ...keywords,
-        commission.value.name,
-        "commission parlementaire Sénégal",
-        "Assemblée nationale commission",
-        commission.value.president ? `${commission.value.president.first_name} ${commission.value.president.last_name}` : "",
-        "députés commission",
-        "travail législatif",
-      ].filter(Boolean).join(", "),
-    });
-
-    // Head Configuration
-    useHead({
-      htmlAttrs: { lang: "fr-SN" },
-      link: [{ rel: "canonical", href: url.value }],
-      meta: [
-        { name: "theme-color", content: themeColor },
-        { name: "author", content: "Assemblée nationale du Sénégal" },
-        { property: "og:type", content: "website" },
-        { property: "og:site_name", content: siteName },
-        { name: "robots", content: "index, follow" },
-        { name: "geo.region", content: "SN" },
-        { name: "geo.placename", content: "Dakar" },
-        { name: "geo.position", content: "14.7645042;-17.3660286" },
-        { name: "ICBM", content: "14.7645042, -17.3660286" },
-      ],
-      script: [
-        commissionSchema.value ? {
-          type: "application/ld+json",
-          children: JSON.stringify(commissionSchema.value),
-        } : null,
-        {
-          type: "application/ld+json",
-          children: JSON.stringify(breadcrumbSchema.value),
-        },
-        webPageSchema.value ? {
-          type: "application/ld+json",
-          children: JSON.stringify(webPageSchema.value),
-        } : null,
-      ].filter(Boolean),
-    });
-  }
+// SEO Setup
+useSeoMeta({
+  title: () => title.value,
+  ogTitle: () => title.value,
+  description: () => description.value,
+  ogDescription: () => description.value,
+  ogImage: () => image.value,
+  ogUrl: () => url.value,
+  twitterCard: 'summary_large_image',
+  twitterTitle: () => title.value,
+  twitterDescription: () => description.value,
+  twitterImage: () => image.value,
+  keywords: () =>
+    [
+      ...keywords,
+      commission.value?.name || '',
+      'commission parlementaire Sénégal',
+      'Assemblée nationale commission',
+      commission.value?.president
+        ? `${commission.value.president.first_name} ${commission.value.president.last_name}`
+        : '',
+      'députés commission',
+      'travail législatif',
+    ]
+      .filter(Boolean)
+      .join(', '),
 });
+
+useHead({
+  htmlAttrs: { lang: 'fr-SN' },
+  link: () => [{ rel: 'canonical', href: url.value }],
+  meta: [
+    { name: 'theme-color', content: themeColor },
+    { name: 'author', content: 'Assemblée nationale du Sénégal' },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:site_name', content: siteName },
+    { name: 'robots', content: 'index, follow' },
+    { name: 'geo.region', content: 'SN' },
+    { name: 'geo.placename', content: 'Dakar' },
+    { name: 'geo.position', content: '14.7645042;-17.3660286' },
+    { name: 'ICBM', content: '14.7645042, -17.3660286' },
+  ],
+});
+
+// Structured Data
+useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: () => [
+      { name: 'Accueil', item: '/' },
+      { name: 'Assemblée nationale', item: '/assemblee-nationale' },
+      { name: 'Commissions', item: '/assemblee-nationale/commissions' },
+      { name: commission.value?.name || 'Commission', item: url.value },
+    ],
+  }),
+  defineOrganization({
+    '@type': 'GovernmentOrganization',
+    name: () => commission.value?.name,
+    description: () =>
+      commission.value?.description ||
+      `Commission parlementaire spécialisée de l'Assemblée nationale du Sénégal`,
+    url: () => url.value,
+    parentOrganization: {
+      '@type': 'GovernmentOrganization',
+      name: 'Assemblée nationale du Sénégal',
+      url: `${siteUrl}/assemblee-nationale`,
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'Sénégal',
+    },
+    numberOfEmployees: () => commission.value?.members?.length || 0,
+    member: () => {
+      const members = [];
+      if (commission.value?.president)
+        members.push({
+          '@type': 'Person',
+          jobTitle: 'Président',
+          name: `${commission.value.president.first_name} ${commission.value.president.last_name}`,
+        });
+      // Simplified member list for schema to avoid bloating
+      return members;
+    },
+  }),
+]);
 
 // ✅ Plus besoin de onMounted : les données sont chargées automatiquement via SSR
 
@@ -251,10 +283,12 @@ const getBureauMembersIds = computed(() => {
 
   if (commission.value.president?.id) ids.push(commission.value.president.id);
   if (commission.value.vice_president?.id) ids.push(commission.value.vice_president.id);
-  if (commission.value["1st_vice_president"]?.id) ids.push(commission.value["1st_vice_president"].id);
-  if (commission.value["2nd_vice_president"]?.id) ids.push(commission.value["2nd_vice_president"].id);
-  if (commission.value["secretary"]?.id) ids.push(commission.value["secretary"].id);
-  if (commission.value["reporter"]?.id) ids.push(commission.value["reporter"].id);
+  if (commission.value['1st_vice_president']?.id)
+    ids.push(commission.value['1st_vice_president'].id);
+  if (commission.value['2nd_vice_president']?.id)
+    ids.push(commission.value['2nd_vice_president'].id);
+  if (commission.value['secretary']?.id) ids.push(commission.value['secretary'].id);
+  if (commission.value['reporter']?.id) ids.push(commission.value['reporter'].id);
 
   return ids;
 });
@@ -271,9 +305,9 @@ const regularMembers = computed(() => {
 const deputyUrl = computed((deputy: any) => {
   const fullName = `${deputy.first_name}-${deputy.last_name}`
     .toLowerCase()
-    .replace(/\s+/g, "-")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
+    .replace(/\s+/g, '-')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
   return `/assemblee-nationale/deputes/${deputy.id}/${fullName}`;
 });
 </script>
@@ -341,10 +375,7 @@ const deputyUrl = computed((deputy: any) => {
               </div>
             </NuxtLink>
 
-            <div
-              v-if="commission.vice_president"
-              class="flex items-center space-x-4"
-            >
+            <div v-if="commission.vice_president" class="flex items-center space-x-4">
               <img
                 v-if="commission.vice_president.photo"
                 :src="getImageUrl(commission.vice_president.photo)"
@@ -396,8 +427,8 @@ const deputyUrl = computed((deputy: any) => {
               />
               <div>
                 <div class="font-medium">
-                  {{ commission["1st_vice_president"].first_name }}
-                  {{ commission["1st_vice_president"].last_name }}
+                  {{ commission['1st_vice_president'].first_name }}
+                  {{ commission['1st_vice_president'].last_name }}
                 </div>
                 <div class="text-sm text-gray-500">1er Vice-président(e)</div>
               </div>
@@ -415,18 +446,15 @@ const deputyUrl = computed((deputy: any) => {
               />
               <div>
                 <div class="font-medium">
-                  {{ commission["2nd_vice_president"].first_name }}
-                  {{ commission["2nd_vice_president"].last_name }}
+                  {{ commission['2nd_vice_president'].first_name }}
+                  {{ commission['2nd_vice_president'].last_name }}
                 </div>
                 <div class="text-sm text-gray-500">2e Vice-président(e)</div>
               </div>
             </NuxtLink>
 
             <!-- Vice-secretary -->
-            <div
-              v-if="commission.secretary"
-              class="flex items-center space-x-4"
-            >
+            <div v-if="commission.secretary" class="flex items-center space-x-4">
               <img
                 :src="getImageUrl(commission.secretary.photo)"
                 :alt="commission.secretary.first_name"
@@ -474,9 +502,7 @@ const deputyUrl = computed((deputy: any) => {
       </div>
 
       <!-- Not found state -->
-      <div v-else class="py-8 text-center text-gray-500">
-        Commission non trouvée
-      </div>
+      <div v-else class="py-8 text-center text-gray-500">Commission non trouvée</div>
     </div>
   </div>
 </template>

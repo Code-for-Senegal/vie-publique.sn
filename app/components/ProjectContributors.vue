@@ -48,10 +48,16 @@ const getAvatar = (contributor: any) => {
           </div>
 
           <!-- Informations du contributeur -->
-          <div class="mt-4 flex h-14 flex-col justify-center text-center">
-            <p class="text-lg font-semibold leading-tight text-gray-900 md:text-xl">
-              <span class="block">{{ contributor.first_name }}</span>
-              <span class="block uppercase">{{ contributor.last_name }}</span>
+          <div class="mt-4 flex h-14 w-full flex-col justify-center text-center">
+            <p
+              class="flex flex-col items-center text-lg font-semibold leading-tight text-gray-900 md:text-xl"
+            >
+              <span class="block w-full truncate px-2" :title="contributor.first_name">
+                {{ contributor.first_name }}
+              </span>
+              <span class="block w-full truncate px-2 uppercase" :title="contributor.last_name">
+                {{ contributor.last_name }}
+              </span>
             </p>
           </div>
 

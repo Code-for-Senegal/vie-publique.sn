@@ -135,7 +135,7 @@ const partnersProjects = ref<PartnerProject[]>([
     name: 'Polaris Association',
     type: 'Subvention & accompagnement technique',
     period: 'juillet 2025 - octobre 2025 (3 mois)',
-    amount: '3,2 millions FCFA',
+    amount: '5 000 EUR (3,2 millions FCFA)',
     object: 'Renforcement de la plateforme Vie Publique Sénégal',
     finances:
       'amélioration UX/UI, fonctionnalités de la plateforme, renforcement organisationnel sur un périmètre défini.',
@@ -340,8 +340,9 @@ const partnersProjects = ref<PartnerProject[]>([
 
       <h4>Publiez-vous vos comptes ?</h4>
       <p>
-        Oui. Nous publierons un résumé annuel de nos comptes après clôture, certification et
-        déclaration.
+        Conformément à nos règles associatives, nos comptes sont établis et présentés à nos
+        instances. Dans un souci de transparence, Vie Publique Sénégal s’engage également à publier
+        un résumé annuel de ses comptes une fois ceux-ci clôturés, certifiés et déclarés.
       </p>
 
       <hr />

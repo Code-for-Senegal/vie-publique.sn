@@ -56,10 +56,7 @@
               >
                 <ul class="flex gap-4">
                   <li class="mb-2 text-sm underline">
-                    <UIcon
-                      name="i-heroicons-arrow-top-right-on-square"
-                      size="sm"
-                    />
+                    <UIcon name="i-heroicons-arrow-top-right-on-square" size="sm" />
                     {{ commission.assembly_commission_id.name }}
                   </li>
                 </ul>
@@ -88,24 +85,25 @@ const router = useRouter();
 const deputyId = computed(() => route.params.id as string);
 
 const { deputy, loading, error } = useAssemblyDeputies({ id: deputyId.value });
-const { commissions: deputiesCommissions } =
-  useAssemblyDeputyCommissions(deputyId.value);
+const { commissions: deputiesCommissions } = useAssemblyDeputyCommissions(deputyId.value);
 
 const deputyFullName = computed(() => {
-  if (!deputy.value) return "";
+  if (!deputy.value) return '';
   return `${deputy.value.first_name} ${deputy.value.last_name}`;
 });
 
 const title = computed(() => {
-  if (!deputy.value) return "Chargement...";
+  if (!deputy.value) return 'Chargement...';
   return `${deputyFullName.value} - Député ${deputy.value.electoral_list?.name || ''} | Assemblée nationale Sénégal`;
 });
 
 const description = computed(() => {
-  if (!deputy.value) return "";
-  const age = deputy.value.birthdate ? calculateAge(deputy.value.birthdate) : "";
-  const ageText = age ? `, ${age} ans` : "";
-  const listText = deputy.value.electoral_list?.name ? ` de la liste ${deputy.value.electoral_list.name}` : "";
+  if (!deputy.value) return '';
+  const age = deputy.value.birthdate ? calculateAge(deputy.value.birthdate) : '';
+  const ageText = age ? `, ${age} ans` : '';
+  const listText = deputy.value.electoral_list?.name
+    ? ` de la liste ${deputy.value.electoral_list.name}`
+    : '';
   return `Découvrez le profil et l'activité parlementaire de ${deputyFullName.value}${ageText}, député${listText} à l'Assemblée nationale du Sénégal.`;
 });
 
@@ -120,107 +118,95 @@ const url = computed(() => {
 });
 
 const image = computed(() => {
-  return deputy.value?.photo || `${siteUrl}/images/vpsn-share-elections.png`;
+  return deputy.value?.photo
+    ? useCmsImageAbsolute(deputy.value.photo)
+    : `${siteUrl}/images/vpsn-share-elections.png`;
 });
 
-const deputySchema = computed(() => {
-  if (!deputy.value) return null;
-
-  return {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": deputyFullName.value,
-    "givenName": deputy.value.first_name,
-    "familyName": deputy.value.last_name,
-    "jobTitle": "Député",
-    "description": description.value,
-    "image": image.value,
-    "url": url.value,
-    "birthDate": deputy.value.birthdate || undefined,
-    "gender": deputy.value.gender || undefined,
-    "address": deputy.value.residence ? {
-      "@type": "PostalAddress",
-      "addressLocality": deputy.value.residence,
-      "addressCountry": "SN",
-    } : undefined,
-    "worksFor": {
-      "@type": "GovernmentOrganization",
-      "name": "Assemblée nationale du Sénégal",
-      "url": `${siteUrl}/assemblee-nationale`,
-    },
-    "memberOf": deputy.value.electoral_list ? {
-      "@type": "PoliticalParty",
-      "name": deputy.value.electoral_list.name,
-    } : undefined,
-    "hasOccupation": {
-      "@type": "Occupation",
-      "name": "Député",
-      "occupationLocation": {
-        "@type": "Place",
-        "name": "Assemblée nationale du Sénégal",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Dakar",
-          "addressCountry": "SN",
-        },
-      },
-    },
-  };
+// SEO Setup
+useSeoMeta({
+  title: () => title.value,
+  ogTitle: () => title.value,
+  description: () => description.value,
+  ogDescription: () => description.value,
+  ogImage: () => image.value,
+  ogUrl: () => url.value,
+  twitterCard: 'summary_large_image',
+  twitterTitle: () => title.value,
+  twitterDescription: () => description.value,
+  twitterImage: () => image.value,
+  keywords: () =>
+    [
+      ...keywords,
+      `${deputyFullName.value}`,
+      'député Sénégal',
+      'Assemblée nationale Sénégal',
+      'parlementaire sénégalais',
+      deputy.value?.electoral_list?.name || '',
+      deputy.value?.residence || '',
+    ]
+      .filter(Boolean)
+      .join(', '),
 });
 
-const breadcrumbSchema = computed(() => ({
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Accueil",
-      "item": siteUrl,
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Assemblée nationale",
-      "item": `${siteUrl}/assemblee-nationale`,
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Députés",
-      "item": `${siteUrl}/assemblee-nationale/deputes`,
-    },
-    {
-      "@type": "ListItem",
-      "position": 4,
-      "name": deputyFullName.value || "Député",
-      "item": url.value,
-    },
+useHead({
+  htmlAttrs: { lang: 'fr-SN' },
+  link: () => [{ rel: 'canonical', href: url.value }],
+  meta: [
+    { name: 'theme-color', content: themeColor },
+    { name: 'author', content: siteName },
+    { property: 'og:type', content: 'profile' },
+    { property: 'og:site_name', content: siteName },
+    { name: 'robots', content: 'index, follow' },
+    { name: 'geo.region', content: 'SN' },
+    { name: 'geo.placename', content: 'Dakar' },
+    { name: 'geo.position', content: '14.7645042;-17.3660286' },
+    { name: 'ICBM', content: '14.7645042, -17.3660286' },
   ],
-}));
-
-const profilePageSchema = computed(() => {
-  if (!deputy.value) return null;
-
-  return {
-    "@context": "https://schema.org",
-    "@type": "ProfilePage",
-    "name": title.value,
-    "description": description.value,
-    "url": url.value,
-    "image": image.value,
-    "isPartOf": {
-      "@type": "WebSite",
-      "name": siteName,
-      "url": siteUrl,
-    },
-    "mainEntity": {
-      "@type": "Person",
-      "name": deputyFullName.value,
-      "jobTitle": "Député",
-    },
-  };
 });
+
+// Structured Data
+useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: () => [
+      { name: 'Accueil', item: '/' },
+      { name: 'Assemblée nationale', item: '/assemblee-nationale' },
+      { name: 'Députés', item: '/assemblee-nationale/deputes' },
+      { name: deputyFullName.value || 'Député', item: url.value },
+    ],
+  }),
+  definePerson({
+    name: () => deputyFullName.value,
+    givenName: () => deputy.value?.first_name,
+    familyName: () => deputy.value?.last_name,
+    jobTitle: 'Député',
+    description: () => description.value,
+    image: () => image.value,
+    url: () => url.value,
+    birthDate: () => deputy.value?.birthdate,
+    gender: () => deputy.value?.gender,
+    address: () =>
+      deputy.value?.residence
+        ? {
+            '@type': 'PostalAddress',
+            addressLocality: deputy.value.residence,
+            addressCountry: 'SN',
+          }
+        : undefined,
+    worksFor: {
+      '@type': 'GovernmentOrganization',
+      name: 'Assemblée nationale du Sénégal',
+      url: `${siteUrl}/assemblee-nationale`,
+    },
+    memberOf: () =>
+      deputy.value?.electoral_list
+        ? {
+            '@type': 'PoliticalParty',
+            name: deputy.value.electoral_list.name,
+          }
+        : undefined,
+  }),
+]);
 
 // Helper function
 const calculateAge = (birthdate: string): number => {
@@ -229,77 +215,16 @@ const calculateAge = (birthdate: string): number => {
   return today.getFullYear() - birthDate.getFullYear();
 };
 
-// SEO setup
-watchEffect(() => {
-  if (deputy.value) {
-    // SEO Meta Tags
-    useSeoMeta({
-      title: title.value,
-      ogTitle: title.value,
-      description: description.value,
-      ogDescription: description.value,
-      ogImage: image.value,
-      ogUrl: url.value,
-      twitterCard: "summary_large_image",
-      twitterTitle: title.value,
-      twitterDescription: description.value,
-      twitterImage: image.value,
-      keywords: [
-        ...keywords,
-        `${deputyFullName.value}`,
-        "député Sénégal",
-        "Assemblée nationale Sénégal",
-        "parlementaire sénégalais",
-        deputy.value.electoral_list?.name || "",
-        deputy.value.residence || "",
-      ].filter(Boolean).join(", "),
-    });
-
-    // Head Configuration
-    useHead({
-      htmlAttrs: { lang: "fr-SN" },
-      link: [{ rel: "canonical", href: url.value }],
-      meta: [
-        { name: "theme-color", content: themeColor },
-        { name: "author", content: siteName },
-        { property: "og:type", content: "profile" },
-        { property: "og:site_name", content: siteName },
-        { name: "robots", content: "index, follow" },
-        { name: "geo.region", content: "SN" },
-        { name: "geo.placename", content: "Dakar" },
-        { name: "geo.position", content: "14.7645042;-17.3660286" },
-        { name: "ICBM", content: "14.7645042, -17.3660286" },
-      ],
-      script: [
-        deputySchema.value ? {
-          type: "application/ld+json",
-          children: JSON.stringify(deputySchema.value),
-        } : null,
-        {
-          type: "application/ld+json",
-          children: JSON.stringify(breadcrumbSchema.value),
-        },
-        profilePageSchema.value ? {
-          type: "application/ld+json",
-          children: JSON.stringify(profilePageSchema.value),
-        } : null,
-      ].filter(Boolean),
-    });
-  }
-});
-
 const deputiesCommissionsFiltered = computed(() => {
-  return deputiesCommissions.value.filter(
-    (commission) => commission.assembly_commission_id,
-  );
+  return deputiesCommissions.value.filter((commission) => commission.assembly_commission_id);
 });
 
 // Liste des routes valides pour le retour
 const validReturnPaths = [
-  "/assemblee-nationale/deputes",
-  "/assemblee-nationale/commissions",
-  "/assemblee-nationale/bureau",
-  "/assemblee-nationale/groupes",
+  '/assemblee-nationale/deputes',
+  '/assemblee-nationale/commissions',
+  '/assemblee-nationale/bureau',
+  '/assemblee-nationale/groupes',
 ];
 
 // Gestion du retour
@@ -309,13 +234,13 @@ const handleReturn = () => {
 
   // Si on a un referer et qu'il fait partie des routes valides
   if (
-    previousRoute &&
+    typeof previousRoute === 'string' &&
     validReturnPaths.some((path) => previousRoute.startsWith(path))
   ) {
     router.back();
   } else {
     // Sinon, redirection vers la liste des députés par défaut
-    router.push("/assemblee-nationale/deputes");
+    router.push('/assemblee-nationale/deputes');
   }
 };
 </script>

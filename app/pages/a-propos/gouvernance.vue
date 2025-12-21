@@ -125,15 +125,28 @@ const getAssetUrl = (assetId: string, slug: string) => {
       </p>
 
       <h2>Textes de référence</h2>
-      <ul>
-        <li>Statuts de l’association Vie Publique Sénégal</li>
-        <li>Règlement intérieur</li>
+
+      <div v-if="loading" class="space-y-4 py-4">
+        <div class="h-4 w-3/4 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
+        <div class="h-4 w-1/2 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
+      </div>
+
+      <ul v-else-if="documents && documents.length">
+        <li v-for="doc in documents" :key="doc.id">
+          <a
+            :href="getAssetUrl(doc.file, doc.slug)"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 hover:underline"
+          >
+            {{ doc.title }}
+          </a>
+        </li>
       </ul>
 
-      <p>
-        Ces documents encadrent le fonctionnement interne de l’association et sont accessibles sur
-        demande.
-      </p>
+      <p v-else class="italic text-gray-500">Aucun document disponible pour le moment.</p>
+
+      <p>Ces documents encadrent le fonctionnement interne de l’association.</p>
 
       <hr />
 

@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { useNews } from "~/composables/news/useNews";
+import { useNews } from '~/composables/news/useNews';
 
-const { siteName, siteUrl, defaultImage, keywords, themeColor } =
-  useSiteMetadata();
+const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
 
 const route = useRoute();
 const config = useRuntimeConfig();
@@ -23,16 +22,14 @@ watch(
 );
 
 const title = computed(() => {
-  if (!article.value) return "Chargement...";
+  if (!article.value) return 'Chargement...';
   return `${article.value.title} | Actualités Sénégal`;
 });
 
 const description = computed(() => {
-  if (!article.value) return "";
-  const plainText =
-    article.value.content?.replace(/<[^>]*>/g, "") || article.value.title;
-  const excerpt =
-    plainText.length > 160 ? plainText.substring(0, 157) + "..." : plainText;
+  if (!article.value) return '';
+  const plainText = article.value.content?.replace(/<[^>]*>/g, '') || article.value.title;
+  const excerpt = plainText.length > 160 ? plainText.substring(0, 157) + '...' : plainText;
   return `${excerpt} Publié le ${formatDate(article.value.date_published)} - Actualités République du Sénégal.`;
 });
 
@@ -43,13 +40,11 @@ const url = computed(() => {
 
 const image = computed(() => {
   if (!article.value) return defaultImage;
-  return article.value.cover_image
-    ? useCmsImageAbsolute(article.value.cover_image)
-    : defaultImage;
+  return article.value.cover_image ? useCmsImageAbsolute(article.value.cover_image) : defaultImage;
 });
 
 const pdfUrl = computed(() => {
-  if (!article.value?.document?.file) return "";
+  if (!article.value?.document?.file) return '';
   return useCmsFile(article.value.document.file);
 });
 
@@ -57,12 +52,12 @@ const articleSchema = computed(() => {
   if (!article.value) return null;
 
   return {
-    "@context": "https://schema.org",
-    "@type": "NewsArticle",
+    '@context': 'https://schema.org',
+    '@type': 'NewsArticle',
     headline: article.value.title,
     description: description.value,
     image: {
-      "@type": "ImageObject",
+      '@type': 'ImageObject',
       url: image.value,
       width: 800,
       height: 450,
@@ -73,59 +68,58 @@ const articleSchema = computed(() => {
       ? formatDateISO(article.value.date_updated)
       : formatDateISO(article.value.date_published),
     author: {
-      "@type": "Organization",
+      '@type': 'Organization',
       name: siteName,
       url: siteUrl,
     },
     publisher: {
-      "@type": "NewsMediaOrganization",
+      '@type': 'NewsMediaOrganization',
       name: siteName,
       url: siteUrl,
       logo: {
-        "@type": "ImageObject",
+        '@type': 'ImageObject',
         url: defaultImage,
       },
     },
     mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": url.value,
+      '@type': 'WebPage',
+      '@id': url.value,
     },
-    articleSection: article.value.category?.name || "Actualités",
-    keywords:
-      article.value.tags?.join(", ") || "République du Sénégal, actualités",
+    articleSection: article.value.category?.name || 'Actualités',
+    keywords: article.value.tags?.join(', ') || 'République du Sénégal, actualités',
     about: {
-      "@type": "GovernmentOrganization",
-      name: "République du Sénégal",
+      '@type': 'GovernmentOrganization',
+      name: 'République du Sénégal',
     },
     isPartOf: {
-      "@type": "WebSite",
+      '@type': 'WebSite',
       name: siteName,
       url: siteUrl,
     },
-    inLanguage: "fr-SN",
+    inLanguage: 'fr-SN',
   };
 });
 
 const breadcrumbSchema = computed(() => ({
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
   itemListElement: [
     {
-      "@type": "ListItem",
+      '@type': 'ListItem',
       position: 1,
-      name: "Accueil",
+      name: 'Accueil',
       item: siteUrl,
     },
     {
-      "@type": "ListItem",
+      '@type': 'ListItem',
       position: 2,
-      name: "Actualités",
+      name: 'Actualités',
       item: `${siteUrl}/actualites`,
     },
     {
-      "@type": "ListItem",
+      '@type': 'ListItem',
       position: 3,
-      name: article.value?.title || "Article",
+      name: article.value?.title || 'Article',
       item: url.value,
     },
   ],
@@ -135,20 +129,20 @@ const webPageSchema = computed(() => {
   if (!article.value) return null;
 
   return {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
     name: title.value,
     description: description.value,
     url: url.value,
     image: image.value,
     isPartOf: {
-      "@type": "WebSite",
+      '@type': 'WebSite',
       name: siteName,
       url: siteUrl,
     },
     about: {
-      "@type": "GovernmentOrganization",
-      name: "République du Sénégal",
+      '@type': 'GovernmentOrganization',
+      name: 'République du Sénégal',
     },
     mainEntity: articleSchema.value,
   };
@@ -158,21 +152,21 @@ const digitalDocumentSchema = computed(() => {
   if (!article.value?.document?.file) return null;
 
   return {
-    "@context": "https://schema.org",
-    "@type": "DigitalDocument",
+    '@context': 'https://schema.org',
+    '@type': 'DigitalDocument',
     name: `${article.value.title} - PDF`,
     description: `Version PDF de l'article: ${article.value.title}`,
     url: pdfUrl.value,
-    encodingFormat: "application/pdf",
+    encodingFormat: 'application/pdf',
     datePublished: formatDateISO(article.value.date_published),
-    inLanguage: "fr-SN",
+    inLanguage: 'fr-SN',
     isAccessibleForFree: true,
     creator: {
-      "@type": "Organization",
+      '@type': 'Organization',
       name: siteName,
     },
     publisher: {
-      "@type": "Organization",
+      '@type': 'Organization',
       name: siteName,
     },
   };
@@ -180,10 +174,10 @@ const digitalDocumentSchema = computed(() => {
 
 // Helper functions
 const formatDate = (date: string) => {
-  return new Date(date).toLocaleDateString("fr-FR", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+  return new Date(date).toLocaleDateString('fr-FR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
   });
 };
 
@@ -204,88 +198,88 @@ watch(
         ogDescription: description.value,
         ogImage: image.value,
         ogUrl: url.value,
-        twitterCard: "summary_large_image",
+        twitterCard: 'summary_large_image',
         twitterTitle: title.value,
         twitterDescription: description.value,
         twitterImage: image.value,
         keywords: [
           ...keywords,
           ...(article.value.tags || []),
-          "actualités République Sénégal",
-          "news Sénégal",
-          article.value.category?.name || "",
+          'actualités République Sénégal',
+          'news Sénégal',
+          article.value.category?.name || '',
         ]
           .filter(Boolean)
-          .join(", "),
+          .join(', '),
       });
 
       // Head Configuration
       useHead({
-        htmlAttrs: { lang: "fr-SN" },
+        htmlAttrs: { lang: 'fr-SN' },
         link: [
-          { rel: "canonical", href: url.value },
+          { rel: 'canonical', href: url.value },
           article.value.document?.file
             ? {
-                rel: "alternate",
-                type: "application/pdf",
+                rel: 'alternate',
+                type: 'application/pdf',
                 href: pdfUrl.value,
               }
             : null,
         ].filter(Boolean),
         meta: [
-          { name: "theme-color", content: themeColor },
-          { name: "author", content: siteName },
-          { property: "og:type", content: "article" },
-          { property: "og:site_name", content: siteName },
+          { name: 'theme-color', content: themeColor },
+          { name: 'author', content: siteName },
+          { property: 'og:type', content: 'article' },
+          { property: 'og:site_name', content: siteName },
           {
-            property: "article:published_time",
+            property: 'article:published_time',
             content: formatDateISO(article.value.date_published),
           },
           {
-            property: "article:modified_time",
+            property: 'article:modified_time',
             content: article.value.date_updated
               ? formatDateISO(article.value.date_updated)
               : formatDateISO(article.value.date_published),
           },
-          { property: "article:author", content: siteName },
+          { property: 'article:author', content: siteName },
           {
-            property: "article:section",
-            content: article.value.category?.name || "Actualités",
+            property: 'article:section',
+            content: article.value.category?.name || 'Actualités',
           },
           {
-            property: "article:tag",
-            content: article.value.tags?.join(", ") || "",
+            property: 'article:tag',
+            content: article.value.tags?.join(', ') || '',
           },
-          { name: "robots", content: "index, follow" },
-          { name: "geo.region", content: "SN" },
-          { name: "geo.placename", content: "Dakar" },
-          { name: "geo.position", content: "14.7645042;-17.3660286" },
-          { name: "ICBM", content: "14.7645042, -17.3660286" },
+          { name: 'robots', content: 'index, follow' },
+          { name: 'geo.region', content: 'SN' },
+          { name: 'geo.placename', content: 'Dakar' },
+          { name: 'geo.position', content: '14.7645042;-17.3660286' },
+          { name: 'ICBM', content: '14.7645042, -17.3660286' },
           {
-            name: "news_keywords",
-            content: article.value.tags?.join(", ") || "République du Sénégal",
+            name: 'news_keywords',
+            content: article.value.tags?.join(', ') || 'République du Sénégal',
           },
         ],
         script: [
           articleSchema.value
             ? {
-                type: "application/ld+json",
+                type: 'application/ld+json',
                 children: JSON.stringify(articleSchema.value),
               }
             : null,
           {
-            type: "application/ld+json",
+            type: 'application/ld+json',
             children: JSON.stringify(breadcrumbSchema.value),
           },
           webPageSchema.value
             ? {
-                type: "application/ld+json",
+                type: 'application/ld+json',
                 children: JSON.stringify(webPageSchema.value),
               }
             : null,
           digitalDocumentSchema.value
             ? {
-                type: "application/ld+json",
+                type: 'application/ld+json',
                 children: JSON.stringify(digitalDocumentSchema.value),
               }
             : null,
@@ -298,32 +292,35 @@ watch(
 </script>
 
 <template>
-  <div
-    class="container mx-auto px-2 py-2"
-    itemscope
-    itemtype="https://schema.org/WebPage"
-  >
+  <div class="container mx-auto px-2 py-2" itemscope itemtype="https://schema.org/WebPage">
     <!-- Bouton retour -->
-    <div class="flex flex-row items-start gap-1">
+    <!-- Fil d'Ariane -->
+    <nav
+      class="mb-6 flex items-center text-sm text-gray-500 dark:text-gray-400"
+      aria-label="Breadcrumb"
+    >
+      <NuxtLink to="/" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+        Accueil
+      </NuxtLink>
+      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
       <NuxtLink
         to="/actualites"
-        class="align-center mb-2 inline-flex items-center text-sm text-gray-700 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-200"
+        class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
       >
-        <UIcon name="i-heroicons-chevron-left" class="mr-2 h-3 w-3" />
         Actualités
       </NuxtLink>
-    </div>
+      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
+      <span class="truncate font-medium text-gray-900 dark:text-white" aria-current="page">
+        {{ article?.title }}
+      </span>
+    </nav>
 
     <!-- Loading state -->
     <div v-if="loading" class="space-y-4">
       <div class="h-8 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
-      <div
-        class="h-64 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700"
-      ></div>
+      <div class="h-64 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700"></div>
       <div class="h-4 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
-      <div
-        class="h-4 w-3/4 animate-pulse rounded bg-gray-200 dark:bg-gray-700"
-      ></div>
+      <div class="h-4 w-3/4 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
     </div>
 
     <!-- Error state -->
@@ -346,10 +343,7 @@ watch(
     >
       <!-- Schema.org hidden metadata -->
       <meta itemprop="url" :content="url" />
-      <meta
-        itemprop="datePublished"
-        :content="formatDateISO(article.date_published)"
-      />
+      <meta itemprop="datePublished" :content="formatDateISO(article.date_published)" />
       <meta
         itemprop="dateModified"
         :content="
@@ -358,49 +352,27 @@ watch(
             : formatDateISO(article.date_published)
         "
       />
-      <meta
-        itemprop="articleSection"
-        :content="article.category?.name || 'Actualités'"
-      />
-      <meta
-        itemprop="keywords"
-        :content="article.tags?.join(', ') || 'République du Sénégal'"
-      />
+      <meta itemprop="articleSection" :content="article.category?.name || 'Actualités'" />
+      <meta itemprop="keywords" :content="article.tags?.join(', ') || 'République du Sénégal'" />
       <meta itemprop="inLanguage" content="fr-SN" />
 
       <!-- Publisher info -->
-      <div
-        itemprop="publisher"
-        itemscope
-        itemtype="https://schema.org/NewsMediaOrganization"
-      >
+      <div itemprop="publisher" itemscope itemtype="https://schema.org/NewsMediaOrganization">
         <meta itemprop="name" :content="siteName" />
         <meta itemprop="url" :content="siteUrl" />
-        <div
-          itemprop="logo"
-          itemscope
-          itemtype="https://schema.org/ImageObject"
-        >
+        <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
           <meta itemprop="url" :content="defaultImage" />
         </div>
       </div>
 
       <!-- Author info -->
-      <div
-        itemprop="author"
-        itemscope
-        itemtype="https://schema.org/Organization"
-      >
+      <div itemprop="author" itemscope itemtype="https://schema.org/Organization">
         <meta itemprop="name" :content="siteName" />
         <meta itemprop="url" :content="siteUrl" />
       </div>
 
       <!-- Main entity of page -->
-      <div
-        itemprop="mainEntityOfPage"
-        itemscope
-        itemtype="https://schema.org/WebPage"
-      >
+      <div itemprop="mainEntityOfPage" itemscope itemtype="https://schema.org/WebPage">
         <meta itemprop="@id" :content="url" />
       </div>
 
@@ -413,10 +385,7 @@ watch(
         </h1>
         <div class="flex items-center gap-2 text-gray-500 dark:text-gray-400">
           <UIcon name="i-heroicons-calendar" class="h-5 w-5" />
-          <time
-            :datetime="formatDateISO(article.date_published)"
-            itemprop="datePublished"
-          >
+          <time :datetime="formatDateISO(article.date_published)" itemprop="datePublished">
             {{ formatDate(article.date_published) }}
           </time>
         </div>
@@ -436,10 +405,7 @@ watch(
           class="w-full rounded-lg object-contain shadow-sm"
           itemprop="contentUrl"
         />
-        <meta
-          itemprop="url"
-          :content="useCmsImageAbsolute(article.cover_image)"
-        />
+        <meta itemprop="url" :content="useCmsImageAbsolute(article.cover_image)" />
         <meta itemprop="width" content="800" />
         <meta itemprop="height" content="450" />
         <meta itemprop="caption" :content="article.title" />
@@ -447,11 +413,7 @@ watch(
 
       <!-- Lien PDF si disponible -->
       <div v-if="article.document" class="my-4">
-        <div
-          itemprop="associatedMedia"
-          itemscope
-          itemtype="https://schema.org/DigitalDocument"
-        >
+        <div itemprop="associatedMedia" itemscope itemtype="https://schema.org/DigitalDocument">
           <meta itemprop="encodingFormat" content="application/pdf" />
           <meta itemprop="url" :content="pdfUrl" />
           <meta itemprop="isAccessibleForFree" content="true" />
@@ -481,24 +443,18 @@ watch(
 
       <!-- Contenu -->
       <div
-        class="prose prose-sm sm:prose prose-img:rounded-lg prose-a:text-blue-600 dark:prose-invert dark:prose-a:text-blue-400 max-w-none"
+        class="prose prose-sm max-w-none sm:prose dark:prose-invert prose-a:text-blue-600 prose-img:rounded-lg dark:prose-a:text-blue-400"
         itemprop="articleBody"
         v-html="article.content"
       />
 
       <!-- About information -->
-      <div
-        itemprop="about"
-        itemscope
-        itemtype="https://schema.org/GovernmentOrganization"
-      >
+      <div itemprop="about" itemscope itemtype="https://schema.org/GovernmentOrganization">
         <meta itemprop="name" content="République du Sénégal" />
       </div>
     </article>
 
     <!-- Not found state -->
-    <div v-else class="py-12 text-center text-gray-500 dark:text-gray-400">
-      Article non trouvé
-    </div>
+    <div v-else class="py-12 text-center text-gray-500 dark:text-gray-400">Article non trouvé</div>
   </div>
 </template>

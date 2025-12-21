@@ -21,54 +21,79 @@ watch(
   },
 );
 
-// Configuration SEO dynamique
-watchEffect(() => {
-  if (document.value) {
-    useHead({
-      title: document.value.title,
-      link: [
-        {
-          rel: 'canonical',
-          href: `https://vie-publique.sn/documents/${document.value.id}/${document.value.slug}`,
-        },
-      ],
-      meta: [
-        {
-          name: 'description',
-          content: document.value.description || document.value.title,
-        },
-        { property: 'og:title', content: document.value.title },
-        {
-          property: 'og:description',
-          content: document.value.description || document.value.title,
-        },
-        {
-          property: 'og:image',
-          content:
-            document.value.cover_image || 'https://vie-publique.sn/images/vpsn-share-jors.png',
-        },
-        { property: 'og:type', content: 'article' },
-        {
-          property: 'og:url',
-          content: `https://vie-publique.sn/documents/${document.value.id}/${document.value.slug}`,
-        },
-      ],
-    });
+// Mapping des types de documents vers labels et URLs
+const documentTypes: Record<string, { label: string; slug: string }> = {
+  official_journal: { label: 'Journal Officiel', slug: 'journal-officiel' },
+  audit_report: { label: "Rapport d'Audit", slug: 'rapports-audit' },
+  budget: { label: 'Budget', slug: 'budget' },
+  strategy: { label: 'Stratégie', slug: 'strategies' },
+  law: { label: 'Code & Loi', slug: 'codes' },
+};
 
-    // Données structurées pour le document
-    useSchemaOrg([
-      {
-        '@type': 'Document',
-        name: document.value.title,
-        description: document.value.description || document.value.title,
-        datePublished: document.value.publish_date,
-        ...(document.value.cover_image && {
-          image: document.value.cover_image,
-        }),
-      },
-    ]);
+const typeInfo = computed(() => {
+  const type = document.value?.type;
+  if (type && documentTypes[type as keyof typeof documentTypes]) {
+    return documentTypes[type as keyof typeof documentTypes];
   }
+  return { label: 'Document', slug: 'public' };
 });
+
+const typeLabel = computed(() => typeInfo.value.label);
+const typeSlug = computed(() => typeInfo.value.slug);
+
+// SEO dynamique
+useSeoMeta({
+  title: () =>
+    document.value ? `${document.value.title} - Vie Publique Sénégal` : 'Chargement...',
+  description: () =>
+    document.value?.description || `${typeLabel.value} - Document officiel du Sénégal`,
+  // Open Graph
+  ogTitle: () => document.value?.title || '',
+  ogDescription: () => document.value?.description || typeLabel.value,
+  ogImage: () =>
+    document.value?.cover_image ? useCmsImageAbsolute(document.value.cover_image, 80) : '',
+  ogType: 'article',
+  ogUrl: () =>
+    document.value
+      ? `https://vie-publique.sn/documents/${document.value.id}/${document.value.slug}`
+      : '',
+  // Twitter Cards
+  twitterCard: 'summary_large_image',
+  twitterTitle: () => document.value?.title || '',
+  twitterDescription: () => document.value?.description || typeLabel.value,
+  twitterImage: () =>
+    document.value?.cover_image ? useCmsImageAbsolute(document.value.cover_image, 80) : '',
+});
+
+// Schema.org JSON-LD pour les documents
+useSchemaOrg([
+  defineArticle({
+    '@type': 'Article',
+    headline: () => document.value?.title || '',
+    description: () => document.value?.description || typeLabel.value,
+    image: () =>
+      document.value?.cover_image ? useCmsImageAbsolute(document.value.cover_image, 80) : undefined,
+    datePublished: () => document.value?.publish_date || '',
+    author: {
+      '@type': 'Organization',
+      name: 'République du Sénégal',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Vie Publique Sénégal',
+      url: 'https://vie-publique.sn',
+    },
+  }),
+  // Fil d'Ariane structuré
+  defineBreadcrumb({
+    itemListElement: () => [
+      { name: 'Accueil', item: '/' },
+      { name: 'Documents', item: '/documents/public' },
+      { name: typeLabel.value, item: `/documents/${typeSlug.value}` },
+      { name: document.value?.title || '' },
+    ],
+  }),
+]);
 
 // Fonction pour obtenir l'URL de l'asset via le nouveau proxy
 const getAssetUrl = (assetId: string, slug: string) => {
@@ -79,13 +104,33 @@ const getAssetUrl = (assetId: string, slug: string) => {
 <template>
   <div>
     <!-- Bouton retour -->
-    <UButton
-      icon="i-heroicons-arrow-left"
-      variant="ghost"
-      label="Retour"
-      color="gray"
-      @click="router.back()"
-    />
+    <!-- Fil d'Ariane -->
+    <nav
+      class="mb-6 flex items-center text-sm text-gray-500 dark:text-gray-400"
+      aria-label="Breadcrumb"
+    >
+      <NuxtLink to="/" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+        Accueil
+      </NuxtLink>
+      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
+      <NuxtLink
+        to="/documents/public"
+        class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+      >
+        Documents
+      </NuxtLink>
+      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
+      <NuxtLink
+        :to="`/documents/${typeSlug}`"
+        class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+      >
+        {{ typeLabel }}
+      </NuxtLink>
+      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
+      <span class="truncate font-medium text-gray-900 dark:text-white" aria-current="page">
+        {{ document?.title }}
+      </span>
+    </nav>
 
     <!-- Loading state -->
     <div v-if="documentLoading" class="space-y-4">
