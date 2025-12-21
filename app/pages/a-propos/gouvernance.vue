@@ -23,6 +23,13 @@ useHead({
     { name: 'robots', content: 'index, follow' },
   ],
 });
+
+const { documents, loading } = useVpDocuments();
+
+// Fonction pour obtenir l'URL de l'asset via le proxy
+const getAssetUrl = (assetId: string, slug: string) => {
+  return useCmsFile(`${assetId}/${slug}.pdf`);
+};
 </script>
 
 <template>

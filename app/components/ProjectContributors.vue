@@ -1,60 +1,64 @@
 <script setup lang="ts">
-import contributorsData from "@/assets/data/contributors.json";
+const { contributors, loading, error } = useContributors();
 
-interface Contributor {
-  name: string;
-  role: string | null;
-  job: string;
-  description: string;
-  image: string | null;
-  linkedin: string | null;
-  gender: string;
-}
-
-interface ContributorsData {
-  contributors: Contributor[];
-}
-const contributors = ref<ContributorsData>(contributorsData);
+const getAvatar = (contributor: any) => {
+  if (contributor.image) {
+    return useCmsImage(contributor.image);
+  }
+  return contributor.gender === 'M'
+    ? '/adobe-default-profil-man.jpg'
+    : '/adobe-default-profil-women.jpg';
+};
 </script>
 
 <template>
   <div class="bg-white py-2 dark:text-black">
     <div class="container mx-auto">
-      <div class="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-3">
+      <!-- Loading State -->
+      <div v-if="loading" class="flex justify-center py-8">
+        <UIcon name="i-heroicons-arrow-path" class="h-8 w-8 animate-spin" />
+      </div>
+
+      <!-- Error State -->
+      <UAlert
+        v-else-if="error"
+        color="red"
+        variant="soft"
+        title="Erreur de chargement"
+        description="Impossible de charger les contributeurs pour le moment."
+        class="mx-auto mb-8 max-w-lg"
+      />
+
+      <div v-else class="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-3">
         <div
-          v-for="contributor in contributors.contributors"
-          :key="contributor.name"
-          class="flex flex-col items-center rounded-lg bg-white p-2 shadow-md"
+          v-for="contributor in contributors"
+          :key="contributor.id"
+          class="flex flex-col items-center rounded-lg bg-white p-2 shadow-md transition-all hover:shadow-lg"
         >
           <!-- Image du contributeur -->
           <div class="rounded-full">
             <UAvatar
-              v-if="contributor.image"
-              :src="contributor.image"
+              :src="getAvatar(contributor)"
               :alt="contributor.name"
+              :ui="{ rounded: 'rounded-full' }"
+              size="3xl"
+              class="object-cover shadow-md"
               loading="lazy"
-              size="3xl"
-              fetchpriority="high"
-              class="shadow-md"
-            />
-            <UAvatar
-              v-else
-              :src="
-                contributor.gender === 'M'
-                  ? '/adobe-default-profil-man.jpg'
-                  : '/adobe-default-profil-women.jpg'
-              "
-              alt="Default image"
-              size="3xl"
-              class="shadow-md"
             />
           </div>
 
           <!-- Informations du contributeur -->
-          <p class="text-center text-xl font-semibold text-gray-900">
-            {{ contributor.name }}
-          </p>
-          <p class="text-center text-sm text-gray-500">
+          <div class="mt-4 flex h-14 flex-col justify-center text-center">
+            <p class="text-lg font-semibold leading-tight text-gray-900 md:text-xl">
+              <span class="block">{{ contributor.first_name }}</span>
+              <span class="block uppercase">{{ contributor.last_name }}</span>
+            </p>
+          </div>
+
+          <p
+            class="mt-1 w-full truncate px-2 text-center text-sm text-gray-500"
+            :title="contributor.job"
+          >
             {{ contributor.job }}
           </p>
 
@@ -64,7 +68,7 @@ const contributors = ref<ContributorsData>(contributorsData);
             :href="contributor.linkedin"
             target="_blank"
             rel="noopener noreferrer"
-            class="mt-4 inline-flex items-center text-blue-600 hover:text-blue-800"
+            class="mt-4 inline-flex hidden items-center text-blue-600 hover:text-blue-800"
           >
             <UIcon name="i-heroicons-link" class="mr-1 h-5 w-5" />
             LinkedIn
