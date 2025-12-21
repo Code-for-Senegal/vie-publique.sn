@@ -31,16 +31,14 @@ const { partners, loading, error } = usePartners();
     <!-- Liste des partenaires -->
     <div
       v-else-if="partners.length > 0"
-      class="mt-8 flex flex-wrap justify-center gap-4"
+      class="mt-8 flex flex-nowrap justify-start gap-4 overflow-x-auto px-4 pb-4 md:grid md:grid-cols-3 md:justify-items-center md:px-0 md:pb-0"
       aria-label="Logos des partenaires"
     >
-      <a
+      <NuxtLink
         v-for="partner in partners"
         :key="partner.id"
-        :href="partner.website"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="partner-card flex w-48 transform flex-col items-center rounded-lg bg-white p-2 shadow-md transition-shadow hover:scale-105 hover:shadow-lg"
+        :to="{ path: '/a-propos/financement-independance', hash: `#${partner.slug}` }"
+        class="partner-card flex w-48 flex-shrink-0 transform flex-col items-center rounded-lg bg-white p-2 shadow-md transition-shadow hover:scale-105 hover:shadow-lg"
       >
         <img
           :src="useCmsImage(partner.logo, '50')"
@@ -50,7 +48,7 @@ const { partners, loading, error } = usePartners();
         <span class="sr-only mt-4 text-center text-sm font-medium text-gray-700">
           {{ partner.name }}
         </span>
-      </a>
+      </NuxtLink>
     </div>
 
     <!-- Message si aucun partenaire -->

@@ -1,13 +1,12 @@
 <script setup lang="ts">
-const { siteName, siteUrl, keywords, themeColor } = useSiteMetadata()
+const { siteName, siteUrl, keywords, themeColor } = useSiteMetadata();
 
-const title = 'À Propos de Vie Publique Sénégal | Qui Sommes-Nous'
+const title = 'À Propos de Vie Publique Sénégal | Qui Sommes-Nous';
 const description =
-  'Vie-publique.sn est une plateforme citoyenne indépendante dédiée à la promotion de la transparence et de l\'accessibilité de l\'information publique au Sénégal. Projet ouvert, participatif et open source.'
-const url = `${siteUrl}/a-propos/qui-sommes-nous`
-const image = `${siteUrl}/og-image.png`
+  "Vie-publique.sn est une plateforme citoyenne indépendante dédiée à la promotion de la transparence et de l'accessibilité de l'information publique au Sénégal. Projet ouvert, participatif et open source.";
+const url = `${siteUrl}/a-propos/qui-sommes-nous`;
+const image = `${siteUrl}/og-image.png`;
 
-// SEO Meta Tags
 useSeoMeta({
   title,
   ogTitle: title,
@@ -29,7 +28,7 @@ useSeoMeta({
     'gouvernance transparente',
     'civic tech sénégal',
   ].join(', '),
-})
+});
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -45,10 +44,10 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 2,
       name: 'À Propos',
-      item: url,
+      item: `${siteUrl}/a-propos/qui-sommes-nous`,
     },
   ],
-}
+};
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -56,7 +55,7 @@ const organizationSchema = {
   name: 'Vie Publique Sénégal',
   url: siteUrl,
   logo: `${siteUrl}/logo.png`,
-  description: description,
+  description,
   address: {
     '@type': 'PostalAddress',
     addressCountry: 'SN',
@@ -73,7 +72,30 @@ const organizationSchema = {
     'https://www.linkedin.com/company/vie-publique-sn',
     'https://github.com/Code-for-Senegal/vie-publique.sn',
   ],
-}
+};
+
+const aboutPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'À Propos de Vie Publique Sénégal',
+  url,
+  inLanguage: 'fr-SN',
+  isPartOf: {
+    '@type': 'WebSite',
+    name: siteName,
+    url: siteUrl,
+  },
+  about: {
+    '@type': 'Organization',
+    name: 'Vie Publique Sénégal',
+    url: siteUrl,
+  },
+  primaryImageOfPage: {
+    '@type': 'ImageObject',
+    url: image,
+  },
+  description,
+};
 
 // Head Configuration
 useHead({
@@ -84,38 +106,42 @@ useHead({
     { name: 'author', content: siteName },
     { property: 'og:type', content: 'website' },
     { property: 'og:site_name', content: siteName },
+    { property: 'og:locale', content: 'fr_SN' },
     { name: 'robots', content: 'index, follow' },
     { name: 'geo.region', content: 'SN' },
     { name: 'geo.placename', content: 'Dakar' },
   ],
   script: [
-    {
-      type: 'application/ld+json',
-      children: JSON.stringify(organizationSchema),
-    },
-    {
-      type: 'application/ld+json',
-      children: JSON.stringify(breadcrumbSchema),
-    },
+    { type: 'application/ld+json', children: JSON.stringify(organizationSchema) },
+    { type: 'application/ld+json', children: JSON.stringify(breadcrumbSchema) },
+    { type: 'application/ld+json', children: JSON.stringify(aboutPageSchema) },
   ],
-})
+});
 </script>
 
 <template>
   <div class="container mx-auto max-w-4xl px-4 py-8">
     <!-- Breadcrumb -->
-    <NuxtLink
-      to="/"
-      class="mb-4 inline-flex items-center text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-200"
+    <!-- Breadcrumb -->
+    <nav
+      class="mb-6 flex items-center text-sm text-gray-500 dark:text-gray-400"
+      aria-label="Breadcrumb"
     >
-      <UIcon name="i-heroicons-arrow-left" class="mr-2 h-5 w-5" />
-      Retour
-    </NuxtLink>
+      <NuxtLink to="/" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+        Accueil
+      </NuxtLink>
+      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
+      <span class="truncate font-medium text-gray-900 dark:text-white" aria-current="page">
+        À Propos
+      </span>
+    </nav>
 
-    <article class="prose prose-sm sm:prose lg:prose-lg dark:prose-invert mx-auto">
+    <article class="prose prose-sm mx-auto sm:prose lg:prose-lg dark:prose-invert">
       <h1>À Propos</h1>
 
-      <p class="text-sm text-gray-600 dark:text-gray-400">Dernière modification: 02 décembre 2024</p>
+      <p class="text-sm text-gray-600 dark:text-gray-400">
+        Dernière modification: 21 décembre 2025
+      </p>
 
       <h3>Projet Citoyen, Ouvert et Open Source</h3>
 
@@ -131,6 +157,21 @@ useHead({
       </p>
 
       <p>Ce projet n'est affilié à aucun gouvernement ou organisation politique.</p>
+
+      <p>
+        Lancée en avril 2024, l’initiative a d’abord fonctionné grâce au bénévolat et aux
+        contributions de ses membres, avant de nouer des partenariats de projets à partir de fin
+        2025.
+      </p>
+
+      <p>
+        Dans un souci de transparence vis-à-vis de notre communauté, nous publions nos principes de
+        financement, de gouvernance et nos garanties d'indépendance éditoriale sur des pages dédiées
+        :
+        <NuxtLink to="/a-propos/financement-independance">Financement & indépendance</NuxtLink>
+        et
+        <NuxtLink to="/a-propos/gouvernance">Gouvernance</NuxtLink>.
+      </p>
 
       <p>
         Pour toute question ou suggestion, envoyez-nous un mail à
@@ -205,7 +246,12 @@ useHead({
         </li>
         <li>
           contribuer sur le code source sur
-          <a href="https://github.com/Code-for-Senegal/vie-publique.sn" target="_blank">GitHub</a>
+          <a
+            href="https://github.com/Code-for-Senegal/vie-publique.sn"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub</a
+          >
         </li>
       </ul>
 

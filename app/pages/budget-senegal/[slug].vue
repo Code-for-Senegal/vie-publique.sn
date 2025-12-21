@@ -31,39 +31,53 @@ const description = computed(() =>
 
 const url = computed(() => `${siteUrl}/budget-senegal/${slug}`);
 
-watchEffect(() => {
-  if (entity.value) {
-    useSeoMeta({
-      title: title.value,
-      ogTitle: title.value,
-      description: description.value,
-      ogDescription: description.value,
-      ogUrl: url.value,
-      twitterCard: 'summary_large_image',
-      twitterTitle: title.value,
-      twitterDescription: description.value,
-      keywords: [
-        ...keywords,
-        'Budget Sénégal',
-        entity.value.name,
-        'ministère',
-        'institution',
-        'finances publiques',
-      ].join(', '),
-    });
-
-    useHead({
-      htmlAttrs: { lang: 'fr-SN' },
-      link: [{ rel: 'canonical', href: url.value }],
-      meta: [
-        { name: 'theme-color', content: themeColor },
-        { property: 'og:type', content: 'website' },
-        { property: 'og:site_name', content: siteName },
-        { name: 'robots', content: 'index, follow' },
-      ],
-    });
-  }
+// SEO Setup
+useSeoMeta({
+  title: () => title.value,
+  ogTitle: () => title.value,
+  description: () => description.value,
+  ogDescription: () => description.value,
+  ogUrl: () => url.value,
+  twitterCard: 'summary_large_image',
+  twitterTitle: () => title.value,
+  twitterDescription: () => description.value,
+  keywords: () =>
+    [
+      ...keywords,
+      'Budget Sénégal',
+      entity.value?.name || '',
+      'ministère',
+      'institution',
+      'finances publiques',
+    ].join(', '),
 });
+
+useHead({
+  htmlAttrs: { lang: 'fr-SN' },
+  link: () => [{ rel: 'canonical', href: url.value }],
+  meta: [
+    { name: 'theme-color', content: themeColor },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:site_name', content: siteName },
+    { name: 'robots', content: 'index, follow' },
+  ],
+});
+
+// Structured Data
+useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: () => [
+      { name: 'Accueil', item: '/' },
+      { name: 'Budget Sénégal', item: '/budget-senegal' },
+      { name: entity.value?.name || 'Détail', item: url.value },
+    ],
+  }),
+  defineWebPage({
+    name: () => title.value,
+    description: () => description.value,
+    url: () => url.value,
+  }),
+]);
 </script>
 
 <template>

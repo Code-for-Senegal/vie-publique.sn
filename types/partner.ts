@@ -6,6 +6,7 @@ export interface Partner {
   name: string;
   logo: string;
   website: string;
+  slug?: string;
   status?: string;
   date_created?: string;
   date_updated?: string;
