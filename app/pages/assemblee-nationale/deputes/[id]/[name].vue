@@ -118,22 +118,33 @@ const url = computed(() => {
 });
 
 const image = computed(() => {
-  return deputy.value?.photo
-    ? useCmsImageAbsolute(deputy.value.photo)
+  const photo = deputy.value?.photo;
+  // Si photo est un objet (relation Directus), on essaie de récupérer l'ID
+  const photoId =
+    typeof photo === 'object' && photo !== null && 'id' in photo ? (photo as any).id : photo;
+
+  return typeof photoId === 'string'
+    ? useCmsImageAbsolute(photoId)
     : `${siteUrl}/images/vpsn-share-elections.png`;
 });
 
+const getSafeString = (val: unknown): string => {
+  if (typeof val === 'string') return val;
+  if (typeof val === 'number') return String(val);
+  return '';
+};
+
 // SEO Setup
 useSeoMeta({
-  title: () => title.value,
-  ogTitle: () => title.value,
-  description: () => description.value,
-  ogDescription: () => description.value,
+  title: () => getSafeString(title.value),
+  ogTitle: () => getSafeString(title.value),
+  description: () => getSafeString(description.value),
+  ogDescription: () => getSafeString(description.value),
   ogImage: () => image.value,
   ogUrl: () => url.value,
   twitterCard: 'summary_large_image',
-  twitterTitle: () => title.value,
-  twitterDescription: () => description.value,
+  twitterTitle: () => getSafeString(title.value),
+  twitterDescription: () => getSafeString(description.value),
   twitterImage: () => image.value,
   keywords: () =>
     [

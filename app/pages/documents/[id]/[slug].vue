@@ -41,17 +41,37 @@ const typeInfo = computed(() => {
 const typeLabel = computed(() => typeInfo.value.label);
 const typeSlug = computed(() => typeInfo.value.slug);
 
+const getSafeString = (val: unknown): string => {
+  if (typeof val === 'string') return val;
+  if (typeof val === 'number') return String(val);
+  return '';
+};
+
+const pageTitle = computed(() =>
+  document.value?.title
+    ? `${getSafeString(document.value.title)} - Vie Publique Sénégal`
+    : 'Chargement...',
+);
+
+const pageDescription = computed(
+  () =>
+    getSafeString(document.value?.description) ||
+    `${typeLabel.value} - Document officiel du Sénégal`,
+);
+
+const pageImageUrl = computed(() => {
+  const img = document.value?.cover_image;
+  return typeof img === 'string' ? useCmsImageAbsolute(img, 80) : '';
+});
+
 // SEO dynamique
 useSeoMeta({
-  title: () =>
-    document.value ? `${document.value.title} - Vie Publique Sénégal` : 'Chargement...',
-  description: () =>
-    document.value?.description || `${typeLabel.value} - Document officiel du Sénégal`,
+  title: () => pageTitle.value,
+  description: () => pageDescription.value,
   // Open Graph
-  ogTitle: () => document.value?.title || '',
-  ogDescription: () => document.value?.description || typeLabel.value,
-  ogImage: () =>
-    document.value?.cover_image ? useCmsImageAbsolute(document.value.cover_image, 80) : '',
+  ogTitle: () => getSafeString(document.value?.title),
+  ogDescription: () => getSafeString(document.value?.description) || typeLabel.value,
+  ogImage: () => pageImageUrl.value,
   ogType: 'article',
   ogUrl: () =>
     document.value
@@ -59,10 +79,9 @@ useSeoMeta({
       : '',
   // Twitter Cards
   twitterCard: 'summary_large_image',
-  twitterTitle: () => document.value?.title || '',
-  twitterDescription: () => document.value?.description || typeLabel.value,
-  twitterImage: () =>
-    document.value?.cover_image ? useCmsImageAbsolute(document.value.cover_image, 80) : '',
+  twitterTitle: () => getSafeString(document.value?.title),
+  twitterDescription: () => getSafeString(document.value?.description) || typeLabel.value,
+  twitterImage: () => pageImageUrl.value,
 });
 
 // Schema.org JSON-LD pour les documents
