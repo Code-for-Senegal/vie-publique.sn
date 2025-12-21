@@ -34,7 +34,26 @@ Ce job ne démarre **QUE** si l'étape précédente a réussi.
 
 ---
 
+
+### 1.4 Automatisation du Déploiement (CD)
+
+Le déploiement est piloté par les **Webhooks GitHub**, sans modification nécessaire du fichier YAML.
+
+1.  **Build Success** : Le workflow GitHub Actions construit l'image Docker et la pousse sur le registre (`ghcr.io`).
+2.  **Event Trigger** : GitHub détecte la mise à jour du package et déclenche l'événement `Packages` (Package published/updated).
+3.  **Webhook** : GitHub envoie un signal au Webhook configuré dans les paramètres du repository.
+4.  **Coolify** : Coolify reçoit le signal, télécharge la nouvelle image et redémarre le conteneur.
+
+*Configuration requise :*
+*   GitHub Repository > Settings > Webhooks.
+*   Payload URL : (URL du webhook de déploiement fournie par Coolify).
+*   Content type : `application/json`.
+*   Trigger : Sélectionner **"Let me select individual events"** > Cocher **"Packages"**.
+
+---
+
 ### 2. Configuration SonarCloud
+
 
 L'analyse code quality est pilotée par deux éléments :
 
@@ -81,4 +100,24 @@ Pour que GitHub puisse parler à SonarCloud, il a besoin d'un passeport (Token).
 | **Contexte** | Déconnecté du build | Intégré au workflow de validation |
 
 **Verdict** : Pour ce projet, **l'analyse CI est indispensable**.
-Pourquoi ? Parce que nous générons un rapport de couverture de tests (`npm run test:coverage`) pendant le CI. Seule l'analyse via GitHub Actions peut récupérer ce fichier et l'envoyer à SonarCloud pour vous dire "80% du code est testé". L'analyse automatique ne verrait pas ces tests.
+
+### 5. Performances et Temps de Build
+
+Un build complet peut prendre **5 à 8 minutes**. Voici pourquoi et comment l'optimiser.
+
+#### Pourquoi est-ce "lent" ? (vs un projet vide)
+1.  **Cache Docker (Le plus impactant)** :
+    *   Le premier build est toujours long (~60s rien que pour `npm ci`) car il doit tout télécharger.
+    *   Les builds suivants sont rapides (~2-3 min) car ils réutilisent le cache de `ghcr.io`.
+    *   *Note : Si GitHub vide son cache (tous les 7 jours ou quota dépassé), un build lent se reproduira.*
+
+2.  **PWA (Progressive Web App)** :
+    *   Le module `@vite-pwa/nuxt` génère des milliers de hashs pour le mode hors-ligne.
+    *   Cela ajoute **~45 Mo** de fichiers au bundle et prend **~2 minutes** de traitement CPU.
+
+#### Pistes d'optimisation
+Si le temps de build devient critique (>15 min) :
+
+*   **Désactiver PWA en Staging** : Ne l'activer que pour les tags de production (`v*`).
+*   **Réduire les assets** : Optimiser les images statiques avant de les commiter.
+*   **Split du Workflow** : Séparer "Tests" et "Build Docker" en deux workflows parallèles (mais attention : on perd la garantie que *ce code testé est ce code buildé*).
