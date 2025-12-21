@@ -435,25 +435,55 @@ export default defineNuxtConfig({
   },
   security: securityConfig as any,
   site: {
-    defaultLocale: 'fr',
     url: process.env.NUXT_PUBLIC_SITE_URL || 'https://www.vie-publique.sn',
-    name: 'vie-publique.sn',
+    name: 'Vie Publique Sénégal',
+    description: "L'information publique au Sénégal | Vie-Publique.sn",
+    defaultLocale: 'fr',
     // Nuxt SEO désactive automatiquement l'indexation si env !== 'production'
-    // https://nuxtseo.com/docs/robots/guides/disable-indexing
     env: process.env.NUXT_SITE_ENV || 'production',
   },
 
-  // seo: {
-  //   sitemap: {
-  //     enabled: true,
-  //     hostname: process.env.NUXT_PUBLIC_SITE_URL,
-  //     exclude: ["/admin/**"], // Exclusion des routes non publiques
-  //     routes: async () => {
-  //       // Ajoutez ici vos routes dynamiques si besoin
-  //       return [];
-  //     },
-  //   },
-  // },
+  // Sitemap dynamique
+  sitemap: {
+    sources: ['/api/__sitemap__/urls'],
+  },
+
+  // Robots.txt
+  robots: {
+    allow: '/',
+    disallow: [
+      '/journal-officiel-senegal/v2',
+      '/journal-officiel-senegal/v3',
+      '/budget-senegal/old',
+      '/financial-scandals',
+      '/individuals-cited',
+      '/publications/enquetes',
+      '/publications/institutions',
+      '/barometre-politique',
+      '/elections/legislatives/resultats/global',
+      '/publications/recrutement',
+      '/quiz',
+      '/gouvernement-senegal',
+      '/etat-senegal/annuaire',
+      '/etat-senegal/organisation',
+      '/a-propos/barometre-politique',
+      '/a-propos/charte-dons',
+      '/don/bictorys',
+      '/don/paydunya',
+      '/don/success',
+    ],
+    sitemap: '/sitemap.xml',
+  },
+
+  // Schema.org
+  schemaOrg: {
+    identity: {
+      type: 'Organization',
+      name: 'Vie Publique Sénégal',
+      url: 'https://vie-publique.sn',
+      logo: 'https://vie-publique.sn/social-image.png',
+    },
+  },
   gtag: {
     enabled: !!process.env.GTAG_ID,
     id: process.env.GTAG_ID,
