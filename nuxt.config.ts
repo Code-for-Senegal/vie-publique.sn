@@ -463,6 +463,8 @@ export default defineNuxtConfig({
       '/elections/legislatives/resultats/global',
       '/publications/recrutement',
       '/quiz',
+      '/chatbot',
+      '/chat-bot',
       '/gouvernement-senegal',
       '/etat-senegal/annuaire',
       '/etat-senegal/organisation',
