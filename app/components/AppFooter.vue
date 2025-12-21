@@ -43,8 +43,8 @@ const links = [
   //   to: "/a-propos/recrutement",
   // },
   {
-    label: 'Partenariat',
-    to: '/a-propos/travailler-avec-nous',
+    label: 'Financement & indépendance',
+    to: '/a-propos/financement-independance',
   },
 ];
 </script>
