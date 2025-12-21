@@ -39,8 +39,8 @@ sudo mkdir -p /opt/vie-publique
 cd /opt/vie-publique
 
 # Télécharger les fichiers de configuration
-wget https://raw.githubusercontent.com/malicktech/vie-publique.sn/develop/docker-compose.production.yml
-wget https://raw.githubusercontent.com/malicktech/vie-publique.sn/develop/scripts/deploy.sh
+wget https://raw.githubusercontent.com/vie-publique-senegal/vie-publique.sn/develop/docker-compose.production.yml
+wget https://raw.githubusercontent.com/vie-publique-senegal/vie-publique.sn/develop/scripts/deploy.sh
 
 # Rendre le script exécutable
 chmod +x deploy.sh
@@ -97,7 +97,7 @@ docker-compose -f docker-compose.production.yml up -d
 
 ### 📦 Tags Docker disponibles
 
-L'image Docker `ghcr.io/malicktech/vie-publique.sn` est automatiquement construite avec plusieurs tags :
+L'image Docker `ghcr.io/vie-publique-senegal/vie-publique.sn` est automatiquement construite avec plusieurs tags :
 
 - **`:latest`** - Dernière version stable de la branche principale
 - **`:develop`** - Dernière version de la branche develop
@@ -108,13 +108,13 @@ L'image Docker `ghcr.io/malicktech/vie-publique.sn` est automatiquement construi
 
 ```bash
 # Pour la production (version stable)
-docker pull ghcr.io/malicktech/vie-publique.sn:latest
+docker pull ghcr.io/vie-publique-senegal/vie-publique.sn:latest
 
 # Pour le développement/staging
-docker pull ghcr.io/malicktech/vie-publique.sn:develop
+docker pull ghcr.io/vie-publique-senegal/vie-publique.sn:develop
 
 # Pour une version spécifique (rollback)
-docker pull ghcr.io/malicktech/vie-publique.sn:sha-1129d5b
+docker pull ghcr.io/vie-publique-senegal/vie-publique.sn:sha-1129d5b
 ```
 
 #### Stratégie de déploiement recommandée
@@ -261,13 +261,13 @@ docker login ghcr.io -u malicktech -p $(cat ~/.github-token)
 
 ```bash
 # Vérifier le nom de l'image et les tags disponibles
-docker pull ghcr.io/malicktech/vie-publique.sn:latest
+docker pull ghcr.io/vie-publique-senegal/vie-publique.sn:latest
 
 # Ou essayer avec le tag develop
-docker pull ghcr.io/malicktech/vie-publique.sn:develop
+docker pull ghcr.io/vie-publique-senegal/vie-publique.sn:develop
 
 # Lister les tags disponibles (via GitHub UI)
-# https://github.com/malicktech/vie-publique.sn/pkgs/container/vie-publique.sn
+# https://github.com/vie-publique-senegal/vie-publique.sn/pkgs/container/vie-publique.sn
 ```
 
 **3. Port déjà utilisé**
