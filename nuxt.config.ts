@@ -517,9 +517,9 @@ export default defineNuxtConfig({
     },
   },
   pwa: {
-    strategies: 'generateSW',
-    srcDir: undefined,
-    filename: undefined,
+    strategies: 'injectManifest',
+    srcDir: 'service-worker',
+    filename: 'sw.ts',
     registerType: 'autoUpdate',
     injectRegister: 'auto',
     manifest: {
@@ -631,6 +631,43 @@ export default defineNuxtConfig({
           ],
         },
       },
+      // Raccourcis d'écran d'accueil pour accès rapide
+      shortcuts: [
+        {
+          name: 'Actualités',
+          short_name: 'Actus',
+          description: 'Dernières actualités du Sénégal',
+          url: '/actualites?utm_source=pwa_shortcut',
+          icons: [{ src: 'pwa-192x192.png', sizes: '192x192' }],
+        },
+        {
+          name: 'Budget Sénégal',
+          short_name: 'Budget',
+          description: 'Budget et finances publiques',
+          url: '/budget-senegal?utm_source=pwa_shortcut',
+          icons: [{ src: 'pwa-192x192.png', sizes: '192x192' }],
+        },
+        {
+          name: 'Assemblée Nationale',
+          short_name: 'Assemblée',
+          description: 'Députés et travaux parlementaires',
+          url: '/assemblee-nationale?utm_source=pwa_shortcut',
+          icons: [{ src: 'pwa-192x192.png', sizes: '192x192' }],
+        },
+        {
+          name: 'Documents',
+          short_name: 'Docs',
+          description: 'Documents officiels du gouvernement',
+          url: '/documents?utm_source=pwa_shortcut',
+          icons: [{ src: 'pwa-192x192.png', sizes: '192x192' }],
+        },
+      ],
+      // Fonctionnalités avancées PWA
+      display_override: ['standalone', 'minimal-ui'],
+      handle_links: 'preferred',
+      launch_handler: {
+        client_mode: ['navigate-existing', 'auto'],
+      },
     },
     workbox: {
       globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
@@ -639,7 +676,23 @@ export default defineNuxtConfig({
       cleanupOutdatedCaches: true,
       clientsClaim: true,
       skipWaiting: true,
-      navigateFallbackAllowlist: [/^\/$/, /^\/budget-senegal(\/.*)?$/],
+      // Routes principales accessibles offline
+      navigateFallbackAllowlist: [
+        /^\/$/,
+        /^\/actualites(\/.*)?$/,
+        /^\/budget-senegal(\/.*)?$/,
+        /^\/assemblee-nationale(\/.*)?$/,
+        /^\/gouvernement(\/.*)?$/,
+        /^\/documents(\/.*)?$/,
+        /^\/personnalites(\/.*)?$/,
+        /^\/conseil-des-ministres(\/.*)?$/,
+      ],
+      // Exclure les routes qui ne doivent pas être cachées
+      navigateFallbackDenylist: [
+        /^\/api\//,
+        /^\/sitemap/,
+        /^\/__nuxt_error/,
+      ],
     },
     injectManifest: {
       globPatterns: ['**/*.{js,css,html,png,svg,ico}'],

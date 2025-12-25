@@ -120,16 +120,21 @@ onMounted(() => {
       <AppLineAlert />
     </ClientOnly>
 
+    <!-- PWA Install Prompt -->
+    <ClientOnly>
+      <AppInstallPrompt />
+    </ClientOnly>
+
     <Toaster position="bottom-center" />
   </div>
-  <UContainer class="px-0 sm:px-10 md:px-14 lg:px-28 xl:px-40">
+  <UContainer class="px-0 sm:px-10 md:px-14 lg:px-28 xl:px-40 pb-20 lg:pb-0">
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
 
     <AppFooter />
 
-    <!-- affichage des deux composants à rendre dynamique -->
+    <!-- Navigation mobile fixe en bas -->
     <AppBottomNav v-show="!isChatPage" />
   </UContainer>
 </template>

@@ -2,16 +2,15 @@
 /// <reference types="vite/client" />
 import {
   cleanupOutdatedCaches,
-  createHandlerBoundToURL,
   precacheAndRoute,
 } from "workbox-precaching";
-import { clientsClaim } from "workbox-core";
 import { NavigationRoute, registerRoute } from "workbox-routing";
 import { NetworkFirst, CacheFirst, StaleWhileRevalidate } from "workbox-strategies";
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
 import { ExpirationPlugin } from "workbox-expiration";
 
 declare let self: ServiceWorkerGlobalScope;
+
 const WORKBOX_CACHES = [
   'html-cache',
   'vpsn-webmanifest',
@@ -20,6 +19,18 @@ const WORKBOX_CACHES = [
   'cms-assets-images',
   'workbox-precache',
   'google-fonts',
+  'static-assets',
+  'pages-cache',
+];
+
+// Routes principales à précacher pour un accès offline
+const CRITICAL_ROUTES = [
+  '/',
+  '/actualites',
+  '/budget-senegal',
+  '/assemblee-nationale',
+  '/documents',
+  '/gouvernement',
 ];
 
 // self.__WB_MANIFEST est le point d'injection par défaut
@@ -27,7 +38,10 @@ const entries = self.__WB_MANIFEST;
 
 // Assurer que la route racine est incluse dans le précache
 const rootEntry = { url: '/', revision: null };
-if (!entries.some(entry => entry.url === '/')) {
+const hasRoot = entries.some(entry =>
+  typeof entry === 'string' ? entry === '/' : entry.url === '/'
+);
+if (!hasRoot) {
   entries.push(rootEntry);
 }
 
@@ -59,16 +73,35 @@ if (import.meta.env.PROD) {
     })
   );
 
-  // Cache des API avec timeout
+  // Cache des API avec timeout - étendu pour plus de routes
   registerRoute(
-    ({ url }) => url.pathname.startsWith('/items/'),
+    ({ url }) =>
+      url.pathname.startsWith('/items/') ||
+      (url.pathname.startsWith('/api/') && !url.pathname.includes('sitemap')),
     new NetworkFirst({
       cacheName: 'api-cache',
       plugins: [
         new CacheableResponsePlugin({ statuses: [200] }),
-        new ExpirationPlugin({ maxEntries: 100, maxAgeSeconds: 3600 }),
+        new ExpirationPlugin({ maxEntries: 150, maxAgeSeconds: 3600 }),
       ],
-      networkTimeoutSeconds: 5, // Timeout pour éviter d'attendre trop longtemps
+      networkTimeoutSeconds: 5,
+    })
+  );
+
+  // Cache des pages principales (pour accès offline rapide)
+  registerRoute(
+    ({ url, request }) =>
+      request.destination === 'document' &&
+      CRITICAL_ROUTES.some(route => url.pathname === route || url.pathname.startsWith(route + '/')),
+    new StaleWhileRevalidate({
+      cacheName: 'pages-cache',
+      plugins: [
+        new CacheableResponsePlugin({ statuses: [200] }),
+        new ExpirationPlugin({
+          maxEntries: 50,
+          maxAgeSeconds: 24 * 60 * 60, // 24 heures
+        }),
+      ],
     })
   );
 
@@ -80,31 +113,65 @@ if (import.meta.env.PROD) {
       plugins: [
         new CacheableResponsePlugin({ statuses: [200] }),
         new ExpirationPlugin({
-          maxEntries: 100,
+          maxEntries: 150,
           maxAgeSeconds: 30 * 24 * 60 * 60, // 30 jours
         }),
       ],
     })
   );
 
-  // Cache des assets du CMS
+  // Cache des assets statiques (JS, CSS)
   registerRoute(
-    ({ url }) => 
-      url.origin === 'https://cms.vie-publique.sn' && 
+    ({ request }) =>
+      request.destination === 'script' ||
+      request.destination === 'style',
+    new StaleWhileRevalidate({
+      cacheName: 'static-assets',
+      plugins: [
+        new CacheableResponsePlugin({ statuses: [200] }),
+        new ExpirationPlugin({
+          maxEntries: 100,
+          maxAgeSeconds: 7 * 24 * 60 * 60, // 7 jours
+        }),
+      ],
+    })
+  );
+
+  // Cache des assets du CMS (images et médias)
+  registerRoute(
+    ({ url }) =>
+      url.origin === 'https://cms.vie-publique.sn' &&
       url.pathname.startsWith('/assets'),
     new StaleWhileRevalidate({
       cacheName: 'cms-assets-images',
       plugins: [
         new CacheableResponsePlugin({ statuses: [200] }),
         new ExpirationPlugin({
-          maxEntries: 200,
+          maxEntries: 250,
           maxAgeSeconds: 30 * 24 * 60 * 60, // 30 jours
         }),
       ],
     })
   );
 
-  // Navigation principale
+  // Cache des assets via proxy local (/cms/ et /medias/)
+  registerRoute(
+    ({ url }) =>
+      url.pathname.startsWith('/cms/') ||
+      url.pathname.startsWith('/medias/'),
+    new CacheFirst({
+      cacheName: 'cms-assets-images',
+      plugins: [
+        new CacheableResponsePlugin({ statuses: [200] }),
+        new ExpirationPlugin({
+          maxEntries: 250,
+          maxAgeSeconds: 30 * 24 * 60 * 60, // 30 jours
+        }),
+      ],
+    })
+  );
+
+  // Navigation principale avec fallback
   registerRoute(
     new NavigationRoute(
       new NetworkFirst({
@@ -112,7 +179,7 @@ if (import.meta.env.PROD) {
         plugins: [
           new CacheableResponsePlugin({ statuses: [200] }),
         ],
-        networkTimeoutSeconds: 3, // Timeout pour les navigations
+        networkTimeoutSeconds: 3,
       }),
       { allowlist }
     )
@@ -232,33 +299,30 @@ self.addEventListener('notificationclick', event => {
 
   console.log('Notification cliquée', action);
   
-  if (action === 'ramadan') {
-    console.log('Action Ramadan cliquée');
+  if (action === 'close') {
+    notification.close();
+    return;
   }
-  else if (action === 'close') {
-    console.log('Notification fermée par l\'utilisateur');
-  }
-  else {
-    // Ouvrir l'URL associée
-    event.waitUntil(
-      self.clients.matchAll().then(clients => {
-        const clientsArray = Array.from(clients);
-        
-        const clientUsingApp = clientsArray.find(cli => {
-          return cli.visibilityState === 'visible';
-        });
-        
-        if (clientUsingApp) {
-          clientUsingApp.navigate(notification.data.openUrl);
-          clientUsingApp.focus();
-        }
-        else {
-          self.clients.openWindow(notification.data.openUrl);
-        }
-      })
-    );
-  }
-  
+
+  // Ouvrir l'URL associée
+  const targetUrl = notification.data?.openUrl || '/';
+
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(clients => {
+      // Chercher une fenêtre visible
+      const visibleClient = clients.find(client =>
+        (client as WindowClient).visibilityState === 'visible'
+      ) as WindowClient | undefined;
+
+      if (visibleClient) {
+        visibleClient.navigate(targetUrl);
+        return visibleClient.focus();
+      }
+      // Sinon ouvrir une nouvelle fenêtre
+      return self.clients.openWindow(targetUrl);
+    })
+  );
+
   notification.close();
 });
 
