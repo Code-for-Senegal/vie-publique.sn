@@ -21,10 +21,7 @@
         />
       </div>
       <div class="absolute right-4 top-4">
-        <UBadge
-          class="text-lg"
-          :color="vote?.status === 'adopted' ? 'emerald' : 'red'"
-        >
+        <UBadge class="text-lg" :color="vote?.status === 'adopted' ? 'emerald' : 'red'">
           # {{ $getAssemblyVoteLabel(vote?.type) }}
         </UBadge>
       </div>
@@ -59,7 +56,7 @@
             :color="vote?.status === 'adopted' ? 'emerald' : 'red'"
             class="text-lg font-medium uppercase"
           >
-            {{ vote?.status === "adopted" ? "Adopté" : "Rejeté" }}
+            {{ vote?.status === 'adopted' ? 'Adopté' : 'Rejeté' }}
           </UBadge>
         </div>
 
@@ -67,35 +64,29 @@
         <div v-if="vote?.voters_for" class="mb-8">
           <div class="flex overflow-hidden rounded-lg">
             <!-- Pour -->
-            <div
-              class="flex-1 items-center justify-center bg-emerald-500 py-2 text-white"
-            >
+            <div class="flex-1 items-center justify-center bg-emerald-500 py-2 text-white">
               <!-- :style="{ width: `${(vote?.voters_for / vote?.voters) * 100}%` }" -->
               <div class="text-center">
                 <div class="text-xl font-bold">
-                  {{ vote?.voters_for ?? "N/A" }}
+                  {{ vote?.voters_for ?? 'N/A' }}
                 </div>
                 <div class="text-sm uppercase">Pour</div>
               </div>
             </div>
             <!-- Abstention -->
-            <div
-              class="flex-1 items-center justify-center bg-amber-400 py-2 text-white"
-            >
+            <div class="flex-1 items-center justify-center bg-amber-400 py-2 text-white">
               <div class="text-center">
                 <div class="text-xl font-bold">
-                  {{ vote?.voters_abstention ?? "N/A" }}
+                  {{ vote?.voters_abstention ?? 'N/A' }}
                 </div>
                 <div class="text-sm uppercase">Abstention</div>
               </div>
             </div>
             <!-- Contre -->
-            <div
-              class="flex-1 items-center justify-center bg-red-500 py-2 text-white"
-            >
+            <div class="flex-1 items-center justify-center bg-red-500 py-2 text-white">
               <div class="text-center">
                 <div class="text-xl font-bold">
-                  {{ vote?.voters_against ?? "N/A" }}
+                  {{ vote?.voters_against ?? 'N/A' }}
                 </div>
                 <div class="text-sm uppercase">Contre</div>
               </div>
@@ -106,22 +97,17 @@
         <!-- Résultats et Infos -->
         <!-- Colonne gauche : Résultat -->
         <div>
-          <h2 class="mb-4 text-2xl font-bold dark:text-gray-100">
-            Résultat du vote
-          </h2>
+          <h2 class="mb-4 text-2xl font-bold dark:text-gray-100">Résultat du vote</h2>
           <div class="prose dark:prose-invert">
             <p>
               Les députés ont
               <span class="font-medium text-emerald-500">
-                {{ vote?.status === "adopted" ? "adopté" : "rejeté" }}
+                {{ vote?.status === 'adopted' ? 'adopté' : 'rejeté' }}
               </span>
               le {{ formatDate(vote?.date) }}:
             </p>
 
-            <div
-              class="prose prose-gray dark:prose-invert max-w-none"
-              v-html="vote?.desc"
-            ></div>
+            <div class="prose prose-gray max-w-none dark:prose-invert" v-html="vote?.desc"></div>
           </div>
         </div>
       </UCard>
@@ -131,18 +117,15 @@
 
 <script setup lang="ts">
 const route = useRoute();
-const { fetchAssemblyVoteById, vote, loading, error } = useAssemblyVotes();
+const id = computed(() => route.params.id as string);
+const { vote, loading, error } = useAssemblyVotes({ id });
 const router = useRouter();
 
-onMounted(() => {
-  fetchAssemblyVoteById(route.params.id as string);
-});
-
 const formatDate = (date: string) => {
-  return new Date(date).toLocaleDateString("fr-FR", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
+  return new Date(date).toLocaleDateString('fr-FR', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
   });
 };
 </script>

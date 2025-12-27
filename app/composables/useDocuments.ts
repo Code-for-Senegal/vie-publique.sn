@@ -1,8 +1,8 @@
-import type { Document } from "~/types/document";
+import type { Document } from '~/types/document';
 
 export interface DocumentsOptions {
   /** ID du document pour récupération unitaire */
-  id?: string;
+  id?: string | Ref<string>;
 
   /** Type de document fixe (ex: 'audit_report', 'official_journal') */
   type?: string;
@@ -32,10 +32,10 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
   const route = useRoute();
 
   // Pour un document unique, pas besoin de state UI
-  if (options.id) {
+  if (unref(options.id)) {
     const collection = useCmsCollection<Document>({
-      collection: "documents",
-      id: options.id,
+      collection: 'documents',
+      id: options.id as string | Ref<string>,
     });
 
     return {
@@ -48,9 +48,9 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
       // États vides pour compatibilité
       documents: computed(() => []),
       currentPage: ref(1),
-      searchQuery: ref(""),
-      sortBy: ref(options.sort || "-publish_date"),
-      filterValue: ref("all"),
+      searchQuery: ref(''),
+      sortBy: ref(options.sort || '-publish_date'),
+      filterValue: ref('all'),
       itemsPerPage: ref(options.limit || 10),
       pagination: computed(() => undefined),
       totalItems: computed(() => 0),
@@ -69,33 +69,33 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
 
   // État UI géré par useCollectionState
   const state = useCollectionState({
-    defaultSort: options.sort || "-publish_date",
+    defaultSort: options.sort || '-publish_date',
     defaultItemsPerPage: options.limit || 10,
-    defaultFilter: "all",
+    defaultFilter: 'all',
     syncUrl: options.syncUrl !== false,
     urlParamsMapping: {
-      search: "q", // ?q=audit
-      filter: options.type === "audit_report" ? "organisme" : "type", // ?organisme=OFNAC ou ?type=law
-      page: "page",
-      sort: "sort",
+      search: 'q', // ?q=audit
+      filter: options.type === 'audit_report' ? 'organisme' : 'type', // ?organisme=OFNAC ou ?type=law
+      page: 'page',
+      sort: 'sort',
     },
   });
 
   // Gestion du filtre par année pour journal officiel
-  const yearFilter = ref<string>("all");
+  const yearFilter = ref<string>('all');
 
   // Lecture du filtre année depuis l'URL
   onMounted(() => {
-    if (options.type === "official_journal" && route.query.year) {
+    if (options.type === 'official_journal' && route.query.year) {
       yearFilter.value = route.query.year as string;
     }
   });
 
   // Synchronisation du filtre année avec l'URL
   watch(yearFilter, () => {
-    if (options.type === "official_journal") {
+    if (options.type === 'official_journal') {
       const query: any = { ...route.query };
-      if (yearFilter.value !== "all") {
+      if (yearFilter.value !== 'all') {
         query.year = yearFilter.value;
       } else {
         delete query.year;
@@ -116,11 +116,11 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
     // Filtre dynamique selon le type de document
     const filterVal = state.filterValue.value;
 
-    if (filterVal && filterVal !== "all") {
-      if (options.type === "official_journal") {
+    if (filterVal && filterVal !== 'all') {
+      if (options.type === 'official_journal') {
         // Pour journal officiel : filtre par année
-        filters.filterType = yearFilter.value !== "all" ? yearFilter.value : filterVal;
-      } else if (options.type === "audit_report") {
+        filters.filterType = yearFilter.value !== 'all' ? yearFilter.value : filterVal;
+      } else if (options.type === 'audit_report') {
         // Pour rapports d'audit : filtre par organisme
         filters.filterType = filterVal;
       } else if (!options.type) {
@@ -134,7 +134,7 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
 
   // Utilisation du composable générique pour le fetch
   const collection = useCmsCollection<Document>({
-    collection: "documents",
+    collection: 'documents',
     filters,
     sort: state.sortBy,
     limit: state.itemsPerPage,
@@ -144,9 +144,7 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
 
   // Computed pour compatibilité avec l'ancien code
   const totalItems = computed(() => collection.pagination.value?.total || 0);
-  const totalPages = computed(
-    () => collection.pagination.value?.totalPages || 1
-  );
+  const totalPages = computed(() => collection.pagination.value?.totalPages || 1);
 
   return {
     // Données
@@ -182,14 +180,12 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
 
     // Alias pour compatibilité avec ancien code
     setSelectedFilter: state.setFilterValue,
-    documentType: computed(() => options.type || ""),
+    documentType: computed(() => options.type || ''),
     filterType: state.filterValue,
     setTotalItems: () => {}, // Deprecated - géré automatiquement
     setType: (type: string) => {
       // Note: changer le type nécessite une nouvelle instance du composable
-      console.warn(
-        "setType is deprecated - create a new useDocuments instance with the new type"
-      );
+      console.warn('setType is deprecated - create a new useDocuments instance with the new type');
     },
   };
 };

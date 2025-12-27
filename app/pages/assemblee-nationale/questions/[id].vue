@@ -7,7 +7,7 @@ const config = useRuntimeConfig();
 // ✅ Nouvelle architecture : useCmsCollection avec mode détail (id)
 // Plus besoin de onMounted ni de fetchById
 const { question, loading, error } = useAssemblyQuestions({
-  id: route.params.id as string,
+  id: computed(() => route.params.id as string),
 });
 
 const questionFullName = computed(() => {
