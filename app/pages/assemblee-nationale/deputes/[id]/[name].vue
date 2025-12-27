@@ -123,9 +123,14 @@ const image = computed(() => {
   const photoId =
     typeof photo === 'object' && photo !== null && 'id' in photo ? (photo as any).id : photo;
 
-  return typeof photoId === 'string'
-    ? useCmsImageAbsolute(photoId)
-    : `${siteUrl}/images/vpsn-share-elections.png`;
+  if (typeof photoId !== 'string') {
+    return `${siteUrl}/images/vpsn-share-elections.png`;
+  }
+
+  // Utilisation de useCmsImage (safe) puis concaténation manuelle avec siteUrl (safe)
+  const relativeUrl = useCmsImage(photoId);
+  if (relativeUrl.startsWith('http')) return relativeUrl;
+  return `${siteUrl}${relativeUrl}`;
 });
 
 const getSafeString = (val: unknown): string => {
@@ -188,10 +193,10 @@ useSchemaOrg([
   }),
   definePerson({
     name: () => deputyFullName.value,
-    givenName: () => deputy.value?.first_name,
-    familyName: () => deputy.value?.last_name,
+    givenName: () => getSafeString(deputy.value?.first_name),
+    familyName: () => getSafeString(deputy.value?.last_name),
     jobTitle: 'Député',
-    description: () => description.value,
+    description: () => getSafeString(description.value),
     image: () => image.value,
     url: () => url.value,
     birthDate: () => deputy.value?.birthdate,
@@ -220,11 +225,11 @@ useSchemaOrg([
 ]);
 
 // Helper function
-const calculateAge = (birthdate: string): number => {
+function calculateAge(birthdate: string): number {
   const birthDate = new Date(birthdate);
   const today = new Date();
   return today.getFullYear() - birthDate.getFullYear();
-};
+}
 
 const deputiesCommissionsFiltered = computed(() => {
   return deputiesCommissions.value.filter((commission) => commission.assembly_commission_id);

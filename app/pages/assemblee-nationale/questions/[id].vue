@@ -200,49 +200,21 @@ useHead({
     { name: 'geo.position', content: '14.7645042;-17.3660286' },
     { name: 'ICBM', content: '14.7645042, -17.3660286' },
   ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: computed(() => JSON.stringify(breadcrumbSchema.value)),
+    },
+    {
+      type: 'application/ld+json',
+      children: computed(() => JSON.stringify(questionSchema.value)),
+    },
+    {
+      type: 'application/ld+json',
+      children: computed(() => JSON.stringify(webPageSchema.value)),
+    },
+  ],
 });
-
-// Structured Data
-useSchemaOrg([
-  defineBreadcrumb({
-    itemListElement: () => [
-      { name: 'Accueil', item: '/' },
-      { name: 'Assemblée nationale', item: '/assemblee-nationale' },
-      { name: 'Questions écrites', item: '/assemblee-nationale/questions' },
-      { name: question.value?.subject || 'Question', item: url.value },
-    ],
-  }),
-  {
-    '@type': 'Question',
-    name: () => question.value?.subject,
-    text: () => question.value?.question_text?.replace(/<[^>]*>/g, '') || question.value?.subject,
-    dateCreated: () => (question.value ? formatDateISO(question.value.question_date) : ''),
-    url: () => url.value,
-    author: {
-      '@type': 'Person',
-      name: () => questionFullName.value,
-      givenName: () => question.value?.deputy.first_name,
-      familyName: () => question.value?.deputy.last_name,
-      jobTitle: 'Député',
-      image: () =>
-        question.value?.deputy.photo ? useCmsImage(question.value.deputy.photo) : undefined,
-      worksFor: {
-        '@type': 'GovernmentOrganization',
-        name: 'Assemblée nationale du Sénégal',
-        url: `${siteUrl}/assemblee-nationale`,
-      },
-    },
-    about: {
-      '@type': 'GovernmentOrganization',
-      name: 'Gouvernement du Sénégal',
-    },
-    isPartOf: {
-      '@type': 'CollectionPage',
-      name: 'Questions écrites parlementaires',
-      url: `${siteUrl}/assemblee-nationale/questions`,
-    },
-  },
-]);
 
 // ✅ Plus besoin de onMounted : les données sont chargées automatiquement via SSR
 </script>
@@ -255,13 +227,38 @@ useSchemaOrg([
   >
     <div class="mx-auto max-w-4xl">
       <!-- Bouton retour -->
-      <NuxtLink
-        to="/assemblee-nationale/questions"
-        class="mb-6 inline-flex items-center text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100"
+      <nav
+        class="mb-6 flex items-center text-sm text-gray-500 dark:text-gray-400"
+        aria-label="Breadcrumb"
       >
-        <UIcon name="i-heroicons-arrow-left" class="mr-2 h-5 w-5" />
-        Retour à la liste
-      </NuxtLink>
+        <NuxtLink
+          to="/"
+          class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+        >
+          Accueil
+        </NuxtLink>
+        <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
+        <NuxtLink
+          to="/assemblee-nationale"
+          class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+        >
+          Assemblée nationale
+        </NuxtLink>
+        <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
+        <NuxtLink
+          to="/assemblee-nationale/questions"
+          class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+        >
+          Questions écrites
+        </NuxtLink>
+        <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
+        <span
+          class="block max-w-[200px] truncate font-medium text-gray-900 md:max-w-md dark:text-white"
+          aria-current="page"
+        >
+          {{ question?.subject }}
+        </span>
+      </nav>
 
       <!-- Loading state -->
       <div v-if="loading" class="flex justify-center py-8">
