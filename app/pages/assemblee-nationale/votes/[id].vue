@@ -11,14 +11,21 @@
         />
       </div>
       <div class="absolute left-4 top-4">
-        <UButton
-          icon="i-heroicons-arrow-left"
-          variant="ghost"
-          label="Retour à la liste"
-          color="white"
-          class="text-white"
-          @click="handleReturn()"
-        />
+        <nav class="flex items-center text-sm font-medium text-white/90" aria-label="Breadcrumb">
+          <NuxtLink to="/" class="transition-colors hover:text-white"> Accueil </NuxtLink>
+          <span class="mx-2 text-white/60">/</span>
+          <NuxtLink to="/assemblee-nationale" class="transition-colors hover:text-white">
+            Assemblée
+          </NuxtLink>
+          <span class="mx-2 text-white/60">/</span>
+          <NuxtLink to="/assemblee-nationale/votes" class="transition-colors hover:text-white">
+            Votes
+          </NuxtLink>
+          <span class="mx-2 text-white/60">/</span>
+          <span class="block max-w-[200px] truncate md:max-w-md" aria-current="page">
+            {{ vote?.name }}
+          </span>
+        </nav>
       </div>
       <div class="absolute right-4 top-4">
         <UBadge class="text-lg" :color="vote?.status === 'adopted' ? 'emerald' : 'red'">
@@ -116,6 +123,8 @@
 </template>
 
 <script setup lang="ts">
+const { siteName, siteUrl, themeColor } = useSiteMetadata();
+
 const route = useRoute();
 const id = computed(() => route.params.id as string);
 const { vote, loading, error } = useAssemblyVotes({ id });
@@ -129,14 +138,43 @@ const formatDate = (date: string) => {
   });
 };
 
-const handleReturn = () => {
-  const previousRoute = router.options.history.state.back;
-  // Si on vient de la liste des votes, on fait retour arrière
-  if (typeof previousRoute === 'string' && previousRoute.includes('/assemblee-nationale/votes')) {
-    router.back();
-  } else {
-    // Sinon on redirige vers la liste
-    router.push('/assemblee-nationale/votes');
-  }
-};
+const breadcrumbSchema = computed(() => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Accueil',
+      item: siteUrl,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Assemblée nationale',
+      item: `${siteUrl}/assemblee-nationale`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Votes',
+      item: `${siteUrl}/assemblee-nationale/votes`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 4,
+      name: vote.value?.name || 'Détail du vote',
+      item: `${siteUrl}${route.path}`,
+    },
+  ],
+}));
+
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify(breadcrumbSchema.value),
+    },
+  ],
+});
 </script>
