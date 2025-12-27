@@ -17,7 +17,7 @@
           label="Retour à la liste"
           color="white"
           class="text-white"
-          @click="router.back()"
+          @click="handleReturn()"
         />
       </div>
       <div class="absolute right-4 top-4">
@@ -127,5 +127,16 @@ const formatDate = (date: string) => {
     month: 'long',
     year: 'numeric',
   });
+};
+
+const handleReturn = () => {
+  const previousRoute = router.options.history.state.back;
+  // Si on vient de la liste des votes, on fait retour arrière
+  if (typeof previousRoute === 'string' && previousRoute.includes('/assemblee-nationale/votes')) {
+    router.back();
+  } else {
+    // Sinon on redirige vers la liste
+    router.push('/assemblee-nationale/votes');
+  }
 };
 </script>
