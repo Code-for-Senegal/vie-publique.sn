@@ -16,11 +16,6 @@ if (!isProduction) {
   });
 }
 
-// Appliquer le middleware globalement
-definePageMeta({
-  middleware: ['maintenance'],
-});
-
 const isChatPage = ref(useRoute().path === '/chatbot');
 watch(
   () => useRoute().path,
@@ -127,7 +122,7 @@ onMounted(() => {
 
     <Toaster position="bottom-center" />
   </div>
-  <UContainer class="px-0 sm:px-10 md:px-14 lg:px-28 xl:px-40 pb-20 lg:pb-0">
+  <UContainer class="px-0 pb-20 sm:px-10 md:px-14 lg:px-28 lg:pb-0 xl:px-40">
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
