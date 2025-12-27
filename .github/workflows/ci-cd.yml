@@ -92,3 +92,9 @@ jobs:
             NODE_ENV=production
             BUILDTIME=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.created'] }}
             VERSION=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
+
+      - name: Trigger Coolify deployment
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          curl -fsSL --request GET "${{ secrets.COOLIFY_WEBHOOK }}" \
+            --header "Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}"
