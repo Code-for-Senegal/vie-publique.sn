@@ -90,9 +90,9 @@
         <!-- Colonne droite : Texte intro (visible uniquement sur desktop) -->
         <div class="hidden md:block">
           <p class="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
-            Explorez le budget de l'État avec notre tableau de bord interactif.
-            <strong>Consultez les chiffres clés</strong>, comparez les évolutions entre 2024 et
-            2026, et découvrez la répartition par ministère et institution.
+            Explorez le budget de l'État avec notre tableau de bord interactif. Consultez les
+            chiffres clés, comparez les évolutions entre 2024 et 2026, et découvrez la répartition
+            par ministère et institution.
           </p>
         </div>
       </div>
