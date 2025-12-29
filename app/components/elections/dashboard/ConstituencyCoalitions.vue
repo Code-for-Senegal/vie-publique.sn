@@ -43,9 +43,11 @@ watch(() => props.constituencyId, () => {
 
 const selectList = (list: any) => {
     if (list.coalition?.id) {
+        const targetConstituencyId = list.constituency?.id || props.constituencyId;
+        
         emit('selectCoalition', {
             coalitionId: list.coalition.id,
-            constituencyId: props.constituencyId
+            constituencyId: targetConstituencyId
         });
     }
 };
@@ -114,7 +116,7 @@ const selectList = (list: any) => {
          <!-- Header Card: Logo & Name -->
          <div class="p-4 flex items-center gap-4">
              <UAvatar 
-                :src="list.coalition?.logo ? `https://api.vie-publique.sn/assets/${list.coalition.logo}` : ''"
+                :src="list.coalition?.logo ? '' : ''"
                 :alt="list.coalition?.name" 
                 size="lg"
                 class="bg-gray-50 dark:bg-gray-800"
