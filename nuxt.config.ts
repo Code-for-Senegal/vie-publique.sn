@@ -182,8 +182,7 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@pinia/nuxt',
     '@nuxtjs/leaflet',
-    // ⚠️ PWA chargé uniquement en production pour éviter les erreurs dev-sw.js
-    ...(process.env.NODE_ENV === 'production' ? ['@vite-pwa/nuxt'] : []),
+    '@vite-pwa/nuxt',
     '@vueuse/nuxt',
     '@nuxtjs/mdc',
     'nuxt-security',
