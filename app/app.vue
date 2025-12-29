@@ -116,9 +116,9 @@ onMounted(() => {
     </ClientOnly>
 
     <!-- PWA Install Prompt -->
-    <ClientOnly>
+    <!-- <ClientOnly>
       <AppInstallPrompt />
-    </ClientOnly>
+    </ClientOnly> -->
 
     <Toaster position="bottom-center" />
   </div>
