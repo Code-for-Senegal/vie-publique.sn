@@ -2,6 +2,8 @@
 import { useElectoralDashboard } from '~/composables/elections/dashboard/useElectoralDashboard';
 import { useElectoralCoalitions } from '~/composables/elections/dashboard/useElectoralCoalitions';
 import { useElectoralConstituencies } from '~/composables/elections/dashboard/useElectoralConstituencies';
+import { useElectoralProfessions } from '~/composables/elections/dashboard/useElectoralProfessions';
+import { useElectoralStatsList } from '~/composables/elections/dashboard/useElectoralStatsList';
 
 /**
  * Dashboard Électoral - Page Principale
@@ -23,6 +25,51 @@ const {
   selectCoalition,
   clearCoalition
 } = dashboard;
+
+// --- STATISTIQUES LOGIC ---
+const statsTypes = [
+  { label: "Métiers des députés", value: "professionDeputy" },
+  { label: "Profession des candidats", value: "professionCandidat" },
+  { label: "Présences des listes par département", value: "departmental" },
+  { label: "Répartition des électeurs par sexe", value: "genderDistribution" },
+  { label: "Répartition des électeurs par âge", value: "ageDistribution" },
+];
+
+const route = useRoute();
+const router = useRouter();
+const statsType = ref<string>("professionDeputy");
+
+// Sync statsType with query params
+if (process.client) {
+    if (route.query.stats_type) {
+        const found = statsTypes.find(t => t.value === route.query.stats_type);
+        if (found) statsType.value = found.value;
+    }
+
+    watch(statsType, (newType) => {
+        router.replace({ query: { ...route.query, stats_type: newType } });
+    });
+}
+
+// Fetch Stats Data
+const {
+  data: professions,
+  pending: loadingProfessions,
+  error: errorProfessions,
+} = useElectoralProfessions({
+    year: selectedYear,
+    type: selectedType
+});
+
+const {
+  data: statsDepartmental,
+  pending: loadingDepertmental,
+  error: errorDepertmental,
+} = useElectoralStatsList({
+    year: selectedYear,
+    type: selectedType
+});
+
 
 // 2. Déterminer si c'est une élection locale
 const isLocalElection = computed(() => selectedType.value === 'locale');
@@ -240,6 +287,62 @@ useHead({
                     <ElectionMapComponent4 />
                 </div>
              </div>
+        </section>
+
+        <!-- Dashboard Section: Statistiques (Tab ID: statistiques) -->
+        <section v-else-if="activeTab === 'statistiques'" class="animate-in fade-in duration-700">
+            <div class="space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-2xl font-black uppercase tracking-tighter">Statistiques</h2>
+                        <p class="text-gray-500">Chiffres clés et analyses graphiques.</p>
+                    </div>
+                    <USelect
+                        v-model="statsType"
+                        :options="statsTypes"
+                        placeholder="Choisir une statistique"
+                        class="w-full md:w-72"
+                    />
+                </div>
+
+                <div class="bg-white dark:bg-gray-900 rounded-xl p-6 border dark:border-gray-800 shadow-sm min-h-[400px]">
+                    <!-- Loading States -->
+                    <div v-if="loadingProfessions || loadingDepertmental" class="flex justify-center items-center h-64">
+                         <div class="flex flex-col items-center space-y-2">
+                             <UIcon name="i-heroicons-arrow-path" class="w-8 h-8 animate-spin text-primary-500" />
+                             <span class="text-sm text-gray-400">Chargement des données...</span>
+                         </div>
+                    </div>
+
+                    <!-- Errors -->
+                    <UAlert v-else-if="errorProfessions || errorDepertmental" type="danger" title="Erreur de chargement">
+                        {{ errorProfessions || errorDepertmental }}
+                    </UAlert>
+
+                    <!-- Content -->
+                    <div v-else>
+                         <ElectionCandidatProfessionDeputies
+                            v-if="statsType == 'professionDeputy'"
+                          />
+
+                          <ElectionCandidatProfessionChart
+                            v-if="statsType == 'professionCandidat' && professions && professions?.length > 0"
+                            :professions="professions"
+                          />
+
+                          <ElectionStatsElectoralList
+                            v-if="statsType == 'departmental' && coalitions?.length > 0"
+                            :stats-departmental="statsDepartmental"
+                            :coalitions="coalitions"
+                          />
+
+                          <ElectionGenderDistributionChart
+                            v-if="statsType == 'genderDistribution'"
+                          />
+                          <ElectionAgeDistributionChart v-if="statsType == 'ageDistribution'" />
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Dashboard Section: Guide de vote (Tab ID: guide) -->
