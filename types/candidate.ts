@@ -1,4 +1,5 @@
 export interface Candidate {
+  id?: string | number;
   first_name: string;
   last_name: string;
   profession: string;
@@ -7,4 +8,6 @@ export interface Candidate {
   photo: string | null;
   voter_number: string;
   biography: string | null;
+  facebook?: string;
+  twitter?: string;
 }
