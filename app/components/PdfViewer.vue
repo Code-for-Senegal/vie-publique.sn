@@ -149,9 +149,12 @@
 import * as pdfjsLib from "pdfjs-dist";
 import type { PDFDocumentProxy, PDFPageProxy } from "pdfjs-dist";
 
-// Configuration du worker PDF.js - utiliser le worker local
-if (typeof window !== "undefined") {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdf-worker/pdf.worker.min.mjs";
+// Configuration du worker PDF.js - utiliser le worker via import.meta.url
+if (import.meta.client) {
+  pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+    'pdfjs-dist/build/pdf.worker.min.mjs',
+    import.meta.url
+  ).href
 }
 
 interface Props {
