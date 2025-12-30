@@ -35,12 +35,18 @@ const currentPageUI = computed({
 
 const sortByUI = computed({
   get: () => sortBy.value,
-  set: (value) => setSortBy(value),
+  set: (value) => {
+    setSortBy(value);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  },
 });
 
 const selectedTypeUI = computed({
   get: () => filterType.value || 'all',
-  set: (value) => setSelectedFilter(value === 'all' ? '' : value),
+  set: (value) => {
+    setSelectedFilter(value === 'all' ? '' : value);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  },
 });
 
 const resultsText = computed(() =>
