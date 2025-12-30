@@ -359,6 +359,7 @@ export default defineNuxtConfig({
       title: "l'information publique au Sénégal | Vie-Publique.sn",
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
+      link: [{ rel: 'manifest', href: '/manifest.webmanifest' }],
       meta: [
         {
           name: 'keywords',
