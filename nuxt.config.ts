@@ -159,6 +159,7 @@ export default defineNuxtConfig({
     },
   },
 
+  // FIXME
   // Optimisations expérimentales désactivées pour éviter les conflits
   // experimental: {
   //   payloadExtraction: false,
@@ -176,7 +177,8 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     'nuxt-gtag',
     '@nuxtjs/seo',
-    // '@nuxtjs/web-vitals', // Temporairement désactivé - incompatible avec Nuxt 4
+    // FIXME? Temporairement désactivé - incompatible avec Nuxt 4
+    // '@nuxtjs/web-vitals',
     '@nuxt/image',
     '@vueuse/motion/nuxt',
     '@nuxt/eslint',
@@ -489,6 +491,7 @@ export default defineNuxtConfig({
     enabled: !!process.env.GTAG_ID,
     id: process.env.GTAG_ID,
   },
+  // FIXME web-vitals: incompatible avec Nuxt 4? Temporarily disabled
   // webVitals: {
   //   provider: 'ga',
   //   disabled: !process.env.GTAG_ID,
@@ -515,6 +518,7 @@ export default defineNuxtConfig({
       baseURL: process.env.CMS_API_URL_ASSETS,
     },
   },
+  /* PWA options */
   pwa: {
     strategies: 'injectManifest',
     srcDir: 'service-worker',
@@ -687,11 +691,7 @@ export default defineNuxtConfig({
         /^\/conseil-des-ministres(\/.*)?$/,
       ],
       // Exclure les routes qui ne doivent pas être cachées
-      navigateFallbackDenylist: [
-        /^\/api\//,
-        /^\/sitemap/,
-        /^\/__nuxt_error/,
-      ],
+      navigateFallbackDenylist: [/^\/api\//, /^\/sitemap/, /^\/__nuxt_error/],
     },
     injectManifest: {
       globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
@@ -702,7 +702,8 @@ export default defineNuxtConfig({
       periodicSyncForUpdates: 3600,
     },
     devOptions: {
-      enabled: false, // ✅ Désactive PWA en dev (gain de performance)
+      // Désactiver la PWA UNIQUEMENT en local développeur
+      enabled: process.env.PWA_ENABLED === 'true',
       suppressWarnings: true,
       navigateFallback: null, // Fix dev-sw.js error (null au lieu de undefined)
       navigateFallbackAllowlist: [],
