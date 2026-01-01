@@ -186,7 +186,7 @@ export default defineNuxtConfig({
     ...(process.env.NODE_ENV === 'production' ? ['@vite-pwa/nuxt'] : []),
     '@vueuse/nuxt',
     '@nuxtjs/mdc',
-    'nuxt-security',
+    // 'nuxt-security',
   ],
   devtools: { enabled: true },
   runtimeConfig: {
