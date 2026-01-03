@@ -1,11 +1,12 @@
 import type { Document } from "~/types/document";
+import { unref, type Ref } from "vue";
 
 export interface DocumentsOptions {
   /** ID du document pour récupération unitaire */
   id?: string;
 
   /** Type de document fixe (ex: 'audit_report', 'official_journal') */
-  type?: string;
+  type?: string | Ref<string>;
 
   /** Tri par défaut */
   sort?: string;
@@ -15,6 +16,15 @@ export interface DocumentsOptions {
 
   /** Synchroniser avec l'URL */
   syncUrl?: boolean;
+
+  /** Filtre par élection */
+  election?: string | Ref<string>;
+
+  /** Champs à récupérer */
+  fields?: string[];
+
+  /** Liste explicite d'IDs (utile pour filtrage par relation complexe) */
+  ids?: string[] | Ref<string[] | null>;
 }
 
 /**
@@ -109,23 +119,35 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
     const filters: Record<string, any> = {};
 
     // Type de document fixe (passé en option)
-    if (options.type) {
-      filters.type = options.type;
+    const fixedType = unref(options.type);
+    if (fixedType) {
+      filters.type = fixedType;
     }
 
     // Filtre dynamique selon le type de document
     const filterVal = state.filterValue.value;
 
     if (filterVal && filterVal !== "all") {
-      if (options.type === "official_journal") {
+      if (fixedType === "official_journal") {
         // Pour journal officiel : filtre par année
-        filters.filterType = yearFilter.value !== "all" ? yearFilter.value : filterVal;
-      } else if (options.type === "audit_report") {
+        filters.filterType =
+          yearFilter.value !== "all" ? yearFilter.value : filterVal;
+      } else if (fixedType === "audit_report") {
         // Pour rapports d'audit : filtre par organisme
         filters.filterType = filterVal;
-      } else if (!options.type) {
+      } else if (!fixedType) {
         // Sans type spécifique : filtre par type de document
         filters.type = filterVal;
+      }
+    }
+
+    // Filtre par liste d'IDs explicite
+    const explicitIds = unref(options.ids);
+    if (explicitIds && Array.isArray(explicitIds)) {
+      if (explicitIds.length === 0) {
+        filters.id = { _eq: "none" }; // Forcer liste vide
+      } else {
+        filters.id = { _in: explicitIds };
       }
     }
 
@@ -135,6 +157,7 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
   // Utilisation du composable générique pour le fetch
   const collection = useCmsCollection<Document>({
     collection: "documents",
+    fields: options.fields,
     filters,
     sort: state.sortBy,
     limit: state.itemsPerPage,

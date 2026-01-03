@@ -20,6 +20,7 @@ const tabs = computed(() => [
   },
   { id: "carte", label: "Carte", icon: "i-heroicons-map" },
   { id: "resultats", label: "Résultats", icon: "i-heroicons-chart-bar" },
+  { id: "documents", label: "Documents", icon: "i-heroicons-document-duplicate" },
   { id: "statistiques", label: "Stats", icon: "i-heroicons-presentation-chart-line" },
   { id: "guide", label: "Guide", icon: "i-heroicons-play-circle" },
 ]);
@@ -39,7 +40,7 @@ const currentTabIndex = computed({
       wrapper: 'space-y-0',
       container: 'hidden',
       list: {
-        base: 'grid grid-cols-5 gap-0 w-full',
+        base: 'grid grid-cols-6 gap-0 w-full',
         background: 'bg-gray-100 dark:bg-gray-800 p-1 rounded-xl border border-gray-200 dark:border-gray-700',
         marker: {
           wrapper: 'absolute inset-0 flex',

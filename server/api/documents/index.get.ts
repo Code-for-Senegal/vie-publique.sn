@@ -5,7 +5,6 @@ export default defineCachedEventHandler(
   async (event) => {
     const config = useRuntimeConfig();
 
-    // Récupération des paramètres de requête
     const query = getQuery(event);
     const page = parseInt(query.page as string) || 1;
     const limit = parseInt(query.limit as string) || 10;
@@ -13,25 +12,29 @@ export default defineCachedEventHandler(
     const sortBy = (query.sortBy as string) || "-publish_date";
     const filterType = query.filterType as string;
     const type = query.type as string;
+    const electionId = query.election_id as string;
 
     try {
       const directus = getCmsClient();
 
-      // Construction du filtre dynamique
       const filter: any = {
         status: {
           _eq: "published",
         },
       };
 
-      // Filtre par type (prioritaire)
+      if (electionId) {
+        filter.election_id = {
+          _eq: parseInt(electionId),
+        };
+      }
+
       if (type && type !== "all") {
         filter.type = {
           _eq: type,
         };
       }
 
-      // Filtre par année
       if (filterType && filterType !== "" && filterType !== "all") {
         const year = parseInt(filterType);
         if (!isNaN(year)) {
@@ -39,14 +42,11 @@ export default defineCachedEventHandler(
             _between: [`${year}-01-01`, `${year}-12-31`],
           };
         } else {
-          // Si ce n'est pas une année, c'est un type OU un audit_institution
-          // Pour les rapports d'audit, on filtre par audit_institution
           if (type === "audit_report") {
             filter.audit_institution = {
               _eq: filterType,
             };
           } else {
-            // Pour les autres types, on filtre par type
             filter.type = {
               _eq: filterType,
             };
@@ -54,7 +54,6 @@ export default defineCachedEventHandler(
         }
       }
 
-      // Recherche textuelle
       if (search) {
         filter._or = [
           {
@@ -75,10 +74,8 @@ export default defineCachedEventHandler(
         ];
       }
 
-      // Calcul de l'offset pour la pagination
       const offset = (page - 1) * limit;
 
-      // Gérer le tri (support de date_created) pour la recuperation des 3 derniers documents
       let sortField = sortBy;
       if (sortBy === "-date_created") {
         sortField = "-date_created";
@@ -86,7 +83,6 @@ export default defineCachedEventHandler(
         sortField = "date_created";
       }
 
-      // Récupération des documents avec pagination et meta
       const documentData = await directus
         .request(
           readItems("documents", {
@@ -100,6 +96,7 @@ export default defineCachedEventHandler(
               "description",
               "audit_institution",
               "cover_image",
+              "election_id",
               "file.id",
               "file.type",
               "file.filesize",
@@ -118,7 +115,6 @@ export default defineCachedEventHandler(
           });
         });
 
-      // Recuperation du total de documents
       const totalCount = await directus
         .request(
           readItems("documents", {
@@ -134,7 +130,6 @@ export default defineCachedEventHandler(
         })
         .catch(() => documentData.length);
 
-      // Transformation des données
       const transformedDocuments: Document[] = documentData.map((doc) => ({
         id: doc.id,
         title: doc.title,
@@ -148,6 +143,7 @@ export default defineCachedEventHandler(
         ...(doc.cover_image
           ? { cover_image: doc.cover_image }
           : {}),
+        ...(doc.election_id ? { election_id: doc.election_id } : {}),
         ...(doc.file ? { file: doc.file } : {}),
       }));
 

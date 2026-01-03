@@ -43,6 +43,24 @@ export const useElectoralDashboard = () => {
     }
   }, { immediate: true });
 
+  // Basculer automatiquement sur la dernière année disponible si le type change et qu'aucune élection n'existe pour l'année actuelle
+  watch(selectedType, (newType) => {
+    if (config.value?.elections) {
+      const currentYear = selectedYear.value;
+      const exists = config.value.elections.some(e => e.type === newType && e.year === currentYear);
+      
+      if (!exists) {
+        const latestForType = config.value.elections
+          .filter(e => e.type === newType)
+          .sort((a, b) => b.year - a.year)[0];
+        
+        if (latestForType) {
+          selectedYear.value = latestForType.year;
+        }
+      }
+    }
+  });
+
   const selectConstituency = (id: string) => {
     selectedConstituencyId.value = id;
   };
@@ -72,12 +90,13 @@ export const useElectoralDashboard = () => {
     const router = useRouter();
 
     // Mettre à jour l'URL quand les filtres changent
-    watch([selectedYear, selectedType], ([year, type]) => {
-      if (year && type) {
-        router.replace({
-          query: { ...route.query, year: String(year), type }
-        });
-      }
+    watch([selectedYear, selectedType, activeTab], ([year, type, tab]) => {
+      const query: any = { ...route.query };
+      if (year) query.year = String(year);
+      if (type) query.type = type;
+      if (tab) query.tab = tab;
+
+      router.replace({ query });
     });
 
     // Initialiser depuis les query params si disponibles
@@ -90,6 +109,9 @@ export const useElectoralDashboard = () => {
       }
       if (route.query.type) {
         selectedType.value = route.query.type as string;
+      }
+      if (route.query.tab) {
+        activeTab.value = route.query.tab as string;
       }
     });
   }

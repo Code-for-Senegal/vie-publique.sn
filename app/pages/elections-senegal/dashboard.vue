@@ -109,6 +109,7 @@ const tabs = computed(() => [
   },
   { id: "carte", label: "Carte", icon: "i-heroicons-map" },
   { id: "resultats", label: "Résultats", icon: "i-heroicons-chart-bar" },
+  { id: "documents", label: "Documents", icon: "i-heroicons-document-duplicate" },
   { id: "statistiques", label: "Stats", icon: "i-heroicons-presentation-chart-line" },
   { id: "guide", label: "Guide", icon: "i-heroicons-play-circle" },
 ]);
@@ -154,6 +155,17 @@ useHead({
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
+      <!-- Breadcrumb / Back Navigation -->
+      <nav class="mb-8 flex items-center justify-between">
+        <NuxtLink to="/elections-senegal" class="flex items-center text-sm font-bold text-gray-500 hover:text-primary-600 transition-colors">
+          <UIcon name="i-heroicons-arrow-left" class="mr-2" />
+          Accueil Élections
+        </NuxtLink>
+        <div class="flex items-center gap-2">
+           <UBadge color="gray" variant="soft" class="rounded-full">Dashboard</UBadge>
+        </div>
+      </nav>
+
       <!-- Section: Détails de l'élection -->
       <transition name="fade">
         <ElectionsDashboardElectoralDetailsCard
@@ -348,6 +360,31 @@ useHead({
         <!-- Dashboard Section: Guide de vote (Tab ID: guide) -->
         <section v-else-if="activeTab === 'guide'" class="animate-in fade-in duration-700">
           <ElectionsDashboardGuideElectoralVideos />
+        </section>
+        
+        <!-- Dashboard Section: Documents (Tab ID: documents) -->
+        <section v-else-if="activeTab === 'documents'" class="animate-in fade-in duration-700">
+           <div class="space-y-6">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h2 class="text-2xl font-black uppercase tracking-tighter">Documents Officiels</h2>
+                  <p class="text-gray-500">Retrouvez les textes et documents liés à ce scrutin.</p>
+                </div>
+                <UButton to="/elections-senegal/legislation" variant="ghost" icon="i-heroicons-arrow-top-right-on-square">
+                  Voir toute la législation
+                </UButton>
+              </div>
+              
+              <div class="bg-white dark:bg-gray-900 rounded-[2rem] p-8 border dark:border-gray-800 shadow-sm min-h-[300px]">
+                 <!-- Documents rattachés à l'élection actuelle -->
+                 <div v-if="currentElection">
+                    <ElectionsDashboardDocumentsTab 
+                      :election-id="currentElection.id" 
+                      :election-name="currentElection.name"
+                    />
+                 </div>
+              </div>
+           </div>
         </section>
 
         <!-- Placeholder for other tabs -->
