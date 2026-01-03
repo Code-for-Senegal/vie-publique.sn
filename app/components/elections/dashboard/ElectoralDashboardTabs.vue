@@ -4,9 +4,7 @@ interface Props {
   selectedType?: string;
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  selectedType: 'legislative'
-});
+const props = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: number): void;
@@ -15,7 +13,7 @@ const emit = defineEmits<{
 const tabs = computed(() => [
   {
     id: "candidats",
-    label: props.selectedType === 'presidential' ? 'Candidats' : 'Coalitions',
+    label: props.selectedType === 'presidential' ? 'Candidats' : (props.selectedType === 'locale' ? 'Circonscriptions' : 'Coalitions'),
     icon: "i-heroicons-user-group"
   },
   { id: "carte", label: "Carte", icon: "i-heroicons-map" },
@@ -60,7 +58,14 @@ const currentTabIndex = computed({
     <template #item="{ item }">
       <div class="flex items-center justify-center gap-1 sm:gap-1.5">
         <UIcon :name="item.icon" class="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
-        <span class="truncate">{{ item.label }}</span>
+        <!-- Sur mobile: texte visible uniquement pour le tab actif -->
+        <!-- Sur desktop: texte toujours visible -->
+        <span 
+          class="truncate transition-all duration-200"
+          :class="tabs[currentTabIndex]?.id === item.id ? 'inline' : 'hidden sm:inline'"
+        >
+          {{ item.label }}
+        </span>
       </div>
     </template>
   </UTabs>

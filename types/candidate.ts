@@ -8,6 +8,8 @@ export interface Candidate {
   photo: string | null;
   voter_number: string;
   biography: string | null;
+  birthdate?: string;
+  birthplace?: string;
   facebook?: string;
   twitter?: string;
 }

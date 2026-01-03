@@ -41,7 +41,7 @@ export default defineCachedEventHandler(
     }
   },
   {
-    maxAge: 60 * 60, // 1 heure
+    maxAge: 60 * 60,
     name: "elections-with-documents",
   }
 );

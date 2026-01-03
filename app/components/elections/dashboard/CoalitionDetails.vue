@@ -94,6 +94,8 @@ function openCandidateModal(candidate: Candidate) {
     <ElectionsDashboardPresidentialDetailsHeader
       :coalition-name="coalitionName"
       :list-count="lists.length"
+      :type="type"
+      :candidate="isPresidential && lists.length > 0 ? lists[0].candidates[0] : null"
       @close="emit('close')"
     />
 
@@ -113,6 +115,7 @@ function openCandidateModal(candidate: Candidate) {
       v-if="isPresidential && lists.length > 0 && lists[0].candidates.length > 0"
       :candidate="lists[0].candidates[0]"
       :coalition-name="coalitionName"
+      :coalition-id="coalitionId"
     />
 
     <!-- Loading State -->

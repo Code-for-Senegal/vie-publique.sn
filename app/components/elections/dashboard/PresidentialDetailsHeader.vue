@@ -1,13 +1,23 @@
 <script setup lang="ts">
+import type { Candidate } from '~~/types/candidate';
+
 interface Props {
   coalitionName?: string;
   listCount?: number;
+  type?: string;
+  candidate?: Candidate | null;
 }
 
 const props = defineProps<Props>();
 const emit = defineEmits<{
   (e: 'close'): void;
 }>();
+
+const isPresidential = computed(() => props.type === 'presidential');
+const genderText = computed(() => {
+  if (!props.candidate) return 'le/la candidat.e';
+  return props.candidate.gender === 'F' ? 'la candidate' : 'le candidat';
+});
 </script>
 
 <template>
@@ -22,9 +32,16 @@ const emit = defineEmits<{
       >
         Retour
       </UButton>
-      <h2 class="text-xl font-bold text-gray-900 dark:text-white">Détails de la liste {{ coalitionName }}</h2>
+      <h2 class="text-xl font-bold text-gray-900 dark:text-white">
+        <template v-if="isPresidential">
+          {{ genderText }} de la liste {{ coalitionName }}
+        </template>
+        <template v-else>
+          Détails de la liste {{ coalitionName }}
+        </template>
+      </h2>
     </div>
-    <UBadge v-if="listCount" color="primary" variant="subtle">
+    <UBadge v-if="listCount && !isPresidential" color="primary" variant="subtle">
       {{ (listCount / 2).toFixed(0) }} circonscriptions
     </UBadge>
   </div>
