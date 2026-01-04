@@ -5255,26 +5255,6 @@
             "collection": "election_candidates",
             "field": "id",
             "type": "integer",
-            "meta": {
-                "collection": "election_candidates",
-                "field": "id",
-                "special": null,
-                "interface": "input",
-                "options": null,
-                "display": null,
-                "display_options": null,
-                "readonly": true,
-                "hidden": true,
-                "sort": 1,
-                "width": "full",
-                "translations": null,
-                "note": null,
-                "conditions": null,
-                "required": false,
-                "group": null,
-                "validation": null,
-                "validation_message": null
-            },
             "schema": {
                 "name": "id",
                 "table": "election_candidates",
@@ -5294,32 +5274,32 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
+            },
+            "meta": {
+                "collection": "election_candidates",
+                "field": "id",
+                "special": null,
+                "interface": "input",
+                "options": null,
+                "display": null,
+                "display_options": null,
+                "readonly": true,
+                "hidden": true,
+                "sort": 1,
+                "width": "full",
+                "translations": null,
+                "note": null,
+                "conditions": null,
+                "required": false,
+                "group": null,
+                "validation": null,
+                "validation_message": null
             }
         },
         {
             "collection": "election_candidates",
             "field": "first_name",
             "type": "string",
-            "meta": {
-                "collection": "election_candidates",
-                "field": "first_name",
-                "special": null,
-                "interface": "input",
-                "options": null,
-                "display": null,
-                "display_options": null,
-                "readonly": false,
-                "hidden": false,
-                "sort": 2,
-                "width": "half",
-                "translations": null,
-                "note": null,
-                "conditions": null,
-                "required": true,
-                "group": null,
-                "validation": null,
-                "validation_message": null
-            },
             "schema": {
                 "name": "first_name",
                 "table": "election_candidates",
@@ -5339,15 +5319,10 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "election_candidates",
-            "field": "last_name",
-            "type": "string",
+            },
             "meta": {
                 "collection": "election_candidates",
-                "field": "last_name",
+                "field": "first_name",
                 "special": null,
                 "interface": "input",
                 "options": null,
@@ -5355,7 +5330,7 @@
                 "display_options": null,
                 "readonly": false,
                 "hidden": false,
-                "sort": 3,
+                "sort": 2,
                 "width": "half",
                 "translations": null,
                 "note": null,
@@ -5364,7 +5339,12 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
+            }
+        },
+        {
+            "collection": "election_candidates",
+            "field": "last_name",
+            "type": "string",
             "schema": {
                 "name": "last_name",
                 "table": "election_candidates",
@@ -5384,32 +5364,32 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
+            },
+            "meta": {
+                "collection": "election_candidates",
+                "field": "last_name",
+                "special": null,
+                "interface": "input",
+                "options": null,
+                "display": null,
+                "display_options": null,
+                "readonly": false,
+                "hidden": false,
+                "sort": 3,
+                "width": "half",
+                "translations": null,
+                "note": null,
+                "conditions": null,
+                "required": true,
+                "group": null,
+                "validation": null,
+                "validation_message": null
             }
         },
         {
             "collection": "election_candidates",
             "field": "birthdate",
             "type": "date",
-            "meta": {
-                "collection": "election_candidates",
-                "field": "birthdate",
-                "special": null,
-                "interface": "datetime",
-                "options": null,
-                "display": null,
-                "display_options": null,
-                "readonly": false,
-                "hidden": false,
-                "sort": 4,
-                "width": "half",
-                "translations": null,
-                "note": null,
-                "conditions": null,
-                "required": false,
-                "group": null,
-                "validation": null,
-                "validation_message": null
-            },
             "schema": {
                 "name": "birthdate",
                 "table": "election_candidates",
@@ -5429,23 +5409,18 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "election_candidates",
-            "field": "birthplace",
-            "type": "string",
+            },
             "meta": {
                 "collection": "election_candidates",
-                "field": "birthplace",
+                "field": "birthdate",
                 "special": null,
-                "interface": "input",
+                "interface": "datetime",
                 "options": null,
                 "display": null,
                 "display_options": null,
                 "readonly": false,
                 "hidden": false,
-                "sort": 5,
+                "sort": 4,
                 "width": "half",
                 "translations": null,
                 "note": null,
@@ -5454,7 +5429,12 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
+            }
+        },
+        {
+            "collection": "election_candidates",
+            "field": "birthplace",
+            "type": "string",
             "schema": {
                 "name": "birthplace",
                 "table": "election_candidates",
@@ -5474,12 +5454,52 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
+            },
+            "meta": {
+                "collection": "election_candidates",
+                "field": "birthplace",
+                "special": null,
+                "interface": "input",
+                "options": null,
+                "display": null,
+                "display_options": null,
+                "readonly": false,
+                "hidden": false,
+                "sort": 5,
+                "width": "half",
+                "translations": null,
+                "note": null,
+                "conditions": null,
+                "required": false,
+                "group": null,
+                "validation": null,
+                "validation_message": null
             }
         },
         {
             "collection": "election_candidates",
             "field": "role",
             "type": "string",
+            "schema": {
+                "name": "role",
+                "table": "election_candidates",
+                "data_type": "character varying",
+                "default_value": "titulaire",
+                "generation_expression": null,
+                "max_length": 255,
+                "numeric_precision": null,
+                "numeric_scale": null,
+                "is_generated": false,
+                "is_nullable": true,
+                "is_unique": false,
+                "is_indexed": false,
+                "is_primary_key": false,
+                "has_auto_increment": false,
+                "foreign_key_schema": null,
+                "foreign_key_table": null,
+                "foreign_key_column": null,
+                "comment": null
+            },
             "meta": {
                 "collection": "election_candidates",
                 "field": "role",
@@ -5525,12 +5545,17 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
+            }
+        },
+        {
+            "collection": "election_candidates",
+            "field": "gender",
+            "type": "string",
             "schema": {
-                "name": "role",
+                "name": "gender",
                 "table": "election_candidates",
                 "data_type": "character varying",
-                "default_value": "titulaire",
+                "default_value": null,
                 "generation_expression": null,
                 "max_length": 255,
                 "numeric_precision": null,
@@ -5545,12 +5570,7 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "election_candidates",
-            "field": "gender",
-            "type": "string",
+            },
             "meta": {
                 "collection": "election_candidates",
                 "field": "gender",
@@ -5581,52 +5601,12 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
-            "schema": {
-                "name": "gender",
-                "table": "election_candidates",
-                "data_type": "character varying",
-                "default_value": null,
-                "generation_expression": null,
-                "max_length": 255,
-                "numeric_precision": null,
-                "numeric_scale": null,
-                "is_generated": false,
-                "is_nullable": true,
-                "is_unique": false,
-                "is_indexed": false,
-                "is_primary_key": false,
-                "has_auto_increment": false,
-                "foreign_key_schema": null,
-                "foreign_key_table": null,
-                "foreign_key_column": null,
-                "comment": null
             }
         },
         {
             "collection": "election_candidates",
             "field": "position",
             "type": "integer",
-            "meta": {
-                "collection": "election_candidates",
-                "field": "position",
-                "special": null,
-                "interface": "input",
-                "options": null,
-                "display": null,
-                "display_options": null,
-                "readonly": false,
-                "hidden": false,
-                "sort": 8,
-                "width": "half",
-                "translations": null,
-                "note": "Ordre d'investiture",
-                "conditions": null,
-                "required": true,
-                "group": null,
-                "validation": null,
-                "validation_message": null
-            },
             "schema": {
                 "name": "position",
                 "table": "election_candidates",
@@ -5646,15 +5626,10 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "election_candidates",
-            "field": "profession",
-            "type": "string",
+            },
             "meta": {
                 "collection": "election_candidates",
-                "field": "profession",
+                "field": "position",
                 "special": null,
                 "interface": "input",
                 "options": null,
@@ -5662,16 +5637,21 @@
                 "display_options": null,
                 "readonly": false,
                 "hidden": false,
-                "sort": 9,
+                "sort": 8,
                 "width": "half",
                 "translations": null,
-                "note": null,
+                "note": "Ordre d'investiture",
                 "conditions": null,
                 "required": true,
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
+            }
+        },
+        {
+            "collection": "election_candidates",
+            "field": "profession",
+            "type": "string",
             "schema": {
                 "name": "profession",
                 "table": "election_candidates",
@@ -5691,12 +5671,52 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
+            },
+            "meta": {
+                "collection": "election_candidates",
+                "field": "profession",
+                "special": null,
+                "interface": "input",
+                "options": null,
+                "display": null,
+                "display_options": null,
+                "readonly": false,
+                "hidden": false,
+                "sort": 9,
+                "width": "half",
+                "translations": null,
+                "note": null,
+                "conditions": null,
+                "required": true,
+                "group": null,
+                "validation": null,
+                "validation_message": null
             }
         },
         {
             "collection": "election_candidates",
             "field": "electoral_list",
             "type": "integer",
+            "schema": {
+                "name": "electoral_list",
+                "table": "election_candidates",
+                "data_type": "integer",
+                "default_value": null,
+                "generation_expression": null,
+                "max_length": null,
+                "numeric_precision": 32,
+                "numeric_scale": 0,
+                "is_generated": false,
+                "is_nullable": true,
+                "is_unique": false,
+                "is_indexed": false,
+                "is_primary_key": false,
+                "has_auto_increment": false,
+                "foreign_key_schema": "public",
+                "foreign_key_table": "election_electoral_lists",
+                "foreign_key_column": "id",
+                "comment": null
+            },
             "meta": {
                 "collection": "election_candidates",
                 "field": "electoral_list",
@@ -5721,32 +5741,32 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
-            "schema": {
-                "name": "electoral_list",
-                "table": "election_candidates",
-                "data_type": "integer",
-                "default_value": null,
-                "generation_expression": null,
-                "max_length": null,
-                "numeric_precision": 32,
-                "numeric_scale": 0,
-                "is_generated": false,
-                "is_nullable": true,
-                "is_unique": false,
-                "is_indexed": false,
-                "is_primary_key": false,
-                "has_auto_increment": false,
-                "foreign_key_schema": "public",
-                "foreign_key_table": "election_electoral_lists",
-                "foreign_key_column": "id",
-                "comment": null
             }
         },
         {
             "collection": "election_candidates",
             "field": "status",
             "type": "string",
+            "schema": {
+                "name": "status",
+                "table": "election_candidates",
+                "data_type": "character varying",
+                "default_value": "draft",
+                "generation_expression": null,
+                "max_length": 255,
+                "numeric_precision": null,
+                "numeric_scale": null,
+                "is_generated": false,
+                "is_nullable": false,
+                "is_unique": false,
+                "is_indexed": false,
+                "is_primary_key": false,
+                "has_auto_increment": false,
+                "foreign_key_schema": null,
+                "foreign_key_table": null,
+                "foreign_key_column": null,
+                "comment": null
+            },
             "meta": {
                 "collection": "election_candidates",
                 "field": "status",
@@ -5809,32 +5829,32 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
-            "schema": {
-                "name": "status",
-                "table": "election_candidates",
-                "data_type": "character varying",
-                "default_value": "draft",
-                "generation_expression": null,
-                "max_length": 255,
-                "numeric_precision": null,
-                "numeric_scale": null,
-                "is_generated": false,
-                "is_nullable": false,
-                "is_unique": false,
-                "is_indexed": false,
-                "is_primary_key": false,
-                "has_auto_increment": false,
-                "foreign_key_schema": null,
-                "foreign_key_table": null,
-                "foreign_key_column": null,
-                "comment": null
             }
         },
         {
             "collection": "election_candidates",
             "field": "user_created",
             "type": "uuid",
+            "schema": {
+                "name": "user_created",
+                "table": "election_candidates",
+                "data_type": "uuid",
+                "default_value": null,
+                "generation_expression": null,
+                "max_length": null,
+                "numeric_precision": null,
+                "numeric_scale": null,
+                "is_generated": false,
+                "is_nullable": true,
+                "is_unique": false,
+                "is_indexed": false,
+                "is_primary_key": false,
+                "has_auto_increment": false,
+                "foreign_key_schema": "public",
+                "foreign_key_table": "directus_users",
+                "foreign_key_column": "id",
+                "comment": null
+            },
             "meta": {
                 "collection": "election_candidates",
                 "field": "user_created",
@@ -5858,11 +5878,16 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
+            }
+        },
+        {
+            "collection": "election_candidates",
+            "field": "date_created",
+            "type": "timestamp",
             "schema": {
-                "name": "user_created",
+                "name": "date_created",
                 "table": "election_candidates",
-                "data_type": "uuid",
+                "data_type": "timestamp with time zone",
                 "default_value": null,
                 "generation_expression": null,
                 "max_length": null,
@@ -5874,16 +5899,11 @@
                 "is_indexed": false,
                 "is_primary_key": false,
                 "has_auto_increment": false,
-                "foreign_key_schema": "public",
-                "foreign_key_table": "directus_users",
-                "foreign_key_column": "id",
+                "foreign_key_schema": null,
+                "foreign_key_table": null,
+                "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "election_candidates",
-            "field": "date_created",
-            "type": "timestamp",
+            },
             "meta": {
                 "collection": "election_candidates",
                 "field": "date_created",
@@ -5907,11 +5927,16 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
+            }
+        },
+        {
+            "collection": "election_candidates",
+            "field": "user_updated",
+            "type": "uuid",
             "schema": {
-                "name": "date_created",
+                "name": "user_updated",
                 "table": "election_candidates",
-                "data_type": "timestamp with time zone",
+                "data_type": "uuid",
                 "default_value": null,
                 "generation_expression": null,
                 "max_length": null,
@@ -5923,16 +5948,11 @@
                 "is_indexed": false,
                 "is_primary_key": false,
                 "has_auto_increment": false,
-                "foreign_key_schema": null,
-                "foreign_key_table": null,
-                "foreign_key_column": null,
+                "foreign_key_schema": "public",
+                "foreign_key_table": "directus_users",
+                "foreign_key_column": "id",
                 "comment": null
-            }
-        },
-        {
-            "collection": "election_candidates",
-            "field": "user_updated",
-            "type": "uuid",
+            },
             "meta": {
                 "collection": "election_candidates",
                 "field": "user_updated",
@@ -5956,11 +5976,16 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
+            }
+        },
+        {
+            "collection": "election_candidates",
+            "field": "date_updated",
+            "type": "timestamp",
             "schema": {
-                "name": "user_updated",
+                "name": "date_updated",
                 "table": "election_candidates",
-                "data_type": "uuid",
+                "data_type": "timestamp with time zone",
                 "default_value": null,
                 "generation_expression": null,
                 "max_length": null,
@@ -5972,16 +5997,11 @@
                 "is_indexed": false,
                 "is_primary_key": false,
                 "has_auto_increment": false,
-                "foreign_key_schema": "public",
-                "foreign_key_table": "directus_users",
-                "foreign_key_column": "id",
+                "foreign_key_schema": null,
+                "foreign_key_table": null,
+                "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "election_candidates",
-            "field": "date_updated",
-            "type": "timestamp",
+            },
             "meta": {
                 "collection": "election_candidates",
                 "field": "date_updated",
@@ -6005,11 +6025,16 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
+            }
+        },
+        {
+            "collection": "election_candidates",
+            "field": "is_elected",
+            "type": "boolean",
             "schema": {
-                "name": "date_updated",
+                "name": "is_elected",
                 "table": "election_candidates",
-                "data_type": "timestamp with time zone",
+                "data_type": "boolean",
                 "default_value": null,
                 "generation_expression": null,
                 "max_length": null,
@@ -6025,12 +6050,7 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "election_candidates",
-            "field": "is_elected",
-            "type": "boolean",
+            },
             "meta": {
                 "collection": "election_candidates",
                 "field": "is_elected",
@@ -6052,11 +6072,16 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
+            }
+        },
+        {
+            "collection": "election_candidates",
+            "field": "photo",
+            "type": "uuid",
             "schema": {
-                "name": "is_elected",
+                "name": "photo",
                 "table": "election_candidates",
-                "data_type": "boolean",
+                "data_type": "uuid",
                 "default_value": null,
                 "generation_expression": null,
                 "max_length": null,
@@ -6068,16 +6093,11 @@
                 "is_indexed": false,
                 "is_primary_key": false,
                 "has_auto_increment": false,
-                "foreign_key_schema": null,
-                "foreign_key_table": null,
-                "foreign_key_column": null,
+                "foreign_key_schema": "public",
+                "foreign_key_table": "directus_files",
+                "foreign_key_column": "id",
                 "comment": null
-            }
-        },
-        {
-            "collection": "election_candidates",
-            "field": "photo",
-            "type": "uuid",
+            },
             "meta": {
                 "collection": "election_candidates",
                 "field": "photo",
@@ -6101,11 +6121,16 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
+            }
+        },
+        {
+            "collection": "election_candidates",
+            "field": "tags",
+            "type": "csv",
             "schema": {
-                "name": "photo",
+                "name": "tags",
                 "table": "election_candidates",
-                "data_type": "uuid",
+                "data_type": "text",
                 "default_value": null,
                 "generation_expression": null,
                 "max_length": null,
@@ -6117,16 +6142,11 @@
                 "is_indexed": false,
                 "is_primary_key": false,
                 "has_auto_increment": false,
-                "foreign_key_schema": "public",
-                "foreign_key_table": "directus_files",
-                "foreign_key_column": "id",
+                "foreign_key_schema": null,
+                "foreign_key_table": null,
+                "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "election_candidates",
-            "field": "tags",
-            "type": "csv",
+            },
             "meta": {
                 "collection": "election_candidates",
                 "field": "tags",
@@ -6148,12 +6168,17 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
+            }
+        },
+        {
+            "collection": "election_candidates",
+            "field": "is_outgoing_deputy",
+            "type": "boolean",
             "schema": {
-                "name": "tags",
+                "name": "is_outgoing_deputy",
                 "table": "election_candidates",
-                "data_type": "text",
-                "default_value": null,
+                "data_type": "boolean",
+                "default_value": false,
                 "generation_expression": null,
                 "max_length": null,
                 "numeric_precision": null,
@@ -6168,12 +6193,7 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "election_candidates",
-            "field": "is_outgoing_deputy",
-            "type": "boolean",
+            },
             "meta": {
                 "collection": "election_candidates",
                 "field": "is_outgoing_deputy",
@@ -6195,52 +6215,12 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
-            "schema": {
-                "name": "is_outgoing_deputy",
-                "table": "election_candidates",
-                "data_type": "boolean",
-                "default_value": false,
-                "generation_expression": null,
-                "max_length": null,
-                "numeric_precision": null,
-                "numeric_scale": null,
-                "is_generated": false,
-                "is_nullable": true,
-                "is_unique": false,
-                "is_indexed": false,
-                "is_primary_key": false,
-                "has_auto_increment": false,
-                "foreign_key_schema": null,
-                "foreign_key_table": null,
-                "foreign_key_column": null,
-                "comment": null
             }
         },
         {
             "collection": "election_candidates",
             "field": "facebook",
             "type": "string",
-            "meta": {
-                "collection": "election_candidates",
-                "field": "facebook",
-                "special": null,
-                "interface": "input",
-                "options": null,
-                "display": null,
-                "display_options": null,
-                "readonly": false,
-                "hidden": false,
-                "sort": 20,
-                "width": "half",
-                "translations": null,
-                "note": null,
-                "conditions": null,
-                "required": false,
-                "group": null,
-                "validation": null,
-                "validation_message": null
-            },
             "schema": {
                 "name": "facebook",
                 "table": "election_candidates",
@@ -6260,15 +6240,10 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "election_candidates",
-            "field": "twitter",
-            "type": "string",
+            },
             "meta": {
                 "collection": "election_candidates",
-                "field": "twitter",
+                "field": "facebook",
                 "special": null,
                 "interface": "input",
                 "options": null,
@@ -6276,7 +6251,7 @@
                 "display_options": null,
                 "readonly": false,
                 "hidden": false,
-                "sort": 21,
+                "sort": 20,
                 "width": "half",
                 "translations": null,
                 "note": null,
@@ -6285,7 +6260,12 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
+            }
+        },
+        {
+            "collection": "election_candidates",
+            "field": "twitter",
+            "type": "string",
             "schema": {
                 "name": "twitter",
                 "table": "election_candidates",
@@ -6305,24 +6285,19 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "election_candidates",
-            "field": "biography",
-            "type": "text",
+            },
             "meta": {
                 "collection": "election_candidates",
-                "field": "biography",
+                "field": "twitter",
                 "special": null,
-                "interface": "input-multiline",
+                "interface": "input",
                 "options": null,
                 "display": null,
                 "display_options": null,
                 "readonly": false,
                 "hidden": false,
-                "sort": 22,
-                "width": "full",
+                "sort": 21,
+                "width": "half",
                 "translations": null,
                 "note": null,
                 "conditions": null,
@@ -6330,7 +6305,12 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
+            }
+        },
+        {
+            "collection": "election_candidates",
+            "field": "biography",
+            "type": "text",
             "schema": {
                 "name": "biography",
                 "table": "election_candidates",
@@ -6350,15 +6330,10 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "election_candidates",
-            "field": "notes",
-            "type": "text",
+            },
             "meta": {
                 "collection": "election_candidates",
-                "field": "notes",
+                "field": "biography",
                 "special": null,
                 "interface": "input-multiline",
                 "options": null,
@@ -6366,7 +6341,7 @@
                 "display_options": null,
                 "readonly": false,
                 "hidden": false,
-                "sort": 23,
+                "sort": 22,
                 "width": "full",
                 "translations": null,
                 "note": null,
@@ -6375,7 +6350,12 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
+            }
+        },
+        {
+            "collection": "election_candidates",
+            "field": "notes",
+            "type": "text",
             "schema": {
                 "name": "notes",
                 "table": "election_candidates",
@@ -6395,12 +6375,52 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
+            },
+            "meta": {
+                "collection": "election_candidates",
+                "field": "notes",
+                "special": null,
+                "interface": "input-multiline",
+                "options": null,
+                "display": null,
+                "display_options": null,
+                "readonly": false,
+                "hidden": false,
+                "sort": 23,
+                "width": "full",
+                "translations": null,
+                "note": null,
+                "conditions": null,
+                "required": false,
+                "group": null,
+                "validation": null,
+                "validation_message": null
             }
         },
         {
             "collection": "election_candidates",
             "field": "elected_replacement",
             "type": "boolean",
+            "schema": {
+                "name": "elected_replacement",
+                "table": "election_candidates",
+                "data_type": "boolean",
+                "default_value": null,
+                "generation_expression": null,
+                "max_length": null,
+                "numeric_precision": null,
+                "numeric_scale": null,
+                "is_generated": false,
+                "is_nullable": true,
+                "is_unique": false,
+                "is_indexed": false,
+                "is_primary_key": false,
+                "has_auto_increment": false,
+                "foreign_key_schema": null,
+                "foreign_key_table": null,
+                "foreign_key_column": null,
+                "comment": null
+            },
             "meta": {
                 "collection": "election_candidates",
                 "field": "elected_replacement",
@@ -6422,52 +6442,12 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
-            "schema": {
-                "name": "elected_replacement",
-                "table": "election_candidates",
-                "data_type": "boolean",
-                "default_value": null,
-                "generation_expression": null,
-                "max_length": null,
-                "numeric_precision": null,
-                "numeric_scale": null,
-                "is_generated": false,
-                "is_nullable": true,
-                "is_unique": false,
-                "is_indexed": false,
-                "is_primary_key": false,
-                "has_auto_increment": false,
-                "foreign_key_schema": null,
-                "foreign_key_table": null,
-                "foreign_key_column": null,
-                "comment": null
             }
         },
         {
             "collection": "election_candidates",
             "field": "voter_number",
             "type": "string",
-            "meta": {
-                "collection": "election_candidates",
-                "field": "voter_number",
-                "special": null,
-                "interface": "input",
-                "options": null,
-                "display": null,
-                "display_options": null,
-                "readonly": false,
-                "hidden": false,
-                "sort": 25,
-                "width": "half",
-                "translations": null,
-                "note": null,
-                "conditions": null,
-                "required": false,
-                "group": null,
-                "validation": null,
-                "validation_message": null
-            },
             "schema": {
                 "name": "voter_number",
                 "table": "election_candidates",
@@ -6487,6 +6467,26 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
+            },
+            "meta": {
+                "collection": "election_candidates",
+                "field": "voter_number",
+                "special": null,
+                "interface": "input",
+                "options": null,
+                "display": null,
+                "display_options": null,
+                "readonly": false,
+                "hidden": false,
+                "sort": 25,
+                "width": "half",
+                "translations": null,
+                "note": null,
+                "conditions": null,
+                "required": false,
+                "group": null,
+                "validation": null,
+                "validation_message": null
             }
         },
         {
@@ -9661,7 +9661,6 @@
                 },
                 "display": "labels",
                 "display_options": {
-                    "showAsDot": true,
                     "choices": [
                         {
                             "text": "Publié",
@@ -9942,7 +9941,7 @@
                     "choices": [
                         {
                             "text": "Présidentielles",
-                            "value": "presidentielle"
+                            "value": "presidential"
                         },
                         {
                             "text": "Législatives",
@@ -9950,7 +9949,7 @@
                         },
                         {
                             "text": "Locales",
-                            "value": "locales"
+                            "value": "locale"
                         }
                     ],
                     "allowOther": true
@@ -9960,7 +9959,7 @@
                     "choices": [
                         {
                             "text": "Présidentielles",
-                            "value": "presidentielle"
+                            "value": "presidential"
                         },
                         {
                             "text": "Législatives",
@@ -10138,6 +10137,10 @@
                         {
                             "text": "Manjak",
                             "value": "manjak"
+                        },
+                        {
+                            "text": "Français",
+                            "value": "francais"
                         }
                     ]
                 },
@@ -10163,6 +10166,10 @@
                         {
                             "text": "Manjak",
                             "value": "manjak"
+                        },
+                        {
+                            "text": "Français",
+                            "value": "francais"
                         }
                     ]
                 },

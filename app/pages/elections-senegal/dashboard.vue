@@ -26,8 +26,11 @@ const {
   clearCoalition
 } = dashboard;
 
+import ElectionResultatsStats from '~/components/elections/dashboard/stats/ElectionResultatsStats.vue';
+
 // --- STATISTIQUES LOGIC ---
 const statsTypes = [
+  { label: "Résultats Globaux", value: "results" },
   { label: "Métiers des députés", value: "professionDeputy" },
   { label: "Profession des candidats", value: "professionCandidat" },
   { label: "Présences des listes par département", value: "departmental" },
@@ -37,7 +40,7 @@ const statsTypes = [
 
 const route = useRoute();
 const router = useRouter();
-const statsType = ref<string>("professionDeputy");
+const statsType = ref<string>("results");
 
 // Sync statsType with query params
 if (process.client) {
@@ -333,6 +336,12 @@ useHead({
 
                     <!-- Content -->
                     <div v-else>
+                          <ElectionResultatsStats
+                            v-if="statsType == 'results' && coalitions?.length > 0"
+                            :coalitions="coalitions"
+                            :type="selectedType"
+                          />
+
                          <ElectionCandidatProfessionDeputies
                             v-if="statsType == 'professionDeputy'"
                           />
@@ -359,7 +368,7 @@ useHead({
 
         <!-- Dashboard Section: Guide de vote (Tab ID: guide) -->
         <section v-else-if="activeTab === 'guide'" class="animate-in fade-in duration-700">
-          <ElectionsDashboardGuideElectoralVideos />
+          <ElectionsDashboardGuideElectoralVideos :type-election="selectedType" />
         </section>
         
         <!-- Dashboard Section: Documents (Tab ID: documents) -->
