@@ -11,6 +11,7 @@ export const useElectoralDashboard = () => {
   const selectedConstituencyId = useState<string | null>('election-selected-constituency-id', () => null);
   const selectedCoalitionId = useState<string | null>('election-selected-coalition-id', () => null);
   const selectedFilterConstituencyId = useState<string | null>('election-selected-filter-constituency-id', () => null);
+  const searchQuery = useState<string>('election-search-query', () => '');
 
   const { data: config, pending: loadingConfig, error: configError } = useFetch<ElectionConfig>('/api/elections/dashboard/config', {
       key: 'election-dashboard-config',
@@ -89,30 +90,49 @@ export const useElectoralDashboard = () => {
     const route = useRoute();
     const router = useRouter();
 
+    // Initialiser depuis les query params si disponibles (avant les watches pour éviter les effets de bord)
+    if (route.query.year) {
+      const yearFromQuery = parseInt(route.query.year as string);
+      if (!isNaN(yearFromQuery)) {
+        selectedYear.value = yearFromQuery;
+      }
+    }
+    if (route.query.type) {
+      selectedType.value = route.query.type as string;
+    }
+    if (route.query.tab) {
+      activeTab.value = route.query.tab as string;
+    }
+    if (route.query.coalition) {
+      selectedCoalitionId.value = route.query.coalition as string;
+    }
+    if (route.query.constituency) {
+      selectedConstituencyId.value = route.query.constituency as string;
+    }
+    if (route.query.q) {
+      searchQuery.value = route.query.q as string;
+    }
+
     // Mettre à jour l'URL quand les filtres changent
-    watch([selectedYear, selectedType, activeTab], ([year, type, tab]) => {
+    watch([selectedYear, selectedType, activeTab, searchQuery, selectedCoalitionId, selectedConstituencyId], ([year, type, tab, search, coal, consti]) => {
       const query: any = { ...route.query };
       if (year) query.year = String(year);
       if (type) query.type = type;
       if (tab) query.tab = tab;
+      
+      if (coal) query.coalition = coal;
+      else delete query.coalition;
+
+      if (consti) query.constituency = consti;
+      else delete query.constituency;
+
+      if (search) {
+        query.q = search;
+      } else {
+        delete query.q;
+      }
 
       router.replace({ query });
-    });
-
-    // Initialiser depuis les query params si disponibles
-    onMounted(() => {
-      if (route.query.year) {
-        const yearFromQuery = parseInt(route.query.year as string);
-        if (!isNaN(yearFromQuery)) {
-          selectedYear.value = yearFromQuery;
-        }
-      }
-      if (route.query.type) {
-        selectedType.value = route.query.type as string;
-      }
-      if (route.query.tab) {
-        activeTab.value = route.query.tab as string;
-      }
     });
   }
 
@@ -123,6 +143,7 @@ export const useElectoralDashboard = () => {
     selectedConstituencyId,
     selectedCoalitionId,
     selectedFilterConstituencyId,
+    searchQuery,
     config,
     currentElection,
     loadingConfig,

@@ -24,7 +24,8 @@ const {
   selectConstituency,
   clearConstituency,
   selectCoalition,
-  clearCoalition
+  clearCoalition,
+  searchQuery
 } = dashboard;
 
 
@@ -79,7 +80,8 @@ const {
   loading: loadingConstituencies
 } = useElectoralConstituencies({
   year: selectedYear,
-  type: selectedType
+  type: selectedType,
+  search: searchQuery
 });
 
 // 4. Fetch des coalitions (pour présidentielle et législatives)
@@ -89,7 +91,8 @@ const {
 } = useElectoralCoalitions({
   year: selectedYear,
   type: selectedType,
-  ranking: true
+  ranking: true,
+  search: searchQuery
 });
 
 // 5. Récupérer le nom de la circonscription sélectionnée
@@ -220,6 +223,36 @@ useHead({
 
           <!-- NIVEAU 1: Grille principale -->
           <div v-else class="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <!-- Search Bar -->
+            <div class="max-w-3xl mx-auto w-full mb-12 group">
+              <UInput
+                v-model="searchQuery"
+                icon="i-heroicons-magnifying-glass"
+                :placeholder="selectedType === 'presidential' ? 'Rechercher un candidat...' : (selectedType === 'locale' ? 'Rechercher un département ou une commune...' : 'Rechercher une coalition, un acronyme ou tête de liste...')"
+                size="xl"
+                class="transition-all duration-300"
+                :ui="{ 
+                  rounded: 'rounded-2xl',
+                  wrapper: 'relative rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)]',
+                  base: 'h-16 bg-white dark:bg-gray-950 border-2 border-transparent focus:border-primary-500 text-lg px-6 transition-all ring-0 focus:ring-4 focus:ring-primary-500/10',
+                  icon: {
+                    leading: { wrapper: 'left-4' },
+                    trailing: { pointer: 'pointer-events-auto' }
+                  }
+                }"
+              >
+                <template #trailing v-if="searchQuery">
+                  <UButton
+                    color="gray"
+                    variant="ghost"
+                    icon="i-heroicons-x-mark"
+                    class="mr-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                    @click="searchQuery = ''"
+                  />
+                </template>
+              </UInput>
+            </div>
+
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
               <div>
                 <h2 class="text-3xl font-black uppercase tracking-tighter">

@@ -25,7 +25,7 @@ export function useElectoralGrouping() {
     return lists.map(list => ({
       ...list,
       candidates: list.candidates.filter((c: any) =>
-        `${c.first_name} ${c.last_name}`.toLowerCase().includes(lowerSearch)
+        `${c.first_name || ''} ${c.last_name || ''}`.toLowerCase().includes(lowerSearch)
       )
     })).filter(list => list.candidates.length > 0);
   };

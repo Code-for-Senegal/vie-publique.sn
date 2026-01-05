@@ -6,6 +6,7 @@ interface UseCoalitionsOptions {
     ranking?: boolean | Ref<boolean>;
     id?: string | Ref<string | null>;
     constituencyId?: string | number | Ref<string | number | null>;
+    search?: string | Ref<string>;
 }
 
 /**
@@ -17,6 +18,7 @@ export const useElectoralCoalitions = (options: UseCoalitionsOptions = {}) => {
   const ranking = isRef(options.ranking) ? options.ranking : ref(options.ranking);
   const id = isRef(options.id) ? options.id : ref(options.id);
   const constituencyId = isRef(options.constituencyId) ? options.constituencyId : ref(options.constituencyId);
+  const search = isRef(options.search) ? options.search : ref(options.search);
 
   const query = computed(() => {
       const params: Record<string, any> = {};
@@ -24,6 +26,7 @@ export const useElectoralCoalitions = (options: UseCoalitionsOptions = {}) => {
       if (type.value) params.type = type.value;
       if (ranking.value) params.ranking = "true";
       if (constituencyId.value) params.constituency_id = constituencyId.value;
+      if (search.value) params.search = search.value;
       return params;
   });
 
@@ -37,9 +40,9 @@ export const useElectoralCoalitions = (options: UseCoalitionsOptions = {}) => {
     coalition?: Coalition;
   }>(apiUrl, {
     query,
-    key: computed(() => `dashboard-coalitions-${id.value || 'list'}-${year.value || 'all'}-${type.value || 'all'}-${ranking.value || 'false'}`),
+    key: computed(() => `dashboard-coalitions-${id.value || 'list'}-${year.value || 'all'}-${type.value || 'all'}-${ranking.value || 'false'}-${search.value || 'no-search'}`),
     server: false,
-    watch: [year, type],
+    watch: [year, type, search],
   });
 
   const coalitions = computed(() => {

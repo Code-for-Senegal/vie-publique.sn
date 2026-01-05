@@ -110,6 +110,17 @@ export default defineCachedEventHandler(
         })
         .sort((a: any, b: any) => a.name.localeCompare(b.name));
 
+      const search = query.search as string;
+      if (search) {
+        const lowercaseSearch = search.toLowerCase();
+        return results.filter((dept: any) => {
+          const matchDept = dept.name.toLowerCase().includes(lowercaseSearch);
+          const attachedCommunes = deptCommunesMap.get(dept.id) || [];
+          const matchCommune = attachedCommunes.some(c => c.name.toLowerCase().includes(lowercaseSearch));
+          return matchDept || matchCommune;
+        });
+      }
+
       return results;
     } catch (error: any) {
       console.error('Error fetching constituencies:', error);
@@ -124,7 +135,7 @@ export default defineCachedEventHandler(
     name: "elections-dashboard-constituencies",
     getKey: (event) => {
       const query = getQuery(event);
-      return `constituencies-${query.year}-${query.type}`;
+      return `constituencies-${query.year}-${query.type}-${query.search || 'none'}`;
     },
   }
 );

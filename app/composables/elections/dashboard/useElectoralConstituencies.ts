@@ -10,12 +10,13 @@ export interface Constituency {
 export const useElectoralConstituencies = (params: {
   year: Ref<number>;
   type: Ref<string>;
+  search?: Ref<string>;
 }) => {
-  const { year, type } = params;
+  const { year, type, search } = params;
 
   // Calculer une clé unique basée sur les paramètres
   const queryKey = computed(() =>
-    `constituencies-${year.value}-${type.value}`
+    `constituencies-${year.value}-${type.value}-${search?.value || 'no-search'}`
   );
 
   const { data: constituencies, pending: loading, error } = useFetch<Constituency[]>(
@@ -24,9 +25,10 @@ export const useElectoralConstituencies = (params: {
       key: queryKey,
       query: {
         year,
-        type
+        type,
+        search
       },
-      watch: [year, type],
+      watch: [year, type, search],
       server: false,
       lazy: true
     }

@@ -7,6 +7,7 @@ export default defineCachedEventHandler(
     const year = query.year ? parseInt(query.year as string) : null;
     const type = query.type as string;
     const constituencyId = query.constituency_id;
+    const search = query.search as string;
 
     try {
       let electionId = null;
@@ -54,7 +55,7 @@ export default defineCachedEventHandler(
             limit: -1,
           })
         );
-        coalitionIds = [...new Set(lists.map((l: any) => l.coalition))].filter(Boolean);
+        coalitionIds = [...new Set(lists.map((l: any) => l.coalition))].filter(Boolean) as number[];
       }
 
       if (coalitionIds.length === 0) {
@@ -68,9 +69,17 @@ export default defineCachedEventHandler(
       }
 
       const filter: any = {
-        status: { _eq: "published" },
         id: { _in: coalitionIds }
       };
+
+      if (search) {
+        filter._or = [
+          { name: { _icontains: search } },
+          { acronym: { _icontains: search } },
+          { head_of_list: { first_name: { _icontains: search } } },
+          { head_of_list: { last_name: { _icontains: search } } }
+        ];
+      }
 
       const coalitions = await directus.request(
         (readItems as any)("election_coalition", {
@@ -118,7 +127,7 @@ export default defineCachedEventHandler(
     name: "elections-dashboard-coalitions",
     getKey: (event) => {
       const query = getQuery(event);
-      return `coalitions-${query.year}-${query.type}-${query.constituency_id || 'all'}`;
+      return `coalitions-${query.year}-${query.type}-${query.constituency_id || 'all'}-${query.search || 'none'}`;
     },
   }
 );

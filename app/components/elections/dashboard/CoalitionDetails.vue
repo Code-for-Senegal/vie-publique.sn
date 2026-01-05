@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useElectoralDashboard } from "~/composables/elections/dashboard/useElectoralDashboard";
 import { useElectoralDashboardLists } from "~/composables/elections/dashboard/useElectoralDashboardLists";
 import { useElectoralGrouping } from "~/composables/elections/dashboard/useElectoralGrouping";
 import type { Candidate } from "~~/types/candidate";
@@ -16,6 +17,9 @@ const emit = defineEmits(['close']);
 const isPresidential = computed(() => props.type === 'presidential');
 const isLocal = computed(() => ['locale', 'locales', 'local'].includes(props.type));
 
+const dashboard = useElectoralDashboard();
+const { searchQuery } = dashboard;
+
 const { lists, loading, error } = useElectoralDashboardLists({
   coalitionId: props.coalitionId,
   constituencyId: computed(() => props.constituencyId ? String(props.constituencyId) : null),
@@ -24,7 +28,6 @@ const { lists, loading, error } = useElectoralDashboardLists({
 });
 
 const filterType = ref('national');
-const searchQuery = ref('');
 
 watch(lists, (newLists) => {
   if (isLocal.value) return;
@@ -67,12 +70,12 @@ const groupedLists = computed(() => {
   }
 
   if (searchQuery.value) {
-    baseLists = filterListsBySearch(baseLists, searchQuery.value);
-  } else {
-    baseLists = filterListsByType(baseLists, filterType.value);
+    return filterListsBySearch(baseLists, searchQuery.value);
   }
 
-  if (filterType.value === 'national' && !searchQuery.value) {
+  baseLists = filterListsByType(baseLists, filterType.value);
+
+  if (filterType.value === 'national') {
     return baseLists;
   }
 
