@@ -1,4 +1,3 @@
-// server/api/elections/dashboard/stats/professions.get.ts
 import { readItems } from "@directus/sdk";
 
 /**
@@ -14,7 +13,7 @@ import { readItems } from "@directus/sdk";
  */
 export default defineCachedEventHandler(
   async (event) => {
-    const directus = getCmsClient();
+    const directus = getLocalCmsClient();
     const query = getQuery(event);
     const coalitionId = query.coalition as string | undefined;
     const year = query.year ? parseInt(query.year as string) : null;
@@ -90,21 +89,29 @@ export default defineCachedEventHandler(
       );
 
       // Agréger les données côté serveur
-      const professionCounts = candidates.reduce((acc: Record<string, number>, candidate: { profession?: string }) => {
-        const profession = candidate.profession || "Non renseigné";
-        if (!acc[profession]) {
-          acc[profession] = 0;
+      const professionCounts = candidates.reduce((acc: Record<string, { count: number, label: string }>, candidate: { profession?: string }) => {
+        const rawProfession = candidate.profession ? candidate.profession.trim() : "Non renseigné";
+        const normalizedKey = rawProfession.toLowerCase();
+        
+        if (!acc[normalizedKey]) {
+          // Utiliser la première occurrence comme label, ou une fonction de formatage
+          // On peut forcer une majuscule au début
+          const label = rawProfession.charAt(0).toUpperCase() + rawProfession.slice(1);
+          acc[normalizedKey] = {
+              count: 0,
+              label: label
+          };
         }
-        acc[profession]++;
+        acc[normalizedKey].count++;
         return acc;
-      }, {} as Record<string, number>);
+      }, {} as Record<string, { count: number, label: string }>);
 
       // Transformer en format attendu et trier par count
-      const statsData = Object.entries(professionCounts)
-        .map(([profession, count]) => ({
-          profession,
+      const statsData = Object.values(professionCounts)
+        .map((entry) => ({
+          profession: entry.label,
           count: {
-            id: count,
+            id: entry.count,
           },
         }))
         .sort((a, b) => (b.count.id as number) - (a.count.id as number));

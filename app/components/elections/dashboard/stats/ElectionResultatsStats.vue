@@ -16,7 +16,7 @@ const columns = computed(() => {
     { key: "pourcentage", label: "%", sortable: true },
   ];
 
-  if (props.type === "legislative" || props.type === "locale") {
+  if (props.type === "legislative") {
     baseCols.push({ key: "sieges", label: "Sièges", sortable: true });
   }
 
@@ -24,13 +24,32 @@ const columns = computed(() => {
 });
 
 const rows = computed(() => {
-  return props.coalitions.map((c, index) => ({
-    ...c,
-    rank: index + 1,
-    pourcentage: c.pourcentage ? `${parseFloat(c.pourcentage).toFixed(2)}%` : '-',
-    voix: c.voix ? new Intl.NumberFormat('fr-FR').format(c.voix) : '-',
-    sieges: c.sieges || 0
-  }));
+  // 1. Sort by votes descending
+  const sorted = [...props.coalitions].sort((a, b) => {
+      const vA = Number(a.voix) || 0;
+      const vB = Number(b.voix) || 0;
+      return vB - vA;
+  });
+
+  // 2. Map to display format
+  return sorted.map((c, index) => {
+    let siegesCount = c.sieges || 0;
+    
+    // pour legislative, sum seats + seats_department
+    if (props.type === 'legislative') {
+        const seatsNational = Number(c.sieges) || 0; 
+        const seatsDept = Number((c as any).sieges_departement) || 0;
+        siegesCount = seatsNational + seatsDept;
+    }
+
+    return {
+        ...c,
+        rank: index + 1,
+        pourcentage: c.pourcentage ? `${parseFloat(c.pourcentage).toFixed(2)}%` : '-',
+        voix: c.voix ? new Intl.NumberFormat('fr-FR').format(c.voix) : '-',
+        sieges: siegesCount // Use the calculated sum
+    };
+  });
 });
 </script>
 

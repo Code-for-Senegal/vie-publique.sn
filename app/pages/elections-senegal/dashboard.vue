@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useElectoralDashboard } from '~/composables/elections/dashboard/useElectoralDashboard';
+import ElectionResultatsStats from '~/components/elections/dashboard/stats/ElectionResultatsStats.vue';
 import { useElectoralCoalitions } from '~/composables/elections/dashboard/useElectoralCoalitions';
 import { useElectoralConstituencies } from '~/composables/elections/dashboard/useElectoralConstituencies';
 import { useElectoralProfessions } from '~/composables/elections/dashboard/useElectoralProfessions';
@@ -26,21 +27,16 @@ const {
   clearCoalition
 } = dashboard;
 
-import ElectionResultatsStats from '~/components/elections/dashboard/stats/ElectionResultatsStats.vue';
 
-// --- STATISTIQUES LOGIC ---
 const statsTypes = [
-  { label: "Résultats Globaux", value: "results" },
-  { label: "Métiers des députés", value: "professionDeputy" },
   { label: "Profession des candidats", value: "professionCandidat" },
-  { label: "Présences des listes par département", value: "departmental" },
-  { label: "Répartition des électeurs par sexe", value: "genderDistribution" },
-  { label: "Répartition des électeurs par âge", value: "ageDistribution" },
+  { label: "Répartition par sexe", value: "genderDistribution" },
+  { label: "Répartition par âge", value: "ageDistribution" },
 ];
 
 const route = useRoute();
 const router = useRouter();
-const statsType = ref<string>("results");
+const statsType = ref<string>("professionCandidat");
 
 // Sync statsType with query params
 if (process.client) {
@@ -304,13 +300,36 @@ useHead({
              </div>
         </section>
 
+        <!-- Dashboard Section: Résultats (Tab ID: resultats) -->
+        <section v-else-if="activeTab === 'resultats'" class="animate-in fade-in duration-700">
+            <div class="space-y-6">
+                <div>
+                   <h2 class="text-2xl font-black uppercase tracking-tighter">Résultats Globaux</h2>
+                   <p class="text-gray-500">Aperçu consolidé des résultats de l'élection.</p>
+                </div>
+
+                <div class="bg-white dark:bg-gray-900 rounded-xl p-6 border dark:border-gray-800 shadow-sm min-h-[400px]">
+                    <div v-if="!coalitions || coalitions.length === 0" class="flex flex-col items-center justify-center h-64 text-center">
+                        <UIcon name="i-heroicons-chart-bar" class="w-16 h-16 text-gray-200 dark:text-gray-800 mb-4" />
+                        <h3 class="text-lg font-bold text-gray-400">Aucun résultat disponible</h3>
+                        <p class="text-sm text-gray-500">Les résultats ne sont pas encore publiés pour cette élection.</p>
+                    </div>
+                    <ElectionResultatsStats
+                      v-else
+                      :coalitions="coalitions"
+                      :type="selectedType"
+                    />
+                </div>
+            </div>
+        </section>
+
         <!-- Dashboard Section: Statistiques (Tab ID: statistiques) -->
         <section v-else-if="activeTab === 'statistiques'" class="animate-in fade-in duration-700">
             <div class="space-y-6">
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 sticky top-[132px] z-30 bg-[#f8fafc]/90 dark:bg-gray-950/90 backdrop-blur-md py-4 border-b border-gray-200/50 dark:border-gray-800/50">
                     <div>
                         <h2 class="text-2xl font-black uppercase tracking-tighter">Statistiques</h2>
-                        <p class="text-gray-500">Chiffres clés et analyses graphiques.</p>
+                        <p class="text-gray-500">Analyses démographiques et socioprofessionnelles.</p>
                     </div>
                     <USelect
                         v-model="statsType"
@@ -322,7 +341,7 @@ useHead({
 
                 <div class="bg-white dark:bg-gray-900 rounded-xl p-6 border dark:border-gray-800 shadow-sm min-h-[400px]">
                     <!-- Loading States -->
-                    <div v-if="loadingProfessions || loadingDepertmental" class="flex justify-center items-center h-64">
+                    <div v-if="loadingProfessions" class="flex justify-center items-center h-64">
                          <div class="flex flex-col items-center space-y-2">
                              <UIcon name="i-heroicons-arrow-path" class="w-8 h-8 animate-spin text-primary-500" />
                              <span class="text-sm text-gray-400">Chargement des données...</span>
@@ -330,31 +349,15 @@ useHead({
                     </div>
 
                     <!-- Errors -->
-                    <UAlert v-else-if="errorProfessions || errorDepertmental" type="danger" title="Erreur de chargement">
-                        {{ errorProfessions || errorDepertmental }}
+                    <UAlert v-else-if="errorProfessions" type="danger" title="Erreur de chargement">
+                        {{ errorProfessions }}
                     </UAlert>
 
                     <!-- Content -->
                     <div v-else>
-                          <ElectionResultatsStats
-                            v-if="statsType == 'results' && coalitions?.length > 0"
-                            :coalitions="coalitions"
-                            :type="selectedType"
-                          />
-
-                         <ElectionCandidatProfessionDeputies
-                            v-if="statsType == 'professionDeputy'"
-                          />
-
                           <ElectionCandidatProfessionChart
                             v-if="statsType == 'professionCandidat' && professions && professions?.length > 0"
                             :professions="professions"
-                          />
-
-                          <ElectionStatsElectoralList
-                            v-if="statsType == 'departmental' && coalitions?.length > 0"
-                            :stats-departmental="statsDepartmental"
-                            :coalitions="coalitions"
                           />
 
                           <ElectionGenderDistributionChart

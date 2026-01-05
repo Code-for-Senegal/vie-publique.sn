@@ -9,6 +9,64 @@ interface Props {
 const props = defineProps<Props>();
 
 const { formatDate, getStatusColor } = useElectoralFormatting();
+
+const countdown = ref("");
+let timerInterval: NodeJS.Timeout | null = null;
+
+const updateTimer = () => {
+    if (!props.election.election_date) return;
+
+    const status = props.election.status;
+    if (status !== 'scheduled' && status !== 'ongoing') {
+        countdown.value = "";
+        return;
+    }
+
+    const now = new Date();
+    // Parse election date (YYYY-MM-DD)
+    const electionDate = new Date(props.election.election_date);
+    
+    let targetTime: Date;
+    let prefix = "";
+
+    if (status === 'scheduled') {
+        // Starts at 8:00 AM GMT
+        targetTime = new Date(Date.UTC(electionDate.getFullYear(), electionDate.getMonth(), electionDate.getDate(), 8, 0, 0));
+        prefix = "Ouverture du scrutin dans";
+    } else { // ongoing
+        // Ends at 18:00 GMT
+        targetTime = new Date(Date.UTC(electionDate.getFullYear(), electionDate.getMonth(), electionDate.getDate(), 18, 0, 0));
+        prefix = "Fermeture du scrutin dans";
+    }
+
+    const diff = targetTime.getTime() - now.getTime();
+
+    if (diff <= 0) {
+        countdown.value = status === 'scheduled' ? "Scrutin ouvert" : "Scrutin clos";
+        return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    let timeString = "";
+    if (days > 0) timeString += `${days}j `;
+    if (hours > 0 || days > 0) timeString += `${hours}h `;
+    timeString += `${minutes}mn ${seconds}s`;
+
+    countdown.value = `${prefix} ${timeString}`;
+};
+
+onMounted(() => {
+    updateTimer();
+    timerInterval = setInterval(updateTimer, 1000);
+});
+
+onUnmounted(() => {
+    if (timerInterval) clearInterval(timerInterval);
+});
 </script>
 
 <template>
@@ -16,11 +74,21 @@ const { formatDate, getStatusColor } = useElectoralFormatting();
     <div class="flex flex-col lg:flex-row gap-8">
       <!-- Info Principale -->
       <div class="flex-1 space-y-4">
-        <div class="flex items-center gap-3">
-          <UBadge :color="getStatusColor(election.status)" variant="subtle" class="rounded-full px-3 py-1 font-black uppercase text-[10px] tracking-widest">
-            {{ election.status }}
+      <div class="flex items-center gap-3 flex-wrap">
+          <UBadge :color="getStatusColor(election.status)" variant="subtle" class="rounded-full px-3 py-1 font-black uppercase text-[10px] tracking-widest whitespace-nowrap">
+            {{ {
+              'scheduled': 'Programmée',
+              'ongoing': 'En cours',
+              'completed': 'Terminée',
+              'pending': 'En attente',
+              'archived': 'Archivée'
+            }[election.status] || election.status }}
           </UBadge>
-          <UBadge v-if="election.rounds" color="primary" variant="solid" class="rounded-full px-3 py-1 font-black uppercase text-[10px] tracking-widest">
+          <UBadge v-if="countdown" color="gray" variant="solid" class="rounded-full px-3 py-1 font-black uppercase text-[10px] tracking-widest animate-pulse border border-gray-200 dark:border-gray-700 whitespace-nowrap">
+            <UIcon name="i-heroicons-clock" class="mr-1 h-3 w-3" />
+            {{ countdown }}
+          </UBadge>
+          <UBadge v-if="election.rounds" color="primary" variant="solid" class="rounded-full px-3 py-1 font-black uppercase text-[10px] tracking-widest whitespace-nowrap">
             {{ election.rounds }} Tour{{ election.rounds > 1 ? 's' : '' }}
           </UBadge>
         </div>

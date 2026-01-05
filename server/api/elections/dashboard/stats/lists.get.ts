@@ -1,4 +1,3 @@
-// server/api/elections/dashboard/stats/lists.get.ts
 import { aggregate, readItems } from "@directus/sdk";
 
 /**
@@ -9,7 +8,7 @@ import { aggregate, readItems } from "@directus/sdk";
  */
 export default defineCachedEventHandler(
   async (event) => {
-    const directus = getCmsClient();
+    const directus = getLocalCmsClient();
     const query = getQuery(event);
     const year = query.year ? parseInt(query.year as string) : null;
     const type = query.type as string;

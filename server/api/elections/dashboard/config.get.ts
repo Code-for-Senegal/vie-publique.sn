@@ -7,7 +7,7 @@ export default defineCachedEventHandler(
     try {
       const electionsData = (await directus.request(
         (readItems as any)("elections", {
-          fields: ["id", "year", "type", "name", "status", "description", "election_date", "campaign_start_date", "campaign_end_date", "rounds", "date_round_2"],
+          fields: ["id", "year", "type", "name", "status", "description", "election_date", "campaign_start_date", "campaign_end_date", "rounds", "date_round_2", "participation_rate", "processed_pv_rate"],
           sort: ["-year", "-election_date", "-id"],
         })
       )) as any[];

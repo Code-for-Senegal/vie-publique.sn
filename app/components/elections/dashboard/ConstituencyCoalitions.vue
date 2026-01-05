@@ -10,7 +10,9 @@ const props = defineProps<{
 
 const emit = defineEmits(['close', 'selectCoalition']);
 
-const selectedCommuneId = ref<string | number | null>(null);
+const route = useRoute();
+const router = useRouter();
+const selectedCommuneId = ref<string | number | null>(route.query.commune_id ? String(route.query.commune_id) : null);
 
 const { lists, loading } = useElectoralDashboardLists({
   year: computed(() => props.year),
@@ -22,28 +24,62 @@ const communes = computed(() => {
   if (!lists.value) return [];
   const uniqueCommunes = new Map();
   lists.value.forEach((list: any) => {
-    if (list.constituency && list.constituency.type === 'commune') {
+    if (list.constituency && (list.constituency.type === 'commune' || list.constituency.nationale_type === 'commune')) {
       uniqueCommunes.set(list.constituency.id, list.constituency.name);
     }
   });
-  return Array.from(uniqueCommunes.entries()).map(([id, name]) => ({ id, name, label: name }));
+  return Array.from(uniqueCommunes.entries())
+    .map(([id, name]) => ({ id, name, label: name }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+});
+
+watch(selectedCommuneId, (newId) => {
+    const query = { ...route.query };
+    if (newId) {
+        query.commune_id = String(newId);
+    } else {
+        delete query.commune_id;
+    }
+    router.replace({ query });
 });
 
 const filteredLists = computed(() => {
   if (!lists.value) return [];
+  
+  let result = lists.value.filter((l: any) => {
+      if (l.constituency?.type === 'departement' || l.constituency?.nationale_type === 'departement') return false; 
+      return true;
+  });
+
   if (selectedCommuneId.value) {
-    return lists.value.filter((l: any) => l.constituency?.id === selectedCommuneId.value);
+    result = result.filter((l: any) => l.constituency?.id == selectedCommuneId.value);
   }
-  return lists.value;
+  return result;
+});
+
+const uniqueCoalitions = computed(() => {
+    if (!filteredLists.value) return [];
+    
+    const map = new Map();
+    filteredLists.value.forEach((list: any) => {
+        const key = selectedCommuneId.value 
+            ? list.coalition.id 
+            : `${list.coalition.id}-${list.constituency?.id}`;
+            
+        if (list.coalition && !map.has(key)) {
+            map.set(key, list);
+        }
+    });
+    return Array.from(map.values());
 });
 
 watch(() => props.constituencyId, () => {
     selectedCommuneId.value = null;
 });
 
-const selectList = (list: any) => {
+const selectCoalition = (list: any) => {
     if (list.coalition?.id) {
-        const targetConstituencyId = list.constituency?.id || props.constituencyId;
+        const targetConstituencyId = selectedCommuneId.value || list.constituency?.id || props.constituencyId;
         
         emit('selectCoalition', {
             coalitionId: list.coalition.id,
@@ -77,7 +113,7 @@ const selectList = (list: any) => {
                 </h2>
                 </div>
                 <p class="text-sm text-gray-500">
-                {{ filteredLists.length }} listes en lice
+                {{ uniqueCoalitions.length }} listes en lice
                 </p>
             </div>
           </div>
@@ -94,7 +130,7 @@ const selectList = (list: any) => {
                  clearable
                >
                    <template #label>
-                       <span v-if="selectedCommuneId" class="truncate">{{ communes.find(c => c.id === selectedCommuneId)?.label }}</span>
+                       <span v-if="selectedCommuneId" class="truncate">{{ communes.find(c => c.id == selectedCommuneId)?.label }}</span>
                        <span v-else class="text-gray-400">Toutes les communes</span>
                    </template>
                </USelectMenu>
@@ -106,36 +142,28 @@ const selectList = (list: any) => {
     <ElectionsDashboardCoalitionGridLoadingState v-if="loading" />
 
     <!-- Grille des Listes -->
-    <div v-else-if="filteredLists.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div v-else-if="uniqueCoalitions.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       <div 
-        v-for="list in filteredLists" 
-        :key="list.id"
+        v-for="list in uniqueCoalitions" 
+        :key="list.coalition?.id || list.id"
         class="group relative bg-white dark:bg-gray-900 rounded-2xl border dark:border-gray-800 overflow-hidden hover:ring-2 hover:ring-primary-500 transition-all cursor-pointer shadow-sm hover:shadow-lg"
-        @click="selectList(list)"
+        @click="selectCoalition(list)"
       >
-         <!-- Header Card: Logo & Name -->
-         <div class="p-4 flex items-center gap-4">
+         <div class="p-6 flex items-center gap-5">
              <UAvatar 
                 :src="list.coalition?.logo ? '' : ''"
                 :alt="list.coalition?.name" 
-                size="lg"
-                class="bg-gray-50 dark:bg-gray-800"
+                size="xl"
+                class="bg-gray-50 dark:bg-gray-800 ring-2 ring-gray-100 dark:ring-gray-800"
              />
              <div>
-                 <p class="text-xs text-primary-600 font-bold uppercase tracking-wider mb-0.5">{{ list.constituency?.name }}</p>
-                 <h3 class="font-bold text-gray-900 dark:text-white leading-tight line-clamp-2">
+                 <p class="text-xs text-primary-600 font-bold uppercase tracking-wider mb-1">
+                       {{ list.constituency?.name }}
+                 </p>
+                 <h3 class="text-lg font-bold text-gray-900 dark:text-white leading-tight line-clamp-2">
                      {{ list.coalition?.name || list.name }}
                  </h3>
              </div>
-         </div>
-         
-         <!-- Footer: Candidats Count -->
-         <div class="px-4 py-3 bg-gray-50 dark:bg-gray-800/50 flex items-center justify-between border-t border-gray-100 dark:border-gray-800">
-             <div class="flex items-center gap-2">
-                 <UIcon name="i-heroicons-users" class="w-4 h-4 text-gray-400" />
-                 <span class="text-xs font-semibold text-gray-600 dark:text-gray-400">{{ list.candidates?.length || 0 }} candidats</span>
-             </div>
-             <UIcon name="i-heroicons-chevron-right" class="w-5 h-5 text-gray-300 group-hover:text-primary-500" />
          </div>
       </div>
     </div>

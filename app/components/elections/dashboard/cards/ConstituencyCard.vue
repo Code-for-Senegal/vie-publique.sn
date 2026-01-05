@@ -37,6 +37,8 @@ const badgeColorByType = computed(() => {
 });
 
 const labelByType = computed(() => {
+  if (props.constituency.type === 'national' && props.constituency.nationale_type === 'departement') return 'Dépt.';
+  
   switch (props.constituency.type) {
     case 'diaspora':
       return 'Diaspora';
@@ -45,7 +47,7 @@ const labelByType = computed(() => {
     case 'departement':
       return 'Dépt.';
     default:
-      return props.constituency.type;
+      return props.constituency.nationale_type ? props.constituency.nationale_type : props.constituency.type;
   }
 });
 </script>
@@ -79,25 +81,25 @@ const labelByType = computed(() => {
     </div>
 
     <!-- Stats: Communes & Coalitions -->
-    <div class="flex items-center justify-between pt-3 border-t border-gray-100 dark:border-gray-800 gap-2">
+    <div class="flex items-center justify-between pt-3 border-t border-gray-100 dark:border-gray-800 gap-2 mt-auto">
       <!-- Communes Count (Only if department) -->
       <div v-if="constituency.communes_count" class="flex flex-col">
-          <span class="text-xs text-gray-400 uppercase font-semibold">Communes</span>
-          <span class="text-lg font-black text-gray-900 dark:text-gray-100">{{ constituency.communes_count }}</span>
+          <span class="text-[10px] text-gray-400 uppercase font-semibold">Communes</span>
+          <span class="text-xl font-black text-gray-900 dark:text-gray-100 leading-none mt-1">{{ constituency.communes_count }}</span>
       </div>
 
       <!-- Coalitions Count -->
-      <div class="flex flex-col items-end flex-1">
-          <span class="text-xs text-gray-400 uppercase font-semibold">Listes</span>
-          <span class="text-lg font-black text-primary-600 dark:text-primary-400">{{ constituency.coalitions_count }}</span>
+      <div class="flex flex-col items-end flex-1 pr-6">
+          <span class="text-[10px] text-gray-400 uppercase font-semibold">Listes</span>
+          <span class="text-xl font-black text-primary-600 dark:text-primary-400 leading-none mt-1">{{ constituency.coalitions_count }}</span>
       </div>
     </div>
 
     <!-- Flèche -->
-    <div class="absolute bottom-3 right-3">
+    <div class="absolute bottom-4 right-4">
       <UIcon
         name="i-heroicons-arrow-right-circle"
-        class="h-5 w-5 text-gray-300 group-hover:text-primary-500 transition-colors"
+        class="h-6 w-6 text-gray-300 group-hover:text-primary-500 transition-colors transform group-hover:translate-x-1"
       />
     </div>
   </UCard>

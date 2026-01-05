@@ -35,13 +35,13 @@ export default defineCachedEventHandler(
 
       const allConstituencies = await directus.request(
         (readItems as any)('election_constituencies', {
-          fields: ['id', 'name', 'type', 'parent', 'region'],
+          fields: ['id', 'name', 'type', 'parent', 'region', 'nationale_type'],
           limit: -1,
         }),
       );
 
-      const departments = allConstituencies.filter((c: any) => c.type === 'departement');
-      const communes = allConstituencies.filter((c: any) => c.type === 'commune');
+      const departments = allConstituencies.filter((c: any) => c.type === 'national' && c.nationale_type === 'departement');
+      const communes = allConstituencies.filter((c: any) => c.type === 'national' && c.nationale_type === 'commune');
 
       const deptCommunesMap = new Map<string, any[]>();
       communes.forEach((commune: any) => {
@@ -55,7 +55,7 @@ export default defineCachedEventHandler(
 
       const lists = await directus.request(
         (readItems as any)('election_electoral_lists', {
-          fields: ['id', 'constituency.id', 'constituency.type', 'constituency.parent', 'coalition'],
+          fields: ['id', 'constituency.id', 'constituency.type', 'constituency.parent', 'constituency.nationale_type', 'coalition'],
           filter: {
             election: { _eq: electionId },
             is_substitute: { _eq: false },
@@ -65,7 +65,7 @@ export default defineCachedEventHandler(
         }),
       );
 
-      const deptCoalitionsMap = new Map<string, Set<number>>();
+      const deptCoalitionsMap = new Map<string, Set<string>>();
 
       lists.forEach((list: any) => {
         if (!list.constituency || !list.coalition) return;
@@ -76,17 +76,21 @@ export default defineCachedEventHandler(
 
         let targetDeptId = null;
 
-        if (constitDef.type === 'departement' || constitDef.type === 'diaspora') {
+        if ((constitDef.type === 'national' && constitDef.nationale_type === 'departement') || constitDef.type === 'diaspora') {
           targetDeptId = constitDef.id;
-        } else if (constitDef.type === 'commune' && constitDef.parent) {
+        } else if ((constitDef.type === 'national' && constitDef.nationale_type === 'commune') && constitDef.parent) {
           targetDeptId = constitDef.parent;
         }
 
         if (targetDeptId) {
-          if (!deptCoalitionsMap.has(targetDeptId)) {
-            deptCoalitionsMap.set(targetDeptId, new Set());
+          const isDeptList = (constitDef.type === 'national' && constitDef.nationale_type === 'departement');
+          
+          if (!isDeptList) {
+             if (!deptCoalitionsMap.has(targetDeptId)) {
+                deptCoalitionsMap.set(targetDeptId, new Set()); 
+             }
+             deptCoalitionsMap.get(targetDeptId)?.add(`${list.constituency.id}-${list.coalition}`);
           }
-          deptCoalitionsMap.get(targetDeptId)?.add(list.coalition);
         }
       });
 

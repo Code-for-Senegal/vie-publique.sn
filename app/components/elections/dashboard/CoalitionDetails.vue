@@ -14,7 +14,7 @@ const props = defineProps<{
 const emit = defineEmits(['close']);
 
 const isPresidential = computed(() => props.type === 'presidential');
-const isLocal = computed(() => props.type === 'locale');
+const isLocal = computed(() => ['locale', 'locales', 'local'].includes(props.type));
 
 const { lists, loading, error } = useElectoralDashboardLists({
   coalitionId: props.coalitionId,

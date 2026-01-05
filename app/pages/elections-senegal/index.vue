@@ -3,16 +3,25 @@ import { useElectoralDashboard } from '~/composables/elections/dashboard/useElec
 
 const { config, loadingConfig } = useElectoralDashboard();
 
-const nextElection = computed(() => {
+const featuredElection = computed(() => {
   if (!config.value?.elections) return null;
-  return config.value.elections
+  
+  // 1. En cours (Priorité absolue)
+  const ongoing = config.value.elections.find(e => e.status === 'ongoing');
+  if (ongoing) return ongoing;
+
+  // 2. Terminé (Le plus récent) - PAR DÉFAUT
+  const completed = config.value.elections
+    .filter(e => e.status === 'completed')
+    .sort((a, b) => new Date(b.election_date).getTime() - new Date(a.election_date).getTime())[0];
+  if (completed) return completed;
+
+  // 3. Programmé (Le plus proche)
+  const scheduled = config.value.elections
     .filter(e => e.status === 'scheduled')
     .sort((a, b) => new Date(a.election_date).getTime() - new Date(b.election_date).getTime())[0];
-});
-
-const lastElection = computed(() => {
-  if (!config.value?.elections) return null;
-  return config.value.elections.filter(e => e.status === 'completed')[0];
+  
+  return scheduled;
 });
 
 useHead({
@@ -56,6 +65,15 @@ const quickLinks = [
     bg: "bg-amber-50"
   }
 ];
+
+const getStatusLabel = (status: string) => {
+    switch(status) {
+        case 'ongoing': return 'En Cours';
+        case 'scheduled': return 'Programmée';
+        case 'completed': return 'Terminée';
+        default: return status;
+    }
+};
 </script>
 
 <template>
@@ -80,7 +98,7 @@ const quickLinks = [
                   <UIcon name="i-heroicons-home" class="h-6 w-6 text-slate-500" />
                 </div>
                 <div>
-                  <h1 class="text-2xl font-black uppercase tracking-tight">{{ lastElection?.name || 'Élections Sénégal' }}</h1>
+                  <h1 class="text-2xl font-black uppercase tracking-tight">{{ featuredElection?.name || 'Élections Sénégal' }}</h1>
                   <p class="text-sm text-gray-500 font-bold uppercase tracking-wider italic">Plateforme d'Information Électorale</p>
                 </div>
               </div>
@@ -90,18 +108,22 @@ const quickLinks = [
                  <div class="bg-amber-50 dark:bg-amber-900/10 p-5 rounded-2xl border border-amber-100 dark:border-amber-900/30">
                     <p class="text-[10px] font-black uppercase text-amber-600 mb-1 tracking-widest">Calendrier</p>
                     <p class="text-xl font-black text-amber-900 dark:text-amber-400">
-                      {{ nextElection ? 'En Cours' : 'Clôturé' }}
+                      {{ featuredElection ? getStatusLabel(featuredElection.status) : '--' }}
                     </p>
-                    <p class="text-[10px] text-amber-500 mt-1">Saison 2024-2025</p>
+                    <p class="text-[10px] text-amber-500 mt-1">Saison {{ featuredElection ? featuredElection.year : '2024' }}-{{ featuredElection ? featuredElection.year + 1 : '2025' }}</p>
                  </div>
                  <div class="bg-emerald-50 dark:bg-emerald-900/10 p-5 rounded-2xl border border-emerald-100 dark:border-emerald-900/30">
                     <p class="text-[10px] font-black uppercase text-emerald-600 mb-1 tracking-widest">Résultats</p>
-                    <p class="text-xl font-black text-emerald-900 dark:text-emerald-400">100%</p>
+                    <p class="text-xl font-black text-emerald-900 dark:text-emerald-400">
+                        {{ featuredElection?.processed_pv_rate ? featuredElection.processed_pv_rate + '%' : (featuredElection?.status === 'completed' ? '100%' : (featuredElection?.status === 'scheduled' ? '0%' : 'En cours')) }}
+                    </p>
                     <p class="text-[10px] text-emerald-500 mt-1">Taux de traitement PV</p>
                  </div>
                  <div class="bg-blue-50 dark:bg-blue-900/10 p-5 rounded-2xl border border-blue-100 dark:border-blue-900/30">
                     <p class="text-[10px] font-black uppercase text-blue-600 mb-1 tracking-widest">Participation</p>
-                    <p class="text-xl font-black text-blue-900 dark:text-blue-400">-- %</p>
+                    <p class="text-xl font-black text-blue-900 dark:text-blue-400">
+                      {{ featuredElection?.participation_rate ? featuredElection.participation_rate + '%' : '-- %' }}
+                    </p>
                     <p class="text-[10px] text-blue-500 mt-1">Estimation nationale</p>
                  </div>
               </div>
@@ -110,13 +132,14 @@ const quickLinks = [
             <!-- Right: Description -->
             <div class="md:w-1/3 bg-slate-50/50 dark:bg-gray-800/30 p-6 rounded-2xl border dark:border-gray-800 italic">
                <p class="text-sm text-gray-500 leading-relaxed font-medium">
-                  {{ lastElection?.description || 'Suivez en direct l\'évolution du scrutin législatif et présidentiel au Sénégal. Accédez aux données officielles compilées pour une transparence totale.' }}
+                  {{ featuredElection?.description || 'Suivez en direct l\'évolution du scrutin législatif et présidentiel au Sénégal. Accédez aux données officielles compilées pour une transparence totale.' }}
                </p>
             </div>
           </div>
 
           <NuxtLink
-            :to="`/elections-senegal/dashboard?year=${lastElection?.year}&type=${lastElection?.type}&tab=resultats`"
+            v-if="featuredElection"
+            :to="`/elections-senegal/dashboard?year=${featuredElection.year}&type=${featuredElection.type}&tab=resultats`"
             class="block p-4 bg-slate-50 dark:bg-gray-800/50 border-t dark:border-gray-800 text-center text-sm font-black uppercase tracking-widest text-gray-500 hover:text-primary-600 hover:bg-slate-100 transition-all"
           >
             Voir le tableau de bord complet <UIcon name="i-heroicons-arrow-right" class="ml-2 inline-block h-4 w-4" />
@@ -196,8 +219,7 @@ const quickLinks = [
 
       <!-- Footer Simplified -->
       <div class="text-center pt-10 border-t dark:border-gray-800">
-         <p class="text-[10px] font-black uppercase text-gray-400 tracking-[0.2em]">Vie-Publique Sénégal • {{ new Date().getFullYear() }}</p>
-         <p class="text-[9px] text-gray-500 mt-2">Toutes les informations sont issues de sources officielles : DGE, Conseil Constitutionnel.</p>
+        <p class="text-[10px] text-gray-500 mt-2">Toutes les informations sont issues de sources officielles : DGE, Conseil Constitutionnel.</p>
       </div>
 
     </div>
