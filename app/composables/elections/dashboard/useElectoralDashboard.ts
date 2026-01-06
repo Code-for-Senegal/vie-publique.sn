@@ -12,6 +12,7 @@ export const useElectoralDashboard = () => {
   const selectedCoalitionId = useState<string | null>('election-selected-coalition-id', () => null);
   const selectedFilterConstituencyId = useState<string | null>('election-selected-filter-constituency-id', () => null);
   const searchQuery = useState<string>('election-search-query', () => '');
+  const legislativeViewType = useState<string>('election-legislative-view-type', () => 'list');
 
   const { data: config, pending: loadingConfig, error: configError } = useFetch<ElectionConfig>('/api/elections/dashboard/config', {
       key: 'election-dashboard-config',
@@ -112,13 +113,18 @@ export const useElectoralDashboard = () => {
     if (route.query.q) {
       searchQuery.value = route.query.q as string;
     }
+    if (route.query.view) {
+      legislativeViewType.value = route.query.view as string;
+    }
 
     // Mettre à jour l'URL quand les filtres changent
-    watch([selectedYear, selectedType, activeTab, searchQuery, selectedCoalitionId, selectedConstituencyId], ([year, type, tab, search, coal, consti]) => {
+    watch([selectedYear, selectedType, activeTab, searchQuery, selectedCoalitionId, selectedConstituencyId, legislativeViewType], ([year, type, tab, search, coal, consti, view]) => {
       const query: any = { ...route.query };
       if (year) query.year = String(year);
       if (type) query.type = type;
       if (tab) query.tab = tab;
+      if (view && type === 'legislative') query.view = view;
+      else delete query.view;
       
       if (coal) query.coalition = coal;
       else delete query.coalition;
@@ -144,6 +150,7 @@ export const useElectoralDashboard = () => {
     selectedCoalitionId,
     selectedFilterConstituencyId,
     searchQuery,
+    legislativeViewType,
     config,
     currentElection,
     loadingConfig,

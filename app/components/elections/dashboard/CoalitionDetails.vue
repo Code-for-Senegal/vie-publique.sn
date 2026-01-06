@@ -102,15 +102,19 @@ function openCandidateModal(candidate: Candidate) {
       @close="emit('close')"
     />
 
-    <!-- Filters & Search (seulement pour législatives) -->
-    <div v-if="!isPresidential && !isLocal" class="flex flex-col gap-4 sticky top-[132px] z-40 bg-gray-50/90 backdrop-blur-md pb-4 dark:bg-gray-950/90">
-      <ElectionsDashboardFiltersCandidateSearchBar v-model="searchQuery" />
+    <!-- Filters & Search (seulement pour législatives et locales) -->
+    <div v-if="!isPresidential" class="flex flex-col gap-4 sticky top-[80px] md:top-[124px] z-40 bg-gray-50/95 backdrop-blur-md pb-4 pt-2 -mx-4 px-4 border-b md:border-none border-gray-200 dark:border-gray-800 dark:bg-gray-950/95 transition-all duration-300">
+      <div class="max-w-3xl mx-auto w-full">
+        <ElectionsDashboardFiltersCandidateSearchBar v-model="searchQuery" />
+      </div>
 
-      <ElectionsDashboardFiltersCandidateFilterTabs
-        v-if="!searchQuery"
-        v-model="filterType"
-        :options="filterOptions"
-      />
+      <div v-if="!isLocal" class="w-full flex justify-center overflow-x-auto no-scrollbar">
+        <ElectionsDashboardFiltersCandidateFilterTabs
+          v-if="!searchQuery"
+          v-model="filterType"
+          :options="filterOptions"
+        />
+      </div>
     </div>
 
     <!-- Info candidat présidentiel -->

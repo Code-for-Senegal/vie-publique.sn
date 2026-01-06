@@ -13,7 +13,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div class="flex flex-wrap gap-2 overflow-x-auto pb-1 no-scrollbar">
+  <div class="flex flex-nowrap items-center gap-2 overflow-x-auto pb-1 no-scrollbar w-full px-1">
     <UButton
       v-for="option in options"
       :key="option.value"

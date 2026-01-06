@@ -98,6 +98,7 @@ export default defineCachedEventHandler(
             "sieges_departement",
             "sieges_national",
             "list_order",
+            "bulletin",
             "head_of_list.id",
             "head_of_list.first_name",
             "head_of_list.last_name",

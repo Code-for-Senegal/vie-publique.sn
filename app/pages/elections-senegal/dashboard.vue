@@ -25,7 +25,8 @@ const {
   clearConstituency,
   selectCoalition,
   clearCoalition,
-  searchQuery
+  searchQuery,
+  legislativeViewType
 } = dashboard;
 
 
@@ -286,6 +287,28 @@ const isViewingDetails = computed(() => !!selectedCoalitionId.value || !!selecte
               </UBadge>
             </div>
 
+            <!-- Legislative View Switcher -->
+            <div v-if="selectedType === 'legislative'" class="grid grid-cols-3 md:flex items-center justify-center gap-1.5 bg-gray-100/50 dark:bg-gray-800/50 p-1.5 rounded-2xl border dark:border-gray-700 w-full md:w-fit mx-auto">
+              <UButton
+                v-for="view in [
+                  { id: 'list', label: 'LISTE', icon: 'i-heroicons-list-bullet' },
+                  { id: 'head', label: 'TÊTES DE LISTE', icon: 'i-heroicons-user' },
+                  { id: 'ballot', label: 'BULLETINS', icon: 'i-heroicons-document-duplicate' }
+                ]"
+                :key="view.id"
+                :color="legislativeViewType === view.id ? 'primary' : 'gray'"
+                :variant="legislativeViewType === view.id ? 'solid' : 'ghost'"
+                size="xs"
+                class="rounded-xl px-2 md:px-4 py-2 font-bold uppercase text-[9px] md:text-[10px] tracking-widest transition-all duration-300 flex justify-center"
+                @click="legislativeViewType = view.id"
+              >
+                <template #leading>
+                  <UIcon :name="view.icon" class="h-3.5 w-3.5 md:h-4 md:w-4" />
+                </template>
+                <span class="truncate">{{ view.label }}</span>
+              </UButton>
+            </div>
+
             <!-- ÉLECTIONS LOCALES: Grille des circonscriptions -->
             <template v-if="isLocalElection">
               <!-- Loading -->
@@ -320,14 +343,38 @@ const isViewingDetails = computed(() => !!selectedCoalitionId.value || !!selecte
                 />
               </div>
 
-              <!-- Grille LÉGISLATIVES : Coalition en avant -->
-              <div v-else-if="coalitions.length > 0" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <ElectionsDashboardCardsLegislativeCoalitionCard
-                  v-for="coalition in coalitions"
-                  :key="coalition.id"
-                  :coalition="coalition"
-                  @select="selectCoalition"
-                />
+              <!-- Grille LÉGISLATIVES : Vues multiples -->
+              <div v-else-if="coalitions.length > 0" 
+                :class="[
+                  legislativeViewType === 'list' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6' : 'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'
+                ]"
+              >
+                <template v-if="legislativeViewType === 'list'">
+                  <ElectionsDashboardCardsLegislativeCoalitionListCard
+                    v-for="coalition in coalitions"
+                    :key="coalition.id"
+                    :coalition="coalition"
+                    @select="selectCoalition"
+                  />
+                </template>
+
+                <template v-else-if="legislativeViewType === 'head'">
+                  <ElectionsDashboardCardsLegislativeCoalitionHeadCard
+                    v-for="coalition in coalitions"
+                    :key="coalition.id"
+                    :coalition="coalition"
+                    @select="selectCoalition"
+                  />
+                </template>
+
+                <template v-else-if="legislativeViewType === 'ballot'">
+                  <ElectionsDashboardCardsLegislativeCoalitionBallotCard
+                    v-for="coalition in coalitions"
+                    :key="coalition.id"
+                    :coalition="coalition"
+                    @select="selectCoalition"
+                  />
+                </template>
               </div>
 
               <!-- Empty State -->

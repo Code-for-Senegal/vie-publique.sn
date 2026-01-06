@@ -21,18 +21,19 @@ const genderText = computed(() => {
 </script>
 
 <template>
-  <div class="flex items-center justify-between border-b dark:border-gray-800 pb-4">
-    <div class="flex items-center gap-4">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b dark:border-gray-800 pb-4 gap-4">
+    <div class="flex items-start sm:items-center gap-3">
       <UButton
         icon="i-heroicons-arrow-left"
         color="gray"
-        variant="ghost"
+        variant="soft"
         @click="emit('close')"
-        class="hover:bg-gray-100 dark:hover:bg-gray-800"
+        class="rounded-xl shrink-0"
+        size="sm"
       >
-        Retour
+        <span class="hidden sm:inline">Retour</span>
       </UButton>
-      <h2 class="text-xl font-bold text-gray-900 dark:text-white">
+      <h2 class="text-lg md:text-xl font-black text-gray-900 dark:text-white uppercase leading-tight tracking-tighter">
         <template v-if="isPresidential">
           {{ genderText }} de la liste {{ coalitionName }}
         </template>
@@ -41,7 +42,7 @@ const genderText = computed(() => {
         </template>
       </h2>
     </div>
-    <UBadge v-if="listCount && !isPresidential" color="primary" variant="subtle">
+    <UBadge v-if="listCount && !isPresidential" color="primary" variant="subtle" class="w-fit self-end sm:self-auto text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full">
       {{ (listCount / 2).toFixed(0) }} circonscriptions
     </UBadge>
   </div>
