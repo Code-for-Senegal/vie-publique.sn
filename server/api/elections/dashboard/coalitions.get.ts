@@ -9,54 +9,57 @@ export default defineCachedEventHandler(
     const constituencyId = query.constituency_id;
     const search = query.search as string;
 
+    if (!year || !type) {
+      return {
+        data: [],
+        meta: { count: 0 }
+      };
+    }
+
     try {
       let electionId = null;
-      if (year && type) {
-        const elections = await directus.request(
-          (readItems as any)("elections", {
-            fields: ["id", "year", "type", "election_date"],
-            filter: {
-              year: { _eq: year },
-              type: { _eq: type },
-            },
-            sort: ["-election_date", "-id"],
-            limit: 1,
-          })
-        );
-        electionId = elections[0]?.id;
+      const elections = await directus.request(
+        (readItems as any)("elections", {
+          fields: ["id", "year", "type", "election_date"],
+          filter: {
+            year: { _eq: year },
+            type: { _eq: type },
+          },
+          sort: ["-election_date", "-id"],
+          limit: 1,
+        })
+      );
+      electionId = elections[0]?.id;
 
-        if (!electionId) {
-          return {
-            data: [],
-            meta: {
-              electionId: null,
-              count: 0,
-              message: `Aucune élection trouvée pour ${type} ${year}`
-            }
-          };
-        }
+      if (!electionId) {
+        return {
+          data: [],
+          meta: {
+            electionId: null,
+            count: 0,
+            message: `Aucune élection trouvée pour ${type} ${year}`
+          }
+        };
       }
 
       let coalitionIds: number[] = [];
-      if (electionId) {
-        const listsFilter: any = {
-          election: { _eq: electionId },
-          status: { _eq: "published" },
-        };
+      const listsFilter: any = {
+        election: { _eq: electionId },
+        status: { _eq: "published" },
+      };
 
-        if (constituencyId) {
-          listsFilter.constituency = { _eq: constituencyId };
-        }
-
-        const lists = await directus.request(
-          (readItems as any)("election_electoral_lists", {
-            fields: ["coalition"],
-            filter: listsFilter,
-            limit: -1,
-          })
-        );
-        coalitionIds = [...new Set(lists.map((l: any) => l.coalition))].filter(Boolean) as number[];
+      if (constituencyId) {
+        listsFilter.constituency = { _eq: constituencyId };
       }
+
+      const lists = await directus.request(
+        (readItems as any)("election_electoral_lists", {
+          fields: ["coalition"],
+          filter: listsFilter,
+          limit: -1,
+        })
+      );
+      coalitionIds = [...new Set(lists.map((l: any) => l.coalition))].filter(Boolean) as number[];
 
       if (coalitionIds.length === 0) {
         return {

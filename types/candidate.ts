@@ -12,4 +12,5 @@ export interface Candidate {
   birthplace?: string;
   facebook?: string;
   twitter?: string;
+  documents?: any;
 }

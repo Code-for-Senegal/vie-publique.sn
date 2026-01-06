@@ -134,6 +134,9 @@ useHead({
     { name: "viewport", content: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" }
   ]
 });
+
+// 5. Visibilité UI Mobile
+const isViewingDetails = computed(() => !!selectedCoalitionId.value || !!selectedConstituencyId.value);
 </script>
 
 <template>
@@ -143,6 +146,7 @@ useHead({
       :selected-year="selectedYear"
       :selected-type="selectedType"
       :config="config"
+      :hide-tabs-mobile="isViewingDetails"
       @update:year="selectedYear = $event"
       @update:type="selectedType = $event"
       @clear-coalition="clearConstituency"
@@ -158,7 +162,10 @@ useHead({
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
       <!-- Breadcrumb / Back Navigation -->
-      <nav class="mb-8 flex items-center justify-between">
+      <nav 
+        v-if="!isViewingDetails"
+        class="mb-8 flex items-center justify-between"
+      >
         <NuxtLink to="/elections-senegal" class="flex items-center text-sm font-bold text-gray-500 hover:text-primary-600 transition-colors">
           <UIcon name="i-heroicons-arrow-left" class="mr-2" />
           Accueil Élections
@@ -166,6 +173,17 @@ useHead({
         <div class="flex items-center gap-2">
            <UBadge color="gray" variant="soft" class="rounded-full">Dashboard</UBadge>
         </div>
+      </nav>
+
+      <!-- Breadcrumb Desktop Only when viewing details -->
+      <nav 
+        v-if="isViewingDetails"
+        class="mb-8 hidden md:flex items-center justify-between"
+      >
+        <NuxtLink to="/elections-senegal" class="flex items-center text-sm font-bold text-gray-500 hover:text-primary-600 transition-colors">
+          <UIcon name="i-heroicons-arrow-left" class="mr-2" />
+          Accueil Élections
+        </NuxtLink>
       </nav>
 
       <!-- Section: Détails de l'élection -->

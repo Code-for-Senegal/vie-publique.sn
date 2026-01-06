@@ -16,21 +16,27 @@ export default defineCachedEventHandler(
       });
     }
 
+    if (!year || !type) {
+       return { data: [] };
+    }
+
     try {
       let electionId = null;
-      if (year && type) {
-        const elections = await directus.request(
-          (readItems as any)("elections", {
-            fields: ["id", "election_date"],
-            filter: {
-              year: { _eq: year },
-              type: { _eq: type },
-            },
-            sort: ["-election_date", "-id"],
-            limit: 1,
-          })
-        );
-        electionId = elections[0]?.id;
+      const elections = await directus.request(
+        (readItems as any)("elections", {
+          fields: ["id", "election_date"],
+          filter: {
+            year: { _eq: year },
+            type: { _eq: type },
+          },
+          sort: ["-election_date", "-id"],
+          limit: 1,
+        })
+      );
+      electionId = elections[0]?.id;
+
+      if (!electionId) {
+        return { data: [] };
       }
 
       const targetConstituencyIds: (string | number)[] = [];
@@ -51,6 +57,7 @@ export default defineCachedEventHandler(
 
       const filter: any = {
         status: { _eq: "published" },
+        election: { _eq: electionId }
       };
 
       if (coalitionId) {
@@ -59,10 +66,6 @@ export default defineCachedEventHandler(
 
       if (targetConstituencyIds.length > 0) {
           filter.constituency = { _in: targetConstituencyIds };
-      }
-
-      if (electionId) {
-        filter.election = { _eq: electionId };
       }
 
       const lists = await directus.request(
@@ -95,6 +98,10 @@ export default defineCachedEventHandler(
                 "voter_number",
                 "facebook",
                 "twitter",
+                "documents.id",
+                "documents.file",
+                "documents.title",
+                "documents.slug",
               ],
             },
           ],
@@ -111,13 +118,5 @@ export default defineCachedEventHandler(
       console.error("Error in dashboard lists.get:", error);
       return { data: [], error: error.message };
     }
-  },
-  {
-    maxAge: 60 * 30,
-    name: "elections-dashboard-lists",
-    getKey: (event) => {
-      const query = getQuery(event);
-      return `lists-${query.coalitionId || 'all'}-${query.constituencyId || 'all'}-${query.year}-${query.type}`;
-    },
   }
 );

@@ -153,6 +153,13 @@ useHead({
     <!-- Header Compact -->
     <div class="bg-white dark:bg-gray-900 border-b dark:border-gray-800 pt-8 pb-6 shadow-sm">
       <div class="container mx-auto px-4 max-w-6xl">
+        <!-- Breadcrumb -->
+        <nav class="mb-6">
+          <NuxtLink to="/elections-senegal" class="inline-flex items-center text-sm font-bold text-gray-400 hover:text-primary-600 transition-colors">
+            <UIcon name="i-heroicons-arrow-left" class="mr-2 h-4 w-4" /> Retour Élections
+          </NuxtLink>
+        </nav>
+
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div class="space-y-1">
             <h1 class="text-2xl font-black uppercase tracking-tight text-gray-900 dark:text-white">Législation Électorale</h1>
@@ -160,9 +167,6 @@ useHead({
           </div>
 
           <div class="flex flex-wrap items-center gap-3">
-            <NuxtLink to="/elections-senegal" class="text-xs font-black uppercase text-gray-400 hover:text-primary-600 transition-colors mr-4">
-              <UIcon name="i-heroicons-arrow-left" class="mr-1 inline-block" /> Retour
-            </NuxtLink>
             <USelect
               v-model="selectedType"
               :options="typeOptions"

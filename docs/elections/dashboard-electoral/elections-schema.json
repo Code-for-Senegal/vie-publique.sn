@@ -2255,6 +2255,10 @@
                         {
                             "text": "Election",
                             "value": "election"
+                        },
+                        {
+                            "text": "Programme",
+                            "value": "programme"
                         }
                     ]
                 },
@@ -2265,7 +2269,7 @@
                 "sort": 7,
                 "width": "full",
                 "translations": null,
-                "note": null,
+                "note": "Document programme d'un candidat à une élection",
                 "conditions": null,
                 "required": true,
                 "group": null,
@@ -5733,7 +5737,7 @@
                 "readonly": false,
                 "hidden": false,
                 "sort": 10,
-                "width": "full",
+                "width": "half",
                 "translations": null,
                 "note": null,
                 "conditions": null,
@@ -6113,7 +6117,7 @@
                 "readonly": false,
                 "hidden": false,
                 "sort": 17,
-                "width": "full",
+                "width": "half",
                 "translations": null,
                 "note": null,
                 "conditions": null,
@@ -6160,7 +6164,7 @@
                 "readonly": false,
                 "hidden": false,
                 "sort": 18,
-                "width": "full",
+                "width": "half",
                 "translations": null,
                 "note": null,
                 "conditions": null,
@@ -6207,7 +6211,7 @@
                 "readonly": false,
                 "hidden": false,
                 "sort": 19,
-                "width": "full",
+                "width": "half",
                 "translations": null,
                 "note": null,
                 "conditions": null,
@@ -6482,6 +6486,56 @@
                 "width": "half",
                 "translations": null,
                 "note": null,
+                "conditions": null,
+                "required": false,
+                "group": null,
+                "validation": null,
+                "validation_message": null
+            }
+        },
+        {
+            "collection": "election_candidates",
+            "field": "documents",
+            "type": "integer",
+            "schema": {
+                "name": "documents",
+                "table": "election_candidates",
+                "data_type": "integer",
+                "default_value": null,
+                "generation_expression": null,
+                "max_length": null,
+                "numeric_precision": 32,
+                "numeric_scale": 0,
+                "is_generated": false,
+                "is_nullable": true,
+                "is_unique": false,
+                "is_indexed": false,
+                "is_primary_key": false,
+                "has_auto_increment": false,
+                "foreign_key_schema": "public",
+                "foreign_key_table": "documents",
+                "foreign_key_column": "id",
+                "comment": null
+            },
+            "meta": {
+                "collection": "election_candidates",
+                "field": "documents",
+                "special": [
+                    "m2o"
+                ],
+                "interface": "select-dropdown-m2o",
+                "options": {
+                    "template": "{{title}}",
+                    "enableLink": true
+                },
+                "display": null,
+                "display_options": null,
+                "readonly": false,
+                "hidden": false,
+                "sort": 27,
+                "width": "full",
+                "translations": null,
+                "note": "Documents de programme d'un candidat à une élection présidentielle",
                 "conditions": null,
                 "required": false,
                 "group": null,
@@ -7763,26 +7817,6 @@
             "collection": "elections",
             "field": "participation_rate",
             "type": "float",
-            "meta": {
-                "collection": "elections",
-                "field": "participation_rate",
-                "special": null,
-                "interface": "input",
-                "options": null,
-                "display": null,
-                "display_options": null,
-                "readonly": false,
-                "hidden": false,
-                "sort": 12,
-                "width": "half",
-                "translations": null,
-                "note": "Taux de participation à cette élection",
-                "conditions": null,
-                "required": false,
-                "group": null,
-                "validation": null,
-                "validation_message": null
-            },
             "schema": {
                 "name": "participation_rate",
                 "table": "elections",
@@ -7802,15 +7836,10 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "elections",
-            "field": "processed_pv_rate",
-            "type": "float",
+            },
             "meta": {
                 "collection": "elections",
-                "field": "processed_pv_rate",
+                "field": "participation_rate",
                 "special": null,
                 "interface": "input",
                 "options": null,
@@ -7818,16 +7847,21 @@
                 "display_options": null,
                 "readonly": false,
                 "hidden": false,
-                "sort": 13,
+                "sort": 12,
                 "width": "half",
                 "translations": null,
-                "note": "Pourcentage de PVs traités pour les résultats",
+                "note": "Taux de participation à cette élection",
                 "conditions": null,
                 "required": false,
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
+            }
+        },
+        {
+            "collection": "elections",
+            "field": "processed_pv_rate",
+            "type": "float",
             "schema": {
                 "name": "processed_pv_rate",
                 "table": "elections",
@@ -7847,6 +7881,26 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
+            },
+            "meta": {
+                "collection": "elections",
+                "field": "processed_pv_rate",
+                "special": null,
+                "interface": "input",
+                "options": null,
+                "display": null,
+                "display_options": null,
+                "readonly": false,
+                "hidden": false,
+                "sort": 13,
+                "width": "half",
+                "translations": null,
+                "note": "Pourcentage de PVs traités pour les résultats",
+                "conditions": null,
+                "required": false,
+                "group": null,
+                "validation": null,
+                "validation_message": null
             }
         },
         {
@@ -12028,6 +12082,32 @@
                 "many_field": "electoral_list",
                 "one_collection": "election_electoral_lists",
                 "one_field": "candidates",
+                "one_collection_field": null,
+                "one_allowed_collections": null,
+                "junction_field": null,
+                "sort_field": null,
+                "one_deselect_action": "nullify"
+            }
+        },
+        {
+            "collection": "election_candidates",
+            "field": "documents",
+            "related_collection": "documents",
+            "schema": {
+                "constraint_name": "election_candidates_documents_foreign",
+                "table": "election_candidates",
+                "column": "documents",
+                "foreign_key_schema": "public",
+                "foreign_key_table": "documents",
+                "foreign_key_column": "id",
+                "on_update": "NO ACTION",
+                "on_delete": "SET NULL"
+            },
+            "meta": {
+                "many_collection": "election_candidates",
+                "many_field": "documents",
+                "one_collection": "documents",
+                "one_field": null,
                 "one_collection_field": null,
                 "one_allowed_collections": null,
                 "junction_field": null,

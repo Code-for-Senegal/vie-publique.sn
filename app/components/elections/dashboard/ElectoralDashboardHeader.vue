@@ -7,6 +7,7 @@ interface Props {
     years: Array<{ label: string; value: number }>;
     elections?: Array<{ year: number; type: string; [key: string]: any }>;
   };
+  hideTabsMobile?: boolean;
 }
 
 const props = defineProps<Props>();
@@ -42,6 +43,13 @@ const handleTypeChange = (type: string) => {
   emit('update:type', type);
   emit('clear-coalition');
 };
+
+// Responsivité pour masquage définitif
+const isMobile = useMediaQuery('(max-width: 768px)');
+const shouldShowSelectors = computed(() => {
+  if (!props.hideTabsMobile) return true;
+  return !isMobile.value;
+});
 </script>
 
 <template>
@@ -65,7 +73,10 @@ const handleTypeChange = (type: string) => {
         </div>
 
         <!-- Selectors -->
-        <div class="flex items-center gap-2 bg-gray-100 dark:bg-gray-800/50 p-1 rounded-2xl border dark:border-gray-700">
+        <div 
+          v-if="shouldShowSelectors"
+          class="flex items-center gap-2 bg-gray-100 dark:bg-gray-800/50 p-1 rounded-2xl border dark:border-gray-700"
+        >
           <USelectMenu
             :model-value="selectedType"
             :options="config?.types || []"
@@ -96,7 +107,10 @@ const handleTypeChange = (type: string) => {
       </div>
 
       <!-- Tabs Slot -->
-      <div class="mt-6 flex justify-center w-full px-2">
+      <div 
+        v-if="shouldShowSelectors"
+        class="mt-6 flex justify-center w-full px-2"
+      >
         <slot name="tabs" />
       </div>
     </div>

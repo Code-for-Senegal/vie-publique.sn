@@ -146,13 +146,7 @@
 </template>
 
 <script setup lang="ts">
-import * as pdfjsLib from "pdfjs-dist";
 import type { PDFDocumentProxy, PDFPageProxy } from "pdfjs-dist";
-
-// Configuration du worker PDF.js - utiliser le worker local
-if (typeof window !== "undefined") {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdf-worker/pdf.worker.min.mjs";
-}
 
 interface Props {
   source: string;
@@ -168,7 +162,7 @@ const pdfContainer = ref<HTMLElement>();
 const pdfCanvas = ref<HTMLCanvasElement>();
 const currentPage = ref(1);
 const totalPages = ref(0);
-const scale = ref(1.5); // Scale par défaut plus élevé pour mobile
+const scale = ref(1.25);
 const loading = ref(true);
 const error = ref(false);
 const errorMessage = ref("");
@@ -176,6 +170,7 @@ const loadingProgress = ref(0);
 
 // PDF.js objects
 let pdfDoc: PDFDocumentProxy | null = null;
+let pdfjsLib: any = null;
 let pageRendering = false;
 let pageNumPending: number | null = null;
 let currentRenderTask: any = null;
@@ -290,10 +285,8 @@ const fitToWidth = () => {
     // Sur mobile, arrondir le scale pour éviter le flou
     const isMobile = window.innerWidth < 768;
     if (isMobile) {
-      // Arrondir au 0.25 le plus proche pour une meilleure netteté
       calculatedScale = Math.round(calculatedScale * 4) / 4;
-      // S'assurer qu'on ne descend pas en dessous de 1 sur mobile
-      calculatedScale = Math.max(1, calculatedScale);
+      calculatedScale = Math.max(0.8, calculatedScale);
     }
     
     scale.value = calculatedScale;
@@ -330,15 +323,23 @@ const downloadPdf = () => {
 
 // Load PDF document
 const loadPdf = async () => {
+  if (process.server) return;
+  
   loading.value = true;
   error.value = false;
   errorMessage.value = "";
   loadingProgress.value = 0;
 
   try {
+    // Dynamic import to avoid SSR errors like "DOMMatrix is not defined"
+    if (!pdfjsLib) {
+      pdfjsLib = await import("pdfjs-dist");
+      pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdf-worker/pdf.worker.min.mjs";
+    }
+
     const loadingTask = pdfjsLib.getDocument({
       url: props.source,
-      onProgress: (progress) => {
+      onProgress: (progress: any) => {
         if (progress.total > 0) {
           loadingProgress.value = (progress.loaded / progress.total) * 100;
         }
@@ -346,7 +347,7 @@ const loadPdf = async () => {
     });
 
     pdfDoc = await loadingTask.promise;
-    totalPages.value = pdfDoc.numPages;
+    totalPages.value = pdfDoc!.numPages;
 
     // Render first page
     await renderPage(1);
@@ -359,7 +360,7 @@ const loadPdf = async () => {
   } catch (err: any) {
     console.error("Error loading PDF:", err);
     error.value = true;
-    errorMessage.value = err.message || "Erreur inconnue";
+    errorMessage.value = err.message || "Erreur de chargement du PDF";
     loading.value = false;
   }
 };
@@ -396,9 +397,13 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  window.removeEventListener("keydown", handleKeyPress);
-  if (pdfDoc) {
-    pdfDoc.destroy();
+  if (process.client) {
+    window.removeEventListener("keydown", handleKeyPress);
+    if (pdfDoc) {
+      try {
+        pdfDoc.destroy();
+      } catch (e) {}
+    }
   }
 });
 
