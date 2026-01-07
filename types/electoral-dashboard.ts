@@ -28,6 +28,8 @@ export interface GroupedConstituency {
 }
 
 export interface ElectionDetails {
+  id: number;
+  type: string;
   name: string;
   status: string;
   rounds?: number;

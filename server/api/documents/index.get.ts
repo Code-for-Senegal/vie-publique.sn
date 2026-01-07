@@ -1,10 +1,8 @@
 import { readItems } from "@directus/sdk";
-import type { Document } from "~/types/document";
+import type { Document } from "~~/types/document";
 
 export default defineCachedEventHandler(
   async (event) => {
-    const config = useRuntimeConfig();
-
     const query = getQuery(event);
     const page = parseInt(query.page as string) || 1;
     const limit = parseInt(query.limit as string) || 10;
@@ -54,26 +52,6 @@ export default defineCachedEventHandler(
         }
       }
 
-      if (search) {
-        filter._or = [
-          {
-            title: {
-              _icontains: search,
-            },
-          },
-          {
-            description: {
-              _icontains: search,
-            },
-          },
-          {
-            audit_institution: {
-              _icontains: search,
-            },
-          },
-        ];
-      }
-
       const offset = (page - 1) * limit;
 
       let sortField = sortBy;
@@ -83,52 +61,63 @@ export default defineCachedEventHandler(
         sortField = "date_created";
       }
 
+      const options: any = {
+        fields: [
+          "id",
+          "title",
+          "slug",
+          "type",
+          "publish_date",
+          "date_created",
+          "description",
+          "audit_institution",
+          "cover_image",
+          "election_id",
+          "file.id",
+          "file.type",
+          "file.filesize",
+          "file.filename_download",
+        ],
+        filter,
+        limit,
+        offset,
+        sort: [sortField],
+      };
+
+      if (search && search.trim() !== "") {
+        options.search = search;
+      }
+
       const documentData = await directus
-        .request(
-          readItems("documents", {
-            fields: [
-              "id",
-              "title",
-              "slug",
-              "type",
-              "publish_date",
-              "date_created",
-              "description",
-              "audit_institution",
-              "cover_image",
-              "election_id",
-              "file.id",
-              "file.type",
-              "file.filesize",
-              "file.filename_download",
-            ],
-            filter,
-            limit,
-            offset,
-            sort: [sortField],
-          }),
-        )
-        .catch((error) => {
+        .request(readItems("documents", options))
+        .catch((error: any) => {
           throw createError({
             statusCode: error.errors?.[0]?.extensions?.code || 500,
-            message: error.errors?.[0]?.message || "Erreur interne du serveur",
+            message:
+              error.errors?.[0]?.message ||
+              error.message ||
+              "Erreur interne lors de la récupération des documents",
           });
         });
 
+      const countOptions: any = {
+        fields: ["id"],
+        filter,
+        aggregate: {
+          count: ["id"],
+        },
+      };
+
+      if (search && search.trim() !== "") {
+        countOptions.search = search;
+      }
+
       const totalCount = await directus
-        .request(
-          readItems("documents", {
-            fields: ["id"],
-            filter,
-            aggregate: {
-              count: ["id"],
-            },
-          }),
-        )
+        .request(readItems("documents", countOptions))
         .then((result: any) => {
-          return result?.[0]?.count?.id || 0;
+          return result?.[0]?.count?.id || result?.[0]?.count || 0;
         })
-        .catch(() => documentData.length);
+        .catch(() => 0);
 
       const transformedDocuments: Document[] = documentData.map((doc) => ({
         id: doc.id,
@@ -157,11 +146,10 @@ export default defineCachedEventHandler(
           totalPages: Math.ceil(Number(totalCount) / limit),
         },
       };
-    } catch (error) {
+    } catch (error: any) {
       throw createError({
         statusCode: 500,
-        statusMessage:
-          "Une erreur est survenue lors de la récupération des documents",
+        statusMessage: error.message || "Une erreur est survenue lors de la récupération des documents",
       });
     }
   },

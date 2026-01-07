@@ -86,39 +86,32 @@ export const useElectoralDashboard = () => {
     return config.value.elections.find(e => e.year === selectedYear.value && e.type === selectedType.value) || null;
   });
 
-  // Sync avec les query params
+  // Sync avec les query params (uniquement sur la page dashboard)
   if (process.client) {
     const route = useRoute();
     const router = useRouter();
+    const isDashboardPage = computed(() => route.path.includes('/elections-senegal/dashboard'));
 
-    // Initialiser depuis les query params si disponibles (avant les watches pour éviter les effets de bord)
-    if (route.query.year) {
-      const yearFromQuery = parseInt(route.query.year as string);
-      if (!isNaN(yearFromQuery)) {
-        selectedYear.value = yearFromQuery;
+    // Initialiser depuis les query params si on est sur le dashboard
+    watch(isDashboardPage, (isDashboard) => {
+      if (isDashboard) {
+        if (route.query.year) {
+          const yearFromQuery = parseInt(route.query.year as string);
+          if (!isNaN(yearFromQuery)) selectedYear.value = yearFromQuery;
+        }
+        if (route.query.type) selectedType.value = route.query.type as string;
+        if (route.query.tab) activeTab.value = route.query.tab as string;
+        if (route.query.coalition) selectedCoalitionId.value = route.query.coalition as string;
+        if (route.query.constituency) selectedConstituencyId.value = route.query.constituency as string;
+        if (route.query.q) searchQuery.value = route.query.q as string;
+        if (route.query.view) legislativeViewType.value = route.query.view as string;
       }
-    }
-    if (route.query.type) {
-      selectedType.value = route.query.type as string;
-    }
-    if (route.query.tab) {
-      activeTab.value = route.query.tab as string;
-    }
-    if (route.query.coalition) {
-      selectedCoalitionId.value = route.query.coalition as string;
-    }
-    if (route.query.constituency) {
-      selectedConstituencyId.value = route.query.constituency as string;
-    }
-    if (route.query.q) {
-      searchQuery.value = route.query.q as string;
-    }
-    if (route.query.view) {
-      legislativeViewType.value = route.query.view as string;
-    }
+    }, { immediate: true });
 
-    // Mettre à jour l'URL quand les filtres changent
+    // Mettre à jour l'URL quand les filtres changent (uniquement sur le dashboard)
     watch([selectedYear, selectedType, activeTab, searchQuery, selectedCoalitionId, selectedConstituencyId, legislativeViewType], ([year, type, tab, search, coal, consti, view]) => {
+      if (!isDashboardPage.value) return;
+
       const query: any = { ...route.query };
       if (year) query.year = String(year);
       if (type) query.type = type;

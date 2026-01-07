@@ -5,6 +5,7 @@ export interface Constituency {
   communes_count?: number;
   coalitions_count?: number;
   nationale_type?: string;
+  seats?: number;
 }
 
 export const useElectoralConstituencies = (params: {

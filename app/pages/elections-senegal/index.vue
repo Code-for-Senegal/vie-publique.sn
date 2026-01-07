@@ -77,7 +77,7 @@ const getStatusLabel = (status: string) => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-[#f1f5f9] dark:bg-gray-950 pb-20">
+  <div class="min-h-screen pb-20">
     <!-- Main Container -->
     <div class="container mx-auto px-4 max-w-5xl py-12 space-y-8">
 

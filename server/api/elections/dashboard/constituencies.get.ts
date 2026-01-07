@@ -35,7 +35,7 @@ export default defineCachedEventHandler(
 
       const allConstituencies = await directus.request(
         (readItems as any)('election_constituencies', {
-          fields: ['id', 'name', 'type', 'parent', 'region', 'nationale_type'],
+          fields: ['id', 'name', 'type', 'parent', 'region', 'nationale_type', 'seats'],
           limit: -1,
         }),
       );
@@ -104,6 +104,7 @@ export default defineCachedEventHandler(
             name: dept.name,
             type: dept.type,
             region: dept.region,
+            seats: dept.seats,
             communes_count: attachedCommunes.length,
             coalitions_count: uniqueCoalitions.size,
           };

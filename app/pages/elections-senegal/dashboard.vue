@@ -107,7 +107,7 @@ const selectedConstituencyName = computed(() => {
 const tabs = computed(() => [
   {
     id: "candidats",
-    label: selectedType.value === 'presidential' ? 'Candidats' : (selectedType.value === 'local' ? 'Circonscriptions' : 'Coalitions'),
+    label: selectedType.value === 'presidential' ? 'Candidats' : (selectedType.value === 'locale' ? 'Circonscriptions' : 'Coalitions'),
     icon: "i-heroicons-user-group"
   },
   { id: "carte", label: "Carte", icon: "i-heroicons-map" },
@@ -190,8 +190,12 @@ const isViewingDetails = computed(() => !!selectedCoalitionId.value || !!selecte
       <!-- Section: Détails de l'élection -->
       <transition name="fade">
         <ElectionsDashboardElectoralDetailsCard
-          v-if="currentElection && !selectedCoalitionId && !selectedConstituencyId"
+          v-if="currentElection && !selectedCoalitionId && !selectedConstituencyId && (
+            currentElection.status !== 'completed' || activeTab === 'candidats'
+          )"
           :election="currentElection"
+          :coalitions="coalitions"
+          :constituencies="constituencies"
           class="mb-10 animate-in fade-in slide-in-from-top-4 duration-700"
         />
       </transition>

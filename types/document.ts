@@ -17,4 +17,5 @@ export interface Document {
     filesize: string;
     filename_download: string;
   };
+  tags?: string[];
 }
