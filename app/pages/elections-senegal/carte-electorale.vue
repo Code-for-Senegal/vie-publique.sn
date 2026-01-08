@@ -9,6 +9,41 @@ useHead({
     { name: 'description', content: 'Explorez la cartographie électorale du Sénégal : lieux de vote, répartition géographique et statistiques.' }
   ]
 });
+
+const optionMap = "Vue Carte";
+const optionList = "Vue Liste";
+const selectedOptions = ref(optionMap);
+
+const listViewTypes = [
+  {
+    label: optionMap,
+    icon: "i-heroicons-map-solid",
+  },
+  {
+    label: optionList,
+    icon: "i-heroicons-list-bullet-solid",
+  },
+];
+
+const tabs = [
+  {
+    label: "Nationale",
+    icon: "i-heroicons-map",
+  },
+  {
+    label: "Diaspora",
+    icon: "i-heroicons-globe-europe-africa",
+  },
+  {
+    label: "Résumé",
+    icon: "i-heroicons-chart-bar",
+  },
+];
+
+// Gestionnaire quand la carte est prête
+const handleMapReady = (map: unknown) => {
+  console.log("Carte chargée et prête");
+};
 </script>
 
 <template>
@@ -29,41 +64,52 @@ useHead({
         </p>
       </div>
 
-      <!-- Map Component -->
-      <div class="bg-white dark:bg-gray-900 rounded-[3rem] overflow-hidden border dark:border-gray-800 shadow-2xl">
-        <div class="p-6 border-b dark:border-gray-800 flex items-center justify-between bg-gray-50/50 dark:bg-gray-800/30">
-          <div>
-            <h2 class="text-2xl font-black uppercase tracking-tighter">Carte Interactive</h2>
-            <p class="text-sm text-gray-500">Données par département.</p>
-          </div>
-          <div class="flex gap-2">
-            <UBadge color="primary" variant="soft">National</UBadge>
-            <UBadge color="gray" variant="ghost">Diaspora</UBadge>
-          </div>
-        </div>
-        <div class="relative min-h-[700px]">
-          <!-- Reusing the map component -->
-          <ElectionMapComponent4 />
-        </div>
-      </div>
-      
-      <!-- Stats Overlay (Example) -->
-      <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl shadow-sm border dark:border-gray-800">
-           <h4 class="text-xs font-black text-gray-400 uppercase tracking-widest mb-4">Bureaux de vote</h4>
-           <p class="text-3xl font-black">~15,500</p>
-           <p class="text-xs text-gray-500 mt-2">Répartis sur l'ensemble du territoire</p>
-        </div>
-        <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl shadow-sm border dark:border-gray-800">
-           <h4 class="text-xs font-black text-gray-400 uppercase tracking-widest mb-4">Lieux de vote</h4>
-           <p class="text-3xl font-black">~7,000</p>
-           <p class="text-xs text-gray-500 mt-2">Centres de vote principaux</p>
-        </div>
-        <div class="bg-white dark:bg-gray-900 p-6 rounded-3xl shadow-sm border dark:border-gray-800">
-           <h4 class="text-xs font-black text-gray-400 uppercase tracking-widest mb-4">Inscrits</h4>
-           <p class="text-3xl font-black">~7.3M</p>
-           <p class="text-xs text-gray-500 mt-2">Électeurs sur le fichier national</p>
-        </div>
+      <!-- Main Content -->
+      <div class="bg-white dark:bg-gray-900 rounded-[3rem] overflow-hidden border dark:border-gray-800 shadow-2xl p-6">
+        <UTabs :items="tabs" class="w-full">
+          <template #item="{ item }">
+            <!-- Résumé -->
+            <div v-if="item.label === 'Résumé'" class="w-full pt-4">
+              <ElectionMapSummary />
+            </div>
+
+            <!-- NATIONALE -->
+            <div v-if="item.label === 'Nationale'" class="w-full pt-4">
+              <!-- View Toggle -->
+              <div class="mb-6 w-full flex justify-center">
+                <div class="bg-gray-100 dark:bg-gray-800 p-1 rounded-lg inline-flex">
+                  <button
+                    v-for="option in listViewTypes"
+                    :key="option.label"
+                    class="px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 flex items-center gap-2"
+                    :class="selectedOptions === option.label 
+                      ? 'bg-white dark:bg-gray-700 text-primary-600 shadow-sm' 
+                      : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'"
+                    @click="selectedOptions = option.label"
+                  >
+                    <UIcon :name="option.icon" class="w-5 h-5" />
+                    {{ option.label }}
+                  </button>
+                </div>
+              </div>
+
+              <!-- CARTE -->
+              <div v-if="selectedOptions == optionMap" class="relative min-h-[700px]">
+                <ElectionMapComponent4 @map-ready="handleMapReady" />
+              </div>
+
+              <!-- LISTE -->
+              <div v-if="selectedOptions == optionList" class="w-full">
+                <ElectionMapNationalDepartment />
+              </div>
+            </div>
+
+            <!-- DIASPORA -->
+            <div v-else-if="item.label === 'Diaspora'" class="w-full pt-4">
+              <ElectionMapDiasporaCountries />
+            </div>
+          </template>
+        </UTabs>
       </div>
     </div>
   </div>
