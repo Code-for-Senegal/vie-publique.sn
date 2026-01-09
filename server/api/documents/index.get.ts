@@ -1,16 +1,15 @@
 import { readItems } from "@directus/sdk";
-import type { Document } from "~/types/document";
+import type { Document } from "~~/types/document";
 
 export default defineCachedEventHandler(
   async (event) => {
-    const config = useRuntimeConfig();
 
     // Récupération des paramètres de requête
     const query = getQuery(event);
     const page = parseInt(query.page as string) || 1;
     const limit = parseInt(query.limit as string) || 10;
     const search = query.search as string;
-    const sortBy = (query.sortBy as string) || "-publish_date";
+    const sortBy = (query.sortBy as string) || (query.sort as string) || "-publish_date";
     const filterType = query.filterType as string;
     const type = query.type as string;
 
@@ -78,13 +77,31 @@ export default defineCachedEventHandler(
       // Calcul de l'offset pour la pagination
       const offset = (page - 1) * limit;
 
-      // Gérer le tri (support de date_created) pour la recuperation des 3 derniers documents
-      let sortField = sortBy;
-      if (sortBy === "-date_created") {
-        sortField = "-date_created";
-      } else if (sortBy === "date_created") {
-        sortField = "date_created";
+      // Gérer le tri - Directus SDK accepte les formats: 'field' ou '-field'
+      // On ajoute un tri secondaire pour la stabilité des résultats
+      const sortFields: string[] = [];
+
+      if (sortBy) {
+        // Nettoyage du paramètre au cas où
+        const cleanSort = sortBy.toString().trim();
+        if (cleanSort) {
+          sortFields.push(cleanSort);
+
+          // Tris secondaires pour la stabilité
+          if (cleanSort.includes('title')) {
+            sortFields.push('-publish_date');
+          } else if (cleanSort.includes('publish_date')) {
+            sortFields.push('title');
+          }
+        }
       }
+
+      if (sortFields.length === 0) {
+        sortFields.push("-publish_date");
+      }
+
+      // Toujours ajouter l'ID en dernier ressort pour une stabilité totale
+      sortFields.push('id');
 
       // Récupération des documents avec pagination et meta
       const documentData = await directus
@@ -108,7 +125,7 @@ export default defineCachedEventHandler(
             filter,
             limit,
             offset,
-            sort: [sortField],
+            sort: sortFields,
           }),
         )
         .catch((error) => {
@@ -137,7 +154,7 @@ export default defineCachedEventHandler(
       // Transformation des données
       const transformedDocuments: Document[] = documentData.map((doc) => ({
         id: doc.id,
-        title: doc.title,
+        title: doc.title?.trim() || doc.title,
         slug: doc.slug,
         type: doc.type,
         publish_date: doc.publish_date,
@@ -170,7 +187,7 @@ export default defineCachedEventHandler(
     }
   },
   {
-    maxAge: 60 * 60, // 1 heure
+    maxAge: 60 * 5, // 5 minutes
     name: "documents",
     getKey: (event) => {
       const query = getQuery(event);

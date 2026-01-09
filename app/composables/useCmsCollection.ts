@@ -68,8 +68,15 @@ export const useCmsCollection = <T>(options: CmsCollectionOptions) => {
     }
   });
 
+  // Génération d'une clé unique basée sur l'URL et les paramètres
+  const cacheKey = computed(() => {
+    const params = unref(id) ? {} : query.value;
+    return `${collection}-${unref(url)}-${JSON.stringify(params)}`;
+  });
+
   // Appel API
   const { data, pending, error, refresh } = useFetch(url, {
+    key: cacheKey,
     query: computed(() => (unref(id) ? undefined : query.value)), // Pas de query params pour les détails
     transform: (response: any) => {
       // Transformation par défaut selon le type de collection
