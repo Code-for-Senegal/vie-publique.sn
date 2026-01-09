@@ -157,7 +157,6 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
   const collection = useCmsCollection<Document>({
     collection: "documents",
     fields: options.fields,
-    collection: 'documents',
     filters,
     sort: state.sortBy,
     limit: state.itemsPerPage,
