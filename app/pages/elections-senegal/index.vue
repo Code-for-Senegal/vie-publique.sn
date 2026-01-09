@@ -8,7 +8,7 @@ const { config, loadingConfig } = useElectoralDashboard();
 
 const election = computed(() => {
   if (!config.value?.elections) return null;
-  
+
   // 1. En cours (Priorité absolue)
   const ongoing = config.value.elections.find(e => e.status === 'ongoing');
   if (ongoing) return ongoing;
@@ -23,11 +23,11 @@ const election = computed(() => {
   const scheduled = config.value.elections
     .filter(e => e.status === 'scheduled')
     .sort((a, b) => new Date(a.election_date).getTime() - new Date(b.election_date).getTime())[0];
-  
+
   return scheduled;
 });
 
-// Chargement des données (Restauré)
+// Chargement des données
 // Charger les coalitions pour les élections présidentielles et législatives
 const {
   coalitions,
@@ -39,21 +39,11 @@ const {
   search: ref('')
 });
 
-// Charger les circonscriptions pour les élections locales
 const {
-  constituencies,
-  loading: loadingConstituencies
-} = useElectoralConstituencies({
-  year: computed(() => election.value?.year),
-  type: computed(() => election.value?.type),
-  search: ref('')
-});
-
-const { 
-  articles: electionNews, 
-  loading: loadingNews, 
-  error: errorNews 
-} = useNews({ 
+  articles: electionNews,
+  loading: loadingNews,
+  error: errorNews
+} = useNews({
   category: 'Election',
   limit: 3,
   sort: '-date_published',
@@ -75,11 +65,6 @@ const topLegislativeCoalitions = computed(() => {
         const totalB = (Number(b.sieges) || 0) + (Number((b as any).sieges_departement) || 0);
         return totalB - totalA;
      }).slice(0, 2);
-});
-
-const top3LocalConstituencies = computed(() => {
-  if (election.value?.type !== 'locale' || !constituencies.value) return [];
-  return [...constituencies.value].sort((a, b) => (Number(b.seats) || 0) - (Number(a.seats) || 0)).slice(0, 3);
 });
 
 
@@ -139,6 +124,22 @@ useHead({
     <!-- Main Container -->
     <div class="container mx-auto px-4 max-w-5xl py-12 space-y-8">
 
+      <!-- Hero Section -->
+      <section class="text-center mb-8">
+        <div class="mx-auto max-w-4xl">
+          <h1 class="mb-4 text-4xl font-bold text-gray-900 md:text-5xl dark:text-white">
+            Élections Sénégal
+          </h1>
+          <p class="text-gray-600 dark:text-gray-400">
+            Retrouvez ci-dessous les informations de la dernière élection
+            <span v-if="election" class="font-bold text-primary-600 lowercase">
+              {{ election.type === 'presidential' ? 'présidentielle' : election.type === 'legislative' ? 'législative' : election.type === 'locale' ? 'locale' : '' }}
+            </span>
+            ainsi que l'ensemble des ressources électorales.
+          </p>
+        </div>
+      </section>
+
       <!-- Top Section: Overview Card -->
       <div v-if="loadingConfig" class="bg-white dark:bg-gray-900 rounded-3xl p-12 border dark:border-gray-800 shadow-sm text-center animate-pulse">
           <UIcon name="i-heroicons-arrow-path" class="h-10 w-10 animate-spin text-primary-500 mx-auto mb-4" />
@@ -146,18 +147,18 @@ useHead({
       </div>
 
       <template v-else>
-        <!-- Featured Election Card (Compact Design) -->
+        <!-- Featured Election Card -->
         <div class="bg-white dark:bg-gray-900 rounded-3xl border dark:border-gray-800 shadow-sm overflow-hidden transition-all hover:shadow-md group">
           <div class="flex flex-col lg:flex-row">
-            
+
             <!-- Left Panel: Election Info & Quick Actions -->
             <div class="flex-1 p-6 lg:p-8 flex flex-col justify-center space-y-4">
-              
+
               <!-- Header & Badge -->
               <div class="flex flex-wrap items-center gap-3">
-                <UBadge 
-                  :color="election.status === 'completed' ? 'green' : 'primary'" 
-                  variant="subtle" 
+                <UBadge
+                  :color="election.status === 'completed' ? 'green' : 'primary'"
+                  variant="subtle"
                   class="rounded-full px-2.5 py-0.5 font-black uppercase text-[10px] tracking-widest"
                 >
                   {{ election ? getStatusLabel(election.status) : '--' }}
@@ -177,32 +178,24 @@ useHead({
                  <h1 class="text-2xl lg:text-3xl font-black uppercase tracking-tighter text-gray-900 dark:text-white leading-tight">
                     {{ election.name || 'Élections Sénégal' }}
                  </h1>
-                 <p class="text-xs text-gray-500 font-bold uppercase tracking-widest mt-1">Plateforme d'Information Électorale</p>
               </div>
 
-              <!-- Specific Action Links (Compact Grid) -->
+              <!-- Specific Action Links -->
               <div v-if="election.status === 'completed'" class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
                  <!-- Actions Présidentielle -->
                  <template v-if="election.type === 'presidential'">
-                    <UButton to="/elections-senegal/legislation?q=resultats2024" color="gray" variant="solid" size="xs" icon="i-heroicons-document-check" class="justify-start">Résultats Définitifs</UButton>
-                    <UButton to="/barometre-politique/diomaye-faye" color="gray" variant="solid" size="xs" icon="i-heroicons-chart-bar-square" class="justify-start">Suivi des Promesses</UButton>
-                    <UButton to="/gouvernement-senegal" color="gray" variant="solid" size="xs" icon="i-heroicons-building-office" class="justify-start">Composition Gouvernement</UButton>
+                    <UButton to="/elections-senegal/legislation?q=resultats" color="gray" variant="solid" size="xs" icon="i-heroicons-document-check" class="justify-start">Résultats Définitifs</UButton>
                  </template>
 
                  <!-- Actions Législative -->
                  <template v-else-if="election.type === 'legislative'">
                     <UButton to="/assemblee-nationale/deputes" color="gray" variant="solid" size="xs" icon="i-heroicons-users" class="justify-start">Annuaire des Députés</UButton>
-                    <UButton to="/assemblee-nationale/votes" color="gray" variant="solid" size="xs" icon="i-heroicons-hand-raised" class="justify-start">Votes & Scrutins</UButton>
-                 </template>
-
-                 <!-- Actions Locale -->
-                 <template v-else-if="election.type === 'locale'">
-                    <UButton to="/mairies" color="gray" variant="solid" size="xs" icon="i-heroicons-building-library" class="justify-start">Annuaire des Maires</UButton>
+                    <UButton to="/assemblee-nationale" color="gray" variant="solid" size="xs" icon="i-heroicons-building-library" class="justify-start">Assemblée nationale</UButton>
                  </template>
               </div>
             </div>
 
-            <!-- Right Panel: Results Highlight (Compact) -->
+            <!-- Right Panel: Results Highlight -->
             <div class="lg:w-[380px] bg-gray-50 dark:bg-gray-800/50 border-t lg:border-t-0 lg:border-l dark:border-gray-800 p-6 flex flex-col justify-center relative overflow-hidden">
                 <!-- Background Decoration -->
                 <div class="absolute -right-6 -top-6 w-32 h-32 bg-primary-500/5 rounded-full blur-3xl"></div>
@@ -243,7 +236,7 @@ useHead({
                    <div class="space-y-3">
                       <div v-for="(coalition, idx) in topLegislativeCoalitions.slice(0, 2)" :key="coalition.id" class="flex items-center justify-between">
                           <div class="flex items-center gap-3 min-w-0">
-                             <div 
+                             <div
                                 :class="[
                                   'w-8 h-8 rounded-lg flex items-center justify-center font-black text-xs shrink-0',
                                   idx === 0 ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'
@@ -266,33 +259,6 @@ useHead({
                    </div>
                 </div>
 
-                <!-- LOCAL RESULTS -->
-                <div v-if="election.type === 'locale' && top3LocalConstituencies.length > 0" class="space-y-4">
-                   <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest flex items-center gap-2">
-                      <UIcon name="i-heroicons-map" class="w-3 h-3" /> Top Circonscriptions
-                   </p>
-                   <div class="space-y-2">
-                      <NuxtLink v-for="(constituency, idx) in top3LocalConstituencies" :key="constituency.id" 
-                        :to="`/elections-senegal/dashboard?year=${election.year}&type=${election.type}&constituency=${constituency.id}`"
-                        class="flex items-center justify-between p-2.5 rounded-xl hover:bg-white dark:hover:bg-gray-900 hover:shadow-sm border border-transparent hover:border-gray-100 dark:hover:border-gray-800 transition-all group cursor-pointer"
-                      >
-                         <div class="flex items-center gap-3">
-                             <span :class="['font-black text-xs', idx === 0 ? 'text-primary-600' : 'text-gray-400']">#{{ idx + 1 }}</span>
-                             <span class="text-xs font-bold text-gray-900 dark:text-white group-hover:text-primary-600 transition-colors">{{ constituency.name }}</span>
-                         </div>
-                         <div class="flex items-center gap-1.5">
-                            <span class="text-xs font-black text-gray-900 dark:text-white">{{ constituency.seats || 0 }}</span>
-                            <span class="text-[8px] uppercase font-bold text-gray-400">Sièges</span>
-                         </div>
-                      </NuxtLink>
-                   </div>
-                </div>
-
-                <!-- Fallback / Empty -->
-                <div v-else class="text-center opacity-50 py-4">
-                    <UIcon name="i-heroicons-chart-bar" class="w-12 h-12 mx-auto text-gray-300 mb-2" />
-                    <p class="text-[10px] uppercase font-black tracking-widest text-gray-400">En attente des résultats</p>
-                </div>
             </div>
           </div>
           <NuxtLink
@@ -304,7 +270,7 @@ useHead({
           </NuxtLink>
         </div>
 
-        <!-- Quick Access Grid (Restauré) -->
+        <!-- Quick Access Grid  -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <NuxtLink
             v-for="link in quickLinks"
@@ -322,27 +288,31 @@ useHead({
           </NuxtLink>
         </div>
 
-        <!-- Section: Dernières actualités électorales (Simplified) -->
-        <div class="mt-8">
-           <div class="flex items-center justify-between mb-6 px-2">
-               <h2 class="text-lg font-black uppercase tracking-tight flex items-center gap-2">
-                  <span class="w-8 h-1 bg-primary-500 rounded-full"></span>
-                  Actualités Électorales
-               </h2>
-               <UButton to="/actualites?category=Election" variant="ghost" color="gray" size="xs">
-                  Voir tout <UIcon name="i-heroicons-arrow-right" class="ml-1" />
-               </UButton>
-           </div>
-           
-           <NewsGrid
-             :articles="electionNews"
-             :loading="loadingNews"
-             :error="errorNews"
-             :limit="3"
-             :show-view-all="false"
-             empty-message="Aucune actualité électorale disponible pour le moment"
-           />
-        </div>
+        <!-- Section: Dernières actualités électorales-->
+        <section class="mt-8 mb-12">
+          <UCard
+            class="border-primary/20 hover:border-primary/30 dark:via-primary/10 dark:to-primary/20 border-1 overflow-hidden bg-white shadow-lg transition hover:shadow-xl dark:bg-gradient-to-br dark:from-gray-800"
+            :ui="{ body: { padding: 'p-4 sm:p-6' } }"
+          >
+            <div class="mb-6">
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Actualités Électorales</h3>
+              <p class="mt-2 text-gray-600 dark:text-gray-400">
+                Analyses et mises à jour sur le processus électoral
+              </p>
+            </div>
+
+            <NewsGrid
+              :articles="electionNews"
+              :loading="loadingNews"
+              :error="errorNews"
+              :limit="3"
+              :show-view-all="true"
+              empty-message="Aucune actualité électorale disponible pour le moment"
+              view-all-text="Voir toutes les actualités"
+              view-all-link="/actualites"
+            />
+          </UCard>
+        </section>
       </template>
 
       <!-- Footer Simplified -->

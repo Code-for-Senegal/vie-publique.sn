@@ -76,10 +76,6 @@ const topLegislativeCoalitions = computed(() => {
      }).slice(0, 2);
 });
 
-const top3LocalConstituencies = computed(() => {
-  if (props.election.type !== 'locale' || !props.constituencies) return [];
-  return [...props.constituencies].sort((a, b) => (Number(b.seats) || 0) - (Number(a.seats) || 0)).slice(0, 3);
-});
 
 const electionYear = computed(() => {
   if (!props.election.election_date) return 'all';
@@ -95,18 +91,6 @@ const quickLinks = computed(() => {
       to: `/elections-senegal/legislation?type=${props.election.type}&year=${electionYear.value}&q=resultats`, 
       icon: 'i-heroicons-document-text' 
     });
-    links.push({ 
-      label: 'Suivi des promesses', 
-      description: "Baromètre d'exécution du programme.",
-      to: '/barometre-politique/diomaye-faye', 
-      icon: 'i-heroicons-check-circle' 
-    });
-    links.push({ 
-      label: 'Le Gouvernement', 
-      description: 'Composition et missions ministérielles.',
-      to: '/gouvernement-senegal', 
-      icon: 'i-heroicons-building-office' 
-    });
   } else if (props.election.type === 'legislative') {
     links.push({ 
       label: 'Annuaire des députés', 
@@ -115,16 +99,9 @@ const quickLinks = computed(() => {
       icon: 'i-heroicons-users' 
     });
     links.push({ 
-      label: 'Votes Assemblée', 
-      description: 'Historique des scrutins parlementaires.',
-      to: '/assemblee-nationale/votes', 
-      icon: 'i-heroicons-archive-box' 
-    });
-  } else if (props.election.type === 'locale') {
-    links.push({ 
-      label: 'Annuaire des maires', 
-      description: 'Cartographie des édiles locaux.',
-      to: '/mairies', 
+      label: 'Assemblée nationale', 
+      description: 'Dashboard de l\'Assemblée nationale.',
+      to: '/assemblee-nationale', 
       icon: 'i-heroicons-building-library' 
     });
   }
@@ -209,19 +186,6 @@ onUnmounted(() => {
                       <p class="text-[8px] font-black uppercase text-gray-400 truncate">{{ col.acronym || col.name }}</p>
                       <p class="text-xl font-black text-primary-600">{{ (Number(col.sieges) || 0) + (Number((col as any).sieges_departement) || 0) }}</p>
                       <p class="text-[8px] font-bold text-gray-500">{{ idx === 0 ? 'Majorité' : 'Opposition' }}</p>
-                  </div>
-              </div>
-          </div>
-
-          <!-- Local results -->
-          <div v-else-if="election.type === 'locale' && top3LocalConstituencies.length > 0" class="space-y-4">
-              <p class="text-[9px] uppercase font-black text-gray-400 tracking-widest">Top Circonscriptions</p>
-              <div class="space-y-2">
-                  <div v-for="constituency in top3LocalConstituencies" :key="constituency.id" 
-                    class="flex items-center justify-between text-xs font-bold bg-white dark:bg-gray-950 px-3 py-2 rounded-xl border dark:border-gray-800"
-                  >
-                      <span class="truncate dark:text-white">{{ constituency.name }}</span>
-                      <span class="text-primary-600 ml-2">{{ constituency.seats || 0 }} sièges</span>
                   </div>
               </div>
           </div>

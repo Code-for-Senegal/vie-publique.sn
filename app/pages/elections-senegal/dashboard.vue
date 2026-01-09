@@ -138,6 +138,41 @@ useHead({
 
 // 5. Visibilité UI Mobile
 const isViewingDetails = computed(() => !!selectedCoalitionId.value || !!selectedConstituencyId.value);
+
+// --- MAP CONFIGURATION ---
+const optionMap = "Vue Carte";
+const optionList = "Vue Liste";
+const selectedMapOption = ref(optionMap);
+
+const mapListOptions = [
+  {
+    label: optionMap,
+    icon: "i-heroicons-map-solid",
+  },
+  {
+    label: optionList,
+    icon: "i-heroicons-list-bullet-solid",
+  },
+];
+
+const mapTabs = [
+  {
+    label: "Nationale",
+    icon: "i-heroicons-map",
+  },
+  {
+    label: "Diaspora",
+    icon: "i-heroicons-globe-europe-africa",
+  },
+  {
+    label: "Résumé",
+    icon: "i-heroicons-chart-bar",
+  },
+];
+
+const handleMapReady = (map: unknown) => {
+  console.log("Carte chargée et prête");
+};
 </script>
 
 <template>
@@ -171,9 +206,6 @@ const isViewingDetails = computed(() => !!selectedCoalitionId.value || !!selecte
           <UIcon name="i-heroicons-arrow-left" class="mr-2" />
           Accueil Élections
         </NuxtLink>
-        <div class="flex items-center gap-2">
-           <UBadge color="gray" variant="soft" class="rounded-full">Dashboard</UBadge>
-        </div>
       </nav>
 
       <!-- Breadcrumb Desktop Only when viewing details -->
@@ -206,7 +238,7 @@ const isViewingDetails = computed(() => !!selectedCoalitionId.value || !!selecte
             <div class="absolute inset-0 border-4 border-primary-200 dark:border-primary-900 rounded-full"></div>
             <div class="absolute inset-0 border-4 border-primary-600 rounded-full border-t-transparent animate-spin"></div>
          </div>
-         <p class="text-sm font-bold text-gray-400 animate-pulse">Synchronisation avec le CMS...</p>
+         <p class="text-sm font-bold text-gray-400 animate-pulse">Synchronisation des données...</p>
       </div>
 
       <div v-else class="max-w-7xl mx-auto">
@@ -396,8 +428,52 @@ const isViewingDetails = computed(() => !!selectedCoalitionId.value || !!selecte
                         <p class="text-sm text-gray-500">Visualisation géographique par département.</p>
                     </div>
                 </div>
-                <div class="relative min-h-[600px]">
-                    <ElectionMapComponent4 />
+                
+                <div class="p-4">
+                  <UTabs :items="mapTabs" class="w-full">
+                    <template #item="{ item }">
+                      <!-- Résumé -->
+                      <div v-if="item.label === 'Résumé'" class="w-full pt-4">
+                        <ElectionMapSummary />
+                      </div>
+
+                      <!-- NATIONALE -->
+                      <div v-if="item.label === 'Nationale'" class="w-full pt-4">
+                        <!-- View Toggle -->
+                        <div class="mb-4 w-full flex justify-center">
+                          <div class="flex gap-2 bg-gray-100 dark:bg-gray-800 p-1 rounded-xl">
+                            <UButton
+                              v-for="option in mapListOptions"
+                              :key="option.label"
+                              :color="selectedMapOption === option.label ? 'white' : 'gray'"
+                              :variant="selectedMapOption === option.label ? 'solid' : 'ghost'"
+                              size="sm"
+                              class="rounded-lg transition-all"
+                              @click="selectedMapOption = option.label"
+                            >
+                              <UIcon :name="option.icon" class="w-4 h-4 mr-1" />
+                              {{ option.label }}
+                            </UButton>
+                          </div>
+                        </div>
+
+                        <!-- CARTE -->
+                        <div v-if="selectedMapOption == optionMap" class="relative min-h-[600px]">
+                           <ElectionMapComponent4 @map-ready="handleMapReady" />
+                        </div>
+
+                        <!-- LISTE -->
+                        <div v-if="selectedMapOption == optionList" class="w-full">
+                          <ElectionMapNationalDepartment />
+                        </div>
+                      </div>
+
+                      <!-- DIASPORA -->
+                      <div v-else-if="item.label === 'Diaspora'" class="w-full pt-4">
+                        <ElectionMapDiasporaCountries />
+                      </div>
+                    </template>
+                  </UTabs>
                 </div>
              </div>
         </section>
@@ -407,7 +483,6 @@ const isViewingDetails = computed(() => !!selectedCoalitionId.value || !!selecte
             <div class="space-y-6">
                 <div>
                    <h2 class="text-2xl font-black uppercase tracking-tighter">Résultats Globaux</h2>
-                   <p class="text-gray-500">Aperçu consolidé des résultats de l'élection.</p>
                 </div>
 
                 <div class="bg-white dark:bg-gray-900 rounded-xl p-6 border dark:border-gray-800 shadow-sm min-h-[400px]">

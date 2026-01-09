@@ -106,6 +106,7 @@
                 </div>
               </div>
               <NuxtLink
+                v-if="region.departement"
                 :to="`/elections/legislatives/carte-electorale/nationale/${region.departement.toUpperCase()}`"
                 class="text-black-800 mt-0 inline-block rounded-md bg-green-100 p-2 font-bold"
               >
