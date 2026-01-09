@@ -298,6 +298,30 @@ const handleMapReady = (map: unknown) => {
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
+      <!-- State: Invalid Election (404-like) -->
+      <div v-if="!loadingConfig && !currentElection" class="flex flex-col items-center justify-center py-32 text-center animate-in fade-in zoom-in-95 duration-500">
+           <div class="bg-primary-50 dark:bg-primary-900/10 p-6 rounded-full mb-6">
+              <UIcon name="i-heroicons-face-frown" class="h-20 w-20 text-primary-500" />
+           </div>
+           <h1 class="text-4xl font-black text-gray-900 dark:text-white mb-4 tracking-tight">Oups ! Élection introuvable</h1>
+           <p class="text-gray-500 text-lg max-w-lg mx-auto mb-8">
+             Il semble qu'il n'y ait aucune élection <span class="font-bold text-gray-900 dark:text-white">{{ selectedType }}</span> enregistrée pour l'année <span class="font-bold text-gray-900 dark:text-white">{{ selectedYear }}</span>.
+           </p>
+           
+           <div class="flex gap-4">
+              <UButton 
+                to="/elections-senegal" 
+                size="xl" 
+                color="gray" 
+                variant="solid" 
+                icon="i-heroicons-arrow-left"
+              >
+                Retour aux élections
+              </UButton>
+           </div>
+      </div>
+
+      <div v-else>
       <!-- Breadcrumb / Back Navigation -->
       <nav
         v-if="!isViewingDetails"
@@ -684,6 +708,7 @@ const handleMapReady = (map: unknown) => {
              <p class="text-gray-400 max-w-sm mx-auto mt-4 px-6 italic">Le module "{{ activeTab }}" est en phase finale d'intégration. Restez connectés pour les résultats détaillés.</p>
              <UButton class="mt-8 rounded-full px-8" variant="soft" @click="activeTab = 'candidats'">Voir les candidats</UButton>
         </section>
+      </div>
       </div>
     </main>
 
