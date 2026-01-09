@@ -40,22 +40,21 @@ const route = useRoute();
 const router = useRouter();
 const statsType = ref<string>("professionCandidat");
 
-// --- URL PARAMS & LOGIC ---
-// Sync state with URL params on navigation
-// Watch route params to update state when navigating between elections
-// This watcher has priority over the composable's default initialization
-watch(() => [route.params.type, route.params.year], ([type, year]) => {
+watch([() => route.params.type, () => route.params.year], ([type, year]) => {
     if (type && year) {
         const newType = type as string;
         const newYear = Number(year);
 
-        // Force update even if already set (to override composable's default init)
-        selectedType.value = newType;
-        selectedYear.value = newYear;
+        // Only update and clear if the election context explicitly changes
+        if (selectedType.value !== newType || selectedYear.value !== newYear) {
+            // Force update even if already set (to override composable's default init)
+            selectedType.value = newType;
+            selectedYear.value = newYear;
 
-        // Clear specific selections when changing election context
-        clearConstituency();
-        clearCoalition();
+            // Clear specific selections when changing election context
+            clearConstituency();
+            clearCoalition();
+        }
     }
 }, { immediate: true, flush: 'sync' }); // flush: 'sync' ensures this runs before other watchers
 
