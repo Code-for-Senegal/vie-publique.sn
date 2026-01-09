@@ -1,8 +1,8 @@
-import type { AssemblyVote } from "~/types/assembly";
+import type { AssemblyVote } from '~/types/assembly';
 
 export interface AssemblyVotesOptions {
   /** ID du vote pour récupération unitaire */
-  id?: string;
+  id?: string | Ref<string>;
 
   /** Tri par défaut */
   sort?: string;
@@ -27,10 +27,10 @@ export interface AssemblyVotesOptions {
  */
 export const useAssemblyVotes = (options: AssemblyVotesOptions = {}) => {
   // Pour un vote unique, pas besoin de state UI
-  if (options.id) {
+  if (unref(options.id)) {
     const collection = useCmsCollection<AssemblyVote>({
-      collection: "assembly/votes",
-      id: options.id,
+      collection: 'assembly/votes',
+      id: options.id as string | Ref<string>,
     });
 
     return {
@@ -43,9 +43,9 @@ export const useAssemblyVotes = (options: AssemblyVotesOptions = {}) => {
       // États vides pour compatibilité avec l'ancien code
       votes: computed(() => []),
       currentPage: ref(1),
-      searchQuery: ref(""),
-      sortBy: ref(options.sort || "-date"),
-      filterStatus: ref("all"),
+      searchQuery: ref(''),
+      sortBy: ref(options.sort || '-date'),
+      filterStatus: ref('all'),
       itemsPerPage: ref(options.limit || 50),
       pagination: computed(() => undefined),
       totalItems: computed(() => 0),
@@ -66,19 +66,19 @@ export const useAssemblyVotes = (options: AssemblyVotesOptions = {}) => {
   }
 
   // Gestion des filtres spécifiques aux votes
-  const filterStatus = ref<string>("all"); // Status du vote
+  const filterStatus = ref<string>('all'); // Status du vote
 
   // État UI géré par useCollectionState
   const state = useCollectionState({
-    defaultSort: options.sort || "-date",
+    defaultSort: options.sort || '-date',
     defaultItemsPerPage: options.limit || 50,
-    defaultFilter: "all",
+    defaultFilter: 'all',
     syncUrl: options.syncUrl !== false,
     urlParamsMapping: {
-      search: "q",
-      filter: "status",
-      page: "page",
-      sort: "sort",
+      search: 'q',
+      filter: 'status',
+      page: 'page',
+      sort: 'sort',
     },
   });
 
@@ -87,7 +87,7 @@ export const useAssemblyVotes = (options: AssemblyVotesOptions = {}) => {
     const filters: Record<string, any> = {};
 
     // Filtre par statut
-    if (filterStatus.value && filterStatus.value !== "all") {
+    if (filterStatus.value && filterStatus.value !== 'all') {
       filters.filterStatus = filterStatus.value;
     }
 
@@ -96,7 +96,7 @@ export const useAssemblyVotes = (options: AssemblyVotesOptions = {}) => {
 
   // Utilisation du composable générique pour le fetch
   const collection = useCmsCollection<AssemblyVote>({
-    collection: "assembly/votes",
+    collection: 'assembly/votes',
     filters,
     sort: state.sortBy,
     limit: state.itemsPerPage,
@@ -106,9 +106,7 @@ export const useAssemblyVotes = (options: AssemblyVotesOptions = {}) => {
 
   // Computed pour compatibilité avec l'ancien code
   const totalItems = computed(() => collection.pagination.value?.total || 0);
-  const totalPages = computed(
-    () => collection.pagination.value?.totalPages || 1,
-  );
+  const totalPages = computed(() => collection.pagination.value?.totalPages || 1);
 
   // Méthodes spécifiques aux votes
   const setFilterStatus = (status: string) => {
@@ -142,7 +140,7 @@ export const useAssemblyVotes = (options: AssemblyVotesOptions = {}) => {
     setItemsPerPage: state.setItemsPerPage,
     resetFilters: () => {
       state.resetFilters();
-      filterStatus.value = "all";
+      filterStatus.value = 'all';
     },
 
     // Méthodes spécifiques
@@ -151,16 +149,14 @@ export const useAssemblyVotes = (options: AssemblyVotesOptions = {}) => {
     // Computed
     totalItems,
     totalPages,
-    hasActiveFilters: computed(
-      () => state.hasActiveFilters.value || filterStatus.value !== "all",
-    ),
+    hasActiveFilters: computed(() => state.hasActiveFilters.value || filterStatus.value !== 'all'),
 
     // Méthodes de compatibilité avec l'ancien code (deprecated)
     fetchAssemblyVotes: collection.refresh,
     fetchAssemblyVoteById: async () => collection.refresh(),
     resetVotes: () => {
       state.resetFilters();
-      filterStatus.value = "all";
+      filterStatus.value = 'all';
     },
   };
 };

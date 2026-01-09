@@ -148,6 +148,14 @@
 <script setup lang="ts">
 import type { PDFDocumentProxy, PDFPageProxy } from "pdfjs-dist";
 
+// Configuration du worker PDF.js - utiliser le worker via import.meta.url
+if (import.meta.client) {
+  pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+    'pdfjs-dist/build/pdf.worker.min.mjs',
+    import.meta.url
+  ).href
+}
+
 interface Props {
   source: string;
   downloadName?: string;

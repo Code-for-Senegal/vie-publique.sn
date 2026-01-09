@@ -88,7 +88,19 @@ Pour que GitHub puisse parler à SonarCloud, il a besoin d'un passeport (Token).
 *   **Cause** : Conflit. SonarCloud essaie d'analyser le code automatiquement ALORS que GitHub Actions le fait aussi.
 *   **Solution** :
     1.  Allez sur le dashboard SonarCloud du projet.
+
+#### Erreur Coolify : "Head ... unauthorized" (Deployment Failed)
+*   **Cause** : Coolify n'a pas la permission de télécharger l'image depuis GitHub Container Registry (ghcr.io). Par défaut, les packages sont privés.
+*   **Solution (2 Options)** :
+    *   **Option A (Recommandée pour projets privés)** : Créer un PAT GitHub (`read:packages`) et l'ajouter dans Coolify > Project > Docker Registry.
+    *   **Option B (Simple)** : Rendre le package public sur GitHub.
+        *   Allez sur la page principale du repo GitHub.
+        *   Colonne de droite > "Packages" > Cliquez sur votre package.
+        *   Settings > "Change package visibility" > **Public**.
+        *   *Plus besoin de mot de passe dans Coolify !*
+
 ### 4. FAQ : Automatic Analysis vs CI-based Analysis
+
 
 **Question** : Pourquoi utiliser le CI GitHub au lieu de l'analyse automatique de SonarCloud ?
 

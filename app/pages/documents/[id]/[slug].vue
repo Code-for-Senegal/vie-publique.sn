@@ -59,9 +59,16 @@ const pageDescription = computed(
     `${typeLabel.value} - Document officiel du Sénégal`,
 );
 
+const { siteUrl } = useSiteMetadata();
+
 const pageImageUrl = computed(() => {
   const img = document.value?.cover_image;
-  return typeof img === 'string' ? useCmsImageAbsolute(img, 80) : '';
+  if (typeof img !== 'string') return '';
+
+  // Utilisation safe : on récupère l'url relative et on concatène avec siteUrl déjà résolu
+  const relativeUrl = useCmsImage(img, 80);
+  if (relativeUrl.startsWith('http')) return relativeUrl;
+  return `${siteUrl}${relativeUrl}`;
 });
 
 // SEO dynamique
@@ -84,35 +91,72 @@ useSeoMeta({
   twitterImage: () => pageImageUrl.value,
 });
 
-// Schema.org JSON-LD pour les documents
-useSchemaOrg([
-  defineArticle({
-    '@type': 'Article',
-    headline: () => document.value?.title || '',
-    description: () => document.value?.description || typeLabel.value,
-    image: () =>
-      document.value?.cover_image ? useCmsImageAbsolute(document.value.cover_image, 80) : undefined,
-    datePublished: () => document.value?.publish_date || '',
-    author: {
-      '@type': 'Organization',
-      name: 'République du Sénégal',
+const breadcrumbSchema = computed(() => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Accueil',
+      item: siteUrl,
     },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Vie Publique Sénégal',
-      url: 'https://vie-publique.sn',
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Documents',
+      item: `${siteUrl}/documents/public`,
     },
-  }),
-  // Fil d'Ariane structuré
-  defineBreadcrumb({
-    itemListElement: () => [
-      { name: 'Accueil', item: '/' },
-      { name: 'Documents', item: '/documents/public' },
-      { name: typeLabel.value, item: `/documents/${typeSlug.value}` },
-      { name: document.value?.title || '' },
-    ],
-  }),
-]);
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: typeLabel.value,
+      item: `${siteUrl}/documents/${typeSlug.value}`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 4,
+      name: document.value?.title || '',
+      item: document.value
+        ? `${siteUrl}/documents/${document.value.id}/${document.value.slug}`
+        : '',
+    },
+  ],
+}));
+
+const articleSchema = computed(() => ({
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: getSafeString(document.value?.title),
+  description: getSafeString(document.value?.description) || typeLabel.value,
+  image: pageImageUrl.value || undefined,
+  datePublished: document.value?.publish_date || undefined,
+  author: {
+    '@type': 'Organization',
+    name: 'République du Sénégal',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Vie Publique Sénégal',
+    url: siteUrl,
+  },
+}));
+
+// SEO dynamique
+useHead({
+  htmlAttrs: { lang: 'fr-SN' },
+  // Open Graph & Meta handled by useSeoMeta above, only adding specific overrides if needed or JSON-LD
+  script: [
+    {
+      type: 'application/ld+json',
+      children: computed(() => JSON.stringify(breadcrumbSchema.value)),
+    },
+    {
+      type: 'application/ld+json',
+      children: computed(() => JSON.stringify(articleSchema.value)),
+    },
+  ],
+});
 
 // Fonction pour obtenir l'URL de l'asset via le nouveau proxy
 const getAssetUrl = (assetId: string, slug: string) => {

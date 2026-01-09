@@ -159,6 +159,7 @@ export default defineNuxtConfig({
     },
   },
 
+  // FIXME
   // Optimisations expérimentales désactivées pour éviter les conflits
   // experimental: {
   //   payloadExtraction: false,
@@ -176,14 +177,14 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     'nuxt-gtag',
     '@nuxtjs/seo',
-    // '@nuxtjs/web-vitals', // Temporairement désactivé - incompatible avec Nuxt 4
+    // FIXME? Temporairement désactivé - incompatible avec Nuxt 4
+    // '@nuxtjs/web-vitals',
     '@nuxt/image',
     '@vueuse/motion/nuxt',
     '@nuxt/eslint',
     '@pinia/nuxt',
     '@nuxtjs/leaflet',
-    // ⚠️ PWA chargé uniquement en production pour éviter les erreurs dev-sw.js
-    ...(process.env.NODE_ENV === 'production' ? ['@vite-pwa/nuxt'] : []),
+    '@vite-pwa/nuxt',
     '@vueuse/nuxt',
     '@nuxtjs/mdc',
     // 'nuxt-security',
@@ -361,6 +362,7 @@ export default defineNuxtConfig({
       title: "l'information publique au Sénégal | Vie-Publique.sn",
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
+      link: [{ rel: 'manifest', href: '/manifest.webmanifest' }],
       meta: [
         {
           name: 'keywords',
@@ -493,6 +495,7 @@ export default defineNuxtConfig({
     enabled: !!process.env.GTAG_ID,
     id: process.env.GTAG_ID,
   },
+  // FIXME web-vitals: incompatible avec Nuxt 4? Temporarily disabled
   // webVitals: {
   //   provider: 'ga',
   //   disabled: !process.env.GTAG_ID,
@@ -519,6 +522,7 @@ export default defineNuxtConfig({
       baseURL: process.env.CMS_API_URL_ASSETS,
     },
   },
+  /* PWA options */
   pwa: {
     strategies: 'injectManifest',
     srcDir: 'service-worker',
@@ -691,11 +695,7 @@ export default defineNuxtConfig({
         /^\/conseil-des-ministres(\/.*)?$/,
       ],
       // Exclure les routes qui ne doivent pas être cachées
-      navigateFallbackDenylist: [
-        /^\/api\//,
-        /^\/sitemap/,
-        /^\/__nuxt_error/,
-      ],
+      navigateFallbackDenylist: [/^\/api\//, /^\/sitemap/, /^\/__nuxt_error/],
     },
     injectManifest: {
       globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
@@ -706,7 +706,8 @@ export default defineNuxtConfig({
       periodicSyncForUpdates: 3600,
     },
     devOptions: {
-      enabled: false, // ✅ Désactive PWA en dev (gain de performance)
+      // Désactiver la PWA UNIQUEMENT en local développeur
+      enabled: process.env.PWA_ENABLED === 'true',
       suppressWarnings: true,
       navigateFallback: null, // Fix dev-sw.js error (null au lieu de undefined)
       navigateFallbackAllowlist: [],

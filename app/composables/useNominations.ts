@@ -1,8 +1,8 @@
-import type { GovernmentMember } from "~/types/government-member";
+import type { GovernmentMember } from '~/types/government-member';
 
 export interface NominationsOptions {
   /** ID de la nomination pour récupération unitaire */
-  id?: string;
+  id?: string | Ref<string>;
 
   /** Tri par défaut */
   sort?: string;
@@ -29,10 +29,10 @@ export const useNominations = (options: NominationsOptions = {}) => {
   const route = useRoute();
 
   // Pour une nomination unique, pas besoin de state UI
-  if (options.id) {
+  if (unref(options.id)) {
     const collection = useCmsCollection<GovernmentMember>({
-      collection: "nominations",
-      id: options.id,
+      collection: 'nominations',
+      id: options.id as string | Ref<string>,
     });
 
     return {
@@ -45,10 +45,10 @@ export const useNominations = (options: NominationsOptions = {}) => {
       // États vides pour compatibilité
       nominations: computed(() => []),
       currentPage: ref(1),
-      searchQuery: ref(""),
-      sortBy: ref(options.sort || "-nominationDate"),
-      filterType: ref("all"),
-      filterGender: ref("all"),
+      searchQuery: ref(''),
+      sortBy: ref(options.sort || '-nominationDate'),
+      filterType: ref('all'),
+      filterGender: ref('all'),
       itemsPerPage: ref(options.limit || 25),
       pagination: computed(() => undefined),
       totalItems: computed(() => 0),
@@ -67,20 +67,20 @@ export const useNominations = (options: NominationsOptions = {}) => {
   }
 
   // Gestion des filtres spécifiques aux nominations
-  const filterType = ref<string>("all"); // Type de nomination (Ministre, Directeur, etc.)
-  const filterGender = ref<string>("all"); // Genre (Monsieur, Madame)
+  const filterType = ref<string>('all'); // Type de nomination (Ministre, Directeur, etc.)
+  const filterGender = ref<string>('all'); // Genre (Monsieur, Madame)
 
   // État UI géré par useCollectionState
   const state = useCollectionState({
-    defaultSort: options.sort || "-nominationDate",
+    defaultSort: options.sort || '-nominationDate',
     defaultItemsPerPage: options.limit || 25,
-    defaultFilter: "all",
+    defaultFilter: 'all',
     syncUrl: options.syncUrl !== false,
     urlParamsMapping: {
-      search: "q", // ?q=audit
-      filter: "type", // ?type=Ministre
-      page: "page",
-      sort: "sort",
+      search: 'q', // ?q=audit
+      filter: 'type', // ?type=Ministre
+      page: 'page',
+      sort: 'sort',
     },
     additionalFilters: {
       gender: filterGender,
@@ -100,7 +100,7 @@ export const useNominations = (options: NominationsOptions = {}) => {
   // Synchronisation du filtre type avec l'URL
   watch(filterType, () => {
     const query: any = { ...route.query };
-    if (filterType.value !== "all") {
+    if (filterType.value !== 'all') {
       query.type = filterType.value;
     } else {
       delete query.type;
@@ -113,12 +113,12 @@ export const useNominations = (options: NominationsOptions = {}) => {
     const filters: Record<string, any> = {};
 
     // Filtre par type de nomination
-    if (filterType.value && filterType.value !== "all") {
+    if (filterType.value && filterType.value !== 'all') {
       filters.filterType = filterType.value;
     }
 
     // Filtre par genre
-    if (filterGender.value && filterGender.value !== "all") {
+    if (filterGender.value && filterGender.value !== 'all') {
       filters.filterGender = filterGender.value;
     }
 
@@ -127,7 +127,7 @@ export const useNominations = (options: NominationsOptions = {}) => {
 
   // Utilisation du composable générique pour le fetch
   const collection = useCmsCollection<GovernmentMember>({
-    collection: "nominations",
+    collection: 'nominations',
     filters,
     sort: state.sortBy,
     limit: state.itemsPerPage,
@@ -137,9 +137,7 @@ export const useNominations = (options: NominationsOptions = {}) => {
 
   // Computed pour compatibilité avec l'ancien code
   const totalItems = computed(() => collection.pagination.value?.total || 0);
-  const totalPages = computed(
-    () => collection.pagination.value?.totalPages || 1,
-  );
+  const totalPages = computed(() => collection.pagination.value?.totalPages || 1);
 
   // Méthodes spécifiques aux nominations
   const setFilterType = (type: string) => {
@@ -155,8 +153,8 @@ export const useNominations = (options: NominationsOptions = {}) => {
   };
 
   // Récupération des statistiques globales (tous les totaux)
-  const { data: stats } = useFetch("/api/nominations/stats", {
-    key: "nominations-stats",
+  const { data: stats } = useFetch('/api/nominations/stats', {
+    key: 'nominations-stats',
   });
 
   // Computed pour les totaux par type (depuis l'API stats)
@@ -195,8 +193,8 @@ export const useNominations = (options: NominationsOptions = {}) => {
     setItemsPerPage: state.setItemsPerPage,
     resetFilters: () => {
       state.resetFilters();
-      filterType.value = "all";
-      filterGender.value = "all";
+      filterType.value = 'all';
+      filterGender.value = 'all';
     },
 
     // Méthodes spécifiques
@@ -210,9 +208,7 @@ export const useNominations = (options: NominationsOptions = {}) => {
     totalsByGender,
     hasActiveFilters: computed(
       () =>
-        state.hasActiveFilters.value ||
-        filterType.value !== "all" ||
-        filterGender.value !== "all",
+        state.hasActiveFilters.value || filterType.value !== 'all' || filterGender.value !== 'all',
     ),
   };
 };

@@ -1,8 +1,8 @@
-import type { Media } from "~/types/media";
+import type { Media } from '~/types/media';
 
 export interface MediasOptions {
   /** ID du média pour récupération unitaire */
-  id?: string;
+  id?: string | Ref<string>;
 
   /** Tri par défaut */
   sort?: string;
@@ -29,10 +29,10 @@ export const useMedias = (options: MediasOptions = {}) => {
   const route = useRoute();
 
   // Pour un média unique, pas besoin de state UI
-  if (options.id) {
+  if (unref(options.id)) {
     const collection = useCmsCollection<Media>({
-      collection: "medias",
-      id: options.id,
+      collection: 'medias',
+      id: options.id as string | Ref<string>,
     });
 
     return {
@@ -45,9 +45,9 @@ export const useMedias = (options: MediasOptions = {}) => {
       // États vides pour compatibilité
       medias: computed(() => []),
       currentPage: ref(1),
-      searchQuery: ref(""),
-      sortBy: ref(options.sort || "-id"),
-      filterType: ref("all"),
+      searchQuery: ref(''),
+      sortBy: ref(options.sort || '-id'),
+      filterType: ref('all'),
       itemsPerPage: ref(options.limit || 25),
       pagination: computed(() => undefined),
       totalItems: computed(() => 0),
@@ -65,19 +65,19 @@ export const useMedias = (options: MediasOptions = {}) => {
   }
 
   // Gestion des filtres spécifiques aux médias
-  const filterType = ref<string>("all"); // Type de média (TV, Radio, etc.)
+  const filterType = ref<string>('all'); // Type de média (TV, Radio, etc.)
 
   // État UI géré par useCollectionState
   const state = useCollectionState({
-    defaultSort: options.sort || "-id",
+    defaultSort: options.sort || '-id',
     defaultItemsPerPage: options.limit || 25,
-    defaultFilter: "all",
+    defaultFilter: 'all',
     syncUrl: options.syncUrl !== false,
     urlParamsMapping: {
-      search: "q", // ?q=rts
-      filter: "type", // ?type=television
-      page: "page",
-      sort: "sort",
+      search: 'q', // ?q=rts
+      filter: 'type', // ?type=television
+      page: 'page',
+      sort: 'sort',
     },
   });
 
@@ -91,7 +91,7 @@ export const useMedias = (options: MediasOptions = {}) => {
   // Synchronisation du filtre type avec l'URL
   watch(filterType, () => {
     const query: any = { ...route.query };
-    if (filterType.value !== "all") {
+    if (filterType.value !== 'all') {
       query.type = filterType.value;
     } else {
       delete query.type;
@@ -104,7 +104,7 @@ export const useMedias = (options: MediasOptions = {}) => {
     const filters: Record<string, any> = {};
 
     // Filtre par type de média
-    if (filterType.value && filterType.value !== "all") {
+    if (filterType.value && filterType.value !== 'all') {
       filters.filterType = filterType.value;
     }
 
@@ -113,7 +113,7 @@ export const useMedias = (options: MediasOptions = {}) => {
 
   // Utilisation du composable générique pour le fetch
   const collection = useCmsCollection<Media>({
-    collection: "medias",
+    collection: 'medias',
     filters,
     sort: state.sortBy,
     limit: state.itemsPerPage,
@@ -123,9 +123,7 @@ export const useMedias = (options: MediasOptions = {}) => {
 
   // Computed pour compatibilité avec l'ancien code
   const totalItems = computed(() => collection.pagination.value?.total || 0);
-  const totalPages = computed(
-    () => collection.pagination.value?.totalPages || 1,
-  );
+  const totalPages = computed(() => collection.pagination.value?.totalPages || 1);
 
   // Méthodes spécifiques aux médias
   const setFilterType = (type: string) => {
@@ -135,8 +133,8 @@ export const useMedias = (options: MediasOptions = {}) => {
   };
 
   // Récupération des statistiques globales (tous les totaux)
-  const { data: stats } = useFetch("/api/medias/stats", {
-    key: "medias-stats",
+  const { data: stats } = useFetch('/api/medias/stats', {
+    key: 'medias-stats',
   });
 
   // Computed pour les totaux par type (depuis l'API stats)
@@ -169,7 +167,7 @@ export const useMedias = (options: MediasOptions = {}) => {
     setItemsPerPage: state.setItemsPerPage,
     resetFilters: () => {
       state.resetFilters();
-      filterType.value = "all";
+      filterType.value = 'all';
     },
 
     // Méthodes spécifiques
@@ -179,8 +177,6 @@ export const useMedias = (options: MediasOptions = {}) => {
     totalItems,
     totalPages,
     totalsByType,
-    hasActiveFilters: computed(
-      () => state.hasActiveFilters.value || filterType.value !== "all",
-    ),
+    hasActiveFilters: computed(() => state.hasActiveFilters.value || filterType.value !== 'all'),
   };
 };

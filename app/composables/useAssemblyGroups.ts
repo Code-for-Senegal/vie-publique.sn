@@ -1,8 +1,8 @@
-import type { AssemblyGroup } from "~/types/assembly";
+import type { AssemblyGroup } from '~/types/assembly';
 
 export interface AssemblyGroupsOptions {
   /** ID du groupe pour récupération unitaire */
-  id?: string;
+  id?: string | Ref<string>;
 
   /** Tri par défaut */
   sort?: string;
@@ -27,10 +27,10 @@ export interface AssemblyGroupsOptions {
  */
 export const useAssemblyGroups = (options: AssemblyGroupsOptions = {}) => {
   // Pour un groupe unique, pas besoin de state UI
-  if (options.id) {
+  if (unref(options.id)) {
     const collection = useCmsCollection<AssemblyGroup>({
-      collection: "assembly/groups",
-      id: options.id,
+      collection: 'assembly/groups',
+      id: options.id as string | Ref<string>,
     });
 
     return {
@@ -44,9 +44,9 @@ export const useAssemblyGroups = (options: AssemblyGroupsOptions = {}) => {
       groups: computed(() => []),
       groupById: collection.item,
       currentPage: ref(1),
-      searchQuery: ref(""),
-      sortBy: ref(options.sort || "-id"),
-      filterStatus: ref("active"),
+      searchQuery: ref(''),
+      sortBy: ref(options.sort || '-id'),
+      filterStatus: ref('active'),
       itemsPerPage: ref(options.limit || 2000),
       pagination: computed(() => undefined),
       totalItems: computed(() => 0),
@@ -67,19 +67,19 @@ export const useAssemblyGroups = (options: AssemblyGroupsOptions = {}) => {
   }
 
   // Gestion des filtres spécifiques aux groupes
-  const filterStatus = ref<string>("active"); // Status du groupe (active, inactive)
+  const filterStatus = ref<string>('active'); // Status du groupe (active, inactive)
 
   // État UI géré par useCollectionState
   const state = useCollectionState({
-    defaultSort: options.sort || "-id",
+    defaultSort: options.sort || '-id',
     defaultItemsPerPage: options.limit || 2000,
-    defaultFilter: "active",
+    defaultFilter: 'active',
     syncUrl: options.syncUrl !== false,
     urlParamsMapping: {
-      search: "q",
-      filter: "status",
-      page: "page",
-      sort: "sort",
+      search: 'q',
+      filter: 'status',
+      page: 'page',
+      sort: 'sort',
     },
   });
 
@@ -88,7 +88,7 @@ export const useAssemblyGroups = (options: AssemblyGroupsOptions = {}) => {
     const filters: Record<string, any> = {};
 
     // Filtre par statut
-    if (filterStatus.value && filterStatus.value !== "all") {
+    if (filterStatus.value && filterStatus.value !== 'all') {
       filters.filterStatus = filterStatus.value;
     }
 
@@ -97,7 +97,7 @@ export const useAssemblyGroups = (options: AssemblyGroupsOptions = {}) => {
 
   // Utilisation du composable générique pour le fetch
   const collection = useCmsCollection<AssemblyGroup>({
-    collection: "assembly/groups",
+    collection: 'assembly/groups',
     filters,
     sort: state.sortBy,
     limit: state.itemsPerPage,
@@ -107,9 +107,7 @@ export const useAssemblyGroups = (options: AssemblyGroupsOptions = {}) => {
 
   // Computed pour compatibilité avec l'ancien code
   const totalItems = computed(() => collection.pagination.value?.total || 0);
-  const totalPages = computed(
-    () => collection.pagination.value?.totalPages || 1,
-  );
+  const totalPages = computed(() => collection.pagination.value?.totalPages || 1);
 
   // Méthodes spécifiques aux groupes
   const setFilterStatus = (status: string) => {
@@ -144,7 +142,7 @@ export const useAssemblyGroups = (options: AssemblyGroupsOptions = {}) => {
     setItemsPerPage: state.setItemsPerPage,
     resetFilters: () => {
       state.resetFilters();
-      filterStatus.value = "active";
+      filterStatus.value = 'active';
     },
 
     // Méthodes spécifiques
@@ -154,7 +152,7 @@ export const useAssemblyGroups = (options: AssemblyGroupsOptions = {}) => {
     totalItems,
     totalPages,
     hasActiveFilters: computed(
-      () => state.hasActiveFilters.value || filterStatus.value !== "active",
+      () => state.hasActiveFilters.value || filterStatus.value !== 'active',
     ),
 
     // Méthodes de compatibilité avec l'ancien code (deprecated)
@@ -162,7 +160,7 @@ export const useAssemblyGroups = (options: AssemblyGroupsOptions = {}) => {
     fetchAssemblyGroupById: async () => collection.refresh(),
     reset: () => {
       state.resetFilters();
-      filterStatus.value = "active";
+      filterStatus.value = 'active';
     },
   };
 };

@@ -1,24 +1,34 @@
 <!-- pages/assemblee-nationale/votes/index.vue -->
 <template>
   <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
-    <UButton
-      icon="i-heroicons-arrow-left"
-      variant="ghost"
-      label="15e législature"
-      color="gray"
-      @click="router.back()"
-    />
+    <nav
+      class="mb-6 flex items-center text-sm text-gray-500 dark:text-gray-400"
+      aria-label="Breadcrumb"
+    >
+      <NuxtLink to="/" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+        Accueil
+      </NuxtLink>
+      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
+      <NuxtLink
+        to="/assemblee-nationale"
+        class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+      >
+        Assemblée nationale
+      </NuxtLink>
+      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
+      <span class="font-medium text-gray-900 dark:text-white" aria-current="page">
+        15e législature
+      </span>
+    </nav>
     <UContainer>
       <!-- En-tête avec titre et description -->
       <div class="mb-8">
-        <h1 class="mb-4 text-4xl font-bold text-gray-900 dark:text-gray-100">
-          Les votes
-        </h1>
+        <h1 class="mb-4 text-4xl font-bold text-gray-900 dark:text-gray-100">Les votes</h1>
         <div class="prose max-w-3xl text-sm text-gray-600 dark:text-gray-300">
           <p>
-            On décrypte pour vous les votes de la législature en cours. Chaque
-            vote fait l'objet d'une reformulation et d'une contextualisation,
-            afin de le rendre plus accessible et plus compréhensible.
+            On décrypte pour vous les votes de la législature en cours. Chaque vote fait l'objet
+            d'une reformulation et d'une contextualisation, afin de le rendre plus accessible et
+            plus compréhensible.
           </p>
         </div>
       </div>
@@ -65,14 +75,12 @@
                   :color="vote.status === 'adopted' ? 'emerald' : 'red'"
                   class="font-medium uppercase"
                 >
-                  {{ vote.status === "adopted" ? "Adopté" : "Rejeté" }}
+                  {{ vote.status === 'adopted' ? 'Adopté' : 'Rejeté' }}
                 </UBadge>
               </div>
 
               <!-- Titre -->
-              <h2
-                class="mb-auto text-lg font-medium text-gray-900 dark:text-gray-100"
-              >
+              <h2 class="mb-auto text-lg font-medium text-gray-900 dark:text-gray-100">
                 {{ vote.name }}
               </h2>
 
@@ -92,15 +100,50 @@
 
 <script setup lang="ts">
 const router = useRouter();
+const { siteUrl } = useSiteMetadata();
 
 // ✅ Nouvelle architecture SSR : les données sont chargées automatiquement
 const { votes, loading, error } = useAssemblyVotes();
 
 const getBgColor = (voteType: string): string => {
   const colors: Record<string, string> = {
-    government_bill: "yellow",
-    election: "indigo",
+    government_bill: 'yellow',
+    election: 'indigo',
   };
   return colors[voteType];
 };
+
+const breadcrumbSchema = computed(() => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Accueil',
+      item: siteUrl,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Assemblée nationale',
+      item: `${siteUrl}/assemblee-nationale`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Votes',
+      item: `${siteUrl}/assemblee-nationale/votes`,
+    },
+  ],
+}));
+
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify(breadcrumbSchema.value),
+    },
+  ],
+});
 </script>

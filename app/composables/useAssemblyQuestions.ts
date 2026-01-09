@@ -1,8 +1,8 @@
-import type { AssemblyQuestion } from "~/types/assembly";
+import type { AssemblyQuestion } from '~/types/assembly';
 
 export interface AssemblyQuestionsOptions {
   /** ID de la question pour récupération unitaire */
-  id?: string;
+  id?: string | Ref<string>;
 
   /** Tri par défaut */
   sort?: string;
@@ -25,14 +25,12 @@ export interface AssemblyQuestionsOptions {
  * // Détail d'une question
  * const { question, loading } = useAssemblyQuestions({ id: '123' });
  */
-export const useAssemblyQuestions = (
-  options: AssemblyQuestionsOptions = {},
-) => {
+export const useAssemblyQuestions = (options: AssemblyQuestionsOptions = {}) => {
   // Pour une question unique, pas besoin de state UI
-  if (options.id) {
+  if (unref(options.id)) {
     const collection = useCmsCollection<AssemblyQuestion>({
-      collection: "assembly/questions",
-      id: options.id,
+      collection: 'assembly/questions',
+      id: options.id as string | Ref<string>,
     });
 
     return {
@@ -45,9 +43,9 @@ export const useAssemblyQuestions = (
       // États vides pour compatibilité avec l'ancien code
       questions: computed(() => []),
       currentPage: ref(1),
-      searchQuery: ref(""),
-      sortBy: ref(options.sort || "-question_date"),
-      filterStatus: ref("published"),
+      searchQuery: ref(''),
+      sortBy: ref(options.sort || '-question_date'),
+      filterStatus: ref('published'),
       itemsPerPage: ref(options.limit || 50),
       pagination: computed(() => undefined),
       totalItems: computed(() => 0),
@@ -68,19 +66,19 @@ export const useAssemblyQuestions = (
   }
 
   // Gestion des filtres spécifiques aux questions
-  const filterStatus = ref<string>("published"); // Status de la question (draft, published, answered)
+  const filterStatus = ref<string>('published'); // Status de la question (draft, published, answered)
 
   // État UI géré par useCollectionState
   const state = useCollectionState({
-    defaultSort: options.sort || "-question_date",
+    defaultSort: options.sort || '-question_date',
     defaultItemsPerPage: options.limit || 50,
-    defaultFilter: "published",
+    defaultFilter: 'published',
     syncUrl: options.syncUrl !== false,
     urlParamsMapping: {
-      search: "q",
-      filter: "status",
-      page: "page",
-      sort: "sort",
+      search: 'q',
+      filter: 'status',
+      page: 'page',
+      sort: 'sort',
     },
   });
 
@@ -89,7 +87,7 @@ export const useAssemblyQuestions = (
     const filters: Record<string, any> = {};
 
     // Filtre par statut
-    if (filterStatus.value && filterStatus.value !== "all") {
+    if (filterStatus.value && filterStatus.value !== 'all') {
       filters.filterStatus = filterStatus.value;
     }
 
@@ -98,7 +96,7 @@ export const useAssemblyQuestions = (
 
   // Utilisation du composable générique pour le fetch
   const collection = useCmsCollection<AssemblyQuestion>({
-    collection: "assembly/questions",
+    collection: 'assembly/questions',
     filters,
     sort: state.sortBy,
     limit: state.itemsPerPage,
@@ -108,9 +106,7 @@ export const useAssemblyQuestions = (
 
   // Computed pour compatibilité avec l'ancien code
   const totalItems = computed(() => collection.pagination.value?.total || 0);
-  const totalPages = computed(
-    () => collection.pagination.value?.totalPages || 1,
-  );
+  const totalPages = computed(() => collection.pagination.value?.totalPages || 1);
 
   // Méthodes spécifiques aux questions
   const setFilterStatus = (status: string) => {
@@ -144,7 +140,7 @@ export const useAssemblyQuestions = (
     setItemsPerPage: state.setItemsPerPage,
     resetFilters: () => {
       state.resetFilters();
-      filterStatus.value = "published";
+      filterStatus.value = 'published';
     },
 
     // Méthodes spécifiques
@@ -154,7 +150,7 @@ export const useAssemblyQuestions = (
     totalItems,
     totalPages,
     hasActiveFilters: computed(
-      () => state.hasActiveFilters.value || filterStatus.value !== "published",
+      () => state.hasActiveFilters.value || filterStatus.value !== 'published',
     ),
 
     // Méthodes de compatibilité avec l'ancien code (deprecated)
@@ -162,7 +158,7 @@ export const useAssemblyQuestions = (
     fetchAssemblyQuestionById: async () => collection.refresh(),
     resetCommissions: () => {
       state.resetFilters();
-      filterStatus.value = "published";
+      filterStatus.value = 'published';
     },
   };
 };

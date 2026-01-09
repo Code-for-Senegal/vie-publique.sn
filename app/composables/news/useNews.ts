@@ -19,7 +19,7 @@ export interface NewsArticle {
 
 export interface NewsOptions {
   /** ID de l'article pour récupération unitaire */
-  id?: string;
+  id?: string | Ref<string>; // Support reactive ID
 
   /** Filtrer uniquement les articles featured */
   featured?: boolean;
@@ -53,10 +53,10 @@ export interface NewsOptions {
  */
 export const useNews = (options: NewsOptions = {}) => {
   // Pour un article unique, pas besoin de state UI
-  if (options.id) {
+  if (unref(options.id)) {
     const collection = useCmsCollection<NewsArticle>({
       collection: 'news',
-      id: options.id,
+      id: options.id as string | Ref<string>,
     });
 
     return {

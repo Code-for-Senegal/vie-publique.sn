@@ -1,8 +1,8 @@
-import type { AssemblyCommission } from "~/types/assembly";
+import type { AssemblyCommission } from '~/types/assembly';
 
 export interface AssemblyCommissionsOptions {
   /** ID de la commission pour récupération unitaire */
-  id?: string;
+  id?: string | Ref<string>;
 
   /** Tri par défaut */
   sort?: string;
@@ -25,14 +25,12 @@ export interface AssemblyCommissionsOptions {
  * // Détail d'une commission
  * const { commission, loading } = useAssemblyCommissions({ id: '123' });
  */
-export const useAssemblyCommissions = (
-  options: AssemblyCommissionsOptions = {},
-) => {
+export const useAssemblyCommissions = (options: AssemblyCommissionsOptions = {}) => {
   // Pour une commission unique, pas besoin de state UI
-  if (options.id) {
+  if (unref(options.id)) {
     const collection = useCmsCollection<AssemblyCommission>({
-      collection: "assembly/commissions",
-      id: options.id,
+      collection: 'assembly/commissions',
+      id: options.id as string | Ref<string>,
     });
 
     return {
@@ -45,9 +43,9 @@ export const useAssemblyCommissions = (
       // États vides pour compatibilité avec l'ancien code
       commissions: computed(() => []),
       currentPage: ref(1),
-      searchQuery: ref(""),
-      sortBy: ref(options.sort || "id"),
-      filterType: ref("all"),
+      searchQuery: ref(''),
+      sortBy: ref(options.sort || 'id'),
+      filterType: ref('all'),
       itemsPerPage: ref(options.limit || 50),
       pagination: computed(() => undefined),
       totalItems: computed(() => 0),
@@ -68,19 +66,19 @@ export const useAssemblyCommissions = (
   }
 
   // Gestion des filtres spécifiques aux commissions
-  const filterType = ref<string>("all"); // Type de commission (permanent, special, ad_hoc)
+  const filterType = ref<string>('all'); // Type de commission (permanent, special, ad_hoc)
 
   // État UI géré par useCollectionState
   const state = useCollectionState({
-    defaultSort: options.sort || "id",
+    defaultSort: options.sort || 'id',
     defaultItemsPerPage: options.limit || 50,
-    defaultFilter: "all",
+    defaultFilter: 'all',
     syncUrl: options.syncUrl !== false,
     urlParamsMapping: {
-      search: "q",
-      filter: "type",
-      page: "page",
-      sort: "sort",
+      search: 'q',
+      filter: 'type',
+      page: 'page',
+      sort: 'sort',
     },
   });
 
@@ -89,7 +87,7 @@ export const useAssemblyCommissions = (
     const filters: Record<string, any> = {};
 
     // Filtre par type de commission
-    if (filterType.value && filterType.value !== "all") {
+    if (filterType.value && filterType.value !== 'all') {
       filters.filterType = filterType.value;
     }
 
@@ -98,7 +96,7 @@ export const useAssemblyCommissions = (
 
   // Utilisation du composable générique pour le fetch
   const collection = useCmsCollection<AssemblyCommission>({
-    collection: "assembly/commissions",
+    collection: 'assembly/commissions',
     filters,
     sort: state.sortBy,
     limit: state.itemsPerPage,
@@ -108,9 +106,7 @@ export const useAssemblyCommissions = (
 
   // Computed pour compatibilité avec l'ancien code
   const totalItems = computed(() => collection.pagination.value?.total || 0);
-  const totalPages = computed(
-    () => collection.pagination.value?.totalPages || 1,
-  );
+  const totalPages = computed(() => collection.pagination.value?.totalPages || 1);
 
   // Méthodes spécifiques aux commissions
   const setFilterType = (type: string) => {
@@ -144,7 +140,7 @@ export const useAssemblyCommissions = (
     setItemsPerPage: state.setItemsPerPage,
     resetFilters: () => {
       state.resetFilters();
-      filterType.value = "all";
+      filterType.value = 'all';
     },
 
     // Méthodes spécifiques
@@ -153,16 +149,14 @@ export const useAssemblyCommissions = (
     // Computed
     totalItems,
     totalPages,
-    hasActiveFilters: computed(
-      () => state.hasActiveFilters.value || filterType.value !== "all",
-    ),
+    hasActiveFilters: computed(() => state.hasActiveFilters.value || filterType.value !== 'all'),
 
     // Méthodes de compatibilité avec l'ancien code (deprecated)
     fetchAssemblyCommissions: collection.refresh,
     fetchAssemblyCommissionById: async () => collection.refresh(),
     resetCommissions: () => {
       state.resetFilters();
-      filterType.value = "all";
+      filterType.value = 'all';
     },
   };
 };
