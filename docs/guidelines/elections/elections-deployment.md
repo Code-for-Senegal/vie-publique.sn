@@ -21,71 +21,15 @@ Ce document explique **comment migrer du schéma existant vers le nouveau schém
 
 | Métrique | Ancien | Nouveau | Différence |
 |----------|--------|---------|------------|
-| **Collections** | 14 | 17 | **+3** |
+| **Collections** | 14 | 15 | **+1** |
 | **Champs totaux** | 171 | 221 | **+50** |
 | **Relations** | 30 | 36 | **+6** |
 
 ---
 
-## 🆕 1. Collections ajoutées (3 nouvelles)
+## 🆕 1. Collections ajoutées (1 nouvelle)
 
-### 1.1 Collection `documents` ⭐ MAJEUR
-
-**Fonction** : Gestion centralisée des documents officiels liés aux élections (codes électoraux, décrets, guides PDF, etc.)
-
-**Nombre de champs** : 27
-
-**Champs clés** :
-
-| Champ | Type | Requis | Description |
-|-------|------|--------|-------------|
-| `id` | integer | Auto | Identifiant unique |
-| `status` | string | Non | Statut (draft/published) |
-| `type` | string | **Oui** | Type de document (legislation, guide, decree, etc.) |
-| `title` | string | Non | Titre du document |
-| `description` | string | Non | Description |
-| `slug` | string | Non | URL slug |
-| `file` | uuid | Non | Fichier PDF/document (→ directus_files) |
-| `cover_image` | uuid | Non | Image de couverture (→ directus_files) |
-| `content_html` | text | Non | Contenu riche HTML |
-| `content_markdown` | text | Non | Contenu Markdown |
-| `tags` | json | Non | Tags/étiquettes |
-| `publish_date` | date | Non | Date de publication |
-| `featured` | boolean | Non | Mis en avant |
-| **`election_id`** | **integer** | **Non** | **Lien vers l'élection (FK → elections)** |
-| `jo_type` | string | Non | Type de Journal Officiel |
-| `jo_number` | integer | Non | Numéro du JO |
-| `has_summary` | boolean | Non | Possède un résumé |
-| `is_watermarked` | boolean | Non | Filigrane présent |
-| `is_scanned` | boolean | Non | Document scanné |
-| `is_processed_by_ocr` | boolean | Non | Traité par OCR |
-| `audit_institution` | string | Non | Institution d'audit |
-| `source_name` | string | Non | Nom de la source |
-| `source_url` | string | Non | URL de la source |
-| `year` | integer | Non | Année du document |
-
-**Relation clé** :
-
-```
-documents.election_id → elections (Many-to-One)
-  ↓
-elections.documents ← documents (One-to-Many, alias inverse)
-```
-
-**Impact** :
-- ✅ Permet d'associer plusieurs documents à une élection
-- ✅ Centralise tous les documents électoraux (codes, guides, décrets)
-- ✅ Support de documents riches (HTML, Markdown)
-- ✅ Métadonnées JO pour les documents officiels
-- ✅ Traçabilité (OCR, scan, watermark)
-
-**Pages impactées** :
-- `/elections-senegal/legislation` : Affiche les documents filtrés par élection
-- Dashboard électoral (onglet "Documents")
-
----
-
-### 1.2 Collection `guide_electorale` 📹
+### 1.1 Collection `guide_electorale` 📹 ⭐ NOUVELLE
 
 **Fonction** : Tutoriels vidéo YouTube pour expliquer le processus électoral
 
@@ -115,12 +59,48 @@ elections.documents ← documents (One-to-Many, alias inverse)
 - `/elections-senegal/guide-electoral` : Page dédiée aux tutoriels
 - Dashboard électoral (onglet "Guide")
 
+---
+
+## 🔄 2. Collections modifiées (4 collections)
+
+### 2.1 Collection `documents` (+1 champ) ⭐ MAJEUR
+
+> ⚠️ **Important** : La collection `documents` existe déjà en production. Seul le champ `election_id` est ajouté.
+
+**Fonction** : Gestion centralisée des documents officiels liés aux élections (codes électoraux, décrets, guides PDF, etc.)
+
+**Champ ajouté** :
+
+| Action | Champ | Type | Interface | Description |
+|--------|-------|------|-----------|-------------|
+| ➕ **AJOUT** | `election_id` | integer | select-dropdown-m2o | Lien vers l'élection (FK → elections) |
+
+**Option à ajouter** :
+
+> 📝 **Important** : Ajouter l'option `"election"` aux valeurs possibles du champ `type` pour identifier les documents en rapport avec une élection.
+
+**Relation ajoutée** :
+
+```
+documents.election_id → elections (Many-to-One)
+  ↓
+elections.documents ← documents (One-to-Many, alias inverse)
+```
+
+**Impact** :
+- ✅ Permet d'associer plusieurs documents à une élection
+- ✅ Centralise tous les documents électoraux (codes, guides, décrets)
+- ✅ Utilise la collection `documents` existante (pas de nouvelle collection)
+
+**Pages impactées** :
+- `/elections-senegal/legislation` : Affiche les documents filtrés par élection
+- Dashboard électoral (onglet "Documents")
+
+**Migration** : Aucune migration de données requise (champ optionnel).
 
 ---
 
-## 🔄 2. Collections modifiées (3 collections)
-
-### 2.1 Collection `election_constituencies` (+2 champs)
+### 2.2 Collection `election_constituencies` (+2 champs)
 
 **Modifications** :
 
@@ -143,7 +123,7 @@ election_constituencies.parent → election_constituencies (Many-to-One)
 
 ---
 
-### 2.2 Collection `election_candidates` ⚠️ BREAKING CHANGE
+### 2.3 Collection `election_candidates` ⚠️ BREAKING CHANGE
 
 **Modifications** :
 
@@ -184,7 +164,7 @@ const suppléants = candidates.filter(c => c.role === 'suppleant');
 
 ---
 
-### 2.3 Collection `elections` (+10 champs)
+### 2.4 Collection `elections` (+10 champs)
 
 **Modifications** :
 
@@ -233,7 +213,32 @@ console.log(election.documents); // [{ title: "Code Electoral 2024", ... }]
 
 ---
 
-## ✅ 3. Collections sans changement (9 collections)
+## ➕ 3. Catégorie à créer dans `news_category`
+
+> ⚠️ **Important** : Les collections `news` et `news_category` existent déjà en production.
+
+**Action requise** : Créer une nouvelle catégorie **"Election"** dans la collection `news_category`.
+
+**Procédure** :
+
+1. Directus → Content → `news_category`
+2. Créer une nouvelle entrée
+3. Remplir les champs :
+   - `name` : "Election"
+   - `slug` : "election"
+   - `description` : "Actualités électorales" (optionnel)
+   - `status` : "published"
+4. Sauvegarder
+
+**Impact** :
+- ✅ Permet de catégoriser les articles sur les élections
+- ✅ Utilisé pour le filtrage dans la page landing élections
+- ✅ Utilisé dans la section "Actualités Électorales"
+
+---
+
+
+## ✅ 5. Collections sans changement (9 collections)
 
 Les collections suivantes existent dans les deux schémas **sans aucune modification** :
 
@@ -253,6 +258,12 @@ Les collections suivantes existent dans les deux schémas **sans aucune modifica
 
 ## 📥 Instructions d'importation du nouveau schéma
 
+> ⚠️ **Rappel important** :
+> - La collection `guide_electorale` sera créée automatiquement
+> - Le champ `election_id` sera ajouté à la collection `documents` existante
+> - Une catégorie "Election" doit être créée manuellement dans `news_category`
+> - La collection `Documents` (majuscule) doit être supprimée si elle existe
+
 ### Prérequis
 
 - ✅ Accès admin à Directus (environnement de test puis production)
@@ -264,25 +275,22 @@ Les collections suivantes existent dans les deux schémas **sans aucune modifica
 
 Créez manuellement les éléments suivants.
 
-#### A. Créer la collection `documents`
+#### A. Ajouter le champ `election_id` à `documents`
 
-1. Créer une nouvelle collection **"documents"**
-2. Configuration :
-   - **Icon** : description
-   - **Display Template** : `{{title}}`
-   - **Archive Field** : status
+> ⚠️ **Important** : La collection `documents` existe déjà. Ne pas la recréer, juste ajouter le champ.
 
-3. Ajouter les champs clés (minimum requis) :
+1. Éditer la collection **"documents"** (existante)
+2. Ajouter un nouveau champ **"election_id"**
+3. Configuration :
+   - **Type** : Integer
+   - **Interface** : select-dropdown-m2o
+   - **Related Collection** : elections
+   - **Nullable** : true
+   - **Hidden** : false
 
-| Champ | Type | Interface | Options |
-|-------|------|-----------|---------|
-| `id` | Integer | input | Auto-increment, PK |
-| `status` | String | select-dropdown | draft, published |
-| `type` | String | select-dropdown | legislation, guide, decree, report |
-| `title` | String | input | Max 255 |
-| `file` | UUID | file | → directus_files |
-| **`election_id`** | **Integer** | **select-dropdown-m2o** | **→ elections** |
-| `year` | Integer | input | Année du document |
+4. **Modifier le champ `type`** (existant) :
+   - Ajouter l'option `"election"` aux valeurs possibles
+   - Cette option permet d'identifier les documents en rapport avec une élection
 
 ---
 
@@ -342,6 +350,19 @@ Créez manuellement les éléments suivants.
 | `campaign_start_date` | Date | datetime |
 | `campaign_end_date` | Date | datetime |
 | `description` | Text | textarea |
+
+---
+
+#### D. Créer la catégorie "Election" dans `news_category`
+
+1. Directus → Content → **"news_category"**
+2. Créer une nouvelle entrée
+3. Remplir les champs :
+   - `name` : "Election"
+   - `slug` : "election"
+   - `description` : "Actualités électorales"
+   - `status` : "published"
+4. Sauvegarder
 
 ---
 
@@ -426,7 +447,21 @@ const isSuppléant = candidate.role === 'suppleant';
 
 ---
 
-### 3. Tester le nouveau champ `role`
+### 3. Tester la catégorie "Election"
+
+#### Dans Directus :
+1. Vérifier que la catégorie "Election" existe dans `news_category`
+2. Créer un article dans `news` et l'associer à la catégorie "Election"
+3. Publier
+
+#### Dans l'application :
+1. Accéder à `/elections-senegal`
+2. Vérifier la section "Actualités Électorales"
+3. Vérifier que les articles de catégorie "Election" s'affichent
+
+---
+
+### 4. Tester le nouveau champ `role`
 
 #### Dans Directus :
 1. Éditer un candidat
@@ -441,7 +476,7 @@ const isSuppléant = candidate.role === 'suppleant';
 
 ---
 
-### 4. Tester les nouveaux champs `elections`
+### 5. Tester les nouveaux champs `elections`
 
 #### Dans Directus :
 1. Éditer une élection
@@ -455,7 +490,7 @@ const isSuppléant = candidate.role === 'suppleant';
 
 ---
 
-### 5. Tester la hiérarchie des circonscriptions
+### 6. Tester la hiérarchie des circonscriptions
 
 #### Dans Directus :
 1. Créer une circonscription parente (ex: département)
@@ -648,10 +683,11 @@ grep -r "is_substitute" app/pages/elections*/
 
 | Fonctionnalité | Ancien Schéma | Nouveau Schéma | Impact |
 |----------------|---------------|----------------|--------|
-| **Collections** | 14 | 17 | +3 nouvelles |
+| **Collections** | 14 | 15 | +1 nouvelle |
 | **Champs totaux** | 171 | 221 | +50 champs |
-| **Gestion documents** | ❌ | ✅ Collection `documents` | Centralisation |
+| **Lien documents ↔ elections** | ❌ | ✅ Champ `election_id` | Centralisation |
 | **Guides vidéo** | ❌ | ✅ Collection `guide_electorale` | Pédagogie |
+| **Catégorie actualités** | ❌ | ✅ "Election" dans `news_category` | Filtrage actus |
 | **Calendrier électoral** | ⚠️ Partiel | ✅ Complet | 9 dates clés |
 | **Métriques temps réel** | ❌ | ✅ Participation, PV traités | Suivi en direct |
 | **Multi-tours** | ❌ | ✅ Champ `rounds` | Présidentielles |
@@ -667,9 +703,12 @@ grep -r "is_substitute" app/pages/elections*/
 
 - [ ] Backup complet de la base de données production
 - [ ] Tester l'import du nouveau schéma en environnement de test
+- [ ] Vérifier que `guide_electorale` est créée
+- [ ] Vérifier que le champ `election_id` est ajouté à `documents` (existante)
+- [ ] Créer la catégorie "Election" dans `news_category`
 - [ ] Vérifier toutes les pages élections en test
 - [ ] Migrer les données `is_substitute` → `role` en test
-- [ ] Supprimer la collection `Documents` (majuscule) en test
+- [ ] Supprimer la collection `Documents` (majuscule) si elle existe
 - [ ] Mettre à jour les types TypeScript
 - [ ] Mettre à jour le code utilisant `is_substitute`
 - [ ] Tester les nouveaux endpoints API
@@ -683,8 +722,11 @@ grep -r "is_substitute" app/pages/elections*/
 - [ ] Activer le mode maintenance (optionnel)
 - [ ] Importer le nouveau schéma Directus
 - [ ] Vérifier les logs Directus pour les erreurs
+- [ ] Vérifier que `guide_electorale` est créée
+- [ ] Vérifier que `documents.election_id` existe
+- [ ] Créer la catégorie "Election" dans `news_category`
 - [ ] Migrer les données `election_candidates`
-- [ ] Supprimer la collection `Documents` (majuscule)
+- [ ] Supprimer la collection `Documents` (majuscule) si elle existe
 - [ ] Tester les endpoints API critiques
 - [ ] Déployer le nouveau code frontend (build + deploy)
 - [ ] Vider le cache (CDN, serveur, navigateur)
@@ -695,10 +737,12 @@ grep -r "is_substitute" app/pages/elections*/
 
 - [ ] Tester toutes les pages élections en production
 - [ ] Vérifier la relation `documents ↔ elections`
-- [ ] Vérifier les guides électoraux
+- [ ] Vérifier les guides électoraux (`guide_electorale`)
+- [ ] Vérifier la catégorie "Election" dans les actualités
 - [ ] Vérifier les nouveaux champs `elections` (dates, métriques)
 - [ ] Vérifier le champ `role` des candidats
-- [ ] Créer des données de test (documents, guides)
+- [ ] Créer des données de test (guides, catégorie)
+- [ ] Associer des documents existants aux élections via `election_id`
 - [ ] Vérifier les performances (temps de chargement)
 - [ ] Vérifier Google Analytics (pas d'erreur JS)
 - [ ] Désactiver le mode maintenance

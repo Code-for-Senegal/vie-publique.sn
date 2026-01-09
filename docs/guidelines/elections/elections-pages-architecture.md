@@ -306,7 +306,7 @@ description: "Vidéos tutoriels et explications sur le processus de vote au Sén
 #### Data Source
 
 - **API** : `/api/elections/with-documents`
-- **Collection** : `documents` (filtrés par `election_id`)
+- **Collection** : `documents` (collection existante, champ `election_id` ajouté)
 - **Filtres** : `type_election`, `year`
 
 #### Composable

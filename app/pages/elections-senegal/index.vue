@@ -263,7 +263,7 @@ useHead({
           </div>
           <NuxtLink
             v-if="election"
-            :to="`/elections-senegal/dashboard?year=${election.year}&type=${election.type}&tab=resultats`"
+            :to="`/elections-senegal/dashboard/${election.type}/${election.year}?tab=resultats`"
             class="block p-4 bg-slate-50 dark:bg-gray-800/50 border-t dark:border-gray-800 text-center text-sm font-black uppercase tracking-widest text-gray-500 hover:text-primary-600 hover:bg-slate-100 transition-all"
           >
             Voir le tableau de bord complet <UIcon name="i-heroicons-arrow-right" class="ml-2 inline-block h-4 w-4" />

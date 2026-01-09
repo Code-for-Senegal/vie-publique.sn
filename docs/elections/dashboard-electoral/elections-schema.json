@@ -3373,10 +3373,6 @@
                         {
                             "text": "Election",
                             "value": "election"
-                        },
-                        {
-                            "text": "Programme",
-                            "value": "programme"
                         }
                     ]
                 },

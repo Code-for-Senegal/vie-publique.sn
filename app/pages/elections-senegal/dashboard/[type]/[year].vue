@@ -7,7 +7,7 @@ import { useElectoralProfessions } from '~/composables/elections/dashboard/useEl
 import { useElectoralStatsList } from '~/composables/elections/dashboard/useElectoralStatsList';
 
 /**
- * Dashboard Électoral - Page Principale
+ * Dashboard Électoral - Page Détail [Type]/[Année]
  */
 
 // 1. Initialisation du Dashboard
@@ -39,6 +39,43 @@ const statsTypes = [
 const route = useRoute();
 const router = useRouter();
 const statsType = ref<string>("professionCandidat");
+
+// --- URL PARAMS & LOGIC ---
+// Sync state with URL params on navigation
+// Watch route params to update state when navigating between elections
+// This watcher has priority over the composable's default initialization
+watch(() => [route.params.type, route.params.year], ([type, year]) => {
+    if (type && year) {
+        const newType = type as string;
+        const newYear = Number(year);
+
+        // Force update even if already set (to override composable's default init)
+        selectedType.value = newType;
+        selectedYear.value = newYear;
+
+        // Clear specific selections when changing election context
+        clearConstituency();
+        clearCoalition();
+    }
+}, { immediate: true, flush: 'sync' }); // flush: 'sync' ensures this runs before other watchers
+
+// Default Tab Logic based on Election Status
+watch(() => currentElection.value, (election) => {
+    // Determine the tab based on query param OR default logic
+    if (route.query.tab) {
+        if (activeTab.value !== route.query.tab) {
+            activeTab.value = route.query.tab as string;
+        }
+    } else if (election) {
+         if (election.status === 'completed') {
+             activeTab.value = 'resultats';
+         } else {
+             // For others: 'candidats', 'coalitions', 'circonscriptions' -> all mapped to 'candidats' tab ID in UI
+             activeTab.value = 'candidats';
+         }
+    }
+}, { immediate: true });
+// --------------------------
 
 // Sync statsType with query params
 if (process.client) {
@@ -170,6 +207,70 @@ const mapTabs = [
   },
 ];
 
+// --- NAVIGATION HANDLERS ---
+const navigateToElection = (type: string, year: number) => {
+   const targetElection = config.value?.elections?.find((e: any) => e.type === type && e.year === year);
+
+   // Custom rule requested: "tab 'resultats' si c'est une election terminee"
+   // "tab 'candidats' si le status de l'election et autre que 'completed'"
+   let targetTab = 'candidats'; // Default tab
+   if (targetElection && targetElection.status === 'completed') {
+       targetTab = 'resultats';
+   } else {
+       targetTab = 'candidats';
+   }
+
+   // Preserve existing query params except tab (which we override)
+   const query: any = { ...route.query, tab: targetTab };
+
+   // Clear selection-specific params when navigating to a new election
+   delete query.coalition;
+   delete query.constituency;
+   delete query.q;
+
+   router.push({
+       path: `/elections-senegal/dashboard/${type}/${year}`,
+       query
+   });
+};
+
+const onYearChange = (year: number) => {
+    // Navigation only - State clearing handled by watcher
+    navigateToElection(selectedType.value, year);
+};
+
+const onTypeChange = (type: string) => {
+    let targetYear = selectedYear.value;
+
+    // Navigation only - State clearing handled by watcher
+
+    const electionsOfType = config.value?.elections?.filter((e: any) => e.type === type) || [];
+
+    // Check if current selectedYear exists for the new type
+    const exists = electionsOfType.some((e: any) => e.year === targetYear);
+
+    if (!exists && electionsOfType.length > 0) {
+        // Fallback logic specific rule:
+        // "basculer le selecteur d'annee automatique vers la derniere election locale (avec status=completed)"
+
+        // Try to find the latest COMPLETED election first
+        const latestCompleted = electionsOfType
+            .filter((e: any) => e.status === 'completed')
+            .sort((a: any, b: any) => b.year - a.year)[0];
+
+        if (latestCompleted) {
+            targetYear = latestCompleted.year;
+        } else {
+             // Fallback to absolute latest if no completed one found (e.g. only scheduled)
+             // Typically sort descending by year
+             const latest = electionsOfType.sort((a: any, b: any) => b.year - a.year)[0];
+             targetYear = latest.year;
+        }
+    }
+
+    navigateToElection(type, targetYear);
+};
+
 const handleMapReady = (map: unknown) => {
   console.log("Carte chargée et prête");
 };
@@ -183,8 +284,8 @@ const handleMapReady = (map: unknown) => {
       :selected-type="selectedType"
       :config="config"
       :hide-tabs-mobile="isViewingDetails"
-      @update:year="selectedYear = $event"
-      @update:type="selectedType = $event"
+      @update:year="onYearChange"
+      @update:type="onTypeChange"
       @clear-coalition="clearConstituency"
     >
       <template #tabs>
@@ -198,7 +299,7 @@ const handleMapReady = (map: unknown) => {
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
       <!-- Breadcrumb / Back Navigation -->
-      <nav 
+      <nav
         v-if="!isViewingDetails"
         class="mb-8 flex items-center justify-between"
       >
@@ -209,7 +310,7 @@ const handleMapReady = (map: unknown) => {
       </nav>
 
       <!-- Breadcrumb Desktop Only when viewing details -->
-      <nav 
+      <nav
         v-if="isViewingDetails"
         class="mb-8 hidden md:flex items-center justify-between"
       >
@@ -286,7 +387,7 @@ const handleMapReady = (map: unknown) => {
                 :placeholder="selectedType === 'presidential' ? 'Rechercher un candidat...' : (selectedType === 'locale' ? 'Rechercher un département ou une commune...' : 'Rechercher une coalition, un acronyme ou tête de liste...')"
                 size="xl"
                 class="transition-all duration-300"
-                :ui="{ 
+                :ui="{
                   rounded: 'rounded-2xl',
                   wrapper: 'relative rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)]',
                   base: 'h-16 bg-white dark:bg-gray-950 border-2 border-transparent focus:border-primary-500 text-lg px-6 transition-all ring-0 focus:ring-4 focus:ring-primary-500/10',
@@ -380,7 +481,7 @@ const handleMapReady = (map: unknown) => {
               </div>
 
               <!-- Grille LÉGISLATIVES : Vues multiples -->
-              <div v-else-if="coalitions.length > 0" 
+              <div v-else-if="coalitions.length > 0"
                 :class="[
                   legislativeViewType === 'list' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6' : 'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'
                 ]"
@@ -428,7 +529,7 @@ const handleMapReady = (map: unknown) => {
                         <p class="text-sm text-gray-500">Visualisation géographique par département.</p>
                     </div>
                 </div>
-                
+
                 <div class="p-4">
                   <UTabs :items="mapTabs" class="w-full">
                     <template #item="{ item }">
@@ -550,7 +651,7 @@ const handleMapReady = (map: unknown) => {
         <section v-else-if="activeTab === 'guide'" class="animate-in fade-in duration-700">
           <ElectionsDashboardGuideElectoralVideos :type-election="selectedType" />
         </section>
-        
+
         <!-- Dashboard Section: Documents (Tab ID: documents) -->
         <section v-else-if="activeTab === 'documents'" class="animate-in fade-in duration-700">
            <div class="space-y-6">
@@ -563,12 +664,12 @@ const handleMapReady = (map: unknown) => {
                   Voir toute la législation
                 </UButton>
               </div>
-              
+
               <div class="bg-white dark:bg-gray-900 rounded-[2rem] p-8 border dark:border-gray-800 shadow-sm min-h-[300px]">
                  <!-- Documents rattachés à l'élection actuelle -->
                  <div v-if="currentElection">
-                    <ElectionsDashboardDocumentsTab 
-                      :election-id="currentElection.id" 
+                    <ElectionsDashboardDocumentsTab
+                      :election-id="currentElection.id"
                       :election-name="currentElection.name"
                     />
                  </div>

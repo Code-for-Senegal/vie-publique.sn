@@ -216,23 +216,29 @@ Résultats détaillés par bureau de vote.
 
 ### 1️⃣1️⃣ `documents` — *Documents légaux et officiels*
 
+> ⚠️ **Note** : La collection `documents` existe déjà en production. Le champ `election_id` a été ajouté pour lier les documents aux élections.
+
 Documents PDF liés aux élections (code électoral, guides, etc.).
 
 | Champ       | Type                 | Description                  | Exemple                 |
 | ----------- | -------------------- | ---------------------------- | ----------------------- |
 | id          | int                  | ID interne                   | 1                       |
 | title       | string               | Titre du document            | "Code Électoral 2024"   |
-| type        | string               | Type de document             | "legislation"           |
+| type        | string               | Type de document (ajouter "election" pour les docs électoraux) | "election"              |
 | file        | uuid → directus_files | Fichier PDF                  | "doc123..."             |
 | election_id | M2O → elections      | Élection associée (optionnel) | 1                       |
 | year        | int                  | Année du document            | 2024                    |
 | status      | string               | État de publication          | "published"             |
 
+> 📝 **Important** : Le champ `type` doit inclure l'option `"election"` pour identifier les documents en rapport avec une élection.
+
 > 🔗 Relation **O2M directe** : Un document appartient à **une seule** élection via `election_id`.
 
 ---
 
-### 1️⃣2️⃣ `guide_electorale` — *Guides vidéos YouTube*
+### 1️⃣2️⃣ `guide_electorale` — *Guides vidéos YouTube* ⭐ NOUVELLE
+
+> ✅ **Nouvelle collection** créée pour le dashboard électoral.
 
 Tutoriels vidéos pour expliquer le processus électoral.
 
