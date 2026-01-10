@@ -147,6 +147,7 @@
 
 <script setup lang="ts">
 import type { PDFDocumentProxy, PDFPageProxy } from "pdfjs-dist";
+import PdfWorkerUrl from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 
 interface Props {
   source: string;
@@ -334,7 +335,7 @@ const loadPdf = async () => {
     // Dynamic import to avoid SSR errors like "DOMMatrix is not defined"
     if (!pdfjsLib) {
       pdfjsLib = await import("pdfjs-dist");
-      pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdf-worker/pdf.worker.min.mjs";
+      pdfjsLib.GlobalWorkerOptions.workerSrc = PdfWorkerUrl;
     }
 
     const loadingTask = pdfjsLib.getDocument({
