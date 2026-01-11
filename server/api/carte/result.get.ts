@@ -4,12 +4,28 @@ export default defineCachedEventHandler(
   async (event) => {
     try {
       // Récupérer le client CMS
-      const cmsClient = getCmsClient();
+      const cmsClient = getLocalCmsClient();
 
       // Appel API vers le CMS pour les résultats avec les champs nécessaires
       const response = await cmsClient.request(
         readItems('carte', {
-          fields: ['*', 'coalition_gagnante.*'],
+          fields: [
+            '*',
+            'coalition_gagnante.name',
+            'coalition_gagnante.color',
+            'coalition_gagnante.logo',
+            'constituencie.name',
+            'constituencie.region',
+            'constituencie.type',
+            'constituencie.nationale_type',
+            'election.type',
+            'election.year',
+            'voters',
+            'liste_gagnante.is_substitute',
+            'liste_gagnante.candidates.first_name',
+            'liste_gagnante.candidates.last_name',
+            'liste_gagnante.candidates.position',
+          ],
         }),
       );
 

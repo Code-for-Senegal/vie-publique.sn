@@ -179,6 +179,8 @@ const isViewingDetails = computed(() => !!selectedCoalitionId.value || !!selecte
 const optionMap = "Vue Carte";
 const optionList = "Vue Liste";
 const selectedMapOption = ref(optionMap);
+const resultViewType = ref('list');
+
 
 const mapListOptions = [
   {
@@ -605,21 +607,71 @@ const handleMapReady = (map: unknown) => {
         <!-- Dashboard Section: Résultats (Tab ID: resultats) -->
         <section v-else-if="activeTab === 'resultats'" class="animate-in fade-in duration-700">
             <div class="space-y-6">
-                <div>
-                   <h2 class="text-2xl font-black uppercase tracking-tighter">Résultats Globaux</h2>
+                <div class="flex items-center justify-between flex-wrap gap-4">
+                   <div>
+                       <h2 class="text-2xl font-black uppercase tracking-tighter">Résultats Globaux</h2>
+                   </div>
+
+                   <!-- VIEW TOGGLE -->
+                   <div class="bg-gray-100 dark:bg-gray-800 p-1 rounded-xl flex gap-1">
+                      <UButton 
+                        :color="resultViewType === 'list' ? 'white' : 'gray'"
+                        :variant="resultViewType === 'list' ? 'solid' : 'ghost'"
+                        size="sm"
+                        class="rounded-lg transition-all"
+                        icon="i-heroicons-table-cells"
+                        @click="resultViewType = 'list'"
+                      >
+                         Liste
+                      </UButton>
+                      <UButton 
+                        :color="resultViewType === 'map' ? 'white' : 'gray'"
+                        :variant="resultViewType === 'map' ? 'solid' : 'ghost'"
+                        size="sm"
+                        class="rounded-lg transition-all"
+                        icon="i-heroicons-map"
+                        @click="resultViewType = 'map'"
+                      >
+                         Carte
+                      </UButton>
+                   </div>
                 </div>
 
                 <div class="bg-white dark:bg-gray-900 rounded-xl p-6 border dark:border-gray-800 shadow-sm min-h-[400px]">
-                    <div v-if="!coalitions || coalitions.length === 0" class="flex flex-col items-center justify-center h-64 text-center">
-                        <UIcon name="i-heroicons-chart-bar" class="w-16 h-16 text-gray-200 dark:text-gray-800 mb-4" />
-                        <h3 class="text-lg font-bold text-gray-400">Aucun résultat disponible</h3>
-                        <p class="text-sm text-gray-500">Les résultats ne sont pas encore publiés pour cette élection.</p>
+                    <div v-if="resultViewType === 'list'">
+                        <div v-if="selectedType === 'locale'">
+                            <ElectionsDashboardStatsElectionResultatsLocalesTable
+                              :election-type="selectedType"
+                              :election-year="selectedYear"
+                            />
+                        </div>
+                        <template v-else>
+                            <div v-if="!coalitions || coalitions.length === 0" class="flex flex-col items-center justify-center h-64 text-center">
+                                <UIcon name="i-heroicons-chart-bar" class="w-16 h-16 text-gray-200 dark:text-gray-800 mb-4" />
+                                <h3 class="text-lg font-bold text-gray-400">Aucun résultat disponible</h3>
+                                <p class="text-sm text-gray-500">Les résultats ne sont pas encore publiés pour cette élection.</p>
+                            </div>
+                            <ElectionResultatsStats
+                              v-else
+                              :coalitions="coalitions"
+                              :type="selectedType"
+                            />
+                        </template>
                     </div>
-                    <ElectionResultatsStats
-                      v-else
-                      :coalitions="coalitions"
-                      :type="selectedType"
-                    />
+                    
+                    <div v-else-if="resultViewType === 'map'" class="w-full h-full min-h-[500px]">
+                        <ClientOnly>
+                            <ElectionMapComponentResult 
+                               :election-type="selectedType"
+                               :election-year="selectedYear"
+                            />
+                             <template #fallback>
+                                <div class="flex h-[500px] w-full items-center justify-center">
+                                  <div class="h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-primary-600"></div>
+                                </div>
+                              </template>
+                        </ClientOnly>
+                    </div>
                 </div>
             </div>
         </section>
