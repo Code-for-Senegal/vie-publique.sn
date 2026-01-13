@@ -74,7 +74,6 @@ const displayedArticles = computed(() => {
             <CmsImage
               v-if="article.cover_image"
               :src="article.cover_image"
-              :fallback="'/default-image-2.gif'"
               :alt="article.title || 'Image article'"
               class="h-20 w-full rounded-md object-cover sm:h-48"
               sizes="300px"

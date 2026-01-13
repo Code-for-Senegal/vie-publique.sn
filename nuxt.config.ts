@@ -224,7 +224,6 @@ export default defineNuxtConfig({
       brevoListId: process.env.BREVO_LIST_ID,
       sunuElectionApiUrl: process.env.SUNU_ELECTION_API_URL,
       sunuElectionApiKey: process.env.SUNU_ELECTION_API_KEY,
-      cmsLocalApiUrl: process.env.LOCAL_CMS_API_URL,
       fbPixelId: process.env.FACEBOOK_PIXEL_ID || '',
       maintenanceMode: process.env.NUXT_PUBLIC_MAINTENANCE_MODE === 'true',
       bictorysPublicKey: process.env.BICTORYS_PUBLIC_KEY,

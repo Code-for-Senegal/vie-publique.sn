@@ -11,8 +11,6 @@ const props = defineProps<{
 
 const emit = defineEmits(['close', 'selectCoalition']);
 
-const { getCmsAsset } = useElectoralFormatting();
-
 const route = useRoute();
 const router = useRouter();
 const selectedCommuneId = ref<string | number | null>(route.query.commune_id ? String(route.query.commune_id) : null);
@@ -182,7 +180,7 @@ const selectCoalition = (list: any) => {
       >
          <div class="p-6 flex items-center gap-5">
              <div class="h-14 w-14 shrink-0 bg-gray-50 dark:bg-gray-800 rounded-xl p-2 border border-gray-100 dark:border-gray-700 flex items-center justify-center overflow-hidden">
-                 <img v-if="list.coalition?.logo" :src="getCmsAsset(list.coalition.logo)" class="max-h-full max-w-full object-contain" :alt="list.coalition?.name" />
+                 <CmsImage v-if="list.coalition?.logo" :src="list.coalition.logo" class="max-h-full max-w-full object-contain" :alt="list.coalition?.name" />
                  <UIcon v-else name="i-heroicons-photo" class="text-gray-200 h-8 w-8" />
              </div>
              <div>

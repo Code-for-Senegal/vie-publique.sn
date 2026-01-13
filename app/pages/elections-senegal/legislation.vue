@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useElectionsWithDocuments } from '~/composables/elections/dashboard/useElectionsWithDocuments';
 import { useElectoralDashboard } from '~/composables/elections/dashboard/useElectoralDashboard';
 
 const route = useRoute();
@@ -78,13 +77,11 @@ watch([selectedType, selectedYear], () => {
   });
 });
 
-const { electionsWithDocs } = useElectionsWithDocuments();
-
 const typeOptions = computed(() => {
   if (!config.value?.elections) return [{ label: 'Tous les types', value: 'all' }];
 
   const electionsWithDocsIds = new Set(
-    (electionsWithDocs.value?.election_ids || []) as number[]
+    config.value?.election_ids_with_documents || []
   );
 
   const typesWithDocs = new Set(
@@ -111,7 +108,7 @@ const yearOptions = computed(() => {
   if (!config.value?.elections) return [{ label: 'Toutes les années', value: 'all' }];
 
   const electionsWithDocsIds = new Set(
-    (electionsWithDocs.value?.election_ids || []) as number[]
+    config.value?.election_ids_with_documents || []
   );
 
   const yearsWithDocs = new Set(

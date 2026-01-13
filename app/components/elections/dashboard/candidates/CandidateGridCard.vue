@@ -11,7 +11,6 @@ const emit = defineEmits<{
   (e: 'select', candidate: Candidate): void;
 }>();
 
-const { getCmsAsset } = useElectoralFormatting();
 </script>
 
 <template>
@@ -19,9 +18,9 @@ const { getCmsAsset } = useElectoralFormatting();
     class="group relative aspect-[3/4] overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 cursor-pointer shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
     @click="emit('select', candidate)"
   >
-    <img
+    <CmsImage
       v-if="candidate.photo"
-      :src="getCmsAsset(candidate.photo)"
+      :src="candidate.photo"
       class="h-full w-full object-cover grayscale group-hover:grayscale-0 transition duration-500"
       :alt="`${candidate.first_name} ${candidate.last_name}`"
     />

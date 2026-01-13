@@ -10,7 +10,7 @@ const emit = defineEmits<{
   (e: 'select', coalitionId: string | number): void;
 }>();
 
-const { getCoalitionColor, getCmsAsset } = useElectoralFormatting();
+const { getCoalitionColor } = useElectoralFormatting();
 </script>
 
 <template>
@@ -32,9 +32,9 @@ const { getCoalitionColor, getCmsAsset } = useElectoralFormatting();
       <div v-if="coalition.head_of_list" class="flex flex-col items-center text-center space-y-3">
         <!-- Photo du candidat (plus grande) -->
         <div class="h-28 w-28 rounded-full overflow-hidden border-3 shadow-lg bg-gray-100 dark:bg-gray-800 group-hover:scale-105 transition-transform duration-500" :style="{ borderColor: getCoalitionColor(coalition.color) }">
-          <img
+          <CmsImage
             v-if="coalition.head_of_list.photo"
-            :src="getCmsAsset(coalition.head_of_list.photo)"
+            :src="coalition.head_of_list.photo"
             class="h-full w-full object-cover"
           />
           <UIcon v-else name="i-heroicons-user" class="text-gray-300 h-full w-full p-6" />

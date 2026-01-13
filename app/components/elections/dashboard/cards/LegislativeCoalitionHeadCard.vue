@@ -10,7 +10,6 @@ const emit = defineEmits<{
   (e: 'select', coalitionId: string | number): void;
 }>();
 
-const { getCmsAsset } = useElectoralFormatting();
 </script>
 
 <template>
@@ -20,9 +19,9 @@ const { getCmsAsset } = useElectoralFormatting();
   >
     <!-- Background Head of List Photo -->
     <div class="absolute inset-0 bg-gray-100 dark:bg-gray-800">
-      <img
+      <CmsImage
         v-if="coalition.head_of_list?.photo"
-        :src="getCmsAsset(coalition.head_of_list.photo)"
+        :src="coalition.head_of_list.photo"
         class="h-full w-full object-cover group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
         alt="Photo tête de liste"
       />

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useElectoralDashboard } from '~/composables/elections/dashboard/useElectoralDashboard';
 import ElectionResultatsStats from '~/components/elections/dashboard/stats/ElectionResultatsStats.vue';
 import { useElectoralCoalitions } from '~/composables/elections/dashboard/useElectoralCoalitions';
 import { useElectoralConstituencies } from '~/composables/elections/dashboard/useElectoralConstituencies';
+import { useElectoralDashboard } from '~/composables/elections/dashboard/useElectoralDashboard';
 import { useElectoralProfessions } from '~/composables/elections/dashboard/useElectoralProfessions';
 import { useElectoralStatsList } from '~/composables/elections/dashboard/useElectoralStatsList';
 
@@ -20,6 +20,7 @@ const {
   selectedCoalitionId,
   config,
   currentElection,
+  currentElectionDocuments,
   loadingConfig,
   selectConstituency,
   clearConstituency,
@@ -306,13 +307,13 @@ const handleMapReady = (map: unknown) => {
            <p class="text-gray-500 text-lg max-w-lg mx-auto mb-8">
              Il semble qu'il n'y ait aucune élection <span class="font-bold text-gray-900 dark:text-white">{{ selectedType }}</span> enregistrée pour l'année <span class="font-bold text-gray-900 dark:text-white">{{ selectedYear }}</span>.
            </p>
-           
+
            <div class="flex gap-4">
-              <UButton 
-                to="/elections-senegal" 
-                size="xl" 
-                color="gray" 
-                variant="solid" 
+              <UButton
+                to="/elections-senegal"
+                size="xl"
+                color="gray"
+                variant="solid"
                 icon="i-heroicons-arrow-left"
               >
                 Retour aux élections
@@ -690,12 +691,11 @@ const handleMapReady = (map: unknown) => {
 
               <div class="bg-white dark:bg-gray-900 rounded-[2rem] p-8 border dark:border-gray-800 shadow-sm min-h-[300px]">
                  <!-- Documents rattachés à l'élection actuelle -->
-                 <div v-if="currentElection">
-                    <ElectionsDashboardDocumentsTab
-                      :election-id="currentElection.id"
-                      :election-name="currentElection.name"
-                    />
-                 </div>
+                 <ElectionsDashboardDocumentsTab
+                   :documents="currentElectionDocuments"
+                   :election-name="currentElection?.name"
+                   :loading="loadingConfig"
+                 />
               </div>
            </div>
         </section>

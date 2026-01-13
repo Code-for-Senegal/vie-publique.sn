@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useElectoralFormatting } from '~/composables/elections/dashboard/useElectoralFormatting';
 import { useCoalitionVideos } from '~/composables/elections/dashboard/useCoalitionVideos';
-import { useCmsFile, downloadCmsFile } from '~/composables/useCmsFile';
 import { useIntersectionObserver } from '@vueuse/core';
 import type { Candidate } from '~~/types/candidate';
 
@@ -13,7 +12,7 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const { getCmsAsset, formatDate, calculateAge, getYoutubeEmbedUrl } = useElectoralFormatting();
+const { formatDate, calculateAge, getYoutubeEmbedUrl } = useElectoralFormatting();
 
 const activeTab = ref(0);
 const isManualClick = ref(false);
@@ -55,7 +54,7 @@ const scrollToSection = (id: string, index: number) => {
       behavior: 'smooth'
     });
   }
-  
+
   // Reset manual click after animation
   setTimeout(() => {
     isManualClick.value = false;
@@ -65,7 +64,7 @@ const scrollToSection = (id: string, index: number) => {
 // Intersection Observer for scrollspy
 onMounted(() => {
   const isMobile = window.innerWidth < 768;
-  
+
   items.forEach((item, index) => {
     const el = document.getElementById(item.id);
     if (el) {
@@ -74,12 +73,12 @@ onMounted(() => {
         ([{ isIntersecting, intersectionRatio }]) => {
           // Sur mobile, on est plus souple sur l'intersection
           const minRatio = isMobile ? 0.1 : 0.2;
-          
+
           if (isIntersecting && !isManualClick.value && intersectionRatio >= minRatio) {
             activeTab.value = index;
           }
         },
-        { 
+        {
           // RootMargin: haut, droite, bas, gauche
           // On réduit la zone de capture sur mobile pour éviter les chevauchements
           rootMargin: isMobile ? '-120px 0px -60% 0px' : '-180px 0px -40% 0px',
@@ -89,6 +88,11 @@ onMounted(() => {
     }
   });
 });
+
+// Fonction pour obtenir l'URL de l'asset via le nouveau proxy
+const getAssetUrl = (assetId: string, slug: string) => {
+  return useCmsFile(`${assetId}/${slug}.pdf`);
+};
 </script>
 
 <template>
@@ -98,9 +102,9 @@ onMounted(() => {
       <div class="grid md:grid-cols-5 gap-0">
         <!-- Photo du candidat -->
         <div class="md:col-span-2 relative aspect-square md:aspect-auto overflow-hidden bg-gray-100 dark:bg-gray-900 border-r dark:border-gray-800">
-          <img
+          <CmsImage
             v-if="candidate.photo"
-            :src="getCmsAsset(candidate.photo)"
+            :src="candidate.photo"
             class="h-full w-full object-cover"
             :alt="`${candidate.first_name} ${candidate.last_name}`"
           />
@@ -196,12 +200,12 @@ onMounted(() => {
           :key="index"
           @click="scrollToSection(item.id, index)"
           class="flex-1 flex items-center justify-center gap-2 px-2 sm:px-4 py-2.5 rounded-lg font-bold text-xs sm:text-sm transition-all duration-300"
-          :class="activeTab === index 
-            ? 'bg-primary-600 text-white shadow-md' 
+          :class="activeTab === index
+            ? 'bg-primary-600 text-white shadow-md'
             : 'text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-gray-800'"
         >
           <UIcon :name="item.icon" class="h-4 w-4 shrink-0" />
-          <span 
+          <span
             class="truncate transition-all duration-200"
             :class="activeTab === index ? 'inline' : 'hidden sm:inline'"
           >
@@ -253,7 +257,7 @@ onMounted(() => {
               <ClientOnly>
                 <div class="rounded-2xl border dark:border-gray-800 overflow-hidden shadow-inner bg-gray-100 dark:bg-gray-900">
                   <PdfViewer
-                    :source="useCmsFile(candidate.documents.file)"
+                    :source="getAssetUrl(candidate.documents.file, candidate.documents.slug)"
                     :download-name="`${candidate.documents.slug}.pdf`"
                   />
                 </div>
@@ -305,7 +309,7 @@ onMounted(() => {
               </div>
               <div class="px-2">
                 <p v-if="video.title" class="font-bold text-gray-900 dark:text-white line-clamp-1 italic">"{{ video.title }}"</p>
-                <p v-if="video.date" class="text-[10px] font-black text-gray-400 uppercase tracking-widest mt-1 uppercase">
+                <p v-if="video.date" class="text-[10px] font-black text-gray-400 uppercase tracking-widest mt-1">
                   Diffusé le {{ formatDate(video.date) }}
                 </p>
               </div>

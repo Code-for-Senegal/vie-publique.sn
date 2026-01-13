@@ -23,14 +23,6 @@ export function useElectoralFormatting() {
 
   const getCoalitionColor = (color: string | null) => color || '#10b981';
 
-  const getCmsAsset = (id: string | null) => {
-    if (!id) return null;
-    const baseUrl = config.public.cmsLocalApiUrl ||
-                     config.public.sunuElectionApiUrl ||
-                     'https://cms.vie-publique.sn';
-    return `${baseUrl}/assets/${id}`;
-  };
-
   const calculateAge = (birthdate: string | null) => {
     if (!birthdate) return null;
     const birth = new Date(birthdate);
@@ -56,5 +48,5 @@ export function useElectoralFormatting() {
     return null;
   };
 
-  return { formatDate, getStatusColor, getCoalitionColor, getCmsAsset, calculateAge, getYoutubeEmbedUrl };
+  return { formatDate, getStatusColor, getCoalitionColor, calculateAge, getYoutubeEmbedUrl };
 }

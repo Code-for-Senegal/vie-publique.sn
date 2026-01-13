@@ -11,7 +11,6 @@ const emit = defineEmits<{
   (e: 'select', candidate: Candidate): void;
 }>();
 
-const { getCmsAsset } = useElectoralFormatting();
 </script>
 
 <template>
@@ -23,7 +22,11 @@ const { getCmsAsset } = useElectoralFormatting();
       {{ candidate.position }}
     </div>
     <div class="h-10 w-10 shrink-0 rounded-full overflow-hidden border dark:border-gray-700 bg-gray-100">
-      <img v-if="candidate.photo" :src="getCmsAsset(candidate.photo)" class="h-full w-full object-cover" />
+      <CmsImage
+        v-if="candidate.photo"
+        :src="candidate.photo"
+        class="h-full w-full object-cover"
+      />
       <UIcon v-else name="i-heroicons-user" class="h-full w-full p-2 text-gray-400" />
     </div>
     <div class="flex flex-col min-w-0">
