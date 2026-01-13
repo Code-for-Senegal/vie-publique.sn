@@ -3,7 +3,7 @@ import { readItems } from "@directus/sdk";
 export default defineCachedEventHandler(
   async (event) => {
     try {
-      const directus = getLocalCmsClient();
+      const directus = getCmsClient();
 
       const documentsWithElections = await directus.request(
         readItems("documents", {

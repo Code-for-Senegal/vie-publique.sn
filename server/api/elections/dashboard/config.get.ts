@@ -2,7 +2,7 @@ import { readItems } from "@directus/sdk";
 
 export default defineCachedEventHandler(
   async (event) => {
-    const directus = getLocalCmsClient() as any;
+    const directus = getCmsClient() as any;
 
     try {
       const electionsData = (await directus.request(

@@ -2,7 +2,7 @@ import { readField } from "@directus/sdk";
 
 export default defineCachedEventHandler(
   async (event) => {
-    const directus = getLocalCmsClient() as any;
+    const directus = getCmsClient() as any;
 
     try {
       const field = await directus.request(

@@ -2,7 +2,7 @@ import { readItems } from "@directus/sdk";
 
 export default defineCachedEventHandler(
   async (event) => {
-    const directus = getLocalCmsClient() as any;
+    const directus = getCmsClient() as any;
     const query = getQuery(event);
     const type = query.type as string;
     const language = query.language as string;

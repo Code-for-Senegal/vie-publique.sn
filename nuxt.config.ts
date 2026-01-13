@@ -187,7 +187,7 @@ export default defineNuxtConfig({
     '@vite-pwa/nuxt',
     '@vueuse/nuxt',
     '@nuxtjs/mdc',
-    // 'nuxt-security',
+    'nuxt-security',
   ],
   devtools: { enabled: true },
   runtimeConfig: {
@@ -197,8 +197,6 @@ export default defineNuxtConfig({
     typesenseCollection: process.env.TYPESENSE_COLLECTION,
     cmsApiUrl: process.env.CMS_API_URL,
     cmsApiKey: process.env.CMS_API_KEY,
-    cmsLocalApiUrl: process.env.LOCAL_CMS_API_URL,
-    cmsLocalApiKey: process.env.LOCAL_CMS_API_KEY,
     bictorysApiKey: process.env.BICTORYS_API_KEY,
     bictorysApiUrl: process.env.BICTORYS_API_URL,
     bictorysWebhookSecret: process.env.BICTORYS_WEBHOOK_SECRET,
