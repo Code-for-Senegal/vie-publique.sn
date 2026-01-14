@@ -8,7 +8,7 @@ import { aggregate, readItems } from "@directus/sdk";
  */
 export default defineCachedEventHandler(
   async (event) => {
-    const directus = getLocalCmsClient();
+    const directus = getCmsClient();
     const query = getQuery(event);
     const year = query.year ? parseInt(query.year as string) : null;
     const type = query.type as string;
@@ -28,9 +28,9 @@ export default defineCachedEventHandler(
             limit: 1,
           })
         );
-        
+
         const electionId = elections[0]?.id;
-        
+
         if (electionId) {
           electionFilter = { election: { _eq: electionId } };
         } else {

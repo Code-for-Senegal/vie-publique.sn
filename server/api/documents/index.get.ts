@@ -3,11 +3,13 @@ import type { Document } from "~~/types/document";
 
 export default defineCachedEventHandler(
   async (event) => {
+
+    // Récupération des paramètres de requête
     const query = getQuery(event);
     const page = parseInt(query.page as string) || 1;
     const limit = parseInt(query.limit as string) || 10;
     const search = query.search as string;
-    const sortBy = (query.sortBy as string) || "-publish_date";
+    const sortBy = (query.sortBy as string) || (query.sort as string) || "-publish_date";
     const filterType = query.filterType as string;
     const type = query.type as string;
     const electionId = query.election_id as string;
@@ -15,24 +17,67 @@ export default defineCachedEventHandler(
     try {
       const directus = getCmsClient();
 
+      // Si on filtre par election_id, récupérer d'abord l'élection avec ses documents
+      let documentIdsFromElection: number[] = [];
+      if (electionId) {
+        try {
+          const electionData = await directus.request(
+            readItems("elections", {
+              fields: ["documents.documents_id.id"],
+              filter: {
+                id: { _eq: parseInt(electionId) },
+              },
+              limit: 1,
+            })
+          );
+
+          if (electionData && electionData.length > 0) {
+            const election = electionData[0] as any;
+            if (election.documents && Array.isArray(election.documents)) {
+              documentIdsFromElection = election.documents
+                .map((doc: any) => doc?.documents_id?.id)
+                .filter((id: any) => id !== null && id !== undefined);
+            }
+          }
+        } catch (err) {
+          console.error("Erreur lors de la récupération de l'élection:", err);
+        }
+      }
+
+      // Construction du filtre dynamique
       const filter: any = {
         status: {
           _eq: "published",
         },
       };
 
-      if (electionId) {
-        filter.election_id = {
-          _eq: parseInt(electionId),
-        };
-      }
-
+      // Filtre par type (prioritaire)
       if (type && type !== "all") {
         filter.type = {
           _eq: type,
         };
       }
 
+      // Filtre par election_id - utiliser les IDs récupérés
+      if (electionId && documentIdsFromElection.length > 0) {
+        filter.id = {
+          _in: documentIdsFromElection,
+        };
+      } else if (electionId && documentIdsFromElection.length === 0) {
+        // Si l'élection n'a pas de documents, retourner un résultat vide
+        return {
+          documents: [],
+          totalDocuments: 0,
+          pagination: {
+            page,
+            limit,
+            total: 0,
+            totalPages: 0,
+          },
+        };
+      }
+
+      // Filtre par année
       if (filterType && filterType !== "" && filterType !== "all") {
         const year = parseInt(filterType);
         if (!isNaN(year)) {
@@ -40,11 +85,14 @@ export default defineCachedEventHandler(
             _between: [`${year}-01-01`, `${year}-12-31`],
           };
         } else {
+          // Si ce n'est pas une année, c'est un type OU un audit_institution
+          // Pour les rapports d'audit, on filtre par audit_institution
           if (type === "audit_report") {
             filter.audit_institution = {
               _eq: filterType,
             };
           } else {
+            // Pour les autres types, on filtre par type
             filter.type = {
               _eq: filterType,
             };
@@ -52,76 +100,108 @@ export default defineCachedEventHandler(
         }
       }
 
+      // Recherche textuelle
+      if (search) {
+        filter._or = [
+          {
+            title: {
+              _icontains: search,
+            },
+          },
+          {
+            description: {
+              _icontains: search,
+            },
+          },
+          {
+            audit_institution: {
+              _icontains: search,
+            },
+          },
+        ];
+      }
+
+      // Calcul de l'offset pour la pagination
       const offset = (page - 1) * limit;
 
-      let sortField = sortBy;
-      if (sortBy === "-date_created") {
-        sortField = "-date_created";
-      } else if (sortBy === "date_created") {
-        sortField = "date_created";
+      // Gérer le tri - Directus SDK accepte les formats: 'field' ou '-field'
+      // On ajoute un tri secondaire pour la stabilité des résultats
+      const sortFields: string[] = [];
+
+      if (sortBy) {
+        // Nettoyage du paramètre au cas où
+        const cleanSort = sortBy.toString().trim();
+        if (cleanSort) {
+          sortFields.push(cleanSort);
+
+          // Tris secondaires pour la stabilité
+          if (cleanSort.includes('title')) {
+            sortFields.push('-publish_date');
+          } else if (cleanSort.includes('publish_date')) {
+            sortFields.push('title');
+          }
+        }
       }
 
-      const options: any = {
-        fields: [
-          "id",
-          "title",
-          "slug",
-          "type",
-          "publish_date",
-          "date_created",
-          "description",
-          "audit_institution",
-          "cover_image",
-          "election_id",
-          "file.id",
-          "file.type",
-          "file.filesize",
-          "file.filename_download",
-        ],
-        filter,
-        limit,
-        offset,
-        sort: [sortField],
-      };
-
-      if (search && search.trim() !== "") {
-        options.search = search;
+      if (sortFields.length === 0) {
+        sortFields.push("-publish_date");
       }
 
+      // Toujours ajouter l'ID en dernier ressort pour une stabilité totale
+      sortFields.push('id');
+
+      // Récupération des documents avec pagination et meta
       const documentData = await directus
-        .request(readItems("documents", options))
-        .catch((error: any) => {
+        .request(
+          readItems("documents", {
+            fields: [
+              "id",
+              "title",
+              "slug",
+              "type",
+              "publish_date",
+              "date_created",
+              "description",
+              "audit_institution",
+              "cover_image",
+              "file.id",
+              "file.type",
+              "file.filesize",
+              "file.filename_download",
+            ],
+            filter,
+            limit,
+            offset,
+            sort: sortFields,
+          }),
+        )
+        .catch((error) => {
           throw createError({
             statusCode: error.errors?.[0]?.extensions?.code || 500,
-            message:
-              error.errors?.[0]?.message ||
-              error.message ||
-              "Erreur interne lors de la récupération des documents",
+            message: error.errors?.[0]?.message || "Erreur interne du serveur",
           });
         });
 
-      const countOptions: any = {
-        fields: ["id"],
-        filter,
-        aggregate: {
-          count: ["id"],
-        },
-      };
-
-      if (search && search.trim() !== "") {
-        countOptions.search = search;
-      }
-
+      // Recuperation du total de documents
       const totalCount = await directus
-        .request(readItems("documents", countOptions))
+        .request(
+          readItems("documents", {
+            fields: ["id"],
+            filter,
+            aggregate: {
+              count: ["id"],
+            },
+          }),
+        )
         .then((result: any) => {
-          return result?.[0]?.count?.id || result?.[0]?.count || 0;
+          return result?.[0]?.count?.id || 0;
         })
-        .catch(() => 0);
+        .catch(() => documentData.length);
 
+      // Transformation des données
       const transformedDocuments: Document[] = documentData.map((doc) => ({
         id: doc.id,
-        title: doc.title,
+        title: doc.title?.trim() || doc.title,
         slug: doc.slug,
         type: doc.type,
         publish_date: doc.publish_date,
@@ -132,7 +212,6 @@ export default defineCachedEventHandler(
         ...(doc.cover_image
           ? { cover_image: doc.cover_image }
           : {}),
-        ...(doc.election_id ? { election_id: doc.election_id } : {}),
         ...(doc.file ? { file: doc.file } : {}),
       }));
 
@@ -146,10 +225,11 @@ export default defineCachedEventHandler(
           totalPages: Math.ceil(Number(totalCount) / limit),
         },
       };
-    } catch (error: any) {
+    } catch (error) {
       throw createError({
         statusCode: 500,
-        statusMessage: error.message || "Une erreur est survenue lors de la récupération des documents",
+        statusMessage:
+          "Une erreur est survenue lors de la récupération des documents",
       });
     }
   },

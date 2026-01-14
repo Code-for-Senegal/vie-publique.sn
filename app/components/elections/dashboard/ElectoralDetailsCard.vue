@@ -12,7 +12,7 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const { formatDate, getStatusColor, getCmsAsset } = useElectoralFormatting();
+const { formatDate, getStatusColor } = useElectoralFormatting();
 
 const countdown = ref("");
 let timerInterval: NodeJS.Timeout | null = null;
@@ -162,12 +162,14 @@ onUnmounted(() => {
           
           <!-- Presidential Winner -->
           <div v-if="election.type === 'presidential' && winningCoalition" class="flex items-center gap-4">
-              <UAvatar 
-                :src="getCmsAsset(winningCoalition.head_of_list.photo)" 
-                size="xl"
-                class="ring-2 ring-white dark:ring-gray-800 shadow-lg"
+            <div class="h-12 w-12 rounded-full ring-2 ring-white dark:ring-gray-800 shadow-lg overflow-hidden shrink-0 bg-gray-100 dark:bg-gray-800">
+              <CmsImage
+                v-if="winningCoalition.head_of_list.photo"
+                :src="winningCoalition.head_of_list.photo"
+                class="h-full w-full object-cover"
               />
-              <div class="min-w-0">
+            </div>
+            <div class="min-w-0">
                   <p class="text-[8px] uppercase font-black text-primary-600 dark:text-primary-400 tracking-widest mb-0.5">Vainqueur</p>
                   <h3 class="font-black text-gray-900 dark:text-white leading-tight mb-0.5 text-sm">
                       {{ winningCoalition.head_of_list.first_name }} {{ winningCoalition.head_of_list.last_name }}

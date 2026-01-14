@@ -10,7 +10,6 @@ const emit = defineEmits<{
   (e: 'select', coalitionId: string | number): void;
 }>();
 
-const { getCmsAsset } = useElectoralFormatting();
 </script>
 
 <template>
@@ -20,9 +19,9 @@ const { getCmsAsset } = useElectoralFormatting();
   >
     <!-- Ballot Image -->
     <div class="h-full w-full bg-gray-50 flex items-center justify-center p-2">
-      <img
+      <CmsImage
         v-if="coalition.bulletin"
-        :src="getCmsAsset(coalition.bulletin)"
+        :src="coalition.bulletin"
         :alt="`Bulletin de ${coalition.name}`"
         class="h-full w-full object-contain transform group-hover:scale-105 transition-transform duration-700"
       />

@@ -10,7 +10,7 @@ const emit = defineEmits<{
   (e: 'select', coalitionId: string | number): void;
 }>();
 
-const { getCoalitionColor, getCmsAsset } = useElectoralFormatting();
+const { getCoalitionColor } = useElectoralFormatting();
 </script>
 
 <template>
@@ -26,7 +26,12 @@ const { getCoalitionColor, getCmsAsset } = useElectoralFormatting();
       <!-- Logo & Header -->
       <div class="flex items-start justify-between">
         <div class="h-14 w-14 flex-shrink-0 bg-gray-50 dark:bg-gray-800 rounded-xl p-2 border border-gray-100 dark:border-gray-700 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-500">
-          <img v-if="coalition.logo" :src="getCmsAsset(coalition.logo)" class="max-h-full max-w-full object-contain" :alt="coalition.name" />
+          <CmsImage
+            v-if="coalition.logo"
+            :src="coalition.logo"
+            :alt="coalition.name"
+            class="max-h-full max-w-full object-contain"
+          />
           <UIcon v-else name="i-heroicons-photo" class="text-gray-200 h-8 w-8" />
         </div>
         <div class="bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-full border border-gray-100 dark:border-gray-700">
@@ -45,9 +50,9 @@ const { getCoalitionColor, getCmsAsset } = useElectoralFormatting();
       <div v-if="coalition.head_of_list" class="pt-3 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
         <div class="flex items-center gap-2">
           <div class="h-8 w-8 rounded-full overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm bg-gray-100 dark:bg-gray-800">
-            <img
+            <CmsImage
               v-if="coalition.head_of_list.photo"
-              :src="getCmsAsset(coalition.head_of_list.photo)"
+              :src="coalition.head_of_list.photo"
               class="h-full w-full object-cover"
             />
             <UIcon v-else name="i-heroicons-user" class="text-gray-300 h-full w-full p-1.5" />

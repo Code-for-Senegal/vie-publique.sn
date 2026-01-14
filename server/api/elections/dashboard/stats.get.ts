@@ -5,7 +5,7 @@
  */
 export default defineCachedEventHandler(
   async (event) => {
-    const directus = getLocalCmsClient();
+    const directus = getCmsClient();
     const query = getQuery(event);
     const year = parseInt(query.year as string);
     const type = query.type as string;

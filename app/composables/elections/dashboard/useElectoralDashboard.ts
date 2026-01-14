@@ -2,6 +2,7 @@ export interface ElectionConfig {
   years: { label: string; value: number }[];
   types: { label: string; value: string }[];
   elections: any[];
+  election_ids_with_documents: number[];
 }
 
 export const useElectoralDashboard = () => {
@@ -58,6 +59,11 @@ export const useElectoralDashboard = () => {
   const currentElection = computed(() => {
     if (!config.value?.elections) return null;
     return config.value.elections.find(e => e.year === selectedYear.value && e.type === selectedType.value) || null;
+  });
+
+  // Documents de l'élection actuelle
+  const currentElectionDocuments = computed(() => {
+    return currentElection.value?.documents || [];
   });
 
   // Sync avec les query params (uniquement sur la page dashboard)
@@ -136,6 +142,7 @@ export const useElectoralDashboard = () => {
     legislativeViewType,
     config,
     currentElection,
+    currentElectionDocuments,
     loadingConfig,
     configError,
     selectConstituency,

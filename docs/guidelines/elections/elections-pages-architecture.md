@@ -130,7 +130,7 @@ description: "Accédez à toutes les informations sur les élections au Sénéga
 
 **Rôle** : Vue d'ensemble complète avec filtres et onglets
 
-**Fichier** : [app/pages/elections-senegal/dashboard.vue](../../../app/pages/elections-senegal/dashboard.vue)
+**Fichier** : [app/pages/elections-senegal/dashboard/[type]/[year].vue](../../../app/pages/elections-senegal/dashboard/[type]/[year].vue)
 
 **Design** : Dashboard moderne avec filtres globaux et onglets thématiques
 
@@ -207,12 +207,14 @@ description: "Accédez à toutes les informations sur les élections au Sénéga
      - Player YouTube intégré
 
 6. **Documents** (Législation)
-   - **Filtres** :
-     - Type d'élection
-     - Année
+   - **Filtrage automatique** : Affiche uniquement les documents rattachés à l'élection actuelle via la relation M2M `elections_documents`
+   - **Source** : `currentElectionDocuments` depuis `useElectoralDashboard()` (déjà chargé avec l'élection)
    - **Affichage** :
-     - Liste de documents PDF avec titre, type, année
-     - Clic → Téléchargement ou ouverture dans nouvel onglet
+     - Grid de cards avec icône PDF, titre, type, date de publication
+     - Lien vers page de détail du document
+     - Bouton de téléchargement direct
+   - **Empty State** : Lien vers la page législation complète si aucun document rattaché
+   - **Performance** : Aucun appel API supplémentaire, les documents sont récupérés avec l'élection
 
 #### Composants utilisés
 
@@ -305,13 +307,9 @@ description: "Vidéos tutoriels et explications sur le processus de vote au Sén
 
 #### Data Source
 
-- **API** : `/api/elections/with-documents`
-- **Collection** : `documents` (collection existante, champ `election_id` ajouté)
-- **Filtres** : `type_election`, `year`
-
-#### Composable
-
-- `useElectoralDocuments()` : Gère le fetch et les filtres
+- **API** : `/api/elections/dashboard/config` (contient `election_ids_with_documents`)
+- **Collection** : `documents` avec relation M2M vers `elections`
+- **Filtres** : `election_id` (calculé depuis type_election et year)
 
 #### SEO
 
@@ -433,7 +431,7 @@ Landing (/elections-senegal)
 
 | Composable | Utilisé dans | Rôle |
 |------------|--------------|------|
-| `useElectoralDashboard()` | Landing, Dashboard | Logique métier dashboard (filtres, élection active) |
+| `useElectoralDashboard()` | Landing, Dashboard | Logique métier dashboard (filtres, élection active, documents) |
 | `useElectoralCoalitions()` | Dashboard | Fetch coalitions |
 | `useElectoralConstituencies()` | Dashboard | Fetch circonscriptions |
 | `useElectoralProfessions()` | Dashboard | Fetch statistiques professions |
@@ -527,7 +525,6 @@ Toutes les pages élections incluent :
 | `/api/elections/dashboard/stats/lists` | `year`, `type` | Statistiques départementales |
 | `/api/elections/dashboard/guide/videos` | `type_election?`, `langue?` | Guides vidéos |
 | `/api/elections/dashboard/coalition-videos` | `coalition_id` | Vidéos d'une coalition |
-| `/api/elections/with-documents` | `year?`, `type?` | Élections avec documents liés |
 | `/api/elections/map/national` | `year`, `type` | Données cartographiques nationales |
 | `/api/elections/map/diaspora` | `year`, `type` | Données cartographiques diaspora |
 

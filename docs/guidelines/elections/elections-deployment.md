@@ -63,40 +63,59 @@ Ce document explique **comment migrer du schéma existant vers le nouveau schém
 
 ## 🔄 2. Collections modifiées (4 collections)
 
-### 2.1 Collection `documents` (+1 champ) ⭐ MAJEUR
+### 2.1 Collection `documents` - Relation M2M avec `elections` ⭐ MAJEUR
 
-> ⚠️ **Important** : La collection `documents` existe déjà en production. Seul le champ `election_id` est ajouté.
+> ⚠️ **Important** : La collection `documents` existe déjà en production. Une relation Many-to-Many (M2M) avec collection de jonction `elections_documents` est utilisée pour lier documents et élections.
 
 **Fonction** : Gestion centralisée des documents officiels liés aux élections (codes électoraux, décrets, guides PDF, etc.)
 
-**Champ ajouté** :
+**Relation M2M** :
 
-| Action | Champ | Type | Interface | Description |
-|--------|-------|------|-----------|-------------|
-| ➕ **AJOUT** | `election_id` | integer | select-dropdown-m2o | Lien vers l'élection (FK → elections) |
+```
+elections.documents (junction) → documents (Many-to-Many)
+  ↓
+Collection de jonction: elections_documents
+  - id (PK)
+  - elections_id (FK → elections)
+  - documents_id (FK → documents)
+```
+
+**Récupération des documents** :
+
+Les documents sont récupérés directement lors du fetch de l'élection via l'endpoint `/api/elections/dashboard/config` :
+
+```typescript
+fields: [
+  "id", "year", "type", "name", "status",
+  // ... autres champs
+  "documents.documents_id.id",
+  "documents.documents_id.slug",
+  "documents.documents_id.title",
+  "documents.documents_id.description",
+  "documents.documents_id.type",
+  "documents.documents_id.file",
+  "documents.documents_id.cover_image",
+  "documents.documents_id.publish_date",
+  "documents.documents_id.status"
+]
+```
 
 **Option à ajouter** :
 
 > 📝 **Important** : Ajouter l'option `"election"` aux valeurs possibles du champ `type` pour identifier les documents en rapport avec une élection.
 
-**Relation ajoutée** :
-
-```
-documents.election_id → elections (Many-to-One)
-  ↓
-elections.documents ← documents (One-to-Many, alias inverse)
-```
-
 **Impact** :
-- ✅ Permet d'associer plusieurs documents à une élection
+- ✅ Permet d'associer plusieurs documents à une élection (relation M2M)
 - ✅ Centralise tous les documents électoraux (codes, guides, décrets)
 - ✅ Utilise la collection `documents` existante (pas de nouvelle collection)
+- ✅ Plus flexible qu'une relation M2O (un document peut être lié à plusieurs élections)
+- ✅ Un seul appel API pour récupérer l'élection ET ses documents (performance optimisée)
 
 **Pages impactées** :
 - `/elections-senegal/legislation` : Affiche les documents filtrés par élection
-- Dashboard électoral (onglet "Documents")
+- Dashboard électoral (onglet "Documents") : Affiche les documents de l'élection actuelle
 
-**Migration** : Aucune migration de données requise (champ optionnel).
+**Migration** : Aucune migration de données requise.
 
 ---
 
@@ -170,7 +189,7 @@ const suppléants = candidates.filter(c => c.role === 'suppleant');
 
 | Action | Champ | Type | Interface | Description |
 |--------|-------|------|-----------|-------------|
-| ➕ **AJOUT** | `documents` | alias | list-o2m | **Relation One-to-Many vers documents** |
+| ➕ **AJOUT** | `documents` | alias | list-m2m | **Relation Many-to-Many vers documents** (via `elections_documents`) |
 | ➕ **AJOUT** | `participation_rate` | float | input | Taux de participation (%) |
 | ➕ **AJOUT** | `processed_pv_rate` | float | input | Taux de PV traités (%) |
 | ➕ **AJOUT** | `rounds` | integer | input | Nombre de tours |
@@ -184,13 +203,18 @@ const suppléants = candidates.filter(c => c.role === 'suppleant');
 **Relation ajoutée** :
 
 ```
-elections.documents ← documents (One-to-Many, alias)
-  ↑
-documents.election_id → elections (Many-to-One)
+elections.documents (M2M via elections_documents)
+  ↓
+Collection de jonction: elections_documents
+  - elections_id (FK → elections)
+  - documents_id (FK → documents)
+  ↓
+documents
 ```
 
 **Impact** :
 - ✅ Accès facile aux documents d'une élection via `election.documents`
+- ✅ Relation Many-to-Many flexible (un document peut être lié à plusieurs élections)
 - ✅ Calendrier électoral complet (inscription, campagne, scrutin, 2e tour)
 - ✅ Métriques en temps réel (participation, PV traités)
 - ✅ Support multi-tours (présidentielles)
@@ -200,15 +224,14 @@ documents.election_id → elections (Many-to-One)
 **Exemple d'utilisation** :
 
 ```typescript
-// Récupérer une élection avec ses documents
-const election = await $fetch('/api/elections/1', {
-  params: {
-    fields: ['*', 'documents.*']
-  }
-});
+// Récupérer une élection avec ses documents via l'API config
+const config = await $fetch('/api/elections/dashboard/config');
 
-// election.documents contient tous les documents liés
-console.log(election.documents); // [{ title: "Code Electoral 2024", ... }]
+// Trouver une élection spécifique
+const election = config.elections.find(e => e.year === 2024 && e.type === 'legislative');
+
+// election.documents contient tous les documents publiés liés
+console.log(election.documents); // [{ id, title, slug, type, file, ... }]
 ```
 
 ---
@@ -275,22 +298,27 @@ Les collections suivantes existent dans les deux schémas **sans aucune modifica
 
 Créez manuellement les éléments suivants.
 
-#### A. Ajouter le champ `election_id` à `documents`
+#### A. Créer la relation M2M entre `elections` et `documents`
 
-> ⚠️ **Important** : La collection `documents` existe déjà. Ne pas la recréer, juste ajouter le champ.
+> ⚠️ **Important** : Créer une relation Many-to-Many avec collection de jonction automatique.
 
-1. Éditer la collection **"documents"** (existante)
-2. Ajouter un nouveau champ **"election_id"**
+1. Éditer la collection **"elections"**
+2. Ajouter un nouveau champ **"documents"**
 3. Configuration :
-   - **Type** : Integer
-   - **Interface** : select-dropdown-m2o
-   - **Related Collection** : elections
-   - **Nullable** : true
-   - **Hidden** : false
+   - **Type** : Alias (Many-to-Many)
+   - **Interface** : list-m2m
+   - **Related Collection** : documents
+   - **Junction Collection** : elections_documents (créée automatiquement)
+   - **Display Template** : {{title}}
 
-4. **Modifier le champ `type`** (existant) :
+4. **Modifier le champ `type` dans documents** (existant) :
    - Ajouter l'option `"election"` aux valeurs possibles
    - Cette option permet d'identifier les documents en rapport avec une élection
+
+> 📝 La collection de jonction `elections_documents` sera créée automatiquement par Directus avec les champs :
+> - `id` (PK)
+> - `elections_id` (FK → elections)
+> - `documents_id` (FK → documents)
 
 ---
 
@@ -340,7 +368,7 @@ Créez manuellement les éléments suivants.
 
 | Champ | Type | Interface |
 |-------|------|-----------|
-| `documents` | Alias | list-o2m (→ documents) |
+| `documents` | Alias | list-m2m (→ documents via elections_documents) |
 | `participation_rate` | Float | input |
 | `processed_pv_rate` | Float | input |
 | `rounds` | Integer | input |
@@ -417,19 +445,22 @@ const isSuppléant = candidate.role === 'suppleant';
 
 ## 🧪 Tests post-migration
 
-### 1. Tester la relation O2M (Documents ↔ Elections)
+### 1. Tester la relation M2M (Documents ↔ Elections)
 
 #### Dans Directus :
-1. Créer ou éditer un document
-2. Remplir le champ `election_id` avec une élection
-3. Sauvegarder
-4. Éditer l'élection concernée
-5. Vérifier l'onglet "Documents" → Le document doit apparaître
+1. Éditer une élection
+2. Accéder à l'onglet/champ "Documents" (relation M2M)
+3. Ajouter un ou plusieurs documents à l'élection
+4. Sauvegarder
+5. Vérifier que la collection de jonction `elections_documents` contient les liens
 
 #### Dans l'application :
 1. Accéder à `/elections-senegal/legislation`
 2. Sélectionner un type et une année
-3. Vérifier que les documents filtrés s'affichent
+3. Vérifier que les documents liés s'affichent
+4. Accéder au Dashboard `/elections-senegal/dashboard/[type]/[year]`
+5. Aller dans l'onglet "Documents"
+6. Vérifier que les documents de l'élection actuelle s'affichent
 
 ---
 
@@ -532,10 +563,12 @@ const isSuppléant = candidate.role === 'suppleant';
 ### Les documents ne s'affichent pas
 
 **Vérifications** :
-1. Le champ `election_id` existe dans `documents`
-2. Au moins un document a un `election_id` renseigné
-3. L'API retourne des données : `GET /api/elections/with-documents`
-4. Permissions Directus (lecture publique)
+1. La collection de jonction `elections_documents` existe
+2. Au moins un lien existe dans `elections_documents` entre une élection et un document
+3. Les documents liés ont le statut "published"
+4. L'API retourne des données : `GET /api/elections/dashboard/config`
+5. Vérifier que les documents sont présents dans la réponse de l'API : `config.elections[0].documents`
+6. Permissions Directus (lecture publique sur `elections`, `elections_documents` et `documents`)
 
 ---
 
@@ -649,11 +682,14 @@ export interface GuideElectoral {
 
 - ✅ `/api/elections/dashboard/guide/videos` - Liste des guides vidéos
 - ✅ `/api/elections/dashboard/guide/languages` - Langues disponibles
-- ✅ `/api/elections/with-documents` - Élections avec documents liés (O2M)
 
 **Endpoints modifiés** :
 
-- ✅ `/api/elections/dashboard/config` - Retourne les nouveaux champs d'`elections`
+- ✅ `/api/elections/dashboard/config` - Retourne les nouveaux champs d'`elections` ET les documents via la relation M2M
+  - Inclut maintenant tous les champs des documents liés à chaque élection
+  - Filtre automatiquement les documents publiés
+  - Tri par date de publication (plus récent en premier)
+  - Retourne également `election_ids_with_documents` pour le filtrage dans la page législation
 
 ---
 
@@ -685,7 +721,7 @@ grep -r "is_substitute" app/pages/elections*/
 |----------------|---------------|----------------|--------|
 | **Collections** | 14 | 15 | +1 nouvelle |
 | **Champs totaux** | 171 | 221 | +50 champs |
-| **Lien documents ↔ elections** | ❌ | ✅ Champ `election_id` | Centralisation |
+| **Lien documents ↔ elections** | ❌ | ✅ Relation M2M `elections_documents` | Centralisation flexible |
 | **Guides vidéo** | ❌ | ✅ Collection `guide_electorale` | Pédagogie |
 | **Catégorie actualités** | ❌ | ✅ "Election" dans `news_category` | Filtrage actus |
 | **Calendrier électoral** | ⚠️ Partiel | ✅ Complet | 9 dates clés |
@@ -693,7 +729,7 @@ grep -r "is_substitute" app/pages/elections*/
 | **Multi-tours** | ❌ | ✅ Champ `rounds` | Présidentielles |
 | **Hiérarchie circonscriptions** | ❌ | ✅ Champ `parent` | Arborescence |
 | **Rôles candidats** | Boolean `is_substitute` | Enum `role` | Extensibilité |
-| **Relation docs ↔ elections** | ❌ | ✅ O2M directe | Performance |
+| **Relation docs ↔ elections** | ❌ | ✅ M2M via jonction | Flexibilité + Performance |
 
 ---
 
@@ -742,7 +778,7 @@ grep -r "is_substitute" app/pages/elections*/
 - [ ] Vérifier les nouveaux champs `elections` (dates, métriques)
 - [ ] Vérifier le champ `role` des candidats
 - [ ] Créer des données de test (guides, catégorie)
-- [ ] Associer des documents existants aux élections via `election_id`
+- [ ] Associer des documents existants aux élections via la relation M2M dans Directus
 - [ ] Vérifier les performances (temps de chargement)
 - [ ] Vérifier Google Analytics (pas d'erreur JS)
 - [ ] Désactiver le mode maintenance
@@ -775,7 +811,7 @@ En cas de problème pendant la migration :
 3. **Support** : Contacter l'équipe de développement
 
 **Contacts** :
-- Équipe technique : dev@vie-publique.sn (mail configurer si juge necessaire)
+- Équipe technique : dev@vie-publique.sn (mail configurer si jugé necessaire)
 - Documentation : https://github.com/vie-publique-senegal/vie-publique.sn
 
 ---

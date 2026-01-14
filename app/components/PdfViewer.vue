@@ -146,8 +146,16 @@
 </template>
 
 <script setup lang="ts">
+import * as pdfjsLib from "pdfjs-dist";
 import type { PDFDocumentProxy, PDFPageProxy } from "pdfjs-dist";
-import PdfWorkerUrl from "pdfjs-dist/build/pdf.worker.min.mjs?url";
+
+// Configuration du worker PDF.js - utiliser le worker via import.meta.url
+if (import.meta.client) {
+  pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+    'pdfjs-dist/build/pdf.worker.min.mjs',
+    import.meta.url
+  ).href
+}
 
 interface Props {
   source: string;
@@ -163,7 +171,7 @@ const pdfContainer = ref<HTMLElement>();
 const pdfCanvas = ref<HTMLCanvasElement>();
 const currentPage = ref(1);
 const totalPages = ref(0);
-const scale = ref(1.25);
+const scale = ref(1.5); // Scale par défaut plus élevé pour mobile
 const loading = ref(true);
 const error = ref(false);
 const errorMessage = ref("");
@@ -171,7 +179,6 @@ const loadingProgress = ref(0);
 
 // PDF.js objects
 let pdfDoc: PDFDocumentProxy | null = null;
-let pdfjsLib: any = null;
 let pageRendering = false;
 let pageNumPending: number | null = null;
 let currentRenderTask: any = null;
@@ -193,7 +200,7 @@ const renderPage = async (num: number) => {
 
   try {
     const page: PDFPageProxy = await pdfDoc.getPage(num);
-    
+
     // Utiliser un ratio de pixels pour améliorer la netteté
     const pixelRatio = window.devicePixelRatio || 1;
     const viewport = page.getViewport({ scale: scale.value * pixelRatio });
@@ -205,7 +212,7 @@ const renderPage = async (num: number) => {
     // Définir la taille réelle du canvas
     canvas.width = viewport.width;
     canvas.height = viewport.height;
-    
+
     // Ajuster le style CSS pour l'affichage
     canvas.style.width = `${viewport.width / pixelRatio}px`;
     canvas.style.height = `${viewport.height / pixelRatio}px`;
@@ -282,14 +289,16 @@ const fitToWidth = () => {
     const viewport = page.getViewport({ scale: 1 });
     const containerWidth = pdfContainer.value!.clientWidth - 32; // 32px for padding
     let calculatedScale = containerWidth / viewport.width;
-    
+
     // Sur mobile, arrondir le scale pour éviter le flou
     const isMobile = window.innerWidth < 768;
     if (isMobile) {
+      // Arrondir au 0.25 le plus proche pour une meilleure netteté
       calculatedScale = Math.round(calculatedScale * 4) / 4;
-      calculatedScale = Math.max(0.8, calculatedScale);
+      // S'assurer qu'on ne descend pas en dessous de 1 sur mobile
+      calculatedScale = Math.max(1, calculatedScale);
     }
-    
+
     scale.value = calculatedScale;
     queueRenderPage(currentPage.value);
   });
@@ -324,23 +333,15 @@ const downloadPdf = () => {
 
 // Load PDF document
 const loadPdf = async () => {
-  if (process.server) return;
-  
   loading.value = true;
   error.value = false;
   errorMessage.value = "";
   loadingProgress.value = 0;
 
   try {
-    // Dynamic import to avoid SSR errors like "DOMMatrix is not defined"
-    if (!pdfjsLib) {
-      pdfjsLib = await import("pdfjs-dist");
-      pdfjsLib.GlobalWorkerOptions.workerSrc = PdfWorkerUrl;
-    }
-
     const loadingTask = pdfjsLib.getDocument({
       url: props.source,
-      onProgress: (progress: any) => {
+      onProgress: (progress) => {
         if (progress.total > 0) {
           loadingProgress.value = (progress.loaded / progress.total) * 100;
         }
@@ -348,7 +349,7 @@ const loadPdf = async () => {
     });
 
     pdfDoc = await loadingTask.promise;
-    totalPages.value = pdfDoc!.numPages;
+    totalPages.value = pdfDoc.numPages;
 
     // Render first page
     await renderPage(1);
@@ -361,7 +362,7 @@ const loadPdf = async () => {
   } catch (err: any) {
     console.error("Error loading PDF:", err);
     error.value = true;
-    errorMessage.value = err.message || "Erreur de chargement du PDF";
+    errorMessage.value = err.message || "Erreur inconnue";
     loading.value = false;
   }
 };
@@ -398,13 +399,9 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  if (process.client) {
-    window.removeEventListener("keydown", handleKeyPress);
-    if (pdfDoc) {
-      try {
-        pdfDoc.destroy();
-      } catch (e) {}
-    }
+  window.removeEventListener("keydown", handleKeyPress);
+  if (pdfDoc) {
+    pdfDoc.destroy();
   }
 });
 

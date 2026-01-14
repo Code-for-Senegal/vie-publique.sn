@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useElectoralFormatting } from '~/composables/elections/dashboard/useElectoralFormatting';
-
 interface Props {
   coalition: any;
 }
@@ -10,7 +8,6 @@ const emit = defineEmits<{
   (e: 'select', coalitionId: string | number): void;
 }>();
 
-const { getCoalitionColor, getCmsAsset } = useElectoralFormatting();
 </script>
 
 <template>
@@ -21,7 +18,12 @@ const { getCoalitionColor, getCmsAsset } = useElectoralFormatting();
     <div 
       class="w-14 h-14 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform overflow-hidden border dark:border-gray-700 bg-gray-50 dark:bg-gray-800"
     >
-      <img v-if="coalition.logo" :src="getCmsAsset(coalition.logo)" class="max-h-full max-w-full object-contain p-2" :alt="coalition.name" />
+      <CmsImage
+        v-if="coalition.logo"
+        :src="coalition.logo"
+        class="max-h-full max-w-full object-contain p-2"
+        :alt="coalition.name"
+      />
       <div v-else class="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 text-gray-400">
         <UIcon name="i-heroicons-photo" class="w-6 h-6" />
       </div>

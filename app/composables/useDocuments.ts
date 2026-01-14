@@ -1,12 +1,11 @@
-import type { Document } from "~~/types/document";
-import { unref, type Ref } from "vue";
+import type { Document } from '~~/types/document';
 
 export interface DocumentsOptions {
   /** ID du document pour récupération unitaire */
   id?: string | Ref<string>;
 
   /** Type de document fixe (ex: 'audit_report', 'official_journal') */
-  type?: string | Ref<string>;
+  type?: string;
 
   /** Tri par défaut */
   sort?: string;
@@ -16,15 +15,6 @@ export interface DocumentsOptions {
 
   /** Synchroniser avec l'URL */
   syncUrl?: boolean;
-
-  /** Filtre par élection */
-  election?: string | Ref<string>;
-
-  /** Champs à récupérer */
-  fields?: string[];
-
-  /** Liste explicite d'IDs (utile pour filtrage par relation complexe) */
-  ids?: string[] | Ref<string[] | null>;
 }
 
 /**
@@ -119,9 +109,8 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
     const filters: Record<string, any> = {};
 
     // Type de document fixe (passé en option)
-    const fixedType = unref(options.type);
-    if (fixedType) {
-      filters.type = fixedType;
+    if (options.type) {
+      filters.type = options.type;
     }
 
     // Filtre dynamique selon le type de document
@@ -134,19 +123,9 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
       } else if (options.type === 'audit_report') {
         // Pour rapports d'audit : filtre par organisme
         filters.filterType = filterVal;
-      } else if (!fixedType) {
+      } else if (!options.type) {
         // Sans type spécifique : filtre par type de document
         filters.type = filterVal;
-      }
-    }
-
-    // Filtre par liste d'IDs explicite
-    const explicitIds = unref(options.ids);
-    if (explicitIds && Array.isArray(explicitIds)) {
-      if (explicitIds.length === 0) {
-        filters.id = { _eq: "none" }; // Forcer liste vide
-      } else {
-        filters.id = { _in: explicitIds };
       }
     }
 
@@ -155,8 +134,7 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
 
   // Utilisation du composable générique pour le fetch
   const collection = useCmsCollection<Document>({
-    collection: "documents",
-    fields: options.fields,
+    collection: 'documents',
     filters,
     sort: state.sortBy,
     limit: state.itemsPerPage,

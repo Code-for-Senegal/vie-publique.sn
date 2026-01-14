@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useElectionsWithDocuments } from '~/composables/elections/dashboard/useElectionsWithDocuments';
 import { useElectoralDashboard } from '~/composables/elections/dashboard/useElectoralDashboard';
+import type { Document } from '~~/types/document';
 
 const route = useRoute();
 const router = useRouter();
@@ -27,7 +27,7 @@ const selectedElectionId = computed(() => {
   return matchingElection?.id || null;
 });
 
-const { items: documents, loading, pagination, error } = useCmsCollection({
+const { items: documents, loading, pagination } = useCmsCollection<Document>({
   collection: 'documents',
   filters: computed(() => {
     const filters: any = {};
@@ -78,13 +78,11 @@ watch([selectedType, selectedYear], () => {
   });
 });
 
-const { electionsWithDocs } = useElectionsWithDocuments();
-
 const typeOptions = computed(() => {
   if (!config.value?.elections) return [{ label: 'Tous les types', value: 'all' }];
 
   const electionsWithDocsIds = new Set(
-    (electionsWithDocs.value?.election_ids || []) as number[]
+    config.value?.election_ids_with_documents || []
   );
 
   const typesWithDocs = new Set(
@@ -111,7 +109,7 @@ const yearOptions = computed(() => {
   if (!config.value?.elections) return [{ label: 'Toutes les années', value: 'all' }];
 
   const electionsWithDocsIds = new Set(
-    (electionsWithDocs.value?.election_ids || []) as number[]
+    config.value?.election_ids_with_documents || []
   );
 
   const yearsWithDocs = new Set(
@@ -247,7 +245,7 @@ useHead({
                 </h3>
 
                 <p class="text-[11px] text-gray-500 line-clamp-3 leading-relaxed">
-                  {{ (doc as any).description || 'Aucune description disponible pour ce document.' }}
+                  {{ doc.description || 'Aucune description disponible pour ce document.' }}
                 </p>
               </div>
 

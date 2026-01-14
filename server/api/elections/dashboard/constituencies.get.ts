@@ -2,7 +2,7 @@ import { readItems } from '@directus/sdk';
 
 export default defineCachedEventHandler(
   async (event) => {
-    const directus = getLocalCmsClient() as any;
+    const directus = getCmsClient() as any;
     const query = getQuery(event);
     const year = query.year ? parseInt(query.year as string) : null;
     const type = query.type as string;
@@ -84,10 +84,10 @@ export default defineCachedEventHandler(
 
         if (targetDeptId) {
           const isDeptList = (constitDef.type === 'national' && constitDef.nationale_type === 'departement');
-          
+
           if (!isDeptList) {
              if (!deptCoalitionsMap.has(targetDeptId)) {
-                deptCoalitionsMap.set(targetDeptId, new Set()); 
+                deptCoalitionsMap.set(targetDeptId, new Set());
              }
              deptCoalitionsMap.get(targetDeptId)?.add(`${list.constituency.id}-${list.coalition}`);
           }

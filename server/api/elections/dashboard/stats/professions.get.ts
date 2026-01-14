@@ -13,7 +13,7 @@ import { readItems } from "@directus/sdk";
  */
 export default defineCachedEventHandler(
   async (event) => {
-    const directus = getLocalCmsClient();
+    const directus = getCmsClient();
     const query = getQuery(event);
     const coalitionId = query.coalition as string | undefined;
     const year = query.year ? parseInt(query.year as string) : null;
@@ -34,11 +34,11 @@ export default defineCachedEventHandler(
             limit: 1,
           })
         );
-        
+
         const electionId = elections[0]?.id;
-        
+
         if (electionId) {
-           electionFilter = { 
+           electionFilter = {
                electoral_list: {
                    election: { _eq: electionId }
                }
@@ -50,7 +50,7 @@ export default defineCachedEventHandler(
 
       // Construire le filtre global
       let filter: any = {};
-      
+
       if (coalitionId) {
           filter = {
             electoral_list: {
@@ -92,7 +92,7 @@ export default defineCachedEventHandler(
       const professionCounts = candidates.reduce((acc: Record<string, { count: number, label: string }>, candidate: { profession?: string }) => {
         const rawProfession = candidate.profession ? candidate.profession.trim() : "Non renseigné";
         const normalizedKey = rawProfession.toLowerCase();
-        
+
         if (!acc[normalizedKey]) {
           // Utiliser la première occurrence comme label, ou une fonction de formatage
           // On peut forcer une majuscule au début
