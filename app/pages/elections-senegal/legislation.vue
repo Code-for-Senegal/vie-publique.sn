@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useElectoralDashboard } from '~/composables/elections/dashboard/useElectoralDashboard';
+import type { Document } from '~~/types/document';
 
 const route = useRoute();
 const router = useRouter();
@@ -26,7 +27,7 @@ const selectedElectionId = computed(() => {
   return matchingElection?.id || null;
 });
 
-const { items: documents, loading, pagination, error } = useCmsCollection({
+const { items: documents, loading, pagination } = useCmsCollection<Document>({
   collection: 'documents',
   filters: computed(() => {
     const filters: any = {};
@@ -244,7 +245,7 @@ useHead({
                 </h3>
 
                 <p class="text-[11px] text-gray-500 line-clamp-3 leading-relaxed">
-                  {{ (doc as any).description || 'Aucune description disponible pour ce document.' }}
+                  {{ doc.description || 'Aucune description disponible pour ce document.' }}
                 </p>
               </div>
 
