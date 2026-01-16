@@ -4,7 +4,7 @@ export default defineCachedEventHandler(
   async (event) => {
     try {
       // Récupérer le client CMS
-      const cmsClient = getLocalCmsClient();
+      const cmsClient = getCmsClient();
 
       // Appel API vers le CMS pour les résultats avec les champs nécessaires
       const response = await cmsClient.request(
