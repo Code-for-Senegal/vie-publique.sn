@@ -68,20 +68,22 @@ export function useElectionMapData() {
 
   // Transformer les coordonnées pour Leaflet
   const transformCoordinates = (geoData: GeoData[]): TransformedRegion[] => {
-    return geoData.map((item) => ({
-      id: item.id,
-      departement: item.departement,
-      region: item.region,
-      voters: item.voters,
-      offices: item.offices,
-      places: item.places,
-      municipality: item.municipality,
-      population: item.population,
-      coordinates: item.Position.coordinates[0].map((coord) => [
-        coord[1],
-        coord[0],
-      ]), // Inverser lat/lng pour Leaflet
-    }));
+    return geoData
+      .filter((item) => item.Position?.coordinates?.[0]?.length > 0)
+      .map((item) => ({
+        id: item.id,
+        departement: item.departement,
+        region: item.region,
+        voters: item.voters,
+        offices: item.offices,
+        places: item.places,
+        municipality: item.municipality,
+        population: item.population,
+        coordinates: item.Position.coordinates[0].map((coord) => [
+          coord[1],
+          coord[0],
+        ]), // Inverser lat/lng pour Leaflet
+      }));
   };
 
   // Obtenir les statistiques des départements
