@@ -603,26 +603,6 @@
             "collection": "carte",
             "field": "id",
             "type": "integer",
-            "meta": {
-                "collection": "carte",
-                "field": "id",
-                "special": null,
-                "interface": "input",
-                "options": null,
-                "display": null,
-                "display_options": null,
-                "readonly": true,
-                "hidden": true,
-                "sort": 1,
-                "width": "full",
-                "translations": null,
-                "note": null,
-                "conditions": null,
-                "required": false,
-                "group": null,
-                "validation": null,
-                "validation_message": null
-            },
             "schema": {
                 "name": "id",
                 "table": "carte",
@@ -642,12 +622,52 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
+            },
+            "meta": {
+                "collection": "carte",
+                "field": "id",
+                "special": null,
+                "interface": "input",
+                "options": null,
+                "display": null,
+                "display_options": null,
+                "readonly": true,
+                "hidden": true,
+                "sort": 1,
+                "width": "full",
+                "translations": null,
+                "note": null,
+                "conditions": null,
+                "required": false,
+                "group": null,
+                "validation": null,
+                "validation_message": null
             }
         },
         {
             "collection": "carte",
             "field": "election",
             "type": "integer",
+            "schema": {
+                "name": "election",
+                "table": "carte",
+                "data_type": "integer",
+                "default_value": null,
+                "generation_expression": null,
+                "max_length": null,
+                "numeric_precision": 32,
+                "numeric_scale": 0,
+                "is_generated": false,
+                "is_nullable": true,
+                "is_unique": false,
+                "is_indexed": false,
+                "is_primary_key": false,
+                "has_auto_increment": false,
+                "foreign_key_schema": "public",
+                "foreign_key_table": "elections",
+                "foreign_key_column": "id",
+                "comment": null
+            },
             "meta": {
                 "collection": "carte",
                 "field": "election",
@@ -674,59 +694,12 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
-            "schema": {
-                "name": "election",
-                "table": "carte",
-                "data_type": "integer",
-                "default_value": null,
-                "generation_expression": null,
-                "max_length": null,
-                "numeric_precision": 32,
-                "numeric_scale": 0,
-                "is_generated": false,
-                "is_nullable": true,
-                "is_unique": false,
-                "is_indexed": false,
-                "is_primary_key": false,
-                "has_auto_increment": false,
-                "foreign_key_schema": "public",
-                "foreign_key_table": "elections",
-                "foreign_key_column": "id",
-                "comment": null
             }
         },
         {
             "collection": "carte",
             "field": "coalition_gagnante",
             "type": "integer",
-            "meta": {
-                "collection": "carte",
-                "field": "coalition_gagnante",
-                "special": [
-                    "m2o"
-                ],
-                "interface": "select-dropdown-m2o",
-                "options": {
-                    "template": "{{name}}",
-                    "enableCreate": false
-                },
-                "display": "related-values",
-                "display_options": {
-                    "template": "{{name}}"
-                },
-                "readonly": false,
-                "hidden": false,
-                "sort": 2,
-                "width": "half",
-                "translations": null,
-                "note": null,
-                "conditions": null,
-                "required": true,
-                "group": null,
-                "validation": null,
-                "validation_message": null
-            },
             "schema": {
                 "name": "coalition_gagnante",
                 "table": "carte",
@@ -746,26 +719,21 @@
                 "foreign_key_table": "election_coalition",
                 "foreign_key_column": "id",
                 "comment": null
-            }
-        },
-        {
-            "collection": "carte",
-            "field": "constituencie",
-            "type": "integer",
+            },
             "meta": {
                 "collection": "carte",
-                "field": "constituencie",
+                "field": "coalition_gagnante",
                 "special": [
                     "m2o"
                 ],
                 "interface": "select-dropdown-m2o",
                 "options": {
-                    "template": "{{name}} - {{nationale_type}}",
-                    "enableLink": true
+                    "template": "{{name}}",
+                    "enableCreate": false
                 },
                 "display": "related-values",
                 "display_options": {
-                    "template": "{{name}} - {{nationale_type}}"
+                    "template": "{{name}}"
                 },
                 "readonly": false,
                 "hidden": false,
@@ -774,7 +742,7 @@
                 "translations": null,
                 "note": null,
                 "conditions": null,
-                "required": true,
+                "required": false,
                 "group": null,
                 "validation": null,
                 "validation_message": null
@@ -830,52 +798,12 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
-            "schema": {
-                "name": "constituencie",
-                "table": "carte",
-                "data_type": "integer",
-                "default_value": null,
-                "generation_expression": null,
-                "max_length": null,
-                "numeric_precision": 32,
-                "numeric_scale": 0,
-                "is_generated": false,
-                "is_nullable": true,
-                "is_unique": false,
-                "is_indexed": false,
-                "is_primary_key": false,
-                "has_auto_increment": false,
-                "foreign_key_schema": "public",
-                "foreign_key_table": "election_constituencies",
-                "foreign_key_column": "id",
-                "comment": null
             }
         },
         {
             "collection": "carte",
             "field": "voters",
             "type": "integer",
-            "meta": {
-                "collection": "carte",
-                "field": "voters",
-                "special": null,
-                "interface": "input",
-                "options": null,
-                "display": null,
-                "display_options": null,
-                "readonly": false,
-                "hidden": false,
-                "sort": 5,
-                "width": "half",
-                "translations": null,
-                "note": null,
-                "conditions": null,
-                "required": false,
-                "group": null,
-                "validation": null,
-                "validation_message": null
-            },
             "schema": {
                 "name": "voters",
                 "table": "carte",
@@ -895,12 +823,7 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "carte",
-            "field": "liste_gagnante",
-            "type": "integer",
+            },
             "meta": {
                 "collection": "carte",
                 "field": "voters",
@@ -914,32 +837,12 @@
                 "sort": 5,
                 "width": "half",
                 "translations": null,
-                "note": "Liste de la coalition gagnante (pour les élections locales)",
+                "note": null,
                 "conditions": null,
                 "required": false,
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
-            "schema": {
-                "name": "liste_gagnante",
-                "table": "carte",
-                "data_type": "integer",
-                "default_value": null,
-                "generation_expression": null,
-                "max_length": null,
-                "numeric_precision": 32,
-                "numeric_scale": 0,
-                "is_generated": false,
-                "is_nullable": true,
-                "is_unique": false,
-                "is_indexed": false,
-                "is_primary_key": false,
-                "has_auto_increment": false,
-                "foreign_key_schema": "public",
-                "foreign_key_table": "election_electoral_lists",
-                "foreign_key_column": "id",
-                "comment": null
             }
         },
         {
@@ -1015,12 +918,7 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "carte",
-            "field": "seat",
-            "type": "integer",
+            },
             "meta": {
                 "collection": "carte",
                 "field": "Position",
@@ -1105,12 +1003,12 @@
             "schema": {
                 "name": "region",
                 "table": "carte",
-                "data_type": "integer",
+                "data_type": "character varying",
                 "default_value": null,
                 "generation_expression": null,
-                "max_length": null,
-                "numeric_precision": 32,
-                "numeric_scale": 0,
+                "max_length": 255,
+                "numeric_precision": null,
+                "numeric_scale": null,
                 "is_generated": false,
                 "is_nullable": true,
                 "is_unique": false,
@@ -1121,12 +1019,7 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "carte",
-            "field": "region",
-            "type": "string",
+            },
             "meta": {
                 "collection": "carte",
                 "field": "region",
@@ -1171,12 +1064,7 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "carte",
-            "field": "departement",
-            "type": "string",
+            },
             "meta": {
                 "collection": "carte",
                 "field": "departement",
@@ -1205,11 +1093,11 @@
             "schema": {
                 "name": "participation_10h",
                 "table": "carte",
-                "data_type": "character varying",
+                "data_type": "real",
                 "default_value": null,
                 "generation_expression": null,
-                "max_length": 255,
-                "numeric_precision": null,
+                "max_length": null,
+                "numeric_precision": 24,
                 "numeric_scale": null,
                 "is_generated": false,
                 "is_nullable": true,
@@ -1221,12 +1109,7 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "carte",
-            "field": "participation_10h",
-            "type": "float",
+            },
             "meta": {
                 "collection": "carte",
                 "field": "participation_10h",
@@ -1271,12 +1154,7 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "carte",
-            "field": "participation_12h",
-            "type": "float",
+            },
             "meta": {
                 "collection": "carte",
                 "field": "participation_12h",
@@ -1321,12 +1199,7 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "carte",
-            "field": "participation_14h",
-            "type": "float",
+            },
             "meta": {
                 "collection": "carte",
                 "field": "participation_14h",
@@ -1371,12 +1244,7 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "carte",
-            "field": "participation_17h",
-            "type": "float",
+            },
             "meta": {
                 "collection": "carte",
                 "field": "participation_17h",
@@ -1396,52 +1264,12 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
-            "schema": {
-                "name": "participation_17h",
-                "table": "carte",
-                "data_type": "real",
-                "default_value": null,
-                "generation_expression": null,
-                "max_length": null,
-                "numeric_precision": 24,
-                "numeric_scale": null,
-                "is_generated": false,
-                "is_nullable": true,
-                "is_unique": false,
-                "is_indexed": false,
-                "is_primary_key": false,
-                "has_auto_increment": false,
-                "foreign_key_schema": null,
-                "foreign_key_table": null,
-                "foreign_key_column": null,
-                "comment": null
             }
         },
         {
             "collection": "carte",
             "field": "offices",
             "type": "integer",
-            "meta": {
-                "collection": "carte",
-                "field": "offices",
-                "special": null,
-                "interface": "input",
-                "options": null,
-                "display": null,
-                "display_options": null,
-                "readonly": false,
-                "hidden": false,
-                "sort": 15,
-                "width": "half",
-                "translations": null,
-                "note": null,
-                "conditions": null,
-                "required": false,
-                "group": null,
-                "validation": null,
-                "validation_message": null
-            },
             "schema": {
                 "name": "offices",
                 "table": "carte",
@@ -1461,15 +1289,10 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "carte",
-            "field": "places",
-            "type": "integer",
+            },
             "meta": {
                 "collection": "carte",
-                "field": "places",
+                "field": "offices",
                 "special": null,
                 "interface": "input",
                 "options": null,
@@ -1477,7 +1300,7 @@
                 "display_options": null,
                 "readonly": false,
                 "hidden": false,
-                "sort": 16,
+                "sort": 15,
                 "width": "half",
                 "translations": null,
                 "note": null,
@@ -1486,7 +1309,12 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
+            }
+        },
+        {
+            "collection": "carte",
+            "field": "places",
+            "type": "integer",
             "schema": {
                 "name": "places",
                 "table": "carte",
@@ -1506,15 +1334,10 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "carte",
-            "field": "population",
-            "type": "integer",
+            },
             "meta": {
                 "collection": "carte",
-                "field": "population",
+                "field": "places",
                 "special": null,
                 "interface": "input",
                 "options": null,
@@ -1522,7 +1345,7 @@
                 "display_options": null,
                 "readonly": false,
                 "hidden": false,
-                "sort": 17,
+                "sort": 16,
                 "width": "half",
                 "translations": null,
                 "note": null,
@@ -1531,7 +1354,12 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
+            }
+        },
+        {
+            "collection": "carte",
+            "field": "population",
+            "type": "integer",
             "schema": {
                 "name": "population",
                 "table": "carte",
@@ -1551,12 +1379,52 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
+            },
+            "meta": {
+                "collection": "carte",
+                "field": "population",
+                "special": null,
+                "interface": "input",
+                "options": null,
+                "display": null,
+                "display_options": null,
+                "readonly": false,
+                "hidden": false,
+                "sort": 17,
+                "width": "half",
+                "translations": null,
+                "note": null,
+                "conditions": null,
+                "required": false,
+                "group": null,
+                "validation": null,
+                "validation_message": null
             }
         },
         {
             "collection": "carte",
             "field": "municipality",
             "type": "string",
+            "schema": {
+                "name": "municipality",
+                "table": "carte",
+                "data_type": "character varying",
+                "default_value": null,
+                "generation_expression": null,
+                "max_length": 255,
+                "numeric_precision": null,
+                "numeric_scale": null,
+                "is_generated": false,
+                "is_nullable": true,
+                "is_unique": false,
+                "is_indexed": false,
+                "is_primary_key": false,
+                "has_auto_increment": false,
+                "foreign_key_schema": null,
+                "foreign_key_table": null,
+                "foreign_key_column": null,
+                "comment": null
+            },
             "meta": {
                 "collection": "carte",
                 "field": "municipality",

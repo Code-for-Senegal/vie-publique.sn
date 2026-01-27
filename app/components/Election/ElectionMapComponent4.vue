@@ -67,14 +67,17 @@
                 class="text-xs font-semibold"
                 :class="{ 'text-[8px]': isMobile }"
               >
-                {{ region.departement }}
+                {{isLocalElection ? region.municipality : region.departement }}
               </span>
             </LTooltip>
             <LPopup>
               <div class="p-2">
-                <h3 class="text-lg font-bold">{{ region.departement }}</h3>
+                <h3 class="text-lg font-bold">{{ isLocalElection ? region.municipality : region.departement }}</h3>
                 <div>Région: {{ region.region }}</div>
-                <div>
+                <div v-if="isLocalElection">
+                  Département: {{ region.departement }}
+                </div>
+                <div v-if="!isLocalElection">
                   Communes:
                   <span class="font-bold text-red-700">{{
                     formatNumber(region.municipality)
@@ -106,7 +109,7 @@
                 </div>
               </div>
               <NuxtLink
-                v-if="region.departement"
+                v-if="region.departement && !isLocalElection"
                 :to="`/elections/legislatives/carte-electorale/nationale/${region.departement.toUpperCase()}`"
                 class="text-black-800 mt-0 inline-block rounded-md bg-green-100 p-2 font-bold"
               >
@@ -128,17 +131,22 @@ interface Props {
   initialCenter?: [number, number];
   initialZoom?: number;
   loading?: boolean;
+  electionId?: string | number | null;
+  isLocalElection?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   initialCenter: () => [14.4974, -14.4524],
   initialZoom: 8,
   loading: false,
+  electionId: null,
+  isLocalElection: false,
 });
 
 const emit = defineEmits<{
   "region-click": [region: TransformedRegion];
   "map-ready": [map: unknown];
+  "map-error": [];
 }>();
 
 // État local
@@ -159,15 +167,37 @@ onMounted(() => {
   });
 });
 
+// Convertir electionId en number pour le composable
+const electionIdNumber = computed(() => {
+  if (props.electionId === null || props.electionId === undefined) return null;
+  const parsed = typeof props.electionId === 'string' ? parseInt(props.electionId) : props.electionId;
+  return isNaN(parsed) ? null : parsed;
+});
+
 // Chargement des données via le composable
-const { getMapData, getRegionColor } = useElectionMapData();
-const { data: regions, pending } = await useAsyncData(
-  "map-data",
+const { getMapData, getRegionColor } = useElectionMapData(electionIdNumber);
+const { data: regions, pending, error } = await useAsyncData(
+  () => `map-data-${props.electionId || 'all'}`,
   () => getMapData(),
   {
     server: false,
+    watch: [electionIdNumber],
   },
 );
+
+// Surveiller les données et émettre map-error si vide
+watch([regions, pending], ([newRegions, isPending]) => {
+  if (!isPending && (!newRegions || newRegions.length === 0)) {
+    emit('map-error');
+  }
+}, { immediate: true });
+
+// Émettre map-error en cas d'erreur de chargement
+watch(error, (newError) => {
+  if (newError) {
+    emit('map-error');
+  }
+});
 
 // Computed réactifs
 const zoom = computed(() =>

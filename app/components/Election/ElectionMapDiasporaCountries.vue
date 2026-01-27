@@ -13,6 +13,14 @@ interface CountryStats {
   };
 }
 
+interface Props {
+  electionId?: string | number | null;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  electionId: null,
+});
+
 // ✅ Appel API via le serveur Nuxt (SSR-friendly et sécurisé)
 const { data: countriesStats } = await useFetch<{ countries: CountryStats[] }>(
   "/api/elections/diaspora/countries"

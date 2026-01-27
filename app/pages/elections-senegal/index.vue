@@ -74,7 +74,7 @@ useHead({
   ]
 });
 
-const quickLinks = [
+const quickLinks = computed(() => [
   {
     title: "Guide Électoral",
     description: "Comment voter ?",
@@ -95,11 +95,13 @@ const quickLinks = [
     title: "Carte Électorale",
     description: "Lieux et bureaux de vote",
     icon: "i-heroicons-map",
-    to: "/elections-senegal/carte-electorale",
+    to: election.value
+      ? `/elections-senegal/carte-electorale?type=${election.value.type}&year=${election.value.year}`
+      : "/elections-senegal/carte-electorale",
     color: "text-purple-600",
     bg: "bg-purple-50"
   }
-];
+]);
 
   const getStatusLabel = (status: string) => {
     switch(status) {

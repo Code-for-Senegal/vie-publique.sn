@@ -1,4 +1,12 @@
 <script setup lang="ts">
+interface Props {
+  electionId?: string | number | null;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  electionId: null,
+});
+
 interface StatSection {
   title: string;
   color: string;

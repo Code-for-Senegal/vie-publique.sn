@@ -1,7 +1,19 @@
 <!-- components/TableauDepartements.vue -->
 <script setup lang="ts">
-import type { DepartmentStats } from "~/types/election-map-national";
-// import { useElectionData } from "~/composables/useElectionData";
+import type { DepartmentStats } from "~~/types/election-map-national";
+
+interface Props {
+  electionId?: string | number | null;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  electionId: null,
+});
+
+const emit = defineEmits<{
+  "list-empty": [];
+  "list-ready": [];
+}>();
 
 // ✅ Initialisation du composable SSR
 const { fetchDepartmentsStats } = useElectionData();
@@ -21,6 +33,17 @@ const {
   error,
   refresh,
 } = await fetchDepartmentsStats();
+
+// Surveiller les données et émettre les événements
+watch([departments, pending], ([newDepartments, isPending]) => {
+  if (!isPending) {
+    if (!newDepartments || newDepartments.length === 0) {
+      emit('list-empty');
+    } else {
+      emit('list-ready');
+    }
+  }
+}, { immediate: true });
 
 // Filtrage et tri des données
 const filteredDepartments = computed(() => {
@@ -77,7 +100,6 @@ const handleRowClick = (row: DepartmentStats) => {
 
 // Gestion du tri
 const handleSort = (column: string) => {
-  console.log("handleSort", column);
   if (sortBy.value === column) {
     sortDesc.value = !sortDesc.value;
   } else {

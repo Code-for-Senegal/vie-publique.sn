@@ -198,14 +198,17 @@ const mapTabs = [
   {
     label: "Nationale",
     icon: "i-heroicons-map",
+    slot: "nationale",
   },
   {
     label: "Diaspora",
     icon: "i-heroicons-globe-europe-africa",
+    slot: "diaspora",
   },
   {
     label: "Résumé",
     icon: "i-heroicons-chart-bar",
+    slot: "resume",
   },
 ];
 
@@ -557,50 +560,65 @@ const handleMapReady = (map: unknown) => {
                 </div>
 
                 <div class="p-4">
-                  <UTabs :items="mapTabs" class="w-full">
-                    <template #item="{ item }">
-                      <!-- Résumé -->
-                      <div v-if="item.label === 'Résumé'" class="w-full pt-4">
-                        <ElectionMapSummary />
-                      </div>
-
+                  <ClientOnly>
+                    <UTabs :items="mapTabs" class="w-full">
                       <!-- NATIONALE -->
-                      <div v-if="item.label === 'Nationale'" class="w-full pt-4">
-                        <!-- View Toggle -->
-                        <div class="mb-4 w-full flex justify-center">
-                          <div class="flex gap-2 bg-gray-100 dark:bg-gray-800 p-1 rounded-xl">
-                            <UButton
-                              v-for="option in mapListOptions"
-                              :key="option.label"
-                              :color="selectedMapOption === option.label ? 'white' : 'gray'"
-                              :variant="selectedMapOption === option.label ? 'solid' : 'ghost'"
-                              size="sm"
-                              class="rounded-lg transition-all"
-                              @click="selectedMapOption = option.label"
-                            >
-                              <UIcon :name="option.icon" class="w-4 h-4 mr-1" />
-                              {{ option.label }}
-                            </UButton>
+                      <template #nationale>
+                        <div class="w-full pt-4">
+                          <!-- View Toggle -->
+                          <div class="mb-4 w-full flex justify-center">
+                            <div class="flex gap-2 bg-gray-100 dark:bg-gray-800 p-1 rounded-xl">
+                              <UButton
+                                v-for="option in mapListOptions"
+                                :key="option.label"
+                                :color="selectedMapOption === option.label ? 'white' : 'gray'"
+                                :variant="selectedMapOption === option.label ? 'solid' : 'ghost'"
+                                size="sm"
+                                class="rounded-lg transition-all"
+                                @click="selectedMapOption = option.label"
+                              >
+                                <UIcon :name="option.icon" class="w-4 h-4 mr-1" />
+                                {{ option.label }}
+                              </UButton>
+                            </div>
+                          </div>
+
+                          <!-- CARTE -->
+                          <div v-if="selectedMapOption == optionMap" class="relative min-h-[600px]">
+                            <ElectionMapComponent4
+                              :election-id="currentElection?.id"
+                              :is-local-election="isLocalElection"
+                              @map-ready="handleMapReady"
+                            />
+                          </div>
+
+                          <!-- LISTE -->
+                          <div v-else-if="selectedMapOption == optionList" class="w-full">
+                            <ElectionMapNationalDepartment :election-id="currentElection?.id" />
                           </div>
                         </div>
-
-                        <!-- CARTE -->
-                        <div v-if="selectedMapOption == optionMap" class="relative min-h-[600px]">
-                           <ElectionMapComponent4 @map-ready="handleMapReady" />
-                        </div>
-
-                        <!-- LISTE -->
-                        <div v-if="selectedMapOption == optionList" class="w-full">
-                          <ElectionMapNationalDepartment />
-                        </div>
-                      </div>
+                      </template>
 
                       <!-- DIASPORA -->
-                      <div v-else-if="item.label === 'Diaspora'" class="w-full pt-4">
-                        <ElectionMapDiasporaCountries />
+                      <template #diaspora>
+                        <div class="w-full pt-4">
+                          <ElectionMapDiasporaCountries :election-id="currentElection?.id" />
+                        </div>
+                      </template>
+
+                      <!-- Résumé -->
+                      <template #resume>
+                        <div class="w-full pt-4">
+                          <ElectionMapSummary :election-id="currentElection?.id" />
+                        </div>
+                      </template>
+                    </UTabs>
+                    <template #fallback>
+                      <div class="flex items-center justify-center py-16">
+                        <div class="h-12 w-12 animate-spin rounded-full border-4 border-gray-300 border-t-primary-600"></div>
                       </div>
                     </template>
-                  </UTabs>
+                  </ClientOnly>
                 </div>
              </div>
         </section>

@@ -1,4 +1,5 @@
 // composables/useElectionMapData.ts
+import type { Ref } from 'vue';
 import type {
   PollingStation,
   DepartmentStats,
@@ -13,9 +14,24 @@ interface GeoData {
   municipality: number;
   population: number;
   id: number;
-  Position: {
+  // Support both formats: Position (old) and coordinates (new)
+  Position?: {
     type: string;
     coordinates: number[][][];
+  };
+  coordinates?: {
+    type: string;
+    coordinates: number[][][];
+  } | number[][][];
+  coalition_gagnante?: {
+    id: number;
+    name: string;
+    color?: string;
+  };
+  election?: {
+    id: number;
+    type: string;
+    year: number;
   };
 }
 
@@ -32,21 +48,37 @@ interface TransformedRegion {
   stats?: DepartmentStats | null;
 }
 
-export function useElectionMapData() {
-  // État global pour le cache des données
-  const geoData = useState<GeoData[]>("geo-data", () => []);
-  const isGeoDataLoaded = useState<boolean>("geo-data-loaded", () => false);
+export function useElectionMapData(electionId?: Ref<string | number | null> | string | number | null) {
+  // État global pour le cache des données (avec clé basée sur electionId)
+  const currentElectionId = computed(() => {
+    const value = isRef(electionId) ? electionId.value : electionId;
+    if (value === null || value === undefined) return null;
+    // Convertir en number si c'est un string
+    const numValue = typeof value === 'string' ? parseInt(value) : value;
+    return isNaN(numValue) ? null : numValue;
+  });
+
+  const cacheKey = computed(() => `geo-data-${currentElectionId.value || 'all'}`);
+  const geoData = useState<GeoData[]>(cacheKey.value, () => []);
+  const isGeoDataLoaded = useState<boolean>(`geo-data-loaded-${currentElectionId.value || 'all'}`, () => false);
 
   // Charger les données géographiques depuis l'API serveur Nuxt
-  const loadGeoData = async () => {
-    if (isGeoDataLoaded.value) return geoData.value;
+  const loadGeoData = async (forceReload = false) => {
+    if (isGeoDataLoaded.value && !forceReload) return geoData.value;
 
     try {
+      // Construire l'URL avec le paramètre election si défini
+      const params = new URLSearchParams();
+      if (currentElectionId.value) {
+        params.set('election', currentElectionId.value.toString());
+      }
+      const url = `/api/carte${params.toString() ? `?${params.toString()}` : ''}`;
+
       // Appel via l'API serveur Nuxt (sécurisé, avec cache serveur)
-      const response = await $fetch<{ data: GeoData[] }>('/api/carte');
+      const response = await $fetch<GeoData[] | { data: GeoData[] }>(url);
 
       // Stocker les données dans le state
-      geoData.value = response.data || response || [];
+      geoData.value = Array.isArray(response) ? response : (response.data || []);
       isGeoDataLoaded.value = true;
       return geoData.value;
     } catch (error) {
@@ -66,24 +98,54 @@ export function useElectionMapData() {
     return geoData.value;
   };
 
+  // Recharger les données quand l'élection change
+  watch(currentElectionId, async (newId, oldId) => {
+    if (newId !== oldId) {
+      console.log('[useElectionMapData] Election ID changé:', { oldId, newId });
+      isGeoDataLoaded.value = false;
+      await loadGeoData(true);
+    }
+  });
+
+  // Extraire les coordonnées depuis les différents formats possibles
+  const extractCoordinates = (item: GeoData): number[][][] | null => {
+    // Format Position (ancien)
+    if (item.Position?.coordinates?.[0]?.length > 0) {
+      return item.Position.coordinates;
+    }
+    // Format coordinates (nouveau) - objet avec type et coordinates
+    if (item.coordinates && typeof item.coordinates === 'object' && 'coordinates' in item.coordinates) {
+      const coords = (item.coordinates as { coordinates: number[][][] }).coordinates;
+      if (coords?.[0]?.length > 0) return coords;
+    }
+    // Format coordinates - tableau direct
+    if (Array.isArray(item.coordinates) && item.coordinates[0]?.length > 0) {
+      return item.coordinates as number[][][];
+    }
+    return null;
+  };
+
   // Transformer les coordonnées pour Leaflet
   const transformCoordinates = (geoData: GeoData[]): TransformedRegion[] => {
     return geoData
-      .filter((item) => item.Position?.coordinates?.[0]?.length > 0)
-      .map((item) => ({
-        id: item.id,
-        departement: item.departement,
-        region: item.region,
-        voters: item.voters,
-        offices: item.offices,
-        places: item.places,
-        municipality: item.municipality,
-        population: item.population,
-        coordinates: item.Position.coordinates[0].map((coord) => [
-          coord[1],
-          coord[0],
-        ]), // Inverser lat/lng pour Leaflet
-      }));
+      .filter((item) => extractCoordinates(item) !== null)
+      .map((item) => {
+        const coords = extractCoordinates(item)!;
+        return {
+          id: item.id,
+          departement: item.departement,
+          region: item.region,
+          voters: item.voters,
+          offices: item.offices,
+          places: item.places,
+          municipality: item.municipality,
+          population: item.population,
+          coordinates: coords[0].map((coord) => [
+            coord[1],
+            coord[0],
+          ]) as [number, number][], // Inverser lat/lng pour Leaflet
+        };
+      });
   };
 
   // Obtenir les statistiques des départements
