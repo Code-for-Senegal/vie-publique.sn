@@ -28,6 +28,10 @@ const securityConfig =
               'https://www.google-analytics.com',
               'https://*.google-analytics.com',
               'https://fonts.googleapis.com',
+              'https://*.googleapis.com',
+              'https://*.firebaseio.com',
+              'https://firebaseinstallations.googleapis.com',
+              'https://fcmregistrations.googleapis.com',
             ],
             'script-src': [
               "'self'",
@@ -39,6 +43,7 @@ const securityConfig =
               'https://cdn.syndication.twimg.com',
               'https://connect.facebook.net',
               'https://instant.page',
+              'https://www.gstatic.com',
             ],
             'script-src-attr': ["'unsafe-inline'", "'unsafe-hashes'"],
             'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
@@ -215,6 +220,9 @@ export default defineNuxtConfig({
     smtpPassword: process.env.SMTP_PASSWORD,
     smtpFromEmail: process.env.SMTP_FROM_EMAIL,
 
+    // Firebase Admin (server-side only)
+    firebaseServiceAccountJson: process.env.FIREBASE_SERVICE_ACCOUNT_JSON,
+
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL,
       showPinnedPeoples: process.env.PUBLIC_SHOW_PINNED_PEOLPLES,
@@ -227,6 +235,15 @@ export default defineNuxtConfig({
       fbPixelId: process.env.FACEBOOK_PIXEL_ID || '',
       maintenanceMode: process.env.NUXT_PUBLIC_MAINTENANCE_MODE === 'true',
       bictorysPublicKey: process.env.BICTORYS_PUBLIC_KEY,
+      // Firebase (Push Notifications)
+      firebaseApiKey: process.env.NUXT_PUBLIC_FIREBASE_API_KEY,
+      firebaseAuthDomain: process.env.NUXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+      firebaseProjectId: process.env.NUXT_PUBLIC_FIREBASE_PROJECT_ID,
+      firebaseStorageBucket: process.env.NUXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+      firebaseMessagingSenderId: process.env.NUXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+      firebaseAppId: process.env.NUXT_PUBLIC_FIREBASE_APP_ID,
+      firebaseMeasurementId: process.env.NUXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
+      firebaseVapidKey: process.env.NUXT_PUBLIC_FIREBASE_VAPID_KEY,
       // Feature Flags
       appEnv: process.env.NUXT_PUBLIC_APP_ENV || 'production',
       featureFlagsEnabled: process.env.NUXT_FEATURE_FLAGS_ENABLED !== 'false',
