@@ -221,7 +221,7 @@ export default defineNuxtConfig({
     smtpFromEmail: process.env.SMTP_FROM_EMAIL,
 
     // Firebase Admin (server-side only)
-    firebaseServiceAccountJson: process.env.FIREBASE_SERVICE_ACCOUNT_JSON,
+    firebaseServiceAccountJson: process.env.NUXT_FIREBASE_SERVICE_ACCOUNT_JSON,
 
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL,

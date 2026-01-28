@@ -17,7 +17,7 @@ export const getFirebaseAdmin = (): App => {
   const serviceAccountJson = config.firebaseServiceAccountJson;
 
   if (!serviceAccountJson) {
-    throw new Error('FIREBASE_SERVICE_ACCOUNT_JSON environment variable is not set.');
+    throw new Error('NUXT_FIREBASE_SERVICE_ACCOUNT_JSON environment variable is not set.');
   }
 
   const serviceAccount = JSON.parse(serviceAccountJson);
