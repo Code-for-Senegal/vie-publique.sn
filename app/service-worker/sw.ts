@@ -201,6 +201,20 @@ if (import.meta.env.PROD) {
       ],
     })
   );
+
+  // Ignorer les scripts tiers (instant.page, analytics, etc.)
+  registerRoute(
+    ({url}) =>
+      url.host === 'instant.page' ||
+      url.host.includes('google-analytics') ||
+      url.host.includes('googletagmanager'),
+    new NetworkFirst({
+      networkTimeoutSeconds: 3,
+      plugins: [
+        new CacheableResponsePlugin({ statuses: [0, 200] }),
+      ],
+    })
+  );
 }
 
 // Gestion des mises à jour

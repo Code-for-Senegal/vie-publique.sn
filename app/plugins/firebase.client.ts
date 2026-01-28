@@ -44,9 +44,14 @@ export default defineNuxtPlugin(() => {
     if (!msg) return null;
 
     try {
-      const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js', {
-        scope: '/',
-      });
+      // Use existing PWA service worker if available (prod), otherwise register Firebase SW (dev)
+      let registration = await navigator.serviceWorker.getRegistration('/');
+
+      if (!registration) {
+        registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js', {
+          scope: '/',
+        });
+      }
 
       const token = await getToken(msg, {
         vapidKey: config.public.firebaseVapidKey,
