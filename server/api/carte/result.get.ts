@@ -34,11 +34,14 @@ export default defineCachedEventHandler(
         ? await cmsClient.request(
             readItems('carte', {
               fields,
-              filter: { election: { _eq: parseInt(electionId) } }
+              filter: { election: { _eq: parseInt(electionId) } },
+              limit: -1,
             })
           )
-        : await cmsClient.request(
-            readItems('carte', { fields })
+          : await cmsClient.request(
+            readItems('carte', { fields ,
+              limit: -1,
+            })
           );
 
       return response;
