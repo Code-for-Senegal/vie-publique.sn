@@ -21,10 +21,13 @@ export const getFirebaseAdmin = (): App => {
   }
 
   // Handle both string (needs parsing) and object (already parsed by Nuxt)
-  const serviceAccount =
-    typeof serviceAccountJson === 'string'
-      ? JSON.parse(serviceAccountJson)
-      : serviceAccountJson;
+  // Spread to create a mutable copy (Nuxt may return a frozen object)
+  let serviceAccount: Record<string, unknown>;
+  if (typeof serviceAccountJson === 'string') {
+    serviceAccount = JSON.parse(serviceAccountJson);
+  } else {
+    serviceAccount = { ...serviceAccountJson } as Record<string, unknown>;
+  }
 
   adminApp = initializeApp({ credential: cert(serviceAccount) });
 
