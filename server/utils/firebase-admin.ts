@@ -20,7 +20,12 @@ export const getFirebaseAdmin = (): App => {
     throw new Error('NUXT_FIREBASE_SERVICE_ACCOUNT_JSON environment variable is not set.');
   }
 
-  const serviceAccount = JSON.parse(serviceAccountJson);
+  // Handle both string (needs parsing) and object (already parsed by Nuxt)
+  const serviceAccount =
+    typeof serviceAccountJson === 'string'
+      ? JSON.parse(serviceAccountJson)
+      : serviceAccountJson;
+
   adminApp = initializeApp({ credential: cert(serviceAccount) });
 
   return adminApp;
