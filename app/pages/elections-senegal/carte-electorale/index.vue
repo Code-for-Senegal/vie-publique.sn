@@ -8,18 +8,37 @@ import { useElectoralDashboard } from '~/composables/elections/dashboard/useElec
 const route = useRoute();
 const router = useRouter();
 
-useHead({
-  title: 'Carte Électorale | Élections Sénégal',
-  meta: [
-    { name: 'description', content: 'Explorez la cartographie électorale du Sénégal : lieux de vote, répartition géographique et statistiques.' }
-  ]
-});
-
 // Sélecteurs d'élection
 const selectedType = ref<string>((route.query.type as string) || '');
 const selectedYear = ref<string>((route.query.year as string) || '');
-
 const { config } = useElectoralDashboard();
+
+// Calcul de l'élection sélectionnée
+const selectedElection = computed(() => {
+  if (!config.value?.elections || !selectedType.value || !selectedYear.value) return null;
+
+  return config.value.elections.find(e =>
+    e.type === selectedType.value && e.year === parseInt(selectedYear.value)
+  ) || null;
+});
+
+// SEO dynamique avec le nom de l'élection
+useSeoMeta({
+  title: () => selectedElection.value
+    ? `Carte Électorale - ${selectedElection.value.name} | Élections Sénégal`
+    : 'Carte Électorale | Élections Sénégal',
+  description: () => selectedElection.value
+    ? `Explorez la cartographie électorale pour ${selectedElection.value.name} : lieux de vote, bureaux et statistiques par département et diaspora.`
+    : 'Explorez la cartographie électorale du Sénégal : lieux de vote, répartition géographique et statistiques.',
+  ogTitle: () => selectedElection.value
+    ? `Carte Électorale - ${selectedElection.value.name}`
+    : 'Carte Électorale | Élections Sénégal',
+  ogDescription: () => selectedElection.value
+    ? `Visualisez les données électorales pour ${selectedElection.value.name} à travers le territoire national et la diaspora.`
+    : 'Visualisez les données électorales du Sénégal.',
+});
+
+
 
 const typeLabels: Record<string, string> = {
   'presidential': 'Présidentielles',
@@ -89,15 +108,6 @@ watch(selectedType, (newType, oldType) => {
       selectedYear.value = latestForType.year.toString();
     }
   }
-});
-
-// Calcul de l'élection sélectionnée
-const selectedElection = computed(() => {
-  if (!config.value?.elections || !selectedType.value || !selectedYear.value) return null;
-
-  return config.value.elections.find(e =>
-    e.type === selectedType.value && e.year === parseInt(selectedYear.value)
-  ) || null;
 });
 
 // Calcul de l'élection ID sélectionnée (converti en string)
@@ -230,11 +240,15 @@ watch(selectedElectionId, (newId, oldId) => {
 <template>
   <div class="flex flex-col items-center px-4 py-8 min-h-screen">
     <div class="w-full max-w-7xl mb-4">
-      <nav class="mb-6">
-        <NuxtLink to="/elections-senegal" class="inline-flex items-center text-sm font-bold text-gray-400 hover:text-primary-600 transition-colors">
-          <UIcon name="i-heroicons-arrow-left" class="mr-2 h-4 w-4" /> Retour Élections
-        </NuxtLink>
-      </nav>
+      <!-- Breadcrumb -->
+      <UBreadcrumb
+        class="mb-6"
+        :links="[
+          { label: 'Accueil', to: '/' },
+          { label: 'Élections', to: '/elections-senegal' },
+          { label: selectedElection?.name || 'Carte Électorale' },
+        ]"
+      />
 
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
         <div>

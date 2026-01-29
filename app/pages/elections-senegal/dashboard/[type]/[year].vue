@@ -164,11 +164,22 @@ const currentTabIndex = computed({
   },
 });
 
-// 4. SEO Dynamique
+// 4. SEO Dynamique avec le nom de l'élection
+useSeoMeta({
+  title: () => currentElection.value?.name
+    ? `${currentElection.value.name} - Dashboard | Vie-Publique SN`
+    : `Dashboard Élections ${selectedYear.value} | Vie-Publique SN`,
+  description: () => currentElection.value?.name
+    ? `Découvrez les candidats, coalitions, résultats et statistiques pour ${currentElection.value.name}.`
+    : 'Découvrez les listes, candidats et statistiques des élections au Sénégal.',
+  ogTitle: () => currentElection.value?.name || `Dashboard Élections ${selectedYear.value}`,
+  ogDescription: () => currentElection.value?.name
+    ? `Tableau de bord complet pour ${currentElection.value.name} : candidats, coalitions, carte électorale et résultats.`
+    : 'Découvrez les listes, candidats et statistiques des élections au Sénégal.',
+});
+
 useHead({
-  title: computed(() => `Dashboard ${selectedType.value === 'legislative' ? 'Législatives' : 'Élections'} ${selectedYear.value} | Vie-Publique SN`),
   meta: [
-    { name: "description", content: "Découvrez les listes, candidats et statistiques des élections au Sénégal." },
     { name: "viewport", content: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" }
   ]
 });
@@ -327,27 +338,27 @@ const handleMapReady = (map: unknown) => {
       </div>
 
       <div v-else>
-      <!-- Breadcrumb / Back Navigation -->
-      <nav
+      <!-- Breadcrumb -->
+      <UBreadcrumb
         v-if="!isViewingDetails"
-        class="mb-8 flex items-center justify-between"
-      >
-        <NuxtLink to="/elections-senegal" class="flex items-center text-sm font-bold text-gray-500 hover:text-primary-600 transition-colors">
-          <UIcon name="i-heroicons-arrow-left" class="mr-2" />
-          Accueil Élections
-        </NuxtLink>
-      </nav>
+        class="mb-8"
+        :links="[
+          { label: 'Accueil', to: '/' },
+          { label: 'Élections', to: '/elections-senegal' },
+          { label: currentElection?.name || `${selectedType} ${selectedYear}` },
+        ]"
+      />
 
       <!-- Breadcrumb Desktop Only when viewing details -->
-      <nav
+      <UBreadcrumb
         v-if="isViewingDetails"
-        class="mb-8 hidden md:flex items-center justify-between"
-      >
-        <NuxtLink to="/elections-senegal" class="flex items-center text-sm font-bold text-gray-500 hover:text-primary-600 transition-colors">
-          <UIcon name="i-heroicons-arrow-left" class="mr-2" />
-          Accueil Élections
-        </NuxtLink>
-      </nav>
+        class="mb-8 hidden md:block"
+        :links="[
+          { label: 'Accueil', to: '/' },
+          { label: 'Élections', to: '/elections-senegal' },
+          { label: currentElection?.name || `${selectedType} ${selectedYear}` },
+        ]"
+      />
 
       <!-- Section: Détails de l'élection -->
       <transition name="fade">

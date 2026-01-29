@@ -15,8 +15,11 @@ const emit = defineEmits<{
   "list-ready": [];
 }>();
 
-// ✅ Initialisation du composable SSR
-const { fetchDepartmentsStats } = useElectionData();
+// Convertir electionId en ref réactive pour le composable
+const electionIdRef = computed(() => props.electionId);
+
+// ✅ Initialisation du composable SSR avec l'ID d'élection
+const { fetchDepartmentsStats } = useElectionData({ electionId: electionIdRef });
 
 // État local
 const search = ref("");
@@ -91,11 +94,26 @@ const totalPages = computed(() =>
 
 // Navigation
 const router = useRouter();
+const route = useRoute();
 
 const handleRowClick = (row: DepartmentStats) => {
-  router.push(
-    `/elections/legislatives/carte-electorale/nationale/${row.department}`,
-  );
+  // Construire l'URL avec le contexte de l'élection
+  const query: Record<string, string> = {};
+  if (props.electionId) {
+    query.election = String(props.electionId);
+  }
+  // Conserver le type et l'année de l'URL courante si présents
+  if (route.query.type) {
+    query.type = route.query.type as string;
+  }
+  if (route.query.year) {
+    query.year = route.query.year as string;
+  }
+
+  router.push({
+    path: `/elections-senegal/carte-electorale/nationale/${row.department}`,
+    query,
+  });
 };
 
 // Gestion du tri

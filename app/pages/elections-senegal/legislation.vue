@@ -138,11 +138,12 @@ const sortOptions = [
   { label: 'Titre A-Z', value: 'title' },
 ];
 
-useHead({
-  title: 'Législation Électorale | Sénégal',
-  meta: [
-    { name: 'description', content: 'Consultez les textes de loi, décrets et documents officiels régissant les élections au Sénégal.' }
-  ]
+// SEO avec Open Graph
+useSeoMeta({
+  title: 'Législation Électorale | Élections Sénégal',
+  description: 'Consultez les textes de loi, décrets et documents officiels régissant les élections au Sénégal.',
+  ogTitle: 'Législation Électorale - Sénégal',
+  ogDescription: 'Accédez à tous les textes juridiques et documents officiels du processus électoral sénégalais.',
 });
 </script>
 
@@ -152,11 +153,14 @@ useHead({
     <div class="bg-white dark:bg-gray-900 border-b dark:border-gray-800 pt-8 pb-6 shadow-sm">
       <div class="container mx-auto px-4 max-w-6xl">
         <!-- Breadcrumb -->
-        <nav class="mb-6">
-          <NuxtLink to="/elections-senegal" class="inline-flex items-center text-sm font-bold text-gray-400 hover:text-primary-600 transition-colors">
-            <UIcon name="i-heroicons-arrow-left" class="mr-2 h-4 w-4" /> Retour Élections
-          </NuxtLink>
-        </nav>
+        <UBreadcrumb
+          class="mb-6"
+          :links="[
+            { label: 'Accueil', to: '/' },
+            { label: 'Élections', to: '/elections-senegal' },
+            { label: 'Législation' },
+          ]"
+        />
 
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div class="space-y-1">

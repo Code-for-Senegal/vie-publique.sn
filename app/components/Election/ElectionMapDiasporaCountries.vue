@@ -21,9 +21,26 @@ const props = withDefaults(defineProps<Props>(), {
   electionId: null,
 });
 
+// Convertir electionId en computed pour la réactivité
+const electionIdRef = computed(() => props.electionId);
+
+// Construire les paramètres de requête avec l'ID d'élection
+const queryParams = computed(() => {
+  const params: Record<string, string> = {};
+  if (electionIdRef.value) {
+    params.election = String(electionIdRef.value);
+  }
+  return params;
+});
+
 // ✅ Appel API via le serveur Nuxt (SSR-friendly et sécurisé)
 const { data: countriesStats } = await useFetch<{ countries: CountryStats[] }>(
-  "/api/elections/diaspora/countries"
+  "/api/elections/diaspora/countries",
+  {
+    key: computed(() => `diaspora-countries-${electionIdRef.value || 'all'}`),
+    query: queryParams,
+    watch: [electionIdRef],
+  }
 );
 
 const q = ref("");
@@ -74,12 +91,27 @@ const getNestedValue = (obj: any, path: string) => {
 };
 
 const router = useRouter();
+const route = useRoute();
 
 // Fonction de navigation
 const handleRowClick = (row: CountryStats) => {
-  router.push(
-    `/elections/legislatives/carte-electorale/diaspora/${row.country}`,
-  );
+  // Construire l'URL avec le contexte de l'élection
+  const query: Record<string, string> = {};
+  if (props.electionId) {
+    query.election = String(props.electionId);
+  }
+  // Conserver le type et l'année de l'URL courante si présents
+  if (route.query.type) {
+    query.type = route.query.type as string;
+  }
+  if (route.query.year) {
+    query.year = route.query.year as string;
+  }
+
+  router.push({
+    path: `/elections-senegal/carte-electorale/diaspora/${row.country}`,
+    query,
+  });
 };
 </script>
 

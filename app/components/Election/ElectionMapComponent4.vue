@@ -108,9 +108,18 @@
                   }}</span>
                 </div>
               </div>
+              <!--
               <NuxtLink
                 v-if="region.departement && !isLocalElection"
                 :to="`/elections/legislatives/carte-electorale/nationale/${region.departement.toUpperCase()}`"
+                class="text-black-800 mt-0 inline-block rounded-md bg-green-100 p-2 font-bold"
+              >
+                Voir plus
+              </NuxtLink>
+              -->
+              <NuxtLink
+                v-if="region.departement && !isLocalElection"
+                :to="getDepartmentDetailUrl(region.departement.toUpperCase())"
                 class="text-black-800 mt-0 inline-block rounded-md bg-green-100 p-2 font-bold"
               >
                 Voir plus
@@ -126,6 +135,8 @@
 <script setup lang="ts">
 import type { TransformedRegion } from "~~/types/election-map";
 import { useElectionMapData } from "~/composables/useElectionMapJson";
+
+const route = useRoute();
 
 interface Props {
   initialCenter?: [number, number];
@@ -309,6 +320,27 @@ const calculateBounds = (regions: TransformedRegion[]) => {
 
 const formatNumber = (value?: number) => {
   return value ? value.toLocaleString("fr-FR") : "N/A";
+};
+
+// Construire l'URL de détail du département avec le contexte de l'élection
+const getDepartmentDetailUrl = (departement: string) => {
+  const query: Record<string, string> = {};
+
+  // Récupérer le contexte de l'élection depuis les query params de la page parente
+  if (props.electionId) {
+    query.election = String(props.electionId);
+  }
+  if (route.query.type) {
+    query.type = route.query.type as string;
+  }
+  if (route.query.year) {
+    query.year = route.query.year as string;
+  }
+
+  return {
+    path: `/elections-senegal/carte-electorale/nationale/${encodeURIComponent(departement)}`,
+    query,
+  };
 };
 </script>
 

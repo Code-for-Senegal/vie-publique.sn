@@ -67,11 +67,12 @@ const topLegislativeCoalitions = computed(() => {
 });
 
 
-useHead({
+// SEO avec Open Graph
+useSeoMeta({
   title: 'Élections au Sénégal | Plateforme d\'Information Électorale',
-  meta: [
-    { name: 'description', content: 'Accédez à toutes les informations sur les élections au Sénégal : guide électoral, législation, cartographie et résultats.' }
-  ]
+  description: 'Accédez à toutes les informations sur les élections au Sénégal : guide électoral, législation, cartographie et résultats.',
+  ogTitle: 'Élections au Sénégal',
+  ogDescription: 'Plateforme d\'information électorale du Sénégal : résultats, candidats, carte électorale et guide de l\'électeur.',
 });
 
 const quickLinks = computed(() => [
@@ -112,12 +113,6 @@ const quickLinks = computed(() => [
     }
 };
 
-useHead({
-  title: 'Élections au Sénégal | Plateforme d\'Information Électorale',
-  meta: [
-    { name: 'description', content: 'Accédez à toutes les informations sur les élections au Sénégal : guide électoral, législation, cartographie et résultats.' }
-  ]
-});
 </script>
 
 <template>
