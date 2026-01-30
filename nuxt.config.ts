@@ -527,8 +527,8 @@ export default defineNuxtConfig({
     registerType: 'autoUpdate',
     injectRegister: 'auto',
     manifest: {
-      name: 'Vie Publique SN',
-      short_name: 'ViePubliqueSN',
+      name: 'Vie Publique Sénégal',
+      short_name: 'Vie Publique',
       start_url: '/?utm_medium=PWA&utm_source=launcher',
       id: '/?utm_medium=PWA&utm_source=launcher',
       display: 'standalone',
