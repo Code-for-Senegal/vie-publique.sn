@@ -51,13 +51,8 @@ precacheAndRoute(entries);
 // Nettoyer les anciens caches
 cleanupOutdatedCaches();
 
-// Définir les routes à mettre en cache
-let allowlist: undefined | RegExp[];
-if (import.meta.env.DEV) {
-  allowlist = [/.*/];
-} else {
-  allowlist = [/.*/];
-}
+// Définir les routes à mettre en cache (toutes les routes)
+const allowlist: RegExp[] = [/.*/];
 
 // Configuration pour le offline
 if (import.meta.env.PROD) {

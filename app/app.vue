@@ -5,7 +5,7 @@ import { Toaster, toast } from 'vue-sonner';
 const config = useRuntimeConfig();
 
 // Push Notifications
-const { initState, autoSubscribe, setupForegroundHandler } = useNotifications();
+const { initState, setupForegroundHandler } = useNotifications();
 const isProduction = config.public.siteUrl === 'https://vie-publique.sn';
 
 // Bloquer l'indexation en environnement de test
@@ -103,9 +103,6 @@ onMounted(() => {
   // Initialize push notifications (both dev and production)
   initState();
   setupForegroundHandler();
-
-  // Auto-subscribe after 5 seconds (only if user hasn't been asked before)
-  autoSubscribe(5000);
 });
 </script>
 
@@ -126,6 +123,11 @@ onMounted(() => {
     <!-- <ClientOnly>
       <AppInstallPrompt />
     </ClientOnly> -->
+
+    <!-- Notification Consent Modal -->
+    <ClientOnly>
+      <NotificationConsentModal :delay="5000" />
+    </ClientOnly>
 
     <Toaster position="bottom-center" />
   </div>
