@@ -201,6 +201,20 @@ if (import.meta.env.PROD) {
       ],
     })
   );
+
+  // Ignorer les scripts tiers (instant.page, analytics, etc.)
+  registerRoute(
+    ({url}) =>
+      url.host === 'instant.page' ||
+      url.host.includes('google-analytics') ||
+      url.host.includes('googletagmanager'),
+    new NetworkFirst({
+      networkTimeoutSeconds: 3,
+      plugins: [
+        new CacheableResponsePlugin({ statuses: [0, 200] }),
+      ],
+    })
+  );
 }
 
 // Gestion des mises à jour
@@ -238,55 +252,64 @@ self.addEventListener('message', (event) => {
 
 /*
   Gestion des événements push
+  Supporte deux formats:
+  1. Firebase FCM: { notification: { title, body }, data: { url } }
+  2. Custom: { title, body, openUrl }
 */
 self.addEventListener('push', event => {
-  console.log('Push message received:', event);
-  if (event.data) {
-    try {
-      const data = JSON.parse(event.data.text());
-      
-      // Valider que les champs obligatoires sont présents
-      if (!data.title) {
-        throw new Error('Le titre de la notification est manquant');
-      }
-      
-      // Afficher la notification
-      event.waitUntil(
-        self.registration.showNotification(
-          data.title,
-          {
-            body: data.body || 'Nouvelle notification',
-            icon: '/pwa-192x192.png',
-            badge: '/pwa-192x192.png',
-            image: data.imageUrl,
-            vibrate: [100, 50, 100, 50, 100],
-            sound: data.sound,
-            requireInteraction: data.requireInteraction || false,
-            actions: [
-              ...(data.actions || []),
-              { action: 'close', title: 'Fermer' }
-            ],
-            data: {
-              openUrl: data.openUrl || '/',
-              timestamp: new Date().getTime()
-            }
-          }
-        )
-      );
-    } catch (error) {
-      console.error('Erreur lors du traitement du message push:', error);
-      // Afficher une notification générique en cas d'erreur
-      event.waitUntil(
-        self.registration.showNotification(
-          'Nouvelle notification',
-          {
-            body: 'Impossible de traiter les détails de la notification',
-            icon: '/pwa-192x192.png',
-            badge: '/pwa-192x192.png'
-          }
-        )
-      );
+  if (!event.data) return;
+
+  try {
+    const payload = JSON.parse(event.data.text());
+
+    // Extraire titre et body (supporte Firebase et custom format)
+    let title = 'Vie Publique Sénégal';
+    let body = '';
+    let imageUrl: string | undefined;
+    let openUrl = '/';
+
+    // Format Firebase FCM
+    if (payload.notification) {
+      title = payload.notification.title || title;
+      body = payload.notification.body || body;
+      imageUrl = payload.notification.image || payload.notification.imageUrl;
     }
+
+    // Format custom ou data Firebase
+    if (payload.title) title = payload.title;
+    if (payload.body) body = payload.body;
+    if (payload.imageUrl) imageUrl = payload.imageUrl;
+    if (payload.openUrl) openUrl = payload.openUrl;
+
+    // Firebase data object
+    if (payload.data) {
+      if (payload.data.url) openUrl = payload.data.url;
+      if (payload.data.openUrl) openUrl = payload.data.openUrl;
+    }
+
+    event.waitUntil(
+      self.registration.showNotification(title, {
+        body: body || 'Nouvelle notification',
+        icon: '/pwa-192x192.png',
+        badge: '/pwa-192x192.png',
+        image: imageUrl,
+        vibrate: [100, 50, 100, 50, 100],
+        tag: 'vpsn-' + Date.now(),
+        data: {
+          openUrl,
+          timestamp: Date.now(),
+        },
+      })
+    );
+  } catch (error) {
+    console.error('Erreur push:', error);
+    event.waitUntil(
+      self.registration.showNotification('Vie Publique Sénégal', {
+        body: 'Nouvelle notification',
+        icon: '/pwa-192x192.png',
+        badge: '/pwa-192x192.png',
+      })
+    );
   }
 });
 
@@ -294,36 +317,25 @@ self.addEventListener('push', event => {
   Gestion des événements de notification
 */
 self.addEventListener('notificationclick', event => {
-  const notification = event.notification;
-  const action = event.action;
+  event.notification.close();
 
-  console.log('Notification cliquée', action);
-  
-  if (action === 'close') {
-    notification.close();
-    return;
-  }
+  if (event.action === 'close') return;
 
-  // Ouvrir l'URL associée
-  const targetUrl = notification.data?.openUrl || '/';
+  const targetUrl = event.notification.data?.openUrl || '/';
 
   event.waitUntil(
     self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(clients => {
-      // Chercher une fenêtre visible
-      const visibleClient = clients.find(client =>
-        (client as WindowClient).visibilityState === 'visible'
-      ) as WindowClient | undefined;
-
-      if (visibleClient) {
-        visibleClient.navigate(targetUrl);
-        return visibleClient.focus();
+      // Chercher un onglet existant du site
+      for (const client of clients) {
+        if (client.url.includes(self.location.origin) && 'focus' in client) {
+          (client as WindowClient).navigate(targetUrl);
+          return (client as WindowClient).focus();
+        }
       }
       // Sinon ouvrir une nouvelle fenêtre
       return self.clients.openWindow(targetUrl);
     })
   );
-
-  notification.close();
 });
 
 self.addEventListener('notificationclose', event => {

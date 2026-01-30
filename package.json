@@ -39,6 +39,8 @@
     "@vueuse/nuxt": "^13.1.0",
     "caniuse-lite": "^1.0.30001750",
     "d3": "^7.9.0",
+    "firebase": "^12.8.0",
+    "firebase-admin": "^13.6.0",
     "marked": "^15.0.8",
     "nodemailer": "^7.0.9",
     "nuxt": "^4.1.3",

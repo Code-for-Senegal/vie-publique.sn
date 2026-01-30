@@ -3,6 +3,9 @@ import { Toaster, toast } from 'vue-sonner';
 
 // Configuration SEO selon l'environnement
 const config = useRuntimeConfig();
+
+// Push Notifications
+const { initState, autoSubscribe, setupForegroundHandler } = useNotifications();
 const isProduction = config.public.siteUrl === 'https://vie-publique.sn';
 
 // Bloquer l'indexation en environnement de test
@@ -63,16 +66,13 @@ const links = [
 ];
 
 onMounted(() => {
-  // Service Worker uniquement en production
-  if (
-    import.meta.client &&
-    config.public.nodeEnv === 'production' &&
-    'serviceWorker' in navigator
-  ) {
+  if (!import.meta.client || !('serviceWorker' in navigator)) return;
+
+  // Service Worker update handling (production only)
+  if (config.public.nodeEnv === 'production') {
     navigator.serviceWorker.addEventListener('controllerchange', () => {});
 
     navigator.serviceWorker.ready.then((registration) => {
-      // Vérifier si une mise à jour est disponible immédiatement
       if (registration.waiting) {
         toast('Nouvelle version trouvée. Actualiser pour mettre à jour.', {
           action: {
@@ -99,6 +99,13 @@ onMounted(() => {
       });
     });
   }
+
+  // Initialize push notifications (both dev and production)
+  initState();
+  setupForegroundHandler();
+
+  // Auto-subscribe after 5 seconds (only if user hasn't been asked before)
+  autoSubscribe(5000);
 });
 </script>
 
