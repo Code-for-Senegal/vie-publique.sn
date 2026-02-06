@@ -279,8 +279,7 @@ const showPdfViewer = ref(false);
               size="sm"
             />
             <UButton
-              :to="fileUrl"
-              download
+              @click="downloadCmsFile(`${document!.file!.id}/${document!.slug}.pdf`, `${document!.slug}.pdf`)"
               icon="i-heroicons-arrow-down-tray"
               label="Télécharger"
               color="gray"
@@ -378,8 +377,7 @@ const showPdfViewer = ref(false);
                 block
               />
               <UButton
-                :to="fileUrl"
-                download
+                @click="downloadCmsFile(`${document!.file!.id}/${document!.slug}.pdf`, `${document!.slug}.pdf`)"
                 icon="i-heroicons-arrow-down-tray"
                 label="Télécharger"
                 color="gray"
