@@ -475,7 +475,6 @@ export default defineNuxtConfig({
       '/journal-officiel-senegal/v3',
       '/budget-senegal/old',
       '/financial-scandals',
-      '/individuals-cited',
       '/publications/enquetes',
       '/publications/institutions',
       '/barometre-politique',
