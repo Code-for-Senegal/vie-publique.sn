@@ -106,3 +106,13 @@ locust/
 
 # Fichiers Locust (tests de charge)
 test/
+
+# ===========================================
+# FICHIERS STATIQUES VOLUMINEUX
+# Ces fichiers devraient être servis par un CDN
+# ou un stockage externe (S3, CMS, etc.)
+# ===========================================
+# Décommenter si vous servez ces fichiers depuis le CMS/CDN :
+# public/pdf/
+# public/nominations/
+# public/tmp/
