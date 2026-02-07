@@ -5,7 +5,7 @@ import { Toaster, toast } from 'vue-sonner';
 const config = useRuntimeConfig();
 
 // Push Notifications
-const { initState, setupForegroundHandler } = useNotifications();
+const { initState, setupForegroundHandler, validateAndRefreshToken } = useNotifications();
 const isProduction = config.public.siteUrl === 'https://vie-publique.sn';
 
 // Bloquer l'indexation en environnement de test
@@ -100,9 +100,18 @@ onMounted(() => {
     });
   }
 
-  // Initialize push notifications (both dev and production)
+  // Initialize push notification state (synchronous, no SW needed)
   initState();
+
+  // Setup foreground handler (waits for SW internally via async initMessaging)
   setupForegroundHandler();
+
+  // Listen for push subscription changes from service worker (P15)
+  navigator.serviceWorker.addEventListener('message', (event) => {
+    if (event.data?.type === 'PUSH_SUBSCRIPTION_CHANGED') {
+      validateAndRefreshToken();
+    }
+  });
 });
 </script>
 

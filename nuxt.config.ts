@@ -552,6 +552,7 @@ export default defineNuxtConfig({
       orientation: 'portrait',
       background_color: '#fff',
       theme_color: '#ffffff',
+      gcm_sender_id: '103953800507',
       icons: [
         {
           src: 'pwa-192x192.png',

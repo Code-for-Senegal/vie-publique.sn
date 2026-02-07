@@ -218,28 +218,20 @@ self.addEventListener('activate', (event) => {
     caches.keys().then(cacheNames => Promise.all(
       cacheNames.map(cacheName => {
         if (!WORKBOX_CACHES.includes(cacheName)) {
-          console.log('Suppression du cache obsolète:', cacheName);
           return caches.delete(cacheName);
         }
       })
-    )).then(() => {
-      console.log('Service Worker activé et caches nettoyés');
-      return self.clients.claim();
-    })
+    )).then(() => self.clients.claim())
   );
 });
 
 // Communication avec le client
 self.addEventListener('message', (event) => {
   if (event.data === 'skipWaiting') {
-    console.log('skipWaiting reçu, activation du nouveau Service Worker...');
     self.skipWaiting();
     self.clients.claim().then(() => {
       self.clients.matchAll().then(clients => {
-        // Utiliser Array.from pour résoudre le problème TypeScript avec find()
-        const clientsArray = Array.from(clients);
-        console.log(`Notification de ${clientsArray.length} clients pour rechargement`);
-        clientsArray.forEach(client => client.postMessage('reload'));
+        Array.from(clients).forEach(client => client.postMessage('reload'));
       });
     });
   }
@@ -286,23 +278,24 @@ self.addEventListener('push', event => {
       self.registration.showNotification(title, {
         body: body || 'Nouvelle notification',
         icon: '/pwa-192x192.png',
-        badge: '/pwa-192x192.png',
+        badge: '/badge-72x72.png',
         image: imageUrl,
-        vibrate: [100, 50, 100, 50, 100],
-        tag: 'vpsn-' + Date.now(),
+        vibrate: [100, 50, 100],
+        tag: 'vpsn-notification',
+        renotify: true,
         data: {
           openUrl,
           timestamp: Date.now(),
         },
       })
     );
-  } catch (error) {
-    console.error('Erreur push:', error);
+  } catch {
     event.waitUntil(
       self.registration.showNotification('Vie Publique Sénégal', {
         body: 'Nouvelle notification',
         icon: '/pwa-192x192.png',
-        badge: '/pwa-192x192.png',
+        badge: '/badge-72x72.png',
+        tag: 'vpsn-notification',
       })
     );
   }
@@ -316,7 +309,7 @@ self.addEventListener('notificationclick', event => {
 
   if (event.action === 'close') return;
 
-  const targetUrl = event.notification.data?.openUrl || '/';
+  const targetUrl = event.notification.data?.openUrl || event.notification.data?.url || '/';
 
   event.waitUntil(
     self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(clients => {
@@ -333,10 +326,22 @@ self.addEventListener('notificationclick', event => {
   );
 });
 
-self.addEventListener('notificationclose', event => {
-  console.log('Notification fermée sans interaction:', event);
-  // Vous pouvez ajouter une logique d'analyse ici si nécessaire
+self.addEventListener('notificationclose', _event => {
+  // Analytics hook possible ici
 });
 
-// self.skipWaiting(); // pour permettre la gestion manuelle des mises à jour
-// clientsClaim(); // déjà géré dans l'événement 'activate'
+/*
+  Gestion du changement de subscription push (P15)
+  Se déclenche quand le navigateur rafraîchit la push subscription.
+  Notifie les clients pour qu'ils puissent re-synchroniser le token.
+*/
+self.addEventListener('pushsubscriptionchange', (event: Event) => {
+  const pushEvent = event as ExtendableEvent;
+  pushEvent.waitUntil(
+    self.clients.matchAll({ type: 'window' }).then(clients => {
+      Array.from(clients).forEach(client => {
+        client.postMessage({ type: 'PUSH_SUBSCRIPTION_CHANGED' });
+      });
+    })
+  );
+});

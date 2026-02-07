@@ -4,6 +4,12 @@ import { toast } from 'vue-sonner';
 const STORAGE_KEY = 'vp_notifications_consent';
 const STORAGE_KEY_ASKED = 'vp_notifications_asked';
 const STORAGE_KEY_TOKEN = 'vp_notifications_token';
+const PENDING_SUBSCRIBE_KEY = 'vp_notifications_pending_subscribe';
+
+const isDev = import.meta.dev;
+const log = (...args: unknown[]) => {
+  if (isDev) console.log('[Notifications]', ...args);
+};
 
 export const useNotifications = () => {
   const { $firebase } = useNuxtApp();
@@ -16,61 +22,104 @@ export const useNotifications = () => {
     error: null,
   }));
 
+  // Reactive refs backed by localStorage (P6 fix)
+  const _hasBeenAsked = ref(false);
+  const _hasConsent = ref(false);
+
+  const syncFromStorage = () => {
+    if (typeof window === 'undefined') return;
+    _hasBeenAsked.value = localStorage.getItem(STORAGE_KEY_ASKED) === 'true';
+    _hasConsent.value = localStorage.getItem(STORAGE_KEY) === 'granted';
+  };
+
+  const setAsked = (value: boolean) => {
+    if (typeof window === 'undefined') return;
+    localStorage.setItem(STORAGE_KEY_ASKED, value ? 'true' : 'false');
+    _hasBeenAsked.value = value;
+  };
+
+  const setConsent = (value: 'granted' | 'denied') => {
+    if (typeof window === 'undefined') return;
+    localStorage.setItem(STORAGE_KEY, value);
+    _hasConsent.value = value === 'granted';
+  };
+
+  const removeConsent = () => {
+    if (typeof window === 'undefined') return;
+    localStorage.removeItem(STORAGE_KEY);
+    _hasConsent.value = false;
+  };
+
+  const setToken = (token: string) => {
+    if (typeof window === 'undefined') return;
+    localStorage.setItem(STORAGE_KEY_TOKEN, token);
+    state.value.token = token;
+  };
+
+  const removeToken = () => {
+    if (typeof window === 'undefined') return;
+    localStorage.removeItem(STORAGE_KEY_TOKEN);
+    state.value.token = null;
+  };
+
   const isSupported = computed(() => {
     if (typeof window === 'undefined') return false;
     return 'Notification' in window && 'serviceWorker' in navigator;
   });
 
-  /**
-   * Check if running as installed PWA (standalone mode)
-   */
   const isStandalonePWA = computed(() => {
     if (typeof window === 'undefined') return false;
-    // iOS Safari standalone
     const iosStandalone = (window.navigator as Navigator & { standalone?: boolean }).standalone === true;
-    // Standard display-mode media query (works on Android & iOS 16.4+)
     const displayModeStandalone = window.matchMedia('(display-mode: standalone)').matches;
-    // Fallback for fullscreen PWA
     const displayModeFullscreen = window.matchMedia('(display-mode: fullscreen)').matches;
-
     return iosStandalone || displayModeStandalone || displayModeFullscreen;
   });
 
-  /**
-   * Check if iOS device
-   */
   const isIOS = computed(() => {
     if (typeof window === 'undefined') return false;
     return /iPad|iPhone|iPod/.test(navigator.userAgent);
   });
 
-  /**
-   * Check if iOS Safari browser (NOT installed PWA)
-   * No Web Push support in Safari browser, only in standalone PWA (iOS 16.4+)
-   */
   const isIOSSafari = computed(() => {
     if (typeof window === 'undefined') return false;
-    // iOS but NOT running as standalone PWA
     return isIOS.value && !isStandalonePWA.value;
   });
 
-  const hasBeenAsked = computed(() => {
-    if (typeof window === 'undefined') return false;
-    return localStorage.getItem(STORAGE_KEY_ASKED) === 'true';
-  });
+  const hasBeenAsked = computed(() => _hasBeenAsked.value);
+  const hasConsent = computed(() => _hasConsent.value);
 
-  const hasConsent = computed(() => {
-    if (typeof window === 'undefined') return false;
-    return localStorage.getItem(STORAGE_KEY) === 'granted';
-  });
+  /**
+   * Retry a pending subscribe that failed due to network error (P9 fix)
+   */
+  const retryPendingSubscribe = async (): Promise<void> => {
+    const pending = localStorage.getItem(PENDING_SUBSCRIBE_KEY);
+    if (!pending) return;
+
+    try {
+      const { token, topic } = JSON.parse(pending);
+      const response = await $fetch('/api/notifications/subscribe', {
+        method: 'POST',
+        body: { token, topic },
+      });
+
+      if (response.success) {
+        localStorage.removeItem(PENDING_SUBSCRIBE_KEY);
+        state.value.isSubscribed = true;
+        setConsent('granted');
+        setToken(token);
+        log('Pending subscribe retry succeeded');
+      }
+    } catch {
+      log('Pending subscribe retry failed, will try again next init');
+    }
+  };
 
   /**
    * Validate and refresh token if needed
-   * Called on init to ensure token is still valid
    */
   const validateAndRefreshToken = async (): Promise<void> => {
     if (!state.value.isSubscribed) return;
-    if (!hasConsent.value) return;
+    if (!_hasConsent.value) return;
     if (Notification.permission !== 'granted') return;
 
     try {
@@ -79,11 +128,9 @@ export const useNotifications = () => {
 
       const savedToken = localStorage.getItem(STORAGE_KEY_TOKEN);
 
-      // Token changed - re-subscribe with new token
       if (currentToken !== savedToken) {
-        console.log('[Notifications] Token changed, re-subscribing...');
+        log('Token changed, re-subscribing...');
 
-        // Unsubscribe old token if exists
         if (savedToken) {
           try {
             await $fetch('/api/notifications/unsubscribe', {
@@ -91,89 +138,77 @@ export const useNotifications = () => {
               body: { token: savedToken, topic: 'news' },
             });
           } catch {
-            // Ignore error - old token might already be invalid
+            // Old token might already be invalid
           }
         }
 
-        // Subscribe with new token
         const response = await $fetch('/api/notifications/subscribe', {
           method: 'POST',
           body: { token: currentToken, topic: 'news' },
         });
 
         if (response.success) {
-          state.value.token = currentToken;
-          localStorage.setItem(STORAGE_KEY_TOKEN, currentToken);
-          console.log('[Notifications] Re-subscribed with new token');
+          setToken(currentToken);
+          log('Re-subscribed with new token');
         }
       } else {
         state.value.token = currentToken;
       }
     } catch (error) {
-      console.error('[Notifications] Token validation failed:', error);
+      if (isDev) console.error('[Notifications] Token validation failed:', error);
     }
   };
 
   const initState = () => {
     if (typeof window === 'undefined' || !isSupported.value) return;
 
+    // Sync reactive refs from localStorage
+    syncFromStorage();
+
     const browserPermission = Notification.permission as NotificationPermissionStatus;
     state.value.permission = browserPermission;
 
-    // Sync localStorage with actual browser permission
     syncPermissionState(browserPermission);
 
-    state.value.isSubscribed = hasConsent.value && browserPermission === 'granted';
+    state.value.isSubscribed = _hasConsent.value && browserPermission === 'granted';
 
-    // Restore token from localStorage
     const savedToken = localStorage.getItem(STORAGE_KEY_TOKEN);
     if (savedToken && state.value.isSubscribed) {
       state.value.token = savedToken;
     }
 
-    // Validate and refresh token in background (don't block init)
+    // Validate and refresh token in background
     if (state.value.isSubscribed) {
       validateAndRefreshToken();
     }
 
-    // Case: User granted permission but lost token/consent (localStorage cleared)
-    // Re-subscribe silently since they already gave permission
-    if (browserPermission === 'granted' && !hasConsent.value) {
+    // Retry any pending subscribe from a previous offline attempt
+    retryPendingSubscribe();
+
+    // Recovery: user granted permission but lost localStorage
+    if (browserPermission === 'granted' && !_hasConsent.value) {
       recoverSubscription();
     }
   };
 
-  /**
-   * Sync localStorage state with actual browser permission
-   * Handles case where user manually revoked permission in browser settings
-   */
   const syncPermissionState = (browserPermission: NotificationPermissionStatus): void => {
     const storedConsent = localStorage.getItem(STORAGE_KEY);
 
-    // User manually denied in browser but localStorage says granted
     if (browserPermission === 'denied' && storedConsent === 'granted') {
-      console.log('[Notifications] Permission revoked in browser, cleaning up...');
-      localStorage.setItem(STORAGE_KEY, 'denied');
-      localStorage.setItem(STORAGE_KEY_ASKED, 'true');
-      // Don't remove token - might need it for cleanup on server
+      log('Permission revoked in browser, cleaning up...');
+      setConsent('denied');
+      setAsked(true);
     }
   };
 
-  /**
-   * Recover subscription when user has granted permission but lost localStorage
-   * This happens when user clears browser data but permission persists
-   */
   const recoverSubscription = async (): Promise<void> => {
     if (isIOSSafari.value) return;
 
-    console.log('[Notifications] Recovering subscription (permission granted but no local data)...');
+    log('Recovering subscription (permission granted but no local data)...');
 
     try {
       const token = await $firebase.getFcmToken();
-      if (!token) {
-        console.error('[Notifications] Could not get token for recovery');
-        return;
-      }
+      if (!token) return;
 
       const response = await $fetch('/api/notifications/subscribe', {
         method: 'POST',
@@ -181,15 +216,14 @@ export const useNotifications = () => {
       });
 
       if (response.success) {
-        state.value.token = token;
         state.value.isSubscribed = true;
-        localStorage.setItem(STORAGE_KEY, 'granted');
-        localStorage.setItem(STORAGE_KEY_ASKED, 'true');
-        localStorage.setItem(STORAGE_KEY_TOKEN, token);
-        console.log('[Notifications] Subscription recovered successfully');
+        setConsent('granted');
+        setAsked(true);
+        setToken(token);
+        log('Subscription recovered successfully');
       }
     } catch (error) {
-      console.error('[Notifications] Recovery failed:', error);
+      if (isDev) console.error('[Notifications] Recovery failed:', error);
     }
   };
 
@@ -206,13 +240,13 @@ export const useNotifications = () => {
       const permission = await Notification.requestPermission();
       state.value.permission = permission as NotificationPermissionStatus;
 
-      localStorage.setItem(STORAGE_KEY_ASKED, 'true');
+      setAsked(true);
 
       if (permission === 'granted') {
-        localStorage.setItem(STORAGE_KEY, 'granted');
+        setConsent('granted');
         return true;
       } else if (permission === 'denied') {
-        localStorage.setItem(STORAGE_KEY, 'denied');
+        setConsent('denied');
         state.value.error = 'Notifications refusées. Vous pouvez les réactiver dans les paramètres du navigateur.';
         return false;
       }
@@ -242,21 +276,39 @@ export const useNotifications = () => {
 
       state.value.token = token;
 
-      const response = await $fetch('/api/notifications/subscribe', {
-        method: 'POST',
-        body: { token, topic: 'news' },
-      });
-
-      if (response.success) {
-        state.value.isSubscribed = true;
-        localStorage.setItem(STORAGE_KEY, 'granted');
-        localStorage.setItem(STORAGE_KEY_TOKEN, token);
-        toast.success('Notifications activées', {
-          description: 'Vous recevrez les actualités de Vie Publique Sénégal',
+      try {
+        const response = await $fetch('/api/notifications/subscribe', {
+          method: 'POST',
+          body: { token, topic: 'news' },
         });
-        return true;
-      } else {
-        throw new Error(response.error || 'Erreur lors de l\'abonnement');
+
+        if (response.success) {
+          state.value.isSubscribed = true;
+          setConsent('granted');
+          setToken(token);
+          // Clear any pending subscribe
+          localStorage.removeItem(PENDING_SUBSCRIBE_KEY);
+          toast.success('Notifications activées', {
+            description: 'Vous recevrez les actualités de Vie Publique Sénégal',
+          });
+          return true;
+        } else {
+          throw new Error(response.error || 'Erreur lors de l\'abonnement');
+        }
+      } catch (fetchError) {
+        // Network error: save for retry on next init (P9 fix)
+        if (fetchError instanceof TypeError || (fetchError instanceof Error && fetchError.message.includes('fetch'))) {
+          localStorage.setItem(PENDING_SUBSCRIBE_KEY, JSON.stringify({ token, topic: 'news' }));
+          // Permission was granted, mark as subscribed optimistically
+          state.value.isSubscribed = true;
+          setConsent('granted');
+          setToken(token);
+          toast.success('Notifications activées', {
+            description: 'La synchronisation se terminera à la prochaine connexion.',
+          });
+          return true;
+        }
+        throw fetchError;
       }
     } catch (error) {
       state.value.error = error instanceof Error ? error.message : 'Erreur lors de l\'abonnement';
@@ -268,13 +320,12 @@ export const useNotifications = () => {
   };
 
   const unsubscribe = async (): Promise<boolean> => {
-    // Try to get token from state or localStorage
     const token = state.value.token || localStorage.getItem(STORAGE_KEY_TOKEN);
 
     if (!token) {
       state.value.isSubscribed = false;
-      localStorage.removeItem(STORAGE_KEY);
-      localStorage.removeItem(STORAGE_KEY_TOKEN);
+      removeConsent();
+      removeToken();
       return true;
     }
 
@@ -289,9 +340,9 @@ export const useNotifications = () => {
 
       if (response.success) {
         state.value.isSubscribed = false;
-        state.value.token = null;
-        localStorage.removeItem(STORAGE_KEY);
-        localStorage.removeItem(STORAGE_KEY_TOKEN);
+        removeConsent();
+        removeToken();
+        localStorage.removeItem(PENDING_SUBSCRIBE_KEY);
         toast.success('Notifications désactivées');
         return true;
       } else {
@@ -305,35 +356,28 @@ export const useNotifications = () => {
     }
   };
 
-  /**
-   * Mark that user has been asked about notifications (declined the consent modal)
-   */
   const markAsAsked = (): void => {
     if (typeof window === 'undefined') return;
-    localStorage.setItem(STORAGE_KEY_ASKED, 'true');
-    localStorage.setItem(STORAGE_KEY, 'denied');
+    setAsked(true);
+    setConsent('denied');
   };
 
-  /**
-   * Check if consent modal should be shown
-   */
   const shouldShowConsentModal = computed(() => {
     if (typeof window === 'undefined') return false;
     if (!isSupported.value) return false;
-    if (isIOSSafari.value) return false; // No Web Push on iOS Safari
-    if (hasBeenAsked.value) return false;
+    if (isIOSSafari.value) return false;
+    if (_hasBeenAsked.value) return false;
     if (Notification.permission !== 'default') return false;
     return true;
   });
 
-  const setupForegroundHandler = () => {
+  const setupForegroundHandler = async () => {
     if (typeof window === 'undefined') return;
 
-    $firebase.onForegroundMessage?.((payload: unknown) => {
-      // Type guard for FCM payload
+    await $firebase.onForegroundMessage?.((payload: unknown) => {
       const isValidPayload = (p: unknown): p is {
         notification?: { title?: string; body?: string };
-        data?: { url?: string };
+        data?: { url?: string; openUrl?: string };
       } => {
         return typeof p === 'object' && p !== null;
       };
@@ -342,7 +386,7 @@ export const useNotifications = () => {
 
       const title = payload.notification?.title || 'Nouvelle notification';
       const body = payload.notification?.body;
-      const url = payload.data?.url;
+      const url = payload.data?.openUrl || payload.data?.url;
 
       toast.info(title, {
         description: body,
