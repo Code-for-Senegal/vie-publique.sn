@@ -3,6 +3,7 @@ import { getMessaging, getToken, onMessage, type Messaging } from 'firebase/mess
 
 let firebaseApp: FirebaseApp | null = null;
 let messaging: Messaging | null = null;
+let messagingPromise: Promise<Messaging | null> | null = null;
 
 export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig();
@@ -19,7 +20,12 @@ export default defineNuxtPlugin(() => {
     });
   }
 
-  const initMessaging = (): Messaging | null => {
+  /**
+   * Initialize Firebase Messaging AFTER the service worker is ready.
+   * Firebase internally looks for a SW when getMessaging() is called.
+   * Without waiting, it tries to fetch /firebase-messaging-sw.js which doesn't exist.
+   */
+  const initMessaging = async (): Promise<Messaging | null> => {
     if (
       typeof window === 'undefined' ||
       !('serviceWorker' in navigator) ||
@@ -28,30 +34,31 @@ export default defineNuxtPlugin(() => {
       return null;
     }
 
-    if (!messaging && firebaseApp) {
-      try {
-        messaging = getMessaging(firebaseApp);
-      } catch {
-        return null;
-      }
+    if (messaging) return messaging;
+
+    // Deduplicate concurrent calls
+    if (!messagingPromise) {
+      messagingPromise = navigator.serviceWorker.ready.then(() => {
+        try {
+          messaging = getMessaging(firebaseApp!);
+          return messaging;
+        } catch {
+          return null;
+        } finally {
+          messagingPromise = null;
+        }
+      });
     }
 
-    return messaging;
+    return messagingPromise;
   };
 
   const getFcmToken = async (): Promise<string | null> => {
-    const msg = initMessaging();
+    const msg = await initMessaging();
     if (!msg) return null;
 
     try {
-      // Use existing PWA service worker if available (prod), otherwise register Firebase SW (dev)
-      let registration = await navigator.serviceWorker.getRegistration('/');
-
-      if (!registration) {
-        registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js', {
-          scope: '/',
-        });
-      }
+      const registration = await navigator.serviceWorker.ready;
 
       const token = await getToken(msg, {
         vapidKey: config.public.firebaseVapidKey,
@@ -64,8 +71,10 @@ export default defineNuxtPlugin(() => {
     }
   };
 
-  const onForegroundMessage = (callback: (payload: unknown) => void): (() => void) | null => {
-    const msg = initMessaging();
+  const onForegroundMessage = async (
+    callback: (payload: unknown) => void,
+  ): Promise<(() => void) | null> => {
+    const msg = await initMessaging();
     if (!msg) return null;
 
     return onMessage(msg, callback);

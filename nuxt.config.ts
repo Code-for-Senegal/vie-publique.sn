@@ -475,7 +475,6 @@ export default defineNuxtConfig({
       '/journal-officiel-senegal/v3',
       '/budget-senegal/old',
       '/financial-scandals',
-      '/individuals-cited',
       '/publications/enquetes',
       '/publications/institutions',
       '/barometre-politique',
@@ -544,14 +543,15 @@ export default defineNuxtConfig({
     registerType: 'autoUpdate',
     injectRegister: 'auto',
     manifest: {
-      name: 'Vie Publique SN',
-      short_name: 'ViePubliqueSN',
+      name: 'Vie Publique Sénégal',
+      short_name: 'Vie Publique',
       start_url: '/?utm_medium=PWA&utm_source=launcher',
       id: '/?utm_medium=PWA&utm_source=launcher',
       display: 'standalone',
       orientation: 'portrait',
       background_color: '#fff',
       theme_color: '#ffffff',
+      gcm_sender_id: '103953800507',
       icons: [
         {
           src: 'pwa-192x192.png',

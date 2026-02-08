@@ -80,7 +80,16 @@ export const sendToTopic = async (
       fcmOptions: { link: data?.url || '/' },
       notification: {
         icon: '/pwa-192x192.png',
-        badge: '/pwa-192x192.png',
+        badge: '/badge-72x72.png',
+      },
+    },
+    android: {
+      priority: 'high',
+      notification: {
+        icon: 'ic_notification',
+        color: '#00a96e',
+        defaultSound: true,
+        clickAction: 'OPEN_URL',
       },
     },
   });
