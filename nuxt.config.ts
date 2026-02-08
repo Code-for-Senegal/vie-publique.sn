@@ -105,10 +105,8 @@ export default defineNuxtConfig({
     node: {
       asyncContext: true,
     },
-    // legacyExternals: only needed on Windows (Nitro node-externals path bug)
-    // In Docker/Linux this must be false to avoid runtime module resolution issues
-    experimental: {
-      legacyExternals: process.platform === 'win32',
+    externals: {
+      defu: 'defu',
     },
     // Configuration proxy pour les images et fichiers en développement
     devProxy: process.env.CMS_API_URL
