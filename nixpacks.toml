@@ -1,7 +1,12 @@
 # Nixpacks configuration for Coolify deployment
 # See: https://nixpacks.com/docs/configuration/file
 
+[phases.build]
+# timeout force-kills nuxt build if it hangs after "Build complete!"
+# (known issue: open handles from PWA/Firebase prevent Node.js from exiting)
+# The fallback "test -d .output/server" ensures success if build output exists
+cmds = ["timeout --signal=KILL 300 npm run build || test -d .output/server"]
+
 [start]
 # HOST=0.0.0.0 ensures Nitro listens on all interfaces (required in Docker)
-# Without this, the server only listens on localhost and is unreachable
 cmd = "HOST=0.0.0.0 node .output/server/index.mjs"
