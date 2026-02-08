@@ -105,8 +105,9 @@ export default defineNuxtConfig({
     node: {
       asyncContext: true,
     },
-    externals: {
-      defu: 'defu',
+    // Fix build hang sur Windows (bug Nitro node-externals path mismatch)
+    experimental: {
+      legacyExternals: true,
     },
     // Configuration proxy pour les images et fichiers en développement
     devProxy: process.env.CMS_API_URL
