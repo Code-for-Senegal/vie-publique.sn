@@ -1,0 +1,7 @@
+# Nixpacks configuration for Coolify deployment
+# See: https://nixpacks.com/docs/configuration/file
+
+[start]
+# HOST=0.0.0.0 ensures Nitro listens on all interfaces (required in Docker)
+# Without this, the server only listens on localhost and is unreachable
+cmd = "HOST=0.0.0.0 node .output/server/index.mjs"
