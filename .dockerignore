@@ -109,10 +109,8 @@ test/
 
 # ===========================================
 # FICHIERS STATIQUES VOLUMINEUX
-# Ces fichiers devraient être servis par un CDN
-# ou un stockage externe (S3, CMS, etc.)
+# Servis par le CMS/CDN, pas besoin dans le build Docker
 # ===========================================
-# Décommenter si vous servez ces fichiers depuis le CMS/CDN :
-# public/pdf/
-# public/nominations/
-# public/tmp/
+public/pdf/
+public/nominations/
+public/tmp/
