@@ -105,9 +105,10 @@ export default defineNuxtConfig({
     node: {
       asyncContext: true,
     },
-    // Fix build hang sur Windows (bug Nitro node-externals path mismatch)
+    // legacyExternals: only needed on Windows (Nitro node-externals path bug)
+    // In Docker/Linux this must be false to avoid runtime module resolution issues
     experimental: {
-      legacyExternals: true,
+      legacyExternals: process.platform === 'win32',
     },
     // Configuration proxy pour les images et fichiers en développement
     devProxy: process.env.CMS_API_URL
