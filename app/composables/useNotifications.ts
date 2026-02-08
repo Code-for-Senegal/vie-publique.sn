@@ -6,9 +6,9 @@ const STORAGE_KEY_ASKED = 'vp_notifications_asked';
 const STORAGE_KEY_TOKEN = 'vp_notifications_token';
 const PENDING_SUBSCRIBE_KEY = 'vp_notifications_pending_subscribe';
 
-const isDev = import.meta.dev;
+// TODO: remettre isDev après debug Android
 const log = (...args: unknown[]) => {
-  if (isDev) console.log('[Notifications]', ...args);
+  console.log('[Notifications]', ...args);
 };
 
 export const useNotifications = () => {
@@ -160,13 +160,42 @@ export const useNotifications = () => {
   };
 
   const initState = () => {
-    if (typeof window === 'undefined' || !isSupported.value) return;
+    if (typeof window === 'undefined' || !isSupported.value) {
+      log('initState: not supported', { window: typeof window, supported: isSupported.value });
+      return;
+    }
 
     // Sync reactive refs from localStorage
     syncFromStorage();
 
+    // TWA/Standalone PWA fix: if the user was asked in browser but is now
+    // in standalone mode and hasn't actually subscribed, re-ask.
+    // TWAs share Chrome's localStorage, so the "asked" flag from the browser
+    // prevents the modal from showing inside the installed app.
+    const STANDALONE_ASKED_KEY = 'vp_notifications_standalone_asked';
+    if (isStandalonePWA.value && _hasBeenAsked.value && !_hasConsent.value) {
+      const standaloneAsked = localStorage.getItem(STANDALONE_ASKED_KEY) === 'true';
+      if (!standaloneAsked) {
+        log('initState: standalone PWA detected — resetting asked flag to re-show modal');
+        _hasBeenAsked.value = false;
+      }
+    }
+    // Track that standalone has been asked separately
+    if (isStandalonePWA.value && _hasBeenAsked.value) {
+      localStorage.setItem(STANDALONE_ASKED_KEY, 'true');
+    }
+
     const browserPermission = Notification.permission as NotificationPermissionStatus;
     state.value.permission = browserPermission;
+
+    log('initState:', {
+      browserPermission,
+      hasConsent: _hasConsent.value,
+      hasBeenAsked: _hasBeenAsked.value,
+      isStandalonePWA: isStandalonePWA.value,
+      isIOS: isIOS.value,
+      userAgent: navigator.userAgent.substring(0, 80),
+    });
 
     syncPermissionState(browserPermission);
 
@@ -175,6 +204,7 @@ export const useNotifications = () => {
     const savedToken = localStorage.getItem(STORAGE_KEY_TOKEN);
     if (savedToken && state.value.isSubscribed) {
       state.value.token = savedToken;
+      log('initState: restored token from localStorage');
     }
 
     // Validate and refresh token in background
@@ -265,12 +295,21 @@ export const useNotifications = () => {
     state.value.error = null;
 
     try {
+      log('subscribe: requesting permission...');
       const granted = await requestPermission();
+      log('subscribe: permission result:', granted);
       if (!granted) return false;
 
+      log('subscribe: getting FCM token...');
       const token = await $firebase.getFcmToken();
+      log('subscribe: FCM token:', token ? `${token.substring(0, 20)}...` : 'NULL');
       if (!token) {
-        state.value.error = 'Impossible d\'obtenir le token de notification';
+        // Diagnostic: check if SW is actually registered
+        const swRegs = await navigator.serviceWorker?.getRegistrations();
+        log('subscribe: token is null — SW registrations:', swRegs?.length ?? 0);
+        state.value.error = swRegs?.length
+          ? 'Impossible d\'obtenir le token de notification. Réessayez.'
+          : 'Le service worker n\'est pas disponible. Rechargez la page et réessayez.';
         return false;
       }
 
@@ -364,10 +403,26 @@ export const useNotifications = () => {
 
   const shouldShowConsentModal = computed(() => {
     if (typeof window === 'undefined') return false;
-    if (!isSupported.value) return false;
-    if (isIOSSafari.value) return false;
-    if (_hasBeenAsked.value) return false;
-    if (Notification.permission !== 'default') return false;
+    if (!isSupported.value) {
+      log('shouldShowConsentModal: false — not supported', {
+        notificationInWindow: 'Notification' in window,
+        serviceWorkerInNavigator: 'serviceWorker' in navigator,
+      });
+      return false;
+    }
+    if (isIOSSafari.value) {
+      log('shouldShowConsentModal: false — iOS Safari');
+      return false;
+    }
+    if (_hasBeenAsked.value) {
+      log('shouldShowConsentModal: false — already asked');
+      return false;
+    }
+    if (Notification.permission !== 'default') {
+      log('shouldShowConsentModal: false — permission is', Notification.permission);
+      return false;
+    }
+    log('shouldShowConsentModal: true');
     return true;
   });
 

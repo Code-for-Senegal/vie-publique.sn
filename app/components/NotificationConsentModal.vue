@@ -35,6 +35,17 @@ const handleContinueWithout = () => {
 // Auto-show modal after delay on mount
 onMounted(() => {
   if (!import.meta.client) return;
+
+  console.log('[NotificationModal] mounted — diagnostics:', {
+    isIOSSafari: isIOSSafari.value,
+    isSupported: isSupported.value,
+    isStandalonePWA: ('matchMedia' in window) && window.matchMedia('(display-mode: standalone)').matches,
+    notificationAPI: 'Notification' in window,
+    permission: 'Notification' in window ? Notification.permission : 'N/A',
+    serviceWorker: 'serviceWorker' in navigator,
+    userAgent: navigator.userAgent.substring(0, 100),
+  });
+
   // Don't show on iOS Safari (no Web Push support)
   if (isIOSSafari.value) return;
   if (!isSupported.value) return;
@@ -43,6 +54,7 @@ onMounted(() => {
   initState();
 
   setTimeout(() => {
+    console.log('[NotificationModal] timeout check — shouldShow:', shouldShowConsentModal.value);
     if (shouldShowConsentModal.value) {
       isVisible.value = true;
     }
