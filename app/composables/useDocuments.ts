@@ -51,6 +51,8 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
       searchQuery: ref(''),
       sortBy: ref(options.sort || '-publish_date'),
       filterValue: ref('all'),
+      yearFilter: ref<string>('all'),
+      auditInstitutionFilter: ref<string>(''),
       itemsPerPage: ref(options.limit || 10),
       pagination: computed(() => undefined),
       totalItems: computed(() => 0),
@@ -63,6 +65,7 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
       setSortBy: () => {},
       setFilterValue: () => {},
       setItemsPerPage: () => {},
+      setAuditInstitutionFilter: (_v: string) => {},
       resetFilters: () => {},
     };
   }
@@ -81,27 +84,42 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
     },
   });
 
-  // Gestion du filtre par année pour journal officiel
+  // Gestion du filtre par année
   const yearFilter = ref<string>('all');
 
-  // Lecture du filtre année depuis l'URL
+  // Gestion du filtre par organisme d'audit
+  const auditInstitutionFilter = ref<string>('');
+
+  // Lecture des filtres depuis l'URL
   onMounted(() => {
-    if (options.type === 'official_journal' && route.query.year) {
+    if (route.query.year) {
       yearFilter.value = route.query.year as string;
+    }
+    if (route.query.organisme) {
+      auditInstitutionFilter.value = route.query.organisme as string;
     }
   });
 
   // Synchronisation du filtre année avec l'URL
   watch(yearFilter, () => {
-    if (options.type === 'official_journal') {
-      const query: any = { ...route.query };
-      if (yearFilter.value !== 'all') {
-        query.year = yearFilter.value;
-      } else {
-        delete query.year;
-      }
-      useRouter().replace({ query });
+    const query: any = { ...route.query };
+    if (yearFilter.value && yearFilter.value !== 'all') {
+      query.year = yearFilter.value;
+    } else {
+      delete query.year;
     }
+    useRouter().replace({ query });
+  });
+
+  // Synchronisation du filtre organisme avec l'URL
+  watch(auditInstitutionFilter, () => {
+    const query: any = { ...route.query };
+    if (auditInstitutionFilter.value) {
+      query.organisme = auditInstitutionFilter.value;
+    } else {
+      delete query.organisme;
+    }
+    useRouter().replace({ query });
   });
 
   // Construction des filtres spécifiques aux documents
@@ -118,15 +136,25 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
 
     if (filterVal && filterVal !== 'all') {
       if (options.type === 'official_journal') {
-        // Pour journal officiel : filtre par année
+        // Pour journal officiel : filtre par année via filterType (legacy)
         filters.filterType = yearFilter.value !== 'all' ? yearFilter.value : filterVal;
       } else if (options.type === 'audit_report') {
-        // Pour rapports d'audit : filtre par organisme
+        // Pour rapports d'audit : filtre par organisme via filterType (legacy)
         filters.filterType = filterVal;
       } else if (!options.type) {
         // Sans type spécifique : filtre par type de document
         filters.type = filterVal;
       }
+    }
+
+    // Filtre par année (paramètre dédié)
+    if (yearFilter.value && yearFilter.value !== 'all') {
+      filters.year = yearFilter.value;
+    }
+
+    // Filtre par organisme d'audit (paramètre dédié)
+    if (auditInstitutionFilter.value) {
+      filters.audit_institution = auditInstitutionFilter.value;
     }
 
     return filters;
@@ -146,6 +174,11 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
   const totalItems = computed(() => collection.pagination.value?.total || 0);
   const totalPages = computed(() => collection.pagination.value?.totalPages || 1);
 
+  const setAuditInstitutionFilter = (value: string) => {
+    auditInstitutionFilter.value = value;
+    state.currentPage.value = 1;
+  };
+
   return {
     // Données
     documents: collection.items,
@@ -162,8 +195,9 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
     filterValue: state.filterValue,
     itemsPerPage: state.itemsPerPage,
 
-    // État spécifique aux documents
-    yearFilter, // Pour journal officiel
+    // États spécifiques aux documents
+    yearFilter,
+    auditInstitutionFilter,
 
     // Méthodes (depuis useCollectionState)
     setCurrentPage: state.setCurrentPage,
@@ -171,6 +205,7 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
     setSortBy: state.setSortBy,
     setFilterValue: state.setFilterValue,
     setItemsPerPage: state.setItemsPerPage,
+    setAuditInstitutionFilter,
     resetFilters: state.resetFilters,
 
     // Computed

@@ -231,18 +231,6 @@ const showPdfViewer = ref(false);
         {{ document.title }}
       </h1>
 
-      <!-- Badge et date -->
-      <div class="mb-6 flex flex-wrap items-center gap-3">
-        <UBadge :label="typeLabel" color="primary" variant="subtle" />
-        <time
-          v-if="document.publish_date"
-          :datetime="document.publish_date"
-          class="text-sm text-gray-500 dark:text-gray-400"
-        >
-          {{ formattedDate }}
-        </time>
-      </div>
-
       <!-- Bloc fichier mobile (prioritaire) -->
       <div
         v-if="document.file"
@@ -264,7 +252,7 @@ const showPdfViewer = ref(false);
             @click="showPdfViewer = true"
             icon="i-heroicons-eye"
             label="Lire le PDF"
-            color="primary"
+            color="yellow"
             block
           />
           <div class="grid grid-cols-2 gap-2">
@@ -331,6 +319,31 @@ const showPdfViewer = ref(false);
             class="prose prose-gray max-w-none dark:prose-invert"
             v-html="document.content_html"
           />
+
+          <!-- Aperçu PDF intégré -->
+          <ClientOnly>
+            <div v-if="fileUrl" class="mt-8">
+              <div class="mb-4 flex items-center justify-between">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
+                  Aperçu du document
+                </h2>
+                <UButton
+                  @click="showPdfViewer = true"
+                  icon="i-heroicons-arrows-pointing-out"
+                  label="Plein écran"
+                  color="yellow"
+                  variant="outline"
+                  size="sm"
+                />
+              </div>
+              <div class="overflow-hidden rounded-lg border border-gray-200 shadow-sm dark:border-gray-700">
+                <PdfViewer
+                  :source="fileUrl"
+                  :download-name="`${document?.slug || 'document'}.pdf`"
+                />
+              </div>
+            </div>
+          </ClientOnly>
         </div>
 
         <!-- Sidebar (desktop uniquement) -->
@@ -363,7 +376,7 @@ const showPdfViewer = ref(false);
                 @click="showPdfViewer = true"
                 icon="i-heroicons-eye"
                 label="Lire le PDF"
-                color="primary"
+                color="yellow"
                 block
               />
               <UButton

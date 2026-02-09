@@ -12,6 +12,8 @@ export default defineCachedEventHandler(
     const sortBy = (query.sortBy as string) || (query.sort as string) || "-publish_date";
     const filterType = query.filterType as string;
     const type = query.type as string;
+    const year = query.year as string;
+    const auditInstitution = query.audit_institution as string;
 
     try {
       const directus = getCmsClient();
@@ -51,6 +53,23 @@ export default defineCachedEventHandler(
             };
           }
         }
+      }
+
+      // Filtre par année (paramètre dédié, prioritaire sur filterType)
+      if (year && year !== "all") {
+        const yearNum = parseInt(year);
+        if (!isNaN(yearNum)) {
+          filter.publish_date = {
+            _between: [`${yearNum}-01-01`, `${yearNum}-12-31`],
+          };
+        }
+      }
+
+      // Filtre par organisme d'audit (paramètre dédié)
+      if (auditInstitution && auditInstitution !== "all") {
+        filter.audit_institution = {
+          _eq: auditInstitution,
+        };
       }
 
       // Recherche textuelle
@@ -191,7 +210,10 @@ export default defineCachedEventHandler(
     name: "documents",
     getKey: (event) => {
       const query = getQuery(event);
-      return `documents-${JSON.stringify(query)}`;
+      // Tri des clés pour garantir un cache key déterministe
+      const sortedKeys = Object.keys(query).sort();
+      const normalizedQuery = sortedKeys.map((k) => `${k}=${query[k]}`).join("&");
+      return `documents-${normalizedQuery}`;
     },
   },
 );
