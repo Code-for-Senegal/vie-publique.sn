@@ -68,16 +68,16 @@ export const useCmsCollection = <T>(options: CmsCollectionOptions) => {
     }
   });
 
-  // Génération d'une clé unique basée sur l'URL et les paramètres
-  const cacheKey = computed(() => {
-    const params = unref(id) ? {} : query.value;
-    return `${collection}-${unref(url)}-${JSON.stringify(params)}`;
-  });
+  // Génération d'une clé unique basée sur l'URL (statique pour SSR/hydration)
+  const cacheKey = `${collection}-${unref(url)}-${unref(id) || 'list'}`;
+  const isList = !unref(id);
 
   // Appel API
   const { data, pending, error, refresh } = useFetch(url, {
     key: cacheKey,
-    query: computed(() => (unref(id) ? undefined : query.value)), // Pas de query params pour les détails
+    query: isList ? query : undefined, // Paramètres réactifs pour les listes
+    watch: isList ? [query] : false, // Forcer le refetch quand sort/page/filtres changent
+    dedupe: 'cancel', // Annuler les requêtes précédentes lors d'un changement de params
     transform: (response: any) => {
       // Transformation par défaut selon le type de collection
       let items: any[] = [];

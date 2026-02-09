@@ -50,20 +50,16 @@ const resultsText = computed(() =>
   }),
 );
 
-// Options pour le sélecteur d'années
-const yearOptions = [
-  { label: "Toutes les années", value: "all" },
-  { label: "2025", value: "2025" },
-  { label: "2024", value: "2024" },
-  { label: "2023", value: "2023" },
-  { label: "2022", value: "2022" },
-  { label: "2021", value: "2021" },
-  { label: "2020", value: "2020" },
-  { label: "2019", value: "2019" },
-  { label: "2018", value: "2018" },
-  { label: "2017", value: "2017" },
-  { label: "2016", value: "2016" },
-];
+// Années dynamiques depuis le CMS
+const { years: availableYears, loading: yearsLoading } = useAvailableYears('official_journal');
+
+const yearOptions = computed(() => {
+  const options = [{ label: 'Toutes les années', value: 'all' }];
+  for (const y of availableYears.value) {
+    options.push({ label: `${y.year} (${y.count})`, value: String(y.year) });
+  }
+  return options;
+});
 
 // Format de la date
 const formatDate = (date: string) => {
@@ -108,8 +104,11 @@ const formatDate = (date: string) => {
         <USelect
           v-model="selectedYearUI"
           :options="yearOptions"
+          option-attribute="label"
+          value-attribute="value"
           placeholder="Année"
           size="lg"
+          :loading="yearsLoading"
           class="custom-shadow w-full sm:w-48"
         />
       </div>
