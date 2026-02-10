@@ -73,6 +73,39 @@
                     {{ region.departement }}
                   </span>
                 </LTooltip>
+                <LPopup>
+                  <div class="p-2">
+                    <h3 class="text-lg font-bold">{{ region.departement }}</h3>
+                    <div>Région: {{ region.region }}</div>
+                    <div>
+                      Communes:
+                      <span class="font-bold text-red-700">{{ formatNumber(region.municipality) }}</span>
+                    </div>
+                    <div class="mb-1">
+                      Population:
+                      <span class="font-bold text-red-700">{{ formatNumber(region.population) }}</span>
+                    </div>
+                    <div>
+                      Électeurs:
+                      <span class="font-bold text-red-700">{{ formatNumber(region.voters) }}</span>
+                    </div>
+                    <div>
+                      Bureaux de vote:
+                      <span class="font-bold text-red-700">{{ formatNumber(region.offices) }}</span>
+                    </div>
+                    <div>
+                      Lieux de vote:
+                      <span class="font-bold text-red-700">{{ formatNumber(region.places) }}</span>
+                    </div>
+                  </div>
+                  <NuxtLink
+                    v-if="region.departement"
+                    :to="getDepartmentDetailUrl(region.departement)"
+                    class="text-black-800 mt-0 inline-block rounded-md bg-green-100 p-2 font-bold"
+                  >
+                    Voir plus
+                  </NuxtLink>
+                </LPopup>
               </LPolygon>
             </template>
           </template>
@@ -103,6 +136,34 @@
                     {{ dept.departement }}
                   </span>
                 </LTooltip>
+                <LPopup>
+                  <div class="p-2">
+                    <h3 class="text-lg font-bold">{{ dept.departement }}</h3>
+                    <div>Région: {{ dept.region }}</div>
+                    <div>
+                      Communes:
+                      <span class="font-bold text-green-700">{{ dept.municipalityCount }}</span>
+                    </div>
+                    <div>
+                      Électeurs:
+                      <span class="font-bold text-green-700">{{ formatNumber(dept.totalVoters) }}</span>
+                    </div>
+                    <div>
+                      Bureaux de vote:
+                      <span class="font-bold text-green-700">{{ formatNumber(dept.totalOffices) }}</span>
+                    </div>
+                    <div class="mb-2">
+                      Lieux de vote:
+                      <span class="font-bold text-green-700">{{ formatNumber(dept.totalPlaces) }}</span>
+                    </div>
+                    <NuxtLink
+                      :to="getDepartmentDetailUrl(dept.departement)"
+                      class="mt-1 inline-block rounded-md bg-green-100 p-2 font-bold text-green-800"
+                    >
+                      Voir plus
+                    </NuxtLink>
+                  </div>
+                </LPopup>
               </LPolygon>
             </template>
           </template>
