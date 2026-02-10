@@ -10,18 +10,32 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: number): void;
 }>();
 
-const tabs = computed(() => [
+const allTabs = [
   {
     id: "candidats",
-    label: props.selectedType === 'presidential' ? 'Candidats' : (props.selectedType === 'locale' ? 'Circonscriptions' : 'Coalitions'),
-    icon: "i-heroicons-user-group"
+    icon: "i-heroicons-user-group",
   },
   { id: "carte", label: "Carte", icon: "i-heroicons-map" },
   { id: "resultats", label: "Résultats", icon: "i-heroicons-chart-bar" },
   { id: "documents", label: "Documents", icon: "i-heroicons-document-duplicate" },
-  { id: "statistiques", label: "Stats", icon: "i-heroicons-presentation-chart-line" },
+  { id: "statistiques", label: "Stats", icon: "i-heroicons-presentation-chart-line", hidden: true },
   { id: "guide", label: "Guide", icon: "i-heroicons-play-circle" },
-]);
+];
+
+const tabs = computed(() => {
+  const visibleTypes: Record<string, string[]> = {
+    legislative: ['statistiques'],
+  };
+
+  return allTabs
+    .filter(tab => !tab.hidden || visibleTypes[props.selectedType ?? '']?.includes(tab.id))
+    .map(tab => ({
+      ...tab,
+      label: tab.id === 'candidats'
+        ? props.selectedType === 'presidential' ? 'Candidats' : (props.selectedType === 'locale' ? 'Circonscriptions' : 'Coalitions')
+        : tab.label,
+    }));
+});
 
 const currentTabIndex = computed({
   get: () => props.modelValue,
@@ -38,7 +52,7 @@ const currentTabIndex = computed({
       wrapper: 'space-y-0',
       container: 'hidden',
       list: {
-        base: 'grid grid-cols-6 gap-0 w-full',
+        base: `grid gap-0 w-full ${tabs.length === 6 ? 'grid-cols-6' : 'grid-cols-5'}`,
         background: 'bg-gray-100 dark:bg-gray-800 p-1 rounded-xl border border-gray-200 dark:border-gray-700',
         marker: {
           wrapper: 'absolute inset-0 flex',
@@ -60,7 +74,7 @@ const currentTabIndex = computed({
         <UIcon :name="item.icon" class="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
         <!-- Sur mobile: texte visible uniquement pour le tab actif -->
         <!-- Sur desktop: texte toujours visible -->
-        <span 
+        <span
           class="truncate transition-all duration-200"
           :class="tabs[currentTabIndex]?.id === item.id ? 'inline' : 'hidden sm:inline'"
         >
