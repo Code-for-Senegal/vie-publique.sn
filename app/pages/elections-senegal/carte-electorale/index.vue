@@ -120,6 +120,22 @@ const isLocalElection = computed(() => {
   return selectedType.value === 'locale';
 });
 
+// Panel département (affiché à droite de la page)
+const selectedDepartmentData = ref<any>(null);
+const isDepartmentPanelOpen = ref(false);
+
+const handleDepartmentSelected = (dept: any) => {
+  selectedDepartmentData.value = dept;
+  isDepartmentPanelOpen.value = true;
+};
+
+const closeDepartmentPanel = () => {
+  isDepartmentPanelOpen.value = false;
+  setTimeout(() => {
+    selectedDepartmentData.value = null;
+  }, 300);
+};
+
 // Options pour les sélecteurs
 const typeOptions = computed(() => {
   if (!completedElections.value.length) return [];
@@ -233,6 +249,8 @@ watch(selectedElectionId, (newId, oldId) => {
     mapDataAvailable.value = true;
     listDataAvailable.value = true;
     mapKey.value++;
+    isDepartmentPanelOpen.value = false;
+    selectedDepartmentData.value = null;
   }
 });
 </script>
@@ -326,6 +344,7 @@ watch(selectedElectionId, (newId, oldId) => {
                 :is-local-election="isLocalElection"
                 @map-ready="handleMapReady"
                 @map-error="handleMapError"
+                @department-selected="handleDepartmentSelected"
               />
             </div>
 
@@ -371,5 +390,13 @@ watch(selectedElectionId, (newId, oldId) => {
         </template>
       </ClientOnly>
     </div>
+
+    <!-- Panel département (affiché à droite de la page) -->
+    <ElectionMapDepartmentPanel
+      :department="selectedDepartmentData"
+      :is-open="isDepartmentPanelOpen"
+      :election-id="selectedElectionId"
+      @close="closeDepartmentPanel"
+    />
   </div>
 </template>

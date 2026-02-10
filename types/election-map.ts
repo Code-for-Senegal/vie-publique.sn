@@ -31,3 +31,36 @@ export interface MapError {
   message: string;
   details?: unknown;
 }
+
+/** Commune dans un groupe de département (élections locales) */
+export interface MunicipalityPolygon {
+  id: number;
+  municipality: string;
+  departement: string;
+  region: string;
+  voters: number;
+  offices: number;
+  places: number;
+  population: number;
+  coordinates: [number, number][];
+}
+
+/** Groupe de communes regroupées par département (élections locales) */
+export interface DepartmentGroup {
+  departement: string;
+  region: string;
+  municipalities: MunicipalityPolygon[];
+  totalVoters: number;
+  totalOffices: number;
+  totalPlaces: number;
+  totalPopulation: number;
+  municipalityCount: number;
+  centroid: [number, number];
+  color: string;
+}
+
+/** Commune du top 3 par électeurs */
+export interface TopCommune {
+  municipality: string;
+  voters: number;
+}
