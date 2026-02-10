@@ -115,7 +115,7 @@ const getDepartmentDetailUrl = () => {
       v-if="isOpen && department"
       :class="[
         isMobile
-          ? 'fixed bottom-0 left-0 right-0 z-50 max-h-[80vh] rounded-t-2xl'
+          ? 'fixed bottom-14 left-0 right-0 z-50 max-h-[70vh] rounded-t-2xl'
           : 'fixed right-4 top-20 bottom-4 w-[380px] z-30 rounded-2xl',
         'bg-white dark:bg-gray-900 shadow-2xl overflow-hidden flex flex-col',
         'border border-gray-200 dark:border-gray-700',
@@ -169,7 +169,7 @@ const getDepartmentDetailUrl = () => {
       </div>
 
       <!-- Contenu scrollable -->
-      <div class="flex-1 overflow-y-auto">
+      <div class="flex-1 overflow-y-auto min-h-0">
         <!-- Grille statistiques -->
         <div class="grid grid-cols-2 gap-2 p-4">
           <div class="rounded-xl bg-gray-50 dark:bg-gray-800 p-3 text-center">
