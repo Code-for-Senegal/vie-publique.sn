@@ -146,16 +146,9 @@
 </template>
 
 <script setup lang="ts">
-import * as pdfjsLib from "pdfjs-dist";
-import type { PDFDocumentProxy, PDFPageProxy } from "pdfjs-dist";
+import type { PDFDocumentProxy, PDFPageProxy } from "pdfjs-dist/types/src/display/api";
 
-// Configuration du worker PDF.js - utiliser le worker via import.meta.url
-if (import.meta.client) {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
-    'pdfjs-dist/build/pdf.worker.min.mjs',
-    import.meta.url
-  ).href
-}
+let pdfjsLib: typeof import("pdfjs-dist") | null = null;
 
 interface Props {
   source: string;
@@ -338,6 +331,8 @@ const loadPdf = async () => {
   errorMessage.value = "";
   loadingProgress.value = 0;
 
+  if (!pdfjsLib) return;
+
   try {
     const loadingTask = pdfjsLib.getDocument({
       url: props.source,
@@ -393,7 +388,12 @@ const handleKeyPress = (e: KeyboardEvent) => {
 };
 
 // Lifecycle
-onMounted(() => {
+onMounted(async () => {
+  pdfjsLib = await import("pdfjs-dist");
+  pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+    'pdfjs-dist/build/pdf.worker.min.mjs',
+    import.meta.url
+  ).href;
   loadPdf();
   window.addEventListener("keydown", handleKeyPress);
 });
