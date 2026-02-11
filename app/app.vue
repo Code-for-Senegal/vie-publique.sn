@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Toaster, toast } from 'vue-sonner';
+import { useNotifications } from './composables/useNotifications';
 
 // Configuration SEO selon l'environnement
 const config = useRuntimeConfig();
