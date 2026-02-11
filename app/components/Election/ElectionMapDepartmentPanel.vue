@@ -116,7 +116,7 @@ const getDepartmentDetailUrl = () => {
       :class="[
         isMobile
           ? 'fixed bottom-14 left-0 right-0 z-50 max-h-[70vh] rounded-t-2xl'
-          : 'fixed right-4 top-20 bottom-4 w-[380px] z-30 rounded-2xl',
+          : 'fixed right-4 bottom-4 w-[380px] z-30 rounded-2xl top-[136px]',
         'bg-white dark:bg-gray-900 shadow-2xl overflow-hidden flex flex-col',
         'border border-gray-200 dark:border-gray-700',
       ]"

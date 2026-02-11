@@ -118,22 +118,19 @@ const formatNumber = (num: number) => {
           <!-- Sticky Header -->
           <thead class="sticky top-0 z-10 bg-gray-50/95 dark:bg-gray-800/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700">
             <tr>
-              <th scope="col" class="p-4 text-xs font-black uppercase tracking-widest text-gray-500 dark:text-gray-400 min-w-[150px]">
+              <th scope="col" class="px-3 py-3 sm:p-4 text-xs font-black uppercase tracking-widest text-gray-500 dark:text-gray-400">
                 <button @click="toggleSort('commune')" class="flex items-center gap-1 hover:text-primary-600 transition-colors uppercase">
                   Commune
                   <UIcon :name="getSortIcon('commune')" class="h-3.5 w-3.5" />
                 </button>
               </th>
-              <th scope="col" class="p-4 text-xs font-black uppercase tracking-widest text-gray-500 dark:text-gray-400 min-w-[180px]">
+              <th scope="col" class="px-3 py-3 sm:p-4 text-xs font-black uppercase tracking-widest text-gray-500 dark:text-gray-400">
                 <button @click="toggleSort('coalition')" class="flex items-center gap-1 hover:text-primary-600 transition-colors uppercase">
                   Coalition Gagnante
                   <UIcon :name="getSortIcon('coalition')" class="h-3.5 w-3.5" />
                 </button>
               </th>
-              <th scope="col" class="p-4 text-xs font-black uppercase tracking-widest text-gray-500 dark:text-gray-400 min-w-[150px]">
-                Tête de liste
-              </th>
-              <th scope="col" class="p-4 text-xs font-black uppercase tracking-widest text-gray-500 dark:text-gray-400 text-right min-w-[100px]">
+              <th scope="col" class="px-3 py-3 sm:p-4 text-xs font-black uppercase tracking-widest text-gray-500 dark:text-gray-400 text-right">
                 <button @click="toggleSort('votes')" class="flex items-center justify-end gap-1 hover:text-primary-600 transition-colors w-full uppercase">
                   Voix
                   <UIcon :name="getSortIcon('votes')" class="h-3.5 w-3.5" />
@@ -146,34 +143,27 @@ const formatNumber = (num: number) => {
           <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
             <tr v-for="item in sortedData" :key="item.id" class="group transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/30">
               <!-- Commune -->
-              <td class="p-4">
-                <div class="flex flex-col">
-                  <span class="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-tight">{{ item.commune }}</span>
-                </div>
+              <td class="px-3 py-3 sm:p-4">
+                <span class="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-tight">{{ item.commune }}</span>
               </td>
 
-              <!-- Coalition -->
-              <td class="p-4">
-                <div class="flex items-center gap-2">
-                  <div class="h-1.5 w-1.5 rounded-full bg-primary-500 shadow-[0_0_8px_rgba(var(--color-primary-500),0.4)]"></div>
-                  <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ item.coalition }}</span>
-                </div>
-              </td>
-
-              <!-- Head of List -->
-              <td class="p-4">
-                <div class="flex items-center gap-2">
-                  <UIcon name="i-heroicons-user" class="w-3.5 h-3.5 text-gray-400" />
-                  <span class="text-sm text-gray-600 dark:text-gray-400">{{ item.headOfList }}</span>
+              <!-- Coalition + Tête de liste -->
+              <td class="px-3 py-3 sm:p-4">
+                <div class="flex flex-col gap-1">
+                  <div class="flex items-center gap-2">
+                    <div class="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary-500 shadow-[0_0_8px_rgba(var(--color-primary-500),0.4)]"></div>
+                    <span class="text-sm font-medium text-gray-700 dark:text-gray-300 line-clamp-2">{{ item.coalition }}</span>
+                  </div>
+                  <div class="flex items-center gap-2 pl-3.5">
+                    <UIcon name="i-heroicons-user" class="w-3 h-3 flex-shrink-0 text-gray-400" />
+                    <span class="text-xs text-gray-500 dark:text-gray-400 line-clamp-1">{{ item.headOfList }}</span>
+                  </div>
                 </div>
               </td>
 
               <!-- Votes -->
-              <td class="p-4 text-right">
-                <div class="inline-flex flex-col items-end">
-                  <span class="text-sm font-black text-gray-900 dark:text-white">{{ formatNumber(item.votes) }}</span>
-                  <UBadge size="xs" color="gray" variant="subtle" class="mt-0.5 font-bold uppercase tracking-tighter">voix</UBadge>
-                </div>
+              <td class="px-3 py-3 sm:p-4 text-right">
+                <span class="text-sm font-black text-gray-900 dark:text-white">{{ formatNumber(item.votes) }}</span>
               </td>
             </tr>
           </tbody>

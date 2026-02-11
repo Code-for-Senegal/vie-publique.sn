@@ -16,6 +16,11 @@ export interface TransformedRegion {
   id: number;
   region: string;
   departement: string;
+  winnerName?: string;
+  winnerColor?: string;
+  winnerLogo?: string;
+  headOfList?: string;
+  voters?: number;
   coordinates: [number, number][];
   type: "Polygon";
 }

@@ -5,6 +5,7 @@ import { useElectoralConstituencies } from '~/composables/elections/dashboard/us
 import { useElectoralDashboard } from '~/composables/elections/dashboard/useElectoralDashboard';
 import { useElectoralProfessions } from '~/composables/elections/dashboard/useElectoralProfessions';
 import { useElectoralStatsList } from '~/composables/elections/dashboard/useElectoralStatsList';
+import { useElectionMapDataResult, type TableResultItem } from '~/composables/useElectionMapJsonResult';
 
 /**
  * Dashboard Électoral - Page Détail [Type]/[Année]
@@ -290,6 +291,60 @@ const onTypeChange = (type: string) => {
 const handleMapReady = (map: unknown) => {
   console.log("Carte chargée et prête");
 };
+
+// --- RÉSULTAT LOCALE : Panel département ---
+const resultDeptPanelOpen = ref(false);
+const resultDeptPanelData = ref<any>(null);
+const resultCommunesByDept = ref<TableResultItem[]>([]);
+
+// Charger les résultats communes pour les élections locales (vue carte résultat)
+const { getTableDataResult } = useElectionMapDataResult();
+
+// Charger les données résultats quand on passe en vue carte résultats locale
+const loadLocaleResultsData = async () => {
+  if (resultCommunesByDept.value.length > 0) return; // déjà chargé
+  const data = await getTableDataResult(selectedType.value, selectedYear.value);
+  resultCommunesByDept.value = data;
+};
+
+// Auto-charger quand la vue résultat carte locale est affichée
+watch([activeTab, resultViewType, isLocalElection], async ([tab, view, isLocale]) => {
+  if (tab === 'resultats' && view === 'map' && isLocale) {
+    await loadLocaleResultsData();
+  }
+}, { immediate: true });
+
+// Reset au changement d'élection
+watch([selectedType, selectedYear], () => {
+  resultCommunesByDept.value = [];
+  resultDeptPanelOpen.value = false;
+  resultDeptPanelData.value = null;
+});
+
+const handleResultDeptSelected = async (dept: any) => {
+  // S'assurer que les données sont chargées
+  if (resultCommunesByDept.value.length === 0) {
+    await loadLocaleResultsData();
+  }
+  resultDeptPanelData.value = dept;
+  resultDeptPanelOpen.value = true;
+};
+
+const closeResultDeptPanel = () => {
+  resultDeptPanelOpen.value = false;
+  setTimeout(() => {
+    resultDeptPanelData.value = null;
+  }, 300);
+};
+
+// Communes filtrées pour le département sélectionné
+const resultCommunesForDept = computed(() => {
+  if (!resultDeptPanelData.value || !resultCommunesByDept.value.length) return [];
+  const deptKey = resultDeptPanelData.value.departement.trim().toLowerCase();
+  return resultCommunesByDept.value.filter(r =>
+    r.departement && r.departement.trim().toLowerCase() === deptKey
+  );
+});
 </script>
 
 <template>
@@ -644,7 +699,7 @@ const handleMapReady = (map: unknown) => {
 
                    <!-- VIEW TOGGLE -->
                    <div class="bg-gray-100 dark:bg-gray-800 p-1 rounded-xl flex gap-1">
-                      <UButton 
+                      <UButton
                         :color="resultViewType === 'list' ? 'white' : 'gray'"
                         :variant="resultViewType === 'list' ? 'solid' : 'ghost'"
                         size="sm"
@@ -654,7 +709,7 @@ const handleMapReady = (map: unknown) => {
                       >
                          Liste
                       </UButton>
-                      <UButton 
+                      <UButton
                         :color="resultViewType === 'map' ? 'white' : 'gray'"
                         :variant="resultViewType === 'map' ? 'solid' : 'ghost'"
                         size="sm"
@@ -688,10 +743,22 @@ const handleMapReady = (map: unknown) => {
                             />
                         </template>
                     </div>
-                    
+
                     <div v-else-if="resultViewType === 'map'" class="w-full h-full min-h-[500px]">
                         <ClientOnly>
-                            <ElectionMapComponentResult 
+                            <!-- Élections locales : carte départements + panel résultat -->
+                            <template v-if="isLocalElection">
+                              <ElectionMapComponent4
+                                :key="`result-map-locale-${selectedYear}`"
+                                :election-id="currentElection?.id"
+                                :is-local-election="true"
+                                @map-ready="handleMapReady"
+                                @department-selected="handleResultDeptSelected"
+                              />
+                            </template>
+                            <!-- Autres types : carte résultats classique -->
+                            <ElectionMapComponentResult
+                              v-else
                                :election-type="selectedType"
                                :election-year="selectedYear"
                             />
@@ -804,6 +871,14 @@ const handleMapReady = (map: unknown) => {
         </div>
     </footer>
   </div>
+
+  <!-- Panel résultats département (élections locales, vue carte résultat) -->
+  <ElectionMapResultDepartmentPanel
+    :department="resultDeptPanelData"
+    :is-open="resultDeptPanelOpen"
+    :all-results="resultCommunesForDept"
+    @close="closeResultDeptPanel"
+  />
 </template>
 
 <style>
