@@ -2,7 +2,7 @@
 
 > Guide complet pour migrer du schéma existant vers le nouveau schéma électoral optimisé
 
-**Dernière mise à jour** : 2026-01-05
+**Dernière mise à jour** : 2026-02-10
 
 ---
 
@@ -15,19 +15,21 @@ Ce document explique **comment migrer du schéma existant vers le nouveau schém
 | Version | Fichier | Taille | Description |
 |---------|---------|--------|-------------|
 | **ANCIEN** | [export-elections.json](../../../docs/elections/dashboard-electoral/export-elections.json) | 9,443 lignes | Schéma actuellement en production |
-| **NOUVEAU** | [elections-schema.json](../../../docs/elections/dashboard-electoral/elections-schema.json) | 12,402 lignes | Schéma amélioré avec nouvelles fonctionnalités |
+| **NOUVEAU** | [elections-schema.json](../../../docs/elections/dashboard-electoral/elections-schema.json) | ~14,200 lignes | Schéma amélioré avec nouvelles fonctionnalités |
 
 ### Statistiques des changements
 
 | Métrique | Ancien | Nouveau | Différence |
 |----------|--------|---------|------------|
-| **Collections** | 14 | 15 | **+1** |
-| **Champs totaux** | 171 | 221 | **+50** |
-| **Relations** | 30 | 36 | **+6** |
+| **Collections (total dans le schéma)** | 14 | 22 | **+8** |
+| **Collections élections (groupe Election)** | 14 | 17 | **+3** (guide_electorale, elections_documents, elections_elections) |
+| **Collections existantes intégrées** | 0 | 5 | **+5** (documents, news, news_category, NewsFolder, Documents) |
+| **Champs totaux** | 180 | 236 | **+56** |
+| **Relations** | 30 | 60+ | **+30** |
 
 ---
 
-## 🆕 1. Collections ajoutées (1 nouvelle)
+## 🆕 1. Collections ajoutées (3 nouvelles)
 
 ### 1.1 Collection `guide_electorale` 📹 ⭐ NOUVELLE
 
@@ -61,7 +63,45 @@ Ce document explique **comment migrer du schéma existant vers le nouveau schém
 
 ---
 
-## 🔄 2. Collections modifiées (4 collections)
+### 1.2 Collection `elections_documents` 🔗 ⭐ NOUVELLE (Junction M2M)
+
+**Fonction** : Table de jonction pour la relation Many-to-Many entre `elections` et `documents`
+
+**Champs** :
+
+| Champ | Type | Description |
+|-------|------|-------------|
+| `id` | integer (PK) | Identifiant unique |
+| `elections_id` | integer (FK → elections) | Référence vers l'élection |
+| `documents_id` | integer (FK → documents) | Référence vers le document |
+
+**Impact** :
+- ✅ Permet d'associer plusieurs documents à une élection
+- ✅ Un document peut être lié à plusieurs élections
+- ✅ Collection cachée dans Directus (`hidden: true`)
+
+---
+
+### 1.3 Collection `elections_elections` 🔗 ⭐ NOUVELLE (Junction M2M Self-referencing)
+
+**Fonction** : Table de jonction pour la relation Many-to-Many auto-référençante entre élections (élections liées)
+
+**Champs** :
+
+| Champ | Type | Description |
+|-------|------|-------------|
+| `id` | integer (PK) | Identifiant unique |
+| `elections_id` | integer (FK → elections) | Élection source |
+| `related_elections_id` | integer (FK → elections) | Élection liée |
+
+**Impact** :
+- ✅ Permet de lier des élections entre elles (ex: 1er et 2nd tour présidentielle)
+- ✅ Navigation entre élections connexes
+- ✅ Collection cachée dans Directus (`hidden: true`)
+
+---
+
+## 🔄 2. Collections modifiées (5 collections)
 
 ### 2.1 Collection `documents` - Relation M2M avec `elections` ⭐ MAJEUR
 
@@ -142,19 +182,29 @@ election_constituencies.parent → election_constituencies (Many-to-One)
 
 ---
 
-### 2.3 Collection `election_candidates` ⚠️ BREAKING CHANGE
+### 2.3 Collection `election_candidates` ⚠️ BREAKING CHANGE (+2 champs, -1 champ)
 
 **Modifications** :
 
 | Action | Champ | Type | Interface | Description |
 |--------|-------|------|-----------|-------------|
 | ➕ **AJOUT** | `role` | string | select-dropdown | Rôle du candidat (titulaire/suppleant/autre) |
+| ➕ **AJOUT** | `documents` | integer | select-dropdown-m2o | Relation M2O vers `documents` (programme du candidat) |
 | ❌ **SUPPRESSION** | `is_substitute` | boolean | boolean | Indicateur de suppléant (remplacé par `role`) |
 
+> ⚠️ **Note** : Le champ `is_substitute` est supprimé uniquement de `election_candidates`. Il reste présent dans `election_electoral_lists` (inchangé).
+
+**Relation ajoutée** :
+
+```
+election_candidates.documents → documents (Many-to-One)
+```
+
 **Impact** :
-- ⚠️ **Breaking change** : Le champ `is_substitute` n'existe plus
+- ⚠️ **Breaking change** : Le champ `is_substitute` n'existe plus dans `election_candidates`
 - ✅ Plus flexible : Support de plusieurs rôles (titulaire, suppléant, etc.)
 - ✅ Extensible : Facilite l'ajout de nouveaux rôles
+- ✅ Lien vers le programme/document du candidat via `documents`
 
 **Migration de données OBLIGATOIRE** :
 
@@ -236,6 +286,34 @@ console.log(election.documents); // [{ id, title, slug, type, file, ... }]
 
 ---
 
+### 2.5 Collection `carte` (+3 champs, +3 relations)
+
+**Modifications** :
+
+| Action | Champ | Type | Interface | Description |
+|--------|-------|------|-----------|-------------|
+| ➕ **AJOUT** | `election` | integer | select-dropdown-m2o | Relation M2O vers `elections` |
+| ➕ **AJOUT** | `constituencie` | integer | select-dropdown-m2o | Relation M2O vers `election_constituencies` |
+| ➕ **AJOUT** | `liste_gagnante` | integer | select-dropdown-m2o | Relation M2O vers `election_electoral_lists` |
+
+**Relations ajoutées** :
+
+```
+carte.election → elections (Many-to-One)
+carte.constituencie → election_constituencies (Many-to-One)
+carte.liste_gagnante → election_electoral_lists (Many-to-One)
+```
+
+**Impact** :
+- ✅ La carte est maintenant liée à une élection spécifique
+- ✅ Lien direct vers la circonscription concernée
+- ✅ Identification de la liste gagnante par zone géographique
+- ✅ Permet le filtrage des cartes par élection
+
+**Migration** : Aucune migration de données requise (champs optionnels).
+
+---
+
 ## ➕ 3. Catégorie à créer dans `news_category`
 
 > ⚠️ **Important** : Les collections `news` et `news_category` existent déjà en production.
@@ -261,7 +339,7 @@ console.log(election.documents); // [{ id, title, slug, type, file, ... }]
 ---
 
 
-## ✅ 5. Collections sans changement (9 collections)
+## ✅ 5. Collections sans changement (8 collections)
 
 Les collections suivantes existent dans les deux schémas **sans aucune modification** :
 
@@ -273,7 +351,8 @@ Les collections suivantes existent dans les deux schémas **sans aucune modifica
 - `Bureau_vote`
 - `chargement_pv`
 - `resultats`
-- `carte`
+
+> ⚠️ **Note** : `carte` a été déplacée vers la section "Collections modifiées" (ajout de 3 relations : `election`, `constituencie`, `liste_gagnante`).
 
 **Impact** : Aucune migration requise pour ces collections.
 
@@ -361,8 +440,17 @@ Créez manuellement les éléments suivants.
 | Champ | Type | Interface | Options |
 |-------|------|-----------|---------|
 | `role` | String | select-dropdown | titulaire, suppleant, autre |
+| `documents` | Integer | select-dropdown-m2o | → documents (programme du candidat) |
 
 ⚠️ **Puis migrer les données** de `is_substitute` vers `role` (voir section Migration).
+
+**Dans `carte`** :
+
+| Champ | Type | Interface | Options |
+|-------|------|-----------|---------|
+| `election` | Integer | select-dropdown-m2o | → elections |
+| `constituencie` | Integer | select-dropdown-m2o | → election_constituencies |
+| `liste_gagnante` | Integer | select-dropdown-m2o | → election_electoral_lists |
 
 **Dans `elections`** :
 
@@ -628,7 +716,8 @@ export interface Election {
 // APRÈS
 export interface ElectionCandidate {
   // ...
-  role?: 'titulaire' | 'suppleant' | 'autre'; // ✅ Ajouté
+  role?: 'titulaire' | 'suppleant' | 'autre'; // ✅ Ajouté (remplace is_substitute)
+  documents?: number; // ✅ Ajouté (M2O → documents, programme du candidat)
 }
 
 export interface Election {
@@ -638,6 +727,7 @@ export interface Election {
   year: number;
   // Nouveaux champs ✅
   documents?: Document[];
+  related_elections?: Election[]; // ✅ M2M self-referencing via elections_elections
   participation_rate?: number;
   processed_pv_rate?: number;
   rounds?: number;
@@ -671,6 +761,28 @@ export interface GuideElectoral {
   type_election: 'presidentielle' | 'legislative' | 'locale';
   langue?: string;
   sort?: number;
+}
+
+// Nouveau type ✅
+export interface Carte {
+  id: number;
+  election?: number; // M2O → elections
+  coalition_gagnante?: number; // M2O → election_coalition
+  constituencie?: number; // M2O → election_constituencies
+  liste_gagnante?: number; // M2O → election_electoral_lists
+  voters?: number;
+  seat?: number;
+  region?: string;
+  departement?: string;
+  municipality?: string;
+  participation_10h?: number;
+  participation_12h?: number;
+  participation_14h?: number;
+  participation_17h?: number;
+  offices?: number;
+  places?: number;
+  population?: number;
+  Position?: GeoJSON.Polygon;
 }
 ```
 
@@ -719,9 +831,10 @@ grep -r "is_substitute" app/pages/elections*/
 
 | Fonctionnalité | Ancien Schéma | Nouveau Schéma | Impact |
 |----------------|---------------|----------------|--------|
-| **Collections** | 14 | 15 | +1 nouvelle |
-| **Champs totaux** | 171 | 221 | +50 champs |
+| **Collections** | 14 | 22 | +8 (3 nouvelles + 5 existantes intégrées) |
+| **Champs totaux** | 180 | 236 | +56 champs |
 | **Lien documents ↔ elections** | ❌ | ✅ Relation M2M `elections_documents` | Centralisation flexible |
+| **Lien élections ↔ élections** | ❌ | ✅ Relation M2M `elections_elections` | Élections liées |
 | **Guides vidéo** | ❌ | ✅ Collection `guide_electorale` | Pédagogie |
 | **Catégorie actualités** | ❌ | ✅ "Election" dans `news_category` | Filtrage actus |
 | **Calendrier électoral** | ⚠️ Partiel | ✅ Complet | 9 dates clés |
@@ -729,7 +842,8 @@ grep -r "is_substitute" app/pages/elections*/
 | **Multi-tours** | ❌ | ✅ Champ `rounds` | Présidentielles |
 | **Hiérarchie circonscriptions** | ❌ | ✅ Champ `parent` | Arborescence |
 | **Rôles candidats** | Boolean `is_substitute` | Enum `role` | Extensibilité |
-| **Relation docs ↔ elections** | ❌ | ✅ M2M via jonction | Flexibilité + Performance |
+| **Carte électorale** | Relations minimales | ✅ +3 relations (election, constituency, liste) | Filtrage avancé |
+| **Programme candidats** | ❌ | ✅ `election_candidates.documents` M2O | Lien programme |
 
 ---
 
@@ -740,7 +854,10 @@ grep -r "is_substitute" app/pages/elections*/
 - [ ] Backup complet de la base de données production
 - [ ] Tester l'import du nouveau schéma en environnement de test
 - [ ] Vérifier que `guide_electorale` est créée
+- [ ] Vérifier que `elections_documents` (junction M2M) est créée
+- [ ] Vérifier que `elections_elections` (junction M2M self-ref) est créée
 - [ ] Vérifier que le champ `election_id` est ajouté à `documents` (existante)
+- [ ] Vérifier les 3 nouveaux champs de `carte` (election, constituencie, liste_gagnante)
 - [ ] Créer la catégorie "Election" dans `news_category`
 - [ ] Vérifier toutes les pages élections en test
 - [ ] Migrer les données `is_substitute` → `role` en test
@@ -748,7 +865,7 @@ grep -r "is_substitute" app/pages/elections*/
 - [ ] Mettre à jour les types TypeScript
 - [ ] Mettre à jour le code utilisant `is_substitute`
 - [ ] Tester les nouveaux endpoints API
-- [ ] Vérifier les permissions Directus (lecture publique)
+- [ ] Vérifier les permissions Directus (lecture publique sur toutes les collections y compris les jonctions)
 - [ ] Communiquer la maintenance aux utilisateurs (si downtime)
 
 ---
@@ -759,9 +876,11 @@ grep -r "is_substitute" app/pages/elections*/
 - [ ] Importer le nouveau schéma Directus
 - [ ] Vérifier les logs Directus pour les erreurs
 - [ ] Vérifier que `guide_electorale` est créée
+- [ ] Vérifier que `elections_documents` et `elections_elections` existent
 - [ ] Vérifier que `documents.election_id` existe
+- [ ] Vérifier les 3 nouveaux champs de `carte`
 - [ ] Créer la catégorie "Election" dans `news_category`
-- [ ] Migrer les données `election_candidates`
+- [ ] Migrer les données `election_candidates` (`is_substitute` → `role`)
 - [ ] Supprimer la collection `Documents` (majuscule) si elle existe
 - [ ] Tester les endpoints API critiques
 - [ ] Déployer le nouveau code frontend (build + deploy)
@@ -777,8 +896,11 @@ grep -r "is_substitute" app/pages/elections*/
 - [ ] Vérifier la catégorie "Election" dans les actualités
 - [ ] Vérifier les nouveaux champs `elections` (dates, métriques)
 - [ ] Vérifier le champ `role` des candidats
+- [ ] Vérifier les relations de `carte` (election, constituencie, liste_gagnante)
+- [ ] Vérifier la relation `elections_elections` (élections liées)
 - [ ] Créer des données de test (guides, catégorie)
 - [ ] Associer des documents existants aux élections via la relation M2M dans Directus
+- [ ] Lier des élections entre elles via `elections_elections` si applicable
 - [ ] Vérifier les performances (temps de chargement)
 - [ ] Vérifier Google Analytics (pas d'erreur JS)
 - [ ] Désactiver le mode maintenance

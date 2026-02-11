@@ -1,4 +1,4 @@
-# 🗳️ Elections – Modèle et Règles (mise à jour 2026)
+# 🗳️ Elections – Modèle et Règles (mise à jour 2026-02-10)
 
 ## 🎯 Objectifs
 
@@ -8,6 +8,7 @@
 * Gérer la **cartographie électorale** (nationale et diaspora)
 * Fournir les **statistiques** (participation, répartition par sexe, âge, profession)
 * Intégrer les **guides électoraux** (vidéos YouTube) et la **législation** (documents PDF)
+* Permettre la **liaison entre élections** (1er tour ↔ 2nd tour, etc.)
 * Préparer un modèle stable pour le dashboard électoral de Vie-publique.sn
 
 ---
@@ -21,22 +22,25 @@ Table pivot regroupant toutes les élections organisées au Sénégal.
 | Champ                | Type                                       | Description                                | Exemple                    |
 | -------------------- | ------------------------------------------ | ------------------------------------------ | -------------------------- |
 | id                   | int                                        | ID interne                                 | 1                          |
-| name                 | string                                     | Nom de l'élection                          | "Législatives 2024"        |
-| type                 | enum (`presidentielle`, `legislative`, `locale`) | Type d'élection                            | "legislative"              |
+| status               | string (`draft`, `published`, `archived`)  | État de publication                        | "published"                |
+| sort                 | int                                        | Ordre d'affichage                          | 1                          |
+| name                 | string                                     | Nom de l'élection (unique)                 | "Législatives 2024"        |
 | year                 | int                                        | Année de l'élection                        | 2024                       |
-| election_date        | date                                       | Date du scrutin                            | "2024-11-17"               |
-| status               | enum (`scheduled`, `ongoing`, `completed`) | Statut de l'élection                       | "completed"                |
-| description          | text                                       | Description générale                       | "Élections législatives..." |
+| type                 | enum (`legislative`, `presidential`, `locale`) | Type d'élection                        | "legislative"              |
 | participation_rate   | float                                      | Taux de participation (%)                  | 51.2                       |
 | processed_pv_rate    | float                                      | Taux de PV traités (%)                     | 100.0                      |
-| total_seats          | int                                        | Nombre total de sièges                     | 165                        |
-| total_voters         | int                                        | Nombre total d'inscrits                    | 7371890                    |
-| total_votes          | int                                        | Nombre total de votants                    | 3776304                    |
-| is_featured          | boolean                                    | Afficher en vedette sur la page d'accueil  | true                       |
-| documents            | O2M → documents                            | Documents liés (code électoral, PLF, etc.) | [...]                      |
-| status               | string (`draft`, `published`)              | État de publication                        | "published"                |
+| rounds               | int (défaut: 1)                            | Nombre de tours                            | 1                          |
+| election_date        | date                                       | Date du scrutin                            | "2024-11-17"               |
+| date_round_2         | date                                       | Date du second tour                        | null                       |
+| registration_deadline| timestamp                                  | Date limite d'inscription                  | "2024-10-01T00:00:00Z"     |
+| campaign_start_date  | date                                       | Début de campagne                          | "2024-10-27"               |
+| campaign_end_date    | date                                       | Fin de campagne                            | "2024-11-15"               |
+| description          | text                                       | Description générale                       | "Élections législatives..." |
+| documents            | M2M → documents (via `elections_documents`)| Documents liés (code électoral, PLF, etc.) | [...]                      |
+| related_elections    | M2M → elections (via `elections_elections`) | Élections liées (1er/2nd tour, etc.)       | [...]                      |
 
 > 🔁 Une élection peut contenir plusieurs coalitions, listes, candidats, circonscriptions et résultats.
+> 📝 Les champs `total_seats`, `total_voters`, `total_votes`, `is_featured` ne sont PAS dans le schéma Directus — ils sont calculés côté API/frontend.
 
 ---
 
@@ -95,18 +99,27 @@ Profils détaillés des candidats.
 | id              | int                          | ID interne                     | 1                        |
 | first_name      | string                       | Prénom                         | "Amadou"                 |
 | last_name       | string                       | Nom de famille                 | "BA"                     |
-| full_name       | string (auto)                | Nom complet (concaténé)        | "Amadou BA"              |
-| photo           | uuid → directus_files        | Photo du candidat              | "photo123..."            |
-| gender          | enum (`M`, `F`)              | Sexe                           | "M"                      |
 | birthdate       | date                         | Date de naissance              | "1961-05-19"             |
 | birthplace      | string                       | Lieu de naissance              | "Dakar"                  |
-| profession      | string                       | Profession                     | "Économiste"             |
-| biography       | text (Markdown)              | Biographie complète            | "Amadou BA est..."       |
+| role            | enum (`titulaire`, `suppleant`, `autre`) | Rôle du candidat      | "titulaire"              |
+| gender          | enum (`M`, `F`)              | Sexe                           | "M"                      |
 | position        | int                          | Position dans la liste         | 1                        |
+| profession      | string                       | Profession                     | "Économiste"             |
+| electoral_list  | M2O → election_electoral_lists | Liste électorale             | 1                        |
+| photo           | uuid → directus_files        | Photo du candidat              | "photo123..."            |
 | is_elected      | boolean                      | Élu ou non                     | true                     |
-| electoral_list_id | M2O → election_electoral_lists | Liste électorale              | 1                        |
+| documents       | M2O → documents              | Programme/document du candidat | 1                        |
+| tags            | csv                          | Tags                           | "pastef,dakar"           |
+| is_outgoing_deputy | boolean                   | Député sortant                 | false                    |
+| facebook        | string                       | Lien Facebook                  | "https://..."            |
+| twitter         | string                       | Lien Twitter/X                 | "https://..."            |
+| biography       | text                         | Biographie complète            | "Amadou BA est..."       |
+| notes           | text                         | Notes internes                 | "..."                    |
+| elected_replacement | boolean                  | Élu suppléant remplaçant       | false                    |
+| voter_number    | string                       | Numéro d'électeur              | "SN123456"               |
 | status          | string                       | État de publication            | "published"              |
 
+> ⚠️ Le champ `is_substitute` a été supprimé et remplacé par `role` (titulaire/suppleant/autre).
 > 📊 Les **statistiques** (sexe, âge, profession) sont calculées à partir de cette collection.
 
 ---
@@ -115,55 +128,55 @@ Profils détaillés des candidats.
 
 Découpage géographique pour les élections législatives et locales.
 
-| Champ        | Type                  | Description                          | Exemple      |
-| ------------ | --------------------- | ------------------------------------ | ------------ |
-| id           | int                   | ID interne                           | 1            |
-| name         | string                | Nom de la circonscription            | "Dakar"      |
-| type         | enum (`department`, `diaspora`) | Type de circonscription              | "department" |
-| code         | string                | Code ISO ou code géographique        | "DK"         |
-| region       | string                | Région (pour départements)           | "Dakar"      |
-| country      | string                | Pays (pour diaspora)                 | null         |
-| total_seats  | int                   | Nombre de sièges alloués             | 20           |
-| total_voters | int                   | Nombre d'inscrits                    | 1234567      |
-| total_votes  | int                   | Nombre de votants                    | 654321       |
-| election_id  | M2O → elections       | Élection associée                    | 1            |
-| status       | string                | État de publication                  | "published"  |
+| Champ           | Type                                      | Description                          | Exemple      |
+| --------------- | ----------------------------------------- | ------------------------------------ | ------------ |
+| id              | int                                       | ID interne                           | 1            |
+| name            | string                                    | Nom de la circonscription            | "Dakar"      |
+| type            | enum (`department`, `diaspora`)            | Type de circonscription              | "department" |
+| nationale_type  | string (select-dropdown)                  | Type de circonscription nationale    | "majoritaire"|
+| seats           | int                                       | Nombre de sièges alloués             | 20           |
+| region          | string                                    | Région (pour départements)           | "Dakar"      |
+| parent          | M2O → election_constituencies             | Relation hiérarchique parent         | null         |
+| sort            | int                                       | Ordre d'affichage                    | 1            |
+| status          | string                                    | État de publication                  | "published"  |
+
+> 📝 Les champs `nationale_type` et `parent` sont des ajouts du nouveau schéma.
+> 🌳 Le champ `parent` permet de créer des hiérarchies (département → arrondissement → commune).
 
 ---
 
-### 6️⃣ `election_map_national` — *Carte électorale nationale*
+### 6️⃣ `election_map_national` — *Bureaux de vote nationaux*
 
-Données cartographiques pour les départements au Sénégal.
+Liste des lieux de vote et bureaux de vote au Sénégal.
 
-| Champ               | Type                    | Description                          | Exemple |
-| ------------------- | ----------------------- | ------------------------------------ | ------- |
-| id                  | int                     | ID interne                           | 1       |
-| region              | string                  | Région                               | "Dakar" |
-| departement         | string                  | Département                          | "Dakar" |
-| coalition_gagnante  | M2O → election_coalition | Coalition gagnante                   | 1       |
-| seat                | int                     | Nombre de sièges                     | 20      |
-| participation_10h   | float                   | Participation à 10h (%)              | 15.5    |
-| participation_12h   | float                   | Participation à 12h (%)              | 28.3    |
-| participation_14h   | float                   | Participation à 14h (%)              | 42.1    |
-| participation_16h   | float                   | Participation à 16h (%)              | 55.8    |
-| participation_18h   | float                   | Participation à 18h (%)              | 51.2    |
-| election_id         | M2O → elections         | Élection associée                    | 1       |
+| Champ               | Type                    | Description                          | Exemple          |
+| ------------------- | ----------------------- | ------------------------------------ | ---------------- |
+| id                  | int                     | ID interne                           | 1                |
+| election            | M2O → elections         | Élection associée                    | 1                |
+| polling_place       | string                  | Lieu de vote                         | "École Plateau"  |
+| office_number       | int                     | Numéro du bureau                     | 1                |
+| voters              | int                     | Nombre d'inscrits                    | 500              |
+| implantation        | string                  | Implantation                         | "Urbain"         |
+| municipality        | string                  | Commune                              | "Plateau"        |
+| department          | string                  | Département                          | "Dakar"          |
+| region              | string                  | Région                               | "Dakar"          |
 
 ---
 
-### 7️⃣ `election_map_diaspora` — *Carte électorale diaspora*
+### 7️⃣ `election_map_diaspora` — *Bureaux de vote diaspora*
 
-Données cartographiques pour les bureaux de vote à l'étranger.
+Liste des lieux de vote et bureaux de vote à l'étranger.
 
-| Champ              | Type                    | Description                | Exemple        |
-| ------------------ | ----------------------- | -------------------------- | -------------- |
-| id                 | int                     | ID interne                 | 1              |
-| country            | string                  | Pays                       | "France"       |
-| continent          | string                  | Continent                  | "Europe"       |
-| coalition_gagnante | M2O → election_coalition | Coalition gagnante         | 1              |
-| seat               | int                     | Nombre de sièges           | 5              |
-| participation_rate | float                   | Taux de participation (%)  | 35.7           |
-| election_id        | M2O → elections         | Élection associée          | 1              |
+| Champ                      | Type                    | Description                    | Exemple              |
+| -------------------------- | ----------------------- | ------------------------------ | -------------------- |
+| id                         | int                     | ID interne                     | 1                    |
+| election                   | M2O → elections         | Élection associée              | 1                    |
+| diplomatic_representation  | string                  | Représentation diplomatique    | "Ambassade Paris"    |
+| country                    | string                  | Pays                           | "France"             |
+| locality                   | string                  | Localité                       | "Paris"              |
+| polling_place              | string                  | Lieu de vote                   | "Consulat Paris"     |
+| office_number              | int                     | Numéro du bureau               | 1                    |
+| voters                     | int                     | Nombre d'inscrits              | 200                  |
 
 ---
 
@@ -216,27 +229,59 @@ Résultats détaillés par bureau de vote.
 
 ### 1️⃣1️⃣ `documents` — *Documents légaux et officiels*
 
-> ⚠️ **Note** : La collection `documents` existe déjà en production. Le champ `election_id` a été ajouté pour lier les documents aux élections.
+> ⚠️ **Note** : La collection `documents` existe déjà en production. Deux types de relations existent avec les élections :
+> 1. `election_id` (M2O) : Lien direct vers une élection spécifique
+> 2. Relation M2M via `elections_documents` : Permet de lier un document à plusieurs élections
 
 Documents PDF liés aux élections (code électoral, guides, etc.).
 
-| Champ       | Type                 | Description                  | Exemple                 |
-| ----------- | -------------------- | ---------------------------- | ----------------------- |
-| id          | int                  | ID interne                   | 1                       |
-| title       | string               | Titre du document            | "Code Électoral 2024"   |
-| type        | string               | Type de document (ajouter "election" pour les docs électoraux) | "election"              |
-| file        | uuid → directus_files | Fichier PDF                  | "doc123..."             |
-| election_id | M2O → elections      | Élection associée (optionnel) | 1                       |
-| year        | int                  | Année du document            | 2024                    |
-| status      | string               | État de publication          | "published"             |
+| Champ        | Type                 | Description                  | Exemple                 |
+| ------------ | -------------------- | ---------------------------- | ----------------------- |
+| id           | int                  | ID interne                   | 1                       |
+| status       | string               | État de publication          | "published"             |
+| type         | string (select)      | Type de document             | "election"              |
+| publish_date | date                 | Date de publication          | "2024-01-15"            |
+| title        | string               | Titre du document            | "Code Électoral 2024"   |
+| description  | string               | Description courte           | "Code électoral..."     |
+| slug         | string               | Slug URL                     | "code-electoral-2024"   |
+| file         | uuid → directus_files | Fichier PDF                 | "doc123..."             |
+| cover_image  | uuid → directus_files | Image de couverture         | "cover123..."           |
+| election_id  | M2O → elections      | Élection associée (optionnel)| 1                       |
 
-> 📝 **Important** : Le champ `type` doit inclure l'option `"election"` pour identifier les documents en rapport avec une élection.
+> 📝 **Important** : Le champ `type` inclut les options : `official_journal`, `law`, `decree`, `council_of_ministers`, `communique`, `strategy`, `budget`, `code`, `speech`, `government_bill`, `audit_report`, `uncategorized`, `international_report`, **`election`**, `programme`.
 
-> 🔗 Relation **O2M directe** : Un document appartient à **une seule** élection via `election_id`.
+> 🔗 **Double relation** : Un document peut être lié à une élection via `election_id` (M2O) ET via la table de jonction `elections_documents` (M2M).
 
 ---
 
-### 1️⃣2️⃣ `guide_electorale` — *Guides vidéos YouTube* ⭐ NOUVELLE
+### 1️⃣2️⃣ `carte` — *Carte électorale avec données géographiques*
+
+Données cartographiques départementales avec résultats et participation.
+
+| Champ               | Type                             | Description                          | Exemple        |
+| ------------------- | -------------------------------- | ------------------------------------ | -------------- |
+| id                  | int                              | ID interne                           | 1              |
+| election            | M2O → elections                  | Élection associée                    | 1              |
+| coalition_gagnante  | M2O → election_coalition         | Coalition gagnante                   | 1              |
+| constituencie       | M2O → election_constituencies   | Circonscription concernée            | 5              |
+| liste_gagnante      | M2O → election_electoral_lists   | Liste gagnante                       | 3              |
+| voters              | int                              | Nombre d'inscrits                    | 50000          |
+| seat                | int                              | Nombre de sièges                     | 7              |
+| region              | string                           | Région                               | "Dakar"        |
+| departement         | string                           | Département                          | "Dakar"        |
+| municipality        | string                           | Commune                              | "Plateau"      |
+| participation_10h   | float                            | Participation à 10h (%)              | 15.5           |
+| participation_12h   | float                            | Participation à 12h (%)              | 28.3           |
+| participation_14h   | float                            | Participation à 14h (%)              | 42.1           |
+| participation_17h   | float                            | Participation à 17h (%)              | 55.8           |
+| offices             | int                              | Nombre de bureaux de vote            | 120            |
+| places              | int                              | Nombre de lieux de vote              | 30             |
+| population          | int                              | Population                           | 150000         |
+| Position            | geometry.Polygon                 | Contour géographique (GeoJSON)       | {...}          |
+
+---
+
+### 1️⃣3️⃣ `guide_electorale` — *Guides vidéos YouTube* ⭐ NOUVELLE
 
 > ✅ **Nouvelle collection** créée pour le dashboard électoral.
 
@@ -255,7 +300,7 @@ Tutoriels vidéos pour expliquer le processus électoral.
 
 ---
 
-### 1️⃣3️⃣ `election_coalition_videos` — *Vidéos des coalitions*
+### 1️⃣4️⃣ `election_coalition_videos` — *Vidéos des coalitions*
 
 Vidéos promotionnelles, meetings ou témoignages des coalitions.
 
@@ -274,18 +319,22 @@ Vidéos promotionnelles, meetings ou témoignages des coalitions.
 
 ```
 elections ──┬── election_coalition ──┬── election_electoral_lists ──┬── election_candidates
-            │                        └── election_coalition_videos
+            │                        └── election_coalition_videos        └── documents (programme)
             │
-            ├── election_constituencies
+            ├── election_constituencies (avec parent → self)
             │
-            ├── election_map_national
+            ├── election_map_national (bureaux de vote nationaux)
             │
-            ├── election_map_diaspora
+            ├── election_map_diaspora (bureaux de vote diaspora)
+            │
+            ├── carte (données géo + coalition_gagnante, constituencie, liste_gagnante)
             │
             ├── Bureau_vote ──┬── chargement_pv
             │                 └── resultats
             │
-            ├── documents
+            ├── documents (M2M via elections_documents)
+            │
+            ├── elections (M2M self-ref via elections_elections, élections liées)
             │
             └── guide_electorale (indépendant, filtré par type_election)
 ```
@@ -296,15 +345,16 @@ elections ──┬── election_coalition ──┬── election_electoral_
 
 ### Élections
 
-| Champ             | Valeur                      |
-| ----------------- | --------------------------- |
-| name              | "Législatives 2024"         |
-| type              | "legislative"               |
-| year              | 2024                        |
-| status            | "completed"                 |
-| participation_rate| 51.2                        |
-| total_seats       | 165                         |
-| total_voters      | 7371890                     |
+| Champ              | Valeur                      |
+| ------------------ | --------------------------- |
+| name               | "Législatives 2024"         |
+| type               | "legislative"               |
+| year               | 2024                        |
+| status             | "published"                 |
+| participation_rate | 51.2                        |
+| processed_pv_rate  | 100.0                       |
+| rounds             | 1                           |
+| election_date      | "2024-11-17"                |
 
 ### Coalitions (Top 3)
 
@@ -366,5 +416,5 @@ Formule de nommage :
 
 ---
 
-**Dernière mise à jour** : 2026-01-05
-**Version** : 1.0
+**Dernière mise à jour** : 2026-02-10
+**Version** : 1.1

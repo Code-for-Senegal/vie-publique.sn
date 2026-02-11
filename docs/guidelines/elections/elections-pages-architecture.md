@@ -2,7 +2,7 @@
 
 > Documentation complète de la structure et des fonctionnalités de toutes les pages du dashboard électoral
 
-**Dernière mise à jour** : 2026-01-05
+**Dernière mise à jour** : 2026-02-10
 
 ---
 
@@ -362,8 +362,9 @@ description: "Textes de lois, code électoral, décrets et guides officiels pour
   - `/api/elections/map/national` (pour départements)
   - `/api/elections/map/diaspora` (pour pays)
 - **Collections** :
-  - `election_map_national`
-  - `election_map_diaspora`
+  - `carte` (données géographiques avec relations : election, constituencie, coalition_gagnante, liste_gagnante)
+  - `election_map_national` (bureaux de vote nationaux, lié à elections via M2O)
+  - `election_map_diaspora` (bureaux de vote diaspora, lié à elections via M2O)
   - `Bureau_vote`
 
 #### SEO
@@ -611,4 +612,4 @@ NUXT_PUBLIC_SITE_URL=https://vie-publique.sn
 ---
 
 **Auteur** : Vie Publique Sénégal
-**Version** : 1.0
+**Version** : 1.1

@@ -4381,26 +4381,6 @@
             "collection": "election_map_diaspora",
             "field": "id",
             "type": "integer",
-            "meta": {
-                "collection": "election_map_diaspora",
-                "field": "id",
-                "special": null,
-                "interface": "input",
-                "options": null,
-                "display": null,
-                "display_options": null,
-                "readonly": true,
-                "hidden": true,
-                "sort": 1,
-                "width": "full",
-                "translations": null,
-                "note": null,
-                "conditions": null,
-                "required": false,
-                "group": null,
-                "validation": null,
-                "validation_message": null
-            },
             "schema": {
                 "name": "id",
                 "table": "election_map_diaspora",
@@ -4420,12 +4400,52 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
+            },
+            "meta": {
+                "collection": "election_map_diaspora",
+                "field": "id",
+                "special": null,
+                "interface": "input",
+                "options": null,
+                "display": null,
+                "display_options": null,
+                "readonly": true,
+                "hidden": true,
+                "sort": 1,
+                "width": "full",
+                "translations": null,
+                "note": null,
+                "conditions": null,
+                "required": false,
+                "group": null,
+                "validation": null,
+                "validation_message": null
             }
         },
         {
             "collection": "election_map_diaspora",
             "field": "election",
             "type": "integer",
+            "schema": {
+                "name": "election",
+                "table": "election_map_diaspora",
+                "data_type": "integer",
+                "default_value": null,
+                "generation_expression": null,
+                "max_length": null,
+                "numeric_precision": 32,
+                "numeric_scale": 0,
+                "is_generated": false,
+                "is_nullable": true,
+                "is_unique": false,
+                "is_indexed": false,
+                "is_primary_key": false,
+                "has_auto_increment": false,
+                "foreign_key_schema": "public",
+                "foreign_key_table": "elections",
+                "foreign_key_column": "id",
+                "comment": null
+            },
             "meta": {
                 "collection": "election_map_diaspora",
                 "field": "election",
@@ -4450,52 +4470,12 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
-            "schema": {
-                "name": "election",
-                "table": "election_map_diaspora",
-                "data_type": "integer",
-                "default_value": null,
-                "generation_expression": null,
-                "max_length": null,
-                "numeric_precision": 32,
-                "numeric_scale": 0,
-                "is_generated": false,
-                "is_nullable": true,
-                "is_unique": false,
-                "is_indexed": false,
-                "is_primary_key": false,
-                "has_auto_increment": false,
-                "foreign_key_schema": "public",
-                "foreign_key_table": "elections",
-                "foreign_key_column": "id",
-                "comment": null
             }
         },
         {
             "collection": "election_map_diaspora",
             "field": "diplomatic_representation",
             "type": "string",
-            "meta": {
-                "collection": "election_map_diaspora",
-                "field": "diplomatic_representation",
-                "special": null,
-                "interface": "input",
-                "options": null,
-                "display": null,
-                "display_options": null,
-                "readonly": false,
-                "hidden": false,
-                "sort": 3,
-                "width": "half",
-                "translations": null,
-                "note": null,
-                "conditions": null,
-                "required": false,
-                "group": null,
-                "validation": null,
-                "validation_message": null
-            },
             "schema": {
                 "name": "diplomatic_representation",
                 "table": "election_map_diaspora",
@@ -4515,15 +4495,10 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "election_map_diaspora",
-            "field": "country",
-            "type": "string",
+            },
             "meta": {
                 "collection": "election_map_diaspora",
-                "field": "country",
+                "field": "diplomatic_representation",
                 "special": null,
                 "interface": "input",
                 "options": null,
@@ -4531,7 +4506,7 @@
                 "display_options": null,
                 "readonly": false,
                 "hidden": false,
-                "sort": 4,
+                "sort": 3,
                 "width": "half",
                 "translations": null,
                 "note": null,
@@ -4540,7 +4515,12 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
+            }
+        },
+        {
+            "collection": "election_map_diaspora",
+            "field": "country",
+            "type": "string",
             "schema": {
                 "name": "country",
                 "table": "election_map_diaspora",
@@ -4560,15 +4540,10 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "election_map_diaspora",
-            "field": "locality",
-            "type": "string",
+            },
             "meta": {
                 "collection": "election_map_diaspora",
-                "field": "locality",
+                "field": "country",
                 "special": null,
                 "interface": "input",
                 "options": null,
@@ -4576,7 +4551,7 @@
                 "display_options": null,
                 "readonly": false,
                 "hidden": false,
-                "sort": 5,
+                "sort": 4,
                 "width": "half",
                 "translations": null,
                 "note": null,
@@ -4585,7 +4560,12 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
+            }
+        },
+        {
+            "collection": "election_map_diaspora",
+            "field": "locality",
+            "type": "string",
             "schema": {
                 "name": "locality",
                 "table": "election_map_diaspora",
@@ -4605,15 +4585,10 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "election_map_diaspora",
-            "field": "polling_place",
-            "type": "string",
+            },
             "meta": {
                 "collection": "election_map_diaspora",
-                "field": "polling_place",
+                "field": "locality",
                 "special": null,
                 "interface": "input",
                 "options": null,
@@ -4621,7 +4596,7 @@
                 "display_options": null,
                 "readonly": false,
                 "hidden": false,
-                "sort": 6,
+                "sort": 5,
                 "width": "half",
                 "translations": null,
                 "note": null,
@@ -4630,7 +4605,12 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
+            }
+        },
+        {
+            "collection": "election_map_diaspora",
+            "field": "polling_place",
+            "type": "string",
             "schema": {
                 "name": "polling_place",
                 "table": "election_map_diaspora",
@@ -4650,15 +4630,10 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "election_map_diaspora",
-            "field": "office_number",
-            "type": "integer",
+            },
             "meta": {
                 "collection": "election_map_diaspora",
-                "field": "office_number",
+                "field": "polling_place",
                 "special": null,
                 "interface": "input",
                 "options": null,
@@ -4666,7 +4641,7 @@
                 "display_options": null,
                 "readonly": false,
                 "hidden": false,
-                "sort": 7,
+                "sort": 6,
                 "width": "half",
                 "translations": null,
                 "note": null,
@@ -4675,7 +4650,12 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
+            }
+        },
+        {
+            "collection": "election_map_diaspora",
+            "field": "office_number",
+            "type": "integer",
             "schema": {
                 "name": "office_number",
                 "table": "election_map_diaspora",
@@ -4695,15 +4675,10 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
-            }
-        },
-        {
-            "collection": "election_map_diaspora",
-            "field": "voters",
-            "type": "integer",
+            },
             "meta": {
                 "collection": "election_map_diaspora",
-                "field": "voters",
+                "field": "office_number",
                 "special": null,
                 "interface": "input",
                 "options": null,
@@ -4711,7 +4686,7 @@
                 "display_options": null,
                 "readonly": false,
                 "hidden": false,
-                "sort": 8,
+                "sort": 7,
                 "width": "half",
                 "translations": null,
                 "note": null,
@@ -4720,7 +4695,12 @@
                 "group": null,
                 "validation": null,
                 "validation_message": null
-            },
+            }
+        },
+        {
+            "collection": "election_map_diaspora",
+            "field": "voters",
+            "type": "integer",
             "schema": {
                 "name": "voters",
                 "table": "election_map_diaspora",
@@ -4740,6 +4720,26 @@
                 "foreign_key_table": null,
                 "foreign_key_column": null,
                 "comment": null
+            },
+            "meta": {
+                "collection": "election_map_diaspora",
+                "field": "voters",
+                "special": null,
+                "interface": "input",
+                "options": null,
+                "display": null,
+                "display_options": null,
+                "readonly": false,
+                "hidden": false,
+                "sort": 8,
+                "width": "half",
+                "translations": null,
+                "note": null,
+                "conditions": null,
+                "required": false,
+                "group": null,
+                "validation": null,
+                "validation_message": null
             }
         },
         {
