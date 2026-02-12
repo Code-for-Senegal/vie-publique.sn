@@ -264,7 +264,7 @@ watch(selectedElectionId, (newId, oldId) => {
         :links="[
           { label: 'Accueil', to: '/' },
           { label: 'Élections', to: '/elections-senegal' },
-          { label: selectedElection?.name || 'Carte Électorale' },
+          { label: 'Carte Électorale' },
         ]"
       />
 

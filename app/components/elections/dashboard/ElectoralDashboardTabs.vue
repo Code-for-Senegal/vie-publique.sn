@@ -44,43 +44,28 @@ const currentTabIndex = computed({
 </script>
 
 <template>
-  <UTabs
-    v-model="currentTabIndex"
-    :items="tabs"
-    class="w-full max-w-3xl"
-    :ui="{
-      wrapper: 'space-y-0',
-      container: 'hidden',
-      list: {
-        base: `grid gap-0 w-full ${tabs.length === 6 ? 'grid-cols-6' : 'grid-cols-5'}`,
-        background: 'bg-gray-100 dark:bg-gray-800 p-1 rounded-xl border border-gray-200 dark:border-gray-700',
-        marker: {
-          wrapper: 'absolute inset-0 flex',
-          base: 'w-full h-full',
-          background: 'bg-primary-600 dark:bg-primary-500 rounded-lg shadow-md',
-        },
-        tab: {
-          base: 'relative flex items-center justify-center py-2.5 px-1 transition-all duration-200 whitespace-nowrap z-10',
-          active: 'text-white font-black',
-          inactive: 'text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-white font-bold',
-          rounded: 'rounded-lg',
-          size: 'text-[9px] sm:text-xs'
-        }
-      }
-    }"
-  >
-    <template #item="{ item }">
-      <div class="flex items-center justify-center gap-1 sm:gap-1.5">
-        <UIcon :name="item.icon" class="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
-        <!-- Sur mobile: texte visible uniquement pour le tab actif -->
-        <!-- Sur desktop: texte toujours visible -->
+  <div class="w-full max-w-3xl">
+    <div class="flex items-center gap-0.5 bg-gray-100 dark:bg-gray-800 p-1 rounded-xl border border-gray-200 dark:border-gray-700 w-full">
+      <button
+        v-for="(tab, index) in tabs"
+        :key="tab.id"
+        class="relative flex items-center justify-center gap-1 sm:gap-1.5 py-2.5 px-2 sm:px-3 rounded-lg transition-all duration-200 whitespace-nowrap text-[9px] sm:text-xs"
+        :class="[
+          'sm:flex-1',
+          currentTabIndex === index
+            ? 'bg-primary-600 dark:bg-primary-500 text-white font-black shadow-md'
+            : 'text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-white font-bold flex-1',
+        ]"
+        @click="currentTabIndex = index"
+      >
+        <UIcon :name="tab.icon" class="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
         <span
           class="truncate transition-all duration-200"
-          :class="tabs[currentTabIndex]?.id === item.id ? 'inline' : 'hidden sm:inline'"
+          :class="currentTabIndex === index ? 'inline' : 'hidden sm:inline'"
         >
-          {{ item.label }}
+          {{ tab.label }}
         </span>
-      </div>
-    </template>
-  </UTabs>
+      </button>
+    </div>
+  </div>
 </template>

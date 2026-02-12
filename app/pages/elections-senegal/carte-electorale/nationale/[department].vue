@@ -250,18 +250,9 @@ useSeoMeta({
           :to="backUrl"
         />
         <h1 class="text-xl font-bold dark:text-white sm:text-2xl">
-          {{ pageTitle }}
+          {{ department }}
         </h1>
       </div>
-      <UButton
-        v-if="!pending"
-        icon="i-heroicons-arrow-path"
-        variant="soft"
-        :loading="isRefreshing"
-        @click="handleRefresh"
-      >
-        Actualiser
-      </UButton>
     </div>
 
     <!-- Statistiques globales -->

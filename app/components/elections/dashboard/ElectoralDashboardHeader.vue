@@ -53,8 +53,11 @@ const shouldShowSelectors = computed(() => {
 </script>
 
 <template>
-  <header class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50 w-full transition-all">
+  <header class="backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50 w-full transition-all">
     <div class="container mx-auto px-4 py-4 md:py-6">
+      <!-- Breadcrumb slot -->
+      <slot name="breadcrumb" />
+
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <!-- Logo & Title -->
         <div class="flex items-center gap-3">
@@ -73,7 +76,7 @@ const shouldShowSelectors = computed(() => {
         </div>
 
         <!-- Selectors -->
-        <div 
+        <div
           v-if="shouldShowSelectors"
           class="flex items-center gap-2 bg-gray-100 dark:bg-gray-800/50 p-1 rounded-2xl border dark:border-gray-700"
         >
@@ -107,7 +110,7 @@ const shouldShowSelectors = computed(() => {
       </div>
 
       <!-- Tabs Slot -->
-      <div 
+      <div
         v-if="shouldShowSelectors"
         class="mt-6 flex justify-center w-full px-2"
       >

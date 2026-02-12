@@ -26,7 +26,7 @@ if (!props.typeElection) {
     if (route.query.type) {
         selectedType.value = route.query.type as string;
     }
-    
+
     watch(selectedLanguage, (newLang) => {
         router.replace({ query: { ...route.query, lang: newLang === 'all' ? undefined : newLang } });
     });
@@ -43,13 +43,13 @@ const { videos, loading, languages } = useGuideElectoral({
 
 const filteredVideos = computed(() => {
    if (!videos.value) return [];
-   
+
    let filtered = videos.value;
 
     if (selectedLanguage.value !== 'all') {
         filtered = filtered.filter(v => v.langue === selectedLanguage.value);
     }
-    
+
     // Filter by type (either prop or local state)
     const effectiveType = props.typeElection || selectedType.value;
     if (effectiveType && effectiveType !== 'all') {
@@ -62,15 +62,6 @@ const filteredVideos = computed(() => {
 
 <template>
   <div class="space-y-8 animate-in fade-in duration-700">
-    <!-- Header -->
-    <div class="text-center space-y-4">
-      <h2 class="text-3xl font-black uppercase tracking-tighter">
-        Guide Électoral - Comment Voter
-      </h2>
-      <p class="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-        Découvrez comment voter aux élections en vidéo, disponible en plusieurs langues nationales.
-      </p>
-    </div>
 
     <!-- Loading State -->
     <div v-if="loading" class="flex justify-center items-center py-12">

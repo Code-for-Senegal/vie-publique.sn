@@ -100,7 +100,7 @@
                   </div>
                   <NuxtLink
                     v-if="region.departement"
-                    :to="getDepartmentDetailUrl(region.departement)"
+                    :to="getDepartmentDetailUrl(region.departement.toUpperCase())"
                     class="text-black-800 mt-0 inline-block rounded-md bg-green-100 p-2 font-bold"
                   >
                     Voir plus

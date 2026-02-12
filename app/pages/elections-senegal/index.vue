@@ -257,12 +257,31 @@ const quickLinks = computed(() => [
 
             </div>
           </div>
+          <!-- Desktop: Link text -->
           <NuxtLink
             v-if="election"
             :to="`/elections-senegal/dashboard/${election.type}/${election.year}?tab=resultats`"
-            class="block p-4 bg-slate-50 dark:bg-gray-800/50 border-t dark:border-gray-800 text-center text-sm font-black uppercase tracking-widest text-gray-500 hover:text-primary-600 hover:bg-slate-100 transition-all"
+            class="hidden md:block p-4 bg-slate-50 dark:bg-gray-800/50 border-t dark:border-gray-800 text-center text-sm font-black uppercase tracking-widest text-gray-500 hover:text-primary-600 hover:bg-slate-100 transition-all"
           >
             Voir le tableau de bord complet <UIcon name="i-heroicons-arrow-right" class="ml-2 inline-block h-4 w-4" />
+          </NuxtLink>
+          <!-- Mobile: Card style CTA -->
+          <NuxtLink
+            v-if="election"
+            :to="`/elections-senegal/dashboard/${election.type}/${election.year}?tab=resultats`"
+            class="md:hidden group flex items-center justify-center gap-3 p-4 bg-gradient-to-br from-primary-50 via-primary-100 to-primary-200 dark:from-primary-900/30 dark:via-primary-800/25 dark:to-primary-900/20 border-t dark:border-gray-800 transition hover:shadow-lg"
+          >
+            <UIcon
+              name="i-heroicons-chart-bar-square"
+              class="h-6 w-6 text-primary-600 transition group-hover:scale-110 dark:text-primary-400"
+            />
+            <span class="text-sm font-bold text-primary-800 dark:text-primary-300">
+              Tableau de bord complet
+            </span>
+            <UIcon
+              name="i-heroicons-arrow-right"
+              class="h-4 w-4 text-primary-600 transition group-hover:translate-x-1 dark:text-primary-400"
+            />
           </NuxtLink>
         </div>
 

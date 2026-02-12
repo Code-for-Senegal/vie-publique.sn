@@ -148,7 +148,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="min-h-screen bg-slate-50 dark:bg-gray-950 pb-20">
+  <div class="min-h-screen pb-20">
     <!-- Header Compact -->
     <div class="bg-white dark:bg-gray-900 border-b dark:border-gray-800 pt-8 pb-6 shadow-sm">
       <div class="container mx-auto px-4 max-w-6xl">

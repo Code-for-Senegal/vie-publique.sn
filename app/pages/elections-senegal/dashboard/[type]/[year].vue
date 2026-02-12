@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import ElectionResultatsStats from '~/components/elections/dashboard/stats/ElectionResultatsStats.vue';
 import { useElectoralCoalitions } from '~/composables/elections/dashboard/useElectoralCoalitions';
 import { useElectoralConstituencies } from '~/composables/elections/dashboard/useElectoralConstituencies';
 import { useElectoralDashboard } from '~/composables/elections/dashboard/useElectoralDashboard';
 import { useElectoralProfessions } from '~/composables/elections/dashboard/useElectoralProfessions';
 import { useElectoralStatsList } from '~/composables/elections/dashboard/useElectoralStatsList';
 import { useElectionMapDataResult, type TableResultItem } from '~/composables/useElectionMapJsonResult';
+import ElectionResultClassement from '~/components/elections/ElectionResultClassement.vue';
 
 /**
  * Dashboard Électoral - Page Détail [Type]/[Année]
@@ -348,7 +348,7 @@ const resultCommunesForDept = computed(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-[#f8fafc] dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+  <div class="min-h-screen text-gray-900 dark:text-gray-100 transition-colors duration-300">
     <!-- Header & Navigation Sticky -->
     <ElectionsDashboardElectoralDashboardHeader
       :selected-year="selectedYear"
@@ -359,6 +359,17 @@ const resultCommunesForDept = computed(() => {
       @update:type="onTypeChange"
       @clear-coalition="clearConstituency"
     >
+      <template #breadcrumb>
+        <UBreadcrumb
+          v-if="currentElection"
+          class="mb-3 text-xs"
+          :links="[
+            { label: 'Accueil', to: '/' },
+            { label: 'Élections', to: '/elections-senegal' },
+            { label: 'Dashboard' },
+          ]"
+        />
+      </template>
       <template #tabs>
         <ElectionsDashboardElectoralDashboardTabs
           v-model="currentTabIndex"
@@ -393,28 +404,6 @@ const resultCommunesForDept = computed(() => {
       </div>
 
       <div v-else>
-      <!-- Breadcrumb -->
-      <UBreadcrumb
-        v-if="!isViewingDetails"
-        class="mb-8"
-        :links="[
-          { label: 'Accueil', to: '/' },
-          { label: 'Élections', to: '/elections-senegal' },
-          { label: currentElection?.name || `${selectedType} ${selectedYear}` },
-        ]"
-      />
-
-      <!-- Breadcrumb Desktop Only when viewing details -->
-      <UBreadcrumb
-        v-if="isViewingDetails"
-        class="mb-8 hidden md:block"
-        :links="[
-          { label: 'Accueil', to: '/' },
-          { label: 'Élections', to: '/elections-senegal' },
-          { label: currentElection?.name || `${selectedType} ${selectedYear}` },
-        ]"
-      />
-
       <!-- Section: Détails de l'élection -->
       <transition name="fade">
         <ElectionsDashboardElectoralDetailsCard
@@ -578,7 +567,7 @@ const resultCommunesForDept = computed(() => {
               <!-- Grille LÉGISLATIVES : Vues multiples -->
               <div v-else-if="coalitions.length > 0"
                 :class="[
-                  legislativeViewType === 'list' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6' : 'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'
+                  legislativeViewType === 'list' ? 'grid grid-cols-1 md:grid-cols-2 gap-2' : 'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'
                 ]"
               >
                 <template v-if="legislativeViewType === 'list'">
@@ -617,7 +606,7 @@ const resultCommunesForDept = computed(() => {
 
         <!-- Dashboard Section: Carte (Tab ID: carte) -->
         <section v-else-if="activeTab === 'carte'" class="animate-in fade-in duration-700">
-             <div class="bg-white dark:bg-gray-900 rounded-[2rem] overflow-hidden border dark:border-gray-800 shadow-2xl">
+             <div class="overflow-hidden">
                 <div class="p-6 border-b dark:border-gray-800 flex items-center justify-between bg-gray-50/50 dark:bg-gray-800/30">
                     <div>
                         <h2 class="text-2xl font-black uppercase tracking-tighter">Carte Électorale</h2>
@@ -691,38 +680,38 @@ const resultCommunesForDept = computed(() => {
 
         <!-- Dashboard Section: Résultats (Tab ID: resultats) -->
         <section v-else-if="activeTab === 'resultats'" class="animate-in fade-in duration-700">
-            <div class="space-y-6">
-                <div class="flex items-center justify-between flex-wrap gap-4">
-                   <div>
-                       <h2 class="text-2xl font-black uppercase tracking-tighter">Résultats Globaux</h2>
-                   </div>
+            <div class="space-y-3">
+                <!-- Header + Toggle inline -->
+                <div class="flex items-center justify-between">
+                   <h2 class="text-xl sm:text-2xl font-black uppercase tracking-tighter">Résultats Globaux</h2>
 
                    <!-- VIEW TOGGLE -->
                    <div class="bg-gray-100 dark:bg-gray-800 p-1 rounded-xl flex gap-1">
                       <UButton
                         :color="resultViewType === 'list' ? 'white' : 'gray'"
                         :variant="resultViewType === 'list' ? 'solid' : 'ghost'"
-                        size="sm"
+                        size="xs"
                         class="rounded-lg transition-all"
                         icon="i-heroicons-table-cells"
                         @click="resultViewType = 'list'"
                       >
-                         Liste
+                         <span class="hidden sm:inline">Liste</span>
                       </UButton>
                       <UButton
                         :color="resultViewType === 'map' ? 'white' : 'gray'"
                         :variant="resultViewType === 'map' ? 'solid' : 'ghost'"
-                        size="sm"
+                        size="xs"
                         class="rounded-lg transition-all"
                         icon="i-heroicons-map"
                         @click="resultViewType = 'map'"
                       >
-                         Carte
+                         <span class="hidden sm:inline">Carte</span>
                       </UButton>
                    </div>
                 </div>
 
-                <div class="bg-white dark:bg-gray-900 rounded-xl p-6 border dark:border-gray-800 shadow-sm min-h-[400px]">
+                <!-- Content -->
+                <div class="min-h-[400px]">
                     <div v-if="resultViewType === 'list'">
                         <div v-if="selectedType === 'locale'">
                             <ElectionsDashboardStatsElectionResultatsLocalesTable
@@ -731,21 +720,23 @@ const resultCommunesForDept = computed(() => {
                             />
                         </div>
                         <template v-else>
-                            <div v-if="!coalitions || coalitions.length === 0" class="flex flex-col items-center justify-center h-64 text-center">
-                                <UIcon name="i-heroicons-chart-bar" class="w-16 h-16 text-gray-200 dark:text-gray-800 mb-4" />
-                                <h3 class="text-lg font-bold text-gray-400">Aucun résultat disponible</h3>
-                                <p class="text-sm text-gray-500">Les résultats ne sont pas encore publiés pour cette élection.</p>
+                            <div v-if="!coalitions || coalitions.length === 0" class="flex flex-col items-center justify-center h-64 text-center px-4">
+                                <UIcon name="i-heroicons-chart-bar" class="w-12 h-12 sm:w-16 sm:h-16 text-gray-200 dark:text-gray-800 mb-4" />
+                                <h3 class="text-base sm:text-lg font-bold text-gray-400">Aucun résultat disponible</h3>
+                                <p class="text-xs sm:text-sm text-gray-500">Les résultats ne sont pas encore publiés.</p>
                             </div>
-                            <ElectionResultatsStats
+                            <!-- Composant mobile-first pour les résultats -->
+                            <ElectionResultClassement
                               v-else
                               :coalitions="coalitions"
+                              :loading="loadingCoalitions"
                               :type="selectedType"
                             />
                         </template>
                     </div>
 
-                    <div v-else-if="resultViewType === 'map'" class="w-full h-full min-h-[500px]">
-                        <ClientOnly>
+                    <div v-else-if="resultViewType === 'map'" class="w-full h-full min-h-[400px] sm:min-h-[500px]">
+                         <ClientOnly>
                             <!-- Élections locales : carte départements + panel résultat -->
                             <template v-if="isLocalElection">
                               <ElectionMapComponent4
@@ -789,7 +780,7 @@ const resultCommunesForDept = computed(() => {
                     />
                 </div>
 
-                <div class="bg-white dark:bg-gray-900 rounded-xl p-6 border dark:border-gray-800 shadow-sm min-h-[400px]">
+                <div class="p-6 min-h-[400px]">
                     <!-- Loading States -->
                     <div v-if="loadingProfessions" class="flex justify-center items-center h-64">
                          <div class="flex flex-col items-center space-y-2">
@@ -837,7 +828,7 @@ const resultCommunesForDept = computed(() => {
                 </UButton>
               </div>
 
-              <div class="bg-white dark:bg-gray-900 rounded-[2rem] p-8 border dark:border-gray-800 shadow-sm min-h-[300px]">
+              <div class="rounded-[2rem] p-8 min-h-[300px]">
                  <!-- Documents rattachés à l'élection actuelle -->
                  <ElectionsDashboardDocumentsTab
                    :documents="currentElectionDocuments"
