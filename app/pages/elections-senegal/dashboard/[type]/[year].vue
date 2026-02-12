@@ -817,18 +817,18 @@ const resultCommunesForDept = computed(() => {
 
         <!-- Dashboard Section: Documents (Tab ID: documents) -->
         <section v-else-if="activeTab === 'documents'" class="animate-in fade-in duration-700">
-           <div class="space-y-6">
-              <div class="flex items-center justify-between">
+           <div class="space-y-4">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
-                  <h2 class="text-2xl font-black uppercase tracking-tighter">Documents Officiels</h2>
-                  <p class="text-gray-500">Retrouvez les textes et documents liés à ce scrutin.</p>
+                  <h2 class="text-xl sm:text-2xl font-black uppercase tracking-tighter">Documents Officiels</h2>
+                  <p class="text-sm text-gray-500">Retrouvez les textes et documents liés à ce scrutin.</p>
                 </div>
-                <UButton to="/elections-senegal/legislation" variant="ghost" icon="i-heroicons-arrow-top-right-on-square">
+                <UButton to="/elections-senegal/legislation" variant="ghost" size="xs" icon="i-heroicons-arrow-top-right-on-square" class="self-start sm:self-auto shrink-0">
                   Voir toute la législation
                 </UButton>
               </div>
 
-              <div class="rounded-[2rem] p-8 min-h-[300px]">
+              <div class="min-h-[300px]">
                  <!-- Documents rattachés à l'élection actuelle -->
                  <ElectionsDashboardDocumentsTab
                    :documents="currentElectionDocuments"
