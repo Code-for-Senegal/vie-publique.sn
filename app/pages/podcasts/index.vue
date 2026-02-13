@@ -110,6 +110,23 @@ const {
   setSelectedCategory,
 } = usePodcasts();
 
+// Typewriter effect pour les mots thématiques
+const thematicWords = [
+  'Gouvernance',
+  'Économie',
+  'Éducation',
+  'Investissement',
+  'Société',
+  'Science',
+  'Culture',
+];
+
+const { displayedText } = useTypewriter(thematicWords, {
+  typingSpeed: 100,
+  deletingSpeed: 50,
+  pauseDuration: 2000,
+});
+
 // Catégories avec "Toutes" en premier
 const allCategories = computed(() => {
   const cats: { name: string; color?: string }[] = [{ name: 'Toutes' }];
@@ -155,11 +172,15 @@ const closePlayer = () => {
           </span>
         </div>
         <h1 class="max-w-2xl text-3xl font-bold leading-tight text-white md:text-5xl">
-          Podcast <span class="text-yellow-400">Vie Publique</span>
+          Podcasts <span class="text-yellow-400">Vie Publique</span>
         </h1>
         <p class="mt-4 max-w-xl text-sm leading-relaxed text-blue-100 md:text-base">
-          Retrouvez l'ensemble de nos Live/Spaces en replay. Gouvernance, économie, investissement,
-          société — un espace de dialogue citoyen.
+          Retrouvez l'ensemble de nos Live/Spaces en replay. 
+          <span class="inline-flex items-baseline">
+            <span class="font-semibold text-yellow-300">{{ displayedText }}</span>
+            <span class="typewriter-cursor ml-0.5 animate-pulse text-yellow-300">|</span>
+          </span>
+          — un espace de dialogue citoyen.
         </p>
         <div class="mt-6 flex items-center gap-4">
           <a
