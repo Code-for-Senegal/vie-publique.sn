@@ -69,35 +69,16 @@ const filteredVideos = computed(() => {
     </div>
 
     <template v-else>
-        <div v-if="!props.typeElection" class="flex flex-wrap justify-center gap-2 mb-4">
-             <UButton
-                color="white"
-                :variant="selectedType === 'all' ? 'solid' : 'ghost'"
-                :class="[
-                selectedType === 'all'
-                    ? 'ring-2 ring-primary-500'
-                    : 'hover:bg-gray-50 dark:hover:bg-gray-800',
-                ]"
-                class="rounded-full px-4"
-                @click="selectedType = 'all'"
-            >
-                Toutes les élections
-            </UButton>
-            <UButton
-                v-for="type in electionTypes"
-                :key="type.value"
-                color="white"
-                :variant="selectedType === type.value ? 'solid' : 'ghost'"
-                 :class="[
-                selectedType === type.value
-                    ? 'ring-2 ring-primary-500'
-                    : 'hover:bg-gray-50 dark:hover:bg-gray-800',
-                ]"
-                class="rounded-full px-4"
-                @click="selectedType = type.value"
-            >
-                {{ type.label }}
-            </UButton>
+        <div v-if="!props.typeElection" class="flex justify-center mb-6">
+            <USelect
+                v-model="selectedType"
+                :options="[{ label: 'Toutes les élections', value: 'all' }, ...electionTypes]"
+                size="lg"
+                class="w-full md:w-72"
+                :ui="{ rounded: 'rounded-full' }"
+                placeholder="Sélectionner un type d'élection"
+                icon="i-heroicons-funnel"
+            />
         </div>
 
         <div class="flex flex-wrap justify-center gap-2">
