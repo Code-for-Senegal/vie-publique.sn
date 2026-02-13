@@ -261,6 +261,13 @@ const allNavigationCards: NavigationCard[] = [
     to: '/don/paydunya',
     featureKey: 'menu_don_paydunya',
   },
+  {
+    title: 'Podcasts',
+    description: 'Lives, Spaces, Interviews en replay',
+    icon: 'i-heroicons-microphone',
+    to: '/podcasts',
+    featureKey: 'menu_podcasts',
+  },
 ];
 
 // Filtrer les cartes en fonction des feature flags
