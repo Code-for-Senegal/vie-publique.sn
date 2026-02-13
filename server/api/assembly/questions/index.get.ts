@@ -1,8 +1,15 @@
-import { readItems } from "@directus/sdk";
+import { readItems, aggregate } from "@directus/sdk";
+
+interface TopDeputy {
+  id: string;
+  first_name: string;
+  last_name: string;
+  photo: string | null;
+  questionsCount: number;
+}
 
 export default defineCachedEventHandler(
   async (event) => {
-    const config = useRuntimeConfig();
 
     // Récupération des paramètres de requête
     const query = getQuery(event);
@@ -11,6 +18,8 @@ export default defineCachedEventHandler(
     const search = query.search as string;
     const sortBy = (query.sortBy as string) || "-question_date";
     const filterStatus = query.filterStatus as string;
+    const includeStats = query.includeStats === "true";
+    const topDeputiesLimit = parseInt(query.topDeputiesLimit as string) || 4;
 
     try {
       const directus = getCmsClient();
@@ -70,21 +79,14 @@ export default defineCachedEventHandler(
           });
         });
 
-      // Récupération du total de questions
-      const totalCount = await directus
-        .request(
-          readItems("assembly_question", {
-            fields: ["id"],
-            filter,
-            aggregate: {
-              count: ["id"],
-            },
-          }),
-        )
-        .then((result: any) => {
-          return result?.[0]?.count?.id || 0;
+      // Récupération du total de questions avec aggregate()
+      const [totalCountResult] = await directus.request(
+        aggregate("assembly_question", {
+          aggregate: { count: "*" },
+          query: { filter },
         })
-        .catch(() => questionData.length);
+      );
+      const totalCount = Number(totalCountResult?.count || questionData.length);
 
       // Transformation des données
       const transformedQuestions = questionData.map((question) => ({
@@ -103,15 +105,61 @@ export default defineCachedEventHandler(
           : null,
       }));
 
+      // Calcul des statistiques des députés les plus actifs (optionnel)
+      let topDeputies: TopDeputy[] = [];
+      if (includeStats) {
+        // Récupérer toutes les questions pour calculer les stats
+        const allQuestionsForStats = await directus.request(
+          readItems("assembly_question", {
+            fields: [
+              "deputy.id",
+              "deputy.first_name",
+              "deputy.last_name",
+              "deputy.photo",
+            ],
+            filter: {
+              status: { _eq: "published" },
+              deputy: { _nnull: true },
+            },
+            limit: -1,
+          })
+        );
+
+        // Agrégation des questions par député
+        const deputyStats = new Map<string, TopDeputy>();
+        for (const question of allQuestionsForStats) {
+          if (!question.deputy?.id) continue;
+          const deputyId = question.deputy.id;
+          const existing = deputyStats.get(deputyId);
+          if (existing) {
+            existing.questionsCount++;
+          } else {
+            deputyStats.set(deputyId, {
+              id: deputyId,
+              first_name: question.deputy.first_name || "",
+              last_name: question.deputy.last_name || "",
+              photo: question.deputy.photo || null,
+              questionsCount: 1,
+            });
+          }
+        }
+
+        // Trier et limiter
+        topDeputies = Array.from(deputyStats.values())
+          .sort((a, b) => b.questionsCount - a.questionsCount)
+          .slice(0, topDeputiesLimit);
+      }
+
       return {
         questions: transformedQuestions,
-        totalQuestions: Number(totalCount),
+        totalQuestions: totalCount,
         pagination: {
           page,
           limit,
-          total: Number(totalCount),
-          totalPages: Math.ceil(Number(totalCount) / limit),
+          total: totalCount,
+          totalPages: Math.ceil(totalCount / limit),
         },
+        ...(includeStats && { topDeputies }),
       };
     } catch (error) {
       throw createError({
