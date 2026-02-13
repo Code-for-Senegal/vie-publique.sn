@@ -127,6 +127,13 @@ const { displayedText } = useTypewriter(thematicWords, {
   pauseDuration: 2000,
 });
 
+// Modal d'invitation
+const showInvitationModal = ref(false);
+
+const handleInvitationSuccess = () => {
+  // Optionnel: ajouter une notification ou un tracking
+};
+
 // Catégories avec "Toutes" en premier
 const allCategories = computed(() => {
   const cats: { name: string; color?: string }[] = [{ name: 'Toutes' }];
@@ -175,14 +182,14 @@ const closePlayer = () => {
           Podcasts <span class="text-yellow-400">Vie Publique</span>
         </h1>
         <p class="mt-4 max-w-xl text-sm leading-relaxed text-blue-100 md:text-base">
-          Retrouvez l'ensemble de nos Live/Spaces en replay. 
+          Retrouvez l'ensemble de nos Live/Spaces en replay.
           <span class="inline-flex items-baseline">
             <span class="font-semibold text-yellow-300">{{ displayedText }}</span>
             <span class="typewriter-cursor ml-0.5 animate-pulse text-yellow-300">|</span>
           </span>
           — un espace de dialogue citoyen.
         </p>
-        <div class="mt-6 flex items-center gap-4">
+        <div class="mt-6 flex flex-wrap items-center gap-3">
           <a
             :href="PLAYLIST_URL"
             target="_blank"
@@ -192,6 +199,19 @@ const closePlayer = () => {
             <UIcon name="i-heroicons-play-solid" class="h-4 w-4" />
             Voir sur YouTube
           </a>
+
+          <UButton
+            color="yellow"
+            variant="solid"
+            size="md"
+            @click="showInvitationModal = true"
+          >
+            <template #leading>
+              <UIcon name="i-heroicons-user-plus" />
+            </template>
+            Être invité au podcast
+          </UButton>
+
           <span v-if="totalItems > 0" class="text-sm text-blue-200">
             {{ totalItems }} épisodes
           </span>
@@ -362,5 +382,12 @@ const closePlayer = () => {
 
     <!-- Player Modal -->
     <PodcastPlayerModal :podcast="currentPodcast" @close="closePlayer" />
+
+    <!-- Invitation Modal -->
+    <PodcastInvitationModal
+      :is-open="showInvitationModal"
+      @close="showInvitationModal = false"
+      @success="handleInvitationSuccess"
+    />
   </div>
 </template>
