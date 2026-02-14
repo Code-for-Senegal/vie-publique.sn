@@ -515,9 +515,9 @@
             "schema": {}
         },
         {
-            "collection": "guide_electorale",
+            "collection": "election_electoral_guide",
             "meta": {
-                "collection": "guide_electorale",
+                "collection": "election_electoral_guide",
                 "icon": "video_library",
                 "note": "Guides vidéos YouTube pour chaque type d'élection",
                 "display_template": "{{titre}}",
@@ -11339,14 +11339,14 @@
             }
         },
         {
-            "collection": "guide_electorale",
+            "collection": "election_electoral_guide",
             "field": "id",
             "type": "integer",
             "schema": {
                 "name": "id",
-                "table": "guide_electorale",
+                "table": "election_electoral_guide",
                 "data_type": "integer",
-                "default_value": "nextval('guide_electorale_id_seq'::regclass)",
+                "default_value": "nextval('election_electoral_guide_id_seq'::regclass)",
                 "generation_expression": null,
                 "max_length": null,
                 "numeric_precision": 32,
@@ -11363,7 +11363,7 @@
                 "comment": null
             },
             "meta": {
-                "collection": "guide_electorale",
+                "collection": "election_electoral_guide",
                 "field": "id",
                 "special": null,
                 "interface": "input",
@@ -11384,12 +11384,12 @@
             }
         },
         {
-            "collection": "guide_electorale",
+            "collection": "election_electoral_guide",
             "field": "status",
             "type": "string",
             "schema": {
                 "name": "status",
-                "table": "guide_electorale",
+                "table": "election_electoral_guide",
                 "data_type": "character varying",
                 "default_value": "draft",
                 "generation_expression": null,
@@ -11408,7 +11408,7 @@
                 "comment": null
             },
             "meta": {
-                "collection": "guide_electorale",
+                "collection": "election_electoral_guide",
                 "field": "status",
                 "special": null,
                 "interface": "select-dropdown",
@@ -11473,12 +11473,12 @@
             }
         },
         {
-            "collection": "guide_electorale",
+            "collection": "election_electoral_guide",
             "field": "sort",
             "type": "integer",
             "schema": {
                 "name": "sort",
-                "table": "guide_electorale",
+                "table": "election_electoral_guide",
                 "data_type": "integer",
                 "default_value": null,
                 "generation_expression": null,
@@ -11497,7 +11497,7 @@
                 "comment": null
             },
             "meta": {
-                "collection": "guide_electorale",
+                "collection": "election_electoral_guide",
                 "field": "sort",
                 "special": null,
                 "interface": "input",
@@ -11518,12 +11518,12 @@
             }
         },
         {
-            "collection": "guide_electorale",
+            "collection": "election_electoral_guide",
             "field": "titre",
             "type": "string",
             "schema": {
                 "name": "titre",
-                "table": "guide_electorale",
+                "table": "election_electoral_guide",
                 "data_type": "character varying",
                 "default_value": null,
                 "generation_expression": null,
@@ -11542,7 +11542,7 @@
                 "comment": null
             },
             "meta": {
-                "collection": "guide_electorale",
+                "collection": "election_electoral_guide",
                 "field": "titre",
                 "special": null,
                 "interface": "input",
@@ -11570,12 +11570,12 @@
             }
         },
         {
-            "collection": "guide_electorale",
+            "collection": "election_electoral_guide",
             "field": "description",
             "type": "text",
             "schema": {
                 "name": "description",
-                "table": "guide_electorale",
+                "table": "election_electoral_guide",
                 "data_type": "text",
                 "default_value": null,
                 "generation_expression": null,
@@ -11594,7 +11594,7 @@
                 "comment": null
             },
             "meta": {
-                "collection": "guide_electorale",
+                "collection": "election_electoral_guide",
                 "field": "description",
                 "special": null,
                 "interface": "input-rich-text-md",
@@ -11620,12 +11620,12 @@
             }
         },
         {
-            "collection": "guide_electorale",
+            "collection": "election_electoral_guide",
             "field": "url_youtube",
             "type": "string",
             "schema": {
                 "name": "url_youtube",
-                "table": "guide_electorale",
+                "table": "election_electoral_guide",
                 "data_type": "character varying",
                 "default_value": null,
                 "generation_expression": null,
@@ -11644,7 +11644,7 @@
                 "comment": null
             },
             "meta": {
-                "collection": "guide_electorale",
+                "collection": "election_electoral_guide",
                 "field": "url_youtube",
                 "special": null,
                 "interface": "input",
@@ -11681,12 +11681,12 @@
             }
         },
         {
-            "collection": "guide_electorale",
+            "collection": "election_electoral_guide",
             "field": "type_election",
             "type": "string",
             "schema": {
                 "name": "type_election",
-                "table": "guide_electorale",
+                "table": "election_electoral_guide",
                 "data_type": "character varying",
                 "default_value": null,
                 "generation_expression": null,
@@ -11705,7 +11705,7 @@
                 "comment": null
             },
             "meta": {
-                "collection": "guide_electorale",
+                "collection": "election_electoral_guide",
                 "field": "type_election",
                 "special": null,
                 "interface": "select-dropdown",
@@ -11762,12 +11762,12 @@
             }
         },
         {
-            "collection": "guide_electorale",
+            "collection": "election_electoral_guide",
             "field": "date_created",
             "type": "timestamp",
             "schema": {
                 "name": "date_created",
-                "table": "guide_electorale",
+                "table": "election_electoral_guide",
                 "data_type": "timestamp with time zone",
                 "default_value": null,
                 "generation_expression": null,
@@ -11786,7 +11786,7 @@
                 "comment": null
             },
             "meta": {
-                "collection": "guide_electorale",
+                "collection": "election_electoral_guide",
                 "field": "date_created",
                 "special": [
                     "date-created"
@@ -11811,12 +11811,12 @@
             }
         },
         {
-            "collection": "guide_electorale",
+            "collection": "election_electoral_guide",
             "field": "date_updated",
             "type": "timestamp",
             "schema": {
                 "name": "date_updated",
-                "table": "guide_electorale",
+                "table": "election_electoral_guide",
                 "data_type": "timestamp with time zone",
                 "default_value": null,
                 "generation_expression": null,
@@ -11835,7 +11835,7 @@
                 "comment": null
             },
             "meta": {
-                "collection": "guide_electorale",
+                "collection": "election_electoral_guide",
                 "field": "date_updated",
                 "special": [
                     "date-updated"
@@ -11860,12 +11860,12 @@
             }
         },
         {
-            "collection": "guide_electorale",
+            "collection": "election_electoral_guide",
             "field": "langue",
             "type": "string",
             "schema": {
                 "name": "langue",
-                "table": "guide_electorale",
+                "table": "election_electoral_guide",
                 "data_type": "character varying",
                 "default_value": null,
                 "generation_expression": null,
@@ -11884,7 +11884,7 @@
                 "comment": null
             },
             "meta": {
-                "collection": "guide_electorale",
+                "collection": "election_electoral_guide",
                 "field": "langue",
                 "special": null,
                 "interface": "select-dropdown",

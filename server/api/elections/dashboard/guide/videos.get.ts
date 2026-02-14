@@ -21,7 +21,7 @@ export default defineCachedEventHandler(
 
     try {
       const guides = await directus.request(
-        (readItems as any)("guide_electorale", {
+        (readItems as any)("election_electoral_guide", {
           fields: [
             "id",
             "titre",

@@ -281,7 +281,7 @@ Données cartographiques départementales avec résultats et participation.
 
 ---
 
-### 1️⃣3️⃣ `guide_electorale` — *Guides vidéos YouTube* ⭐ NOUVELLE
+### 1️⃣3️⃣ `election_electoral_guide` — *Guides vidéos YouTube* ⭐ NOUVELLE
 
 > ✅ **Nouvelle collection** créée pour le dashboard électoral.
 
@@ -336,7 +336,7 @@ elections ──┬── election_coalition ──┬── election_electoral_
             │
             ├── elections (M2M self-ref via elections_elections, élections liées)
             │
-            └── guide_electorale (indépendant, filtré par type_election)
+            └── election_electoral_guide (indépendant, filtré par type_election)
 ```
 
 ---

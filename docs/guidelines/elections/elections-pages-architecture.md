@@ -264,7 +264,7 @@ description: "Explorez les résultats des élections {type} {année} au Sénéga
 #### Data Source
 
 - **API** : `/api/elections/dashboard/guide/videos`
-- **Collection** : `guide_electorale`
+- **Collection** : `election_electoral_guide`
 - **Filtres** : `type_election`, `langue`
 
 #### SEO

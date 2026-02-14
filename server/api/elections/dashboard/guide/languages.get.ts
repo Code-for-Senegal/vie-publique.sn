@@ -6,7 +6,7 @@ export default defineCachedEventHandler(
 
     try {
       const field = await directus.request(
-        (readField as any)("guide_electorale", "langue")
+        (readField as any)("election_electoral_guide", "langue")
       );
 
       const choices = field?.meta?.options?.choices || [];

@@ -22,7 +22,7 @@ Ce document explique **comment migrer du schéma existant vers le nouveau schém
 | Métrique | Ancien | Nouveau | Différence |
 |----------|--------|---------|------------|
 | **Collections (total dans le schéma)** | 14 | 22 | **+8** |
-| **Collections élections (groupe Election)** | 14 | 17 | **+3** (guide_electorale, elections_documents, elections_elections) |
+| **Collections élections (groupe Election)** | 14 | 17 | **+3** (election_electoral_guide, elections_documents, elections_elections) |
 | **Collections existantes intégrées** | 0 | 5 | **+5** (documents, news, news_category, NewsFolder, Documents) |
 | **Champs totaux** | 180 | 236 | **+56** |
 | **Relations** | 30 | 60+ | **+30** |
@@ -31,7 +31,7 @@ Ce document explique **comment migrer du schéma existant vers le nouveau schém
 
 ## 🆕 1. Collections ajoutées (3 nouvelles)
 
-### 1.1 Collection `guide_electorale` 📹 ⭐ NOUVELLE
+### 1.1 Collection `election_electoral_guide` 📹 ⭐ NOUVELLE
 
 **Fonction** : Tutoriels vidéo YouTube pour expliquer le processus électoral
 
@@ -361,7 +361,7 @@ Les collections suivantes existent dans les deux schémas **sans aucune modifica
 ## 📥 Instructions d'importation du nouveau schéma
 
 > ⚠️ **Rappel important** :
-> - La collection `guide_electorale` sera créée automatiquement
+> - La collection `election_electoral_guide` sera créée automatiquement
 > - Le champ `election_id` sera ajouté à la collection `documents` existante
 > - Une catégorie "Election" doit être créée manuellement dans `news_category`
 > - La collection `Documents` (majuscule) doit être supprimée si elle existe
@@ -401,9 +401,9 @@ Créez manuellement les éléments suivants.
 
 ---
 
-#### B. Créer la collection `guide_electorale`
+#### B. Créer la collection `election_electoral_guide`
 
-1. Créer une nouvelle collection **"guide_electorale"**
+1. Créer une nouvelle collection **"election_electoral_guide"**
 2. Configuration :
    - **Icon** : video_library
    - **Display Template** : `{{titre}}`
@@ -555,7 +555,7 @@ const isSuppléant = candidate.role === 'suppleant';
 ### 2. Tester le Guide Électoral
 
 #### Dans Directus :
-1. Créer un guide dans `guide_electorale`
+1. Créer un guide dans `election_electoral_guide`
 2. Remplir : titre, url_youtube, type_election
 3. Publier
 
@@ -663,7 +663,7 @@ const isSuppléant = candidate.role === 'suppleant';
 ### Les guides vidéo ne s'affichent pas
 
 **Vérifications** :
-1. La collection `guide_electorale` existe
+1. La collection `election_electoral_guide` existe
 2. Au moins un guide est publié
 3. L'URL YouTube est valide
 4. L'API retourne des données : `GET /api/elections/dashboard/guide/videos`
@@ -835,7 +835,7 @@ grep -r "is_substitute" app/pages/elections*/
 | **Champs totaux** | 180 | 236 | +56 champs |
 | **Lien documents ↔ elections** | ❌ | ✅ Relation M2M `elections_documents` | Centralisation flexible |
 | **Lien élections ↔ élections** | ❌ | ✅ Relation M2M `elections_elections` | Élections liées |
-| **Guides vidéo** | ❌ | ✅ Collection `guide_electorale` | Pédagogie |
+| **Guides vidéo** | ❌ | ✅ Collection `election_electoral_guide` | Pédagogie |
 | **Catégorie actualités** | ❌ | ✅ "Election" dans `news_category` | Filtrage actus |
 | **Calendrier électoral** | ⚠️ Partiel | ✅ Complet | 9 dates clés |
 | **Métriques temps réel** | ❌ | ✅ Participation, PV traités | Suivi en direct |
@@ -853,7 +853,7 @@ grep -r "is_substitute" app/pages/elections*/
 
 - [ ] Backup complet de la base de données production
 - [ ] Tester l'import du nouveau schéma en environnement de test
-- [ ] Vérifier que `guide_electorale` est créée
+- [ ] Vérifier que `election_electoral_guide` est créée
 - [ ] Vérifier que `elections_documents` (junction M2M) est créée
 - [ ] Vérifier que `elections_elections` (junction M2M self-ref) est créée
 - [ ] Vérifier que le champ `election_id` est ajouté à `documents` (existante)
@@ -875,7 +875,7 @@ grep -r "is_substitute" app/pages/elections*/
 - [ ] Activer le mode maintenance (optionnel)
 - [ ] Importer le nouveau schéma Directus
 - [ ] Vérifier les logs Directus pour les erreurs
-- [ ] Vérifier que `guide_electorale` est créée
+- [ ] Vérifier que `election_electoral_guide` est créée
 - [ ] Vérifier que `elections_documents` et `elections_elections` existent
 - [ ] Vérifier que `documents.election_id` existe
 - [ ] Vérifier les 3 nouveaux champs de `carte`
@@ -892,7 +892,7 @@ grep -r "is_substitute" app/pages/elections*/
 
 - [ ] Tester toutes les pages élections en production
 - [ ] Vérifier la relation `documents ↔ elections`
-- [ ] Vérifier les guides électoraux (`guide_electorale`)
+- [ ] Vérifier les guides électoraux (`election_electoral_guide`)
 - [ ] Vérifier la catégorie "Election" dans les actualités
 - [ ] Vérifier les nouveaux champs `elections` (dates, métriques)
 - [ ] Vérifier le champ `role` des candidats
