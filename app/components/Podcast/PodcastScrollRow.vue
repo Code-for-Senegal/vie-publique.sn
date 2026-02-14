@@ -4,9 +4,12 @@ import type { PodcastEpisode } from '~/types/podcast';
 interface Props {
   title: string;
   podcasts: PodcastEpisode[];
+  showArrows?: boolean;
 }
 
-defineProps<Props>();
+withDefaults(defineProps<Props>(), {
+  showArrows: true,
+});
 
 const emit = defineEmits<{
   play: [podcast: PodcastEpisode];
@@ -30,7 +33,7 @@ const scroll = (direction: 'left' | 'right') => {
       <h2 class="text-xl font-bold text-gray-900 md:text-2xl dark:text-white">
         {{ title }}
       </h2>
-      <div class="hidden gap-2 md:flex">
+      <div v-if="showArrows" class="hidden gap-2 md:flex">
         <button
           class="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-gray-100 transition-colors hover:bg-blue-700 hover:text-white dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-blue-600"
           aria-label="Défiler à gauche"
@@ -50,7 +53,7 @@ const scroll = (direction: 'left' | 'right') => {
 
     <div
       ref="scrollRef"
-      class="scrollbar-hide -mx-2 flex snap-x snap-mandatory gap-3 overflow-x-auto px-2 pb-2 sm:gap-4"
+      class="scrollbar-hide -mx-2 flex snap-x snap-mandatory gap-3 overflow-x-auto px-2 pb-2 sm:gap-4 md:grid md:grid-cols-3 md:overflow-x-visible"
     >
       <PodcastCard
         v-for="podcast in podcasts"

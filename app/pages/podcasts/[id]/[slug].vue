@@ -186,7 +186,6 @@ watch(
           ...(podcast.value.tags || []),
           'podcast Sénégal',
           'Vie Publique',
-          podcast.value.category?.name || '',
         ]
           .filter(Boolean)
           .join(', '),
@@ -292,13 +291,6 @@ watch(
             <UIcon name="i-heroicons-eye" class="h-4 w-4" />
             {{ formatViews(podcast.view_count) }} vues
           </div>
-          <span
-            v-if="podcast.category"
-            class="rounded-full px-3 py-0.5 text-xs font-medium text-white"
-            :style="{ backgroundColor: podcast.category.color || '#6B7280' }"
-          >
-            {{ podcast.category.name }}
-          </span>
         </div>
       </header>
 

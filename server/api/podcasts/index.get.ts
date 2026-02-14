@@ -8,7 +8,6 @@ export default defineCachedEventHandler(
     const limit = parseInt(query.limit as string) || 12;
     const search = query.search as string;
     const sortBy = (query.sortBy as string) || "-date_published";
-    const category = query.category as string;
     const featured = query.featured === "true";
 
     try {
@@ -17,12 +16,6 @@ export default defineCachedEventHandler(
       const filter: any = {
         status: { _eq: "published" },
       };
-
-      if (category && category !== "Toutes") {
-        filter.category = {
-          name: { _eq: category },
-        };
-      }
 
       if (featured) {
         filter.featured = { _eq: true };
@@ -51,10 +44,6 @@ export default defineCachedEventHandler(
               "date_published",
               "cover_image",
               "tags",
-              "category.id",
-              "category.name",
-              "category.slug",
-              "category.color",
               "featured",
               "view_count",
             ],
@@ -101,16 +90,6 @@ export default defineCachedEventHandler(
             ? { cover_image: podcast.cover_image }
             : {}),
           ...(podcast.tags ? { tags: podcast.tags } : {}),
-          ...(podcast.category
-            ? {
-                category: {
-                  id: podcast.category.id,
-                  name: podcast.category.name,
-                  slug: podcast.category.slug,
-                  color: podcast.category.color,
-                },
-              }
-            : {}),
           ...(podcast.featured !== undefined
             ? { featured: podcast.featured }
             : {}),

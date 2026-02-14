@@ -1,4 +1,4 @@
-import type { PodcastEpisode, PodcastCategory } from '~/types/podcast';
+import type { PodcastEpisode } from '~/types/podcast';
 
 export interface PodcastsOptions {
   /** ID du podcast pour récupération unitaire */
@@ -59,7 +59,7 @@ export const usePodcasts = (options: PodcastsOptions = {}) => {
       totalPages: computed(() => 0),
       hasActiveFilters: computed(() => false),
       featuredPodcasts: computed(() => [] as PodcastEpisode[]),
-      categories: computed(() => [] as PodcastCategory[]),
+      categories: computed(() => [] as { name: string; color?: string }[]),
 
       setCurrentPage: () => {},
       setSearchQuery: () => {},
@@ -112,15 +112,8 @@ export const usePodcasts = (options: PodcastsOptions = {}) => {
     search: state.searchQuery,
   });
 
-  // Récupération des catégories depuis l'API
-  const { data: categoriesData } = useFetch('/api/podcasts/categories', {
-    key: 'podcast-categories',
-  });
-
-  const categories = computed<PodcastCategory[]>(() => {
-    if (!categoriesData.value?.data) return [];
-    return categoriesData.value.data as PodcastCategory[];
-  });
+  // Catégories désactivées pour le moment
+  const categories = computed<{ name: string; color?: string }[]>(() => []);
 
   // Fetch séparé pour les podcasts featured (épisodes récents)
   const { data: featuredData } = useFetch('/api/podcasts', {

@@ -4,7 +4,7 @@ import type { PodcastEpisode } from '~~/types/podcast';
 
 const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
 
-const title = 'Podcasts | Vie-Publique.sn';
+const title = 'Podcasts';
 const description =
   "Retrouvez tous les podcasts de Vie Publique Sénégal. Lives, Spaces, interviews et débats sur la gouvernance, l'économie et la société sénégalaise.";
 const url = `${siteUrl}/podcasts`;
@@ -105,9 +105,6 @@ const {
   totalPages,
   totalItems,
   featuredPodcasts,
-  categories,
-  setSearchQuery,
-  setSelectedCategory,
 } = usePodcasts();
 
 // Typewriter effect pour les mots thématiques
@@ -127,28 +124,6 @@ const { displayedText } = useTypewriter(thematicWords, {
   pauseDuration: 2000,
 });
 
-// Modal d'invitation
-const showInvitationModal = ref(false);
-
-const handleInvitationSuccess = () => {
-  // Optionnel: ajouter une notification ou un tracking
-};
-
-// Catégories avec "Toutes" en premier
-const allCategories = computed(() => {
-  const cats: { name: string; color?: string }[] = [{ name: 'Toutes' }];
-  categories.value.forEach((cat) => {
-    cats.push({ name: cat.name, color: cat.color || undefined });
-  });
-  return cats;
-});
-
-const getCategoryColor = (categoryName: string) => {
-  if (categoryName === 'Toutes') return '#6B7280';
-  const cat = allCategories.value.find((c) => c.name === categoryName);
-  return cat?.color || '#6B7280';
-};
-
 // Player modal
 const currentPodcast = ref<PodcastEpisode | null>(null);
 
@@ -165,106 +140,20 @@ const closePlayer = () => {
   <div class="container mx-auto px-4 sm:px-6">
     <!-- Hero Section -->
     <div
-      class="relative mb-8 overflow-hidden rounded-xl bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
+      class="relative mb-4 overflow-hidden rounded-xl dark:bg-gradient-to-r dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
     >
       <div class="relative px-6 py-10 md:px-10 md:py-16">
-        <div class="mb-3 flex items-center gap-3">
-          <div
-            class="flex h-12 w-12 items-center justify-center rounded-xl border border-white/20 bg-white/10"
-          >
-            <UIcon name="i-heroicons-microphone" class="h-6 w-6 text-white" />
-          </div>
-          <span class="text-xs font-medium uppercase tracking-widest text-blue-200">
-            Vie Publique Sénégal
-          </span>
-        </div>
-        <h1 class="max-w-2xl text-3xl font-bold leading-tight text-white md:text-5xl">
-          Podcasts <span class="text-yellow-400">Vie Publique</span>
+        <h1 class="max-w-2xl text-3xl font-bold leading-tight text-gray-900 dark:text-white md:text-5xl">
+          Podcasts <span class="text-blue-600 dark:text-blue-600">Vie Publique</span>
         </h1>
-        <p class="mt-4 max-w-xl text-sm leading-relaxed text-blue-100 md:text-base">
+        <p class="mt-4 max-w-xl text-sm leading-relaxed text-gray-600 dark:text-blue-100 md:text-base">
           Retrouvez l'ensemble de nos Live/Spaces en replay.
           <span class="inline-flex items-baseline">
-            <span class="font-semibold text-yellow-300">{{ displayedText }}</span>
-            <span class="typewriter-cursor ml-0.5 animate-pulse text-yellow-300">|</span>
+            <span class="font-semibold text-blue-600 dark:text-blue-600">{{ displayedText }}</span>
+            <span class="typewriter-cursor ml-0.5 animate-pulse text-blue-600 dark:text-blue-600">|</span>
           </span>
           — un espace de dialogue citoyen.
         </p>
-        <div class="mt-6 flex flex-wrap items-center gap-3">
-          <a
-            :href="PLAYLIST_URL"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 rounded-lg bg-red-600 px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
-          >
-            <UIcon name="i-heroicons-play-solid" class="h-4 w-4" />
-            Voir sur YouTube
-          </a>
-
-          <UButton
-            color="yellow"
-            variant="solid"
-            size="md"
-            @click="showInvitationModal = true"
-          >
-            <template #leading>
-              <UIcon name="i-heroicons-user-plus" />
-            </template>
-            Être invité au podcast
-          </UButton>
-
-          <span v-if="totalItems > 0" class="text-sm text-blue-200">
-            {{ totalItems }} épisodes
-          </span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Filtres -->
-    <div class="mb-6">
-      <UInput
-        :model-value="searchQuery"
-        placeholder="Rechercher un podcast..."
-        icon="i-heroicons-magnifying-glass"
-        class="input custom-shadow mb-4 w-full dark:bg-gray-800 dark:text-white"
-        size="lg"
-        @update:model-value="setSearchQuery"
-      />
-
-      <!-- Skeleton pour les filtres -->
-      <div v-if="loading" class="flex flex-wrap gap-2">
-        <div
-          v-for="n in 4"
-          :key="n"
-          class="h-10 w-28 animate-pulse rounded-full bg-gray-200 dark:bg-gray-700"
-        ></div>
-      </div>
-
-      <!-- Liste des catégories -->
-      <div v-else class="flex flex-wrap gap-2">
-        <button
-          v-for="cat in allCategories"
-          :key="cat.name"
-          class="flex items-center gap-1 rounded-full p-2 text-sm transition-colors duration-200"
-          :class="{
-            'bg-gray-100 text-gray-800 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700':
-              selectedCategory !== cat.name,
-            'text-white': selectedCategory === cat.name,
-          }"
-          :style="{
-            backgroundColor:
-              selectedCategory === cat.name ? getCategoryColor(cat.name) : '',
-          }"
-          @click="setSelectedCategory(cat.name)"
-        >
-          <div
-            class="h-3 w-3 rounded-full"
-            :style="{
-              backgroundColor: getCategoryColor(cat.name),
-              opacity: selectedCategory === cat.name ? 1 : 0.3,
-            }"
-          ></div>
-          {{ cat.name }}
-        </button>
       </div>
     </div>
 
@@ -331,9 +220,10 @@ const closePlayer = () => {
       <div v-else class="space-y-10">
         <!-- Episodes à la une (featured) - Scroll horizontal -->
         <PodcastScrollRow
-          v-if="featuredPodcasts.length > 0 && selectedCategory === 'Toutes' && !searchQuery"
+          v-if="featuredPodcasts.length > 0"
           title="À la une"
-          :podcasts="featuredPodcasts"
+          :podcasts="featuredPodcasts.slice(0, 3)"
+          :show-arrows="false"
           @play="playPodcast"
         />
 
@@ -382,12 +272,5 @@ const closePlayer = () => {
 
     <!-- Player Modal -->
     <PodcastPlayerModal :podcast="currentPodcast" @close="closePlayer" />
-
-    <!-- Invitation Modal -->
-    <PodcastInvitationModal
-      :is-open="showInvitationModal"
-      @close="showInvitationModal = false"
-      @success="handleInvitationSuccess"
-    />
   </div>
 </template>

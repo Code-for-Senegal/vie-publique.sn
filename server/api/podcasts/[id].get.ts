@@ -29,10 +29,6 @@ export default defineCachedEventHandler(
             "date_updated",
             "cover_image",
             "tags",
-            "category.id",
-            "category.name",
-            "category.slug",
-            "category.color",
             "featured",
             "view_count",
           ],
@@ -62,16 +58,6 @@ export default defineCachedEventHandler(
           ? { cover_image: podcastData.cover_image }
           : {}),
         ...(podcastData.tags ? { tags: podcastData.tags } : {}),
-        ...(podcastData.category
-          ? {
-              category: {
-                id: podcastData.category.id,
-                name: podcastData.category.name,
-                slug: podcastData.category.slug,
-                color: podcastData.category.color,
-              },
-            }
-          : {}),
         ...(podcastData.featured !== undefined
           ? { featured: podcastData.featured }
           : {}),

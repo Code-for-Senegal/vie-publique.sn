@@ -1,11 +1,3 @@
-export interface PodcastCategory {
-  id: number;
-  name: string;
-  slug: string;
-  description?: string;
-  color?: string;
-}
-
 export interface PodcastEpisode {
   id: number;
   title: string;
@@ -17,7 +9,6 @@ export interface PodcastEpisode {
   date_published: string;
   cover_image?: string;
   tags?: string[];
-  category?: PodcastCategory;
   featured?: boolean;
   view_count?: number;
 }

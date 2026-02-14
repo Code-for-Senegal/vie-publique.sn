@@ -44,15 +44,6 @@
       >
         {{ podcast.duration }}
       </span>
-
-      <!-- Category badge -->
-      <span
-        v-if="podcast.category"
-        class="absolute left-2 top-2 rounded-full px-2 py-0.5 text-xs font-medium text-white"
-        :style="{ backgroundColor: podcast.category.color || '#6B7280' }"
-      >
-        {{ podcast.category.name }}
-      </span>
     </div>
 
     <!-- Content -->
@@ -65,7 +56,7 @@
         >
           {{ podcast.title }}
         </NuxtLink>
-        
+
         <!-- Mobile Description (Grid Variant only) -->
         <p
           v-if="variant === 'grid' && podcast.description"
@@ -86,8 +77,14 @@
           <UIcon name="i-heroicons-play-circle-solid" class="h-5 w-5 text-red-600" />
         </div>
 
-        <!-- Default/Desktop Footer (Date) -->
-        <div v-else class="flex items-center">
+        <!-- Desktop Grid Footer (Date) -->
+        <div v-if="variant === 'grid'" class="hidden items-center sm:flex">
+          <UIcon name="i-heroicons-calendar" class="mr-1 h-3.5 w-3.5 shrink-0" />
+          <span>{{ $dateformat(podcast.date_published) }}</span>
+        </div>
+
+        <!-- Scroll variant Footer (Date) -->
+        <div v-if="variant === 'scroll'" class="flex items-center">
           <UIcon name="i-heroicons-calendar" class="mr-1 h-3.5 w-3.5 shrink-0" />
           <span>{{ $dateformat(podcast.date_published) }}</span>
         </div>
@@ -159,10 +156,11 @@ const handlePlay = (e: Event) => {
 // Computed classes for responsive layout
 const containerClass = computed(() => {
   if (props.variant === 'scroll') {
-    return 'flex-col w-[240px] min-w-[240px] sm:w-[280px] sm:min-w-[280px] md:w-[300px] md:min-w-[300px] snap-start';
+    // Fixed width on mobile for horizontal scroll, auto width on desktop for grid
+    return 'flex-col w-[240px] min-w-[240px] sm:w-[280px] sm:min-w-[280px] md:w-auto md:min-w-0 snap-start';
   }
   // Grid variant: Horizontal on mobile, Vertical on larger screens
-  return 'flex-row sm:flex-col w-full h-32 sm:h-auto'; 
+  return 'flex-row sm:flex-col w-full h-32 sm:h-auto';
 });
 
 const thumbnailClass = computed(() => {
