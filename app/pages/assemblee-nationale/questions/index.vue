@@ -156,46 +156,12 @@ const {
   currentPage,
   itemsPerPage,
   totalItems,
-  setCurrentPage,
-  setItemsPerPage,
-} = useAssemblyQuestions({ limit: 50 }); // Charger 50 questions au lieu de 2000
-
-// Calcul des statistiques sur toutes les questions
-const topDeputies = computed(() => {
-  if (!questions.value || questions.value.length === 0) return [];
-
-  // Grouper les questions par député
-  const questionsByDeputy = questions.value.reduce((acc: any, question: any) => {
-    if (!question.deputy) return acc;
-
-    const deputyId = question.deputy.id;
-    if (!acc[deputyId]) {
-      acc[deputyId] = {
-        id: deputyId,
-        first_name: question.deputy.first_name,
-        last_name: question.deputy.last_name,
-        photo: question.deputy.photo,
-        questionsCount: 0,
-      };
-    }
-    acc[deputyId].questionsCount++;
-    return acc;
-  }, {});
-
-  // Convertir en tableau et trier
-  return Object.values(questionsByDeputy)
-    .sort((a: any, b: any) => b.questionsCount - a.questionsCount)
-    .slice(0, 4);
-});
+  topDeputies,
+  topDeputiesLoading,
+} = useAssemblyQuestions({ limit: 50, includeStats: true, topDeputiesLimit: 4 });
 
 // Les questions sont déjà paginées côté serveur via useCmsCollection
 const paginatedQuestions = computed(() => questions.value || []);
-
-const handlePageChange = (page: number) => {
-  setCurrentPage(page);
-  // Faire défiler vers le haut de la liste
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-};
 
 const formatDateISO = (date: string) => {
   return new Date(date).toISOString();
@@ -248,7 +214,13 @@ const formatDateISO = (date: string) => {
       <div v-else>
         <div class="mb-2 rounded-lg p-0">
           <h2 class="mb-4 text-xl font-bold dark:text-gray-100">Députés les plus actifs</h2>
+
+          <div v-if="topDeputiesLoading" class="flex justify-center py-4">
+            <UIcon name="i-heroicons-arrow-path" class="h-6 w-6 animate-spin" />
+          </div>
+
           <div
+            v-else
             class="grid grid-cols-2 gap-2 md:grid-cols-4"
             itemscope
             itemtype="https://schema.org/ItemList"
@@ -388,9 +360,12 @@ const formatDateISO = (date: string) => {
 
           <div class="mt-6 flex justify-center">
             <UPagination
-              :model-value="currentPage"
+              v-model="currentPage"
               :total="totalItems"
-              :per-page="itemsPerPage"
+              :page-count="itemsPerPage"
+              :default-page="1"
+              :show-edges="true"
+              :sibling-count="2"
               :active-button="{ color: 'yellow' }"
               :ui="{
                 wrapper: 'flex items-center gap-1',
@@ -399,7 +374,6 @@ const formatDateISO = (date: string) => {
                 inactive:
                   'bg-white text-gray-900 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700',
               }"
-              @change="handlePageChange"
             />
           </div>
         </div>

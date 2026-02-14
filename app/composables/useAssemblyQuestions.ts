@@ -1,4 +1,12 @@
-import type { AssemblyQuestion } from '~/types/assembly';
+import type { AssemblyQuestion } from '~~/types/assembly';
+
+export interface TopDeputy {
+  id: string;
+  first_name: string;
+  last_name: string;
+  photo: string | null;
+  questionsCount: number;
+}
 
 export interface AssemblyQuestionsOptions {
   /** ID de la question pour récupération unitaire */
@@ -12,6 +20,12 @@ export interface AssemblyQuestionsOptions {
 
   /** Synchroniser avec l'URL */
   syncUrl?: boolean;
+
+  /** Inclure les statistiques des députés les plus actifs */
+  includeStats?: boolean;
+
+  /** Nombre de députés à retourner dans le top */
+  topDeputiesLimit?: number;
 }
 
 /**
@@ -42,6 +56,8 @@ export const useAssemblyQuestions = (options: AssemblyQuestionsOptions = {}) => 
 
       // États vides pour compatibilité avec l'ancien code
       questions: computed(() => []),
+      topDeputies: computed(() => []),
+      topDeputiesLoading: computed(() => false),
       currentPage: ref(1),
       searchQuery: ref(''),
       sortBy: ref(options.sort || '-question_date'),
@@ -104,6 +120,26 @@ export const useAssemblyQuestions = (options: AssemblyQuestionsOptions = {}) => 
     search: state.searchQuery,
   });
 
+  // Récupération des statistiques des députés les plus actifs (optionnel)
+  // Note: useFetch doit toujours être appelé (pas conditionnellement) pour respecter les règles des hooks
+  const statsQuery = computed(() => ({
+    includeStats: options.includeStats ? 'true' : 'false',
+    topDeputiesLimit: options.topDeputiesLimit || 4,
+    limit: 1, // On ne veut que les stats, pas les questions
+  }));
+
+  const {
+    data: statsData,
+    status: statsStatus,
+  } = useFetch('/api/assembly/questions', {
+    key: 'assembly-questions-top-deputies',
+    query: statsQuery,
+    immediate: !!options.includeStats, // Ne fetch que si includeStats est true
+  });
+
+  const topDeputies = computed<TopDeputy[]>(() => statsData.value?.topDeputies || []);
+  const topDeputiesLoading = computed(() => statsStatus.value === 'pending');
+
   // Computed pour compatibilité avec l'ancien code
   const totalItems = computed(() => collection.pagination.value?.total || 0);
   const totalPages = computed(() => collection.pagination.value?.totalPages || 1);
@@ -123,6 +159,10 @@ export const useAssemblyQuestions = (options: AssemblyQuestionsOptions = {}) => 
     pagination: collection.pagination,
     error: collection.error,
     refresh: collection.refresh,
+
+    // Statistiques des députés les plus actifs
+    topDeputies,
+    topDeputiesLoading,
 
     // États réactifs (depuis useCollectionState)
     currentPage: state.currentPage,
