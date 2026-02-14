@@ -63,6 +63,7 @@ const securityConfig =
             ],
             'frame-src': [
               'https://www.youtube.com',
+              'https://www.youtube-nocookie.com',
               'https://platform.twitter.com',
               'https://syndication.twitter.com',
               'https://cms.vie-publique.sn',
