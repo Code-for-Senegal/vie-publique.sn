@@ -6,23 +6,15 @@
   >
     <!-- Thumbnail -->
     <div
-      class="relative overflow-hidden bg-gray-100 dark:bg-gray-800"
+      class="relative flex items-center justify-center overflow-hidden bg-gray-900"
       :class="thumbnailClass"
     >
-      <CmsImage
-        v-if="podcast.cover_image"
-        :src="podcast.cover_image"
-        :alt="podcast.title"
-        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        loading="lazy"
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
-      />
       <img
-        v-else
-        :src="thumbnailUrl"
+        :src="coverImageUrl"
         :alt="podcast.title"
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         loading="lazy"
+        @error="handleImageError"
       />
 
       <!-- Play overlay -->
@@ -144,8 +136,28 @@ const getYoutubeVideoId = () => {
 
 const thumbnailUrl = computed(() => {
   const videoId = getYoutubeVideoId();
-  return videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : '/default-image-2.gif';
+  return videoId ? `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg` : '/default-image-2.gif';
 });
+
+// Image avec fallback sur YouTube thumbnail
+const imageFailed = ref(false);
+
+const coverImageUrl = computed(() => {
+  // Si l'image CMS a échoué ou n'existe pas, utiliser YouTube thumbnail
+  if (imageFailed.value || !props.podcast.cover_image) {
+    return thumbnailUrl.value;
+  }
+  // Utiliser useCmsImage pour transformer l'ID en URL proxy
+  return useCmsImage(props.podcast.cover_image);
+});
+
+const handleImageError = (event: Event) => {
+  imageFailed.value = true;
+  const img = event.target as HTMLImageElement;
+  if (img) {
+    img.src = thumbnailUrl.value;
+  }
+};
 
 const handlePlay = (e: Event) => {
   e.preventDefault();

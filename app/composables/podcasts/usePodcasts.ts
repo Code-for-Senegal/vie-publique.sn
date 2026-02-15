@@ -1,4 +1,4 @@
-import type { PodcastEpisode } from '~/types/podcast';
+import type { PodcastEpisode } from '~~/types/podcast';
 
 export interface PodcastsOptions {
   /** ID du podcast pour récupération unitaire */
