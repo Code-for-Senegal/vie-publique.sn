@@ -138,11 +138,20 @@ const closePlayer = () => {
 
 <template>
   <div class="container mx-auto px-4 sm:px-6">
+    <!-- Breadcrumb -->
+    <UBreadcrumb
+      class="mt-2"
+      :links="[
+        { label: 'Accueil', to: '/' },
+        { label: 'Podcasts' },
+      ]"
+    />
+
     <!-- Hero Section -->
     <div
-      class="relative mb-4 overflow-hidden rounded-xl dark:bg-gradient-to-r dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
+      class="relative overflow-hidden rounded-xl dark:bg-gradient-to-r dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
     >
-      <div class="relative px-6 py-10 md:px-10 md:py-16">
+      <div class="relative py-8 md:py-12">
         <h1 class="max-w-2xl text-3xl font-bold leading-tight text-gray-900 dark:text-white md:text-5xl">
           Podcasts <span class="text-blue-600 dark:text-blue-600">Vie Publique</span>
         </h1>

@@ -221,27 +221,16 @@ watch(
 </script>
 
 <template>
-  <div class="container mx-auto px-2 py-2">
+  <div class="container mx-auto px-4 sm:px-6">
     <!-- Breadcrumb -->
-    <nav
-      class="mb-6 flex items-center text-sm text-gray-500 dark:text-gray-400"
-      aria-label="Breadcrumb"
-    >
-      <NuxtLink to="/" class="transition-colors hover:text-blue-600 dark:hover:text-blue-400">
-        Accueil
-      </NuxtLink>
-      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
-      <NuxtLink
-        to="/podcasts"
-        class="transition-colors hover:text-blue-600 dark:hover:text-blue-400"
-      >
-        Podcasts
-      </NuxtLink>
-      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
-      <span class="truncate font-medium text-gray-900 dark:text-white" aria-current="page">
-        {{ podcast?.title }}
-      </span>
-    </nav>
+    <UBreadcrumb
+      class="mt-2 mb-4"
+      :links="[
+        { label: 'Accueil', to: '/' },
+        { label: 'Podcasts', to: '/podcasts' },
+        { label: podcast?.title || 'Podcast' },
+      ]"
+    />
 
     <!-- Loading state -->
     <div v-if="loading" class="mx-auto max-w-4xl space-y-4">
