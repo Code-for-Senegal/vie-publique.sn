@@ -6,13 +6,13 @@
   >
     <!-- Thumbnail -->
     <div
-      class="relative overflow-hidden"
+      class="relative flex items-center justify-center overflow-hidden bg-gray-900"
       :class="thumbnailClass"
     >
       <img
         :src="coverImageUrl"
         :alt="podcast.title"
-        class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         loading="lazy"
         @error="handleImageError"
       />
@@ -136,7 +136,7 @@ const getYoutubeVideoId = () => {
 
 const thumbnailUrl = computed(() => {
   const videoId = getYoutubeVideoId();
-  return videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : '/default-image-2.gif';
+  return videoId ? `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg` : '/default-image-2.gif';
 });
 
 // Image avec fallback sur YouTube thumbnail
