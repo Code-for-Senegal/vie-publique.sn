@@ -1,4 +1,4 @@
-# 🗳️ Elections – Modèle et Règles (mise à jour 2026-02-10)
+# 🗳️ Elections – Modèle et Règles (mise à jour 2026-02-15)
 
 ## 🎯 Objectifs
 
@@ -60,8 +60,7 @@ Entités politiques participant aux élections.
 | ranking         | int                 | Classement final (1er, 2e, etc.)         | 1                |
 | total_votes     | int                 | Nombre total de voix                     | 1234567          |
 | total_seats     | int                 | Nombre de sièges obtenus                 | 130              |
-| vote_percentage | float               | Pourcentage de voix (%)                  | 54.28            |
-| election_id     | M2O → elections     | Élection associée                        | 1                |
+| vote_percentage | float               | Pourcentage de voix (%)                     | 1                |
 | videos          | O2M → election_coalition_videos | Vidéos de la coalition (témoignages, meetings) | [...] |
 | status          | string              | État de publication                      | "published"      |
 
@@ -230,7 +229,6 @@ Résultats détaillés par bureau de vote.
 ### 1️⃣1️⃣ `documents` — *Documents légaux et officiels*
 
 > ⚠️ **Note** : La collection `documents` existe déjà en production. Deux types de relations existent avec les élections :
-> 1. `election_id` (M2O) : Lien direct vers une élection spécifique
 > 2. Relation M2M via `elections_documents` : Permet de lier un document à plusieurs élections
 
 Documents PDF liés aux élections (code électoral, guides, etc.).
@@ -246,11 +244,8 @@ Documents PDF liés aux élections (code électoral, guides, etc.).
 | slug         | string               | Slug URL                     | "code-electoral-2024"   |
 | file         | uuid → directus_files | Fichier PDF                 | "doc123..."             |
 | cover_image  | uuid → directus_files | Image de couverture         | "cover123..."           |
-| election_id  | M2O → elections      | Élection associée (optionnel)| 1                       |
 
 > 📝 **Important** : Le champ `type` inclut les options : `official_journal`, `law`, `decree`, `council_of_ministers`, `communique`, `strategy`, `budget`, `code`, `speech`, `government_bill`, `audit_report`, `uncategorized`, `international_report`, **`election`**, `programme`.
-
-> 🔗 **Double relation** : Un document peut être lié à une élection via `election_id` (M2O) ET via la table de jonction `elections_documents` (M2M).
 
 ---
 
@@ -416,5 +411,5 @@ Formule de nommage :
 
 ---
 
-**Dernière mise à jour** : 2026-02-10
-**Version** : 1.1
+**Dernière mise à jour** : 2026-02-15
+**Version** : 1.2

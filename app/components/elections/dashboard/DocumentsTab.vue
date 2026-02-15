@@ -6,6 +6,13 @@ const props = defineProps<{
   electionName?: string;
   loading?: boolean;
 }>();
+
+// Helper pour obtenir l'URL de téléchargement du fichier
+const getDocumentFileUrl = (doc: Document) => {
+  if (!doc.file) return '';
+  const fileId = typeof doc.file === 'string' ? doc.file : (doc.file as any).id;
+  return useCmsFile(`${fileId}/${doc.slug}.pdf`);
+};
 </script>
 
 <template>
@@ -51,7 +58,7 @@ const props = defineProps<{
 
           <div v-if="doc.file" class="flex gap-2">
             <UButton
-              :to="`https://vie-publique.sn/assets/${typeof doc.file === 'string' ? doc.file : (doc.file as any).id}`"
+              :to="getDocumentFileUrl(doc)"
               target="_blank"
               icon="i-heroicons-arrow-down-tray"
               size="xs"

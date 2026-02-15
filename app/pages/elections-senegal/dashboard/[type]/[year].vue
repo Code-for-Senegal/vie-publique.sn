@@ -85,8 +85,19 @@ if (process.client) {
         if (found) statsType.value = found.value;
     }
 
+    // Mettre à jour l'URL uniquement quand on est sur l'onglet statistiques
     watch(statsType, (newType) => {
-        router.replace({ query: { ...route.query, stats_type: newType } });
+        if (activeTab.value === 'statistiques') {
+            router.replace({ query: { ...route.query, stats_type: newType } });
+        }
+    });
+
+    // Nettoyer stats_type de l'URL quand on quitte l'onglet statistiques
+    watch(activeTab, (newTab) => {
+        if (newTab !== 'statistiques' && route.query.stats_type) {
+            const { stats_type, ...queryWithoutStatsType } = route.query;
+            router.replace({ query: queryWithoutStatsType });
+        }
     });
 }
 

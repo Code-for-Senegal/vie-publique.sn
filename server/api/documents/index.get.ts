@@ -12,35 +12,46 @@ export default defineCachedEventHandler(
     const sortBy = (query.sortBy as string) || (query.sort as string) || "-publish_date";
     const filterType = query.filterType as string;
     const type = query.type as string;
-    const electionId = query.election_id as string;
+    const electionIds = query.election_ids as string; // IDs séparés par des virgules
 
     try {
       const directus = getCmsClient();
 
-      // Si on filtre par election_id, récupérer d'abord l'élection avec ses documents
-      let documentIdsFromElection: number[] = [];
-      if (electionId) {
+      // Si on filtre par election_id(s), récupérer d'abord les élections avec leurs documents
+      let documentIdsFromElections: number[] = [];
+      const electionIdsList: number[] = [];
+
+      // Construire la liste des IDs d'élections à filtrer
+      if (electionIds) {
+        electionIdsList.push(...electionIds.split(',').map(id => parseInt(id.trim())).filter(id => !isNaN(id)));
+      }
+
+      if (electionIdsList.length > 0) {
         try {
           const electionData = await directus.request(
             readItems("elections", {
               fields: ["documents.documents_id.id"],
               filter: {
-                id: { _eq: parseInt(electionId) },
+                id: { _in: electionIdsList },
               },
-              limit: 1,
+              limit: electionIdsList.length,
             })
           );
 
           if (electionData && electionData.length > 0) {
-            const election = electionData[0] as any;
-            if (election.documents && Array.isArray(election.documents)) {
-              documentIdsFromElection = election.documents
-                .map((doc: any) => doc?.documents_id?.id)
-                .filter((id: any) => id !== null && id !== undefined);
+            for (const election of electionData as any[]) {
+              if (election.documents && Array.isArray(election.documents)) {
+                const docIds = election.documents
+                  .map((doc: any) => doc?.documents_id?.id)
+                  .filter((id: any) => id !== null && id !== undefined);
+                documentIdsFromElections.push(...docIds);
+              }
             }
+            // Dédupliquer les IDs de documents
+            documentIdsFromElections = [...new Set(documentIdsFromElections)];
           }
         } catch (err) {
-          console.error("Erreur lors de la récupération de l'élection:", err);
+          console.error("Erreur lors de la récupération des élections:", err);
         }
       }
 
@@ -58,13 +69,13 @@ export default defineCachedEventHandler(
         };
       }
 
-      // Filtre par election_id - utiliser les IDs récupérés
-      if (electionId && documentIdsFromElection.length > 0) {
+      // Filtre par election_id(s) - utiliser les IDs récupérés
+      if (electionIdsList.length > 0 && documentIdsFromElections.length > 0) {
         filter.id = {
-          _in: documentIdsFromElection,
+          _in: documentIdsFromElections,
         };
-      } else if (electionId && documentIdsFromElection.length === 0) {
-        // Si l'élection n'a pas de documents, retourner un résultat vide
+      } else if (electionIdsList.length > 0 && documentIdsFromElections.length === 0) {
+        // Si les élections n'ont pas de documents, retourner un résultat vide
         return {
           documents: [],
           totalDocuments: 0,

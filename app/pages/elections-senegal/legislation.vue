@@ -14,25 +14,35 @@ const currentPage = ref(parseInt((route.query.page as string) || '1'));
 const searchQuery = ref((route.query.q as string) || '');
 const sortBy = ref((route.query.sort as string) || '-publish_date');
 
-const selectedElectionId = computed(() => {
+// Retourne tous les IDs d'élections correspondants au type et/ou à l'année sélectionnés
+const selectedElectionIds = computed(() => {
   if (selectedType.value === 'all' && selectedYear.value === 'all') return null;
   if (!config.value?.elections) return null;
 
-  const matchingElection = config.value.elections.find(e => {
+  // Filtrer pour les élections qui ont des documents
+  const electionsWithDocsIds = new Set(config.value?.election_ids_with_documents || []);
+
+  // Trouver TOUTES les élections correspondantes (pas seulement la première)
+  const matchingElections = config.value.elections.filter(e => {
+    // Ne garder que les élections qui ont des documents
+    if (!electionsWithDocsIds.has(e.id)) return false;
     if (selectedType.value !== 'all' && e.type !== selectedType.value) return false;
     if (selectedYear.value !== 'all' && e.year !== parseInt(selectedYear.value)) return false;
     return true;
   });
 
-  return matchingElection?.id || null;
+  if (matchingElections.length === 0) return null;
+
+  // Retourner les IDs séparés par des virgules
+  return matchingElections.map(e => e.id).join(',');
 });
 
 const { items: documents, loading, pagination } = useCmsCollection<Document>({
   collection: 'documents',
   filters: computed(() => {
     const filters: any = {};
-    if (selectedElectionId.value) {
-      filters.election_id = selectedElectionId.value;
+    if (selectedElectionIds.value) {
+      filters.election_ids = selectedElectionIds.value;
     }
     return filters;
   }),
