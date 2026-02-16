@@ -51,13 +51,8 @@ precacheAndRoute(entries);
 // Nettoyer les anciens caches
 cleanupOutdatedCaches();
 
-// Définir les routes à mettre en cache
-let allowlist: undefined | RegExp[];
-if (import.meta.env.DEV) {
-  allowlist = [/.*/];
-} else {
-  allowlist = [/.*/];
-}
+// Définir les routes à mettre en cache (toutes les routes)
+const allowlist: RegExp[] = [/.*/];
 
 // Configuration pour le offline
 if (import.meta.env.PROD) {
@@ -201,6 +196,20 @@ if (import.meta.env.PROD) {
       ],
     })
   );
+
+  // Ignorer les scripts tiers (instant.page, analytics, etc.)
+  registerRoute(
+    ({url}) =>
+      url.host === 'instant.page' ||
+      url.host.includes('google-analytics') ||
+      url.host.includes('googletagmanager'),
+    new NetworkFirst({
+      networkTimeoutSeconds: 3,
+      plugins: [
+        new CacheableResponsePlugin({ statuses: [0, 200] }),
+      ],
+    })
+  );
 }
 
 // Gestion des mises à jour
@@ -209,28 +218,20 @@ self.addEventListener('activate', (event) => {
     caches.keys().then(cacheNames => Promise.all(
       cacheNames.map(cacheName => {
         if (!WORKBOX_CACHES.includes(cacheName)) {
-          console.log('Suppression du cache obsolète:', cacheName);
           return caches.delete(cacheName);
         }
       })
-    )).then(() => {
-      console.log('Service Worker activé et caches nettoyés');
-      return self.clients.claim();
-    })
+    )).then(() => self.clients.claim())
   );
 });
 
 // Communication avec le client
 self.addEventListener('message', (event) => {
   if (event.data === 'skipWaiting') {
-    console.log('skipWaiting reçu, activation du nouveau Service Worker...');
     self.skipWaiting();
     self.clients.claim().then(() => {
       self.clients.matchAll().then(clients => {
-        // Utiliser Array.from pour résoudre le problème TypeScript avec find()
-        const clientsArray = Array.from(clients);
-        console.log(`Notification de ${clientsArray.length} clients pour rechargement`);
-        clientsArray.forEach(client => client.postMessage('reload'));
+        Array.from(clients).forEach(client => client.postMessage('reload'));
       });
     });
   }
@@ -238,55 +239,65 @@ self.addEventListener('message', (event) => {
 
 /*
   Gestion des événements push
+  Supporte deux formats:
+  1. Firebase FCM: { notification: { title, body }, data: { url } }
+  2. Custom: { title, body, openUrl }
 */
 self.addEventListener('push', event => {
-  console.log('Push message received:', event);
-  if (event.data) {
-    try {
-      const data = JSON.parse(event.data.text());
-      
-      // Valider que les champs obligatoires sont présents
-      if (!data.title) {
-        throw new Error('Le titre de la notification est manquant');
-      }
-      
-      // Afficher la notification
-      event.waitUntil(
-        self.registration.showNotification(
-          data.title,
-          {
-            body: data.body || 'Nouvelle notification',
-            icon: '/pwa-192x192.png',
-            badge: '/pwa-192x192.png',
-            image: data.imageUrl,
-            vibrate: [100, 50, 100, 50, 100],
-            sound: data.sound,
-            requireInteraction: data.requireInteraction || false,
-            actions: [
-              ...(data.actions || []),
-              { action: 'close', title: 'Fermer' }
-            ],
-            data: {
-              openUrl: data.openUrl || '/',
-              timestamp: new Date().getTime()
-            }
-          }
-        )
-      );
-    } catch (error) {
-      console.error('Erreur lors du traitement du message push:', error);
-      // Afficher une notification générique en cas d'erreur
-      event.waitUntil(
-        self.registration.showNotification(
-          'Nouvelle notification',
-          {
-            body: 'Impossible de traiter les détails de la notification',
-            icon: '/pwa-192x192.png',
-            badge: '/pwa-192x192.png'
-          }
-        )
-      );
+  if (!event.data) return;
+
+  try {
+    const payload = JSON.parse(event.data.text());
+
+    // Extraire titre et body (supporte Firebase et custom format)
+    let title = 'Vie Publique Sénégal';
+    let body = '';
+    let imageUrl: string | undefined;
+    let openUrl = '/';
+
+    // Format Firebase FCM
+    if (payload.notification) {
+      title = payload.notification.title || title;
+      body = payload.notification.body || body;
+      imageUrl = payload.notification.image || payload.notification.imageUrl;
     }
+
+    // Format custom ou data Firebase
+    if (payload.title) title = payload.title;
+    if (payload.body) body = payload.body;
+    if (payload.imageUrl) imageUrl = payload.imageUrl;
+    if (payload.openUrl) openUrl = payload.openUrl;
+
+    // Firebase data object
+    if (payload.data) {
+      if (payload.data.url) openUrl = payload.data.url;
+      if (payload.data.openUrl) openUrl = payload.data.openUrl;
+    }
+
+    event.waitUntil(
+      self.registration.showNotification(title, {
+        body: body || 'Nouvelle notification',
+        icon: '/pwa-192x192.png',
+        badge: '/badge-72x72.png',
+        image: imageUrl,
+        vibrate: [100, 50, 100],
+        tag: 'vpsn-notification',
+        renotify: true,
+        data: {
+          openUrl,
+          timestamp: Date.now(),
+        },
+      })
+    );
+  } catch {
+    event.waitUntil(
+      self.registration.showNotification('Vie Publique Sénégal', {
+        body: 'Nouvelle notification',
+        icon: '/pwa-192x192.png',
+        badge: '/badge-72x72.png',
+        tag: 'vpsn-notification',
+      })
+    );
   }
 });
 
@@ -294,42 +305,43 @@ self.addEventListener('push', event => {
   Gestion des événements de notification
 */
 self.addEventListener('notificationclick', event => {
-  const notification = event.notification;
-  const action = event.action;
+  event.notification.close();
 
-  console.log('Notification cliquée', action);
-  
-  if (action === 'close') {
-    notification.close();
-    return;
-  }
+  if (event.action === 'close') return;
 
-  // Ouvrir l'URL associée
-  const targetUrl = notification.data?.openUrl || '/';
+  const targetUrl = event.notification.data?.openUrl || event.notification.data?.url || '/';
 
   event.waitUntil(
     self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(clients => {
-      // Chercher une fenêtre visible
-      const visibleClient = clients.find(client =>
-        (client as WindowClient).visibilityState === 'visible'
-      ) as WindowClient | undefined;
-
-      if (visibleClient) {
-        visibleClient.navigate(targetUrl);
-        return visibleClient.focus();
+      // Chercher un onglet existant du site
+      for (const client of clients) {
+        if (client.url.includes(self.location.origin) && 'focus' in client) {
+          (client as WindowClient).navigate(targetUrl);
+          return (client as WindowClient).focus();
+        }
       }
       // Sinon ouvrir une nouvelle fenêtre
       return self.clients.openWindow(targetUrl);
     })
   );
-
-  notification.close();
 });
 
-self.addEventListener('notificationclose', event => {
-  console.log('Notification fermée sans interaction:', event);
-  // Vous pouvez ajouter une logique d'analyse ici si nécessaire
+self.addEventListener('notificationclose', _event => {
+  // Analytics hook possible ici
 });
 
-// self.skipWaiting(); // pour permettre la gestion manuelle des mises à jour
-// clientsClaim(); // déjà géré dans l'événement 'activate'
+/*
+  Gestion du changement de subscription push (P15)
+  Se déclenche quand le navigateur rafraîchit la push subscription.
+  Notifie les clients pour qu'ils puissent re-synchroniser le token.
+*/
+self.addEventListener('pushsubscriptionchange', (event: Event) => {
+  const pushEvent = event as ExtendableEvent;
+  pushEvent.waitUntil(
+    self.clients.matchAll({ type: 'window' }).then(clients => {
+      Array.from(clients).forEach(client => {
+        client.postMessage({ type: 'PUSH_SUBSCRIPTION_CHANGED' });
+      });
+    })
+  );
+});

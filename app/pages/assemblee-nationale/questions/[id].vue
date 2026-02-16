@@ -33,11 +33,17 @@ const url = computed(() => {
   return `${siteUrl}/assemblee-nationale/questions/${route.params.id}`;
 });
 
+// Pré-extraire siteUrl pour éviter d'appeler useSiteMetadata dans un computed
+const cmsImageBase = `${siteUrl}/cms`;
+
 const image = computed(() => {
   if (!question.value) return defaultImage;
-  return question.value.deputy.photo
-    ? useCmsImageAbsolute(question.value.deputy.photo)
-    : defaultImage;
+  if (!question.value.deputy.photo) return defaultImage;
+  // Construction manuelle de l'URL absolue pour éviter l'appel de composable dans computed
+  const photo = question.value.deputy.photo;
+  if (photo.startsWith('http://') || photo.startsWith('https://')) return photo;
+  if (photo.startsWith('/')) return `${siteUrl}${photo}`;
+  return `${cmsImageBase}/${photo}`;
 });
 
 const questionSchema = computed(() => {
@@ -56,7 +62,9 @@ const questionSchema = computed(() => {
       givenName: question.value.deputy.first_name,
       familyName: question.value.deputy.last_name,
       jobTitle: 'Député',
-      image: question.value.deputy.photo ? useCmsImage(question.value.deputy.photo) : undefined,
+      image: question.value.deputy.photo
+        ? (question.value.deputy.photo.startsWith('http') ? question.value.deputy.photo : `${cmsImageBase}/${question.value.deputy.photo}`)
+        : undefined,
       worksFor: {
         '@type': 'GovernmentOrganization',
         name: 'Assemblée nationale du Sénégal',
@@ -368,35 +376,36 @@ useHead({
         >
           <h3 class="mb-4 text-lg font-bold dark:text-gray-100">Documents joints</h3>
           <div class="grid grid-cols-1 gap-2 md:grid-cols-2">
-            <div
-              v-for="attachment in question.attachments"
-              :key="attachment.directus_files_id.id"
-              class="overflow-hidden rounded-lg"
-              itemscope
-              itemtype="https://schema.org/MediaObject"
-            >
-              <meta itemprop="contentUrl" :content="getImageUrl(attachment.directus_files_id.id)" />
-              <meta itemprop="encodingFormat" :content="attachment.directus_files_id.type" />
-
-              <!-- Image attachments -->
-              <img
-                v-if="isImageFile(attachment.directus_files_id.type)"
-                :src="getImageUrl(attachment.directus_files_id.id)"
-                :alt="'Document joint'"
-                class="h-auto w-full rounded border border-gray-200 dark:border-gray-700"
-                itemprop="contentUrl"
-              />
-              <!-- Non-image attachments -->
-              <UButton
-                v-else
-                :href="getImageUrl(attachment.directus_files_id.id)"
-                target="_blank"
-                class="w-full dark:bg-gray-700 dark:text-gray-100"
+            <template v-for="attachment in question.attachments" :key="attachment.directus_files_id?.id || attachment.id">
+              <div
+                v-if="attachment.directus_files_id?.id"
+                class="overflow-hidden rounded-lg"
+                itemscope
+                itemtype="https://schema.org/MediaObject"
               >
-                <UIcon name="i-heroicons-document" class="mr-2 h-5 w-5" />
-                Télécharger le document
-              </UButton>
-            </div>
+                <meta itemprop="contentUrl" :content="getImageUrl(attachment.directus_files_id.id)" />
+                <meta itemprop="encodingFormat" :content="attachment.directus_files_id.type" />
+
+                <!-- Image attachments -->
+                <img
+                  v-if="isImageFile(attachment.directus_files_id.type)"
+                  :src="getImageUrl(attachment.directus_files_id.id)"
+                  :alt="'Document joint'"
+                  class="h-auto w-full rounded border border-gray-200 dark:border-gray-700"
+                  itemprop="contentUrl"
+                />
+                <!-- Non-image attachments -->
+                <UButton
+                  v-else
+                  :href="getImageUrl(attachment.directus_files_id.id)"
+                  target="_blank"
+                  class="w-full dark:bg-gray-700 dark:text-gray-100"
+                >
+                  <UIcon name="i-heroicons-document" class="mr-2 h-5 w-5" />
+                  Télécharger le document
+                </UButton>
+              </div>
+            </template>
           </div>
         </div>
       </div>

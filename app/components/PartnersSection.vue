@@ -9,7 +9,7 @@ const { partners, loading, error } = usePartners();
 
 <template>
   <section class="my-8">
-    <h2 class="text-center text-2xl font-semibold text-gray-800 dark:text-slate-200">
+    <h2 class="mb-4 text-center text-xl font-semibold text-gray-800 dark:text-white">
       Nos Partenaires
     </h2>
 

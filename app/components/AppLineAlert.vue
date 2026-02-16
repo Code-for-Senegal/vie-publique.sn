@@ -1,31 +1,59 @@
 <template>
-  <Transition name="component-fade" mode="out-in">
-    <div
-      v-if="alertToShow"
-      class="offline-alert"
-      :class="{
-        'offline-alert--offline': !isOnline,
-        'offline-alert--online': isOnline && showOnline,
-      }"
+  <Teleport to="body">
+    <Transition
+      enter-active-class="transition-all duration-300 ease-out"
+      enter-from-class="translate-y-full opacity-0"
+      enter-to-class="translate-y-0 opacity-100"
+      leave-active-class="transition-all duration-200 ease-in"
+      leave-from-class="translate-y-0 opacity-100"
+      leave-to-class="translate-y-full opacity-0"
     >
-      <div class="offline-alert-content">
-        <span
-          class="offline-alert-indicator"
-          :class="{
-            'offline-alert-indicator--offline': !isOnline,
-            'offline-alert-indicator--online': isOnline && showOnline,
-          }"
-        ></span>
-        <span class="offline-alert-text">
-          {{ alertMessage }}
-        </span>
+      <div
+        v-if="alertToShow"
+        class="fixed bottom-16 left-0 right-0 z-[100] px-3 pb-2 sm:bottom-4 sm:px-4"
+        role="alert"
+        aria-live="polite"
+      >
+        <div
+          class="mx-auto flex max-w-sm items-center gap-2.5 rounded-full px-4 py-2.5 shadow-lg backdrop-blur-sm sm:max-w-md sm:gap-3 sm:px-5 sm:py-3"
+          :class="[
+            isOnline
+              ? 'bg-gray-900/95 text-white'
+              : 'bg-red-500/95 text-white',
+          ]"
+        >
+          <!-- Status indicator -->
+          <span class="relative flex h-2.5 w-2.5 shrink-0 sm:h-3 sm:w-3">
+            <span
+              class="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"
+              :class="isOnline ? 'bg-emerald-400' : 'bg-white'"
+            ></span>
+            <span
+              class="relative inline-flex h-2.5 w-2.5 rounded-full sm:h-3 sm:w-3"
+              :class="isOnline ? 'bg-emerald-400' : 'bg-white'"
+            ></span>
+          </span>
+
+          <!-- Icon -->
+          <div class="flex shrink-0 items-center justify-center">
+            <UIcon
+              :name="isOnline ? 'i-heroicons-wifi' : 'i-heroicons-signal-slash'"
+              class="h-4 w-4 sm:h-5 sm:w-5"
+            />
+          </div>
+
+          <!-- Message -->
+          <span class="text-xs font-medium sm:text-sm">
+            {{ alertMessage }}
+          </span>
+        </div>
       </div>
-    </div>
-  </Transition>
+    </Transition>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
-import { useOnline } from "@vueuse/core";
+import { useOnline } from '@vueuse/core';
 
 const props = withDefaults(
   defineProps<{
@@ -33,8 +61,8 @@ const props = withDefaults(
     offlineMessage?: string;
   }>(),
   {
-    onlineMessage: "Connexion Internet restaurée avec succès !",
-    offlineMessage: "Vous naviguez actuellement en mode hors connexion !",
+    onlineMessage: 'Connexion rétablie',
+    offlineMessage: 'Aucune connexion Internet',
   },
 );
 
@@ -58,98 +86,3 @@ watch(isOnline, (newValue) => {
   }
 });
 </script>
-
-<style scoped>
-.offline-alert {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  width: 100%;
-  padding: 10px;
-  transition: all 0.3s ease;
-}
-
-.offline-alert-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #18181e;
-  color: #dcdde0;
-  padding: 12px 16px;
-  border-radius: 7.5px;
-  max-width: 600px;
-  margin: 0 auto;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.offline-alert--offline {
-  background-color: transparent;
-}
-
-.offline-alert--offline .offline-alert-content {
-  background-color: #fd3552;
-  color: white;
-  animation: shake 0.5s;
-}
-
-.offline-alert-indicator {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin-right: 12px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-
-.offline-alert-indicator--offline {
-  background-color: white;
-}
-
-.offline-alert-indicator--online {
-  background-color: #07e088;
-}
-
-.offline-alert-text {
-  flex-grow: 1;
-  font-weight: 500;
-  text-align: center;
-}
-
-@keyframes shake {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  10%,
-  30%,
-  50%,
-  70%,
-  90% {
-    transform: translateX(-5px);
-  }
-  20%,
-  40%,
-  60%,
-  80% {
-    transform: translateX(5px);
-  }
-}
-
-.component-fade-enter-active,
-.component-fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.component-fade-enter-from,
-.component-fade-leave-to {
-  opacity: 0;
-}
-
-@media screen and (min-width: 768px) {
-  .offline-alert-content {
-    max-width: 500px;
-    border-radius: 5px;
-  }
-}
-</style>

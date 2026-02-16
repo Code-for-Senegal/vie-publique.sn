@@ -194,10 +194,10 @@ const { navigationCards } = useNavigationCards();
 
     <div class="">
       <div class="my-8">
-        <HomeNews />
+        <HomeLatestDocuments />
       </div>
       <div class="my-8">
-        <HomeLatestDocuments />
+        <HomeNews />
       </div>
       <div class="my-8">
         <HomeAssemblyQuestions />

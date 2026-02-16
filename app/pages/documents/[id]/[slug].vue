@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const route = useRoute();
-const router = useRouter();
 
 const documentId = computed(() => route.params.id as string);
 
@@ -65,7 +64,6 @@ const pageImageUrl = computed(() => {
   const img = document.value?.cover_image;
   if (typeof img !== 'string') return '';
 
-  // Utilisation safe : on récupère l'url relative et on concatène avec siteUrl déjà résolu
   const relativeUrl = useCmsImage(img, 80);
   if (relativeUrl.startsWith('http')) return relativeUrl;
   return `${siteUrl}${relativeUrl}`;
@@ -75,7 +73,6 @@ const pageImageUrl = computed(() => {
 useSeoMeta({
   title: () => pageTitle.value,
   description: () => pageDescription.value,
-  // Open Graph
   ogTitle: () => getSafeString(document.value?.title),
   ogDescription: () => getSafeString(document.value?.description) || typeLabel.value,
   ogImage: () => pageImageUrl.value,
@@ -84,7 +81,6 @@ useSeoMeta({
     document.value
       ? `https://vie-publique.sn/documents/${document.value.id}/${document.value.slug}`
       : '',
-  // Twitter Cards
   twitterCard: 'summary_large_image',
   twitterTitle: () => getSafeString(document.value?.title),
   twitterDescription: () => getSafeString(document.value?.description) || typeLabel.value,
@@ -142,10 +138,8 @@ const articleSchema = computed(() => ({
   },
 }));
 
-// SEO dynamique
 useHead({
   htmlAttrs: { lang: 'fr-SN' },
-  // Open Graph & Meta handled by useSeoMeta above, only adding specific overrides if needed or JSON-LD
   script: [
     {
       type: 'application/ld+json',
@@ -158,49 +152,44 @@ useHead({
   ],
 });
 
-// Fonction pour obtenir l'URL de l'asset via le nouveau proxy
-const getAssetUrl = (assetId: string, slug: string) => {
-  return useCmsFile(`${assetId}/${slug}.pdf`);
-};
+// URL du fichier pour le PDF
+const fileUrl = computed(() => {
+  if (!document.value?.file?.id) return '';
+  return useCmsFile(`${document.value.file.id}/${document.value.slug}.pdf`);
+});
+
+// Taille du fichier formatée
+const fileSize = computed(() => {
+  if (!document.value?.file?.filesize) return null;
+  const bytes = parseInt(document.value.file.filesize);
+  if (isNaN(bytes)) return null;
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+});
+
+// Date formatée
+const formattedDate = computed(() => {
+  if (!document.value?.publish_date) return '';
+  const date = new Date(document.value.publish_date);
+  return date.toLocaleDateString('fr-FR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+});
+
+// État du viewer PDF modal
+const showPdfViewer = ref(false);
 </script>
 
 <template>
-  <div>
-    <!-- Bouton retour -->
-    <!-- Fil d'Ariane -->
-    <nav
-      class="mb-6 flex items-center text-sm text-gray-500 dark:text-gray-400"
-      aria-label="Breadcrumb"
-    >
-      <NuxtLink to="/" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-        Accueil
-      </NuxtLink>
-      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
-      <NuxtLink
-        to="/documents/public"
-        class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-      >
-        Documents
-      </NuxtLink>
-      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
-      <NuxtLink
-        :to="`/documents/${typeSlug}`"
-        class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-      >
-        {{ typeLabel }}
-      </NuxtLink>
-      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
-      <span class="truncate font-medium text-gray-900 dark:text-white" aria-current="page">
-        {{ document?.title }}
-      </span>
-    </nav>
-
+  <div class="py-6 md:py-8">
     <!-- Loading state -->
-    <div v-if="documentLoading" class="space-y-4">
-      <div class="h-8 w-3/4 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
-      <div class="h-64 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700"></div>
-      <div class="h-4 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
-      <div class="h-4 w-3/4 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
+    <div v-if="documentLoading" class="animate-pulse space-y-4">
+      <div class="h-4 w-48 rounded bg-gray-200 dark:bg-gray-700" />
+      <div class="h-8 w-3/4 rounded bg-gray-200 dark:bg-gray-700" />
+      <div class="h-64 rounded-lg bg-gray-200 dark:bg-gray-700" />
     </div>
 
     <!-- Error state -->
@@ -213,39 +202,245 @@ const getAssetUrl = (assetId: string, slug: string) => {
     />
 
     <!-- Contenu -->
-    <div v-else-if="document" class="prose prose-sm mx-auto sm:prose dark:prose-invert">
-      <div class="">
-        <h1>{{ document.title }}</h1>
-      </div>
-
-      <!-- PDF Download link -->
-      <div v-if="document.file && document.content_html" class="my-4">
-        <a
-          :href="getAssetUrl(document.file.id, document.slug)"
-          target="_blank"
-          class="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+    <article v-else-if="document">
+      <!-- Fil d'Ariane -->
+      <nav class="mb-4 text-sm text-gray-500 dark:text-gray-400">
+        <NuxtLink to="/" class="transition-colors hover:text-primary-600 dark:hover:text-primary-400">
+          Accueil
+        </NuxtLink>
+        <span class="mx-2">/</span>
+        <NuxtLink
+          to="/documents/public"
+          class="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
         >
-          📥 Télécharger le PDF
-        </a>
+          Documents
+        </NuxtLink>
+        <span class="mx-2">/</span>
+        <NuxtLink
+          :to="`/documents/${typeSlug}`"
+          class="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
+        >
+          {{ typeLabel }}
+        </NuxtLink>
+        <span class="mx-2">/</span>
+        <span class="text-gray-900 dark:text-white">{{ document.title }}</span>
+      </nav>
+
+      <!-- Titre -->
+      <h1 class="mb-4 text-2xl font-bold text-gray-900 md:text-3xl dark:text-white">
+        {{ document.title }}
+      </h1>
+
+      <!-- Bloc fichier mobile (prioritaire) -->
+      <div
+        v-if="document.file"
+        class="mb-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm lg:hidden dark:border-gray-700 dark:bg-gray-800"
+      >
+        <div class="mb-3 flex items-center gap-2">
+          <div
+            class="flex h-10 w-10 items-center justify-center rounded-lg bg-red-50 dark:bg-red-900/30"
+          >
+            <UIcon name="i-heroicons-document-text" class="h-5 w-5 text-red-600 dark:text-red-400" />
+          </div>
+          <p class="text-sm font-medium text-gray-700 dark:text-gray-300">
+            PDF{{ fileSize ? ` - ${fileSize}` : '' }}
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <UButton
+            @click="showPdfViewer = true"
+            icon="i-heroicons-eye"
+            label="Lire le PDF"
+            color="yellow"
+            block
+          />
+          <div class="grid grid-cols-2 gap-2">
+            <UButton
+              :to="fileUrl"
+              external
+              target="_blank"
+              icon="i-heroicons-arrow-top-right-on-square"
+              label="Ouvrir"
+              color="gray"
+              variant="outline"
+              size="sm"
+            />
+            <UButton
+              @click="downloadCmsFile(`${document!.file!.id}/${document!.slug}.pdf`, `${document!.slug}.pdf`)"
+              icon="i-heroicons-arrow-down-tray"
+              label="Télécharger"
+              color="gray"
+              variant="outline"
+              size="sm"
+            />
+          </div>
+        </div>
       </div>
 
-      <!-- Contenu HTML -->
-      <div v-if="document.content_html" v-html="document.content_html"></div>
+      <!-- Partage social (Mobile) -->
+      <div class="mb-8 lg:hidden">
+        <SocialShare :title="document.title" />
+      </div>
 
-      <!-- PDF Viewer -->
-      <ClientOnly v-if="document.file" placeholder="Chargement en cours">
-        <div class="not-prose mt-8">
-          <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-gray-100">Document PDF</h3>
-          <PdfViewer
-            :source="getAssetUrl(document.file.id, document.slug)"
-            :download-name="`${document.slug}.pdf`"
+      <div class="grid gap-8 lg:grid-cols-3">
+        <!-- Colonne principale -->
+        <div class="lg:col-span-2">
+          <!-- Image de couverture -->
+          <div v-if="document.cover_image" class="mb-6">
+            <CmsImage
+              :src="document.cover_image"
+              :alt="document.title"
+              :quality="80"
+              class="mx-auto max-w-md rounded-lg shadow-md md:max-w-lg"
+            />
+          </div>
+
+          <!-- Institution d'audit -->
+          <div v-if="document.audit_institution" class="mb-4">
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+              Institution :
+              <span class="font-medium text-gray-700 dark:text-gray-300">{{
+                document.audit_institution
+              }}</span>
+            </p>
+          </div>
+
+          <!-- Description -->
+          <div v-if="document.description" class="mb-6">
+            <p class="text-gray-700 dark:text-gray-300">
+              {{ document.description }}
+            </p>
+          </div>
+
+          <!-- Contenu HTML -->
+          <div
+            v-if="document.content_html"
+            class="prose prose-gray max-w-none dark:prose-invert"
+            v-html="document.content_html"
           />
+
+          <!-- Aperçu PDF intégré -->
+          <ClientOnly>
+            <div v-if="fileUrl" class="mt-8">
+              <div class="mb-4 flex items-center justify-between">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
+                  Aperçu du document
+                </h2>
+                <UButton
+                  @click="showPdfViewer = true"
+                  icon="i-heroicons-arrows-pointing-out"
+                  label="Plein écran"
+                  color="yellow"
+                  variant="outline"
+                  size="sm"
+                />
+              </div>
+              <div class="overflow-hidden rounded-lg border border-gray-200 shadow-sm dark:border-gray-700">
+                <PdfViewer
+                  :source="fileUrl"
+                  :download-name="`${document?.slug || 'document'}.pdf`"
+                />
+              </div>
+            </div>
+          </ClientOnly>
         </div>
-      </ClientOnly>
-    </div>
+
+        <!-- Sidebar (desktop uniquement) -->
+        <aside class="hidden space-y-6 lg:col-span-1 lg:block">
+          <!-- Bloc fichier -->
+          <div
+            v-if="document.file"
+            class="sticky top-24 rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800"
+          >
+            <h2 class="mb-4 font-semibold text-gray-900 dark:text-white">Télécharger le document</h2>
+
+            <div class="mb-4 flex items-center gap-3">
+              <div
+                class="flex h-12 w-12 items-center justify-center rounded-lg bg-red-50 dark:bg-red-900/30"
+              >
+                <UIcon
+                  name="i-heroicons-document-text"
+                  class="h-6 w-6 text-red-600 dark:text-red-400"
+                />
+              </div>
+              <div>
+                <p class="text-xs text-gray-500 dark:text-gray-400">
+                  PDF{{ fileSize ? ` - ${fileSize}` : '' }}
+                </p>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <UButton
+                @click="showPdfViewer = true"
+                icon="i-heroicons-eye"
+                label="Lire le PDF"
+                color="yellow"
+                block
+              />
+              <UButton
+                :to="fileUrl"
+                external
+                target="_blank"
+                icon="i-heroicons-arrow-top-right-on-square"
+                label="Ouvrir"
+                color="gray"
+                variant="outline"
+                block
+              />
+              <UButton
+                @click="downloadCmsFile(`${document!.file!.id}/${document!.slug}.pdf`, `${document!.slug}.pdf`)"
+                icon="i-heroicons-arrow-down-tray"
+                label="Télécharger"
+                color="gray"
+                variant="outline"
+                block
+              />
+            </div>
+
+            <!-- Partage social -->
+            <div class="mt-6 border-t border-gray-200 pt-6 dark:border-gray-700">
+              <SocialShare :title="document.title" />
+            </div>
+          </div>
+
+          <!-- Message si pas de fichier -->
+          <div
+            v-else
+            class="sticky top-24 space-y-6"
+          >
+            <div
+              class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800"
+            >
+              <p class="text-sm text-gray-500 dark:text-gray-400">
+                Aucun fichier disponible pour ce document.
+              </p>
+            </div>
+
+            <!-- Partage social même sans fichier -->
+            <div
+              class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800"
+            >
+              <SocialShare :title="document.title" />
+            </div>
+          </div>
+        </aside>
+      </div>
+    </article>
 
     <!-- Not found state -->
     <div v-else class="py-8 text-center text-gray-500 dark:text-gray-400">Document non trouvé</div>
+
+    <!-- Visionneuse PDF Modal -->
+    <ClientOnly>
+      <PdfViewerModal
+        v-if="showPdfViewer && fileUrl"
+        :src="fileUrl"
+        :title="document?.title || 'Document PDF'"
+        @close="showPdfViewer = false"
+      />
+    </ClientOnly>
 
     <ScrollToTopButton />
   </div>

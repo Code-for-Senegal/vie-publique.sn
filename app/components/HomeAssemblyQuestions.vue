@@ -25,11 +25,9 @@
 
     <!-- Content -->
     <div v-else>
-      <div class="prose prose-sm mx-auto my-4 sm:prose-sm">
-        <h2 class="text-center text-gray-800 dark:text-white">
-          Dernières initiatives parlementaires
-        </h2>
-      </div>
+      <h2 class="mb-4 text-center text-xl font-semibold text-gray-800 dark:text-white">
+        Dernières initiatives parlementaires
+      </h2>
 
       <div class="grid gap-4 sm:grid-cols-3">
         <div
@@ -68,7 +66,7 @@
       <!-- Lien "Voir toute l'activité parlementaire" -->
       <div class="mt-8 text-center">
         <NuxtLink
-          to="/actualites"
+          to="/assemblee-nationale/questions"
           class="group inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 transition-all duration-200 hover:bg-gray-50 hover:shadow-md hover:ring-gray-400 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:hover:bg-gray-700 dark:hover:ring-gray-600"
         >
           Voir toute l'activité parlementaire

@@ -203,6 +203,8 @@ export const useCollectionState = (
 
   const setSortBy = (sort: string) => {
     sortBy.value = sort;
+    // Reset à la page 1 lors d'un changement de tri
+    currentPage.value = 1;
   };
 
   const setFilterValue = (filter: string) => {

@@ -1,10 +1,8 @@
 <template>
   <div class="my-8">
-    <div class="prose prose-sm sm:prose mx-auto mb-4">
-      <h2 class="text-center text-gray-800 dark:text-white">
-        Suivez-nous sur WhatsApp
-      </h2>
-    </div>
+    <h2 class="mb-4 text-center text-xl font-semibold text-gray-800 dark:text-white">
+      Suivez-nous sur WhatsApp
+    </h2>
     <div class="flex flex-col items-center justify-center space-y-4">
       <div class="text-center">
         <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">

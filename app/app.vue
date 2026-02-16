@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { Toaster, toast } from 'vue-sonner';
+import { useNotifications } from './composables/useNotifications';
 
 // Configuration SEO selon l'environnement
 const config = useRuntimeConfig();
+
+// Push Notifications
+const { initState, setupForegroundHandler, validateAndRefreshToken } = useNotifications();
 const isProduction = config.public.siteUrl === 'https://vie-publique.sn';
 
 // Bloquer l'indexation en environnement de test
@@ -63,16 +67,13 @@ const links = [
 ];
 
 onMounted(() => {
-  // Service Worker uniquement en production
-  if (
-    import.meta.client &&
-    config.public.nodeEnv === 'production' &&
-    'serviceWorker' in navigator
-  ) {
+  if (!import.meta.client || !('serviceWorker' in navigator)) return;
+
+  // Service Worker update handling (production only)
+  if (config.public.nodeEnv === 'production') {
     navigator.serviceWorker.addEventListener('controllerchange', () => {});
 
     navigator.serviceWorker.ready.then((registration) => {
-      // Vérifier si une mise à jour est disponible immédiatement
       if (registration.waiting) {
         toast('Nouvelle version trouvée. Actualiser pour mettre à jour.', {
           action: {
@@ -99,6 +100,19 @@ onMounted(() => {
       });
     });
   }
+
+  // Initialize push notification state (synchronous, no SW needed)
+  initState();
+
+  // Setup foreground handler (waits for SW internally via async initMessaging)
+  setupForegroundHandler();
+
+  // Listen for push subscription changes from service worker (P15)
+  navigator.serviceWorker.addEventListener('message', (event) => {
+    if (event.data?.type === 'PUSH_SUBSCRIPTION_CHANGED') {
+      validateAndRefreshToken();
+    }
+  });
 });
 </script>
 
@@ -119,6 +133,11 @@ onMounted(() => {
     <!-- <ClientOnly>
       <AppInstallPrompt />
     </ClientOnly> -->
+
+    <!-- Notification Consent Modal -->
+    <ClientOnly>
+      <NotificationConsentModal :delay="5000" />
+    </ClientOnly>
 
     <Toaster position="bottom-center" />
   </div>
