@@ -40,7 +40,9 @@ const selectedElectionIds = computed(() => {
 const { items: documents, loading, pagination } = useCmsCollection<Document>({
   collection: 'documents',
   filters: computed(() => {
-    const filters: any = {};
+    const filters: any = {
+      type: 'election'
+    };
     if (selectedElectionIds.value) {
       filters.election_ids = selectedElectionIds.value;
     }
