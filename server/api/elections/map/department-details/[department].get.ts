@@ -1,5 +1,5 @@
 import { readItems } from "@directus/sdk";
-import type { PollingStation } from "~/types/election-map-national";
+import type { PollingStation } from "~~/types/election-map-national";
 
 /**
  * Endpoint pour récupérer les détails d'un département (bureaux de vote)

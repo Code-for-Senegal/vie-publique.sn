@@ -146,16 +146,9 @@
 </template>
 
 <script setup lang="ts">
-import * as pdfjsLib from "pdfjs-dist";
-import type { PDFDocumentProxy, PDFPageProxy } from "pdfjs-dist";
+import type { PDFDocumentProxy, PDFPageProxy } from "pdfjs-dist/types/src/display/api";
 
-// Configuration du worker PDF.js - utiliser le worker via import.meta.url
-if (import.meta.client) {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
-    'pdfjs-dist/build/pdf.worker.min.mjs',
-    import.meta.url
-  ).href
-}
+let pdfjsLib: typeof import("pdfjs-dist") | null = null;
 
 interface Props {
   source: string;
@@ -200,7 +193,7 @@ const renderPage = async (num: number) => {
 
   try {
     const page: PDFPageProxy = await pdfDoc.getPage(num);
-    
+
     // Utiliser un ratio de pixels pour améliorer la netteté
     const pixelRatio = window.devicePixelRatio || 1;
     const viewport = page.getViewport({ scale: scale.value * pixelRatio });
@@ -212,7 +205,7 @@ const renderPage = async (num: number) => {
     // Définir la taille réelle du canvas
     canvas.width = viewport.width;
     canvas.height = viewport.height;
-    
+
     // Ajuster le style CSS pour l'affichage
     canvas.style.width = `${viewport.width / pixelRatio}px`;
     canvas.style.height = `${viewport.height / pixelRatio}px`;
@@ -289,7 +282,7 @@ const fitToWidth = () => {
     const viewport = page.getViewport({ scale: 1 });
     const containerWidth = pdfContainer.value!.clientWidth - 32; // 32px for padding
     let calculatedScale = containerWidth / viewport.width;
-    
+
     // Sur mobile, arrondir le scale pour éviter le flou
     const isMobile = window.innerWidth < 768;
     if (isMobile) {
@@ -298,7 +291,7 @@ const fitToWidth = () => {
       // S'assurer qu'on ne descend pas en dessous de 1 sur mobile
       calculatedScale = Math.max(1, calculatedScale);
     }
-    
+
     scale.value = calculatedScale;
     queueRenderPage(currentPage.value);
   });
@@ -337,6 +330,8 @@ const loadPdf = async () => {
   error.value = false;
   errorMessage.value = "";
   loadingProgress.value = 0;
+
+  if (!pdfjsLib) return;
 
   try {
     const loadingTask = pdfjsLib.getDocument({
@@ -393,7 +388,12 @@ const handleKeyPress = (e: KeyboardEvent) => {
 };
 
 // Lifecycle
-onMounted(() => {
+onMounted(async () => {
+  pdfjsLib = await import("pdfjs-dist");
+  pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+    'pdfjs-dist/build/pdf.worker.min.mjs',
+    import.meta.url
+  ).href;
   loadPdf();
   window.addEventListener("keydown", handleKeyPress);
 });

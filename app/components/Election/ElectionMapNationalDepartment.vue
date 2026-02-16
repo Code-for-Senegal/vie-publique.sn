@@ -1,10 +1,25 @@
 <!-- components/TableauDepartements.vue -->
 <script setup lang="ts">
-import type { DepartmentStats } from "~/types/election-map-national";
-// import { useElectionData } from "~/composables/useElectionData";
+import type { DepartmentStats } from "~~/types/election-map-national";
 
-// ✅ Initialisation du composable SSR
-const { fetchDepartmentsStats } = useElectionData();
+interface Props {
+  electionId?: string | number | null;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  electionId: null,
+});
+
+const emit = defineEmits<{
+  "list-empty": [];
+  "list-ready": [];
+}>();
+
+// Convertir electionId en ref réactive pour le composable
+const electionIdRef = computed(() => props.electionId);
+
+// ✅ Initialisation du composable SSR avec l'ID d'élection
+const { fetchDepartmentsStats } = useElectionData({ electionId: electionIdRef });
 
 // État local
 const search = ref("");
@@ -21,6 +36,17 @@ const {
   error,
   refresh,
 } = await fetchDepartmentsStats();
+
+// Surveiller les données et émettre les événements
+watch([departments, pending], ([newDepartments, isPending]) => {
+  if (!isPending) {
+    if (!newDepartments || newDepartments.length === 0) {
+      emit('list-empty');
+    } else {
+      emit('list-ready');
+    }
+  }
+}, { immediate: true });
 
 // Filtrage et tri des données
 const filteredDepartments = computed(() => {
@@ -68,16 +94,30 @@ const totalPages = computed(() =>
 
 // Navigation
 const router = useRouter();
+const route = useRoute();
 
 const handleRowClick = (row: DepartmentStats) => {
-  router.push(
-    `/elections/legislatives/carte-electorale/nationale/${row.department}`,
-  );
+  // Construire l'URL avec le contexte de l'élection
+  const query: Record<string, string> = {};
+  if (props.electionId) {
+    query.election = String(props.electionId);
+  }
+  // Conserver le type et l'année de l'URL courante si présents
+  if (route.query.type) {
+    query.type = route.query.type as string;
+  }
+  if (route.query.year) {
+    query.year = route.query.year as string;
+  }
+
+  router.push({
+    path: `/elections-senegal/carte-electorale/nationale/${row.department}`,
+    query,
+  });
 };
 
 // Gestion du tri
 const handleSort = (column: string) => {
-  console.log("handleSort", column);
   if (sortBy.value === column) {
     sortDesc.value = !sortDesc.value;
   } else {

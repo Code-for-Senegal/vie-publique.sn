@@ -1,4 +1,4 @@
-import type { Document } from '~/types/document';
+import type { Document } from '~~/types/document';
 
 export interface DocumentsOptions {
   /** ID du document pour récupération unitaire */

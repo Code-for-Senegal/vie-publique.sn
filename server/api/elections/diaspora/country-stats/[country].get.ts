@@ -4,11 +4,16 @@ import { aggregate } from "@directus/sdk";
  * Endpoint pour récupérer les statistiques d'un pays de la diaspora
  * GET /api/elections/diaspora/country-stats/:country
  *
+ * Query params:
+ * - election: ID de l'élection pour filtrer les données
+ *
  * @returns Statistiques agrégées du pays (localités, bureaux, électeurs)
  */
 export default defineCachedEventHandler(
   async (event) => {
     const country = getRouterParam(event, "country");
+    const query = getQuery(event);
+    const electionId = query.election as string | undefined;
 
     if (!country) {
       throw createError({
@@ -20,16 +25,20 @@ export default defineCachedEventHandler(
     try {
       const directus = getCmsClient();
 
+      // Construire le filtre avec le pays et l'élection si fournie
+      const filter: Record<string, any> = {
+        country: { _eq: decodeURIComponent(country) },
+      };
+      if (electionId) {
+        filter.election = { _eq: parseInt(electionId) };
+      }
+
       // Récupération des statistiques agrégées
       const statsData = await directus
         .request(
           aggregate("election_map_diaspora", {
             query: {
-              filter: {
-                country: {
-                  _eq: decodeURIComponent(country),
-                },
-              },
+              filter,
               groupBy: ["country"],
             },
             aggregate: {

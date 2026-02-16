@@ -63,6 +63,13 @@ export function useNavigationCards() {
       count: 8,
       display: true,
     },
+    {
+      title: 'Élections',
+      description: 'Scrutins, Listes, Résultats',
+      icon: 'i-heroicons-user-group',
+      to: '/elections-senegal',
+      display: true,
+    },
   ];
 
   // Configuration des couleurs pour chaque type de carte (utilisée dans HomeSearch)

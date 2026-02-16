@@ -130,11 +130,11 @@ export default defineNuxtConfig({
   routeRules: {
     // Essayer routeRules en premier
     '/cms/**': {
-      proxy: `https://cms.vie-publique.sn/assets/**`,
+      proxy: `${process.env.CMS_API_URL || 'https://cms.vie-publique.sn'}/assets/**`,
       headers: { 'cache-control': 'max-age=31536000, immutable' },
     },
     '/docs/**': {
-      proxy: `https://cms.vie-publique.sn/assets/**`,
+      proxy: `${process.env.CMS_API_URL || 'https://cms.vie-publique.sn'}/assets/**`,
       headers: { 'cache-control': 'max-age=86400' },
     },
     // Headers pour les API de fallback

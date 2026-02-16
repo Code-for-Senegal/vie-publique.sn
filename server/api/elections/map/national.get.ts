@@ -8,6 +8,7 @@ import { readItems, aggregate } from "@directus/sdk";
  * Query params:
  * - department: Filtrer par département spécifique
  * - groupBy: Grouper par département pour obtenir les statistiques
+ * - election: ID de l'élection pour filtrer les données
  */
 export default defineCachedEventHandler(
   async (event) => {
@@ -16,15 +17,23 @@ export default defineCachedEventHandler(
 
     const department = query.department as string | undefined;
     const groupByDepartment = query.groupBy === "department";
+    const electionId = query.election as string | undefined;
 
     try {
+      // Construire le filtre de base avec l'élection si fournie
+      const buildFilter = (additionalFilters: Record<string, any> = {}) => {
+        const filter: any = { ...additionalFilters };
+        if (electionId) {
+          filter.election = { _eq: parseInt(electionId) };
+        }
+        return filter;
+      };
+
       // Si on demande les statistiques groupées par département
       if (groupByDepartment) {
-        const filter: any = {};
-
-        if (department) {
-          filter.department = { _eq: department };
-        }
+        const filter = buildFilter(
+          department ? { department: { _eq: department } } : {}
+        );
 
         const statsData = await directus.request(
           aggregate("election_map_national", {
@@ -48,6 +57,8 @@ export default defineCachedEventHandler(
 
       // Si on demande les détails d'un département
       if (department) {
+        const filter = buildFilter({ department: { _eq: department } });
+
         const pollingStations = await directus.request(
           readItems("election_map_national", {
             fields: [
@@ -59,11 +70,7 @@ export default defineCachedEventHandler(
               "voters",
               "region",
             ],
-            filter: {
-              department: {
-                _eq: department,
-              },
-            },
+            filter,
             limit: 2000,
             sort: ["municipality", "polling_place", "office_number"],
           })
@@ -75,6 +82,8 @@ export default defineCachedEventHandler(
       }
 
       // Par défaut, retourner les statistiques de tous les départements
+      const filter = buildFilter();
+
       const allStats = await directus.request(
         aggregate("election_map_national", {
           aggregate: {
@@ -84,6 +93,7 @@ export default defineCachedEventHandler(
           },
           groupBy: ["department"],
           query: {
+            filter: Object.keys(filter).length > 0 ? filter : undefined,
             limit: 2000,
           },
         })

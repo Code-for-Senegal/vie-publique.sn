@@ -10,7 +10,7 @@
   >
     <!-- Loading spinner responsive -->
     <div
-      v-if="loading || pending"
+      v-if="loading || pending || loadingData"
       class="absolute inset-0 z-50 flex items-center justify-center bg-white/80"
     >
       <div
@@ -34,12 +34,26 @@
       >
         <!-- Fond de carte -->
         <LTileLayer
-          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
+          url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png"
           layer-type="base"
           name="CartoDB"
           :options="{
             ...tileLayerOptions,
             className: 'white-background-map',
+          }"
+        />
+
+        <!-- Masque pour le Sénégal (Délimiteur Visuel) -->
+        <LGeoJson
+          :geojson="senegalMask"
+          :options="{
+            style: {
+              fillColor: '#F5F7FA',
+              color: '#E2E8F0',
+              weight: 1,
+              opacity: 1,
+              fillOpacity: 0.95,
+            },
           }"
         />
 
@@ -71,7 +85,7 @@
                 <h3 class="text-base font-bold md:text-lg">
                   {{ region.departement }}
                 </h3>
-                <div class="text-sm md:text-base">
+                <div v-if="region.region" class="text-sm md:text-base">
                   Région: {{ region.region }}
                 </div>
                 <div class="mt-2 text-sm md:text-base">
@@ -82,6 +96,12 @@
                   >
                     {{ region.winnerName }}
                   </span>
+                </div>
+                <div v-if="region.headOfList" class="mt-1 text-sm md:text-base">
+                  Tête de liste: <span class="font-semibold">{{ region.headOfList }}</span>
+                </div>
+                <div v-if="region.voters" class="mt-1 text-sm md:text-base">
+                  Voix: <span class="font-bold">{{ formatNumber(region.voters) }}</span>
                 </div>
               </div>
             </LPopup>
@@ -100,12 +120,16 @@ interface Props {
   initialCenter?: [number, number];
   initialZoom?: number;
   loading?: boolean;
+  electionType?: string;
+  electionYear?: number;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   initialCenter: () => [14.4974, -14.4524],
   initialZoom: 10,
   loading: false,
+  electionType: 'legislative',
+  electionYear: 2024
 });
 
 const emit = defineEmits<{
@@ -115,7 +139,25 @@ const emit = defineEmits<{
 
 // État local avec une détection plus précise du mobile
 const isMobile = ref(false);
-const mapInstance = ref<unknown>(null);
+const mapInstance = ref<any>(null);
+
+// Masque pour le Sénégal
+const senegalMask = {
+  type: "Feature",
+  properties: {},
+  geometry: {
+    type: "Polygon",
+    coordinates: [
+      [
+        [-20.0, 18.0],
+        [-10.0, 18.0],
+        [-10.0, 11.0],
+        [-20.0, 11.0],
+        [-20.0, 18.0],
+      ],
+    ],
+  },
+};
 
 // Détection améliorée du mobile
 onMounted(() => {
@@ -138,12 +180,13 @@ onMounted(() => {
 });
 
 // Chargement des données
-const { getMapDataResult } = useElectionMapDataResult();
+const { getMapDataResult, loading: loadingData } = useElectionMapDataResult();
 const { data: regions, pending } = await useAsyncData(
-  "map-data",
-  () => getMapDataResult(),
+  `map-data-${props.electionType}-${props.electionYear}`,
+  () => getMapDataResult(props.electionType, props.electionYear),
   {
     server: false,
+    watch: [() => props.electionType, () => props.electionYear]
   },
 );
 
@@ -208,6 +251,8 @@ const polygonOptions = computed(() => ({
 }));
 
 // Utilitaires
+const formatNumber = (num: number) => new Intl.NumberFormat('fr-FR').format(num);
+
 const getPolygonBorderColor = (fillColor: string) => "#ffffff";
 
 const getTextColorClass = (backgroundColor: string) => {
@@ -250,6 +295,13 @@ const initMap = (map: any) => {
     }
   }, 100);
 };
+
+// Watch for data changes to re-fit bounds
+watch(regions, () => {
+    if (mapInstance.value) {
+        initMap(mapInstance.value);
+    }
+});
 
 // Observer la visibilité de la carte
 const mapContainer = ref<HTMLElement | null>(null);

@@ -1,8 +1,10 @@
 // composables/useElectionMapData.ts
+import type { Ref } from 'vue';
 import type {
   PollingStation,
   DepartmentStats,
 } from "~~/types/election-map-national";
+import type { DepartmentGroup } from "~~/types/election-map";
 
 interface GeoData {
   departement: string;
@@ -13,9 +15,24 @@ interface GeoData {
   municipality: number;
   population: number;
   id: number;
-  Position: {
+  // Support both formats: Position (old) and coordinates (new)
+  Position?: {
     type: string;
     coordinates: number[][][];
+  };
+  coordinates?: {
+    type: string;
+    coordinates: number[][][];
+  } | number[][][];
+  coalition_gagnante?: {
+    id: number;
+    name: string;
+    color?: string;
+  };
+  election?: {
+    id: number;
+    type: string;
+    year: number;
   };
 }
 
@@ -32,21 +49,37 @@ interface TransformedRegion {
   stats?: DepartmentStats | null;
 }
 
-export function useElectionMapData() {
-  // État global pour le cache des données
-  const geoData = useState<GeoData[]>("geo-data", () => []);
-  const isGeoDataLoaded = useState<boolean>("geo-data-loaded", () => false);
+export function useElectionMapData(electionId?: Ref<string | number | null> | string | number | null) {
+  // État global pour le cache des données (avec clé basée sur electionId)
+  const currentElectionId = computed(() => {
+    const value = isRef(electionId) ? electionId.value : electionId;
+    if (value === null || value === undefined) return null;
+    // Convertir en number si c'est un string
+    const numValue = typeof value === 'string' ? parseInt(value) : value;
+    return isNaN(numValue) ? null : numValue;
+  });
+
+  const cacheKey = computed(() => `geo-data-${currentElectionId.value || 'all'}`);
+  const geoData = useState<GeoData[]>(cacheKey.value, () => []);
+  const isGeoDataLoaded = useState<boolean>(`geo-data-loaded-${currentElectionId.value || 'all'}`, () => false);
 
   // Charger les données géographiques depuis l'API serveur Nuxt
-  const loadGeoData = async () => {
-    if (isGeoDataLoaded.value) return geoData.value;
+  const loadGeoData = async (forceReload = false) => {
+    if (isGeoDataLoaded.value && !forceReload) return geoData.value;
 
     try {
+      // Construire l'URL avec le paramètre election si défini
+      const params = new URLSearchParams();
+      if (currentElectionId.value) {
+        params.set('election', currentElectionId.value.toString());
+      }
+      const url = `/api/carte${params.toString() ? `?${params.toString()}` : ''}`;
+
       // Appel via l'API serveur Nuxt (sécurisé, avec cache serveur)
-      const response = await $fetch<{ data: GeoData[] }>('/api/carte');
+      const response = await $fetch<GeoData[] | { data: GeoData[] }>(url);
 
       // Stocker les données dans le state
-      geoData.value = response.data || response || [];
+      geoData.value = Array.isArray(response) ? response : (response.data || []);
       isGeoDataLoaded.value = true;
       return geoData.value;
     } catch (error) {
@@ -66,22 +99,53 @@ export function useElectionMapData() {
     return geoData.value;
   };
 
+  // Recharger les données quand l'élection change
+  watch(currentElectionId, async (newId, oldId) => {
+    if (newId !== oldId) {
+      isGeoDataLoaded.value = false;
+      await loadGeoData(true);
+    }
+  });
+
+  // Extraire les coordonnées depuis les différents formats possibles
+  const extractCoordinates = (item: GeoData): number[][][] | null => {
+    // Format Position (ancien)
+    if (item.Position?.coordinates?.[0]?.length > 0) {
+      return item.Position.coordinates;
+    }
+    // Format coordinates (nouveau) - objet avec type et coordinates
+    if (item.coordinates && typeof item.coordinates === 'object' && 'coordinates' in item.coordinates) {
+      const coords = (item.coordinates as { coordinates: number[][][] }).coordinates;
+      if (coords?.[0]?.length > 0) return coords;
+    }
+    // Format coordinates - tableau direct
+    if (Array.isArray(item.coordinates) && item.coordinates[0]?.length > 0) {
+      return item.coordinates as number[][][];
+    }
+    return null;
+  };
+
   // Transformer les coordonnées pour Leaflet
   const transformCoordinates = (geoData: GeoData[]): TransformedRegion[] => {
-    return geoData.map((item) => ({
-      id: item.id,
-      departement: item.departement,
-      region: item.region,
-      voters: item.voters,
-      offices: item.offices,
-      places: item.places,
-      municipality: item.municipality,
-      population: item.population,
-      coordinates: item.Position.coordinates[0].map((coord) => [
-        coord[1],
-        coord[0],
-      ]), // Inverser lat/lng pour Leaflet
-    }));
+    return geoData
+      .filter((item) => extractCoordinates(item) !== null)
+      .map((item) => {
+        const coords = extractCoordinates(item)!;
+        return {
+          id: item.id,
+          departement: item.departement,
+          region: item.region,
+          voters: item.voters,
+          offices: item.offices,
+          places: item.places,
+          municipality: item.municipality,
+          population: item.population,
+          coordinates: coords[0].map((coord) => [
+            coord[1],
+            coord[0],
+          ]) as [number, number][], // Inverser lat/lng pour Leaflet
+        };
+      });
   };
 
   // Obtenir les statistiques des départements
@@ -155,12 +219,138 @@ export function useElectionMapData() {
     });
   };
 
+  // Charger les polygones de département (sans filtre élection = entrées département-level)
+  // Pour les élections locales, on a besoin des polygones de département, pas des communes
+  const loadDepartmentPolygons = async (): Promise<TransformedRegion[]> => {
+    const deptCacheKey = 'department-polygons';
+    const cachedPolygons = useState<TransformedRegion[]>(deptCacheKey, () => []);
+    const isPolygonsLoaded = useState<boolean>(`${deptCacheKey}-loaded`, () => false);
+
+    if (isPolygonsLoaded.value && cachedPolygons.value.length > 0) {
+      return cachedPolygons.value;
+    }
+
+    try {
+      // Charger TOUTES les entrées carte (sans filtre élection)
+      const response = await $fetch<GeoData[] | { data: GeoData[] }>('/api/carte');
+      const allData = Array.isArray(response) ? response : (response.data || []);
+
+      // Filtrer : garder uniquement les entrées d'élections nationales (pas locales)
+      // Les élections nationales ont 1 entrée par département avec les polygones corrects
+      const nationalEntries = allData.filter(item => {
+        // Exclure les entrées d'élections locales (qui sont au niveau commune)
+        if (item.election?.type === 'locale') return false;
+        // Ignorer les entrées sans coordonnées
+        if (!extractCoordinates(item)) return false;
+        // Ignorer les entrées sans nom de département
+        if (!item.departement?.trim()) return false;
+        return true;
+      });
+
+      // Dédupliquer par département (clé normalisée, garder l'entrée avec le plus d'électeurs)
+      const deptMap = new Map<string, GeoData>();
+      for (const item of nationalEntries) {
+        const key = item.departement.trim().toLowerCase();
+        const existing = deptMap.get(key);
+        if (!existing) {
+          deptMap.set(key, item);
+        } else if (item.voters > existing.voters) {
+          deptMap.set(key, item);
+        }
+      }
+
+      const deptEntries = Array.from(deptMap.values());
+      const transformed = transformCoordinates(deptEntries);
+
+      cachedPolygons.value = transformed;
+      isPolygonsLoaded.value = true;
+      return transformed;
+    } catch (error) {
+      return [];
+    }
+  };
+
+  // Calculer le centroïde d'un ensemble de régions (moyenne de tous les points)
+  const calculateCentroid = (regions: TransformedRegion[]): [number, number] => {
+    let totalLat = 0;
+    let totalLng = 0;
+    let count = 0;
+
+    for (const region of regions) {
+      for (const [lat, lng] of region.coordinates) {
+        totalLat += lat;
+        totalLng += lng;
+        count++;
+      }
+    }
+
+    return count > 0
+      ? [totalLat / count, totalLng / count]
+      : [14.4974, -14.4524]; // Fallback centre Sénégal
+  };
+
+  // Grouper les régions (communes) par département pour les élections locales
+  const groupByDepartment = (regions: TransformedRegion[]): DepartmentGroup[] => {
+    const deptMap = new Map<string, TransformedRegion[]>();
+
+    for (const region of regions) {
+      const key = region.departement;
+      if (!deptMap.has(key)) deptMap.set(key, []);
+      deptMap.get(key)!.push(region);
+    }
+
+    const groups: DepartmentGroup[] = [];
+    let colorIndex = 0;
+    const totalDepts = deptMap.size || 1;
+
+    for (const [deptName, municipalities] of deptMap) {
+      const totalVoters = municipalities.reduce((s, m) => s + (m.voters || 0), 0);
+      const totalOffices = municipalities.reduce((s, m) => s + (m.offices || 0), 0);
+      const totalPlaces = municipalities.reduce((s, m) => s + (m.places || 0), 0);
+      const totalPopulation = municipalities.reduce((s, m) => s + (m.population || 0), 0);
+      const centroid = calculateCentroid(municipalities);
+
+      // Couleur unique par département (variation de vert)
+      const lightness = 0.35 + (0.3 * colorIndex) / totalDepts;
+      const color = hslToHex(150, 0.5, lightness);
+      colorIndex++;
+
+      groups.push({
+        departement: deptName,
+        region: municipalities[0].region,
+        municipalities: municipalities.map((m) => ({
+          id: m.id,
+          municipality: String(m.municipality),
+          departement: m.departement,
+          region: m.region,
+          voters: m.voters,
+          offices: m.offices,
+          places: m.places,
+          population: m.population,
+          coordinates: m.coordinates,
+        })),
+        totalVoters,
+        totalOffices,
+        totalPlaces,
+        totalPopulation,
+        municipalityCount: municipalities.length,
+        centroid,
+        color,
+      });
+    }
+
+    return groups;
+  };
+
   return {
     getGeoData,
     getDepartmentStats,
     getMapData,
     getRegionColor,
     getDepartmentDetails,
+    transformCoordinates,
+    groupByDepartment,
+    loadDepartmentPolygons,
   };
 }
 
