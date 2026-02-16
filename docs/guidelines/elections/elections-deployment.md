@@ -24,6 +24,13 @@ Créer d'abord le champs `role` puis filtrer sur `is_substitute=false` et faire 
 - `constituencie` M20 → election_constituencies
 - `winning_list` M20 → election_electoral_lists
 
+**Dans `election_map_national`** :
+
+- `election` M2O → elections
+
+**Dans `election_map_diaspora`** :
+
+- `election` M2O → elections
 **Dans `elections`** :
 
 | Champ | Type | Interface |

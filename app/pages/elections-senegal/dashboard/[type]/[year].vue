@@ -736,7 +736,12 @@ const resultCommunesForDept = computed(() => {
                             />
                         </div>
                         <template v-else>
-                            <div v-if="!coalitions || coalitions.length === 0" class="flex flex-col items-center justify-center h-64 text-center px-4">
+                            <!-- Loading state -->
+                            <div v-if="loadingCoalitions" class="space-y-3">
+                              <USkeleton v-for="i in 6" :key="i" class="h-16 w-full rounded-xl" />
+                            </div>
+                            <!-- Empty state -->
+                            <div v-else-if="!coalitions || coalitions.length === 0" class="flex flex-col items-center justify-center h-64 text-center px-4">
                                 <UIcon name="i-heroicons-chart-bar" class="w-12 h-12 sm:w-16 sm:h-16 text-gray-200 dark:text-gray-800 mb-4" />
                                 <h3 class="text-base sm:text-lg font-bold text-gray-400">Aucun résultat disponible</h3>
                                 <p class="text-xs sm:text-sm text-gray-500">Les résultats ne sont pas encore publiés.</p>
