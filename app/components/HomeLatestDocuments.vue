@@ -10,9 +10,9 @@ onMounted(() => {
 
 <template>
   <div class="my-4">
-    <div class="prose prose-sm mx-auto my-4 sm:prose-sm">
-      <h2 class="text-center text-xl text-gray-800 dark:text-white">Derniers Documents publiés</h2>
-    </div>
+    <h2 class="mb-4 text-center text-xl font-semibold text-gray-800 dark:text-white">
+      Derniers Documents publiés
+    </h2>
 
     <!-- Loading state -->
     <div v-if="store.isLoading" class="grid grid-cols-1 gap-4 md:grid-cols-3">

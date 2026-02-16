@@ -1,13 +1,17 @@
 <template>
   <div class="my-6">
-    <div class="mx-auto max-w-5xl px-4">
-      <h2 class="mb-4 text-center text-lg font-semibold text-gray-800 dark:text-white">
-        Nos réseaux sociaux
-      </h2>
+    <h2 class="mb-4 text-center text-xl font-semibold text-gray-800 dark:text-white">
+      Suivez-nous sur les réseaux sociaux
+    </h2>
 
+    <div class="mx-auto max-w-5xl px-4">
       <!-- Loading state -->
       <div v-if="loading" class="flex flex-wrap items-center justify-center gap-2">
-        <div v-for="i in 5" :key="i" class="h-10 w-36 animate-pulse rounded-full bg-gray-200 dark:bg-gray-700" />
+        <div
+          v-for="i in 5"
+          :key="i"
+          class="h-10 w-36 animate-pulse rounded-full bg-gray-200 dark:bg-gray-700"
+        />
       </div>
 
       <!-- Stats -->
@@ -29,10 +33,7 @@
           <span class="text-xs font-medium text-gray-700 sm:text-sm dark:text-gray-300">
             {{ network.name }}
           </span>
-          <span
-            class="text-xs font-bold sm:text-sm"
-            :style="`color: ${network.displayColor}`"
-          >
+          <span class="text-xs font-bold sm:text-sm" :style="`color: ${network.displayColor}`">
             {{ formatFollowers(network.followers) }}
           </span>
         </a>

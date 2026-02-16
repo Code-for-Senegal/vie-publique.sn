@@ -51,9 +51,9 @@ const {
 
 <template>
   <div class="my-4">
-    <div class="prose prose-sm mx-auto my-4 sm:prose">
-      <h2 class="text-center text-gray-800 dark:text-white">À la une</h2>
-    </div>
+    <h2 class="mb-4 text-center text-xl font-semibold text-gray-800 dark:text-white">
+      À la une
+    </h2>
 
     <div v-if="loading" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       <div v-for="n in 3" :key="n" class="animate-pulse">

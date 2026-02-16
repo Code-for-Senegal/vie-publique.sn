@@ -25,11 +25,9 @@
 
     <!-- Content -->
     <div v-else>
-      <div class="prose prose-sm mx-auto my-4 sm:prose-sm">
-        <h2 class="text-center text-gray-800 dark:text-white">
-          Dernières initiatives parlementaires
-        </h2>
-      </div>
+      <h2 class="mb-4 text-center text-xl font-semibold text-gray-800 dark:text-white">
+        Dernières initiatives parlementaires
+      </h2>
 
       <div class="grid gap-4 sm:grid-cols-3">
         <div
