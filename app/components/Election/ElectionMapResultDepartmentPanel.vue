@@ -6,6 +6,7 @@ interface DepartmentInfo {
   region: string;
   municipalityCount: number;
   totalVoters: number;
+  communes?: TableResultItem[]; // Communes passées directement
 }
 
 interface Props {
@@ -17,6 +18,16 @@ interface Props {
 
 const props = defineProps<Props>();
 const emit = defineEmits<{ close: [] }>();
+
+// Normaliser un nom de département (retirer accents, lowercase, trim)
+function normalizeDeptName(name: string): string {
+  if (!name) return '';
+  return name
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '') // Retirer les accents
+    .toLowerCase()
+    .trim();
+}
 
 // Détection responsive
 const isMobile = ref(false);
@@ -41,22 +52,24 @@ watch(() => props.department, () => {
 
 // Communes de ce département filtrées
 const departmentResults = computed(() => {
-  if (!props.department || !props.allResults?.length) return [];
+  if (!props.department) return [];
 
-  const deptKey = props.department.departement.trim().toLowerCase();
+  // 1. Si les communes sont passées directement via department.communes
+  if (props.department.communes?.length) {
+    return props.department.communes;
+  }
+
+  // 2. Fallback: filtrer allResults par département (avec normalisation)
+  if (!props.allResults?.length) return [];
+
+  const deptKey = normalizeDeptName(props.department.departement);
 
   // Les résultats ont un champ `departement` — filtrer par département
   const byDept = props.allResults.filter(r =>
-    r.departement && r.departement.trim().toLowerCase() === deptKey
+    r.departement && normalizeDeptName(r.departement) === deptKey
   );
 
-  // Si on a des résultats par département, les retourner
-  if (byDept.length > 0) return byDept;
-
-  // Fallback : si pas de champ departement rempli, on peut aussi matcher
-  // par les noms de communes fournies par le department.municipalities
-  // (pas applicable ici car les municipalities ne sont pas passées)
-  return [];
+  return byDept;
 });
 
 const filteredResults = computed(() => {
@@ -151,7 +164,7 @@ const medalEmoji = (index: number) => ['🥇', '🥈', '🥉'][index] || '';
       </div>
 
       <!-- Contenu scrollable -->
-      <div class="flex-1 overflow-y-auto">
+      <div :class="['flex-1 overflow-y-auto', isMobile ? 'pb-20' : '']">
         <!-- Résumé stats -->
         <div class="grid grid-cols-2 gap-2 p-4">
           <div class="rounded-xl bg-gray-50 dark:bg-gray-800 p-3 text-center">

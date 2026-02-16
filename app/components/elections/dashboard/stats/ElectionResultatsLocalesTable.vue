@@ -10,11 +10,13 @@ const props = defineProps<Props>();
 
 const { getTableDataResult, loading } = useElectionMapDataResult();
 
-const { data: tableData, pending, refresh } = await useAsyncData(
+// Utiliser useLazyAsyncData sans await pour éviter les problèmes de rendu initial
+const { data: tableData, pending, refresh } = useLazyAsyncData(
   `table-results-${props.electionType}-${props.electionYear}`,
   () => getTableDataResult(props.electionType, props.electionYear),
   {
-    watch: [() => props.electionType, () => props.electionYear]
+    watch: [() => props.electionType, () => props.electionYear],
+    immediate: true
   }
 );
 

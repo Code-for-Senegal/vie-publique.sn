@@ -333,10 +333,6 @@ watch([selectedType, selectedYear], () => {
 });
 
 const handleResultDeptSelected = async (dept: any) => {
-  // S'assurer que les données sont chargées
-  if (resultCommunesByDept.value.length === 0) {
-    await loadLocaleResultsData();
-  }
   resultDeptPanelData.value = dept;
   resultDeptPanelOpen.value = true;
 };
@@ -349,8 +345,17 @@ const closeResultDeptPanel = () => {
 };
 
 // Communes filtrées pour le département sélectionné
+// Utilise les données directement passées par le composant carte ou filtre depuis les données globales
 const resultCommunesForDept = computed(() => {
-  if (!resultDeptPanelData.value || !resultCommunesByDept.value.length) return [];
+  if (!resultDeptPanelData.value) return [];
+
+  // Si le composant carte passe directement les communes
+  if (resultDeptPanelData.value.communes?.length > 0) {
+    return resultDeptPanelData.value.communes;
+  }
+
+  // Fallback: filtrer depuis les données globales
+  if (!resultCommunesByDept.value.length) return [];
   const deptKey = resultDeptPanelData.value.departement.trim().toLowerCase();
   return resultCommunesByDept.value.filter(r =>
     r.departement && r.departement.trim().toLowerCase() === deptKey
@@ -748,12 +753,12 @@ const resultCommunesForDept = computed(() => {
 
                     <div v-else-if="resultViewType === 'map'" class="w-full h-full min-h-[400px] sm:min-h-[500px]">
                          <ClientOnly>
-                            <!-- Élections locales : carte départements + panel résultat -->
+                            <!-- Élections locales : carte résultats par département -->
                             <template v-if="isLocalElection">
-                              <ElectionMapComponent4
+                              <ElectionMapComponentResultLocale
                                 :key="`result-map-locale-${selectedYear}`"
-                                :election-id="currentElection?.id"
-                                :is-local-election="true"
+                                :election-type="selectedType"
+                                :election-year="selectedYear"
                                 @map-ready="handleMapReady"
                                 @department-selected="handleResultDeptSelected"
                               />

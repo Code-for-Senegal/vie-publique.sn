@@ -56,6 +56,7 @@ export interface TableResultItem {
   id: number;
   commune: string;
   coalition: string;
+  coalitionColor: string;
   headOfList: string;
   votes: number;
   departement?: string;
@@ -180,6 +181,7 @@ export function useElectionMapDataResult() {
                 id: item.id,
                 commune: constData?.name || "Inconnu",
                 coalition: item.coalition_gagnante?.name || "Sans coalition",
+                coalitionColor: item.coalition_gagnante?.color || "#cccccc",
                 headOfList: headOfList,
                 votes: item.voters || 0,
                 departement: item.departement || "",
