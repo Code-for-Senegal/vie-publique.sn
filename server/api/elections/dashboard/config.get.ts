@@ -18,7 +18,7 @@ export default defineCachedEventHandler(
             "campaign_start_date",
             "campaign_end_date",
             "rounds",
-            "date_round_2",
+            "election_date_round_2",
             "participation_rate",
             "processed_pv_rate",
             "documents.documents_id.id",

@@ -23,10 +23,10 @@ export default defineCachedEventHandler(
         'election.type',
         'election.year',
         'voters',
-        'liste_gagnante.is_substitute',
-        'liste_gagnante.candidates.first_name',
-        'liste_gagnante.candidates.last_name',
-        'liste_gagnante.candidates.position',
+        'winning_list.is_substitute',
+        'winning_list.candidates.first_name',
+        'winning_list.candidates.last_name',
+        'winning_list.candidates.position',
       ];
 
       // Appel API vers le CMS avec ou sans filtre

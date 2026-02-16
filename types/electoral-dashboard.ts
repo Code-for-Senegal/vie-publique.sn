@@ -37,5 +37,5 @@ export interface ElectionDetails {
   election_date: string | null;
   campaign_start_date: string | null;
   campaign_end_date: string | null;
-  date_round_2?: string | null;
+  election_date_round_2?: string | null;
 }

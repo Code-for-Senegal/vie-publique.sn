@@ -31,7 +31,7 @@ Table pivot regroupant toutes les élections organisées au Sénégal.
 | processed_pv_rate    | float                                      | Taux de PV traités (%)                     | 100.0                      |
 | rounds               | int (défaut: 1)                            | Nombre de tours                            | 1                          |
 | election_date        | date                                       | Date du scrutin                            | "2024-11-17"               |
-| date_round_2         | date                                       | Date du second tour                        | null                       |
+| election_date_round_2         | date                                       | Date du second tour                        | null                       |
 | registration_deadline| timestamp                                  | Date limite d'inscription                  | "2024-10-01T00:00:00Z"     |
 | campaign_start_date  | date                                       | Début de campagne                          | "2024-10-27"               |
 | campaign_end_date    | date                                       | Fin de campagne                            | "2024-11-15"               |
@@ -259,7 +259,7 @@ Données cartographiques départementales avec résultats et participation.
 | election            | M2O → elections                  | Élection associée                    | 1              |
 | coalition_gagnante  | M2O → election_coalition         | Coalition gagnante                   | 1              |
 | constituencie       | M2O → election_constituencies   | Circonscription concernée            | 5              |
-| liste_gagnante      | M2O → election_electoral_lists   | Liste gagnante                       | 3              |
+| winning_list      | M2O → election_electoral_lists   | Liste gagnante                       | 3              |
 | voters              | int                              | Nombre d'inscrits                    | 50000          |
 | seat                | int                              | Nombre de sièges                     | 7              |
 | region              | string                           | Région                               | "Dakar"        |
@@ -322,7 +322,7 @@ elections ──┬── election_coalition ──┬── election_electoral_
             │
             ├── election_map_diaspora (bureaux de vote diaspora)
             │
-            ├── carte (données géo + coalition_gagnante, constituencie, liste_gagnante)
+            ├── carte (données géo + coalition_gagnante, constituencie, winning_list)
             │
             ├── Bureau_vote ──┬── chargement_pv
             │                 └── resultats

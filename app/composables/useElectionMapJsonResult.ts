@@ -19,7 +19,7 @@ interface GeoData {
     type: string;
     year: number;
   };
-  liste_gagnante?: {
+  winning_list?: {
     is_substitute: boolean;
     candidates: {
       first_name: string;
@@ -138,8 +138,8 @@ export function useElectionMapDataResult() {
 
         // Find Head of List
         let headOfList = "";
-        if (item.liste_gagnante && !item.liste_gagnante.is_substitute && item.liste_gagnante.candidates) {
-            const head = item.liste_gagnante.candidates.find(c => c.position === 1);
+        if (item.winning_list && !item.winning_list.is_substitute && item.winning_list.candidates) {
+            const head = item.winning_list.candidates.find(c => c.position === 1);
             if (head) {
                 headOfList = `${head.first_name} ${head.last_name}`;
             }
@@ -169,8 +169,8 @@ export function useElectionMapDataResult() {
 
             // Find Head of List
             let headOfList = "Non défini";
-            if (item.liste_gagnante && !item.liste_gagnante.is_substitute && item.liste_gagnante.candidates) {
-                const head = item.liste_gagnante.candidates.find(c => c.position === 1);
+            if (item.winning_list && !item.winning_list.is_substitute && item.winning_list.candidates) {
+                const head = item.winning_list.candidates.find(c => c.position === 1);
                 if (head) {
                     headOfList = `${head.first_name} ${head.last_name}`;
                 }

@@ -22,7 +22,7 @@ Créer d'abord le champs `role` puis filtrer sur `is_substitute=false` et faire 
 
 - `election` M2O → elections
 - `constituencie` M20 → election_constituencies
-- `liste_gagnante` M20 → election_electoral_lists
+- `winning_list` M20 → election_electoral_lists
 
 **Dans `elections`** :
 
@@ -33,7 +33,7 @@ Créer d'abord le champs `role` puis filtrer sur `is_substitute=false` et faire 
 | `processed_pv_rate` | Float | input |
 | `rounds` | Integer | input |
 | `election_date` | Date | datetime |
-| `date_round_2` | Date | datetime |
+| `election_date_round_2` | Date | datetime |
 | `registration_deadline` | Timestamp | datetime |
 | `campaign_start_date` | Date | datetime |
 | `campaign_end_date` | Date | datetime |
