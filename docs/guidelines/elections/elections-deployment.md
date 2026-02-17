@@ -9,13 +9,11 @@
 - `nationale_type` | Dropdown | Types nationaux (Text: `Département`; value: `departement` et Text: `Commune`; value: `commune`)
 - `parent` | M2O → election_constituencies (self reference)
 
+Dans `election_constitiencies` comme a un nouveau champs `nationale_type` il faut mettre les données existantes en `nationale_type`=`departement`
+
 **Dans `election_candidates`** :
 
-
-- `role` Dropdown | Text: `Titulaire`; value: `titulaire`, Text: `Suppléant`; value: `suppleant`
 - `documents` M2O → documents (programme du candidat - pour les élection présidentielles)
-
-Créer d'abord le champs `role` puis filtrer sur `is_substitute=false` et faire un patch update en `role=suppleant` pour `role=titulaire` faire en pareil en filtrant sur `is_substitute=true`
 
 **Dans `carte`** :
 

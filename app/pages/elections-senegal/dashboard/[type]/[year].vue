@@ -153,18 +153,33 @@ const selectedConstituencyName = computed(() => {
 });
 
 // 6. Configuration des Onglets (Architecture scalable)
-const tabs = computed(() => [
+// Note: Must match the filtering logic in ElectoralDashboardTabs.vue
+const allTabs = [
   {
     id: "candidats",
-    label: selectedType.value === 'presidential' ? 'Candidats' : (selectedType.value === 'locale' ? 'Circonscriptions' : 'Coalitions'),
     icon: "i-heroicons-user-group"
   },
   { id: "carte", label: "Carte", icon: "i-heroicons-map" },
   { id: "resultats", label: "Résultats", icon: "i-heroicons-chart-bar" },
   { id: "documents", label: "Documents", icon: "i-heroicons-document-duplicate" },
-  { id: "statistiques", label: "Stats", icon: "i-heroicons-presentation-chart-line" },
+  { id: "statistiques", label: "Stats", icon: "i-heroicons-presentation-chart-line", hidden: true },
   { id: "guide", label: "Guide", icon: "i-heroicons-play-circle" },
-]);
+];
+
+const tabs = computed(() => {
+  const visibleTypes: Record<string, string[]> = {
+    legislative: ['statistiques'],
+  };
+
+  return allTabs
+    .filter(tab => !tab.hidden || visibleTypes[selectedType.value ?? '']?.includes(tab.id))
+    .map(tab => ({
+      ...tab,
+      label: tab.id === 'candidats'
+        ? selectedType.value === 'presidential' ? 'Candidats' : (selectedType.value === 'locale' ? 'Circonscriptions' : 'Coalitions')
+        : tab.label,
+    }));
+});
 
 const currentTabIndex = computed({
   get: () => {

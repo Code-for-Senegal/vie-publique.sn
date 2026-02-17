@@ -23,7 +23,7 @@ const updateTimer = () => {
     const status = props.election.status;
     const now = new Date();
     const electionDate = new Date(props.election.election_date);
-    
+
     let targetTime: Date;
     let prefix = "";
 
@@ -62,7 +62,10 @@ const updateTimer = () => {
 const winningCoalition = computed(() => {
   if (!props.coalitions || props.coalitions.length === 0) return null;
   if (props.election.type === 'presidential') {
-    return [...props.coalitions].sort((a, b) => (Number(b.pourcentage) || 0) - (Number(a.pourcentage) || 0))[0];
+    const sorted = [...props.coalitions].sort((a, b) => (Number(b.pourcentage) || 0) - (Number(a.pourcentage) || 0));
+    // Find the first coalition with a valid head_of_list
+    const winner = sorted.find(c => c.head_of_list?.first_name || c.head_of_list?.last_name);
+    return winner || null;
   }
   return null;
 });
@@ -85,24 +88,24 @@ const electionYear = computed(() => {
 const quickLinks = computed(() => {
   const links = [];
   if (props.election.type === 'presidential') {
-    links.push({ 
-      label: 'Résultats définitifs', 
+    links.push({
+      label: 'Résultats définitifs',
       description: 'Proclamés par le Conseil Constitutionnel.',
-      to: `/elections-senegal/legislation?type=${props.election.type}&year=${electionYear.value}&q=resultats`, 
-      icon: 'i-heroicons-document-text' 
+      to: `/elections-senegal/legislation?type=${props.election.type}&year=${electionYear.value}&q=resultats`,
+      icon: 'i-heroicons-document-text'
     });
   } else if (props.election.type === 'legislative') {
-    links.push({ 
-      label: 'Annuaire des députés', 
+    links.push({
+      label: 'Annuaire des députés',
       description: 'Liste et profils des représentants.',
-      to: '/assemblee-nationale/deputes', 
-      icon: 'i-heroicons-users' 
+      to: '/assemblee-nationale/deputes',
+      icon: 'i-heroicons-users'
     });
-    links.push({ 
-      label: 'Assemblée nationale', 
+    links.push({
+      label: 'Assemblée nationale',
       description: 'Dashboard de l\'Assemblée nationale.',
-      to: '/assemblee-nationale', 
-      icon: 'i-heroicons-building-library' 
+      to: '/assemblee-nationale',
+      icon: 'i-heroicons-building-library'
     });
   }
   return links;
@@ -140,8 +143,8 @@ onUnmounted(() => {
 
         <!-- Action Links -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-            <NuxtLink 
-              v-for="link in quickLinks" 
+            <NuxtLink
+              v-for="link in quickLinks"
               :key="link.to"
               :to="link.to"
               class="flex items-center gap-2.5 p-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl border dark:border-gray-800 hover:border-primary-500/50 transition-all group"
@@ -159,12 +162,12 @@ onUnmounted(() => {
 
       <!-- Results Section -->
       <div class="lg:w-[320px] bg-gray-50 dark:bg-gray-900/50 p-5 lg:p-6 border-l dark:border-gray-800 flex flex-col justify-center">
-          
+
           <!-- Presidential Winner -->
-          <div v-if="election.type === 'presidential' && winningCoalition" class="flex items-center gap-4">
+          <div v-if="election.type === 'presidential' && winningCoalition && winningCoalition.head_of_list" class="flex items-center gap-4">
             <div class="h-12 w-12 rounded-full ring-2 ring-white dark:ring-gray-800 shadow-lg overflow-hidden shrink-0 bg-gray-100 dark:bg-gray-800">
               <CmsImage
-                v-if="winningCoalition.head_of_list.photo"
+                v-if="winningCoalition.head_of_list?.photo"
                 :src="winningCoalition.head_of_list.photo"
                 class="h-full w-full object-cover"
               />
@@ -172,7 +175,7 @@ onUnmounted(() => {
             <div class="min-w-0">
                   <p class="text-[8px] uppercase font-black text-primary-600 dark:text-primary-400 tracking-widest mb-0.5">Vainqueur</p>
                   <h3 class="font-black text-gray-900 dark:text-white leading-tight mb-0.5 text-sm">
-                      {{ winningCoalition.head_of_list.first_name }} {{ winningCoalition.head_of_list.last_name }}
+                      {{ winningCoalition.head_of_list?.first_name }} {{ winningCoalition.head_of_list?.last_name }}
                   </h3>
                   <p class="text-2xl font-black text-primary-600 tracking-tighter leading-none">{{ parseFloat(String(winningCoalition.pourcentage)).toFixed(2) }}%</p>
               </div>
@@ -182,7 +185,7 @@ onUnmounted(() => {
           <div v-else-if="election.type === 'legislative' && topLegislativeCoalitions.length > 0" class="space-y-4">
               <p class="text-[9px] uppercase font-black text-gray-400 tracking-widest">Répartition des sièges</p>
               <div class="grid grid-cols-2 gap-3">
-                  <div v-for="(col, idx) in topLegislativeCoalitions" :key="col.id" 
+                  <div v-for="(col, idx) in topLegislativeCoalitions" :key="col.id"
                     class="bg-white dark:bg-gray-950 p-3 rounded-2xl border dark:border-gray-800 shadow-sm"
                   >
                       <p class="text-[8px] font-black uppercase text-gray-400 truncate">{{ col.acronym || col.name }}</p>
@@ -235,11 +238,11 @@ onUnmounted(() => {
              <p class="text-[9px] uppercase font-black text-gray-400 tracking-widest">Campagne électorale</p>
              <div class="space-y-1">
                 <p class="text-xs font-black dark:text-white flex justify-between">
-                   <span class="text-gray-400 font-bold uppercase text-[8px]">Incipit:</span> 
+                   <span class="text-gray-400 font-bold uppercase text-[8px]">Incipit:</span>
                    {{ formatDate(election.campaign_start_date) || '—' }}
                 </p>
                 <p class="text-xs font-black dark:text-white flex justify-between">
-                   <span class="text-gray-400 font-bold uppercase text-[8px]">Clôture:</span> 
+                   <span class="text-gray-400 font-bold uppercase text-[8px]">Clôture:</span>
                    {{ formatDate(election.campaign_end_date) || '—' }}
                 </p>
              </div>
