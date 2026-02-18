@@ -40,6 +40,8 @@ export const useElectoralDashboard = () => {
 
   const selectConstituency = (id: number) => {
     selectedConstituencyId.value = id;
+    // Clear search when selecting a constituency
+    searchQuery.value = '';
   };
 
   const clearConstituency = () => {
@@ -50,6 +52,8 @@ export const useElectoralDashboard = () => {
 
   const selectCoalition = (id: number) => {
     selectedCoalitionId.value = id;
+    // Clear search when selecting a coalition
+    searchQuery.value = '';
   };
 
   const clearCoalition = () => {
