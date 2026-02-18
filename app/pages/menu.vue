@@ -195,7 +195,7 @@ const allNavigationCards: NavigationCard[] = [
     title: 'Élections',
     description: 'Informations sur les élections',
     icon: 'i-heroicons-clipboard-document-check',
-    to: '/elections',
+    to: '/elections-senegal',
     featureKey: 'menu_elections',
   },
   {

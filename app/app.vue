@@ -70,7 +70,7 @@ onMounted(() => {
   if (!import.meta.client || !('serviceWorker' in navigator)) return;
 
   // Service Worker update handling (production only)
-  if (config.public.nodeEnv === 'production') {
+  if (config.public.nodeEnv === 'test') {
     navigator.serviceWorker.addEventListener('controllerchange', () => {});
 
     navigator.serviceWorker.ready.then((registration) => {
