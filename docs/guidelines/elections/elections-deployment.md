@@ -29,20 +29,29 @@ Dans `election_constitiencies` comme a un nouveau champs `nationale_type` il fau
 **Dans `election_map_diaspora`** :
 
 - `election` M2O → elections
+
 **Dans `elections`** :
 
-| Champ | Type | Interface |
-|-------|------|-----------|
-| `documents` | Alias | list-m2m (→ documents via elections_documents) |
-| `participation_rate` | Float | input |
-| `processed_pv_rate` | Float | input |
-| `rounds` | Integer | input |
-| `election_date` | Date | datetime |
-| `election_date_round_2` | Date | datetime |
-| `registration_deadline` | Timestamp | datetime |
-| `campaign_start_date` | Date | datetime |
-| `campaign_end_date` | Date | datetime |
-| `description` | Text | textarea |
+| Champ | Type | Interface | Note |
+|-------|------|-----------|------|
+| `documents` | Alias | list-m2m (→ documents via elections_documents) | Documents liés |
+| `participation_rate` | Float | input | Taux de participation (%) |
+| `rounds` | Integer | input | Nombre de tours (défaut: 1) |
+| `election_date` | Date | datetime | Date du scrutin |
+| `election_date_round_2` | Date | datetime | Date du second tour |
+| `registration_deadline` | Timestamp | datetime | Date limite d'inscription |
+| `campaign_start_date` | Date | datetime | Début de campagne |
+| `campaign_end_date` | Date | datetime | Fin de campagne |
+| `description` | Text | textarea | Description générale |
+| `registered_voters` | Integer | input | Nombre d'électeurs inscrits |
+| `voters_count` | Integer | input | Nombre de votants |
+| `null_ballots` | Integer | input | Nombre de bulletins nuls |
+| `valid_votes` | Integer | input | Suffrages valablement exprimés |
+| `absolute_majority` | Integer | input | Majorité absolue (présidentielle) |
+| `national_quotient` | Float | input | Quotient national (législative) |
+
+> Les champs `registered_voters`, `voters_count`, `null_ballots`, `valid_votes` permettent d'afficher les statistiques KPI sur le dashboard.
+> Le champ `absolute_majority` est utilisé pour les élections présidentielles, `national_quotient` pour les législatives.
 
 ---
 

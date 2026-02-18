@@ -226,6 +226,16 @@ useHead({
 // 5. Visibilité UI Mobile
 const isViewingDetails = computed(() => !!selectedCoalitionId.value || !!selectedConstituencyId.value);
 
+// 6. Vérifier si l'élection a des statistiques KPI à afficher
+const hasElectionStats = computed(() => {
+  const e = currentElection.value;
+  if (!e) return false;
+  return !!(e.registered_voters || e.voters_count || e.null_ballots ||
+         e.valid_votes || e.participation_rate ||
+         (e.absolute_majority && e.type === 'presidential') ||
+         (e.national_quotient && e.type === 'legislative'));
+});
+
 // --- MAP CONFIGURATION ---
 const optionMap = "Vue Carte";
 const optionList = "Vue Liste";
@@ -471,7 +481,16 @@ const resultCommunesForDept = computed(() => {
           :election="currentElection"
           :coalitions="coalitions"
           :constituencies="constituencies"
-          class="mb-10 animate-in fade-in slide-in-from-top-4 duration-700"
+          class="mb-6 animate-in fade-in slide-in-from-top-4 duration-700"
+        />
+      </transition>
+
+      <!-- Section: Statistiques KPI de l'élection (visible si election terminée ET données disponibles) -->
+      <transition name="fade">
+        <ElectionsDashboardElectionStatsKPI
+          v-if="currentElection?.status === 'completed' && hasElectionStats && !selectedCoalitionId && !selectedConstituencyId && activeTab === 'candidats'"
+          :election="currentElection"
+          class="mb-8 animate-in fade-in slide-in-from-top-4 duration-500"
         />
       </transition>
 
@@ -520,50 +539,58 @@ const resultCommunesForDept = computed(() => {
           </div>
 
           <!-- NIVEAU 1: Grille principale -->
-          <div v-else class="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <!-- Search Bar (hidden for presidential) -->
-            <div v-if="selectedType !== 'presidential'" class="max-w-3xl mx-auto w-full mb-12 group">
-              <UInput
-                v-model="searchQuery"
-                icon="i-heroicons-magnifying-glass"
-                :placeholder="selectedType === 'locale' ? 'Rechercher un département ou une commune...' : 'Rechercher une coalition, un acronyme ou tête de liste...'"
-                size="xl"
-                class="transition-all duration-300"
-                :ui="{
-                  rounded: 'rounded-2xl',
-                  wrapper: 'relative rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)]',
-                  base: 'h-16 bg-white dark:bg-gray-950 border-2 border-transparent focus:border-primary-500 text-lg px-6 transition-all ring-0 focus:ring-4 focus:ring-primary-500/10',
-                  icon: {
-                    leading: { wrapper: 'left-4' },
-                    trailing: { pointer: 'pointer-events-auto' }
-                  }
-                }"
-              >
-                <template #trailing v-if="searchQuery">
-                  <UButton
-                    color="gray"
-                    variant="ghost"
-                    icon="i-heroicons-x-mark"
-                    class="mr-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                    @click="searchQuery = ''"
-                  />
-                </template>
-              </UInput>
-            </div>
-
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div v-else class="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <!-- Header avec titre, recherche et badge alignés -->
+            <div class="flex flex-col gap-4">
+              <!-- Ligne titre -->
               <div>
-                <h2 class="text-3xl font-black uppercase tracking-tighter">
+                <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tighter">
                   {{ isLocalElection ? 'Les Circonscriptions' : (selectedType === 'presidential' ? 'Les Candidats' : 'Les Coalitions') }}
                 </h2>
-                <p class="text-gray-500">
+                <p class="text-sm text-gray-500">
                   {{ isLocalElection ? 'Sélectionnez une circonscription pour voir les coalitions en lice.' : (selectedType === 'presidential' ? 'Sélectionnez un candidat pour voir son programme et ses informations.' : 'Sélectionnez une plateforme pour voir ses listes et candidats.') }}
                 </p>
               </div>
-              <UBadge size="lg" color="white" class="shadow-sm border dark:border-gray-800">
-                <span class="text-primary-600 font-black mr-1">{{ isLocalElection ? constituencies.length : coalitions.length }}</span>
-                {{ isLocalElection ? 'circonscriptions' : (selectedType === 'presidential' ? 'candidats' : 'plateformes engagées') }}
-              </UBadge>
+
+              <!-- Ligne recherche + badge alignés -->
+              <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+                <!-- Search Bar compact (hidden for presidential) -->
+                <div v-if="selectedType !== 'presidential'" class="flex-1 max-w-md">
+                  <UInput
+                    v-model="searchQuery"
+                    icon="i-heroicons-magnifying-glass"
+                    :placeholder="selectedType === 'locale' ? 'Rechercher...' : 'Rechercher une coalition...'"
+                    size="md"
+                    class="transition-all duration-300"
+                    :ui="{
+                      rounded: 'rounded-xl',
+                      wrapper: 'relative rounded-xl shadow-sm',
+                      base: 'h-10 bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 focus:border-primary-500 text-sm px-4 transition-all ring-0 focus:ring-2 focus:ring-primary-500/20',
+                      icon: {
+                        leading: { wrapper: 'left-3' },
+                        trailing: { pointer: 'pointer-events-auto' }
+                      }
+                    }"
+                  >
+                    <template #trailing v-if="searchQuery">
+                      <UButton
+                        color="gray"
+                        variant="ghost"
+                        icon="i-heroicons-x-mark"
+                        size="xs"
+                        class="rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                        @click="searchQuery = ''"
+                      />
+                    </template>
+                  </UInput>
+                </div>
+
+                <!-- Badge count -->
+                <UBadge size="md" color="white" class="shadow-sm border dark:border-gray-800 shrink-0 self-start sm:self-center">
+                  <span class="text-primary-600 font-black mr-1">{{ isLocalElection ? constituencies.length : coalitions.length }}</span>
+                  {{ isLocalElection ? 'circonscriptions' : (selectedType === 'presidential' ? 'candidats' : 'plateformes engagées') }}
+                </UBadge>
+              </div>
             </div>
 
             <!-- Legislative View Switcher -->
