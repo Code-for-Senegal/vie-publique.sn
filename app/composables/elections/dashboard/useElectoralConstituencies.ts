@@ -30,7 +30,7 @@ export const useElectoralConstituencies = (params: {
         search
       },
       watch: [year, type, search],
-      server: false,
+      server: true,
       lazy: true
     }
   );

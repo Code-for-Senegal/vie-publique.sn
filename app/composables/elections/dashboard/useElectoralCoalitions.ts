@@ -30,8 +30,8 @@ export const useElectoralCoalitions = (options: UseCoalitionsOptions = {}) => {
       return params;
   });
 
-  const apiUrl = computed(() => id.value 
-      ? `/api/elections/coalitions/${id.value}` 
+  const apiUrl = computed(() => id.value
+      ? `/api/elections/coalitions/${id.value}`
       : "/api/elections/dashboard/coalitions"
   );
 
@@ -41,7 +41,8 @@ export const useElectoralCoalitions = (options: UseCoalitionsOptions = {}) => {
   }>(apiUrl, {
     query,
     key: computed(() => `dashboard-coalitions-${id.value || 'list'}-${year.value || 'all'}-${type.value || 'all'}-${ranking.value || 'false'}-${search.value || 'no-search'}`),
-    server: false,
+    server: true,
+    lazy: true,
     watch: [year, type, search],
   });
 

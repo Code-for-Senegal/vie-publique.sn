@@ -112,9 +112,18 @@ const rows = computed(() => {
         :key="row.id"
         class="flex items-center gap-3 rounded-xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 px-3 py-3 transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/60"
       >
-        <!-- Logo -->
+        <!-- Photo candidat (présidentielle)-->
         <div class="flex-shrink-0">
           <UAvatar
+            v-if="type === 'presidential' && row.head_of_list?.photo"
+            :src="useCmsImage(row.head_of_list.photo)"
+            :alt="row.head_of_list ? `${row.head_of_list.first_name} ${row.head_of_list.last_name}` : row.name"
+            size="sm"
+            :ui="{ rounded: 'rounded-full' }"
+            class="bg-gray-100 dark:bg-gray-800"
+          />
+          <UAvatar
+            v-else
             :src="useCmsImage(row.logo)"
             :alt="row.name"
             size="sm"
@@ -123,14 +132,27 @@ const rows = computed(() => {
           />
         </div>
 
-        <!-- Name + Head of list -->
+        <!-- Name + Coalition/Head of list -->
         <div class="min-w-0 flex-1">
-          <h4 class="text-sm font-bold text-gray-900 dark:text-white leading-tight truncate">
-            {{ row.name }}
-          </h4>
-          <p v-if="row.head_of_list" class="text-xs text-gray-500 truncate">
-            {{ row.head_of_list.first_name }} {{ row.head_of_list.last_name }}
-          </p>
+          <!-- Présidentielle: Candidat en premier, coalition en dessous -->
+          <template v-if="type === 'presidential'">
+            <h4 v-if="row.head_of_list" class="text-sm font-bold text-gray-900 dark:text-white leading-tight truncate">
+              {{ row.head_of_list.first_name }} {{ row.head_of_list.last_name }}
+            </h4>
+            <h4 v-else class="text-sm font-bold text-gray-900 dark:text-white leading-tight truncate">
+              {{ row.name }}
+            </h4>
+            <p class="text-xs text-gray-500 truncate">{{ row.name }}</p>
+          </template>
+          <!-- Autres élections: Coalition en premier, tête de liste en dessous -->
+          <template v-else>
+            <h4 class="text-sm font-bold text-gray-900 dark:text-white leading-tight truncate">
+              {{ row.name }}
+            </h4>
+            <p v-if="row.head_of_list" class="text-xs text-gray-500 truncate">
+              {{ row.head_of_list.first_name }} {{ row.head_of_list.last_name }}
+            </p>
+          </template>
         </div>
 
         <!-- Votes -->

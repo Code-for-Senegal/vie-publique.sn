@@ -118,6 +118,7 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<{
   "map-ready": [map: unknown];
   "department-selected": [department: any];
+  "map-error": [];
 }>();
 
 // État local
@@ -284,6 +285,13 @@ watch(rawResults, (newData) => {
   if (newData) {
     departmentResults.value = newData;
     leafletMapKey.value++;
+  }
+}, { immediate: true });
+
+// Émettre map-error si pas de données après chargement
+watch([() => departmentResults.value, pending], ([results, isPending]) => {
+  if (!isPending && (!results || results.length === 0 || results.every(r => !r.winnerName))) {
+    emit('map-error');
   }
 }, { immediate: true });
 

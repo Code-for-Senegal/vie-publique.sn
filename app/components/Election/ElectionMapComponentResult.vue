@@ -135,6 +135,7 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<{
   "region-click": [region: TransformedRegion];
   "map-ready": [map: unknown];
+  "map-error": [];
 }>();
 
 // État local avec une détection plus précise du mobile
@@ -189,6 +190,13 @@ const { data: regions, pending } = await useAsyncData(
     watch: [() => props.electionType, () => props.electionYear]
   },
 );
+
+// Émettre map-error si pas de données après chargement
+watch([regions, pending], ([newRegions, isPending]) => {
+  if (!isPending && (!newRegions || newRegions.length === 0)) {
+    emit('map-error');
+  }
+}, { immediate: true });
 
 // Configuration réactive de la carte
 const zoom = computed(() =>
