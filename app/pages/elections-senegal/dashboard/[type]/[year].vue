@@ -5,7 +5,7 @@ import { useElectoralDashboard } from '~/composables/elections/dashboard/useElec
 import { useElectoralProfessions } from '~/composables/elections/dashboard/useElectoralProfessions';
 import { useElectoralStatsList } from '~/composables/elections/dashboard/useElectoralStatsList';
 import { useElectionMapDataResult, type TableResultItem } from '~/composables/useElectionMapJsonResult';
-import ElectionResultClassement from '~/components/elections/ElectionResultClassement.vue';
+
 
 /**
  * Dashboard Électoral - Page Détail [Type]/[Année]
@@ -825,13 +825,22 @@ const resultCommunesForDept = computed(() => {
                                 <h3 class="text-base sm:text-lg font-bold text-gray-400">Aucun résultat disponible</h3>
                                 <p class="text-xs sm:text-sm text-gray-500">Les résultats ne sont pas encore publiés.</p>
                             </div>
-                            <!-- Composant mobile-first pour les résultats -->
-                            <ElectionResultClassement
-                              v-else
-                              :coalitions="coalitions"
-                              :loading="loadingCoalitions"
-                              :type="selectedType"
-                            />
+                            <div v-else>
+                                <!-- GRAPHIQUE DES RÉSULTATS (Présidentielle & Législatives) -->
+                                <ElectionsDashboardResultChart
+                                   v-if="['presidential', 'legislative'].includes(selectedType)"
+                                   :results="coalitions"
+                                   :type="selectedType"
+                                   class="mb-6"
+                                />
+
+                                <!-- Composant pour les résultats -->
+                                <ElectionsDashboardResultClassement
+                                  :coalitions="coalitions"
+                                  :loading="loadingCoalitions"
+                                  :type="selectedType"
+                                />
+                            </div>
                         </template>
                     </div>
 
