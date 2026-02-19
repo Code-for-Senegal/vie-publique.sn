@@ -231,13 +231,13 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="mx-auto max-w-7xl space-y-6 p-4">
+  <div class="mx-auto min-h-screen max-w-7xl space-y-6 p-4 pb-16">
     <!-- Breadcrumb -->
-    <UBreadcrumb
-      :links="[
-        { label: 'Accueil', to: '/' },
+    <AppBreadcrumb
+      :items="[
+        { label: 'Élections', to: '/elections-senegal' },
         { label: 'Carte électorale', to: backUrl },
-        { label: department },
+        { label: department }
       ]"
     />
 

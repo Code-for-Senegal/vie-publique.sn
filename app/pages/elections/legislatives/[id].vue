@@ -9,7 +9,6 @@ useHead({
   meta: [{ name: "robots", content: "noindex" }],
 });
 
-const links = [{ label: "Coalitions", to: "/elections/legislatives" }];
 
 const {
   data: coalition,
@@ -116,8 +115,11 @@ function openModal(minister: Candidate) {
 </script>
 
 <template>
-  <div class="container mx-auto px-4">
-    <AppBreadcrumb :links="links" :last-text="route.params.slug" />
+  <div class="container mx-auto min-h-screen px-4 pb-16">
+    <AppBreadcrumb :items="[
+      { label: 'Coalitions', to: '/elections/legislatives' },
+      { label: coalitionId }
+    ]" />
 
     <div class="mb-2 flex items-center">
       <div

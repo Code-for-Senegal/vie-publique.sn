@@ -1,5 +1,12 @@
 <template>
-  <div class="p-4">
+  <div class="min-h-screen p-4 pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'Dashboard' },
+        { label: 'Conseil des Ministres' }
+      ]"
+    />
+
     <h1 class="mb-4 text-2xl font-bold">Décisions du Conseil des Ministres</h1>
 
     <!-- Filtres -->

@@ -11,7 +11,14 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="p-4">
+  <div class="min-h-screen p-4 pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'Scandales financiers', to: '/financial-scandals' },
+        { label: scandal?.titre || 'Détail' }
+      ]"
+    />
+
     <UCard v-if="scandal != null">
       <template #header>
         <h1 class="text-2xl">{{ scandal.titre }}</h1>

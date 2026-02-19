@@ -58,8 +58,16 @@ const documentCategories = [
 </script>
 
 <template>
-  <LayoutSubcategoryComponent
-    :item="documentCategories"
-    :title="`Découverte de l'État`"
-  />
+  <div class="min-h-screen pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'État du Sénégal' }
+      ]"
+    />
+
+    <LayoutSubcategoryComponent
+      :item="documentCategories"
+      :title="`Découverte de l'État`"
+    />
+  </div>
 </template>

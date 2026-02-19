@@ -193,7 +193,13 @@ watch([filterType, filterGender], () => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center px-4">
+  <div class="min-h-screen flex flex-col items-center px-4 pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'Nominations' },
+      ]"
+    />
+
     <h1 class="sr-only mb-4 text-sm text-gray-500">
       Membres du gouvernement du Sénégal, Nouveau gouvernement Sénégal Diomaye Sonko, Conseil des
       ministres, Liste des ministres du Sénégal,

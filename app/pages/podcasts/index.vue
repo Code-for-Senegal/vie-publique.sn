@@ -137,13 +137,11 @@ const closePlayer = () => {
 </script>
 
 <template>
-  <div class="container mx-auto px-4 sm:px-6">
-    <!-- Breadcrumb -->
-    <UBreadcrumb
+  <div class="container mx-auto min-h-screen px-4 pb-16 sm:px-6">
+    <AppBreadcrumb
       class="mt-2"
-      :links="[
-        { label: 'Accueil', to: '/' },
-        { label: 'Podcasts' },
+      :items="[
+        { label: 'Podcasts' }
       ]"
     />
 

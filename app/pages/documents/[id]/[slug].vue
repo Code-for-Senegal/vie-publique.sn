@@ -184,7 +184,13 @@ const showPdfViewer = ref(false);
 </script>
 
 <template>
-  <div class="py-6 md:py-8">
+  <div class="min-h-screen py-6 pb-16 md:py-8">
+    <AppBreadcrumb :items="[
+      { label: 'Documents', to: '/documents' },
+      { label: typeLabel, to: `/documents/${typeSlug}` },
+      { label: document?.title || 'Document' }
+    ]" />
+
     <!-- Loading state -->
     <div v-if="documentLoading" class="animate-pulse space-y-4">
       <div class="h-4 w-48 rounded bg-gray-200 dark:bg-gray-700" />
@@ -203,29 +209,6 @@ const showPdfViewer = ref(false);
 
     <!-- Contenu -->
     <article v-else-if="document">
-      <!-- Fil d'Ariane -->
-      <nav class="mb-4 text-sm text-gray-500 dark:text-gray-400">
-        <NuxtLink to="/" class="transition-colors hover:text-primary-600 dark:hover:text-primary-400">
-          Accueil
-        </NuxtLink>
-        <span class="mx-2">/</span>
-        <NuxtLink
-          to="/documents/public"
-          class="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
-        >
-          Documents
-        </NuxtLink>
-        <span class="mx-2">/</span>
-        <NuxtLink
-          :to="`/documents/${typeSlug}`"
-          class="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
-        >
-          {{ typeLabel }}
-        </NuxtLink>
-        <span class="mx-2">/</span>
-        <span class="text-gray-900 dark:text-white">{{ document.title }}</span>
-      </nav>
-
       <!-- Titre -->
       <h1 class="mb-4 text-2xl font-bold text-gray-900 md:text-3xl dark:text-white">
         {{ document.title }}

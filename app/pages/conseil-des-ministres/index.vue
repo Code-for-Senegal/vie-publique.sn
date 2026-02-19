@@ -211,10 +211,16 @@ const formatDateISO = (date: string) => {
 
 <template>
   <div
-    class="container mx-auto sm:px-4"
+    class="container mx-auto min-h-screen pb-16 sm:px-4"
     itemscope
     itemtype="https://schema.org/CollectionPage"
   >
+    <AppBreadcrumb
+      :items="[
+        { label: 'Conseil des ministres' }
+      ]"
+    />
+
     <div class="prose prose-sm sm:prose mx-auto my-4">
       <h1
         class="from-primary-600 to-primary-500 bg-clip-text text-center text-xl font-bold sm:text-3xl"

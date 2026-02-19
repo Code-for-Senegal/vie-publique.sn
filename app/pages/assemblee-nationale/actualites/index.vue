@@ -163,17 +163,16 @@ const formatDateISO = (date: string) => {
 
 <template>
   <div
-    class="container mx-auto px-4 py-4"
+    class="container mx-auto min-h-screen px-4 py-4 pb-16"
     itemscope
     itemtype="https://schema.org/CollectionPage"
   >
-    <NuxtLink
-      to="/assemblee-nationale"
-      class="mb-6 inline-flex items-center text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
-    >
-      <UIcon name="i-heroicons-arrow-left" class="mr-2 h-5 w-5" />
-      Retour aux actualités
-    </NuxtLink>
+    <AppBreadcrumb
+      :items="[
+        { label: 'Assemblée nationale', to: '/assemblee-nationale' },
+        { label: 'Actualités' }
+      ]"
+    />
 
     <div class="mx-auto max-w-7xl">
       <h1

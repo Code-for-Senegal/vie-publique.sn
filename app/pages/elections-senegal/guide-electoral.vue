@@ -29,17 +29,16 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="min-h-screen pb-20">
+  <div class="min-h-screen pb-16">
     <!-- Header Compact -->
     <div class="bg-white dark:bg-gray-900 border-b dark:border-gray-800 pt-8 pb-6 shadow-sm">
       <div class="container mx-auto px-4 max-w-6xl">
         <!-- Breadcrumb -->
-        <UBreadcrumb
+        <AppBreadcrumb
           class="mb-6"
-          :links="[
-            { label: 'Accueil', to: '/' },
+          :items="[
             { label: 'Élections', to: '/elections-senegal' },
-            { label: 'Guide Électoral' },
+            { label: 'Guide Électoral' }
           ]"
         />
 

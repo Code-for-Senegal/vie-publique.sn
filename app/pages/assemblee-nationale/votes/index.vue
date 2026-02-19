@@ -1,25 +1,10 @@
 <!-- pages/assemblee-nationale/votes/index.vue -->
 <template>
-  <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
-    <nav
-      class="mb-6 flex items-center text-sm text-gray-500 dark:text-gray-400"
-      aria-label="Breadcrumb"
-    >
-      <NuxtLink to="/" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-        Accueil
-      </NuxtLink>
-      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
-      <NuxtLink
-        to="/assemblee-nationale"
-        class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-      >
-        Assemblée nationale
-      </NuxtLink>
-      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
-      <span class="font-medium text-gray-900 dark:text-white" aria-current="page">
-        15e législature
-      </span>
-    </nav>
+  <div class="min-h-screen bg-gray-50 pb-16 dark:bg-gray-900">
+    <AppBreadcrumb :items="[
+      { label: 'Assemblée nationale', to: '/assemblee-nationale' },
+      { label: 'Votes' }
+    ]" />
     <UContainer>
       <!-- En-tête avec titre et description -->
       <div class="mb-8">

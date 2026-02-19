@@ -1,11 +1,11 @@
 <template>
-  <div class="container mx-auto px-4 py-8">
-    <!-- Breadcrumb -->
-    <nav class="mb-6 flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-      <NuxtLink to="/budget" class="hover:text-primary">Budget</NuxtLink>
-      <UIcon name="i-heroicons-chevron-right" class="h-4 w-4" />
-      <span class="font-medium text-gray-900 dark:text-white">Ministères</span>
-    </nav>
+  <div class="container mx-auto min-h-screen px-4 py-8 pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'Budget', to: '/budget-senegal' },
+        { label: 'Ministères' }
+      ]"
+    />
 
     <!-- Header -->
     <div class="mb-8">
@@ -114,9 +114,6 @@
       </UButton>
       <UButton to="/budget-senegal" color="gray" variant="outline" icon="i-heroicons-chart-bar">
         Dashboard complet
-      </UButton>
-      <UButton to="/budget" icon="i-heroicons-arrow-left" color="gray" variant="soft">
-        Retour au budget
       </UButton>
     </div>
   </div>

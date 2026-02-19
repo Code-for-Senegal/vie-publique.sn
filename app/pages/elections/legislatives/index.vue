@@ -56,17 +56,19 @@ const listViewTypes = [
   listViewTypeHeadOfList,
 ];
 
-const links = [{ label: "Tableau de Bord Élections", to: "/elections" }];
 </script>
 
 <template>
-  <div class="flex flex-col items-center px-4">
+  <div class="min-h-screen flex flex-col items-center px-4 pb-16">
     <UButton
       v-if="coalitions"
       size="xs"
       class="bg-gray b-0 mb-1 w-full hover:bg-white"
     >
-      <AppBreadcrumb :links="links" :last-text="route.params.slug" />
+      <AppBreadcrumb :items="[
+        { label: 'Tableau de Bord Élections', to: '/elections' },
+        { label: 'Candidatures Législatives 2024' }
+      ]" />
     </UButton>
 
     <div class="prose prose-sm sm:prose mx-auto my-2">

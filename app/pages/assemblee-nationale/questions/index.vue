@@ -170,29 +170,16 @@ const formatDateISO = (date: string) => {
 
 <template>
   <div
-    class="container mx-auto min-h-screen bg-white py-4 dark:bg-gray-900"
+    class="container mx-auto min-h-screen bg-white py-4 pb-16 dark:bg-gray-900"
     itemscope
     itemtype="https://schema.org/CollectionPage"
   >
-    <nav
-      class="mb-6 flex items-center text-sm text-gray-500 dark:text-gray-400"
-      aria-label="Breadcrumb"
-    >
-      <NuxtLink to="/" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-        Accueil
-      </NuxtLink>
-      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
-      <NuxtLink
-        to="/assemblee-nationale"
-        class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-      >
-        Assemblée nationale
-      </NuxtLink>
-      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
-      <span class="font-medium text-gray-900 dark:text-white" aria-current="page">
-        Questions écrites
-      </span>
-    </nav>
+    <AppBreadcrumb
+      :items="[
+        { label: 'Assemblée nationale', to: '/assemblee-nationale' },
+        { label: 'Questions écrites' }
+      ]"
+    />
 
     <div class="mx-auto max-w-4xl">
       <div class="prose prose-sm my-2 sm:prose">

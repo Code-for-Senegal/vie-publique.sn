@@ -179,13 +179,10 @@ const filteredCommissions = computed(() => {
 
 <template>
   <div class="container mx-auto px-2 py-4">
-    <UButton
-      icon="i-heroicons-arrow-left"
-      variant="ghost"
-      label="15e législature"
-      color="gray"
-      @click="router.back()"
-    />
+    <AppBreadcrumb :items="[
+      { label: 'Assemblée nationale', to: '/assemblee-nationale' },
+      { label: 'Commissions' }
+    ]" />
     <div class="mx-auto max-w-4xl">
       <div class="prose prose-sm sm:prose my-2">
         <h1 class="dark:text-white">Commissions de l'Assemblée</h1>

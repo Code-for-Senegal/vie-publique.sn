@@ -220,7 +220,13 @@ const getIconColor = (color: string) => {
 </script>
 
 <template>
-  <div class="container mx-auto">
+  <div class="container mx-auto min-h-screen pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'Annuaires' },
+      ]"
+    />
+
     <div class="prose prose-sm sm:prose mx-auto my-2">
       <h1 class="text-center dark:text-white">Annuaires</h1>
     </div>
