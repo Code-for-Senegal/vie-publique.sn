@@ -101,7 +101,12 @@ const doughnutOptions = computed((): any => ({
       callbacks: {
         label: (context: any) => {
           const item = sortedResults.value[context.dataIndex];
-          return ` ${context.label}: ${context.parsed}% (${formatNumber(item?.voix || 0)} voix)`;
+          const lines = [];
+          if (props.type === 'presidential' && item) {
+            lines.push(` Coalition: ${item.name}`);
+          }
+          lines.push(` ${context.parsed}% (${formatNumber(item?.voix || 0)} voix)`);
+          return lines;
         },
       },
     },
