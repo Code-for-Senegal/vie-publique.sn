@@ -6,13 +6,6 @@ const props = defineProps<{
   electionName?: string;
   loading?: boolean;
 }>();
-
-// Helper pour obtenir l'URL de téléchargement du fichier
-const getDocumentFileUrl = (doc: Document) => {
-  if (!doc.file) return '';
-  const fileId = typeof doc.file === 'string' ? doc.file : (doc.file as any).id;
-  return useCmsFile(`${fileId}/${doc.slug}.pdf`);
-};
 </script>
 
 <template>
@@ -31,44 +24,50 @@ const getDocumentFileUrl = (doc: Document) => {
       </UButton>
     </div>
 
-    <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div v-for="doc in documents" :key="doc.id"
-           class="group bg-white dark:bg-gray-800 p-5 rounded-3xl border dark:border-gray-700 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-        <div class="flex items-start gap-4">
-          <div class="bg-primary-50 dark:bg-primary-900/30 p-3 rounded-2xl text-primary-600 dark:text-primary-400 shrink-0 group-hover:scale-110 transition-transform">
-            <UIcon name="i-heroicons-document-text" class="w-6 h-6" />
-          </div>
-          <div class="space-y-1 overflow-hidden">
-            <h4 class="font-black text-gray-900 dark:text-gray-100 line-clamp-2 leading-tight group-hover:text-primary-600 transition-colors">
-              {{ doc.title }}
-            </h4>
-            <div class="flex items-center gap-2 text-[10px] text-gray-400 font-bold uppercase tracking-wider">
-              <span>{{ doc.publish_date ? new Date(doc.publish_date).toLocaleDateString() : 'Date inconnue' }}</span>
-              <span class="h-1 w-1 rounded-full bg-gray-300"></span>
-              <span class="text-primary-500">{{ doc.type }}</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="mt-6 flex items-center justify-between">
-          <NuxtLink :to="`/documents/${doc.id}/${doc.slug}`" class="text-xs font-black text-primary-600 hover:underline flex items-center">
-            Consulter
-            <UIcon name="i-heroicons-arrow-right" class="ml-1 w-3 h-3" />
-          </NuxtLink>
-
-          <div v-if="doc.file" class="flex gap-2">
-            <UButton
-              :to="getDocumentFileUrl(doc)"
-              target="_blank"
-              icon="i-heroicons-arrow-down-tray"
-              size="xs"
-              variant="ghost"
-              color="gray"
-              class="rounded-full"
+    <div v-else class="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+      <NuxtLink
+        v-for="doc in documents"
+        :key="doc.id"
+        :to="`/documents/${doc.id}/${doc.slug}`"
+        class="group overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-lg dark:border-gray-700 dark:bg-gray-800"
+      >
+        <!-- Image de couverture -->
+        <div class="aspect-[3/2] overflow-hidden bg-gray-100 dark:bg-gray-700">
+          <CmsImage
+            v-if="doc.cover_image"
+            :src="doc.cover_image"
+            :quality="40"
+            :alt="`Aperçu ${doc.title}`"
+            class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            loading="lazy"
+          />
+          <div
+            v-else
+            class="flex h-full w-full items-center justify-center bg-gray-100 dark:bg-gray-700"
+          >
+            <UIcon
+              name="i-heroicons-document-text"
+              class="h-8 w-8 text-gray-300 sm:h-10 sm:w-10 dark:text-gray-500"
             />
           </div>
         </div>
-      </div>
+
+        <!-- Contenu -->
+        <div class="p-2 sm:p-3">
+          <h3
+            class="line-clamp-2 text-xs font-semibold leading-tight text-gray-900 sm:text-sm dark:text-white"
+          >
+            {{ doc.title }}
+          </h3>
+          <time
+            v-if="doc.publish_date"
+            :datetime="doc.publish_date"
+            class="mt-1 block text-[10px] text-gray-400 sm:text-xs dark:text-gray-500"
+          >
+            {{ new Date(doc.publish_date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }) }}
+          </time>
+        </div>
+      </NuxtLink>
     </div>
   </div>
 </template>
