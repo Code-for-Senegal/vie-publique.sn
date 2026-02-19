@@ -185,11 +185,13 @@ const showPdfViewer = ref(false);
 
 <template>
   <div class="min-h-screen py-6 pb-16 md:py-8">
-    <AppBreadcrumb :items="[
-      { label: 'Documents', to: '/documents' },
-      { label: typeLabel, to: `/documents/${typeSlug}` },
-      { label: document?.title || 'Document' }
-    ]" />
+    <AppBreadcrumb
+      :items="[
+        { label: 'Documents', to: '/documents' },
+        { label: typeLabel, to: `/documents/${typeSlug}` },
+        { label: document?.title || 'Document' },
+      ]"
+    />
 
     <!-- Loading state -->
     <div v-if="documentLoading" class="animate-pulse space-y-4">
@@ -223,7 +225,10 @@ const showPdfViewer = ref(false);
           <div
             class="flex h-10 w-10 items-center justify-center rounded-lg bg-red-50 dark:bg-red-900/30"
           >
-            <UIcon name="i-heroicons-document-text" class="h-5 w-5 text-red-600 dark:text-red-400" />
+            <UIcon
+              name="i-heroicons-document-text"
+              class="h-5 w-5 text-red-600 dark:text-red-400"
+            />
           </div>
           <p class="text-sm font-medium text-gray-700 dark:text-gray-300">
             PDF{{ fileSize ? ` - ${fileSize}` : '' }}
@@ -250,7 +255,12 @@ const showPdfViewer = ref(false);
               size="sm"
             />
             <UButton
-              @click="downloadCmsFile(`${document!.file!.id}/${document!.slug}.pdf`, `${document!.slug}.pdf`)"
+              @click="
+                downloadCmsFile(
+                  `${document!.file!.id}/${document!.slug}.pdf`,
+                  `${document!.slug}.pdf`,
+                )
+              "
               icon="i-heroicons-arrow-down-tray"
               label="Télécharger"
               color="gray"
@@ -310,16 +320,10 @@ const showPdfViewer = ref(false);
                 <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
                   Aperçu du document
                 </h2>
-                <UButton
-                  @click="showPdfViewer = true"
-                  icon="i-heroicons-arrows-pointing-out"
-                  label="Plein écran"
-                  color="yellow"
-                  variant="outline"
-                  size="sm"
-                />
               </div>
-              <div class="overflow-hidden rounded-lg border border-gray-200 shadow-sm dark:border-gray-700">
+              <div
+                class="overflow-hidden rounded-lg border border-gray-200 shadow-sm dark:border-gray-700"
+              >
                 <PdfViewer
                   :source="fileUrl"
                   :download-name="`${document?.slug || 'document'}.pdf`"
@@ -336,7 +340,9 @@ const showPdfViewer = ref(false);
             v-if="document.file"
             class="sticky top-24 rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800"
           >
-            <h2 class="mb-4 font-semibold text-gray-900 dark:text-white">Télécharger le document</h2>
+            <h2 class="mb-4 font-semibold text-gray-900 dark:text-white">
+              Télécharger le document
+            </h2>
 
             <div class="mb-4 flex items-center gap-3">
               <div
@@ -373,7 +379,12 @@ const showPdfViewer = ref(false);
                 block
               />
               <UButton
-                @click="downloadCmsFile(`${document!.file!.id}/${document!.slug}.pdf`, `${document!.slug}.pdf`)"
+                @click="
+                  downloadCmsFile(
+                    `${document!.file!.id}/${document!.slug}.pdf`,
+                    `${document!.slug}.pdf`,
+                  )
+                "
                 icon="i-heroicons-arrow-down-tray"
                 label="Télécharger"
                 color="gray"
@@ -389,10 +400,7 @@ const showPdfViewer = ref(false);
           </div>
 
           <!-- Message si pas de fichier -->
-          <div
-            v-else
-            class="sticky top-24 space-y-6"
-          >
+          <div v-else class="sticky top-24 space-y-6">
             <div
               class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800"
             >
