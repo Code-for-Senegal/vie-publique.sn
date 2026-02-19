@@ -12,7 +12,6 @@ Ce guide décrit le processus d'insertion des données électorales dans Directu
 4. [Élection Locale](#élection-locale)
 5. [Données cartographiques](#données-cartographiques)
 6. [Contenus complémentaires](#contenus-complémentaires)
-7. [Checklist par type d'élection](#checklist-par-type-délection)
 
 ---
 

@@ -1,13 +1,10 @@
 <template>
-  <div class="container mx-auto px-4 py-4">
-    <UButton
-      icon="i-heroicons-arrow-left"
-      class="mb-2"
-      variant="ghost"
-      label="Retour"
-      color="gray"
-      @click="handleReturn()"
-    />
+  <div class="container mx-auto min-h-screen px-4 py-4 pb-16">
+    <AppBreadcrumb :items="[
+      { label: 'Assemblée nationale', to: '/assemblee-nationale' },
+      { label: 'Députés', to: '/assemblee-nationale/deputes' },
+      { label: deputyFullName || 'Détail' }
+    ]" />
 
     <!-- Loading state -->
     <div v-if="loading" class="flex justify-center py-8">
@@ -242,21 +239,4 @@ const validReturnPaths = [
   '/assemblee-nationale/bureau',
   '/assemblee-nationale/groupes',
 ];
-
-// Gestion du retour
-const handleReturn = () => {
-  // Vérifie si on a un referer dans l'historique de navigation
-  const previousRoute = router.options.history.state.back;
-
-  // Si on a un referer et qu'il fait partie des routes valides
-  if (
-    typeof previousRoute === 'string' &&
-    validReturnPaths.some((path) => previousRoute.startsWith(path))
-  ) {
-    router.back();
-  } else {
-    // Sinon, redirection vers la liste des députés par défaut
-    router.push('/assemblee-nationale/deputes');
-  }
-};
 </script>

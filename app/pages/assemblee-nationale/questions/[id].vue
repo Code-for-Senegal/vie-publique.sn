@@ -229,44 +229,16 @@ useHead({
 
 <template>
   <div
-    class="container mx-auto min-h-screen bg-white py-2 dark:bg-gray-900"
+    class="container mx-auto min-h-screen bg-white py-2 pb-16 dark:bg-gray-900"
     itemscope
     itemtype="https://schema.org/WebPage"
   >
     <div class="mx-auto max-w-4xl">
-      <!-- Bouton retour -->
-      <nav
-        class="mb-6 flex items-center text-sm text-gray-500 dark:text-gray-400"
-        aria-label="Breadcrumb"
-      >
-        <NuxtLink
-          to="/"
-          class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-        >
-          Accueil
-        </NuxtLink>
-        <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
-        <NuxtLink
-          to="/assemblee-nationale"
-          class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-        >
-          Assemblée nationale
-        </NuxtLink>
-        <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
-        <NuxtLink
-          to="/assemblee-nationale/questions"
-          class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-        >
-          Questions écrites
-        </NuxtLink>
-        <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
-        <span
-          class="block max-w-[200px] truncate font-medium text-gray-900 md:max-w-md dark:text-white"
-          aria-current="page"
-        >
-          {{ question?.subject }}
-        </span>
-      </nav>
+      <AppBreadcrumb :items="[
+        { label: 'Assemblée nationale', to: '/assemblee-nationale' },
+        { label: 'Questions écrites', to: '/assemblee-nationale/questions' },
+        { label: question?.subject || 'Question' }
+      ]" />
 
       <!-- Loading state -->
       <div v-if="loading" class="flex justify-center py-8">

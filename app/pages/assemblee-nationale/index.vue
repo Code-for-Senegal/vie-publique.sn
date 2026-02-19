@@ -100,7 +100,11 @@ useHead({
 </script>
 
 <template>
-  <div>
+  <div class="min-h-screen pb-16">
+    <AppBreadcrumb :items="[
+      { label: 'Assemblée nationale' }
+    ]" />
+
     <!-- En-tête compacte -->
     <header class="border-b bg-white dark:bg-transparent">
       <div class="container mx-auto py-4 sm:px-4">

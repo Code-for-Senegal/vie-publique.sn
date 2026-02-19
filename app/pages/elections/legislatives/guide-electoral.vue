@@ -1,7 +1,10 @@
 <template>
-  <div class="flex flex-col items-center px-4">
+  <div class="min-h-screen flex flex-col items-center px-4 pb-16">
     <UButton size="xs" class="bg-gray b-0 mb-1 w-full hover:bg-white dark:bg-white dark:hover:bg-gray-100">
-      <AppBreadcrumb :links="links" :last-text="route.params.slug" />
+      <AppBreadcrumb :items="[
+        { label: 'Tableau de Bord Élections', to: '/elections' },
+        { label: 'Guide Électoral' }
+      ]" />
     </UButton>
 
     <div class="prose prose-sm sm:prose mx-auto my-2">
@@ -145,7 +148,6 @@ const filteredVideos = computed(() => {
   return videos.filter((video) => video.language === selectedLanguage.value);
 });
 
-const links = [{ label: "Tableau de Bord Élections", to: "/elections" }];
 </script>
 
 <style scoped>

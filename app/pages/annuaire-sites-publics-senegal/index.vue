@@ -108,7 +108,13 @@ watch(selectedType, () => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center px-4">
+  <div class="min-h-screen flex flex-col items-center px-4 pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'Annuaire des sites publics' },
+      ]"
+    />
+
     <div class="prose prose-sm sm:prose mx-auto my-2">
       <h1 class="text-center dark:text-white">Annuaire sites internets</h1>
     </div>

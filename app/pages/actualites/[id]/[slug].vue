@@ -292,28 +292,13 @@ watch(
 </script>
 
 <template>
-  <div class="container mx-auto px-2 py-2" itemscope itemtype="https://schema.org/WebPage">
-    <!-- Bouton retour -->
-    <!-- Fil d'Ariane -->
-    <nav
-      class="mb-6 flex items-center text-sm text-gray-500 dark:text-gray-400"
-      aria-label="Breadcrumb"
-    >
-      <NuxtLink to="/" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-        Accueil
-      </NuxtLink>
-      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
-      <NuxtLink
-        to="/actualites"
-        class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-      >
-        Actualités
-      </NuxtLink>
-      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
-      <span class="truncate font-medium text-gray-900 dark:text-white" aria-current="page">
-        {{ article?.title }}
-      </span>
-    </nav>
+  <div class="container mx-auto min-h-screen px-2 py-2 pb-16" itemscope itemtype="https://schema.org/WebPage">
+    <AppBreadcrumb
+      :items="[
+        { label: 'Actualités', to: '/actualites' },
+        { label: article?.title || 'Article' },
+      ]"
+    />
 
     <!-- Loading state -->
     <div v-if="loading" class="space-y-4">

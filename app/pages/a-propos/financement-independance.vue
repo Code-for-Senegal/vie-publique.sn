@@ -207,28 +207,13 @@ const partnersProjects = ref<PartnerProject[]>([
 </script>
 
 <template>
-  <div class="container mx-auto max-w-4xl px-4 py-8">
-    <!-- Breadcrumb / Back -->
-    <!-- Breadcrumb / Back -->
-    <nav
-      class="mb-6 flex items-center text-sm text-gray-500 dark:text-gray-400"
-      aria-label="Breadcrumb"
-    >
-      <NuxtLink to="/" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-        Accueil
-      </NuxtLink>
-      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
-      <NuxtLink
-        to="/a-propos/qui-sommes-nous"
-        class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-      >
-        À propos
-      </NuxtLink>
-      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
-      <span class="truncate font-medium text-gray-900 dark:text-white" aria-current="page">
-        Financement & indépendance
-      </span>
-    </nav>
+  <div class="container mx-auto min-h-screen max-w-4xl px-4 py-8 pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'À propos', to: '/a-propos/qui-sommes-nous' },
+        { label: 'Financement & Indépendance' },
+      ]"
+    />
 
     <article class="prose prose-sm mx-auto sm:prose lg:prose-lg dark:prose-invert">
       <h1>Financement & indépendance</h1>

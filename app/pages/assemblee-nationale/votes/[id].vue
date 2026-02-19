@@ -1,6 +1,12 @@
 <!-- pages/assemblee-nationale/votes/[id].vue -->
 <template>
-  <div>
+  <div class="min-h-screen pb-16">
+    <AppBreadcrumb :items="[
+      { label: 'Assemblée nationale', to: '/assemblee-nationale' },
+      { label: 'Votes', to: '/assemblee-nationale/votes' },
+      { label: vote?.name || 'Détail' }
+    ]" />
+
     <!-- Hero section avec image de fond -->
     <div class="relative h-48 bg-gray-900 dark:bg-gray-900">
       <div class="absolute inset-0">
@@ -9,23 +15,6 @@
           alt="Hémicycle"
           class="h-full w-full object-cover opacity-50"
         />
-      </div>
-      <div class="absolute left-4 top-4">
-        <nav class="flex items-center text-sm font-medium text-white/90" aria-label="Breadcrumb">
-          <NuxtLink to="/" class="transition-colors hover:text-white"> Accueil </NuxtLink>
-          <span class="mx-2 text-white/60">/</span>
-          <NuxtLink to="/assemblee-nationale" class="transition-colors hover:text-white">
-            Assemblée
-          </NuxtLink>
-          <span class="mx-2 text-white/60">/</span>
-          <NuxtLink to="/assemblee-nationale/votes" class="transition-colors hover:text-white">
-            Votes
-          </NuxtLink>
-          <span class="mx-2 text-white/60">/</span>
-          <span class="block max-w-[200px] truncate md:max-w-md" aria-current="page">
-            {{ vote?.name }}
-          </span>
-        </nav>
       </div>
       <div class="absolute right-4 top-4">
         <UBadge class="text-lg" :color="vote?.status === 'adopted' ? 'emerald' : 'red'">

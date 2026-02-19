@@ -2,7 +2,6 @@
 const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
 
 const route = useRoute();
-const router = useRouter();
 const config = useRuntimeConfig();
 
 // ✅ Nouvelle architecture : useCmsCollection avec mode détail (id)
@@ -313,15 +312,13 @@ const deputyUrl = computed((deputy: any) => {
 </script>
 
 <template>
-  <div class="container mx-auto px-4 py-4">
+  <div class="container mx-auto min-h-screen px-4 py-4 pb-16">
     <div class="mx-auto max-w-6xl">
-      <UButton
-        icon="i-heroicons-arrow-left"
-        variant="ghost"
-        label="Retour à la liste"
-        color="gray"
-        @click="router.back()"
-      />
+      <AppBreadcrumb :items="[
+        { label: 'Assemblée nationale', to: '/assemblee-nationale' },
+        { label: 'Commissions', to: '/assemblee-nationale/commissions' },
+        { label: commission?.name || 'Détail' }
+      ]" />
 
       <!-- Loading state -->
       <div v-if="loading" class="flex justify-center py-8">

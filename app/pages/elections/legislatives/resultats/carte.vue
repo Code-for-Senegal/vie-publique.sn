@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div class="min-h-screen w-full pb-16">
     <ElectionMapComponentResult />
   </div>
 </template>

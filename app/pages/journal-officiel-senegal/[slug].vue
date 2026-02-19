@@ -13,7 +13,6 @@ const {
   id: documentId.value,
 });
 
-const links = [{ label: 'Journaux', to: '/journal-officiel-senegal' }];
 
 const title = computed(() => {
   if (!journal.value) return 'Chargement...';
@@ -166,8 +165,11 @@ const formatDateISO = (date: string) => {
 </script>
 
 <template>
-  <div itemscope itemtype="https://schema.org/WebPage">
-    <AppBreadcrumb :links="links" :last-text="route.params.slug" />
+  <div class="min-h-screen pb-16" itemscope itemtype="https://schema.org/WebPage">
+    <AppBreadcrumb :items="[
+      { label: 'Journaux', to: '/journal-officiel-senegal' },
+      { label: route.params.slug as string }
+    ]" />
 
     <!-- Loading state -->
     <div v-if="loading" class="flex justify-center py-8">

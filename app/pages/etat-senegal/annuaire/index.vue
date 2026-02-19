@@ -50,7 +50,14 @@ useHead({
 </script>
 
 <template>
-  <div class="container mx-auto px-4 py-8">
+  <div class="container mx-auto min-h-screen px-4 py-8 pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'État du Sénégal', to: '/etat-senegal' },
+        { label: 'Annuaire' }
+      ]"
+    />
+
     <!-- Header -->
     <div class="mb-8">
       <h1 class="mb-3 text-3xl font-bold text-gray-900 dark:text-white">

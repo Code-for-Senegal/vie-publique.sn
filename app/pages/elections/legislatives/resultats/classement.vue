@@ -1,15 +1,12 @@
 <!-- pages/deputies.vue -->
 <template>
-  <div>
-    <!-- Breadcrumb -->
-    <UBreadcrumb
-      class="mt-2"
-      :links="[
-        { label: 'Accueil', to: '/' },
-        { label: 'Législatives 2024', to: '/elections' },
-        { label: 'clasement' },
-      ]"
-    />
+  <div class="min-h-screen pb-16">
+    <AppBreadcrumb :items="[
+      { label: 'Élections', to: '/elections' },
+      { label: 'Législatives 2024', to: '/elections/legislatives' },
+      { label: 'Résultats', to: '/elections/legislatives/resultats' },
+      { label: 'Classement' }
+    ]" />
 
     <div class="w-full">
       <UCard v-if="loadingCoalitions">

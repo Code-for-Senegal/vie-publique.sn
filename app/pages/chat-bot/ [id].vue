@@ -2,7 +2,7 @@
   <Head>
     <Meta name="robots" content="noindex" />
   </Head>
-  <div class="flex h-dvh min-w-0 flex-col">
+  <div class="flex h-dvh min-h-screen min-w-0 flex-col pb-16">
     <AiChatHeader title="Chat Statique" />
     <AiChatMessagesList ref="messagesListRef" />
     <div class="h-4" />

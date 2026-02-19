@@ -114,7 +114,13 @@ const electionCategories = [
 </script>
 
 <template>
-  <div>
+  <div class="min-h-screen pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'Élections' }
+      ]"
+    />
+
     <LayoutSubcategoryComponent
       :item="electionCategories"
       :title="`Élections Législatives 2024`"

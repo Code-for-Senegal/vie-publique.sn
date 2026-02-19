@@ -1,6 +1,12 @@
 <template>
-  <div class="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-8 dark:bg-gray-900 sm:px-6 sm:py-12">
+  <div class="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-8 pb-16 dark:bg-gray-900 sm:px-6 sm:py-12">
     <UContainer>
+      <AppBreadcrumb
+        :items="[
+          { label: 'Don' }
+        ]"
+      />
+
       <div class="mx-auto w-full max-w-lg text-center">
         <!-- Icône d'annulation -->
         <div class="mb-6 flex justify-center">

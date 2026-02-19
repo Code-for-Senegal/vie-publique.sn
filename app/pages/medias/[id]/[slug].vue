@@ -187,15 +187,11 @@ const backUrl = computed(() => {
 </script>
 
 <template>
-  <div class="space-y-4 p-0">
-    <!-- Bouton retour -->
-    <NuxtLink
-      :to="backUrl"
-      class="inline-flex items-center text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-200"
-    >
-      <UIcon name="i-heroicons-arrow-left" class="mr-2 h-5 w-5" />
-      Retour à la liste
-    </NuxtLink>
+  <div class="min-h-screen space-y-4 p-0 pb-16">
+    <AppBreadcrumb :items="[
+      { label: 'Médias', to: '/medias' },
+      { label: media?.name || 'Média' }
+    ]" />
 
     <!-- Loading state avec skeleton -->
     <UCard v-if="loading" class="custom-shadow">

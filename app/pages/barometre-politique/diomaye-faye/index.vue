@@ -152,12 +152,14 @@ watch(data, (newData) => {
   console.log("Données chargées:", newData);
 });
 
-const links = [{ label: "Barometre", to: "/barometre-politique" }];
 </script>
 
 <template>
-  <div>
-    <AppBreadcrumb :links="links" last-text="Diomaye faye" />
+  <div class="min-h-screen pb-16">
+    <AppBreadcrumb :items="[
+      { label: 'Barometre', to: '/barometre-politique' },
+      { label: 'Diomaye faye' }
+    ]" />
 
     <div class="container mx-auto px-4">
       <div v-if="data" class="prose prose-sm sm:prose mx-auto my-4">

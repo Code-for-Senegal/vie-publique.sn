@@ -11,7 +11,13 @@ function goToScandaleDetails(scandal: any) {
 </script>
 
 <template>
-  <div class="gap-5">
+  <div class="min-h-screen gap-5 pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'Scandales financiers' }
+      ]"
+    />
+
     <div v-if="showScandals">
       <UCard
         v-for="scandale in scandales"

@@ -56,7 +56,14 @@ const expiredJobs = computed(() => jobs.value.filter((job) => job.status === 'ex
 </script>
 
 <template>
-  <div class="container mx-auto px-4 py-8">
+  <div class="container mx-auto min-h-screen px-4 py-8 pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'À propos', to: '/a-propos/qui-sommes-nous' },
+        { label: 'Recrutement' },
+      ]"
+    />
+
     <div class="prose prose-sm mx-auto mb-8 sm:prose lg:prose-md">
       <h1 class="text-center dark:text-white">
         Rejoignez notre équipe

@@ -116,9 +116,14 @@ const quickLinks = computed(() => [
 </script>
 
 <template>
-  <div class="min-h-screen pb-20">
+  <div class="min-h-screen pb-16">
     <!-- Main Container -->
     <div class="container mx-auto px-4 max-w-5xl py-12 space-y-8">
+      <AppBreadcrumb
+        :items="[
+          { label: 'Élections' }
+        ]"
+      />
 
       <!-- Hero Section -->
       <section class="text-center mb-8">

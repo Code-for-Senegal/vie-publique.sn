@@ -1,6 +1,12 @@
 <!-- pages/assemblee-nationale/groupes/[id]/[name].vue -->
 <template>
-  <div>
+  <div class="min-h-screen pb-16">
+    <AppBreadcrumb :items="[
+      { label: 'Assemblée nationale', to: '/assemblee-nationale' },
+      { label: 'Groupes', to: '/assemblee-nationale/groupes' },
+      { label: groupById?.name || 'Groupe' }
+    ]" />
+
     <!-- Hero section -->
     <div class="relative h-40 bg-gray-900">
       <div class="absolute inset-0">
@@ -9,25 +15,6 @@
           alt="Hémicycle de l'Assemblée nationale"
           class="h-full w-full object-cover opacity-50"
         />
-      </div>
-
-      <div class="absolute left-4 top-4">
-        <UBreadcrumb
-          class="mb-2 mt-2 text-white"
-          :links="[
-            { label: '15e législature', to: '/assemblee-nationale' },
-            { label: 'Groupes', to: '/assemblee-nationale/groupes' },
-          ]"
-        >
-          <template #divider>
-            <span class="h-0.5 w-2 rounded-full bg-white dark:bg-gray-700" />
-          </template>
-          <template #default="{ link, isActive, index }">
-            <div class="truncate text-white">
-              {{ link.label }}
-            </div>
-          </template>
-        </UBreadcrumb>
       </div>
     </div>
 

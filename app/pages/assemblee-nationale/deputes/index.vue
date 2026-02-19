@@ -1,12 +1,9 @@
 <template>
-  <div>
-    <UButton
-      icon="i-heroicons-arrow-left"
-      variant="ghost"
-      label="Retour à la liste"
-      color="gray"
-      @click="handleReturn()"
-    />
+  <div class="min-h-screen pb-16">
+    <AppBreadcrumb :items="[
+      { label: 'Assemblée nationale', to: '/assemblee-nationale' },
+      { label: 'Députés' }
+    ]" />
 
     <div class="">
       <div class="container">

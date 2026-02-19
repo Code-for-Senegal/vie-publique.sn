@@ -30,12 +30,15 @@ watch(promesse, (newVal) => {
   }
 });
 
-const links = [{ label: "Barometre", to: "/barometre-politique/diomaye-faye" }];
 </script>
 
 <template>
-  <div>
-    <AppBreadcrumb :links="links" last-text="Diomaye faye" />
+  <div class="min-h-screen pb-16">
+    <AppBreadcrumb :items="[
+      { label: 'Baromètre politique', to: '/barometre-politique' },
+      { label: 'Diomaye Faye', to: '/barometre-politique/diomaye-faye' },
+      { label: promesse?.label || 'Promesse' }
+    ]" />
 
     <pre>{{ promesse }}</pre>
     <div v-if="promesse">

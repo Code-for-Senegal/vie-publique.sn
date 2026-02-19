@@ -1,5 +1,11 @@
 <template>
-  <div class="container mx-auto px-4 py-8">
+  <div class="container mx-auto min-h-screen px-4 py-8 pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'Budget' }
+      ]"
+    />
+
     <!-- Hero Section (sobre, sans CTA) -->
     <section class="mb-8 text-center">
       <div class="mx-auto max-w-4xl">

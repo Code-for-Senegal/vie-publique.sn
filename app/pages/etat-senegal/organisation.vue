@@ -1,5 +1,10 @@
 <template>
-  <div class="flex flex-col px-4">
+  <div class="min-h-screen flex flex-col px-4 pb-16">
+    <AppBreadcrumb :items="[
+      { label: 'État du Sénégal', to: '/etat-senegal' },
+      { label: 'Organisation de l\'État' }
+    ]" />
+
     <div class="prose prose-sm sm:prose mx-auto my-2">
       <h1 class="text-center dark:text-white">Organisation de l'État</h1>
     </div>

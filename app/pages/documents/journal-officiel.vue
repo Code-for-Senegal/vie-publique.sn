@@ -73,14 +73,10 @@ const formatDate = (date: string) => {
 
 <template>
   <div class="container mx-auto px-4">
-    <!-- Bouton retour -->
-    <UButton
-      icon="i-heroicons-arrow-left"
-      variant="ghost"
-      label="Retour"
-      color="gray"
-      to="/documents"
-    />
+    <AppBreadcrumb :items="[
+      { label: 'Documents', to: '/documents' },
+      { label: 'Journal Officiel' }
+    ]" />
     <!-- En-tête -->
     <div class="prose prose-sm sm:prose mx-auto my-4">
       <h1
