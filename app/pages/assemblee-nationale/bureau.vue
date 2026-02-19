@@ -68,14 +68,11 @@ const groupedMembers = computed<OfficeGroup[]>(() => {
 </script>
 
 <template>
-  <div class="container mx-auto px-4 py-4">
-    <UButton
-      icon="i-heroicons-arrow-left"
-      variant="ghost"
-      label="15e législature"
-      color="gray"
-      @click="router.back()"
-    />
+  <div class="container mx-auto min-h-screen px-4 py-4 pb-16">
+    <AppBreadcrumb :items="[
+      { label: 'Assemblée nationale', to: '/assemblee-nationale' },
+      { label: 'Bureau' }
+    ]" />
     <div class="mx-auto max-w-7xl">
       <h1 class="mb- text-center text-2xl font-bold md:text-3xl">
         Bureau de l'Assemblée nationale

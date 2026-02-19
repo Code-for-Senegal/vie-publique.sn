@@ -165,15 +165,12 @@ const getDuration = (nominationDate: string): string => {
 </script>
 
 <template>
-  <div class="space-y-6 p-0">
-    <!-- Breadcrumb -->
-    <NuxtLink
-      to="/"
-      class="mb-2 inline-flex items-center text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-200"
-    >
-      <UIcon name="i-heroicons-arrow-left" class="mr-2 h-5 w-5" />
-      Retour
-    </NuxtLink>
+  <div class="min-h-screen space-y-6 p-0 pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'Gouvernement' },
+      ]"
+    />
 
     <!-- Header -->
     <UCard class="custom-shadow">

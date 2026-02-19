@@ -19,7 +19,13 @@ const handleSuccess = () => {
 </script>
 
 <template>
-  <div class="newsletter-page container mx-auto px-4 py-4">
+  <div class="newsletter-page container mx-auto min-h-screen px-4 py-4 pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'Newsletter' },
+      ]"
+    />
+
     <div class="prose prose-sm sm:prose mx-auto my-2">
       <h1 class="text-center dark:text-white">Newsletter</h1>
     </div>

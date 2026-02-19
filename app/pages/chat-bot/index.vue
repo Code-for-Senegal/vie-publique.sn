@@ -1,5 +1,11 @@
 <template>
-  <AppContainer title="Ai Chatbot" class="flex h-dvh min-w-0 flex-col bg-primary-50 dark:bg-neutral-900">
+  <AppContainer title="Ai Chatbot" class="flex h-dvh min-h-screen min-w-0 flex-col bg-primary-50 pb-16 dark:bg-neutral-900">
+    <AppBreadcrumb
+      :items="[
+        { label: 'Chat Bot' }
+      ]"
+    />
+
     <section class="py-12 sm:py-16 lg:py-32">
       <div class="mx-auto max-w-2xl">
         <div class="mb-8 text-center">

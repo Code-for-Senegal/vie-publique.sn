@@ -62,7 +62,12 @@ watch(selectedOrganisme, () => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center px-4">
+      <AppBreadcrumb
+      :items="[
+        { label: 'Rapports publics du Sénégal' },
+      ]"
+    />
+  <div class="min-h-screen flex flex-col items-center px-4 pb-16">
     <h1 class="sr-only">
       Rapports d'audits publics Sénégal OFNAC Cour des comptes IGE CENTIF
     </h1>

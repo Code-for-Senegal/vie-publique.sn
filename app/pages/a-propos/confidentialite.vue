@@ -72,15 +72,13 @@ useHead({
 </script>
 
 <template>
-  <div class="container mx-auto max-w-4xl px-4 py-8">
-    <!-- Breadcrumb -->
-    <NuxtLink
-      to="/"
-      class="mb-4 inline-flex items-center text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-200"
-    >
-      <UIcon name="i-heroicons-arrow-left" class="mr-2 h-5 w-5" />
-      Retour
-    </NuxtLink>
+  <div class="container mx-auto min-h-screen max-w-4xl px-4 py-8 pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'À propos', to: '/a-propos/qui-sommes-nous' },
+        { label: 'Confidentialité' },
+      ]"
+    />
 
     <article class="prose prose-sm sm:prose lg:prose-lg dark:prose-invert mx-auto">
       <h1>Politique de Confidentialité</h1>

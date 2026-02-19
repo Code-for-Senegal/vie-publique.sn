@@ -12,7 +12,13 @@ useHead({
 </script>
 
 <template>
-  <div class="flex flex-col items-center px-4 sm:px-8">
+  <div class="min-h-screen flex flex-col items-center px-4 pb-16 sm:px-8">
+    <AppBreadcrumb
+      :items="[
+        { label: 'Contact' },
+      ]"
+    />
+
     <div class="prose prose-sm sm:prose mx-auto my-2">
       <h1 class="text-center dark:text-white">Contactez-nous</h1>
     </div>

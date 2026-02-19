@@ -1,15 +1,12 @@
 <!-- # pages/elections/bureaux-temoins/index.vue -->
 <template>
-  <div class="container mx-auto px-4 py-8">
-    <!-- Breadcrumb -->
-    <UBreadcrumb
-      class="mb-6"
-      :links="[
-        { label: 'Accueil', to: '/' },
-        { label: 'Tableau de bord', to: '/elections' },
-        { label: 'Bureaux Témoins' },
-      ]"
-    />
+  <div class="container mx-auto min-h-screen px-4 py-8 pb-16">
+    <AppBreadcrumb :items="[
+      { label: 'Élections', to: '/elections' },
+      { label: 'Législatives 2024', to: '/elections/legislatives' },
+      { label: 'Carte électorale', to: '/elections/legislatives/carte-electorale' },
+      { label: 'Bureaux Témoins' }
+    ]" />
 
     <div class="mb-8">
       <h1 class="mb-2 text-3xl font-bold">Bureaux Témoins</h1>

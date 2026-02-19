@@ -80,8 +80,14 @@ const getBadgeColor = (type: string) => {
 </script>
 
 <template>
-  <div class="min-h-screen">
+  <div class="min-h-screen pb-16">
     <div class="container mx-auto px-4 py-4">
+      <AppBreadcrumb
+        :items="[
+          { label: 'Recherche' },
+        ]"
+      />
+
       <!-- En-tête de la page (masqué après recherche) -->
       <div v-if="!hasSearched" class="mb-8 text-center">
         <h1 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">

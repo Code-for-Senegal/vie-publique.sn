@@ -256,7 +256,13 @@ const getInitials = (name: string): string => {
 </script>
 
 <template>
-  <div class="space-y-2 p-0">
+  <div class="min-h-screen space-y-2 p-0 pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'Médias' }
+      ]"
+    />
+
     <NuxtLink
       to="/annuaires"
       class="mb-2 inline-flex items-center text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-200"

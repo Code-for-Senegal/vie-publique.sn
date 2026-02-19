@@ -258,10 +258,16 @@ useHead({
 
 <template>
   <div
-    class="container mx-auto px-4"
+    class="container mx-auto min-h-screen px-4 pb-16"
     itemscope
     itemtype="https://schema.org/CollectionPage"
   >
+    <AppBreadcrumb
+      :items="[
+        { label: 'Journal Officiel' }
+      ]"
+    />
+
     <UButton
       icon="i-heroicons-arrow-left"
       variant="ghost"

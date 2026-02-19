@@ -66,15 +66,12 @@ const updateItemsPerPage = (value: number) => {
 </script>
 
 <template>
-  <div class="container mx-auto px-4 py-2">
-    <!-- Bouton retour -->
-    <UButton
-      icon="i-heroicons-arrow-left"
-      variant="ghost"
-      label="Retour"
-      color="gray"
-      @click="router.back()"
-    />
+  <div class="container mx-auto min-h-screen px-4 py-2 pb-16">
+    <AppBreadcrumb :items="[
+      { label: 'Documents', to: '/documents' },
+      { label: 'Documents budgétaires' }
+    ]" />
+
     <ClientOnly>
       <div class="prose prose-sm sm:prose mx-auto my-4">
         <h1 class="text-center text-xl text-gray-900 sm:text-2xl dark:text-gray-200">

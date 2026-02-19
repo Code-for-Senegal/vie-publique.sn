@@ -74,14 +74,11 @@ useHead({
 </script>
 
 <template>
-  <div class="container mx-auto px-4 py-4">
-    <UButton
-      icon="i-heroicons-arrow-left"
-      variant="ghost"
-      label="Retour"
-      color="gray"
-      @click="router.back()"
-    />
+  <div class="container mx-auto min-h-screen px-4 py-4 pb-16">
+    <AppBreadcrumb :items="[
+      { label: 'Documents', to: '/documents' },
+      { label: 'Rapports publics' }
+    ]" />
 
     <h1 class="sr-only">
       Rapports d'audits publics Sénégal OFNAC Cour des comptes IGE CENTIF

@@ -256,15 +256,13 @@ watch(selectedElectionId, (newId, oldId) => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center px-4 py-8 min-h-screen">
+  <div class="flex min-h-screen flex-col items-center px-4 py-8 pb-16">
     <div class="w-full max-w-7xl mb-4">
-      <!-- Breadcrumb -->
-      <UBreadcrumb
+      <AppBreadcrumb
         class="mb-6"
-        :links="[
-          { label: 'Accueil', to: '/' },
+        :items="[
           { label: 'Élections', to: '/elections-senegal' },
-          { label: 'Carte Électorale' },
+          { label: 'Carte électorale' }
         ]"
       />
 

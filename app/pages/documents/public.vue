@@ -167,16 +167,11 @@ const handleReset = () => {
 </script>
 
 <template>
-  <div class="container mx-auto px-4 py-4">
-    <!-- Bouton retour -->
-    <UButton
-      icon="i-heroicons-arrow-left"
-      variant="ghost"
-      label="Retour"
-      color="gray"
-      class="mb-2"
-      @click="router.back()"
-    />
+  <div class="container mx-auto min-h-screen px-4 py-4 pb-16">
+    <AppBreadcrumb :items="[
+      { label: 'Documents', to: '/documents' },
+      { label: 'Tous les documents' }
+    ]" />
 
     <!-- En-tête -->
     <div class="mb-4">

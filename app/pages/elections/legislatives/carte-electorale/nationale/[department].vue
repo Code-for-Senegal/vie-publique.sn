@@ -184,16 +184,16 @@ watch([search, selectedMunicipality, sortBy, sortDesc], ([newSearch, newMunicipa
 </script>
 
 <template>
-  <div class="space-y-6 p-4">
-    <!-- En-tête avec navigation retour -->
-    <div class="mb-6 flex items-center gap-4">
-      <UButton
-        icon="i-heroicons-arrow-left"
-        variant="ghost"
-        @click="router.back()"
-      />
-      <h1 class="text-2xl font-bold">Département {{ department }}</h1>
-    </div>
+  <div class="min-h-screen space-y-6 p-4 pb-16">
+    <AppBreadcrumb :items="[
+      { label: 'Élections', to: '/elections' },
+      { label: 'Législatives 2024', to: '/elections/legislatives' },
+      { label: 'Carte électorale', to: '/elections/legislatives/carte-electorale' },
+      { label: 'Nationale', to: '/elections/legislatives/carte-electorale' },
+      { label: `Département ${department}` }
+    ]" />
+
+    <h1 class="text-2xl font-bold">Département {{ department }}</h1>
 
     <!-- Statistiques globales -->
     <div v-if="stats" class="grid grid-cols-2 gap-4 md:grid-cols-4">

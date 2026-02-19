@@ -1,12 +1,9 @@
 <template>
-  <UContainer>
-    <UButton
-      icon="i-heroicons-arrow-left"
-      variant="ghost"
-      label="Retour à la liste"
-      color="gray"
-      @click="router.back()"
-    />
+  <UContainer class="min-h-screen pb-16">
+    <AppBreadcrumb :items="[
+      { label: 'Assemblée nationale', to: '/assemblee-nationale' },
+      { label: 'Groupes parlementaires' }
+    ]" />
     <!-- En-tête -->
     <div class="mb-8">
       <div class="prose prose-sm sm:prose my-2">

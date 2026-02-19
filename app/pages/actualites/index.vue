@@ -223,7 +223,13 @@ const formatDateISO = (date: string) => {
 </script>
 
 <template>
-  <div class="container mx-auto" itemscope itemtype="https://schema.org/CollectionPage">
+  <div class="container mx-auto min-h-screen px-4 pb-16" itemscope itemtype="https://schema.org/CollectionPage">
+    <AppBreadcrumb
+      :items="[
+        { label: 'Actualités' },
+      ]"
+    />
+
     <div class="prose prose-sm mx-auto my-2 sm:prose dark:prose-invert">
       <h1 class="text-center dark:text-white" itemprop="headline">Actualités</h1>
     </div>

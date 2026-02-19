@@ -416,7 +416,7 @@ const resultCommunesForDept = computed(() => {
 </script>
 
 <template>
-  <div class="min-h-screen text-gray-900 dark:text-gray-100 transition-colors duration-300">
+  <div class="min-h-screen pb-16 text-gray-900 dark:text-gray-100 transition-colors duration-300">
     <!-- Header & Navigation Sticky -->
     <ElectionsDashboardElectoralDashboardHeader
       :selected-year="selectedYear"
@@ -428,13 +428,12 @@ const resultCommunesForDept = computed(() => {
       @clear-coalition="clearConstituency"
     >
       <template #breadcrumb>
-        <UBreadcrumb
+        <AppBreadcrumb
           v-if="currentElection"
           class="mb-3 text-xs"
-          :links="[
-            { label: 'Accueil', to: '/' },
+          :items="[
             { label: 'Élections', to: '/elections-senegal' },
-            { label: 'Dashboard' },
+            { label: 'Dashboard' }
           ]"
         />
       </template>

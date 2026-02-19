@@ -300,24 +300,13 @@ watch(activeTab, (newTab) => {
     <!-- Hero Header -->
     <div class="border-b border-gray-200 bg-gradient-to-b from-gray-50 to-white dark:border-gray-800 dark:from-gray-900 dark:to-gray-900">
       <div class="container mx-auto px-4 py-6 sm:py-8">
-        <!-- Breadcrumb -->
-        <nav class="mb-4 flex items-center gap-1.5 text-sm">
-          <NuxtLink
-            to="/"
-            class="text-gray-500 transition-colors hover:text-primary-600 dark:text-gray-400"
-          >
-            Accueil
-          </NuxtLink>
-          <UIcon name="i-heroicons-chevron-right-20-solid" class="h-4 w-4 text-gray-400" />
-          <NuxtLink
-            to="/budget-senegal"
-            class="text-gray-500 transition-colors hover:text-primary-600 dark:text-gray-400"
-          >
-            Budget
-          </NuxtLink>
-          <UIcon name="i-heroicons-chevron-right-20-solid" class="h-4 w-4 text-gray-400" />
-          <span class="font-medium text-gray-900 dark:text-white">Dashboard</span>
-        </nav>
+        <AppBreadcrumb
+          :items="[
+            { label: 'Budget', to: '/budget-senegal' },
+            { label: 'Dashboard' }
+          ]"
+          class="mb-4"
+        />
 
         <!-- Title -->
         <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">

@@ -81,17 +81,13 @@ useSchemaOrg([
 </script>
 
 <template>
-  <div class="container mx-auto py-2 pb-10 md:px-8">
-    <!-- Bouton retour -->
-    <div class="mb-2">
-      <NuxtLink
-        to="/budget-senegal"
-        class="inline-flex items-center text-sm text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
-      >
-        <UIcon name="i-heroicons-arrow-left" class="mr-2 h-5 w-5" />
-        Retour au budget
-      </NuxtLink>
-    </div>
+  <div class="container mx-auto min-h-screen py-2 pb-16 md:px-8">
+    <AppBreadcrumb
+      :items="[
+        { label: 'Budget', to: '/budget-senegal' },
+        { label: entity?.name || 'Détail' }
+      ]"
+    />
 
     <!-- État de chargement -->
     <div v-if="loading" class="flex justify-center py-12">

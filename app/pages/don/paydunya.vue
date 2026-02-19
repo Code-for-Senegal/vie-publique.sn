@@ -1,6 +1,12 @@
 <template>
-  <div class="min-h-screen bg-gray-50 py-12 dark:bg-gray-900">
+  <div class="min-h-screen bg-gray-50 py-12 pb-16 dark:bg-gray-900">
     <UContainer>
+      <AppBreadcrumb
+        :items="[
+          { label: 'Don' }
+        ]"
+      />
+
       <div class="mx-auto max-w-2xl">
         <!-- En-tête -->
         <div class="mb-8 text-center">

@@ -27,8 +27,6 @@ onMounted(async () => {
   });
 });
 
-const links = [{ label: "Rapports", to: "/rapport-senegal" }];
-
 function showResume(rapport: any): boolean {
   return rapport != null && rapport.resume_disponible && resume.value != null;
 }
@@ -49,14 +47,12 @@ const siteUrl = ref(runtimeConfig.public.siteUrl);
   <div class="flex flex-col items-center px-4">
     <h1 v-if="rapport != null" class="sr-only">{{ rapport.titre }}</h1>
 
-    <UButton
-      v-if="rapport"
-      class="bg-gray custom-shadow mb-2 w-full hover:bg-white"
-    >
-      <AppBreadcrumb :links="links" :last-text="route.params.slug" />
-    </UButton>
+    <AppBreadcrumb :items="[
+      { label: 'Rapports', to: '/rapport-senegal' },
+      { label: rapport?.titre || route.params.slug as string }
+    ]" />
 
-    <UCard v-if="rapport != null" class="custom-shadow mb-2 w-full">
+    <UCard v-if="rapport != null" class="custom-shadow mb-2 mt-2 w-full">
       <div>
         <img
           v-if="rapport.organisme == 'ARMP'"

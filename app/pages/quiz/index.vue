@@ -135,7 +135,13 @@ useMotion();
 </script>
 
 <template>
-  <div class="container mx-auto px-4 sm:px-8">
+  <div class="container mx-auto min-h-screen px-4 pb-16 sm:px-8">
+    <AppBreadcrumb
+      :items="[
+        { label: 'Quiz' },
+      ]"
+    />
+
     <div class="prose prose-sm sm:prose mx-auto my-2">
       <h1 class="text-center dark:text-white">
         Quiz
