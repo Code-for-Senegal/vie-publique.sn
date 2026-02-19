@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { Doughnut, Bar } from 'vue-chartjs';
+import { Doughnut } from 'vue-chartjs';
 import type { Coalition } from '~~/types/coalition';
 
-ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, ChartDataLabels);
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 const props = defineProps<{
   results: Coalition[];
@@ -49,11 +49,6 @@ const getName = (item: Coalition) => {
     return `${firstName} ${lastName}`.trim() || item.name;
   }
   return item.name;
-};
-
-const getShortName = (item: Coalition) => {
-  const name = getName(item);
-  return name.length > 20 ? name.substring(0, 18) + '…' : name;
 };
 
 const chartColors = computed(() =>
@@ -124,119 +119,123 @@ const doughnutOptions = computed((): any => ({
   },
 }));
 
-// --- BAR CHART (Législatives) — Barres verticales, sièges ---
+// --- HÉMICYCLE DYNAMIQUE (Législatives) ---
 const getTotalSieges = (item: Coalition) => {
   const national = Number(item.sieges) || 0;
   const dept = Number(item.sieges_departement) || 0;
   return national + dept;
 };
 
-const sortedBySeats = computed(() => {
-  return [...props.results]
-    .sort((a, b) => getTotalSieges(b) - getTotalSieges(a))
-    .filter(item => getTotalSieges(item) > 0)
-    .slice(0, 12);
+const TOTAL_SEATS = 165;
+const NUM_ROWS = 10;
+const SVG_WIDTH = 360;
+const SVG_HEIGHT = 200;
+const CENTER_X = SVG_WIDTH / 2;
+const CENTER_Y = SVG_HEIGHT - 10;
+const MIN_RADIUS = 50;
+const MAX_RADIUS = 175;
+const SEAT_RADIUS = 5;
+
+// Générer les positions des sièges en hémicycle
+const generateSeatPositions = (totalSeats: number) => {
+  const radii: number[] = [];
+  for (let i = 0; i < NUM_ROWS; i++) {
+    radii.push(MIN_RADIUS + (MAX_RADIUS - MIN_RADIUS) * i / (NUM_ROWS - 1));
+  }
+
+  // Répartir les sièges proportionnellement au rayon (arc plus long = plus de sièges)
+  const totalProp = radii.reduce((s, r) => s + r, 0);
+  const seatsPerRow = radii.map(r => Math.round(totalSeats * r / totalProp));
+
+  // Ajuster pour que le total soit exact
+  let diff = totalSeats - seatsPerRow.reduce((s, n) => s + n, 0);
+  let idx = seatsPerRow.length - 1;
+  while (diff !== 0) {
+    seatsPerRow[idx] += diff > 0 ? 1 : -1;
+    diff += diff > 0 ? -1 : 1;
+    idx = (idx - 1 + seatsPerRow.length) % seatsPerRow.length;
+  }
+
+  const positions: { x: number; y: number }[] = [];
+  for (let row = 0; row < NUM_ROWS; row++) {
+    const n = seatsPerRow[row];
+    const radius = radii[row];
+    for (let j = 0; j < n; j++) {
+      const angle = Math.PI * (j + 0.5) / n;
+      positions.push({
+        x: Math.round((CENTER_X - radius * Math.cos(angle)) * 100) / 100,
+        y: Math.round((CENTER_Y - radius * Math.sin(angle)) * 100) / 100,
+      });
+    }
+  }
+  return positions;
+};
+
+interface HemicycleGroup {
+  name: string;
+  acronym: string | null;
+  color: string;
+  seats: number;
+  positions: { x: number; y: number }[];
+}
+
+const hemicycleGroups = computed((): HemicycleGroup[] => {
+  const positions = generateSeatPositions(TOTAL_SEATS);
+
+  const coalitions = [...props.results]
+    .map((c, i) => ({
+      name: c.name,
+      acronym: c.acronym,
+      color: c.color || defaultColors[i % defaultColors.length],
+      totalSeats: getTotalSieges(c),
+      voix: c.voix,
+      pourcentage: c.pourcentage,
+    }))
+    .filter(c => c.totalSeats > 0)
+    .sort((a, b) => b.totalSeats - a.totalSeats);
+
+  const groups: HemicycleGroup[] = [];
+  let seatIdx = 0;
+  for (const c of coalitions) {
+    const coalitionPositions: { x: number; y: number }[] = [];
+    for (let i = 0; i < c.totalSeats && seatIdx < positions.length; i++) {
+      coalitionPositions.push(positions[seatIdx]);
+      seatIdx++;
+    }
+    groups.push({
+      name: c.name,
+      acronym: c.acronym,
+      color: c.color,
+      seats: c.totalSeats,
+      positions: coalitionPositions,
+    });
+  }
+
+  // Sièges restants non attribués
+  if (seatIdx < positions.length) {
+    const remaining: { x: number; y: number }[] = [];
+    while (seatIdx < positions.length) {
+      remaining.push(positions[seatIdx]);
+      seatIdx++;
+    }
+    groups.push({
+      name: 'Non attribués',
+      acronym: null,
+      color: '#d1d5db',
+      seats: remaining.length,
+      positions: remaining,
+    });
+  }
+
+  return groups;
 });
 
-const barChartColors = computed(() =>
-  sortedBySeats.value.map((item, i) => item.color || defaultColors[i % defaultColors.length])
-);
+const totalSiegesAttribues = computed(() => {
+  return props.results.reduce((sum, c) => sum + getTotalSieges(c), 0);
+});
 
-const barData = computed(() => ({
-  labels: sortedBySeats.value.map(item => item.acronym || getShortName(item)),
-  datasets: [{
-    label: 'Sièges obtenus',
-    data: sortedBySeats.value.map(item => getTotalSieges(item)),
-    backgroundColor: barChartColors.value.map(c => c + 'CC'),
-    borderColor: barChartColors.value,
-    borderWidth: 1.5,
-    borderRadius: 6,
-    borderSkipped: false,
-    barPercentage: 0.8,
-    categoryPercentage: 0.85,
-  }],
-}));
-
-const barOptions = computed((): any => ({
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    datalabels: {
-      display: false,
-    },
-    legend: {
-      display: true,
-      position: 'top' as const,
-      labels: {
-        color: isDark.value ? '#d1d5db' : '#374151',
-        font: { size: 12, weight: 'bold' as const },
-        usePointStyle: true,
-        pointStyle: 'rectRounded',
-        padding: 16,
-      },
-    },
-    tooltip: {
-      backgroundColor: isDark.value ? '#1f2937' : '#ffffff',
-      titleColor: isDark.value ? '#f3f4f6' : '#111827',
-      bodyColor: isDark.value ? '#d1d5db' : '#374151',
-      borderColor: isDark.value ? '#374151' : '#e5e7eb',
-      borderWidth: 1,
-      cornerRadius: 8,
-      padding: 12,
-      callbacks: {
-        title: (items: any[]) => {
-          const idx = items[0]?.dataIndex;
-          return getName(sortedBySeats.value[idx]);
-        },
-        label: (context: any) => {
-          const item = sortedBySeats.value[context.dataIndex];
-          return [
-            ` Sièges: ${getTotalSieges(item)}`,
-            ` Voix: ${formatNumber(item?.voix || 0)} (${item?.pourcentage || 0}%)`,
-          ];
-        },
-      },
-    },
-  },
-  scales: {
-    y: {
-      beginAtZero: true,
-      max: 165,
-      grid: {
-        color: isDark.value ? '#374151' : '#f3f4f6',
-      },
-      ticks: {
-        color: isDark.value ? '#9ca3af' : '#6b7280',
-        font: { size: 11 },
-        stepSize: 15,
-        precision: 0,
-        callback: (value: any) => {
-          if (value === 165) return '165 (total)';
-          return value;
-        },
-      },
-      title: {
-        display: true,
-        text: 'Nombre de sièges',
-        color: isDark.value ? '#9ca3af' : '#6b7280',
-        font: { size: 12, weight: 'bold' as const },
-      },
-      border: { display: false },
-    },
-    x: {
-      grid: {
-        display: false,
-      },
-      ticks: {
-        color: isDark.value ? '#d1d5db' : '#374151',
-        font: { size: 10, weight: 'bold' as const },
-        maxRotation: 45,
-        minRotation: 0,
-      },
-      border: { display: false },
-    },
-  },
-}));
+// Tooltip hémicycle
+const hoveredGroup = ref<HemicycleGroup | null>(null);
 </script>
 
 <template>
@@ -264,14 +263,71 @@ const barOptions = computed((): any => ({
           </div>
         </div>
 
-        <!-- BAR VERTICAL: Législatives -->
-        <div v-else-if="type === 'legislative'">
-          <div class="w-full" style="height: 400px;">
-            <Bar
-              :key="`bar-${isDark}`"
-              :data="barData"
-              :options="barOptions"
-            />
+        <!-- HÉMICYCLE: Législatives -->
+        <div v-else-if="type === 'legislative'" class="flex flex-col items-center">
+          <!-- SVG Hémicycle -->
+          <div class="w-full max-w-lg">
+            <svg
+              :viewBox="`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`"
+              class="w-full h-auto"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <!-- Total au centre -->
+              <text
+                :x="CENTER_X"
+                :y="CENTER_Y - 2"
+                text-anchor="middle"
+                class="fill-gray-900 dark:fill-white"
+                style="font-size: 32px; font-weight: bold;"
+              >
+                {{ totalSiegesAttribues }}
+              </text>
+
+              <!-- Groupes de sièges par coalition -->
+              <g
+                v-for="(group, gi) in hemicycleGroups"
+                :key="gi"
+                :style="{ fill: group.color }"
+                @mouseenter="hoveredGroup = group"
+                @mouseleave="hoveredGroup = null"
+              >
+                <title>{{ group.name }} — {{ group.seats }} siège{{ group.seats > 1 ? 's' : '' }}</title>
+                <circle
+                  v-for="(pos, si) in group.positions"
+                  :key="si"
+                  :cx="pos.x"
+                  :cy="pos.y"
+                  :r="SEAT_RADIUS"
+                />
+              </g>
+            </svg>
+          </div>
+
+          <!-- Info au survol -->
+          <div class="h-6 text-center mt-1">
+            <span v-if="hoveredGroup" class="text-sm font-semibold text-gray-700 dark:text-gray-300">
+              {{ hoveredGroup.name }} — <span class="font-black" :style="{ color: hoveredGroup.color }">{{ hoveredGroup.seats }}</span> siège{{ hoveredGroup.seats > 1 ? 's' : '' }}
+            </span>
+          </div>
+
+          <!-- Légende compacte -->
+          <div class="mt-3 flex flex-wrap justify-center gap-x-3 gap-y-1.5 max-w-lg">
+            <div
+              v-for="group in hemicycleGroups"
+              :key="group.name"
+              class="flex items-center gap-1.5 cursor-default text-xs"
+              @mouseenter="hoveredGroup = group"
+              @mouseleave="hoveredGroup = null"
+            >
+              <span
+                class="inline-block w-2.5 h-2.5 rounded-full flex-shrink-0"
+                :style="{ backgroundColor: group.color }"
+              />
+              <span class="text-gray-600 dark:text-gray-400 whitespace-nowrap">
+                {{ group.acronym || group.name }}
+              </span>
+              <span class="font-bold text-gray-900 dark:text-white">{{ group.seats }}</span>
+            </div>
           </div>
         </div>
 
@@ -283,8 +339,8 @@ const barOptions = computed((): any => ({
       </ClientOnly>
     </div>
 
-    <!-- Footer légende résumée -->
-    <div v-if="results.length > 10" class="px-5 py-3 border-t border-gray-100 dark:border-gray-800 text-center">
+    <!-- Footer légende résumée (présidentielle uniquement) -->
+    <div v-if="type === 'presidential' && results.length > 10" class="px-5 py-3 border-t border-gray-100 dark:border-gray-800 text-center">
       <span class="text-xs text-gray-400 italic">+ {{ results.length - 10 }} autres listes non affichées</span>
     </div>
   </div>
