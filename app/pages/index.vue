@@ -204,6 +204,9 @@ const { navigationCards } = useNavigationCards();
         <HomeAssemblyQuestions />
       </div>
       <div class="my-8">
+        <HomePodcasts />
+      </div>
+      <div class="my-8">
         <HomeSocialNetworks />
       </div>
       <div class="my-8 hidden">
