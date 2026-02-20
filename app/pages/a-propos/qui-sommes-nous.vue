@@ -121,11 +121,7 @@ useHead({
 
 <template>
   <div class="container mx-auto min-h-screen max-w-4xl px-4 py-8 pb-16">
-    <AppBreadcrumb
-      :items="[
-        { label: 'À propos' },
-      ]"
-    />
+    <AppBreadcrumb :items="[{ label: 'À propos' }]" />
 
     <article class="prose prose-sm mx-auto sm:prose lg:prose-lg dark:prose-invert">
       <h1>À Propos</h1>
@@ -155,7 +151,7 @@ useHead({
         2025.
       </p>
 
-      <p>
+      <p class="hidden">
         Dans un souci de transparence vis-à-vis de notre communauté, nous publions nos principes de
         financement, de gouvernance et nos garanties d'indépendance éditoriale sur des pages dédiées
         :
