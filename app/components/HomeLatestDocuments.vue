@@ -15,8 +15,15 @@ onMounted(() => {
     </h2>
 
     <!-- Loading state -->
-    <div v-if="store.isLoading" class="grid grid-cols-1 gap-4 md:grid-cols-3">
-      <div v-for="n in 3" :key="n" class="animate-pulse">
+    <div
+      v-if="store.isLoading"
+      class="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:overflow-x-visible md:pb-0"
+    >
+      <div
+        v-for="n in 3"
+        :key="n"
+        class="w-64 flex-shrink-0 snap-start animate-pulse md:w-auto md:flex-shrink"
+      >
         <div class="rounded-lg bg-gray-200 dark:bg-gray-700">
           <div class="aspect-[16/9] rounded-t-lg bg-gray-300 dark:bg-gray-600"></div>
           <div class="p-4">
@@ -36,32 +43,41 @@ onMounted(() => {
       icon="i-heroicons-exclamation-triangle"
     />
 
-    <!-- Documents grid (3 colonnes desktop, ligne par ligne mobile) -->
+    <!-- Documents: défilement horizontal mobile, grille 3 colonnes desktop -->
     <div v-else>
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+      <div
+        class="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:overflow-x-visible md:pb-0"
+      >
         <UCard
           v-for="document in store.getLatestDocuments.slice(0, 3)"
           :key="document.id"
-          class="custom-shadow cursor-pointer transition hover:shadow-lg dark:bg-gray-800/90"
+          class="custom-shadow w-64 flex-shrink-0 snap-start cursor-pointer transition hover:shadow-lg md:w-auto md:flex-shrink dark:bg-gray-800/90"
         >
-          <NuxtLink :to="document.url" class="flex flex-row sm:flex-col">
+          <NuxtLink :to="document.url" class="flex flex-col">
             <!-- Image -->
-            <div class="mb-0 mr-4 w-1/3 flex-shrink-0 sm:mb-4 sm:mr-0 sm:w-full">
+            <div class="mb-4 w-full">
               <CmsImage
                 v-if="document.cover_image"
                 :src="document.cover_image"
                 :quality="25"
                 :alt="`Aperçu ${document.title}`"
-                class="h-20 w-full rounded-md object-cover sm:h-48"
+                class="h-36 w-full rounded-md object-cover sm:h-48"
+                loading="lazy"
+              />
+              <img
+                v-else-if="document.doc_type === 'official_journal'"
+                src="/images/default-journal-officiel.webp"
+                :alt="`Aperçu ${document.title}`"
+                class="h-36 w-full rounded-md object-cover sm:h-48"
                 loading="lazy"
               />
               <div
                 v-else
-                class="flex h-20 w-full items-center justify-center rounded-md bg-gray-200 sm:h-48 dark:bg-gray-700"
+                class="flex h-36 w-full items-center justify-center rounded-md bg-gray-200 sm:h-48 dark:bg-gray-700"
               >
                 <UIcon
                   name="i-heroicons-document-text"
-                  class="h-6 w-6 text-gray-400 sm:h-8 sm:w-8"
+                  class="h-8 w-8 text-gray-400"
                 />
               </div>
             </div>

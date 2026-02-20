@@ -4,6 +4,7 @@ interface Update {
   id: string;
   title: string;
   type: "document" | "question";
+  doc_type?: string;
   date_created: string;
   publish_date?: string;
   url: string;
@@ -77,6 +78,7 @@ export const useLatestUpdatesStore = defineStore("latestUpdates", {
           id: doc.id,
           title: doc.title,
           type: "document" as const,
+          doc_type: doc.type,
           date_created: doc.publish_date,
           publish_date: doc.publish_date,
           url: `/documents/${doc.id}/${doc.slug || "document"}`,
