@@ -1,13 +1,13 @@
-import { readItem } from "@directus/sdk";
+import { readItem } from '@directus/sdk';
 
 export default defineCachedEventHandler(
   async (event) => {
-    const id = getRouterParam(event, "id");
+    const id = getRouterParam(event, 'id');
 
     if (!id) {
       throw createError({
         statusCode: 400,
-        statusMessage: "ID du podcast manquant",
+        statusMessage: 'ID du podcast manquant',
       });
     }
 
@@ -15,30 +15,30 @@ export default defineCachedEventHandler(
       const directus = getCmsClient();
 
       const podcastData = await directus.request(
-        readItem("vp_podcasts", id, {
+        readItem('vp_podcasts', id, {
           fields: [
-            "id",
-            "title",
-            "slug",
-            "status",
-            "description",
-            "youtube_video_id",
-            "youtube_url",
-            "duration",
-            "date_published",
-            "date_updated",
-            "cover_image",
-            "tags",
-            "featured",
-            "view_count",
+            'id',
+            'title',
+            'slug',
+            'status',
+            'description',
+            'youtube_video_id',
+            'youtube_url',
+            'duration',
+            'date_published',
+            'date_updated',
+            'cover_image',
+            'tags',
+            'featured',
+            'view_count',
           ],
         }),
       );
 
-      if (podcastData.status !== "published") {
+      if (podcastData.status !== 'published') {
         throw createError({
           statusCode: 404,
-          statusMessage: "Podcast non trouvé",
+          statusMessage: 'Podcast non trouvé',
         });
       }
 
@@ -51,29 +51,18 @@ export default defineCachedEventHandler(
         youtube_url: podcastData.youtube_url,
         duration: podcastData.duration,
         date_published: podcastData.date_published,
-        ...(podcastData.date_updated
-          ? { date_updated: podcastData.date_updated }
-          : {}),
-        ...(podcastData.cover_image
-          ? { cover_image: podcastData.cover_image }
-          : {}),
+        ...(podcastData.date_updated ? { date_updated: podcastData.date_updated } : {}),
+        ...(podcastData.cover_image ? { cover_image: podcastData.cover_image } : {}),
         ...(podcastData.tags ? { tags: podcastData.tags } : {}),
-        ...(podcastData.featured !== undefined
-          ? { featured: podcastData.featured }
-          : {}),
-        ...(podcastData.view_count !== undefined
-          ? { view_count: podcastData.view_count }
-          : {}),
+        ...(podcastData.featured !== undefined ? { featured: podcastData.featured } : {}),
+        ...(podcastData.view_count !== undefined ? { view_count: podcastData.view_count } : {}),
       };
 
       return {
         data: podcast,
       };
     } catch (error: any) {
-      console.error(
-        `Erreur lors de la récupération du podcast ${id}:`,
-        error,
-      );
+      console.error(`Erreur lors de la récupération du podcast ${id}:`, error);
 
       if (error.statusCode) {
         throw error;
@@ -81,15 +70,15 @@ export default defineCachedEventHandler(
 
       throw createError({
         statusCode: 500,
-        statusMessage: "Erreur lors de la récupération du podcast",
+        statusMessage: 'Erreur lors de la récupération du podcast',
       });
     }
   },
   {
-    maxAge: 60 * 60,
-    name: "podcast-detail",
+    maxAge: 60 * 5,
+    name: 'podcast-detail',
     getKey: (event) => {
-      const id = getRouterParam(event, "id");
+      const id = getRouterParam(event, 'id');
       return `podcast-detail-${id}`;
     },
   },

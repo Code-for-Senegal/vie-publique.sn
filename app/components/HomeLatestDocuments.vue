@@ -16,13 +16,13 @@ onMounted(() => {
 
     <!-- Loading state -->
     <div
-      v-if="store.isLoading"
-      class="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:gap-4 md:overflow-x-visible md:pb-0"
+      v-if="store.isLoading || (!store.hasError && store.getLatestDocuments.length === 0)"
+      class="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:gap-4 md:overflow-x-visible md:pb-0"
     >
       <div
         v-for="n in 3"
         :key="n"
-        class="w-40 flex-shrink-0 snap-start animate-pulse sm:w-56 md:w-auto md:flex-shrink"
+        class="w-36 flex-shrink-0 snap-start animate-pulse sm:w-56 md:w-auto md:flex-shrink"
       >
         <div class="rounded-lg bg-gray-200 dark:bg-gray-700">
           <div class="aspect-[16/9] rounded-t-lg bg-gray-300 dark:bg-gray-600"></div>
@@ -46,12 +46,12 @@ onMounted(() => {
     <!-- Documents: défilement horizontal mobile, grille 3 colonnes desktop -->
     <div v-else>
       <div
-        class="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:gap-4 md:overflow-x-visible md:pb-0"
+        class="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:gap-4 md:overflow-x-visible md:pb-0"
       >
         <UCard
           v-for="document in store.getLatestDocuments.slice(0, 3)"
           :key="document.id"
-          class="custom-shadow w-40 flex-shrink-0 snap-start cursor-pointer transition hover:shadow-lg sm:w-56 md:w-auto md:flex-shrink dark:bg-gray-800/90"
+          class="custom-shadow w-36 flex-shrink-0 snap-start cursor-pointer transition hover:shadow-lg sm:w-56 md:w-auto md:flex-shrink dark:bg-gray-800/90"
         >
           <NuxtLink :to="document.url" class="flex flex-col">
             <!-- Image -->
@@ -109,3 +109,15 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
+<style scoped>
+/* Masquer la scrollbar tout en gardant le scroll fonctionnel */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+</style>
