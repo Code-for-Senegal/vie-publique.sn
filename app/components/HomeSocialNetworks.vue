@@ -27,13 +27,16 @@
         >
           <UIcon
             :name="network.icon"
-            class="h-4 w-4 shrink-0 sm:h-5 sm:w-5"
-            :style="`color: ${network.displayColor}`"
+            class="network-color h-4 w-4 shrink-0 sm:h-5 sm:w-5"
+            :style="`--nc-light: ${network.colorLight}; --nc-dark: ${network.colorDark}`"
           />
           <span class="text-xs font-medium text-gray-700 sm:text-sm dark:text-gray-300">
             {{ network.name }}
           </span>
-          <span class="text-xs font-bold sm:text-sm" :style="`color: ${network.displayColor}`">
+          <span
+            class="network-color text-xs font-bold sm:text-sm"
+            :style="`--nc-light: ${network.colorLight}; --nc-dark: ${network.colorDark}`"
+          >
             {{ formatFollowers(network.followers) }}
           </span>
         </a>
@@ -46,7 +49,6 @@
 import type { SocialStat } from '~~/types/social-stat';
 
 const { visibleStats: socialStats, loading } = useSocialStats();
-const colorMode = useColorMode();
 
 interface NetworkMeta {
   icon: string;
@@ -129,7 +131,8 @@ const enrichedNetworks = computed(() =>
     return {
       ...stat,
       icon: meta.icon,
-      displayColor: colorMode.value === 'dark' ? meta.colorDark : meta.color,
+      colorLight: meta.color,
+      colorDark: meta.colorDark,
       hoverBorderClass: meta.hoverBorderClass,
     };
   }),
@@ -147,3 +150,13 @@ const formatFollowers = (count: number): string => {
   return count.toString();
 };
 </script>
+
+<style scoped>
+.network-color {
+  color: var(--nc-light);
+}
+
+.dark .network-color {
+  color: var(--nc-dark);
+}
+</style>
