@@ -53,7 +53,7 @@ export function useNavigationCards() {
       icon: 'i-heroicons-briefcase',
       to: '/conseil-des-ministres',
       count: 54,
-      display: false,
+      display: true,
     },
     {
       title: 'Budget',

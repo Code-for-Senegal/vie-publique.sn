@@ -67,11 +67,11 @@ onMounted(() => {
     <Transition name="fade">
       <div
         v-if="isVisible"
-        class="fixed inset-0 z-50 flex items-end sm:items-center justify-center"
+        class="fixed inset-0 z-50 flex items-end justify-center p-4 sm:items-center sm:p-0"
       >
         <!-- Backdrop -->
         <div
-          class="absolute inset-0 bg-black/50 backdrop-blur-sm"
+          class="absolute inset-0 bg-black/60 backdrop-blur-sm"
           @click="handleDecline"
         />
 
@@ -79,92 +79,66 @@ onMounted(() => {
         <Transition name="slide-up">
           <div
             v-if="isVisible"
-            class="relative w-full sm:max-w-md mx-0 sm:mx-4 bg-white dark:bg-gray-900 rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden"
+            class="relative w-full overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-gray-200 sm:max-w-md dark:bg-gray-900 dark:ring-gray-800"
           >
-            <!-- Header link -->
-            <div class="px-4 pt-4 sm:px-6 sm:pt-6">
-              <button
-                type="button"
-                class="text-sm text-gray-500 dark:text-gray-400 underline hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
-                @click="handleContinueWithout"
-              >
-                Continuer sans accepter &rarr;
-              </button>
-            </div>
+            <!-- Decorative Header -->
+            <div class="h-2 w-full bg-green-600" />
 
             <!-- Content -->
-            <div class="px-4 py-4 sm:px-6 sm:py-6">
+            <div class="p-6 text-center">
+              <!-- Icone d'illustration -->
+              <div
+                class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-50 dark:bg-green-900/20"
+              >
+                <UIcon
+                  name="i-heroicons-bell-alert"
+                  class="h-8 w-8 text-green-600 dark:text-green-400"
+                />
+              </div>
+
               <!-- Title -->
-              <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white text-center mb-4">
-                Restez informé des actualités du Sénégal
+              <h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">
+                Restez informé en temps réel
               </h2>
 
-              <!-- Description -->
-              <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 text-center mb-6 leading-relaxed">
-                <span class="font-semibold text-green-600 dark:text-green-400">Vie Publique Sénégal</span>
-                peut vous envoyer des notifications pour vous tenir informé des dernières actualités,
-                des mises à jour budgétaires et de l'activité parlementaire.
+              <!-- Description simplifiée -->
+              <p class="mb-6 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+                <span class="font-semibold text-green-600 dark:text-green-400"
+                  >Vie Publique Sénégal</span
+                >
+                souhaite vous envoyer les dernières actualités parlementaires et budgétaires.
               </p>
-
-              <!-- Benefits -->
-              <ul class="space-y-2 mb-6">
-                <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-300">
-                  <UIcon
-                    name="i-heroicons-bell-alert"
-                    class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5"
-                  />
-                  <span>Alertes sur les actualités importantes</span>
-                </li>
-                <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-300">
-                  <UIcon
-                    name="i-heroicons-document-text"
-                    class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5"
-                  />
-                  <span>Nouveaux documents officiels publiés</span>
-                </li>
-                <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-300">
-                  <UIcon
-                    name="i-heroicons-building-library"
-                    class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5"
-                  />
-                  <span>Activités de l'Assemblée nationale</span>
-                </li>
-              </ul>
 
               <!-- Actions -->
               <div class="space-y-3">
                 <UButton
                   block
-                  size="lg"
-                  color="primary"
+                  size="xl"
+                  color="green"
                   :loading="isProcessing"
                   :disabled="state.loading"
-                  class="font-semibold"
+                  class="font-bold shadow-lg shadow-green-500/20"
                   @click="handleAccept"
                 >
-                  <UIcon
-                    v-if="!isProcessing"
-                    name="i-heroicons-bell"
-                    class="w-5 h-5 mr-2"
-                  />
                   Accepter les notifications
                 </UButton>
 
                 <UButton
                   block
-                  size="lg"
+                  size="md"
                   color="gray"
                   variant="ghost"
                   :disabled="isProcessing"
+                  class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
                   @click="handleDecline"
                 >
-                  Non merci
+                  Plus tard
                 </UButton>
               </div>
 
               <!-- Privacy note -->
-              <p class="text-xs text-gray-400 dark:text-gray-500 text-center mt-4">
-                Vous pouvez modifier ce choix à tout moment dans les paramètres de votre navigateur.
+              <p class="mt-4 text-xs text-gray-400 dark:text-gray-500">
+                Promis, pas de spam. Vous pouvez vous désabonner à tout moment.
               </p>
             </div>
           </div>
