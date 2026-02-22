@@ -1,6 +1,10 @@
 # Nixpacks configuration for Coolify deployment
 # See: https://nixpacks.com/docs/configuration/file
 
+[variables]
+NODE_ENV = "production"
+HOST = "0.0.0.0"
+
 [phases.install]
 cmds = ["npm ci"]
 
@@ -12,4 +16,4 @@ cmds = ["timeout --signal=KILL 300 npm run build || test -d .output/server"]
 
 [start]
 # HOST=0.0.0.0 ensures Nitro listens on all interfaces (required in Docker)
-cmd = "HOST=0.0.0.0 node .output/server/index.mjs"
+cmd = "npm run start"
