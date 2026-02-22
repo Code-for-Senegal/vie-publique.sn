@@ -175,7 +175,6 @@ const { navigationCards } = useNavigationCards();
 
 <template>
   <div class="container mx-auto p-2 sm:p-4">
-    <!-- Titre d'accueil -->
     <div class="py-4 text-center">
       <h1 class="text-2xl font-light leading-tight text-gray-900 md:text-4xl dark:text-white">
         Accès facilité à<br /><span class="font-medium text-gray-700 dark:text-gray-300"
@@ -184,7 +183,6 @@ const { navigationCards } = useNavigationCards();
       </h1>
     </div>
 
-    <!-- Section de recherche principale -->
     <HomeSearchSection />
 
     <HomeQuickAccess :navigation-cards="navigationCards" />
@@ -193,7 +191,9 @@ const { navigationCards } = useNavigationCards();
       <div class="my-8">
         <HomeLatestDocuments />
       </div>
-      <!-- Mise en avant du nouveau dashboard budget -->
+      <div class="my-8">
+        <HomePodcasts />
+      </div>
       <div class="my-8">
         <HomeBudgetHighlight />
       </div>
@@ -203,9 +203,7 @@ const { navigationCards } = useNavigationCards();
       <div class="my-8">
         <HomeAssemblyQuestions />
       </div>
-      <div class="my-8">
-        <HomePodcasts />
-      </div>
+
       <div class="my-8">
         <HomeSocialNetworks />
       </div>

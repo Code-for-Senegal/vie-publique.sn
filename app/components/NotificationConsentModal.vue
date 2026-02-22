@@ -7,7 +7,15 @@ const props = withDefaults(defineProps<Props>(), {
   delay: 5000,
 });
 
-const { shouldShowConsentModal, subscribe, markAsAsked, state, isSupported, isIOSSafari, initState } = useNotifications();
+const {
+  shouldShowConsentModal,
+  subscribe,
+  markAsAsked,
+  state,
+  isSupported,
+  isIOSSafari,
+  initState,
+} = useNotifications();
 
 const isVisible = ref(false);
 const isProcessing = ref(false);
@@ -39,7 +47,8 @@ onMounted(() => {
   console.log('[NotificationModal] mounted — diagnostics:', {
     isIOSSafari: isIOSSafari.value,
     isSupported: isSupported.value,
-    isStandalonePWA: ('matchMedia' in window) && window.matchMedia('(display-mode: standalone)').matches,
+    isStandalonePWA:
+      'matchMedia' in window && window.matchMedia('(display-mode: standalone)').matches,
     notificationAPI: 'Notification' in window,
     permission: 'Notification' in window ? Notification.permission : 'N/A',
     serviceWorker: 'serviceWorker' in navigator,
@@ -70,10 +79,7 @@ onMounted(() => {
         class="fixed inset-0 z-50 flex items-end justify-center p-4 sm:items-center sm:p-0"
       >
         <!-- Backdrop -->
-        <div
-          class="absolute inset-0 bg-black/60 backdrop-blur-sm"
-          @click="handleDecline"
-        />
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="handleDecline" />
 
         <!-- Modal -->
         <Transition name="slide-up">
@@ -81,9 +87,6 @@ onMounted(() => {
             v-if="isVisible"
             class="relative w-full overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-gray-200 sm:max-w-md dark:bg-gray-900 dark:ring-gray-800"
           >
-            <!-- Decorative Header -->
-            <div class="h-2 w-full bg-green-600" />
-
             <!-- Content -->
             <div class="p-6 text-center">
               <!-- Icone d'illustration -->

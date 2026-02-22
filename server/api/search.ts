@@ -122,7 +122,7 @@ export default defineEventHandler(async (event) => {
       let formattedUrl = '/actualites';
 
       // Handle different types
-      if (documentType === 'documents') {
+      if (documentType === 'document' || documentType === 'documents') {
         formattedUrl = `/documents/${id}/${slug}`;
       } else {
         // Handle news articles
