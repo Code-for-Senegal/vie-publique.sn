@@ -37,7 +37,7 @@ const { partners, loading, error } = usePartners();
       <NuxtLink
         v-for="partner in partners"
         :key="partner.id"
-        :to="{ path: '/a-propos/financement-independance', hash: `#${partner.slug}` }"
+        to="#"
         class="partner-card flex w-48 flex-shrink-0 transform flex-col items-center rounded-lg bg-white p-2 shadow-md transition-shadow hover:scale-105 hover:shadow-lg"
       >
         <img
