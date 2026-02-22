@@ -5,6 +5,12 @@
 NODE_ENV = "production"
 HOST = "0.0.0.0"
 PORT = "3000"
+# Ensure npm installs all deps including devDependencies needed for build
+NPM_CONFIG_PRODUCTION = "false"
+
+[phases.setup]
+# Install apt packages needed for sharp (@nuxt/image) and healthcheck
+aptPkgs = ["curl", "wget"]
 
 [phases.install]
 cmds = ["npm ci"]
@@ -14,5 +20,5 @@ cmds = ["npm ci"]
 cmds = ["npm run build"]
 
 [start]
-# HOST=0.0.0.0 ensures Nitro listens on all interfaces (required in Docker)
-cmd = "npm run start"
+# Start directly with node for faster and more reliable startup
+cmd = "node .output/server/index.mjs"
