@@ -29,10 +29,10 @@ const scroll = (direction: 'left' | 'right') => {
 
 <template>
   <section class="space-y-4">
+    <h2 class="mb-4 text-center text-xl font-semibold text-gray-800 dark:text-white">
+      {{ title }}
+    </h2>
     <div class="flex items-center justify-between">
-      <h2 class="text-xl font-bold text-gray-900 md:text-2xl dark:text-white">
-        {{ title }}
-      </h2>
       <div v-if="showArrows" class="hidden gap-2 md:flex">
         <button
           class="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-gray-100 transition-colors hover:bg-blue-700 hover:text-white dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-blue-600"

@@ -409,6 +409,7 @@ const formatDateISO = (date: string) => {
         <UPagination
           :model-value="currentPage"
           :total="totalItems"
+          :page-count="itemsPerPage"
           :default-page="1"
           :show-edges="true"
           :sibling-count="2"

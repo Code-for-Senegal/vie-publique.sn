@@ -1,10 +1,5 @@
 <template>
   <div class="container mx-auto min-h-screen px-4 py-8 pb-16">
-    <AppBreadcrumb
-      :items="[
-        { label: 'Menu' },
-      ]"
-    />
     <div class="mx-auto grid max-w-5xl grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3">
       <NuxtLink v-for="card in navigationCards" :key="card.title" :to="card.to" class="group block">
         <div

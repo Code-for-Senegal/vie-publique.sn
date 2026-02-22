@@ -173,6 +173,7 @@ const filteredRows = computed(() => {
           <UPagination
             v-model="page"
             :total="totalPages"
+            :page-count="1"
             :ui="{
               wrapper: 'flex items-center gap-1',
               button: {

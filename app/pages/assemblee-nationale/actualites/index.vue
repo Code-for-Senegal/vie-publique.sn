@@ -143,6 +143,7 @@ const {
   totalPages,
   currentPage,
   totalItems,
+  itemsPerPage,
   setCurrentPage,
 } = useNews({
   category: "Assemblée nationale",
@@ -340,6 +341,7 @@ const formatDateISO = (date: string) => {
         <UPagination
           :model-value="currentPage"
           :total="totalItems"
+          :page-count="itemsPerPage"
           :default-page="1"
           :show-edges="true"
           :sibling-count="2"

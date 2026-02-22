@@ -231,6 +231,7 @@ watch(search, () => {
         v-if="totalPages > 1"
         v-model="page"
         :total="totalPages"
+        :page-count="1"
         :ui="{
           wrapper: 'flex items-center justify-center gap-1 mt-4',
           rounded: 'rounded-full',

@@ -63,17 +63,20 @@ const badgeColors: Record<string, 'orange' | 'green' | 'red'> = {
       <div class="mb-4 flex items-center justify-between sm:mb-5">
         <div class="flex items-center gap-2">
           <div
-            class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-100 dark:bg-primary-900/50"
+            class="bg-primary-100 dark:bg-primary-900/50 flex h-8 w-8 items-center justify-center rounded-lg"
           >
-            <UIcon name="i-heroicons-chart-pie" class="h-4 w-4 text-primary-600 dark:text-primary-400" />
+            <UIcon
+              name="i-heroicons-chart-pie"
+              class="text-primary-600 dark:text-primary-400 h-4 w-4"
+            />
           </div>
           <h3 class="text-base font-semibold text-gray-900 sm:text-lg dark:text-white">
-            Budget 2026
+            Comprendre le Budget 2026 du Sénégal
           </h3>
         </div>
         <NuxtLink
           to="/budget-senegal/dashboard"
-          class="group hidden items-center gap-1 text-sm font-medium text-primary-600 hover:text-primary-700 sm:inline-flex dark:text-primary-400 dark:hover:text-primary-300"
+          class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 group hidden items-center gap-1 text-sm font-medium sm:inline-flex"
         >
           Explorer
           <UIcon
@@ -101,7 +104,12 @@ const badgeColors: Record<string, 'orange' | 'green' | 'red'> = {
             >
               {{ stat.value }}
             </span>
-            <UBadge :color="badgeColors[stat.color]" variant="subtle" size="xs" class="hidden sm:inline-flex">
+            <UBadge
+              :color="badgeColors[stat.color]"
+              variant="subtle"
+              size="xs"
+              class="hidden sm:inline-flex"
+            >
               {{ stat.change }}
             </UBadge>
           </div>
@@ -115,7 +123,7 @@ const badgeColors: Record<string, 'orange' | 'green' | 'red'> = {
       <!-- Mobile CTA -->
       <NuxtLink
         to="/budget-senegal/dashboard"
-        class="mt-3 flex items-center justify-center gap-2 rounded-xl bg-gray-100 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 sm:hidden dark:bg-gray-700/50 dark:text-gray-300 dark:hover:bg-gray-700"
+        class="bg-primary-50 mt-3 flex items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 sm:hidden dark:bg-gray-700/50 dark:text-gray-300 dark:hover:bg-gray-700"
       >
         Voir le tableau de bord
         <UIcon name="i-heroicons-arrow-right" class="h-4 w-4" />

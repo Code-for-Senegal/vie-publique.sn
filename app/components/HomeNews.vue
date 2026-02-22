@@ -52,7 +52,7 @@ const {
 <template>
   <div class="my-4">
     <h2 class="mb-4 text-center text-xl font-semibold text-gray-800 dark:text-white">
-      À la une
+      Derniers articles et actualités
     </h2>
 
     <div v-if="loading" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

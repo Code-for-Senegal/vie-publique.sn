@@ -50,7 +50,7 @@ export default defineCachedEventHandler(
     }
   },
   {
-    maxAge: 60 * 60 * 6, // 6 heures
+    maxAge: 60 * 60 * 1, // 1 heure
     name: 'documents-years',
     getKey: (event) => {
       const query = getQuery(event);
