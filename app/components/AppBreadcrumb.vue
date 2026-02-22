@@ -6,7 +6,7 @@
   >
     <ULink
       :to="parentItem?.to || '/'"
-      class="inline-flex items-center gap-1.5 py-2 pr-3 text-sm text-gray-600 active:text-gray-900 transition-colors"
+      class="inline-flex items-center gap-1.5 py-2 pr-3 text-sm text-gray-600 active:text-gray-900 transition-colors dark:text-gray-400 dark:active:text-gray-100"
     >
       <UIcon
         name="i-heroicons-chevron-left"
@@ -25,7 +25,7 @@
       <li>
         <ULink
           to="/"
-          class="inline-flex items-center justify-center p-1 text-gray-400 hover:text-gray-600 rounded transition-colors"
+          class="inline-flex items-center justify-center p-1 text-gray-400 hover:text-gray-600 rounded transition-colors dark:text-gray-500 dark:hover:text-gray-300"
           aria-label="Accueil"
         >
           <UIcon name="i-heroicons-home" class="size-4" />
@@ -40,13 +40,13 @@
       >
         <UIcon
           name="i-heroicons-chevron-right"
-          class="size-3.5 text-gray-300 flex-shrink-0"
+          class="size-3.5 text-gray-300 flex-shrink-0 dark:text-gray-600"
         />
 
         <ULink
           v-if="item.to && index < resolvedItems.length - 1"
           :to="item.to"
-          class="text-gray-500 hover:text-gray-700 transition-colors truncate max-w-[200px]"
+          class="text-gray-500 hover:text-gray-700 transition-colors truncate max-w-[200px] dark:text-gray-400 dark:hover:text-gray-200"
           :title="item.label"
         >
           {{ item.label }}
@@ -54,7 +54,7 @@
 
         <span
           v-else
-          class="text-gray-900 font-medium truncate max-w-[250px]"
+          class="text-gray-900 font-medium truncate max-w-[250px] dark:text-white"
           :title="item.label"
           aria-current="page"
         >
