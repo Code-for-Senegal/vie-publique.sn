@@ -10,9 +10,8 @@ PORT = "3000"
 cmds = ["npm ci"]
 
 [phases.build]
-# SIGTERM (15) instead of SIGKILL (9) allows graceful shutdown
-# Nuxt build may hang due to open handles (PWA/Firebase) but still generates complete output
-cmds = ["timeout --signal=TERM 300 npm run build || test -d .output/server"]
+# Let npm run build complete naturally - Nuxt will exit after "Build complete!"
+cmds = ["npm run build"]
 
 [start]
 # HOST=0.0.0.0 ensures Nitro listens on all interfaces (required in Docker)
