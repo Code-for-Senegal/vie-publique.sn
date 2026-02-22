@@ -16,7 +16,7 @@ aptPkgs = ["curl", "wget"]
 cmds = ["npm ci"]
 
 [phases.build]
-# Let npm run build complete naturally - Nuxt will exit after "Build complete!"
+# Build completes normally - nuxt.config.ts close hook handles process.exit()
 cmds = ["npm run build"]
 
 [start]

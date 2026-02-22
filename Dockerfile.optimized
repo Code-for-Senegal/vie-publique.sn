@@ -43,6 +43,7 @@ ENV NITRO_PRESET=node-server
 ENV NITRO_PRERENDER_ROUTES=false
 
 # Build de l'application
+# nuxt.config.ts close hook forces process.exit(0) after build
 RUN npm run build
 
 # === STAGE: Production ===
