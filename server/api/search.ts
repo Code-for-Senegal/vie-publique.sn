@@ -39,19 +39,52 @@ export default defineEventHandler(async (event) => {
     const searchUrl = `${typesenseUrl}/collections/${typesenseCollection}/documents/search`;
 
     // Détection du type de recherche pour adapter la stratégie
-    const isPhrasalSearch = searchTerm.includes('"') || searchTerm.split(' ').length > 2;
-    const isShortQuery = searchTerm.split(' ').length <= 2;
+    const words = searchTerm.split(' ').filter((w) => w.length > 0);
+    const wordCount = words.length;
+    const hasQuotes = searchTerm.includes('"');
+    const isShortQuery = wordCount <= 2;
+    // Filtrer les mots vides français pour mieux évaluer la vraie complexité de la requête
+    const stopWords = new Set([
+      'de',
+      'du',
+      'la',
+      'le',
+      'les',
+      'des',
+      'un',
+      'une',
+      'et',
+      'en',
+      'au',
+      'aux',
+      'à',
+      'l',
+    ]);
+    const significantWords = words.filter((w) => !stopWords.has(w.toLowerCase()));
+    const isPhrasalSearch = hasQuotes || wordCount > 2;
 
     // Adapter les poids selon le type de recherche
-    // Pour les recherches courtes ou de titres (ex: "loi de finance"), prioriser fortement le titre
-    // Pour les recherches longues ou phrasales, équilibrer titre et contenu
-    const queryWeights = isShortQuery ? '100,10,5' : '50,20,10';
+    // Pour les recherches courtes (1-2 mots significatifs), prioriser le titre
+    // Pour les phrases/requêtes longues, augmenter le poids du contenu car les documents
+    // les plus pertinents ont souvent la phrase dans leur contenu (ex: JO avec "code de la route")
+    let queryWeights: string;
+    if (isShortQuery && significantWords.length <= 2) {
+      queryWeights = '100,20,5'; // Requêtes courtes : titre dominant
+    } else if (isPhrasalSearch || significantWords.length >= 3) {
+      queryWeights = '60,50,10'; // Phrases/expressions : contenu presque aussi important que titre
+    } else {
+      queryWeights = '80,30,5'; // Par défaut
+    }
 
     const searchParams: any = {
       q: searchTerm,
       query_by: 'title,content_text,tags',
       query_by_weights: queryWeights, // Poids adaptés selon le type de recherche
-      sort_by: '_text_match:desc,date_published:desc', // Tri par pertinence puis par date
+      sort_by: '_text_match:desc,priority:desc,date_published:desc', // Tri par pertinence, puis priorité (documents > news), puis date
+      // max_score (défaut) : utilise le MEILLEUR score réel parmi tous les champs
+      // Contrairement à max_weight qui privilégie le champ avec le poids le plus élevé
+      // même si le match y est faible (ex: "la" dans un titre → poids titre élevé)
+      text_match_type: 'max_score',
       highlight_fields: 'title,content_text', // Highlight sur le texte brut
       highlight_start_tag: '<mark>',
       highlight_end_tag: '</mark>',
@@ -59,11 +92,13 @@ export default defineEventHandler(async (event) => {
       per_page: limit,
       page: page,
       prioritize_exact_match: true, // Prioriser les correspondances exactes
+      prioritize_token_position: false, // Désactivé : les stop words ("la", "de") matchent tôt dans les titres et biaisent le scoring
+      prioritize_num_matching_fields: false, // Désactivé : les stop words matchent dans tous les champs et gonflent artificiellement fields_matched
       typo_tokens_threshold: isPhrasalSearch ? 3 : 2, // Plus de tolérance pour les phrases longues
-      drop_tokens_threshold: 2, // Ne pas ignorer les mots courts
+      drop_tokens_threshold: isPhrasalSearch ? 1 : 2, // Plus strict pour les phrases (ne pas ignorer de mots)
       // Optimisation : ne récupérer que les champs nécessaires
       include_fields: 'id,title,content_text,type,category,date_published,cover_image,slug',
-      exclude_fields: 'content_html,raw_content,metadata', // Exclure les champs lourds
+      exclude_fields: 'content_html', // Exclure les champs lourds (ne lister que les champs existants dans le schéma)
       facet_by: 'type', // Activer les facettes pour compter par type
       max_facet_values: 10,
     };
@@ -94,7 +129,7 @@ export default defineEventHandler(async (event) => {
       }
     }
 
-    const response = await $fetch(searchUrl, {
+    const response: any = await $fetch(searchUrl, {
       method: 'GET',
       headers: {
         'x-typesense-api-key': typesenseApiKey,
@@ -161,12 +196,18 @@ export default defineEventHandler(async (event) => {
       page: page,
       typeCounts: typeCounts, // Ajouter les comptages par type
     };
-  } catch (error) {
-    console.error('Erreur lors de la recherche Typesense:', error);
+  } catch (error: any) {
+    const statusCode = error?.statusCode || error?.status || error?.response?.status || 500;
+    const typesenseMessage = error?.data?.message || error?.message || 'Erreur inconnue';
+    console.error('Erreur lors de la recherche Typesense:', {
+      statusCode,
+      message: typesenseMessage,
+      details: error?.data || error?.response?._data,
+    });
 
     throw createError({
-      statusCode: error.status || 500,
-      message: 'Erreur lors de la recherche',
+      statusCode,
+      message: `Erreur lors de la recherche: ${typesenseMessage}`,
       cause: process.env.NODE_ENV === 'development' ? error : undefined,
     });
   }
