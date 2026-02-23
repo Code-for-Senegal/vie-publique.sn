@@ -31,21 +31,23 @@ const { partners, loading, error } = usePartners();
     <!-- Liste des partenaires -->
     <div
       v-else-if="partners.length > 0"
-      class="mt-8 flex flex-nowrap justify-start gap-4 overflow-x-auto px-4 pb-4 md:grid md:grid-cols-3 md:justify-items-center md:px-0 md:pb-0"
+      class="mt-8 flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8"
       aria-label="Logos des partenaires"
     >
       <NuxtLink
         v-for="partner in partners"
         :key="partner.id"
         to="#"
-        class="partner-card flex w-48 flex-shrink-0 transform flex-col items-center rounded-lg bg-white p-2 shadow-md transition-shadow hover:scale-105 hover:shadow-lg"
+        class="partner-card flex h-24 w-40 flex-col items-center justify-center rounded-lg bg-white p-2 shadow-sm transition-all hover:shadow-md md:h-28 md:w-48"
       >
-        <img
-          :src="useCmsImage(partner.logo, '50')"
-          :alt="`Logo de ${partner.name}`"
-          class="partner-logo h-24 w-auto object-contain transition-transform duration-300 hover:scale-110"
-        />
-        <span class="sr-only mt-4 text-center text-sm font-medium text-gray-700">
+        <div class="flex h-16 w-full items-center justify-center p-2">
+          <img
+            :src="useCmsImage(partner.logo, '80')"
+            :alt="`Logo de ${partner.name}`"
+            class="partner-logo max-h-full max-w-full object-contain grayscale transition-all duration-300 hover:scale-110 hover:grayscale-0"
+          />
+        </div>
+        <span class="sr-only mt-2 text-center text-xs font-medium text-gray-700">
           {{ partner.name }}
         </span>
       </NuxtLink>
@@ -67,12 +69,5 @@ const { partners, loading, error } = usePartners();
   transition: transform 0.3s ease;
 }
 
-.partner-card:hover .partner-logo {
-  transform: scale(1.1);
-}
-
-.partner-card:hover {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-  transform: scale(1.05);
-}
+/* Suppression des effets de survol redondants gérés par Tailwind */
 </style>
