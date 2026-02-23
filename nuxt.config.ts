@@ -153,7 +153,7 @@ export default defineNuxtConfig({
       headers: { 'cache-control': 'no-cache' },
     },
     // Redirections SEO
-    '/budget': { redirect: { to: '/budget-senegal', statusCode: 301 }, prerender: true },
+    '/budget/**': { redirect: { to: '/budget-senegal', statusCode: 301 }, prerender: true },
     '/publications/**': { redirect: { to: '/actualites', statusCode: 301 }, prerender: true },
     // Redirections des anciennes URLs anglaises vers françaises
     '/about/privacy': { redirect: '/a-propos/confidentialite', prerender: true },
