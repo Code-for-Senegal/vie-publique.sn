@@ -100,27 +100,25 @@ useHead({
 </script>
 
 <template>
-  <div class="min-h-screen pb-16">
-    <AppBreadcrumb :items="[
-      { label: 'Assemblée nationale' }
-    ]" />
+  <div class="min-h-screen bg-gray-50 pb-16 dark:bg-gray-900">
+    <div class="container mx-auto px-4 pt-4">
+      <AppBreadcrumb :items="[
+        { label: 'Assemblée nationale' }
+      ]" />
+    </div>
 
-    <!-- En-tête compacte -->
-    <header class="border-b bg-white dark:bg-transparent">
-      <div class="container mx-auto py-4 sm:px-4">
-        <div class="flex items-center justify-between">
-          <div class="prose prose-sm sm:prose dark:prose-invert">
-            <h1 class="">Assemblée nationale</h1>
-          </div>
-        </div>
-        <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-          15ème législature 2024-2029
-        </p>
-      </div>
+    <!-- En-tête -->
+    <header class="container mx-auto px-4 py-4">
+      <h1 class="text-xl font-bold text-gray-900 md:text-2xl dark:text-white">
+        Assemblée nationale
+      </h1>
+      <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+        15ème législature 2024-2029
+      </p>
     </header>
 
     <!-- Main Content -->
-    <main class="container mx-auto sm:px-4">
+    <main class="container mx-auto px-4">
       <!-- Navigation Cards -->
       <div class="mb-2 grid grid-cols-2 gap-2 lg:grid-cols-3">
         <NuxtLink

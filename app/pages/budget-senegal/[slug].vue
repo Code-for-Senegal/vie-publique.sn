@@ -81,50 +81,75 @@ useSchemaOrg([
 </script>
 
 <template>
-  <div class="container mx-auto min-h-screen py-2 pb-16 md:px-8">
-    <AppBreadcrumb
-      :items="[
-        { label: 'Budget', to: '/budget-senegal' },
-        { label: entity?.name || 'Détail' }
-      ]"
-    />
-
-    <!-- État de chargement -->
-    <div v-if="loading" class="flex justify-center py-12">
-      <div class="text-center">
-        <div
-          class="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-          role="status"
-        >
-          <span
-            class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
-            >Chargement...</span
-          >
-        </div>
-        <p class="mt-4 text-gray-600 dark:text-gray-400">Chargement des données budgétaires...</p>
-      </div>
+  <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-900">
+    <!-- Breadcrumb -->
+    <div class="container mx-auto px-4 pt-4">
+      <AppBreadcrumb
+        :items="[
+          { label: 'Budget', to: '/budget-senegal' },
+          { label: entity?.name || 'Détail' }
+        ]"
+      />
     </div>
 
-    <!-- Erreur -->
-    <UAlert
-      v-else-if="error"
-      icon="i-heroicons-exclamation-triangle"
-      color="red"
-      title="Erreur de chargement"
-      description="Impossible de charger les données budgétaires de cette entité. Veuillez réessayer plus tard."
-      class="mb-6"
-    />
+    <!-- Sticky Header mobile -->
+    <header class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm md:relative md:border-0 md:bg-transparent md:backdrop-blur-none dark:border-gray-800 dark:bg-gray-900/95">
+      <div class="container mx-auto px-4 py-3 md:py-6">
+        <div class="flex items-center gap-3">
+          <NuxtLink
+            to="/budget-senegal"
+            class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 md:hidden dark:bg-gray-800"
+          >
+            <UIcon name="i-heroicons-arrow-left" class="h-4 w-4 text-gray-600 dark:text-gray-400" />
+          </NuxtLink>
+          <div class="min-w-0 flex-1">
+            <h1 v-if="entity" class="truncate text-sm font-semibold text-gray-900 md:text-xl dark:text-white">
+              {{ entity.name }}
+            </h1>
+            <USkeleton v-else class="h-5 w-48" />
+            <p v-if="latestYear" class="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+              Budget {{ latestYear.year }}
+            </p>
+          </div>
+          <SocialShare v-if="entity" :title="entity.name" :url="url" />
+        </div>
+      </div>
+    </header>
 
-    <!-- Contenu principal -->
-    <div v-else-if="entity">
-      <!-- En-tête avec nom de l'entité -->
-      <div class="prose prose-sm mx-auto my-4 sm:prose">
-        <h1 class="text-center dark:text-white">{{ entity.name }}</h1>
+    <main class="container mx-auto px-4 py-4">
+      <!-- Loading State -->
+      <div v-if="loading" class="space-y-4">
+        <div class="rounded-2xl bg-white p-6 dark:bg-gray-800">
+          <div class="flex flex-col items-center gap-3">
+            <USkeleton class="h-6 w-32" />
+            <USkeleton class="h-10 w-48" />
+            <USkeleton class="h-4 w-24" />
+          </div>
+        </div>
+        <div class="rounded-2xl bg-white p-4 dark:bg-gray-800">
+          <USkeleton class="mb-4 h-5 w-40" />
+          <USkeleton class="h-48 w-full" />
+        </div>
       </div>
 
-      <!-- Vue d'ensemble du budget -->
-      <div class="mb-6 space-y-6">
-        <!-- Budget total -->
+      <!-- Error State -->
+      <div v-else-if="error" class="rounded-2xl bg-red-50 p-6 text-center dark:bg-red-900/20">
+        <UIcon name="i-heroicons-exclamation-triangle" class="mx-auto mb-3 h-10 w-10 text-red-500" />
+        <h3 class="font-semibold text-red-800 dark:text-red-200">Erreur de chargement</h3>
+        <p class="mt-1 text-sm text-red-600 dark:text-red-300">
+          Impossible de charger les données budgétaires
+        </p>
+        <NuxtLink
+          to="/budget-senegal"
+          class="mt-4 inline-block text-sm text-red-600 underline dark:text-red-400"
+        >
+          Retour au budget
+        </NuxtLink>
+      </div>
+
+      <!-- Content -->
+      <div v-else-if="entity" class="space-y-4">
+        <!-- Budget Overview Card -->
         <BudgetEntityOverview
           :entity-name="entity.name"
           :current-budget="currentBudget"
@@ -132,54 +157,53 @@ useSchemaOrg([
           :variation="budgetVariation"
         />
 
-        <!-- Graphique d'évolution -->
-        <div
+        <!-- Evolution Chart -->
+        <section
           v-if="evolutionChartData.length > 0"
-          class="rounded-xl bg-white p-6 shadow-sm dark:bg-gray-800"
+          class="rounded-2xl bg-white p-4 ring-1 ring-gray-100 md:p-6 dark:bg-gray-800 dark:ring-gray-700"
         >
-          <div class="mb-2 text-center font-bold text-gray-900 sm:text-xl dark:text-white">
-            Évolution du budget par version budgétaire
-          </div>
+          <h2 class="mb-4 text-sm font-bold text-gray-900 md:text-base dark:text-white">
+            Évolution du budget
+          </h2>
           <BudgetEntityEvolutionChart :data="evolutionChartData" />
-        </div>
+        </section>
 
-        <!-- Répartition par programmes -->
-        <div
+        <!-- Programs Table -->
+        <section
           v-if="formattedPrograms.length > 0"
-          class="rounded-xl bg-white p-2 shadow-sm sm:p-6 dark:bg-gray-800"
+          class="rounded-2xl bg-white p-4 ring-1 ring-gray-100 md:p-6 dark:bg-gray-800 dark:ring-gray-700"
         >
-          <div class="font-boldtext-gray-900 mb-2 text-center sm:text-xl dark:text-white">
-            Répartition du budget par programmes ({{ latestYear?.year }})
-          </div>
-
+          <h2 class="mb-4 text-sm font-bold text-gray-900 md:text-base dark:text-white">
+            Répartition par programmes
+            <span class="ml-1 text-emerald-600 dark:text-emerald-400">({{ latestYear?.year }})</span>
+          </h2>
           <BudgetEntityProgramsTable :programs="formattedPrograms" />
-        </div>
+        </section>
 
-        <!-- Message si aucun programme -->
-        <div v-else class="rounded-xl bg-white p-6 shadow-sm dark:bg-gray-800">
-          <div class="py-6 text-center">
-            <UIcon
-              name="i-heroicons-document-chart-bar"
-              class="mx-auto mb-4 h-16 w-16 text-gray-400"
-            />
-            <p class="text-gray-600 dark:text-gray-400">Programme budgétaire non renseigné</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Lien vers la page annuaire en fin de page -->
-      <div class="mt-8 hidden text-center">
-        <UButton
-          v-if="entity.public_slug"
-          :to="`/etat-senegal/annuaire/${entity.public_slug}`"
-          variant="outline"
-          color="primary"
-          icon="i-heroicons-building-office-2"
-          size="lg"
+        <!-- Empty Programs -->
+        <div
+          v-else
+          class="rounded-2xl bg-white p-8 text-center ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
         >
-          Voir la fiche complète de cette entité
-        </UButton>
+          <div class="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700">
+            <UIcon name="i-heroicons-document-chart-bar" class="h-7 w-7 text-gray-400" />
+          </div>
+          <p class="text-sm text-gray-500 dark:text-gray-400">Programme budgétaire non renseigné</p>
+        </div>
+
+        <!-- Entity Link (hidden for now) -->
+        <div v-if="entity.public_slug" class="hidden pt-4 text-center">
+          <NuxtLink
+            :to="`/etat-senegal/annuaire/${entity.public_slug}`"
+            class="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700 transition-colors hover:bg-emerald-100 dark:bg-emerald-900/20 dark:text-emerald-400"
+          >
+            <UIcon name="i-heroicons-building-office-2" class="h-4 w-4" />
+            Voir la fiche complète
+          </NuxtLink>
+        </div>
       </div>
-    </div>
+    </main>
+
+    <ScrollToTopButton />
   </div>
 </template>

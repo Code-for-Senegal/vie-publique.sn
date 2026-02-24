@@ -121,21 +121,32 @@ export const useAssemblyQuestions = (options: AssemblyQuestionsOptions = {}) => 
   });
 
   // Récupération des statistiques des députés les plus actifs (optionnel)
-  // Note: useFetch doit toujours être appelé (pas conditionnellement) pour respecter les règles des hooks
-  const statsQuery = computed(() => ({
-    includeStats: options.includeStats ? 'true' : 'false',
-    topDeputiesLimit: options.topDeputiesLimit || 4,
-    limit: 1, // On ne veut que les stats, pas les questions
-  }));
+  const topDeputiesLimit = options.topDeputiesLimit || 4;
+  const shouldFetchStats = options.includeStats === true;
 
   const {
     data: statsData,
     status: statsStatus,
+    refresh: refreshStats,
   } = useFetch('/api/assembly/questions', {
     key: 'assembly-questions-top-deputies',
-    query: statsQuery,
-    immediate: !!options.includeStats, // Ne fetch que si includeStats est true
+    query: {
+      includeStats: 'true',
+      topDeputiesLimit,
+      limit: 1,
+    },
+    default: () => ({ topDeputies: [] }),
   });
+
+  // Refetch les stats à chaque montage côté client (SPA navigation)
+  if (import.meta.client && shouldFetchStats) {
+    onMounted(() => {
+      // Si les données sont vides, forcer un refresh
+      if (!statsData.value?.topDeputies?.length) {
+        refreshStats();
+      }
+    });
+  }
 
   const topDeputies = computed<TopDeputy[]>(() => statsData.value?.topDeputies || []);
   const topDeputiesLoading = computed(() => statsStatus.value === 'pending');

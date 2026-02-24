@@ -1,12 +1,159 @@
 /* assets/css/main.css */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
+/* ========================================
+   DARK MODE "DIM" - Twitter/X Inspired
+   Palette bleu-noir élégante
+   ======================================== */
+
+:root {
+  /* Light mode defaults */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f9fafb;
+  --color-bg-card: #ffffff;
+  --color-border: #e5e7eb;
+  --color-text-primary: #111827;
+  --color-text-secondary: #6b7280;
+}
+
+/* Dark Mode "Dim" - Bleu-noir profond */
+.dark {
+  /* Backgrounds - tons bleu-nuit */
+  --color-bg-primary: #15202B;
+  --color-bg-secondary: #192734;
+  --color-bg-card: #1E2732;
+  --color-bg-elevated: #22303C;
+  --color-bg-hover: #2C3640;
+  
+  /* Borders & Dividers */
+  --color-border: #38444D;
+  --color-border-light: #2F3336;
+  
+  /* Text */
+  --color-text-primary: #E7E9EA;
+  --color-text-secondary: #8899A6;
+  --color-text-muted: #6E767D;
+  
+  /* Accent blue (Twitter blue) */
+  --color-accent: #1D9BF0;
+  --color-accent-hover: #1A8CD8;
+}
+
+/* Override Tailwind dark mode colors with Dim palette */
+.dark body,
+.dark .bg-gray-900 {
+  background-color: #15202B !important;
+}
+
+.dark .bg-gray-800,
+.dark .dark\:bg-gray-800 {
+  background-color: #1E2732 !important;
+}
+
+.dark .bg-gray-700,
+.dark .dark\:bg-gray-700 {
+  background-color: #22303C !important;
+}
+
+.dark .bg-gray-50,
+.dark .dark\:bg-gray-900\/95 {
+  background-color: rgba(21, 32, 43, 0.95) !important;
+}
+
+/* Ring/Border colors */
+.dark .ring-gray-700,
+.dark .dark\:ring-gray-700 {
+  --tw-ring-color: #38444D !important;
+}
+
+.dark .border-gray-700,
+.dark .dark\:border-gray-700,
+.dark .border-gray-800,
+.dark .dark\:border-gray-800 {
+  border-color: #38444D !important;
+}
+
+/* Text colors */
+.dark .text-white,
+.dark .dark\:text-white {
+  color: #E7E9EA !important;
+}
+
+.dark .text-gray-400,
+.dark .dark\:text-gray-400 {
+  color: #8899A6 !important;
+}
+
+.dark .text-gray-500,
+.dark .dark\:text-gray-500 {
+  color: #6E767D !important;
+}
+
+/* Subtle backgrounds for cards/sections */
+.dark .dark\:bg-gray-700\/50 {
+  background-color: rgba(34, 48, 60, 0.5) !important;
+}
+
+/* Inputs & Forms */
+.dark input,
+.dark select,
+.dark textarea {
+  background-color: #22303C;
+  border-color: #38444D;
+  color: #E7E9EA;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #6E767D;
+}
+
+.dark input:focus,
+.dark select:focus,
+.dark textarea:focus {
+  border-color: #1D9BF0;
+  box-shadow: 0 0 0 2px rgba(29, 155, 240, 0.2);
+}
+
+/* Skeleton loaders */
+.dark [class*="USkeleton"],
+.dark .animate-pulse {
+  background-color: #22303C !important;
+}
+
+/* Scrollbar styling for dark mode */
+.dark ::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #15202B;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #38444D;
+  border-radius: 6px;
+  border: 3px solid #15202B;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #536471;
+}
+
+/* ======================================== */
+
 .custom-shadow,
 .custom-shadow input,
 .custom-shadow button,
 .custom-shadow select {
   box-shadow: 0 2px 4px #0000001a;
   border-radius: 0px;
+}
+
+/* Dark mode custom shadow */
+.dark .custom-shadow {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .bloc-result {

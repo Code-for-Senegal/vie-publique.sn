@@ -195,96 +195,129 @@ const menuCategories = [
 ];
 
 // Fonction pour obtenir la couleur de fond de l'icône
-const getIconBgColor = (color: string) => {
+const getIconBgColor = (color: string, isDark = false) => {
   const colorMap: Record<string, string> = {
-    blue: "bg-blue-100",
-    green: "bg-emerald-100",
-    red: "bg-rose-100",
-    indigo: "bg-indigo-100",
-    amber: "bg-amber-100",
+    blue: "bg-blue-100 dark:bg-blue-900/30",
+    green: "bg-emerald-100 dark:bg-emerald-900/30",
+    red: "bg-rose-100 dark:bg-rose-900/30",
+    indigo: "bg-indigo-100 dark:bg-indigo-900/30",
+    amber: "bg-amber-100 dark:bg-amber-900/30",
   };
-  return colorMap[color] || "bg-gray-100";
+  return colorMap[color] || "bg-gray-100 dark:bg-gray-700";
 };
 
 // Fonction pour obtenir la couleur de l'icône
 const getIconColor = (color: string) => {
   const colorMap: Record<string, string> = {
-    blue: "text-blue-600",
-    green: "text-emerald-600",
-    red: "text-rose-600",
-    indigo: "text-indigo-600",
-    amber: "text-amber-600",
+    blue: "text-blue-600 dark:text-blue-400",
+    green: "text-emerald-600 dark:text-emerald-400",
+    red: "text-rose-600 dark:text-rose-400",
+    indigo: "text-indigo-600 dark:text-indigo-400",
+    amber: "text-amber-600 dark:text-amber-400",
   };
-  return colorMap[color] || "text-gray-600";
+  return colorMap[color] || "text-gray-600 dark:text-gray-400";
 };
 </script>
 
 <template>
-  <div class="container mx-auto min-h-screen pb-16">
-    <AppBreadcrumb
-      :items="[
-        { label: 'Annuaires' },
-      ]"
-    />
-
-    <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center dark:text-white">Annuaires</h1>
+  <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-900">
+    <!-- Breadcrumb -->
+    <div class="container mx-auto px-4 pt-4">
+      <AppBreadcrumb :items="[{ label: 'Annuaires' }]" />
     </div>
 
-    <div class="mt-2 grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2">
-      <NuxtLink
-        v-for="menu in menuCategories"
-        :key="menu.title"
-        :to="menu.to"
-        class="no-underline"
-      >
-        <UCard
-          :ui="{
-            base: 'transition-all duration-300 h-full',
-            body: {
-              base: 'p-0 h-full',
-              padding: '',
-            },
-            ring: '',
-            divide: '',
-          }"
-          class="hover:scale-102 overflow-hidden shadow-md transition-all hover:shadow-xl"
-        >
-          <div class="flex h-full">
-            <!-- Partie gauche avec l'icône sur fond coloré -->
-            <div
-              :class="[
-                getIconBgColor(menu.color),
-                'flex items-center justify-center',
-                'w-16 py-4 sm:w-20 sm:py-6',
-              ]"
-            >
-              <div class="flex flex-col items-center">
-                <UIcon
-                  :name="menu.icon"
-                  :class="[getIconColor(menu.color), 'h-10 w-10']"
-                />
-              </div>
-            </div>
-
-            <!-- Partie droite avec le texte -->
-            <div class="flex flex-1 flex-col justify-center p-4">
-              <h2 class="text-base font-bold text-gray-800 dark:text-gray-200">
-                {{ menu.title }}
-              </h2>
-              <p class="text-xs text-gray-600 sm:text-sm dark:text-gray-400">
-                {{ menu.description }}
-              </p>
-            </div>
+    <!-- Sticky Header mobile -->
+    <header class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm md:relative md:border-0 md:bg-transparent md:backdrop-blur-none dark:border-gray-800 dark:bg-gray-900/95">
+      <div class="container mx-auto px-4 py-3 md:py-6">
+        <div class="flex items-center gap-3">
+          <NuxtLink
+            to="/"
+            class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 md:hidden dark:bg-gray-800"
+          >
+            <UIcon name="i-heroicons-arrow-left" class="h-4 w-4 text-gray-600 dark:text-gray-400" />
+          </NuxtLink>
+          <div class="min-w-0 flex-1">
+            <h1 class="text-lg font-bold text-gray-900 md:text-2xl dark:text-white">
+              Annuaires
+            </h1>
+            <p class="hidden text-sm text-gray-500 md:block dark:text-gray-400">
+              Accédez aux différents annuaires du Sénégal
+            </p>
           </div>
-        </UCard>
-      </NuxtLink>
-    </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-4">
+      <!-- Intro mobile -->
+      <p class="mb-4 text-sm text-gray-600 md:hidden dark:text-gray-400">
+        Nominations, médias, députés et plus encore
+      </p>
+
+      <!-- Grid -->
+      <div class="grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-3">
+        <NuxtLink
+          v-for="menu in menuCategories"
+          :key="menu.title"
+          :to="menu.to"
+          class="flex items-center gap-4 rounded-xl bg-white p-4 ring-1 ring-gray-100 transition-all active:scale-[0.98] md:hover:ring-gray-200 dark:bg-gray-800 dark:ring-gray-700 dark:md:hover:ring-gray-600"
+        >
+          <!-- Icon -->
+          <div
+            :class="[
+              getIconBgColor(menu.color),
+              'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl md:h-14 md:w-14'
+            ]"
+          >
+            <UIcon
+              :name="menu.icon"
+              :class="[getIconColor(menu.color), 'h-6 w-6 md:h-7 md:w-7']"
+            />
+          </div>
+
+          <!-- Content -->
+          <div class="min-w-0 flex-1">
+            <h2 class="text-sm font-semibold text-gray-900 md:text-base dark:text-white">
+              {{ menu.title }}
+            </h2>
+            <p class="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+              {{ menu.description }}
+            </p>
+          </div>
+
+          <!-- Arrow -->
+          <UIcon
+            name="i-heroicons-chevron-right"
+            class="h-5 w-5 shrink-0 text-gray-300 dark:text-gray-600"
+          />
+        </NuxtLink>
+      </div>
+
+      <!-- Stats section -->
+      <div class="mt-6 rounded-2xl bg-gradient-to-br from-sky-500 to-sky-600 p-4 text-white md:p-6">
+        <h3 class="mb-3 text-sm font-semibold md:text-base">À propos des annuaires</h3>
+        <p class="text-xs leading-relaxed text-white/90 md:text-sm">
+          Les annuaires de Vie Publique Sénégal regroupent les informations officielles 
+          sur les nominations gouvernementales, les représentants élus, les médias reconnus 
+          et les sites web des institutions publiques.
+        </p>
+        <div class="mt-4 grid grid-cols-3 gap-2">
+          <div class="rounded-lg bg-white/10 p-2 text-center">
+            <div class="text-lg font-bold md:text-xl">165</div>
+            <div class="text-[10px] text-white/80 md:text-xs">Députés</div>
+          </div>
+          <div class="rounded-lg bg-white/10 p-2 text-center">
+            <div class="text-lg font-bold md:text-xl">30+</div>
+            <div class="text-[10px] text-white/80 md:text-xs">Ministères</div>
+          </div>
+          <div class="rounded-lg bg-white/10 p-2 text-center">
+            <div class="text-lg font-bold md:text-xl">100+</div>
+            <div class="text-[10px] text-white/80 md:text-xs">Sites web</div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <ScrollToTopButton />
   </div>
 </template>
-
-<style scoped>
-.hover\:scale-102:hover {
-  transform: scale(1.02);
-}
-</style>
