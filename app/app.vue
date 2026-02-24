@@ -7,7 +7,9 @@ const config = useRuntimeConfig();
 
 // Push Notifications
 const { initState, setupForegroundHandler, validateAndRefreshToken } = useNotifications();
-const isProduction = config.public.siteUrl === 'https://vie-publique.sn';
+const isProduction =
+  config.public.siteUrl === 'https://vie-publique.sn' ||
+  config.public.siteUrl === 'https://www.vie-publique.sn';
 
 // Bloquer l'indexation en environnement de test
 if (!isProduction) {
