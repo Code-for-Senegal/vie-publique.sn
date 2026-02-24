@@ -172,9 +172,6 @@ export default defineCachedEventHandler(
   {
     maxAge: 60 * 60, // 1 heure
     name: "assembly-questions",
-    getKey: (event) => {
-      const query = getQuery(event);
-      return `assembly-questions-${JSON.stringify(query)}`;
-    },
+    getKey: (event) => buildCacheKey("assembly-questions", getQuery(event)),
   },
 );

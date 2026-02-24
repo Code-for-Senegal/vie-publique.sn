@@ -119,8 +119,7 @@ export default defineCachedEventHandler(
     name: "diaspora-country-details",
     getKey: (event) => {
       const country = getRouterParam(event, "country");
-      const query = getQuery(event);
-      return `diaspora-details-${country}-${JSON.stringify(query)}`;
+      return buildCacheKey(`diaspora-country-details-${country}`, getQuery(event));
     },
   },
 );

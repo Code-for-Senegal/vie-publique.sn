@@ -113,9 +113,6 @@ export default defineCachedEventHandler(
   {
     maxAge: 60 * 60, // Cache de 1 heure
     name: "election-map-national",
-    getKey: (event) => {
-      const query = getQuery(event);
-      return `election-map-national-${JSON.stringify(query)}`;
-    },
+    getKey: (event) => buildCacheKey("election-map-national", getQuery(event)),
   }
 );

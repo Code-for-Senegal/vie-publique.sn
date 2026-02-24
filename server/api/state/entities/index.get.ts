@@ -106,9 +106,6 @@ export default defineCachedEventHandler(
   {
     maxAge: 60 * 60, // Cache 1 heure
     name: 'state-entities-list',
-    getKey: (event) => {
-      const query = getQuery(event);
-      return `state-entities-${JSON.stringify(query)}`;
-    },
+    getKey: (event) => buildCacheKey("state-entities-list", getQuery(event)),
   },
 );

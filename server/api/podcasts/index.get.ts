@@ -120,9 +120,6 @@ export default defineCachedEventHandler(
   {
     maxAge: 60 * 5,
     name: "podcasts",
-    getKey: (event) => {
-      const query = getQuery(event);
-      return `podcasts-${JSON.stringify(query)}`;
-    },
+    getKey: (event) => buildCacheKey("podcasts", getQuery(event)),
   },
 );

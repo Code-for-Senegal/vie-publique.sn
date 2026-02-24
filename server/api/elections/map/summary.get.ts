@@ -111,9 +111,6 @@ export default defineCachedEventHandler(
   {
     maxAge: 60 * 60, // Cache de 1 heure
     name: 'election-carte-summary',
-    getKey: (event) => {
-      const query = getQuery(event);
-      return `election-carte-summary-${JSON.stringify(query)}`;
-    },
+    getKey: (event) => buildCacheKey("election-carte-summary", getQuery(event)),
   },
 );
