@@ -17,20 +17,10 @@ const WORKBOX_CACHES = [
   'api-cache',
   'images-cache',
   'cms-assets-images',
-  'workbox-precache',
   'google-fonts',
   'static-assets',
-  'pages-cache',
-];
-
-// Routes principales à précacher pour un accès offline
-const CRITICAL_ROUTES = [
-  '/',
-  '/actualites',
-  '/budget-senegal',
-  '/assemblee-nationale',
-  '/documents',
-  '/gouvernement',
+  // Note: 'pages-cache' retiré — on utilise NetworkFirst pour les pages HTML
+  // Note: 'workbox-precache' est géré automatiquement par cleanupOutdatedCaches
 ];
 
 // self.__WB_MANIFEST est le point d'injection par défaut
@@ -48,7 +38,7 @@ if (!hasRoot) {
 // Précacher les routes essentielles
 precacheAndRoute(entries);
 
-// Nettoyer les anciens caches
+// Nettoyer les anciens caches de workbox-precache (supprime les entrées périmées)
 cleanupOutdatedCaches();
 
 // Définir les routes à mettre en cache (toutes les routes)
@@ -68,7 +58,7 @@ if (import.meta.env.PROD) {
     })
   );
 
-  // Cache des API avec timeout - étendu pour plus de routes
+  // Cache des API avec timeout
   registerRoute(
     ({ url }) =>
       url.pathname.startsWith('/items/') ||
@@ -80,23 +70,6 @@ if (import.meta.env.PROD) {
         new ExpirationPlugin({ maxEntries: 150, maxAgeSeconds: 3600 }),
       ],
       networkTimeoutSeconds: 5,
-    })
-  );
-
-  // Cache des pages principales (pour accès offline rapide)
-  registerRoute(
-    ({ url, request }) =>
-      request.destination === 'document' &&
-      CRITICAL_ROUTES.some(route => url.pathname === route || url.pathname.startsWith(route + '/')),
-    new StaleWhileRevalidate({
-      cacheName: 'pages-cache',
-      plugins: [
-        new CacheableResponsePlugin({ statuses: [200] }),
-        new ExpirationPlugin({
-          maxEntries: 50,
-          maxAgeSeconds: 24 * 60 * 60, // 24 heures
-        }),
-      ],
     })
   );
 
@@ -115,12 +88,13 @@ if (import.meta.env.PROD) {
     })
   );
 
-  // Cache des assets statiques (JS, CSS)
+  // Cache des assets statiques (JS, CSS) — NetworkFirst pour éviter les 404 après déploiement
+  // Le réseau est prioritaire pour toujours récupérer les nouveaux chunks hashés
   registerRoute(
     ({ request }) =>
       request.destination === 'script' ||
       request.destination === 'style',
-    new StaleWhileRevalidate({
+    new NetworkFirst({
       cacheName: 'static-assets',
       plugins: [
         new CacheableResponsePlugin({ statuses: [200] }),
@@ -129,6 +103,7 @@ if (import.meta.env.PROD) {
           maxAgeSeconds: 7 * 24 * 60 * 60, // 7 jours
         }),
       ],
+      networkTimeoutSeconds: 5,
     })
   );
 
@@ -166,15 +141,21 @@ if (import.meta.env.PROD) {
     })
   );
 
-  // Navigation principale avec fallback
+  // Navigation principale — NetworkFirst obligatoire pour éviter les 404
+  // Toujours essayer le réseau d'abord pour récupérer le HTML frais
+  // qui référence les bons chunks JS/CSS après un déploiement
   registerRoute(
     new NavigationRoute(
       new NetworkFirst({
         cacheName: 'html-cache',
         plugins: [
           new CacheableResponsePlugin({ statuses: [200] }),
+          new ExpirationPlugin({
+            maxEntries: 50,
+            maxAgeSeconds: 24 * 60 * 60, // 24h max pour le HTML
+          }),
         ],
-        networkTimeoutSeconds: 3,
+        networkTimeoutSeconds: 8, // Timeout plus généreux pour éviter le fallback stale
       }),
       { allowlist }
     )
@@ -212,28 +193,40 @@ if (import.meta.env.PROD) {
   );
 }
 
-// Gestion des mises à jour
+// Gestion des mises à jour — purge agressive des caches périmés
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then(cacheNames => Promise.all(
-      cacheNames.map(cacheName => {
-        if (!WORKBOX_CACHES.includes(cacheName)) {
-          return caches.delete(cacheName);
-        }
-      })
-    )).then(() => self.clients.claim())
-  );
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          // Purger les caches inconnus (anciens SW) ET les caches de pages potentiellement stale
+          const isKnown = WORKBOX_CACHES.includes(cacheName) ||
+            cacheName.startsWith('workbox-precache');
+          if (!isKnown) {
+            console.log(`[SW] Purging old cache: ${cacheName}`);
+            return caches.delete(cacheName);
+          }
+          // Purger le html-cache pour forcer le fetch d'un HTML frais après activation
+          if (cacheName === 'html-cache' || cacheName === 'static-assets') {
+            console.log(`[SW] Clearing deployment-sensitive cache: ${cacheName}`);
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    }).then(() => self.clients.claim())      .then(() => {
+        // Notifier les clients qu'une mise à jour est active
+        self.clients.matchAll({ type: 'window' }).then(clients => {
+          clients.forEach(client => {
+            client.postMessage({ type: 'SW_UPDATED' });
+          });
+        });
+      })  );
 });
 
-// Communication avec le client
+// Communication avec le client — gestion propre du skipWaiting
 self.addEventListener('message', (event) => {
   if (event.data === 'skipWaiting') {
     self.skipWaiting();
-    self.clients.claim().then(() => {
-      self.clients.matchAll().then(clients => {
-        Array.from(clients).forEach(client => client.postMessage('reload'));
-      });
-    });
   }
 });
 

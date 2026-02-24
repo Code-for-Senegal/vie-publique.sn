@@ -71,48 +71,28 @@ const links = [
 onMounted(() => {
   if (!import.meta.client || !('serviceWorker' in navigator)) return;
 
-  // Service Worker update handling (production only)
-  if (config.public.nodeEnv === 'test') {
-    navigator.serviceWorker.addEventListener('controllerchange', () => {});
-
-    navigator.serviceWorker.ready.then((registration) => {
-      if (registration.waiting) {
-        toast('Nouvelle version trouvée. Actualiser pour mettre à jour.', {
-          action: {
-            label: 'Recharger',
-            onClick: () => location.reload(),
-          },
-        });
-      }
-
-      registration.addEventListener('updatefound', () => {
-        const newWorker = registration.installing;
-        if (newWorker) {
-          newWorker.addEventListener('statechange', () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              toast('Nouvelle version trouvée. Actualiser pour mettre à jour.', {
-                action: {
-                  label: 'Recharger',
-                  onClick: () => location.reload(),
-                },
-              });
-            }
-          });
-        }
-      });
-    });
-  }
-
   // Initialize push notification state (synchronous, no SW needed)
   initState();
 
   // Setup foreground handler (waits for SW internally via async initMessaging)
   setupForegroundHandler();
 
-  // Listen for push subscription changes from service worker (P15)
+  // Listen for service worker messages
   navigator.serviceWorker.addEventListener('message', (event) => {
+    // Push subscription changed (P15)
     if (event.data?.type === 'PUSH_SUBSCRIPTION_CHANGED') {
       validateAndRefreshToken();
+    }
+    // SW updated after deployment — suggest refresh for fresh assets
+    if (event.data?.type === 'SW_UPDATED') {
+      toast.info('Application mise à jour', {
+        description: 'Une nouvelle version est disponible.',
+        action: {
+          label: 'Recharger',
+          onClick: () => window.location.reload(),
+        },
+        duration: 10000,
+      });
     }
   });
 });

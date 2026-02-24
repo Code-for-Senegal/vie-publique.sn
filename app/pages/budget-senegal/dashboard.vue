@@ -378,7 +378,7 @@ watch(activeTab, (newTab) => {
               ]"
             />
             <span class="hidden sm:inline">{{ tab.label }}</span>
-            <span class="sm:hidden">{{ tab.label.slice(0, 3) }}</span>
+            <span class="sm:hidden text-sm">{{ tab.label }}</span>
           </button>
         </nav>
       </div>

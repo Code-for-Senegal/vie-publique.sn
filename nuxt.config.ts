@@ -702,30 +702,17 @@ export default defineNuxtConfig({
         client_mode: ['navigate-existing', 'auto'],
       },
     },
+    // Note: avec strategies: 'injectManifest', les options workbox
+    // (clientsClaim, skipWaiting, navigateFallback) sont IGNORÉES.
+    // Le SW custom (sw.ts) gère tout directement.
     workbox: {
       globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
       maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
-      navigateFallback: '/',
       cleanupOutdatedCaches: true,
-      clientsClaim: true,
-      skipWaiting: true,
-      // Routes principales accessibles offline
-      navigateFallbackAllowlist: [
-        /^\/$/,
-        /^\/actualites(\/.*)?$/,
-        /^\/budget-senegal(\/.*)?$/,
-        /^\/assemblee-nationale(\/.*)?$/,
-        /^\/gouvernement(\/.*)?$/,
-        /^\/documents(\/.*)?$/,
-        /^\/personnalites(\/.*)?$/,
-        /^\/conseil-des-ministres(\/.*)?$/,
-      ],
-      // Exclure les routes qui ne doivent pas être cachées
-      navigateFallbackDenylist: [/^\/api\//, /^\/sitemap/, /^\/__nuxt_error/],
     },
     injectManifest: {
       globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
-      maximumFileSizeToCacheInBytes: 50 * 1024 * 1024,
+      maximumFileSizeToCacheInBytes: 20 * 1024 * 1024,
     },
     client: {
       installPrompt: true,

@@ -128,29 +128,38 @@ export const useCollectionState = (
   });
 
   // Mise à jour de l'URL quand l'état change
+  // On merge avec route.query pour préserver les params gérés par d'autres watchers (year, family, etc.)
   const updateURL = useDebounceFn(() => {
     if (!syncUrl) return;
 
-    const query: Record<string, string> = {};
+    const query: Record<string, string> = { ...(route.query as Record<string, string>) };
 
     // Page (ne pas ajouter si page 1)
     if (currentPage.value > 1) {
       query[urlMapping.page] = currentPage.value.toString();
+    } else {
+      delete query[urlMapping.page];
     }
 
     // Recherche
     if (searchQuery.value && searchQuery.value.trim() !== "") {
       query[urlMapping.search] = searchQuery.value.trim();
+    } else {
+      delete query[urlMapping.search];
     }
 
     // Tri (ne pas ajouter si tri par défaut)
     if (sortBy.value !== defaultSort) {
       query[urlMapping.sort] = sortBy.value;
+    } else {
+      delete query[urlMapping.sort];
     }
 
     // Filtre principal (ne pas ajouter si valeur par défaut)
-    if (filterValue.value !== defaultFilter) {
+    if (filterValue.value && filterValue.value !== defaultFilter) {
       query[urlMapping.filter] = filterValue.value;
+    } else {
+      delete query[urlMapping.filter];
     }
 
     // Filtres additionnels
@@ -163,6 +172,8 @@ export const useCollectionState = (
         value !== "all"
       ) {
         query[key] = value;
+      } else {
+        delete query[key];
       }
     });
 
