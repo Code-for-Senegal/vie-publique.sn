@@ -41,6 +41,12 @@ precacheAndRoute(entries);
 // Nettoyer les anciens caches de workbox-precache (supprime les entrées périmées)
 cleanupOutdatedCaches();
 
+// Force le nouveau SW à prendre le contrôle immédiatement
+// Crucial pour les déploiements : tous les utilisateurs reçoivent les nouveaux assets
+self.addEventListener('install', () => {
+  self.skipWaiting();
+});
+
 // Définir les routes à mettre en cache (toutes les routes)
 const allowlist: RegExp[] = [/.*/];
 
