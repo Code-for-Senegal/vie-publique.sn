@@ -188,19 +188,27 @@ if (import.meta.env.PROD) {
   );
 
   // Cache des assets via proxy local (/cms/ et /medias/)
+  // IMPORTANT : exclure les navigations (request.mode === 'navigate')
+  // sinon les pages Nuxt /medias/* seraient cachées avec CacheFirst au lieu de NetworkFirst.
+  // Les images CMS sont déjà capturées par la route images (destination: 'image') plus haut.
+  // Cette route ne capture donc que les fichiers non-image : PDFs, docs, vidéos, etc.
+  // → NetworkFirst pour éviter de stocker des Go de PDFs en cache.
   registerRoute(
-    ({ url }) =>
-      url.pathname.startsWith('/cms/') ||
-      url.pathname.startsWith('/medias/'),
-    new CacheFirst({
+    ({ url, request }) =>
+      request.mode !== 'navigate' &&
+      request.destination !== 'image' &&
+      (url.pathname.startsWith('/cms/') ||
+       url.pathname.startsWith('/medias/')),
+    new NetworkFirst({
       cacheName: CACHE_NAMES.CMS_ASSETS,
       plugins: [
         new CacheableResponsePlugin({ statuses: [200] }),
         new ExpirationPlugin({
-          maxEntries: 250,
-          maxAgeSeconds: 30 * 24 * 60 * 60, // 30 jours
+          maxEntries: 50,
+          maxAgeSeconds: 7 * 24 * 60 * 60, // 7 jours — les docs changent plus souvent
         }),
       ],
+      networkTimeoutSeconds: 10, // Timeout généreux pour les gros fichiers
     })
   );
 
