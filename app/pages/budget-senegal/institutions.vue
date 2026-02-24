@@ -98,7 +98,7 @@
     <!-- Navigation buttons -->
     <div class="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
       <UButton
-        to="/budget/ministeres"
+        to="/budget-senegal/ministeres"
         color="gray"
         variant="outline"
         icon="i-heroicons-building-office"

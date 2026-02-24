@@ -105,7 +105,7 @@
     <!-- Navigation buttons -->
     <div class="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
       <UButton
-        to="/budget/institutions"
+        to="/budget-senegal/institutions"
         color="gray"
         variant="outline"
         icon="i-heroicons-building-library"
