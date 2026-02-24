@@ -80,65 +80,8 @@ const sortOptions = [
   { label: 'Z → A', value: '-title' },
 ];
 
-// Label du tri actif
-const activeSortLabel = computed(() => {
-  const option = sortOptions.find((o) => o.value === sortBy.value);
-  return option?.label || 'Plus récents';
-});
-
-// Computed pour l'UI (two-way bindings)
-const searchQueryUI = computed({
-  get: () => searchQuery.value,
-  set: (value) => setSearchQuery(value),
-});
-
-const selectedTypeUI = computed({
-  get: () => filterValue.value || 'all',
-  set: (value) => {
-    setFilterValue(value === 'all' ? '' : value);
-    // Réinitialiser le filtre organisme quand on change de type
-    if (value !== 'audit_report') {
-      setAuditInstitutionFilter('');
-    }
-  },
-});
-
-const selectedYearUI = computed({
-  get: () => yearFilter.value || 'all',
-  set: (value) => {
-    yearFilter.value = value;
-    setCurrentPage(1);
-  },
-});
-
-const selectedFamilyUI = computed({
-  get: () => familyFilter.value || 'all',
-  set: (value) => {
-    setFamilyFilter(value);
-    // Réinitialiser type et année quand on change de famille
-    setFilterValue('all');
-    yearFilter.value = 'all';
-    setAuditInstitutionFilter('');
-  },
-});
-
-const sortByUI = computed({
-  get: () => sortBy.value,
-  set: (value) => {
-    setSortBy(value);
-  },
-});
-
 // Afficher le filtre organisme uniquement pour audit_report
-const showAuditInstitutionFilter = computed(() => selectedTypeUI.value === 'audit_report');
-
-// Texte résultats
-const resultsText = computed(() => {
-  const total = pagination.value?.total || 0;
-  if (total === 0) return '';
-  const count = `${total} résultat${total > 1 ? 's' : ''}`;
-  return `${count} · ${activeSortLabel.value}`;
-});
+const showAuditInstitutionFilter = computed(() => filterValue.value === 'audit_report');
 
 // Label du type actif pour le SEO
 const activeTypeLabel = computed(() => {
@@ -181,6 +124,38 @@ useSeoMeta({
   ogType: 'website',
 });
 
+// Event handlers for native elements
+const handleSearchInput = (e: Event) => {
+  const target = e.target as HTMLInputElement;
+  setSearchQuery(target.value);
+};
+
+const handleFamilyChange = (e: Event) => {
+  const value = (e.target as HTMLSelectElement).value;
+  setFamilyFilter(value === 'all' ? '' : value);
+  setFilterValue('all');
+  yearFilter.value = 'all';
+};
+
+const handleTypeChange = (e: Event) => {
+  const value = (e.target as HTMLSelectElement).value;
+  setFilterValue(value === 'all' ? '' : value);
+  if (value !== 'audit_report') {
+    setAuditInstitutionFilter('');
+  }
+};
+
+const handleYearChange = (e: Event) => {
+  const value = (e.target as HTMLSelectElement).value;
+  yearFilter.value = value;
+  setCurrentPage(1);
+};
+
+const handleSortChange = (e: Event) => {
+  const value = (e.target as HTMLSelectElement).value;
+  setSortBy(value);
+};
+
 // Reset tous les filtres y compris year et organisme
 const handleReset = () => {
   resetFilters();
@@ -191,310 +166,296 @@ const handleReset = () => {
 </script>
 
 <template>
-  <div class="container mx-auto min-h-screen px-4 py-4 pb-16">
-    <AppBreadcrumb
-      :items="[{ label: 'Documents', to: '/documents' }, { label: 'Tous les documents' }]"
-    />
-
-    <!-- En-tête -->
-    <div class="mb-4">
-      <h1 class="text-2xl font-bold text-gray-900 md:text-3xl dark:text-white">
-        Documents publics du Sénégal
-      </h1>
-      <!-- <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-        Journal officiel, lois, décrets, arrêtés, rapports d'audit, codes généraux
-      </p> -->
+  <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-950">
+    <!-- Breadcrumb -->
+    <div class="container mx-auto px-4">
+      <AppBreadcrumb
+        :items="[{ label: 'Documents', to: '/documents' }, { label: 'Tous les documents' }]"
+      />
     </div>
 
-    <ClientOnly>
-      <!-- Recherche et filtres (sticky) -->
-      <div class="sticky top-0 z-40 -mx-4 space-y-3 bg-white px-4 py-3 shadow-sm dark:bg-gray-900">
-        <!-- Barre de recherche -->
-        <UInput
-          v-model="searchQueryUI"
-          size="lg"
-          placeholder="Rechercher un document..."
-          icon="i-heroicons-magnifying-glass"
-          class="w-full"
-          :ui="{ icon: { trailing: { pointer: '' } } }"
-        >
-          <template v-if="searchQueryUI" #trailing>
-            <UButton
-              color="gray"
-              variant="link"
-              icon="i-heroicons-x-mark-20-solid"
-              :padded="false"
-              @click="searchQueryUI = ''"
-            />
-          </template>
-        </UInput>
-
-        <!-- Filtres et toggle vue -->
-        <div class="flex flex-wrap items-center justify-between gap-3">
-          <div class="flex flex-wrap items-center gap-2">
-            <!-- Filtre famille -->
-            <USelect
-              v-model="selectedFamilyUI"
-              :options="familyOptions"
-              option-attribute="label"
-              value-attribute="value"
-              size="sm"
-              :loading="familiesLoading"
-              class="w-auto min-w-[140px]"
-            />
-            <!-- Filtre type -->
-            <USelect
-              v-model="selectedTypeUI"
-              :options="typeOptions"
-              option-attribute="label"
-              value-attribute="value"
-              size="sm"
-              :loading="typesLoading"
-              class="w-auto min-w-[140px]"
-            />
-
-            <!-- Filtre année -->
-            <USelect
-              v-model="selectedYearUI"
-              :options="yearOptions"
-              option-attribute="label"
-              value-attribute="value"
-              size="sm"
-              :loading="yearsLoading"
-              class="w-auto min-w-[120px]"
-            />
-
-            <!-- Tri -->
-            <USelect
-              v-model="sortByUI"
-              :options="sortOptions"
-              option-attribute="label"
-              value-attribute="value"
-              size="sm"
-              class="w-auto min-w-[120px]"
-            />
-          </div>
-
-          <!-- Toggle vue grille/liste -->
-          <div
-            class="flex rounded-lg border border-gray-200 bg-white p-0.5 dark:border-gray-700 dark:bg-gray-800"
-          >
-            <button
-              type="button"
-              :class="[
-                'flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors',
-                viewMode === 'grid'
-                  ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/50 dark:text-primary-400'
-                  : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200',
-              ]"
-              @click="viewMode = 'grid'"
-            >
-              <UIcon name="i-heroicons-squares-2x2" class="h-4 w-4" />
-              <span class="hidden sm:inline">Grille</span>
-            </button>
-            <button
-              type="button"
-              :class="[
-                'flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors',
-                viewMode === 'list'
-                  ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/50 dark:text-primary-400'
-                  : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200',
-              ]"
-              @click="viewMode = 'list'"
-            >
-              <UIcon name="i-heroicons-list-bullet" class="h-4 w-4" />
-              <span class="hidden sm:inline">Liste</span>
-            </button>
+    <!-- Sticky Header -->
+    <header class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95">
+      <div class="container mx-auto px-4 py-3">
+        <!-- Title Row -->
+        <div class="flex items-center justify-between">
+          <h1 class="text-lg font-bold text-gray-900 sm:text-xl dark:text-white">
+            Documents publics
+          </h1>
+          <div class="flex items-center gap-2">
+            <!-- View Toggle -->
+            <div class="flex rounded-lg bg-gray-100 p-0.5 dark:bg-gray-800">
+              <button
+                type="button"
+                :class="[
+                  'rounded-md p-1.5 transition-colors',
+                  viewMode === 'grid'
+                    ? 'bg-white text-gray-900 shadow-sm dark:bg-gray-700 dark:text-white'
+                    : 'text-gray-500 hover:text-gray-700 dark:text-gray-400',
+                ]"
+                aria-label="Vue grille"
+                @click="viewMode = 'grid'"
+              >
+                <UIcon name="i-heroicons-squares-2x2" class="h-4 w-4" />
+              </button>
+              <button
+                type="button"
+                :class="[
+                  'rounded-md p-1.5 transition-colors',
+                  viewMode === 'list'
+                    ? 'bg-white text-gray-900 shadow-sm dark:bg-gray-700 dark:text-white'
+                    : 'text-gray-500 hover:text-gray-700 dark:text-gray-400',
+                ]"
+                aria-label="Vue liste"
+                @click="viewMode = 'list'"
+              >
+                <UIcon name="i-heroicons-list-bullet" class="h-4 w-4" />
+              </button>
+            </div>
+            <span class="text-xs text-gray-500 dark:text-gray-400">{{ totalItems }}</span>
           </div>
         </div>
 
-        <!-- Filtre par organisme d'audit (uniquement quand type = audit_report) -->
-        <div v-if="showAuditInstitutionFilter" class="flex flex-wrap gap-2">
+        <!-- Search Input -->
+        <div class="group relative mt-3">
+          <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
+            <UIcon
+              name="i-heroicons-magnifying-glass-20-solid"
+              class="h-5 w-5 text-gray-400 transition-colors group-focus-within:text-primary-500"
+            />
+          </div>
+          <input
+            type="search"
+            :value="searchQuery"
+            placeholder="Rechercher un document, un rapport..."
+            class="block w-full rounded-xl border-0 bg-gray-100 py-3 pl-11 pr-10 text-sm text-gray-900 ring-1 ring-transparent transition-all placeholder:text-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 sm:py-2.5 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-400 dark:focus:bg-gray-800/80"
+            @input="handleSearchInput"
+          />
           <button
-            :class="[
-              'rounded-full border px-3 py-1.5 text-xs font-medium transition-all sm:px-4 sm:py-2 sm:text-sm',
-              !auditInstitutionFilter
-                ? 'border-primary-500 bg-primary-50 text-primary-700 dark:border-primary-600 dark:bg-primary-900/30 dark:text-primary-400'
-                : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-gray-600',
-            ]"
-            @click="setAuditInstitutionFilter('')"
+            v-if="searchQuery"
+            type="button"
+            class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 transition-colors hover:text-gray-600 dark:hover:text-gray-300"
+            @click="setSearchQuery('')"
           >
-            Tous
-          </button>
-          <button
-            v-for="institution in AUDIT_INSTITUTIONS"
-            :key="institution"
-            :class="[
-              'rounded-full border px-3 py-1.5 text-xs font-medium transition-all sm:px-4 sm:py-2 sm:text-sm',
-              auditInstitutionFilter === institution
-                ? 'border-primary-500 bg-primary-50 text-primary-700 dark:border-primary-600 dark:bg-primary-900/30 dark:text-primary-400'
-                : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-gray-600',
-            ]"
-            @click="setAuditInstitutionFilter(institution)"
-          >
-            {{ institution }}
+            <span class="flex h-5 w-5 items-center justify-center rounded-full bg-gray-300 dark:bg-gray-600">
+              <UIcon name="i-heroicons-x-mark-20-solid" class="h-3.5 w-3.5 text-gray-600 dark:text-gray-300" />
+            </span>
           </button>
         </div>
+
+        <!-- Filters Row - Horizontal Scroll -->
+        <div class="-mx-4 mt-3 flex items-center gap-2 overflow-x-auto px-4 py-1 scrollbar-hide">
+          <!-- Family Filter -->
+          <div class="relative shrink-0">
+            <select
+              :value="familyFilter || 'all'"
+              class="appearance-none rounded-full border-0 bg-gray-100 py-1.5 pl-3 pr-7 text-xs font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-gray-300"
+              @change="handleFamilyChange"
+            >
+              <option v-for="opt in familyOptions" :key="opt.value" :value="opt.value">
+                {{ opt.label }}
+              </option>
+            </select>
+            <UIcon name="i-heroicons-chevron-down" class="pointer-events-none absolute right-2 top-1/2 h-3 w-3 -translate-y-1/2 text-gray-400" />
+          </div>
+
+          <!-- Type Filter -->
+          <div class="relative shrink-0">
+            <select
+              :value="filterValue || 'all'"
+              class="appearance-none rounded-full border-0 bg-gray-100 py-1.5 pl-3 pr-7 text-xs font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-gray-300"
+              @change="handleTypeChange"
+            >
+              <option v-for="opt in typeOptions" :key="opt.value" :value="opt.value">
+                {{ opt.label }}
+              </option>
+            </select>
+            <UIcon name="i-heroicons-chevron-down" class="pointer-events-none absolute right-2 top-1/2 h-3 w-3 -translate-y-1/2 text-gray-400" />
+          </div>
+
+          <!-- Year Filter -->
+          <div class="relative shrink-0">
+            <select
+              :value="yearFilter || 'all'"
+              class="appearance-none rounded-full border-0 bg-gray-100 py-1.5 pl-3 pr-7 text-xs font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-gray-300"
+              @change="handleYearChange"
+            >
+              <option v-for="opt in yearOptions" :key="opt.value" :value="opt.value">
+                {{ opt.label }}
+              </option>
+            </select>
+            <UIcon name="i-heroicons-chevron-down" class="pointer-events-none absolute right-2 top-1/2 h-3 w-3 -translate-y-1/2 text-gray-400" />
+          </div>
+
+          <!-- Sort -->
+          <div class="relative shrink-0">
+            <select
+              :value="sortBy"
+              class="appearance-none rounded-full border-0 bg-gray-100 py-1.5 pl-3 pr-7 text-xs font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-gray-300"
+              @change="handleSortChange"
+            >
+              <option v-for="opt in sortOptions" :key="opt.value" :value="opt.value">
+                {{ opt.label }}
+              </option>
+            </select>
+            <UIcon name="i-heroicons-chevron-down" class="pointer-events-none absolute right-2 top-1/2 h-3 w-3 -translate-y-1/2 text-gray-400" />
+          </div>
+
+          <!-- Reset Button -->
+          <button
+            v-if="hasActiveFilters"
+            type="button"
+            class="shrink-0 rounded-full bg-red-50 px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-100 active:scale-95 dark:bg-red-900/30 dark:text-red-400"
+            @click="handleReset"
+          >
+            <UIcon name="i-heroicons-x-mark" class="mr-1 inline h-3 w-3" />
+            Reset
+          </button>
+        </div>
+
+        <!-- Audit Institution Filter (conditionally shown) -->
+        <div v-if="showAuditInstitutionFilter" class="-mx-4 mt-2 overflow-x-auto px-4 py-1 scrollbar-hide">
+          <div class="flex gap-1.5">
+            <button
+              :class="[
+                'shrink-0 rounded-full px-3 py-1 text-xs font-medium transition-all active:scale-95',
+                !auditInstitutionFilter
+                  ? 'bg-primary-500 text-white'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400',
+              ]"
+              @click="setAuditInstitutionFilter('')"
+            >
+              Tous
+            </button>
+            <button
+              v-for="institution in AUDIT_INSTITUTIONS"
+              :key="institution"
+              :class="[
+                'shrink-0 rounded-full px-3 py-1 text-xs font-medium transition-all active:scale-95',
+                auditInstitutionFilter === institution
+                  ? 'bg-primary-500 text-white'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400',
+              ]"
+              @click="setAuditInstitutionFilter(institution)"
+            >
+              {{ institution }}
+            </button>
+          </div>
+        </div>
       </div>
+    </header>
 
-      <!-- Total, tri actif et réinitialiser -->
-      <div
-        v-if="loading || hasActiveFilters || totalItems > 0"
-        class="mt-4 flex items-center justify-between"
-      >
-        <p class="text-sm text-gray-500 dark:text-gray-400">
-          <span v-if="loading" class="inline-flex items-center gap-1.5">
-            <UIcon name="i-heroicons-arrow-path" class="h-3.5 w-3.5 animate-spin" />
-            Chargement...
-          </span>
-          <span v-else-if="totalItems">{{ resultsText }}</span>
-          <span v-if="searchQuery"> pour "{{ searchQuery }}"</span>
-        </p>
-
-        <UButton
-          v-if="hasActiveFilters"
-          variant="ghost"
-          color="gray"
-          size="sm"
-          icon="i-heroicons-x-mark"
-          label="Réinitialiser"
-          @click="handleReset"
-        />
-      </div>
-
-      <!-- Loading skeleton -->
+    <main class="container mx-auto px-4 pt-4">
+      <!-- Loading Skeleton -->
       <template v-if="loading">
         <!-- Grid skeleton -->
-        <div
-          v-if="viewMode === 'grid'"
-          class="mt-4 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4"
-        >
-          <div
-            v-for="n in 8"
-            :key="n"
-            class="animate-pulse overflow-hidden rounded-lg bg-gray-200 dark:bg-gray-700"
-          >
-            <div class="aspect-[3/2] bg-gray-300 dark:bg-gray-600" />
-            <div class="space-y-2 p-2 sm:p-3">
-              <div class="h-3 w-3/4 rounded bg-gray-300 sm:h-4 dark:bg-gray-600" />
-              <div class="h-3 w-1/2 rounded bg-gray-300 sm:h-4 dark:bg-gray-600" />
-              <div class="h-2 w-1/3 rounded bg-gray-300 sm:h-3 dark:bg-gray-600" />
+        <div v-if="viewMode === 'grid'" class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          <div v-for="n in 8" :key="n" class="overflow-hidden rounded-xl bg-white shadow-sm dark:bg-gray-900">
+            <USkeleton class="aspect-[4/3] w-full" />
+            <div class="space-y-2 p-3">
+              <USkeleton class="h-3 w-full" />
+              <USkeleton class="h-3 w-2/3" />
+              <USkeleton class="h-2.5 w-1/3" />
             </div>
           </div>
         </div>
         <!-- List skeleton -->
-        <div v-else class="mt-4 space-y-3">
-          <div
-            v-for="n in 6"
-            :key="n"
-            class="h-20 animate-pulse rounded-lg bg-gray-100 dark:bg-gray-800"
-          />
+        <div v-else class="space-y-2">
+          <div v-for="n in 6" :key="n" class="flex gap-3 rounded-xl bg-white p-3 shadow-sm dark:bg-gray-900">
+            <USkeleton class="h-16 w-20 shrink-0 rounded-lg" />
+            <div class="flex flex-1 flex-col justify-between py-0.5">
+              <div class="space-y-2">
+                <USkeleton class="h-3.5 w-full" />
+                <USkeleton class="h-3.5 w-3/4" />
+              </div>
+              <USkeleton class="h-2.5 w-24" />
+            </div>
+          </div>
         </div>
       </template>
 
-      <!-- Error -->
-      <div
-        v-else-if="error"
-        class="mt-6 rounded-xl border border-red-200 bg-red-50 p-6 text-center dark:border-red-800 dark:bg-red-900/20"
-      >
-        <UIcon
-          name="i-heroicons-exclamation-triangle"
-          class="mx-auto h-10 w-10 text-red-400 dark:text-red-500"
-        />
-        <h3 class="mt-3 text-base font-semibold text-red-800 dark:text-red-300">
-          Impossible de charger les documents
-        </h3>
-        <p class="mt-1 text-sm text-red-600 dark:text-red-400">
-          Vérifiez votre connexion internet et réessayez. Si le problème persiste, rechargez la
-          page.
-        </p>
-        <div class="mt-4 flex justify-center gap-3">
-          <UButton
-            color="red"
-            variant="soft"
-            icon="i-heroicons-arrow-path"
-            label="Réessayer"
-            @click="refresh()"
-          />
-          <UButton
-            color="gray"
-            variant="ghost"
-            icon="i-heroicons-arrow-top-right-on-square"
-            label="Recharger la page"
-            @click="reloadNuxtApp()"
-          />
+      <!-- Error State -->
+      <div v-else-if="error" class="py-12">
+        <div class="mx-auto max-w-sm rounded-2xl border border-red-200 bg-red-50 p-6 text-center dark:border-red-800 dark:bg-red-900/20">
+          <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/50">
+            <UIcon name="i-heroicons-exclamation-triangle" class="h-6 w-6 text-red-600 dark:text-red-400" />
+          </div>
+          <p class="text-sm font-medium text-red-900 dark:text-red-200">Impossible de charger les documents</p>
+          <p class="mt-1 text-xs text-red-700 dark:text-red-300">Vérifiez votre connexion</p>
+          <div class="mt-4 flex justify-center gap-2">
+            <UButton color="red" variant="soft" size="xs" icon="i-heroicons-arrow-path" @click="refresh()">
+              Réessayer
+            </UButton>
+          </div>
         </div>
       </div>
 
-      <!-- Empty state -->
-      <div
-        v-else-if="documents.length === 0 && !loading"
-        class="mt-8 rounded-lg border-2 border-dashed border-gray-200 py-12 text-center dark:border-gray-700"
-      >
-        <UIcon
-          name="i-heroicons-document-magnifying-glass"
-          class="mx-auto h-12 w-12 text-gray-300 dark:text-gray-600"
-        />
-        <h3 class="mt-4 text-lg font-medium text-gray-900 dark:text-white">
-          Aucun document trouvé
-        </h3>
-        <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-          Essayez de modifier vos critères de recherche ou vos filtres.
-        </p>
+      <!-- Empty State -->
+      <div v-else-if="documents.length === 0" class="py-16 text-center">
+        <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
+          <UIcon name="i-heroicons-document-magnifying-glass" class="h-8 w-8 text-gray-400" />
+        </div>
+        <p class="text-sm font-medium text-gray-900 dark:text-white">Aucun document trouvé</p>
+        <p class="mt-1 text-xs text-gray-500">Modifiez vos critères de recherche</p>
+        <UButton
+          v-if="hasActiveFilters"
+          color="gray"
+          variant="soft"
+          size="sm"
+          class="mt-4"
+          @click="handleReset"
+        >
+          Réinitialiser les filtres
+        </UButton>
       </div>
 
-      <!-- Documents content -->
-      <div v-else class="mt-4">
-        <!-- Vue Grille -->
-        <div
-          v-if="viewMode === 'grid'"
-          class="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4"
-        >
+      <!-- Documents Content -->
+      <div v-else>
+        <!-- Filter indicator -->
+        <p v-if="hasActiveFilters || searchQuery" class="mb-3 text-xs text-gray-500 dark:text-gray-400">
+          <span v-if="searchQuery">"{{ searchQuery }}"</span>
+          <span v-if="searchQuery && hasActiveFilters"> · </span>
+          <span v-if="filterValue && filterValue !== 'all'">{{ DOC_TYPE_LABELS[filterValue] || filterValue }}</span>
+        </p>
+
+        <!-- Grid View -->
+        <div v-if="viewMode === 'grid'" class="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4">
           <NuxtLink
             v-for="doc in documents"
             :key="doc.id"
             :to="`/documents/${doc.id}/${doc.slug}`"
-            class="group overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-lg dark:border-gray-700 dark:bg-gray-800"
+            class="group overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.98] sm:hover:shadow-md dark:bg-gray-900 dark:ring-gray-800"
           >
-            <!-- Image de couverture -->
-            <div class="aspect-[3/2] overflow-hidden bg-gray-100 dark:bg-gray-700">
+            <!-- Cover -->
+            <div class="aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-800">
               <CmsImage
                 v-if="doc.cover_image"
                 :src="doc.cover_image"
                 :quality="40"
-                :alt="`Aperçu ${doc.title}`"
+                :alt="doc.title"
                 class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                 loading="lazy"
               />
               <img
                 v-else-if="doc.type === 'official_journal'"
                 src="/images/default-journal-officiel.webp"
-                :alt="`Aperçu ${doc.title}`"
-                class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                :alt="doc.title"
+                class="h-full w-full object-cover"
                 loading="lazy"
               />
-              <div
-                v-else
-                class="flex h-full w-full items-center justify-center bg-gray-100 dark:bg-gray-700"
-              >
-                <UIcon
-                  name="i-heroicons-document-text"
-                  class="h-8 w-8 text-gray-300 sm:h-10 sm:w-10 dark:text-gray-500"
-                />
+              <div v-else class="flex h-full w-full items-center justify-center">
+                <UIcon name="i-heroicons-document-text" class="h-10 w-10 text-gray-300 dark:text-gray-600" />
               </div>
             </div>
-
-            <!-- Contenu -->
-            <div class="p-2 sm:p-3">
-              <h3
-                class="line-clamp-2 text-xs font-semibold leading-tight text-gray-900 sm:text-sm dark:text-white"
-              >
+            <!-- Content -->
+            <div class="p-2.5">
+              <h3 class="line-clamp-2 text-xs font-semibold leading-snug text-gray-900 group-hover:text-primary-600 sm:text-sm dark:text-white">
                 {{ doc.title }}
               </h3>
               <time
                 v-if="doc.publish_date"
                 :datetime="doc.publish_date"
-                class="mt-1 block text-[10px] text-gray-400 sm:text-xs dark:text-gray-500"
+                class="mt-1.5 block text-[10px] text-gray-400 dark:text-gray-500"
               >
                 {{ $dateformat(doc.publish_date) }}
               </time>
@@ -502,18 +463,16 @@ const handleReset = () => {
           </NuxtLink>
         </div>
 
-        <!-- Vue Liste -->
+        <!-- List View -->
         <div v-else class="space-y-2">
           <NuxtLink
             v-for="doc in documents"
             :key="doc.id"
             :to="`/documents/${doc.id}/${doc.slug}`"
-            class="flex items-center gap-3 rounded-lg border border-gray-100 bg-white p-3 transition-shadow hover:shadow-md sm:gap-4 dark:border-gray-700 dark:bg-gray-800"
+            class="group flex gap-3 rounded-xl bg-white p-2.5 shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.98] sm:hover:shadow-md dark:bg-gray-900 dark:ring-gray-800"
           >
-            <!-- Miniature -->
-            <div
-              class="h-16 w-20 flex-shrink-0 overflow-hidden rounded-md bg-gray-100 shadow-sm sm:h-20 sm:w-28 dark:bg-gray-700"
-            >
+            <!-- Thumbnail -->
+            <div class="h-16 w-20 shrink-0 overflow-hidden rounded-lg bg-gray-100 sm:h-20 sm:w-24 dark:bg-gray-800">
               <CmsImage
                 v-if="doc.cover_image"
                 :src="doc.cover_image"
@@ -530,54 +489,41 @@ const handleReset = () => {
                 loading="lazy"
               />
               <div v-else class="flex h-full w-full items-center justify-center">
-                <UIcon
-                  name="i-heroicons-document-text"
-                  class="h-6 w-6 text-gray-300 dark:text-gray-500"
-                />
+                <UIcon name="i-heroicons-document-text" class="h-6 w-6 text-gray-300 dark:text-gray-600" />
               </div>
             </div>
-
-            <!-- Contenu -->
-            <div class="min-w-0 flex-1">
-              <h3 class="line-clamp-2 text-sm font-semibold text-gray-900 dark:text-white">
+            <!-- Content -->
+            <div class="flex min-w-0 flex-1 flex-col justify-between py-0.5">
+              <h3 class="line-clamp-2 text-sm font-semibold leading-snug text-gray-900 group-hover:text-primary-600 dark:text-white">
                 {{ doc.title }}
               </h3>
-              <div
-                class="mt-1 flex flex-wrap items-center gap-2 text-xs text-gray-400 dark:text-gray-500"
+              <time
+                v-if="doc.publish_date"
+                :datetime="doc.publish_date"
+                class="text-[11px] text-gray-400 dark:text-gray-500"
               >
-                <span v-if="doc.publish_date">
-                  {{ $dateformat(doc.publish_date) }}
-                </span>
-              </div>
+                {{ $dateformat(doc.publish_date) }}
+              </time>
             </div>
-
-            <!-- Chevron -->
-            <UIcon name="i-heroicons-chevron-right" class="h-5 w-5 flex-shrink-0 text-gray-400" />
+            <UIcon name="i-heroicons-chevron-right" class="h-5 w-5 shrink-0 self-center text-gray-300 dark:text-gray-600" />
           </NuxtLink>
         </div>
 
         <!-- Pagination -->
-        <div
-          v-if="totalPages > 1"
-          class="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
-        >
+        <div v-if="totalPages > 1" class="mt-8 flex justify-center">
           <UPagination
             :model-value="currentPage"
             :total="totalItems"
             :page-count="itemsPerPage"
-            :show-edges="true"
-            :sibling-count="1"
-            :active-button="{ color: 'yellow' }"
+            size="sm"
             :ui="{
               wrapper: 'flex items-center gap-1',
-              base: 'min-w-8 min-h-8 flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed',
-              active: 'bg-gray-900 text-white',
-              inactive: 'bg-white text-gray-900 hover:bg-gray-100',
+              rounded: 'rounded-lg',
             }"
             @update:model-value="setCurrentPage"
           />
         </div>
       </div>
-    </ClientOnly>
+    </main>
   </div>
 </template>

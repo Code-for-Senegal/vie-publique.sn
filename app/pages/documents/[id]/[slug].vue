@@ -184,244 +184,294 @@ const showPdfViewer = ref(false);
 </script>
 
 <template>
-  <div class="min-h-screen py-6 pb-16 md:py-8">
-    <AppBreadcrumb
-      :items="[
-        { label: 'Documents', to: '/documents' },
-        { label: typeLabel, to: `/documents/${typeSlug}` },
-        { label: document?.title || 'Document' },
-      ]"
-    />
+  <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-950">
+    <div class="container mx-auto px-4">
+      <AppBreadcrumb
+        :items="[
+          { label: 'Documents', to: '/documents' },
+          { label: typeLabel, to: `/documents/${typeSlug}` },
+          { label: document?.title || 'Document' },
+        ]"
+      />
+    </div>
 
     <!-- Loading state -->
-    <div v-if="documentLoading" class="animate-pulse space-y-4">
-      <div class="h-4 w-48 rounded bg-gray-200 dark:bg-gray-700" />
-      <div class="h-8 w-3/4 rounded bg-gray-200 dark:bg-gray-700" />
-      <div class="h-64 rounded-lg bg-gray-200 dark:bg-gray-700" />
+    <div v-if="documentLoading" class="container mx-auto px-4">
+      <div class="space-y-4 py-6">
+        <USkeleton class="h-6 w-24 rounded-full" />
+        <USkeleton class="h-8 w-3/4" />
+        <USkeleton class="h-4 w-1/3" />
+        <div class="mt-6 grid gap-4 lg:grid-cols-3">
+          <div class="space-y-4 lg:col-span-2">
+            <USkeleton class="mx-auto h-64 w-full max-w-md rounded-xl" />
+            <USkeleton class="h-4 w-full" />
+            <USkeleton class="h-4 w-4/5" />
+            <USkeleton class="h-4 w-3/5" />
+          </div>
+          <div class="hidden lg:block">
+            <USkeleton class="h-48 w-full rounded-xl" />
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Error state -->
-    <UAlert
+    <div
       v-else-if="documentError"
-      title="Erreur"
-      description="Une erreur s'est produite lors du chargement du document."
-      color="red"
-      icon="i-heroicons-exclamation-triangle"
-    />
+      class="container mx-auto flex flex-col items-center justify-center px-4 py-16 text-center"
+    >
+      <div
+        class="flex h-16 w-16 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30"
+      >
+        <UIcon name="i-heroicons-exclamation-triangle" class="h-8 w-8 text-red-500" />
+      </div>
+      <p class="mt-4 text-sm font-medium text-gray-900 dark:text-white">Erreur de chargement</p>
+      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+        Impossible de charger ce document
+      </p>
+      <NuxtLink
+        to="/documents"
+        class="mt-4 rounded-full bg-primary-500 px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-primary-600 active:scale-95"
+      >
+        Retour aux documents
+      </NuxtLink>
+    </div>
 
     <!-- Contenu -->
     <article v-else-if="document">
-      <!-- Titre -->
-      <h1 class="mb-4 text-2xl font-bold text-gray-900 md:text-3xl dark:text-white">
-        {{ document.title }}
-      </h1>
-
-      <!-- Bloc fichier mobile (prioritaire) -->
-      <div
-        v-if="document.file"
-        class="mb-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm lg:hidden dark:border-gray-700 dark:bg-gray-800"
+      <!-- Header sticky avec titre et actions -->
+      <header
+        class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95"
       >
-        <div class="mb-3 flex items-center gap-2">
-          <div
-            class="flex h-10 w-10 items-center justify-center rounded-lg bg-red-50 dark:bg-red-900/30"
+        <div class="container mx-auto px-4 py-4">
+          <!-- Badge type -->
+          <span
+            class="inline-flex items-center rounded-full bg-primary-100 px-2.5 py-0.5 text-xs font-medium text-primary-700 dark:bg-primary-900/30 dark:text-primary-400"
           >
-            <UIcon
-              name="i-heroicons-document-text"
-              class="h-5 w-5 text-red-600 dark:text-red-400"
-            />
-          </div>
-          <p class="text-sm font-medium text-gray-700 dark:text-gray-300">
-            PDF{{ fileSize ? ` - ${fileSize}` : '' }}
-          </p>
-        </div>
+            {{ typeLabel }}
+          </span>
 
-        <div class="flex flex-col gap-2">
-          <UButton
-            @click="showPdfViewer = true"
-            icon="i-heroicons-eye"
-            label="Lire le PDF"
-            color="yellow"
-            block
-          />
-          <div class="grid grid-cols-2 gap-2">
-            <UButton
-              :to="fileUrl"
-              external
+          <!-- Titre -->
+          <h1
+            class="mt-2 line-clamp-2 text-lg font-bold text-gray-900 sm:text-xl lg:line-clamp-none dark:text-white"
+          >
+            {{ document.title }}
+          </h1>
+
+          <!-- Métadonnées -->
+          <div class="mt-2 flex flex-wrap items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
+            <span v-if="formattedDate" class="flex items-center gap-1">
+              <UIcon name="i-heroicons-calendar" class="h-3.5 w-3.5" />
+              {{ formattedDate }}
+            </span>
+            <span v-if="document.audit_institution" class="flex items-center gap-1">
+              <UIcon name="i-heroicons-building-office" class="h-3.5 w-3.5" />
+              {{ document.audit_institution }}
+            </span>
+            <span v-if="fileSize" class="flex items-center gap-1">
+              <UIcon name="i-heroicons-document" class="h-3.5 w-3.5" />
+              PDF · {{ fileSize }}
+            </span>
+          </div>
+
+          <!-- Actions Mobile -->
+          <div v-if="document.file" class="mt-3 flex items-center gap-2 lg:hidden">
+            <button
+              type="button"
+              class="flex flex-1 items-center justify-center gap-2 rounded-full bg-primary-500 px-4 py-2.5 text-sm font-medium text-white transition-all hover:bg-primary-600 active:scale-[0.98]"
+              @click="showPdfViewer = true"
+            >
+              <UIcon name="i-heroicons-eye" class="h-4 w-4" />
+              Lire
+            </button>
+            <a
+              :href="fileUrl"
               target="_blank"
-              icon="i-heroicons-arrow-top-right-on-square"
-              label="Ouvrir"
-              color="gray"
-              variant="outline"
-              size="sm"
-            />
-            <UButton
+              class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-600 transition-all hover:bg-gray-200 active:scale-95 dark:bg-gray-800 dark:text-gray-400"
+            >
+              <UIcon name="i-heroicons-arrow-top-right-on-square" class="h-5 w-5" />
+            </a>
+            <button
+              type="button"
+              class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-600 transition-all hover:bg-gray-200 active:scale-95 dark:bg-gray-800 dark:text-gray-400"
               @click="
                 downloadCmsFile(
                   `${document!.file!.id}/${document!.slug}.pdf`,
                   `${document!.slug}.pdf`,
                 )
               "
-              icon="i-heroicons-arrow-down-tray"
-              label="Télécharger"
-              color="gray"
-              variant="outline"
-              size="sm"
-            />
-          </div>
-        </div>
-      </div>
-
-      <!-- Partage social (Mobile) -->
-      <div class="mb-8 lg:hidden">
-        <SocialShare :title="document.title" />
-      </div>
-
-      <div class="grid gap-8 lg:grid-cols-3">
-        <!-- Colonne principale -->
-        <div class="lg:col-span-2">
-          <!-- Image de couverture -->
-          <div v-if="document.cover_image" class="mb-6">
-            <CmsImage
-              :src="document.cover_image"
-              :alt="document.title"
-              :quality="80"
-              class="mx-auto max-w-md rounded-lg shadow-md md:max-w-lg"
-            />
-          </div>
-
-          <!-- Institution d'audit -->
-          <div v-if="document.audit_institution" class="mb-4">
-            <p class="text-sm text-gray-500 dark:text-gray-400">
-              Institution :
-              <span class="font-medium text-gray-700 dark:text-gray-300">{{
-                document.audit_institution
-              }}</span>
-            </p>
-          </div>
-
-          <!-- Description -->
-          <div v-if="document.description" class="mb-6">
-            <p class="text-gray-700 dark:text-gray-300">
-              {{ document.description }}
-            </p>
-          </div>
-
-          <!-- Contenu HTML -->
-          <div
-            v-if="document.content_html"
-            class="prose prose-gray max-w-none dark:prose-invert"
-            v-html="document.content_html"
-          />
-
-          <!-- Aperçu PDF intégré -->
-          <ClientOnly>
-            <div v-if="fileUrl" class="mt-8">
-              <div class="mb-4 flex items-center justify-between">
-                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
-                  Aperçu du document
-                </h2>
-              </div>
-              <div
-                class="overflow-hidden rounded-lg border border-gray-200 shadow-sm dark:border-gray-700"
-              >
-                <PdfViewer
-                  :source="fileUrl"
-                  :download-name="`${document?.slug || 'document'}.pdf`"
-                />
-              </div>
-            </div>
-          </ClientOnly>
-        </div>
-
-        <!-- Sidebar (desktop uniquement) -->
-        <aside class="hidden space-y-6 lg:col-span-1 lg:block">
-          <!-- Bloc fichier -->
-          <div
-            v-if="document.file"
-            class="sticky top-24 rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800"
-          >
-            <h2 class="mb-4 font-semibold text-gray-900 dark:text-white">
-              Télécharger le document
-            </h2>
-
-            <div class="mb-4 flex items-center gap-3">
-              <div
-                class="flex h-12 w-12 items-center justify-center rounded-lg bg-red-50 dark:bg-red-900/30"
-              >
-                <UIcon
-                  name="i-heroicons-document-text"
-                  class="h-6 w-6 text-red-600 dark:text-red-400"
-                />
-              </div>
-              <div>
-                <p class="text-xs text-gray-500 dark:text-gray-400">
-                  PDF{{ fileSize ? ` - ${fileSize}` : '' }}
-                </p>
-              </div>
-            </div>
-
-            <div class="flex flex-col gap-2">
-              <UButton
-                @click="showPdfViewer = true"
-                icon="i-heroicons-eye"
-                label="Lire le PDF"
-                color="yellow"
-                block
-              />
-              <UButton
-                :to="fileUrl"
-                external
-                target="_blank"
-                icon="i-heroicons-arrow-top-right-on-square"
-                label="Ouvrir"
-                color="gray"
-                variant="outline"
-                block
-              />
-              <UButton
-                @click="
-                  downloadCmsFile(
-                    `${document!.file!.id}/${document!.slug}.pdf`,
-                    `${document!.slug}.pdf`,
-                  )
-                "
-                icon="i-heroicons-arrow-down-tray"
-                label="Télécharger"
-                color="gray"
-                variant="outline"
-                block
-              />
-            </div>
-
-            <!-- Partage social -->
-            <div class="mt-6 border-t border-gray-200 pt-6 dark:border-gray-700">
-              <SocialShare :title="document.title" />
-            </div>
-          </div>
-
-          <!-- Message si pas de fichier -->
-          <div v-else class="sticky top-24 space-y-6">
-            <div
-              class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800"
             >
-              <p class="text-sm text-gray-500 dark:text-gray-400">
-                Aucun fichier disponible pour ce document.
+              <UIcon name="i-heroicons-arrow-down-tray" class="h-5 w-5" />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="container mx-auto px-4 py-6">
+        <!-- Partage social Mobile -->
+        <div class="mb-6 lg:hidden">
+          <SocialShare :title="document.title" />
+        </div>
+
+        <div class="grid gap-8 lg:grid-cols-3">
+          <!-- Colonne principale -->
+          <div class="lg:col-span-2">
+            <!-- Image de couverture -->
+            <div v-if="document.cover_image" class="mb-6">
+              <div class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800">
+                <CmsImage
+                  :src="document.cover_image"
+                  :alt="document.title"
+                  :quality="80"
+                  class="mx-auto w-full max-w-lg object-contain"
+                />
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div
+              v-if="document.description"
+              class="mb-6 rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+            >
+              <p class="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+                {{ document.description }}
               </p>
             </div>
 
-            <!-- Partage social même sans fichier -->
+            <!-- Contenu HTML -->
             <div
-              class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800"
-            >
-              <SocialShare :title="document.title" />
-            </div>
+              v-if="document.content_html"
+              class="prose prose-sm prose-gray max-w-none rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 sm:p-6 dark:prose-invert dark:bg-gray-900 dark:ring-gray-800"
+              v-html="document.content_html"
+            />
+
+            <!-- Aperçu PDF intégré -->
+            <ClientOnly>
+              <div v-if="fileUrl" class="mt-8">
+                <div class="mb-4 flex items-center gap-2">
+                  <UIcon name="i-heroicons-document-text" class="h-5 w-5 text-gray-400" />
+                  <h2 class="text-sm font-semibold text-gray-900 dark:text-white">
+                    Aperçu du document
+                  </h2>
+                </div>
+                <div
+                  class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+                >
+                  <PdfViewer
+                    :source="fileUrl"
+                    :download-name="`${document?.slug || 'document'}.pdf`"
+                  />
+                </div>
+              </div>
+            </ClientOnly>
           </div>
-        </aside>
-      </div>
+
+          <!-- Sidebar Desktop -->
+          <aside class="hidden lg:col-span-1 lg:block">
+            <div class="sticky top-32 space-y-4">
+              <!-- Bloc fichier -->
+              <div
+                v-if="document.file"
+                class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+              >
+                <div class="mb-4 flex items-center gap-3">
+                  <div
+                    class="flex h-11 w-11 items-center justify-center rounded-xl bg-red-50 dark:bg-red-900/30"
+                  >
+                    <UIcon
+                      name="i-heroicons-document-text"
+                      class="h-5 w-5 text-red-500"
+                    />
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium text-gray-900 dark:text-white">Document PDF</p>
+                    <p v-if="fileSize" class="text-xs text-gray-500 dark:text-gray-400">
+                      {{ fileSize }}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="space-y-2">
+                  <button
+                    type="button"
+                    class="flex w-full items-center justify-center gap-2 rounded-xl bg-primary-500 px-4 py-2.5 text-sm font-medium text-white transition-all hover:bg-primary-600 active:scale-[0.98]"
+                    @click="showPdfViewer = true"
+                  >
+                    <UIcon name="i-heroicons-eye" class="h-4 w-4" />
+                    Lire le PDF
+                  </button>
+                  <div class="grid grid-cols-2 gap-2">
+                    <a
+                      :href="fileUrl"
+                      target="_blank"
+                      class="flex items-center justify-center gap-1.5 rounded-xl bg-gray-100 px-3 py-2 text-xs font-medium text-gray-700 transition-all hover:bg-gray-200 active:scale-[0.98] dark:bg-gray-800 dark:text-gray-300"
+                    >
+                      <UIcon name="i-heroicons-arrow-top-right-on-square" class="h-3.5 w-3.5" />
+                      Ouvrir
+                    </a>
+                    <button
+                      type="button"
+                      class="flex items-center justify-center gap-1.5 rounded-xl bg-gray-100 px-3 py-2 text-xs font-medium text-gray-700 transition-all hover:bg-gray-200 active:scale-[0.98] dark:bg-gray-800 dark:text-gray-300"
+                      @click="
+                        downloadCmsFile(
+                          `${document!.file!.id}/${document!.slug}.pdf`,
+                          `${document!.slug}.pdf`,
+                        )
+                      "
+                    >
+                      <UIcon name="i-heroicons-arrow-down-tray" class="h-3.5 w-3.5" />
+                      Télécharger
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Message si pas de fichier -->
+              <div
+                v-else
+                class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+              >
+                <div class="flex items-center gap-3 text-gray-400">
+                  <UIcon name="i-heroicons-document" class="h-5 w-5" />
+                  <p class="text-sm">Aucun fichier disponible</p>
+                </div>
+              </div>
+
+              <!-- Partage social -->
+              <div
+                class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+              >
+                <p class="mb-3 text-xs font-medium text-gray-500 dark:text-gray-400">Partager</p>
+                <SocialShare :title="document.title" />
+              </div>
+            </div>
+          </aside>
+        </div>
+      </main>
     </article>
 
     <!-- Not found state -->
-    <div v-else class="py-8 text-center text-gray-500 dark:text-gray-400">Document non trouvé</div>
+    <div
+      v-else
+      class="container mx-auto flex flex-col items-center justify-center px-4 py-16 text-center"
+    >
+      <div
+        class="flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800"
+      >
+        <UIcon name="i-heroicons-document-magnifying-glass" class="h-8 w-8 text-gray-400" />
+      </div>
+      <p class="mt-4 text-sm font-medium text-gray-900 dark:text-white">Document introuvable</p>
+      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+        Ce document n'existe pas ou a été supprimé
+      </p>
+      <NuxtLink
+        to="/documents"
+        class="mt-4 rounded-full bg-primary-500 px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-primary-600 active:scale-95"
+      >
+        Voir tous les documents
+      </NuxtLink>
+    </div>
 
     <!-- Visionneuse PDF Modal -->
     <ClientOnly>

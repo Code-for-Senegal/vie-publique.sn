@@ -320,34 +320,29 @@ watch(activeTab, (newTab) => {
           </div>
 
           <!-- Filters -->
-          <div class="flex flex-wrap items-center gap-3">
-            <div class="flex items-center gap-2">
-              <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Version</span>
-              <USelect
-                :model-value="selectedYearVersion"
-                :options="yearVersionOptions"
-                value-attribute="value"
-                option-attribute="label"
-                size="sm"
-                class="w-44"
-                :disabled="yearVersionOptions.length === 0"
-                @update:model-value="handleYearVersionChange"
-              />
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-xs font-medium text-gray-500 dark:text-gray-400">vs</span>
-              <USelect
-                :model-value="selectedCompareYearVersion"
-                :options="compareYearVersionOptions"
-                value-attribute="value"
-                option-attribute="label"
-                size="sm"
-                class="w-44"
-                placeholder="Comparer..."
-                :disabled="compareYearVersionOptions.length === 0"
-                @update:model-value="handleCompareYearVersionChange"
-              />
-            </div>
+          <div class="flex items-center gap-1.5 sm:gap-3">
+            <USelect
+              :model-value="selectedYearVersion"
+              :options="yearVersionOptions"
+              value-attribute="value"
+              option-attribute="label"
+              size="xs"
+              class="w-[130px] sm:w-44"
+              :disabled="yearVersionOptions.length === 0"
+              @update:model-value="handleYearVersionChange"
+            />
+            <span class="text-[10px] font-medium text-gray-400 sm:text-xs">vs</span>
+            <USelect
+              :model-value="selectedCompareYearVersion"
+              :options="compareYearVersionOptions"
+              value-attribute="value"
+              option-attribute="label"
+              size="xs"
+              class="w-[130px] sm:w-44"
+              placeholder="Comparer..."
+              :disabled="compareYearVersionOptions.length === 0"
+              @update:model-value="handleCompareYearVersionChange"
+            />
           </div>
         </div>
       </div>
@@ -356,13 +351,13 @@ watch(activeTab, (newTab) => {
     <!-- Tabs Navigation -->
     <div class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95">
       <div class="container mx-auto px-4">
-        <nav class="-mb-px flex gap-1 overflow-x-auto py-1 sm:gap-2" aria-label="Tabs">
+        <nav class="-mb-px flex gap-0.5 py-1 sm:gap-2" aria-label="Tabs">
           <button
             v-for="tab in tabs"
             :key="tab.id"
             @click="activeTab = tab.id"
             :class="[
-              'group flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-all sm:gap-2 sm:px-4',
+              'group flex items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-medium transition-all sm:gap-2 sm:px-4 sm:py-2 sm:text-sm',
               activeTab === tab.id
                 ? 'bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400'
                 : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white',
@@ -371,14 +366,13 @@ watch(activeTab, (newTab) => {
             <UIcon
               :name="tab.icon"
               :class="[
-                'h-4 w-4 transition-colors',
+                'h-3.5 w-3.5 sm:h-4 sm:w-4 transition-colors',
                 activeTab === tab.id
                   ? 'text-primary-600 dark:text-primary-400'
                   : 'text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300',
               ]"
             />
-            <span class="hidden sm:inline">{{ tab.label }}</span>
-            <span class="sm:hidden text-sm">{{ tab.label }}</span>
+            <span>{{ tab.label }}</span>
           </button>
         </nav>
       </div>

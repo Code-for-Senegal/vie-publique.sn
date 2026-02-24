@@ -67,33 +67,31 @@ const copyLink = async () => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-3">
-    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Partager ce document</p>
-
-    <div class="flex flex-wrap gap-2">
+  <div class="flex flex-col gap-2">
+    <div class="flex flex-wrap gap-1.5">
       <a
         v-for="link in shareLinks"
         :key="link.name"
         :href="link.url"
         target="_blank"
         rel="noopener noreferrer"
-        class="flex h-10 w-10 items-center justify-center rounded-lg transition-colors"
+        class="flex h-8 w-8 items-center justify-center rounded-lg transition-colors active:scale-95"
         :class="[link.bg, link.color]"
         :aria-label="`Partager sur ${link.name}`"
         :title="`Partager sur ${link.name}`"
       >
-        <UIcon :name="link.icon" class="h-5 w-5" />
+        <UIcon :name="link.icon" class="h-4 w-4" />
       </a>
 
       <button
         @click="copyLink"
-        class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
+        class="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 active:scale-95 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
         aria-label="Copier le lien"
         title="Copier le lien"
       >
         <UIcon
           :name="copied ? 'i-heroicons-check' : 'i-heroicons-link'"
-          class="h-5 w-5"
+          class="h-4 w-4"
           :class="{ 'text-green-600 dark:text-green-400': copied }"
         />
       </button>

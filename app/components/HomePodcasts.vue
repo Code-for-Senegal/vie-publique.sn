@@ -25,22 +25,22 @@ const closePlayer = () => {
 </script>
 
 <template>
-  <div class="my-4">
+  <section class="my-4" aria-labelledby="podcasts-heading">
     <!-- Loading state -->
-    <div v-if="pending" class="space-y-4">
-      <div class="h-7 w-48 animate-pulse rounded bg-gray-200 dark:bg-gray-700"></div>
+    <div v-if="pending" class="space-y-4" aria-busy="true">
+      <USkeleton class="mx-auto h-7 w-48" />
       <div
-        class="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 sm:gap-4 md:grid md:grid-cols-3 md:overflow-x-visible"
+        class="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-4 pt-1 md:grid md:grid-cols-3 md:gap-4 md:overflow-x-visible md:px-0 md:pb-0 md:pt-0"
       >
         <div
           v-for="n in 3"
           :key="n"
-          class="w-[240px] min-w-[240px] animate-pulse snap-start sm:w-[280px] sm:min-w-[280px] md:w-auto md:min-w-0"
+          class="w-60 flex-shrink-0 snap-start rounded-lg bg-white p-3 shadow-sm sm:w-72 md:w-auto md:flex-shrink dark:bg-gray-800"
         >
-          <div class="aspect-video rounded-t-lg bg-gray-200 dark:bg-gray-700"></div>
-          <div class="space-y-2 p-3">
-            <div class="h-4 w-full rounded bg-gray-200 dark:bg-gray-700"></div>
-            <div class="h-3 w-2/3 rounded bg-gray-200 dark:bg-gray-700"></div>
+          <USkeleton class="aspect-video w-full rounded-md" />
+          <div class="mt-3 space-y-2">
+            <USkeleton class="h-4 w-full" />
+            <USkeleton class="h-3 w-2/3" />
           </div>
         </div>
       </div>
@@ -64,21 +64,32 @@ const closePlayer = () => {
         @play="playPodcast"
       />
 
+      <!-- CTA -->
       <div class="mt-6 text-center">
-        <NuxtLink
+        <UButton
           to="/podcasts"
-          class="group inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 transition-all duration-200 hover:bg-gray-50 hover:shadow-md hover:ring-gray-400 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:hover:bg-gray-700 dark:hover:ring-gray-600"
+          color="white"
+          variant="solid"
+          size="md"
+          trailing-icon="i-heroicons-arrow-right"
+          class="font-medium"
         >
           Voir tous les podcasts
-          <UIcon
-            name="i-heroicons-arrow-right"
-            class="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
-          />
-        </NuxtLink>
+        </UButton>
       </div>
     </div>
 
     <!-- Player Modal -->
     <PodcastPlayerModal :podcast="currentPodcast" @close="closePlayer" />
-  </div>
+  </section>
 </template>
+
+<style scoped>
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+</style>

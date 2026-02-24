@@ -1,14 +1,11 @@
 <script lang="ts" setup>
 import { useNews } from '~/composables/news/useNews';
 
-// Fonction pour formater l'URL selon le nouveau format /categorie/id/slug
 const formatNewsUrl = (article: {
   id: string;
   title?: string;
   slug?: string;
-  category?: {
-    slug?: string;
-  };
+  category?: { slug?: string };
 }) => {
   if (!article) return '/actualites';
 
@@ -22,20 +19,14 @@ const formatNewsUrl = (article: {
           .replace(/(^-|-$)/g, '')
       : 'actualite');
 
-  // Gestion spécifique selon la catégorie
   const categorySlug = article.category?.slug;
 
-  // Cas du conseil des ministres
   if (categorySlug === 'conseil-des-ministres') {
     return `/conseil-des-ministres/${id}/${slug}`;
   }
-
-  // Cas de l'assemblée nationale
   if (categorySlug === 'assemblee-nationale') {
     return `/assemblee-nationale/actualites/${id}/${slug}`;
   }
-
-  // Cas par défaut pour toutes les autres catégories
   return `/actualites/${id}/${slug}`;
 };
 
@@ -50,66 +41,121 @@ const {
 </script>
 
 <template>
-  <div class="my-4">
-    <h2 class="mb-4 text-center text-xl font-semibold text-gray-800 dark:text-white">
+  <section class="my-4" aria-labelledby="news-heading">
+    <h2
+      id="news-heading"
+      class="mb-4 text-center text-xl font-semibold text-gray-800 dark:text-white"
+    >
       Derniers articles et actualités
     </h2>
 
-    <div v-if="loading" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      <div v-for="n in 3" :key="n" class="animate-pulse">
-        <div class="relative w-full">
-          <div class="aspect-[16/9] rounded-t-lg bg-gray-200"></div>
+    <!-- Loading state -->
+    <div
+      v-if="loading"
+      class="no-scrollbar flex snap-x snap-mandatory gap-2.5 overflow-x-auto px-1 pb-4 pt-1 md:grid md:grid-cols-3 md:gap-4 md:overflow-x-visible md:px-0 md:pb-0 md:pt-0"
+      aria-busy="true"
+    >
+      <div
+        v-for="n in 3"
+        :key="n"
+        class="w-36 flex-shrink-0 snap-start rounded-xl bg-white shadow-sm ring-1 ring-gray-100 md:w-auto md:flex-shrink dark:bg-gray-800 dark:ring-gray-700/50"
+      >
+        <USkeleton class="h-24 w-full rounded-t-xl md:h-36" />
+        <div class="space-y-1.5 p-2 md:p-3">
+          <USkeleton class="h-3 w-full" />
+          <USkeleton class="h-3 w-3/4" />
+          <USkeleton class="h-2.5 w-1/2" />
         </div>
-        <div class="mt-4 h-4 w-3/4 rounded bg-gray-200"></div>
-        <div class="mt-2 h-3 w-1/4 rounded bg-gray-200"></div>
       </div>
     </div>
 
-    <div v-else-if="error" class="p-4 text-red-600">
-      Une erreur est survenue lors du chargement des actualités.
-    </div>
+    <!-- Error state -->
+    <UAlert
+      v-else-if="error"
+      title="Erreur"
+      description="Une erreur est survenue lors du chargement des actualités."
+      color="red"
+      icon="i-heroicons-exclamation-triangle"
+    />
 
-    <div v-else>
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <UCard
-          v-for="article in featuredNews?.slice(0, 3)"
+    <!-- Content -->
+    <div v-else-if="featuredNews && featuredNews.length > 0">
+      <div
+        class="no-scrollbar flex snap-x snap-mandatory gap-2.5 overflow-x-auto px-1 pb-4 pt-1 md:grid md:grid-cols-3 md:gap-4 md:overflow-x-visible md:px-0 md:pb-0 md:pt-0"
+        role="list"
+      >
+        <article
+          v-for="article in featuredNews.slice(0, 3)"
           :key="article.id"
-          class="custom-shadow cursor-pointer dark:bg-gray-800/90"
+          role="listitem"
+          class="w-36 flex-shrink-0 snap-start md:w-auto md:flex-shrink"
         >
-          <NuxtLink :to="formatNewsUrl(article)" class="flex flex-row sm:flex-col">
-            <div class="mb-0 mr-4 w-1/3 sm:mb-4 sm:mr-0 sm:w-full">
+          <NuxtLink
+            :to="formatNewsUrl(article)"
+            :aria-label="`Lire : ${article.title}`"
+            class="group block overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.98] md:ring-0 md:hover:shadow-md dark:bg-gray-800 dark:ring-gray-700/50"
+          >
+            <!-- Image: compact vertical -->
+            <div class="relative h-24 w-full overflow-hidden md:h-36">
               <CmsImage
                 :src="article.cover_image"
                 :fallback="'/default-image-2.gif'"
                 :alt="article.title || 'Image actualité'"
-                class="h-20 w-full object-cover sm:h-48"
-                sizes="300px"
-                :placeholder="[300, 300]"
+                class="h-full w-full object-cover transition-transform duration-300 md:group-hover:scale-105"
+                sizes="(max-width: 768px) 144px, 300px"
+                loading="lazy"
               />
             </div>
-            <div class="flex-1">
-              <p class="line-clamp-2 text-sm font-semibold sm:text-base">
+
+            <!-- Content: compact -->
+            <div class="p-2 md:p-3">
+              <h3
+                class="line-clamp-2 min-h-[2.25rem] text-[11px] font-medium leading-snug text-gray-900 md:min-h-[3rem] md:text-sm dark:text-white"
+              >
                 {{ article.title }}
-              </p>
-              <div v-if="article.date_published" class="text-xs text-gray-800 dark:text-slate-200">
+              </h3>
+              <p
+                v-if="article.date_published"
+                class="mt-1 text-[10px] text-gray-500 md:text-xs dark:text-gray-400"
+              >
                 {{ $dateformatWithDayName(article.date_published) }}
-              </div>
+              </p>
             </div>
           </NuxtLink>
-        </UCard>
+        </article>
       </div>
-      <div class="mt-8 text-center">
-        <NuxtLink
+
+      <!-- CTA -->
+      <div class="mt-5 text-center">
+        <UButton
           to="/actualites"
-          class="group inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 transition-all duration-200 hover:bg-gray-50 hover:shadow-md hover:ring-gray-400 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:hover:bg-gray-700 dark:hover:ring-gray-600"
+          color="white"
+          variant="solid"
+          size="md"
+          trailing-icon="i-heroicons-arrow-right"
+          class="font-medium"
         >
           Voir toutes les actualités
-          <UIcon
-            name="i-heroicons-arrow-right"
-            class="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
-          />
-        </NuxtLink>
+        </UButton>
       </div>
     </div>
-  </div>
+
+    <!-- Empty state -->
+    <div
+      v-else
+      class="py-8 text-center text-sm text-gray-500 dark:text-gray-400"
+    >
+      Aucune actualité disponible pour le moment
+    </div>
+  </section>
 </template>
+
+<style scoped>
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+</style>

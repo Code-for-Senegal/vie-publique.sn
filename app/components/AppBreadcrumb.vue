@@ -1,68 +1,70 @@
 <template>
-  <!-- Mobile: Back link (navigation parent, UX native app) -->
-  <nav
-    class="flex items-center min-h-[44px] md:hidden"
-    aria-label="Breadcrumb"
-  >
-    <ULink
-      :to="parentItem?.to || '/'"
-      class="inline-flex items-center gap-1.5 py-2 pr-3 text-sm text-gray-600 active:text-gray-900 transition-colors dark:text-gray-400 dark:active:text-gray-100"
+  <div class="pt-3 pb-1">
+    <!-- Mobile: Back link (navigation parent, UX native app) -->
+    <nav
+      class="flex items-center min-h-[44px] md:hidden"
+      aria-label="Breadcrumb"
     >
-      <UIcon
-        name="i-heroicons-chevron-left"
-        class="size-4 flex-shrink-0"
-      />
-      <span class="truncate max-w-[200px]">
-        {{ parentItem?.label || "Accueil" }}
-      </span>
-    </ULink>
-  </nav>
-
-  <!-- Desktop: Full breadcrumb trail -->
-  <nav class="hidden md:block" aria-label="Breadcrumb">
-    <ol class="flex items-center gap-1 text-sm">
-      <!-- Accueil (icône) -->
-      <li>
-        <ULink
-          to="/"
-          class="inline-flex items-center justify-center p-1 text-gray-400 hover:text-gray-600 rounded transition-colors dark:text-gray-500 dark:hover:text-gray-300"
-          aria-label="Accueil"
-        >
-          <UIcon name="i-heroicons-home" class="size-4" />
-        </ULink>
-      </li>
-
-      <!-- Items -->
-      <li
-        v-for="(item, index) in resolvedItems"
-        :key="index"
-        class="flex items-center gap-1"
+      <ULink
+        :to="parentItem?.to || '/'"
+        class="inline-flex items-center gap-1.5 py-2 pr-3 text-sm text-gray-600 active:text-gray-900 transition-colors dark:text-gray-400 dark:active:text-gray-100"
       >
         <UIcon
-          name="i-heroicons-chevron-right"
-          class="size-3.5 text-gray-300 flex-shrink-0 dark:text-gray-600"
+          name="i-heroicons-chevron-left"
+          class="size-4 flex-shrink-0"
         />
+        <span class="truncate max-w-[200px]">
+          {{ parentItem?.label || "Accueil" }}
+        </span>
+      </ULink>
+    </nav>
 
-        <ULink
-          v-if="item.to && index < resolvedItems.length - 1"
-          :to="item.to"
-          class="text-gray-500 hover:text-gray-700 transition-colors truncate max-w-[200px] dark:text-gray-400 dark:hover:text-gray-200"
-          :title="item.label"
-        >
-          {{ item.label }}
-        </ULink>
+    <!-- Desktop: Full breadcrumb trail -->
+    <nav class="hidden md:block" aria-label="Breadcrumb">
+      <ol class="flex items-center gap-1 text-sm">
+        <!-- Accueil (icône) -->
+        <li>
+          <ULink
+            to="/"
+            class="inline-flex items-center justify-center p-1 text-gray-400 hover:text-gray-600 rounded transition-colors dark:text-gray-500 dark:hover:text-gray-300"
+            aria-label="Accueil"
+          >
+            <UIcon name="i-heroicons-home" class="size-4" />
+          </ULink>
+        </li>
 
-        <span
-          v-else
-          class="text-gray-900 font-medium truncate max-w-[250px] dark:text-white"
-          :title="item.label"
-          aria-current="page"
+        <!-- Items -->
+        <li
+          v-for="(item, index) in resolvedItems"
+          :key="index"
+          class="flex items-center gap-1"
         >
+          <UIcon
+            name="i-heroicons-chevron-right"
+            class="size-3.5 text-gray-300 flex-shrink-0 dark:text-gray-600"
+          />
+
+          <ULink
+            v-if="item.to && index < resolvedItems.length - 1"
+            :to="item.to"
+            class="text-gray-500 hover:text-gray-700 transition-colors truncate max-w-[200px] dark:text-gray-400 dark:hover:text-gray-200"
+            :title="item.label"
+          >
+            {{ item.label }}
+          </ULink>
+
+          <span
+            v-else
+            class="text-gray-900 font-medium truncate max-w-[250px] dark:text-white"
+            :title="item.label"
+            aria-current="page"
+          >
           {{ item.label }}
         </span>
       </li>
     </ol>
   </nav>
+  </div>
 </template>
 
 <script setup lang="ts">

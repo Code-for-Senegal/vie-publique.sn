@@ -9,27 +9,30 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="my-4">
-    <h2 class="mb-4 text-center text-xl font-semibold text-gray-800 dark:text-white">
+  <section class="my-4" aria-labelledby="documents-heading">
+    <h2
+      id="documents-heading"
+      class="mb-4 text-center text-xl font-semibold text-gray-800 dark:text-white"
+    >
       Derniers Documents publiés
     </h2>
 
-    <!-- Loading state -->
+    <!-- Loading state avec USkeleton -->
     <div
       v-if="store.isLoading || (!store.hasError && store.getLatestDocuments.length === 0)"
-      class="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:gap-4 md:overflow-x-visible md:pb-0"
+      class="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-4 pt-1 md:grid md:grid-cols-3 md:gap-4 md:overflow-x-visible md:px-0 md:pb-0 md:pt-0"
+      aria-busy="true"
+      aria-label="Chargement des documents"
     >
       <div
         v-for="n in 3"
         :key="n"
-        class="w-36 flex-shrink-0 snap-start animate-pulse sm:w-56 md:w-auto md:flex-shrink"
+        class="w-40 flex-shrink-0 snap-start rounded-lg bg-white p-3 shadow-sm sm:w-56 md:w-auto md:flex-shrink dark:bg-gray-800"
       >
-        <div class="rounded-lg bg-gray-200 dark:bg-gray-700">
-          <div class="aspect-[16/9] rounded-t-lg bg-gray-300 dark:bg-gray-600"></div>
-          <div class="p-4">
-            <div class="mb-2 h-4 w-3/4 rounded bg-gray-300 dark:bg-gray-600"></div>
-            <div class="h-3 w-1/4 rounded bg-gray-300 dark:bg-gray-600"></div>
-          </div>
+        <USkeleton class="aspect-[4/3] w-full rounded-md" />
+        <div class="mt-3 space-y-2">
+          <USkeleton class="h-4 w-full" />
+          <USkeleton class="h-4 w-3/4" />
         </div>
       </div>
     </div>
@@ -43,81 +46,82 @@ onMounted(() => {
       icon="i-heroicons-exclamation-triangle"
     />
 
-    <!-- Documents: défilement horizontal mobile, grille 3 colonnes desktop -->
+    <!-- Documents: scroll horizontal mobile, grille 3 colonnes desktop -->
     <div v-else>
       <div
-        class="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:gap-4 md:overflow-x-visible md:pb-0"
+        class="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-4 pt-1 md:grid md:grid-cols-3 md:gap-4 md:overflow-x-visible md:px-0 md:pb-0 md:pt-0"
+        role="list"
       >
         <UCard
           v-for="document in store.getLatestDocuments.slice(0, 3)"
           :key="document.id"
-          class="custom-shadow w-36 flex-shrink-0 snap-start cursor-pointer transition hover:shadow-lg sm:w-56 md:w-auto md:flex-shrink dark:bg-gray-800/90"
+          role="listitem"
+          :ui="{ body: { padding: 'p-3 sm:p-4' } }"
+          class="w-40 flex-shrink-0 snap-start transition-transform active:scale-[0.98] sm:w-56 md:w-auto md:flex-shrink"
         >
-          <NuxtLink :to="document.url" class="flex flex-col">
+          <NuxtLink
+            :to="document.url"
+            class="flex flex-col"
+            :aria-label="`Voir le document : ${document.title}`"
+          >
             <!-- Image -->
-            <div class="mb-3 w-full sm:mb-4">
+            <div class="mb-3 w-full">
               <CmsImage
                 v-if="document.cover_image"
                 :src="document.cover_image"
                 :quality="25"
                 :alt="`Aperçu ${document.title}`"
-                class="h-28 w-full rounded-md object-cover sm:h-36 md:h-48"
+                class="aspect-[4/3] w-full rounded-md object-cover"
                 loading="lazy"
               />
               <img
                 v-else-if="document.doc_type === 'official_journal'"
                 src="/images/default-journal-officiel.webp"
                 :alt="`Aperçu ${document.title}`"
-                class="h-28 w-full rounded-md object-cover sm:h-36 md:h-48"
+                class="aspect-[4/3] w-full rounded-md object-cover"
                 loading="lazy"
               />
               <div
                 v-else
-                class="flex h-28 w-full items-center justify-center rounded-md bg-gray-200 sm:h-36 md:h-48 dark:bg-gray-700"
+                class="flex aspect-[4/3] w-full items-center justify-center rounded-md bg-gray-100 dark:bg-gray-700"
               >
-                <UIcon
-                  name="i-heroicons-document-text"
-                  class="h-8 w-8 text-gray-400"
-                />
+                <UIcon name="i-heroicons-document-text" class="h-8 w-8 text-gray-400" />
               </div>
             </div>
 
-            <!-- Content -->
-            <div class="flex flex-1 flex-col">
-              <h3
-                class="line-clamp-2 text-xs font-semibold text-gray-900 sm:text-sm md:text-base dark:text-white"
-              >
-                {{ document.title }}
-              </h3>
-            </div>
+            <!-- Title -->
+            <h3
+              class="line-clamp-2 text-sm font-medium leading-snug text-gray-900 dark:text-white"
+            >
+              {{ document.title }}
+            </h3>
           </NuxtLink>
         </UCard>
       </div>
 
-      <div class="mt-8 text-center">
-        <NuxtLink
+      <!-- CTA -->
+      <div class="mt-6 text-center">
+        <UButton
           to="/documents/public"
-          class="group inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 transition-all duration-200 hover:bg-gray-50 hover:shadow-md hover:ring-gray-400 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:hover:bg-gray-700 dark:hover:ring-gray-600"
+          color="white"
+          variant="solid"
+          size="md"
+          trailing-icon="i-heroicons-arrow-right"
+          class="font-medium"
         >
           Voir tous les documents
-          <UIcon
-            name="i-heroicons-arrow-right"
-            class="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
-          />
-        </NuxtLink>
+        </UButton>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <style scoped>
-/* Masquer la scrollbar tout en gardant le scroll fonctionnel */
 .no-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
-
 .no-scrollbar::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
 </style>

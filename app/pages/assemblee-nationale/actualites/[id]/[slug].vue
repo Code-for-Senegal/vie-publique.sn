@@ -151,139 +151,214 @@ useSchemaOrg([
 </script>
 
 <template>
-  <div class="container mx-auto min-h-screen px-2 py-2 pb-16" itemscope itemtype="https://schema.org/WebPage">
-    <AppBreadcrumb :items="[
-      { label: 'Assemblée nationale', to: '/assemblee-nationale' },
-      { label: 'Actualités', to: '/assemblee-nationale/actualites' },
-      { label: article?.title || 'Article' }
-    ]" />
+  <div class="min-h-screen bg-gray-50/50 dark:bg-gray-900" itemscope itemtype="https://schema.org/WebPage">
+    <!-- Sticky Header (mobile only) -->
+    <header class="sticky top-0 z-40 border-b border-gray-100 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95 md:relative md:border-0 md:bg-transparent md:backdrop-blur-none dark:md:bg-transparent">
+      <div class="container mx-auto px-4">
+        <div class="flex items-center gap-3 py-3 md:hidden">
+          <!-- Back button -->
+          <NuxtLink
+            to="/assemblee-nationale/actualites"
+            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 active:scale-95 dark:bg-gray-800 dark:text-gray-400"
+            aria-label="Retour"
+          >
+            <UIcon name="i-heroicons-arrow-left" class="h-4 w-4" />
+          </NuxtLink>
 
-    <!-- Loading state -->
-    <div v-if="loading" class="space-y-4">
-      <div class="h-8 w-3/4 animate-pulse rounded bg-gray-200"></div>
-      <div class="h-64 animate-pulse rounded-lg bg-gray-200"></div>
-      <div class="h-4 animate-pulse rounded bg-gray-200"></div>
-      <div class="h-4 w-3/4 animate-pulse rounded bg-gray-200"></div>
+          <!-- Title & Meta -->
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center gap-2">
+              <span class="shrink-0 rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold uppercase text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
+                Assemblée nationale
+              </span>
+            </div>
+            <h1 v-if="article" class="truncate text-sm font-semibold text-gray-900 dark:text-white">
+              {{ article.title }}
+            </h1>
+            <USkeleton v-else class="mt-1 h-4 w-48" />
+            <p v-if="article?.date_published" class="text-xs text-gray-500">
+              {{ formatDate(article.date_published) }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-6">
+      <AppBreadcrumb :items="[
+        { label: 'Assemblée nationale', to: '/assemblee-nationale' },
+        { label: 'Actualités', to: '/assemblee-nationale/actualites' },
+        { label: article?.title || 'Article' }
+      ]" />
+
+      <!-- Loading state -->
+      <div v-if="loading" class="mx-auto max-w-3xl space-y-6">
+        <div class="overflow-hidden rounded-2xl bg-white ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700">
+          <USkeleton class="aspect-video w-full" />
+          <div class="space-y-4 p-6">
+            <USkeleton class="h-6 w-3/4" />
+            <USkeleton class="h-4 w-full" />
+            <USkeleton class="h-4 w-full" />
+            <USkeleton class="h-4 w-2/3" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Error state -->
+      <div v-else-if="error" class="mx-auto max-w-md py-16 text-center">
+        <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30">
+          <UIcon name="i-heroicons-exclamation-triangle" class="h-8 w-8 text-red-600 dark:text-red-400" />
+        </div>
+        <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Erreur de chargement</h2>
+        <p class="mb-6 text-sm text-gray-600 dark:text-gray-400">
+          Une erreur est survenue lors du chargement de l'article.
+        </p>
+        <NuxtLink
+          to="/assemblee-nationale/actualites"
+          class="inline-flex items-center gap-2 rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-gray-800 active:scale-95 dark:bg-white dark:text-gray-900"
+        >
+          <UIcon name="i-heroicons-arrow-left" class="h-4 w-4" />
+          Retour aux actualités
+        </NuxtLink>
+      </div>
+
+      <!-- Content -->
+      <article
+        v-else-if="article"
+        class="mx-auto max-w-3xl"
+        itemscope
+        itemtype="https://schema.org/NewsArticle"
+        itemprop="mainEntity"
+      >
+        <!-- Schema.org hidden metadata -->
+        <div class="hidden">
+          <meta itemprop="url" :content="url" />
+          <meta itemprop="datePublished" :content="formatDateISO(article.date_published)" />
+          <meta itemprop="dateModified" :content="article.date_updated ? formatDateISO(article.date_updated) : formatDateISO(article.date_published)" />
+          <meta itemprop="articleSection" content="Politique" />
+          <meta itemprop="keywords" :content="article.tags?.join(', ') || 'Assemblée nationale, Sénégal'" />
+          <div itemprop="publisher" itemscope itemtype="https://schema.org/NewsMediaOrganization">
+            <meta itemprop="name" :content="siteName" />
+            <meta itemprop="url" :content="siteUrl" />
+            <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+              <meta itemprop="url" :content="defaultImage" />
+            </div>
+          </div>
+          <div itemprop="author" itemscope itemtype="https://schema.org/Organization">
+            <meta itemprop="name" content="Assemblée nationale du Sénégal" />
+            <meta itemprop="url" :content="`${siteUrl}/assemblee-nationale`" />
+          </div>
+          <div itemprop="mainEntityOfPage" itemscope itemtype="https://schema.org/WebPage">
+            <meta itemprop="@id" :content="url" />
+          </div>
+          <div itemprop="about" itemscope itemtype="https://schema.org/GovernmentOrganization">
+            <meta itemprop="name" content="Assemblée nationale du Sénégal" />
+            <meta itemprop="url" :content="`${siteUrl}/assemblee-nationale`" />
+          </div>
+        </div>
+
+        <!-- Cover Image -->
+        <figure
+          v-if="article.cover_image"
+          class="mb-6 overflow-hidden rounded-2xl bg-white ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+          itemprop="image"
+          itemscope
+          itemtype="https://schema.org/ImageObject"
+        >
+          <CmsImage
+            :src="article.cover_image"
+            :alt="article.title"
+            class="aspect-video w-full object-cover"
+            loading="eager"
+            fetchpriority="high"
+            itemprop="contentUrl"
+          />
+          <meta itemprop="url" :content="useCmsImageAbsolute(article.cover_image)" />
+          <meta itemprop="width" content="800" />
+          <meta itemprop="height" content="450" />
+          <meta itemprop="caption" :content="article.title" />
+        </figure>
+
+        <!-- Main Content -->
+        <div class="space-y-6">
+          <!-- Title & Meta (visible on larger screens) -->
+          <div class="hidden md:block">
+            <div class="mb-3 flex items-center gap-2">
+              <span class="rounded-full bg-amber-100 px-2.5 py-1 text-xs font-semibold text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
+                Assemblée nationale
+              </span>
+            </div>
+            <h1 class="mb-3 text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl" itemprop="headline">
+              {{ article.title }}
+            </h1>
+            <div class="flex items-center gap-3 text-sm text-gray-500">
+              <time
+                :datetime="formatDateISO(article.date_published)"
+                itemprop="datePublished"
+                class="flex items-center gap-1.5"
+              >
+                <UIcon name="i-heroicons-calendar" class="h-4 w-4" />
+                {{ formatDate(article.date_published) }}
+              </time>
+            </div>
+          </div>
+
+          <!-- Tags -->
+          <div v-if="article.tags?.length" class="flex flex-wrap gap-2">
+            <span
+              v-for="tag in article.tags"
+              :key="tag"
+              class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600 dark:bg-gray-800 dark:text-gray-400"
+              itemprop="keywords"
+            >
+              {{ tag }}
+            </span>
+          </div>
+
+          <!-- Article Body -->
+          <div class="rounded-2xl bg-white p-6 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700 sm:p-8">
+            <div
+              class="prose prose-sm max-w-none dark:prose-invert prose-headings:font-semibold prose-h2:mt-8 prose-h2:text-xl prose-p:leading-relaxed prose-a:text-amber-600 prose-img:rounded-xl dark:prose-a:text-amber-400"
+              itemprop="articleBody"
+              v-html="article.content"
+            ></div>
+          </div>
+
+          <!-- Share & Social -->
+          <div class="rounded-2xl bg-white p-5 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700">
+            <SocialShare
+              :title="article.title"
+              :url="url"
+            />
+          </div>
+        </div>
+      </article>
+
+      <!-- Not Found -->
+      <div v-else class="mx-auto max-w-md py-16 text-center">
+        <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
+          <UIcon name="i-heroicons-document-magnifying-glass" class="h-8 w-8 text-gray-400" />
+        </div>
+        <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Article non trouvé</h2>
+        <p class="mb-6 text-sm text-gray-600 dark:text-gray-400">
+          Cet article n'existe pas ou a été supprimé.
+        </p>
+        <NuxtLink
+          to="/assemblee-nationale/actualites"
+          class="inline-flex items-center gap-2 rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-gray-800 active:scale-95 dark:bg-white dark:text-gray-900"
+        >
+          <UIcon name="i-heroicons-arrow-left" class="h-4 w-4" />
+          Voir les actualités
+        </NuxtLink>
+      </div>
     </div>
 
-    <!-- Error state -->
-    <UAlert
-      v-else-if="error"
-      title="Erreur de chargement"
-      description="Une erreur est survenue lors du chargement de l'article"
-      color="red"
-      icon="i-heroicons-exclamation-triangle"
-      class="dark:text-white"
-    />
-
-    <!-- Content -->
-    <article
-      v-else-if="article"
-      class="mx-auto max-w-4xl"
-      itemscope
-      itemtype="https://schema.org/NewsArticle"
-      itemprop="mainEntity"
-    >
-      <!-- Schema.org hidden metadata -->
-      <meta itemprop="url" :content="url" />
-      <meta itemprop="datePublished" :content="formatDateISO(article.date_published)" />
-      <meta
-        itemprop="dateModified"
-        :content="
-          article.date_updated
-            ? formatDateISO(article.date_updated)
-            : formatDateISO(article.date_published)
-        "
-      />
-      <meta itemprop="articleSection" content="Politique" />
-      <meta
-        itemprop="keywords"
-        :content="article.tags?.join(', ') || 'Assemblée nationale, Sénégal'"
-      />
-
-      <!-- Publisher info -->
-      <div itemprop="publisher" itemscope itemtype="https://schema.org/NewsMediaOrganization">
-        <meta itemprop="name" :content="siteName" />
-        <meta itemprop="url" :content="siteUrl" />
-        <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-          <meta itemprop="url" :content="defaultImage" />
-        </div>
-      </div>
-
-      <!-- Author info -->
-      <div itemprop="author" itemscope itemtype="https://schema.org/Organization">
-        <meta itemprop="name" content="Assemblée nationale du Sénégal" />
-        <meta itemprop="url" :content="`${siteUrl}/assemblee-nationale`" />
-      </div>
-
-      <!-- Main entity of page -->
-      <div itemprop="mainEntityOfPage" itemscope itemtype="https://schema.org/WebPage">
-        <meta itemprop="@id" :content="url" />
-      </div>
-
-      <header class="mb-4">
-        <h1
-          class="mb-2 text-2xl font-bold text-gray-900 md:text-4xl dark:text-white"
-          itemprop="headline"
-        >
-          {{ article.title }}
-        </h1>
-        <div class="flex items-center gap-2 text-gray-500 dark:text-gray-400">
-          <UIcon name="i-heroicons-calendar" class="h-5 w-5" />
-          <time :datetime="formatDateISO(article.date_published)" itemprop="datePublished">
-            {{ formatDate(article.date_published) }}
-          </time>
-        </div>
-      </header>
-
-      <!-- Image principale -->
-      <figure
-        v-if="article.cover_image"
-        itemprop="image"
-        itemscope
-        itemtype="https://schema.org/ImageObject"
-        class="mb-2"
-      >
-        <CmsImage
-          :src="article.cover_image"
-          :alt="article.title"
-          class="w-full rounded-lg object-contain shadow-sm"
-          loading="eager"
-          fetchpriority="high"
-          itemprop="contentUrl"
-        />
-        <meta itemprop="url" :content="useCmsImageAbsolute(article.cover_image)" />
-        <meta itemprop="width" content="800" />
-        <meta itemprop="height" content="450" />
-        <meta itemprop="caption" :content="article.title" />
-      </figure>
-
-      <!-- Tags -->
-      <div v-if="article.tags?.length" class="mb-8 hidden flex-wrap gap-2">
-        <span
-          v-for="tag in article.tags"
-          :key="tag"
-          class="rounded-full bg-blue-50 px-3 py-1 text-sm text-blue-600"
-          itemprop="keywords"
-        >
-          {{ tag }}
-        </span>
-      </div>
-
-      <!-- Contenu -->
-      <div
-        class="prose prose-sm max-w-none sm:prose dark:prose-invert prose-a:text-blue-600 prose-img:rounded-lg dark:prose-a:text-blue-400"
-        itemprop="articleBody"
-        v-html="article.content"
-      />
-
-      <!-- About information -->
-      <div itemprop="about" itemscope itemtype="https://schema.org/GovernmentOrganization">
-        <meta itemprop="name" content="Assemblée nationale du Sénégal" />
-        <meta itemprop="url" :content="`${siteUrl}/assemblee-nationale`" />
-      </div>
-    </article>
-
-    <div v-else class="py-12 text-center text-gray-500 dark:text-gray-400">Article non trouvé</div>
+    <ScrollToTopButton />
   </div>
 </template>
+
+<style scoped>
+:deep(.prose img) {
+  @apply mx-auto rounded-xl;
+}
+</style>

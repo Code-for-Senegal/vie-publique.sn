@@ -229,129 +229,147 @@ useHead({
 
 <template>
   <div
-    class="container mx-auto min-h-screen bg-white py-2 pb-16 dark:bg-gray-900"
+    class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-900"
     itemscope
     itemtype="https://schema.org/WebPage"
   >
-    <div class="mx-auto max-w-4xl">
+    <!-- Breadcrumb -->
+    <div class="container mx-auto px-4 pt-4">
       <AppBreadcrumb :items="[
         { label: 'Assemblée nationale', to: '/assemblee-nationale' },
-        { label: 'Questions écrites', to: '/assemblee-nationale/questions' },
-        { label: question?.subject || 'Question' }
+        { label: 'Questions', to: '/assemblee-nationale/questions' },
+        { label: 'Question' }
       ]" />
+    </div>
 
-      <!-- Loading state -->
-      <div v-if="loading" class="flex justify-center py-8">
-        <UIcon name="i-heroicons-arrow-path" class="h-8 w-8 animate-spin" />
+    <!-- Sticky Header mobile -->
+    <header class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm md:relative md:border-0 md:bg-transparent md:backdrop-blur-none dark:border-gray-800 dark:bg-gray-900/95">
+      <div class="container mx-auto px-4 py-3 md:py-4">
+        <div class="flex items-center gap-3">
+          <NuxtLink
+            to="/assemblee-nationale/questions"
+            class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 md:hidden dark:bg-gray-800"
+          >
+            <UIcon name="i-heroicons-arrow-left" class="h-4 w-4 text-gray-600 dark:text-gray-400" />
+          </NuxtLink>
+          <div class="min-w-0 flex-1">
+            <h1 class="truncate text-sm font-semibold text-gray-900 md:text-lg dark:text-white">
+              Question écrite
+            </h1>
+          </div>
+          <SocialShare v-if="question" :title="question.subject" :url="url" />
+        </div>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-4">
+      <!-- Loading State -->
+      <div v-if="loading" class="space-y-4">
+        <div class="flex items-center gap-3">
+          <USkeleton class="h-14 w-14 rounded-full" />
+          <div class="space-y-2">
+            <USkeleton class="h-4 w-32" />
+            <USkeleton class="h-3 w-24" />
+          </div>
+        </div>
+        <USkeleton class="h-6 w-3/4" />
+        <div class="space-y-2">
+          <USkeleton class="h-4 w-full" />
+          <USkeleton class="h-4 w-full" />
+          <USkeleton class="h-4 w-2/3" />
+        </div>
       </div>
 
-      <!-- Error state -->
-      <UAlert
-        v-else-if="error"
-        title="Erreur de chargement"
-        description="Une erreur est survenue lors du chargement de la question"
-        color="red"
-        class="dark:text-white"
-        icon="i-heroicons-exclamation-triangle"
-      />
+      <!-- Error State -->
+      <div v-else-if="error" class="rounded-2xl bg-red-50 p-6 text-center dark:bg-red-900/20">
+        <UIcon name="i-heroicons-exclamation-triangle" class="mx-auto mb-3 h-10 w-10 text-red-500" />
+        <h3 class="font-semibold text-red-800 dark:text-red-200">Erreur de chargement</h3>
+        <p class="mt-1 text-sm text-red-600 dark:text-red-300">Une erreur est survenue</p>
+        <NuxtLink
+          to="/assemblee-nationale/questions"
+          class="mt-4 inline-block text-sm text-red-600 underline dark:text-red-400"
+        >
+          Retourner aux questions
+        </NuxtLink>
+      </div>
 
-      <!-- Contenu de la question -->
-      <div v-else-if="question" class="space-y-6">
+      <!-- Content -->
+      <article v-else-if="question" itemscope itemtype="https://schema.org/Question" itemprop="mainEntity">
         <!-- Schema.org hidden metadata -->
-        <div itemscope itemtype="https://schema.org/Question" itemprop="mainEntity">
+        <div class="hidden">
           <meta itemprop="url" :content="url" />
           <meta itemprop="dateCreated" :content="formatDateISO(question.question_date)" />
           <meta itemprop="name" :content="question.subject" />
-
-          <!-- En-tête avec info député -->
-          <div class="rounded-lg bg-white p-2 shadow-sm dark:bg-gray-800 dark:text-gray-100">
-            <div itemprop="author" itemscope itemtype="https://schema.org/Person">
-              <meta itemprop="name" :content="questionFullName" />
-              <meta itemprop="givenName" :content="question.deputy.first_name" />
-              <meta itemprop="familyName" :content="question.deputy.last_name" />
-              <meta itemprop="jobTitle" content="Député" />
-              <meta itemprop="image" :content="getImageUrl(question.deputy.photo)" />
-
-              <div
-                itemprop="worksFor"
-                itemscope
-                itemtype="https://schema.org/GovernmentOrganization"
-              >
-                <meta itemprop="name" content="Assemblée nationale du Sénégal" />
-                <meta itemprop="url" :content="`${siteUrl}/assemblee-nationale`" />
-              </div>
-
-              <NuxtLink
-                :to="`/assemblee-nationale/deputes/${question.deputy.id}/${$getSlugifyUrlPath(question.deputy.first_name + ' ' + question.deputy.last_name)}`"
-                class="block"
-                itemprop="url"
-              >
-                <div class="mb-6 flex items-center gap-4">
-                  <img
-                    :src="getImageUrl(question.deputy.photo)"
-                    :alt="question.deputy.first_name"
-                    class="h-20 w-20 rounded-full object-cover"
-                    itemprop="image"
-                  />
-                  <div>
-                    <h2 class="text-xl font-bold dark:text-gray-100">
-                      <span itemprop="givenName">{{ question.deputy.first_name }}</span>
-                      <span itemprop="familyName">{{ question.deputy.last_name }}</span>
-                    </h2>
-                    <div class="text-sm text-gray-500 dark:text-gray-400">
-                      <time
-                        :datetime="formatDateISO(question.question_date)"
-                        itemprop="dateCreated"
-                      >
-                        {{ formatDate(question.question_date) }}
-                      </time>
-                    </div>
-                  </div>
-                </div>
-              </NuxtLink>
+          <div itemprop="author" itemscope itemtype="https://schema.org/Person">
+            <meta itemprop="name" :content="questionFullName" />
+            <meta itemprop="givenName" :content="question.deputy.first_name" />
+            <meta itemprop="familyName" :content="question.deputy.last_name" />
+            <meta itemprop="jobTitle" content="Député" />
+            <meta itemprop="image" :content="getImageUrl(question.deputy.photo)" />
+            <div itemprop="worksFor" itemscope itemtype="https://schema.org/GovernmentOrganization">
+              <meta itemprop="name" content="Assemblée nationale du Sénégal" />
+              <meta itemprop="url" :content="`${siteUrl}/assemblee-nationale`" />
             </div>
-
-            <h1 class="mb-4 text-2xl font-bold dark:text-gray-100" itemprop="name">
-              {{ question.subject }}
-            </h1>
-
-            <!-- Corps de la question -->
-            <div
-              class="prose prose-gray max-w-none dark:prose-invert"
-              itemprop="text"
-              v-html="question.question_text"
-            ></div>
-
-            <NuxtLink
-              :to="`/assemblee-nationale/deputes/${question.deputy.id}/${$getSlugifyUrlPath(question.deputy.first_name + ' ' + question.deputy.last_name)}`"
-              class="block text-blue-600 underline dark:text-blue-300 dark:hover:text-blue-200"
-              >Voir son profil</NuxtLink
-            >
           </div>
-
-          <!-- About information -->
           <div itemprop="about" itemscope itemtype="https://schema.org/GovernmentOrganization">
             <meta itemprop="name" content="Gouvernement du Sénégal" />
           </div>
-
-          <!-- Part of collection -->
           <div itemprop="isPartOf" itemscope itemtype="https://schema.org/CollectionPage">
             <meta itemprop="name" content="Questions écrites parlementaires" />
             <meta itemprop="url" :content="`${siteUrl}/assemblee-nationale/questions`" />
           </div>
         </div>
 
-        <!-- Pièces jointes -->
+        <!-- Deputy Card -->
+        <NuxtLink
+          :to="`/assemblee-nationale/deputes/${question.deputy.id}/${$getSlugifyUrlPath(question.deputy.first_name + ' ' + question.deputy.last_name)}`"
+          class="mb-4 flex items-center gap-3 rounded-xl bg-white p-3 ring-1 ring-gray-100 transition-all active:scale-[0.99] md:p-4 md:hover:ring-amber-200 dark:bg-gray-800 dark:ring-gray-700"
+        >
+          <img
+            :src="getImageUrl(question.deputy.photo)"
+            :alt="question.deputy.first_name"
+            class="h-12 w-12 rounded-full object-cover md:h-14 md:w-14"
+          />
+          <div class="min-w-0 flex-1">
+            <p class="text-sm font-semibold text-gray-900 md:text-base dark:text-white">
+              {{ question.deputy.first_name }} {{ question.deputy.last_name }}
+            </p>
+            <p class="text-xs text-amber-600 dark:text-amber-400">Député</p>
+          </div>
+          <time
+            :datetime="formatDateISO(question.question_date)"
+            class="text-xs text-gray-400 dark:text-gray-500"
+          >
+            {{ formatDate(question.question_date) }}
+          </time>
+        </NuxtLink>
+
+        <!-- Question Content -->
+        <div class="rounded-2xl bg-white p-4 ring-1 ring-gray-100 md:p-6 dark:bg-gray-800 dark:ring-gray-700">
+          <h2 class="mb-4 text-lg font-bold text-gray-900 md:text-xl dark:text-white" itemprop="name">
+            {{ question.subject }}
+          </h2>
+
+          <div
+            class="prose prose-sm prose-gray max-w-none dark:prose-invert"
+            itemprop="text"
+            v-html="question.question_text"
+          ></div>
+        </div>
+
+        <!-- Attachments -->
         <div
           v-if="question.attachments?.length > 0"
-          class="rounded-lg bg-white shadow-sm dark:bg-gray-800 dark:text-gray-100"
+          class="mt-4 rounded-2xl bg-white p-4 ring-1 ring-gray-100 md:p-6 dark:bg-gray-800 dark:ring-gray-700"
         >
-          <h3 class="mb-4 text-lg font-bold dark:text-gray-100">Documents joints</h3>
-          <div class="grid grid-cols-1 gap-2 md:grid-cols-2">
+          <h3 class="mb-3 text-sm font-bold text-gray-900 md:text-base dark:text-white">
+            Documents joints
+          </h3>
+          <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
             <template v-for="attachment in question.attachments" :key="attachment.directus_files_id?.id || attachment.id">
               <div
                 v-if="attachment.directus_files_id?.id"
-                class="overflow-hidden rounded-lg"
+                class="overflow-hidden rounded-xl"
                 itemscope
                 itemtype="https://schema.org/MediaObject"
               >
@@ -362,30 +380,50 @@ useHead({
                 <img
                   v-if="isImageFile(attachment.directus_files_id.type)"
                   :src="getImageUrl(attachment.directus_files_id.id)"
-                  :alt="'Document joint'"
-                  class="h-auto w-full rounded border border-gray-200 dark:border-gray-700"
+                  alt="Document joint"
+                  class="h-auto w-full rounded-xl ring-1 ring-gray-200 dark:ring-gray-700"
                   itemprop="contentUrl"
                 />
                 <!-- Non-image attachments -->
-                <UButton
+                <a
                   v-else
                   :href="getImageUrl(attachment.directus_files_id.id)"
                   target="_blank"
-                  class="w-full dark:bg-gray-700 dark:text-gray-100"
+                  class="flex items-center gap-3 rounded-xl bg-amber-50 p-3 text-amber-700 transition-colors hover:bg-amber-100 dark:bg-amber-900/20 dark:text-amber-400"
                 >
-                  <UIcon name="i-heroicons-document" class="mr-2 h-5 w-5" />
-                  Télécharger le document
-                </UButton>
+                  <UIcon name="i-heroicons-document-arrow-down" class="h-5 w-5" />
+                  <span class="text-sm font-medium">Télécharger le document</span>
+                </a>
               </div>
             </template>
           </div>
         </div>
-      </div>
 
-      <!-- Not found state -->
-      <div v-else class="py-8 text-center text-gray-500 dark:text-gray-400">
-        Question non trouvée
+        <!-- Deputy Profile Link -->
+        <div class="mt-4">
+          <NuxtLink
+            :to="`/assemblee-nationale/deputes/${question.deputy.id}/${$getSlugifyUrlPath(question.deputy.first_name + ' ' + question.deputy.last_name)}`"
+            class="flex items-center justify-center gap-2 rounded-xl bg-amber-50 p-3 text-sm font-medium text-amber-700 transition-colors active:bg-amber-100 md:hover:bg-amber-100 dark:bg-amber-900/20 dark:text-amber-400"
+          >
+            <UIcon name="i-heroicons-user" class="h-4 w-4" />
+            Voir le profil du député
+          </NuxtLink>
+        </div>
+      </article>
+
+      <!-- Not found -->
+      <div v-else class="rounded-2xl bg-gray-100 p-8 text-center dark:bg-gray-800">
+        <UIcon name="i-heroicons-document-magnifying-glass" class="mx-auto mb-3 h-10 w-10 text-gray-400" />
+        <p class="text-gray-500 dark:text-gray-400">Question non trouvée</p>
+        <NuxtLink
+          to="/assemblee-nationale/questions"
+          class="mt-3 inline-block text-sm text-amber-600 underline dark:text-amber-400"
+        >
+          Retourner aux questions
+        </NuxtLink>
       </div>
-    </div>
+    </main>
+
+    <ScrollToTopButton />
   </div>
 </template>

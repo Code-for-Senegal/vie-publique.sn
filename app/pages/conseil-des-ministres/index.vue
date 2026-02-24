@@ -189,21 +189,6 @@ const {
   limit: 9,
 });
 
-const resultsText = computed(() =>
-  useResultsText({
-    totalItems,
-    currentPage,
-    itemsPerPage,
-    searchQuery,
-    customLabels: {
-      singular: "communiqué",
-      plural: "communiqués",
-      noResults: "Aucun communiqué trouvé",
-      noResultsWithSearch: 'Aucun communiqué trouvé pour "{search}"',
-    },
-  }),
-);
-
 const formatDateISO = (date: string) => {
   return new Date(date).toISOString();
 };
@@ -211,218 +196,222 @@ const formatDateISO = (date: string) => {
 
 <template>
   <div
-    class="container mx-auto min-h-screen pb-16 sm:px-4"
+    class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-950"
     itemscope
     itemtype="https://schema.org/CollectionPage"
   >
-    <AppBreadcrumb
-      :items="[
-        { label: 'Conseil des ministres' }
-      ]"
-    />
-
-    <div class="prose prose-sm sm:prose mx-auto my-4">
-      <h1
-        class="from-primary-600 to-primary-500 bg-clip-text text-center text-xl font-bold sm:text-3xl"
-        itemprop="headline"
-      >
-        Conseil des ministres
-      </h1>
-    </div>
-
     <!-- Schema.org hidden metadata -->
-    <div
-      itemprop="about"
-      itemscope
-      itemtype="https://schema.org/GovernmentOrganization"
-    >
+    <div class="hidden" itemprop="about" itemscope itemtype="https://schema.org/GovernmentOrganization">
       <meta itemprop="name" content="Conseil des ministres du Sénégal" />
       <meta itemprop="url" :content="url" />
-
-      <div
-        itemprop="parentOrganization"
-        itemscope
-        itemtype="https://schema.org/GovernmentOrganization"
-      >
+      <div itemprop="parentOrganization" itemscope itemtype="https://schema.org/GovernmentOrganization">
         <meta itemprop="name" content="République du Sénégal" />
       </div>
-
       <div itemprop="leader" itemscope itemtype="https://schema.org/Person">
         <meta itemprop="name" content="Bassirou Diomaye Faye" />
-        <meta
-          itemprop="jobTitle"
-          content="Président de la République du Sénégal"
-        />
+        <meta itemprop="jobTitle" content="Président de la République du Sénégal" />
       </div>
     </div>
 
-    <div class="mb-8">
-      <UInput
-        :model-value="searchQuery"
-        placeholder="Rechercher un communiqué..."
-        icon="i-heroicons-magnifying-glass"
-        class="custom-shadow mx-auto w-full"
-        size="lg"
-        @update:model-value="setSearchQuery"
-      />
-      <div
-        class="mt-2 flex flex-col items-center justify-between text-sm text-gray-500 sm:flex-row"
-      >
-        <span>{{ resultsText }}</span>
+    <!-- Breadcrumb -->
+    <div class="container mx-auto px-4">
+      <AppBreadcrumb :items="[{ label: 'Conseil des ministres' }]" />
+    </div>
+
+    <!-- Sticky Header -->
+    <header class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95">
+      <div class="container mx-auto px-4 py-3">
+        <!-- Title Row -->
+        <div class="flex items-center justify-between">
+          <h1 class="text-lg font-bold text-gray-900 sm:text-xl dark:text-white" itemprop="headline">
+            Conseil des ministres
+          </h1>
+          <span class="text-xs text-gray-500 dark:text-gray-400">{{ totalItems }} communiqué{{ totalItems > 1 ? 's' : '' }}</span>
+        </div>
+        
+        <!-- Search Input -->
+        <div class="group relative mt-3">
+          <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
+            <UIcon
+              name="i-heroicons-magnifying-glass-20-solid"
+              class="h-5 w-5 text-gray-400 transition-colors group-focus-within:text-emerald-500"
+            />
+          </div>
+          <input
+            type="search"
+            :value="searchQuery"
+            placeholder="Rechercher un communiqué..."
+            class="block w-full rounded-xl border-0 bg-gray-100 py-3 pl-11 pr-10 text-sm text-gray-900 ring-1 ring-transparent transition-all placeholder:text-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 sm:py-2.5 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-400 dark:focus:bg-gray-800/80"
+            @input="setSearchQuery(($event.target as HTMLInputElement).value)"
+          />
+          <button
+            v-if="searchQuery"
+            type="button"
+            class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 transition-colors hover:text-gray-600 dark:hover:text-gray-300"
+            @click="setSearchQuery('')"
+          >
+            <span class="flex h-5 w-5 items-center justify-center rounded-full bg-gray-300 dark:bg-gray-600">
+              <UIcon name="i-heroicons-x-mark-20-solid" class="h-3.5 w-3.5 text-gray-600 dark:text-gray-300" />
+            </span>
+          </button>
+        </div>
       </div>
-    </div>
+    </header>
 
-    <div v-if="loading" class="flex min-h-48 items-center justify-center">
-      <UIcon
-        name="i-heroicons-arrow-path"
-        class="text-primary h-12 w-12 animate-spin"
-      />
-    </div>
+    <main class="container mx-auto px-4 pt-4">
+      <!-- Loading Skeleton -->
+      <div v-if="loading" class="space-y-2 sm:grid sm:grid-cols-2 sm:gap-4 sm:space-y-0 lg:grid-cols-3">
+        <div v-for="n in 6" :key="n" class="flex gap-3 rounded-xl bg-white p-2.5 ring-1 ring-gray-100 sm:flex-col sm:gap-0 sm:p-0 sm:ring-0 sm:shadow-md dark:bg-gray-900 dark:ring-gray-800">
+          <USkeleton class="h-20 w-24 shrink-0 rounded-lg sm:h-40 sm:w-full sm:rounded-b-none sm:rounded-t-xl" />
+          <div class="flex flex-1 flex-col justify-between py-0.5 sm:p-3">
+            <div class="space-y-2">
+              <USkeleton class="h-3 w-20 rounded" />
+              <USkeleton class="h-4 w-full rounded" />
+              <USkeleton class="h-4 w-3/4 rounded" />
+            </div>
+            <USkeleton class="mt-2 h-3 w-24 rounded" />
+          </div>
+        </div>
+      </div>
 
-    <UAlert
-      v-else-if="error"
-      title="Erreur de chargement"
-      description="Impossible de charger les communiqués du Conseil des ministres"
-      color="red"
-      icon="i-heroicons-exclamation-triangle"
-    />
+      <!-- Error State -->
+      <div v-else-if="error" class="py-12">
+        <div class="mx-auto max-w-sm rounded-2xl border border-red-200 bg-red-50 p-6 text-center dark:border-red-800 dark:bg-red-900/20">
+          <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/50">
+            <UIcon name="i-heroicons-exclamation-triangle" class="h-6 w-6 text-red-600 dark:text-red-400" />
+          </div>
+          <p class="text-sm font-medium text-red-900 dark:text-red-200">Erreur de chargement</p>
+          <p class="mt-1 text-xs text-red-700 dark:text-red-300">Impossible de charger les communiqués</p>
+          <button
+            class="mt-4 inline-flex items-center gap-2 rounded-xl bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700 active:scale-95"
+            @click="$router.go(0)"
+          >
+            <UIcon name="i-heroicons-arrow-path" class="h-4 w-4" />
+            Réessayer
+          </button>
+        </div>
+      </div>
 
-    <div v-else-if="articles.length === 0" class="py-12 text-center">
-      <UIcon
-        name="i-heroicons-document-magnifying-glass"
-        class="mx-auto mb-4 h-12 w-12 text-gray-400"
-      />
-      <h3 class="mb-2 text-lg font-medium text-gray-900">
-        Aucun communiqué trouvé
-      </h3>
-      <p class="text-gray-500">Essayez de modifier vos critères de recherche</p>
-    </div>
+      <!-- Empty State -->
+      <div v-else-if="articles.length === 0" class="py-16 text-center">
+        <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
+          <UIcon name="i-heroicons-document-magnifying-glass" class="h-8 w-8 text-gray-400" />
+        </div>
+        <p class="text-sm font-medium text-gray-900 dark:text-white">Aucun communiqué trouvé</p>
+        <p class="mt-1 text-xs text-gray-500">Essayez une autre recherche</p>
+        <button
+          v-if="searchQuery"
+          class="mt-4 inline-flex items-center gap-2 rounded-xl bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 active:scale-95 dark:bg-gray-800 dark:text-gray-300"
+          @click="setSearchQuery('')"
+        >
+          Effacer la recherche
+        </button>
+      </div>
 
-    <div v-else>
-      <div
-        class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
-        itemscope
-        itemtype="https://schema.org/ItemList"
-        itemprop="mainEntity"
-      >
+      <!-- Content -->
+      <div v-else itemscope itemtype="https://schema.org/ItemList" itemprop="mainEntity">
         <meta itemprop="numberOfItems" :content="`${articles.length}`" />
 
-        <article
-          v-for="(item, index) in articles"
-          :key="item.id"
-          itemscope
-          itemtype="https://schema.org/GovernmentAnnouncement"
-          itemprop="itemListElement"
-          class="group relative overflow-hidden rounded-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-        >
-          <meta itemprop="position" :content="`${index + 1}`" />
-          <meta
-            itemprop="url"
-            :content="`${siteUrl}/conseil-des-ministres/${item.id}/${item.slug}`"
-          />
-          <meta
-            itemprop="datePublished"
-            :content="formatDateISO(item.date_published)"
-          />
+        <!-- Filter indicator -->
+        <p v-if="searchQuery" class="mb-3 text-xs text-gray-500 dark:text-gray-400">
+          Recherche : "{{ searchQuery }}"
+        </p>
 
-          <div
-            itemprop="publisher"
+        <!-- Mobile: Compact List / Desktop: Grid -->
+        <div class="space-y-2 sm:grid sm:grid-cols-2 sm:gap-4 sm:space-y-0 lg:grid-cols-3">
+          <article
+            v-for="(item, index) in articles"
+            :key="item.id"
             itemscope
-            itemtype="https://schema.org/GovernmentOrganization"
+            itemtype="https://schema.org/GovernmentAnnouncement"
+            itemprop="itemListElement"
           >
-            <meta itemprop="name" content="Conseil des ministres du Sénégal" />
-          </div>
+            <!-- Hidden Schema.org metadata -->
+            <div class="hidden">
+              <meta itemprop="position" :content="`${index + 1}`" />
+              <meta itemprop="url" :content="`${siteUrl}/conseil-des-ministres/${item.id}/${item.slug}`" />
+              <meta itemprop="datePublished" :content="formatDateISO(item.date_published)" />
+              <div itemprop="publisher" itemscope itemtype="https://schema.org/GovernmentOrganization">
+                <meta itemprop="name" content="Conseil des ministres du Sénégal" />
+              </div>
+              <meta itemprop="name" :content="item.title || 'Communiqué du conseil des ministres'" />
+              <meta itemprop="category" content="Communiqué gouvernemental" />
+            </div>
 
-          <UCard>
             <NuxtLink
               :to="`/conseil-des-ministres/${item.id}/${item.slug}`"
-              class="block"
-              itemprop="url"
+              class="group flex gap-3 rounded-xl bg-white p-2.5 shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.98] sm:flex-col sm:gap-0 sm:overflow-hidden sm:p-0 sm:ring-0 sm:shadow-md sm:hover:shadow-lg dark:bg-gray-900 dark:ring-gray-800"
             >
-              <div class="relative">
-                <div
-                  itemprop="image"
-                  itemscope
-                  itemtype="https://schema.org/ImageObject"
-                >
-                  <CmsImage
-                    :src="item.cover_image"
-                    :alt="item.title || 'Communiqué du conseil des ministres'"
-                    :quality="50"
-                    :fallback="'/images/communique-conseil-des-ministres.jpeg'"
-                    class="h-48 w-full object-cover"
-                    loading="lazy"
-                    itemprop="contentUrl"
-                  />
-                  <meta
-                    itemprop="url"
-                    :content="
-                      item.cover_image
-                        ? useCmsImageAbsolute(item.cover_image, 50)
-                        : '/images/communique-conseil-des-ministres.jpeg'
-                    "
-                  />
-                  <meta itemprop="width" content="300" />
-                  <meta itemprop="height" content="192" />
-                </div>
+              <!-- Image -->
+              <div class="relative shrink-0" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+                <CmsImage
+                  :src="item.cover_image"
+                  :alt="item.title || 'Communiqué du conseil des ministres'"
+                  :quality="50"
+                  :fallback="'/images/communique-conseil-des-ministres.jpeg'"
+                  class="h-20 w-24 rounded-lg object-cover transition-transform duration-300 group-hover:sm:scale-105 sm:h-40 sm:w-full sm:rounded-b-none sm:rounded-t-xl"
+                  loading="lazy"
+                  itemprop="contentUrl"
+                />
+                <meta itemprop="url" :content="item.cover_image ? useCmsImageAbsolute(item.cover_image, 50) : '/images/communique-conseil-des-ministres.jpeg'" />
 
-                <div
-                  class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4"
-                >
-                  <p class="text-sm font-medium text-white">
-                    <time
-                      v-if="item.date_published"
-                      :datetime="formatDateISO(item.date_published)"
-                      itemprop="datePublished"
-                    >
-                      {{ $dateformatWithDayName(item.date_published) }}
-                    </time>
-                  </p>
+                <!-- Date Badge (desktop only) -->
+                <div class="absolute bottom-0 left-0 right-0 hidden bg-gradient-to-t from-black/70 to-transparent p-3 sm:block">
+                  <time
+                    v-if="item.date_published"
+                    :datetime="formatDateISO(item.date_published)"
+                    class="text-xs font-medium text-white"
+                  >
+                    {{ $dateformatWithDayName(item.date_published) }}
+                  </time>
                 </div>
               </div>
 
-              <div class="p-2">
+              <!-- Content -->
+              <div class="flex min-w-0 flex-1 flex-col justify-between sm:p-3">
+                <!-- Date (mobile only) -->
+                <time
+                  v-if="item.date_published"
+                  :datetime="formatDateISO(item.date_published)"
+                  class="mb-1 text-[10px] font-medium text-emerald-600 sm:hidden dark:text-emerald-400"
+                  itemprop="datePublished"
+                >
+                  {{ $dateformatWithDayName(item.date_published) }}
+                </time>
+
                 <h2
-                  class="group-hover:text-primary line-clamp-2 font-semibold transition-colors"
+                  class="line-clamp-2 text-sm font-semibold leading-snug text-gray-900 group-hover:text-emerald-600 sm:line-clamp-3 dark:text-white dark:group-hover:text-emerald-400"
                   itemprop="headline"
                 >
                   {{ item.title || "Communiqué du conseil des ministres" }}
                 </h2>
 
-                <!-- Additional metadata -->
-                <meta
-                  itemprop="name"
-                  :content="item.title || 'Communiqué du conseil des ministres'"
-                />
-                <meta itemprop="category" content="Communiqué gouvernemental" />
-                <meta
-                  itemprop="about"
-                  content="Conseil des ministres du Sénégal"
-                />
+                <!-- Category label (mobile) -->
+                <span class="mt-1.5 text-[11px] text-gray-500 sm:hidden dark:text-gray-400">
+                  Conseil des ministres
+                </span>
               </div>
             </NuxtLink>
-          </UCard>
-        </article>
-      </div>
+          </article>
+        </div>
 
-      <div v-if="totalPages > 1" class="mt-8 flex justify-center">
-        <UPagination
-          :model-value="currentPage"
-          :total="totalItems"
-          :page-count="itemsPerPage"
-          :default-page="1"
-          :show-edges="true"
-          :sibling-count="2"
-          :active-button="{ color: 'yellow' }"
-          :ui="{
-            wrapper: 'flex items-center gap-1',
-            base: 'min-w-8 min-h-8 flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed',
-            active: 'bg-gray-900 text-white',
-            inactive: 'bg-white text-gray-900 hover:bg-gray-100',
-          }"
-          @update:model-value="setCurrentPage"
-        />
+        <!-- Pagination -->
+        <div v-if="totalPages > 1" class="mt-8 flex justify-center">
+          <UPagination
+            :model-value="currentPage"
+            :total="totalItems"
+            :page-count="itemsPerPage"
+            size="sm"
+            :ui="{
+              wrapper: 'flex items-center gap-1',
+              rounded: 'rounded-lg',
+            }"
+            @update:model-value="setCurrentPage"
+          />
+        </div>
       </div>
-    </div>
+    </main>
+
+    <ScrollToTopButton />
   </div>
 </template>

@@ -1,5 +1,10 @@
 <script setup lang="ts">
-const router = useRouter();
+import armpLogo from '~/assets/logos/armp.webp';
+import ofnacLogo from '~/assets/logos/ofnac.webp';
+import igeLogo from '~/assets/logos/ige.webp';
+import courDesComptesLogo from '~/assets/logos/cour_des_comptes.webp';
+import centifLogo from '~/assets/logos/centif.webp';
+import docLogo from '~/assets/logos/doc.svg';
 
 const {
   documents,
@@ -15,21 +20,8 @@ const {
   setSelectedFilter,
   setCurrentPage,
 } = useDocuments({
-  type: "audit_report",
+  type: 'audit_report',
   limit: 10,
-});
-
-// Computed pour les liaisons avec le template
-const searchQueryUI = computed({
-  get: () => searchQuery.value,
-  set: (value) => {
-    setSearchQuery(value);
-  },
-});
-
-const selectedOrganismeUI = computed({
-  get: () => selectedOrganisme.value,
-  set: (value) => setSelectedFilter(value),
 });
 
 const currentPageUI = computed({
@@ -37,239 +29,247 @@ const currentPageUI = computed({
   set: (value) => setCurrentPage(value),
 });
 
-const organismes = [
-  "all",
-  "Cour des Comptes",
-  "OFNAC",
-  "CENTIF",
-  "IGE",
-  "ARMP",
-];
+const organismes = ['all', 'Cour des Comptes', 'OFNAC', 'CENTIF', 'IGE', 'ARMP'];
 
-const resultsText = computed(() =>
-  useResultsText({
-    totalItems,
-    currentPage,
-    itemsPerPage,
-    searchQuery,
-    customLabels: {
-      singular: "rappor",
-      plural: "rapports",
-      noResults: "Aucun rapport trouvé",
-      noResultsWithSearch: 'Aucun rapport trouvé pour "{search}"',
-    },
-  }),
-);
+// Event handlers
+const handleSearchInput = (e: Event) => {
+  const target = e.target as HTMLInputElement;
+  setSearchQuery(target.value);
+};
+
+// Logo mapping avec imports
+const logoMap: Record<string, string> = {
+  ARMP: armpLogo,
+  OFNAC: ofnacLogo,
+  IGE: igeLogo,
+  'Cour des Comptes': courDesComptesLogo,
+  CENTIF: centifLogo,
+};
+
+const getLogo = (institution: string) => logoMap[institution] || docLogo;
+
+// Check if filters are active (not default state)
+const hasActiveFilters = computed(() => {
+  return searchQuery.value || (selectedOrganisme.value && selectedOrganisme.value !== 'all');
+});
 
 useHead({
-  title: "Rapports public Sénégal OFNAC Cours des compte",
+  title: 'Rapports publics Sénégal - OFNAC, Cour des Comptes',
   meta: [
     {
-      name: "description",
-      content:
-        "Rapports publics du Sénégal. CENTIF, OFNAC, ARMP, IGE, Cours des Comptes",
+      name: 'description',
+      content: 'Rapports publics du Sénégal: CENTIF, OFNAC, ARMP, IGE, Cour des Comptes',
     },
   ],
 });
 </script>
 
 <template>
-  <div class="container mx-auto min-h-screen px-4 py-4 pb-16">
-    <AppBreadcrumb :items="[
-      { label: 'Documents', to: '/documents' },
-      { label: 'Rapports publics' }
-    ]" />
-
-    <h1 class="sr-only">
-      Rapports d'audits publics Sénégal OFNAC Cour des comptes IGE CENTIF
-    </h1>
-
-    <ClientOnly>
-      <div class="prose prose-sm sm:prose mx-auto my-2">
-        <h1 class="text-center text-xl text-gray-900 sm:text-2xl dark:text-gray-200">
-          Rapports publics
-        </h1>
-      </div>
-
-      <p v-if="!loading" class="mb-4 text-center text-sm text-gray-500">
-        {{ resultsText }}
-      </p>
-
-      <UInput
-        v-model="searchQueryUI"
-        size="md"
-        placeholder="Rechercher..."
-        icon="i-heroicons-magnifying-glass"
-        class="input custom-shadow mb-1 w-full"
+  <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-950">
+    <div class="container mx-auto px-4">
+      <AppBreadcrumb
+        :items="[
+          { label: 'Documents', to: '/documents' },
+          { label: 'Rapports publics' },
+        ]"
       />
+    </div>
 
-      <div class="my-3 w-full text-center">
-        <UButton
-          v-for="organisme in organismes"
-          :key="organisme"
-          class="custom-shadow mb-1 ml-1"
-          :color="selectedOrganismeUI === organisme ? 'primary' : 'white'"
-          @click="selectedOrganismeUI = organisme"
-        >
-          {{ organisme === "all" ? "Tous" : organisme }}
-        </UButton>
-      </div>
+    <h1 class="sr-only">Rapports d'audits publics Sénégal OFNAC Cour des comptes IGE CENTIF</h1>
 
-      <template v-if="loading">
-        <UCard v-for="n in 3" :key="n" class="mb-4">
-          <div class="flex items-start gap-4 p-4">
-            <div class="h-8 w-8 animate-pulse rounded-full bg-gray-200" />
-            <div class="flex-grow">
-              <div class="mb-2 h-6 w-3/4 animate-pulse rounded bg-gray-200" />
-              <div class="h-4 w-1/2 animate-pulse rounded bg-gray-200" />
-            </div>
+    <!-- Sticky Header -->
+    <header
+      class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95"
+    >
+      <div class="container mx-auto px-4 py-3">
+        <!-- Title Row -->
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-lg font-bold text-gray-900 sm:text-xl dark:text-white">
+              Rapports publics
+            </h2>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+              {{ totalItems }} rapport{{ totalItems > 1 ? 's' : '' }}
+            </p>
           </div>
-        </UCard>
-      </template>
+        </div>
 
-      <UAlert
-        v-else-if="error"
-        title="Erreur lors du chargement des rapports"
-        color="red"
-        icon="i-heroicons-exclamation-triangle"
-        description="Impossible de charger les rapports. Veuillez réessayer plus tard."
-      >
-        <template #description>
-          <p class="text-sm text-gray-500">
-            {{ error }}
-          </p>
-        </template>
-      </UAlert>
-
-      <div
-        v-else-if="
-          documents.length === 0 && (searchQuery || selectedOrganisme !== 'all')
-        "
-        class="mt-4 text-center"
-      >
-        <UAlert
-          title="Aucun résultat"
-          description="Aucun rapport ne correspond à votre recherche"
-          color="blue"
-          icon="i-heroicons-information-circle"
-        />
-      </div>
-
-      <div v-else class="flex flex-col gap-2">
-        <!-- Afficher les cartes de rapport une fois chargées -->
-        <UCard
-          v-for="rapport in documents"
-          :key="rapport.id"
-          class="custom-shadow cursor-pointer"
-        >
-          <NuxtLink
-            :to="`/documents/${rapport.id}/${rapport.slug}`"
-            class="flex flex-row gap-2 p-4"
-          >
-            <div class="w-12 flex-shrink-0 md:w-16">
-              <img
-                v-if="rapport.audit_institution == 'ARMP'"
-                src="~/assets/logos/armp.webp"
-                loading="lazy"
-                fetchpriority="high"
-                alt="Logo ARMP"
-                class="organisme-logo h-auto w-11 md:w-12 lg:w-14"
-                width="60"
-                height="40"
-              />
-              <img
-                v-if="rapport.audit_institution == 'OFNAC'"
-                src="~/assets/logos/ofnac.webp"
-                loading="lazy"
-                fetchpriority="high"
-                alt="Logo OFNAC"
-                class="organisme-logo h-auto w-11 md:w-12 lg:w-14"
-                width="60"
-                height="40"
-              />
-              <img
-                v-if="rapport.audit_institution == 'IGE'"
-                src="~/assets/logos/ige.webp"
-                loading="lazy"
-                fetchpriority="high"
-                alt="Logo IGE"
-                class="organisme-logo h-auto w-11 md:w-12 lg:w-14"
-                width="60"
-                height="40"
-              />
-              <img
-                v-if="rapport.audit_institution == 'Cour des Comptes'"
-                src="~/assets/logos/cour_des_comptes.webp"
-                loading="lazy"
-                fetchpriority="high"
-                alt="Logo Cours des Comptes"
-                class="organisme-logo h-auto w-11 md:w-12 lg:w-14"
-                width="60"
-                height="40"
-              />
-              <img
-                v-if="rapport.audit_institution == 'CENTIF'"
-                src="~/assets/logos/centif.webp"
-                loading="lazy"
-                fetchpriority="high"
-                alt="Logo CENTIF"
-                class="organisme-logo h-auto w-11 md:w-12 lg:w-14"
-                width="60"
-                height="40"
-              />
-              <img
-                v-if="rapport.audit_institution == 'Autres'"
-                src="~/assets/logos/doc.svg"
-                loading="lazy"
-                fetchpriority="high"
-                alt="Logo rapport"
-                class="organisme-logo h-auto w-11 md:w-12 lg:w-14"
-                width="60"
-                height="40"
-              />
-            </div>
-
-            <div class="flex-grow">
-              <p class="text-sm font-normal">{{ rapport.title }}</p>
-            </div>
-          </NuxtLink>
-        </UCard>
-      </div>
-
-      <div
-        v-if="totalPages > 1"
-        class="flex justify-center border-t border-gray-200 px-3 py-3.5 dark:border-gray-700"
-      >
-        <div class="flex items-center gap-2">
-          <UPagination
-            v-model="currentPageUI"
-            :total="totalItems"
-            :page-count="itemsPerPage"
-            :default-page="1"
-            :show-edges="true"
-            :sibling-count="2"
-            :active-button="{ color: 'yellow' }"
-            :ui="{
-              wrapper: 'flex items-center gap-1',
-              base: 'min-w-8 min-h-8 flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed',
-              active: 'bg-gray-900 text-white',
-              inactive: 'bg-white text-gray-900 hover:bg-gray-100',
-            }"
+        <!-- Search Input -->
+        <div class="group relative mt-3">
+          <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
+            <UIcon
+              name="i-heroicons-magnifying-glass-20-solid"
+              class="h-5 w-5 text-gray-400 transition-colors group-focus-within:text-primary-500"
+            />
+          </div>
+          <input
+            type="search"
+            :value="searchQuery"
+            placeholder="Rechercher un rapport..."
+            class="block w-full rounded-xl border-0 bg-gray-100 py-3 pl-11 pr-10 text-sm text-gray-900 ring-1 ring-transparent transition-all placeholder:text-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 sm:py-2.5 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-400 dark:focus:bg-gray-800/80"
+            @input="handleSearchInput"
           />
+          <button
+            v-if="searchQuery"
+            type="button"
+            class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 transition-colors hover:text-gray-600 dark:hover:text-gray-300"
+            @click="setSearchQuery('')"
+          >
+            <span
+              class="flex h-5 w-5 items-center justify-center rounded-full bg-gray-300 dark:bg-gray-600"
+            >
+              <UIcon
+                name="i-heroicons-x-mark-20-solid"
+                class="h-3.5 w-3.5 text-gray-600 dark:text-gray-300"
+              />
+            </span>
+          </button>
+        </div>
+
+        <!-- Organisme Filter Chips -->
+        <div class="-mx-4 mt-3 flex items-center gap-1.5 overflow-x-auto px-4 py-1 scrollbar-hide">
+          <button
+            v-for="org in organismes"
+            :key="org"
+            type="button"
+            :class="[
+              'shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-all active:scale-95',
+              selectedOrganisme === org
+                ? 'bg-primary-500 text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400',
+            ]"
+            @click="setSelectedFilter(org)"
+          >
+            {{ org === 'all' ? 'Tous' : org }}
+          </button>
+
+          <!-- Effacer -->
+          <button
+            v-if="hasActiveFilters"
+            type="button"
+            class="shrink-0 rounded-full bg-red-50 px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-100 active:scale-95 dark:bg-red-900/30 dark:text-red-400"
+            @click="setSearchQuery(''); setSelectedFilter('all')"
+          >
+            <UIcon name="i-heroicons-x-mark" class="mr-1 inline h-3 w-3" />
+            Effacer
+          </button>
         </div>
       </div>
-    </ClientOnly>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-4">
+      <!-- Loading State -->
+      <div v-if="loading" class="space-y-3">
+        <div
+          v-for="n in 5"
+          :key="n"
+          class="flex gap-3 rounded-xl bg-white p-3 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+        >
+          <USkeleton class="h-12 w-12 shrink-0 rounded-lg" />
+          <div class="flex-1 space-y-2">
+            <USkeleton class="h-4 w-3/4" />
+            <USkeleton class="h-3 w-1/2" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Error State -->
+      <div
+        v-else-if="error"
+        class="flex flex-col items-center justify-center py-12 text-center"
+      >
+        <div
+          class="flex h-16 w-16 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30"
+        >
+          <UIcon name="i-heroicons-exclamation-triangle" class="h-8 w-8 text-red-500" />
+        </div>
+        <p class="mt-4 text-sm font-medium text-gray-900 dark:text-white">Erreur de chargement</p>
+        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+          Impossible de charger les rapports
+        </p>
+      </div>
+
+      <!-- Empty State -->
+      <div
+        v-else-if="documents.length === 0"
+        class="flex flex-col items-center justify-center py-12 text-center"
+      >
+        <div
+          class="flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800"
+        >
+          <UIcon name="i-heroicons-document-chart-bar" class="h-8 w-8 text-gray-400" />
+        </div>
+        <p class="mt-4 text-sm font-medium text-gray-900 dark:text-white">Aucun résultat</p>
+        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+          Aucun rapport ne correspond à votre recherche
+        </p>
+        <button
+          type="button"
+          class="mt-4 rounded-full bg-primary-500 px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-primary-600 active:scale-95"
+          @click="setSearchQuery(''); setSelectedFilter('all')"
+        >
+          Réinitialiser
+        </button>
+      </div>
+
+      <!-- Results List -->
+      <div v-else class="space-y-3">
+        <NuxtLink
+          v-for="rapport in documents"
+          :key="rapport.id"
+          :to="`/documents/${rapport.id}/${rapport.slug}`"
+          class="group flex gap-3 rounded-xl bg-white p-3 shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.98] sm:hover:shadow-md dark:bg-gray-900 dark:ring-gray-800"
+        >
+          <!-- Logo -->
+          <div
+            class="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-gray-50 dark:bg-gray-800"
+          >
+            <img
+              :src="getLogo(rapport.audit_institution || '')"
+              :alt="rapport.audit_institution || 'Rapport'"
+              class="h-10 w-10 object-contain"
+              loading="lazy"
+            />
+          </div>
+
+          <!-- Content -->
+          <div class="flex min-w-0 flex-1 flex-col justify-center">
+            <h3
+              class="line-clamp-2 text-sm font-semibold text-gray-900 transition-colors group-hover:text-primary-500 dark:text-white"
+            >
+              {{ rapport.title }}
+            </h3>
+            <span
+              v-if="rapport.audit_institution"
+              class="mt-1 text-xs text-gray-500 dark:text-gray-400"
+            >
+              {{ rapport.audit_institution }}
+            </span>
+          </div>
+
+          <!-- Arrow -->
+          <UIcon
+            name="i-heroicons-chevron-right"
+            class="h-5 w-5 shrink-0 self-center text-gray-300 dark:text-gray-600"
+          />
+        </NuxtLink>
+      </div>
+
+      <!-- Pagination -->
+      <div v-if="totalPages > 1" class="mt-6 flex justify-center">
+        <UPagination
+          v-model="currentPageUI"
+          :total="totalItems"
+          :page-count="itemsPerPage"
+          size="sm"
+          :ui="{
+            wrapper: 'flex items-center gap-1',
+            base: 'min-w-[32px] h-8 flex items-center justify-center rounded-full text-sm',
+            rounded: 'rounded-full',
+          }"
+        />
+      </div>
+    </main>
   </div>
 </template>
-
-<style scoped>
-.scrollable-hidden {
-  overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.scrollable-hidden::-webkit-scrollbar {
-  display: none;
-}
-</style>

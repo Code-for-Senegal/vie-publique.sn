@@ -223,202 +223,227 @@ const formatDateISO = (date: string) => {
 </script>
 
 <template>
-  <div class="container mx-auto min-h-screen px-4 pb-16" itemscope itemtype="https://schema.org/CollectionPage">
-    <AppBreadcrumb
-      :items="[
-        { label: 'Actualités' },
-      ]"
-    />
-
-    <div class="prose prose-sm mx-auto my-2 sm:prose dark:prose-invert">
-      <h1 class="text-center dark:text-white" itemprop="headline">Actualités</h1>
+  <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-950" itemscope itemtype="https://schema.org/CollectionPage">
+    <!-- Breadcrumb -->
+    <div class="container mx-auto px-4">
+      <AppBreadcrumb :items="[{ label: 'Actualités' }]" />
     </div>
 
-    <!-- Filtres par catégorie -->
-    <div class="mb-4">
-      <!-- Barre de recherche -->
-      <UInput
-        :model-value="searchQuery"
-        placeholder="Rechercher..."
-        icon="i-heroicons-magnifying-glass"
-        class="input custom-shadow mb-4 w-full dark:bg-gray-800 dark:text-white"
-        size="lg"
-        @update:model-value="setSearchQuery"
-      />
-
-      <!-- Skeleton pour les filtres pendant le chargement -->
-      <div v-if="loading" class="flex flex-wrap gap-2">
-        <div
-          v-for="n in 5"
-          :key="n"
-          class="h-10 w-32 animate-pulse rounded-full bg-gray-200 dark:bg-gray-700"
-        ></div>
-      </div>
-
-      <!-- Liste des catégories -->
-      <div v-else class="flex flex-wrap gap-2">
-        <button
-          v-for="category in categories"
-          :key="category.name"
-          class="flex items-center gap-1 rounded-full p-2 text-sm transition-colors duration-200"
-          :class="{
-            'bg-gray-100 text-gray-800 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700':
-              selectedCategory !== category.name,
-            'text-white': selectedCategory === category.name,
-          }"
-          :style="{
-            backgroundColor:
-              selectedCategory === category.name ? getCategoryColor(category.name) : '',
-          }"
-          @click="setSelectedCategory(category.name)"
-        >
-          <div
-            class="h-3 w-3 rounded-full"
-            :style="{
-              backgroundColor: getCategoryColor(category.name),
-              opacity: selectedCategory === category.name ? 1 : 0.3,
-            }"
-          ></div>
-          {{ category.name }}
-        </button>
-      </div>
-    </div>
-
-    <!-- Skeleton loader pendant le chargement -->
-    <div v-if="loading" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      <div v-for="n in 6" :key="n" class="animate-pulse">
-        <div class="relative w-full">
-          <div class="aspect-[16/9] rounded-t-lg bg-gray-200 dark:bg-gray-700"></div>
+    <!-- Sticky Header -->
+    <header class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95">
+      <div class="container mx-auto px-4 py-3">
+        <!-- Title Row -->
+        <div class="flex items-center justify-between">
+          <h1 class="text-lg font-bold text-gray-900 sm:text-xl dark:text-white" itemprop="headline">
+            Actualités
+          </h1>
+          <span class="text-xs text-gray-500 dark:text-gray-400">{{ totalItems }} article{{ totalItems > 1 ? 's' : '' }}</span>
         </div>
-        <div class="mt-4 space-y-3">
-          <div class="h-6 w-24 rounded bg-gray-200 dark:bg-gray-700"></div>
-          <div class="h-4 w-32 rounded bg-gray-200 dark:bg-gray-700"></div>
-          <div class="h-4 w-full rounded bg-gray-200 dark:bg-gray-700"></div>
-          <div class="h-4 w-2/3 rounded bg-gray-200 dark:bg-gray-700"></div>
+        
+        <!-- Search Input - Full Width, Prominent -->
+        <div class="group relative mt-3">
+          <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
+            <UIcon
+              name="i-heroicons-magnifying-glass-20-solid"
+              class="h-5 w-5 text-gray-400 transition-colors group-focus-within:text-primary-500"
+            />
+          </div>
+          <input
+            type="search"
+            :value="searchQuery"
+            placeholder="Rechercher un article, un sujet..."
+            class="block w-full rounded-xl border-0 bg-gray-100 py-3 pl-11 pr-10 text-sm text-gray-900 ring-1 ring-transparent transition-all placeholder:text-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 sm:py-2.5 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-400 dark:focus:bg-gray-800/80"
+            @input="setSearchQuery(($event.target as HTMLInputElement).value)"
+          />
+          <button
+            v-if="searchQuery"
+            type="button"
+            class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 transition-colors hover:text-gray-600 dark:hover:text-gray-300"
+            @click="setSearchQuery('')"
+          >
+            <span class="flex h-5 w-5 items-center justify-center rounded-full bg-gray-300 dark:bg-gray-600">
+              <UIcon name="i-heroicons-x-mark-20-solid" class="h-3.5 w-3.5 text-gray-600 dark:text-gray-300" />
+            </span>
+          </button>
+        </div>
+
+        <!-- Category Filters - Horizontal Scroll -->
+        <nav class="-mx-4 mt-3 overflow-x-auto px-4 py-1 scrollbar-hide" aria-label="Filtrer par catégorie">
+          <div v-if="loading" class="flex gap-2">
+            <USkeleton v-for="n in 5" :key="n" class="h-7 w-24 shrink-0 rounded-full" />
+          </div>
+          <div v-else class="flex gap-1.5">
+            <button
+              v-for="category in categories"
+              :key="category.name"
+              class="flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-all active:scale-95"
+              :class="[
+                selectedCategory === category.name
+                  ? 'text-white shadow-sm'
+                  : 'bg-white text-gray-700 ring-1 ring-gray-200 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:ring-gray-700 dark:hover:bg-gray-700',
+              ]"
+              :style="selectedCategory === category.name ? { backgroundColor: getCategoryColor(category.name) } : {}"
+              :aria-pressed="selectedCategory === category.name"
+              @click="setSelectedCategory(category.name)"
+            >
+              <span
+                v-if="selectedCategory !== category.name"
+                class="h-2 w-2 rounded-full"
+                :style="{ backgroundColor: getCategoryColor(category.name) }"
+              />
+              {{ category.name }}
+              <span v-if="category.count" class="text-[10px] opacity-70">({{ category.count }})</span>
+            </button>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 pt-4">
+      <!-- Loading Skeleton -->
+      <div v-if="loading" class="space-y-3">
+        <div v-for="n in 6" :key="n" class="flex gap-3 rounded-xl bg-white p-3 shadow-sm dark:bg-gray-900">
+          <USkeleton class="h-20 w-24 shrink-0 rounded-lg" />
+          <div class="flex flex-1 flex-col justify-between py-0.5">
+            <div class="space-y-2">
+              <USkeleton class="h-3 w-16 rounded" />
+              <USkeleton class="h-4 w-full rounded" />
+              <USkeleton class="h-4 w-3/4 rounded" />
+            </div>
+            <USkeleton class="h-3 w-20 rounded" />
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Error state -->
-    <UAlert
-      v-else-if="error"
-      icon="i-heroicons-exclamation-triangle"
-      color="red"
-      title="Erreur de chargement"
-      description="Une erreur est survenue lors du chargement des actualités"
-    />
+      <!-- Error State -->
+      <div v-else-if="error" class="py-12">
+        <div class="mx-auto max-w-sm rounded-2xl border border-red-200 bg-red-50 p-6 text-center dark:border-red-800 dark:bg-red-900/20">
+          <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/50">
+            <UIcon name="i-heroicons-exclamation-triangle" class="h-6 w-6 text-red-600 dark:text-red-400" />
+          </div>
+          <p class="text-sm font-medium text-red-900 dark:text-red-200">Erreur de chargement</p>
+          <p class="mt-1 text-xs text-red-700 dark:text-red-300">Une erreur est survenue</p>
+          <UButton color="red" variant="soft" size="sm" class="mt-4" @click="$router.go(0)">
+            Réessayer
+          </UButton>
+        </div>
+      </div>
 
-    <!-- Content -->
-    <div v-else>
-      <!-- Empty state -->
+      <!-- Empty State -->
       <div
-        v-if="!loading && (!articles.length || paginatedNews.length === 0)"
-        class="mt-8 flex flex-col items-center text-center text-gray-500 dark:text-gray-400"
+        v-else-if="!articles.length || paginatedNews.length === 0"
+        class="py-16 text-center"
       >
-        <UIcon
-          name="i-heroicons-exclamation-circle"
-          class="mb-4 h-16 w-16 text-gray-400 dark:text-gray-500"
-        />
-        <p class="text-xl">Aucun résultat disponible</p>
+        <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
+          <UIcon name="i-heroicons-newspaper" class="h-8 w-8 text-gray-400" />
+        </div>
+        <p class="text-sm font-medium text-gray-900 dark:text-white">Aucun résultat</p>
+        <p class="mt-1 text-xs text-gray-500">Essayez une autre recherche ou catégorie</p>
+        <UButton
+          v-if="searchQuery || selectedCategory !== 'Toutes'"
+          color="gray"
+          variant="soft"
+          size="sm"
+          class="mt-4"
+          @click="setSearchQuery(''); setSelectedCategory('Toutes')"
+        >
+          Réinitialiser les filtres
+        </UButton>
       </div>
 
-      <!-- News grid -->
-      <div v-else-if="!loading">
-        <div
-          class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"
-          itemscope
-          itemtype="https://schema.org/ItemList"
-          itemprop="mainEntity"
-        >
-          <meta itemprop="numberOfItems" :content="`${paginatedNews.length}`" />
+      <!-- News List -->
+      <div v-else itemscope itemtype="https://schema.org/ItemList" itemprop="mainEntity">
+        <meta itemprop="numberOfItems" :content="`${paginatedNews.length}`" />
 
+        <!-- Filter indicator -->
+        <p v-if="selectedCategory !== 'Toutes' || searchQuery" class="mb-3 text-xs text-gray-500 dark:text-gray-400">
+          <span v-if="selectedCategory !== 'Toutes'" class="inline-flex items-center gap-1">
+            <span class="h-2 w-2 rounded-full" :style="{ backgroundColor: getCategoryColor(selectedCategory) }" />
+            {{ selectedCategory }}
+          </span>
+          <span v-if="searchQuery"> · "{{ searchQuery }}"</span>
+        </p>
+
+        <!-- Mobile: Compact List / Desktop: Grid -->
+        <div class="space-y-2 sm:grid sm:grid-cols-2 sm:gap-4 sm:space-y-0 lg:grid-cols-3">
           <article
             v-for="(article, index) in paginatedNews"
             :key="article.id"
             itemscope
             itemtype="https://schema.org/NewsArticle"
             itemprop="itemListElement"
-            class="custom-shadow group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border dark:border-gray-800 dark:bg-gray-900/50 dark:backdrop-blur-sm"
           >
             <meta itemprop="position" :content="`${index + 1}`" />
             <meta itemprop="url" :content="`${siteUrl}${formatNewsUrl(article)}`" />
             <meta itemprop="datePublished" :content="formatDateISO(article.date_published)" />
-
             <div itemprop="author" itemscope itemtype="https://schema.org/Organization">
               <meta itemprop="name" :content="siteName" />
             </div>
-
             <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
               <meta itemprop="name" :content="siteName" />
               <meta itemprop="url" :content="siteUrl" />
             </div>
+            <div itemprop="mainEntityOfPage" itemscope itemtype="https://schema.org/WebPage">
+              <meta itemprop="@id" :content="`${siteUrl}${formatNewsUrl(article)}`" />
+            </div>
 
-            <UCard>
-              <NuxtLink :to="formatNewsUrl(article)" class="block" itemprop="url">
-                <div class="relative">
-                  <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-                    <CmsImage
-                      :src="article.cover_image"
-                      :fallback="'/default-image-2.gif'"
-                      :alt="article.title || 'Image actualité'"
-                      class="h-48 w-full object-cover"
-                      loading="lazy"
-                      fetchpriority="high"
-                      sizes="300px"
-                      :placeholder="[300, 300]"
-                      itemprop="contentUrl"
-                    />
-                    <meta
-                      itemprop="url"
-                      :content="
-                        article.cover_image
-                          ? useCmsImageAbsolute(article.cover_image)
-                          : '/default-image-2.gif'
-                      "
-                    />
-                    <meta itemprop="width" content="300" />
-                    <meta itemprop="height" content="192" />
-                  </div>
+            <NuxtLink
+              :to="formatNewsUrl(article)"
+              class="group flex gap-3 rounded-xl bg-white p-2.5 shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.98] sm:flex-col sm:gap-0 sm:p-0 sm:ring-0 sm:shadow-md sm:hover:shadow-lg dark:bg-gray-900 dark:ring-gray-800"
+              itemprop="url"
+            >
+              <!-- Image -->
+              <div class="relative shrink-0" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+                <CmsImage
+                  :src="article.cover_image"
+                  :fallback="'/default-image-2.gif'"
+                  :alt="article.title || 'Image actualité'"
+                  class="h-20 w-24 rounded-lg object-cover sm:h-40 sm:w-full sm:rounded-b-none sm:rounded-t-xl"
+                  loading="lazy"
+                  sizes="(max-width: 640px) 96px, 300px"
+                  itemprop="contentUrl"
+                />
+                <meta
+                  itemprop="url"
+                  :content="article.cover_image ? useCmsImageAbsolute(article.cover_image) : '/default-image-2.gif'"
+                />
 
-                  <div
-                    class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4"
-                  >
-                    <span
-                      class="rounded-full px-3 py-1 text-xs font-medium text-white"
-                      :style="{
-                        backgroundColor: getCategoryColor(
-                          article.category?.name || 'Non catégorisé',
-                        ),
-                      }"
-                      itemprop="articleSection"
-                    >
-                      {{ article.category?.name || 'Non catégorisé' }}
-                    </span>
-                  </div>
-                </div>
-                <div class="p-2">
-                  <h2
-                    class="group-hover:text-primary line-clamp-2 font-semibold transition-colors dark:text-gray-100"
-                    itemprop="headline"
-                  >
-                    {{ article.title }}
-                  </h2>
-                  <div class="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                    <time
-                      :datetime="formatDateISO(article.date_published)"
-                      itemprop="datePublished"
-                    >
-                      {{ $dateformatWithDayName(article.date_published) }}
-                    </time>
-                  </div>
-                </div>
+                <!-- Category Badge (desktop only) -->
+                <span
+                  class="absolute bottom-2 left-2 hidden rounded-full px-2 py-0.5 text-[10px] font-medium text-white sm:inline-block"
+                  :style="{ backgroundColor: getCategoryColor(article.category?.name || 'Non catégorisé') }"
+                  itemprop="articleSection"
+                >
+                  {{ article.category?.name || 'Non catégorisé' }}
+                </span>
+              </div>
 
-                <!-- Main entity of page -->
-                <div itemprop="mainEntityOfPage" itemscope itemtype="https://schema.org/WebPage">
-                  <meta itemprop="@id" :content="`${siteUrl}${formatNewsUrl(article)}`" />
-                </div>
-              </NuxtLink>
-            </UCard>
+              <!-- Content -->
+              <div class="flex min-w-0 flex-1 flex-col justify-between sm:p-3">
+                <!-- Category (mobile only) -->
+                <span
+                  class="mb-1 inline-flex w-fit rounded px-1.5 py-0.5 text-[10px] font-medium text-white sm:hidden"
+                  :style="{ backgroundColor: getCategoryColor(article.category?.name || 'Non catégorisé') }"
+                >
+                  {{ article.category?.name || 'Non catégorisé' }}
+                </span>
+
+                <h2
+                  class="line-clamp-2 text-sm font-semibold leading-snug text-gray-900 group-hover:text-primary-600 sm:line-clamp-3 dark:text-white"
+                  itemprop="headline"
+                >
+                  {{ article.title }}
+                </h2>
+
+                <time
+                  :datetime="formatDateISO(article.date_published)"
+                  class="mt-1.5 text-[11px] text-gray-500 sm:mt-2 sm:text-xs dark:text-gray-400"
+                  itemprop="datePublished"
+                >
+                  {{ $dateformatWithDayName(article.date_published) }}
+                </time>
+              </div>
+            </NuxtLink>
           </article>
         </div>
 
@@ -427,21 +452,15 @@ const formatDateISO = (date: string) => {
           <UPagination
             v-model="currentPage"
             :total="totalItems"
-            :page-count="itemsPerPage"
-            :default-page="1"
-            :show-edges="true"
-            :sibling-count="2"
-            :active-button="{ color: 'yellow' }"
+            :page-count="12"
+            size="sm"
             :ui="{
               wrapper: 'flex items-center gap-1',
-              base: 'min-w-8 min-h-8 flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed',
-              active: 'bg-gray-900 text-white dark:bg-gray-700',
-              inactive:
-                'bg-white text-gray-900 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700',
+              rounded: 'rounded-lg',
             }"
           />
         </div>
       </div>
-    </div>
+    </main>
   </div>
 </template>

@@ -1,74 +1,126 @@
 <template>
-  <div class="container mx-auto min-h-screen px-4 py-4 pb-16">
-    <AppBreadcrumb :items="[
-      { label: 'Assemblée nationale', to: '/assemblee-nationale' },
-      { label: 'Députés', to: '/assemblee-nationale/deputes' },
-      { label: deputyFullName || 'Détail' }
-    ]" />
-
-    <!-- Loading state -->
-    <div v-if="loading" class="flex justify-center py-8">
-      <UIcon name="i-heroicons-arrow-path" class="h-8 w-8 animate-spin" />
+  <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-900">
+    <!-- Breadcrumb -->
+    <div class="container mx-auto px-4 pt-4">
+      <AppBreadcrumb :items="[
+        { label: 'Assemblée nationale', to: '/assemblee-nationale' },
+        { label: 'Députés', to: '/assemblee-nationale/deputes' },
+        { label: deputyFullName || 'Détail' }
+      ]" />
     </div>
 
-    <!-- Error state -->
-    <UAlert
-      v-else-if="error"
-      title="Erreur"
-      description="Une erreur est survenue lors de l'affichage des informations du député."
-      color="red"
-      icon="i-heroicons-exclamation-triangle"
-    />
+    <!-- Sticky Header mobile -->
+    <header class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm md:relative md:border-0 md:bg-transparent md:backdrop-blur-none dark:border-gray-800 dark:bg-gray-900/95">
+      <div class="container mx-auto px-4 py-3 md:py-4">
+        <div class="flex items-center gap-3">
+          <NuxtLink
+            to="/assemblee-nationale/deputes"
+            class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 md:hidden dark:bg-gray-800"
+          >
+            <UIcon name="i-heroicons-arrow-left" class="h-4 w-4 text-gray-600 dark:text-gray-400" />
+          </NuxtLink>
+          <div class="min-w-0 flex-1">
+            <h1 class="truncate text-sm font-semibold text-gray-900 md:text-lg dark:text-white">
+              {{ deputyFullName || 'Député' }}
+            </h1>
+          </div>
+          <SocialShare v-if="deputy" :title="deputyFullName" :url="url" />
+        </div>
+      </div>
+    </header>
 
-    <div v-else-if="deputy" class="mt-3 flex flex-col gap-4 md:flex-row">
-      <div class="w-full md:w-1/3">
-        <div class="md:z-1 sticky top-[84px] bg-gray-100 md:bg-transparent">
-          <AssemblyProfileHeader :deputy="deputy" />
+    <main class="container mx-auto px-4 py-4">
+      <!-- Loading State -->
+      <div v-if="loading" class="space-y-4">
+        <div class="flex flex-col items-center gap-4 rounded-2xl bg-white p-6 dark:bg-gray-800">
+          <USkeleton class="h-24 w-24 rounded-full" />
+          <USkeleton class="h-5 w-40" />
+          <USkeleton class="h-4 w-32" />
+        </div>
+        <div class="space-y-3 rounded-2xl bg-white p-4 dark:bg-gray-800">
+          <USkeleton class="h-5 w-24" />
+          <USkeleton class="h-4 w-full" />
+          <USkeleton class="h-4 w-3/4" />
         </div>
       </div>
 
-      <div class="flex w-full flex-col gap-5 md:w-2/3">
-        <!-- BIO -->
-        <AssemblyBiography :deputy="deputy" />
-
-        <!-- COMMISSIONS -->
-        <UCard v-if="deputiesCommissions.length">
-          <h2 class="mb-4 text-xl font-bold">Commissions</h2>
-
-          <div v-if="deputiesCommissionsFiltered.length === 0">
-            <p class="text-sm text-gray-500">Aucune commission</p>
-          </div>
-          <div v-else>
-            <p class="my-4 text-sm text-gray-500 dark:text-gray-50">
-              Membres des commissions suivantes:
-            </p>
-
-            <div
-              v-for="commission in deputiesCommissionsFiltered"
-              :key="commission.assembly_commission_id.id"
-              class="transition-all hover:shadow-lg"
-            >
-              <NuxtLink
-                :to="`/assemblee-nationale/commissions/${commission.assembly_commission_id.id}`"
-              >
-                <ul class="flex gap-4">
-                  <li class="mb-2 text-sm underline">
-                    <UIcon name="i-heroicons-arrow-top-right-on-square" size="sm" />
-                    {{ commission.assembly_commission_id.name }}
-                  </li>
-                </ul>
-              </NuxtLink>
-            </div>
-          </div>
-        </UCard>
-
-        <!-- QUESTIONS ECRITES -->
-        <AssemblyDeputyQuestion :deputy="deputy" />
+      <!-- Error State -->
+      <div v-else-if="error" class="rounded-2xl bg-red-50 p-6 text-center dark:bg-red-900/20">
+        <UIcon name="i-heroicons-exclamation-triangle" class="mx-auto mb-3 h-10 w-10 text-red-500" />
+        <h3 class="font-semibold text-red-800 dark:text-red-200">Erreur</h3>
+        <p class="mt-1 text-sm text-red-600 dark:text-red-300">Une erreur est survenue</p>
+        <NuxtLink
+          to="/assemblee-nationale/deputes"
+          class="mt-4 inline-block text-sm text-red-600 underline dark:text-red-400"
+        >
+          Retourner aux députés
+        </NuxtLink>
       </div>
-    </div>
 
-    <!-- Not found state -->
-    <div v-else class="py-8 text-center text-gray-500">Député non trouvé</div>
+      <!-- Content -->
+      <div v-else-if="deputy" class="space-y-4 md:flex md:gap-6 md:space-y-0">
+        <!-- Profile Card - Sticky on desktop -->
+        <div class="md:w-1/3">
+          <div class="md:sticky md:top-20">
+            <AssemblyProfileHeader :deputy="deputy" />
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="space-y-4 md:w-2/3">
+          <!-- Biography -->
+          <AssemblyBiography :deputy="deputy" />
+
+          <!-- Commissions -->
+          <section
+            v-if="deputiesCommissions.length"
+            class="rounded-2xl bg-white p-4 ring-1 ring-gray-100 md:p-6 dark:bg-gray-800 dark:ring-gray-700"
+          >
+            <h2 class="mb-3 text-sm font-bold text-gray-900 md:text-base dark:text-white">
+              Commissions
+            </h2>
+
+            <div v-if="deputiesCommissionsFiltered.length === 0">
+              <p class="text-xs text-gray-500 dark:text-gray-400">Aucune commission</p>
+            </div>
+            <div v-else class="space-y-2">
+              <p class="text-xs text-gray-500 dark:text-gray-400">
+                Membre des commissions suivantes :
+              </p>
+              <div class="space-y-1.5">
+                <NuxtLink
+                  v-for="commission in deputiesCommissionsFiltered"
+                  :key="commission.assembly_commission_id.id"
+                  :to="`/assemblee-nationale/commissions/${commission.assembly_commission_id.id}`"
+                  class="flex items-center gap-2 rounded-lg bg-amber-50 p-3 text-sm text-amber-700 transition-colors active:bg-amber-100 md:hover:bg-amber-100 dark:bg-amber-900/20 dark:text-amber-400"
+                >
+                  <UIcon name="i-heroicons-users" class="h-4 w-4 shrink-0" />
+                  <span class="line-clamp-1">{{ commission.assembly_commission_id.name }}</span>
+                  <UIcon name="i-heroicons-chevron-right" class="ml-auto h-4 w-4 shrink-0 opacity-50" />
+                </NuxtLink>
+              </div>
+            </div>
+          </section>
+
+          <!-- Questions -->
+          <AssemblyDeputyQuestion :deputy="deputy" />
+        </div>
+      </div>
+
+      <!-- Not found -->
+      <div v-else class="rounded-2xl bg-gray-100 p-8 text-center dark:bg-gray-800">
+        <UIcon name="i-heroicons-user" class="mx-auto mb-3 h-10 w-10 text-gray-400" />
+        <p class="text-gray-500 dark:text-gray-400">Député non trouvé</p>
+        <NuxtLink
+          to="/assemblee-nationale/deputes"
+          class="mt-3 inline-block text-sm text-amber-600 underline dark:text-amber-400"
+        >
+          Retourner aux députés
+        </NuxtLink>
+      </div>
+    </main>
+
+    <ScrollToTopButton />
   </div>
 </template>
 
@@ -76,7 +128,6 @@
 const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
 
 const route = useRoute();
-const router = useRouter();
 
 // ✅ Utilisation de la nouvelle architecture SSR
 const deputyId = computed(() => route.params.id as string);
@@ -231,12 +282,4 @@ function calculateAge(birthdate: string): number {
 const deputiesCommissionsFiltered = computed(() => {
   return deputiesCommissions.value.filter((commission) => commission.assembly_commission_id);
 });
-
-// Liste des routes valides pour le retour
-const validReturnPaths = [
-  '/assemblee-nationale/deputes',
-  '/assemblee-nationale/commissions',
-  '/assemblee-nationale/bureau',
-  '/assemblee-nationale/groupes',
-];
 </script>

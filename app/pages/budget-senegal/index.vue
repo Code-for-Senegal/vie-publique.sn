@@ -1,245 +1,183 @@
 <template>
-  <div class="container mx-auto min-h-screen px-4 py-8 pb-16">
-    <AppBreadcrumb
-      :items="[
-        { label: 'Budget' }
-      ]"
-    />
+  <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-900">
+    <!-- Breadcrumb -->
+    <div class="container mx-auto px-4 pt-4">
+      <AppBreadcrumb :items="[{ label: 'Budget' }]" />
+    </div>
 
-    <!-- Hero Section (sobre, sans CTA) -->
-    <section class="mb-8 text-center">
-      <div class="mx-auto max-w-4xl">
-        <h1 class="mb-4 text-4xl font-bold text-gray-900 md:text-5xl dark:text-white">
+    <!-- Header mobile-first -->
+    <header class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm md:relative md:border-0 md:bg-transparent md:backdrop-blur-none dark:border-gray-800 dark:bg-gray-900/95">
+      <div class="container mx-auto px-4 py-3 md:py-6">
+        <h1 class="text-xl font-bold text-gray-900 md:text-3xl dark:text-white">
           Budget du Sénégal
         </h1>
-        <p class="text-gray-600 dark:text-gray-400">
-          Comprendre les finances publiques du Sénégal : budgets, documents officiels et analyses
+        <p class="mt-0.5 text-xs text-gray-500 md:mt-1 md:text-sm dark:text-gray-400">
+          Finances publiques et documents officiels
         </p>
       </div>
-    </section>
+    </header>
 
-    <!-- Dashboard Card (star, 1 ligne complète) -->
-    <section class="mb-8">
-      <UCard
-        class="border-primary/20 dark:via-primary/10 dark:to-primary/20 overflow-hidden bg-white shadow-xl transition dark:bg-gradient-to-br dark:from-gray-800"
-        :ui="{ body: { padding: 'p-2 sm:p-4' } }"
+    <main class="container mx-auto px-4 py-4 md:py-6">
+      <!-- Dashboard Hero Card -->
+      <NuxtLink
+        to="/budget-senegal/dashboard"
+        class="group mb-6 block rounded-2xl bg-white p-4 ring-1 ring-gray-200 transition-all active:scale-[0.99] md:p-6 md:hover:ring-emerald-300 md:hover:shadow-lg dark:bg-gray-800 dark:ring-gray-700"
       >
         <!-- Header -->
-        <div class="mb-6 flex items-center gap-3">
-          <div class="rounded-lg bg-gray-500/10 p-3">
-            <UIcon name="i-heroicons-building-library" class="h-6 w-6 text-gray-600" />
+        <div class="mb-4 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 dark:bg-emerald-900/30">
+              <UIcon name="i-heroicons-chart-bar" class="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+            </div>
+            <div>
+              <h2 class="text-sm font-semibold text-gray-900 md:text-base dark:text-white">
+                Tableau de bord 2026
+              </h2>
+              <p class="text-xs text-gray-500 dark:text-gray-400">Projet de Loi de Finances</p>
+            </div>
           </div>
-          <div>
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-              Dashboard Budget 2026
-            </h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400">Projet de Loi de Finances</p>
-          </div>
+          <UIcon
+            name="i-heroicons-arrow-right"
+            class="h-5 w-5 text-gray-400 transition-transform group-hover:translate-x-1 dark:text-gray-500"
+          />
         </div>
 
-        <!-- 2 colonnes : Indicateurs + Texte (sur desktop) / 4 cartes en 2x2 (sur mobile) -->
-        <div class="mb-6 grid grid-cols-2 gap-4 md:grid-cols-[2fr,1fr] md:gap-6">
-          <!-- Colonne gauche : 3 cartes sur desktop, 4 cartes en 2x2 sur mobile -->
-          <div class="col-span-2 grid grid-cols-2 gap-4 md:col-span-1 md:grid-cols-3">
-            <!-- Dépenses -->
-            <div
-              class="rounded-lg bg-gradient-to-br from-orange-50 via-orange-100 to-orange-200 p-4 shadow-md dark:from-orange-900/30 dark:via-orange-800/25 dark:to-orange-900/20"
-            >
-              <h3 class="mb-3 text-sm font-semibold text-orange-800 dark:text-orange-300">
-                Dépenses
-              </h3>
-              <div class="mb-2 flex flex-wrap items-baseline gap-2">
-                <span
-                  class="text-2xl font-bold tracking-tight text-orange-900 sm:text-3xl dark:text-orange-200"
-                  >7 434</span
-                >
-                <UBadge color="orange" variant="solid" size="xs">+13,0%</UBadge>
-              </div>
-              <div class="text-xs text-orange-700 dark:text-orange-400">Milliards FCFA</div>
-            </div>
+<!-- Description -->
+        <p class="mb-4 text-xs leading-relaxed text-gray-600 md:text-sm dark:text-gray-400">
+          Le Projet de Loi de Finances 2026 présente les prévisions de ressources et de dépenses de l'État pour l'année. Il sert de cadre d'exécution pour l'action publique.
+        </p>
 
-            <!-- Recettes -->
-            <div
-              class="rounded-lg bg-gradient-to-br from-emerald-50 via-green-100 to-teal-200 p-4 shadow-md dark:from-emerald-900/30 dark:via-green-800/25 dark:to-teal-900/20"
-            >
-              <h3 class="mb-3 text-sm font-semibold text-emerald-800 dark:text-emerald-300">
-                Recettes
-              </h3>
-              <div class="mb-2 flex flex-wrap items-baseline gap-2">
-                <span
-                  class="text-2xl font-bold tracking-tight text-emerald-900 sm:text-3xl dark:text-emerald-200"
-                  >6 189</span
-                >
-                <UBadge color="green" variant="solid" size="xs">+26,7%</UBadge>
-              </div>
-              <div class="text-xs text-emerald-700 dark:text-emerald-400">Milliards FCFA</div>
+        <!-- KPIs Grid -->
+        <div class="grid grid-cols-3 gap-2 md:gap-4">
+          <!-- Dépenses -->
+          <div class="rounded-xl bg-orange-50 p-3 dark:bg-orange-900/20">
+            <p class="text-[10px] font-medium text-orange-600 md:text-xs dark:text-orange-400">Dépenses</p>
+            <p class="mt-1 text-lg font-bold text-orange-700 md:text-2xl dark:text-orange-300">7 434</p>
+            <div class="mt-1 flex items-center gap-1">
+              <span class="text-[10px] text-orange-500 md:text-xs">Mrd FCFA</span>
+              <span class="rounded bg-orange-200 px-1 py-0.5 text-[9px] font-medium text-orange-700 md:text-[10px] dark:bg-orange-800 dark:text-orange-200">+13%</span>
             </div>
-
-            <!-- Déficit -->
-            <div
-              class="rounded-lg bg-gradient-to-br from-red-50 via-rose-100 to-pink-200 p-4 shadow-md dark:from-red-900/30 dark:via-rose-800/25 dark:to-pink-900/20"
-            >
-              <h3 class="mb-3 text-sm font-semibold text-red-800 dark:text-red-300">Déficit</h3>
-              <div class="mb-2 flex flex-wrap items-baseline gap-2">
-                <span
-                  class="text-2xl font-bold tracking-tight text-red-900 sm:text-3xl dark:text-red-200"
-                  >1 245</span
-                >
-                <UBadge color="red" variant="solid" size="xs">-26,6%</UBadge>
-              </div>
-              <div class="text-xs text-red-700 dark:text-red-400">Milliards FCFA</div>
-            </div>
-
-            <!-- CTA Card (visible uniquement sur mobile) -->
-            <NuxtLink
-              to="/budget-senegal/dashboard"
-              class="group flex flex-col items-center justify-center rounded-lg bg-gradient-to-br from-blue-50 via-blue-100 to-indigo-200 p-4 shadow-md transition hover:shadow-lg md:hidden dark:from-blue-900/30 dark:via-blue-800/25 dark:to-indigo-900/20"
-            >
-              <UIcon
-                name="i-heroicons-chart-bar-square"
-                class="mb-2 h-8 w-8 text-blue-600 transition group-hover:scale-110 dark:text-blue-400"
-              />
-              <span class="text-center text-xs font-semibold text-blue-800 dark:text-blue-300">
-                Tableau de bord complet
-              </span>
-              <UIcon
-                name="i-heroicons-arrow-right"
-                class="mt-1 h-4 w-4 text-blue-600 transition group-hover:translate-x-1 dark:text-blue-400"
-              />
-            </NuxtLink>
           </div>
 
-          <!-- Colonne droite : Texte intro (visible uniquement sur desktop) -->
-          <div class="hidden md:block">
-            <p class="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
-              Le Projet de Loi de Finances 2026 présente les prévisions de ressources et de dépenses
-              de l'État pour l'année. Il sert de cadre d'exécution pour l'action publique et
-              s'appuie sur des hypothèses macroéconomiques définies pour l'économie nationale.
+          <!-- Recettes -->
+          <div class="rounded-xl bg-emerald-50 p-3 dark:bg-emerald-900/20">
+            <p class="text-[10px] font-medium text-emerald-600 md:text-xs dark:text-emerald-400">Recettes</p>
+            <p class="mt-1 text-lg font-bold text-emerald-700 md:text-2xl dark:text-emerald-300">6 189</p>
+            <div class="mt-1 flex items-center gap-1">
+              <span class="text-[10px] text-emerald-500 md:text-xs">Mrd FCFA</span>
+              <span class="rounded bg-emerald-200 px-1 py-0.5 text-[9px] font-medium text-emerald-700 md:text-[10px] dark:bg-emerald-800 dark:text-emerald-200">+27%</span>
+            </div>
+          </div>
+
+          <!-- Déficit -->
+          <div class="rounded-xl bg-red-50 p-3 dark:bg-red-900/20">
+            <p class="text-[10px] font-medium text-red-600 md:text-xs dark:text-red-400">Déficit</p>
+            <p class="mt-1 text-lg font-bold text-red-700 md:text-2xl dark:text-red-300">1 245</p>
+            <div class="mt-1 flex items-center gap-1">
+              <span class="text-[10px] text-red-500 md:text-xs">Mrd FCFA</span>
+              <span class="rounded bg-red-200 px-1 py-0.5 text-[9px] font-medium text-red-700 md:text-[10px] dark:bg-red-800 dark:text-red-200">-27%</span>
+            </div>
+          </div>
+        </div>
+      </NuxtLink>
+
+      <!-- Navigation Links - Mobile: vertical list, Desktop: grid -->
+      <div class="space-y-2 md:grid md:grid-cols-2 md:gap-4 md:space-y-0 lg:grid-cols-4">
+        <!-- Ministères -->
+        <NuxtLink
+          to="/budget-senegal/ministeres"
+          class="group flex items-center gap-3 rounded-xl bg-white p-3 ring-1 ring-gray-100 transition-all active:scale-[0.98] md:flex-col md:items-start md:gap-0 md:p-4 md:hover:ring-blue-200 md:hover:shadow-md dark:bg-gray-800 dark:ring-gray-700"
+        >
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-100 md:mb-3 dark:bg-blue-900/30">
+            <UIcon name="i-heroicons-building-office" class="h-5 w-5 text-blue-600 dark:text-blue-400" />
+          </div>
+          <div class="min-w-0 flex-1">
+            <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Ministères</h3>
+            <p class="truncate text-xs text-gray-500 dark:text-gray-400">
+              Budgets et programmes
             </p>
           </div>
-        </div>
-
-        <!-- CTA -->
-        <template #footer>
-          <div class="text-center">
-            <NuxtLink
-              to="/budget-senegal/dashboard"
-              class="inline-flex items-center gap-2 font-semibold text-gray-800 transition-all hover:gap-3 hover:text-blue-800 dark:text-gray-300 dark:hover:text-blue-700"
-            >
-              <span>Voir le tableau de bord complet</span>
-              <UIcon name="i-heroicons-arrow-right" size="xs" class="h-4 w-4" />
-            </NuxtLink>
-          </div>
-        </template>
-      </UCard>
-    </section>
-
-    <!-- Section Ressources (3 cards) -->
-    <section class="mb-4">
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <!-- Ministères -->
-        <NuxtLink to="/budget-senegal/ministeres">
-          <UCard
-            class="border-primary/20 hover:border-primary/30 dark:via-primary/10 dark:to-primary/20 border-1 h-full cursor-pointer overflow-hidden bg-white transition hover:shadow-lg dark:bg-gradient-to-br dark:from-gray-800"
-            :ui="{ body: { padding: 'p-2 sm:p-4' } }"
-          >
-            <div class="flex items-start gap-4">
-              <div class="rounded-lg bg-blue-500/10 p-3">
-                <UIcon name="i-heroicons-building-office" class="h-6 w-6 text-blue-600" />
-              </div>
-              <div class="flex-1">
-                <h3 class="mb-2 font-semibold text-gray-900 dark:text-white">Ministères</h3>
-                <p class="text-sm text-gray-600 dark:text-gray-400">
-                  Budgets et programmes des ministères
-                </p>
-              </div>
-            </div>
-          </UCard>
+          <UIcon
+            name="i-heroicons-chevron-right"
+            class="h-4 w-4 shrink-0 text-gray-300 md:hidden dark:text-gray-600"
+          />
         </NuxtLink>
 
         <!-- Institutions -->
-        <NuxtLink to="/budget-senegal/institutions">
-          <UCard
-            class="border-primary/20 hover:border-primary/30 dark:via-primary/10 dark:to-primary/20 border-1 h-full cursor-pointer overflow-hidden bg-white transition hover:shadow-lg dark:bg-gradient-to-br dark:from-gray-800"
-            :ui="{ body: { padding: 'p-2 sm:p-4' } }"
-          >
-            <div class="flex items-start gap-4">
-              <div class="rounded-lg bg-purple-500/10 p-3">
-                <UIcon name="i-heroicons-building-library" class="h-6 w-6 text-purple-600" />
-              </div>
-              <div class="flex-1">
-                <h3 class="mb-2 font-semibold text-gray-900 dark:text-white">Institutions</h3>
-                <p class="text-sm text-gray-600 dark:text-gray-400">
-                  Budgets Assemblée, Présidence, etc.
-                </p>
-              </div>
-            </div>
-          </UCard>
+        <NuxtLink
+          to="/budget-senegal/institutions"
+          class="group flex items-center gap-3 rounded-xl bg-white p-3 ring-1 ring-gray-100 transition-all active:scale-[0.98] md:flex-col md:items-start md:gap-0 md:p-4 md:hover:ring-purple-200 md:hover:shadow-md dark:bg-gray-800 dark:ring-gray-700"
+        >
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-purple-100 md:mb-3 dark:bg-purple-900/30">
+            <UIcon name="i-heroicons-building-library" class="h-5 w-5 text-purple-600 dark:text-purple-400" />
+          </div>
+          <div class="min-w-0 flex-1">
+            <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Institutions</h3>
+            <p class="truncate text-xs text-gray-500 dark:text-gray-400">
+              Assemblée, Présidence...
+            </p>
+          </div>
+          <UIcon
+            name="i-heroicons-chevron-right"
+            class="h-4 w-4 shrink-0 text-gray-300 md:hidden dark:text-gray-600"
+          />
         </NuxtLink>
 
         <!-- Documents -->
-        <NuxtLink to="/documents/budget">
-          <UCard
-            class="border-primary/20 hover:border-primary/30 dark:via-primary/10 dark:to-primary/20 border-1 h-full cursor-pointer overflow-hidden bg-white transition hover:shadow-lg dark:bg-gradient-to-br dark:from-gray-800"
-            :ui="{ body: { padding: 'p-2 sm:p-4' } }"
-          >
-            <div class="flex items-start gap-4">
-              <div class="rounded-lg bg-orange-500/10 p-3">
-                <UIcon name="i-heroicons-document-text" class="h-6 w-6 text-orange-600" />
-              </div>
-              <div class="flex-1">
-                <h3 class="mb-2 font-semibold text-gray-900 dark:text-white">Documents</h3>
-                <p class="text-sm text-gray-600 dark:text-gray-400">
-                  Loi de finances et documents officiels
-                </p>
-              </div>
-            </div>
-          </UCard>
+        <NuxtLink
+          to="/documents/budget"
+          class="group flex items-center gap-3 rounded-xl bg-white p-3 ring-1 ring-gray-100 transition-all active:scale-[0.98] md:flex-col md:items-start md:gap-0 md:p-4 md:hover:ring-orange-200 md:hover:shadow-md dark:bg-gray-800 dark:ring-gray-700"
+        >
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange-100 md:mb-3 dark:bg-orange-900/30">
+            <UIcon name="i-heroicons-document-text" class="h-5 w-5 text-orange-600 dark:text-orange-400" />
+          </div>
+          <div class="min-w-0 flex-1">
+            <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Documents</h3>
+            <p class="truncate text-xs text-gray-500 dark:text-gray-400">
+              Loi de finances
+            </p>
+          </div>
+          <UIcon
+            name="i-heroicons-chevron-right"
+            class="h-4 w-4 shrink-0 text-gray-300 md:hidden dark:text-gray-600"
+          />
+        </NuxtLink>
+
+        <!-- Glossaire -->
+        <NuxtLink
+          to="/budget-senegal/glossaire"
+          class="group flex items-center gap-3 rounded-xl bg-white p-3 ring-1 ring-gray-100 transition-all active:scale-[0.98] md:flex-col md:items-start md:gap-0 md:p-4 md:hover:ring-teal-200 md:hover:shadow-md dark:bg-gray-800 dark:ring-gray-700"
+        >
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-teal-100 md:mb-3 dark:bg-teal-900/30">
+            <UIcon name="i-heroicons-book-open" class="h-5 w-5 text-teal-600 dark:text-teal-400" />
+          </div>
+          <div class="min-w-0 flex-1">
+            <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Glossaire</h3>
+            <p class="truncate text-xs text-gray-500 dark:text-gray-400">
+              Termes et concepts
+            </p>
+          </div>
+          <UIcon
+            name="i-heroicons-chevron-right"
+            class="h-4 w-4 shrink-0 text-gray-300 md:hidden dark:text-gray-600"
+          />
         </NuxtLink>
       </div>
-    </section>
 
-    <!-- Glossaire (seul sur une ligne) -->
-    <section class="mb-6">
-      <NuxtLink to="/budget-senegal/glossaire">
-        <UCard
-          class="border-primary/20 hover:border-primary/30 dark:via-primary/10 dark:to-primary/20 border-1 cursor-pointer overflow-hidden bg-white transition hover:shadow-lg dark:bg-gradient-to-br dark:from-gray-800"
-          :ui="{ body: { padding: 'p-2 sm:p-4' } }"
-        >
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-4">
-              <div class="rounded-lg bg-green-500/10 p-3">
-                <UIcon name="i-heroicons-book-open" class="h-6 w-6 text-green-600" />
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-900 dark:text-white">Glossaire budgétaire</h3>
-                <p class="text-sm text-gray-600 dark:text-gray-400">
-                  Termes et concepts essentiels du budget
-                </p>
-              </div>
-            </div>
-            <UIcon name="i-heroicons-arrow-right" class="hidden h-6 w-6 text-gray-400 md:block" />
-          </div>
-        </UCard>
-      </NuxtLink>
-    </section>
-
-    <!-- Section Comprendre le Budget (articles) -->
-    <section class="mb-12">
-      <UCard
-        class="border-primary/20 hover:border-primary/30 dark:via-primary/10 dark:to-primary/20 border-1 overflow-hidden bg-white shadow-lg transition hover:shadow-xl dark:bg-gradient-to-br dark:from-gray-800"
-        :ui="{ body: { padding: 'p-4 sm:p-6' } }"
-      >
-        <div class="mb-6">
-          <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Comprendre le Budget</h3>
-          <p class="mt-2 text-gray-600 dark:text-gray-400">
-            Articles et analyses pour mieux comprendre les finances publiques
-          </p>
+      <!-- Section Comprendre le Budget -->
+      <section class="mt-6 md:mt-8">
+        <div class="mb-4 flex items-center justify-between">
+          <h2 class="text-lg font-bold text-gray-900 dark:text-white">
+            Comprendre le Budget
+          </h2>
         </div>
+        <div class="rounded-2xl bg-white p-4 ring-1 ring-gray-100 md:p-6 dark:bg-gray-800 dark:ring-gray-700">
+          <BudgetArticles />
+        </div>
+      </section>
+    </main>
 
-        <BudgetArticles />
-      </UCard>
-    </section>
+    <ScrollToTopButton />
   </div>
 </template>
 
@@ -256,12 +194,5 @@ useSeoMeta({
   ogDescription: description,
   twitterTitle: title,
   twitterDescription: description,
-});
-
-// Fetch budget data pour le Dashboard Card
-const { data: budgetData } = await useFetch('/api/budget/compare', {
-  query: {
-    year: new Date().getFullYear(),
-  },
 });
 </script>
