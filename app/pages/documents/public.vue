@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DOC_TYPE_LABELS, AUDIT_INSTITUTIONS } from '~~/types/document';
+import { DOC_TYPE_LABELS, DOC_FAMILY_LABELS, AUDIT_INSTITUTIONS } from '~~/types/document';
 
 const router = useRouter();
 
@@ -26,14 +26,19 @@ const {
   setSortBy,
   setFilterValue,
   setAuditInstitutionFilter,
+  familyFilter,
+  setFamilyFilter,
   hasActiveFilters,
   resetFilters,
 } = useDocuments({
   limit: 20,
 });
 
-// Types dynamiques depuis le composable
-const { types: availableTypes, loading: typesLoading } = useAvailableTypes();
+// Types dynamiques depuis le composable (filtrés par famille sélectionnée)
+const { types: availableTypes, loading: typesLoading } = useAvailableTypes(familyFilter);
+
+// Familles dynamiques depuis le composable
+const { families: availableFamilies, loading: familiesLoading } = useAvailableDocumentFamilies();
 
 const typeOptions = computed(() => {
   const options = [{ label: 'Tous les types', value: 'all' }];
@@ -44,9 +49,19 @@ const typeOptions = computed(() => {
   return options;
 });
 
-// Années dynamiques depuis l'API (filtrées par type sélectionné)
+const familyOptions = computed(() => {
+  const options = [{ label: 'Toutes les catégories', value: 'all' }];
+  for (const f of availableFamilies.value) {
+    const label = DOC_FAMILY_LABELS[f.family] || f.family;
+    options.push({ label: `${label} (${f.count})`, value: f.family });
+  }
+  return options;
+});
+
+// Années dynamiques depuis l'API (filtrées par type et famille sélectionnés)
 const { years: availableYears, loading: yearsLoading } = useAvailableYears(
   computed(() => (filterValue.value && filterValue.value !== 'all' ? filterValue.value : '')),
+  familyFilter,
 );
 
 const yearOptions = computed(() => {
@@ -93,6 +108,17 @@ const selectedYearUI = computed({
   set: (value) => {
     yearFilter.value = value;
     setCurrentPage(1);
+  },
+});
+
+const selectedFamilyUI = computed({
+  get: () => familyFilter.value || 'all',
+  set: (value) => {
+    setFamilyFilter(value);
+    // Réinitialiser type et année quand on change de famille
+    setFilterValue('all');
+    yearFilter.value = 'all';
+    setAuditInstitutionFilter('');
   },
 });
 
@@ -160,6 +186,7 @@ const handleReset = () => {
   resetFilters();
   yearFilter.value = 'all';
   setAuditInstitutionFilter('');
+  setFamilyFilter('all');
 };
 </script>
 
@@ -205,6 +232,16 @@ const handleReset = () => {
         <!-- Filtres et toggle vue -->
         <div class="flex flex-wrap items-center justify-between gap-3">
           <div class="flex flex-wrap items-center gap-2">
+            <!-- Filtre famille -->
+            <USelect
+              v-model="selectedFamilyUI"
+              :options="familyOptions"
+              option-attribute="label"
+              value-attribute="value"
+              size="sm"
+              :loading="familiesLoading"
+              class="w-auto min-w-[140px]"
+            />
             <!-- Filtre type -->
             <USelect
               v-model="selectedTypeUI"

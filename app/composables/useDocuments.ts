@@ -53,6 +53,7 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
       filterValue: ref('all'),
       yearFilter: ref<string>('all'),
       auditInstitutionFilter: ref<string>(''),
+      familyFilter: ref<string>('all'),
       itemsPerPage: ref(options.limit || 10),
       pagination: computed(() => undefined),
       totalItems: computed(() => 0),
@@ -66,6 +67,7 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
       setFilterValue: () => {},
       setItemsPerPage: () => {},
       setAuditInstitutionFilter: (_v: string) => {},
+      setFamilyFilter: (_v: string) => {},
       resetFilters: () => {},
     };
   }
@@ -90,6 +92,9 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
   // Gestion du filtre par organisme d'audit
   const auditInstitutionFilter = ref<string>('');
 
+  // Gestion du filtre par famille de documents
+  const familyFilter = ref<string>('all');
+
   // Lecture des filtres depuis l'URL
   onMounted(() => {
     if (route.query.year) {
@@ -97,6 +102,9 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
     }
     if (route.query.organisme) {
       auditInstitutionFilter.value = route.query.organisme as string;
+    }
+    if (route.query.family) {
+      familyFilter.value = route.query.family as string;
     }
   });
 
@@ -118,6 +126,17 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
       query.organisme = auditInstitutionFilter.value;
     } else {
       delete query.organisme;
+    }
+    useRouter().replace({ query });
+  });
+
+  // Synchronisation du filtre famille avec l'URL
+  watch(familyFilter, () => {
+    const query: any = { ...route.query };
+    if (familyFilter.value && familyFilter.value !== 'all') {
+      query.family = familyFilter.value;
+    } else {
+      delete query.family;
     }
     useRouter().replace({ query });
   });
@@ -157,6 +176,11 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
       filters.audit_institution = auditInstitutionFilter.value;
     }
 
+    // Filtre par famille de documents
+    if (familyFilter.value && familyFilter.value !== 'all') {
+      filters.family = familyFilter.value;
+    }
+
     return filters;
   });
 
@@ -179,6 +203,11 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
     state.currentPage.value = 1;
   };
 
+  const setFamilyFilter = (value: string) => {
+    familyFilter.value = value;
+    state.currentPage.value = 1;
+  };
+
   return {
     // Données
     documents: collection.items,
@@ -198,6 +227,7 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
     // États spécifiques aux documents
     yearFilter,
     auditInstitutionFilter,
+    familyFilter,
 
     // Méthodes (depuis useCollectionState)
     setCurrentPage: state.setCurrentPage,
@@ -206,6 +236,7 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
     setFilterValue: state.setFilterValue,
     setItemsPerPage: state.setItemsPerPage,
     setAuditInstitutionFilter,
+    setFamilyFilter,
     resetFilters: state.resetFilters,
 
     // Computed

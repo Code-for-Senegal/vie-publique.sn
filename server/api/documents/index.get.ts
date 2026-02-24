@@ -15,6 +15,7 @@ export default defineCachedEventHandler(
     const electionIds = query.election_ids as string; // IDs séparés par des virgules
     const year = query.year as string;
     const auditInstitution = query.audit_institution as string;
+    const family = query.family as string;
 
     try {
       const directus = getCmsClient();
@@ -130,6 +131,13 @@ export default defineCachedEventHandler(
         };
       }
 
+      // Filtre par famille de documents
+      if (family && family !== "all") {
+        filter.family = {
+          _eq: family,
+        };
+      }
+
       // Recherche textuelle
       if (search) {
         filter._or = [
@@ -193,6 +201,7 @@ export default defineCachedEventHandler(
               "date_created",
               "description",
               "audit_institution",
+              "family",
               "cover_image",
               "file.id",
               "file.type",
@@ -239,6 +248,7 @@ export default defineCachedEventHandler(
         ...(doc.audit_institution
           ? { audit_institution: doc.audit_institution }
           : {}),
+        ...(doc.family ? { family: doc.family } : {}),
         ...(doc.cover_image
           ? { cover_image: doc.cover_image }
           : {}),

@@ -1,9 +1,15 @@
 /**
  * GET /api/documents/types
  * Retourne les types de documents disponibles avec le nombre de documents
+ *
+ * Query params:
+ * - family (optionnel) : Filtrer par famille de documents
  */
 export default defineCachedEventHandler(
-  async () => {
+  async (event) => {
+    const query = getQuery(event);
+    const family = query.family as string;
+
     try {
       const config = useRuntimeConfig();
 
@@ -12,6 +18,10 @@ export default defineCachedEventHandler(
       params.append('aggregate[countDistinct]', 'id');
       params.append('groupBy[]', 'type');
       params.append('filter[status][_eq]', 'published');
+
+      if (family && family !== 'all') {
+        params.append('filter[family][_eq]', family);
+      }
 
       const response = await $fetch<{ data: any[] }>(
         `${config.cmsApiUrl}/items/documents?${params.toString()}`,
@@ -42,6 +52,9 @@ export default defineCachedEventHandler(
   {
     maxAge: 60 * 5 * 1, // 5 minutes
     name: 'documents-types',
-    getKey: () => 'documents-types',
+    getKey: (event) => {
+      const query = getQuery(event);
+      return `documents-types-${query.family || 'all'}`;
+    },
   },
 );
