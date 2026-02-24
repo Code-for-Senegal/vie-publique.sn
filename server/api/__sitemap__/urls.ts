@@ -4,6 +4,13 @@ import { readItems } from '@directus/sdk';
 export default defineSitemapEventHandler(async () => {
   const urls: any[] = [];
 
+  const toISODate = (date: string | null | undefined): string | undefined => {
+    if (!date) return undefined;
+    const parsed = new Date(date);
+    if (isNaN(parsed.getTime())) return undefined;
+    return parsed.toISOString();
+  };
+
   try {
     const directus = getCmsClient();
 
@@ -20,9 +27,10 @@ export default defineSitemapEventHandler(async () => {
     );
 
     for (const doc of documents) {
+      const lastmod = toISODate(doc.date_updated) || toISODate(doc.publish_date);
       urls.push({
         loc: `/documents/${doc.id}/${doc.slug}`,
-        lastmod: doc.date_updated || doc.publish_date,
+        ...(lastmod && { lastmod }),
         changefreq: 'monthly',
         priority: 0.7,
       });
@@ -49,9 +57,10 @@ export default defineSitemapEventHandler(async () => {
         priority = 0.9;
       }
 
+      const lastmod = toISODate(item.date_updated) || toISODate(item.date_published);
       urls.push({
         loc: path,
-        lastmod: item.date_updated || item.date_published,
+        ...(lastmod && { lastmod }),
         changefreq: 'weekly',
         priority: priority,
       });
@@ -81,9 +90,10 @@ export default defineSitemapEventHandler(async () => {
     for (const deputy of deputies) {
       const fullName = `${deputy.first_name} ${deputy.last_name}`;
       const slug = slugify(fullName);
+      const lastmod = toISODate(deputy.date_updated);
       urls.push({
         loc: `/assemblee-nationale/deputes/${deputy.id}/${slug}`,
-        lastmod: deputy.date_updated,
+        ...(lastmod && { lastmod }),
         changefreq: 'monthly',
         priority: 0.6,
       });
