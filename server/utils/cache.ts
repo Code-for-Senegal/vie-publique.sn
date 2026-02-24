@@ -24,3 +24,25 @@ export const CacheDuration = {
   /** 7 jours - Données statiques */
   VERY_LONG: 7 * 24 * 60 * 60,
 } as const;
+
+/**
+ * Génère une clé de cache déterministe compatible avec Nitro.
+ *
+ * Nitro applique `escapeKey()` qui supprime tous les caractères non-alphanumériques (\W).
+ * Cela provoque des collisions de cache : par exemple "-publish_date" et "publish_date"
+ * deviennent tous deux "publish_date" après échappement.
+ *
+ * Cette fonction encode le "-" (tri descendant) en "DESC" pour garantir des clés uniques.
+ *
+ * @param prefix - Préfixe de la clé (ex: "documents", "news")
+ * @param query - Paramètres de requête depuis getQuery(event)
+ */
+export function buildCacheKey(prefix: string, query: Record<string, any>): string {
+  const sortedKeys = Object.keys(query).sort();
+  const parts = sortedKeys.map((k) => {
+    const val = String(query[k] ?? '');
+    const safeVal = val.replace(/-/g, 'DESC');
+    return `${k}_${safeVal}`;
+  });
+  return `${prefix}_${parts.join('_')}`;
+}

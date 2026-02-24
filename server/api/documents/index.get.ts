@@ -266,12 +266,6 @@ export default defineCachedEventHandler(
   {
     maxAge: 60 * 5, // 5 minutes
     name: "documents",
-    getKey: (event) => {
-      const query = getQuery(event);
-      // Tri des clés pour garantir un cache key déterministe
-      const sortedKeys = Object.keys(query).sort();
-      const normalizedQuery = sortedKeys.map((k) => `${k}=${query[k]}`).join("&");
-      return `documents-${normalizedQuery}`;
-    },
+    getKey: (event) => buildCacheKey("documents", getQuery(event)),
   },
 );
