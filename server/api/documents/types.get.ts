@@ -40,7 +40,7 @@ export default defineCachedEventHandler(
     }
   },
   {
-    maxAge: 60 * 60 * 6, // 6 heures
+    maxAge: 60 * 5 * 1, // 5 minutes
     name: 'documents-types',
     getKey: () => 'documents-types',
   },
