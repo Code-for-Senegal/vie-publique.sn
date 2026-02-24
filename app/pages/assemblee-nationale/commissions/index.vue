@@ -178,81 +178,148 @@ const filteredCommissions = computed(() => {
 </script>
 
 <template>
-  <div class="container mx-auto px-2 py-4">
-    <AppBreadcrumb :items="[
-      { label: 'Assemblée nationale', to: '/assemblee-nationale' },
-      { label: 'Commissions' }
-    ]" />
-    <div class="mx-auto max-w-4xl">
-      <div class="prose prose-sm sm:prose my-2">
-        <h1 class="dark:text-white">Commissions de l'Assemblée</h1>
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <!-- Sticky Header Mobile -->
+    <div class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 px-4 py-3 backdrop-blur-sm dark:border-gray-700 dark:bg-gray-800/95 md:relative md:border-0 md:bg-transparent md:py-6 md:backdrop-blur-none dark:md:bg-transparent">
+      <div class="mx-auto max-w-4xl">
+        <!-- Breadcrumb desktop only -->
+        <div class="mb-2 hidden md:block">
+          <AppBreadcrumb :items="[
+            { label: 'Assemblée nationale', to: '/assemblee-nationale' },
+            { label: 'Commissions' }
+          ]" />
+        </div>
+        
+        <div class="flex items-center justify-between gap-4">
+          <!-- Back button mobile -->
+          <NuxtLink 
+            to="/assemblee-nationale" 
+            class="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 active:scale-95 dark:bg-gray-700 md:hidden"
+          >
+            <UIcon name="i-heroicons-arrow-left" class="h-5 w-5 text-gray-600 dark:text-gray-300" />
+          </NuxtLink>
+          
+          <div class="flex-1">
+            <h1 class="text-lg font-semibold text-gray-900 dark:text-white md:text-2xl">
+              Commissions parlementaires
+            </h1>
+            <p class="hidden text-sm text-gray-500 dark:text-gray-400 md:block">
+              15e législature de l'Assemblée nationale
+            </p>
+          </div>
+          
+          <!-- Stats badge -->
+          <div v-if="!loading && commissions?.length" class="flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1.5 dark:bg-emerald-900/30">
+            <UIcon name="i-heroicons-building-library" class="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+            <span class="text-sm font-medium text-emerald-700 dark:text-emerald-300">{{ commissions.length }}</span>
+          </div>
+        </div>
       </div>
+    </div>
 
+    <!-- Main Content -->
+    <div class="mx-auto max-w-4xl px-4 pb-24 pt-4 md:pt-0">
       <!-- Barre de recherche -->
-      <div class="mb-4">
-        <UInput
-          :model-value="searchQuery"
-          placeholder="Rechercher une commission..."
-          icon="i-heroicons-magnifying-glass-20-solid"
-          size="lg"
-          color="gray"
-          class="w-full"
-          @update:model-value="setSearchQuery"
-        />
+      <div class="mb-6">
+        <div class="relative">
+          <UIcon name="i-heroicons-magnifying-glass" class="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+          <input
+            :value="searchQuery"
+            type="text"
+            placeholder="Rechercher une commission..."
+            class="w-full rounded-xl border-0 bg-white py-3.5 pl-12 pr-4 text-gray-900 ring-1 ring-gray-200 transition-shadow placeholder:text-gray-400 focus:ring-2 focus:ring-emerald-500 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:placeholder:text-gray-500 dark:focus:ring-emerald-500"
+            @input="setSearchQuery(($event.target as HTMLInputElement).value)"
+          >
+        </div>
       </div>
 
       <!-- Loading state -->
-      <div v-if="loading" class="flex justify-center py-8">
-        <UIcon name="i-heroicons-arrow-path" class="h-8 w-8 animate-spin" />
+      <div v-if="loading" class="space-y-3">
+        <div v-for="i in 6" :key="i" class="rounded-2xl bg-white p-5 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700">
+          <div class="flex items-start gap-4">
+            <USkeleton class="h-12 w-12 flex-shrink-0 rounded-xl" />
+            <div class="flex-1 space-y-2">
+              <USkeleton class="h-5 w-3/4" />
+              <USkeleton class="h-4 w-1/2" />
+              <USkeleton class="h-3 w-1/4" />
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Error state -->
-      <UAlert
-        v-else-if="error"
-        title="Erreur de chargement"
-        description="Impossible de charger la liste des commissions"
-        color="red"
-        icon="i-heroicons-exclamation-triangle"
-      />
+      <div v-else-if="error" class="rounded-2xl bg-red-50 p-6 text-center dark:bg-red-900/20">
+        <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30">
+          <UIcon name="i-heroicons-exclamation-triangle" class="h-6 w-6 text-red-600 dark:text-red-400" />
+        </div>
+        <h3 class="font-medium text-red-800 dark:text-red-300">Erreur de chargement</h3>
+        <p class="mt-1 text-sm text-red-600 dark:text-red-400">Impossible de charger les commissions</p>
+      </div>
 
       <!-- Liste des commissions -->
-      <div v-else class="grid gap-2">
-        <UCard
+      <div v-else-if="filteredCommissions.length > 0" class="space-y-3">
+        <NuxtLink
           v-for="commission in filteredCommissions"
           :key="commission.id"
-          class="rounded-lg border-none bg-gray-50 p-4 transition-all hover:bg-gray-100 hover:shadow-lg"
+          :to="`/assemblee-nationale/commissions/${commission.id}`"
+          class="group flex items-start gap-4 rounded-2xl bg-white p-4 ring-1 ring-gray-100 transition-all active:scale-[0.99] hover:ring-emerald-200 hover:shadow-md dark:bg-gray-800 dark:ring-gray-700 dark:hover:ring-emerald-700"
         >
-          <NuxtLink
-            :to="`/assemblee-nationale/commissions/${commission.id}`"
-            class="flex items-center justify-between"
-          >
-            <div>
-              <h2 class="text-lg font-medium">
-                <span class="text-green-700">#{{ commission.id }} </span>
-                {{ commission.name }}
-              </h2>
-              <p v-if="commission.president" class="text-sm text-gray-500">
-                Président {{ commission.president.first_name }}
-                {{ commission.president.last_name }}
-              </p>
-              <p class="text-sm text-gray-500">
-                {{ commission.membersCount || 0 }} membres
-              </p>
+          <!-- Icon -->
+          <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 text-white shadow-sm">
+            <UIcon name="i-heroicons-user-group" class="h-6 w-6" />
+          </div>
+          
+          <!-- Content -->
+          <div class="min-w-0 flex-1">
+            <h2 class="font-semibold text-gray-900 group-hover:text-emerald-600 dark:text-white dark:group-hover:text-emerald-400">
+              {{ commission.name }}
+            </h2>
+            
+            <!-- President -->
+            <div v-if="commission.president" class="mt-1 flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+              <UIcon name="i-heroicons-user" class="h-4 w-4" />
+              <span>{{ commission.president.first_name }} {{ commission.president.last_name }}</span>
+              <span class="rounded bg-amber-100 px-1.5 py-0.5 text-xs font-medium text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">Président</span>
             </div>
-            <UIcon
-              name="i-heroicons-chevron-right"
-              class="h-5 w-5 text-gray-400"
-            />
-          </NuxtLink>
-        </UCard>
+            
+            <!-- Members count -->
+            <div class="mt-2 flex items-center gap-3">
+              <span class="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300">
+                <UIcon name="i-heroicons-users" class="h-3.5 w-3.5" />
+                {{ commission.membersCount || 0 }} membres
+              </span>
+              <span class="text-xs text-gray-400 dark:text-gray-500">#{{ commission.id }}</span>
+            </div>
+          </div>
+          
+          <!-- Arrow -->
+          <UIcon 
+            name="i-heroicons-chevron-right" 
+            class="h-5 w-5 flex-shrink-0 text-gray-300 transition-transform group-hover:translate-x-1 group-hover:text-emerald-500 dark:text-gray-600 dark:group-hover:text-emerald-400" 
+          />
+        </NuxtLink>
       </div>
 
       <!-- Empty state -->
       <div
-        v-if="!loading && !error && filteredCommissions.length === 0"
-        class="py-8 text-center text-gray-500"
+        v-else
+        class="rounded-2xl bg-white p-8 text-center ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
       >
-        Aucune commission trouvée
+        <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700">
+          <UIcon name="i-heroicons-magnifying-glass" class="h-8 w-8 text-gray-400" />
+        </div>
+        <h3 class="font-medium text-gray-900 dark:text-white">Aucune commission trouvée</h3>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          Essayez de modifier votre recherche
+        </p>
+        <button 
+          v-if="searchQuery"
+          class="mt-4 inline-flex items-center gap-2 rounded-lg bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700 transition-colors hover:bg-emerald-100 dark:bg-emerald-900/30 dark:text-emerald-400 dark:hover:bg-emerald-900/50"
+          @click="setSearchQuery('')"
+        >
+          <UIcon name="i-heroicons-x-mark" class="h-4 w-4" />
+          Effacer la recherche
+        </button>
       </div>
     </div>
   </div>

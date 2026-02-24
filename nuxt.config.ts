@@ -388,7 +388,9 @@ export default defineNuxtConfig({
       title: "l'information publique au Sénégal | Vie-Publique.sn",
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
-      link: [{ rel: 'manifest', href: '/manifest.webmanifest' }],
+      // Note: @vite-pwa/nuxt injecte automatiquement <link rel="manifest">
+      // Ne PAS l'ajouter manuellement ici (doublon sinon)
+      link: [],
       meta: [
         {
           name: 'keywords',
@@ -711,8 +713,13 @@ export default defineNuxtConfig({
       cleanupOutdatedCaches: true,
     },
     injectManifest: {
-      globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
-      maximumFileSizeToCacheInBytes: 20 * 1024 * 1024,
+      // Precache UNIQUEMENT les assets essentiels (icônes, favicon).
+      // Les JS/CSS hashés (/_nuxt/*) sont gérés par CacheFirst en runtime :
+      // cache miss → réseau → cache. Pas besoin de les precacher.
+      // Precacher tout JS/CSS ralentit l'installation du SW et si un seul
+      // fichier échoue → le SW ne s'installe pas → l'ancien reste actif.
+      globPatterns: ['**/*.{png,svg,ico,webp}'],
+      maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
     },
     client: {
       installPrompt: true,
