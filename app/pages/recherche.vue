@@ -293,9 +293,6 @@ const getBadgeColor = (type: string) => {
         <div v-else class="mt-4">
           <!-- Hero -->
           <div class="mb-8 text-center">
-            <div class="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-sky-100 dark:bg-sky-900/30">
-              <UIcon name="i-heroicons-magnifying-glass" class="h-10 w-10 text-sky-500" />
-            </div>
             <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
               Explorez nos contenus
             </h2>
