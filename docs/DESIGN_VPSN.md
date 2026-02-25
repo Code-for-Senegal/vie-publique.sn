@@ -10,3 +10,5 @@
 - Menu bottom refait style nouveau design Apple (https://lmdr.vpsn.cloud/)
 - sur mobile titre à gauche , actions à droite
 - vertical navigation for mobile (acueil)
+- ajouter un bootomShare (scribe) https://fr.scribd.com/document/512559410/les-royaumes-du-Senegal
+- regarder la partie viewer pdf
