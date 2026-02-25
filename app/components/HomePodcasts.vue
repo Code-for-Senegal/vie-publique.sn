@@ -72,7 +72,7 @@ const closePlayer = () => {
           variant="solid"
           size="md"
           trailing-icon="i-heroicons-arrow-right"
-          class="bg-white font-medium"
+          class="rounded-full border-gray-200 bg-white font-medium"
         >
           Voir tous les podcasts
         </UButton>
