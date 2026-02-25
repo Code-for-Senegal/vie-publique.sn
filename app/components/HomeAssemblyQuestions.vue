@@ -100,7 +100,7 @@ const { questions, loading, error } = useAssemblyQuestions();
           variant="solid"
           size="md"
           trailing-icon="i-heroicons-arrow-right"
-          class="font-medium"
+          class="bg-white font-medium"
         >
           Voir toute l'activité parlementaire
         </UButton>

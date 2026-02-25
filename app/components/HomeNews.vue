@@ -133,7 +133,7 @@ const {
           variant="solid"
           size="md"
           trailing-icon="i-heroicons-arrow-right"
-          class="font-medium"
+          class="bg-white font-medium"
         >
           Voir toutes les actualités
         </UButton>
