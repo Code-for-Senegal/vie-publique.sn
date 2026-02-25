@@ -163,6 +163,7 @@ const {
   currentPage,
   totalPages,
   totalItems,
+  itemsPerPage,
   paginatedNews,
   setSearchQuery,
   setSelectedCategory,
@@ -452,7 +453,7 @@ const formatDateISO = (date: string) => {
           <UPagination
             v-model="currentPage"
             :total="totalItems"
-            :page-count="12"
+            :page-count="itemsPerPage"
             size="sm"
             :ui="{
               wrapper: 'flex items-center gap-1',

@@ -41,6 +41,8 @@ export const DOC_TYPE_LABELS: Record<string, string> = {
   parliament_question: 'Question Député',
   parliament_report: 'Rapport parlementaire',
   general_policy_statement: 'Déclaration de politique générale',
+  press_release: 'Communiqué de presse',
+  election: 'Élection',
 };
 
 // Familles de documents
@@ -60,12 +62,12 @@ export const DOC_FAMILY_LABELS: Record<string, string> = {
   legislation: 'Législation',
   budget: 'Budget',
   strategy: 'Stratégie',
-  accountability: 'Rapports & audits',
+  accountability: 'Rapports publics',
   statistics: 'Statistique',
-  parliament: 'parlementaire',
-  communication: 'communication',
-  archives: 'archives',
-  international: 'international',
+  parliament: 'Parlementaire',
+  communication: 'Communiqués',
+  archives: 'Archives',
+  international: 'International',
 };
 
 // Organismes d'audit (pour filtrage des rapports d'audit)
