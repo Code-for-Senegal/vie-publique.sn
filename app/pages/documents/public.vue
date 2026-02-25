@@ -302,16 +302,6 @@ const handleReset = () => {
             <UIcon name="i-heroicons-chevron-down" class="pointer-events-none absolute right-2 top-1/2 h-3 w-3 -translate-y-1/2 text-gray-400" />
           </div>
 
-          <!-- Reset Button -->
-          <button
-            v-if="hasActiveFilters"
-            type="button"
-            class="shrink-0 rounded-full bg-red-50 px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-100 active:scale-95 dark:bg-red-900/30 dark:text-red-400"
-            @click="handleReset"
-          >
-            <UIcon name="i-heroicons-x-mark" class="mr-1 inline h-3 w-3" />
-            Reset
-          </button>
         </div>
 
         <!-- Audit Institution Filter (conditionally shown) -->
@@ -412,20 +402,30 @@ const handleReset = () => {
 
       <!-- Documents Content -->
       <div v-else>
-        <p
+        <div
           v-if="totalItems || hasActiveFilters || searchQuery"
-          class="mb-3 text-xs text-gray-500 dark:text-gray-400"
+          class="mb-3 flex items-center justify-between"
         >
-          <span v-if="totalItems">{{ `${totalItems} résultat${totalItems > 1 ? 's' : ''}` }}</span>
-          <span v-if="totalItems && (searchQuery || (filterValue && filterValue !== 'all'))">
-            ·
-          </span>
-          <span v-if="searchQuery">pour "{{ searchQuery }}"</span>
-          <span v-if="searchQuery && filterValue && filterValue !== 'all'"> · </span>
-          <span v-if="filterValue && filterValue !== 'all'">{{
-            DOC_TYPE_LABELS[filterValue] || filterValue
-          }}</span>
-        </p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">
+            <span v-if="totalItems">{{ `${totalItems} résultat${totalItems > 1 ? 's' : ''}` }}</span>
+            <span v-if="totalItems && (searchQuery || (filterValue && filterValue !== 'all'))">
+              ·
+            </span>
+            <span v-if="searchQuery">pour "{{ searchQuery }}"</span>
+            <span v-if="searchQuery && filterValue && filterValue !== 'all'"> · </span>
+            <span v-if="filterValue && filterValue !== 'all'">{{
+              DOC_TYPE_LABELS[filterValue] || filterValue
+            }}</span>
+          </p>
+          <button
+            v-if="hasActiveFilters"
+            type="button"
+            class="text-xs text-gray-500 underline transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+            @click="handleReset"
+          >
+            Réinitialiser
+          </button>
+        </div>
 
         <!-- Grid View -->
         <div v-if="viewMode === 'grid'" class="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4">
