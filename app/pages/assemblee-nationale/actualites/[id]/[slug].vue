@@ -167,16 +167,11 @@ useSchemaOrg([
 
           <!-- Title & Meta -->
           <div class="min-w-0 flex-1">
-            <div class="flex items-center gap-2">
-              <span class="shrink-0 rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold uppercase text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
-                Assemblée nationale
-              </span>
-            </div>
-            <h1 v-if="article" class="truncate text-sm font-semibold text-gray-900 dark:text-white">
+            <h1 v-if="article" class="line-clamp-2 text-xs font-semibold leading-tight text-gray-900 dark:text-white">
               {{ article.title }}
             </h1>
-            <USkeleton v-else class="mt-1 h-4 w-48" />
-            <p v-if="article?.date_published" class="text-xs text-gray-500">
+            <USkeleton v-else class="h-4 w-48" />
+            <p v-if="article?.date_published" class="mt-0.5 text-[10px] text-gray-500">
               {{ formatDate(article.date_published) }}
             </p>
           </div>
@@ -284,7 +279,7 @@ useSchemaOrg([
           <!-- Title & Meta (visible on larger screens) -->
           <div class="hidden md:block">
             <div class="mb-3 flex items-center gap-2">
-              <span class="rounded-full bg-amber-100 px-2.5 py-1 text-xs font-semibold text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
+              <span class="rounded-full bg-blue-100 px-2.5 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
                 Assemblée nationale
               </span>
             </div>
@@ -318,7 +313,7 @@ useSchemaOrg([
           <!-- Article Body -->
           <div class="rounded-2xl bg-white p-6 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700 sm:p-8">
             <div
-              class="prose prose-sm max-w-none dark:prose-invert prose-headings:font-semibold prose-h2:mt-8 prose-h2:text-xl prose-p:leading-relaxed prose-a:text-amber-600 prose-img:rounded-xl dark:prose-a:text-amber-400"
+              class="prose prose-sm max-w-none dark:prose-invert prose-headings:font-semibold prose-h2:mt-8 prose-h2:text-xl prose-p:leading-relaxed prose-a:text-blue-600 prose-img:rounded-xl dark:prose-a:text-blue-400"
               itemprop="articleBody"
               v-html="article.content"
             ></div>

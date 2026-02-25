@@ -99,14 +99,14 @@ useHead({
           <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
             <UIcon
               name="i-heroicons-magnifying-glass-20-solid"
-              class="h-5 w-5 text-gray-400 transition-colors group-focus-within:text-primary-500"
+              class="h-5 w-5 text-gray-400 transition-colors group-focus-within:text-gray-500"
             />
           </div>
           <input
             type="search"
             :value="searchQuery"
             placeholder="Rechercher un rapport..."
-            class="block w-full rounded-xl border-0 bg-gray-100 py-3 pl-11 pr-10 text-sm text-gray-900 ring-1 ring-transparent transition-all placeholder:text-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 sm:py-2.5 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-400 dark:focus:bg-gray-800/80"
+            class="block w-full rounded-xl border-0 bg-gray-100 py-3 pl-11 pr-10 text-sm text-gray-900 ring-1 ring-transparent transition-all placeholder:text-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 sm:py-2.5 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-400 dark:focus:bg-gray-800/80 dark:focus:ring-gray-500"
             @input="handleSearchInput"
           />
           <button
@@ -273,3 +273,14 @@ useHead({
     </main>
   </div>
 </template>
+
+<style scoped>
+/* Hide scrollbar */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+</style>

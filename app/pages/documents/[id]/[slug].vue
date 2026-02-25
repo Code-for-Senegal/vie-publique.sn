@@ -185,6 +185,52 @@ const showPdfViewer = ref(false);
 
 <template>
   <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-950">
+    <!-- Sticky Header Mobile -->
+    <header class="sticky top-0 z-40 border-b border-gray-100 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95 md:relative md:border-0 md:bg-transparent md:backdrop-blur-none dark:md:bg-transparent">
+      <div class="container mx-auto px-4">
+        <div class="flex items-center gap-3 py-3 md:hidden">
+          <!-- Back button -->
+          <NuxtLink
+            :to="`/documents/${typeSlug}`"
+            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 active:scale-95 dark:bg-gray-800 dark:text-gray-400"
+            aria-label="Retour"
+          >
+            <UIcon name="i-heroicons-arrow-left" class="h-4 w-4" />
+          </NuxtLink>
+
+          <!-- Title & Meta -->
+          <div class="min-w-0 flex-1">
+            <h1 v-if="document" class="line-clamp-2 text-xs font-semibold leading-tight text-gray-900 dark:text-white">
+              {{ document.title }}
+            </h1>
+            <USkeleton v-else class="h-4 w-48" />
+            <p v-if="formattedDate" class="mt-0.5 text-[10px] text-gray-500">
+              {{ formattedDate }}
+            </p>
+          </div>
+
+          <!-- Mobile Actions Compact -->
+          <div v-if="document?.file" class="flex shrink-0 items-center gap-1.5">
+            <button
+              type="button"
+              class="flex h-8 items-center gap-1 rounded-lg bg-primary-500 px-2.5 text-[11px] font-medium text-white transition-colors hover:bg-primary-600 active:scale-95"
+              @click="showPdfViewer = true"
+            >
+              <UIcon name="i-heroicons-eye" class="h-3.5 w-3.5" />
+              Lire
+            </button>
+            <button
+              type="button"
+              class="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 active:scale-95 dark:bg-gray-800 dark:text-gray-400"
+              @click="downloadCmsFile(`${document!.file!.id}/${document!.slug}.pdf`, `${document!.slug}.pdf`)"
+            >
+              <UIcon name="i-heroicons-arrow-down-tray" class="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
     <div class="container mx-auto px-4">
       <AppBreadcrumb
         :items="[
@@ -239,9 +285,9 @@ const showPdfViewer = ref(false);
 
     <!-- Contenu -->
     <article v-else-if="document">
-      <!-- Header sticky avec titre et actions -->
+      <!-- Header Desktop Only -->
       <header
-        class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95"
+        class="hidden border-b border-gray-200 bg-white/95 backdrop-blur-sm md:block dark:border-gray-800 dark:bg-gray-900/95"
       >
         <div class="container mx-auto px-4 py-4">
 
@@ -266,37 +312,6 @@ const showPdfViewer = ref(false);
               <UIcon name="i-heroicons-document" class="h-3.5 w-3.5" />
               PDF · {{ fileSize }}
             </span>
-          </div>
-
-          <!-- Actions Mobile -->
-          <div v-if="document.file" class="mt-3 flex items-center gap-2 lg:hidden">
-            <button
-              type="button"
-              class="flex flex-1 items-center justify-center gap-2 rounded-full bg-primary-500 px-4 py-2.5 text-sm font-medium text-white transition-all hover:bg-primary-600 active:scale-[0.98]"
-              @click="showPdfViewer = true"
-            >
-              <UIcon name="i-heroicons-eye" class="h-4 w-4" />
-              Lire
-            </button>
-            <a
-              :href="fileUrl"
-              target="_blank"
-              class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-600 transition-all hover:bg-gray-200 active:scale-95 dark:bg-gray-800 dark:text-gray-400"
-            >
-              <UIcon name="i-heroicons-arrow-top-right-on-square" class="h-5 w-5" />
-            </a>
-            <button
-              type="button"
-              class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-600 transition-all hover:bg-gray-200 active:scale-95 dark:bg-gray-800 dark:text-gray-400"
-              @click="
-                downloadCmsFile(
-                  `${document!.file!.id}/${document!.slug}.pdf`,
-                  `${document!.slug}.pdf`,
-                )
-              "
-            >
-              <UIcon name="i-heroicons-arrow-down-tray" class="h-5 w-5" />
-            </button>
           </div>
         </div>
       </header>
@@ -364,67 +379,57 @@ const showPdfViewer = ref(false);
           <!-- Sidebar Desktop -->
           <aside class="hidden lg:col-span-1 lg:block">
             <div class="sticky top-32 space-y-4">
-              <!-- Bloc fichier -->
+              <!-- Actions fichier -->
               <div
                 v-if="document.file"
-                class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+                class="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900"
               >
+                <!-- Header avec icône -->
                 <div class="mb-4 flex items-center gap-3">
-                  <div
-                    class="flex h-11 w-11 items-center justify-center rounded-xl bg-red-50 dark:bg-red-900/30"
-                  >
-                    <UIcon
-                      name="i-heroicons-document-text"
-                      class="h-5 w-5 text-red-500"
-                    />
+                  <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800">
+                    <UIcon name="i-heroicons-document-text" class="h-5 w-5 text-gray-600 dark:text-gray-400" />
                   </div>
-                  <div>
+                  <div class="min-w-0 flex-1">
                     <p class="text-sm font-medium text-gray-900 dark:text-white">Document PDF</p>
-                    <p v-if="fileSize" class="text-xs text-gray-500 dark:text-gray-400">
-                      {{ fileSize }}
-                    </p>
+                    <p v-if="fileSize" class="text-xs text-gray-500 dark:text-gray-400">{{ fileSize }}</p>
                   </div>
                 </div>
 
-                <div class="space-y-2">
+                <!-- Bouton principal -->
+                <button
+                  type="button"
+                  class="mb-2 flex w-full items-center justify-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-gray-800 active:scale-[0.98] dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100"
+                  @click="showPdfViewer = true"
+                >
+                  <UIcon name="i-heroicons-eye" class="h-4 w-4" />
+                  Lire le document
+                </button>
+
+                <!-- Actions secondaires -->
+                <div class="grid grid-cols-2 gap-2">
+                  <a
+                    :href="fileUrl"
+                    target="_blank"
+                    class="flex items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-50 active:scale-[0.98] dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+                  >
+                    <UIcon name="i-heroicons-arrow-top-right-on-square" class="h-3.5 w-3.5" />
+                    Ouvrir
+                  </a>
                   <button
                     type="button"
-                    class="flex w-full items-center justify-center gap-2 rounded-xl bg-white border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-900 transition-all hover:bg-gray-100 active:scale-[0.98]"
-                    @click="showPdfViewer = true"
+                    class="flex items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-50 active:scale-[0.98] dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+                    @click="downloadCmsFile(`${document!.file!.id}/${document!.slug}.pdf`, `${document!.slug}.pdf`)"
                   >
-                    <UIcon name="i-heroicons-eye" class="h-4 w-4" />
-                    Lire le PDF
+                    <UIcon name="i-heroicons-arrow-down-tray" class="h-3.5 w-3.5" />
+                    Télécharger
                   </button>
-                  <div class="grid grid-cols-2 gap-2">
-                    <a
-                      :href="fileUrl"
-                      target="_blank"
-                      class="flex items-center justify-center gap-1.5 rounded-xl bg-gray-100 px-3 py-2 text-xs font-medium text-gray-700 transition-all hover:bg-gray-200 active:scale-[0.98] dark:bg-gray-800 dark:text-gray-300"
-                    >
-                      <UIcon name="i-heroicons-arrow-top-right-on-square" class="h-3.5 w-3.5" />
-                      Ouvrir
-                    </a>
-                    <button
-                      type="button"
-                      class="flex items-center justify-center gap-1.5 rounded-xl bg-gray-100 px-3 py-2 text-xs font-medium text-gray-700 transition-all hover:bg-gray-200 active:scale-[0.98] dark:bg-gray-800 dark:text-gray-300"
-                      @click="
-                        downloadCmsFile(
-                          `${document!.file!.id}/${document!.slug}.pdf`,
-                          `${document!.slug}.pdf`,
-                        )
-                      "
-                    >
-                      <UIcon name="i-heroicons-arrow-down-tray" class="h-3.5 w-3.5" />
-                      Télécharger
-                    </button>
-                  </div>
                 </div>
               </div>
 
               <!-- Message si pas de fichier -->
               <div
                 v-else
-                class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+                class="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900"
               >
                 <div class="flex items-center gap-3 text-gray-400">
                   <UIcon name="i-heroicons-document" class="h-5 w-5" />
@@ -433,10 +438,8 @@ const showPdfViewer = ref(false);
               </div>
 
               <!-- Partage social -->
-              <div
-                class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
-              >
-                <p class="mb-3 text-xs font-medium text-gray-500 dark:text-gray-400">Partager</p>
+              <div class="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
+                <p class="mb-3 text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">Partager</p>
                 <SocialShare :title="document.title" />
               </div>
             </div>

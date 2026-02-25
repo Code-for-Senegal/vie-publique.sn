@@ -27,7 +27,7 @@ defineProps<ProfileHeaderProps>();
 
       <div
         v-if="deputy.bio"
-        class="prose prose-gray max-w-none dark:text-gray-200"
+        class="prose prose-sm prose-gray max-w-none dark:prose-invert"
         v-html="deputy.bio"
       ></div>
     </div>

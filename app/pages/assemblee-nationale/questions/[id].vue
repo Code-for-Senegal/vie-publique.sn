@@ -389,7 +389,7 @@ useHead({
                   v-else
                   :href="getImageUrl(attachment.directus_files_id.id)"
                   target="_blank"
-                  class="flex items-center gap-3 rounded-xl bg-amber-50 p-3 text-blue-700 transition-colors hover:bg-amber-100 dark:bg-amber-900/20 dark:text-blue-400"
+                  class="flex items-center gap-3 rounded-xl bg-blue-50 p-3 text-blue-700 transition-colors hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400"
                 >
                   <UIcon name="i-heroicons-document-arrow-down" class="h-5 w-5" />
                   <span class="text-sm font-medium">Télécharger le document</span>

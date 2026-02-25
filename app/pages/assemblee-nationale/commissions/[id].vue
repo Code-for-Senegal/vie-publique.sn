@@ -1,8 +1,8 @@
 <script setup lang="ts">
-const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
-
 const route = useRoute();
 const config = useRuntimeConfig();
+
+const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
 
 // ✅ Nouvelle architecture : useCmsCollection avec mode détail (id)
 // Plus besoin de onMounted ni de fetchById
@@ -31,9 +31,10 @@ const url = computed(() => {
 
 const image = computed(() => {
   if (!commission.value) return defaultImage;
-  return commission.value.president?.photo
-    ? useCmsImageAbsolute(commission.value.president.photo)
-    : defaultImage;
+  if (!commission.value.president?.photo) return defaultImage;
+  const relativeUrl = useCmsImage(commission.value.president.photo);
+  // Construire l'URL absolue sans appeler useCmsImageAbsolute (qui utilise un composable)
+  return relativeUrl.startsWith('http') ? relativeUrl : `${siteUrl}${relativeUrl}`;
 });
 
 const commissionSchema = computed(() => {
@@ -405,8 +406,8 @@ const deputyUrl = computed((deputy: any) => {
         <!-- Bureau de la commission -->
         <div class="rounded-2xl bg-white p-5 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700">
           <div class="mb-5 flex items-center gap-3">
-            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-100 dark:bg-amber-900/30">
-              <UIcon name="i-heroicons-user-group" class="h-5 w-5 text-amber-600 dark:text-amber-400" />
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-900/30">
+              <UIcon name="i-heroicons-user-group" class="h-5 w-5 text-blue-600 dark:text-blue-400" />
             </div>
             <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Bureau de la commission</h2>
           </div>

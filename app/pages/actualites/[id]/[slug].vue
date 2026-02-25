@@ -308,19 +308,11 @@ watch(
 
           <!-- Title & Meta -->
           <div class="min-w-0 flex-1">
-            <div class="flex items-center gap-2">
-              <span v-if="article?.category?.name" class="shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-[10px] font-semibold uppercase text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
-                {{ article.category.name }}
-              </span>
-              <span v-else class="shrink-0 rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-semibold uppercase text-gray-600 dark:bg-gray-800 dark:text-gray-400">
-                Actualité
-              </span>
-            </div>
-            <h1 v-if="article" class="truncate text-sm font-semibold text-gray-900 dark:text-white">
+            <h1 v-if="article" class="line-clamp-2 text-xs font-semibold leading-tight text-gray-900 dark:text-white">
               {{ article.title }}
             </h1>
-            <USkeleton v-else class="mt-1 h-4 w-48" />
-            <p v-if="article?.date_published" class="text-xs text-gray-500">
+            <USkeleton v-else class="h-4 w-48" />
+            <p v-if="article?.date_published" class="mt-0.5 text-[10px] text-gray-500">
               {{ formatDate(article.date_published) }}
             </p>
           </div>

@@ -87,14 +87,14 @@ const formatDate = (date: string) => {
           <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
             <UIcon
               name="i-heroicons-magnifying-glass-20-solid"
-              class="h-5 w-5 text-gray-400 transition-colors group-focus-within:text-primary-500"
+              class="h-5 w-5 text-gray-400 transition-colors group-focus-within:text-gray-500"
             />
           </div>
           <input
             type="search"
             :value="searchQuery"
             placeholder="Rechercher par numéro, date ou contenu..."
-            class="block w-full rounded-xl border-0 bg-gray-100 py-3 pl-11 pr-10 text-sm text-gray-900 ring-1 ring-transparent transition-all placeholder:text-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 sm:py-2.5 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-400 dark:focus:bg-gray-800/80"
+            class="block w-full rounded-xl border-0 bg-gray-100 py-3 pl-11 pr-10 text-sm text-gray-900 ring-1 ring-transparent transition-all placeholder:text-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 sm:py-2.5 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-400 dark:focus:bg-gray-800/80 dark:focus:ring-gray-500"
             @input="handleSearchInput"
           />
           <button
@@ -120,7 +120,7 @@ const formatDate = (date: string) => {
             <select
               :value="selectedYear || 'all'"
               :disabled="yearsLoading"
-              class="appearance-none rounded-full border-0 bg-gray-100 py-1.5 pl-3 pr-7 text-xs font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:opacity-50 dark:bg-gray-800 dark:text-gray-300"
+              class="appearance-none rounded-full border-0 bg-gray-100 py-1.5 pl-3 pr-7 text-xs font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500 disabled:opacity-50 dark:bg-gray-800 dark:text-gray-300"
               @change="handleYearChange"
             >
               <option v-for="opt in yearOptions" :key="opt.value" :value="opt.value">

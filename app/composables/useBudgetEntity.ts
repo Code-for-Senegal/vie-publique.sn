@@ -53,13 +53,10 @@ export const useBudgetEntity = (slug: string) => {
     return latestYear.value ? latestYear.value.amount_cp : 0;
   });
 
-  // Computed pour la variation du budget total (année N vs N-1)
+  // Computed pour la variation du budget total (année N vs N-1) - retourne le nombre
   const budgetVariation = computed(() => {
     if (evolution.value.length < 2) {
-      return {
-        percentage: 'N/A',
-        color: 'gray',
-      };
+      return null;
     }
 
     const sortedEvolution = [...evolution.value].sort((a, b) => b.year - a.year);
@@ -67,17 +64,10 @@ export const useBudgetEntity = (slug: string) => {
     const previousYear = sortedEvolution[1];
 
     if (!currentYear || !previousYear || previousYear.amount_cp === 0) {
-      return {
-        percentage: 'N/A',
-        color: 'gray',
-      };
+      return null;
     }
 
-    const variation = ((currentYear.amount_cp - previousYear.amount_cp) / previousYear.amount_cp) * 100;
-    return {
-      percentage: `${variation > 0 ? '+' : ''}${variation.toFixed(1)}%`,
-      color: variation > 0 ? 'green' : variation < 0 ? 'red' : 'gray',
-    };
+    return ((currentYear.amount_cp - previousYear.amount_cp) / previousYear.amount_cp) * 100;
   });
 
   // Computed pour les données du graphique d'évolution

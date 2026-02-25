@@ -246,14 +246,14 @@ const formatDateISO = (date: string) => {
           <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
             <UIcon
               name="i-heroicons-magnifying-glass-20-solid"
-              class="h-5 w-5 text-gray-400 transition-colors group-focus-within:text-primary-500"
+              class="h-5 w-5 text-gray-400 transition-colors group-focus-within:text-gray-500"
             />
           </div>
           <input
             type="search"
             :value="searchQuery"
             placeholder="Rechercher un article, un sujet..."
-            class="block w-full rounded-xl border-0 bg-gray-100 py-3 pl-11 pr-10 text-sm text-gray-900 ring-1 ring-transparent transition-all placeholder:text-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 sm:py-2.5 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-400 dark:focus:bg-gray-800/80"
+            class="block w-full rounded-xl border-0 bg-gray-100 py-3 pl-11 pr-10 text-sm text-gray-900 ring-1 ring-transparent transition-all placeholder:text-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 sm:py-2.5 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-400 dark:focus:bg-gray-800/80 dark:focus:ring-gray-500"
             @input="setSearchQuery(($event.target as HTMLInputElement).value)"
           />
           <button
@@ -269,11 +269,11 @@ const formatDateISO = (date: string) => {
         </div>
 
         <!-- Category Filters - Horizontal Scroll -->
-        <nav class="-mx-4 mt-3 overflow-x-auto px-4 scrollbar-hide" aria-label="Filtrer par catégorie">
-          <div v-if="loading" class="flex gap-2">
+        <nav class="-mx-4 mt-3 overflow-x-auto px-4 pb-1 scrollbar-hide" aria-label="Filtrer par catégorie">
+          <div v-if="loading" class="flex gap-2 py-0.5">
             <USkeleton v-for="n in 5" :key="n" class="h-7 w-24 shrink-0 rounded-full" />
           </div>
-          <div v-else class="flex gap-1.5">
+          <div v-else class="flex gap-1.5 py-0.5">
             <button
               v-for="category in categories"
               :key="category.name"
@@ -411,10 +411,10 @@ const formatDateISO = (date: string) => {
 
                 <!-- Category Badge (desktop only) -->
                 <span
-                  class="absolute bottom-2 left-2 hidden rounded-full px-2 py-0.5 text-[10px] font-medium text-white sm:inline-block"
-                  :style="{ backgroundColor: getCategoryColor(article.category?.name || 'Non catégorisé') }"
+                  class="glass-badge absolute bottom-2 left-2 hidden rounded-full px-2.5 py-1 text-[10px] font-medium text-white sm:inline-block"
                   itemprop="articleSection"
                 >
+                  <span class="mr-1.5 inline-block h-1.5 w-1.5 rounded-full" :style="{ backgroundColor: getCategoryColor(article.category?.name || 'Non catégorisé') }" />
                   {{ article.category?.name || 'Non catégorisé' }}
                 </span>
               </div>
@@ -423,9 +423,9 @@ const formatDateISO = (date: string) => {
               <div class="flex min-w-0 flex-1 flex-col justify-between sm:p-3">
                 <!-- Category (mobile only) -->
                 <span
-                  class="mb-1 inline-flex w-fit rounded px-1.5 py-0.5 text-[10px] font-medium text-white sm:hidden"
-                  :style="{ backgroundColor: getCategoryColor(article.category?.name || 'Non catégorisé') }"
+                  class="glass-badge-light mb-1 inline-flex w-fit items-center rounded-full px-2 py-0.5 text-[10px] font-medium sm:hidden"
                 >
+                  <span class="mr-1 inline-block h-1.5 w-1.5 rounded-full" :style="{ backgroundColor: getCategoryColor(article.category?.name || 'Non catégorisé') }" />
                   {{ article.category?.name || 'Non catégorisé' }}
                 </span>
 
@@ -465,3 +465,46 @@ const formatDateISO = (date: string) => {
     </main>
   </div>
 </template>
+
+<style scoped>
+/* Glassmorphism badge - sur image (fond sombre) */
+.glass-badge {
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Glassmorphism badge - version light pour mobile (sur fond clair) */
+.glass-badge-light {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px) saturate(150%);
+  -webkit-backdrop-filter: blur(8px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: rgba(15, 23, 42, 0.9);
+  box-shadow: 
+    0 1px 4px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.dark .glass-badge-light {
+  background: rgba(30, 41, 59, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+  box-shadow: 
+    0 1px 4px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Hide scrollbar */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+</style>

@@ -247,12 +247,12 @@ const formatDateISO = (date: string) => {
       </div>
 
       <!-- Description -->
-      <div v-if="journal.description" itemprop="description" class="mb-4 italic text-gray-600">
+      <div v-if="journal.description" itemprop="description" class="mb-4 italic text-gray-600 dark:text-gray-400">
         {{ journal.description }}
       </div>
 
       <!-- Contenu HTML -->
-      <div itemprop="text" v-html="journal.content_html"></div>
+      <div class="prose prose-sm max-w-none dark:prose-invert" itemprop="text" v-html="journal.content_html"></div>
 
       <ClientOnly placeholder="Chargement en cours">
         <embed

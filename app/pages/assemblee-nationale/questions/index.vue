@@ -181,7 +181,7 @@ const formatDateISO = (date: string) => {
     </div>
 
     <!-- Breadcrumb -->
-    <div class="container mx-auto px-4 pt-4">
+    <div class="container mx-auto hidden px-4 pt-4 md:block">
       <AppBreadcrumb
         :items="[
           { label: 'Assemblée nationale', to: '/assemblee-nationale' },
@@ -193,8 +193,16 @@ const formatDateISO = (date: string) => {
     <!-- Sticky Header mobile -->
     <header class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm md:relative md:border-0 md:bg-transparent md:backdrop-blur-none dark:border-gray-800 dark:bg-gray-900/95">
       <div class="container mx-auto px-4 py-3 md:py-6">
-        <div class="flex items-center justify-between">
-          <div>
+        <div class="flex items-center gap-3 md:justify-center">
+          <!-- Back button mobile only -->
+          <NuxtLink
+            to="/assemblee-nationale"
+            class="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 transition-colors hover:bg-gray-200 md:hidden dark:bg-gray-800 dark:hover:bg-gray-700"
+            aria-label="Retour"
+          >
+            <UIcon name="i-heroicons-arrow-left-20-solid" class="h-5 w-5 text-gray-600 dark:text-gray-300" />
+          </NuxtLink>
+          <div class="min-w-0 flex-1 md:flex-none md:text-center">
             <h1 class="text-lg font-bold text-gray-900 md:text-2xl dark:text-white" itemprop="headline">
               Questions écrites
             </h1>
@@ -270,7 +278,7 @@ const formatDateISO = (date: string) => {
               v-for="(deputy, index) in topDeputies"
               :key="deputy.id"
               :to="`/assemblee-nationale/deputes/${deputy.id}/${$getSlugifyUrlPath(deputy.first_name + ' ' + deputy.last_name)}`"
-              class="group relative flex flex-col items-center rounded-xl bg-white p-3 ring-1 ring-gray-100 transition-all active:scale-[0.98] md:p-4 md:hover:ring-amber-200 md:hover:shadow-md dark:bg-gray-800 dark:ring-gray-700"
+              class="group relative flex flex-col items-center rounded-xl bg-white p-3 ring-1 ring-gray-100 transition-all active:scale-[0.98] md:p-4 md:hover:ring-blue-200 md:hover:shadow-md dark:bg-gray-800 dark:ring-gray-700"
               itemscope
               itemtype="https://schema.org/Person"
               itemprop="itemListElement"
@@ -283,9 +291,9 @@ const formatDateISO = (date: string) => {
               <div
                 class="absolute -right-1 -top-1 rounded-full px-2 py-0.5 text-[10px] font-bold text-white md:text-xs"
                 :class="{
-                  'bg-amber-500': index === 0,
-                  'bg-amber-400': index === 1,
-                  'bg-amber-600': index === 2,
+                  'bg-blue-500': index === 0,
+                  'bg-blue-400': index === 1,
+                  'bg-blue-600': index === 2,
                   'bg-gray-400': index === 3,
                 }"
               >

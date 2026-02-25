@@ -284,13 +284,13 @@ const formatDateISO = (date: string) => {
               <!-- Tag Badge (desktop only) -->
               <span
                 v-if="article.tags?.length"
-                class="absolute bottom-2 left-2 hidden rounded-full bg-amber-600 px-2 py-0.5 text-[10px] font-medium text-white sm:inline-block"
+                class="absolute bottom-2 left-2 hidden rounded-full bg-blue-600 px-2 py-0.5 text-[10px] font-medium text-white sm:inline-block"
               >
                 {{ article.tags[0] }}
               </span>
               <span
                 v-else
-                class="absolute bottom-2 left-2 hidden rounded-full bg-amber-600 px-2 py-0.5 text-[10px] font-medium text-white sm:inline-block"
+                class="absolute bottom-2 left-2 hidden rounded-full bg-blue-600 px-2 py-0.5 text-[10px] font-medium text-white sm:inline-block"
               >
                 assemblée nationale
               </span>
@@ -301,19 +301,19 @@ const formatDateISO = (date: string) => {
               <!-- Tag (mobile only) -->
               <span
                 v-if="article.tags?.length"
-                class="mb-1 inline-flex w-fit rounded bg-amber-600 px-1.5 py-0.5 text-[10px] font-medium text-white sm:hidden"
+                class="mb-1 inline-flex w-fit rounded bg-blue-600 px-1.5 py-0.5 text-[10px] font-medium text-white sm:hidden"
               >
                 {{ article.tags[0] }}
               </span>
               <span
                 v-else
-                class="mb-1 inline-flex w-fit rounded bg-amber-600 px-1.5 py-0.5 text-[10px] font-medium text-white sm:hidden"
+                class="mb-1 inline-flex w-fit rounded bg-blue-600 px-1.5 py-0.5 text-[10px] font-medium text-white sm:hidden"
               >
                 assemblée nationale
               </span>
 
               <h2
-                class="line-clamp-2 text-sm font-semibold leading-snug text-gray-900 group-hover:text-amber-600 sm:line-clamp-3 dark:text-white dark:group-hover:text-amber-400"
+                class="line-clamp-2 text-sm font-semibold leading-snug text-gray-900 group-hover:text-blue-600 sm:line-clamp-3 dark:text-white dark:group-hover:text-blue-400"
                 itemprop="headline"
               >
                 {{ article.title }}

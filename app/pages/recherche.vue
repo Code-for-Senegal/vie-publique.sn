@@ -120,7 +120,7 @@ const getBadgeColor = (type: string) => {
             v-model="searchQuery"
             type="text"
             placeholder="Rechercher documents, actualités..."
-            class="h-12 w-full rounded-xl border-0 bg-white pl-11 pr-20 text-sm ring-1 ring-gray-200 transition-all placeholder:text-gray-400 focus:ring-2 focus:ring-sky-500 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:placeholder:text-gray-500"
+            class="h-12 w-full rounded-xl border-0 bg-white pl-11 pr-20 text-sm ring-1 ring-gray-200 transition-all placeholder:text-gray-400 focus:ring-2 focus:ring-gray-400 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:placeholder:text-gray-500 dark:focus:ring-gray-500"
             @keyup.enter="performSearch"
           />
           <div class="absolute right-2 top-1/2 flex -translate-y-1/2 items-center gap-1">

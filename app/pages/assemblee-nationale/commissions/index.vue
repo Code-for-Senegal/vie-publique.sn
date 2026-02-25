@@ -227,7 +227,7 @@ const filteredCommissions = computed(() => {
             :value="searchQuery"
             type="text"
             placeholder="Rechercher une commission..."
-            class="w-full rounded-xl border-0 bg-white py-3.5 pl-12 pr-4 text-gray-900 ring-1 ring-gray-200 transition-shadow placeholder:text-gray-400 focus:ring-2 focus:ring-emerald-500 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:placeholder:text-gray-500 dark:focus:ring-emerald-500"
+            class="w-full rounded-xl border-0 bg-white py-3.5 pl-12 pr-4 text-gray-900 ring-1 ring-gray-200 transition-shadow placeholder:text-gray-400 focus:ring-2 focus:ring-gray-400 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:placeholder:text-gray-500 dark:focus:ring-gray-500"
             @input="setSearchQuery(($event.target as HTMLInputElement).value)"
           >
         </div>
@@ -279,7 +279,7 @@ const filteredCommissions = computed(() => {
             <div v-if="commission.president" class="mt-1 flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
               <UIcon name="i-heroicons-user" class="h-4 w-4" />
               <span>{{ commission.president.first_name }} {{ commission.president.last_name }}</span>
-              <span class="rounded bg-amber-100 px-1.5 py-0.5 text-xs font-medium text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">Président</span>
+              <span class="rounded bg-blue-100 px-1.5 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">Président</span>
             </div>
             
             <!-- Members count -->

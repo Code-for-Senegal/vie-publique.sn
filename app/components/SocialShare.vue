@@ -5,7 +5,6 @@ const props = defineProps<{
   url?: string
 }>()
 
-const copied = ref(false)
 const route = useRoute()
 const config = useRuntimeConfig()
 
@@ -17,41 +16,45 @@ const currentUrl = computed(() => {
   return `${config.public.siteUrl}${route.path}`
 })
 
-const shareLinks = computed(() => {
-  const url = encodeURIComponent(currentUrl.value)
-  const text = encodeURIComponent(props.title)
-
-  return [
-    {
-      name: 'WhatsApp',
-      icon: 'i-simple-icons-whatsapp',
-      url: `https://wa.me/?text=${text}%20${url}`,
-      color: 'hover:bg-[#25D366] hover:text-white',
-      bg: 'bg-[#25D366]/10 text-[#25D366]',
-    },
-    {
-      name: 'X (Twitter)',
-      icon: 'i-simple-icons-x',
-      url: `https://twitter.com/intent/tweet?text=${text}&url=${url}`,
-      color: 'hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black',
-      bg: 'bg-black/5 text-black dark:bg-white/10 dark:text-white',
-    },
-    {
-      name: 'Facebook',
-      icon: 'i-simple-icons-facebook',
-      url: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
-      color: 'hover:bg-[#1877F2] hover:text-white',
-      bg: 'bg-[#1877F2]/10 text-[#1877F2]',
-    },
-    {
-      name: 'LinkedIn',
-      icon: 'i-simple-icons-linkedin',
-      url: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
-      color: 'hover:bg-[#0A66C2] hover:text-white',
-      bg: 'bg-[#0A66C2]/10 text-[#0A66C2]',
-    },
-  ]
+// Check if Web Share API is supported
+const canShare = computed(() => {
+  if (!import.meta.client) return false
+  return !!navigator.share
 })
+
+const isSharing = ref(false)
+const shareSuccess = ref(false)
+const copied = ref(false)
+
+const handleShare = async () => {
+  if (!import.meta.client) return
+
+  // Use native share if available
+  if (navigator.share) {
+    isSharing.value = true
+    try {
+      await navigator.share({
+        title: props.title,
+        text: props.description || props.title,
+        url: currentUrl.value,
+      })
+      shareSuccess.value = true
+      setTimeout(() => {
+        shareSuccess.value = false
+      }, 2000)
+    } catch (err) {
+      // User cancelled or error - silently ignore
+      if ((err as Error).name !== 'AbortError') {
+        console.error('Share failed:', err)
+      }
+    } finally {
+      isSharing.value = false
+    }
+  } else {
+    // Fallback: copy to clipboard
+    await copyLink()
+  }
+}
 
 const copyLink = async () => {
   try {
@@ -61,40 +64,131 @@ const copyLink = async () => {
       copied.value = false
     }, 2000)
   } catch (err) {
-    console.error('Failed to copy: ', err)
+    console.error('Failed to copy:', err)
   }
 }
 </script>
 
 <template>
-  <div class="flex flex-col gap-2">
-    <div class="flex flex-wrap gap-1.5">
-      <a
-        v-for="link in shareLinks"
-        :key="link.name"
-        :href="link.url"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="flex h-8 w-8 items-center justify-center rounded-lg transition-colors active:scale-95"
-        :class="[link.bg, link.color]"
-        :aria-label="`Partager sur ${link.name}`"
-        :title="`Partager sur ${link.name}`"
-      >
-        <UIcon :name="link.icon" class="h-4 w-4" />
-      </a>
-
-      <button
-        @click="copyLink"
-        class="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 active:scale-95 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
-        aria-label="Copier le lien"
-        title="Copier le lien"
-      >
+  <button
+    type="button"
+    class="share-btn group relative overflow-hidden"
+    :class="{ 'share-btn--success': shareSuccess || copied }"
+    :disabled="isSharing"
+    @click="handleShare"
+  >
+    <!-- Background gradient animation -->
+    <span class="share-btn__bg" />
+    
+    <!-- Content -->
+    <span class="share-btn__content">
+      <!-- Icon with animation -->
+      <span class="share-btn__icon">
         <UIcon
-          :name="copied ? 'i-heroicons-check' : 'i-heroicons-link'"
+          v-if="shareSuccess || copied"
+          name="i-heroicons-check"
           class="h-4 w-4"
-          :class="{ 'text-green-600 dark:text-green-400': copied }"
         />
-      </button>
-    </div>
-  </div>
+        <UIcon
+          v-else-if="isSharing"
+          name="i-heroicons-arrow-path"
+          class="h-4 w-4 animate-spin"
+        />
+        <UIcon
+          v-else
+          name="i-heroicons-share"
+          class="h-4 w-4 transition-transform duration-300 group-hover:scale-110"
+        />
+      </span>
+      
+      <!-- Label -->
+      <span class="share-btn__label">
+        <span v-if="shareSuccess">Partagé !</span>
+        <span v-else-if="copied">Lien copié</span>
+        <span v-else-if="isSharing">Partage...</span>
+        <span v-else>Partager</span>
+      </span>
+    </span>
+  </button>
 </template>
+
+<style scoped>
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.share-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+}
+
+.share-btn:active {
+  transform: scale(0.98);
+}
+
+.share-btn:disabled {
+  cursor: wait;
+  opacity: 0.8;
+}
+
+.share-btn--success {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+}
+
+.share-btn--success:hover {
+  box-shadow: 0 4px 16px rgba(34, 197, 94, 0.4);
+  background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+}
+
+.share-btn__bg {
+  display: none;
+}
+
+.share-btn__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.share-btn__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.share-btn__label {
+  white-space: nowrap;
+}
+
+/* Dark mode */
+:root.dark .share-btn {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.25);
+}
+
+:root.dark .share-btn:hover {
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.35);
+}
+
+:root.dark .share-btn--success {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+}
+</style>
