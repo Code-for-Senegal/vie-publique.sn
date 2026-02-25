@@ -10,8 +10,7 @@ const description =
 const url = `${siteUrl}/podcasts`;
 const image = `${siteUrl}/images/share-linkedin.png`;
 
-const PLAYLIST_URL =
-  'https://www.youtube.com/playlist?list=PLeS2cIIeoLLBY-u5vVCxsCIM6ZHYp7ExM';
+const PLAYLIST_URL = 'https://www.youtube.com/playlist?list=PLeS2cIIeoLLBY-u5vVCxsCIM6ZHYp7ExM';
 
 const podcastCollectionSchema = {
   '@context': 'https://schema.org',
@@ -139,26 +138,27 @@ const closePlayer = () => {
 
 <template>
   <div class="container mx-auto min-h-screen px-4 pb-16 sm:px-6">
-    <AppBreadcrumb
-      class="mt-2"
-      :items="[
-        { label: 'Podcasts' }
-      ]"
-    />
+    <AppBreadcrumb :items="[{ label: 'Podcasts' }]" />
 
     <!-- Hero Section -->
     <div
-      class="relative overflow-hidden rounded-xl dark:bg-gradient-to-r dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
+      class="relative overflow-hidden rounded-xl"
     >
-      <div class="relative py-8 md:py-12">
-        <h1 class="max-w-2xl text-3xl font-bold leading-tight text-gray-900 dark:text-white md:text-5xl">
+      <div class="relative py-2 md:py-4">
+        <h1
+          class="max-w-2xl text-3xl font-bold leading-tight text-gray-900 dark:text-white md:text-5xl"
+        >
           Podcasts <span class="text-blue-600 dark:text-blue-600">Vie Publique</span>
         </h1>
-        <p class="mt-4 max-w-xl text-sm leading-relaxed text-gray-600 dark:text-blue-100 md:text-base">
+        <p
+          class="mt-4 max-w-xl text-sm leading-relaxed text-gray-600 dark:text-blue-100 md:text-base"
+        >
           Retrouvez l'ensemble de nos Live/Spaces en replay.
           <span class="inline-flex items-baseline">
             <span class="font-semibold text-blue-600 dark:text-blue-600">{{ displayedText }}</span>
-            <span class="typewriter-cursor ml-0.5 animate-pulse text-blue-600 dark:text-blue-600">|</span>
+            <span class="typewriter-cursor ml-0.5 animate-pulse text-blue-600 dark:text-blue-600"
+              >|</span
+            >
           </span>
           — un espace de dialogue citoyen.
         </p>
@@ -170,7 +170,9 @@ const closePlayer = () => {
       <!-- Spinner central -->
       <div class="flex flex-col items-center justify-center py-12">
         <div class="relative h-12 w-12">
-          <div class="absolute inset-0 animate-spin rounded-full border-4 border-gray-200 border-t-blue-600 dark:border-gray-700 dark:border-t-blue-500"></div>
+          <div
+            class="absolute inset-0 animate-spin rounded-full border-4 border-gray-200 border-t-blue-600 dark:border-gray-700 dark:border-t-blue-500"
+          ></div>
         </div>
         <p class="mt-4 text-sm text-gray-500 dark:text-gray-400">Chargement des podcasts...</p>
       </div>
@@ -226,28 +228,9 @@ const closePlayer = () => {
       </div>
 
       <div v-else class="space-y-10">
-        <!-- Episodes à la une (featured) - Scroll horizontal -->
-        <PodcastScrollRow
-          v-if="featuredPodcasts.length > 0"
-          title="À la une"
-          :podcasts="featuredPodcasts.slice(0, 3)"
-          :show-arrows="false"
-          @play="playPodcast"
-        />
-
         <!-- Tous les épisodes - Grille -->
         <section class="space-y-4">
-          <h2 class="text-xl font-bold text-gray-900 md:text-2xl dark:text-white">
-            {{
-              selectedCategory === 'Toutes' && !searchQuery
-                ? 'Tous les épisodes'
-                : 'Résultats'
-            }}
-          </h2>
-
-          <div
-            class="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4"
-          >
+          <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">
             <PodcastCard
               v-for="podcast in podcasts"
               :key="podcast.id"
