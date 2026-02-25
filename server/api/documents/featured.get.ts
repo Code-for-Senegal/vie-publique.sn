@@ -7,7 +7,7 @@ export default defineCachedEventHandler(
 
     // Récupération des paramètres de requête
     const query = getQuery(event);
-    const limit = parseInt(query.limit as string) || 3;
+    const limit = parseInt(query.limit as string) || 6;
 
     try {
       const directus = getCmsClient();
@@ -73,6 +73,6 @@ export default defineCachedEventHandler(
   {
     maxAge: 60 * 5, // 5 minutes
     name: 'documents-featured',
-    getKey: (event) => buildCacheKey("documents-featured", getQuery(event)),
+    getKey: (event) => buildCacheKey('documents-featured', getQuery(event)),
   },
 );

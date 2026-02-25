@@ -19,7 +19,7 @@ export function useNavigationCards() {
       title: 'Documents',
       description: 'Journal officiel, Codes, Rapports',
       icon: 'i-heroicons-document-text',
-      to: '/documents',
+      to: '/documents/public',
       count: 1354,
       display: true,
     },

@@ -175,7 +175,9 @@ const handleReset = () => {
     </div>
 
     <!-- Sticky Header -->
-    <header class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95">
+    <header
+      class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95"
+    >
       <div class="container mx-auto px-4 py-3">
         <!-- Title Row -->
         <div class="flex items-center justify-between">
@@ -212,7 +214,6 @@ const handleReset = () => {
                 <UIcon name="i-heroicons-list-bullet" class="h-4 w-4" />
               </button>
             </div>
-            <span class="text-xs text-gray-500 dark:text-gray-400">{{ totalItems }}</span>
           </div>
         </div>
 
@@ -411,11 +412,19 @@ const handleReset = () => {
 
       <!-- Documents Content -->
       <div v-else>
-        <!-- Filter indicator -->
-        <p v-if="hasActiveFilters || searchQuery" class="mb-3 text-xs text-gray-500 dark:text-gray-400">
-          <span v-if="searchQuery">"{{ searchQuery }}"</span>
-          <span v-if="searchQuery && hasActiveFilters"> · </span>
-          <span v-if="filterValue && filterValue !== 'all'">{{ DOC_TYPE_LABELS[filterValue] || filterValue }}</span>
+        <p
+          v-if="totalItems || hasActiveFilters || searchQuery"
+          class="mb-3 text-xs text-gray-500 dark:text-gray-400"
+        >
+          <span v-if="totalItems">{{ `${totalItems} résultat${totalItems > 1 ? 's' : ''}` }}</span>
+          <span v-if="totalItems && (searchQuery || (filterValue && filterValue !== 'all'))">
+            ·
+          </span>
+          <span v-if="searchQuery">pour "{{ searchQuery }}"</span>
+          <span v-if="searchQuery && filterValue && filterValue !== 'all'"> · </span>
+          <span v-if="filterValue && filterValue !== 'all'">{{
+            DOC_TYPE_LABELS[filterValue] || filterValue
+          }}</span>
         </p>
 
         <!-- Grid View -->

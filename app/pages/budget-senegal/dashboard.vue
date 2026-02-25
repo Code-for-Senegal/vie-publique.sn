@@ -298,7 +298,7 @@ watch(activeTab, (newTab) => {
 <template>
   <div class="min-h-screen pb-16">
     <!-- Hero Header -->
-    <div class="border-b border-gray-200 bg-gradient-to-b from-gray-50 to-white dark:border-gray-800 dark:from-gray-900 dark:to-gray-900">
+    <div class="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
       <div class="container mx-auto px-4 py-6 sm:py-8">
         <AppBreadcrumb
           :items="[

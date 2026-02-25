@@ -7,12 +7,21 @@ useHead({
     {
       name: 'description',
       content:
-        'Accédez aux documents officiels du Sénégal: Journal officiel, rapports d\'audit, codes généraux et plus encore.',
+        "Accédez aux documents officiels du Sénégal: Journal officiel, rapports d'audit, codes généraux et plus encore.",
     },
   ],
 });
 
 const documentCategories = [
+  {
+    title: 'Tous les documents',
+    description: 'Explorer tous les documents',
+    icon: 'i-heroicons-squares-2x2',
+    to: '/documents/public',
+    gradient: 'from-purple-500 to-purple-600',
+    iconBg: 'bg-purple-500/10',
+    iconColor: 'text-purple-500',
+  },
   {
     title: 'Journal Officiel',
     description: 'Textes, Lois, Décrets, Arrêtés',
@@ -58,15 +67,6 @@ const documentCategories = [
     iconBg: 'bg-indigo-500/10',
     iconColor: 'text-indigo-500',
   },
-  {
-    title: 'Tous les documents',
-    description: 'Explorer tous les documents',
-    icon: 'i-heroicons-squares-2x2',
-    to: '/documents/public',
-    gradient: 'from-purple-500 to-purple-600',
-    iconBg: 'bg-purple-500/10',
-    iconColor: 'text-purple-500',
-  },
 ];
 </script>
 
@@ -94,7 +94,7 @@ const documentCategories = [
           v-for="cat in documentCategories"
           :key="cat.title"
           :to="cat.to"
-          class="group relative flex flex-col items-center rounded-2xl bg-white p-4 text-center shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.97] sm:p-5 sm:hover:shadow-lg dark:bg-gray-800 dark:ring-gray-700"
+          class="group relative flex flex-col items-center rounded-2xl bg-white p-4 text-center shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.97] dark:bg-gray-800 dark:ring-gray-700 sm:p-5 sm:hover:shadow-lg"
         >
           <!-- Icon Container -->
           <div
@@ -107,7 +107,7 @@ const documentCategories = [
           </div>
 
           <!-- Text -->
-          <h2 class="mt-3 text-sm font-semibold text-gray-900 sm:text-base dark:text-white">
+          <h2 class="mt-3 text-sm font-semibold text-gray-900 dark:text-white sm:text-base">
             {{ cat.title }}
           </h2>
           <p class="mt-0.5 line-clamp-2 text-xs text-gray-500 dark:text-gray-400">
