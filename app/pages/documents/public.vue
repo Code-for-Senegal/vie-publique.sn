@@ -350,7 +350,7 @@ const handleReset = () => {
       <template v-if="loading">
         <!-- Grid skeleton -->
         <div v-if="viewMode === 'grid'" class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          <div v-for="n in 8" :key="n" class="overflow-hidden rounded-xl bg-white shadow-sm dark:bg-gray-900">
+          <div v-for="n in 8" :key="n" class="overflow-hidden rounded-xl bg-white shadow-sm dark:bg-gray-800">
             <USkeleton class="aspect-[4/3] w-full" />
             <div class="space-y-2 p-3">
               <USkeleton class="h-3 w-full" />
@@ -361,7 +361,7 @@ const handleReset = () => {
         </div>
         <!-- List skeleton -->
         <div v-else class="space-y-2">
-          <div v-for="n in 6" :key="n" class="flex gap-3 rounded-xl bg-white p-3 shadow-sm dark:bg-gray-900">
+          <div v-for="n in 6" :key="n" class="flex gap-3 rounded-xl bg-white p-3 shadow-sm dark:bg-gray-800">
             <USkeleton class="h-16 w-20 shrink-0 rounded-lg" />
             <div class="flex flex-1 flex-col justify-between py-0.5">
               <div class="space-y-2">
@@ -424,7 +424,7 @@ const handleReset = () => {
             v-for="doc in documents"
             :key="doc.id"
             :to="`/documents/${doc.id}/${doc.slug}`"
-            class="group overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.98] sm:hover:shadow-md dark:bg-gray-900 dark:ring-gray-800"
+            class="group overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.98] sm:hover:shadow-md dark:bg-gray-800 dark:ring-gray-700"
           >
             <!-- Cover -->
             <div class="aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-800">
@@ -469,7 +469,7 @@ const handleReset = () => {
             v-for="doc in documents"
             :key="doc.id"
             :to="`/documents/${doc.id}/${doc.slug}`"
-            class="group flex gap-3 rounded-xl bg-white p-2.5 shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.98] sm:hover:shadow-md dark:bg-gray-900 dark:ring-gray-800"
+            class="group flex gap-3 rounded-xl bg-white p-2.5 shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.98] sm:hover:shadow-md dark:bg-gray-800 dark:ring-gray-700"
           >
             <!-- Thumbnail -->
             <div class="h-16 w-20 shrink-0 overflow-hidden rounded-lg bg-gray-100 sm:h-20 sm:w-24 dark:bg-gray-800">

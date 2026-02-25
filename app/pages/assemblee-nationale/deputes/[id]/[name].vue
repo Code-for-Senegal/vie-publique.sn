@@ -92,7 +92,7 @@
                   v-for="commission in deputiesCommissionsFiltered"
                   :key="commission.assembly_commission_id.id"
                   :to="`/assemblee-nationale/commissions/${commission.assembly_commission_id.id}`"
-                  class="flex items-center gap-2 rounded-lg bg-amber-50 p-3 text-sm text-amber-700 transition-colors active:bg-amber-100 md:hover:bg-amber-100 dark:bg-amber-900/20 dark:text-amber-400"
+                  class="flex items-center gap-2 rounded-lg bg-blue-50 p-3 text-sm text-blue-700 transition-colors active:bg-blue-100 md:hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400"
                 >
                   <UIcon name="i-heroicons-users" class="h-4 w-4 shrink-0" />
                   <span class="line-clamp-1">{{ commission.assembly_commission_id.name }}</span>
@@ -113,7 +113,7 @@
         <p class="text-gray-500 dark:text-gray-400">Député non trouvé</p>
         <NuxtLink
           to="/assemblee-nationale/deputes"
-          class="mt-3 inline-block text-sm text-amber-600 underline dark:text-amber-400"
+          class="mt-3 inline-block text-sm text-blue-600 underline dark:text-blue-400"
         >
           Retourner aux députés
         </NuxtLink>

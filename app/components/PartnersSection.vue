@@ -19,18 +19,11 @@ function onScroll() {
 <template>
   <section class="py-2">
     <!-- Header -->
-    <div class="mb-4 flex items-center gap-2">
-      <div
-        class="flex h-7 w-7 items-center justify-center rounded-lg bg-primary-50 sm:h-8 sm:w-8 dark:bg-primary-900/30"
-      >
-        <UIcon
-          name="i-heroicons-heart"
-          class="h-3.5 w-3.5 text-primary-600 sm:h-4 sm:w-4 dark:text-primary-400"
-        />
-      </div>
-      <h2
-        class="text-[15px] font-semibold tracking-tight text-gray-900 sm:text-lg dark:text-white"
-      >
+    <div class="mb-4 gap-2">
+    <h2
+      id="news-heading"
+      class="mb-4 text-center text-xl font-semibold text-gray-800 dark:text-white"
+    >
         Nos Partenaires
       </h2>
     </div>

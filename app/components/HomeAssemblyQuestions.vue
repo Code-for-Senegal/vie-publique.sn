@@ -96,7 +96,7 @@ const { questions, loading, error } = useAssemblyQuestions();
       <div class="mt-6 text-center">
         <UButton
           to="/assemblee-nationale/questions"
-          color="white"
+          color="gray"
           variant="solid"
           size="md"
           trailing-icon="i-heroicons-arrow-right"

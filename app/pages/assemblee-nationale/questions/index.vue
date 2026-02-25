@@ -305,7 +305,7 @@ const formatDateISO = (date: string) => {
                 </p>
                 <meta itemprop="name" :content="`${deputy.first_name} ${deputy.last_name}`" />
                 <meta itemprop="jobTitle" content="Député" />
-                <p class="mt-0.5 text-[10px] text-amber-600 md:text-xs dark:text-amber-400">
+                <p class="mt-0.5 text-[10px] text-blue-900 md:text-xs dark:text-blue-400">
                   {{ deputy.questionsCount }} question{{ deputy.questionsCount > 1 ? 's' : '' }}
                 </p>
               </div>
@@ -328,7 +328,7 @@ const formatDateISO = (date: string) => {
               v-for="(question, index) in paginatedQuestions"
               :key="question.id"
               :to="`/assemblee-nationale/questions/${question.id}`"
-              class="group flex gap-3 rounded-xl bg-white p-3 ring-1 ring-gray-100 transition-all active:scale-[0.98] md:p-4 md:hover:ring-amber-200 md:hover:shadow-md dark:bg-gray-800 dark:ring-gray-700"
+              class="group flex gap-3 rounded-xl bg-white p-3 ring-1 ring-gray-100 transition-all active:scale-[0.98] md:p-4 md:hover:ring-gray-200 md:hover:shadow-md dark:bg-gray-800 dark:ring-gray-700"
               itemscope
               itemtype="https://schema.org/Question"
               itemprop="itemListElement"
@@ -366,7 +366,7 @@ const formatDateISO = (date: string) => {
                 >
                   {{ question.subject }}
                 </h3>
-                <p class="mt-0.5 text-[10px] text-amber-600 md:text-xs dark:text-amber-400" itemprop="author">
+                <p class="mt-0.5 text-[10px] text-blue-900 md:text-xs dark:text-blue-400" itemprop="author">
                   {{ question.deputy.first_name }} {{ question.deputy.last_name }}
                 </p>
               </div>

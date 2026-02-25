@@ -95,12 +95,6 @@
                   <UIcon name="i-heroicons-users" class="h-4 w-4" />
                   {{ groupById.members?.length || 0 }} membres
                 </span>
-                
-                <!-- President -->
-                <span v-if="groupById.president" class="inline-flex items-center gap-1.5 rounded-full bg-amber-100 px-3 py-1.5 text-sm font-medium text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
-                  <UIcon name="i-heroicons-star" class="h-4 w-4" />
-                  {{ groupById.president.first_name }} {{ groupById.president.last_name }}
-                </span>
               </div>
             </div>
           </div>

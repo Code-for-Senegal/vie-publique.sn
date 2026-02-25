@@ -323,7 +323,7 @@ useHead({
         <!-- Deputy Card -->
         <NuxtLink
           :to="`/assemblee-nationale/deputes/${question.deputy.id}/${$getSlugifyUrlPath(question.deputy.first_name + ' ' + question.deputy.last_name)}`"
-          class="mb-4 flex items-center gap-3 rounded-xl bg-white p-3 ring-1 ring-gray-100 transition-all active:scale-[0.99] md:p-4 md:hover:ring-amber-200 dark:bg-gray-800 dark:ring-gray-700"
+          class="mb-4 flex items-center gap-3 rounded-xl bg-white p-3 ring-1 ring-gray-100 transition-all active:scale-[0.99] md:p-4 md:hover:ring-blue-200 dark:bg-gray-800 dark:ring-gray-700"
         >
           <img
             :src="getImageUrl(question.deputy.photo)"
@@ -334,7 +334,7 @@ useHead({
             <p class="text-sm font-semibold text-gray-900 md:text-base dark:text-white">
               {{ question.deputy.first_name }} {{ question.deputy.last_name }}
             </p>
-            <p class="text-xs text-amber-600 dark:text-amber-400">Député</p>
+            <p class="text-xs text-blue-800 dark:text-blue-400">Député</p>
           </div>
           <time
             :datetime="formatDateISO(question.question_date)"
@@ -389,7 +389,7 @@ useHead({
                   v-else
                   :href="getImageUrl(attachment.directus_files_id.id)"
                   target="_blank"
-                  class="flex items-center gap-3 rounded-xl bg-amber-50 p-3 text-amber-700 transition-colors hover:bg-amber-100 dark:bg-amber-900/20 dark:text-amber-400"
+                  class="flex items-center gap-3 rounded-xl bg-amber-50 p-3 text-blue-700 transition-colors hover:bg-amber-100 dark:bg-amber-900/20 dark:text-blue-400"
                 >
                   <UIcon name="i-heroicons-document-arrow-down" class="h-5 w-5" />
                   <span class="text-sm font-medium">Télécharger le document</span>
@@ -403,7 +403,7 @@ useHead({
         <div class="mt-4">
           <NuxtLink
             :to="`/assemblee-nationale/deputes/${question.deputy.id}/${$getSlugifyUrlPath(question.deputy.first_name + ' ' + question.deputy.last_name)}`"
-            class="flex items-center justify-center gap-2 rounded-xl bg-amber-50 p-3 text-sm font-medium text-amber-700 transition-colors active:bg-amber-100 md:hover:bg-amber-100 dark:bg-amber-900/20 dark:text-amber-400"
+            class="flex items-center justify-center gap-2 rounded-xl bg-blue-50 p-3 text-sm font-medium text-blue-700 transition-colors active:bg-blue-100 md:hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400"
           >
             <UIcon name="i-heroicons-user" class="h-4 w-4" />
             Voir le profil du député
@@ -417,7 +417,7 @@ useHead({
         <p class="text-gray-500 dark:text-gray-400">Question non trouvée</p>
         <NuxtLink
           to="/assemblee-nationale/questions"
-          class="mt-3 inline-block text-sm text-amber-600 underline dark:text-amber-400"
+          class="mt-3 inline-block text-sm text-blue-600 underline dark:text-blue-400"
         >
           Retourner aux questions
         </NuxtLink>

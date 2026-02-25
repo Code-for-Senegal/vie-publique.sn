@@ -129,7 +129,7 @@ const {
       <div class="mt-5 text-center">
         <UButton
           to="/actualites"
-          color="white"
+          color="gray"
           variant="solid"
           size="md"
           trailing-icon="i-heroicons-arrow-right"

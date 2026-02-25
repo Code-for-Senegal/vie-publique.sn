@@ -63,11 +63,11 @@ const badgeColors: Record<string, 'orange' | 'green' | 'red'> = {
       <div class="mb-4 flex items-center justify-between sm:mb-5">
         <div class="flex items-center gap-2">
           <div
-            class="bg-primary-100 dark:bg-primary-900/50 flex h-8 w-8 items-center justify-center rounded-lg"
+            class="bg-gray-100 dark:bg-gray-900/50 flex h-8 w-8 items-center justify-center rounded-lg"
           >
             <UIcon
               name="i-heroicons-chart-pie"
-              class="text-primary-600 dark:text-primary-400 h-4 w-4"
+              class="text-gray-600 dark:text-gray-400 h-4 w-4"
             />
           </div>
           <h3 class="text-base font-semibold text-gray-900 sm:text-lg dark:text-white">
@@ -76,7 +76,7 @@ const badgeColors: Record<string, 'orange' | 'green' | 'red'> = {
         </div>
         <NuxtLink
           to="/budget-senegal/dashboard"
-          class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 group hidden items-center gap-1 text-sm font-medium sm:inline-flex"
+          class="text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 group hidden items-center gap-1 text-sm font-medium sm:inline-flex"
         >
           Explorer
           <UIcon

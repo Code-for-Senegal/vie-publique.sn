@@ -103,7 +103,7 @@ onMounted(() => {
       <div class="mt-6 text-center">
         <UButton
           to="/documents/public"
-          color="white"
+          color="gray"
           variant="solid"
           size="md"
           trailing-icon="i-heroicons-arrow-right"

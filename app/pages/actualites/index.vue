@@ -225,7 +225,7 @@ const formatDateISO = (date: string) => {
 <template>
   <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-950" itemscope itemtype="https://schema.org/CollectionPage">
     <!-- Breadcrumb -->
-    <div class="container mx-auto px-4">
+    <div class="container mx-auto px-4 pt-2">
       <AppBreadcrumb :items="[{ label: 'Actualités' }]" />
     </div>
 
@@ -268,7 +268,7 @@ const formatDateISO = (date: string) => {
         </div>
 
         <!-- Category Filters - Horizontal Scroll -->
-        <nav class="-mx-4 mt-3 overflow-x-auto px-4 py-1 scrollbar-hide" aria-label="Filtrer par catégorie">
+        <nav class="-mx-4 mt-3 overflow-x-auto px-4 scrollbar-hide" aria-label="Filtrer par catégorie">
           <div v-if="loading" class="flex gap-2">
             <USkeleton v-for="n in 5" :key="n" class="h-7 w-24 shrink-0 rounded-full" />
           </div>

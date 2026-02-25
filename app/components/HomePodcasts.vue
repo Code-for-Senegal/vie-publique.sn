@@ -68,7 +68,7 @@ const closePlayer = () => {
       <div class="mt-6 text-center">
         <UButton
           to="/podcasts"
-          color="white"
+          color="gray"
           variant="solid"
           size="md"
           trailing-icon="i-heroicons-arrow-right"

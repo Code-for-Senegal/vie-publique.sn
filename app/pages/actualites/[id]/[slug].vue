@@ -477,7 +477,7 @@ watch(
           </div>
 
           <!-- Tags -->
-          <div v-if="article.tags?.length" class="flex flex-wrap gap-2">
+          <!-- <div v-if="article.tags?.length" class="flex flex-wrap gap-2">
             <span
               v-for="tag in article.tags"
               :key="tag"
@@ -486,7 +486,7 @@ watch(
             >
               {{ tag }}
             </span>
-          </div>
+          </div> -->
 
           <!-- Article Body -->
           <div class="rounded-2xl bg-white p-6 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700 sm:p-8">

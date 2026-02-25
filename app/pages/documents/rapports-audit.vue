@@ -164,7 +164,7 @@ useHead({
         <div
           v-for="n in 5"
           :key="n"
-          class="flex gap-3 rounded-xl bg-white p-3 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+          class="flex gap-3 rounded-xl bg-white p-3 shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
         >
           <USkeleton class="h-12 w-12 shrink-0 rounded-lg" />
           <div class="flex-1 space-y-2">
@@ -219,7 +219,7 @@ useHead({
           v-for="rapport in documents"
           :key="rapport.id"
           :to="`/documents/${rapport.id}/${rapport.slug}`"
-          class="group flex gap-3 rounded-xl bg-white p-3 shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.98] sm:hover:shadow-md dark:bg-gray-900 dark:ring-gray-800"
+          class="group flex gap-3 rounded-xl bg-white p-3 shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.98] sm:hover:shadow-md dark:bg-gray-800 dark:ring-gray-700"
         >
           <!-- Logo -->
           <div

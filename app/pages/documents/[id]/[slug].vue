@@ -244,12 +244,6 @@ const showPdfViewer = ref(false);
         class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95"
       >
         <div class="container mx-auto px-4 py-4">
-          <!-- Badge type -->
-          <span
-            class="inline-flex items-center rounded-full bg-primary-100 px-2.5 py-0.5 text-xs font-medium text-primary-700 dark:bg-primary-900/30 dark:text-primary-400"
-          >
-            {{ typeLabel }}
-          </span>
 
           <!-- Titre -->
           <h1
@@ -319,7 +313,7 @@ const showPdfViewer = ref(false);
           <div class="lg:col-span-2">
             <!-- Image de couverture -->
             <div v-if="document.cover_image" class="mb-6">
-              <div class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800">
+              <div class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700">
                 <CmsImage
                   :src="document.cover_image"
                   :alt="document.title"
@@ -332,7 +326,7 @@ const showPdfViewer = ref(false);
             <!-- Description -->
             <div
               v-if="document.description"
-              class="mb-6 rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+              class="mb-6 rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
             >
               <p class="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
                 {{ document.description }}
@@ -342,7 +336,7 @@ const showPdfViewer = ref(false);
             <!-- Contenu HTML -->
             <div
               v-if="document.content_html"
-              class="prose prose-sm prose-gray max-w-none rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 sm:p-6 dark:prose-invert dark:bg-gray-900 dark:ring-gray-800"
+              class="prose prose-sm prose-gray max-w-none rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 sm:p-6 dark:prose-invert dark:bg-gray-800 dark:ring-gray-700"
               v-html="document.content_html"
             />
 
@@ -356,7 +350,7 @@ const showPdfViewer = ref(false);
                   </h2>
                 </div>
                 <div
-                  class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+                  class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
                 >
                   <PdfViewer
                     :source="fileUrl"
@@ -373,7 +367,7 @@ const showPdfViewer = ref(false);
               <!-- Bloc fichier -->
               <div
                 v-if="document.file"
-                class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+                class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
               >
                 <div class="mb-4 flex items-center gap-3">
                   <div
@@ -395,7 +389,7 @@ const showPdfViewer = ref(false);
                 <div class="space-y-2">
                   <button
                     type="button"
-                    class="flex w-full items-center justify-center gap-2 rounded-xl bg-primary-500 px-4 py-2.5 text-sm font-medium text-white transition-all hover:bg-primary-600 active:scale-[0.98]"
+                    class="flex w-full items-center justify-center gap-2 rounded-xl bg-white border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-900 transition-all hover:bg-gray-100 active:scale-[0.98]"
                     @click="showPdfViewer = true"
                   >
                     <UIcon name="i-heroicons-eye" class="h-4 w-4" />
@@ -430,7 +424,7 @@ const showPdfViewer = ref(false);
               <!-- Message si pas de fichier -->
               <div
                 v-else
-                class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+                class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
               >
                 <div class="flex items-center gap-3 text-gray-400">
                   <UIcon name="i-heroicons-document" class="h-5 w-5" />
@@ -440,7 +434,7 @@ const showPdfViewer = ref(false);
 
               <!-- Partage social -->
               <div
-                class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+                class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
               >
                 <p class="mb-3 text-xs font-medium text-gray-500 dark:text-gray-400">Partager</p>
                 <SocialShare :title="document.title" />

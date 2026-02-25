@@ -77,7 +77,7 @@ const documentCategories = [
     </div>
 
     <!-- Header -->
-    <header class="border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
+    <header class="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
       <div class="container mx-auto px-4 py-4">
         <h1 class="text-xl font-bold text-gray-900 dark:text-white">Documents</h1>
         <p class="mt-0.5 text-sm text-gray-500 dark:text-gray-400">
@@ -94,7 +94,7 @@ const documentCategories = [
           v-for="cat in documentCategories"
           :key="cat.title"
           :to="cat.to"
-          class="group relative flex flex-col items-center rounded-2xl bg-white p-4 text-center shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.97] sm:p-5 sm:hover:shadow-lg dark:bg-gray-900 dark:ring-gray-800"
+          class="group relative flex flex-col items-center rounded-2xl bg-white p-4 text-center shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.97] sm:p-5 sm:hover:shadow-lg dark:bg-gray-800 dark:ring-gray-700"
         >
           <!-- Icon Container -->
           <div
