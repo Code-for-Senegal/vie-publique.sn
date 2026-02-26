@@ -245,7 +245,6 @@ export default defineNuxtConfig({
       sunuElectionApiUrl: process.env.SUNU_ELECTION_API_URL,
       sunuElectionApiKey: process.env.SUNU_ELECTION_API_KEY,
       fbPixelId: process.env.FACEBOOK_PIXEL_ID || '',
-      maintenanceMode: process.env.NUXT_PUBLIC_MAINTENANCE_MODE === 'true',
       bictorysPublicKey: process.env.BICTORYS_PUBLIC_KEY,
       // Firebase (Push Notifications)
       firebaseApiKey: process.env.NUXT_PUBLIC_FIREBASE_API_KEY,

@@ -2,25 +2,8 @@
 import { Toaster, toast } from 'vue-sonner';
 import { useNotifications } from './composables/useNotifications';
 
-// Configuration SEO selon l'environnement
-const config = useRuntimeConfig();
-
 // Push Notifications
 const { initState, setupForegroundHandler, validateAndRefreshToken } = useNotifications();
-const isProduction =
-  config.public.siteUrl === 'https://vie-publique.sn' ||
-  config.public.siteUrl === 'https://www.vie-publique.sn';
-
-// Bloquer l'indexation en environnement de test
-if (!isProduction) {
-  useHead({
-    meta: [
-      { name: 'robots', content: 'noindex, nofollow' },
-      { name: 'googlebot', content: 'noindex, nofollow' },
-      { name: 'bingbot', content: 'noindex, nofollow' },
-    ],
-  });
-}
 
 const isChatPage = ref(useRoute().path === '/chatbot');
 watch(

@@ -142,9 +142,9 @@ export const useNews = (options: NewsOptions = {}) => {
       { name: 'Toutes' },
       { name: 'Conseil des ministres' },
       { name: 'Conseil interministériel' },
+      { name: 'Discours' },
       { name: 'Assemblée nationale' },
       { name: 'Article' },
-      { name: 'Podcasts' },
       { name: 'Budget' },
     ];
 
