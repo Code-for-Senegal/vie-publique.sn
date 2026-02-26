@@ -333,6 +333,7 @@ const showPdfViewer = ref(false);
                   :src="document.cover_image"
                   :alt="document.title"
                   :quality="80"
+                  :width="800"
                   class="mx-auto w-full max-w-lg object-contain"
                 />
               </div>

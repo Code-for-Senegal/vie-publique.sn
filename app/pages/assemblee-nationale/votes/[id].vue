@@ -24,10 +24,6 @@
           {{ $getAssemblyVoteLabel(vote.type) }}
         </span>
       </div>
-      <!-- Share button -->
-      <div class="absolute bottom-4 right-4">
-        <SocialShare v-if="vote" :title="vote.name" :url="`${siteUrl}${route.path}`" />
-      </div>
     </div>
 
     <!-- Contenu principal -->
@@ -53,9 +49,12 @@
         <template v-else-if="vote">
           <!-- Vote Info Card -->
           <section class="rounded-2xl bg-white p-4 shadow-lg ring-1 ring-gray-100 md:p-6 dark:bg-gray-800 dark:ring-gray-700">
-            <!-- Meta -->
-            <div class="mb-2 text-xs text-gray-500 dark:text-gray-400">
-              Vote n° {{ vote.id }} du {{ formatDate(vote.date) }}
+            <!-- Header with meta and share button -->
+            <div class="mb-2 flex items-start justify-between gap-3">
+              <div class="text-xs text-gray-500 dark:text-gray-400">
+                Vote n° {{ vote.id }} du {{ formatDate(vote.date) }}
+              </div>
+              <SocialShare :title="vote.name" :url="url" />
             </div>
 
             <!-- Title -->
@@ -147,6 +146,11 @@ const route = useRoute();
 const id = computed(() => route.params.id as string);
 const { vote, loading, error } = useAssemblyVotes({ id });
 
+const url = computed(() => {
+  if (!route.params.id) return siteUrl;
+  return `${siteUrl}/assemblee-nationale/votes/${route.params.id}`;
+});
+
 const formatDate = (date: string) => {
   if (!date) return '';
   return new Date(date).toLocaleDateString('fr-FR', {
@@ -182,7 +186,7 @@ const breadcrumbSchema = computed(() => ({
       '@type': 'ListItem',
       position: 4,
       name: vote.value?.name || 'Détail du vote',
-      item: `${siteUrl}${route.path}`,
+      item: url.value,
     },
   ],
 }));
