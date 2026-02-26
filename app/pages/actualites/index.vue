@@ -204,18 +204,27 @@ const formatNewsUrl = (article: {
   return `/actualites/${id}/${slug}`;
 };
 
-// Ajout des couleurs pour les catégories
+// Couleurs pour les catégories (fallback sur une couleur générée si non trouvée)
+const categoryColorMap: Record<string, string> = {
+  Toutes: '#6B7280',
+  'Conseil des ministres': '#1D4ED8',
+  'Conseil interministériel': '#7E22CE',
+  'Assemblée nationale': '#047857',
+  Discours: '#0891B2',
+  Article: '#EA580C',
+  Budget: '#B91C1C',
+  'Non catégorisé': '#4B5563',
+};
+
 const getCategoryColor = (categoryName: string) => {
-  const colorMap: Record<string, string> = {
-    Toutes: '#6B7280',
-    'Conseil des ministres': '#1D4ED8',
-    'Conseil interministériel': '#7E22CE',
-    'Assemblée nationale': '#047857',
-    Article: '#EA580C',
-    Budget: '#B91C1C',
-    'Non catégorisé': '#4B5563',
-  };
-  return colorMap[categoryName] || '#6B7280';
+  if (categoryColorMap[categoryName]) return categoryColorMap[categoryName];
+  // Couleur générée pour les nouvelles catégories
+  let hash = 0;
+  for (let i = 0; i < categoryName.length; i++) {
+    hash = categoryName.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const hue = Math.abs(hash) % 360;
+  return `hsl(${hue}, 55%, 45%)`;
 };
 
 const formatDateISO = (date: string) => {

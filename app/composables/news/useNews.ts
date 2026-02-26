@@ -136,19 +136,15 @@ export const useNews = (options: NewsOptions = {}) => {
     search: state.searchQuery,
   });
 
-  // Computed pour TOUTES les catégories disponibles
-  const categories = computed(() => {
-    const allCategories = [
-      { name: 'Toutes' },
-      { name: 'Conseil des ministres' },
-      { name: 'Conseil interministériel' },
-      { name: 'Discours' },
-      { name: 'Assemblée nationale' },
-      { name: 'Article' },
-      { name: 'Budget' },
-    ];
+  // Récupération dynamique des catégories depuis l'API
+  const { data: categoriesData } = useFetch<{ categories: { name: string; slug: string; count: number }[] }>(
+    '/api/news/categories',
+    { key: 'news-categories' },
+  );
 
-    return allCategories;
+  const categories = computed(() => {
+    const apiCategories = categoriesData.value?.categories || [];
+    return [{ name: 'Toutes', slug: '', count: 0 }, ...apiCategories];
   });
 
   // Computed pour les articles featured
