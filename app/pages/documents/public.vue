@@ -478,7 +478,7 @@ const handleReset = () => {
             v-for="doc in documents"
             :key="doc.id"
             :to="`/documents/${doc.id}/${doc.slug}`"
-            class="group flex gap-3 rounded-xl bg-white p-2.5 shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.98] sm:hover:shadow-md dark:bg-gray-800 dark:ring-gray-700"
+            class="group flex gap-3 rounded-xl bg-white p-2.5 shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.98] sm:hover:shadow-md dark:bg-gray-800 dark:ring-gray-600"
           >
             <!-- Thumbnail -->
             <div class="h-16 w-20 shrink-0 overflow-hidden rounded-lg bg-gray-100 sm:h-20 sm:w-24 dark:bg-gray-800">
