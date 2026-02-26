@@ -180,8 +180,6 @@ Ce document recense **toutes les URLs** du projet, leur type, leur fonction et l
 |-----|------|-----|-------------|
 | `/justice` | Hub | ⭐⭐⭐ | Hub Justice |
 | `/justice/magistrature` | Annuaire | ⭐⭐⭐ | Magistrature |
-| `/financial-scandals` | Liste | ⭐⭐ | ❌ En anglais |
-| `/financial-scandals/[id]` | Détail | ⭐⭐ | ❌ En anglais |
 
 **⚠️ Problème** : Incohérence linguistique FR/EN
 
@@ -592,7 +590,7 @@ export function generateSlugFromName(name: string): string {
 
 | Problème | URLs | Recommandation |
 |----------|------|----------------|
-| Mélange FR/EN | `/individuals-cited`, `/financial-scandals`, `/about` | **Tout en français** : `/personnes-citees`, `/scandales-financiers`, `/a-propos` |
+| Mélange FR/EN | `/individuals-cited`, `/about` | **Tout en français** : `/personnes-citees`, `/scandales-financiers`, `/a-propos` |
 
 ### 5.2 Doublons & Confusion
 
@@ -620,7 +618,7 @@ export function generateSlugFromName(name: string): string {
 | `/assemblee-nationale/votes/[id]` | Pas de slug | Ajouter `[id]/[slug]` |
 | `/assemblee-nationale/questions/[id]` | Pas de slug | Ajouter `[id]/[slug]` |
 | `/elections/legislatives/[id]` | Pas de slug | Ajouter `[id]/[slug]` |
-| `/financial-scandals/[id]` | Pas de slug | Ajouter `[id]/[slug]` |
+
 
 ---
 
@@ -632,7 +630,6 @@ export function generateSlugFromName(name: string): string {
 
 ```
 ❌ /individuals-cited → ✅ /personnes-citees
-❌ /financial-scandals → ✅ /scandales-financiers
 ❌ /about → ✅ /a-propos
 ```
 
@@ -714,7 +711,6 @@ export function generateSlugFromName(name: string): string {
 
 1. **Franciser les URLs**
    - [ ] Créer redirects pour `/individuals-cited` → `/personnes-citees`
-   - [ ] Créer redirects pour `/financial-scandals` → `/scandales-financiers`
    - [ ] Créer redirects pour `/about` → `/a-propos`
 
 2. **Supprimer doublons**
