@@ -1,0 +1,129 @@
+{
+  "country": "Sénégal",
+  "iiag": {
+    "year": 2023,
+    "score": 60.2,
+    "rank": 11,
+    "totalCountries": 54,
+    "trend": "down",
+    "trendDelta": -1.3
+  },
+  "cpi": {
+    "year": 2023,
+    "score": 43,
+    "rank": 76,
+    "totalCountries": 180,
+    "trend": "stable",
+    "trendDelta": 0
+  },
+  "evolution": [
+    { "year": 2014, "score": 58.1, "africaAvg": 49.9 },
+    { "year": 2015, "score": 58.5, "africaAvg": 50.0 },
+    { "year": 2016, "score": 58.8, "africaAvg": 50.1 },
+    { "year": 2017, "score": 59.2, "africaAvg": 50.2 },
+    { "year": 2018, "score": 59.5, "africaAvg": 50.3 },
+    { "year": 2019, "score": 60.0, "africaAvg": 50.3 },
+    { "year": 2020, "score": 60.5, "africaAvg": 50.4 },
+    { "year": 2021, "score": 61.0, "africaAvg": 50.4 },
+    { "year": 2022, "score": 61.5, "africaAvg": 50.5 },
+    { "year": 2023, "score": 60.2, "africaAvg": 50.5 }
+  ],
+  "pillars": [
+    {
+      "key": "rule_of_law",
+      "label": "État de droit",
+      "score": 50.6,
+      "trendDelta": -5.6,
+      "description": "Indépendance judiciaire, justice, redevabilité des institutions"
+    },
+    {
+      "key": "human_development",
+      "label": "Dév. humain",
+      "score": 70.6,
+      "trendDelta": 4.6,
+      "description": "Éducation, santé, protection sociale, inclusion"
+    },
+    {
+      "key": "economic_foundations",
+      "label": "Fondements éco.",
+      "score": 72.3,
+      "trendDelta": 3.2,
+      "description": "Gestion budgétaire, environnement des affaires, infrastructures"
+    },
+    {
+      "key": "participation",
+      "label": "Participation",
+      "score": 60.8,
+      "trendDelta": -1.2,
+      "description": "Libertés civiles, droits politiques, participation citoyenne"
+    },
+    {
+      "key": "security",
+      "label": "Sécurité",
+      "score": 70.6,
+      "trendDelta": 4.6,
+      "description": "Sécurité personnelle, sécurité nationale, absence de conflits"
+    }
+  ],
+  "alerts": [
+    {
+      "id": "rule_of_law_justice",
+      "label": "État de droit et justice",
+      "value": "42,5",
+      "numericValue": 42.5,
+      "icon": "i-heroicons-scale",
+      "trend": "down",
+      "source": "IIAG Mo Ibrahim"
+    },
+    {
+      "id": "accountability_transparency",
+      "label": "Redevabilité & transparence",
+      "value": "32,0",
+      "numericValue": 32.0,
+      "icon": "i-heroicons-eye",
+      "trend": "up",
+      "source": "IIAG Mo Ibrahim"
+    },
+    {
+      "id": "perception_population",
+      "label": "Perception populations",
+      "value": "23,6",
+      "numericValue": 23.6,
+      "icon": "i-heroicons-user-group",
+      "trend": "down",
+      "source": "Transparency International"
+    },
+    {
+      "id": "marches_publics",
+      "label": "Marchés publics contestés",
+      "value": "147 dossiers",
+      "icon": "i-heroicons-exclamation-triangle",
+      "trend": "up",
+      "source": "ARMP"
+    },
+    {
+      "id": "budget_execution",
+      "label": "Écart exécution budgétaire",
+      "value": "12,3%",
+      "icon": "i-heroicons-chart-bar",
+      "trend": "stable",
+      "source": "Ministère des Finances"
+    },
+    {
+      "id": "presse_liberte",
+      "label": "Classement liberté de la presse",
+      "value": "94e / 180",
+      "icon": "i-heroicons-newspaper",
+      "trend": "down",
+      "source": "RSF"
+    }
+  ],
+  "lastUpdated": "2024-12-15T00:00:00.000Z",
+  "sources": [
+    { "name": "Mo Ibrahim Foundation - IIAG 2023", "url": "https://mo.ibrahim.foundation" },
+    { "name": "Transparency International - CPI 2023", "url": "https://www.transparency.org" },
+    { "name": "OFNAC - Rapports annuels", "url": "https://ofnac.sn" },
+    { "name": "Cour des Comptes du Sénégal", "url": "https://courdescomptes.sn" },
+    { "name": "ARMP - Rapports", "url": "https://armp.sn" }
+  ]
+}

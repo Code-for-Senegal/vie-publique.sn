@@ -86,13 +86,19 @@ export const DEFAULT_FEATURES: Record<string, FeatureFlag> = {
     key: 'menu_recherche',
     enabled: true,
     environments: ['dev', 'test', 'production'],
-    description: 'Fonctionnalité de recherche (menu, header, page d\'accueil)',
+    description: "Fonctionnalité de recherche (menu, header, page d'accueil)",
   },
   menu_dashboard_conseil: {
     key: 'menu_dashboard_conseil',
     enabled: false,
     environments: ['dev'],
     description: 'Menu Dashboard Conseil des Ministres (dev only)',
+  },
+  menu_dashboard_corruption: {
+    key: 'menu_dashboard_corruption',
+    enabled: true,
+    environments: ['dev', 'test'],
+    description: 'Menu Dashboard Corruption & Gouvernance (PNUD A2)',
   },
   menu_etat_senegal: {
     key: 'menu_etat_senegal',

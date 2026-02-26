@@ -1,11 +1,11 @@
 <template>
   <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-900">
     <!-- Header sticky mobile -->
-    <header class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm md:relative md:border-0 md:bg-transparent md:backdrop-blur-none dark:border-gray-800 dark:bg-gray-900/95">
+    <header
+      class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95 md:relative md:border-0 md:bg-transparent md:backdrop-blur-none"
+    >
       <div class="container mx-auto px-4 py-3 md:py-6">
-        <h1 class="text-lg font-bold text-gray-900 md:text-2xl dark:text-white">
-          Menu
-        </h1>
+        <h1 class="text-lg font-bold text-gray-900 dark:text-white md:text-2xl">Menu</h1>
       </div>
     </header>
 
@@ -16,7 +16,7 @@
           v-for="card in navigationCards"
           :key="card.title"
           :to="card.to"
-          class="group flex items-center gap-2 rounded-lg bg-white p-2 ring-1 ring-gray-100 transition-all active:scale-[0.98] md:gap-3 md:rounded-xl md:p-4 md:hover:ring-gray-300 md:hover:shadow-md dark:bg-gray-800 dark:ring-gray-700"
+          class="group flex items-center gap-2 rounded-lg bg-white p-2 ring-1 ring-gray-100 transition-all active:scale-[0.98] dark:bg-gray-800 dark:ring-gray-700 md:gap-3 md:rounded-xl md:p-4 md:hover:shadow-md md:hover:ring-gray-300"
         >
           <div
             class="flex h-8 w-8 shrink-0 items-center justify-center rounded-md md:h-10 md:w-10 md:rounded-lg"
@@ -29,10 +29,12 @@
             />
           </div>
           <div class="min-w-0 flex-1">
-            <h3 class="line-clamp-2 text-[11px] font-medium leading-tight text-gray-900 md:line-clamp-1 md:text-sm md:font-semibold dark:text-white">
+            <h3
+              class="line-clamp-2 text-[11px] font-medium leading-tight text-gray-900 dark:text-white md:line-clamp-1 md:text-sm md:font-semibold"
+            >
               {{ card.title }}
             </h3>
-            <p class="hidden truncate text-xs text-gray-500 md:block dark:text-gray-400">
+            <p class="hidden truncate text-xs text-gray-500 dark:text-gray-400 md:block">
               {{ card.description }}
             </p>
           </div>
@@ -56,7 +58,9 @@
         </div>
 
         <!-- Quick Links -->
-        <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-t border-gray-200 py-4 dark:border-gray-700">
+        <div
+          class="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-t border-gray-200 py-4 dark:border-gray-700"
+        >
           <ULink
             v-for="link in links"
             :key="link.label"
@@ -241,6 +245,13 @@ const allNavigationCards: NavigationCard[] = [
     featureKey: 'menu_dashboard_conseil',
   },
   {
+    title: 'Dashboard Corruption',
+    description: 'Indicateurs de gouvernance et signalement citoyen',
+    icon: 'i-heroicons-shield-check',
+    to: '/dashboard/corruption',
+    featureKey: 'menu_dashboard_corruption',
+  },
+  {
     title: 'Etat du Sénégal',
     description: "Fonctionnement de l'état, Guide, Institutions, Budget, Quiz...",
     icon: 'i-heroicons-information-circle',
@@ -382,6 +393,10 @@ const cardConfigs: CardConfigs = {
   'Dashbord Conseil des Ministres': {
     color: 'text-fuchsia-600 dark:text-fuchsia-400',
     bgColor: 'bg-fuchsia-100 dark:bg-fuchsia-900/30',
+  },
+  'Dashboard Corruption': {
+    color: 'text-orange-600 dark:text-orange-400',
+    bgColor: 'bg-orange-100 dark:bg-orange-900/30',
   },
 } as const;
 </script>

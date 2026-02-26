@@ -1,0 +1,46 @@
+{
+  "subjects": [
+    {
+      "id": "marche_public",
+      "label": "Marché public irrégulier",
+      "description": "Attribution suspecte, absence d'appel d'offres, surfacturation",
+      "icon": "i-heroicons-building-office"
+    },
+    {
+      "id": "detournement",
+      "label": "Détournement de fonds publics",
+      "description": "Utilisation de fonds publics à des fins personnelles ou non prévues",
+      "icon": "i-heroicons-banknotes"
+    },
+    {
+      "id": "conflit_interet",
+      "label": "Conflit d'intérêts",
+      "description": "Agent public favorisant ses intérêts privés dans l'exercice de ses fonctions",
+      "icon": "i-heroicons-user-group"
+    },
+    {
+      "id": "nepotisme",
+      "label": "Népotisme / favoritisme",
+      "description": "Recrutement ou promotion basé sur des liens familiaux ou personnels",
+      "icon": "i-heroicons-users"
+    },
+    {
+      "id": "corruption_passive",
+      "label": "Corruption passive / active",
+      "description": "Sollicitation ou offre de pots-de-vin à un agent public",
+      "icon": "i-heroicons-hand-raised"
+    },
+    {
+      "id": "fraude_fiscale",
+      "label": "Fraude fiscale",
+      "description": "Évasion fiscale, fausses déclarations, exonérations abusives",
+      "icon": "i-heroicons-calculator"
+    },
+    {
+      "id": "autre",
+      "label": "Autre",
+      "description": "Autre type de signalement lié à la gouvernance publique",
+      "icon": "i-heroicons-ellipsis-horizontal-circle"
+    }
+  ]
+}

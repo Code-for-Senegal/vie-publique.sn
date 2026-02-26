@@ -504,6 +504,8 @@ export default defineNuxtConfig({
       '/don/bictorys',
       '/don/paydunya',
       '/don/success',
+      '/dashboard/corruption',
+      '/dashboard/corruption/**',
     ],
     sitemap: '/sitemap.xml',
   },
