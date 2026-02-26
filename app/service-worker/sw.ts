@@ -135,9 +135,14 @@ if (import.meta.env.PROD) {
     })
   );
 
-  // Cache des images locales
+  // Cache des images locales (icônes, logos, assets statiques du build)
+  // EXCLUT les images CMS (/cms/, /medias/) — celles-ci ont leur propre route plus bas
+  // avec StaleWhileRevalidate pour éviter de cacher des images partiellement téléchargées.
   registerRoute(
-    ({ request }) => request.destination === 'image',
+    ({ request, url }) =>
+      request.destination === 'image' &&
+      !url.pathname.startsWith('/cms/') &&
+      !url.pathname.startsWith('/medias/'),
     new CacheFirst({
       cacheName: CACHE_NAMES.IMAGES,
       plugins: [
@@ -187,12 +192,31 @@ if (import.meta.env.PROD) {
     })
   );
 
-  // Cache des assets via proxy local (/cms/ et /medias/)
-  // IMPORTANT : exclure les navigations (request.mode === 'navigate')
-  // sinon les pages Nuxt /medias/* seraient cachées avec CacheFirst au lieu de NetworkFirst.
-  // Les images CMS sont déjà capturées par la route images (destination: 'image') plus haut.
-  // Cette route ne capture donc que les fichiers non-image : PDFs, docs, vidéos, etc.
-  // → NetworkFirst pour éviter de stocker des Go de PDFs en cache.
+  // Cache des images CMS via proxy local (/cms/ et /medias/)
+  // StaleWhileRevalidate : sert le cache instantanément ET rafraîchit en arrière-plan.
+  // Corrige le bug des images coupées : si une image partielle est cachée (connexion lente/coupée),
+  // la revalidation en background la remplace par la version complète au prochain chargement.
+  // CacheFirst cacherait l'image tronquée pendant 30 jours sans jamais la corriger.
+  registerRoute(
+    ({ url, request }) =>
+      request.mode !== 'navigate' &&
+      request.destination === 'image' &&
+      (url.pathname.startsWith('/cms/') ||
+       url.pathname.startsWith('/medias/')),
+    new StaleWhileRevalidate({
+      cacheName: CACHE_NAMES.CMS_ASSETS,
+      plugins: [
+        new CacheableResponsePlugin({ statuses: [200] }),
+        new ExpirationPlugin({
+          maxEntries: 250,
+          maxAgeSeconds: 30 * 24 * 60 * 60, // 30 jours
+        }),
+      ],
+    })
+  );
+
+  // Cache des fichiers CMS non-image via proxy local (/cms/ et /medias/)
+  // PDFs, documents, vidéos — NetworkFirst pour éviter de stocker des Go en cache.
   registerRoute(
     ({ url, request }) =>
       request.mode !== 'navigate' &&
