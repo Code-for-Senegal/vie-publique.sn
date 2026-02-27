@@ -140,6 +140,14 @@ const articleSchema = computed(() => ({
 
 useHead({
   htmlAttrs: { lang: 'fr-SN' },
+  link: () => [
+    {
+      rel: 'canonical',
+      href: document.value
+        ? `${siteUrl}/documents/${document.value.id}/${document.value.slug}`
+        : '',
+    },
+  ],
   script: [
     {
       type: 'application/ld+json',
@@ -186,7 +194,9 @@ const showPdfViewer = ref(false);
 <template>
   <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-950">
     <!-- Sticky Header Mobile -->
-    <header class="sticky top-0 z-40 border-b border-gray-100 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95 md:relative md:border-0 md:bg-transparent md:backdrop-blur-none dark:md:bg-transparent">
+    <header
+      class="sticky top-0 z-40 border-b border-gray-100 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95 md:relative md:border-0 md:bg-transparent md:backdrop-blur-none dark:md:bg-transparent"
+    >
       <div class="container mx-auto px-4">
         <div class="flex items-center gap-3 py-3 md:hidden">
           <!-- Back button -->
@@ -200,7 +210,10 @@ const showPdfViewer = ref(false);
 
           <!-- Title & Meta -->
           <div class="min-w-0 flex-1">
-            <h1 v-if="document" class="line-clamp-2 text-xs font-semibold leading-tight text-gray-900 dark:text-white">
+            <h1
+              v-if="document"
+              class="line-clamp-2 text-xs font-semibold leading-tight text-gray-900 dark:text-white"
+            >
               {{ document.title }}
             </h1>
             <USkeleton v-else class="h-4 w-48" />
@@ -213,7 +226,7 @@ const showPdfViewer = ref(false);
           <div v-if="document?.file" class="flex shrink-0 items-center gap-1.5">
             <button
               type="button"
-              class="flex h-8 items-center gap-1 rounded-lg bg-primary-500 px-2.5 text-[11px] font-medium text-white transition-colors hover:bg-primary-600 active:scale-95"
+              class="bg-primary-500 hover:bg-primary-600 flex h-8 items-center gap-1 rounded-lg px-2.5 text-[11px] font-medium text-white transition-colors active:scale-95"
               @click="showPdfViewer = true"
             >
               <UIcon name="i-heroicons-eye" class="h-3.5 w-3.5" />
@@ -222,7 +235,12 @@ const showPdfViewer = ref(false);
             <button
               type="button"
               class="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 active:scale-95 dark:bg-gray-800 dark:text-gray-400"
-              @click="downloadCmsFile(`${document!.file!.id}/${document!.slug}.pdf`, `${document!.slug}.pdf`)"
+              @click="
+                downloadCmsFile(
+                  `${document!.file!.id}/${document!.slug}.pdf`,
+                  `${document!.slug}.pdf`,
+                )
+              "
             >
               <UIcon name="i-heroicons-arrow-down-tray" class="h-4 w-4" />
             </button>
@@ -272,12 +290,10 @@ const showPdfViewer = ref(false);
         <UIcon name="i-heroicons-exclamation-triangle" class="h-8 w-8 text-red-500" />
       </div>
       <p class="mt-4 text-sm font-medium text-gray-900 dark:text-white">Erreur de chargement</p>
-      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-        Impossible de charger ce document
-      </p>
+      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Impossible de charger ce document</p>
       <NuxtLink
         to="/documents"
-        class="mt-4 rounded-full bg-primary-500 px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-primary-600 active:scale-95"
+        class="bg-primary-500 hover:bg-primary-600 mt-4 rounded-full px-4 py-2 text-xs font-medium text-white transition-colors active:scale-95"
       >
         Retour aux documents
       </NuxtLink>
@@ -287,19 +303,20 @@ const showPdfViewer = ref(false);
     <article v-else-if="document">
       <!-- Header Desktop Only -->
       <header
-        class="hidden border-b border-gray-200 bg-white/95 backdrop-blur-sm md:block dark:border-gray-800 dark:bg-gray-900/95"
+        class="hidden border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95 md:block"
       >
         <div class="container mx-auto px-4 py-4">
-
           <!-- Titre -->
           <h1
-            class="mt-2 line-clamp-2 text-lg font-bold text-gray-900 sm:text-xl lg:line-clamp-none dark:text-white"
+            class="mt-2 line-clamp-2 text-lg font-bold text-gray-900 dark:text-white sm:text-xl lg:line-clamp-none"
           >
             {{ document.title }}
           </h1>
 
           <!-- Métadonnées -->
-          <div class="mt-2 flex flex-wrap items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
+          <div
+            class="mt-2 flex flex-wrap items-center gap-3 text-xs text-gray-500 dark:text-gray-400"
+          >
             <span v-if="formattedDate" class="flex items-center gap-1">
               <UIcon name="i-heroicons-calendar" class="h-3.5 w-3.5" />
               {{ formattedDate }}
@@ -328,7 +345,9 @@ const showPdfViewer = ref(false);
           <div class="lg:col-span-2">
             <!-- Image de couverture -->
             <div v-if="document.cover_image" class="mb-6">
-              <div class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700">
+              <div
+                class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+              >
                 <CmsImage
                   :src="document.cover_image"
                   :alt="document.title"
@@ -352,11 +371,11 @@ const showPdfViewer = ref(false);
             <!-- Contenu HTML -->
             <div
               v-if="document.content_html"
-              class="prose prose-sm prose-gray max-w-none rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 sm:p-6 dark:prose-invert dark:bg-gray-800 dark:ring-gray-700"
+              class="prose prose-sm prose-gray max-w-none rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 dark:prose-invert dark:bg-gray-800 dark:ring-gray-700 sm:p-6"
               v-html="document.content_html"
             />
 
-             <!-- Viewer PDF inline (toujours visible) -->
+            <!-- Viewer PDF inline (toujours visible) -->
             <ClientOnly>
               <div v-if="fileUrl" class="mt-8">
                 <PdfViewerInline
@@ -378,12 +397,19 @@ const showPdfViewer = ref(false);
               >
                 <!-- Header avec icône -->
                 <div class="mb-4 flex items-center gap-3">
-                  <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800">
-                    <UIcon name="i-heroicons-document-text" class="h-5 w-5 text-gray-600 dark:text-gray-400" />
+                  <div
+                    class="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800"
+                  >
+                    <UIcon
+                      name="i-heroicons-document-text"
+                      class="h-5 w-5 text-gray-600 dark:text-gray-400"
+                    />
                   </div>
                   <div class="min-w-0 flex-1">
                     <p class="text-sm font-medium text-gray-900 dark:text-white">Document PDF</p>
-                    <p v-if="fileSize" class="text-xs text-gray-500 dark:text-gray-400">{{ fileSize }}</p>
+                    <p v-if="fileSize" class="text-xs text-gray-500 dark:text-gray-400">
+                      {{ fileSize }}
+                    </p>
                   </div>
                 </div>
 
@@ -410,7 +436,12 @@ const showPdfViewer = ref(false);
                   <button
                     type="button"
                     class="flex items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-50 active:scale-[0.98] dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
-                    @click="downloadCmsFile(`${document!.file!.id}/${document!.slug}.pdf`, `${document!.slug}.pdf`)"
+                    @click="
+                      downloadCmsFile(
+                        `${document!.file!.id}/${document!.slug}.pdf`,
+                        `${document!.slug}.pdf`,
+                      )
+                    "
                   >
                     <UIcon name="i-heroicons-arrow-down-tray" class="h-3.5 w-3.5" />
                     Télécharger
@@ -430,8 +461,14 @@ const showPdfViewer = ref(false);
               </div>
 
               <!-- Partage social -->
-              <div class="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
-                <p class="mb-3 text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">Partager</p>
+              <div
+                class="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900"
+              >
+                <p
+                  class="mb-3 text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400"
+                >
+                  Partager
+                </p>
                 <SocialShare :title="document.title" />
               </div>
             </div>
@@ -456,7 +493,7 @@ const showPdfViewer = ref(false);
       </p>
       <NuxtLink
         to="/documents"
-        class="mt-4 rounded-full bg-primary-500 px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-primary-600 active:scale-95"
+        class="bg-primary-500 hover:bg-primary-600 mt-4 rounded-full px-4 py-2 text-xs font-medium text-white transition-colors active:scale-95"
       >
         Voir tous les documents
       </NuxtLink>

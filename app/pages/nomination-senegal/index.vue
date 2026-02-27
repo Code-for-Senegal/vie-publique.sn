@@ -99,14 +99,12 @@ useSeoMeta({
   twitterImage: image,
   keywords: [
     ...keywords,
-    'nominations Bassirou Diomaye Faye',
-    'gouvernement Sénégal 2024',
+    'nominations conseil des ministres',
     'ministres Sénégal',
     'directeurs généraux Sénégal',
     'PCA Sénégal',
-    'nominations présidentielles',
-    'nouveau gouvernement sénégalais',
-    'conseil des ministres',
+    'nominations présidentielles Sénégal',
+    'décrets nomination Sénégal',
   ].join(', '),
 });
 
@@ -193,12 +191,8 @@ watch([filterType, filterGender], () => {
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col items-center px-4 pb-16">
-    <AppBreadcrumb
-      :items="[
-        { label: 'Nominations' },
-      ]"
-    />
+  <div class="flex min-h-screen flex-col items-center px-4 pb-16">
+    <AppBreadcrumb :items="[{ label: 'Nominations' }]" />
 
     <h1 class="sr-only mb-4 text-sm text-gray-500">
       Membres du gouvernement du Sénégal, Nouveau gouvernement Sénégal Diomaye Sonko, Conseil des
@@ -297,7 +291,7 @@ watch([filterType, filterGender], () => {
               <div class="flex animate-pulse flex-row gap-2">
                 <!-- Skeleton photo -->
                 <div
-                  class="h-16 w-16 flex-shrink-0 rounded-full bg-gray-300 md:h-20 md:w-20 dark:bg-gray-700"
+                  class="h-16 w-16 flex-shrink-0 rounded-full bg-gray-300 dark:bg-gray-700 md:h-20 md:w-20"
                 ></div>
                 <!-- Skeleton texte -->
                 <div class="flex-grow space-y-2">

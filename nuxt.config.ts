@@ -394,12 +394,12 @@ export default defineNuxtConfig({
         {
           name: 'keywords',
           content:
-            'République Sénégal gouvernement Diomaye Sonko journal officiel rapports OFNAC Cours des Comptes IGE ARMP CENTIF',
+            'journal officiel Sénégal, lois décrets Sénégal, documents officiels, budget Sénégal, conseil des ministres, nominations, OFNAC, Cour des Comptes, IGE, ARMP, CENTIF',
         },
         {
           name: 'description',
           content:
-            "République du Sénégal, Gouvernement, nominations, journal officiel, rapports d'audit OFNAC Cours des Compte, Diomaye Faye, Ousmane SOnko",
+            "Accédez aux documents officiels du Sénégal : journal officiel, lois, décrets, codes juridiques, budget, rapports d'audit OFNAC et Cour des Comptes, nominations et travaux parlementaires.",
         },
         // Open Graph Meta Tags
         {
@@ -409,7 +409,7 @@ export default defineNuxtConfig({
         {
           property: 'og:description',
           content:
-            "République du Sénégal, Gouvernement Diomaye Faye et Ousmane Sonko, nominations, journal officiel, rapports d'audit OFNAC Cours des Compte",
+            "Accédez aux documents officiels du Sénégal : journal officiel, lois, décrets, budget, rapports d'audit OFNAC et Cour des Comptes, nominations et travaux parlementaires.",
         },
         {
           name: 'og:locale',
@@ -451,10 +451,10 @@ export default defineNuxtConfig({
         {
           name: 'twitter:description',
           content:
-            "Gouvernement du Sénégal, nominations de Diomaye et Sonko, journal officiel, rapports d'audit OFNAC Cours des Comptes",
+            "Documents officiels du Sénégal : journal officiel, lois, décrets, budget, rapports d'audit OFNAC et Cour des Comptes, nominations et travaux parlementaires.",
         },
         { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:image', content: '/images/share-linkedin.png' },
+        { name: 'twitter:image', content: 'https://www.vie-publique.sn/images/share-linkedin.png' },
       ],
       script: [
         {

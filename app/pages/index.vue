@@ -17,15 +17,15 @@ useSeoMeta({
   twitterImage: defaultImage,
   keywords: [
     ...keywords,
-    'information citoyenne Dakar',
-    'actualité politique Sénégal',
-    'vie démocratique sénégalaise',
+    'lois décrets Sénégal',
+    'codes juridiques Sénégal',
+    'rapports audit Sénégal',
   ].join(', '),
 });
 
-const governmentOrgSchema = {
+const organizationSchema = {
   '@context': 'https://schema.org',
-  '@type': 'GovernmentOrganization',
+  '@type': 'Organization',
   name: siteName,
   url: siteUrl,
   logo: defaultImage,
@@ -42,25 +42,20 @@ const governmentOrgSchema = {
     identifier: 'SN',
   },
   knowsAbout: [
-    'Politique sénégalaise',
-    'Institutions publiques du Sénégal',
     'Journal officiel du Sénégal',
-    'Assemblée nationale du Sénégal',
-    'Gouvernement du Sénégal',
-    "Budget de l'État sénégalais",
     'Lois et décrets sénégalais',
-    'Président Bassirou Diomaye FAYE',
-    'Premier ministre Ousmane SONKO',
-    'OFNAC',
-    'Cour des Comptes',
-    'CENTIG',
+    'Codes juridiques du Sénégal',
+    'Budget du Sénégal',
+    'Assemblée nationale du Sénégal',
+    'Rapports OFNAC',
+    'Cour des Comptes du Sénégal',
     'IGE',
+    'CENTIF',
+    'ARMP',
+    'Conseil des ministres du Sénégal',
+    'Nominations gouvernementales',
   ],
   sameAs: ['https://twitter.com/viepubliquesn'],
-  parentOrganization: {
-    '@type': 'GovernmentOrganization',
-    name: 'République du Sénégal',
-  },
 };
 
 const websiteSchema = {
@@ -152,7 +147,7 @@ useHead({
   script: [
     {
       type: 'application/ld+json',
-      children: JSON.stringify(governmentOrgSchema),
+      children: JSON.stringify(organizationSchema),
     },
     {
       type: 'application/ld+json',
@@ -176,7 +171,7 @@ const { navigationCards } = useNavigationCards();
 <template>
   <div class="container mx-auto p-2 sm:p-4">
     <div class="py-4 text-center">
-      <h1 class="text-2xl font-light leading-tight text-gray-900 md:text-4xl dark:text-white">
+      <h1 class="text-2xl font-light leading-tight text-gray-900 dark:text-white md:text-4xl">
         Accès facilité à<br /><span class="font-medium text-gray-700 dark:text-gray-300"
           >l'information publique au Sénégal</span
         >
@@ -216,7 +211,7 @@ const { navigationCards } = useNavigationCards();
 
       <UDivider site="sm" class="mt-4" />
 
-      <div class="mt-4 text-center text-sm text-gray-500 sm:px-8 dark:text-gray-400">
+      <div class="mt-4 text-center text-sm text-gray-500 dark:text-gray-400 sm:px-8">
         🛈 Vie-Publique est tenu par des bénévoles <br />
         si vous voyez une erreur merci de nous aider à corriger
       </div>
