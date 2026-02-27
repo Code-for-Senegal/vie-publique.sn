@@ -79,7 +79,7 @@ useSeoMeta({
   ogType: 'article',
   ogUrl: () =>
     document.value
-      ? `https://vie-publique.sn/documents/${document.value.id}/${document.value.slug}`
+      ? `https://www.vie-publique.sn/documents/${document.value.id}/${document.value.slug}`
       : '',
   twitterCard: 'summary_large_image',
   twitterTitle: () => getSafeString(document.value?.title),
@@ -355,6 +355,17 @@ const showPdfViewer = ref(false);
               class="prose prose-sm prose-gray max-w-none rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 sm:p-6 dark:prose-invert dark:bg-gray-800 dark:ring-gray-700"
               v-html="document.content_html"
             />
+
+             <!-- Viewer PDF inline (toujours visible) -->
+            <ClientOnly>
+              <div v-if="fileUrl" class="mt-8">
+                <PdfViewerInline
+                  :src="fileUrl"
+                  max-height="700px"
+                  @open-fullscreen="showPdfViewer = true"
+                />
+              </div>
+            </ClientOnly>
 
             <!-- Aperçu PDF intégré -->
             <ClientOnly>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 const seoTitle = 'Nos offres recrutement';
 const seoDescription = 'Découvrez nos opportunités de recrutement chez Vie-publique.sn';
-const seoImgPath = 'https://vie-publique.sn/images/share-linkedin.png';
-const seoPageUrl = 'https://vie-publique.sn/a-propos/recrutement';
+const seoImgPath = 'https://www.vie-publique.sn/images/share-linkedin.png';
+const seoPageUrl = 'https://www.vie-publique.sn/a-propos/recrutement';
 
 useSeoMeta({
   title: seoTitle,

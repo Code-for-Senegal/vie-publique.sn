@@ -2,7 +2,7 @@
 /* SEO */
 const seoTitle = "Annuaire sites web du Sénégal";
 const seoDescription = "Annuaire de sites internets publics du Sénégal";
-const seoImgPath = "https://vie-publique.sn/images/share-linkedin.png";
+const seoImgPath = "https://www.vie-publique.sn/images/share-linkedin.png";
 const seoPageUrl = "https://www.vie-publique.sn/annuaire-sites-publics-senegal";
 useHead({
   title: seoTitle,

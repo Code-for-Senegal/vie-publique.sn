@@ -303,7 +303,7 @@ useHead({
             </li>
             <li>
               <strong>Site web</strong> :
-              <a href="https://vie-publique.sn">https://vie-publique.sn</a>
+              <a href="https://www.vie-publique.sn">https://www.vie-publique.sn</a>
             </li>
             <li>
               <strong>Réseaux sociaux</strong> : Suivez-nous sur

@@ -3,8 +3,8 @@ useSeoMeta({
   title: 'Documents Stratégies Sénégal',
   description: 'Documents de Stratégie du Sénégal',
   ogDescription: 'Documents de Stratégie du Sénégal',
-  ogImage: 'https://vie-publique.sn/images/share-linkedin.png',
-  ogUrl: 'https://vie-publique.sn/documents/strategies',
+  ogImage: 'https://www.vie-publique.sn/images/share-linkedin.png',
+  ogUrl: 'https://www.vie-publique.sn/documents/strategies',
   twitterCard: 'summary_large_image',
 });
 

@@ -7,7 +7,7 @@ export default defineCachedEventHandler(
     return mockData as CorruptionDashboardResponse;
   },
   {
-    maxAge: 60 * 60, // 1h cache
+    maxAge: 60 * 5, // 5 minutes cache
     name: 'dashboard-corruption',
   },
 );

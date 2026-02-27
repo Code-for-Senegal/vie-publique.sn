@@ -6,7 +6,7 @@ const seoTitle = "Élections Législatives 2024 Sénégal";
 const seoDescription =
   "Élections Législatives anticipées du 17 Novembre 2024 Sénégal: coalitions, listes, candidats, résultats";
 const seoImgPath = "/images/vpsn-share-elections.png";
-const seoPageUrl = "https://vie-publique.sn/elections/legislatives";
+const seoPageUrl = "https://www.vie-publique.sn/elections/legislatives";
 useHead({
   title: seoTitle,
   meta: [

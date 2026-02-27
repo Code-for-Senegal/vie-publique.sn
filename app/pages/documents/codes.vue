@@ -4,8 +4,8 @@ useSeoMeta({
   description:
     'Sénégal Constitution, Code de la famille, Code du travail, Code des collectivités locales, Code de la presse',
   ogDescription: 'Codes généraux du Sénégal',
-  ogImage: 'https://vie-publique.sn/images/vpsn-share-jors.png',
-  ogUrl: 'https://vie-publique.sn/documents/codes',
+  ogImage: 'https://www.vie-publique.sn/images/vpsn-share-jors.png',
+  ogUrl: 'https://www.vie-publique.sn/documents/codes',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Codes du Sénégal',
   twitterDescription:

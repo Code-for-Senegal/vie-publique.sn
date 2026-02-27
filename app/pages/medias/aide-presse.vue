@@ -5,7 +5,7 @@ const seoTitle = "Aide à la presse Sénégal 2023";
 const seoDescription =
   "Fonds d'appui et de développement de la presse (FADP), classement des titres de presse aidés en 2023 au Sénégal";
 const seoImgPath = "/images/share-media.JPG";
-const seoPageUrl = "https://vie-publique.sn/medias/aide";
+const seoPageUrl = "https://www.vie-publique.sn/medias/aide";
 useHead({
   title: seoTitle,
   meta: [

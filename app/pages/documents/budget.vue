@@ -30,8 +30,8 @@ useSeoMeta({
   title: 'Documents Budgétaires du Sénégal',
   description: 'Documents Budgétaires sur le Sénégal',
   ogDescription: 'Documents Budgétaires du Sénégal',
-  ogImage: 'https://vie-publique.sn/images/share-linkedin.png',
-  ogUrl: 'https://vie-publique.sn/documents/budget',
+  ogImage: 'https://www.vie-publique.sn/images/share-linkedin.png',
+  ogUrl: 'https://www.vie-publique.sn/documents/budget',
   twitterCard: 'summary_large_image',
 });
 </script>

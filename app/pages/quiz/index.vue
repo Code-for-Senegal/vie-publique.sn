@@ -30,7 +30,7 @@ useHead({
       content: "Jeux Quiz sur le Sénégal et le gouvernement du Sénégal",
     },
     { property: "og:image", content: "/quiz-1.png" },
-    { property: "og:url", content: "https://vie-publique.sn/quiz" },
+    { property: "og:url", content: "https://www.vie-publique.sn/quiz" },
     { property: "og:type", content: "website" },
   ],
 });

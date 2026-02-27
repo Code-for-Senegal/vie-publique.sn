@@ -59,8 +59,8 @@ const seoDescription =
   "Suivez l'activité parlementaire de l'Assemblée nationale du Sénégal : séances plénières, commissions, textes adoptés, questions au gouvernement et travaux parlementaires.";
 const seoKeywords =
   "Assemblée nationale Sénégal, députés sénégalais, parlement sénégal, lois sénégal, séances plénières, commissions parlementaires";
-const seoImgPath = "https://vie-publique.sn/seo-img-assemblee.png";
-const seoPageUrl = "https://vie-publique.sn/assemblee-nationale";
+const seoImgPath = "https://www.vie-publique.sn/seo-img-assemblee.png";
+const seoPageUrl = "https://www.vie-publique.sn/assemblee-nationale";
 useHead({
   title: seoTitle,
   meta: [

@@ -2,8 +2,8 @@
 const seoTitle = "Justice République du Sénégal";
 const seoDescription =
   "La justice Sénégal, Conseil supérieur de la magistrature, Cour suprême, Conseil constitutionnel, Conseil d'État, Cour d'appel, Tribunal";
-const seoImgPath = "https://vie-publique.sn/images/share-linkedin.png";
-const seoPageUrl = "https://vie-publique.sn/justice";
+const seoImgPath = "https://www.vie-publique.sn/images/share-linkedin.png";
+const seoPageUrl = "https://www.vie-publique.sn/justice";
 useHead({
   title: seoTitle,
   meta: [

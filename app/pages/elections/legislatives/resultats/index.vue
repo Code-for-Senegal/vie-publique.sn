@@ -65,7 +65,7 @@ const seoTitle = "Résultats Élections Législatives 2024 Sénégal";
 const seoDescription =
   "Résultats Élections Législatives anticipées du 17 Novembre 2024 Sénégal";
 const seoImgPath = "/images/vpsn-share-elections.png";
-const seoPageUrl = "https://vie-publique.sn/elections/legislatives";
+const seoPageUrl = "https://www.vie-publique.sn/elections/legislatives";
 useHead({
   title: seoTitle,
   meta: [
