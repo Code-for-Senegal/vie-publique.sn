@@ -160,29 +160,53 @@ function handleTabClick(tab: (typeof tabs)[number]) {
       </div>
 
       <!-- Content — Tableau de bord -->
-      <div v-else-if="dashboard" v-show="activeTab === 'dashboard'" class="space-y-8">
-        <!-- Score IIAG + CPI -->
-        <DashboardCorruptionScoreHero
-          :country="dashboard.country"
-          :iiag="dashboard.iiag"
-          :cpi="dashboard.cpi"
-        />
+      <div v-if="dashboard" v-show="activeTab === 'dashboard'" class="space-y-6">
 
-        <!-- Charts row -->
-        <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <DashboardCorruptionEvolutionChart :evolution="dashboard.evolution" />
-          <DashboardCorruptionPillarRadarChart
-            :pillars="dashboard.pillars"
-            :year="dashboard.iiag.year"
-          />
+        <!-- Top Section: Grid 2/3 + 1/3 -->
+        <div class="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-12">
+
+          <!-- Left Column (2/3) -->
+          <div class="flex flex-col gap-6 lg:col-span-8">
+            <!-- Score Hero -->
+            <DashboardCorruptionScoreHero
+              :country="dashboard.country"
+              :iiag="dashboard.iiag"
+              :cpi="dashboard.cpi"
+            />
+
+            <!-- Evolution Chart -->
+            <DashboardCorruptionEvolutionChart :evolution="dashboard.evolution" />
+          </div>
+
+          <!-- Right Column (1/3) -->
+          <div class="lg:col-span-4">
+            <!-- Radar Column - fills height -->
+            <DashboardCorruptionPillarRadarChart
+              :pillars="dashboard.pillars"
+              :year="dashboard.iiag.year"
+              class="h-full"
+            />
+          </div>
         </div>
 
-        <!-- Signaux d'alerte + Actions citoyennes -->
-        <div class="grid grid-cols-1 gap-6 lg:grid-cols-4">
-          <div class="lg:col-span-3">
+        <!-- Bottom Section: Signaux (Full) + Actions (Full) -->
+        <div class="space-y-6">
+          <!-- Signaux d'alerte (Wide) -->
+          <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-800/50">
+            <div class="mb-6 flex items-center justify-between">
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white">Signaux d'alerte</h3>
+              <NuxtLink
+                to="/dashboard/corruption/signaler"
+                class="flex items-center gap-1 text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+              >
+                Voir les zones faibles <UIcon name="i-heroicons-chevron-right" class="h-4 w-4" />
+              </NuxtLink>
+            </div>
             <DashboardCorruptionAlertSignals :alerts="dashboard.alerts" />
           </div>
-          <div>
+
+          <!-- Actions Citoyennes (Separate Block) -->
+          <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-800/50">
             <DashboardCorruptionCitizenActions />
           </div>
         </div>
