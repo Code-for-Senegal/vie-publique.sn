@@ -366,26 +366,6 @@ const showPdfViewer = ref(false);
                 />
               </div>
             </ClientOnly>
-
-            <!-- Aperçu PDF intégré -->
-            <ClientOnly>
-              <div v-if="fileUrl" class="mt-8">
-                <div class="mb-4 flex items-center gap-2">
-                  <UIcon name="i-heroicons-document-text" class="h-5 w-5 text-gray-400" />
-                  <h2 class="text-sm font-semibold text-gray-900 dark:text-white">
-                    Aperçu du document
-                  </h2>
-                </div>
-                <div
-                  class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
-                >
-                  <PdfViewer
-                    :source="fileUrl"
-                    :download-name="`${document?.slug || 'document'}.pdf`"
-                  />
-                </div>
-              </div>
-            </ClientOnly>
           </div>
 
           <!-- Sidebar Desktop -->

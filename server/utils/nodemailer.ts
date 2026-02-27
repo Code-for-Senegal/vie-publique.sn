@@ -251,7 +251,7 @@ export async function sendDonationConfirmationEmail(
     </div>
 
     <div style="text-align: center;">
-      <a href="https://vie-publique.sn" class="button">Visiter Vie Publique Sénégal</a>
+      <a href="https://www.vie-publique.sn" class="button">Visiter Vie Publique Sénégal</a>
     </div>
 
     <div class="message" style="background-color: #fff3cd; border-left-color: #ffc107;">
@@ -274,7 +274,7 @@ export async function sendDonationConfirmationEmail(
         <a href="https://www.linkedin.com/company/vie-publique-sn">LinkedIn</a> |
         <a href="https://www.whatsapp.com/channel/0029VawbhaFLikg1htAGXc2I">Chaîne WhatsApp</a> |
         <a href="https://www.youtube.com/@ViePubliqueSenegal">Youtube</a> |
-        <a href="https://vie-publique.sn">Site Web</a>
+        <a href="https://www.vie-publique.sn">Site Web</a>
       </div>
       <p style="margin-top: 20px; font-size: 12px; color: #999;">
         Cet email a été envoyé automatiquement. Merci de ne pas y répondre directement.
@@ -305,7 +305,7 @@ ${donationData.donor_phone ? `Téléphone : ${donationData.donor_phone}\n` : ''}
 Conservez cet email comme preuve de votre transaction.
 
 Pour toute question, contactez-nous à : contact@vie-publique.sn
-Visitez notre site : https://vie-publique.sn
+Visitez notre site : https://www.vie-publique.sn
 
 Merci pour votre soutien !
 

@@ -417,7 +417,7 @@ export default defineNuxtConfig({
         },
         {
           property: 'og:image',
-          content: 'https://vie-publique.sn/images/share-linkedin.png',
+          content: 'https://www.vie-publique.sn/images/share-linkedin.png',
         },
         {
           property: 'og:image:type',
@@ -433,7 +433,7 @@ export default defineNuxtConfig({
         },
         {
           property: 'og:url',
-          content: 'https://vie-publique.sn',
+          content: 'https://www.vie-publique.sn',
         },
         {
           property: 'og:type',
@@ -515,8 +515,8 @@ export default defineNuxtConfig({
     identity: {
       type: 'Organization',
       name: 'Vie Publique Sénégal',
-      url: 'https://vie-publique.sn',
-      logo: 'https://vie-publique.sn/social-image.png',
+      url: 'https://www.vie-publique.sn',
+      logo: 'https://www.vie-publique.sn/social-image.png',
     },
   },
   gtag: {
