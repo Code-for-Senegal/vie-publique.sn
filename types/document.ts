@@ -18,7 +18,10 @@ export type DocumentType =
   | 'general_policy_statement'
   | 'parliament_report'
   | 'parliament_question'
-  | 'public_notice';
+  | 'public_notice'
+  | 'press_release'
+  | 'election'
+  ;
 
 // Mapping type → label français
 export const DOC_TYPE_LABELS: Record<string, string> = {
