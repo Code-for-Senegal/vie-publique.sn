@@ -4,33 +4,54 @@ const { siteName, siteUrl, keywords, themeColor } = useSiteMetadata();
 const url = `${siteUrl}/nomination-senegal`;
 const image = `${siteUrl}/nomination-3.png`;
 
-// Mois en français pour le SEO dynamique
-const monthNames = [
-  'janvier',
-  'février',
-  'mars',
-  'avril',
-  'mai',
-  'juin',
-  'juillet',
-  'août',
-  'septembre',
-  'octobre',
-  'novembre',
-  'décembre',
-];
-const now = new Date();
-const currentMonth = monthNames[now.getMonth()];
-const currentYear = now.getFullYear();
+const { $dateformat } = useNuxtApp();
+const route = useRoute();
 
-const title = `Nominations au Sénégal — Ministres, DG, PCA — ${currentMonth} ${currentYear}`;
-const description = `Liste complète des nominations au Sénégal, ${currentMonth} ${currentYear}. Ministres, directeurs généraux, PCA, ambassadeurs nommés en conseil des ministres. Mise à jour en temps réel.`;
+const {
+  nominations,
+  loading,
+  error,
+  currentPage,
+  searchQuery,
+  filterType,
+  filterGender,
+  totalItems,
+  totalPages,
+  totalsByType,
+  totalsByGender,
+  setCurrentPage,
+  setSearchQuery,
+  setFilterType,
+  setFilterGender,
+} = useNominations();
 
-const nominationsSchema = {
+// SEO dynamique : titre basé sur la date de la dernière nomination
+const formatDateFr = (dateStr: string) => {
+  const d = new Date(dateStr);
+  return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+};
+
+const title = computed(() => {
+  const latest = nominations.value?.[0];
+  if (latest?.nominationDate) {
+    return `Nominations au Sénégal — Dernière mise à jour ${formatDateFr(latest.nominationDate)}`;
+  }
+  return 'Nominations au Sénégal — Ministres, DG, PCA';
+});
+
+const description = computed(() => {
+  const latest = nominations.value?.[0];
+  if (latest?.nominationDate) {
+    return `Liste complète des nominations au Sénégal. Dernière nomination le ${formatDateFr(latest.nominationDate)}. Ministres, directeurs généraux, PCA, ambassadeurs nommés en conseil des ministres.`;
+  }
+  return 'Liste complète des nominations au Sénégal. Ministres, directeurs généraux, PCA, ambassadeurs nommés en conseil des ministres.';
+});
+
+const nominationsSchema = computed(() => ({
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  name: title,
-  description: description,
+  name: title.value,
+  description: description.value,
   url: url,
   image: image,
   isPartOf: {
@@ -40,21 +61,16 @@ const nominationsSchema = {
   },
   about: [
     {
-      '@type': 'Person',
-      name: 'Bassirou Diomaye Faye',
-      jobTitle: 'Président de la République du Sénégal',
-    },
-    {
       '@type': 'GovernmentOrganization',
       name: 'Gouvernement du Sénégal',
     },
   ],
   mainEntity: {
     '@type': 'ItemList',
-    name: 'Nominations présidentielles Sénégal',
-    description: 'Liste des nominations officielles du président Diomaye Faye',
+    name: 'Nominations officielles Sénégal',
+    description: 'Liste des nominations officielles en conseil des ministres',
   },
-};
+}));
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -106,15 +122,15 @@ const organizationSchema = {
 
 // SEO Meta Tags
 useSeoMeta({
-  title,
-  ogTitle: title,
-  description,
-  ogDescription: description,
+  title: () => title.value,
+  ogTitle: () => title.value,
+  description: () => description.value,
+  ogDescription: () => description.value,
   ogImage: image,
   ogUrl: url,
   twitterCard: 'summary_large_image',
-  twitterTitle: title,
-  twitterDescription: description,
+  twitterTitle: () => title.value,
+  twitterDescription: () => description.value,
   twitterImage: image,
   keywords: [
     ...keywords,
@@ -144,7 +160,7 @@ useHead({
   script: [
     {
       type: 'application/ld+json',
-      children: JSON.stringify(nominationsSchema),
+      children: computed(() => JSON.stringify(nominationsSchema.value)),
     },
     {
       type: 'application/ld+json',
@@ -156,27 +172,6 @@ useHead({
     },
   ],
 });
-
-const { $dateformat } = useNuxtApp();
-const route = useRoute();
-
-const {
-  nominations,
-  loading,
-  error,
-  currentPage,
-  searchQuery,
-  filterType,
-  filterGender,
-  totalItems,
-  totalPages,
-  totalsByType,
-  totalsByGender,
-  setCurrentPage,
-  setSearchQuery,
-  setFilterType,
-  setFilterGender,
-} = useNominations();
 
 // Fonction pour créer l'URL vers détails en gardant les filtres actuels
 const getDetailUrl = (minister: any) => {
@@ -214,8 +209,8 @@ watch([filterType, filterGender], () => {
     <AppBreadcrumb :items="[{ label: 'Nominations' }]" />
 
     <h1 class="sr-only mb-4 text-sm text-gray-500">
-      Membres du gouvernement du Sénégal, Nouveau gouvernement Sénégal Diomaye Sonko, Conseil des
-      ministres, Liste des ministres du Sénégal,
+      Nominations au Sénégal, Membres du gouvernement, Conseil des ministres, Liste des ministres du
+      Sénégal, Directeurs généraux, PCA
     </h1>
     <div class="container">
       <div class="prose prose-sm my-2 sm:prose">

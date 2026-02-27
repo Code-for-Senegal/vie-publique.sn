@@ -6,33 +6,51 @@ const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadat
 const url = `${siteUrl}/conseil-des-ministres`;
 const image = `${siteUrl}/images/share-conseil-des-ministres-nomination-full.jfif`;
 
-// Mois en français pour le SEO dynamique
-const monthNames = [
-  'janvier',
-  'février',
-  'mars',
-  'avril',
-  'mai',
-  'juin',
-  'juillet',
-  'août',
-  'septembre',
-  'octobre',
-  'novembre',
-  'décembre',
-];
-const now = new Date();
-const currentMonth = monthNames[now.getMonth()];
-const currentYear = now.getFullYear();
+// Utilisation du composable useNews avec la catégorie "Conseil des ministres"
+const {
+  articles,
+  loading,
+  error,
+  searchQuery,
+  currentPage,
+  totalItems,
+  totalPages,
+  itemsPerPage,
+  setSearchQuery,
+  setCurrentPage,
+} = useNews({
+  category: 'Conseil des ministres',
+  sort: '-date_published',
+  limit: 9,
+});
 
-const title = `Conseil des ministres du Sénégal — ${currentMonth} ${currentYear}`;
-const description = `Communiqués du Conseil des ministres du Sénégal, ${currentMonth} ${currentYear}. Décisions, nominations et décrets du gouvernement. Mis à jour chaque semaine.`;
+// SEO dynamique : titre basé sur la date du dernier communiqué
+const formatDateFr = (dateStr: string) => {
+  const d = new Date(dateStr);
+  return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+};
 
-const conseilMinistresSchema = {
+const title = computed(() => {
+  const latest = articles.value?.[0];
+  if (latest?.date_published) {
+    return `Conseil des ministres du ${formatDateFr(latest.date_published)}`;
+  }
+  return 'Conseil des ministres du Sénégal — Communiqués officiels';
+});
+
+const description = computed(() => {
+  const latest = articles.value?.[0];
+  if (latest?.date_published) {
+    return `Dernier communiqué du conseil des ministres du ${formatDateFr(latest.date_published)}. Décisions, nominations et décrets du gouvernement du Sénégal.`;
+  }
+  return 'Communiqués du Conseil des ministres du Sénégal. Décisions, nominations et décrets du gouvernement.';
+});
+
+const conseilMinistresSchema = computed(() => ({
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: title,
-  description: description,
+  name: title.value,
+  description: description.value,
   url: url,
   image: image,
   isPartOf: {
@@ -55,7 +73,7 @@ const conseilMinistresSchema = {
     name: 'Communiqués du Conseil des ministres',
     description: 'Collection des communiqués officiels du Conseil des ministres du Sénégal',
   },
-};
+}));
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -126,15 +144,15 @@ const governmentServiceSchema = {
 
 // SEO Meta Tags
 useSeoMeta({
-  title,
-  ogTitle: title,
-  description,
-  ogDescription: description,
+  title: () => title.value,
+  ogTitle: () => title.value,
+  description: () => description.value,
+  ogDescription: () => description.value,
   ogImage: image,
   ogUrl: url,
   twitterCard: 'summary_large_image',
-  twitterTitle: title,
-  twitterDescription: description,
+  twitterTitle: () => title.value,
+  twitterDescription: () => description.value,
   twitterImage: image,
   keywords: [
     ...keywords,
@@ -167,7 +185,7 @@ useHead({
   script: [
     {
       type: 'application/ld+json',
-      children: JSON.stringify(conseilMinistresSchema),
+      children: computed(() => JSON.stringify(conseilMinistresSchema.value)),
     },
     {
       type: 'application/ld+json',
@@ -182,24 +200,6 @@ useHead({
       children: JSON.stringify(governmentServiceSchema),
     },
   ],
-});
-
-// Utilisation du composable useNews avec la catégorie "Conseil des ministres"
-const {
-  articles,
-  loading,
-  error,
-  searchQuery,
-  currentPage,
-  totalItems,
-  totalPages,
-  itemsPerPage,
-  setSearchQuery,
-  setCurrentPage,
-} = useNews({
-  category: 'Conseil des ministres',
-  sort: '-date_published',
-  limit: 9,
 });
 
 const formatDateISO = (date: string) => {
