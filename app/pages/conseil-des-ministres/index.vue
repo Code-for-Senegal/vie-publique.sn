@@ -3,11 +3,30 @@ import { useNews } from '~/composables/news/useNews';
 
 const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
 
-const title = 'Conseil des ministres du Sénégal | Communiqués officiels';
-const description =
-  'Suivez les communiqués du Conseil des ministres du gouvernement sénégalais. Décisions, nominations et orientations du gouvernement du Sénégal.';
 const url = `${siteUrl}/conseil-des-ministres`;
 const image = `${siteUrl}/images/share-conseil-des-ministres-nomination-full.jfif`;
+
+// Mois en français pour le SEO dynamique
+const monthNames = [
+  'janvier',
+  'février',
+  'mars',
+  'avril',
+  'mai',
+  'juin',
+  'juillet',
+  'août',
+  'septembre',
+  'octobre',
+  'novembre',
+  'décembre',
+];
+const now = new Date();
+const currentMonth = monthNames[now.getMonth()];
+const currentYear = now.getFullYear();
+
+const title = `Conseil des ministres du Sénégal — ${currentMonth} ${currentYear}`;
+const description = `Communiqués du Conseil des ministres du Sénégal, ${currentMonth} ${currentYear}. Décisions, nominations et décrets du gouvernement. Mis à jour chaque semaine.`;
 
 const conseilMinistresSchema = {
   '@context': 'https://schema.org',

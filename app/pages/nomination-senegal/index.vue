@@ -1,11 +1,30 @@
 <script setup lang="ts">
 const { siteName, siteUrl, keywords, themeColor } = useSiteMetadata();
 
-const title = 'Nominations du Président Diomaye Faye | Annuaire Sénégal';
-const description =
-  'Liste complète des nominations du président Bassirou Diomaye Faye au Sénégal. Ministres, Directeurs généraux, PCA et toutes les nominations officielles.';
 const url = `${siteUrl}/nomination-senegal`;
 const image = `${siteUrl}/nomination-3.png`;
+
+// Mois en français pour le SEO dynamique
+const monthNames = [
+  'janvier',
+  'février',
+  'mars',
+  'avril',
+  'mai',
+  'juin',
+  'juillet',
+  'août',
+  'septembre',
+  'octobre',
+  'novembre',
+  'décembre',
+];
+const now = new Date();
+const currentMonth = monthNames[now.getMonth()];
+const currentYear = now.getFullYear();
+
+const title = `Nominations au Sénégal — Ministres, DG, PCA — ${currentMonth} ${currentYear}`;
+const description = `Liste complète des nominations au Sénégal, ${currentMonth} ${currentYear}. Ministres, directeurs généraux, PCA, ambassadeurs nommés en conseil des ministres. Mise à jour en temps réel.`;
 
 const nominationsSchema = {
   '@context': 'https://schema.org',
