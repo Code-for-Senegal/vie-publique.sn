@@ -29,7 +29,7 @@ export const useNewsletter = () => {
       );
 
       if (data?.success) {
-        message.value = data.message ?? 'Inscription réussie ! Un email de bienvenue vous a été envoyé.';
+        message.value = data.message ?? 'Inscription réussie ! Merci de vous être abonné.';
         alertType.value = 'success';
         formSubmitted.value = true;
       } else {

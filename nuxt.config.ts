@@ -94,14 +94,14 @@ const securityConfig =
 export default defineNuxtConfig({
   // Force process exit after build to prevent hanging due to open handles
   // (Firebase, Typesense, PWA service worker keep Node.js alive)
-  // hooks: {
-  //   close: () => {
-  //     setTimeout(() => {
-  //       console.log('\n[build] Forcing process exit (open handles detected)');
-  //       process.exit(0);
-  //     }, 5000);
-  //   },
-  // },
+  hooks: {
+    close: () => {
+      setTimeout(() => {
+        console.log('\n[build] Forcing process exit (open handles detected)');
+        process.exit(0);
+      }, 5000);
+    },
+  },
 
   future: {
     compatibilityVersion: 4,

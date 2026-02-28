@@ -17,8 +17,11 @@
         type="submit"
         :loading="isLoading"
         :disabled="!isValidEmail"
-        color="primary"
-        class="w-full"
+        color="gray"
+        variant="solid"
+        size="md"
+        trailing-icon="i-heroicons-arrow-right"
+        class="w-full rounded-full border-gray-200 bg-white font-medium"
       >
         {{ isLoading ? "Envoi en cours..." : "S'abonner à la newsletter" }}
       </UButton>
