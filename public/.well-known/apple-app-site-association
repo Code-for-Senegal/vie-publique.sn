@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "SHJMC27623.sn.viepublique.app",
+        "paths": ["*"]
+      }
+    ]
+  }
+}

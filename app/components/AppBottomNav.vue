@@ -85,44 +85,38 @@ const isActiveTab = (tab: Tab) => tab.name === activeTabName.value
     inset 0 -1px 0 rgba(255, 255, 255, 0.15);
 }
 
-/* ── Nav items ── */
+/* ── Nav items (dark mode - blanc pur) ── */
 .nav-item {
   min-width: 52px;
-  color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
   -webkit-tap-highlight-color: transparent;
   text-decoration: none;
 }
 
-.nav-item:hover {
-  color: rgba(255, 255, 255, 0.75);
-}
-
+.nav-item:hover,
 .nav-item.is-active {
-  color: rgba(255, 255, 255, 0.95);
+  color: #ffffff;
 }
 
 /* ── Active pill (capsule) ── */
 .active-pill {
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.1);
 }
 
 :root:not(.dark) .active-pill {
-  background: rgba(0, 0, 0, 0.07);
-  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.08);
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.06);
 }
 
-/* ── Light mode text ── */
+/* ── Light mode text (noir pur) ── */
 :root:not(.dark) .nav-item {
-  color: rgba(0, 0, 0, 0.4);
+  color: #000000;
 }
 
-:root:not(.dark) .nav-item:hover {
-  color: rgba(0, 0, 0, 0.65);
-}
-
+:root:not(.dark) .nav-item:hover,
 :root:not(.dark) .nav-item.is-active {
-  color: rgba(0, 0, 0, 0.85);
+  color: #000000;
 }
 </style>
