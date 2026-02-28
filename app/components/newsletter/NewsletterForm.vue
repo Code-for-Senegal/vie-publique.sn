@@ -13,18 +13,20 @@
           class="w-full"
         />
       </UFormGroup>
-      <UButton
-        type="submit"
-        :loading="isLoading"
-        :disabled="!isValidEmail"
-        color="gray"
-        variant="solid"
-        size="md"
-        trailing-icon="i-heroicons-arrow-right"
-        class="w-full rounded-full border-gray-200 bg-white font-medium"
-      >
-        {{ isLoading ? "Envoi en cours..." : "S'abonner à la newsletter" }}
-      </UButton>
+      <div class="text-center">
+        <UButton
+          type="submit"
+          :loading="isLoading"
+          :disabled="!isValidEmail"
+          color="gray"
+          variant="solid"
+          size="md"
+          trailing-icon="i-heroicons-arrow-right"
+          class="rounded-full border-gray-200 bg-white font-medium"
+        >
+          {{ isLoading ? "Envoi en cours..." : "S'abonner à la newsletter" }}
+        </UButton>
+      </div>
     </form>
 
     <!-- Alert dark-mode card -->
