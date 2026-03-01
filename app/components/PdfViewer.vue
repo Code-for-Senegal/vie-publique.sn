@@ -318,6 +318,7 @@ const loadPdf = async () => {
   try {
     const loadingTask = pdfjsLib.getDocument({
       url: props.source,
+      wasmUrl: '/pdf-worker/',
       onProgress: (progress) => {
         if (progress.total > 0) {
           loadingProgress.value = (progress.loaded / progress.total) * 100;

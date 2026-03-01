@@ -181,7 +181,10 @@ const loadPdf = async () => {
   pageRefs.value = []
 
   try {
-    const loadingTask = pdfjsLib.getDocument(props.src)
+    const loadingTask = pdfjsLib.getDocument({
+      url: props.src,
+      wasmUrl: '/pdf-worker/',
+    })
 
     loadingTask.onProgress = (progress: any) => {
       if (progress.total > 0) {
