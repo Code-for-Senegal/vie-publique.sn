@@ -120,6 +120,13 @@ export default defineNuxtConfig({
     externals: {
       defu: 'defu',
     },
+    publicAssets: [
+      {
+        dir: join(process.cwd(), 'node_modules/pdfjs-dist/wasm'),
+        baseURL: '/pdf-worker',
+        maxAge: 60 * 60 * 24 * 7, // 7 jours
+      },
+    ],
     // Configuration proxy pour les images et fichiers en développement
     devProxy: process.env.CMS_API_URL
       ? {
