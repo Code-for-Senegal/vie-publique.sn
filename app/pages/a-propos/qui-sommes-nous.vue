@@ -260,6 +260,63 @@ useHead({
         sources publiques, puis centralisés, enrichis, croisés avant d'être publiés sur Vie Publique
         dans le but de faciliter leur accès et leur utilisation par le public.
       </p>
+
+      <h3>Avertissement</h3>
+
+      <p>
+        Cette application ne représente aucune entité officielle du Gouvernement du Sénégal.
+      </p>
+
+      <p>Elle permet d'accéder à des informations publiques disponibles en ligne, notamment :</p>
+
+      <ul>
+        <li>Textes officiels</li>
+        <li>Journaux officiels</li>
+        <li>Lois et décrets</li>
+        <li>Publications institutionnelles</li>
+        <li>Informations électorales publiées officiellement</li>
+      </ul>
+
+      <p>
+        Toutes les données proviennent exclusivement de sources publiques officielles accessibles au
+        public, notamment :
+      </p>
+
+      <ul>
+        <li><a href="https://www.presidence.sn" target="_blank" rel="noopener">presidence.sn</a></li>
+        <li><a href="https://www.primature.sn" target="_blank" rel="noopener">primature.sn</a></li>
+        <li><a href="https://www.cena.sn" target="_blank" rel="noopener">cena.sn</a></li>
+        <li><a href="https://dge.sn" target="_blank" rel="noopener">dge.sn</a></li>
+        <li><a href="https://assemblee.sn" target="_blank" rel="noopener">assemblee.sn</a></li>
+      </ul>
+
+      <p>
+        Les contenus sont reproduits à des fins informatives et éducatives uniquement, après leur
+        publication officielle par les autorités compétentes.
+      </p>
+
+      <p>
+        Cette application n'est affiliée, sponsorisée ni approuvée par aucune institution
+        gouvernementale.
+      </p>
+
+      <p>
+        Vie Publique SN ne collecte ni données électorales personnelles, ni votes, ni données
+        sensibles liées au processus électoral.
+      </p>
+
+      <p>
+        Pour toute information officielle et juridiquement opposable, les utilisateurs doivent
+        consulter directement les sites gouvernementaux concernés.
+      </p>
+
+      <p>La plateforme met en œuvre un service d’ingestion de données encadré, reposant sur des mécanismes de limitation des requêtes (quotas), de journalisation sécurisée et de mise en cache, afin de garantir la traçabilité des opérations, le respect des conditions d’utilisation des sources et la stabilité des systèmes interrogés. Fonctionnalités principales :</p>
+      <ul>
+        <li>Consultation des politiques publiques</li>
+        <li>Accès aux documents officiels</li>
+        <li>Tableaux de bord de suivi</li>
+        <li>Visualisation des indicateurs</li>
+      </ul>
     </article>
   </div>
 </template>
