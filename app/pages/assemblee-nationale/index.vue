@@ -101,7 +101,7 @@ useHead({
 
 <template>
   <div class="min-h-screen bg-gray-50 pb-16 dark:bg-gray-900">
-    <div class="container mx-auto px-4 pt-4">
+    <div class="hidden md:block container mx-auto px-4 pt-4">
       <AppBreadcrumb :items="[
         { label: 'Assemblée nationale' }
       ]" />

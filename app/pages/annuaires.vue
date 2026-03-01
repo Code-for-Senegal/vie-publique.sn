@@ -222,7 +222,7 @@ const getIconColor = (color: string) => {
 <template>
   <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-900">
     <!-- Breadcrumb -->
-    <div class="container mx-auto px-4 pt-4">
+    <div class="hidden md:block container mx-auto px-4 pt-4">
       <AppBreadcrumb :items="[{ label: 'Annuaires' }]" />
     </div>
 
@@ -297,8 +297,8 @@ const getIconColor = (color: string) => {
       <div class="mt-6 rounded-2xl bg-gradient-to-br from-sky-500 to-sky-600 p-4 text-white md:p-6">
         <h3 class="mb-3 text-sm font-semibold md:text-base">À propos des annuaires</h3>
         <p class="text-xs leading-relaxed text-white/90 md:text-sm">
-          Les annuaires de Vie Publique Sénégal regroupent les informations officielles 
-          sur les nominations gouvernementales, les représentants élus, les médias reconnus 
+          Les annuaires de Vie Publique Sénégal regroupent les informations officielles
+          sur les nominations gouvernementales, les représentants élus, les médias reconnus
           et les sites web des institutions publiques.
         </p>
         <div class="mt-4 grid grid-cols-3 gap-2">
