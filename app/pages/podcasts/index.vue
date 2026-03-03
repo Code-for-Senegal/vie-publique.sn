@@ -135,14 +135,27 @@ const closePlayer = () => {
   currentPodcast.value = null;
 };
 
-// Featured podcast (le plus récent)
-const featuredPodcast = computed(() => podcasts.value?.[0] || null);
+// Featured podcast (le plus récent) - uniquement sur la page 1
+const featuredPodcast = computed(() => {
+  if (currentPage.value !== 1) return null;
+  return podcasts.value?.[0] || null;
+});
 
-// Recent podcasts (les 6 suivants pour le scroll horizontal)
-const recentPodcasts = computed(() => podcasts.value?.slice(1, 4) || []);
+// Recent podcasts (les 3 suivants) - uniquement sur la page 1
+const recentPodcasts = computed(() => {
+  if (currentPage.value !== 1) return [];
+  return podcasts.value?.slice(1, 4) || [];
+});
 
 // All other podcasts
-const otherPodcasts = computed(() => podcasts.value?.slice(12) || []);
+const otherPodcasts = computed(() => {
+  if (currentPage.value === 1) {
+    // Sur la page 1, on saute le featured (1) et les récents (3)
+    return podcasts.value?.slice(4) || [];
+  }
+  // Sur les autres pages, on affiche tout le contenu de la page
+  return podcasts.value || [];
+});
 
 // Get YouTube thumbnail
 const getYoutubeThumbnail = (podcast: PodcastEpisode) => {
@@ -230,10 +243,6 @@ const getPodcastUrl = (podcast: PodcastEpisode) => {
             {{ featuredPodcast.title }}
           </h1>
 
-          <p v-if="featuredPodcast.description" class="mt-3 line-clamp-2 max-w-xl text-sm text-gray-600 md:text-base dark:text-white/70">
-            {{ featuredPodcast.description }}
-          </p>
-
           <div
             v-if="featuredPodcast.description"
             class="mt-3 line-clamp-2 max-w-xl text-sm text-gray-600 md:text-base dark:text-white/70 [&>p]:m-0 [&>p]:inline"
@@ -263,7 +272,7 @@ const getPodcastUrl = (podcast: PodcastEpisode) => {
     </div>
 
     <!-- Loading Hero -->
-    <div v-else-if="loading" class="relative h-[420px] bg-gray-100 md:h-[480px] dark:bg-gray-900">
+    <div v-else-if="loading && currentPage === 1" class="relative h-[420px] bg-gray-100 md:h-[480px] dark:bg-gray-900">
       <div class="absolute inset-0 bg-gradient-to-t from-white via-gray-100 to-gray-200 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800"></div>
       <div class="relative mx-auto max-w-6xl px-4 pt-16 md:pt-6">
         <!-- Desktop Navigation Skeleton -->
@@ -285,20 +294,10 @@ const getPodcastUrl = (podcast: PodcastEpisode) => {
 
     <!-- Main Content -->
     <div class="mx-auto max-w-6xl px-4">
-      <!-- Stats Bar -->
-      <div v-if="!loading && !error && podcasts.length > 0" class="flex items-center justify-between border-b border-gray-200 py-4 dark:border-white/10">
-        <div class="flex items-center gap-4">
-          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Tous les épisodes</h2>
-          <span class="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-600 dark:bg-white/10 dark:text-white/70">{{ totalItems }}</span>
-        </div>
-        <div class="hidden text-sm text-gray-500 sm:block dark:text-white/50">
-          <span class="inline-flex items-baseline">
-            <span class="text-blue-600 dark:text-blue-400">{{ displayedText }}</span>
-            <span class="typewriter-cursor ml-0.5 animate-pulse text-blue-600 dark:text-blue-400">|</span>
-          </span>
-        </div>
+      <!-- Breadcrumb for other pages -->
+      <div v-if="currentPage > 1" class="py-6">
+        <AppBreadcrumb :items="[{ label: 'Podcasts' }]" />
       </div>
-
       <!-- Recent Episodes Section -->
       <section v-if="!loading && recentPodcasts.length > 0" class="py-6">
         <div class="mb-4 flex items-center justify-between">
