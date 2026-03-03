@@ -21,13 +21,20 @@ export type DocumentType =
   | 'public_notice'
   | 'press_release'
   | 'election'
-  ;
+  | 'annual_report'
+  | 'parliamentary_report'
+  | 'sectoral_report'
+  | 'ministerial_order';
 
 // Mapping type → label français
 export const DOC_TYPE_LABELS: Record<string, string> = {
   official_journal: 'Journal officiel',
-  audit_report: "Rapport d'audit",
   law: 'Loi',
+  decree: 'Décret',
+  ministerial_order: 'Arrêté ministériel',
+  audit_report: "Rapport d'audit",
+  annual_report: 'Rapport activité annuel',
+  sectoral_report: 'Rapport sectoriel',
   code: 'Codes généraux',
   budget: 'Documents budget',
   council_of_ministers: 'Conseil des ministres',
@@ -35,7 +42,6 @@ export const DOC_TYPE_LABELS: Record<string, string> = {
   government_bill: 'Projet de loi',
   bill_proposal: 'Proposition de loi',
   speech: 'Discours',
-  decree: 'Décret',
   interministerial_council: 'Conseil interministériel',
   communique: 'Communiqué',
   international_report: 'Rapport international',
@@ -46,6 +52,7 @@ export const DOC_TYPE_LABELS: Record<string, string> = {
   general_policy_statement: 'Déclaration de politique générale',
   press_release: 'Communiqué de presse',
   election: 'Élection',
+  parliamentary_report: 'Rapport parlementaire',
 };
 
 // Familles de documents
@@ -57,6 +64,7 @@ export type DocumentFamily =
   | 'statistics'
   | 'parliament'
   | 'communication'
+  | 'election'
   | 'archives'
   | 'international';
 
@@ -69,6 +77,7 @@ export const DOC_FAMILY_LABELS: Record<string, string> = {
   statistics: 'Statistique',
   parliament: 'Parlementaire',
   communication: 'Communiqués',
+  election: 'Élection',
   archives: 'Archives',
   international: 'International',
 };
