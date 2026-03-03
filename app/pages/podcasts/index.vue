@@ -105,7 +105,7 @@ const {
   totalItems,
   itemsPerPage,
   featuredPodcasts,
-} = usePodcasts();
+} = usePodcasts({ limit: 25 });
 
 // Typewriter effect pour les mots thématiques
 const thematicWords = [
