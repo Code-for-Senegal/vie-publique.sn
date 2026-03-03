@@ -234,6 +234,12 @@ const getPodcastUrl = (podcast: PodcastEpisode) => {
             {{ featuredPodcast.description }}
           </p>
 
+          <div
+            v-if="featuredPodcast.description"
+            class="mt-3 line-clamp-2 max-w-xl text-sm text-gray-600 md:text-base dark:text-white/70 [&>p]:m-0 [&>p]:inline"
+            v-html="featuredPodcast.description"
+          />
+
           <div class="mt-6 flex flex-wrap items-center gap-3">
             <button
               class="group flex items-center gap-3 rounded-full bg-gray-900 px-6 py-3 font-semibold text-white transition-all hover:scale-105 hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100"
