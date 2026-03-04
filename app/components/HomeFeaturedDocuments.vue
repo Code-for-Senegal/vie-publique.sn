@@ -1,33 +1,31 @@
 <script setup lang="ts">
-import type { Document } from '~~/types/document';
+import { useLatestUpdatesStore } from '~/stores/latestUpdates';
 
-const { data: documents, pending, error } = useAsyncData('latest-documents', () =>
-  $fetch<{ documents: Document[] }>('/api/documents', {
-    params: { limit: 6, sort: '-publish_date' },
-  }).then((res) => res.documents),
-);
+const store = useLatestUpdatesStore();
 
-const getDocumentUrl = (doc: Document) => `/documents/${doc.id}/${doc.slug}`;
+onMounted(() => {
+  store.fetchUpdates();
+});
 </script>
 
 <template>
-  <section class="my-4" aria-labelledby="latest-documents-heading">
+  <section class="my-4" aria-labelledby="documents-heading">
     <h2
-      id="latest-documents-heading"
+      id="documents-heading"
       class="mb-4 text-center text-xl font-semibold text-gray-800 dark:text-white"
     >
-      Derniers documents publiés
+      Documents à la une
     </h2>
 
-    <!-- Loading state -->
+    <!-- Loading state avec USkeleton -->
     <div
-      v-if="pending"
+      v-if="store.isLoading || (!store.hasError && store.getLatestDocuments.length === 0)"
       class="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-4 pt-1 md:grid md:grid-cols-3 md:gap-4 md:overflow-x-visible md:px-0 md:pb-0 md:pt-0"
       aria-busy="true"
       aria-label="Chargement des documents"
     >
       <div
-        v-for="n in 6"
+        v-for="n in 3"
         :key="n"
         class="w-40 flex-shrink-0 snap-start rounded-lg bg-white p-3 shadow-sm sm:w-56 md:w-auto md:flex-shrink dark:bg-gray-800"
       >
@@ -41,45 +39,45 @@ const getDocumentUrl = (doc: Document) => `/documents/${doc.id}/${doc.slug}`;
 
     <!-- Error state -->
     <UAlert
-      v-else-if="error"
+      v-else-if="store.hasError"
       title="Erreur"
       description="Une erreur est survenue lors du chargement des documents."
       color="red"
       icon="i-heroicons-exclamation-triangle"
     />
 
-    <!-- Documents -->
-    <div v-else-if="documents && documents.length > 0">
+    <!-- Documents: scroll horizontal mobile, grille 3 colonnes desktop -->
+    <div v-else>
       <div
         class="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-4 pt-1 md:grid md:grid-cols-3 md:gap-4 md:overflow-x-visible md:px-0 md:pb-0 md:pt-0"
         role="list"
       >
         <UCard
-          v-for="doc in documents"
-          :key="doc.id"
+          v-for="document in store.getLatestDocuments.slice(0, 3)"
+          :key="document.id"
           role="listitem"
           :ui="{ body: { padding: 'p-3 sm:p-4' } }"
           class="w-40 flex-shrink-0 snap-start transition-transform active:scale-[0.98] sm:w-56 md:w-auto md:flex-shrink"
         >
           <NuxtLink
-            :to="getDocumentUrl(doc)"
+            :to="document.url"
             class="flex flex-col"
-            :aria-label="`Voir le document : ${doc.title}`"
+            :aria-label="`Voir le document : ${document.title}`"
           >
             <!-- Image -->
             <div class="mb-3 w-full">
               <CmsImage
-                v-if="doc.cover_image"
-                :src="doc.cover_image"
+                v-if="document.cover_image"
+                :src="document.cover_image"
                 :quality="25"
-                :alt="`Aperçu ${doc.title}`"
+                :alt="`Aperçu ${document.title}`"
                 class="aspect-[4/3] w-full rounded-md object-cover"
                 loading="lazy"
               />
               <img
-                v-else-if="doc.type === 'official_journal'"
+                v-else-if="document.doc_type === 'official_journal'"
                 src="/images/default-journal-officiel.webp"
-                :alt="`Aperçu ${doc.title}`"
+                :alt="`Aperçu ${document.title}`"
                 class="aspect-[4/3] w-full rounded-md object-cover"
                 loading="lazy"
               />
@@ -95,16 +93,8 @@ const getDocumentUrl = (doc: Document) => `/documents/${doc.id}/${doc.slug}`;
             <h3
               class="line-clamp-2 text-sm font-medium leading-snug text-gray-900 dark:text-white"
             >
-              {{ doc.title }}
+              {{ document.title }}
             </h3>
-
-            <!-- Date -->
-            <time
-              v-if="doc.publish_date"
-              class="mt-1 text-xs text-gray-500 dark:text-gray-400"
-            >
-              {{ $dateformat(doc.publish_date) }}
-            </time>
           </NuxtLink>
         </UCard>
       </div>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import HomeLatestDocuments from '~/components/HomeLatestDocuments.vue';
+import HomeFeaturedDocuments from '~/components/HomeFeaturedDocuments.vue';
 
 const { siteName, siteUrl, defaultTitle, defaultDescription, defaultImage, keywords, themeColor } =
   useSiteMetadata();
@@ -184,7 +184,7 @@ const { navigationCards } = useNavigationCards();
 
     <div class="">
       <div class="my-8">
-        <HomeLatestDocuments />
+        <HomeFeaturedDocuments />
       </div>
       <div class="my-8">
         <HomePodcasts />
