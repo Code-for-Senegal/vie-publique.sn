@@ -202,6 +202,9 @@ const { navigationCards } = useNavigationCards();
       <div class="my-8">
         <HomeSocialNetworks />
       </div>
+      <div class="my-8">
+        <HomeNewsletter />
+      </div>
       <div class="my-8 hidden">
         <HomeWhatsAppChannel />
       </div>
