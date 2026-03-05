@@ -12,3 +12,5 @@
 - vertical navigation for mobile (acueil)
 - ajouter un bootomShare (scribe) https://fr.scribd.com/document/512559410/les-royaumes-du-Senegal
 - regarder la partie viewer pdf
+
+- skeleton loading lors des chargements

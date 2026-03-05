@@ -3,7 +3,7 @@ import type { Document } from '~~/types/document';
 
 const { data: documents, pending, error } = useAsyncData('latest-documents', () =>
   $fetch<{ documents: Document[] }>('/api/documents', {
-    params: { limit: 6, sort: '-publish_date' },
+    params: { limit: 6, sort: '-date_created' },
   }).then((res) => res.documents),
 );
 
@@ -51,9 +51,10 @@ const getDocumentUrl = (doc: Document) => `/documents/${doc.id}/${doc.slug}`;
     <!-- Documents -->
     <div v-else-if="documents && documents.length > 0">
       <div
-        class="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-4 pt-1 md:grid md:grid-cols-3 md:gap-4 md:overflow-x-visible md:px-0 md:pb-0 md:pt-0"
+        class="no-scrollbar flex snap-x snap-mandatory gap-2.5 overflow-x-auto px-1 pb-4 pt-1 md:grid md:grid-cols-3 md:gap-4 md:overflow-x-visible md:px-0 md:pb-0 md:pt-0"
         role="list"
       >
+
         <UCard
           v-for="doc in documents"
           :key="doc.id"
@@ -100,10 +101,10 @@ const getDocumentUrl = (doc: Document) => `/documents/${doc.id}/${doc.slug}`;
 
             <!-- Date -->
             <time
-              v-if="doc.publish_date"
+              v-if="doc.date_created"
               class="mt-1 text-xs text-gray-500 dark:text-gray-400"
             >
-              {{ $dateformat(doc.publish_date) }}
+              {{ $dateformat(doc.date_created) }}
             </time>
           </NuxtLink>
         </UCard>
