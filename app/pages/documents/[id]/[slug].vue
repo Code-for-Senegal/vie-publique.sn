@@ -249,7 +249,7 @@ const showPdfViewer = ref(false);
       </div>
     </header>
 
-    <div class="container mx-auto px-4">
+    <div class="container mx-auto hidden px-4 md:block">
       <AppBreadcrumb
         :items="[
           { label: 'Documents', to: '/documents' },
