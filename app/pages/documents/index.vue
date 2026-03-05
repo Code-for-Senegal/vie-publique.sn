@@ -1,13 +1,37 @@
 <script setup lang="ts">
 import HomeLatestDocuments from '~/components/HomeLatestDocuments.vue';
 
+const siteUrl = useRuntimeConfig().public.siteUrl || 'https://www.vie-publique.sn';
+
+const seoTitle = 'Documents officiels du Sénégal';
+const seoDescription =
+  "Accédez aux documents officiels du Sénégal: Journal officiel, rapports d'audit, codes généraux et plus encore.";
+
+useSeoMeta({
+  title: seoTitle,
+  description: seoDescription,
+  ogTitle: seoTitle,
+  ogDescription: seoDescription,
+  ogImage: `${siteUrl}/images/share-linkedin.png`,
+  ogUrl: `${siteUrl}/documents`,
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: seoTitle,
+  twitterDescription: seoDescription,
+});
+
 useHead({
-  title: 'Documents officiels du Sénégal',
-  meta: [
+  link: [{ rel: 'canonical', href: `${siteUrl}/documents` }],
+  script: [
     {
-      name: 'description',
-      content:
-        "Accédez aux documents officiels du Sénégal: Journal officiel, rapports d'audit, codes généraux et plus encore.",
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: seoTitle,
+        description: seoDescription,
+        url: `${siteUrl}/documents`,
+      }),
     },
   ],
 });

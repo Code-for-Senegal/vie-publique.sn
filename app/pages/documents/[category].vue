@@ -177,6 +177,18 @@ useSeoMeta({
 
 useHead({
   link: [{ rel: 'canonical', href: `${siteUrl}/documents/${category}` }],
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: config.seo.title,
+        description: config.seo.description,
+        url: `${siteUrl}/documents/${category}`,
+      }),
+    },
+  ],
 });
 
 // --- Documents ---
