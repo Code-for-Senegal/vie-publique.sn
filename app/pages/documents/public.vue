@@ -503,7 +503,7 @@ const handleReset = () => {
             class="group flex gap-3 rounded-xl bg-white p-2.5 shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.98] sm:hover:shadow-md dark:bg-gray-800 dark:ring-gray-600"
           >
             <!-- Thumbnail -->
-            <div class="h-16 w-20 shrink-0 overflow-hidden rounded-lg bg-gray-100 sm:h-20 sm:w-24 dark:bg-gray-800">
+            <div class="h-16 w-20 shrink-0 overflow-hidden rounded-lg bg-gray-100 sm:h-20 sm:w-24 dark:bg-gray-700">
               <CmsImage
                 v-if="doc.cover_image"
                 :src="doc.cover_image"
