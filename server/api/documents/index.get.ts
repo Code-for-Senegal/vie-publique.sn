@@ -152,6 +152,11 @@ export default defineCachedEventHandler(
             },
           },
           {
+            content_html: {
+              _icontains: search,
+            },
+          },
+          {
             audit_institution: {
               _icontains: search,
             },
