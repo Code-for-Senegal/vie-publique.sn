@@ -1,7 +1,22 @@
 <script setup lang="ts">
 import { DOC_TYPE_LABELS, DOC_FAMILY_LABELS, AUDIT_INSTITUTIONS } from '~~/types/document';
+import armpLogo from '~/assets/logos/armp.webp';
+import ofnacLogo from '~/assets/logos/ofnac.webp';
+import igeLogo from '~/assets/logos/ige.webp';
+import courDesComptesLogo from '~/assets/logos/cour_des_comptes.webp';
+import centifLogo from '~/assets/logos/centif.webp';
+import docLogo from '~/assets/logos/doc.svg';
 
 const router = useRouter();
+
+const logoMap: Record<string, string> = {
+  ARMP: armpLogo,
+  OFNAC: ofnacLogo,
+  IGE: igeLogo,
+  'Cour des Comptes': courDesComptesLogo,
+  CENTIF: centifLogo,
+};
+const getLogo = (institution: string) => logoMap[institution] || docLogo;
 
 // Vue mode (liste par défaut)
 const viewMode = ref<'grid' | 'list'>('list');
@@ -452,6 +467,13 @@ const handleReset = () => {
                 class="h-full w-full object-cover"
                 loading="lazy"
               />
+              <div v-else-if="doc.type === 'audit_report'" class="flex h-full w-full items-center justify-center bg-gray-50 dark:bg-gray-700">
+                <img
+                  :src="getLogo(doc.audit_institution || '')"
+                  :alt="doc.audit_institution || 'Rapport'"
+                  class="h-16 w-16 object-contain"
+                />
+              </div>
               <div v-else class="flex h-full w-full items-center justify-center">
                 <UIcon name="i-heroicons-document-text" class="h-10 w-10 text-gray-300 dark:text-gray-600" />
               </div>
@@ -497,6 +519,13 @@ const handleReset = () => {
                 class="h-full w-full object-cover"
                 loading="lazy"
               />
+              <div v-else-if="doc.type === 'audit_report'" class="flex h-full w-full items-center justify-center bg-gray-50 dark:bg-gray-700">
+                <img
+                  :src="getLogo(doc.audit_institution || '')"
+                  :alt="doc.audit_institution || 'Rapport'"
+                  class="h-10 w-10 object-contain"
+                />
+              </div>
               <div v-else class="flex h-full w-full items-center justify-center">
                 <UIcon name="i-heroicons-document-text" class="h-6 w-6 text-gray-300 dark:text-gray-600" />
               </div>
