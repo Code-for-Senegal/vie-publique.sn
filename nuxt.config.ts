@@ -272,7 +272,8 @@ export default defineNuxtConfig({
       gitCommit: gitCommit,
       nodeEnv: process.env.NODE_ENV || 'development',
       redirects: [
-        { from: '^/reports(.*)', to: '/rapport-senegal$1' },
+        { from: '^/reports(.*)', to: '/documents/rapports-audit' },
+        { from: '^/rapport-senegal(.*)', to: '/documents/rapports-audit' },
         { from: '^/budget-etat-senegal(.*)', to: '/budget-senegal$1' },
         {
           from: '^/nomination-senegal/conseil-des-ministres-07-aout(.*)',
