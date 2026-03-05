@@ -1,28 +1,57 @@
-// server/api/brevo.ts
-const API_KEY = process.env.BREVO_API_KEY;
-const BASE_URL = "https://api.brevo.com/v3";
-
 export default defineEventHandler(async (event) => {
-  const body = await readBody(event);
-  const { email } = body;
+  const { email } = await readBody(event)
 
-  try {
-    const response = await $fetch(`${BASE_URL}/contacts`, {
-      method: "POST",
-      headers: {
-        "api-key": API_KEY,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        listIds: [parseInt(process.env.BREVO_LIST_ID)],
-      }),
-    });
+  if (!email) throw createError({ statusCode: 400, message: 'Email requis' })
 
-    console.log(response);
-    return { success: true, data: response };
-  } catch (error) {
-    console.error("Erreur lors de l'ajout du contact:", error);
-    return { success: false, error: error.message };
+  const config = useRuntimeConfig()
+  const listId = Number(config.brevoListId)
+  const headers = {
+    'api-key': config.brevoApiKey,
+    'Content-Type': 'application/json',
   }
-});
+  const baseUrl = config.brevoApiUrl
+
+  // 1. Tenter de créer le contact et l'ajouter à la liste
+  const createResponse = await fetch(`${baseUrl}/contacts`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ email, listIds: [listId] }),
+  })
+
+  if (!createResponse.ok) {
+    const error = await createResponse.json()
+
+    // Le contact existe déjà dans Brevo (pas forcément dans la liste)
+    if (error?.code === 'duplicate_parameter') {
+      // Vérifier s'il est déjà dans la liste #listId
+      const getResponse = await fetch(`${baseUrl}/contacts/${encodeURIComponent(email)}`, {
+        headers,
+      })
+
+      if (!getResponse.ok) {
+        throw createError({ statusCode: 500, message: 'Une erreur est survenue.' })
+      }
+
+      const contact = await getResponse.json()
+      const alreadyInList = (contact.listIds ?? []).includes(listId)
+
+      if (alreadyInList) {
+        throw createError({
+          statusCode: 409,
+          message: 'Cette adresse email est déjà inscrite à notre newsletter.',
+        })
+      }
+
+      // Contact global mais pas encore dans la liste → l'ajouter
+      await fetch(`${baseUrl}/contacts/${encodeURIComponent(email)}`, {
+        method: 'PUT',
+        headers,
+        body: JSON.stringify({ listIds: [listId] }),
+      })
+    } else {
+      throw createError({ statusCode: 500, message: error.message ?? 'Une erreur est survenue.' })
+    }
+  }
+
+  return { success: true, message: 'Inscription réussie ! Merci de vous être abonné.' }
+})

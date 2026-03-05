@@ -238,6 +238,9 @@ export default defineNuxtConfig({
     smtpUser: process.env.SMTP_USER,
     smtpPassword: process.env.SMTP_PASSWORD,
     smtpFromEmail: process.env.SMTP_FROM_EMAIL,
+    brevoApiUrl: process.env.BREVO_API_URL,
+    brevoApiKey: process.env.BREVO_API_KEY,
+    brevoListId: process.env.BREVO_LIST_ID,
 
     // Firebase Admin (server-side only)
     firebaseServiceAccountJson: process.env.NUXT_FIREBASE_SERVICE_ACCOUNT_JSON,
@@ -247,8 +250,6 @@ export default defineNuxtConfig({
       showPinnedPeoples: process.env.PUBLIC_SHOW_PINNED_PEOLPLES,
       showBarometer: process.env.PUBLIC_SHOW_BAROMETER,
       showScandals: process.env.PUBLIC_SHOW_SCANDALS,
-      brevoApiKey: process.env.BREVO_API_KEY,
-      brevoListId: process.env.BREVO_LIST_ID,
       sunuElectionApiUrl: process.env.SUNU_ELECTION_API_URL,
       sunuElectionApiKey: process.env.SUNU_ELECTION_API_KEY,
       fbPixelId: process.env.FACEBOOK_PIXEL_ID || '',
