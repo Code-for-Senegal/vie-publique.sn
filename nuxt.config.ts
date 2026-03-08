@@ -32,6 +32,12 @@ const securityConfig =
               'https://*.firebaseio.com',
               'https://firebaseinstallations.googleapis.com',
               'https://fcmregistrations.googleapis.com',
+              // Cartes (light/dark styles, tiles, sprites, glyphs)
+              'https://basemaps.cartocdn.com',
+              'https://*.basemaps.cartocdn.com',
+              'https://*.cartocdn.com',
+              'https://api.maptiler.com',
+              'https://fonts.openmaptiles.org',
             ],
             'script-src': [
               "'self'",
@@ -47,7 +53,12 @@ const securityConfig =
             ],
             'script-src-attr': ["'unsafe-inline'", "'unsafe-hashes'"],
             'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
-            'font-src': ["'self'", 'https://fonts.gstatic.com'],
+            'font-src': [
+              "'self'", 
+              'https://fonts.gstatic.com',               
+              // Glyphes de carte
+              'https://fonts.openmaptiles.org',
+            ],
             'img-src': [
               "'self'",
               'data:',
@@ -60,6 +71,11 @@ const securityConfig =
               'https://*.facebook.com',
               'https://pbs.twimg.com',
               'https://syndication.twitter.com',
+              // Tuiles / sprites de carte
+              'https://basemaps.cartocdn.com',
+              'https://*.basemaps.cartocdn.com',
+              'https://*.cartocdn.com',
+              'https://api.maptiler.com',
             ],
             'frame-src': [
               'https://www.youtube.com',
