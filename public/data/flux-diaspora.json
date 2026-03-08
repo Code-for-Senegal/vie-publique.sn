@@ -1,0 +1,102 @@
+[
+  {
+    "pays": "France",
+    "origineLng": 2.35,
+    "origineLat": 48.86,
+    "destination": "Dakar",
+    "destLng": -17.47,
+    "destLat": 14.72,
+    "montant": 380,
+    "diaspora": 120000
+  },
+  {
+    "pays": "Italie",
+    "origineLng": 12.5,
+    "origineLat": 41.9,
+    "destination": "Matam",
+    "destLng": -13.26,
+    "destLat": 15.66,
+    "montant": 290,
+    "diaspora": 95000
+  },
+  {
+    "pays": "Espagne",
+    "origineLng": -3.7,
+    "origineLat": 40.42,
+    "destination": "Kaolack",
+    "destLng": -16.07,
+    "destLat": 14.15,
+    "montant": 210,
+    "diaspora": 72000
+  },
+  {
+    "pays": "États-Unis",
+    "origineLng": -73.94,
+    "origineLat": 40.73,
+    "destination": "Dakar",
+    "destLng": -17.47,
+    "destLat": 14.72,
+    "montant": 320,
+    "diaspora": 55000
+  },
+  {
+    "pays": "Gambie",
+    "origineLng": -16.58,
+    "origineLat": 13.45,
+    "destination": "Ziguinchor",
+    "destLng": -16.27,
+    "destLat": 12.56,
+    "montant": 45,
+    "diaspora": 38000
+  },
+  {
+    "pays": "Mauritanie",
+    "origineLng": -15.98,
+    "origineLat": 18.09,
+    "destination": "Saint-Louis",
+    "destLng": -16.49,
+    "destLat": 16.02,
+    "montant": 60,
+    "diaspora": 28000
+  },
+  {
+    "pays": "Gabon",
+    "origineLng": 9.45,
+    "origineLat": 0.39,
+    "destination": "Thiès",
+    "destLng": -16.93,
+    "destLat": 14.79,
+    "montant": 85,
+    "diaspora": 22000
+  },
+  {
+    "pays": "Côte d'Ivoire",
+    "origineLng": -4.03,
+    "origineLat": 5.31,
+    "destination": "Diourbel",
+    "destLng": -16.23,
+    "destLat": 14.65,
+    "montant": 110,
+    "diaspora": 40000
+  },
+  {
+    "pays": "Chine",
+    "origineLng": 116.4,
+    "origineLat": 39.9,
+    "destination": "Dakar",
+    "destLng": -17.47,
+    "destLat": 14.72,
+    "montant": 150,
+    "diaspora": 8000
+  },
+  {
+    "pays": "Émirats arabes unis",
+    "origineLng": 55.27,
+    "origineLat": 25.2,
+    "destination": "Dakar",
+    "destLng": -17.47,
+    "destLat": 14.72,
+    "montant": 95,
+    "diaspora": 12000
+  }
+]

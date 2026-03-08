@@ -1,0 +1,216 @@
+{
+  "datasets": {
+    "resultats-regions": [
+      {
+        "regionCode": "DK",
+        "nom": "Dakar",
+        "tour": 1,
+        "inscrits": 1850000,
+        "votants": 1221000,
+        "bulletinsNuls": 18500,
+        "tauxParticipation": 66.0,
+        "candidatEnTete": "c1",
+        "resultats": [
+          { "candidatNom": "Candidat A", "candidatCouleur": "#00A86B", "pourcentage": 48.2 },
+          { "candidatNom": "Candidat B", "candidatCouleur": "#FF6B35", "pourcentage": 32.5 },
+          { "candidatNom": "Candidat C", "candidatCouleur": "#1E90FF", "pourcentage": 19.3 }
+        ]
+      },
+      {
+        "regionCode": "TH",
+        "nom": "Thiès",
+        "tour": 1,
+        "inscrits": 920000,
+        "votants": 607200,
+        "bulletinsNuls": 9200,
+        "tauxParticipation": 66.0,
+        "candidatEnTete": "c1",
+        "resultats": [
+          { "candidatNom": "Candidat A", "candidatCouleur": "#00A86B", "pourcentage": 45.1 },
+          { "candidatNom": "Candidat B", "candidatCouleur": "#FF6B35", "pourcentage": 33.8 },
+          { "candidatNom": "Candidat C", "candidatCouleur": "#1E90FF", "pourcentage": 21.1 }
+        ]
+      },
+      {
+        "regionCode": "SL",
+        "nom": "Saint-Louis",
+        "tour": 1,
+        "inscrits": 480000,
+        "votants": 312000,
+        "bulletinsNuls": 6240,
+        "tauxParticipation": 65.0,
+        "candidatEnTete": "c2",
+        "resultats": [
+          { "candidatNom": "Candidat A", "candidatCouleur": "#00A86B", "pourcentage": 31.2 },
+          { "candidatNom": "Candidat B", "candidatCouleur": "#FF6B35", "pourcentage": 42.5 },
+          { "candidatNom": "Candidat C", "candidatCouleur": "#1E90FF", "pourcentage": 26.3 }
+        ]
+      },
+      {
+        "regionCode": "ZG",
+        "nom": "Ziguinchor",
+        "tour": 1,
+        "inscrits": 290000,
+        "votants": 185600,
+        "bulletinsNuls": 4350,
+        "tauxParticipation": 64.0,
+        "candidatEnTete": "c3",
+        "resultats": [
+          { "candidatNom": "Candidat A", "candidatCouleur": "#00A86B", "pourcentage": 28.7 },
+          { "candidatNom": "Candidat B", "candidatCouleur": "#FF6B35", "pourcentage": 31.1 },
+          { "candidatNom": "Candidat C", "candidatCouleur": "#1E90FF", "pourcentage": 40.2 }
+        ]
+      },
+      {
+        "regionCode": "KL",
+        "nom": "Kaolack",
+        "tour": 1,
+        "inscrits": 460000,
+        "votants": 299000,
+        "bulletinsNuls": 5980,
+        "tauxParticipation": 65.0,
+        "candidatEnTete": "c1",
+        "resultats": [
+          { "candidatNom": "Candidat A", "candidatCouleur": "#00A86B", "pourcentage": 44.3 },
+          { "candidatNom": "Candidat B", "candidatCouleur": "#FF6B35", "pourcentage": 35.2 },
+          { "candidatNom": "Candidat C", "candidatCouleur": "#1E90FF", "pourcentage": 20.5 }
+        ]
+      },
+      {
+        "regionCode": "KD",
+        "nom": "Kolda",
+        "tour": 1,
+        "inscrits": 320000,
+        "votants": 204800,
+        "bulletinsNuls": 5120,
+        "tauxParticipation": 64.0,
+        "candidatEnTete": "c2",
+        "resultats": [
+          { "candidatNom": "Candidat A", "candidatCouleur": "#00A86B", "pourcentage": 29.8 },
+          { "candidatNom": "Candidat B", "candidatCouleur": "#FF6B35", "pourcentage": 41.7 },
+          { "candidatNom": "Candidat C", "candidatCouleur": "#1E90FF", "pourcentage": 28.5 }
+        ]
+      },
+      {
+        "regionCode": "TC",
+        "nom": "Tambacounda",
+        "tour": 1,
+        "inscrits": 380000,
+        "votants": 243200,
+        "bulletinsNuls": 6080,
+        "tauxParticipation": 64.0,
+        "candidatEnTete": "c1",
+        "resultats": [
+          { "candidatNom": "Candidat A", "candidatCouleur": "#00A86B", "pourcentage": 39.4 },
+          { "candidatNom": "Candidat B", "candidatCouleur": "#FF6B35", "pourcentage": 37.1 },
+          { "candidatNom": "Candidat C", "candidatCouleur": "#1E90FF", "pourcentage": 23.5 }
+        ]
+      },
+      {
+        "regionCode": "KG",
+        "nom": "Kédougou",
+        "tour": 1,
+        "inscrits": 85000,
+        "votants": 52700,
+        "bulletinsNuls": 1700,
+        "tauxParticipation": 62.0,
+        "candidatEnTete": "c3",
+        "resultats": [
+          { "candidatNom": "Candidat A", "candidatCouleur": "#00A86B", "pourcentage": 27.3 },
+          { "candidatNom": "Candidat B", "candidatCouleur": "#FF6B35", "pourcentage": 30.5 },
+          { "candidatNom": "Candidat C", "candidatCouleur": "#1E90FF", "pourcentage": 42.2 }
+        ]
+      },
+      {
+        "regionCode": "MT",
+        "nom": "Matam",
+        "tour": 1,
+        "inscrits": 290000,
+        "votants": 179800,
+        "bulletinsNuls": 4350,
+        "tauxParticipation": 62.0,
+        "candidatEnTete": "c2",
+        "resultats": [
+          { "candidatNom": "Candidat A", "candidatCouleur": "#00A86B", "pourcentage": 30.1 },
+          { "candidatNom": "Candidat B", "candidatCouleur": "#FF6B35", "pourcentage": 43.8 },
+          { "candidatNom": "Candidat C", "candidatCouleur": "#1E90FF", "pourcentage": 26.1 }
+        ]
+      },
+      {
+        "regionCode": "FK",
+        "nom": "Fatick",
+        "tour": 1,
+        "inscrits": 370000,
+        "votants": 240500,
+        "bulletinsNuls": 5550,
+        "tauxParticipation": 65.0,
+        "candidatEnTete": "c1",
+        "resultats": [
+          { "candidatNom": "Candidat A", "candidatCouleur": "#00A86B", "pourcentage": 46.8 },
+          { "candidatNom": "Candidat B", "candidatCouleur": "#FF6B35", "pourcentage": 30.2 },
+          { "candidatNom": "Candidat C", "candidatCouleur": "#1E90FF", "pourcentage": 23.0 }
+        ]
+      },
+      {
+        "regionCode": "DB",
+        "nom": "Diourbel",
+        "tour": 1,
+        "inscrits": 750000,
+        "votants": 487500,
+        "bulletinsNuls": 11250,
+        "tauxParticipation": 65.0,
+        "candidatEnTete": "c1",
+        "resultats": [
+          { "candidatNom": "Candidat A", "candidatCouleur": "#00A86B", "pourcentage": 52.1 },
+          { "candidatNom": "Candidat B", "candidatCouleur": "#FF6B35", "pourcentage": 28.4 },
+          { "candidatNom": "Candidat C", "candidatCouleur": "#1E90FF", "pourcentage": 19.5 }
+        ]
+      },
+      {
+        "regionCode": "LG",
+        "nom": "Louga",
+        "tour": 1,
+        "inscrits": 420000,
+        "votants": 268800,
+        "bulletinsNuls": 6720,
+        "tauxParticipation": 64.0,
+        "candidatEnTete": "c1",
+        "resultats": [
+          { "candidatNom": "Candidat A", "candidatCouleur": "#00A86B", "pourcentage": 43.5 },
+          { "candidatNom": "Candidat B", "candidatCouleur": "#FF6B35", "pourcentage": 34.0 },
+          { "candidatNom": "Candidat C", "candidatCouleur": "#1E90FF", "pourcentage": 22.5 }
+        ]
+      },
+      {
+        "regionCode": "SD",
+        "nom": "Sédhiou",
+        "tour": 1,
+        "inscrits": 210000,
+        "votants": 132300,
+        "bulletinsNuls": 4200,
+        "tauxParticipation": 63.0,
+        "candidatEnTete": "c2",
+        "resultats": [
+          { "candidatNom": "Candidat A", "candidatCouleur": "#00A86B", "pourcentage": 32.4 },
+          { "candidatNom": "Candidat B", "candidatCouleur": "#FF6B35", "pourcentage": 39.6 },
+          { "candidatNom": "Candidat C", "candidatCouleur": "#1E90FF", "pourcentage": 28.0 }
+        ]
+      },
+      {
+        "regionCode": "KF",
+        "nom": "Kaffrine",
+        "tour": 1,
+        "inscrits": 290000,
+        "votants": 182700,
+        "bulletinsNuls": 5220,
+        "tauxParticipation": 63.0,
+        "candidatEnTete": "c1",
+        "resultats": [
+          { "candidatNom": "Candidat A", "candidatCouleur": "#00A86B", "pourcentage": 41.9 },
+          { "candidatNom": "Candidat B", "candidatCouleur": "#FF6B35", "pourcentage": 36.3 },
+          { "candidatNom": "Candidat C", "candidatCouleur": "#1E90FF", "pourcentage": 21.8 }
+        ]
+      }
+    ]
+  }
+}

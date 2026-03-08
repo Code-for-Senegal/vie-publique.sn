@@ -159,6 +159,8 @@ export default defineNuxtConfig({
     '/api/**': {
       headers: { 'cache-control': 'no-cache' },
     },
+    // Pages carte : désactiver SSR (WebGL client-only)
+    '/carte/**': { ssr: false },
     // Redirections SEO
     '/budget/**': { redirect: { to: '/budget-senegal', statusCode: 301 }, prerender: true },
     '/publications/**': { redirect: { to: '/actualites', statusCode: 301 }, prerender: true },
@@ -172,6 +174,17 @@ export default defineNuxtConfig({
     build: {
       chunkSizeWarningLimit: 1000,
       modulePreload: { polyfill: false }, // Désactive le modulepreload polyfill qui cause des problèmes sur Windows avec Nuxt 4
+    },
+    optimizeDeps: {
+      include: [
+        'maplibre-gl',
+        '@deck.gl/core',
+        '@deck.gl/layers',
+        '@deck.gl/geo-layers',
+        '@deck.gl/aggregation-layers',
+        '@deck.gl/mapbox',
+        'supercluster',
+      ],
     },
     server: {
       fs: {
@@ -382,7 +395,7 @@ export default defineNuxtConfig({
       ],
     },
   },
-  css: ['~/assets/css/app.css'],
+  css: ['~/assets/css/app.css', 'maplibre-gl/dist/maplibre-gl.css'],
   colorMode: {
     preference: 'dark', // default value of $nuxt.colorMode.preference
   },

@@ -1,0 +1,279 @@
+{
+  "national": {
+    "pibTotal": 17800,
+    "pibTotalUnit": "Mds FCFA",
+    "croissance": 4.2,
+    "croissancePrev": 3.4,
+    "tauxChomage": 20.1,
+    "tauxChomagePrev": 21.3,
+    "population": 18500000
+  },
+  "evolution": [
+    { "annee": 2020, "pib": 13800, "croissance": 1.3, "chomage": 24.5 },
+    { "annee": 2021, "pib": 14600, "croissance": 5.8, "chomage": 23.1 },
+    { "annee": 2022, "pib": 15500, "croissance": 6.2, "chomage": 22.0 },
+    { "annee": 2023, "pib": 16200, "croissance": 4.5, "chomage": 21.3 },
+    { "annee": 2024, "pib": 17000, "croissance": 4.8, "chomage": 20.8 },
+    { "annee": 2025, "pib": 17800, "croissance": 4.2, "chomage": 20.1 }
+  ],
+  "regions": [
+    {
+      "regionCode": "DK",
+      "region": "Dakar",
+      "pibParHabitant": 980000,
+      "pibTotal": 3920,
+      "tauxChomage": 12.5,
+      "population": 4000000,
+      "secteurDominant": "services",
+      "tendance": "up",
+      "historique": [
+        { "annee": 2020, "pibParHabitant": 780000 },
+        { "annee": 2021, "pibParHabitant": 830000 },
+        { "annee": 2022, "pibParHabitant": 890000 },
+        { "annee": 2023, "pibParHabitant": 920000 },
+        { "annee": 2024, "pibParHabitant": 955000 },
+        { "annee": 2025, "pibParHabitant": 980000 }
+      ]
+    },
+    {
+      "regionCode": "TH",
+      "region": "Thiès",
+      "pibParHabitant": 520000,
+      "pibTotal": 1144,
+      "tauxChomage": 15.2,
+      "population": 2200000,
+      "secteurDominant": "services",
+      "tendance": "up",
+      "historique": [
+        { "annee": 2020, "pibParHabitant": 400000 },
+        { "annee": 2021, "pibParHabitant": 430000 },
+        { "annee": 2022, "pibParHabitant": 460000 },
+        { "annee": 2023, "pibParHabitant": 480000 },
+        { "annee": 2024, "pibParHabitant": 500000 },
+        { "annee": 2025, "pibParHabitant": 520000 }
+      ]
+    },
+    {
+      "regionCode": "SL",
+      "region": "Saint-Louis",
+      "pibParHabitant": 380000,
+      "pibTotal": 418,
+      "tauxChomage": 18.1,
+      "population": 1100000,
+      "secteurDominant": "agriculture",
+      "tendance": "up",
+      "historique": [
+        { "annee": 2020, "pibParHabitant": 290000 },
+        { "annee": 2021, "pibParHabitant": 310000 },
+        { "annee": 2022, "pibParHabitant": 340000 },
+        { "annee": 2023, "pibParHabitant": 355000 },
+        { "annee": 2024, "pibParHabitant": 370000 },
+        { "annee": 2025, "pibParHabitant": 380000 }
+      ]
+    },
+    {
+      "regionCode": "ZG",
+      "region": "Ziguinchor",
+      "pibParHabitant": 290000,
+      "pibTotal": 203,
+      "tauxChomage": 22.3,
+      "population": 700000,
+      "secteurDominant": "agriculture",
+      "tendance": "down",
+      "historique": [
+        { "annee": 2020, "pibParHabitant": 250000 },
+        { "annee": 2021, "pibParHabitant": 260000 },
+        { "annee": 2022, "pibParHabitant": 275000 },
+        { "annee": 2023, "pibParHabitant": 285000 },
+        { "annee": 2024, "pibParHabitant": 295000 },
+        { "annee": 2025, "pibParHabitant": 290000 }
+      ]
+    },
+    {
+      "regionCode": "KL",
+      "region": "Kaolack",
+      "pibParHabitant": 340000,
+      "pibTotal": 374,
+      "tauxChomage": 19.8,
+      "population": 1100000,
+      "secteurDominant": "agriculture",
+      "tendance": "up",
+      "historique": [
+        { "annee": 2020, "pibParHabitant": 260000 },
+        { "annee": 2021, "pibParHabitant": 280000 },
+        { "annee": 2022, "pibParHabitant": 300000 },
+        { "annee": 2023, "pibParHabitant": 315000 },
+        { "annee": 2024, "pibParHabitant": 330000 },
+        { "annee": 2025, "pibParHabitant": 340000 }
+      ]
+    },
+    {
+      "regionCode": "KD",
+      "region": "Kolda",
+      "pibParHabitant": 210000,
+      "pibTotal": 168,
+      "tauxChomage": 25.1,
+      "population": 800000,
+      "secteurDominant": "agriculture",
+      "tendance": "down",
+      "historique": [
+        { "annee": 2020, "pibParHabitant": 180000 },
+        { "annee": 2021, "pibParHabitant": 190000 },
+        { "annee": 2022, "pibParHabitant": 200000 },
+        { "annee": 2023, "pibParHabitant": 210000 },
+        { "annee": 2024, "pibParHabitant": 215000 },
+        { "annee": 2025, "pibParHabitant": 210000 }
+      ]
+    },
+    {
+      "regionCode": "TC",
+      "region": "Tambacounda",
+      "pibParHabitant": 250000,
+      "pibTotal": 225,
+      "tauxChomage": 23.4,
+      "population": 900000,
+      "secteurDominant": "mines",
+      "tendance": "up",
+      "historique": [
+        { "annee": 2020, "pibParHabitant": 190000 },
+        { "annee": 2021, "pibParHabitant": 205000 },
+        { "annee": 2022, "pibParHabitant": 220000 },
+        { "annee": 2023, "pibParHabitant": 235000 },
+        { "annee": 2024, "pibParHabitant": 245000 },
+        { "annee": 2025, "pibParHabitant": 250000 }
+      ]
+    },
+    {
+      "regionCode": "KG",
+      "region": "Kédougou",
+      "pibParHabitant": 310000,
+      "pibTotal": 62,
+      "tauxChomage": 20.5,
+      "population": 200000,
+      "secteurDominant": "mines",
+      "tendance": "up",
+      "historique": [
+        { "annee": 2020, "pibParHabitant": 220000 },
+        { "annee": 2021, "pibParHabitant": 245000 },
+        { "annee": 2022, "pibParHabitant": 270000 },
+        { "annee": 2023, "pibParHabitant": 290000 },
+        { "annee": 2024, "pibParHabitant": 300000 },
+        { "annee": 2025, "pibParHabitant": 310000 }
+      ]
+    },
+    {
+      "regionCode": "MT",
+      "region": "Matam",
+      "pibParHabitant": 220000,
+      "pibTotal": 154,
+      "tauxChomage": 26.7,
+      "population": 700000,
+      "secteurDominant": "agriculture",
+      "tendance": "down",
+      "historique": [
+        { "annee": 2020, "pibParHabitant": 190000 },
+        { "annee": 2021, "pibParHabitant": 200000 },
+        { "annee": 2022, "pibParHabitant": 210000 },
+        { "annee": 2023, "pibParHabitant": 220000 },
+        { "annee": 2024, "pibParHabitant": 225000 },
+        { "annee": 2025, "pibParHabitant": 220000 }
+      ]
+    },
+    {
+      "regionCode": "FK",
+      "region": "Fatick",
+      "pibParHabitant": 280000,
+      "pibTotal": 252,
+      "tauxChomage": 21.0,
+      "population": 900000,
+      "secteurDominant": "peche",
+      "tendance": "up",
+      "historique": [
+        { "annee": 2020, "pibParHabitant": 220000 },
+        { "annee": 2021, "pibParHabitant": 235000 },
+        { "annee": 2022, "pibParHabitant": 250000 },
+        { "annee": 2023, "pibParHabitant": 265000 },
+        { "annee": 2024, "pibParHabitant": 275000 },
+        { "annee": 2025, "pibParHabitant": 280000 }
+      ]
+    },
+    {
+      "regionCode": "DB",
+      "region": "Diourbel",
+      "pibParHabitant": 300000,
+      "pibTotal": 540,
+      "tauxChomage": 20.3,
+      "population": 1800000,
+      "secteurDominant": "agriculture",
+      "tendance": "up",
+      "historique": [
+        { "annee": 2020, "pibParHabitant": 240000 },
+        { "annee": 2021, "pibParHabitant": 255000 },
+        { "annee": 2022, "pibParHabitant": 270000 },
+        { "annee": 2023, "pibParHabitant": 282000 },
+        { "annee": 2024, "pibParHabitant": 292000 },
+        { "annee": 2025, "pibParHabitant": 300000 }
+      ]
+    },
+    {
+      "regionCode": "LG",
+      "region": "Louga",
+      "pibParHabitant": 260000,
+      "pibTotal": 260,
+      "tauxChomage": 24.0,
+      "population": 1000000,
+      "secteurDominant": "agriculture",
+      "tendance": "stable",
+      "historique": [
+        { "annee": 2020, "pibParHabitant": 210000 },
+        { "annee": 2021, "pibParHabitant": 225000 },
+        { "annee": 2022, "pibParHabitant": 240000 },
+        { "annee": 2023, "pibParHabitant": 250000 },
+        { "annee": 2024, "pibParHabitant": 258000 },
+        { "annee": 2025, "pibParHabitant": 260000 }
+      ]
+    },
+    {
+      "regionCode": "SD",
+      "region": "Sédhiou",
+      "pibParHabitant": 190000,
+      "pibTotal": 95,
+      "tauxChomage": 27.5,
+      "population": 500000,
+      "secteurDominant": "agriculture",
+      "tendance": "down",
+      "historique": [
+        { "annee": 2020, "pibParHabitant": 160000 },
+        { "annee": 2021, "pibParHabitant": 170000 },
+        { "annee": 2022, "pibParHabitant": 180000 },
+        { "annee": 2023, "pibParHabitant": 188000 },
+        { "annee": 2024, "pibParHabitant": 195000 },
+        { "annee": 2025, "pibParHabitant": 190000 }
+      ]
+    },
+    {
+      "regionCode": "KF",
+      "region": "Kaffrine",
+      "pibParHabitant": 230000,
+      "pibTotal": 161,
+      "tauxChomage": 23.8,
+      "population": 700000,
+      "secteurDominant": "agriculture",
+      "tendance": "up",
+      "historique": [
+        { "annee": 2020, "pibParHabitant": 180000 },
+        { "annee": 2021, "pibParHabitant": 195000 },
+        { "annee": 2022, "pibParHabitant": 205000 },
+        { "annee": 2023, "pibParHabitant": 215000 },
+        { "annee": 2024, "pibParHabitant": 225000 },
+        { "annee": 2025, "pibParHabitant": 230000 }
+      ]
+    }
+  ],
+  "sources": [
+    "ANSD — Agence Nationale de la Statistique et de la Démographie",
+    "Banque mondiale — Indicateurs de développement",
+    "Ministère de l'Économie, du Plan et de la Coopération"
+  ],
+  "lastUpdated": "2025-03-01"
+}

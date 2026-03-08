@@ -6,10 +6,14 @@ import { useNotifications } from './composables/useNotifications';
 const { initState, setupForegroundHandler, validateAndRefreshToken } = useNotifications();
 
 const isChatPage = ref(useRoute().path === '/chatbot');
+const isFullscreenPage = ref(
+  useRoute().path.startsWith('/carte/') || useRoute().path.startsWith('/dashboard/'),
+);
 watch(
   () => useRoute().path,
   (newPath) => {
     isChatPage.value = newPath === '/chatbot';
+    isFullscreenPage.value = newPath.startsWith('/carte/') || newPath.startsWith('/dashboard/');
   },
 );
 const links = [
@@ -142,7 +146,7 @@ onMounted(() => {
 
     <Toaster position="bottom-center" />
   </div>
-  <UContainer class="px-0 pb-20 sm:px-10 md:px-14 lg:px-28 lg:pb-0 xl:px-40">
+  <UContainer v-if="!isFullscreenPage" class="px-0 pb-20 sm:px-10 md:px-14 lg:px-28 lg:pb-0 xl:px-40">
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
@@ -150,8 +154,13 @@ onMounted(() => {
     <AppFooter />
 
     <!-- Navigation mobile fixe en bas -->
-    <AppBottomNav v-show="!isChatPage" />
+    <AppBottomNav v-show="!isChatPage && !isFullscreenPage" />
   </UContainer>
+  <div v-else class="w-full" style="height: calc(100vh - 64px); height: calc(100dvh - 64px);">
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </div>
 </template>
 
 <style>
