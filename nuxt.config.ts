@@ -43,6 +43,7 @@ const securityConfig =
               "'self'",
               "'unsafe-inline'",
               "'unsafe-eval'",
+              'blob:',
               'https://www.googletagmanager.com',
               'https://www.google-analytics.com',
               'https://platform.twitter.com',
@@ -52,7 +53,14 @@ const securityConfig =
               'https://www.gstatic.com',
             ],
             'script-src-attr': ["'unsafe-inline'", "'unsafe-hashes'"],
-            'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+            'style-src': [
+              "'self'",
+              "'unsafe-inline'",
+              'https://fonts.googleapis.com',
+              // Styles de carte (sprites CARTO)
+              'https://basemaps.cartocdn.com',
+              'https://*.basemaps.cartocdn.com',
+            ],
             'font-src': [
               "'self'", 
               'https://fonts.gstatic.com',               
@@ -88,6 +96,7 @@ const securityConfig =
             'form-action': ["'self'"],
             'frame-ancestors': ["'none'"],
             'object-src': ["'none'"],
+            'child-src': ["'self'", 'blob:'],
             'worker-src': ["'self'", 'blob:'],
             'report-uri': ['/api/csp-report'],
           },
