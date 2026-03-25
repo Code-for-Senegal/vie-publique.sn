@@ -21,7 +21,7 @@ export const useNewsletter = () => {
     isLoading.value = true;
     try {
       const data = await $fetch<{ success: boolean; message?: string; error?: string }>(
-        '/api/brevo',
+        '/api/newsletter/subscribe',
         {
           method: 'POST',
           body: { email: email.value.trim() },

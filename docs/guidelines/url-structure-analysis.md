@@ -402,7 +402,7 @@ Ce document recense **toutes les URLs** du projet, leur type, leur fonction et l
 | `/api/donate/paydunya/init-payment` | POST | Paiement Paydunya |
 | `/api/donate/paydunya/callback` | POST | Callback Paydunya |
 | `/api/donate/webhook` | POST | Webhook paiements |
-| `/api/brevo` | POST | Newsletter Brevo |
+| `/api/newsletter/subscribe` | POST | Inscription newsletter |
 
 ---
 

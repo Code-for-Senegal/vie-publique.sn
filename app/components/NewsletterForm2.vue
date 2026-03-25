@@ -60,18 +60,22 @@ const submitForm = async () => {
 
   isLoading.value = true;
   try {
-    const { data } = await useFetch("/api/brevo", {
+    const response = await fetch("/api/newsletter/subscribe", {
       method: "POST",
-      body: { email: email.value },
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: email.value }),
     });
+    const data = await response.json();
 
-    if (data.value?.success) {
+    if (response.ok && data?.success) {
       message.value =
         "Inscription réussie ! Merci de vous être abonné à notre newsletter.";
       formSubmitted.value = true;
       isError.value = false;
     } else {
-      throw new Error(data.value?.error || "Une erreur est survenue");
+      throw new Error(data?.error || "Une erreur est survenue");
     }
   } catch (error) {
     console.error("Erreur lors de l'inscription:", error);
