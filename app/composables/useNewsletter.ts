@@ -7,7 +7,7 @@ export const useNewsletter = () => {
 
   const isValidEmail = computed(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email.value);
+    return emailRegex.test(email.value.trim());
   });
 
   const subscribe = async () => {
@@ -24,7 +24,7 @@ export const useNewsletter = () => {
         '/api/brevo',
         {
           method: 'POST',
-          body: { email: email.value },
+          body: { email: email.value.trim() },
         },
       );
 

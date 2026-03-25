@@ -1,53 +1,59 @@
 <template>
-  <div class="newsletter-form mx-auto max-w-lg">
-    <form v-if="!formSubmitted" class="space-y-4" @submit.prevent="subscribe">
-      <UFormGroup label="Adresse e-mail" name="email" class="w-full">
-        <UInput
-          v-model="email"
-          type="email"
-          name="email"
-          autocomplete="email"
-          required
-          placeholder="contact@vie-publique.sn"
-          :disabled="isLoading"
-          class="w-full"
-        />
-      </UFormGroup>
-      <div class="text-center">
-        <UButton
+  <div>
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 sm:gap-12">
+      <!-- Success -->
+      <div
+        v-if="formSubmitted && alertType === 'success'"
+        class="flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400 font-medium"
+      >
+        <Icon name="ph:check-circle-fill" class="w-5 h-5" />
+        {{ message }}
+      </div>
+
+      <!-- Info (déjà inscrit) -->
+      <div
+        v-else-if="formSubmitted && alertType === 'info'"
+        class="flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400 font-medium"
+      >
+        <Icon name="ph:info-fill" class="w-5 h-5" />
+        {{ message }}
+      </div>
+
+      <!-- Form -->
+      <form
+        v-else
+        class="flex items-center gap-2 w-full"
+        @submit.prevent="subscribe"
+      >
+        <div class="relative flex-1">
+          <input
+            v-model="email"
+            type="email"
+            required
+            placeholder="Votre adresse email"
+            :disabled="isLoading"
+            class="w-full px-4 py-2.5 text-sm bg-white dark:bg-dark-700 border border-gray-300 dark:border-dark-500 rounded-lg font-light text-gray-900 dark:text-dark-50 placeholder-gray-500 dark:placeholder-dark-300 focus:outline-none focus:ring-2 focus:ring-gray-300/30 dark:focus:ring-dark-400/30 focus:border-gray-500 dark:focus:border-dark-400 transition-colors"
+          />
+        </div>
+        <button
           type="submit"
-          :loading="isLoading"
-          :disabled="!isValidEmail"
-          color="gray"
-          variant="solid"
-          size="md"
-          trailing-icon="i-heroicons-arrow-right"
-          class="rounded-full border-gray-200 bg-white font-medium"
+          :disabled="isLoading || !isValidEmail"
+          class="shrink-0 px-5 py-2.5 text-sm font-medium text-white bg-blue-600 dark:bg-blue-500 rounded-lg md:hover:bg-blue-700 dark:md:hover:bg-blue-400 active:bg-blue-700 dark:active:bg-blue-400 transition-colors disabled:cursor-not-allowed disabled:bg-blue-300 disabled:text-white/80 dark:disabled:bg-blue-800 dark:disabled:text-blue-200"
         >
-          {{ isLoading ? "Envoi en cours..." : "S'abonner à la newsletter" }}
-        </UButton>
-      </div>
-    </form>
-
-    <!-- Alert dark-mode card -->
-    <div
-      v-if="formSubmitted"
-      class="mt-4 flex items-start gap-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700/50"
-    >
-      <UIcon
-        :name="alertIcon"
-        class="mt-0.5 h-5 w-5 shrink-0"
-        :class="alertIconClass"
-      />
-      <div>
-        <p class="font-medium text-gray-900 dark:text-white">{{ alertTitle }}</p>
-        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ message }}</p>
-      </div>
+          <Icon
+            v-if="isLoading"
+            name="ph:circle-notch"
+            class="w-4 h-4 animate-spin"
+          />
+          <span v-else>S'abonner</span>
+        </button>
+      </form>
     </div>
-
-    <p v-if="!formSubmitted" class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-      En vous abonnant, vous acceptez de recevoir nos newsletters. Vous pourrez
-      vous désabonner à tout moment.
+    <p
+      v-if="formSubmitted && alertType === 'error'"
+      class="text-xs text-red-500 dark:text-red-400 mt-2 text-center"
+    >
+      {{ message }}
     </p>
   </div>
 </template>
@@ -55,22 +61,4 @@
 <script lang="ts" setup>
 const { email, message, isLoading, formSubmitted, alertType, isValidEmail, subscribe } =
   useNewsletter();
-
-const alertTitle = computed(() => {
-  if (alertType.value === 'success') return 'Inscription réussie';
-  if (alertType.value === 'info') return 'Déjà inscrit';
-  return 'Erreur';
-});
-
-const alertIcon = computed(() => {
-  if (alertType.value === 'success') return 'i-heroicons-check-circle';
-  if (alertType.value === 'info') return 'i-heroicons-information-circle';
-  return 'i-heroicons-exclamation-circle';
-});
-
-const alertIconClass = computed(() => {
-  if (alertType.value === 'success') return 'text-green-500 dark:text-green-400';
-  if (alertType.value === 'info') return 'text-blue-500 dark:text-blue-400';
-  return 'text-red-500 dark:text-red-400';
-});
 </script>
