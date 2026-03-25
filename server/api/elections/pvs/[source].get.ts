@@ -20,7 +20,7 @@ export default defineCachedEventHandler(
     }
 
     // Vérification de la configuration
-    if (!config.public.sunuElectionApiUrl || !config.public.sunuElectionApiKey) {
+    if (!config.sunuElectionApiUrl || !config.sunuElectionApiKey) {
       throw createError({
         statusCode: 500,
         statusMessage: "Configuration de l'API électorale manquante",
@@ -30,10 +30,10 @@ export default defineCachedEventHandler(
     try {
       // Appel à l'API externe via le serveur Nuxt
       const response = await $fetch(
-        `${config.public.sunuElectionApiUrl}/pvs/${source}`,
+        `${config.sunuElectionApiUrl}/pvs/${source}`,
         {
           headers: {
-            "api-key": config.public.sunuElectionApiKey,
+            "api-key": config.sunuElectionApiKey,
           },
         }
       );

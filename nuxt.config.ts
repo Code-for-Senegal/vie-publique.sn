@@ -263,6 +263,10 @@ export default defineNuxtConfig({
     bictorysApiUrl: process.env.BICTORYS_API_URL,
     bictorysWebhookSecret: process.env.BICTORYS_WEBHOOK_SECRET,
 
+    // Configuration Sunu Election
+    sunuElectionApiUrl: process.env.SUNU_ELECTION_API_URL,
+    sunuElectionApiKey: process.env.SUNU_ELECTION_API_KEY,
+
     // Configuration Paydunya
     paydunyaMasterKey: process.env.PAYDUNYA_MASTER_KEY,
     paydunyaPrivateKey: process.env.PAYDUNYA_PRIVATE_KEY,
@@ -288,8 +292,6 @@ export default defineNuxtConfig({
       showPinnedPeoples: process.env.PUBLIC_SHOW_PINNED_PEOLPLES,
       showBarometer: process.env.PUBLIC_SHOW_BAROMETER,
       showScandals: process.env.PUBLIC_SHOW_SCANDALS,
-      sunuElectionApiUrl: process.env.SUNU_ELECTION_API_URL,
-      sunuElectionApiKey: process.env.SUNU_ELECTION_API_KEY,
       fbPixelId: process.env.FACEBOOK_PIXEL_ID || '',
       bictorysPublicKey: process.env.BICTORYS_PUBLIC_KEY,
       // Firebase (Push Notifications)
