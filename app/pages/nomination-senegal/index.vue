@@ -19,6 +19,8 @@ const {
   totalPages,
   totalsByType,
   totalsByGender,
+  hasActiveFilters,
+  resetFilters,
   setCurrentPage,
   setSearchQuery,
   setFilterType,
@@ -182,7 +184,6 @@ const getDetailUrl = (minister: any) => {
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
 
-  // Récupère les query params actuels
   const query = { ...route.query };
 
   return {
@@ -190,6 +191,11 @@ const getDetailUrl = (minister: any) => {
     query,
   };
 };
+
+// Nombre total de nominations
+const totalCount = computed(
+  () => totalsByGender.value.maleCount + totalsByGender.value.femaleCount,
+);
 
 // Reset de la page lors du changement de recherche
 watch(searchQuery, () => {
@@ -205,196 +211,314 @@ watch([filterType, filterGender], () => {
 </script>
 
 <template>
-  <div class="flex min-h-screen flex-col items-center px-4 pb-16">
-    <AppBreadcrumb :items="[{ label: 'Nominations' }]" />
+  <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-950">
+    <!-- Breadcrumb -->
+    <div class="container mx-auto px-4 pt-2">
+      <AppBreadcrumb :items="[{ label: 'Nominations' }]" />
+    </div>
 
-    <h1 class="sr-only mb-4 text-sm text-gray-500">
+    <!-- SEO hidden heading -->
+    <h1 class="sr-only">
       Nominations au Sénégal, Membres du gouvernement, Conseil des ministres, Liste des ministres du
       Sénégal, Directeurs généraux, PCA
     </h1>
-    <div class="container">
-      <div class="prose prose-sm my-2 sm:prose">
-        <h1 class="dark:text-white">
-          {{ totalsByGender.maleCount + totalsByGender.femaleCount }} Nominations
-          <!--du président Diomaye-->
-        </h1>
-      </div>
-    </div>
 
-    <p class="sr-only mb-4 text-sm text-gray-500">Ministres, Secrétaires, Directeurs, PCA...</p>
-
-    <div class="w-full max-w-4xl">
-      <!-- Conteneur principal avec grid -->
-
-      <div class="grid grid-cols-1 gap-2 lg:grid-cols-4">
-        <!-- Colonne des filtres (1/4 en desktop) -->
-        <div class="lg:col-span-1">
-          <!-- recherche -->
-          <UInput
-            :model-value="searchQuery"
-            class="input custom-shadow mb-3 w-full"
-            size="lg"
-            icon="i-heroicons-magnifying-glass"
-            placeholder="Rechercher une nomination..."
-            @update:model-value="setSearchQuery"
-          >
-          </UInput>
-
-          <div class="mb-1 w-full text-center">
-            <UButton
-              :ui="{ rounded: 'rounded-full' }"
-              class="custom-shadow mb-1 ml-1 text-sm font-normal transition-all duration-300 ease-in-out"
-              :color="filterGender === 'Monsieur' ? 'primary' : 'white'"
-              size="sm"
-              @click="setFilterGender(filterGender === 'Monsieur' ? 'all' : 'Monsieur')"
+    <!-- Sticky Header -->
+    <header
+      class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95"
+    >
+      <div class="container mx-auto px-4 py-3">
+        <!-- Title Row -->
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-bold text-gray-900 dark:text-white sm:text-xl">Nominations</h2>
+          <div class="flex items-center gap-3">
+            <span
+              v-if="totalCount"
+              class="inline-flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400"
             >
-              Hommes
-              <UBadge
-                :ui="{ rounded: 'rounded-full' }"
-                :label="totalsByGender.maleCount"
-                :color="filterGender === 'Monsieur' ? 'primary' : 'primary'"
-                :variant="filterGender === 'Monsieur' ? 'soft' : 'solid'"
-                size="xs"
-              ></UBadge>
-            </UButton>
-            <UButton
-              :ui="{ rounded: 'rounded-full' }"
-              class="custom-shadow mb-1 ml-1 text-sm font-normal transition-all duration-300 ease-in-out"
-              :color="filterGender === 'Madame' ? 'primary' : 'white'"
-              size="sm"
-              @click="setFilterGender(filterGender === 'Madame' ? 'all' : 'Madame')"
-            >
-              Femmes
-              <UBadge
-                :ui="{ rounded: 'rounded-full' }"
-                :label="totalsByGender.femaleCount"
-                color="primary"
-                :variant="filterGender === 'Madame' ? 'soft' : 'solid'"
-                size="xs"
-              ></UBadge>
-            </UButton>
+              <UIcon name="i-heroicons-user-group-20-solid" class="h-3.5 w-3.5" />
+              {{ totalCount }} nominations
+            </span>
           </div>
+        </div>
 
-          <div class="mb-2 w-full text-center">
-            <UButton
+        <!-- Search Input -->
+        <div class="group relative mt-3">
+          <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
+            <UIcon
+              name="i-heroicons-magnifying-glass-20-solid"
+              class="h-5 w-5 text-gray-400 transition-colors group-focus-within:text-gray-500"
+            />
+          </div>
+          <input
+            type="search"
+            :value="searchQuery"
+            placeholder="Rechercher une nomination..."
+            class="block w-full rounded-xl border-0 bg-gray-100 py-3 pl-11 pr-10 text-sm text-gray-900 ring-1 ring-transparent transition-all placeholder:text-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-400 dark:focus:bg-gray-800/80 dark:focus:ring-gray-500 sm:py-2.5"
+            @input="setSearchQuery(($event.target as HTMLInputElement).value)"
+          />
+          <button
+            v-if="searchQuery"
+            type="button"
+            class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 transition-colors hover:text-gray-600 dark:hover:text-gray-300"
+            @click="setSearchQuery('')"
+          >
+            <span
+              class="flex h-5 w-5 items-center justify-center rounded-full bg-gray-300 dark:bg-gray-600"
+            >
+              <UIcon
+                name="i-heroicons-x-mark-20-solid"
+                class="h-3.5 w-3.5 text-gray-600 dark:text-gray-300"
+              />
+            </span>
+          </button>
+        </div>
+
+        <!-- Gender Filters -->
+        <div class="mt-3 flex gap-2">
+          <button
+            class="flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-all active:scale-95"
+            :class="[
+              filterGender === 'Monsieur'
+                ? 'bg-blue-600 text-white shadow-sm'
+                : 'bg-white text-gray-700 ring-1 ring-gray-200 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:ring-gray-700 dark:hover:bg-gray-700',
+            ]"
+            @click="setFilterGender(filterGender === 'Monsieur' ? 'all' : 'Monsieur')"
+          >
+            <UIcon name="i-heroicons-user-20-solid" class="h-3.5 w-3.5" />
+            Hommes
+            <span class="ml-0.5 text-[10px] opacity-70" v-if="totalsByGender.maleCount"
+              >({{ totalsByGender.maleCount }})</span
+            >
+          </button>
+          <button
+            class="flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-all active:scale-95"
+            :class="[
+              filterGender === 'Madame'
+                ? 'bg-purple-600 text-white shadow-sm'
+                : 'bg-white text-gray-700 ring-1 ring-gray-200 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:ring-gray-700 dark:hover:bg-gray-700',
+            ]"
+            @click="setFilterGender(filterGender === 'Madame' ? 'all' : 'Madame')"
+          >
+            <UIcon name="i-heroicons-user-20-solid" class="h-3.5 w-3.5" />
+            Femmes
+            <span class="ml-0.5 text-[10px] opacity-70" v-if="totalsByGender.femaleCount"
+              >({{ totalsByGender.femaleCount }})</span
+            >
+          </button>
+        </div>
+
+        <!-- Type Filters - Horizontal Scroll -->
+        <nav
+          class="scrollbar-hide -mx-4 mt-2 overflow-x-auto px-4 pb-1"
+          aria-label="Filtrer par type"
+        >
+          <div v-if="loading" class="flex gap-2 py-0.5">
+            <USkeleton v-for="n in 5" :key="n" class="h-7 w-20 shrink-0 rounded-full" />
+          </div>
+          <div v-else class="flex gap-1.5 py-0.5">
+            <button
               v-for="(total, type) in totalsByType"
               :key="type"
-              :ui="{ rounded: 'rounded-full' }"
-              :color="filterType === type ? 'primary' : 'white'"
-              class="custom-shadow mb-1 ml-1 text-sm font-normal transition-all duration-300 ease-in-out"
-              size="sm"
-              @click="setFilterType(filterType === type ? 'all' : type)"
+              class="flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-all active:scale-95"
+              :class="[
+                filterType === type
+                  ? 'bg-primary-600 text-white shadow-sm'
+                  : 'bg-white text-gray-700 ring-1 ring-gray-200 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:ring-gray-700 dark:hover:bg-gray-700',
+              ]"
+              @click="setFilterType(filterType === type ? 'all' : (type as string))"
             >
               {{ type }}
-              <UBadge
-                :ui="{ rounded: 'rounded-full' }"
-                :label="total"
-                color="primary"
-                :variant="filterType === type ? 'soft' : 'solid'"
-                size="xs"
-              ></UBadge>
-            </UButton>
+              <span class="text-[10px] opacity-70">({{ total }})</span>
+            </button>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 pt-4">
+      <!-- Filter indicator -->
+      <p
+        v-if="hasActiveFilters"
+        class="mb-3 flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400"
+      >
+        <span v-if="filterGender !== 'all'" class="inline-flex items-center gap-1">
+          <span
+            class="h-2 w-2 rounded-full"
+            :class="filterGender === 'Monsieur' ? 'bg-blue-500' : 'bg-purple-500'"
+          />
+          {{ filterGender === 'Monsieur' ? 'Hommes' : 'Femmes' }}
+        </span>
+        <span v-if="filterType !== 'all'" class="inline-flex items-center gap-1">
+          <span class="bg-primary-500 h-2 w-2 rounded-full" />
+          {{ filterType }}
+        </span>
+        <span v-if="searchQuery"> · "{{ searchQuery }}"</span>
+        <button
+          class="text-primary-600 hover:text-primary-700 dark:text-primary-400 ml-1 underline underline-offset-2"
+          @click="
+            resetFilters();
+            setSearchQuery('');
+          "
+        >
+          Effacer
+        </button>
+      </p>
+
+      <!-- Loading Skeleton -->
+      <div v-if="loading" class="space-y-2">
+        <div
+          v-for="n in 6"
+          :key="n"
+          class="flex gap-3 rounded-xl bg-white p-3 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+        >
+          <USkeleton class="h-14 w-14 shrink-0 rounded-full sm:h-16 sm:w-16" />
+          <div class="flex flex-1 flex-col justify-center space-y-2">
+            <USkeleton class="h-4 w-2/5 rounded" />
+            <USkeleton class="h-3 w-full rounded" />
+            <USkeleton class="h-3 w-1/3 rounded" />
           </div>
         </div>
+      </div>
 
-        <!-- Colonne de la liste des nominations (3/4 en desktop) -->
-        <div class="space-y-2 lg:col-span-3">
-          <!-- État de chargement - Skeleton loaders -->
-          <template v-if="loading">
-            <UCard v-for="i in 5" :key="`skeleton-${i}`" class="custom-shadow">
-              <div class="flex animate-pulse flex-row gap-2">
-                <!-- Skeleton photo -->
-                <div
-                  class="h-16 w-16 flex-shrink-0 rounded-full bg-gray-300 dark:bg-gray-700 md:h-20 md:w-20"
-                ></div>
-                <!-- Skeleton texte -->
-                <div class="flex-grow space-y-2">
-                  <div class="h-4 w-3/4 rounded bg-gray-300 dark:bg-gray-700"></div>
-                  <div class="h-3 w-full rounded bg-gray-200 dark:bg-gray-600"></div>
-                  <div class="h-3 w-1/2 rounded bg-gray-200 dark:bg-gray-600"></div>
-                  <div class="h-3 w-2/3 rounded bg-gray-200 dark:bg-gray-600"></div>
-                </div>
-              </div>
-            </UCard>
-          </template>
-
-          <!-- État d'erreur -->
-          <UAlert
-            v-else-if="error"
-            title="Erreur de chargement"
-            description="Impossible de charger les nominations"
-            color="red"
-            icon="i-heroicons-exclamation-triangle"
-          />
-
-          <!-- Liste des nominations -->
-          <template v-else>
-            <NuxtLink
-              v-for="minister in nominations"
-              :key="minister.name"
-              :to="getDetailUrl(minister)"
-              class="block"
-            >
-              <UCard class="custom-shadow transition-shadow hover:shadow-lg">
-                <div class="flex flex-row gap-2">
-                  <div class="h-16 w-16 flex-shrink-0 md:h-20 md:w-20">
-                    <img
-                      v-if="minister.photo"
-                      :src="useCmsImage(minister.photo)"
-                      :alt="minister.name"
-                      sizes="64px sm:80px"
-                      class="h-full w-full rounded-full object-cover"
-                      loading="lazy"
-                    />
-                    <img
-                      v-else
-                      src="/unknown_member.webp"
-                      :alt="minister.name"
-                      sizes="64px sm:80px"
-                      class="h-full w-full rounded-full object-cover"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div class="flex-grow">
-                    <h2 class="font-semibold">{{ minister.name }}</h2>
-                    <p class="text-sm">{{ minister.role }}</p>
-                    <p v-if="minister.organisation" class="text-sm text-gray-500">
-                      {{ minister.organisation }}
-                    </p>
-                    <p class="text-sm text-gray-500">
-                      Nommé le
-                      {{ $dateformat(minister.nominationDate) }}
-                    </p>
-                    <p v-if="minister.endDate" class="text-sm text-gray-500">
-                      Limogé le
-                      {{ $dateformat(minister.endDate) }}
-                    </p>
-                  </div>
-                </div>
-              </UCard>
-            </NuxtLink>
-
-            <!-- Message si aucun résultat -->
-            <div v-if="nominations.length === 0" class="py-8 text-center">
-              <p>Aucune nomination trouvée</p>
-            </div>
-          </template>
+      <!-- Error State -->
+      <div v-else-if="error" class="py-12">
+        <div
+          class="mx-auto max-w-sm rounded-2xl border border-red-200 bg-red-50 p-6 text-center dark:border-red-800 dark:bg-red-900/20"
+        >
+          <div
+            class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/50"
+          >
+            <UIcon
+              name="i-heroicons-exclamation-triangle"
+              class="h-6 w-6 text-red-600 dark:text-red-400"
+            />
+          </div>
+          <p class="text-sm font-medium text-red-900 dark:text-red-200">Erreur de chargement</p>
+          <p class="mt-1 text-xs text-red-700 dark:text-red-300">
+            Impossible de charger les nominations
+          </p>
+          <UButton color="red" variant="soft" size="sm" class="mt-4" @click="$router.go(0)">
+            Réessayer
+          </UButton>
         </div>
       </div>
 
-      <!-- Pagination -->
-      <div
-        v-if="totalPages > 1"
-        class="flex justify-end border-t border-gray-200 px-3 py-3.5 dark:border-gray-700"
-      >
-        <UPagination
-          :model-value="currentPage"
-          size="md"
-          :page-count="25"
-          :total="totalItems"
-          @update:model-value="setCurrentPage"
-        />
+      <!-- Empty State -->
+      <div v-else-if="nominations.length === 0" class="py-16 text-center">
+        <div
+          class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800"
+        >
+          <UIcon name="i-heroicons-user-group" class="h-8 w-8 text-gray-400" />
+        </div>
+        <p class="text-sm font-medium text-gray-900 dark:text-white">Aucune nomination trouvée</p>
+        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+          Essayez une autre recherche ou modifiez les filtres
+        </p>
+        <UButton
+          v-if="hasActiveFilters || searchQuery"
+          color="gray"
+          variant="soft"
+          size="sm"
+          class="mt-4"
+          @click="
+            resetFilters();
+            setSearchQuery('');
+          "
+        >
+          Réinitialiser les filtres
+        </UButton>
       </div>
-    </div>
+
+      <!-- Nominations List -->
+      <div v-else>
+        <div class="space-y-2">
+          <NuxtLink
+            v-for="minister in nominations"
+            :key="minister.id || minister.name"
+            :to="getDetailUrl(minister)"
+            class="group flex gap-3 rounded-xl bg-white p-3 shadow-sm ring-1 ring-gray-100 transition-all hover:shadow-md hover:ring-gray-200 active:scale-[0.99] dark:bg-gray-900 dark:ring-gray-800 dark:hover:ring-gray-700"
+          >
+            <!-- Photo -->
+            <div class="relative h-14 w-14 shrink-0 sm:h-16 sm:w-16">
+              <img
+                :src="minister.photo ? useCmsImage(minister.photo) : '/unknown_member.webp'"
+                :alt="minister.name"
+                class="h-full w-full rounded-full object-cover ring-2 ring-gray-100 transition-shadow group-hover:ring-gray-200 dark:ring-gray-700 dark:group-hover:ring-gray-600"
+                loading="lazy"
+              />
+              <!-- End date indicator -->
+              <span
+                v-if="minister.endDate"
+                class="absolute -bottom-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 ring-2 ring-white dark:ring-gray-900"
+                title="Limogé(e)"
+              >
+                <UIcon name="i-heroicons-x-mark-20-solid" class="h-2.5 w-2.5 text-white" />
+              </span>
+            </div>
+
+            <!-- Content -->
+            <div class="flex min-w-0 flex-1 flex-col justify-center">
+              <h2
+                class="group-hover:text-primary-600 dark:group-hover:text-primary-400 truncate text-sm font-semibold text-gray-900 dark:text-white"
+              >
+                {{ minister.name }}
+              </h2>
+              <p class="mt-0.5 line-clamp-1 text-xs text-gray-600 dark:text-gray-400">
+                {{ minister.role }}
+              </p>
+              <p
+                v-if="minister.organisation"
+                class="line-clamp-1 text-xs text-gray-500 dark:text-gray-500"
+              >
+                {{ minister.organisation }}
+              </p>
+              <div class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5">
+                <time class="text-[11px] text-gray-400 dark:text-gray-500">
+                  {{ minister.sexe === 'Madame' ? 'Nommée' : 'Nommé' }} le
+                  {{ $dateformat(minister.nominationDate) }}
+                </time>
+                <span v-if="minister.endDate" class="text-[11px] text-red-500 dark:text-red-400">
+                  Fin de fonction le {{ $dateformat(minister.endDate) }}
+                </span>
+              </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="hidden items-center sm:flex">
+              <UIcon
+                name="i-heroicons-chevron-right-20-solid"
+                class="h-4 w-4 text-gray-300 transition-colors group-hover:text-gray-500 dark:text-gray-600 dark:group-hover:text-gray-400"
+              />
+            </div>
+          </NuxtLink>
+        </div>
+
+        <!-- Pagination -->
+        <div v-if="totalPages > 1" class="mt-8 flex justify-center">
+          <UPagination
+            :model-value="currentPage"
+            :total="totalItems"
+            :page-count="25"
+            size="sm"
+            :ui="{
+              wrapper: 'flex items-center gap-1',
+              rounded: 'rounded-lg',
+            }"
+            @update:model-value="setCurrentPage"
+          />
+        </div>
+      </div>
+    </main>
   </div>
 </template>
+
+<style scoped>
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+</style>

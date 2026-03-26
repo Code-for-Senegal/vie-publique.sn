@@ -154,161 +154,361 @@ const typeLabels: Record<string, string> = {
 };
 
 const getTypeLabel = (type: string | null) => {
-  if (!type) return 'Non spécifié';
+  if (!type) return null;
   return typeLabels[type.toLowerCase()] || type;
 };
 
+// Initiales pour l'avatar fallback
+const getInitials = (name: string): string => {
+  return name
+    .split(' ')
+    .slice(0, 2)
+    .map((word) => word.charAt(0))
+    .join('')
+    .toUpperCase();
+};
+
+// Statut de la nomination
+const isActive = computed(() => !nomination.value?.endDate);
+
 // Conserver les query params pour le retour
 const backUrl = computed(() => {
-  // Si venu depuis gouvernement, retourner au gouvernement
   const referer = route.query.ref as string;
   if (referer === 'gouvernement') {
     return '/gouvernement-senegal';
   }
-  // Sinon retourner aux nominations
   const query = { ...route.query };
-  delete query.ref; // Supprimer le paramètre ref
+  delete query.ref;
   return {
     path: '/nomination-senegal',
     query,
   };
 });
+
+const backLabel = computed(() => {
+  const referer = route.query.ref as string;
+  return referer === 'gouvernement' ? 'Gouvernement' : 'Nominations';
+});
 </script>
 
 <template>
-  <div class="min-h-screen space-y-4 p-0 pb-16">
-    <AppBreadcrumb :items="[
-      { label: 'Personnalités', to: '/annuaires' },
-      { label: nomination?.name || 'Personnalité' }
-    ]" />
+  <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-950">
+    <!-- Breadcrumb -->
+    <div class="container mx-auto px-4 pt-2">
+      <AppBreadcrumb
+        :items="[{ label: backLabel, to: backUrl }, { label: nomination?.name || 'Personnalité' }]"
+      />
+    </div>
 
-    <!-- Loading state avec skeleton -->
-    <UCard v-if="loading" class="custom-shadow">
-      <div class="animate-pulse space-y-6">
-        <div class="flex flex-col items-center gap-6 md:flex-row md:items-start">
-          <div
-            class="h-48 w-48 flex-shrink-0 rounded-full bg-gray-300 md:h-56 md:w-56 dark:bg-gray-700"
-          ></div>
-          <div class="flex-1 space-y-3">
-            <div class="h-8 w-3/4 rounded bg-gray-300 dark:bg-gray-700"></div>
-            <div class="h-6 w-1/2 rounded bg-gray-200 dark:bg-gray-600"></div>
-            <div class="h-4 w-2/3 rounded bg-gray-200 dark:bg-gray-600"></div>
+    <main class="container mx-auto px-4 pt-2">
+      <!-- Loading Skeleton -->
+      <div v-if="loading" class="mx-auto max-w-3xl space-y-4">
+        <!-- Hero skeleton -->
+        <div
+          class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800 sm:p-8"
+        >
+          <div class="flex flex-col items-center gap-5 sm:flex-row sm:items-start">
+            <USkeleton class="h-28 w-28 shrink-0 rounded-full sm:h-36 sm:w-36" />
+            <div class="flex-1 space-y-3 text-center sm:text-left">
+              <USkeleton class="mx-auto h-7 w-48 rounded sm:mx-0" />
+              <USkeleton class="mx-auto h-5 w-64 rounded sm:mx-0" />
+              <USkeleton class="mx-auto h-4 w-40 rounded sm:mx-0" />
+              <div class="flex justify-center gap-2 pt-2 sm:justify-start">
+                <USkeleton class="h-6 w-20 rounded-full" />
+                <USkeleton class="h-6 w-24 rounded-full" />
+              </div>
+            </div>
           </div>
         </div>
-        <div class="space-y-4">
-          <div class="h-4 w-full rounded bg-gray-300 dark:bg-gray-700"></div>
-          <div class="h-4 w-full rounded bg-gray-300 dark:bg-gray-700"></div>
-          <div class="h-4 w-2/3 rounded bg-gray-300 dark:bg-gray-700"></div>
+        <!-- Info skeleton -->
+        <div class="grid gap-3 sm:grid-cols-2">
+          <USkeleton v-for="n in 4" :key="n" class="h-20 rounded-xl" />
+        </div>
+        <!-- Bio skeleton -->
+        <div
+          class="space-y-3 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+        >
+          <USkeleton class="h-6 w-48 rounded" />
+          <USkeleton class="h-4 w-full rounded" />
+          <USkeleton class="h-4 w-full rounded" />
+          <USkeleton class="h-4 w-3/4 rounded" />
         </div>
       </div>
-    </UCard>
 
-    <!-- Error state -->
-    <UAlert
-      v-else-if="error"
-      title="Erreur"
-      description="Impossible de charger les informations de la nomination"
-      color="red"
-      icon="i-heroicons-exclamation-triangle"
-    />
-
-    <!-- Contenu principal -->
-    <UCard v-else-if="nomination" class="custom-shadow">
-      <!-- En-tête avec photo et informations principales -->
-      <div class="mb-6 flex flex-col items-center gap-6 md:flex-row md:items-start">
-        <img
-          v-if="nomination.photo"
-          :src="useCmsImage(nomination.photo)"
-          :alt="nomination.name"
-          class="h-48 w-48 rounded-full object-cover shadow-lg md:h-56 md:w-56"
-        />
-        <UAvatar v-else :alt="nomination.name" size="3xl" class="h-48 w-48 md:h-56 md:w-56" />
-        <div class="flex-1 text-center md:text-left">
-          <h1 class="mb-2 text-3xl font-bold">{{ nomination.name }}</h1>
-          <p class="mb-3 text-xl text-gray-600 dark:text-gray-400">
-            {{ nomination.role }}
+      <!-- Error State -->
+      <div v-else-if="error" class="py-16">
+        <div
+          class="mx-auto max-w-sm rounded-2xl border border-red-200 bg-red-50 p-6 text-center dark:border-red-800 dark:bg-red-900/20"
+        >
+          <div
+            class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/50"
+          >
+            <UIcon
+              name="i-heroicons-exclamation-triangle"
+              class="h-6 w-6 text-red-600 dark:text-red-400"
+            />
+          </div>
+          <p class="text-sm font-medium text-red-900 dark:text-red-200">Erreur de chargement</p>
+          <p class="mt-1 text-xs text-red-700 dark:text-red-300">
+            Impossible de charger les informations
           </p>
+          <div class="mt-4 flex justify-center gap-2">
+            <UButton color="red" variant="soft" size="sm" @click="$router.go(0)">
+              Réessayer
+            </UButton>
+            <NuxtLink :to="backUrl">
+              <UButton color="gray" variant="soft" size="sm"> Retour </UButton>
+            </NuxtLink>
+          </div>
         </div>
       </div>
 
-      <!-- Informations détaillées -->
-      <div class="space-y-6">
-        <!-- Organisation -->
-        <div v-if="nomination.organisation" class="border-b pb-4">
-          <h2 class="mb-2 text-sm font-medium text-gray-500">Organisation</h2>
-          <p class="text-lg font-medium">{{ nomination.organisation }}</p>
-        </div>
+      <!-- Main Content -->
+      <div v-else-if="nomination" class="mx-auto max-w-3xl space-y-4">
+        <!-- Hero Card -->
+        <div
+          class="rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+        >
+          <div class="p-6 sm:p-8">
+            <div class="flex flex-col items-center gap-5 sm:flex-row sm:items-start">
+              <!-- Photo -->
+              <div class="relative shrink-0">
+                <img
+                  v-if="nomination.photo"
+                  :src="useCmsImage(nomination.photo)"
+                  :alt="nomination.name"
+                  class="h-28 w-28 rounded-full object-cover ring-4 ring-gray-100 dark:ring-gray-800 sm:h-36 sm:w-36"
+                />
+                <div
+                  v-else
+                  class="flex h-28 w-28 items-center justify-center rounded-full bg-gray-200 ring-4 ring-gray-100 dark:bg-gray-700 dark:ring-gray-800 sm:h-36 sm:w-36"
+                >
+                  <span class="text-3xl font-semibold text-gray-500 dark:text-gray-400 sm:text-4xl">
+                    {{ getInitials(nomination.name) }}
+                  </span>
+                </div>
+                <!-- Status indicator -->
+                <span
+                  class="absolute bottom-1 right-1 flex h-5 w-5 items-center justify-center rounded-full ring-2 ring-white dark:ring-gray-900"
+                  :class="isActive ? 'bg-green-500' : 'bg-gray-400'"
+                  :title="isActive ? 'En fonction' : 'Fin de fonction'"
+                >
+                  <UIcon
+                    :name="isActive ? 'i-heroicons-check-20-solid' : 'i-heroicons-minus-20-solid'"
+                    class="h-3 w-3 text-white"
+                  />
+                </span>
+              </div>
 
-        <!-- Description -->
-        <div v-if="nomination.description" class="border-b pb-4">
-          <h2 class="mb-2 text-sm font-medium text-gray-500">Description</h2>
-          <p class="text-gray-700 dark:text-gray-300">{{ nomination.description }}</p>
-        </div>
+              <!-- Info -->
+              <div class="min-w-0 flex-1 text-center sm:text-left">
+                <h1 class="text-xl font-bold text-gray-900 dark:text-white sm:text-2xl">
+                  {{ nomination.name }}
+                </h1>
+                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400 sm:text-base">
+                  {{ nomination.role }}
+                </p>
+                <p
+                  v-if="nomination.organisation"
+                  class="mt-0.5 text-sm text-gray-500 dark:text-gray-500"
+                >
+                  {{ nomination.organisation }}
+                </p>
 
-        <!-- Dates -->
-        <div class="grid gap-4 border-b pb-4 md:grid-cols-2">
-          <div>
-            <h2 class="mb-2 text-sm font-medium text-gray-500">Date de nomination</h2>
-            <p class="text-lg">{{ formatDate(nomination.nominationDate) }}</p>
+                <!-- Badges -->
+                <div class="mt-3 flex flex-wrap justify-center gap-2 sm:justify-start">
+                  <!-- Status badge -->
+                  <span
+                    class="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium"
+                    :class="
+                      isActive
+                        ? 'bg-green-50 text-green-700 ring-1 ring-green-200 dark:bg-green-900/20 dark:text-green-400 dark:ring-green-800'
+                        : 'bg-gray-100 text-gray-600 ring-1 ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700'
+                    "
+                  >
+                    <span
+                      class="h-1.5 w-1.5 rounded-full"
+                      :class="isActive ? 'bg-green-500' : 'bg-gray-400'"
+                    />
+                    {{ isActive ? 'En fonction' : 'Fin de fonction' }}
+                  </span>
+                  <!-- Type badge -->
+                  <span
+                    v-if="getTypeLabel(nomination.type)"
+                    class="bg-primary-50 text-primary-700 ring-primary-200 dark:bg-primary-900/20 dark:text-primary-400 dark:ring-primary-800 inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ring-1"
+                  >
+                    {{ getTypeLabel(nomination.type) }}
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
-          <div v-if="nomination.endDate">
-            <h2 class="mb-2 text-sm font-medium text-gray-500">Date de fin</h2>
-            <p class="text-lg">{{ formatDate(nomination.endDate) }}</p>
-          </div>
         </div>
 
-        <!-- Formation -->
-        <div v-if="nomination.formation" class="border-b pb-4">
-          <h2 class="mb-2 text-sm font-medium text-gray-500">Formation</h2>
-          <p class="text-gray-700 dark:text-gray-300">{{ nomination.formation }}</p>
-        </div>
-
-        <!-- Prédécesseur -->
-        <div v-if="nomination.predecessor" class="border-b pb-4">
-          <h2 class="mb-2 text-sm font-medium text-gray-500">Prédécesseur</h2>
-          <p class="text-lg font-medium">{{ nomination.predecessor }}</p>
-        </div>
-
-        <!-- Biographie (HTML depuis Directus) -->
-        <div v-if="nomination.bio" class="border-t pt-6">
-          <h2 class="mb-4 text-2xl font-bold">Biographie et Parcours</h2>
+        <!-- Info Grid -->
+        <div class="grid gap-3 sm:grid-cols-2">
+          <!-- Date de nomination -->
           <div
-            class="prose prose-sm max-w-none sm:prose dark:prose-invert"
-            v-html="nomination.bio"
-          ></div>
-        </div>
-
-        <!-- Portrait (texte simple - deprecated, remplacé par bio) -->
-        <div v-else-if="nomination.portrait" class="border-t pt-6">
-          <h2 class="mb-4 text-2xl font-bold">Portrait</h2>
-          <p class="text-gray-700 dark:text-gray-300">{{ nomination.portrait }}</p>
-        </div>
-
-        <!-- Placeholder si ni bio ni portrait -->
-        <div v-else class="border-t pt-6">
-          <h2 class="mb-4 text-2xl font-bold">Biographie</h2>
-          <div class="py-8 text-center text-gray-500">
-            <UIcon name="i-heroicons-document-text" class="mx-auto mb-4 h-12 w-12 text-gray-400" />
-            <p>La biographie détaillée de {{ nomination.name }} sera bientôt disponible.</p>
-          </div>
-        </div>
-
-        <!-- Évaluation (cachée pour l'instant) -->
-        <!-- <div v-if="nomination.rating" class="pb-4">
-          <h2 class="mb-2 text-sm font-medium text-gray-500">Évaluation</h2>
-          <div class="flex items-center gap-2">
-            <div class="flex">
+            class="flex items-start gap-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+          >
+            <div
+              class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-900/20"
+            >
               <UIcon
-                v-for="i in 5"
-                :key="i"
-                name="i-heroicons-star-solid"
-                :class="['h-5 w-5', i <= nomination.rating ? 'text-yellow-400' : 'text-gray-300']"
+                name="i-heroicons-calendar-days-20-solid"
+                class="h-4.5 w-4.5 text-blue-600 dark:text-blue-400"
               />
             </div>
-            <span class="text-sm text-gray-600">{{ nomination.rating }}/5</span>
+            <div class="min-w-0">
+              <p
+                class="text-[11px] font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500"
+              >
+                Nomination
+              </p>
+              <p class="mt-0.5 text-sm font-medium text-gray-900 dark:text-white">
+                {{ formatDate(nomination.nominationDate) }}
+              </p>
+            </div>
           </div>
-        </div> -->
+
+          <!-- Date de fin -->
+          <div
+            v-if="nomination.endDate"
+            class="flex items-start gap-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+          >
+            <div
+              class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-red-50 dark:bg-red-900/20"
+            >
+              <UIcon
+                name="i-heroicons-calendar-days-20-solid"
+                class="h-4.5 w-4.5 text-red-600 dark:text-red-400"
+              />
+            </div>
+            <div class="min-w-0">
+              <p
+                class="text-[11px] font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500"
+              >
+                Fin de fonction
+              </p>
+              <p class="mt-0.5 text-sm font-medium text-gray-900 dark:text-white">
+                {{ formatDate(nomination.endDate) }}
+              </p>
+            </div>
+          </div>
+
+          <!-- Formation -->
+          <div
+            v-if="nomination.formation"
+            class="flex items-start gap-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+          >
+            <div
+              class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-purple-50 dark:bg-purple-900/20"
+            >
+              <UIcon
+                name="i-heroicons-academic-cap-20-solid"
+                class="h-4.5 w-4.5 text-purple-600 dark:text-purple-400"
+              />
+            </div>
+            <div class="min-w-0">
+              <p
+                class="text-[11px] font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500"
+              >
+                Formation
+              </p>
+              <p class="mt-0.5 text-sm font-medium text-gray-900 dark:text-white">
+                {{ nomination.formation }}
+              </p>
+            </div>
+          </div>
+
+          <!-- Prédécesseur -->
+          <div
+            v-if="nomination.predecessor"
+            class="flex items-start gap-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+          >
+            <div
+              class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-amber-50 dark:bg-amber-900/20"
+            >
+              <UIcon
+                name="i-heroicons-arrow-path-20-solid"
+                class="h-4.5 w-4.5 text-amber-600 dark:text-amber-400"
+              />
+            </div>
+            <div class="min-w-0">
+              <p
+                class="text-[11px] font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500"
+              >
+                Prédécesseur
+              </p>
+              <p class="mt-0.5 text-sm font-medium text-gray-900 dark:text-white">
+                {{ nomination.predecessor }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Biography Section -->
+        <div
+          v-if="nomination.bio"
+          class="rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+        >
+          <div class="border-b border-gray-100 px-6 py-4 dark:border-gray-800">
+            <h2 class="text-base font-semibold text-gray-900 dark:text-white">
+              Biographie et Parcours
+            </h2>
+          </div>
+          <div class="p-6">
+            <div
+              class="prose-a:text-primary-600 dark:prose-a:text-primary-400 prose prose-sm max-w-none dark:prose-invert sm:prose prose-headings:text-gray-900 prose-p:text-gray-600 dark:prose-headings:text-white dark:prose-p:text-gray-400"
+              v-html="nomination.bio"
+            ></div>
+          </div>
+        </div>
+
+        <!-- Portrait fallback -->
+        <div
+          v-else-if="nomination.portrait"
+          class="rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+        >
+          <div class="border-b border-gray-100 px-6 py-4 dark:border-gray-800">
+            <h2 class="text-base font-semibold text-gray-900 dark:text-white">Portrait</h2>
+          </div>
+          <div class="p-6">
+            <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+              {{ nomination.portrait }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Empty bio placeholder -->
+        <div
+          v-else
+          class="rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+        >
+          <div class="px-6 py-12 text-center">
+            <div
+              class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800"
+            >
+              <UIcon name="i-heroicons-document-text" class="h-6 w-6 text-gray-400" />
+            </div>
+            <p class="text-sm font-medium text-gray-900 dark:text-white">Biographie</p>
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              La biographie de {{ nomination.name }} sera bientôt disponible.
+            </p>
+          </div>
+        </div>
+
+        <!-- Back link -->
+        <div class="pt-2">
+          <NuxtLink
+            :to="backUrl"
+            class="inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+          >
+            <UIcon name="i-heroicons-arrow-left-20-solid" class="h-4 w-4" />
+            Retour aux {{ backLabel.toLowerCase() }}
+          </NuxtLink>
+        </div>
       </div>
-    </UCard>
+    </main>
   </div>
 </template>
