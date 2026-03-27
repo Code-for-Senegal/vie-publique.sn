@@ -99,7 +99,32 @@ export default defineSitemapEventHandler(async () => {
       });
     }
 
-    // 4. Pages statiques : Laissées à l'auto-découverte de Nuxt Sitemap
+    // 4. Projets Publics
+    try {
+      const publicProjects = await directus.request(
+        readItems('public_project', {
+          fields: ['slug', 'date_updated'],
+          filter: {
+            status: { _eq: 'published' },
+          },
+          limit: -1,
+        }),
+      );
+
+      for (const project of publicProjects) {
+        const lastmod = toISODate(project.date_updated);
+        urls.push({
+          loc: `/projets-publics/${project.slug}`,
+          ...(lastmod && { lastmod }),
+          changefreq: 'monthly',
+          priority: 0.7,
+        });
+      }
+    } catch (sitemapError) {
+      console.warn('Erreur sitemap projets publics:', sitemapError);
+    }
+
+    // 5. Pages statiques : Laissées à l'auto-découverte de Nuxt Sitemap
     // Le module @nuxtjs/seo va automatiquement inclure toutes les pages du dossier /pages
   } catch (error) {
     console.error('Erreur génération sitemap:', error);

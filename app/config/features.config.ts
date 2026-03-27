@@ -150,6 +150,12 @@ export const DEFAULT_FEATURES: Record<string, FeatureFlag> = {
     environments: ['dev', 'test', 'production'],
     description: 'Affichage des liens footer',
   },
+  menu_projets_publics: {
+    key: 'menu_projets_publics',
+    enabled: true,
+    environments: ['dev', 'test','production'],
+    description: 'Menu Projets Publics (PIP, LFI, PRES)',
+  },
 };
 
 /**

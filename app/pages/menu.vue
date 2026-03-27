@@ -300,6 +300,13 @@ const allNavigationCards: NavigationCard[] = [
     to: '/podcasts',
     featureKey: 'menu_podcasts',
   },
+  {
+    title: 'Projets Publics',
+    description: 'Suivi des investissements PIP, PRES',
+    icon: 'i-heroicons-clipboard-document-list',
+    to: '/projets-publics',
+    featureKey: 'menu_projets_publics',
+  },
 ];
 
 // Filtrer les cartes en fonction des feature flags
@@ -397,6 +404,10 @@ const cardConfigs: CardConfigs = {
   'Dashboard Corruption': {
     color: 'text-orange-600 dark:text-orange-400',
     bgColor: 'bg-orange-100 dark:bg-orange-900/30',
+  },
+  'Projets Publics': {
+    color: 'text-cyan-600 dark:text-cyan-400',
+    bgColor: 'bg-cyan-100 dark:bg-cyan-900/30',
   },
 } as const;
 </script>
