@@ -62,8 +62,8 @@ const securityConfig =
               'https://*.basemaps.cartocdn.com',
             ],
             'font-src': [
-              "'self'", 
-              'https://fonts.gstatic.com',               
+              "'self'",
+              'https://fonts.gstatic.com',
               // Glyphes de carte
               'https://fonts.openmaptiles.org',
             ],
@@ -553,8 +553,9 @@ export default defineNuxtConfig({
       '/don/bictorys',
       '/don/paydunya',
       '/don/success',
-      '/dashboard/corruption',
-      '/dashboard/corruption/**',
+      '/dashboard/**',
+      '/projets-publics-senegal',
+      '/projets-publics-senegal/**',
     ],
     sitemap: '/sitemap.xml',
   },
