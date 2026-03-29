@@ -42,9 +42,9 @@ export default defineCachedEventHandler(
       }
 
       if (isPres === 'true') {
-        filter.is_pres = { _eq: true };
+        filter.is_in_pres = { _eq: true };
       } else if (isPres === 'false') {
-        filter.is_pres = { _eq: false };
+        filter.is_in_pres = { _eq: false };
       }
 
       if (isPriority === 'true') {
@@ -75,7 +75,8 @@ export default defineCachedEventHandler(
             'slug',
             'code',
             'summary',
-            'is_pres',
+            'is_in_pres',
+            'is_in_pip',
             'is_priority',
             'budget_total_amount',
             'start_year',
@@ -94,6 +95,7 @@ export default defineCachedEventHandler(
             'sector.icon',
             'ministry.id',
             'ministry.name',
+            'ministry.public_slug',
             'policy_primary.id',
             'policy_primary.title',
           ],
@@ -166,7 +168,8 @@ export default defineCachedEventHandler(
         slug: p.slug,
         code: p.code || null,
         summary: p.summary || null,
-        isPres: p.is_pres || false,
+        isInPres: p.is_in_pres || false,
+        isInPip: p.is_in_pip || false,
         isPriority: p.is_priority || false,
         budgetTotalAmount: p.budget_total_amount ? Number(p.budget_total_amount) : null,
         startYear: p.start_year || null,
@@ -175,9 +178,6 @@ export default defineCachedEventHandler(
         currentDelayStatusLabel: p.current_delay_status_label || null,
         currentProgramLabel: p.current_program_label || null,
         regionPrimaryLabel: p.region_primary_label || null,
-        policyPrimaryLabel: p.policy_primary_label || null,
-        ministryLabel: p.ministry_label || null,
-        sectorLabel: p.sector_label || null,
         sourceLabel: p.source_label || null,
         sector: p.sector
           ? {
@@ -187,7 +187,9 @@ export default defineCachedEventHandler(
               icon: p.sector.icon || null,
             }
           : null,
-        ministry: p.ministry ? { id: p.ministry.id, name: p.ministry.name } : null,
+        ministry: p.ministry
+          ? { id: p.ministry.id, name: p.ministry.name, publicSlug: p.ministry.public_slug || null }
+          : null,
         policyPrimary: p.policy_primary
           ? { id: p.policy_primary.id, title: p.policy_primary.title }
           : null,
@@ -215,7 +217,7 @@ export default defineCachedEventHandler(
     }
   },
   {
-    maxAge: process.env.NODE_ENV === 'production' ? 5 * 60 : 0, // 5 min en prod
+    maxAge: process.env.NODE_ENV === 'production' ? 0 * 60 : 0, // 0 min en prod
     name: 'public-projects-list',
     getKey: (event) => {
       const query = getQuery(event);

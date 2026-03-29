@@ -23,7 +23,7 @@ export default defineCachedEventHandler(
       const presResult = await directus.request(
         aggregate('public_project', {
           aggregate: { count: ['id'] },
-          query: { filter: { status: { _eq: 'published' }, is_pres: { _eq: true } } },
+          query: { filter: { status: { _eq: 'published' }, is_in_pres: { _eq: true } } },
         }),
       );
       const totalPres = Number(presResult[0]?.count?.id) || 0;
@@ -131,7 +131,7 @@ export default defineCachedEventHandler(
     }
   },
   {
-    maxAge: process.env.NODE_ENV === 'production' ? 30 * 60 : 0, // 30 min en prod
+    maxAge: process.env.NODE_ENV === 'production' ? 5 * 60 : 0, // 5 min en prod
     name: 'public-projects-stats',
     getKey: (event) => {
       const query = getQuery(event);

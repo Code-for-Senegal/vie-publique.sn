@@ -6,7 +6,8 @@ export interface PublicProject {
   slug: string;
   code: string | null;
   summary: string | null;
-  isPres: boolean;
+  isInPres: boolean;
+  isInPip: boolean;
   isPriority: boolean;
   budgetTotalAmount: number | null;
   startYear: number | null;
@@ -15,12 +16,9 @@ export interface PublicProject {
   currentDelayStatusLabel: string | null;
   currentProgramLabel: string | null;
   regionPrimaryLabel: string | null;
-  policyPrimaryLabel: string | null;
-  ministryLabel: string | null;
-  sectorLabel: string | null;
   sourceLabel: string | null;
   sector: { id: number; name: string; color: string | null; icon: string | null } | null;
-  ministry: { id: number; name: string } | null;
+  ministry: { id: number; name: string; publicSlug: string | null } | null;
   policyPrimary: { id: number; title: string } | null;
   // Budget annuel pour l'année sélectionnée (jointure optionnelle)
   annualAE: number | null;
@@ -34,11 +32,14 @@ export interface PublicProjectDetail extends PublicProject {
   documents: PublicProjectDocument[];
   policies: { id: number; title: string; slug: string }[];
   locations: PublicProjectLocation[];
-  titleSourceRaw: string | null;
   yearLabel: string | null;
   versionLabel: string | null;
   yearLabelAmountAE: string | null;
   yearLabelAmountCP: string | null;
+  linkWebsite: string | null;
+  linkFacebook: string | null;
+  linkLinkedin: string | null;
+  linkTwitter: string | null;
 }
 
 export interface PublicProjectDocument {

@@ -19,6 +19,13 @@ const emit = defineEmits<{
   'page-change': [page: number];
 }>();
 
+// Formater un titre : première lettre en majuscule, le reste en minuscule
+const toSentenceCase = (str: string): string => {
+  if (!str) return '';
+  const lower = str.toLowerCase();
+  return lower.charAt(0).toUpperCase() + lower.slice(1);
+};
+
 const formatAmount = (value: number | null): string => {
   if (value === null || value === undefined) return '—';
   if (value >= 1_000_000_000) {
@@ -63,86 +70,111 @@ const visiblePages = computed(() => {
     >
       <table class="w-full text-left text-sm">
         <thead
-          class="border-b border-gray-200 bg-gray-50 text-xs font-medium uppercase text-gray-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
+          class="border-b border-gray-200 bg-gray-50 text-xs font-medium uppercase text-gray-500 dark:border-gray-700 dark:bg-gray-800/50 dark:text-gray-400"
         >
           <tr>
             <th class="px-4 py-3">Projet</th>
-            <th class="px-4 py-3">Axe</th>
-            <th class="px-4 py-3">Secteur</th>
-            <th class="px-4 py-3">Ministère</th>
-            <th class="px-4 py-3">Région</th>
-            <th class="px-4 py-3 text-right">Budget total projet</th>
+            <th class="px-4 py-3 text-right">Budget total</th>
             <th v-if="year" class="px-4 py-3 text-right">AE {{ year }}</th>
             <th v-if="year" class="px-4 py-3 text-right">CP {{ year }}</th>
-            <th class="px-4 py-3"></th>
+            <th class="w-10 px-4 py-3"></th>
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
           <tr
             v-for="project in projects"
             :key="project.id"
-            class="cursor-pointer bg-white transition-colors hover:bg-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800"
+            class="cursor-pointer bg-white transition-colors hover:bg-gray-50 dark:bg-transparent dark:hover:bg-gray-800"
             @click="navigateTo(`/projets-publics/${project.slug}`)"
           >
-            <td class="max-w-[240px] px-4 py-3">
-              <NuxtLink
-                :to="`/projets-publics/${project.slug}`"
-                class="flex items-center gap-2 hover:underline"
-              >
-                <span
-                  v-if="project.isPres"
-                  class="shrink-0 rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-semibold text-amber-700 dark:bg-amber-900/30 dark:text-amber-400"
-                  >PRES</span
-                >
-                <span class="truncate font-medium text-primary-600 dark:text-primary-400">{{
-                  project.shortTitle || project.title
-                }}</span>
-              </NuxtLink>
-            </td>
-            <td class="px-4 py-3 text-gray-600 dark:text-gray-400">
-              {{ project.policyPrimary?.title || '—' }}
-            </td>
+            <!-- Colonne Projet : titre + badges + métadonnées -->
             <td class="px-4 py-3">
-              <span
-                v-if="project.sector"
-                class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium"
-                :style="
-                  project.sector.color
-                    ? { backgroundColor: project.sector.color + '20', color: project.sector.color }
-                    : {}
-                "
-              >
-                {{ project.sector.name }}
-              </span>
-              <span v-else class="text-gray-400">—</span>
+              <div class="space-y-1.5">
+                <!-- Titre sur 2 lignes max -->
+                <NuxtLink
+                  :to="`/projets-publics/${project.slug}`"
+                  class="line-clamp-2 text-sm font-semibold text-[#1a0dab] hover:underline dark:text-[#8ab4f8]"
+                >
+                  {{ toSentenceCase(project.shortTitle || project.title) }}
+                </NuxtLink>
+
+                <!-- Ministère + Politique -->
+                <div class="flex flex-wrap gap-x-3 text-xs text-gray-500 dark:text-gray-400">
+                  <span v-if="project.ministry" class="flex items-center gap-1">
+                    <UIcon name="i-heroicons-building-office-2" class="h-3 w-3 shrink-0" />
+                    <span class="line-clamp-1">{{ project.ministry.name }}</span>
+                  </span>
+                  <span v-if="project.policyPrimary" class="flex items-center gap-1">
+                    <UIcon name="i-heroicons-flag" class="h-3 w-3 shrink-0" />
+                    <span class="line-clamp-1">{{ project.policyPrimary.title }}</span>
+                  </span>
+                </div>
+
+                <!-- Badges : PRES + PIP + Secteur + Région -->
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span
+                    v-if="project.isInPres"
+                    class="rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold text-amber-700 dark:bg-amber-900/30 dark:text-amber-400"
+                    >PRES</span
+                  >
+                  <span
+                    v-if="project.isInPip"
+                    class="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
+                    >PIP</span
+                  >
+                  <span
+                    v-if="project.sector"
+                    class="inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium"
+                    :style="
+                      project.sector.color
+                        ? {
+                            backgroundColor: project.sector.color + '20',
+                            color: project.sector.color,
+                          }
+                        : {
+                            backgroundColor: 'rgb(229 231 235)',
+                            color: 'rgb(107 114 128)',
+                          }
+                    "
+                  >
+                    {{ project.sector.name }}
+                  </span>
+                  <span
+                    v-if="project.regionPrimaryLabel"
+                    class="rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-600 dark:bg-blue-900/20 dark:text-blue-400"
+                  >
+                    {{ project.regionPrimaryLabel }}
+                  </span>
+                </div>
+              </div>
             </td>
-            <td class="max-w-[180px] truncate px-4 py-3 text-gray-600 dark:text-gray-400">
-              {{ project.ministry?.name || '—' }}
-            </td>
-            <td class="px-4 py-3 text-gray-600 dark:text-gray-400">
-              {{ project.regionPrimaryLabel || '—' }}
-            </td>
+
+            <!-- Budget total -->
             <td
-              class="whitespace-nowrap px-4 py-3 text-right font-mono text-gray-900 dark:text-white"
+              class="whitespace-nowrap px-4 py-3 text-right font-mono text-sm text-gray-900 dark:text-white"
             >
               {{ formatAmount(project.budgetTotalAmount) }}
             </td>
+
+            <!-- AE / CP annuels -->
             <td
               v-if="year"
-              class="whitespace-nowrap px-4 py-3 text-right font-mono text-gray-900 dark:text-white"
+              class="whitespace-nowrap px-4 py-3 text-right font-mono text-sm text-gray-900 dark:text-white"
             >
               {{ formatAmount(project.annualAE) }}
             </td>
             <td
               v-if="year"
-              class="whitespace-nowrap px-4 py-3 text-right font-mono text-gray-900 dark:text-white"
+              class="whitespace-nowrap px-4 py-3 text-right font-mono text-sm text-gray-900 dark:text-white"
             >
               {{ formatAmount(project.annualCP) }}
             </td>
+
+            <!-- Flèche -->
             <td class="px-4 py-3">
               <NuxtLink
                 :to="`/projets-publics/${project.slug}`"
-                class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
+                class="hover:text-primary-700 dark:hover:text-primary-300 text-gray-500 dark:text-gray-400"
               >
                 <UIcon name="i-heroicons-arrow-right" class="h-4 w-4" />
               </NuxtLink>
@@ -150,7 +182,7 @@ const visiblePages = computed(() => {
           </tr>
           <tr v-if="projects.length === 0 && !loading">
             <td
-              :colspan="year ? 9 : 7"
+              :colspan="year ? 5 : 3"
               class="px-4 py-12 text-center text-gray-500 dark:text-gray-400"
             >
               Aucun projet trouvé pour ces critères.
@@ -168,33 +200,63 @@ const visiblePages = computed(() => {
         :to="`/projets-publics/${project.slug}`"
         class="block rounded-lg border border-gray-200 bg-white p-3 transition-colors active:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:active:bg-gray-700"
       >
+        <!-- Titre -->
         <div class="flex items-start justify-between gap-2">
-          <div class="min-w-0 flex-1">
-            <div class="flex items-center gap-1.5">
-              <span
-                v-if="project.isPres"
-                class="shrink-0 rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-semibold text-amber-700 dark:bg-amber-900/30 dark:text-amber-400"
-                >PRES</span
-              >
-              <h3 class="truncate text-sm font-semibold text-gray-900 dark:text-white">
-                {{ project.shortTitle || project.title }}
-              </h3>
-            </div>
-            <p v-if="project.sector" class="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
-              {{ project.sector.name }}
-            </p>
-          </div>
-          <UIcon name="i-heroicons-chevron-right" class="h-4 w-4 shrink-0 text-gray-400" />
+          <h3 class="line-clamp-2 text-sm font-semibold text-[#1a0dab] dark:text-[#8ab4f8]">
+            {{ toSentenceCase(project.shortTitle || project.title) }}
+          </h3>
+          <UIcon name="i-heroicons-chevron-right" class="mt-0.5 h-4 w-4 shrink-0 text-gray-400" />
         </div>
-        <div class="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500 dark:text-gray-400">
-          <span v-if="project.ministry">{{ project.ministry.name }}</span>
-          <span v-if="project.regionPrimaryLabel">{{ project.regionPrimaryLabel }}</span>
+
+        <!-- Badges -->
+        <div class="mt-1.5 flex flex-wrap items-center gap-1.5">
+          <span
+            v-if="project.isInPres"
+            class="rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold text-amber-700 dark:bg-amber-900/30 dark:text-amber-400"
+            >PRES</span
+          >
+          <span
+            v-if="project.isInPip"
+            class="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
+            >PIP</span
+          >
+          <span
+            v-if="project.sector"
+            class="inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium"
+            :style="
+              project.sector.color
+                ? { backgroundColor: project.sector.color + '20', color: project.sector.color }
+                : { backgroundColor: 'rgb(229 231 235)', color: 'rgb(107 114 128)' }
+            "
+          >
+            {{ project.sector.name }}
+          </span>
+          <span
+            v-if="project.regionPrimaryLabel"
+            class="rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-600 dark:bg-blue-900/20 dark:text-blue-400"
+          >
+            {{ project.regionPrimaryLabel }}
+          </span>
         </div>
+
+        <!-- Métadonnées -->
+        <div class="mt-2 flex flex-col gap-0.5 text-xs text-gray-500 dark:text-gray-400">
+          <span v-if="project.ministry" class="flex items-center gap-1">
+            <UIcon name="i-heroicons-building-office-2" class="h-3 w-3 shrink-0" />
+            {{ project.ministry.name }}
+          </span>
+          <span v-if="project.policyPrimary" class="flex items-center gap-1">
+            <UIcon name="i-heroicons-flag" class="h-3 w-3 shrink-0" />
+            {{ project.policyPrimary.title }}
+          </span>
+        </div>
+
+        <!-- Budget -->
         <div
           v-if="project.budgetTotalAmount"
           class="mt-2 text-sm font-semibold text-gray-900 dark:text-white"
         >
-          Budget total : {{ formatAmount(project.budgetTotalAmount) }} FCFA
+          {{ formatAmount(project.budgetTotalAmount) }} FCFA
         </div>
       </NuxtLink>
 

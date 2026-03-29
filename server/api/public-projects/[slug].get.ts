@@ -26,7 +26,8 @@ export default defineCachedEventHandler(
             'code',
             'summary',
             'description',
-            'is_pres',
+            'is_in_pres',
+            'is_in_pip',
             'is_priority',
             'budget_total_amount',
             'start_year',
@@ -50,6 +51,7 @@ export default defineCachedEventHandler(
             'sector.icon',
             'ministry.id',
             'ministry.name',
+            'ministry.public_slug',
             'policy_primary.id',
             'policy_primary.title',
             'policy_primary.slug',
@@ -57,6 +59,10 @@ export default defineCachedEventHandler(
             'document_primary.title',
             'document_primary.slug',
             'document_primary.file',
+            'link_website',
+            'link_facebook',
+            'link_linkedin',
+            'link_twitter',
           ],
           filter: {
             slug: { _eq: slug },
@@ -164,7 +170,8 @@ export default defineCachedEventHandler(
         code: p.code || null,
         summary: p.summary || null,
         description: p.description || null,
-        isPres: p.is_pres || false,
+        isInPres: p.is_in_pres || false,
+        isInPip: p.is_in_pip || false,
         isPriority: p.is_priority || false,
         budgetTotalAmount: p.budget_total_amount ? Number(p.budget_total_amount) : null,
         startYear: p.start_year || null,
@@ -173,11 +180,7 @@ export default defineCachedEventHandler(
         currentDelayStatusLabel: p.current_delay_status_label || null,
         currentProgramLabel: p.current_program_label || null,
         regionPrimaryLabel: p.region_primary_label || null,
-        policyPrimaryLabel: p.policy_primary_label || null,
-        ministryLabel: p.ministry_label || null,
-        sectorLabel: p.sector_label || null,
         sourceLabel: p.source_label || null,
-        titleSourceRaw: p.title_source_raw || null,
         yearLabel: p.year_label || null,
         versionLabel: p.version_label || null,
         yearLabelAmountAE: p.year_label_amount_ae || null,
@@ -190,7 +193,9 @@ export default defineCachedEventHandler(
               icon: p.sector.icon || null,
             }
           : null,
-        ministry: p.ministry ? { id: p.ministry.id, name: p.ministry.name } : null,
+        ministry: p.ministry
+          ? { id: p.ministry.id, name: p.ministry.name, publicSlug: p.ministry.public_slug || null }
+          : null,
         policyPrimary: p.policy_primary
           ? {
               id: p.policy_primary.id,
@@ -221,6 +226,10 @@ export default defineCachedEventHandler(
             slug: p.public_policy_id.slug,
           })),
         locations,
+        linkWebsite: p.link_website || null,
+        linkFacebook: p.link_facebook || null,
+        linkLinkedin: p.link_linkedin || null,
+        linkTwitter: p.link_twitter || null,
         // Champs annuels non fournis en mode détail (pas de filtre année)
         annualAE: null,
         annualCP: null,
@@ -264,7 +273,7 @@ export default defineCachedEventHandler(
     }
   },
   {
-    maxAge: process.env.NODE_ENV === 'production' ? 30 * 60 : 0, // 30 min en prod
+    maxAge: process.env.NODE_ENV === 'production' ? 0 * 60 : 0, // 0 min en prod
     name: 'public-project-detail',
     getKey: (event) => {
       const slug = getRouterParam(event, 'slug');

@@ -19,7 +19,8 @@ const hasBudgetData = computed(() => props.budgetYears.length > 0);
   <div
     class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800"
   >
-    <h3 class="mb-4 text-lg font-bold text-gray-900 dark:text-white">
+    <h3 class="mb-4 flex items-center gap-2 text-lg font-bold text-gray-900 dark:text-white">
+      <UIcon name="i-heroicons-chart-bar" class="h-5 w-5 text-gray-400" />
       Historique budgétaire annuel
     </h3>
 
@@ -40,7 +41,7 @@ const hasBudgetData = computed(() => props.budgetYears.length > 0);
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-            <tr v-for="budget in budgetYears" :key="budget.id" class="bg-white dark:bg-gray-900">
+            <tr v-for="budget in budgetYears" :key="budget.id" class="bg-white dark:bg-transparent">
               <td class="px-4 py-3 font-semibold text-gray-900 dark:text-white">
                 {{ budget.yearLabel }}
               </td>

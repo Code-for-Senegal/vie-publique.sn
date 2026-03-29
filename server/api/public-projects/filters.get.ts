@@ -128,7 +128,7 @@ export default defineCachedEventHandler(
     }
   },
   {
-    maxAge: process.env.NODE_ENV === 'production' ? 60 * 60 : 0, // 1h en prod
+    maxAge: process.env.NODE_ENV === 'production' ? 5 * 60 : 0, // 5 min en prod
     name: 'public-projects-filters',
     getKey: () => 'public-projects-filters',
   },

@@ -38,6 +38,7 @@ const {
   // Données
   stats,
   projects,
+  allProjects,
   pagination,
   loading,
   error,
@@ -63,23 +64,36 @@ const {
 <template>
   <div class="min-h-screen pb-16">
     <!-- Hero Header -->
-    <div class="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
-      <div class="container mx-auto px-4 py-6 sm:py-8">
+    <div
+      class="relative overflow-hidden border-b border-gray-100 bg-gradient-to-br from-gray-50/50 to-white dark:border-[#38444D] dark:bg-none"
+    >
+      <!-- Decorative background blur (light only) -->
+      <div
+        class="bg-primary-100/40 pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full opacity-70 blur-3xl dark:hidden"
+      ></div>
+
+      <div class="container relative mx-auto px-4 py-4 sm:py-6">
         <AppBreadcrumb
           :items="[{ label: 'Accueil', to: '/' }, { label: 'Projets Publics' }]"
-          class="mb-4"
+          class="mb-6"
         />
-        <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h1 class="text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl">
+        <div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+          <div class="max-w-2xl">
+            <h1
+              class="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl"
+            >
               Projets Publics du Sénégal
             </h1>
-            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-              Suivi des projets publics, investissements PIP et projets PRES
+            <p class="mt-2 text-base text-gray-600 dark:text-gray-400">
+              Suivi transparent des projets publics, des investissements PIP et des projets
+              spécifiques (PRES).
             </p>
           </div>
-          <div class="text-xs text-gray-500 dark:text-gray-400">
-            {{ stats.totalProjects }} projets recensés
+          <div
+            class="inline-flex hidden w-fit items-center gap-2 rounded-full border border-cyan-100 bg-cyan-50/80 px-4 py-2 text-sm font-medium text-cyan-700 shadow-sm backdrop-blur-sm dark:border-cyan-900/50 dark:bg-cyan-900/30 dark:text-cyan-400"
+          >
+            <UIcon name="i-heroicons-chart-pie" class="h-4 w-4" />
+            <span>{{ stats.totalProjects }} projets recensés</span>
           </div>
         </div>
       </div>
@@ -163,10 +177,11 @@ const {
           @reset="resetFilters"
         />
 
-        <!-- Graphiques -->
+        <!-- Graphiques et carte -->
         <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <PublicProjectsChartBySector :projects="projects" />
-          <PublicProjectsChartByMinistry :projects="projects" />
+          <PublicProjectsChartBySector :projects="allProjects" />
+          <PublicProjectsChartByMinistry :projects="allProjects" />
+          <PublicProjectsMapByRegion :projects="allProjects" class="lg:col-span-2" />
         </div>
 
         <!-- Tableau -->

@@ -238,18 +238,11 @@ const allNavigationCards: NavigationCard[] = [
     featureKey: 'menu_recherche',
   },
   {
-    title: 'Dashbord Conseil des Ministres',
+    title: 'Dashbords & Observatoires',
     description: 'TEST DASHBOARD',
     icon: 'i-heroicons-chart-bar',
-    to: '/dashboard/conseil-ministre',
-    featureKey: 'menu_dashboard_conseil',
-  },
-  {
-    title: 'Dashboard Corruption',
-    description: 'Indicateurs de gouvernance et signalement citoyen',
-    icon: 'i-heroicons-shield-check',
-    to: '/dashboard/corruption',
-    featureKey: 'menu_dashboard_corruption',
+    to: '/dashboard',
+    featureKey: 'menu_dashboard',
   },
   {
     title: 'Etat du Sénégal',

@@ -94,58 +94,59 @@ const onSelectChange = (
 <template>
   <div class="space-y-3">
     <!-- Barre de recherche + toggle filtres -->
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-3">
       <div class="relative flex-1">
         <UIcon
           name="i-heroicons-magnifying-glass"
-          class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
+          class="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400"
         />
         <input
           type="text"
           :value="search"
-          placeholder="Rechercher un projet..."
-          class="focus:border-primary-500 focus:ring-primary-500 w-full rounded-lg border border-gray-300 bg-white py-2 pl-10 pr-4 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500"
+          placeholder="Rechercher un projet, ministère..."
+          class="block w-full rounded-2xl border-transparent bg-white py-3 pl-11 pr-4 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 transition-all focus:border-transparent focus:ring-2 focus:ring-inset focus:ring-cyan-500 dark:bg-gray-800 dark:text-white dark:ring-white/10 dark:focus:ring-cyan-400"
           @input="onSearchInput"
         />
       </div>
       <button
-        class="flex items-center gap-1.5 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
-        :class="{
-          'border-primary-500 text-primary-600 dark:border-primary-500 dark:text-primary-400':
-            hasActiveFilters,
-        }"
+        class="flex items-center gap-2 rounded-2xl bg-white px-4 py-3 text-sm font-medium shadow-sm ring-1 ring-inset transition-all hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-500 dark:bg-gray-800 dark:hover:bg-gray-750"
+        :class="
+          hasActiveFilters
+            ? 'text-cyan-600 ring-cyan-500/50 dark:text-cyan-400 dark:ring-cyan-400/50'
+            : 'text-gray-700 ring-gray-200 dark:text-gray-300 dark:ring-white/10'
+        "
         @click="showFilters = !showFilters"
       >
         <UIcon name="i-heroicons-funnel" class="h-4 w-4" />
         <span class="hidden sm:inline">Filtres</span>
         <span
           v-if="hasActiveFilters"
-          class="bg-primary-500 flex h-4 w-4 items-center justify-center rounded-full text-[10px] font-bold text-white"
+          class="flex h-5 w-5 items-center justify-center rounded-full bg-cyan-100 text-[10px] font-bold text-cyan-700 dark:bg-cyan-900/50 dark:text-cyan-400"
           >!</span
         >
       </button>
       <button
         v-if="hasActiveFilters"
-        class="flex items-center gap-1 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-500 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
+        class="flex items-center gap-1.5 rounded-2xl bg-white px-3 py-3 text-sm font-medium text-gray-500 shadow-sm ring-1 ring-inset ring-gray-200 transition-all hover:bg-gray-50 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:ring-white/10 dark:hover:bg-gray-750 dark:hover:text-gray-200"
         @click="$emit('reset')"
       >
-        <UIcon name="i-heroicons-x-mark" class="h-3.5 w-3.5" />
-        <span class="hidden sm:inline">Réinitialiser</span>
+        <UIcon name="i-heroicons-x-mark" class="h-4 w-4" />
+        <span class="hidden lg:inline">Réinitialiser</span>
       </button>
     </div>
 
     <!-- Panneau de filtres (collapsible) -->
     <Transition
-      enter-active-class="transition-all duration-200 ease-out"
-      leave-active-class="transition-all duration-150 ease-in"
-      enter-from-class="max-h-0 opacity-0"
-      enter-to-class="max-h-96 opacity-100"
-      leave-from-class="max-h-96 opacity-100"
-      leave-to-class="max-h-0 opacity-0"
+      enter-active-class="transition-all duration-300 ease-out"
+      leave-active-class="transition-all duration-200 ease-in"
+      enter-from-class="max-h-0 opacity-0 transform -translate-y-2"
+      enter-to-class="max-h-[800px] opacity-100 transform translate-y-0"
+      leave-from-class="max-h-[800px] opacity-100 transform translate-y-0"
+      leave-to-class="max-h-0 opacity-0 transform -translate-y-2"
     >
       <div
         v-show="showFilters"
-        class="overflow-hidden rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800/50"
+        class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-inset ring-gray-200 dark:bg-gray-800 dark:ring-white/5 p-5 mt-2"
       >
         <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           <!-- Année -->
@@ -155,7 +156,7 @@ const onSelectChange = (
             >
             <select
               :value="year ? String(year) : ''"
-              class="w-full rounded-md border border-gray-300 bg-white px-2 py-1.5 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+              class="form-select block w-full rounded-xl border-transparent bg-gray-50 py-2 pl-3 pr-10 text-sm focus:border-transparent focus:bg-white focus:ring-2 focus:ring-cyan-500 dark:bg-gray-900/50 dark:text-white dark:focus:bg-gray-900 transition-colors"
               @change="onSelectChange('update:year', ($event.target as HTMLSelectElement).value)"
             >
               <option v-for="opt in yearOptions" :key="opt.value" :value="opt.value">
@@ -171,7 +172,7 @@ const onSelectChange = (
             >
             <select
               :value="version ? String(version) : ''"
-              class="w-full rounded-md border border-gray-300 bg-white px-2 py-1.5 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+              class="form-select block w-full rounded-xl border-transparent bg-gray-50 py-2 pl-3 pr-10 text-sm focus:border-transparent focus:bg-white focus:ring-2 focus:ring-cyan-500 dark:bg-gray-900/50 dark:text-white dark:focus:bg-gray-900 transition-colors"
               @change="onSelectChange('update:version', ($event.target as HTMLSelectElement).value)"
             >
               <option v-for="opt in versionOptions" :key="opt.value" :value="opt.value">
@@ -187,7 +188,7 @@ const onSelectChange = (
             >
             <select
               :value="sectorId ? String(sectorId) : ''"
-              class="w-full rounded-md border border-gray-300 bg-white px-2 py-1.5 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+              class="form-select block w-full rounded-xl border-transparent bg-gray-50 py-2 pl-3 pr-10 text-sm focus:border-transparent focus:bg-white focus:ring-2 focus:ring-cyan-500 dark:bg-gray-900/50 dark:text-white dark:focus:bg-gray-900 transition-colors"
               @change="
                 onSelectChange('update:sectorId', ($event.target as HTMLSelectElement).value)
               "
@@ -205,7 +206,7 @@ const onSelectChange = (
             >
             <select
               :value="policyId ? String(policyId) : ''"
-              class="w-full rounded-md border border-gray-300 bg-white px-2 py-1.5 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+              class="form-select block w-full rounded-xl border-transparent bg-gray-50 py-2 pl-3 pr-10 text-sm focus:border-transparent focus:bg-white focus:ring-2 focus:ring-cyan-500 dark:bg-gray-900/50 dark:text-white dark:focus:bg-gray-900 transition-colors"
               @change="
                 onSelectChange('update:policyId', ($event.target as HTMLSelectElement).value)
               "
@@ -223,7 +224,7 @@ const onSelectChange = (
             >
             <select
               :value="ministryId ? String(ministryId) : ''"
-              class="w-full rounded-md border border-gray-300 bg-white px-2 py-1.5 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+              class="form-select block w-full rounded-xl border-transparent bg-gray-50 py-2 pl-3 pr-10 text-sm focus:border-transparent focus:bg-white focus:ring-2 focus:ring-cyan-500 dark:bg-gray-900/50 dark:text-white dark:focus:bg-gray-900 transition-colors"
               @change="
                 onSelectChange('update:ministryId', ($event.target as HTMLSelectElement).value)
               "
@@ -241,7 +242,7 @@ const onSelectChange = (
             >
             <select
               :value="region || ''"
-              class="w-full rounded-md border border-gray-300 bg-white px-2 py-1.5 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+              class="form-select block w-full rounded-xl border-transparent bg-gray-50 py-2 pl-3 pr-10 text-sm focus:border-transparent focus:bg-white focus:ring-2 focus:ring-cyan-500 dark:bg-gray-900/50 dark:text-white dark:focus:bg-gray-900 transition-colors"
               @change="
                 $emit('update:region', ($event.target as HTMLSelectElement).value || undefined)
               "
@@ -259,7 +260,7 @@ const onSelectChange = (
             >
             <select
               :value="isPres"
-              class="w-full rounded-md border border-gray-300 bg-white px-2 py-1.5 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+              class="form-select block w-full rounded-xl border-transparent bg-gray-50 py-2 pl-3 pr-10 text-sm focus:border-transparent focus:bg-white focus:ring-2 focus:ring-cyan-500 dark:bg-gray-900/50 dark:text-white dark:focus:bg-gray-900 transition-colors"
               @change="$emit('update:isPres', ($event.target as HTMLSelectElement).value as any)"
             >
               <option v-for="opt in presOptions" :key="opt.value" :value="opt.value">

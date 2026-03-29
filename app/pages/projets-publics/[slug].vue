@@ -1,9 +1,9 @@
 <script setup lang="ts">
 // ─── Feature flag guard ──────────────────────────────────────────────
-const { isFeatureEnabled } = useFeatureFlags();
-if (!isFeatureEnabled('menu_projets_publics')) {
-  throw showError({ statusCode: 404, statusMessage: 'Page introuvable' });
-}
+// const { isFeatureEnabled } = useFeatureFlags();
+// if (!isFeatureEnabled('menu_projets_publics')) {
+//   throw showError({ statusCode: 404, statusMessage: 'Page introuvable' });
+// }
 
 // ─── Route params ────────────────────────────────────────────────────
 const route = useRoute();
@@ -11,6 +11,21 @@ const slug = route.params.slug as string;
 
 // ─── Data ────────────────────────────────────────────────────────────
 const { project, budgetYears, loading, error } = usePublicProjectDetail(slug);
+
+// ─── External links ──────────────────────────────────────────────────
+const externalLinks = computed(() => {
+  if (!project.value) return [];
+  const links: { label: string; url: string; icon: string }[] = [];
+  if (project.value.linkWebsite)
+    links.push({ label: 'Site web', url: project.value.linkWebsite, icon: 'i-heroicons-globe-alt' });
+  if (project.value.linkFacebook)
+    links.push({ label: 'Facebook', url: project.value.linkFacebook, icon: 'i-heroicons-link' });
+  if (project.value.linkLinkedin)
+    links.push({ label: 'LinkedIn', url: project.value.linkLinkedin, icon: 'i-heroicons-link' });
+  if (project.value.linkTwitter)
+    links.push({ label: 'Twitter / X', url: project.value.linkTwitter, icon: 'i-heroicons-link' });
+  return links;
+});
 
 // ─── SEO dynamique ───────────────────────────────────────────────────
 useSeoMeta({
@@ -26,8 +41,8 @@ useSeoMeta({
 <template>
   <div class="min-h-screen pb-16">
     <!-- Hero Header -->
-    <div class="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
-      <div class="container mx-auto px-4 py-6 sm:py-8">
+    <div class="border-b border-gray-200 bg-white dark:border-[#38444D] dark:bg-transparent">
+      <div class="container mx-auto px-4 py-2 sm:py-4">
         <AppBreadcrumb
           :items="[
             { label: 'Accueil', to: '/' },
@@ -91,41 +106,46 @@ useSeoMeta({
           v-if="project.description"
           class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800"
         >
-          <h3 class="mb-3 text-lg font-bold text-gray-900 dark:text-white">Description</h3>
+          <h3 class="mb-3 flex items-center gap-2 text-lg font-bold text-gray-900 dark:text-white">
+            <UIcon name="i-heroicons-document-magnifying-glass" class="h-5 w-5 text-gray-400" />
+            Description
+          </h3>
           <div class="prose prose-sm max-w-none dark:prose-invert" v-html="project.description" />
         </div>
 
         <!-- Budgets annuels -->
         <PublicProjectsDetailBudgetBlock :budget-years="budgetYears" />
 
+        <!-- Liens externes -->
+        <div
+          v-if="externalLinks.length > 0"
+          class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800"
+        >
+          <h3 class="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-white">
+            <UIcon name="i-heroicons-arrow-top-right-on-square" class="h-4 w-4 text-gray-400" />
+            En savoir plus, les liens du projet
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            <a
+              v-for="link in externalLinks"
+              :key="link.url"
+              :href="link.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+            >
+              <UIcon :name="link.icon" class="h-4 w-4 text-gray-400" />
+              {{ link.label }}
+              <UIcon name="i-heroicons-arrow-top-right-on-square" class="h-3 w-3 text-gray-400" />
+            </a>
+          </div>
+        </div>
+
         <!-- Documents liés -->
         <PublicProjectsDetailDocuments
           :document-primary="project.documentPrimary"
           :documents="project.documents"
         />
-
-        <!-- Métadonnées / Source -->
-        <div
-          v-if="project.sourceLabel || project.titleSourceRaw"
-          class="rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800/50"
-        >
-          <h4 class="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-            Source des données
-          </h4>
-          <p v-if="project.sourceLabel" class="text-sm text-gray-600 dark:text-gray-400">
-            {{ project.sourceLabel }}
-          </p>
-          <p v-if="project.titleSourceRaw" class="mt-1 text-xs text-gray-500 dark:text-gray-500">
-            Référence : {{ project.titleSourceRaw }}
-          </p>
-          <div
-            v-if="project.yearLabel || project.versionLabel"
-            class="mt-2 flex gap-3 text-xs text-gray-500 dark:text-gray-500"
-          >
-            <span v-if="project.yearLabel">Année : {{ project.yearLabel }}</span>
-            <span v-if="project.versionLabel">Version : {{ project.versionLabel }}</span>
-          </div>
-        </div>
 
         <!-- Bouton retour -->
         <div class="pt-4">

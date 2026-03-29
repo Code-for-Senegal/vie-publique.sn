@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { Bar } from 'vue-chartjs';
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import type { PublicProject } from '~~/types/public-project';
 
-ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip);
+ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, ChartDataLabels);
 
 interface Props {
   projects: PublicProject[];
@@ -25,15 +26,13 @@ const chartData = computed(() => {
     }
   }
 
-  // Trier par count décroissant, top 10
+  // Trier par count décroissant, top 5
   const sorted = Array.from(ministryMap.values())
     .sort((a, b) => b.count - a.count)
-    .slice(0, 10);
+    .slice(0, 5);
 
   // Tronquer les labels longs
-  const labels = sorted.map((m) =>
-    m.name.length > 40 ? m.name.substring(0, 37) + '...' : m.name,
-  );
+  const labels = sorted.map((m) => (m.name.length > 35 ? m.name.substring(0, 32) + '...' : m.name));
   const data = sorted.map((m) => m.count);
 
   return {
@@ -61,6 +60,13 @@ const chartOptions = {
         label: (context: any) => ` ${context.parsed.x} projet${context.parsed.x > 1 ? 's' : ''}`,
       },
     },
+    datalabels: {
+      anchor: 'end' as const,
+      align: 'end' as const,
+      color: '#6B7280',
+      font: { size: 11, weight: 'bold' as const },
+      formatter: (value: number) => value,
+    },
   },
   scales: {
     x: {
@@ -80,7 +86,7 @@ const chartOptions = {
   <div
     class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800"
   >
-    <h3 class="mb-3 text-sm font-semibold text-gray-900 dark:text-white">Top 10 ministères</h3>
+    <h3 class="mb-3 text-sm font-semibold text-gray-900 dark:text-white">Top 5 ministères</h3>
     <div v-if="projects.length > 0" class="h-[250px]">
       <Bar :data="chartData" :options="chartOptions" />
     </div>

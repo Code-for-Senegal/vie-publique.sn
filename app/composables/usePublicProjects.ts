@@ -85,13 +85,9 @@ export const usePublicProjects = (options: UsePublicProjectsOptions = {}) => {
     }),
   });
 
-  // ─── Fetch de la liste paginée ────────────────────────────────────
-  const listQuery = computed(() => {
-    const params: Record<string, any> = {
-      page: currentPage.value,
-      limit: itemsPerPage.value,
-      sortBy: sortBy.value,
-    };
+  // ─── Query filtres partagé (sans pagination) ─────────────────────
+  const filterQuery = computed(() => {
+    const params: Record<string, any> = {};
     if (search.value) params.search = search.value;
     if (sectorId.value) params.sector = sectorId.value;
     if (policyId.value) params.policy = policyId.value;
@@ -103,13 +99,24 @@ export const usePublicProjects = (options: UsePublicProjectsOptions = {}) => {
     return params;
   });
 
+  // ─── Fetch de la liste paginée (pour le tableau) ────────────────
+  const listQuery = computed(() => ({
+    ...filterQuery.value,
+    page: currentPage.value,
+    limit: itemsPerPage.value,
+    sortBy: sortBy.value,
+  }));
+
   const {
     data: projectsData,
     pending: loading,
     error,
     refresh,
   } = useFetch<PublicProjectListResponse>('/api/public-projects', {
-    key: computed(() => `pp-list-${year.value}-${currentPage.value}-${sortBy.value}-${search.value || ''}-${sectorId.value || ''}-${ministryId.value || ''}-${isPres.value}`),
+    key: computed(
+      () =>
+        `pp-list-${year.value}-${currentPage.value}-${sortBy.value}-${search.value || ''}-${sectorId.value || ''}-${ministryId.value || ''}-${isPres.value}`,
+    ),
     query: listQuery,
     watch: [listQuery],
     server: true,
@@ -120,8 +127,31 @@ export const usePublicProjects = (options: UsePublicProjectsOptions = {}) => {
     }),
   });
 
+  // ─── Fetch de TOUS les projets filtrés (pour graphiques et carte) ─
+  const allQuery = computed(() => ({
+    ...filterQuery.value,
+    limit: -1,
+    sortBy: '-budget_total_amount',
+  }));
+
+  const { data: allProjectsData } = useFetch<PublicProjectListResponse>('/api/public-projects', {
+    key: computed(
+      () =>
+        `pp-all-${year.value}-${search.value || ''}-${sectorId.value || ''}-${policyId.value || ''}-${ministryId.value || ''}-${region.value || ''}-${isPres.value}`,
+    ),
+    query: allQuery,
+    watch: [allQuery],
+    server: true,
+    lazy: false,
+    default: () => ({
+      projects: [],
+      pagination: { page: 1, limit: -1, total: 0, totalPages: 1 },
+    }),
+  });
+
   // ─── Computed accesseurs ──────────────────────────────────────────
   const projects = computed(() => projectsData.value?.projects || []);
+  const allProjects = computed(() => allProjectsData.value?.projects || []);
   const pagination = computed(
     () => projectsData.value?.pagination || { page: 1, limit: 25, total: 0, totalPages: 0 },
   );
@@ -229,6 +259,7 @@ export const usePublicProjects = (options: UsePublicProjectsOptions = {}) => {
     // Données
     stats,
     projects,
+    allProjects,
     pagination,
     loading,
     error,

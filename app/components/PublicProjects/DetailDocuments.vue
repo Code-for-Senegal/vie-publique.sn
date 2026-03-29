@@ -29,7 +29,10 @@ const hasDocuments = computed(() => allDocuments.value.length > 0);
   <div
     class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800"
   >
-    <h3 class="mb-4 text-lg font-bold text-gray-900 dark:text-white">Documents liés</h3>
+    <h3 class="mb-4 flex items-center gap-2 text-lg font-bold text-gray-900 dark:text-white">
+      <UIcon name="i-heroicons-document-text" class="h-5 w-5 text-gray-400" />
+      Documents liés
+    </h3>
 
     <div v-if="hasDocuments" class="space-y-2">
       <NuxtLink

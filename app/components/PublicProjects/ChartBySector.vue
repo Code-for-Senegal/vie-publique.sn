@@ -46,11 +46,13 @@ const chartData = computed(() => {
   // Trier par count décroissant
   const sorted = Array.from(sectorMap.values()).sort((a, b) => b.count - a.count);
 
-  const labels = sorted.map((s) => s.name);
+  const total = sorted.reduce((sum, s) => sum + s.count, 0);
+  const labels = sorted.map((s) => {
+    const pct = total > 0 ? ((s.count / total) * 100).toFixed(0) : '0';
+    return `${s.name} (${pct}%)`;
+  });
   const data = sorted.map((s) => s.count);
-  const backgroundColor = sorted.map(
-    (s, i) => s.color || defaultColors[i % defaultColors.length],
-  );
+  const backgroundColor = sorted.map((s, i) => s.color || defaultColors[i % defaultColors.length]);
 
   return {
     labels,
