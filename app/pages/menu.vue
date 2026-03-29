@@ -297,7 +297,7 @@ const allNavigationCards: NavigationCard[] = [
     title: 'Projets Publics',
     description: 'Suivi des investissements PIP, PRES',
     icon: 'i-heroicons-clipboard-document-list',
-    to: '/projets-publics',
+    to: '/projets-publics-senegal',
     featureKey: 'menu_projets_publics',
   },
 ];

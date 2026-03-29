@@ -46,7 +46,7 @@ useSeoMeta({
         <AppBreadcrumb
           :items="[
             { label: 'Accueil', to: '/' },
-            { label: 'Projets Publics', to: '/projets-publics' },
+            { label: 'Projets Publics', to: '/projets-publics-senegal' },
             { label: project?.shortTitle || project?.title || 'Projet' },
           ]"
           class="mb-4"

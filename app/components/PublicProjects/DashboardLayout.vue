@@ -1,21 +1,19 @@
 <script setup lang="ts">
-// ─── Feature flag guard ──────────────────────────────────────────────
-// const { isFeatureEnabled } = useFeatureFlags();
-// if (!isFeatureEnabled('menu_projets_publics')) {
-//   throw showError({ statusCode: 404, statusMessage: 'Page introuvable' });
-// }
+import type { PublicProjectMode } from '~~/types/public-project';
 
-// ─── SEO ─────────────────────────────────────────────────────────────
-useSeoMeta({
-  title: 'Projets Publics du Sénégal - Suivi des investissements',
-  description:
-    'Tableau de bord des projets publics au Sénégal : PIP, PRES, LFI. Suivi des budgets, répartition par secteur et ministère.',
-  ogTitle: 'Projets Publics du Sénégal',
-  ogDescription: 'Suivi transparent des projets publics et investissements au Sénégal.',
-});
+interface Props {
+  mode: PublicProjectMode;
+  title: string;
+  description: string;
+}
+
+const props = defineProps<Props>();
 
 // ─── Data ────────────────────────────────────────────────────────────
 const {
+  // Mode
+  mode,
+
   // État filtres
   year,
   version,
@@ -25,7 +23,6 @@ const {
   ministryId,
   region,
   isPres,
-  currentPage,
 
   // Valeurs disponibles
   availableYears,
@@ -58,7 +55,14 @@ const {
   setPage,
   resetFilters,
   refresh,
-} = usePublicProjects();
+} = usePublicProjects({ mode: props.mode });
+
+// ─── Tabs navigation ────────────────────────────────────────────────
+const tabs = [
+  { id: 'global' as const, label: 'Tous les projets', to: '/projets-publics-senegal' },
+  { id: 'pres' as const, label: 'PRES', to: '/projets-publics-senegal/pres' },
+  { id: 'pip' as const, label: 'PIP', to: '/projets-publics-senegal/pip' },
+];
 </script>
 
 <template>
@@ -74,28 +78,52 @@ const {
 
       <div class="container relative mx-auto px-4 py-4 sm:py-6">
         <AppBreadcrumb
-          :items="[{ label: 'Accueil', to: '/' }, { label: 'Projets Publics' }]"
+          :items="[
+            { label: 'Accueil', to: '/' },
+            { label: 'Projets Publics', to: mode === 'global' ? undefined : '/projets-publics-senegal' },
+            ...(mode !== 'global' ? [{ label: mode === 'pres' ? 'PRES' : 'PIP' }] : []),
+          ]"
           class="mb-6"
         />
-        <div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-          <div class="max-w-2xl">
-            <h1
-              class="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl"
-            >
-              Projets Publics du Sénégal
-            </h1>
-            <p class="mt-2 text-base text-gray-600 dark:text-gray-400">
-              Suivi transparent des projets publics, des investissements PIP et des projets
-              spécifiques (PRES).
-            </p>
-          </div>
-          <div
-            class="inline-flex hidden w-fit items-center gap-2 rounded-full border border-cyan-100 bg-cyan-50/80 px-4 py-2 text-sm font-medium text-cyan-700 shadow-sm backdrop-blur-sm dark:border-cyan-900/50 dark:bg-cyan-900/30 dark:text-cyan-400"
+        <div class="max-w-2xl">
+          <h1
+            class="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl"
           >
-            <UIcon name="i-heroicons-chart-pie" class="h-4 w-4" />
-            <span>{{ stats.totalProjects }} projets recensés</span>
-          </div>
+            {{ title }}
+          </h1>
+          <p class="mt-2 text-base text-gray-600 dark:text-gray-400">
+            {{ description }}
+          </p>
         </div>
+      </div>
+    </div>
+
+    <!-- Tabs navigation mode -->
+    <div class="border-b border-gray-200 bg-white dark:border-[#38444D] dark:bg-transparent">
+      <div class="container mx-auto px-4">
+        <nav class="-mb-px flex gap-1" aria-label="Mode dashboard">
+          <NuxtLink
+            v-for="tab in tabs"
+            :key="tab.id"
+            :to="tab.to"
+            class="inline-flex items-center gap-1.5 border-b-2 px-4 py-3 text-sm font-medium transition-colors"
+            :class="
+              tab.id === mode
+                ? 'border-cyan-500 text-cyan-600 dark:border-cyan-400 dark:text-cyan-400'
+                : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:text-gray-300'
+            "
+          >
+            <span
+              v-if="tab.id === 'pres'"
+              class="h-2 w-2 rounded-full bg-amber-400"
+            ></span>
+            <span
+              v-else-if="tab.id === 'pip'"
+              class="h-2 w-2 rounded-full bg-emerald-400"
+            ></span>
+            {{ tab.label }}
+          </NuxtLink>
+        </nav>
       </div>
     </div>
 
@@ -147,7 +175,7 @@ const {
       <!-- Content -->
       <div v-else class="space-y-6">
         <!-- KPI -->
-        <PublicProjectsKpiBar :stats="stats" :year="year" />
+        <PublicProjectsKpiBar :stats="stats" :year="year" :mode="mode" />
 
         <!-- Filtres -->
         <PublicProjectsFilterBar
@@ -166,6 +194,7 @@ const {
           :region="region"
           :is-pres="isPres"
           :has-active-filters="hasActiveFilters"
+          :mode="mode"
           @update:search="setSearch"
           @update:year="setYear"
           @update:version="setVersion"
@@ -176,6 +205,9 @@ const {
           @update:is-pres="setIsPres"
           @reset="resetFilters"
         />
+
+        <!-- Répartition par axe politique -->
+        <PublicProjectsCardsByPolicy :projects="allProjects" />
 
         <!-- Graphiques et carte -->
         <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -190,6 +222,7 @@ const {
           :pagination="pagination"
           :year="year"
           :loading="loading"
+          :mode="mode"
           @page-change="setPage"
         />
       </div>

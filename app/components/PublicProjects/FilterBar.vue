@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PublicProjectSector, PublicPolicy } from '~~/types/public-project';
+import type { PublicProjectSector, PublicPolicy, PublicProjectMode } from '~~/types/public-project';
 
 interface Props {
   sectors: PublicProjectSector[];
@@ -18,9 +18,12 @@ interface Props {
   region?: string;
   isPres: 'all' | 'true' | 'false';
   hasActiveFilters: boolean;
+  mode?: PublicProjectMode;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  mode: 'global',
+});
 
 const emit = defineEmits<{
   'update:search': [value: string];
@@ -253,8 +256,8 @@ const onSelectChange = (
             </select>
           </div>
 
-          <!-- PRES -->
-          <div>
+          <!-- PRES (visible uniquement en mode global) -->
+          <div v-if="mode === 'global'">
             <label class="mb-1 block text-xs font-medium text-gray-600 dark:text-gray-400"
               >Type PRES</label
             >

@@ -101,6 +101,13 @@ export default defineSitemapEventHandler(async () => {
 
     // 4. Projets Publics
     try {
+      // Pages dashboards (PRES et PIP)
+      urls.push(
+        { loc: '/projets-publics-senegal/pres', changefreq: 'weekly', priority: 0.8 },
+        { loc: '/projets-publics-senegal/pip', changefreq: 'weekly', priority: 0.8 },
+      );
+
+      // Fiches projets
       const publicProjects = await directus.request(
         readItems('public_project', {
           fields: ['slug', 'date_updated'],
@@ -114,7 +121,7 @@ export default defineSitemapEventHandler(async () => {
       for (const project of publicProjects) {
         const lastmod = toISODate(project.date_updated);
         urls.push({
-          loc: `/projets-publics/${project.slug}`,
+          loc: `/projets-publics-senegal/${project.slug}`,
           ...(lastmod && { lastmod }),
           changefreq: 'monthly',
           priority: 0.7,

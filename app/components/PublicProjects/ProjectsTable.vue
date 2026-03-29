@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PublicProject } from '~~/types/public-project';
+import type { PublicProject, PublicProjectMode } from '~~/types/public-project';
 
 interface Props {
   projects: PublicProject[];
@@ -11,9 +11,16 @@ interface Props {
   };
   year?: number;
   loading?: boolean;
+  mode?: PublicProjectMode;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  mode: 'global',
+});
+
+// Colonnes adaptatives selon le mode
+const showBudgetTotal = computed(() => props.mode !== 'pres');
+const showAECP = computed(() => props.mode !== 'pip' && !!props.year);
 
 const emit = defineEmits<{
   'page-change': [page: number];
@@ -74,9 +81,9 @@ const visiblePages = computed(() => {
         >
           <tr>
             <th class="px-4 py-3">Projet</th>
-            <th class="px-4 py-3 text-right">Budget total</th>
-            <th v-if="year" class="px-4 py-3 text-right">AE {{ year }}</th>
-            <th v-if="year" class="px-4 py-3 text-right">CP {{ year }}</th>
+            <th v-if="showBudgetTotal" class="px-4 py-3 text-right">Budget total</th>
+            <th v-if="showAECP" class="px-4 py-3 text-right">AE {{ year }}</th>
+            <th v-if="showAECP" class="px-4 py-3 text-right">CP {{ year }}</th>
             <th class="w-10 px-4 py-3"></th>
           </tr>
         </thead>
@@ -85,14 +92,14 @@ const visiblePages = computed(() => {
             v-for="project in projects"
             :key="project.id"
             class="cursor-pointer bg-white transition-colors hover:bg-gray-50 dark:bg-transparent dark:hover:bg-gray-800"
-            @click="navigateTo(`/projets-publics/${project.slug}`)"
+            @click="navigateTo(`/projets-publics-senegal/${project.slug}`)"
           >
             <!-- Colonne Projet : titre + badges + métadonnées -->
             <td class="px-4 py-3">
               <div class="space-y-1.5">
                 <!-- Titre sur 2 lignes max -->
                 <NuxtLink
-                  :to="`/projets-publics/${project.slug}`"
+                  :to="`/projets-publics-senegal/${project.slug}`"
                   class="line-clamp-2 text-sm font-semibold text-[#1a0dab] hover:underline dark:text-[#8ab4f8]"
                 >
                   {{ toSentenceCase(project.shortTitle || project.title) }}
@@ -151,6 +158,7 @@ const visiblePages = computed(() => {
 
             <!-- Budget total -->
             <td
+              v-if="showBudgetTotal"
               class="whitespace-nowrap px-4 py-3 text-right font-mono text-sm text-gray-900 dark:text-white"
             >
               {{ formatAmount(project.budgetTotalAmount) }}
@@ -158,13 +166,13 @@ const visiblePages = computed(() => {
 
             <!-- AE / CP annuels -->
             <td
-              v-if="year"
+              v-if="showAECP"
               class="whitespace-nowrap px-4 py-3 text-right font-mono text-sm text-gray-900 dark:text-white"
             >
               {{ formatAmount(project.annualAE) }}
             </td>
             <td
-              v-if="year"
+              v-if="showAECP"
               class="whitespace-nowrap px-4 py-3 text-right font-mono text-sm text-gray-900 dark:text-white"
             >
               {{ formatAmount(project.annualCP) }}
@@ -173,7 +181,7 @@ const visiblePages = computed(() => {
             <!-- Flèche -->
             <td class="px-4 py-3">
               <NuxtLink
-                :to="`/projets-publics/${project.slug}`"
+                :to="`/projets-publics-senegal/${project.slug}`"
                 class="hover:text-primary-700 dark:hover:text-primary-300 text-gray-500 dark:text-gray-400"
               >
                 <UIcon name="i-heroicons-arrow-right" class="h-4 w-4" />
@@ -182,7 +190,7 @@ const visiblePages = computed(() => {
           </tr>
           <tr v-if="projects.length === 0 && !loading">
             <td
-              :colspan="year ? 5 : 3"
+              :colspan="1 + (showBudgetTotal ? 1 : 0) + (showAECP ? 2 : 0) + 1"
               class="px-4 py-12 text-center text-gray-500 dark:text-gray-400"
             >
               Aucun projet trouvé pour ces critères.
@@ -197,7 +205,7 @@ const visiblePages = computed(() => {
       <NuxtLink
         v-for="project in projects"
         :key="project.id"
-        :to="`/projets-publics/${project.slug}`"
+        :to="`/projets-publics-senegal/${project.slug}`"
         class="block rounded-lg border border-gray-200 bg-white p-3 transition-colors active:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:active:bg-gray-700"
       >
         <!-- Titre -->
@@ -253,10 +261,17 @@ const visiblePages = computed(() => {
 
         <!-- Budget -->
         <div
-          v-if="project.budgetTotalAmount"
+          v-if="showBudgetTotal && project.budgetTotalAmount"
           class="mt-2 text-sm font-semibold text-gray-900 dark:text-white"
         >
           {{ formatAmount(project.budgetTotalAmount) }} FCFA
+        </div>
+        <div
+          v-if="showAECP && (project.annualAE || project.annualCP)"
+          class="mt-1 flex gap-3 text-xs text-gray-600 dark:text-gray-400"
+        >
+          <span v-if="project.annualAE">AE : {{ formatAmount(project.annualAE) }}</span>
+          <span v-if="project.annualCP">CP : {{ formatAmount(project.annualCP) }}</span>
         </div>
       </NuxtLink>
 

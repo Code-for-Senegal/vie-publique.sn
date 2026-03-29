@@ -1,3 +1,6 @@
+// === Mode dashboard ===
+export type PublicProjectMode = 'global' | 'pres' | 'pip';
+
 // === Projet public - élément liste (tableau dashboard) ===
 export interface PublicProject {
   id: number;
@@ -91,9 +94,11 @@ export interface PublicPolicy {
 export interface PublicProjectStats {
   totalProjects: number;
   totalPres: number;
+  totalPip: number;
   totalPriority: number;
   totalMinistries: number;
   totalSectors: number;
+  totalBudget: number | null;
   totalAE: number | null;
   totalCP: number | null;
   year: number | null;

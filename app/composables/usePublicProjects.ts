@@ -3,14 +3,18 @@ import type {
   PublicProjectStats,
   PublicProjectListResponse,
   PublicProjectDetailResponse,
+  PublicProjectMode,
 } from '~~/types/public-project';
 
 export interface UsePublicProjectsOptions {
   defaultYear?: number;
   defaultVersion?: number;
+  mode?: PublicProjectMode;
 }
 
 export const usePublicProjects = (options: UsePublicProjectsOptions = {}) => {
+  const mode = options.mode || 'global';
+
   // ─── État réactif des filtres ─────────────────────────────────────
   // Initialiser l'année avec une valeur par défaut stable (comme useBudget)
   const year = ref(options.defaultYear || 2026);
@@ -20,7 +24,9 @@ export const usePublicProjects = (options: UsePublicProjectsOptions = {}) => {
   const policyId = ref<number | undefined>();
   const ministryId = ref<number | undefined>();
   const region = ref<string | undefined>();
-  const isPres = ref<'all' | 'true' | 'false'>('all');
+  const isPres = ref<'all' | 'true' | 'false'>(
+    mode === 'pres' ? 'true' : mode === 'pip' ? 'false' : 'all',
+  );
   const currentPage = ref(1);
   const sortBy = ref('-budget_total_amount');
   const itemsPerPage = ref(25);
@@ -58,26 +64,29 @@ export const usePublicProjects = (options: UsePublicProjectsOptions = {}) => {
     return filtersData.value.versions.filter((v) => v.yearId === yearItem.yearId);
   });
 
-  // ─── Fetch des KPI stats ──────────────────────────────────────────
+  // ─── Fetch des KPI stats (avec filtre isPres pour mode) ──────────
   const statsQuery = computed(() => {
     const params: Record<string, any> = {};
     if (year.value) params.year = year.value;
     if (version.value) params.version = version.value;
+    if (isPres.value !== 'all') params.isPres = isPres.value;
     return params;
   });
 
   const { data: stats } = useFetch<PublicProjectStats>('/api/public-projects/stats', {
-    key: computed(() => `pp-stats-${year.value}-${version.value || 'all'}`),
+    key: computed(() => `pp-stats-${year.value}-${version.value || 'all'}-${isPres.value}`),
     query: statsQuery,
-    watch: [year, version],
+    watch: [year, version, isPres],
     server: true,
     lazy: false,
     default: () => ({
       totalProjects: 0,
       totalPres: 0,
+      totalPip: 0,
       totalPriority: 0,
       totalMinistries: 0,
       totalSectors: 0,
+      totalBudget: null,
       totalAE: null,
       totalCP: null,
       year: null,
@@ -169,7 +178,7 @@ export const usePublicProjects = (options: UsePublicProjectsOptions = {}) => {
       policyId.value ||
       ministryId.value ||
       region.value ||
-      isPres.value !== 'all'
+      (mode === 'global' && isPres.value !== 'all')
     );
   });
 
@@ -211,6 +220,7 @@ export const usePublicProjects = (options: UsePublicProjectsOptions = {}) => {
   };
 
   const setIsPres = (value: 'all' | 'true' | 'false') => {
+    if (mode !== 'global') return; // Verrouillé en mode PRES/PIP
     isPres.value = value;
     currentPage.value = 1;
   };
@@ -230,11 +240,14 @@ export const usePublicProjects = (options: UsePublicProjectsOptions = {}) => {
     policyId.value = undefined;
     ministryId.value = undefined;
     region.value = undefined;
-    isPres.value = 'all';
+    isPres.value = mode === 'pres' ? 'true' : mode === 'pip' ? 'false' : 'all';
     currentPage.value = 1;
   };
 
   return {
+    // Mode
+    mode,
+
     // État des filtres
     year,
     version,

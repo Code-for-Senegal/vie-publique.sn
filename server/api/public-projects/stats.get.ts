@@ -6,15 +6,21 @@ export default defineCachedEventHandler(
     const query = getQuery(event);
     const yearParam = query.year ? parseInt(query.year as string) : null;
     const versionParam = query.version ? parseInt(query.version as string) : null;
+    const isPresParam = query.isPres as string | undefined;
 
     try {
       const directus = getCmsClient();
+
+      // Filtre de base (applicable a toutes les aggregations)
+      const baseFilter: any = { status: { _eq: 'published' } };
+      if (isPresParam === 'true') baseFilter.is_in_pres = { _eq: true };
+      else if (isPresParam === 'false') baseFilter.is_in_pres = { _eq: false };
 
       // 1. Compter le total de projets publiés
       const totalResult = await directus.request(
         aggregate('public_project', {
           aggregate: { count: ['id'] },
-          query: { filter: { status: { _eq: 'published' } } },
+          query: { filter: baseFilter },
         }),
       );
       const totalProjects = Number(totalResult[0]?.count?.id) || 0;
@@ -23,43 +29,63 @@ export default defineCachedEventHandler(
       const presResult = await directus.request(
         aggregate('public_project', {
           aggregate: { count: ['id'] },
-          query: { filter: { status: { _eq: 'published' }, is_in_pres: { _eq: true } } },
+          query: { filter: { ...baseFilter, is_in_pres: { _eq: true } } },
         }),
       );
       const totalPres = Number(presResult[0]?.count?.id) || 0;
 
-      // 3. Compter les projets prioritaires
+      // 3. Compter les projets PIP (non-PRES)
+      const pipResult = await directus.request(
+        aggregate('public_project', {
+          aggregate: { count: ['id'] },
+          query: { filter: { ...baseFilter, is_in_pres: { _eq: false } } },
+        }),
+      );
+      const totalPip = Number(pipResult[0]?.count?.id) || 0;
+
+      // 4. Compter les projets prioritaires
       const priorityResult = await directus.request(
         aggregate('public_project', {
           aggregate: { count: ['id'] },
-          query: { filter: { status: { _eq: 'published' }, is_priority: { _eq: true } } },
+          query: { filter: { ...baseFilter, is_priority: { _eq: true } } },
         }),
       );
       const totalPriority = Number(priorityResult[0]?.count?.id) || 0;
 
-      // 4. Compter les ministères distincts
+      // 5. Compter les ministères distincts
       const ministriesResult = await directus.request(
         aggregate('public_project', {
           aggregate: { countDistinct: ['ministry'] },
           query: {
-            filter: { status: { _eq: 'published' }, ministry: { _nnull: true } },
+            filter: { ...baseFilter, ministry: { _nnull: true } },
           },
         }),
       );
       const totalMinistries = Number(ministriesResult[0]?.countDistinct?.ministry) || 0;
 
-      // 5. Compter les secteurs distincts
+      // 6. Compter les secteurs distincts
       const sectorsResult = await directus.request(
         aggregate('public_project', {
           aggregate: { countDistinct: ['sector'] },
           query: {
-            filter: { status: { _eq: 'published' }, sector: { _nnull: true } },
+            filter: { ...baseFilter, sector: { _nnull: true } },
           },
         }),
       );
       const totalSectors = Number(sectorsResult[0]?.countDistinct?.sector) || 0;
 
-      // 6. Totaux AE / CP pour l'année/version sélectionnée
+      // 7. Budget total (somme budget_total_amount)
+      const budgetResult = await directus.request(
+        aggregate('public_project', {
+          aggregate: { sum: ['budget_total_amount'] },
+          query: { filter: baseFilter },
+        }),
+      );
+      const totalBudget = budgetResult[0]?.sum?.budget_total_amount
+        ? Number(budgetResult[0].sum.budget_total_amount)
+        : null;
+
+      // 8. Totaux AE / CP pour l'année/version sélectionnée
       let totalAE: number | null = null;
       let totalCP: number | null = null;
       let versionLabel: string | null = null;
@@ -82,6 +108,13 @@ export default defineCachedEventHandler(
             status: { _eq: 'published' },
             year: { _eq: budgetYearId },
           };
+
+          // Filtrer par isPres sur la relation projet
+          if (isPresParam === 'true') {
+            budgetFilter.project = { is_in_pres: { _eq: true } };
+          } else if (isPresParam === 'false') {
+            budgetFilter.project = { is_in_pres: { _eq: false } };
+          }
 
           if (versionParam) {
             budgetFilter.version = { _eq: versionParam };
@@ -112,9 +145,11 @@ export default defineCachedEventHandler(
       const result: PublicProjectStats = {
         totalProjects,
         totalPres,
+        totalPip,
         totalPriority,
         totalMinistries,
         totalSectors,
+        totalBudget,
         totalAE,
         totalCP,
         year: yearParam,
@@ -135,7 +170,7 @@ export default defineCachedEventHandler(
     name: 'public-projects-stats',
     getKey: (event) => {
       const query = getQuery(event);
-      return `public-projects-stats-${query.year || 'all'}-${query.version || 'all'}`;
+      return `public-projects-stats-${query.year || 'all'}-${query.version || 'all'}-${query.isPres || 'all'}`;
     },
   },
 );

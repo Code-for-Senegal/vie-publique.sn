@@ -1,70 +1,75 @@
 <script setup lang="ts">
-import type { PublicProjectStats } from '~~/types/public-project';
+import type { PublicProjectStats, PublicProjectMode } from '~~/types/public-project';
 
 interface Props {
   stats: PublicProjectStats;
   year?: number;
+  mode?: PublicProjectMode;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  mode: 'global',
+});
 
 const formatAmount = (value: number | null): { num: string; unit: string } => {
   if (value === null || value === undefined) return { num: '—', unit: '' };
-  // Convertir en milliards si > 1 000 000 000
   if (value >= 1_000_000_000) {
     return { num: (value / 1_000_000_000).toLocaleString('fr-FR', { maximumFractionDigits: 1 }), unit: 'Mds' };
   }
-  // Convertir en millions si > 1 000 000
   if (value >= 1_000_000) {
     return { num: (value / 1_000_000).toLocaleString('fr-FR', { maximumFractionDigits: 1 }), unit: 'M' };
   }
   return { num: value.toLocaleString('fr-FR'), unit: '' };
 };
 
-const kpis = computed(() => [
-  {
-    label: 'Total projets',
-    value: props.stats.totalProjects,
-    topClass: 'bg-slate-800 text-white dark:bg-slate-900', // Dark Blue
-    bottomClass: 'bg-gray-50/50 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
-  },
-  {
-    label: 'Projets PRES',
-    value: props.stats.totalPres,
-    topClass: 'bg-[#fbee81] text-amber-900 dark:bg-yellow-600/20 dark:text-yellow-400', // Yellow custom
-    bottomClass: 'bg-gray-50/50 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
-  },
-  {
-    label: 'Ministères',
-    value: props.stats.totalMinistries,
-    topClass: 'bg-[#9de1fb] text-sky-900 dark:bg-sky-600/20 dark:text-sky-400', // Light Blue custom
-    bottomClass: 'bg-gray-50/50 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
-  },
-  {
-    label: 'Secteurs',
-    value: props.stats.totalSectors,
-    topClass: 'bg-teal-100 text-teal-900 dark:bg-teal-900/40 dark:text-teal-400', // Teal
-    bottomClass: 'bg-gray-50/50 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
-  },
-  {
-    label: props.year ? `Total AE ${props.year}` : 'Total AE',
-    value: formatAmount(props.stats.totalAE),
-    topClass: 'bg-slate-800 text-white dark:bg-slate-900',
-    bottomClass: 'bg-gray-50/50 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
-    isAmount: true,
-  },
-  {
-    label: props.year ? `Total CP ${props.year}` : 'Total CP',
-    value: formatAmount(props.stats.totalCP),
-    topClass: 'bg-[#9de1fb] text-sky-900 dark:bg-sky-600/20 dark:text-sky-400',
-    bottomClass: 'bg-gray-50/50 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
-    isAmount: true,
-  },
-]);
+// ─── Styles réutilisables ────────────────────────────────────────────
+const bottomClass = 'bg-gray-50/50 text-gray-700 dark:bg-gray-800 dark:text-gray-300';
+const darkBlue = 'bg-slate-800 text-white dark:bg-slate-900';
+const yellow = 'bg-[#fbee81] text-amber-900 dark:bg-yellow-600/20 dark:text-yellow-400';
+const lightBlue = 'bg-[#9de1fb] text-sky-900 dark:bg-sky-600/20 dark:text-sky-400';
+const teal = 'bg-teal-100 text-teal-900 dark:bg-teal-900/40 dark:text-teal-400';
+const emerald = 'bg-emerald-100 text-emerald-900 dark:bg-emerald-900/40 dark:text-emerald-400';
+
+// ─── KPI adaptatifs selon le mode ────────────────────────────────────
+const kpis = computed(() => {
+  if (props.mode === 'pres') {
+    return [
+      { label: 'Projets PRES', value: props.stats.totalPres, topClass: yellow, bottomClass },
+      { label: 'Ministères', value: props.stats.totalMinistries, topClass: lightBlue, bottomClass },
+      { label: props.year ? `Total AE ${props.year}` : 'Total AE', value: formatAmount(props.stats.totalAE), topClass: darkBlue, bottomClass, isAmount: true },
+      { label: props.year ? `Total CP ${props.year}` : 'Total CP', value: formatAmount(props.stats.totalCP), topClass: lightBlue, bottomClass, isAmount: true },
+    ];
+  }
+
+  if (props.mode === 'pip') {
+    return [
+      { label: 'Total projets', value: props.stats.totalProjects, topClass: darkBlue, bottomClass },
+      { label: 'Budget total', value: formatAmount(props.stats.totalBudget), topClass: emerald, bottomClass, isAmount: true },
+      { label: 'Ministères', value: props.stats.totalMinistries, topClass: lightBlue, bottomClass },
+      { label: 'Secteurs', value: props.stats.totalSectors, topClass: teal, bottomClass },
+    ];
+  }
+
+  // Global : 6 KPI
+  return [
+    { label: 'Total projets', value: props.stats.totalProjects, topClass: darkBlue, bottomClass },
+    { label: 'Projets PRES', value: props.stats.totalPres, topClass: yellow, bottomClass },
+    { label: 'Ministères', value: props.stats.totalMinistries, topClass: lightBlue, bottomClass },
+    { label: 'Secteurs', value: props.stats.totalSectors, topClass: teal, bottomClass },
+    { label: props.year ? `Total AE ${props.year}` : 'Total AE', value: formatAmount(props.stats.totalAE), topClass: darkBlue, bottomClass, isAmount: true },
+    { label: props.year ? `Total CP ${props.year}` : 'Total CP', value: formatAmount(props.stats.totalCP), topClass: lightBlue, bottomClass, isAmount: true },
+  ];
+});
+
+const gridClass = computed(() =>
+  props.mode === 'global'
+    ? 'grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6 sm:gap-4'
+    : 'grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-4 sm:gap-4',
+);
 </script>
 
 <template>
-  <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6 sm:gap-4">
+  <div :class="gridClass">
     <div
       v-for="kpi in kpis"
       :key="kpi.label"
