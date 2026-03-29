@@ -90,9 +90,9 @@ Cette page doit afficher :
 
 2. Page détail projet
 URL :
-/projets-publics/[slug]
+/projets-publics-senegal/[slug]
 ou
-/observatoire/projets-publics/[slug]
+/observatoire/projets-publics-senegal/[slug]
 
 Cette page doit afficher :
 - titre du projet

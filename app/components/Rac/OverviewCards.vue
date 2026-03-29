@@ -13,9 +13,13 @@ interface RacCard {
 
 interface Props {
   cards: RacCard[];
+  /** Nombre max de KPI affichés (défaut: tous) */
+  max?: number;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
+
+const visibleCards = computed(() => (props.max ? props.cards.slice(0, props.max) : props.cards));
 
 function formatDelta(delta: number | null, deltaUnit: string | null): string {
   if (delta === null || delta === undefined) return '';
@@ -31,59 +35,48 @@ function trendIcon(trend: string): string {
 }
 
 function trendColor(trend: string): string {
-  if (trend === 'up') return 'text-emerald-600 dark:text-emerald-400';
-  if (trend === 'improving') return 'text-emerald-600 dark:text-emerald-400';
-  if (trend === 'down') return 'text-red-500 dark:text-red-400';
+  if (trend === 'up' || trend === 'improving') return 'text-emerald-700 dark:text-emerald-400';
+  if (trend === 'down') return 'text-red-600 dark:text-red-400';
   return 'text-gray-500 dark:text-gray-400';
 }
 
 function trendBg(trend: string): string {
-  if (trend === 'up' || trend === 'improving') return 'bg-emerald-100/80 dark:bg-emerald-400/10';
-  if (trend === 'down') return 'bg-red-100/80 dark:bg-red-400/10';
-  return 'bg-gray-100 dark:bg-gray-800';
-}
-
-function accentBorder(trend: string): string {
-  if (trend === 'up' || trend === 'improving') return 'border-l-emerald-500';
-  if (trend === 'down') return 'border-l-red-500';
-  return 'border-l-gray-300 dark:border-l-gray-600';
+  if (trend === 'up' || trend === 'improving') return 'bg-emerald-50 dark:bg-emerald-900/20';
+  if (trend === 'down') return 'bg-red-50 dark:bg-red-900/20';
+  return 'bg-gray-50 dark:bg-gray-800';
 }
 </script>
 
 <template>
-  <div class="grid grid-cols-2 gap-3 lg:grid-cols-4">
+  <div class="grid grid-cols-2 gap-4 lg:grid-cols-5">
     <div
-      v-for="card in cards"
+      v-for="card in visibleCards"
       :key="card.id"
-      :class="[
-        'rounded-2xl border border-l-4 border-gray-200 bg-white p-5 dark:border-gray-700/50 dark:bg-gray-900/80',
-        accentBorder(card.trend),
-      ]"
+      class="rounded-xl border border-gray-200 bg-white px-5 py-6 dark:border-gray-700/40 dark:bg-gray-900/60"
     >
-      <p class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+      <p
+        class="text-[11px] font-medium uppercase leading-tight tracking-wide text-gray-500 dark:text-gray-400"
+      >
         {{ card.label }}
       </p>
-      <div class="mt-3 flex items-baseline gap-1.5">
-        <span
-          class="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white lg:text-4xl"
-        >
+      <div class="mt-3 flex items-baseline gap-1">
+        <span class="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
           {{ card.value_2024 }}
         </span>
-        <span class="text-base text-gray-400 dark:text-gray-500">{{ card.unit }}</span>
+        <span class="text-sm text-gray-400 dark:text-gray-500">{{ card.unit }}</span>
       </div>
-      <div class="mt-3 flex items-center gap-2">
+      <div class="mt-3">
         <span
           v-if="card.delta !== null"
           :class="[
-            'inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold',
+            'inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold',
             trendBg(card.trend),
             trendColor(card.trend),
           ]"
         >
-          <UIcon :name="trendIcon(card.trend)" class="h-4 w-4" />
+          <UIcon :name="trendIcon(card.trend)" class="h-3.5 w-3.5" />
           {{ formatDelta(card.delta, card.delta_unit) }}
         </span>
-        <span class="text-xs text-gray-400 dark:text-gray-500">vs 2023</span>
       </div>
     </div>
   </div>
