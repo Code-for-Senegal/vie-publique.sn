@@ -300,6 +300,13 @@ const allNavigationCards: NavigationCard[] = [
     to: '/projets-publics-senegal',
     featureKey: 'menu_projets_publics',
   },
+  {
+    title: 'RAC 2025',
+    description: 'Revue annuelle conjointe - Politique économique et sociale',
+    icon: 'i-heroicons-presentation-chart-bar',
+    to: '/dashboard/rac-2025-revue-annuelle-conjointe-senegal',
+    featureKey: 'menu_dashboard_rac',
+  },
 ];
 
 // Filtrer les cartes en fonction des feature flags
@@ -401,6 +408,10 @@ const cardConfigs: CardConfigs = {
   'Projets Publics': {
     color: 'text-cyan-600 dark:text-cyan-400',
     bgColor: 'bg-cyan-100 dark:bg-cyan-900/30',
+  },
+  'RAC 2025': {
+    color: 'text-teal-600 dark:text-teal-400',
+    bgColor: 'bg-teal-100 dark:bg-teal-900/30',
   },
 } as const;
 </script>

@@ -79,7 +79,7 @@ const tabs = [
       <div class="container relative mx-auto px-4 py-4 sm:py-6">
         <AppBreadcrumb
           :items="[
-            { label: 'Accueil', to: '/' },
+            { label: 'Dashboard', to: '/dashboard' },
             { label: 'Projets Publics', to: mode === 'global' ? undefined : '/projets-publics-senegal' },
             ...(mode !== 'global' ? [{ label: mode === 'pres' ? 'PRES' : 'PIP' }] : []),
           ]"

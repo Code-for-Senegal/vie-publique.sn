@@ -153,8 +153,14 @@ export const DEFAULT_FEATURES: Record<string, FeatureFlag> = {
   menu_projets_publics: {
     key: 'menu_projets_publics',
     enabled: true,
-    environments: ['dev', 'test','production'],
+    environments: ['dev', 'test', 'production'],
     description: 'Menu Projets Publics (PIP, LFI, PRES)',
+  },
+  menu_dashboard_rac: {
+    key: 'menu_dashboard_rac',
+    enabled: true,
+    environments: ['dev', 'test'],
+    description: 'Dashboard RAC 2025 - Revue Annuelle Conjointe',
   },
 };
 
