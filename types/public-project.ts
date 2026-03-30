@@ -50,6 +50,7 @@ export interface PublicProjectDocument {
   title: string;
   slug: string;
   file: string | null;
+  coverImage: string | null;
 }
 
 export interface PublicProjectLocation {

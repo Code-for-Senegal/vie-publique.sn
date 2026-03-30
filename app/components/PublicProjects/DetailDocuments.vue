@@ -34,36 +34,47 @@ const hasDocuments = computed(() => allDocuments.value.length > 0);
       Documents liés
     </h3>
 
-    <div v-if="hasDocuments" class="space-y-2">
+    <div v-if="hasDocuments" class="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
       <NuxtLink
         v-for="doc in allDocuments"
         :key="doc.id"
         :to="`/documents/${doc.id}/${doc.slug}`"
-        class="flex items-center gap-3 rounded-lg border border-gray-200 bg-gray-50 p-3 transition-colors hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800/50 dark:hover:bg-gray-700"
+        class="group relative overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.98] dark:bg-gray-800 dark:ring-gray-700 sm:hover:shadow-md"
       >
-        <div
-          class="bg-primary-100 dark:bg-primary-900/30 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg"
+        <!-- Badge document principal -->
+        <span
+          v-if="documentPrimary && doc.id === documentPrimary.id"
+          class="bg-primary-500 absolute left-1.5 top-1.5 z-10 rounded-full px-2 py-0.5 text-[10px] font-semibold text-white shadow"
         >
-          <UIcon
-            name="i-heroicons-document-text"
-            class="text-primary-600 dark:text-primary-400 h-5 w-5"
+          Principal
+        </span>
+
+        <!-- Cover -->
+        <div class="aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-800">
+          <CmsImage
+            v-if="doc.coverImage"
+            :src="doc.coverImage"
+            :quality="40"
+            :alt="doc.title"
+            class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            loading="lazy"
           />
+          <div v-else class="flex h-full w-full items-center justify-center">
+            <UIcon
+              name="i-heroicons-document-text"
+              class="h-10 w-10 text-gray-300 dark:text-gray-600"
+            />
+          </div>
         </div>
-        <div class="min-w-0 flex-1">
-          <p class="truncate text-sm font-medium text-gray-900 dark:text-white">
-            {{ doc.title }}
-          </p>
-          <p
-            v-if="documentPrimary && doc.id === documentPrimary.id"
-            class="text-primary-600 dark:text-primary-400 text-xs"
+
+        <!-- Content -->
+        <div class="p-2.5">
+          <h4
+            class="group-hover:text-primary-600 line-clamp-2 text-xs font-semibold leading-snug text-gray-900 dark:text-white sm:text-sm"
           >
-            Document principal
-          </p>
+            {{ doc.title }}
+          </h4>
         </div>
-        <UIcon
-          name="i-heroicons-arrow-top-right-on-square"
-          class="h-4 w-4 shrink-0 text-gray-400"
-        />
       </NuxtLink>
     </div>
 

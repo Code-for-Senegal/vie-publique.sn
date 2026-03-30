@@ -59,6 +59,7 @@ export default defineCachedEventHandler(
             'document_primary.title',
             'document_primary.slug',
             'document_primary.file',
+            'document_primary.cover_image',
             'link_website',
             'link_facebook',
             'link_linkedin',
@@ -117,6 +118,7 @@ export default defineCachedEventHandler(
               'documents.documents_id.title',
               'documents.documents_id.slug',
               'documents.documents_id.file',
+              'documents.documents_id.cover_image',
             ],
             filter: { id: { _eq: p.id } },
             limit: 1,
@@ -208,6 +210,7 @@ export default defineCachedEventHandler(
               title: p.document_primary.title,
               slug: p.document_primary.slug,
               file: p.document_primary.file || null,
+              coverImage: p.document_primary.cover_image || null,
             }
           : null,
         documents: linkedDocuments
@@ -217,6 +220,7 @@ export default defineCachedEventHandler(
             title: d.documents_id.title,
             slug: d.documents_id.slug,
             file: d.documents_id.file || null,
+            coverImage: d.documents_id.cover_image || null,
           })),
         policies: linkedPolicies
           .filter((p: any) => p.public_policy_id)
@@ -251,6 +255,7 @@ export default defineCachedEventHandler(
               title: b.source_document.title,
               slug: b.source_document.slug,
               file: b.source_document.file || null,
+              coverImage: null,
             }
           : null,
       }));
