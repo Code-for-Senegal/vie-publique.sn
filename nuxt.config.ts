@@ -38,6 +38,8 @@ const securityConfig =
               'https://*.cartocdn.com',
               'https://api.maptiler.com',
               'https://fonts.openmaptiles.org',
+              // Iconify (chargement dynamique d'icônes par Nuxt UI)
+              'https://api.iconify.design',
             ],
             'script-src': [
               "'self'",
@@ -187,6 +189,7 @@ export default defineNuxtConfig({
     // Pages carte : désactiver SSR (WebGL client-only)
     '/carte/**': { ssr: false },
     // Redirections SEO
+    '/budget': { redirect: { to: '/budget-senegal', statusCode: 301 }, prerender: true },
     '/budget/**': { redirect: { to: '/budget-senegal', statusCode: 301 }, prerender: true },
     '/publications/**': { redirect: { to: '/actualites', statusCode: 301 }, prerender: true },
     // Redirections des anciennes URLs anglaises vers françaises

@@ -4,7 +4,7 @@ const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadat
 const title = "Budget de l'État du Sénégal | Loi de finances";
 const description =
   "Découvrez le budget de l'État du Sénégal. Répartition des recettes et dépenses, indicateurs clés, dette publique et besoins de financement.";
-const url = `${siteUrl}/budget`;
+const url = `${siteUrl}/budget-senegal/dashboard`;
 const image = `${siteUrl}/images/vpsn-share-budget.png`;
 
 const budgetSchema = {

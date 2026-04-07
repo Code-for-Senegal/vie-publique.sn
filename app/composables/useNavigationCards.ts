@@ -59,7 +59,7 @@ export function useNavigationCards() {
       title: 'Budget',
       description: 'Loi de finances 2025',
       icon: 'i-heroicons-banknotes',
-      to: '/budget',
+      to: '/budget-senegal',
       count: 8,
       display: true,
     },
