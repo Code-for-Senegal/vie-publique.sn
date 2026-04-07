@@ -102,7 +102,7 @@ export default defineCachedEventHandler(
     }
   },
   {
-    maxAge: 60 * 60, // 1 heure
+    maxAge: 5 * 60, // 5 minutes
     name: "document-detail",
     getKey: (event) => {
       const id = getRouterParam(event, "id");

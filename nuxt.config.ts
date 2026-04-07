@@ -191,6 +191,7 @@ export default defineNuxtConfig({
     // Redirections SEO
     '/budget': { redirect: { to: '/budget-senegal', statusCode: 301 }, prerender: true },
     '/budget/**': { redirect: { to: '/budget-senegal', statusCode: 301 }, prerender: true },
+    '/publications': { redirect: { to: '/actualites', statusCode: 301 }, prerender: true },
     '/publications/**': { redirect: { to: '/actualites', statusCode: 301 }, prerender: true },
     // Redirections des anciennes URLs anglaises vers françaises
     '/about/privacy': { redirect: '/a-propos/confidentialite', prerender: true },
@@ -347,7 +348,7 @@ export default defineNuxtConfig({
           to: '/medias',
         },
         {
-          from: '/code-senegal',
+          from: '^/code-senegal(.*)',
           to: '/documents/codes',
         },
         {
