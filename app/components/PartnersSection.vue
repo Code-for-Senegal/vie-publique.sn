@@ -107,7 +107,7 @@ function onScroll() {
             <img
               :src="useCmsImage(partner.logo, '80')"
               :alt="partner.name"
-              class="max-h-full max-w-full object-contain opacity-60 grayscale transition-all duration-300 sm:group-hover:opacity-100 sm:group-hover:grayscale-0"
+              class="max-h-full max-w-full object-contain transition-all duration-300 sm:group-hover:scale-105"
               loading="lazy"
             />
           </div>
