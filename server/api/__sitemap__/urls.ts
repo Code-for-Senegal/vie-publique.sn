@@ -131,7 +131,52 @@ export default defineSitemapEventHandler(async () => {
       console.warn('Erreur sitemap projets publics:', sitemapError);
     }
 
-    // 5. Pages statiques : Laissées à l'auto-découverte de Nuxt Sitemap
+    // 5. Pages archives par année
+    try {
+      const yearsData = await directus.request(
+        readItems('documents', {
+          fields: ['publish_date'],
+          filter: { status: { _eq: 'published' }, publish_date: { _nnull: true } },
+          groupBy: ['year(publish_date)'],
+          aggregate: { countDistinct: 'id' },
+          limit: -1,
+        }),
+      );
+
+      const categories = ['journal-officiel', 'rapports-audit', 'strategies', 'codes', 'budget'];
+
+      // Page index archives
+      urls.push({
+        loc: '/documents/annee',
+        changefreq: 'monthly',
+        priority: 0.6,
+      });
+
+      for (const item of yearsData as any[]) {
+        const year = item.publish_date_year;
+        if (!year) continue;
+
+        // Page année globale
+        urls.push({
+          loc: `/documents/annee/${year}`,
+          changefreq: 'monthly',
+          priority: 0.5,
+        });
+
+        // Pages année par catégorie
+        for (const cat of categories) {
+          urls.push({
+            loc: `/documents/${cat}/annee/${year}`,
+            changefreq: 'monthly',
+            priority: 0.5,
+          });
+        }
+      }
+    } catch (sitemapError) {
+      console.warn('Erreur sitemap archives années:', sitemapError);
+    }
+
+    // 6. Pages statiques : Laissées à l'auto-découverte de Nuxt Sitemap
     // Le module @nuxtjs/seo va automatiquement inclure toutes les pages du dossier /pages
   } catch (error) {
     console.error('Erreur génération sitemap:', error);

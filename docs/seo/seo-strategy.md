@@ -29,21 +29,33 @@ Le SEO programmatique consiste à **générer automatiquement des milliers de pa
 
 ### Pourquoi ça marche pour Vie-publique.sn
 
-- Beaucoup de documents (10 000+)
+- ~7 800 documents publiés dans le CMS (avril 2026)
 - Données structurées (type, famille, institution, date, thèmes)
 - Relations entre textes (loi → décret → arrêté)
 - Contenu **evergreen** (une constitution sera recherchée dans 10 ans)
 
-### Calcul de volume
+### Calcul de volume (chiffres réels — avril 2026)
 
-| Donnée source | Volume | Pages générables |
-|---------------|--------|-----------------|
-| Documents | 10 000 | 10 000 |
-| Institutions | 20 | 20 |
-| Thèmes/familles | 10 | 10 |
-| Années | 60+ | 60 |
-| Combinaisons (type × année, type × institution...) | - | ~40 000 |
-| **Total potentiel** | | **~50 000 pages SEO** |
+| Donnée source | Volume actuel | Pages générables |
+|---------------|---------------|-----------------|
+| Documents individuels | ~7 800 publiés | ~7 800 (dont 973 indexées, 5 251 bloquées noindex) |
+| Catégories documents | 5 existantes (+17 prévues) | 22 |
+| Archives par année (global) | 71 années dans le CMS | 71 |
+| Archives par année × catégorie | 71 × 5 catégories | 355 |
+| Institutions | ~20 | 20 |
+| Pages listes | — | 4 |
+| Guides citoyens | — | 7 |
+| **Total réaliste** | | **~8 300 pages SEO** |
+
+> **Note** : un volume de ~40 000 « combinaisons » (type × année × institution) serait théoriquement possible mais déconseillé : la majorité des combinaisons produirait des pages vides ou thin content, que Google pénalise au lieu d'indexer. Il vaut mieux créer uniquement les pages ayant un contenu réel.
+
+### Objectif réaliste d'indexation
+
+| Métrique | Actuel (fév. 2026) | Objectif court terme | Comment |
+|----------|-------------------|---------------------|---------|
+| Pages indexées | 973 | ~5 000 | Retirer noindex des documents valides (Phase 1) |
+| Pages dans le sitemap | 8 298 | ~8 500 | Déjà atteint avec les archives par année |
+| Nouvelles pages SEO créées | — | +480 | Archives (427) + catégories (22) + institutions (20) + listes (4) + guides (7) |
 
 ---
 
@@ -117,10 +129,17 @@ Pages par année, très appréciées par Google.
 | URL | Contenu |
 |-----|---------|
 | `/documents/annee` | Index : toutes les années avec compteur |
-| `/documents/annee/2024` | Documents publiés en 2024, résumé statistique par type |
-| `/documents/annee/1960` | Archives historiques 1960 |
+| `/documents/annee/2024` | Tous les documents publiés en 2024 |
+| `/documents/journal-officiel/annee/2024` | Journal Officiel de 2024 uniquement |
+| `/documents/[category]/annee/[year]` | Documents d'une catégorie pour une année |
 
-**État actuel du code** : ces pages n'existent pas encore.
+**État actuel du code** : **FAIT** (avril 2026)
+- `app/pages/documents/annee/index.vue` — index archives (71 années, compteurs)
+- `app/pages/documents/annee/[year].vue` — page année globale (tous documents)
+- `app/pages/documents/[category]/annee/[year].vue` — page année par catégorie (5 catégories)
+- SEO : canonical, CollectionPage schema, OG/Twitter, navigation année précédente/suivante
+- Sitemap : 427 URLs ajoutées (1 index + 71 globales + 355 par catégorie)
+- `[category].vue` déplacé vers `[category]/index.vue` pour supporter les sous-routes
 
 ### Niveau 3 — Pages entités (institutions)
 
@@ -155,10 +174,16 @@ Pages de détail pour chaque document.
 → Voir la liste au [niveau 2](#niveau-2--pages-catégories) ci-dessus.
 Mécanisme existant, il suffit d'ajouter des entrées au config.
 
-### 3.2 Pages archives chronologiques
+### 3.2 Pages archives chronologiques — **FAIT**
 
 → Voir [niveau 3](#niveau-3--pages-archives-chronologiques).
-Fichiers à créer : `documents/annee/index.vue` + `documents/annee/[year].vue`.
+
+Fichiers créés :
+
+- `documents/annee/index.vue` — index archives
+- `documents/annee/[year].vue` — page année globale
+- `documents/[category]/annee/[year].vue` — page année par catégorie
+- `[category].vue` → `[category]/index.vue` (restructuration routing)
 
 ### 3.3 Pages institutions
 
@@ -351,14 +376,14 @@ liste des lois du sénégal
 
 ### Par type de page SEO
 
-| Phase | Pages créées | Impact |
-|-------|-------------|--------|
-| Extension catégories | +17 pages | "lois senegal pdf", "décrets senegal" |
-| Archives par année | +60 pages | "journal officiel senegal 2024" |
-| Institutions | +200 pages | "cour des comptes senegal" |
-| Pages listes | +4 pages | "liste ministres senegal" |
-| Guides citoyens | +7 pages | "comment + [sujet] + senegal" |
-| Maillage interne | 0 nouvelles | +40% temps sur site, -bounce rate |
+| Phase | Pages créées | Impact | Statut |
+|-------|-------------|--------|--------|
+| Extension catégories | +17 pages | "lois senegal pdf", "décrets senegal" | À faire |
+| Archives par année | +427 pages | "journal officiel senegal 2024" | **FAIT** |
+| Institutions | +20 pages | "cour des comptes senegal" | À faire |
+| Pages listes | +4 pages | "liste ministres senegal" | À faire |
+| Guides citoyens | +7 pages | "comment + [sujet] + senegal" | À faire |
+| Maillage interne | 0 nouvelles | +40% temps sur site, -bounce rate | À faire |
 
 ---
 
@@ -519,15 +544,19 @@ Les URLs `/documents/4613/rapport-xxx` contiennent un ID sans valeur SEO. Si la 
 
 Voir la liste complète des catégories à ajouter dans [section 2 — Niveau 2](#niveau-2--pages-catégories).
 
-### Phase 3 — Pages archives par année (2 fichiers Vue à créer)
+### Phase 3 — Pages archives par année — **FAIT** (avril 2026)
 
-| Action | Fichier |
-|--------|---------|
-| Page index archives | `app/pages/documents/annee/index.vue` |
-| Page par année | `app/pages/documents/annee/[year].vue` |
-| Ajouter au sitemap | `server/api/__sitemap__/urls.ts` |
+| Action | Fichier | Statut |
+|--------|---------|--------|
+| Page index archives | `app/pages/documents/annee/index.vue` | **FAIT** |
+| Page par année (globale) | `app/pages/documents/annee/[year].vue` | **FAIT** |
+| Page par année par catégorie | `app/pages/documents/[category]/annee/[year].vue` | **FAIT** |
+| Restructuration routing catégories | `[category].vue` → `[category]/index.vue` | **FAIT** |
+| Ajouter au sitemap | `server/api/__sitemap__/urls.ts` | **FAIT** (427 URLs) |
 
-**APIs existantes** : `GET /api/documents?year=[year]` + `GET /api/documents/years`
+**APIs existantes utilisées** : `GET /api/documents?year=[year]` + `GET /api/documents/years`
+
+**Résultat** : 427 pages ajoutées au sitemap (1 index + 71 années globales + 355 années × 5 catégories). SEO complet : canonical, CollectionPage schema, OG/Twitter, navigation années adjacentes.
 
 ### Phase 4 — Pages institutions (2 fichiers Vue à créer)
 
@@ -591,45 +620,48 @@ Note : utiliser canonical vers les pages existantes (`/assemblee-nationale/deput
 
 ## 12. Récapitulatif des livrables
 
-### Fichiers existants à modifier
+### Fichiers existants modifiés
 
-| Fichier | Modification | Phase |
-|---------|-------------|-------|
-| `nuxt.config.ts` | Redirections 301 legacy + retirer disallow | 1 |
-| `app/pages/documents/[category].vue` | +17 entrées CATEGORY_CONFIG + migration Schema.org JO | 1-2 |
-| `app/pages/documents/index.vue` | Cartes nouvelles catégories | 2 |
-| `server/api/__sitemap__/urls.ts` | URLs catégories, années, institutions | 2-4 |
-| `app/pages/documents/[id]/[slug].vue` | Documents liés + badges + Schema.org conditionnel | 5-6 |
-| `app/pages/assemblee-nationale/deputes/[id]/[name].vue` | Schema.org Person | 6 |
-| `app/pages/personnalites/[id]/[slug].vue` | Schema.org Person | 6 |
-| `app/pages/podcasts/[id]/[slug].vue` | Schema.org PodcastEpisode | 6 |
-| `app/pages/conseil-des-ministres/index.vue` | Title/description CTR | 9 |
-| `app/pages/nomination-senegal/index.vue` | Title/description CTR | 9 |
+| Fichier | Modification | Phase | Statut |
+|---------|-------------|-------|--------|
+| `nuxt.config.ts` | Redirections 301 legacy + retirer disallow | 1 | À faire |
+| `app/pages/documents/[category]/index.vue` | +17 entrées CATEGORY_CONFIG + migration Schema.org JO | 1-2 | À faire |
+| `app/pages/documents/index.vue` | Cartes nouvelles catégories | 2 | À faire |
+| `server/api/__sitemap__/urls.ts` | URLs catégories, années, institutions | 2-4 | **Années FAIT** |
+| `app/pages/documents/[id]/[slug].vue` | Documents liés + badges + Schema.org conditionnel | 5-6 | À faire |
+| `app/pages/assemblee-nationale/deputes/[id]/[name].vue` | Schema.org Person | 6 | À faire |
+| `app/pages/personnalites/[id]/[slug].vue` | Schema.org Person | 6 | À faire |
+| `app/pages/podcasts/[id]/[slug].vue` | Schema.org PodcastEpisode | 6 | À faire |
+| `app/pages/conseil-des-ministres/index.vue` | Title/description CTR | 9 | À faire |
+| `app/pages/nomination-senegal/index.vue` | Title/description CTR | 9 | À faire |
+
+> Note : `[category].vue` a été déplacé vers `[category]/index.vue` (Phase 3) pour supporter les sous-routes `/[category]/annee/[year]`.
 
 ### Nouvelles pages à créer
 
-| Fichier | URL | Phase |
-|---------|-----|-------|
-| `app/pages/documents/annee/index.vue` | `/documents/annee` | 3 |
-| `app/pages/documents/annee/[year].vue` | `/documents/annee/2024` | 3 |
-| `app/pages/institutions/index.vue` | `/institutions` | 4 |
-| `app/pages/institutions/[slug].vue` | `/institutions/[slug]` | 4 |
-| `app/pages/liste-deputes-senegal.vue` | `/liste-deputes-senegal` | 7 |
-| `app/pages/liste-ministres-senegal.vue` | `/liste-ministres-senegal` | 7 |
-| `app/pages/guides/[slug].vue` | `/guides/*` | 8 |
+| Fichier | URL | Phase | Statut |
+|---------|-----|-------|--------|
+| `app/pages/documents/annee/index.vue` | `/documents/annee` | 3 | **FAIT** |
+| `app/pages/documents/annee/[year].vue` | `/documents/annee/2024` | 3 | **FAIT** |
+| `app/pages/documents/[category]/annee/[year].vue` | `/documents/journal-officiel/annee/2024` | 3 | **FAIT** |
+| `app/pages/institutions/index.vue` | `/institutions` | 4 | À faire |
+| `app/pages/institutions/[slug].vue` | `/institutions/[slug]` | 4 | À faire |
+| `app/pages/liste-deputes-senegal.vue` | `/liste-deputes-senegal` | 7 | À faire |
+| `app/pages/liste-ministres-senegal.vue` | `/liste-ministres-senegal` | 7 | À faire |
+| `app/pages/guides/[slug].vue` | `/guides/*` | 8 | À faire |
 
 ### Nouvelle API à créer
 
-| Endpoint | Description | Phase |
-|----------|-------------|-------|
-| `GET /api/documents/related/[id]` | Documents liés (même type/famille/institution) | 5 |
+| Endpoint | Description | Phase | Statut |
+|----------|-------------|-------|--------|
+| `GET /api/documents/related/[id]` | Documents liés (même type/famille/institution) | 5 | À faire |
 
 ### Timeline recommandée
 
-```
+```text
 Phase 1  → Débloquer l'indexation + consolider legacy (impact immédiat)
 Phase 2  → Étendre CATEGORY_CONFIG (ajout config, fort impact)
-Phase 3  → Pages archives par année (2 fichiers Vue)
+Phase 3  → Pages archives par année — FAIT ✓
 Phase 4  → Pages institutions (2 fichiers Vue)
 Phase 5  → Maillage interne contextuel (1 API + badges)
 Phase 6  → Schema.org enrichis
@@ -638,18 +670,18 @@ Phase 8  → Guides citoyens
 Phase 9  → Optimisation CTR continue
 ```
 
-### Estimation d'impact
+### Estimation d'impact (chiffres réels — avril 2026)
 
-| Phase | Pages | Requêtes captables |
-|-------|-------|-------------------|
-| Phase 1 (indexation) | +4 000 débloquées | Pages documents existantes |
-| Phase 2 (catégories) | +17 | "lois senegal pdf", "décrets senegal" |
-| Phase 3 (archives) | +60 | "journal officiel senegal 2024" |
-| Phase 4 (institutions) | +200 | "cour des comptes senegal" |
-| Phase 5 (maillage) | 0 nouvelles | +40% temps sur site |
-| Phase 6 (Schema.org) | 0 nouvelles | Rich snippets, meilleur CTR |
-| Phase 7 (listes) | +4 | "liste ministres senegal" |
-| Phase 8 (guides) | +7 | "comment + [sujet] + senegal" |
-| Phase 9 (CTR) | 0 nouvelles | +CTR sur pages existantes |
+| Phase | Pages | Requêtes captables | Statut |
+|-------|-------|-------------------|--------|
+| Phase 1 (indexation) | +4 000 débloquées | Pages documents existantes | À faire |
+| Phase 2 (catégories) | +17 | "lois senegal pdf", "décrets senegal" | À faire |
+| Phase 3 (archives) | **+427** | "journal officiel senegal 2024" | **FAIT** |
+| Phase 4 (institutions) | +20 | "cour des comptes senegal" | À faire |
+| Phase 5 (maillage) | 0 nouvelles | +40% temps sur site | À faire |
+| Phase 6 (Schema.org) | 0 nouvelles | Rich snippets, meilleur CTR | À faire |
+| Phase 7 (listes) | +4 | "liste ministres senegal" | À faire |
+| Phase 8 (guides) | +7 | "comment + [sujet] + senegal" | À faire |
+| Phase 9 (CTR) | 0 nouvelles | +CTR sur pages existantes | À faire |
 
-**Total** : De **973 pages indexées** → **5 000+ pages indexées**.
+**Situation actuelle** : **973 pages indexées** sur **8 298 dans le sitemap** → objectif **~5 000 pages indexées** (principalement via Phase 1 : retrait du noindex).
