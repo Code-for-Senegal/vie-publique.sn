@@ -133,4 +133,18 @@ Je veux que tu me génères directement :
 6. un court récapitulatif final des fichiers créés/modifiés
 
 Approche souhaitée
-Commence par analyser la structure existante du dashboard projets publics et du composant MapByRegion.vue, puis reproduis la même logique adaptée au RAC, sans changer inutilement le style global du projet.
+Commence par analyser la structure existante des dashboard projets publics et des composant MapByRegion.vue, puis reproduis la même logique adaptée au RAC, sans changer inutilement le style global du projet.
+
+Je te fournis également une maquette visuelle. elle est sur /docs/dashboard/a11-dashbord-rac.jpeg
+
+Important :
+- La maquette est uniquement une source d’inspiration UI/UX
+- Elle contient volontairement des données approximatives ou non conformes
+- Tu ne dois pas reproduire les chiffres ni la structure métier de la maquette
+
+La source de vérité est exclusivement le fichier JSON :
+public/data/test-rac.json
+
+Tu dois donc :
+- t'inspirer les patterns visuels de la maquette (layout, blocs, hiérarchie)
+- mais structurer la page uniquement à partir du JSON RAC

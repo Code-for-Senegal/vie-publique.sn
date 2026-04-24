@@ -1,285 +1,655 @@
-## stratégie SEO réaliste pour Vie-publique.sn
+# Stratégie SEO — Vie Publique Sénégal
 
-objectif: centaines de milliers voire >1 million de visites/an.
+> Objectif : Devenir la référence documentaire publique au Sénégal (le "Legifrance de l'Afrique francophone")
+> Cible : >1 million de visites/an via SEO programmatique
+> Dernière mise à jour : avril 2026
 
-Le principe est simple : exploiter ton avantage principal → la donnée publique structurée.
-C’est exactement la stratégie utilisée par :
+---
 
-Wikipédia
-Legifrance
-Gov.uk
-OpenStates (USA)
-Ballotpedia (élections)
+## Table des matières
 
-### 1. Le principe : SEO programmatique
+1. [Principe : le SEO programmatique](#1-principe--le-seo-programmatique)
+2. [Architecture pyramidale SEO](#2-architecture-pyramidale-seo)
+3. [Les 6 types de pages SEO à créer](#3-les-6-types-de-pages-seo-à-créer)
+4. [Maillage interne](#4-maillage-interne)
+5. [Optimisations SEO on-page](#5-optimisations-seo-on-page)
+6. [Requêtes Google à dominer](#6-requêtes-google-à-dominer)
+7. [Estimation du trafic potentiel](#7-estimation-du-trafic-potentiel)
+8. [Features SEO à fort impact](#8-features-seo-à-fort-impact)
+9. [Pièges à éviter](#9-pièges-à-éviter)
+10. [Stratégie multi-domaine](#10-stratégie-multi-domaine)
+11. [Plan d'implémentation](#11-plan-dimplémentation)
+12. [Récapitulatif des livrables](#12-récapitulatif-des-livrables)
 
-Le SEO programmatique consiste à générer automatiquement des milliers de pages utiles à partir de données structurées.
+---
 
-Exemple :
+## 1. Principe : le SEO programmatique
 
-si tu as 10 000 documents →
-tu peux générer 50 000 pages SEO.
+Le SEO programmatique consiste à **générer automatiquement des milliers de pages utiles** à partir de données structurées. C'est la stratégie utilisée par Wikipedia, Legifrance, Gov.uk, OpenStates et Ballotpedia.
 
-Google adore ce modèle.
+### Pourquoi ça marche pour Vie-publique.sn
 
-2. Les 5 piliers SEO pour Vie-publique
-1️⃣ Pages documents (déjà fait)
+- Beaucoup de documents (10 000+)
+- Données structurées (type, famille, institution, date, thèmes)
+- Relations entre textes (loi → décret → arrêté)
+- Contenu **evergreen** (une constitution sera recherchée dans 10 ans)
 
-Exemple :
+### Calcul de volume
 
-vie-publique.sn/document/rapport-cour-des-comptes-2023
+| Donnée source | Volume | Pages générables |
+|---------------|--------|-----------------|
+| Documents | 10 000 | 10 000 |
+| Institutions | 20 | 20 |
+| Thèmes/familles | 10 | 10 |
+| Années | 60+ | 60 |
+| Combinaisons (type × année, type × institution...) | - | ~40 000 |
+| **Total potentiel** | | **~50 000 pages SEO** |
 
-Mais il faut enrichir :
+---
 
-structure SEO idéale :
+## 2. Architecture pyramidale SEO
 
-Titre
-Description
-Institution
-Date
-Thèmes
-Résumé
-Téléchargement
-Documents liés
+Modèle en 5 niveaux, du plus général au plus spécifique. Chaque niveau alimente le niveau supérieur en liens internes.
 
-Très important :
+```
+HOME (niveau 0)
+ ├── Pages piliers (niveau 1)          → /lois-senegal, /rapports-publics-senegal
+ │     ├── Pages catégories (niveau 2) → /documents/lois, /documents/rapports-audit
+ │     │     ├── Pages archives (niveau 3)  → /documents/annee/2024
+ │     │     └── Pages entités (niveau 3)   → /institutions/cour-des-comptes
+ │     └── Pages listes (niveau 2)     → /liste-deputes-senegal
+ └── Pages documents (niveau 4)        → /documents/4613/rapport-cour-comptes-2024
+```
 
-Résumé texte indexable
+### Niveau 1 — Pages piliers (trafic massif)
 
-car Google n’indexe pas les PDF correctement.
+Pages d'atterrissage optimisées pour les requêtes les plus recherchées.
 
-2️⃣ Pages thématiques
+| URL cible | Requêtes captées |
+|-----------|-----------------|
+| `/lois-senegal` | loi senegal, loi senegal pdf |
+| `/decrets-senegal` | décret senegal |
+| `/rapports-publics-senegal` | rapport cour des comptes senegal |
+| `/journal-officiel-senegal` | journal officiel senegal pdf |
+| `/institutions-senegal` | institutions du senegal |
 
-Créer automatiquement des pages :
+Contenu type : texte explicatif (200+ mots) + liste des sous-catégories + documents récents + liens vers les catégories.
 
-/themes/education
-/themes/sante
-/themes-budget
-/themes-elections
+### Niveau 2 — Pages catégories
 
-Contenu :
+Pages de listing par type de document, avec filtres et pagination.
 
-liste des documents
+**État actuel du code** : 5 catégories configurées dans `CATEGORY_CONFIG` de `[category].vue` :
 
-lois
+| Catégorie existante | Type Directus | Status |
+|-------------------|---------------|--------|
+| `journal-officiel` | `official_journal` | **Fait** |
+| `rapports-audit` | `audit_report` | **Fait** |
+| `strategies` | `strategy` | **Fait** |
+| `codes` | `code` | **Fait** |
+| `budget` | `budget` | **Fait** |
 
-décrets
+**Catégories à ajouter** (types Directus existants sans page catégorie) :
 
-rapports
+| Slug | Type Directus | Label |
+|------|---------------|-------|
+| `lois` | `law` | Lois du Sénégal |
+| `decrets` | `decree` | Décrets du Sénégal |
+| `arretes` | `ministerial_order` | Arrêtés ministériels |
+| `rapports-annuels` | `annual_report` | Rapports d'activité annuels |
+| `rapports-sectoriels` | `sectoral_report` | Rapports sectoriels |
+| `rapports-internationaux` | `international_report` | Rapports internationaux |
+| `discours` | `speech` | Discours officiels |
+| `projets-de-loi` | `government_bill` | Projets de loi |
+| `propositions-de-loi` | `bill_proposal` | Propositions de loi |
+| `rapports-assemblee` | `parliament_report` | Rapports Assemblée nationale |
+| `conseil-des-ministres` | `council_of_ministers` | Communiqués du Conseil des ministres |
+| `communiques` | `press_release` | Communiqués de presse |
+| `elections` | `election` | Documents électoraux |
+| `dpg` | `general_policy_statement` | Déclarations de politique générale |
+| `questions-deputes` | `parliament_question` | Questions écrites des députés |
+| `notes-publiques` | `public_notice` | Notes au public |
 
-Exemple :
+### Niveau 3 — Pages archives chronologiques
 
-Tous les documents publics liés à l'éducation au Sénégal :
-- lois
-- rapports
-- politiques publiques
-- budgets
+Pages par année, très appréciées par Google.
 
-Ces pages capturent des recherches comme :
+| URL | Contenu |
+|-----|---------|
+| `/documents/annee` | Index : toutes les années avec compteur |
+| `/documents/annee/2024` | Documents publiés en 2024, résumé statistique par type |
+| `/documents/annee/1960` | Archives historiques 1960 |
 
-politique éducative sénégal pdf
-rapport éducation sénégal
-3️⃣ Pages institutions
+**État actuel du code** : ces pages n'existent pas encore.
 
-Très puissant.
+### Niveau 3 — Pages entités (institutions)
 
-Créer pages :
+Pages de type fiche pour chaque institution publique.
 
-/institutions/presidence
-/institutions/assemblee-nationale
-/cour-des-comptes
-/ministere-finances
+| URL | Source Directus |
+|-----|----------------|
+| `/institutions` | `state_entity` (collection existante) |
+| `/institutions/cour-des-comptes` | `state_entity` + documents liés |
+| `/institutions/assemblee-nationale` | `state_entity` |
 
-Contenu :
+Contenu : description, missions, documents publiés, dirigeants, sous-entités.
 
-description
+**État actuel du code** : ces pages n'existent pas (`/etat-senegal/annuaire/[slug]` existe mais est bloqué en robots.txt).
 
-missions
+### Niveau 4 — Pages documents individuels
 
-documents publiés
+Pages de détail pour chaque document.
 
-dirigeants
+**État actuel du code** : `documents/[id]/[slug].vue` — **Fait** avec :
+- Canonical URL dynamique
+- Schema.org : Article + BreadcrumbList
+- OG/Twitter meta dynamiques
+- Breadcrumb 4 niveaux
 
-actualités
+---
 
-Exemple :
+## 3. Les 6 types de pages SEO à créer
 
-Tous les documents publiés par la Cour des comptes du Sénégal
-4️⃣ Pages chronologiques
+### 3.1 Pages catégories (extension du CATEGORY_CONFIG existant)
 
-Google adore les archives.
+→ Voir la liste au [niveau 2](#niveau-2--pages-catégories) ci-dessus.
+Mécanisme existant, il suffit d'ajouter des entrées au config.
 
-Exemple :
+### 3.2 Pages archives chronologiques
 
-/journal-officiel/1960
-/journal-officiel/1961
-/journal-officiel/1962
+→ Voir [niveau 3](#niveau-3--pages-archives-chronologiques).
+Fichiers à créer : `documents/annee/index.vue` + `documents/annee/[year].vue`.
 
-ou
+### 3.3 Pages institutions
 
-/documents/2024
-/documents/2023
+→ Voir [niveau 3](#niveau-3--pages-entités-institutions).
+Fichiers à créer : `institutions/index.vue` + `institutions/[slug].vue`.
 
-Exemple contenu :
+### 3.4 Pages listes (technique Wikipedia)
 
-Documents publics publiés au Sénégal en 2024 :
-- lois
-- décrets
-- rapports
-- budgets
-5️⃣ Pages guides citoyens (très puissant)
+Pages de listes structurées qui rankent sur "liste + sujet".
 
-Créer des pages pédagogiques.
+| URL | Source | Requêtes ciblées |
+|-----|--------|-----------------|
+| `/liste-deputes-senegal` | `assembly_deputy` | "liste des députés du sénégal" |
+| `/liste-ministres-senegal` | `positions` (type=Ministre) | "liste des ministres du sénégal" |
+| `/liste-institutions-publiques-senegal` | `state_entity` | "institutions du sénégal" |
+| `/liste-medias-senegal` | `media` | "médias sénégal" |
+
+**État actuel du code** : ces pages n'existent pas. Note : certaines listes existent sous d'autres URLs (`/assemblee-nationale/deputes`, `/medias`). Utiliser canonical ou redirection pour éviter le contenu dupliqué.
+
+### 3.5 Pages relations / intersections
+
+Pages générées automatiquement aux croisements des métadonnées Directus.
 
 Exemples :
+- `/rapports/cour-des-comptes` → documents type=audit_report + institution=Cour des Comptes
+- `/rapports/finances-publiques` → documents type=audit_report + tags=finances
+- `/documents/cour-des-comptes` → tous les documents liés à la Cour des Comptes
+- `/documents/2024` → filtre par date
 
-Comment consulter une loi au Sénégal
-Comment lire le budget de l’État
-Comment accéder au journal officiel
-Comment suivre les élections
+Chaque intersection = une porte d'entrée SEO supplémentaire.
 
-Ces pages capturent énormément de trafic.
+**Champs Directus exploitables** : `type`, `family`, `audit_institution`, `tags`, `publish_date`.
 
-3. Les requêtes Google que tu peux dominer
+### 3.6 Pages guides citoyens (longue traîne)
 
-Exemples réels :
+Pages pédagogiques répondant aux questions des citoyens.
 
+| URL | Question ciblée |
+|-----|----------------|
+| `/guides/comment-consulter-journal-officiel-senegal` | comment consulter le journal officiel |
+| `/guides/comment-trouver-loi-senegal` | comment trouver une loi au sénégal |
+| `/guides/comment-lire-budget-etat-senegal` | comment lire le budget de l'état |
+| `/guides/comment-suivre-elections-senegal` | comment suivre les élections |
+| `/guides/comment-acceder-rapports-cour-des-comptes` | rapport cour des comptes |
+| `/guides/comment-suivre-conseil-des-ministres` | communiqué conseil des ministres |
+
+Structure type :
+```
+H1 : Comment consulter le Journal officiel du Sénégal
+H2 : Qu'est-ce que le journal officiel ?
+H2 : Comment y accéder sur Vie-publique.sn
+H2 : Archives disponibles → lien /documents/journal-officiel
+H2 : Documents récents → lien /documents/annee/2026
+```
+
+Schema.org : `HowTo` + `FAQPage`
+
+**État actuel du code** : ces pages n'existent pas (des guides électoraux existent sous `/elections/`).
+
+---
+
+## 4. Maillage interne
+
+### Principe
+
+Chaque page doit pointer vers les entités liées. Google comprend les relations.
+
+```
+Document
+   ↕
+Institution ← → Thème
+   ↕              ↕
+Archives    ← → Catégorie
+```
+
+### Sur les pages documents (`/documents/[id]/[slug]`)
+
+Afficher des badges/chips cliquables :
+- **Type** → `/documents/[category-slug]`
+- **Famille** → `/documents/public?family=[family]`
+- **Institution d'audit** → `/documents/rapports-audit?institution=[institution]`
+- **Année** → `/documents/annee/[year]`
+- **Documents liés** → mêmes type/famille/institution (section "Documents similaires")
+
+### Maillage juridique
+
+Quand un document mentionne une loi, un décret ou un arrêté, créer des liens :
+- "Ce décret applique la loi X"
+- "Ce décret modifie le décret Y"
+- "Ce décret abroge l'arrêté Z"
+
+C'est exactement ce que fait Legifrance. Nécessite un champ de relations dans Directus (ou extraction automatique).
+
+### Navigation entre pages
+
+- Pages catégorie → liens vers les familles liées
+- Pages année → liens "Année précédente" / "Année suivante"
+- Pages institution → liens vers les types de documents publiés
+
+---
+
+## 5. Optimisations SEO on-page
+
+### Title
+
+Pattern recommandé :
+```
+[Titre document] - [Institution] | Vie Publique Sénégal
+```
+
+Pour les pages qui changent souvent (conseil des ministres, nominations), inclure le mois/année dynamiquement.
+
+### Description
+
+Résumé clair en 155 caractères. Si `documents.description` est vide :
+- Extraire les premiers 300 caractères de `content_html`
+- Ou afficher les métadonnées structurées (institution, date, type)
+
+### Schema.org
+
+| Type de page | Schema actuel | Schema cible |
+|-------------|---------------|--------------|
+| Documents (détail) | `Article` | Conditionnel selon type : `Report`, `Legislation`, `Dataset` |
+| Pages catégories | `CollectionPage` | `CollectionPage` (OK) |
+| Institutions | Aucun | `GovernmentOrganization` |
+| Députés | Aucun | `Person` + `GovernmentOrganization` |
+| Guides | Aucun | `HowTo` + `FAQPage` |
+| Podcasts | Aucun | `PodcastEpisode` |
+| Homepage | `GovernmentOrganization` | `Organization` (ce n'est PAS un site gouvernemental) |
+
+### Résumé texte indexable
+
+Google n'indexe pas les PDF correctement. Chaque page document doit contenir un résumé texte visible (pas seulement le lien PDF).
+
+---
+
+## 6. Requêtes Google à dominer
+
+### Requêtes à fort volume (documentaire)
+
+```
 journal officiel senegal pdf
 loi senegal pdf
 rapport cour des comptes senegal
 budget senegal pdf
 constitution senegal pdf
-
-Mais aussi :
-
 décret nomination senegal
+```
+
+### Requêtes à fort volume (institutionnel)
+
+```
 liste des ministres senegal
 institutions senegal
+cour des comptes senegal
+assemblee nationale senegal
+```
 
-Si ton site devient la référence documentaire, Google te mettra premier.
+### Requêtes long tail (guides)
 
-4. Les optimisations SEO simples
+```
+comment consulter le journal officiel du senegal
+comment trouver une loi au senegal
+communiqué conseil des ministres aujourd'hui
+nominations conseil des ministres sénégal aujourd'hui
+```
 
-À faire absolument.
+### Requêtes listes (Wikipedia-style)
 
-Title
+```
+liste des députés du sénégal
+liste des ministres du sénégal
+liste des lois du sénégal
+```
 
-Exemple :
+---
 
-Rapport Cour des comptes 2023 – Sénégal | Vie Publique
-Description
-Consultez le rapport annuel 2023 de la Cour des comptes du Sénégal : analyse des finances publiques et recommandations.
-Schema.org (très puissant)
+## 7. Estimation du trafic potentiel
 
-Ajouter données structurées :
+### Par type de contenu
 
-GovernmentReport
-Legislation
-Dataset
+| Type | Trafic estimé/an |
+|------|-----------------|
+| Documents publics (lois, décrets, rapports) | 200 000 |
+| Journal officiel | 150 000 |
+| Institutions | 100 000 |
+| Guides citoyens | 200 000 |
+| Élections | 200 000 |
+| **Total** | **600 000 – 1 200 000** |
 
-Google comprend mieux.
+### Par type de page SEO
 
-5. Internal linking (clé du SEO)
+| Phase | Pages créées | Impact |
+|-------|-------------|--------|
+| Extension catégories | +17 pages | "lois senegal pdf", "décrets senegal" |
+| Archives par année | +60 pages | "journal officiel senegal 2024" |
+| Institutions | +200 pages | "cour des comptes senegal" |
+| Pages listes | +4 pages | "liste ministres senegal" |
+| Guides citoyens | +7 pages | "comment + [sujet] + senegal" |
+| Maillage interne | 0 nouvelles | +40% temps sur site, -bounce rate |
 
-Chaque page doit pointer vers :
+---
 
-institution
+## 8. Features SEO à fort impact
 
-thème
+### 8.1 Moteur de recherche juridique
 
-documents liés
+Recherche full-text dans toutes les lois du Sénégal. Très recherché, aucun concurrent sérieux.
 
-Exemple :
+### 8.2 Timeline législative
 
-page rapport :
+Afficher l'évolution d'un texte dans le temps :
+```
+Code de la route : versions 1970 → 2024
+```
 
-Institution : Cour des comptes
-Thème : Finances publiques
-Documents liés : rapport 2022
+Google adore les timelines.
 
-Google adore.
+### 8.3 Fiches personnalités publiques
 
-6. L’opportunité énorme pour Vie-publique
-
-Tu peux devenir le :
-
-Wikipédia des documents publics sénégalais
-
-Aujourd’hui :
-
-site	problème
-sites gouvernement	mal organisés
-sites PDF	introuvables
-archives	fragmentées
-
-👉 Vie-publique peut centraliser.
-
-7. Le trafic potentiel
-
-Estimation conservatrice.
-
-type	volume
-documents publics	200k visites/an
-journal officiel	150k
-institutions	100k
-guides citoyens	200k
-élections	200k
-
-Total possible :
-
-600k – 1.2M visites/an
-
-sans publicité.
-
-8. Les 3 features SEO qui peuvent exploser ton trafic
-1️⃣ moteur de recherche juridique
-
-Tu veux déjà le faire.
-
-Exemple :
-
-Rechercher dans toutes les lois du Sénégal
-2️⃣ timeline législative
-
-Exemple :
-
-Code de la route
-versions 1970 → 2024
-
-Google adore.
-
-3️⃣ fiches personnalités publiques
-
-Exemple :
-
+Pages enrichies pour les personnalités politiques :
+```
 /personnalites/ousmane-sonko
-/bassirou-diomaye-faye
+/personnalites/bassirou-diomaye-faye
+```
 
-Très gros trafic.
+**État actuel du code** : `personnalites/[id]/[slug].vue` existe déjà.
 
-9. Le vrai avantage SEO de Vie-publique
+### 8.4 Nominations administratives
 
-Contrairement aux médias :
+Pages de nominations par le conseil des ministres — très recherché, très peu exploité au Sénégal.
 
-tu as du contenu evergreen.
+**État actuel du code** : `nomination-senegal/index.vue` existe, 8 948 impressions mais CTR faible (1,44%).
 
-Exemple :
+---
 
-constitution senegal
+## 9. Pièges à éviter
 
-sera recherché dans 10 ans.
+### Thin content (pages vides)
 
-10. Une chose très importante pour ton cas
+Ne jamais créer de pages sans contenu substantiel. Chaque page doit contenir :
+- Texte explicatif (100+ mots minimum)
+- Liste de documents ou d'éléments
+- Liens internes contextuels
 
-Tu m’as parlé de :
+Sinon Google considère cela comme du thin content → pénalité potentielle.
 
-vie-publique.sn
+### Pages avec noindex non voulu
 
-archives.sn
+Vérifier régulièrement que les pages de documents ne sont pas accidentellement bloquées. Actuellement 5 251 pages en noindex → la majorité devrait être indexée.
 
-La stratégie idéale :
+### URLs avec IDs numériques
 
-archives.sn → stockage documentaire
-vie-publique.sn → pages éditoriales + SEO
+Les URLs `/documents/4613/rapport-xxx` contiennent un ID sans valeur SEO. Si la migration est trop lourde, garder tel quel mais s'assurer que les canonicals sont bien en place (c'est fait).
 
-archives doit pointer vers vie-publique avec canonical (ce que tu as fait).
+---
+
+## 10. Stratégie multi-domaine
+
+### archives.sn ↔ vie-publique.sn
+
+| Domaine | Rôle |
+|---------|------|
+| `archives.sn` | Stockage documentaire brut |
+| `vie-publique.sn` | Pages éditoriales + SEO |
+
+`archives.sn` doit pointer vers `vie-publique.sn` avec des balises canonical pour concentrer l'autorité SEO sur un seul domaine.
+
+---
+
+## Annexe : Champs Directus exploitables
+
+### Types de documents (23 valeurs)
+
+| Valeur Directus | Label | Page catégorie ? |
+|----------------|-------|-----------------|
+| `official_journal` | Journal officiel | **Fait** |
+| `law` | Loi | À créer |
+| `decree` | Décret | À créer |
+| `ministerial_order` | Arrêté ministériel | À créer |
+| `council_of_ministers` | Conseil des ministres | À créer |
+| `interministerial_council` | Conseil interministériel | À créer |
+| `press_release` | Communiqué | À créer |
+| `strategy` | Stratégie | **Fait** |
+| `code` | Code | **Fait** |
+| `budget` | Budget | **Fait** |
+| `audit_report` | Rapport Audit | **Fait** |
+| `annual_report` | Rapports d'activité annuels | À créer |
+| `sectoral_report` | Rapports sectoriels | À créer |
+| `international_report` | Rapports Internationaux | À créer |
+| `election` | Élection | À créer |
+| `speech` | Discours | À créer |
+| `public_notice` | Note au public | À créer |
+| `parliament_report` | Rapport Assemblée | À créer |
+| `government_bill` | Projet de loi | À créer |
+| `bill_proposal` | Proposition de loi | À créer |
+| `parliament_question` | Questions de députés | À créer |
+| `general_policy_statement` | DPG | À créer |
+| `uncategorized` | Non catégorisé | Non pertinent |
+
+### Familles de documents (10 valeurs)
+
+| Valeur | Label |
+|--------|-------|
+| `legislation` | Législation |
+| `accountability` | Rapports publics |
+| `budget` | Budget |
+| `strategy` | Stratégie |
+| `parliament` | Parlementaire |
+| `statistics` | Statistique |
+| `communication` | Communication |
+| `archives` | Archives |
+| `international` | International |
+| `election` | Élection |
+
+### Autres champs utiles
+
+| Champ | Utilisation SEO |
+|-------|----------------|
+| `audit_institution` | 5 valeurs (OFNAC, IGE, CENTIF, Cour des Comptes, ARMP) → pages par institution |
+| `tags` | Tableau libre → pages thématiques |
+| `publish_date` | → pages par année |
+| `family` | 10 valeurs → pages par famille |
+
+**Aucune modification du schéma Directus n'est nécessaire.** Les champs existants suffisent pour générer toutes les pages programmatiques.
+
+---
+
+## 11. Plan d'implémentation
+
+### Phase 1 — Débloquer l'indexation (impact immédiat, pas de nouveau code)
+
+| Action | Fichier | Détail |
+|--------|---------|--------|
+| Auditer les 5 251 pages noindex | `nuxt.config.ts` + pages avec `useHead` noindex | Retirer noindex des `/documents/[id]/[slug]` valides |
+| Corriger les 165 erreurs 404 | `nuxt.config.ts` routeRules | Exporter liste GSC, créer redirections 301 |
+| Consolider pages legacy JO | `nuxt.config.ts` routeRules | Rediriger `/journal-officiel-senegal` → `/documents/journal-officiel` |
+| Migrer Schema.org legacy JO | `documents/[category].vue` | Migrer Periodical, Dataset, GovernmentService depuis l'ancienne page JO |
+| Traiter les 18 soft 404 | Pages concernées | Enrichir contenu ou retourner vrai 404 |
+| Traiter les 468 pages crawlées non indexées | Pages concernées | Enrichir contenu, maillage interne |
+
+**Pages legacy à consolider** :
+
+| URL legacy | Statut actuel | Action |
+|-----------|---------------|--------|
+| `/journal-officiel-senegal` | Actif, 4 schemas riches | Rediriger 301 → `/documents/journal-officiel` (après migration Schema.org) |
+| `/journal-officiel-senegal/[slug]` | Actif, bug params | Rediriger 301 |
+| `/rapport-senegal` | Déjà redirigé | OK |
+| `/rapport-senegal/[slug]` | Déjà redirigé | OK |
+
+### Phase 2 — Étendre les catégories documents (ajout config, pas de nouvelle page)
+
+| Action | Fichier |
+|--------|---------|
+| Ajouter ~17 entrées au `CATEGORY_CONFIG` | `app/pages/documents/[category].vue` |
+| Ajouter cartes pour nouvelles catégories | `app/pages/documents/index.vue` |
+| Ajouter URLs catégories au sitemap | `server/api/__sitemap__/urls.ts` |
+
+Voir la liste complète des catégories à ajouter dans [section 2 — Niveau 2](#niveau-2--pages-catégories).
+
+### Phase 3 — Pages archives par année (2 fichiers Vue à créer)
+
+| Action | Fichier |
+|--------|---------|
+| Page index archives | `app/pages/documents/annee/index.vue` |
+| Page par année | `app/pages/documents/annee/[year].vue` |
+| Ajouter au sitemap | `server/api/__sitemap__/urls.ts` |
+
+**APIs existantes** : `GET /api/documents?year=[year]` + `GET /api/documents/years`
+
+### Phase 4 — Pages institutions (2 fichiers Vue à créer)
+
+| Action | Fichier |
+|--------|---------|
+| Page index institutions | `app/pages/institutions/index.vue` |
+| Page détail institution | `app/pages/institutions/[slug].vue` |
+| Ajouter au sitemap | `server/api/__sitemap__/urls.ts` |
+
+**APIs existantes** : `GET /api/state/entities` + `GET /api/state/tree` + `GET /api/state/entities/[slug]`
+
+**Limitation** : Pas de lien direct `state_entity` ↔ `documents` dans Directus.
+**Solution** : Faire correspondre `state_entity.name` avec `documents.audit_institution` ou `documents.tags` pour les rapports d'audit. Pour les autres, rechercher dans `documents.source_name`.
+
+### Phase 5 — Maillage interne contextuel (1 API à créer)
+
+| Action | Fichier |
+|--------|---------|
+| Section "Documents liés" | `app/pages/documents/[id]/[slug].vue` |
+| Badges liens contextuels (type, famille, année) | `app/pages/documents/[id]/[slug].vue` |
+| **API documents liés** | `server/api/documents/related/[id].ts` — **À CRÉER** |
+
+**Logique API `GET /api/documents/related/[id]`** :
+- Documents du même `type` (5 derniers)
+- Documents de la même `family` (5 derniers)
+- Documents de la même `audit_institution` (si renseigné)
+- Dédupliquer + exclure le document courant
+
+### Phase 6 — Schema.org enrichis
+
+| Action | Fichier |
+|--------|---------|
+| Schema.org conditionnel sur documents (Report, Legislation, Dataset) | `app/pages/documents/[id]/[slug].vue` |
+| Schema.org Person sur députés | `app/pages/assemblee-nationale/deputes/[id]/[name].vue` |
+| Schema.org Person sur personnalités | `app/pages/personnalites/[id]/[slug].vue` |
+| Schema.org PodcastEpisode | `app/pages/podcasts/[id]/[slug].vue` |
+
+### Phase 7 — Pages listes Wikipedia-style
+
+| Action | Fichier |
+|--------|---------|
+| Liste députés | `app/pages/liste-deputes-senegal.vue` |
+| Liste ministres | `app/pages/liste-ministres-senegal.vue` |
+
+Note : utiliser canonical vers les pages existantes (`/assemblee-nationale/deputes`) ou redirection, selon la stratégie choisie.
+
+### Phase 8 — Pages guides citoyens
+
+| Action | Fichier |
+|--------|---------|
+| Guides (statiques ou CMS) | `app/pages/guides/[slug].vue` ou pages statiques |
+
+### Phase 9 — Optimisation CTR pages existantes
+
+| Action | Fichier |
+|--------|---------|
+| Title/description dynamique conseil-des-ministres | `app/pages/conseil-des-ministres/index.vue` |
+| Title/description dynamique nominations | `app/pages/nomination-senegal/index.vue` |
+
+---
+
+## 12. Récapitulatif des livrables
+
+### Fichiers existants à modifier
+
+| Fichier | Modification | Phase |
+|---------|-------------|-------|
+| `nuxt.config.ts` | Redirections 301 legacy + retirer disallow | 1 |
+| `app/pages/documents/[category].vue` | +17 entrées CATEGORY_CONFIG + migration Schema.org JO | 1-2 |
+| `app/pages/documents/index.vue` | Cartes nouvelles catégories | 2 |
+| `server/api/__sitemap__/urls.ts` | URLs catégories, années, institutions | 2-4 |
+| `app/pages/documents/[id]/[slug].vue` | Documents liés + badges + Schema.org conditionnel | 5-6 |
+| `app/pages/assemblee-nationale/deputes/[id]/[name].vue` | Schema.org Person | 6 |
+| `app/pages/personnalites/[id]/[slug].vue` | Schema.org Person | 6 |
+| `app/pages/podcasts/[id]/[slug].vue` | Schema.org PodcastEpisode | 6 |
+| `app/pages/conseil-des-ministres/index.vue` | Title/description CTR | 9 |
+| `app/pages/nomination-senegal/index.vue` | Title/description CTR | 9 |
+
+### Nouvelles pages à créer
+
+| Fichier | URL | Phase |
+|---------|-----|-------|
+| `app/pages/documents/annee/index.vue` | `/documents/annee` | 3 |
+| `app/pages/documents/annee/[year].vue` | `/documents/annee/2024` | 3 |
+| `app/pages/institutions/index.vue` | `/institutions` | 4 |
+| `app/pages/institutions/[slug].vue` | `/institutions/[slug]` | 4 |
+| `app/pages/liste-deputes-senegal.vue` | `/liste-deputes-senegal` | 7 |
+| `app/pages/liste-ministres-senegal.vue` | `/liste-ministres-senegal` | 7 |
+| `app/pages/guides/[slug].vue` | `/guides/*` | 8 |
+
+### Nouvelle API à créer
+
+| Endpoint | Description | Phase |
+|----------|-------------|-------|
+| `GET /api/documents/related/[id]` | Documents liés (même type/famille/institution) | 5 |
+
+### Timeline recommandée
+
+```
+Phase 1  → Débloquer l'indexation + consolider legacy (impact immédiat)
+Phase 2  → Étendre CATEGORY_CONFIG (ajout config, fort impact)
+Phase 3  → Pages archives par année (2 fichiers Vue)
+Phase 4  → Pages institutions (2 fichiers Vue)
+Phase 5  → Maillage interne contextuel (1 API + badges)
+Phase 6  → Schema.org enrichis
+Phase 7  → Pages listes
+Phase 8  → Guides citoyens
+Phase 9  → Optimisation CTR continue
+```
+
+### Estimation d'impact
+
+| Phase | Pages | Requêtes captables |
+|-------|-------|-------------------|
+| Phase 1 (indexation) | +4 000 débloquées | Pages documents existantes |
+| Phase 2 (catégories) | +17 | "lois senegal pdf", "décrets senegal" |
+| Phase 3 (archives) | +60 | "journal officiel senegal 2024" |
+| Phase 4 (institutions) | +200 | "cour des comptes senegal" |
+| Phase 5 (maillage) | 0 nouvelles | +40% temps sur site |
+| Phase 6 (Schema.org) | 0 nouvelles | Rich snippets, meilleur CTR |
+| Phase 7 (listes) | +4 | "liste ministres senegal" |
+| Phase 8 (guides) | +7 | "comment + [sujet] + senegal" |
+| Phase 9 (CTR) | 0 nouvelles | +CTR sur pages existantes |
+
+**Total** : De **973 pages indexées** → **5 000+ pages indexées**.
