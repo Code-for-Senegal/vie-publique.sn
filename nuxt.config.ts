@@ -27,6 +27,7 @@ const securityConfig =
               'https://*.vie-publique.sn',
               'https://www.google-analytics.com',
               'https://*.google-analytics.com',
+              'https://www.google.com',
               'https://fonts.googleapis.com',
               'https://*.googleapis.com',
               'https://*.firebaseio.com',
