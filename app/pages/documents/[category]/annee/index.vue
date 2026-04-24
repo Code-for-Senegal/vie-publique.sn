@@ -1,12 +1,40 @@
 <script setup lang="ts">
 // --- Category Configuration ---
 
-const CATEGORY_SEO: Record<string, { type: string; label: string; countLabel: string }> = {
-  'journal-officiel': { type: 'official_journal', label: 'Journal Officiel', countLabel: 'publication' },
-  'rapports-audit': { type: 'audit_report', label: 'Rapports publics', countLabel: 'rapport' },
-  strategies: { type: 'strategy', label: 'Documents Stratégies', countLabel: 'document' },
-  codes: { type: 'code', label: 'Codes du Sénégal', countLabel: 'code' },
-  budget: { type: 'budget', label: 'Documents Budgétaires', countLabel: 'document' },
+const CATEGORY_SEO: Record<
+  string,
+  { type: string; label: string; countLabel: string; ogImage: string }
+> = {
+  'journal-officiel': {
+    type: 'official_journal',
+    label: 'Journal Officiel',
+    countLabel: 'publication',
+    ogImage: '/images/vpsn-share-jors.png',
+  },
+  'rapports-audit': {
+    type: 'audit_report',
+    label: 'Rapports publics',
+    countLabel: 'rapport',
+    ogImage: '/images/share-linkedin.png',
+  },
+  strategies: {
+    type: 'strategy',
+    label: 'Documents Stratégies',
+    countLabel: 'document',
+    ogImage: '/images/share-linkedin.png',
+  },
+  codes: {
+    type: 'code',
+    label: 'Codes du Sénégal',
+    countLabel: 'code',
+    ogImage: '/images/vpsn-share-jors.png',
+  },
+  budget: {
+    type: 'budget',
+    label: 'Documents Budgétaires',
+    countLabel: 'document',
+    ogImage: '/images/vpsn-share-budget.png',
+  },
 };
 
 // --- Route params ---
@@ -30,7 +58,7 @@ useSeoMeta({
   description: seoDescription,
   ogTitle: seoTitle,
   ogDescription: seoDescription,
-  ogImage: `${siteUrl}/images/share-linkedin.png`,
+  ogImage: `${siteUrl}${config.ogImage}`,
   ogUrl: `${siteUrl}/documents/${category}/annee`,
   ogType: 'website',
   twitterCard: 'summary_large_image',
@@ -89,8 +117,8 @@ const totalDocuments = computed(() => {
         </h2>
         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
           <template v-if="!loading">
-            {{ totalDocuments }} {{ config.countLabel }}{{ totalDocuments > 1 ? 's' : '' }}
-            répartis sur {{ sortedYears.length }} années
+            {{ totalDocuments }} {{ config.countLabel }}{{ totalDocuments > 1 ? 's' : '' }} répartis
+            sur {{ sortedYears.length }} années
           </template>
           <template v-else>Chargement...</template>
         </p>
@@ -108,24 +136,33 @@ const totalDocuments = computed(() => {
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-6">
       <!-- Loading -->
-      <div v-if="loading" class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+      <div
+        v-if="loading"
+        class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+      >
         <div
           v-for="i in 15"
           :key="i"
-          class="h-20 animate-pulse rounded-xl bg-gray-200 dark:bg-gray-800"
-        />
+          class="flex flex-col items-center justify-center rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800"
+        >
+          <USkeleton class="h-6 w-16" />
+          <USkeleton class="mt-2 h-3 w-20" />
+        </div>
       </div>
 
       <!-- Years Grid -->
-      <div v-else-if="sortedYears.length > 0" class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+      <div
+        v-else-if="sortedYears.length > 0"
+        class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+      >
         <NuxtLink
           v-for="y in sortedYears"
           :key="y.year"
           :to="`/documents/${category}/annee/${y.year}`"
-          class="group flex flex-col items-center justify-center rounded-xl border border-gray-200 bg-white p-4 transition-all hover:border-primary-300 hover:shadow-md dark:border-gray-700 dark:bg-gray-800 dark:hover:border-primary-600"
+          class="hover:border-primary-300 dark:hover:border-primary-600 group flex flex-col items-center justify-center rounded-xl border border-gray-200 bg-white p-4 transition-all hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
         >
           <span
-            class="text-xl font-bold text-gray-900 group-hover:text-primary-600 dark:text-white dark:group-hover:text-primary-400"
+            class="group-hover:text-primary-600 dark:group-hover:text-primary-400 text-xl font-bold text-gray-900 dark:text-white"
           >
             {{ y.year }}
           </span>

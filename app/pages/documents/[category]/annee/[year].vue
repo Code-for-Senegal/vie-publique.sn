@@ -1,13 +1,43 @@
 <script setup lang="ts">
+import armpLogo from '~/assets/logos/armp.webp';
+import ofnacLogo from '~/assets/logos/ofnac.webp';
+import igeLogo from '~/assets/logos/ige.webp';
+import courDesComptesLogo from '~/assets/logos/cour_des_comptes.webp';
+import centifLogo from '~/assets/logos/centif.webp';
+import docLogo from '~/assets/logos/doc.svg';
+
 // --- Category Configuration (shared with parent) ---
 
-const CATEGORY_SEO: Record<string, { type: string; label: string; countLabel: string; icon: string; fallbackIcon: string }> = {
+const CATEGORY_SEO: Record<
+  string,
+  {
+    type: string;
+    label: string;
+    countLabel: string;
+    icon: string;
+    fallbackIcon: string;
+    ogImage: string;
+    thumbnailMode: 'cms-image' | 'static-image' | 'logo';
+    staticImage?: string;
+    showDescription: boolean;
+    showDate: boolean;
+    showFileIndicator: boolean;
+    showAuditInstitution: boolean;
+  }
+> = {
   'journal-officiel': {
     type: 'official_journal',
     label: 'Journal Officiel',
     countLabel: 'publication',
     icon: 'i-heroicons-newspaper',
     fallbackIcon: 'i-heroicons-newspaper',
+    ogImage: '/images/vpsn-share-jors.png',
+    thumbnailMode: 'static-image',
+    staticImage: '/images/default-journal-officiel.webp',
+    showDescription: true,
+    showDate: true,
+    showFileIndicator: false,
+    showAuditInstitution: false,
   },
   'rapports-audit': {
     type: 'audit_report',
@@ -15,6 +45,12 @@ const CATEGORY_SEO: Record<string, { type: string; label: string; countLabel: st
     countLabel: 'rapport',
     icon: 'i-heroicons-document-chart-bar',
     fallbackIcon: 'i-heroicons-document-chart-bar',
+    ogImage: '/images/share-linkedin.png',
+    thumbnailMode: 'logo',
+    showDescription: false,
+    showDate: false,
+    showFileIndicator: false,
+    showAuditInstitution: true,
   },
   strategies: {
     type: 'strategy',
@@ -22,6 +58,12 @@ const CATEGORY_SEO: Record<string, { type: string; label: string; countLabel: st
     countLabel: 'document',
     icon: 'i-heroicons-presentation-chart-line',
     fallbackIcon: 'i-heroicons-presentation-chart-line',
+    ogImage: '/images/share-linkedin.png',
+    thumbnailMode: 'cms-image',
+    showDescription: false,
+    showDate: true,
+    showFileIndicator: true,
+    showAuditInstitution: false,
   },
   codes: {
     type: 'code',
@@ -29,6 +71,12 @@ const CATEGORY_SEO: Record<string, { type: string; label: string; countLabel: st
     countLabel: 'code',
     icon: 'i-heroicons-scale',
     fallbackIcon: 'i-heroicons-scale',
+    ogImage: '/images/vpsn-share-jors.png',
+    thumbnailMode: 'cms-image',
+    showDescription: true,
+    showDate: true,
+    showFileIndicator: false,
+    showAuditInstitution: false,
   },
   budget: {
     type: 'budget',
@@ -36,8 +84,25 @@ const CATEGORY_SEO: Record<string, { type: string; label: string; countLabel: st
     countLabel: 'document',
     icon: 'i-heroicons-banknotes',
     fallbackIcon: 'i-heroicons-banknotes',
+    ogImage: '/images/vpsn-share-budget.png',
+    thumbnailMode: 'cms-image',
+    showDescription: false,
+    showDate: true,
+    showFileIndicator: true,
+    showAuditInstitution: false,
   },
 };
+
+// --- Logo mapping (rapports-audit) ---
+
+const logoMap: Record<string, string> = {
+  ARMP: armpLogo,
+  OFNAC: ofnacLogo,
+  IGE: igeLogo,
+  'Cour des Comptes': courDesComptesLogo,
+  CENTIF: centifLogo,
+};
+const getLogo = (institution: string) => logoMap[institution] || docLogo;
 
 // --- Route params ---
 
@@ -68,7 +133,7 @@ useSeoMeta({
   description: seoDescription,
   ogTitle: seoTitle,
   ogDescription: seoDescription,
-  ogImage: `${siteUrl}/images/share-linkedin.png`,
+  ogImage: `${siteUrl}${config.ogImage}`,
   ogUrl: `${siteUrl}/documents/${category}/annee/${year}`,
   ogType: 'website',
   twitterCard: 'summary_large_image',
@@ -171,8 +236,8 @@ const yearExists = computed(() => {
               {{ config.label }} — {{ year }}
             </h2>
             <p class="text-xs text-gray-500 dark:text-gray-400">
-              {{ totalItems }} {{ config.countLabel }}{{ totalItems > 1 ? 's' : '' }}
-              publiés en {{ year }}
+              {{ totalItems }} {{ config.countLabel }}{{ totalItems > 1 ? 's' : '' }} publiés en
+              {{ year }}
             </p>
           </div>
         </div>
@@ -237,7 +302,10 @@ const yearExists = computed(() => {
 
       <template v-else>
         <!-- Loading -->
-        <DocumentsDocumentListSkeleton v-if="loading" thumbnail-shape="tall" />
+        <DocumentsDocumentListSkeleton
+          v-if="loading"
+          :thumbnail-shape="config.thumbnailMode === 'logo' ? 'square' : 'tall'"
+        />
 
         <!-- Error -->
         <DocumentsDocumentErrorState
@@ -259,11 +327,14 @@ const yearExists = computed(() => {
             v-for="doc in documents"
             :key="doc.id"
             :document="doc"
-            thumbnail-mode="cms-image"
+            :thumbnail-mode="config.thumbnailMode"
+            :static-image="config.staticImage"
+            :get-logo="config.thumbnailMode === 'logo' ? getLogo : undefined"
             :fallback-icon="config.fallbackIcon"
-            :show-description="true"
-            :show-date="true"
-            :show-file-indicator="true"
+            :show-description="config.showDescription"
+            :show-date="config.showDate"
+            :show-file-indicator="config.showFileIndicator"
+            :show-audit-institution="config.showAuditInstitution"
           />
         </div>
 

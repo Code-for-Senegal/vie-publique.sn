@@ -59,9 +59,7 @@ const totalDocuments = computed(() => {
     <h1 class="sr-only">{{ seoTitle }}</h1>
 
     <!-- Header -->
-    <header
-      class="border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900"
-    >
+    <header class="border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
       <div class="container mx-auto px-4 py-6">
         <h2 class="text-xl font-bold text-gray-900 dark:text-white sm:text-2xl">
           Archives par année
@@ -78,12 +76,18 @@ const totalDocuments = computed(() => {
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-6">
       <!-- Loading -->
-      <div v-if="loading" class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+      <div
+        v-if="loading"
+        class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+      >
         <div
           v-for="i in 15"
           :key="i"
-          class="h-20 animate-pulse rounded-xl bg-gray-200 dark:bg-gray-800"
-        />
+          class="flex flex-col items-center justify-center rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800"
+        >
+          <USkeleton class="h-6 w-16" />
+          <USkeleton class="mt-2 h-3 w-20" />
+        </div>
       </div>
 
       <!-- Years Grid -->
@@ -92,10 +96,10 @@ const totalDocuments = computed(() => {
           v-for="y in sortedYears"
           :key="y.year"
           :to="`/documents/annee/${y.year}`"
-          class="group flex flex-col items-center justify-center rounded-xl border border-gray-200 bg-white p-4 transition-all hover:border-primary-300 hover:shadow-md dark:border-gray-700 dark:bg-gray-800 dark:hover:border-primary-600"
+          class="hover:border-primary-300 dark:hover:border-primary-600 group flex flex-col items-center justify-center rounded-xl border border-gray-200 bg-white p-4 transition-all hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
         >
           <span
-            class="text-xl font-bold text-gray-900 group-hover:text-primary-600 dark:text-white dark:group-hover:text-primary-400"
+            class="group-hover:text-primary-600 dark:group-hover:text-primary-400 text-xl font-bold text-gray-900 dark:text-white"
           >
             {{ y.year }}
           </span>

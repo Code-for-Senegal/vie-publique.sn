@@ -54,7 +54,7 @@ const CATEGORY_CONFIG: Record<string, CategoryConfig> = {
       title: 'Journal Officiel du Sénégal',
       description:
         'Consultez les publications du Journal Officiel de la République du Sénégal : lois, décrets, arrêtés et textes officiels.',
-      ogImage: '/images/share-linkedin.png',
+      ogImage: '/images/vpsn-share-jors.png',
     },
   },
   'rapports-audit': {
@@ -143,7 +143,7 @@ const CATEGORY_CONFIG: Record<string, CategoryConfig> = {
     seo: {
       title: 'Documents Budgétaires du Sénégal',
       description: 'Documents Budgétaires sur le Sénégal',
-      ogImage: '/images/share-linkedin.png',
+      ogImage: '/images/vpsn-share-budget.png',
     },
   },
 };
