@@ -174,9 +174,9 @@ useHead({
       <!-- Recent Content Sections -->
       <div>
         <!-- Version desktop -->
-        <div class="hidden gap-4 md:grid md:grid-cols-2 lg:grid-cols-3">
+        <div class="hidden gap-4 md:grid md:grid-cols-2">
           <!-- Latest News -->
-          <section class="rounded-lg bg-white p-4 dark:bg-gray-800">
+          <!-- <section class="rounded-lg bg-white p-4 dark:bg-gray-800">
             <div class="mb-4 flex items-center justify-between">
               <h2 class="text-xl font-bold dark:text-white">Actualités</h2>
               <NuxtLink
@@ -188,7 +188,7 @@ useHead({
               </NuxtLink>
             </div>
             <AssemblyHomeNews :news="news" />
-          </section>
+          </section> -->
 
           <!-- Latest Questions -->
           <section class="rounded-lg bg-white p-4 dark:bg-gray-800">
@@ -243,7 +243,7 @@ useHead({
           </section>
 
           <!-- Actualités -->
-          <section class="rounded-lg bg-white p-4 dark:bg-gray-800">
+          <!-- <section class="rounded-lg bg-white p-4 dark:bg-gray-800">
             <div
               class="mb-4 flex items-center justify-between border-b border-gray-100 p-2 dark:border-gray-700"
             >
@@ -257,7 +257,7 @@ useHead({
               </NuxtLink>
             </div>
             <AssemblyHomeNews :news="news" class="news-mobile" />
-          </section>
+          </section> -->
 
           <!-- Votes -->
           <section class="rounded-lg bg-white p-4 dark:bg-gray-800">

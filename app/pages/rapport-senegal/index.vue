@@ -15,7 +15,7 @@ const searchQuery = ref("");
 const selectedOrganisme = ref("");
 const selectedYear = ref("");
 
-const organismes = ["Cours des Comptes", "OFNAC", "CENTIF", "IGE", "ARMP"];
+const organismes = ["Cours des Comptes", "OFNAC", "CENTIF", "IGE", "ARMP", "ARCOP"];
 
 const filteredRapports = computed(() =>
   rapports.value.filter((rapport) => {
