@@ -91,6 +91,33 @@ const documentCategories = [
     iconBg: 'bg-indigo-500/10',
     iconColor: 'text-indigo-500',
   },
+  {
+    title: 'Statistiques',
+    description: 'Enquêtes et données statistiques',
+    icon: 'i-heroicons-chart-pie',
+    to: '/documents/statistiques',
+    gradient: 'from-cyan-500 to-cyan-600',
+    iconBg: 'bg-cyan-500/10',
+    iconColor: 'text-cyan-500',
+  },
+  {
+    title: 'Parlementaire',
+    description: 'Rapports et questions parlementaires',
+    icon: 'i-heroicons-building-library',
+    to: '/documents/parlementaire',
+    gradient: 'from-orange-500 to-orange-600',
+    iconBg: 'bg-orange-500/10',
+    iconColor: 'text-orange-500',
+  },
+  {
+    title: 'Élection',
+    description: 'Documents électoraux officiels',
+    icon: 'i-heroicons-check-badge',
+    to: '/documents/elections',
+    gradient: 'from-teal-500 to-teal-600',
+    iconBg: 'bg-teal-500/10',
+    iconColor: 'text-teal-500',
+  },
 ];
 </script>
 

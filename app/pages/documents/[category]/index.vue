@@ -10,6 +10,7 @@ import docLogo from '~/assets/logos/doc.svg';
 
 interface CategoryConfig {
   type: string;
+  family?: string;
   title: string;
   breadcrumbLabel: string;
   countLabel: string;
@@ -146,6 +147,75 @@ const CATEGORY_CONFIG: Record<string, CategoryConfig> = {
       ogImage: '/images/vpsn-share-budget.png',
     },
   },
+  statistiques: {
+    type: '',
+    family: 'statistics',
+    title: 'Documents Statistiques',
+    breadcrumbLabel: 'Statistiques',
+    countLabel: 'document',
+    searchPlaceholder: 'Rechercher un document statistique...',
+    emptyIcon: 'i-heroicons-chart-pie',
+    fallbackIcon: 'i-heroicons-chart-pie',
+    errorMessage: 'Impossible de charger les documents statistiques',
+    emptyMessage: 'Aucun document ne correspond à votre recherche',
+    filters: [],
+    thumbnailMode: 'cms-image',
+    showDescription: false,
+    showDate: true,
+    showFileIndicator: true,
+    showAuditInstitution: false,
+    seo: {
+      title: 'Documents Statistiques du Sénégal',
+      description: 'Enquêtes et données statistiques officielles du Sénégal.',
+      ogImage: '/images/share-linkedin.png',
+    },
+  },
+  parlementaire: {
+    type: '',
+    family: 'parliament',
+    title: 'Documents Parlementaires',
+    breadcrumbLabel: 'Parlementaire',
+    countLabel: 'document',
+    searchPlaceholder: 'Rechercher un document parlementaire...',
+    emptyIcon: 'i-heroicons-building-library',
+    fallbackIcon: 'i-heroicons-building-library',
+    errorMessage: 'Impossible de charger les documents parlementaires',
+    emptyMessage: 'Aucun document ne correspond à votre recherche',
+    filters: [],
+    thumbnailMode: 'cms-image',
+    showDescription: false,
+    showDate: true,
+    showFileIndicator: true,
+    showAuditInstitution: false,
+    seo: {
+      title: 'Documents Parlementaires du Sénégal',
+      description: 'Rapports et questions parlementaires du Sénégal.',
+      ogImage: '/images/share-linkedin.png',
+    },
+  },
+  elections: {
+    type: '',
+    family: 'election',
+    title: 'Documents Électoraux',
+    breadcrumbLabel: 'Élections',
+    countLabel: 'document',
+    searchPlaceholder: 'Rechercher un document électoral...',
+    emptyIcon: 'i-heroicons-check-badge',
+    fallbackIcon: 'i-heroicons-check-badge',
+    errorMessage: 'Impossible de charger les documents électoraux',
+    emptyMessage: 'Aucun document ne correspond à votre recherche',
+    filters: [],
+    thumbnailMode: 'cms-image',
+    showDescription: false,
+    showDate: true,
+    showFileIndicator: true,
+    showAuditInstitution: false,
+    seo: {
+      title: 'Documents Électoraux du Sénégal',
+      description: 'Documents électoraux officiels du Sénégal.',
+      ogImage: '/images/share-linkedin.png',
+    },
+  },
 };
 
 // --- Route & Config ---
@@ -201,6 +271,7 @@ const {
   searchQuery,
   filterValue: selectedFilter,
   yearFilter,
+  familyFilter,
   totalItems,
   totalPages,
   itemsPerPage,
@@ -208,9 +279,14 @@ const {
   setFilterValue: setSelectedFilter,
   setCurrentPage,
 } = useDocuments({
-  type: config.type,
+  type: config.type || undefined,
   limit: 10,
 });
+
+// Si la catégorie filtre par famille, appliquer le filtre
+if (config.family) {
+  familyFilter.value = config.family;
+}
 
 const currentPageUI = computed({
   get: () => currentPage.value,

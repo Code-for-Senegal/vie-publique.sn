@@ -175,6 +175,18 @@
           <BudgetArticles />
         </div>
       </section>
+
+      <!-- Section Documents Budget -->
+      <section class="mt-6 md:mt-8">
+        <div class="mb-4 flex items-center justify-between">
+          <h2 class="text-lg font-bold text-gray-900 dark:text-white">
+            Documents officiels
+          </h2>
+        </div>
+        <div class="rounded-2xl bg-white p-4 ring-1 ring-gray-100 md:p-6 dark:bg-gray-800 dark:ring-gray-700">
+          <BudgetDocuments />
+        </div>
+      </section>
     </main>
 
     <ScrollToTopButton />

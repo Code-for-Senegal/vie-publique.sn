@@ -24,7 +24,11 @@ export type DocumentType =
   | 'annual_report'
   | 'parliamentary_report'
   | 'sectoral_report'
-  | 'ministerial_order';
+  | 'ministerial_order'
+  | 'decision'
+  | 'legal_opinion'
+  | 'circular'
+  | 'statistical_survey';
 
 // Mapping type → label français
 export const DOC_TYPE_LABELS: Record<string, string> = {
@@ -53,6 +57,10 @@ export const DOC_TYPE_LABELS: Record<string, string> = {
   press_release: 'Communiqué de presse',
   election: 'Élection',
   parliamentary_report: 'Rapport parlementaire',
+  decision: 'Décision',
+  legal_opinion: 'Avis',
+  circular: 'Circulaire',
+  statistical_survey: 'Enquête statistique',
 };
 
 // Familles de documents
