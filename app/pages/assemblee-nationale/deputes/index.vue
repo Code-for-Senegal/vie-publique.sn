@@ -21,7 +21,7 @@
               {{ filteredDeputiesCount }} député{{ filteredDeputiesCount > 1 ? 's' : '' }} · 15e législature
             </p>
           </div>
-          
+
           <!-- Gender Pills -->
           <div class="flex items-center gap-1">
             <button
@@ -191,8 +191,8 @@
           <!-- Info Overlay -->
           <div class="absolute inset-x-0 bottom-0 p-3">
             <h3 class="text-sm font-semibold leading-tight text-white">
-              <span class="capitalize">{{ deputy.first_name.toLowerCase() }}</span>
-              <span class="font-bold uppercase"> {{ deputy.last_name }}</span>
+              <span class="capitalize">{{ deputy.first_name.toLowerCase() }}</span>&nbsp;
+              <span class="font-bold uppercase">{{ deputy.last_name }}</span>
             </h3>
             <p class="mt-0.5 truncate text-[11px] text-white/80">
               <span v-if="deputy.birthdate">{{ $getAgeFromBirthdate(deputy.birthdate) }} ans</span>
