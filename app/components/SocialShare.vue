@@ -3,6 +3,7 @@ const props = defineProps<{
   title: string
   description?: string
   url?: string
+  compact?: boolean
 }>()
 
 const route = useRoute()
@@ -73,7 +74,7 @@ const copyLink = async () => {
   <button
     type="button"
     class="share-btn group relative overflow-hidden"
-    :class="{ 'share-btn--success': shareSuccess || copied }"
+    :class="{ 'share-btn--success': shareSuccess || copied, 'share-btn--compact': compact }"
     :disabled="isSharing"
     @click="handleShare"
   >
@@ -175,6 +176,25 @@ const copyLink = async () => {
 
 .share-btn__label {
   white-space: nowrap;
+}
+
+/* Compact variant */
+.share-btn--compact {
+  min-width: auto;
+  padding: 0 10px;
+  font-size: 11px;
+  height: 32px;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+.share-btn--compact .share-btn__content {
+  gap: 4px;
+}
+
+.share-btn--compact .share-btn__icon :deep(.iconify) {
+  width: 14px;
+  height: 14px;
 }
 
 /* Dark mode */

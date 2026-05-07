@@ -189,6 +189,7 @@ const formattedDate = computed(() => {
 
 // État du viewer PDF modal
 const showPdfViewer = ref(false);
+
 </script>
 
 <template>
@@ -198,33 +199,35 @@ const showPdfViewer = ref(false);
       class="sticky top-0 z-40 border-b border-gray-100 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95 md:relative md:border-0 md:bg-transparent md:backdrop-blur-none dark:md:bg-transparent"
     >
       <div class="container mx-auto px-4">
-        <div class="flex items-center gap-3 py-3 md:hidden">
-          <!-- Back button -->
-          <NuxtLink
-            :to="`/documents/${typeSlug}`"
-            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 active:scale-95 dark:bg-gray-800 dark:text-gray-400"
-            aria-label="Retour"
-          >
-            <UIcon name="i-heroicons-arrow-left" class="h-4 w-4" />
-          </NuxtLink>
-
-          <!-- Title & Meta -->
-          <div class="min-w-0 flex-1">
-            <h1
-              v-if="document"
-              class="line-clamp-2 text-xs font-semibold leading-tight text-gray-900 dark:text-white"
+        <div class="space-y-2 py-3 md:hidden">
+          <!-- Row 1: Back + Title -->
+          <div class="flex items-center gap-3">
+            <NuxtLink
+              :to="`/documents/${typeSlug}`"
+              class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 active:scale-95 dark:bg-gray-800 dark:text-gray-400"
+              aria-label="Retour"
             >
-              {{ document.title }}
-            </h1>
-            <USkeleton v-else class="h-4 w-48" />
-            <p v-if="formattedDate" class="mt-0.5 text-[10px] text-gray-500">
-              {{ formattedDate }}
-            </p>
+              <UIcon name="i-heroicons-arrow-left" class="h-4 w-4" />
+            </NuxtLink>
+            <div class="min-w-0 flex-1">
+              <h1
+                v-if="document"
+                class="line-clamp-2 text-sm font-semibold leading-tight text-gray-900 dark:text-white"
+              >
+                {{ document.title }}
+              </h1>
+              <USkeleton v-else class="h-4 w-48" />
+              <p v-if="formattedDate" class="mt-0.5 text-[10px] text-gray-500">
+                {{ formattedDate }}
+              </p>
+            </div>
           </div>
 
-          <!-- Mobile Actions Compact -->
-          <div v-if="document?.file" class="flex shrink-0 items-center gap-1.5">
+          <!-- Row 2: Action buttons -->
+          <div v-if="document" class="flex items-center gap-2">
+            <SocialShare :title="document.title" compact />
             <button
+              v-if="document.file"
               type="button"
               class="bg-primary-500 hover:bg-primary-600 flex h-8 items-center gap-1 rounded-lg px-2.5 text-[11px] font-medium text-white transition-colors active:scale-95"
               @click="showPdfViewer = true"
@@ -233,8 +236,9 @@ const showPdfViewer = ref(false);
               Lire
             </button>
             <button
+              v-if="document.file"
               type="button"
-              class="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 active:scale-95 dark:bg-gray-800 dark:text-gray-400"
+              class="flex h-8 items-center gap-1 rounded-lg bg-[#FFD400] px-2.5 text-[11px] font-medium text-gray-900 transition-colors hover:bg-yellow-400 active:scale-95"
               @click="
                 downloadCmsFile(
                   `${document!.file!.id}/${document!.slug}.pdf`,
@@ -242,7 +246,8 @@ const showPdfViewer = ref(false);
                 )
               "
             >
-              <UIcon name="i-heroicons-arrow-down-tray" class="h-4 w-4" />
+              <UIcon name="i-heroicons-arrow-down-tray" class="h-3.5 w-3.5" />
+              Télécharger
             </button>
           </div>
         </div>
@@ -335,14 +340,9 @@ const showPdfViewer = ref(false);
 
       <!-- Main Content -->
       <main class="container mx-auto px-4 py-6">
-        <!-- Partage social Mobile -->
-        <div class="mb-6 lg:hidden">
-          <SocialShare :title="document.title" />
-        </div>
-
         <div class="grid gap-8 lg:grid-cols-3">
           <!-- Colonne principale -->
-          <div class="lg:col-span-2">
+          <div class="min-w-0 lg:col-span-2">
             <!-- Image de couverture -->
             <div v-if="document.cover_image" class="mb-6">
               <div
@@ -352,8 +352,8 @@ const showPdfViewer = ref(false);
                   :src="document.cover_image"
                   :alt="document.title"
                   :quality="80"
-                  :width="800"
-                  class="mx-auto w-full max-w-lg object-contain"
+                  loading="lazy"
+                  class="block h-auto w-full object-contain sm:mx-auto sm:max-w-lg"
                 />
               </div>
             </div>
@@ -393,7 +393,7 @@ const showPdfViewer = ref(false);
               <!-- Actions fichier -->
               <div
                 v-if="document.file"
-                class="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900"
+                class="rounded-xl border border-gray-200 bg-white p-4 dark:border-dark-500 dark:bg-dark-900"
               >
                 <!-- Header avec icône -->
                 <div class="mb-4 flex items-center gap-3">
@@ -413,46 +413,46 @@ const showPdfViewer = ref(false);
                   </div>
                 </div>
 
-                <!-- Bouton principal -->
+                <!-- Bouton principal : Télécharger -->
                 <button
                   type="button"
-                  class="mb-2 flex w-full items-center justify-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-gray-800 active:scale-[0.98] dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100"
-                  @click="showPdfViewer = true"
+                  class="mb-2 flex w-full items-center justify-center gap-2 rounded-lg bg-[#FFD400] px-4 py-2.5 text-sm font-medium text-gray-900 transition-colors hover:bg-yellow-400 active:scale-[0.98]"
+                  @click="
+                    downloadCmsFile(
+                      `${document!.file!.id}/${document!.slug}.pdf`,
+                      `${document!.slug}.pdf`,
+                    )
+                  "
                 >
-                  <UIcon name="i-heroicons-eye" class="h-4 w-4" />
-                  Lire le document
+                  <UIcon name="i-heroicons-arrow-down-tray" class="h-4 w-4" />
+                  Télécharger
                 </button>
 
                 <!-- Actions secondaires -->
                 <div class="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    class="flex items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-50 active:scale-[0.98] dark:border-dark-500 dark:bg-dark-700 dark:text-gray-300 dark:hover:bg-dark-600"
+                    @click="showPdfViewer = true"
+                  >
+                    <UIcon name="i-heroicons-eye" class="h-3.5 w-3.5" />
+                    Lire
+                  </button>
                   <a
                     :href="fileUrl"
                     target="_blank"
-                    class="flex items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-50 active:scale-[0.98] dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+                    class="flex items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-50 active:scale-[0.98] dark:border-dark-500 dark:bg-dark-700 dark:text-gray-300 dark:hover:bg-dark-600"
                   >
                     <UIcon name="i-heroicons-arrow-top-right-on-square" class="h-3.5 w-3.5" />
                     Ouvrir
                   </a>
-                  <button
-                    type="button"
-                    class="flex items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-50 active:scale-[0.98] dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
-                    @click="
-                      downloadCmsFile(
-                        `${document!.file!.id}/${document!.slug}.pdf`,
-                        `${document!.slug}.pdf`,
-                      )
-                    "
-                  >
-                    <UIcon name="i-heroicons-arrow-down-tray" class="h-3.5 w-3.5" />
-                    Télécharger
-                  </button>
                 </div>
               </div>
 
               <!-- Message si pas de fichier -->
               <div
                 v-else
-                class="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900"
+                class="rounded-xl border border-gray-200 bg-white p-4 dark:border-dark-500 dark:bg-dark-900"
               >
                 <div class="flex items-center gap-3 text-gray-400">
                   <UIcon name="i-heroicons-document" class="h-5 w-5" />
@@ -462,7 +462,7 @@ const showPdfViewer = ref(false);
 
               <!-- Partage social -->
               <div
-                class="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900"
+                class="rounded-xl border border-gray-200 bg-white p-4 dark:border-dark-500 dark:bg-dark-900"
               >
                 <p
                   class="mb-3 text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400"
