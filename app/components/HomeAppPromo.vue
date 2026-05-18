@@ -1,10 +1,25 @@
 <script setup lang="ts">
 const APP_STORE_URL = 'https://apps.apple.com/us/app/vie-publique-s%C3%A9n%C3%A9gal/id6757257552';
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=sn.viepublique.app';
+
+const isInApp = ref(false);
+
+onMounted(() => {
+  const ua = navigator.userAgent;
+  // PWA standalone (ajouté à l'écran d'accueil via navigateur)
+  const isStandalone =
+    window.matchMedia('(display-mode: standalone)').matches ||
+    (navigator as any).standalone === true;
+  // WebView natif : iOS WKWebView n'a pas "Safari" dans le UA, Android WebView contient "wv"
+  const isWebView =
+    /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(ua) || /\bwv\b/.test(ua);
+
+  isInApp.value = isStandalone || isWebView;
+});
 </script>
 
 <template>
-  <div class="app-promo my-8">
+  <div v-if="!isInApp" class="my-8">
     <h2 class="mb-4 text-center text-xl font-semibold text-gray-800 dark:text-white">
       Disponible sur mobile
     </h2>
@@ -79,11 +94,3 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=sn.viepubl
     </NuxtLink>
   </div>
 </template>
-
-<style scoped>
-@media (display-mode: standalone) {
-  .app-promo {
-    display: none !important;
-  }
-}
-</style>
