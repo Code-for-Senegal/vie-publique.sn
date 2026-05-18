@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-900">
+  <div class="min-h-screen pb-20 dark:bg-gray-900">
     <!-- Header sticky mobile -->
     <header
       class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95 md:relative md:border-0 md:bg-transparent md:backdrop-blur-none"
@@ -9,7 +9,7 @@
       </div>
     </header>
 
-    <main class="container mx-auto px-4 py-4">
+    <main class="container mx-auto px-0 sm:px-4 py-4">
       <!-- Navigation Cards - Mobile: 2 cols compact, Desktop: 3 cols -->
       <div class="grid grid-cols-2 gap-1.5 md:grid-cols-3 md:gap-3">
         <NuxtLink
@@ -299,14 +299,7 @@ const allNavigationCards: NavigationCard[] = [
     icon: 'i-heroicons-clipboard-document-list',
     to: '/projets-publics-senegal',
     featureKey: 'menu_projets_publics',
-  },
-  {
-    title: 'RAC 2025',
-    description: 'Revue annuelle conjointe - Politique économique et sociale',
-    icon: 'i-heroicons-presentation-chart-bar',
-    to: '/dashboard/rac-2025-revue-annuelle-conjointe-senegal',
-    featureKey: 'menu_dashboard_rac',
-  },
+  }
 ];
 
 // Filtrer les cartes en fonction des feature flags

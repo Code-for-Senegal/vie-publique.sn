@@ -7,6 +7,11 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Couleurs de marque Vie Publique Sénégal
+        brand: {
+          navy: '#18223B',    // Bleu Marine - couleur principale
+          gold: '#E2BA13',    // Jaune Doré - accent, CTA, highlights
+        },
         // Dark mode "Dim" palette - Twitter/X inspired
         // Bleu-noir profond, plus doux que le noir pur
         dark: {

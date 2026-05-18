@@ -1,5 +1,5 @@
 export default defineAppConfig({
-  version: "12042025",
+  version: "07-05-2026",
   ui: {
     primary: "sky", // Bleu plus vif pour les accents (comme Twitter)
     gray: "slate",  // Slate pour des tons bleu-gris en dark mode
