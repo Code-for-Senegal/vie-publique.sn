@@ -4,7 +4,7 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=sn.viepubl
 </script>
 
 <template>
-  <div class="my-8">
+  <div class="app-promo my-8">
     <h2 class="mb-4 text-center text-xl font-semibold text-gray-800 dark:text-white">
       Disponible sur mobile
     </h2>
@@ -79,3 +79,11 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=sn.viepubl
     </NuxtLink>
   </div>
 </template>
+
+<style scoped>
+@media (display-mode: standalone) {
+  .app-promo {
+    display: none !important;
+  }
+}
+</style>
