@@ -148,7 +148,7 @@ const darkScreenshots = [
           :href="APP_STORE_URL"
           target="_blank"
           rel="noopener noreferrer"
-          class="store-btn inline-flex items-center gap-3 rounded-2xl bg-gray-900 px-6 py-3.5 text-white shadow-lg transition-all hover:scale-105 hover:shadow-xl dark:bg-[#E2BA13] dark:text-gray-900"
+          class="store-btn inline-flex items-center gap-3 rounded-2xl bg-gray-900 px-6 py-3.5 text-white shadow-lg transition-all hover:scale-105 hover:shadow-xl dark:bg-[#E2BA13] dark:text-gray-800"
         >
           <svg class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
             <path
@@ -275,7 +275,7 @@ const darkScreenshots = [
     </section>
 
     <!-- DARK MODE SHOWCASE -->
-    <section class="bg-gray-950 px-4 py-10 text-center sm:py-14">
+    <section class="bg-gray-900 px-4 py-10 text-center dark:bg-gray-900 sm:py-14">
       <h2 class="text-lg font-semibold text-white sm:text-xl">Aussi beau de nuit que de jour</h2>
       <p class="mx-auto mt-2 max-w-md text-sm text-gray-400">
         Mode sombre intégré pour une lecture confortable à toute heure.

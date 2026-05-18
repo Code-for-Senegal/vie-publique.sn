@@ -24,11 +24,11 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=sn.viepubl
 
         <!-- QR Code - desktop only -->
         <div class="hidden flex-shrink-0 flex-col items-center gap-1 lg:flex">
-          <div class="rounded-lg bg-white p-2 shadow-sm">
+          <div class="rounded-lg bg-white shadow-sm">
             <img
               src="/qr-app.png"
               alt="QR Code - Télécharger l'app"
-              class="h-24 w-24"
+              class="h-28 w-28"
             />
           </div>
           <p class="text-[10px] text-gray-400 dark:text-gray-500">
