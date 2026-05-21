@@ -104,7 +104,9 @@ const indentPx = computed(() => Math.min((props.depth - 1) * 24 + (props.depth >
     <div
       v-else
       class="group relative flex items-center gap-2 py-2 pr-3 transition-colors hover:bg-gray-50 dark:hover:bg-gray-800/40"
+      :class="hasChildren ? 'cursor-pointer select-none' : ''"
       :style="{ paddingLeft: `${indentPx + 12}px` }"
+      @click="hasChildren && (isOpen = !isOpen)"
     >
       <!-- Vertical guide line from parent -->
       <span
@@ -139,6 +141,7 @@ const indentPx = computed(() => Math.min((props.depth - 1) * 24 + (props.depth >
         :to="`/etat-senegal/${node.public_slug}`"
         class="min-w-0 flex-1 text-sm text-gray-800 hover:text-emerald-700 dark:text-gray-200 dark:hover:text-emerald-400"
         :class="depth === 1 ? 'font-medium' : ''"
+        @click.stop
       >
         {{ node.name }}
       </NuxtLink>
