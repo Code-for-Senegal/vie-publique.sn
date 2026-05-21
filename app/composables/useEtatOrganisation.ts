@@ -80,16 +80,61 @@ export function useEtatOrganisation() {
 
   const filteredEntities = computed(() => {
     const search = normalizeStr(searchTerm.value.trim())
-    return entities.value
-      .filter(entity => {
-        const matchesSearch =
-          !search ||
-          normalizeStr(entity.name).includes(search) ||
-          normalizeStr(entity.canonical_name).includes(search)
-        const matchesType = !selectedType.value || entity.type_code === selectedType.value
-        return matchesSearch && matchesType
-      })
-      .sort((a, b) => a.name.localeCompare(b.name, 'fr'))
+
+    // Build snapshot lookup map for parent traversal
+    const bySnapshotId = new Map<string, (typeof entities.value)[number]>(
+      entities.value.filter(e => e.snapshot_id).map(e => [e.snapshot_id!, e]),
+    )
+
+    // Step 1 – entities that directly match the search term (name or canonical_name)
+    const directMatchIds = new Set<string>()
+    for (const entity of entities.value) {
+      if (entity.type_code === 'entite_regroupement') continue
+      const nameMatch =
+        !search ||
+        normalizeStr(entity.name).includes(search) ||
+        normalizeStr(entity.canonical_name).includes(search)
+      if (nameMatch && entity.snapshot_id) directMatchIds.add(entity.snapshot_id)
+    }
+
+    // Step 2 – when searching, also include children/descendants of direct matches
+    const childOfMatchIds = new Set<string>()
+    if (search) {
+      for (const entity of entities.value) {
+        if (entity.type_code === 'entite_regroupement') continue
+        if (!entity.parent_snapshot_id) continue
+        let parentSnapshotId: string | null | undefined = entity.parent_snapshot_id
+        let found = false
+        for (let i = 0; i < 25 && parentSnapshotId; i++) {
+          if (directMatchIds.has(parentSnapshotId)) { found = true; break }
+          parentSnapshotId = bySnapshotId.get(parentSnapshotId)?.parent_snapshot_id
+        }
+        if (found && entity.snapshot_id) childOfMatchIds.add(entity.snapshot_id)
+      }
+    }
+
+    // Step 3 – filter: exclude entite_regroupement, apply type chip, apply match sets
+    const result = entities.value.filter((entity) => {
+      if (entity.type_code === 'entite_regroupement') return false
+      if (selectedType.value && entity.type_code !== selectedType.value) return false
+      const snapshotId = entity.snapshot_id || ''
+      return directMatchIds.has(snapshotId) || childOfMatchIds.has(snapshotId)
+    })
+
+    // Step 4 – sort: direct matches first (starts-with > contains), children alphabetically
+    return result.sort((a, b) => {
+      if (search) {
+        const aIsDirect = directMatchIds.has(a.snapshot_id || '')
+        const bIsDirect = directMatchIds.has(b.snapshot_id || '')
+        if (aIsDirect !== bIsDirect) return aIsDirect ? -1 : 1
+        if (aIsDirect) {
+          const aStarts = normalizeStr(a.name).startsWith(search)
+          const bStarts = normalizeStr(b.name).startsWith(search)
+          if (aStarts !== bStarts) return aStarts ? -1 : 1
+        }
+      }
+      return a.name.localeCompare(b.name, 'fr')
+    })
   })
 
   const rootNodes = computed(() =>
