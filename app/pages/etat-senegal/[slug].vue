@@ -80,13 +80,33 @@ const hasBudget = computed(
 // Types displayed as collapsible sections (with nested subchildren)
 const GROUPING_TYPES = new Set(['entite_regroupement', 'etablissement_public'])
 
-// Group children by type for organized display
+// Types grouped into virtual accordion sections (grouped by type, items are the entities themselves)
+const SOCIETE_TYPES = new Set(['societe_nationale', 'societe_participation_publique'])
+
 const groupingChildren = computed(() =>
   children.value.filter(c => GROUPING_TYPES.has(c.type_code)),
 )
+
+// Virtual accordion sections: one per societe type that has at least one child
+const societeGroupSections = computed(() => {
+  const groups = new Map<string, { id: string; code: string; label: string; items: typeof children.value }>()
+  for (const child of children.value.filter(c => SOCIETE_TYPES.has(c.type_code))) {
+    if (!groups.has(child.type_code)) {
+      groups.set(child.type_code, {
+        id: `__group__${child.type_code}`,
+        code: child.type_code,
+        label: child.type_label,
+        items: [],
+      })
+    }
+    groups.get(child.type_code)!.items.push(child)
+  }
+  return Array.from(groups.values())
+})
+
 const directChildrenByType = computed(() => {
   const groups = new Map<string, { code: string; label: string; items: typeof children.value }>()
-  for (const child of children.value.filter(c => !GROUPING_TYPES.has(c.type_code))) {
+  for (const child of children.value.filter(c => !GROUPING_TYPES.has(c.type_code) && !SOCIETE_TYPES.has(c.type_code))) {
     if (!groups.has(child.type_code)) {
       groups.set(child.type_code, { code: child.type_code, label: child.type_label, items: [] })
     }
@@ -300,7 +320,7 @@ useHead({ title: () => entity.value?.name || 'Entité publique' })
                   v-for="(group, gi) in groupingChildren"
                   :key="group.id"
                   :class="[
-                    gi < groupingChildren.length - 1 || directChildrenByType.length > 0
+                    gi < groupingChildren.length - 1 || societeGroupSections.length > 0 || directChildrenByType.length > 0
                       ? 'border-b border-gray-100 dark:border-gray-700'
                       : '',
                   ]"
@@ -386,6 +406,61 @@ useHead({ title: () => entity.value?.name || 'Entité publique' })
                     <span v-else class="flex-1 text-sm font-medium text-gray-600 dark:text-gray-400">
                       {{ group.name }}
                     </span>
+                  </div>
+                </div>
+
+                <!-- Sociétés nationales / à participation publique: virtual accordion sections -->
+                <div
+                  v-for="(group, gi) in societeGroupSections"
+                  :key="group.id"
+                  :class="gi < societeGroupSections.length - 1 || directChildrenByType.length > 0 ? 'border-b border-gray-100 dark:border-gray-700' : ''"
+                >
+                  <button
+                    class="flex w-full items-center gap-2 px-5 py-3 text-left hover:bg-gray-50 dark:hover:bg-gray-800/40"
+                    @click="toggleSection(group.id)"
+                  >
+                    <span
+                      class="flex h-6 w-6 shrink-0 items-center justify-center rounded"
+                      :class="TYPE_BG_COLORS[group.code] || 'bg-gray-100 text-gray-500'"
+                    >
+                      <UIcon :name="TYPE_ICONS[group.code] || 'i-heroicons-building-storefront'" class="h-3.5 w-3.5" />
+                    </span>
+                    <span class="flex-1 text-sm font-medium text-gray-800 dark:text-gray-100">{{ group.label }}</span>
+                    <span class="text-xs text-gray-400">{{ group.items.length }}</span>
+                    <UIcon
+                      :name="getIsOpen(group.id) ? 'i-heroicons-chevron-down' : 'i-heroicons-chevron-right'"
+                      class="h-4 w-4 shrink-0 text-gray-400"
+                    />
+                  </button>
+
+                  <div v-if="getIsOpen(group.id)" class="divide-y divide-gray-50 dark:divide-gray-800/60">
+                    <div
+                      v-for="item in group.items"
+                      :key="item.id"
+                      class="flex items-center gap-3 py-2 pl-14 pr-5 hover:bg-gray-50 dark:hover:bg-gray-800/40"
+                    >
+                      <span
+                        class="flex h-5 w-5 shrink-0 items-center justify-center rounded"
+                        :class="TYPE_BG_COLORS[item.type_code] || 'bg-gray-100 text-gray-500'"
+                      >
+                        <UIcon :name="TYPE_ICONS[item.type_code] || 'i-heroicons-building-storefront'" class="h-3 w-3" />
+                      </span>
+                      <div class="min-w-0 flex-1">
+                        <NuxtLink
+                          v-if="item.has_public_page"
+                          :to="`/etat-senegal/${item.public_slug}`"
+                          class="text-sm text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                        >
+                          {{ item.name }}
+                        </NuxtLink>
+                        <span v-else class="text-sm text-gray-600 dark:text-gray-400">{{ item.name }}</span>
+                      </div>
+                      <UIcon
+                        v-if="item.has_public_page"
+                        name="i-heroicons-arrow-top-right-on-square"
+                        class="h-3.5 w-3.5 shrink-0 text-gray-300"
+                      />
+                    </div>
                   </div>
                 </div>
 

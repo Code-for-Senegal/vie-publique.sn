@@ -145,6 +145,42 @@ export function useEtatOrganisation() {
     // Sort each node's children
     roots.forEach(r => sortChildren(r.children))
 
+    // ── Group sociétés into virtual sub-nodes within each parent ──
+    const SOCIETE_GROUP_DEFS = [
+      { type_code: 'societe_nationale', name: 'Sociétés nationales' },
+      { type_code: 'societe_participation_publique', name: 'Sociétés à participation publique' },
+    ]
+    const groupSocieteChildren = (node: EtatOrganisationTreeNode) => {
+      for (const sg of SOCIETE_GROUP_DEFS) {
+        const societes = node.children.filter(c => c.type_code === sg.type_code)
+        if (societes.length === 0) continue
+        node.children = node.children.filter(c => c.type_code !== sg.type_code)
+        const virtualId = `__${sg.type_code}__${node.id}`
+        node.children.push({
+          id: virtualId,
+          snapshot_id: virtualId,
+          public_slug: virtualId,
+          name: sg.name,
+          canonical_name: sg.name,
+          has_public_page: false,
+          type_code: 'entite_regroupement',
+          type_label: 'Regroupement',
+          code_institution: null,
+          parent_snapshot_id: node.snapshot_id,
+          parent_id: node.id,
+          parent_name: node.name,
+          children: societes,
+        })
+      }
+      // Re-sort after injecting virtual nodes
+      node.children.sort((a, b) => a.name.localeCompare(b.name, 'fr'))
+      // Recurse into real children only (skip virtual nodes to avoid infinite loop)
+      node.children.forEach(child => {
+        if (child.children.length > 0 && !child.id.startsWith('__')) groupSocieteChildren(child)
+      })
+    }
+    roots.forEach(r => groupSocieteChildren(r))
+
     // ── Group all ministères under a virtual "Ministères" node ──
     const ministreNodes = roots.filter(r => r.type_code === 'ministere')
     const otherRoots = roots.filter(r => r.type_code !== 'ministere')
