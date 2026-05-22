@@ -51,18 +51,30 @@ export function useEtatOrganisation() {
     { server: true },
   )
 
+  const selectedDecreeNumero = computed({
+    get: () => (route.query.decree as string) || '',
+    set: (v: string) =>
+      router.push({
+        query: { ...route.query, decree: v || undefined, page: undefined },
+      }),
+  })
+
   const {
     data: entitiesResponse,
     pending: entitiesPending,
     error: entitiesError,
     refresh: refreshEntities,
   } = useAsyncData<EtatOrganisationEntitiesResponse>(
-    'etat-organisation-entities',
-    () => $fetch('/api/etat-organisation/entities'),
-    { server: true },
+    () => `etat-organisation-entities-${selectedDecreeNumero.value || 'active'}`,
+    () =>
+      $fetch('/api/etat-organisation/entities', {
+        query: selectedDecreeNumero.value ? { decree: selectedDecreeNumero.value } : undefined,
+      }),
+    { server: true, watch: [selectedDecreeNumero] },
   )
 
   const entities = computed(() => entitiesResponse.value?.entities || [])
+  const allDecrees = computed(() => entitiesResponse.value?.allDecrees || [])
 
   // Normalize string: strip diacritics + lowercase (accent-insensitive search)
   const normalizeStr = (s: string) =>
@@ -362,6 +374,8 @@ export function useEtatOrganisation() {
     tutelleBySnapshotId,
     searchTerm,
     selectedType,
+    selectedDecreeNumero,
+    allDecrees,
     resetFilters,
     pending,
     error,

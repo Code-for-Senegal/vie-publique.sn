@@ -45,7 +45,7 @@ export default defineCachedEventHandler(
     const activeDecree = orderedDecrees.find(decree => decree.status === 'active') || orderedDecrees[0]
     const previousDecree = orderedDecrees.find(decree => decree.id !== activeDecree.id)
 
-    const [allTypes, publicEntities, changes] = await Promise.all([
+    const [allTypes, publicEntities, allChanges, recentChanges] = await Promise.all([
       cmsClient.request(
         readItems('entities_types', {
           fields: ['id', 'code', 'label'],
@@ -59,6 +59,20 @@ export default defineCachedEventHandler(
           limit: -1,
         }),
       ),
+      // Full count for summary (lightweight — only id + category)
+      previousDecree
+        ? cmsClient.request(
+            readItems('entity_changes', {
+              fields: ['id', 'change_category'],
+              filter: {
+                from_decree: { _eq: previousDecree.id },
+                to_decree: { _eq: activeDecree.id },
+              },
+              limit: -1,
+            }),
+          )
+        : Promise.resolve([]),
+      // Recent items for display (limit 24)
       previousDecree
         ? cmsClient.request(
             readItems('entity_changes', {
@@ -66,7 +80,9 @@ export default defineCachedEventHandler(
                 'id',
                 'change_category',
                 'description',
+                'entity.id',
                 'entity.slug',
+                'entity.canonical_name',
                 'entity.has_public_page',
                 'from_decree.numero',
                 'to_decree.numero',
@@ -80,7 +96,7 @@ export default defineCachedEventHandler(
               limit: 24,
             }),
           )
-        : [],
+        : Promise.resolve([]),
     ])
 
     const totalEntities = Array.isArray(publicEntities) ? publicEntities.length : 0
@@ -103,7 +119,7 @@ export default defineCachedEventHandler(
       .filter(type => type.count > 0)
 
     const changeCounts = new Map<string, number>()
-    for (const change of changes as any[]) {
+    for (const change of allChanges as any[]) {
       const category = change.change_category || 'other'
       changeCounts.set(category, (changeCounts.get(category) || 0) + 1)
     }
@@ -113,6 +129,45 @@ export default defineCachedEventHandler(
       label: CHANGE_LABELS[category] || category,
       count,
     }))
+
+    // ── Parent name lookup for recent changes ─────────────────────
+    const entityIds = (recentChanges as any[]).map((c: any) => c.entity?.id).filter(Boolean)
+    const parentNameMap = new Map<string, string>()
+    const rootNameMap = new Map<string, string>()
+
+    if (entityIds.length > 0) {
+      try {
+        const decreeIds = [activeDecree.id, previousDecree?.id].filter(Boolean)
+        const snapshots = await cmsClient.request(
+          readItems('entity_snapshots', {
+            fields: [
+              'public_entity',
+              'parent_snapshot.official_label',
+              'parent_snapshot.parent_snapshot.official_label',
+              'parent_snapshot.parent_snapshot.parent_snapshot.official_label',
+            ],
+            filter: {
+              decree: { _in: decreeIds },
+              public_entity: { _in: entityIds },
+            },
+            limit: -1,
+          }),
+        )
+        for (const s of snapshots as any[]) {
+          const entityId = typeof s.public_entity === 'object' ? s.public_entity?.id : s.public_entity
+          if (!entityId) continue
+          const p1 = s.parent_snapshot?.official_label ?? null
+          const p2 = s.parent_snapshot?.parent_snapshot?.official_label ?? null
+          const p3 = s.parent_snapshot?.parent_snapshot?.parent_snapshot?.official_label ?? null
+          if (!parentNameMap.has(entityId) && p1) parentNameMap.set(entityId, p1)
+          const root = p3 || p2 || null
+          if (!rootNameMap.has(entityId) && root) rootNameMap.set(entityId, root)
+        }
+      }
+      catch {
+        // Non-fatal: proceed without parent context
+      }
+    }
 
     return {
       decree: {
@@ -129,17 +184,24 @@ export default defineCachedEventHandler(
       },
       changes: {
         summary: changeSummary,
+        total: (allChanges as any[]).length,
       },
-      recent_changes: (changes as any[]).map((change: any) => ({
-        id: change.id,
-        category: change.change_category,
-        label: CHANGE_LABELS[change.change_category] || change.change_category,
-        description: change.description,
-        slug: change.entity?.slug || null,
-        has_public_page: change.entity?.has_public_page === true,
-        from_decree: change.from_decree?.numero || null,
-        to_decree: change.to_decree?.numero || null,
-      })),
+      recent_changes: (recentChanges as any[]).map((change: any) => {
+        const entityId = change.entity?.id ?? null
+        return {
+          id: change.id,
+          category: change.change_category,
+          label: CHANGE_LABELS[change.change_category] || change.change_category,
+          description: change.description,
+          canonical_name: change.entity?.canonical_name ?? null,
+          slug: change.entity?.slug || null,
+          has_public_page: change.entity?.has_public_page === true,
+          from_decree: change.from_decree?.numero || null,
+          to_decree: change.to_decree?.numero || null,
+          parent_name: entityId ? (parentNameMap.get(entityId) ?? null) : null,
+          root_name: entityId ? (rootNameMap.get(entityId) ?? null) : null,
+        }
+      }),
     }
   },
   {

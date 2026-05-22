@@ -1,5 +1,5 @@
 import { readItems } from '@directus/sdk'
-import { getCacheMaxAge } from '~~/server/utils/cache'
+import { CacheDuration, getCacheMaxAge } from '~~/server/utils/cache'
 
 type DecreeRow = {
   id: string
@@ -26,7 +26,11 @@ type EntityNode = {
 }
 
 export default defineCachedEventHandler(
-  async () => {
+  async (event) => {
+    const query = getQuery(event)
+    // Accept decree numero (e.g. "2024-940") — never a UUID
+    const requestedNumero = (query.decree as string) || null
+
     const cmsClient = getCmsClient()
 
     const decrees = await cmsClient.request(
@@ -40,12 +44,18 @@ export default defineCachedEventHandler(
     if (!Array.isArray(decrees) || decrees.length === 0) {
       return {
         decree: null,
+        allDecrees: [],
         entities: [],
       }
     }
 
+    const orderedDecrees = decrees as DecreeRow[]
     const activeDecree =
-      (decrees as DecreeRow[]).find(decree => decree.status === 'active') || (decrees as DecreeRow[])[0]
+      (requestedNumero
+        ? orderedDecrees.find(d => d.numero === requestedNumero)
+        : undefined)
+      ?? orderedDecrees.find(d => d.status === 'active')
+      ?? orderedDecrees[0]
 
     const snapshots = await cmsClient.request(
       readItems('entity_snapshots', {
@@ -139,11 +149,21 @@ export default defineCachedEventHandler(
         date_publication: activeDecree.date_publication,
         status: activeDecree.status,
       },
+      allDecrees: orderedDecrees.map(d => ({
+        id: d.id,
+        numero: d.numero,
+        date_publication: d.date_publication,
+        status: d.status,
+      })),
       entities: Array.from(entitiesMap.values()),
     }
   },
   {
     maxAge: getCacheMaxAge(CacheDuration.MEDIUM),
     name: 'etat-organisation-entities-v4',
-  },
+    getKey: async (event) => {
+      const query = getQuery(event)
+      const decree = (query.decree as string) || 'active'
+      return `etat-organisation-entities-${decree}`
+    },  },
 )

@@ -15,20 +15,24 @@ export interface EtatOrganisationRecentChange {
   category: string
   label: string
   description: string
+  canonical_name: string | null
   slug: string | null
   has_public_page: boolean
   from_decree: string | null
   to_decree: string | null
+  parent_name: string | null
+  root_name: string | null
+}
+
+export interface EtatOrganisationDecreeRef {
+  id: string
+  numero: string
+  date_publication?: string
+  status?: string
 }
 
 export interface EtatOrganisationOverview {
-  decree: {
-    id: string
-    numero: string
-    date_publication?: string
-    status?: string
-    previous_numero?: string | null
-  } | null
+  decree: (EtatOrganisationDecreeRef & { previous_numero?: string | null }) | null
   stats: {
     total_entities: number
     public_pages: number
@@ -36,6 +40,7 @@ export interface EtatOrganisationOverview {
   }
   changes: {
     summary: EtatOrganisationChangeSummary[]
+    total: number
   }
   recent_changes: EtatOrganisationRecentChange[]
 }
@@ -66,12 +71,8 @@ export interface EtatOrganisationEntity {
 }
 
 export interface EtatOrganisationEntitiesResponse {
-  decree: {
-    id: string
-    numero: string
-    date_publication?: string
-    status?: string
-  } | null
+  decree: EtatOrganisationDecreeRef | null
+  allDecrees: EtatOrganisationDecreeRef[]
   entities: EtatOrganisationEntity[]
 }
 
@@ -90,14 +91,38 @@ export interface EtatOrganisationEntityHistoryItem {
 }
 
 export interface EtatOrganisationEntityDetailResponse {
-  decree: {
-    id: string
-    numero: string
-    date_publication?: string
-    status?: string
-  } | null
+  decree: EtatOrganisationDecreeRef | null
   entity: EtatOrganisationEntity
   children: EtatOrganisationEntity[]
   breadcrumb: Array<Pick<EtatOrganisationEntity, 'id' | 'public_slug' | 'name'>>
   history: EtatOrganisationEntityHistoryItem[]
+}
+
+/** Full change record used by the comparison page */
+export interface EtatOrganisationChange {
+  id: string
+  category: string
+  label: string
+  description: string
+  old_value: Record<string, unknown> | null
+  new_value: Record<string, unknown> | null
+  slug: string | null
+  has_public_page: boolean
+  canonical_name: string | null
+  root_name: string | null
+  parent_name: string | null
+  from_decree: string | null
+  to_decree: string | null
+  date_created?: string
+}
+
+export interface EtatOrganisationChangesResponse {
+  from_decree: EtatOrganisationDecreeRef | null
+  to_decree: EtatOrganisationDecreeRef | null
+  allDecrees: EtatOrganisationDecreeRef[]
+  summary: EtatOrganisationChangeSummary[]
+  changes: EtatOrganisationChange[]
+  total: number
+  page: number
+  pageSize: number
 }

@@ -95,5 +95,18 @@ useHead({
 
       <EtatOrganisationExplorer />
     </section>
+
+    <!-- ─── Recent changes ────────────────────────────────────────── -->
+    <section class="mx-auto mt-16 max-w-7xl px-4">
+      <div class="mb-5 flex items-center gap-3">
+        <div class="h-px flex-1 bg-gray-200 dark:bg-gray-700" />
+        <h2 class="text-base font-semibold text-gray-500 dark:text-gray-400">
+          Historique des modifications
+        </h2>
+        <div class="h-px flex-1 bg-gray-200 dark:bg-gray-700" />
+      </div>
+
+      <EtatOrganisationRecentChanges :overview="overview ?? null" />
+    </section>
   </div>
 </template>
