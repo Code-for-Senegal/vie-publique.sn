@@ -118,7 +118,7 @@ const indentPx = computed(() => Math.min((props.depth - 1) * 24 + (props.depth >
       <button
         v-if="hasChildren"
         class="relative z-10 flex h-5 w-5 shrink-0 items-center justify-center rounded text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-600 dark:hover:bg-gray-700"
-        @click="isOpen = !isOpen"
+        @click.stop="isOpen = !isOpen"
       >
         <UIcon
           :name="isOpen ? 'i-heroicons-chevron-down' : 'i-heroicons-chevron-right'"
