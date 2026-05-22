@@ -217,14 +217,6 @@ useHead({ title: () => entity.value?.name || 'Entité publique' })
               </h1>
 
               <p
-                v-if="entity.canonical_name && entity.canonical_name !== entity.name"
-                class="mt-1.5 text-sm text-gray-500 dark:text-gray-400"
-              >
-                Nom canonique :
-                <span class="font-medium text-gray-700 dark:text-gray-200">{{ entity.canonical_name }}</span>
-              </p>
-
-              <p
                 v-if="entity.parent_name"
                 class="mt-2 flex items-center gap-1.5 text-sm text-gray-600 dark:text-gray-300"
               >
@@ -281,13 +273,6 @@ useHead({ title: () => entity.value?.name || 'Entité publique' })
                   <div class="flex items-start gap-4 px-5 py-3">
                     <dt class="w-40 shrink-0 text-xs text-gray-500">Nom officiel</dt>
                     <dd class="text-sm text-gray-800 dark:text-gray-100">{{ entity.name }}</dd>
-                  </div>
-                  <div
-                    v-if="entity.canonical_name && entity.canonical_name !== entity.name"
-                    class="flex items-start gap-4 px-5 py-3"
-                  >
-                    <dt class="w-40 shrink-0 text-xs text-gray-500">Nom canonique</dt>
-                    <dd class="text-sm text-gray-800 dark:text-gray-100">{{ entity.canonical_name }}</dd>
                   </div>
                   <div class="flex items-start gap-4 px-5 py-3">
                     <dt class="w-40 shrink-0 text-xs text-gray-500">Type</dt>

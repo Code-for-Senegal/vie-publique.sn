@@ -63,7 +63,7 @@ export default defineCachedEventHandler(
           'parent_snapshot', // raw FK UUID — avoids unreliable multi-level M2O expansion
           'public_entity.id',
           'public_entity.slug',
-          'public_entity.canonical_name',
+          'public_entity.name',
           'public_entity.has_public_page',
           'public_entity.code_institution',
           'public_entity.entity_type.code',
@@ -102,8 +102,7 @@ export default defineCachedEventHandler(
         id: entity.id,
         snapshot_id: snapshot.id as string,
         public_slug: entity.slug,
-        name: snapshot.official_label || entity.canonical_name || entity.slug,
-        canonical_name: entity.canonical_name || snapshot.official_label || entity.slug,
+        name: snapshot.official_label || entity.name || entity.slug,
         has_public_page: entity.has_public_page === true,
         type_code: entity.entity_type?.code || 'other',
         type_label: entity.entity_type?.label || 'Autre',
@@ -132,7 +131,7 @@ export default defineCachedEventHandler(
           const parentNode = entitiesById.get(parentEntityId)
           if (parentNode) {
             node.parent_id = parentNode.id
-            node.parent_name = parentNode.canonical_name
+            node.parent_name = parentNode.name
           }
         }
       }

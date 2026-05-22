@@ -130,7 +130,7 @@ const linkComponent = resolveComponent('NuxtLink')
             class="text-sm font-medium text-gray-800 dark:text-gray-200"
             :class="{ 'group-hover:text-blue-600 dark:group-hover:text-blue-400': change.has_public_page && change.slug }"
           >
-            {{ change.canonical_name || change.description }}
+            {{ change.name || change.description }}
           </p>
           <!-- Parent breadcrumb -->
           <p

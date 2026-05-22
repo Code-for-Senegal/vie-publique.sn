@@ -15,7 +15,7 @@ export interface EtatOrganisationRecentChange {
   category: string
   label: string
   description: string
-  canonical_name: string | null
+  name: string | null
   slug: string | null
   has_public_page: boolean
   from_decree: string | null
@@ -50,7 +50,6 @@ export interface EtatOrganisationEntity {
   snapshot_id: string
   public_slug: string
   name: string
-  canonical_name: string
   has_public_page: boolean
   type_code: string
   type_label: string
@@ -109,7 +108,7 @@ export interface EtatOrganisationChange {
   new_value: Record<string, unknown> | null
   slug: string | null
   has_public_page: boolean
-  canonical_name: string | null
+  name: string | null
   root_name: string | null
   parent_name: string | null
   from_decree: string | null

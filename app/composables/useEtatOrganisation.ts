@@ -98,14 +98,13 @@ export function useEtatOrganisation() {
       entities.value.filter(e => e.snapshot_id).map(e => [e.snapshot_id!, e]),
     )
 
-    // Step 1 – entities that directly match the search term (name or canonical_name)
+    // Step 1 – entities that directly match the search term
     const directMatchIds = new Set<string>()
     for (const entity of entities.value) {
       if (entity.type_code === 'entite_regroupement') continue
       const nameMatch =
         !search ||
-        normalizeStr(entity.name).includes(search) ||
-        normalizeStr(entity.canonical_name).includes(search)
+        normalizeStr(entity.name).includes(search)
       if (nameMatch && entity.snapshot_id) directMatchIds.add(entity.snapshot_id)
     }
 
@@ -218,7 +217,6 @@ export function useEtatOrganisation() {
           snapshot_id: virtualId,
           public_slug: virtualId,
           name: sg.name,
-          canonical_name: sg.name,
           has_public_page: false,
           type_code: 'entite_regroupement',
           type_label: 'Regroupement',
@@ -269,7 +267,6 @@ export function useEtatOrganisation() {
       snapshot_id: '__ministeres__',
       public_slug: 'ministeres',
       name: 'Ministères',
-      canonical_name: 'Ministères',
       has_public_page: false,
       type_code: 'entite_regroupement',
       type_label: 'Regroupement',

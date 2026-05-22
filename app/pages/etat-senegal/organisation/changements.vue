@@ -284,7 +284,7 @@ useHead({ title: "Comparaison des décrets" })
               class="text-sm font-medium text-gray-900 dark:text-white"
               :class="change.has_public_page && change.slug ? 'group-hover:text-blue-600 dark:group-hover:text-blue-400' : ''"
             >
-              {{ change.canonical_name || change.description }}
+              {{ change.name || change.description }}
             </p>
 
             <!-- Parent breadcrumb -->
