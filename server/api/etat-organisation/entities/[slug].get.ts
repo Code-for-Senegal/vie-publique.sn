@@ -73,6 +73,7 @@ export default defineCachedEventHandler(
           'public_entity.phone',
           'public_entity.web_site',
           'public_entity.reseaux_sociaux',
+          'public_entity.logo',
         ],
         sort: ['official_label'],
         limit: -1,
@@ -115,6 +116,7 @@ export default defineCachedEventHandler(
         phone: entity.phone ?? null,
         web_site: entity.web_site ?? null,
         reseaux_sociaux: (entity.reseaux_sociaux as Record<string, string> | null) ?? null,
+        logo: (entity.logo as string | null) ?? null,
       }
 
       entitiesById.set(node.id, node)
@@ -220,7 +222,7 @@ export default defineCachedEventHandler(
   },
   {
     maxAge: getCacheMaxAge(CacheDuration.MEDIUM),
-    name: 'etat-organisation-entity-detail-v4',
+    name: 'etat-organisation-entity-detail-v5',
     getKey: event => {
       const slug = getRouterParam(event, 'slug')
       return `etat-organisation-entity-${slug}`

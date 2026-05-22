@@ -180,12 +180,19 @@ useHead({ title: () => entity.value?.name || 'Entité publique' })
           class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800/50 sm:p-8"
         >
           <div class="flex flex-col items-start gap-5 sm:flex-row">
-            <!-- Large colored icon -->
+            <!-- Logo ou icône selon disponibilité -->
             <div
-              class="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl"
-              :class="entityTypeBg"
+              class="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl overflow-hidden"
+              :class="entity.logo ? 'bg-white border border-gray-200 dark:border-gray-700' : entityTypeBg"
             >
-              <UIcon :name="entityTypeIcon" class="h-8 w-8" />
+              <CmsImage
+                v-if="entity.logo"
+                :src="entity.logo"
+                :alt="entity.name"
+                class="h-full w-full object-contain"
+                loading="eager"
+              />
+              <UIcon v-else :name="entityTypeIcon" class="h-8 w-8" />
             </div>
 
             <!-- Title block -->

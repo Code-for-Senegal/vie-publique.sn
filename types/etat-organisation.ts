@@ -66,6 +66,7 @@ export interface EtatOrganisationEntity {
   phone?: string | null
   web_site?: string | null
   reseaux_sociaux?: Record<string, string> | null
+  logo?: string | null
   // Direct children (populated for entite_regroupement children in detail API)
   subchildren?: EtatOrganisationEntity[]
 }
