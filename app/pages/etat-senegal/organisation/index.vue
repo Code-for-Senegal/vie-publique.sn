@@ -20,6 +20,12 @@ const PLURAL_LABELS: Record<string, string> = {
   societe_nationale: 'Sociétés nationales',
   societe_participation_publique: 'Sociétés à participation publique',
 }
+const TYPE_LINKS: Record<string, string> = {
+  ministere: '/etat-senegal/ministeres',
+  etablissement_public: '/etat-senegal/entites-publiques?type=etablissement_public',
+  societe_nationale: '/etat-senegal/entites-publiques?type=societe_nationale',
+  societe_participation_publique: '/etat-senegal/entites-publiques?type=societe_participation_publique',
+}
 const typeStats = computed(() => {
   const counts = new Map<string, number>()
   const labels = new Map<string, string>()
@@ -123,10 +129,11 @@ useHead({
     <!-- ─── Stats ────────────────────────────────────────────────── -->
     <section v-if="typeStats.length" class="mx-auto mt-6 max-w-7xl px-4">
       <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <div
+        <NuxtLink
           v-for="stat in typeStats"
           :key="stat.code"
-          class="flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-gray-800/50"
+          :to="TYPE_LINKS[stat.code]"
+          class="flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-3 transition hover:border-gray-300 hover:shadow-sm dark:border-gray-700 dark:bg-gray-800/50 dark:hover:border-gray-600"
         >
           <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg" :class="stat.color">
             <UIcon :name="stat.icon" class="h-5 w-5" />
@@ -135,7 +142,7 @@ useHead({
             <p class="text-lg font-bold leading-none text-gray-900 dark:text-white">{{ stat.count }}</p>
             <p class="mt-0.5 truncate text-xs text-gray-500 dark:text-gray-400">{{ stat.label }}</p>
           </div>
-        </div>
+        </NuxtLink>
       </div>
     </section>
 
