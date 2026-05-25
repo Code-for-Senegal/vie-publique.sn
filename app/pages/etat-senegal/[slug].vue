@@ -78,10 +78,16 @@ const hasBudget = computed(
 )
 
 // Types displayed as collapsible sections (with nested subchildren)
-const GROUPING_TYPES = new Set(['entite_regroupement', 'etablissement_public'])
+const GROUPING_TYPES = new Set(['entite_regroupement'])
 
 // Types grouped into virtual accordion sections (grouped by type, items are the entities themselves)
-const SOCIETE_TYPES = new Set(['societe_nationale', 'societe_participation_publique'])
+const SOCIETE_TYPES = new Set(['etablissement_public', 'societe_nationale', 'societe_participation_publique'])
+
+const VIRTUAL_GROUP_LABELS: Record<string, string> = {
+  etablissement_public: 'Établissements publics',
+  societe_nationale: 'Sociétés nationales',
+  societe_participation_publique: 'Sociétés à participation publique',
+}
 
 const groupingChildren = computed(() =>
   children.value.filter(c => GROUPING_TYPES.has(c.type_code)),
@@ -95,7 +101,7 @@ const societeGroupSections = computed(() => {
       groups.set(child.type_code, {
         id: `__group__${child.type_code}`,
         code: child.type_code,
-        label: child.type_label,
+        label: VIRTUAL_GROUP_LABELS[child.type_code] || child.type_label,
         items: [],
       })
     }

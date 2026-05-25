@@ -201,8 +201,9 @@ export function useEtatOrganisation() {
     // Sort each node's children
     roots.forEach(r => sortChildren(r.children))
 
-    // ── Group sociétés into virtual sub-nodes within each parent ──
+    // ── Group établissements & sociétés into virtual sub-nodes within each parent ──
     const SOCIETE_GROUP_DEFS = [
+      { type_code: 'etablissement_public', name: 'Établissements publics' },
       { type_code: 'societe_nationale', name: 'Sociétés nationales' },
       { type_code: 'societe_participation_publique', name: 'Sociétés à participation publique' },
     ]
