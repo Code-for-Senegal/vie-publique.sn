@@ -36,42 +36,6 @@ const onDecreeChange = (e: Event) => {
 <template>
   <section id="explorer" class="mx-auto max-w-7xl">
 
-    <!-- Decree selector: <select> scales to any number of decrees -->
-    <div
-      v-if="allDecrees.length > 1"
-      class="mb-4 flex flex-wrap items-center gap-3"
-    >
-      <div class="flex items-center gap-2">
-        <UIcon name="i-heroicons-document-text" class="h-4 w-4 shrink-0 text-gray-400" />
-        <label for="decree-select" class="text-xs font-medium text-gray-500 dark:text-gray-400">
-          Décret consulté&nbsp;:
-        </label>
-      </div>
-      <select
-        id="decree-select"
-        :value="displayedNumero"
-        class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-800 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
-        @change="onDecreeChange"
-      >
-        <option
-          v-for="d in allDecrees"
-          :key="d.numero"
-          :value="d.numero"
-        >
-          Décret n° {{ d.numero }}{{ d.status === 'active' ? ' - actif' : d.date_publication ? ' (' + new Date(d.date_publication).getFullYear() + ')' : '' }}
-        </option>
-      </select>
-
-      <!-- Link to full comparison page -->
-      <NuxtLink
-        to="/etat-senegal/organisation/changements"
-        class="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs text-gray-500 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
-      >
-        <UIcon name="i-heroicons-arrows-right-left" class="h-3.5 w-3.5" />
-        Comparer les décrets
-      </NuxtLink>
-    </div>
-
     <!-- Historic view notice -->
     <div
       v-if="isHistoricView"

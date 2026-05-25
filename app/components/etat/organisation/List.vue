@@ -12,7 +12,7 @@ const {
   resetFilters,
   tutelleBySnapshotId,
   pending,
-} = useEtatOrganisation()
+} = useEtatOrganisation();
 
 const TYPE_ICONS: Record<string, string> = {
   presidence: 'i-heroicons-building-library',
@@ -28,7 +28,7 @@ const TYPE_ICONS: Record<string, string> = {
   agence: 'i-heroicons-megaphone',
   entite_regroupement: 'i-heroicons-folder-open',
   autres_administrations: 'i-heroicons-ellipsis-horizontal-circle',
-}
+};
 
 const TYPE_COLORS: Record<string, string> = {
   presidence: 'bg-violet-100 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400',
@@ -38,48 +38,53 @@ const TYPE_COLORS: Record<string, string> = {
   service: 'bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400',
   etablissement_public: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400',
   societe_nationale: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400',
-  societe_participation_publique: 'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-400',
+  societe_participation_publique:
+    'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-400',
   agence: 'bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-400',
   cabinet: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
-}
+};
 
-const typeIcon = (code: string) => TYPE_ICONS[code] || 'i-heroicons-building-office'
-const typeColor = (code: string) => TYPE_COLORS[code] || 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'
+const typeIcon = (code: string) => TYPE_ICONS[code] || 'i-heroicons-building-office';
+const typeColor = (code: string) =>
+  TYPE_COLORS[code] || 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400';
 
 // Stats computed from the active decree entity list (not from overview/public_entities)
-const STAT_TYPES = ['ministere', 'etablissement_public', 'societe_nationale', 'societe_participation_publique']
+const STAT_TYPES = [
+  'ministere',
+  'etablissement_public',
+  'societe_nationale',
+  'societe_participation_publique',
+];
 
 const typeStats = computed(() => {
-  const counts = new Map<string, number>()
-  const labels = new Map<string, string>()
+  const counts = new Map<string, number>();
+  const labels = new Map<string, string>();
   for (const entity of entities.value) {
     if (STAT_TYPES.includes(entity.type_code)) {
-      counts.set(entity.type_code, (counts.get(entity.type_code) || 0) + 1)
-      if (!labels.has(entity.type_code)) labels.set(entity.type_code, entity.type_label)
+      counts.set(entity.type_code, (counts.get(entity.type_code) || 0) + 1);
+      if (!labels.has(entity.type_code)) labels.set(entity.type_code, entity.type_label);
     }
   }
-  return STAT_TYPES
-    .filter(code => counts.has(code))
-    .map(code => ({
-      code,
-      label: labels.get(code) || code,
-      count: counts.get(code) || 0,
-      icon: typeIcon(code),
-      color: typeColor(code),
-    }))
-})
+  return STAT_TYPES.filter((code) => counts.has(code)).map((code) => ({
+    code,
+    label: labels.get(code) || code,
+    count: counts.get(code) || 0,
+    icon: typeIcon(code),
+    color: typeColor(code),
+  }));
+});
 
 // Total entities in the active decree (consistent with the entities list)
-const totalEntities = computed(() => entities.value.length)
+const totalEntities = computed(() => entities.value.length);
 
-const hasActiveFilters = computed(() => !!(searchTerm.value || selectedType.value))
-const totalFiltered = computed(() => filteredEntities.value.length)
+const hasActiveFilters = computed(() => !!(searchTerm.value || selectedType.value));
+const totalFiltered = computed(() => filteredEntities.value.length);
 
 // Visible type filters (only the main ones + entite_regroupement hidden)
-const HIDDEN_FILTER_TYPES = new Set(['entite_regroupement', 'autres_administrations'])
+const HIDDEN_FILTER_TYPES = new Set(['entite_regroupement', 'autres_administrations']);
 const visibleTypes = computed(() =>
-  availableTypes.value.filter(t => !HIDDEN_FILTER_TYPES.has(t.code)),
-)
+  availableTypes.value.filter((t) => !HIDDEN_FILTER_TYPES.has(t.code)),
+);
 </script>
 
 <template>
@@ -97,11 +102,16 @@ const visibleTypes = computed(() =>
         "
         @click="selectedType = selectedType === stat.code ? '' : stat.code"
       >
-        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg" :class="stat.color">
+        <span
+          class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
+          :class="stat.color"
+        >
           <UIcon :name="stat.icon" class="h-5 w-5" />
         </span>
         <div class="min-w-0">
-          <p class="text-lg font-bold leading-none text-gray-900 dark:text-white">{{ stat.count }}</p>
+          <p class="text-lg font-bold leading-none text-gray-900 dark:text-white">
+            {{ stat.count }}
+          </p>
           <p class="mt-0.5 truncate text-xs text-gray-500 dark:text-gray-400">{{ stat.label }}</p>
         </div>
       </button>
@@ -179,7 +189,10 @@ const visibleTypes = computed(() =>
     </div>
 
     <!-- Empty -->
-    <div v-else-if="!paginatedEntities.length" class="rounded-xl border border-gray-200 bg-white py-12 text-center dark:border-gray-700 dark:bg-gray-900">
+    <div
+      v-else-if="!paginatedEntities.length"
+      class="rounded-xl border border-gray-200 bg-white py-12 text-center dark:border-gray-700 dark:bg-gray-900"
+    >
       <UIcon name="i-heroicons-magnifying-glass" class="mx-auto mb-2 h-10 w-10 text-gray-300" />
       <p class="text-sm text-gray-500">Aucune entité ne correspond à votre recherche.</p>
       <button
@@ -191,7 +204,10 @@ const visibleTypes = computed(() =>
     </div>
 
     <!-- List -->
-    <div v-else class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900">
+    <div
+      v-else
+      class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900"
+    >
       <div
         v-for="entity in paginatedEntities"
         :key="entity.id"
@@ -231,11 +247,6 @@ const visibleTypes = computed(() =>
           </p>
         </div>
 
-        <!-- Type badge (hidden on mobile) -->
-        <UBadge color="gray" variant="subtle" size="xs" class="hidden shrink-0 sm:inline-flex">
-          {{ entity.type_label }}
-        </UBadge>
-
         <!-- Arrow if clickable -->
         <UIcon
           v-if="entity.has_public_page"
@@ -253,6 +264,10 @@ const visibleTypes = computed(() =>
         :page-count="LIST_PAGE_SIZE"
         size="sm"
         @update:model-value="listPage = $event"
+        :ui="{
+          wrapper: 'flex items-center gap-1',
+          rounded: 'rounded-lg',
+        }"
       />
     </div>
   </div>

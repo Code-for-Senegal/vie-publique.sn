@@ -179,7 +179,7 @@ useHead({ title: () => entity.value?.name || 'Entité publique' })
         <div
           class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800/50 sm:p-8"
         >
-          <div class="flex flex-col items-start gap-5 sm:flex-row">
+          <div class="flex items-center gap-5">
             <!-- Logo ou icône selon disponibilité -->
             <div
               class="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl overflow-hidden"
@@ -197,21 +197,6 @@ useHead({ title: () => entity.value?.name || 'Entité publique' })
 
             <!-- Title block -->
             <div class="min-w-0 flex-1">
-              <div class="mb-2 flex flex-wrap items-center gap-2">
-                <span
-                  class="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-medium text-gray-600 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
-                >
-                  <UIcon :name="entityTypeIcon" class="h-3.5 w-3.5" />
-                  {{ entity.type_label }}
-                </span>
-                <UBadge v-if="decree" color="blue" variant="subtle" size="sm">
-                  Décret n° {{ decree.numero }}
-                </UBadge>
-                <UBadge v-if="decree?.date_publication" color="gray" variant="subtle" size="sm">
-                  {{ formatDate(decree.date_publication) }}
-                </UBadge>
-              </div>
-
               <h1 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-3xl">
                 {{ entity.name }}
               </h1>

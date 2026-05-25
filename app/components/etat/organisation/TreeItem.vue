@@ -153,11 +153,6 @@ const indentPx = computed(() => Math.min((props.depth - 1) * 24 + (props.depth >
         {{ node.name }}
       </span>
 
-      <!-- Type badge (sm+) -->
-      <UBadge color="gray" variant="subtle" size="xs" class="hidden shrink-0 sm:inline-flex">
-        {{ node.type_label }}
-      </UBadge>
-
       <!-- Children count -->
       <span v-if="hasChildren" class="shrink-0 text-xs text-gray-400">
         {{ node.children.length }}
