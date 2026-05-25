@@ -288,10 +288,8 @@ useHead({ title: "Comparaison des décrets" })
             </p>
 
             <!-- Parent breadcrumb -->
-            <p v-if="change.root_name || change.parent_name" class="mt-0.5 flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500">
-              <span v-if="change.root_name" class="font-medium text-gray-500 dark:text-gray-400">{{ change.root_name }}</span>
-              <UIcon v-if="change.root_name && change.parent_name" name="i-heroicons-chevron-right" class="h-3 w-3 shrink-0" />
-              <span v-if="change.parent_name">{{ change.parent_name }}</span>
+            <p v-if="change.root_name" class="mt-0.5 text-xs text-gray-400 dark:text-gray-500">
+              {{ change.root_name }}
             </p>
 
             <!-- Old → new value for rename / reparent -->

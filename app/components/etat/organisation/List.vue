@@ -48,75 +48,34 @@ const typeIcon = (code: string) => TYPE_ICONS[code] || 'i-heroicons-building-off
 const typeColor = (code: string) =>
   TYPE_COLORS[code] || 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400';
 
-// Stats computed from the active decree entity list (not from overview/public_entities)
-const STAT_TYPES = [
-  'ministere',
-  'etablissement_public',
-  'societe_nationale',
-  'societe_participation_publique',
-];
-
-const typeStats = computed(() => {
-  const counts = new Map<string, number>();
-  const labels = new Map<string, string>();
-  for (const entity of entities.value) {
-    if (STAT_TYPES.includes(entity.type_code)) {
-      counts.set(entity.type_code, (counts.get(entity.type_code) || 0) + 1);
-      if (!labels.has(entity.type_code)) labels.set(entity.type_code, entity.type_label);
-    }
-  }
-  return STAT_TYPES.filter((code) => counts.has(code)).map((code) => ({
-    code,
-    label: labels.get(code) || code,
-    count: counts.get(code) || 0,
-    icon: typeIcon(code),
-    color: typeColor(code),
-  }));
-});
-
-// Total entities in the active decree (consistent with the entities list)
-const totalEntities = computed(() => entities.value.length);
+// Total entities shown in the list (excludes entite_regroupement which are never displayed)
+const totalEntities = computed(() =>
+  entities.value.filter((e) => e.type_code !== 'entite_regroupement').length,
+);
 
 const hasActiveFilters = computed(() => !!(searchTerm.value || selectedType.value));
 const totalFiltered = computed(() => filteredEntities.value.length);
 
-// Visible type filters (only the main ones + entite_regroupement hidden)
-const HIDDEN_FILTER_TYPES = new Set(['entite_regroupement', 'autres_administrations']);
+// Only show these 4 types as filter options
+const VISIBLE_FILTER_TYPES = new Set([
+  'ministere',
+  'etablissement_public',
+  'societe_nationale',
+  'societe_participation_publique',
+]);
+const PLURAL_LABELS: Record<string, string> = {
+  ministere: 'Ministères',
+  etablissement_public: 'Établissements publics',
+  societe_nationale: 'Sociétés nationales',
+  societe_participation_publique: 'Sociétés à participation publique',
+};
 const visibleTypes = computed(() =>
-  availableTypes.value.filter((t) => !HIDDEN_FILTER_TYPES.has(t.code)),
+  availableTypes.value.filter((t) => VISIBLE_FILTER_TYPES.has(t.code)),
 );
 </script>
 
 <template>
   <div>
-    <!-- Stats cards (4 main types) -->
-    <div v-if="typeStats.length" class="mb-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
-      <button
-        v-for="stat in typeStats"
-        :key="stat.code"
-        class="group flex items-center gap-3 rounded-xl border p-3 text-left transition-all duration-150 hover:shadow-md"
-        :class="
-          selectedType === stat.code
-            ? 'border-emerald-500 bg-emerald-50 shadow-sm dark:border-emerald-600 dark:bg-emerald-900/20'
-            : 'border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800/50'
-        "
-        @click="selectedType = selectedType === stat.code ? '' : stat.code"
-      >
-        <span
-          class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
-          :class="stat.color"
-        >
-          <UIcon :name="stat.icon" class="h-5 w-5" />
-        </span>
-        <div class="min-w-0">
-          <p class="text-lg font-bold leading-none text-gray-900 dark:text-white">
-            {{ stat.count }}
-          </p>
-          <p class="mt-0.5 truncate text-xs text-gray-500 dark:text-gray-400">{{ stat.label }}</p>
-        </div>
-      </button>
-    </div>
-
     <!-- Search + type filter row -->
     <div class="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center">
       <div class="relative flex-1">
@@ -171,7 +130,7 @@ const visibleTypes = computed(() =>
         @click="selectedType = selectedType === type.code ? '' : type.code"
       >
         <UIcon :name="typeIcon(type.code)" class="h-3 w-3" />
-        {{ type.label }}
+        {{ PLURAL_LABELS[type.code] || type.label }}
       </button>
     </div>
 

@@ -134,16 +134,10 @@ const linkComponent = resolveComponent('NuxtLink')
           </p>
           <!-- Parent breadcrumb -->
           <p
-            v-if="change.root_name || change.parent_name"
-            class="mt-0.5 flex items-center gap-0.5 text-xs text-gray-400 dark:text-gray-500"
+            v-if="change.root_name"
+            class="mt-0.5 text-xs text-gray-400 dark:text-gray-500"
           >
-            <span v-if="change.root_name">{{ change.root_name }}</span>
-            <UIcon
-              v-if="change.root_name && change.parent_name"
-              name="i-heroicons-chevron-right"
-              class="h-3 w-3 shrink-0"
-            />
-            <span v-if="change.parent_name">{{ change.parent_name }}</span>
+            {{ change.root_name }}
           </p>
           <div class="mt-0.5 flex flex-wrap items-center gap-2 text-xs text-gray-400 dark:text-gray-500">
             <span :class="getCategoryMeta(change.category).color">{{ getCategoryMeta(change.category).label }}</span>
