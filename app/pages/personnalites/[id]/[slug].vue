@@ -1,36 +1,63 @@
 <script setup lang="ts">
 const route = useRoute();
-const nominationId = route.params.id as string;
+const personId = route.params.id as string;
 
-// Utilisation du composable pour récupérer la nomination
-const { nomination, loading, error } = useNominations({ id: nominationId });
+// Composable pour récupérer la personnalité (gère aussi le redirect legacy)
+const { person, currentAppointment, appointments, socialLinks, loading, error } =
+  usePublicPerson(personId);
 
-// Utilisation du composable pour les métadonnées
 const { siteName, siteUrl, keywords, themeColor } = useSiteMetadata();
 
-// Computed pour les métadonnées dynamiques
-const title = computed(() =>
-  nomination.value
-    ? `${nomination.value.name} - ${nomination.value.role} | Vie-Publique.sn`
-    : 'Nomination | Vie-Publique.sn',
-);
+// Métadonnées dynamiques
+const title = computed(() => {
+  if (!person.value) return 'Personnalité publique | Vie Publique Sénégal';
+  const apt = currentAppointment.value;
+  if (apt?.position_title) {
+    return `${person.value.full_name} - ${apt.position_title} | Vie Publique Sénégal`;
+  }
+  return `${person.value.full_name} | Vie Publique Sénégal`;
+});
 
 const description = computed(() => {
-  if (!nomination.value) return 'Détails de la nomination présidentielle';
-  const org = nomination.value.organisation ? ` à ${nomination.value.organisation}` : '';
-  return nomination.value.description
-    ? `${nomination.value.description.substring(0, 155)}...`
-    : `${nomination.value.name} - ${nomination.value.role}${org}. Nomination du président Bassirou Diomaye Faye.`;
+  if (!person.value) return "Profil d'une personnalité publique du Sénégal";
+  const apt = currentAppointment.value;
+  const parts: string[] = [];
+
+  // Phrase d'accroche : Nom + rôle actuel ou dernier rôle
+  if (apt) {
+    const status = apt.is_current ? '' : ' (ancien)';
+    parts.push(`${person.value.full_name}${status} : ${apt.position_title}`);
+    if (apt.organization_label) parts[0] += `, ${apt.organization_label}`;
+    parts[0] += '.';
+  } else {
+    parts.push(`${person.value.full_name}, personnalité publique sénégalaise.`);
+  }
+
+  // Contexte : bio courte ou nombre de fonctions
+  if (person.value.short_bio) {
+    const bio = person.value.short_bio.trim();
+    const maxLen = 155 - parts[0].length - 1;
+    if (bio.length > maxLen) {
+      // Couper au dernier espace avant la limite
+      const truncated = bio.substring(0, maxLen);
+      parts.push(truncated.substring(0, truncated.lastIndexOf(' ')) + '...');
+    } else {
+      parts.push(bio);
+    }
+  } else if (appointments.value.length > 1) {
+    parts.push(`Parcours de ${appointments.value.length} fonctions officielles.`);
+  }
+
+  return parts.join(' ');
 });
 
 const url = computed(() => `${siteUrl}/personnalites/${route.params.id}/${route.params.slug}`);
 
 const image = computed(() => {
-  if (!nomination.value?.photo) return `${siteUrl}/nomination-3.png`;
-  return useCmsImage(nomination.value.photo);
+  if (!person.value?.photo) return `${siteUrl}/nomination-3.png`;
+  return useCmsImage(person.value.photo);
 });
 
-// SEO Meta Tags
 useSeoMeta({
   title,
   ogTitle: title,
@@ -45,39 +72,67 @@ useSeoMeta({
   keywords: computed(() =>
     [
       ...keywords,
-      nomination.value?.name || '',
-      nomination.value?.role || '',
-      nomination.value?.organisation || '',
-      'nomination Sénégal',
-      'Diomaye Faye',
+      person.value?.full_name || '',
+      currentAppointment.value?.position_title || '',
+      currentAppointment.value?.organization_label || '',
+      'personnalité publique Sénégal',
     ].join(', '),
   ),
 });
 
-// Schema.org pour le référencement
 const personSchema = computed(() => {
-  if (!nomination.value) return null;
+  if (!person.value) return null;
+
+  // Liens sameAs (réseaux sociaux pour lier le profil aux autres sources)
+  const sameAs: string[] = [];
+  if (person.value.facebook) sameAs.push(person.value.facebook);
+  if (person.value.twitter) sameAs.push(person.value.twitter);
+  if (person.value.instagram) sameAs.push(person.value.instagram);
+  if (person.value.linkedin) sameAs.push(person.value.linkedin);
+  if (person.value.tiktok) sameAs.push(person.value.tiktok);
+  if (person.value.website) sameAs.push(person.value.website);
+
+  // Historique des postes (hasOccupation)
+  const occupations = appointments.value.map((apt) => ({
+    '@type': 'Role',
+    roleName: apt.position_title,
+    startDate: apt.appointment_date?.split('T')[0],
+    ...(apt.end_date && { endDate: apt.end_date.split('T')[0] }),
+    ...(apt.organization_label && {
+      worksFor: {
+        '@type': 'Organization',
+        name: apt.organization_label,
+      },
+    }),
+  }));
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    name: nomination.value.name,
-    jobTitle: nomination.value.role,
-    worksFor: nomination.value.organisation
+    name: person.value.full_name,
+    jobTitle: currentAppointment.value?.position_title,
+    worksFor: currentAppointment.value?.organization_label
       ? {
           '@type': 'Organization',
-          name: nomination.value.organisation,
+          name: currentAppointment.value.organization_label,
         }
       : undefined,
     image: image.value,
     description: description.value,
     url: url.value,
-    gender: nomination.value.sexe === 'M' ? 'Male' : 'Female',
-    alumniOf: nomination.value.formation
+    gender: person.value.sexe === 'male' ? 'Male' : 'Female',
+    nationality: {
+      '@type': 'Country',
+      name: 'Sénégal',
+    },
+    alumniOf: person.value.education
       ? {
           '@type': 'EducationalOrganization',
-          name: nomination.value.formation,
+          name: person.value.education,
         }
       : undefined,
+    ...(sameAs.length > 0 && { sameAs }),
+    ...(occupations.length > 0 && { hasOccupation: occupations }),
   };
 });
 
@@ -95,18 +150,17 @@ const breadcrumbSchema = computed(() => ({
       '@type': 'ListItem',
       position: 2,
       name: 'Personnalités',
-      item: `${siteUrl}/annuaires`,
+      item: `${siteUrl}/personnalites-senegal`,
     },
     {
       '@type': 'ListItem',
       position: 3,
-      name: nomination.value?.name || 'Nomination',
+      name: person.value?.full_name || 'Personnalité',
       item: url.value,
     },
   ],
 }));
 
-// Head Configuration
 useHead({
   htmlAttrs: { lang: 'fr-SN' },
   link: [{ rel: 'canonical', href: url.value }],
@@ -133,7 +187,7 @@ useHead({
   }),
 });
 
-// Formatage de la date
+// Date formatting
 const formatDate = (dateString: string) => {
   if (!dateString) return 'N/A';
   const date = new Date(dateString);
@@ -142,20 +196,6 @@ const formatDate = (dateString: string) => {
     month: 'long',
     day: 'numeric',
   }).format(date);
-};
-
-// Type labels
-const typeLabels: Record<string, string> = {
-  ministre: 'Ministre',
-  dg: 'Directeur Général',
-  pca: 'PCA',
-  sg: 'Secrétaire Général',
-  autre: 'Autre',
-};
-
-const getTypeLabel = (type: string | null) => {
-  if (!type) return null;
-  return typeLabels[type.toLowerCase()] || type;
 };
 
 // Initiales pour l'avatar fallback
@@ -168,10 +208,26 @@ const getInitials = (name: string): string => {
     .toUpperCase();
 };
 
-// Statut de la nomination
-const isActive = computed(() => !nomination.value?.endDate);
+// Statut de la nomination actuelle
+const isActive = computed(() => currentAppointment.value?.is_current ?? false);
 
-// Conserver les query params pour le retour
+// Label du motif de fin
+const endReasonLabels: Record<string, string> = {
+  retirement: 'Retraite',
+  dismissed: 'Congédié(e)',
+  reassigned: 'Réaffecté(e)',
+  resigned: 'Démission',
+  deceased: 'Décédé(e)',
+  replaced: 'Remplacé(e)',
+  other: 'Autre',
+};
+
+const getEndReasonLabel = (reason: string | null | undefined) => {
+  if (!reason) return null;
+  return endReasonLabels[reason] || reason;
+};
+
+// URL retour
 const backUrl = computed(() => {
   const referer = route.query.ref as string;
   if (referer === 'gouvernement') {
@@ -180,14 +236,14 @@ const backUrl = computed(() => {
   const query = { ...route.query };
   delete query.ref;
   return {
-    path: '/nomination-senegal',
+    path: '/personnalites-senegal',
     query,
   };
 });
 
 const backLabel = computed(() => {
   const referer = route.query.ref as string;
-  return referer === 'gouvernement' ? 'Gouvernement' : 'Nominations';
+  return referer === 'gouvernement' ? 'Gouvernement' : 'Personnalités';
 });
 </script>
 
@@ -196,16 +252,15 @@ const backLabel = computed(() => {
     <!-- Breadcrumb -->
     <div class="container mx-auto px-4 pt-2">
       <AppBreadcrumb
-        :items="[{ label: backLabel, to: backUrl }, { label: nomination?.name || 'Personnalité' }]"
+        :items="[{ label: backLabel, to: backUrl }, { label: person?.full_name || 'Personnalité' }]"
       />
     </div>
 
     <main class="container mx-auto px-4 pt-2">
       <!-- Loading Skeleton -->
       <div v-if="loading" class="mx-auto max-w-3xl space-y-4">
-        <!-- Hero skeleton -->
         <div
-          class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800 sm:p-8"
+          class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700 sm:p-8"
         >
           <div class="flex flex-col items-center gap-5 sm:flex-row sm:items-start">
             <USkeleton class="h-28 w-28 shrink-0 rounded-full sm:h-36 sm:w-36" />
@@ -220,22 +275,12 @@ const backLabel = computed(() => {
             </div>
           </div>
         </div>
-        <!-- Info skeleton -->
         <div class="grid gap-3 sm:grid-cols-2">
           <USkeleton v-for="n in 4" :key="n" class="h-20 rounded-xl" />
         </div>
-        <!-- Bio skeleton -->
-        <div
-          class="space-y-3 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
-        >
-          <USkeleton class="h-6 w-48 rounded" />
-          <USkeleton class="h-4 w-full rounded" />
-          <USkeleton class="h-4 w-full rounded" />
-          <USkeleton class="h-4 w-3/4 rounded" />
-        </div>
       </div>
 
-      <!-- Error State -->
+      <!-- Error -->
       <div v-else-if="error" class="py-16">
         <div
           class="mx-auto max-w-sm rounded-2xl border border-red-200 bg-red-50 p-6 text-center dark:border-red-800 dark:bg-red-900/20"
@@ -264,32 +309,32 @@ const backLabel = computed(() => {
       </div>
 
       <!-- Main Content -->
-      <div v-else-if="nomination" class="mx-auto max-w-3xl space-y-4">
+      <div v-else-if="person" class="mx-auto max-w-3xl space-y-4">
         <!-- Hero Card -->
         <div
-          class="rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+          class="rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
         >
           <div class="p-6 sm:p-8">
             <div class="flex flex-col items-center gap-5 sm:flex-row sm:items-start">
               <!-- Photo -->
               <div class="relative shrink-0">
                 <img
-                  v-if="nomination.photo"
-                  :src="useCmsImage(nomination.photo)"
-                  :alt="nomination.name"
-                  class="h-28 w-28 rounded-full object-cover ring-4 ring-gray-100 dark:ring-gray-800 sm:h-36 sm:w-36"
+                  v-if="person.photo"
+                  :src="useCmsImage(person.photo)"
+                  :alt="person.full_name"
+                  class="h-28 w-28 rounded-full object-cover ring-4 ring-gray-100 dark:ring-gray-700 sm:h-36 sm:w-36"
                 />
                 <div
                   v-else
-                  class="flex h-28 w-28 items-center justify-center rounded-full bg-gray-200 ring-4 ring-gray-100 dark:bg-gray-700 dark:ring-gray-800 sm:h-36 sm:w-36"
+                  class="flex h-28 w-28 items-center justify-center rounded-full bg-gray-200 ring-4 ring-gray-100 dark:bg-gray-700 dark:ring-gray-700 sm:h-36 sm:w-36"
                 >
                   <span class="text-3xl font-semibold text-gray-500 dark:text-gray-400 sm:text-4xl">
-                    {{ getInitials(nomination.name) }}
+                    {{ getInitials(person.full_name) }}
                   </span>
                 </div>
-                <!-- Status indicator -->
+                <!-- Status -->
                 <span
-                  class="absolute bottom-1 right-1 flex h-5 w-5 items-center justify-center rounded-full ring-2 ring-white dark:ring-gray-900"
+                  class="absolute bottom-1 right-1 flex h-5 w-5 items-center justify-center rounded-full ring-2 ring-white dark:ring-gray-800"
                   :class="isActive ? 'bg-green-500' : 'bg-gray-400'"
                   :title="isActive ? 'En fonction' : 'Fin de fonction'"
                 >
@@ -303,21 +348,43 @@ const backLabel = computed(() => {
               <!-- Info -->
               <div class="min-w-0 flex-1 text-center sm:text-left">
                 <h1 class="text-xl font-bold text-gray-900 dark:text-white sm:text-2xl">
-                  {{ nomination.name }}
+                  {{ person.full_name }}
                 </h1>
-                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400 sm:text-base">
-                  {{ nomination.role }}
-                </p>
-                <p
-                  v-if="nomination.organisation"
-                  class="mt-0.5 text-sm text-gray-500 dark:text-gray-500"
-                >
-                  {{ nomination.organisation }}
-                </p>
+
+                <!-- Poste actuel (en vert, bien visible) -->
+                <div v-if="currentAppointment && isActive" class="mt-2">
+                  <p class="text-sm font-medium text-green-700 dark:text-green-400 sm:text-base">
+                    {{ currentAppointment.position_title }}
+                  </p>
+                  <p
+                    v-if="currentAppointment.organization_label"
+                    class="mt-0.5 text-sm text-gray-500 dark:text-gray-400"
+                  >
+                    {{ currentAppointment.organization_label }}
+                  </p>
+                  <p
+                    v-if="currentAppointment.appointment_date"
+                    class="mt-0.5 text-xs text-gray-400 dark:text-gray-500"
+                  >
+                    Depuis le {{ formatDate(currentAppointment.appointment_date) }}
+                  </p>
+                </div>
+
+                <!-- Dernier poste connu (si plus en fonction) -->
+                <div v-else-if="currentAppointment" class="mt-2">
+                  <p class="text-sm text-gray-600 dark:text-gray-400 sm:text-base">
+                    {{ currentAppointment.position_title }}
+                  </p>
+                  <p
+                    v-if="currentAppointment.organization_label"
+                    class="mt-0.5 text-sm text-gray-500 dark:text-gray-500"
+                  >
+                    {{ currentAppointment.organization_label }}
+                  </p>
+                </div>
 
                 <!-- Badges -->
                 <div class="mt-3 flex flex-wrap justify-center gap-2 sm:justify-start">
-                  <!-- Status badge -->
                   <span
                     class="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium"
                     :class="
@@ -332,127 +399,186 @@ const backLabel = computed(() => {
                     />
                     {{ isActive ? 'En fonction' : 'Fin de fonction' }}
                   </span>
-                  <!-- Type badge -->
                   <span
-                    v-if="getTypeLabel(nomination.type)"
+                    v-if="currentAppointment?.position_category && currentAppointment.position_category !== 'Autre'"
                     class="bg-primary-50 text-primary-700 ring-primary-200 dark:bg-primary-900/20 dark:text-primary-400 dark:ring-primary-800 inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ring-1"
                   >
-                    {{ getTypeLabel(nomination.type) }}
+                    {{ currentAppointment.position_category }}
                   </span>
+                </div>
+
+                <!-- Social links + Share -->
+                <div class="mt-3 flex items-center justify-center gap-2 sm:justify-start">
+                  <a
+                    v-for="link in socialLinks"
+                    :key="link.name"
+                    :href="link.url"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    :title="link.name"
+                    class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200"
+                  >
+                    <UIcon :name="link.icon" class="h-4 w-4" />
+                  </a>
+                  <SocialShare :title="title" :url="url" compact />
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Info Grid -->
-        <div class="grid gap-3 sm:grid-cols-2">
-          <!-- Date de nomination -->
+        <!-- Formation -->
+        <div
+          v-if="person.education"
+          class="flex items-start gap-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+        >
           <div
-            class="flex items-start gap-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-purple-50 dark:bg-purple-900/20"
           >
-            <div
-              class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-900/20"
-            >
-              <UIcon
-                name="i-heroicons-calendar-days-20-solid"
-                class="h-4.5 w-4.5 text-blue-600 dark:text-blue-400"
-              />
-            </div>
-            <div class="min-w-0">
-              <p
-                class="text-[11px] font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500"
-              >
-                Nomination
-              </p>
-              <p class="mt-0.5 text-sm font-medium text-gray-900 dark:text-white">
-                {{ formatDate(nomination.nominationDate) }}
-              </p>
-            </div>
+            <UIcon
+              name="i-heroicons-academic-cap-20-solid"
+              class="h-4.5 w-4.5 text-purple-600 dark:text-purple-400"
+            />
           </div>
-
-          <!-- Date de fin -->
-          <div
-            v-if="nomination.endDate"
-            class="flex items-start gap-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
-          >
-            <div
-              class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-red-50 dark:bg-red-900/20"
+          <div class="min-w-0">
+            <p
+              class="text-[11px] font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500"
             >
-              <UIcon
-                name="i-heroicons-calendar-days-20-solid"
-                class="h-4.5 w-4.5 text-red-600 dark:text-red-400"
-              />
-            </div>
-            <div class="min-w-0">
-              <p
-                class="text-[11px] font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500"
-              >
-                Fin de fonction
-              </p>
-              <p class="mt-0.5 text-sm font-medium text-gray-900 dark:text-white">
-                {{ formatDate(nomination.endDate) }}
-              </p>
-            </div>
+              Formation
+            </p>
+            <p class="mt-0.5 text-sm font-medium text-gray-900 dark:text-white">
+              {{ person.education }}
+            </p>
           </div>
+        </div>
 
-          <!-- Formation -->
-          <div
-            v-if="nomination.formation"
-            class="flex items-start gap-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
-          >
-            <div
-              class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-purple-50 dark:bg-purple-900/20"
-            >
-              <UIcon
-                name="i-heroicons-academic-cap-20-solid"
-                class="h-4.5 w-4.5 text-purple-600 dark:text-purple-400"
-              />
-            </div>
-            <div class="min-w-0">
-              <p
-                class="text-[11px] font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500"
+        <!-- Historique des nominations -->
+        <div
+          v-if="appointments.length > 0"
+          class="rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+        >
+          <div class="border-b border-gray-100 px-6 py-4 dark:border-gray-700">
+            <h2 class="text-base font-semibold text-gray-900 dark:text-white">
+              Historique des fonctions
+              <span class="ml-1 text-sm font-normal text-gray-500"
+                >({{ appointments.length }})</span
               >
-                Formation
-              </p>
-              <p class="mt-0.5 text-sm font-medium text-gray-900 dark:text-white">
-                {{ nomination.formation }}
-              </p>
-            </div>
+            </h2>
           </div>
-
-          <!-- Prédécesseur -->
-          <div
-            v-if="nomination.predecessor"
-            class="flex items-start gap-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
-          >
-            <div
-              class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-amber-50 dark:bg-amber-900/20"
-            >
-              <UIcon
-                name="i-heroicons-arrow-path-20-solid"
-                class="h-4.5 w-4.5 text-amber-600 dark:text-amber-400"
-              />
-            </div>
-            <div class="min-w-0">
-              <p
-                class="text-[11px] font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500"
+          <div class="divide-y divide-gray-100 dark:divide-gray-700">
+            <div v-for="apt in appointments" :key="apt.id" class="flex items-start gap-3 px-6 py-4">
+              <div
+                class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
+                :class="
+                  apt.is_current
+                    ? 'bg-green-50 dark:bg-green-900/20'
+                    : 'bg-gray-100 dark:bg-gray-800'
+                "
               >
-                Prédécesseur
-              </p>
-              <p class="mt-0.5 text-sm font-medium text-gray-900 dark:text-white">
-                {{ nomination.predecessor }}
-              </p>
+                <UIcon
+                  :name="
+                    apt.is_current
+                      ? 'i-heroicons-check-circle-20-solid'
+                      : 'i-heroicons-clock-20-solid'
+                  "
+                  class="h-4 w-4"
+                  :class="
+                    apt.is_current
+                      ? 'text-green-600 dark:text-green-400'
+                      : 'text-gray-400 dark:text-gray-500'
+                  "
+                />
+              </div>
+              <div class="min-w-0 flex-1">
+                <p class="text-sm font-medium text-gray-900 dark:text-white">
+                  {{ apt.position_title }}
+                </p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">
+                  {{ apt.organization_label }}
+                </p>
+                <p class="mt-1 text-[11px] text-gray-400 dark:text-gray-500">
+                  {{ formatDate(apt.appointment_date) }}
+                  <template v-if="apt.end_date">
+                    — {{ formatDate(apt.end_date) }}
+                    <span v-if="getEndReasonLabel(apt.end_reason)" class="text-red-400">
+                      ({{ getEndReasonLabel(apt.end_reason) }})
+                    </span>
+                  </template>
+                  <template v-else>
+                    <span class="text-green-500"> — en cours</span>
+                  </template>
+                </p>
+
+                <!-- Prédécesseur -->
+                <p
+                  v-if="apt.predecessor || apt.predecessor_label"
+                  class="mt-1 text-[11px] text-gray-400 dark:text-gray-500"
+                >
+                  Prédécesseur :
+                  <NuxtLink
+                    v-if="apt.predecessor"
+                    :to="`/personnalites/${apt.predecessor.id}/${apt.predecessor.slug}`"
+                    class="text-primary-600 dark:text-primary-400 underline-offset-2 hover:underline"
+                  >
+                    {{ apt.predecessor.full_name }}
+                  </NuxtLink>
+                  <span v-else>{{ apt.predecessor_label }}</span>
+                </p>
+
+                <!-- Successeur -->
+                <p
+                  v-if="apt.successor || apt.successor_label"
+                  class="mt-0.5 text-[11px] text-gray-400 dark:text-gray-500"
+                >
+                  Successeur :
+                  <NuxtLink
+                    v-if="apt.successor"
+                    :to="`/personnalites/${apt.successor.id}/${apt.successor.slug}`"
+                    class="text-primary-600 dark:text-primary-400 underline-offset-2 hover:underline"
+                  >
+                    {{ apt.successor.full_name }}
+                  </NuxtLink>
+                  <span v-else>{{ apt.successor_label }}</span>
+                </p>
+
+                <!-- Source -->
+                <p
+                  v-if="apt.source_label || apt.source_document"
+                  class="mt-0.5 text-[11px] text-gray-400 dark:text-gray-500"
+                >
+                  Source :
+                  <a
+                    v-if="apt.source_link"
+                    :href="apt.source_link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-primary-600 dark:text-primary-400 underline-offset-2 hover:underline"
+                  >
+                    {{ apt.source_label }}
+                  </a>
+                  <span v-else-if="apt.source_label">{{ apt.source_label }}</span>
+                  <span v-if="apt.source_document && apt.source_label"> · </span>
+                  <span v-if="apt.source_document">{{ apt.source_document.title }}</span>
+                </p>
+
+                <!-- Notes -->
+                <p
+                  v-if="apt.notes"
+                  class="mt-0.5 text-[11px] italic text-gray-400 dark:text-gray-500"
+                >
+                  {{ apt.notes }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Biography Section -->
+        <!-- Biography -->
         <div
-          v-if="nomination.bio"
-          class="rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+          v-if="person.long_bio"
+          class="rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
         >
-          <div class="border-b border-gray-100 px-6 py-4 dark:border-gray-800">
+          <div class="border-b border-gray-100 px-6 py-4 dark:border-gray-700">
             <h2 class="text-base font-semibold text-gray-900 dark:text-white">
               Biographie et Parcours
             </h2>
@@ -460,30 +586,30 @@ const backLabel = computed(() => {
           <div class="p-6">
             <div
               class="prose-a:text-primary-600 dark:prose-a:text-primary-400 prose prose-sm max-w-none dark:prose-invert sm:prose prose-headings:text-gray-900 prose-p:text-gray-600 dark:prose-headings:text-white dark:prose-p:text-gray-400"
-              v-html="nomination.bio"
+              v-html="person.long_bio"
             ></div>
           </div>
         </div>
 
-        <!-- Portrait fallback -->
+        <!-- Short bio fallback -->
         <div
-          v-else-if="nomination.portrait"
-          class="rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+          v-else-if="person.short_bio"
+          class="rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
         >
-          <div class="border-b border-gray-100 px-6 py-4 dark:border-gray-800">
+          <div class="border-b border-gray-100 px-6 py-4 dark:border-gray-700">
             <h2 class="text-base font-semibold text-gray-900 dark:text-white">Portrait</h2>
           </div>
           <div class="p-6">
             <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-              {{ nomination.portrait }}
+              {{ person.short_bio }}
             </p>
           </div>
         </div>
 
-        <!-- Empty bio placeholder -->
+        <!-- No bio -->
         <div
           v-else
-          class="rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+          class="rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
         >
           <div class="px-6 py-12 text-center">
             <div
@@ -493,7 +619,7 @@ const backLabel = computed(() => {
             </div>
             <p class="text-sm font-medium text-gray-900 dark:text-white">Biographie</p>
             <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-              La biographie de {{ nomination.name }} sera bientôt disponible.
+              La biographie de {{ person.full_name }} sera bientôt disponible.
             </p>
           </div>
         </div>

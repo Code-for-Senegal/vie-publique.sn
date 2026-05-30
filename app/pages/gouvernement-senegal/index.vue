@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { GovernmentMember } from '~/types/government-member'
+import type { GovernmentMember } from '~/types/government-member';
 
-const { siteName, siteUrl, keywords, themeColor } = useSiteMetadata()
+const { siteName, siteUrl, keywords, themeColor } = useSiteMetadata();
 
-const title = 'Gouvernement du Sénégal 2024 | Ministres et Premier Ministre'
+const title = 'Gouvernement du Sénégal 2024 | Ministres et Premier Ministre';
 const description =
-  'Composition actuelle du gouvernement du Sénégal sous la présidence de Bassirou Diomaye Faye. Liste complète des ministres, secrétaires d\'État avec photos et fonctions.'
-const url = `${siteUrl}/gouvernement-senegal`
-const image = `${siteUrl}/nomination-3.png`
+  "Composition actuelle du gouvernement du Sénégal sous la présidence de Bassirou Diomaye Faye. Liste complète des ministres, secrétaires d'État avec photos et fonctions.";
+const url = `${siteUrl}/gouvernement-senegal`;
+const image = `${siteUrl}/nomination-3.png`;
 
 // SEO Meta Tags
 useSeoMeta({
@@ -29,10 +29,10 @@ useSeoMeta({
     'Ousmane Sonko',
     'cabinet ministériel sénégal',
     'composition gouvernement sénégal',
-    'secrétaires d\'état sénégal',
+    "secrétaires d'état sénégal",
     'gouvernement Diomaye Faye',
   ].join(', '),
-})
+});
 
 // Récupération des données du gouvernement via composable (conforme aux guidelines)
 const {
@@ -43,17 +43,15 @@ const {
   stats,
   loading: pending,
   error,
-} = useGovernment()
+} = useGovernment();
 
 // Schema JSON-LD pour le gouvernement
 const governmentSchema = computed(() => {
-  if (!governmentData.value) return {}
+  if (!governmentData.value) return {};
 
-  const members = [
-    primeMinister.value,
-    ...ministers.value,
-    ...secretariesOfState.value,
-  ].filter(Boolean)
+  const members = [primeMinister.value, ...ministers.value, ...secretariesOfState.value].filter(
+    Boolean,
+  );
 
   return {
     '@context': 'https://schema.org',
@@ -78,15 +76,15 @@ const governmentSchema = computed(() => {
       '@type': 'Person',
       name: member.name,
       jobTitle: member.role,
-      gender: member.sexe === 'F' ? 'Female' : 'Male',
+      gender: member.sexe === 'female' ? 'Female' : 'Male',
       image: member.photo ? useCmsImage(member.photo) : undefined,
       worksFor: {
         '@type': 'GovernmentOrganization',
         name: 'Gouvernement du Sénégal',
       },
     })),
-  }
-})
+  };
+});
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -105,7 +103,7 @@ const breadcrumbSchema = {
       item: url,
     },
   ],
-}
+};
 
 // Head Configuration
 useHead({
@@ -130,14 +128,14 @@ useHead({
       children: JSON.stringify(breadcrumbSchema),
     },
   ],
-})
+});
 
 // Fonction pour générer l'URL du portrait
 const getPortraitUrl = (member: GovernmentMember) => {
   // Utiliser le slug de l'API (généré côté serveur si non fourni par Directus)
-  const slug = member.slug || member.id
-  return `/personnalites/${member.id}/${slug}?ref=gouvernement`
-}
+  const slug = member.slug || member.id;
+  return `/personnalites/${member.id}/${slug}?ref=gouvernement`;
+};
 
 // Fonction pour obtenir les initiales si pas de photo
 const getInitials = (name: string): string => {
@@ -146,39 +144,33 @@ const getInitials = (name: string): string => {
     .slice(0, 2)
     .map((word) => word.charAt(0))
     .join('')
-    .toUpperCase()
-}
+    .toUpperCase();
+};
 
 // Fonction pour formater la durée en fonction
 const getDuration = (nominationDate: string): string => {
-  const start = new Date(nominationDate)
-  const now = new Date()
-  const months = Math.floor((now.getTime() - start.getTime()) / (1000 * 60 * 60 * 24 * 30))
+  const start = new Date(nominationDate);
+  const now = new Date();
+  const months = Math.floor((now.getTime() - start.getTime()) / (1000 * 60 * 60 * 24 * 30));
 
-  if (months < 1) return 'Récemment nommé'
-  if (months < 12) return `${months} mois en fonction`
-  const years = Math.floor(months / 12)
-  const remainingMonths = months % 12
-  if (remainingMonths === 0) return `${years} an${years > 1 ? 's' : ''} en fonction`
-  return `${years} an${years > 1 ? 's' : ''} et ${remainingMonths} mois en fonction`
-}
+  if (months < 1) return 'Récemment nommé';
+  if (months < 12) return `${months} mois en fonction`;
+  const years = Math.floor(months / 12);
+  const remainingMonths = months % 12;
+  if (remainingMonths === 0) return `${years} an${years > 1 ? 's' : ''} en fonction`;
+  return `${years} an${years > 1 ? 's' : ''} et ${remainingMonths} mois en fonction`;
+};
 </script>
 
 <template>
   <div class="min-h-screen space-y-6 p-0 pb-16">
-    <AppBreadcrumb
-      :items="[
-        { label: 'Gouvernement' },
-      ]"
-    />
+    <AppBreadcrumb :items="[{ label: 'Gouvernement' }]" />
 
     <!-- Header -->
     <UCard class="custom-shadow">
       <template #header>
         <div class="space-y-4">
-          <h1 class="text-2xl font-bold sm:text-3xl">
-            Gouvernement du Sénégal
-          </h1>
+          <h1 class="text-2xl font-bold sm:text-3xl">Gouvernement du Sénégal</h1>
           <p class="text-gray-600 dark:text-gray-400">
             Composition du gouvernement sous la présidence de Bassirou Diomaye Faye
           </p>
@@ -236,15 +228,12 @@ const getDuration = (nominationDate: string): string => {
       <div v-else-if="governmentData" class="space-y-8">
         <!-- Premier Ministre -->
         <div v-if="primeMinister" class="space-y-4">
-          <h2 class="text-xl font-bold flex items-center gap-2">
+          <h2 class="flex items-center gap-2 text-xl font-bold">
             <UIcon name="i-heroicons-star" class="h-6 w-6 text-yellow-500" />
             Premier Ministre
           </h2>
 
-          <NuxtLink
-            :to="getPortraitUrl(primeMinister)"
-            class="block transition hover:scale-[1.02]"
-          >
+          <NuxtLink :to="getPortraitUrl(primeMinister)" class="block transition hover:scale-[1.02]">
             <UCard class="border-l-4 border-yellow-500">
               <div class="flex items-center gap-4">
                 <UAvatar
@@ -254,14 +243,14 @@ const getDuration = (nominationDate: string): string => {
                   size="xl"
                   class="flex-shrink-0"
                 />
-                <div class="flex-1 min-w-0">
+                <div class="min-w-0 flex-1">
                   <h3 class="text-lg font-bold">
                     {{ primeMinister.name }}
                   </h3>
                   <p class="text-sm text-gray-600 dark:text-gray-400">
                     {{ primeMinister.role }}
                   </p>
-                  <p class="text-xs text-gray-500 mt-1">
+                  <p class="mt-1 text-xs text-gray-500">
                     {{ getDuration(primeMinister.nominationDate) }}
                   </p>
                 </div>
@@ -273,7 +262,7 @@ const getDuration = (nominationDate: string): string => {
 
         <!-- Ministres -->
         <div v-if="ministers.length > 0" class="space-y-4">
-          <h2 class="text-xl font-bold flex items-center gap-2">
+          <h2 class="flex items-center gap-2 text-xl font-bold">
             <UIcon name="i-heroicons-user-group" class="h-6 w-6 text-blue-500" />
             Ministres ({{ ministers.length }})
           </h2>
@@ -293,15 +282,15 @@ const getDuration = (nominationDate: string): string => {
                     :text="getInitials(minister.name)"
                     size="lg"
                   />
-                  <div class="min-w-0 w-full">
-                    <h3 class="font-bold text-sm line-clamp-2">
+                  <div class="w-full min-w-0">
+                    <h3 class="line-clamp-2 text-sm font-bold">
                       {{ minister.name }}
                     </h3>
-                    <p class="text-xs text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
+                    <p class="mt-1 line-clamp-2 text-xs text-gray-600 dark:text-gray-400">
                       {{ minister.role }}
                     </p>
                     <UBadge
-                      v-if="minister.sexe === 'F'"
+                      v-if="minister.sexe === 'female'"
                       color="purple"
                       variant="soft"
                       size="xs"
@@ -318,7 +307,7 @@ const getDuration = (nominationDate: string): string => {
 
         <!-- Secrétaires d'État -->
         <div v-if="secretariesOfState.length > 0" class="space-y-4">
-          <h2 class="text-xl font-bold flex items-center gap-2">
+          <h2 class="flex items-center gap-2 text-xl font-bold">
             <UIcon name="i-heroicons-user" class="h-6 w-6 text-green-500" />
             Secrétaires d'État ({{ secretariesOfState.length }})
           </h2>
@@ -338,11 +327,11 @@ const getDuration = (nominationDate: string): string => {
                     :text="getInitials(secretary.name)"
                     size="md"
                   />
-                  <div class="min-w-0 w-full">
-                    <h3 class="font-semibold text-xs line-clamp-2">
+                  <div class="w-full min-w-0">
+                    <h3 class="line-clamp-2 text-xs font-semibold">
                       {{ secretary.name }}
                     </h3>
-                    <p class="text-xs text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
+                    <p class="mt-1 line-clamp-2 text-xs text-gray-600 dark:text-gray-400">
                       {{ secretary.role }}
                     </p>
                   </div>
@@ -355,11 +344,11 @@ const getDuration = (nominationDate: string): string => {
         <!-- Lien vers toutes les nominations -->
         <div class="border-t pt-6">
           <NuxtLink
-            to="/nomination-senegal"
+            to="/personnalites-senegal"
             class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 dark:text-blue-400"
           >
             <UIcon name="i-heroicons-arrow-right" class="h-5 w-5" />
-            Voir toutes les nominations présidentielles
+            Voir l'annuaire des personnalités publiques
           </NuxtLink>
         </div>
       </div>
@@ -367,18 +356,16 @@ const getDuration = (nominationDate: string): string => {
 
     <!-- Note de mise à jour -->
     <div class="text-center text-sm text-gray-500">
-      <p>
-        Dernière mise à jour : {{ governmentData?.lastUpdate || 'N/A' }}
-      </p>
-      <p class="mt-1">
-        Source : Décrets présidentiels de la République du Sénégal
-      </p>
+      <p>Dernière mise à jour : {{ governmentData?.lastUpdate || 'N/A' }}</p>
+      <p class="mt-1">Source : Décrets présidentiels de la République du Sénégal</p>
     </div>
   </div>
 </template>
 
 <style scoped>
 .custom-shadow {
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 </style>
