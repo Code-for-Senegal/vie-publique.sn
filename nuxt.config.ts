@@ -483,7 +483,6 @@ export default defineNuxtConfig({
       '/quiz',
       '/chatbot',
       '/chat-bot',
-      '/gouvernement-senegal',
       '/etat-senegal/annuaire',
       '/etat-senegal/organisation',
       '/a-propos/barometre-politique',
