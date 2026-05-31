@@ -210,10 +210,10 @@ const allNavigationCards: NavigationCard[] = [
     featureKey: 'menu_gouvernement',
   },
   {
-    title: 'Nominations',
-    description: 'Nominations, Ministres, DG...',
+    title: 'Personnalités publiques',
+    description: 'Ministres, DG, PCA, nominations...',
     icon: 'i-heroicons-user-group',
-    to: '/nomination-senegal',
+    to: '/personnalites-senegal',
     featureKey: 'menu_nominations',
   },
   {
@@ -334,7 +334,7 @@ const cardConfigs: CardConfigs = {
     color: 'text-emerald-600 dark:text-emerald-400',
     bgColor: 'bg-emerald-100 dark:bg-emerald-900/30',
   },
-  Nominations: {
+  'Personnalités publiques': {
     color: 'text-teal-600 dark:text-teal-400',
     bgColor: 'bg-teal-100 dark:bg-teal-900/30',
   },

@@ -1,6 +1,6 @@
 # PRD - Annuaire des Personnalités Publiques
 
-**Dernière mise à jour** : 2025-05-30
+**Dernière mise à jour** : 2025-05-31
 **Status** : Migration terminée (positions -> public_persons + public_person_appointments)
 
 ---
@@ -9,7 +9,7 @@
 
 Fournir un annuaire complet et accessible des personnalités publiques du Sénégal : membres du gouvernement, hauts fonctionnaires nommés, magistrats, députés. L'annuaire permet aux citoyens de consulter qui occupe quel poste, depuis quand, et avec quelles informations de profil.
 
-**Migration terminée** : l'annuaire est passé d'un modèle centré "nominations" (collection `positions`) à un modèle centré "personnalités publiques" (collections `public_persons` + `public_person_appointments`), permettant l'historique des fonctions par personne. Les pages liste, détail et gouvernement sont migrées. Il reste le nettoyage de l'ancien code (`/nomination-senegal`).
+**Migration terminée** : l'annuaire est passé d'un modèle centré "nominations" (collection `positions`) à un modèle centré "personnalités publiques" (collections `public_persons` + `public_person_appointments`), permettant l'historique des fonctions par personne. Toutes les pages (liste, détail, gouvernement, nominations) sont migrées et l'ancien code legacy a été supprimé.
 
 ---
 
@@ -23,7 +23,7 @@ Fournir un annuaire complet et accessible des personnalités publiques du Séné
 | Annuaire personnalités | `/personnalites-senegal` | `public_persons` + `public_person_appointments` | **DONE** (nouvelle page) |
 | Gouvernement | `/gouvernement-senegal` | `public_persons` + `public_person_appointments` | **DONE** (migré) |
 | Fiche personnalité | `/personnalites/[id]/[slug]` | `public_persons` + `public_person_appointments` | **DONE** (migrée) |
-| Nominations (legacy) | `/nomination-senegal` | `positions` | LEGACY - stratégie à définir |
+| Nominations | `/nomination-senegal` | `public_persons` + `public_person_appointments` | **DONE** (migrée vers usePublicPersons) |
 | Magistrature | `/justice/magistrature` | JSON statique | Inchangé pour l'instant |
 | Conseil des ministres | `/conseil-des-ministres` | CMS news | Inchangé |
 
@@ -112,7 +112,7 @@ Deux collections normalisées dans le groupe "Annuaire" du CMS :
 | linkedin | text | non | Lien LinkedIn |
 | website | text | non | Site web personnel |
 | current_appointment | integer -> public_person_appointments | non | Nomination actuelle (M2O) |
-| **legacy_position_id** | integer | non | **Ancien positions.id (migration SEO)** |
+| ~~legacy_position_id~~ | ~~integer~~ | ~~non~~ | ~~Ancien positions.id~~ — **SUPPRIMÉ** : les IDs ont été préservés lors de la migration, ce champ n'est plus utilisé |
 
 #### Collection `public_person_appointments` (les nominations/fonctions)
 
@@ -150,7 +150,7 @@ public_persons (1) ──→ (N) public_person_appointments
     │                           │
     ├── current_appointment ←───┘  (raccourci vers la nomination active)
     │
-    └── legacy_position_id ───→ ancien positions.id (migration uniquement)
+    └── (legacy_position_id supprimé — IDs préservés lors de la migration)
 
 public_person_appointments.predecessor ──→ public_persons
 public_person_appointments.successor   ──→ public_persons
@@ -162,7 +162,7 @@ public_person_appointments.end_source_document ──→ documents
 
 | `positions` (ancien) | `public_persons` (nouveau) | `public_person_appointments` (nouveau) |
 |----------------------|----------------------------|---------------------------------------|
-| id | legacy_position_id | - |
+| id | id (préservé) | - |
 | name | full_name | - |
 | slug | slug | - |
 | sexe (Monsieur/Madame) | sexe (male/female) | - |
@@ -182,12 +182,11 @@ public_person_appointments.end_source_document ──→ documents
 
 ### 3.4 Problèmes de migration identifiés
 
-#### P1 : Collision d'IDs (critique)
+#### P1 : Collision d'IDs — RÉSOLU
 
 Les anciennes URLs Google sont du type `/personnalites/5/ahmadou-al-aminou-lo` où `5` = `positions.id`.
-Après migration, `public_persons.id = 5` peut correspondre à une personne différente.
 
-**Solution** : logique de résolution en 2 temps sur la page détail (voir section 5.4).
+**Solution appliquée** : les IDs de l'ancienne collection `positions` ont été préservés dans `public_persons` lors de la migration. Pas de collision, pas besoin de fallback `legacy_position_id`. Les anciennes URLs fonctionnent directement.
 
 #### P2 : Changement de valeurs pour le genre
 
@@ -226,7 +225,7 @@ Nouveau : `public_person_appointments.predecessor` = FK vers `public_persons` + 
 | **Annuaire personnalités** | `/personnalites-senegal` | `public_persons` + `public_person_appointments` | OUI |
 | Fiche personnalité | `/personnalites/[id]/[slug]` | `public_persons` + `public_person_appointments` | MIGRÉ |
 | Gouvernement actuel | `/gouvernement-senegal` | `public_persons` + `public_person_appointments` | MIGRÉ |
-| Nominations (legacy) | `/nomination-senegal` | conservé temporairement | LEGACY |
+| Nominations | `/nomination-senegal` | `public_persons` + `public_person_appointments` | **DONE** (migrée) |
 
 **Choix URL de la nouvelle page liste** : `/personnalites-senegal`
 - Cohérent avec le pattern existant (`nomination-senegal`, `gouvernement-senegal`)
@@ -240,7 +239,7 @@ Nouveau : `public_person_appointments.predecessor` = FK vers `public_persons` + 
 | `/api/public-persons` | GET | `public_persons` + `current_appointment` | 1h | Liste paginée avec nomination actuelle |
 | `/api/public-persons/:id` | GET | `public_persons` + appointments | 1h | Détail + historique nominations |
 | `/api/public-persons/stats` | GET | `public_person_appointments` | 1h | Stats par catégorie, genre |
-| `/api/public-persons/resolve/:id/:slug` | GET | `public_persons` | 1h | Résolution ID/legacy (pour redirect 301) |
+| ~~`/api/public-persons/resolve/:id/:slug`~~ | ~~GET~~ | - | - | ~~Supprimé (IDs préservés, pas besoin de résolution)~~ |
 | `/api/government/current` | GET | `public_persons` + `public_person_appointments` | 6h | Gouvernement actuel (migré) |
 
 ### 4.3 Nouveaux composables
@@ -248,7 +247,7 @@ Nouveau : `public_person_appointments.predecessor` = FK vers `public_persons` + 
 | Composable | Responsabilité |
 |------------|---------------|
 | `usePublicPersons()` | Liste : filtres (catégorie, genre, recherche), pagination, sync URL |
-| `usePublicPerson(id)` | Détail : données personne + historique nominations + résolution legacy |
+| `usePublicPerson(id)` | Détail : données personne + historique nominations + réseaux sociaux |
 | `useGovernment()` | Migré vers les nouvelles collections |
 
 ### 4.4 Nouveaux types TypeScript
@@ -272,7 +271,6 @@ export interface PublicPerson {
   linkedin?: string | null;
   website?: string | null;
   current_appointment?: PublicPersonAppointment | null;
-  legacy_position_id?: number | null;
 }
 
 export interface PublicPersonAppointment {
@@ -383,49 +381,42 @@ Même layout qu'actuellement mais alimenté par les nouvelles collections :
 - Secrétaires d'État : `position_category = "Secrétaire d'État"` et `is_current = true`
 - Liens vers `/personnalites/{public_persons.id}/{slug}`
 
-### 5.4 Logique de résolution d'URL sur la page détail (critique)
+### 5.4 Logique de résolution d'URL sur la page détail
 
-La page `/personnalites/[id]/[slug]` doit gérer 3 cas :
+La page `/personnalites/[id]/[slug]` gère 2 cas :
 
-**Cas A — Nouvelle URL (nominal)** :
+**Cas A — URL par ID (nominal)** :
 ```
 /personnalites/{public_persons.id}/{public_persons.slug}
 ```
-- Requête : `public_persons` WHERE `id = :id` AND `slug = :slug`
+- Requête : `public_persons` WHERE `id = :id`
 - Si trouvé : afficher la fiche, canonical = cette URL
-- Priorité : ce cas est testé en premier
 
-**Cas B — Ancienne URL Google (migration)** :
-```
-/personnalites/{positions.id}/{slug}
-```
-Exemple : `/personnalites/5/ahmadou-al-aminou-lo`
-- Si Cas A ne matche pas : requête fallback `public_persons` WHERE `legacy_position_id = :id`
-- Si trouvé et slug correspond : **redirection 301** vers `/personnalites/{public_persons.id}/{slug}`
-- Si trouvé et slug ne correspond pas : **redirection 301** vers `/personnalites/{public_persons.id}/{public_persons.slug}`
-
-**Cas C — Rien trouvé** :
+**Cas B — Rien trouvé** :
 - Retourner une **erreur 404** propre
 
-**Implémentation** : cette logique de résolution doit être dans la route API `/api/public-persons/resolve/:id/:slug` pour que le serveur puisse renvoyer un 301 avant le rendu de la page (important pour le SEO).
+**Note** : la logique de résolution legacy (fallback par `legacy_position_id`) a été supprimée car les IDs de l'ancienne collection `positions` ont été préservés lors de la migration vers `public_persons`. Les anciennes URLs Google `/personnalites/{positions.id}/...` fonctionnent directement puisque `positions.id == public_persons.id`.
 
-### 5.5 Stratégie pour `/nomination-senegal` (page legacy)
+### 5.5 Page `/nomination-senegal` — DONE
 
-**Recommandation** : conserver temporairement comme page spécialisée "Nominations récentes".
+**Stratégie appliquée** : Option A — la page a basculé sur `usePublicPersons()` (mêmes API `public_persons` + `public_person_appointments`). Elle affiche les personnalités triées par date de nomination décroissante, constituant une vue filtrée du nouvel annuaire.
 
-Options possibles (par ordre de préférence) :
+**Nettoyage effectué** :
+- Supprimé `server/api/nominations/index.get.ts`, `[id].get.ts`, `stats.get.ts` (anciennes API `positions`)
+- Supprimé `composables/useNominations.ts` (ancien composable)
+- Supprimé `legacy_position_id` de l'API, du type TypeScript et du composable `usePublicPerson`
+- Page `/nomination-senegal` réécrite avec `usePublicPersons({ sort: '-current_appointment.appointment_date' })`
+- Menu mis à jour : entrée "Personnalités publiques" → `/personnalites-senegal`
 
-1. **Phase 1 (immédiat)** : la page reste connectée à l'ancien modèle `positions` tant que les nouvelles API ne sont pas prêtes. Aucune régression.
-2. **Phase 2 (après migration)** : la page bascule sur `public_person_appointments` en affichant les nominations récentes (filtre `is_current` ou tri par `appointment_date`). Elle devient une vue filtrée du nouvel annuaire.
-3. **Phase 3 (futur)** : redirection 301 de `/nomination-senegal` vers `/personnalites-senegal?view=nominations` si la page n'a plus de raison d'exister séparément.
+**Évolution future possible** : redirection 301 de `/nomination-senegal` vers `/personnalites-senegal` si la page n'a plus de raison d'exister séparément.
 
 ### 5.6 Redirections SEO
 
 | Ancienne URL | Nouvelle URL | Type |
 |-------------|-------------|------|
 | `/portraits/*` | `/personnalites/*` | 301 (existant dans nuxt.config) |
-| `/personnalites/{positions.id}/{slug}` | `/personnalites/{public_persons.id}/{slug}` | 301 (logique runtime via resolve) |
-| `/nomination-senegal` | Conservé (phase 1-2) puis `/personnalites-senegal` (phase 3) | - |
+| `/personnalites/{positions.id}/{slug}` | Fonctionne directement (IDs préservés lors de la migration) | - |
+| `/nomination-senegal` | Conservé comme vue filtrée (migrée vers `usePublicPersons`) | - |
 
 ---
 
@@ -437,7 +428,7 @@ Le hub regroupe tous les annuaires du site (7 entrées) :
 |----------|-----|-------------------|--------|
 | **Gouvernement** | `/gouvernement-senegal` | `public_persons` + `public_person_appointments` | **DONE** (migré) |
 | **Personnalités publiques** | `/personnalites-senegal` | `public_persons` + `public_person_appointments` | **DONE** (nouveau) |
-| Nominations (legacy) | `/nomination-senegal` | `positions` | LEGACY |
+| Nominations | `/nomination-senegal` | `public_persons` + `public_person_appointments` | **DONE** (migrée) |
 | Sites web publics | `/annuaire-sites-publics-senegal` | CSV GitHub (repo externe), parsé avec PapaParse | Existant |
 | Médias reconnus | `/medias` | CMS Directus (status="compliant") | Existant |
 | Aide à la presse | `/medias/aide-presse` | JSON statique `assets/data/medias-fadp.json` | Existant |
@@ -445,27 +436,120 @@ Le hub regroupe tous les annuaires du site (7 entrées) :
 
 ---
 
-## 7. Pistes d'évolution (post-migration)
+## 7. Évolutions prévues (post-migration)
 
-### 7.1 Données et contenu
+### 7.1 Distinction nommés / élus
 
-- **Migrer la magistrature vers `public_persons`** : les magistrats seraient des `public_persons` avec des `public_person_appointments` de catégorie magistrature.
-- **Historique des gouvernements** : naturellement supporté par le nouveau modèle (toutes les nominations sont conservées avec `end_date`).
-- **Organigramme interactif** : visualisation hiérarchique exploitant les relations prédécesseur/successeur.
+**Problème** : Actuellement tous les `public_persons` sont traités de la même façon. Mais un ministre (nommé par décret) et un député ou maire (élu par vote) n'ont pas le même statut. L'ajout futur de présidents, maires et députés dans cette collection rend cette distinction nécessaire.
 
-### 7.2 Fonctionnalités utilisateur
+**Solution envisagée** : ajouter un champ `person_type` sur `public_person_appointments` (ou sur `public_persons` directement) :
 
-- **Timeline des nominations** : frise chronologique par personne ou par poste.
-- **Comparaison de gouvernements** : exploiter `appointment_date` et `end_date` pour reconstituer la composition à une date donnée.
-- **Notifications de changement** : alerte PWA sur nouvelles nominations.
-- **Export PDF/CSV** : export de l'annuaire filtré.
-- **Recherche transversale** : recherche unifiée sur tous les annuaires.
+| Valeur | Description | Exemples |
+|--------|-------------|----------|
+| `nominated` | Nommé par décret/arrêté | Ministre, DG, PCA, Ambassadeur, Gouverneur |
+| `elected` | Élu par vote | Député, Maire, Président de la République |
+| `appointed_judiciary` | Nommé dans la magistrature | Magistrat, Procureur |
 
-### 7.3 Technique
+**Impact** :
+- Nouveau filtre sur la page liste (`?type=nominated` / `?type=elected`)
+- Statistiques séparées nommés vs élus
+- Permet d'intégrer progressivement : députés, maires, président
 
-- **Cache invalidation** : webhook Directus -> purge du cache Nuxt.
-- **Tests E2E** : scénarios critiques de résolution d'URL (ancien ID, nouveau ID, 404).
-- **Intégration députés** : les députés pourraient devenir des `public_persons` avec des appointments de catégorie "Député", unifiant tout l'annuaire.
+### 7.2 Évolution des filtres (select au lieu de pills)
+
+**Problème** : Avec 14+ catégories de postes et l'ajout futur de filtres (type nommé/élu, gouvernement, régime), les boutons pills ne scaleront pas.
+
+**Solution envisagée** : passer les filtres catégorie et genre en `<select>` ou en dropdown Nuxt UI :
+
+```
+[Catégorie ▾] [Genre ▾] [Type ▾] [Recherche...]
+```
+
+- Plus compact, permet d'afficher 3-4 filtres sur une ligne
+- Compatible mobile (select natif)
+- Conserve la sync URL (`?category=ministre&gender=female&type=nominated`)
+
+### 7.3 Liaison avec l'annuaire des services de l'État
+
+**Objectif** : créer un maillage interne entre les personnalités et les entités publiques.
+
+**Principe** :
+- L'annuaire des services de l'État (`/annuaire-services-etat`) contient les structures (ministères, agences, directions...)
+- Chaque `public_person_appointment` a déjà un `organization_label` (texte)
+- **Évolution** : ajouter une FK `organization` -> collection `public_entities` (ou équivalent) dans Directus
+
+**Liens internes créés** :
+- Page personnalité -> lien vers la fiche de l'organisation (`/services-etat/{slug}`)
+- Page organisation -> liste des personnalités affectées (actuelles et historiques)
+- Page gouvernement -> liens vers les ministères correspondants
+
+```
+public_person_appointments.organization ──→ public_entities
+                                              │
+                                              ├── Page personnalité : "Ministre des Finances → Ministère de l'Économie"
+                                              └── Page entité : "Ministère de l'Économie → Ministre : Cheikh Diba"
+```
+
+### 7.4 Liaison nominations ↔ gouvernement ↔ régime
+
+**Objectif** : rattacher chaque nomination à un gouvernement spécifique et un régime présidentiel.
+
+**Nouveau modèle CMS envisagé** :
+
+```
+presidents (ou regimes)
+├── id, full_name, start_date, end_date
+├── person -> public_persons (le président est aussi une personnalité)
+└── label : "Présidence Bassirou Diomaye Faye"
+
+governments
+├── id, label ("Gouvernement Ousmane Sonko I")
+├── president -> presidents
+├── prime_minister -> public_persons
+├── start_date, end_date
+└── decree_reference (décret de nomination)
+
+public_person_appointments
+├── ... (champs existants)
+├── government -> governments (FK)      ← NOUVEAU
+└── regime -> presidents (FK)           ← NOUVEAU (optionnel, déduit via government)
+```
+
+**Liens internes créés** :
+- Page personnalité : "Nommé sous le Gouvernement Sonko I" (lien)
+- Page gouvernement : composition complète avec liens vers chaque membre
+- Page régime : liste de tous les gouvernements d'un président
+- Comparaison de gouvernements : composition à une date donnée
+- Historique : frise chronologique des gouvernements successifs
+
+### 7.5 Maillage interne global (SEO)
+
+Synthèse de tous les liens internes créés par ces évolutions :
+
+```
+Personnalité ←→ Organisation (service de l'État)
+Personnalité ←→ Gouvernement
+Personnalité ←→ Prédécesseur / Successeur (déjà fait)
+Gouvernement ←→ Régime / Président
+Organisation ←→ Gouvernement (via ministères)
+Nomination   ←→ Document source (décret)
+```
+
+### 7.6 Autres évolutions
+
+- **Migrer la magistrature vers `public_persons`** : les magistrats seraient des `public_persons` avec des appointments de type `appointed_judiciary`
+- **Intégration députés** : `public_persons` avec appointments de type `elected`, catégorie "Député"
+- **Intégration maires** : idem, catégorie "Maire"
+- **Timeline des nominations** : frise chronologique par personne ou par poste
+- **Notifications de changement** : alerte PWA sur nouvelles nominations
+- **Export PDF/CSV** : export de l'annuaire filtré
+- **Recherche transversale** : recherche unifiée sur tous les annuaires
+
+### 7.7 Technique
+
+- **Cache invalidation** : webhook Directus -> purge du cache Nuxt
+- **Tests E2E** : scénarios critiques de résolution d'URL (ancien ID, nouveau ID, 404)
+- **Schema.org enrichi** : GovernmentOrganization, GovernmentService pour les entités liées
 
 ---
 
@@ -517,11 +601,46 @@ Le hub regroupe tous les annuaires du site (7 entrées) :
 15. ~~**Canonical URLs** : vérifiées sur toutes les pages migrées~~
 16. ~~**Tests SEO validés** : ancien ID -> 301, nouveau ID -> affichage, inexistant -> 404~~
 
-### Phase 7 : Nettoyage -- EN COURS
+### Phase 7 : Nettoyage -- DONE
 
-17. **Planifier la stratégie** pour `/nomination-senegal` (conserver comme vue filtrée ou rediriger) -- A FAIRE
-18. ~~**Documenter** les changements dans ce PRD~~ -- DONE
-19. **Marquer les anciens fichiers** comme deprecated : `server/api/nominations/*`, `composables/useNominations.ts` -- A FAIRE
+17. ~~**Stratégie `/nomination-senegal`** : Option A appliquée — page migrée vers `usePublicPersons()`, vue filtrée par date de nomination~~
+18. ~~**Documenter** les changements dans ce PRD~~
+19. ~~**Supprimer les anciens fichiers et le code legacy** :~~
+    - ~~`server/api/nominations/index.get.ts`, `[id].get.ts`, `stats.get.ts` — supprimés~~
+    - ~~`composables/useNominations.ts` — supprimé~~
+    - ~~`legacy_position_id` retiré de l'API, des types TypeScript et du composable `usePublicPerson`~~
+    - ~~Menu mis à jour : "Personnalités publiques" → `/personnalites-senegal`~~
+
+### Phase 8 : Enrichissement du modèle -- A FAIRE
+
+#### 8a. Distinction nommés / élus (voir 7.1)
+
+20. **Ajouter le champ** `person_type` (`nominated` / `elected` / `appointed_judiciary`) dans Directus sur `public_person_appointments`
+21. **Mettre à jour l'API** `stats.get.ts` : ajouter agrégation par `person_type`
+22. **Mettre à jour l'API** `index.get.ts` : ajouter filtre `filterType`
+23. **Mettre à jour la page liste** : ajouter le filtre type + passer les filtres en `<select>` (voir 7.2)
+
+#### 8b. Gouvernements et régimes (voir 7.4)
+
+24. **Créer les collections Directus** : `presidents` (ou `regimes`) et `governments`
+25. **Ajouter la FK** `government` sur `public_person_appointments`
+26. **Créer l'API** `/api/governments` : liste des gouvernements avec composition
+27. **Créer la page** `/gouvernements` : historique de tous les gouvernements
+28. **Enrichir la page détail** personnalité : afficher le gouvernement de rattachement
+
+#### 8c. Liaison avec l'annuaire des services de l'État (voir 7.3)
+
+29. **Ajouter la FK** `organization` -> `public_entities` sur `public_person_appointments`
+30. **Enrichir la page détail** personnalité : lien vers la fiche organisation
+31. **Enrichir la page détail** organisation : liste des personnalités affectées
+32. **Maillage interne SEO** : liens croisés systématiques entre entités
+
+#### 8d. Intégration des élus
+
+33. **Ajouter les députés** comme `public_persons` avec appointments `elected` / catégorie "Député"
+34. **Ajouter les maires** comme `public_persons` avec appointments `elected` / catégorie "Maire"
+35. **Ajouter le Président** comme `public_persons` avec appointment `elected` / catégorie "Président"
+36. **Migrer la magistrature** : appointments `appointed_judiciary`
 
 ---
 

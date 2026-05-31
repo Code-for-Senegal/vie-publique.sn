@@ -4,47 +4,53 @@ const { siteName, siteUrl, keywords, themeColor } = useSiteMetadata();
 const url = `${siteUrl}/nomination-senegal`;
 const image = `${siteUrl}/nomination-3.png`;
 
-const { $dateformat } = useNuxtApp();
-const route = useRoute();
-
 const {
-  nominations,
+  persons,
   loading,
   error,
   currentPage,
   searchQuery,
-  filterType,
+  filterCategory,
   filterGender,
   totalItems,
   totalPages,
-  totalsByType,
+  totalsByCategory,
   totalsByGender,
   hasActiveFilters,
   resetFilters,
   setCurrentPage,
   setSearchQuery,
-  setFilterType,
+  setFilterCategory,
   setFilterGender,
-} = useNominations();
+} = usePublicPersons({
+  sort: '-current_appointment.appointment_date',
+});
 
-// SEO dynamique : titre basé sur la date de la dernière nomination
-const formatDateFr = (dateStr: string) => {
-  const d = new Date(dateStr);
-  return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
-};
-
+// SEO dynamique
 const title = computed(() => {
-  const latest = nominations.value?.[0];
-  if (latest?.nominationDate) {
-    return `Nominations au Sénégal — Dernière mise à jour ${formatDateFr(latest.nominationDate)}`;
+  const latest = persons.value?.[0];
+  if (latest?.current_appointment?.appointment_date) {
+    const d = new Date(latest.current_appointment.appointment_date);
+    const formatted = d.toLocaleDateString('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+    return `Nominations au Sénégal — Dernière mise à jour ${formatted}`;
   }
   return 'Nominations au Sénégal — Ministres, DG, PCA';
 });
 
 const description = computed(() => {
-  const latest = nominations.value?.[0];
-  if (latest?.nominationDate) {
-    return `Liste complète des nominations au Sénégal. Dernière nomination le ${formatDateFr(latest.nominationDate)}. Ministres, directeurs généraux, PCA, ambassadeurs nommés en conseil des ministres.`;
+  const latest = persons.value?.[0];
+  if (latest?.current_appointment?.appointment_date) {
+    const d = new Date(latest.current_appointment.appointment_date);
+    const formatted = d.toLocaleDateString('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+    return `Liste complète des nominations au Sénégal. Dernière nomination le ${formatted}. Ministres, directeurs généraux, PCA, ambassadeurs nommés en conseil des ministres.`;
   }
   return 'Liste complète des nominations au Sénégal. Ministres, directeurs généraux, PCA, ambassadeurs nommés en conseil des ministres.';
 });
@@ -175,39 +181,16 @@ useHead({
   ],
 });
 
-// Fonction pour créer l'URL vers détails en gardant les filtres actuels
-const getDetailUrl = (minister: any) => {
-  const slug = minister.name
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-
-  const query = { ...route.query };
-
-  return {
-    path: `/personnalites/${minister.id}/${slug}`,
-    query,
-  };
-};
-
 // Nombre total de nominations
 const totalCount = computed(
   () => totalsByGender.value.maleCount + totalsByGender.value.femaleCount,
 );
 
-// Reset de la page lors du changement de recherche
-watch(searchQuery, () => {
-  filterType.value = 'all';
-  filterGender.value = 'all';
-  currentPage.value = 1;
-});
-
-// Reset de la page lors du changement de filtres
-watch([filterType, filterGender], () => {
-  currentPage.value = 1;
-});
+// Format date
+const formatDateFr = (dateStr: string) => {
+  const d = new Date(dateStr);
+  return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+};
 </script>
 
 <template>
@@ -279,11 +262,11 @@ watch([filterType, filterGender], () => {
           <button
             class="flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-all active:scale-95"
             :class="[
-              filterGender === 'Monsieur'
+              filterGender === 'male'
                 ? 'bg-blue-600 text-white shadow-sm'
                 : 'bg-white text-gray-700 ring-1 ring-gray-200 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:ring-gray-700 dark:hover:bg-gray-700',
             ]"
-            @click="setFilterGender(filterGender === 'Monsieur' ? 'all' : 'Monsieur')"
+            @click="setFilterGender(filterGender === 'male' ? 'all' : 'male')"
           >
             <UIcon name="i-heroicons-user-20-solid" class="h-3.5 w-3.5" />
             Hommes
@@ -294,11 +277,11 @@ watch([filterType, filterGender], () => {
           <button
             class="flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-all active:scale-95"
             :class="[
-              filterGender === 'Madame'
+              filterGender === 'female'
                 ? 'bg-purple-600 text-white shadow-sm'
                 : 'bg-white text-gray-700 ring-1 ring-gray-200 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:ring-gray-700 dark:hover:bg-gray-700',
             ]"
-            @click="setFilterGender(filterGender === 'Madame' ? 'all' : 'Madame')"
+            @click="setFilterGender(filterGender === 'female' ? 'all' : 'female')"
           >
             <UIcon name="i-heroicons-user-20-solid" class="h-3.5 w-3.5" />
             Femmes
@@ -308,28 +291,28 @@ watch([filterType, filterGender], () => {
           </button>
         </div>
 
-        <!-- Type Filters - Horizontal Scroll -->
+        <!-- Category Filters - Horizontal Scroll -->
         <nav
           class="scrollbar-hide -mx-4 mt-2 overflow-x-auto px-4 pb-1"
-          aria-label="Filtrer par type"
+          aria-label="Filtrer par catégorie"
         >
           <div v-if="loading" class="flex gap-2 py-0.5">
             <USkeleton v-for="n in 5" :key="n" class="h-7 w-20 shrink-0 rounded-full" />
           </div>
           <div v-else class="flex gap-1.5 py-0.5">
             <button
-              v-for="(total, type) in totalsByType"
-              :key="type"
+              v-for="(catData, slug) in totalsByCategory"
+              :key="slug"
               class="flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-all active:scale-95"
               :class="[
-                filterType === type
+                filterCategory === slug
                   ? 'bg-primary-600 text-white shadow-sm'
                   : 'bg-white text-gray-700 ring-1 ring-gray-200 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:ring-gray-700 dark:hover:bg-gray-700',
               ]"
-              @click="setFilterType(filterType === type ? 'all' : (type as string))"
+              @click="setFilterCategory(filterCategory === slug ? 'all' : (slug as string))"
             >
-              {{ type }}
-              <span class="text-[10px] opacity-70">({{ total }})</span>
+              {{ catData.label }}
+              <span class="text-[10px] opacity-70">({{ catData.count }})</span>
             </button>
           </div>
         </nav>
@@ -345,13 +328,13 @@ watch([filterType, filterGender], () => {
         <span v-if="filterGender !== 'all'" class="inline-flex items-center gap-1">
           <span
             class="h-2 w-2 rounded-full"
-            :class="filterGender === 'Monsieur' ? 'bg-blue-500' : 'bg-purple-500'"
+            :class="filterGender === 'male' ? 'bg-blue-500' : 'bg-purple-500'"
           />
-          {{ filterGender === 'Monsieur' ? 'Hommes' : 'Femmes' }}
+          {{ filterGender === 'male' ? 'Hommes' : 'Femmes' }}
         </span>
-        <span v-if="filterType !== 'all'" class="inline-flex items-center gap-1">
+        <span v-if="filterCategory !== 'all'" class="inline-flex items-center gap-1">
           <span class="bg-primary-500 h-2 w-2 rounded-full" />
-          {{ filterType }}
+          {{ totalsByCategory[filterCategory]?.label || filterCategory }}
         </span>
         <span v-if="searchQuery"> · "{{ searchQuery }}"</span>
         <button
@@ -405,7 +388,7 @@ watch([filterType, filterGender], () => {
       </div>
 
       <!-- Empty State -->
-      <div v-else-if="nominations.length === 0" class="py-16 text-center">
+      <div v-else-if="persons.length === 0" class="py-16 text-center">
         <div
           class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800"
         >
@@ -434,24 +417,24 @@ watch([filterType, filterGender], () => {
       <div v-else>
         <div class="space-y-2">
           <NuxtLink
-            v-for="minister in nominations"
-            :key="minister.id || minister.name"
-            :to="getDetailUrl(minister)"
+            v-for="person in persons"
+            :key="person.id"
+            :to="`/personnalites/${person.id}/${person.slug}`"
             class="group flex gap-3 rounded-xl bg-white p-3 shadow-sm ring-1 ring-gray-100 transition-all hover:shadow-md hover:ring-gray-200 active:scale-[0.99] dark:bg-gray-900 dark:ring-gray-800 dark:hover:ring-gray-700"
           >
             <!-- Photo -->
             <div class="relative h-14 w-14 shrink-0 sm:h-16 sm:w-16">
               <img
-                :src="minister.photo ? useCmsImage(minister.photo) : '/unknown_member.webp'"
-                :alt="minister.name"
+                :src="person.photo ? useCmsImage(person.photo) : '/unknown_member.webp'"
+                :alt="person.full_name"
                 class="h-full w-full rounded-full object-cover ring-2 ring-gray-100 transition-shadow group-hover:ring-gray-200 dark:ring-gray-700 dark:group-hover:ring-gray-600"
                 loading="lazy"
               />
               <!-- End date indicator -->
               <span
-                v-if="minister.endDate"
+                v-if="person.current_appointment?.end_date"
                 class="absolute -bottom-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 ring-2 ring-white dark:ring-gray-900"
-                title="Limogé(e)"
+                title="Fin de fonction"
               >
                 <UIcon name="i-heroicons-x-mark-20-solid" class="h-2.5 w-2.5 text-white" />
               </span>
@@ -462,24 +445,34 @@ watch([filterType, filterGender], () => {
               <h2
                 class="group-hover:text-primary-600 dark:group-hover:text-primary-400 truncate text-sm font-semibold text-gray-900 dark:text-white"
               >
-                {{ minister.name }}
+                {{ person.full_name }}
               </h2>
-              <p class="mt-0.5 line-clamp-1 text-xs text-gray-600 dark:text-gray-400">
-                {{ minister.role }}
+              <p
+                v-if="person.current_appointment?.position_title"
+                class="mt-0.5 line-clamp-1 text-xs text-gray-600 dark:text-gray-400"
+              >
+                {{ person.current_appointment.position_title }}
               </p>
               <p
-                v-if="minister.organisation"
+                v-if="person.current_appointment?.organization_label"
                 class="line-clamp-1 text-xs text-gray-500 dark:text-gray-500"
               >
-                {{ minister.organisation }}
+                {{ person.current_appointment.organization_label }}
               </p>
               <div class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5">
-                <time class="text-[11px] text-gray-400 dark:text-gray-500">
-                  {{ minister.sexe === 'Madame' ? 'Nommée' : 'Nommé' }} le
-                  {{ $dateformat(minister.nominationDate) }}
+                <time
+                  v-if="person.current_appointment?.appointment_date"
+                  class="text-[11px] text-gray-400 dark:text-gray-500"
+                >
+                  {{ person.sexe === 'female' ? 'Nommée' : 'Nommé' }} le
+                  {{ formatDateFr(person.current_appointment.appointment_date) }}
                 </time>
-                <span v-if="minister.endDate" class="text-[11px] text-red-500 dark:text-red-400">
-                  Fin de fonction le {{ $dateformat(minister.endDate) }}
+                <span
+                  v-if="person.current_appointment?.end_date"
+                  class="text-[11px] text-red-500 dark:text-red-400"
+                >
+                  Fin de fonction le
+                  {{ formatDateFr(person.current_appointment.end_date) }}
                 </span>
               </div>
             </div>

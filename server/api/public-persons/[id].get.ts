@@ -3,12 +3,7 @@ import type { PublicPersonDetail, PublicPersonAppointment } from '~/types/public
 
 /**
  * API pour récupérer le détail d'une personnalité publique.
- *
- * Logique de résolution :
- * 1. Cherche par public_persons.id (nouvelle URL)
- * 2. Si non trouvé, cherche par legacy_position_id (ancienne URL Google)
- *    et retourne un flag `redirect` avec le nouvel ID
- * 3. Si rien trouvé, retourne 404
+ * Recherche par public_persons.id, retourne 404 si non trouvé.
  */
 export default defineCachedEventHandler(
   async (event) => {
@@ -42,7 +37,6 @@ export default defineCachedEventHandler(
         'tiktok',
         'linkedin',
         'website',
-        'legacy_position_id',
         'current_appointment.id',
         'current_appointment.position_title',
         'current_appointment.position_category',
@@ -57,7 +51,7 @@ export default defineCachedEventHandler(
         'current_appointment.source_link',
       ];
 
-      // --- Cas A : recherche par ID direct ---
+      // Recherche par ID direct
       let personData: any = null;
       try {
         personData = await directus.request(
@@ -66,7 +60,7 @@ export default defineCachedEventHandler(
           }),
         );
       } catch {
-        // ID non trouvé, on essaie le fallback
+        // ID non trouvé
       }
 
       // Vérifier que la personne est publiée (readItem ne filtre pas par status)
@@ -74,44 +68,11 @@ export default defineCachedEventHandler(
         personData = null;
       }
 
-      // --- Cas B : fallback par legacy_position_id ---
-      let isLegacyRedirect = false;
-      if (!personData) {
-        const legacyResults = await directus
-          .request(
-            readItems('public_persons', {
-              fields: personFields,
-              filter: {
-                legacy_position_id: { _eq: numericId },
-                status: { _eq: 'published' },
-              },
-              limit: 1,
-            }),
-          )
-          .catch(() => []);
-
-        if (legacyResults.length > 0) {
-          personData = legacyResults[0];
-          isLegacyRedirect = true;
-        }
-      }
-
-      // --- Cas C : rien trouvé ---
       if (!personData) {
         throw createError({
           statusCode: 404,
           statusMessage: 'Personnalité non trouvée',
         });
-      }
-
-      // Si c'est un legacy redirect, on retourne les infos pour la redirection 301
-      if (isLegacyRedirect) {
-        const slug = personData.slug || generateSlugFromName(personData.full_name);
-        return {
-          redirect: true,
-          redirectTo: `/personnalites/${personData.id}/${slug}`,
-          statusCode: 301,
-        };
       }
 
       // Récupération des nominations de cette personne
@@ -244,15 +205,11 @@ export default defineCachedEventHandler(
         tiktok: personData.tiktok || null,
         linkedin: personData.linkedin || null,
         website: personData.website || null,
-        legacy_position_id: personData.legacy_position_id || null,
         current_appointment: currentAppointment,
         appointments,
       };
 
-      return {
-        person,
-        redirect: false,
-      };
+      return { person };
     } catch (error: any) {
       if (error.statusCode) throw error;
       throw createError({

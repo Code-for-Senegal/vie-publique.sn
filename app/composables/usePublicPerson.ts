@@ -2,10 +2,9 @@ import type { PublicPersonDetail } from '~/types/public-person';
 
 /**
  * Composable pour récupérer le détail d'une personnalité publique.
- * Gère la résolution legacy (ancien positions.id -> nouveau public_persons.id).
  *
  * @example
- * const { person, loading, error, isLegacyRedirect } = usePublicPerson('123');
+ * const { person, loading, error } = usePublicPerson('123');
  */
 export const usePublicPerson = (id: string | Ref<string>) => {
   const resolvedId = computed(() => unref(id));
@@ -17,23 +16,8 @@ export const usePublicPerson = (id: string | Ref<string>) => {
     },
   );
 
-  // Gestion de la redirection legacy (301)
-  const isLegacyRedirect = computed(() => data.value?.redirect === true);
-  const redirectTo = computed(() => data.value?.redirectTo || null);
-
-  // Si c'est un redirect legacy, effectuer la navigation
-  watch(
-    data,
-    (newData) => {
-      if (newData?.redirect && newData?.redirectTo) {
-        navigateTo(newData.redirectTo, { redirectCode: 301 });
-      }
-    },
-    { immediate: true },
-  );
-
   const person = computed<PublicPersonDetail | null>(() => {
-    if (!data.value || data.value.redirect) return null;
+    if (!data.value) return null;
     return data.value.person as PublicPersonDetail;
   });
 
@@ -78,7 +62,5 @@ export const usePublicPerson = (id: string | Ref<string>) => {
     loading: pending,
     error,
     refresh,
-    isLegacyRedirect,
-    redirectTo,
   };
 };

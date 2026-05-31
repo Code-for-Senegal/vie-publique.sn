@@ -60,7 +60,6 @@ export default defineCachedEventHandler(
               'slug',
               'sexe',
               'photo',
-              'legacy_position_id',
               'current_appointment.id',
               'current_appointment.position_title',
               'current_appointment.position_category',
@@ -102,7 +101,6 @@ export default defineCachedEventHandler(
         slug: person.slug || generateSlugFromName(person.full_name),
         sexe: person.sexe,
         photo: person.photo || null,
-        legacy_position_id: person.legacy_position_id || null,
         current_appointment: person.current_appointment
           ? {
               id: person.current_appointment.id,

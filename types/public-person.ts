@@ -34,7 +34,6 @@ export interface PublicPerson {
   linkedin?: string | null;
   website?: string | null;
   current_appointment?: PublicPersonAppointment | null;
-  legacy_position_id?: number | null;
 }
 
 export interface PublicPersonDetail extends PublicPerson {
