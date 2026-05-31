@@ -3,38 +3,14 @@ import type { GovernmentMember } from '~/types/government-member';
 
 const { siteName, siteUrl, keywords, themeColor } = useSiteMetadata();
 
-const title = 'Gouvernement du Sénégal 2024 | Ministres et Premier Ministre';
+const title =
+  'Gouvernement du Sénégal — Composition actuelle sous Bassirou Diomaye Faye | Vie Publique Sénégal';
 const description =
   "Composition actuelle du gouvernement du Sénégal sous la présidence de Bassirou Diomaye Faye. Liste complète des ministres, secrétaires d'État avec photos et fonctions.";
 const url = `${siteUrl}/gouvernement-senegal`;
 const image = `${siteUrl}/nomination-3.png`;
 
-// SEO Meta Tags
-useSeoMeta({
-  title,
-  ogTitle: title,
-  description,
-  ogDescription: description,
-  ogImage: image,
-  ogUrl: url,
-  twitterCard: 'summary_large_image',
-  twitterTitle: title,
-  twitterDescription: description,
-  twitterImage: image,
-  keywords: [
-    ...keywords,
-    'gouvernement sénégal',
-    'ministres sénégal 2024',
-    'premier ministre sénégal',
-    'Ousmane Sonko',
-    'cabinet ministériel sénégal',
-    'composition gouvernement sénégal',
-    "secrétaires d'état sénégal",
-    'gouvernement Diomaye Faye',
-  ].join(', '),
-});
-
-// Récupération des données du gouvernement via composable (conforme aux guidelines)
+// Récupération des données du gouvernement
 const {
   governmentData,
   primeMinister,
@@ -45,10 +21,8 @@ const {
   error,
 } = useGovernment();
 
-// Schema JSON-LD pour le gouvernement
+// Schema GovernmentOrganization (réactif)
 const governmentSchema = computed(() => {
-  if (!governmentData.value) return {};
-
   const members = [primeMinister.value, ...ministers.value, ...secretariesOfState.value].filter(
     Boolean,
   );
@@ -57,8 +31,8 @@ const governmentSchema = computed(() => {
     '@context': 'https://schema.org',
     '@type': 'GovernmentOrganization',
     name: 'Gouvernement de la République du Sénégal',
-    url: url,
-    description: description,
+    url,
+    description,
     address: {
       '@type': 'PostalAddress',
       addressCountry: 'SN',
@@ -86,6 +60,31 @@ const governmentSchema = computed(() => {
   };
 });
 
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: title,
+  description,
+  url,
+  image,
+  isPartOf: {
+    '@type': 'WebSite',
+    name: siteName,
+    url: siteUrl,
+  },
+  about: [
+    {
+      '@type': 'GovernmentOrganization',
+      name: 'Gouvernement du Sénégal',
+    },
+  ],
+  mainEntity: {
+    '@type': 'ItemList',
+    name: 'Membres du gouvernement du Sénégal',
+    description: "Premier Ministre, ministres et secrétaires d'État du Sénégal",
+  },
+};
+
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -99,11 +98,45 @@ const breadcrumbSchema = {
     {
       '@type': 'ListItem',
       position: 2,
+      name: 'Annuaires',
+      item: `${siteUrl}/annuaires`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
       name: 'Gouvernement du Sénégal',
       item: url,
     },
   ],
 };
+
+// SEO Meta Tags
+useSeoMeta({
+  title,
+  ogTitle: title,
+  description,
+  ogDescription: description,
+  ogImage: image,
+  ogUrl: url,
+  twitterCard: 'summary_large_image',
+  twitterTitle: title,
+  twitterDescription: description,
+  twitterImage: image,
+  keywords: [
+    ...keywords,
+    'gouvernement sénégal',
+    'gouvernement actuel sénégal',
+    'ministres sénégal',
+    'premier ministre sénégal',
+    'Ousmane Sonko',
+    'Bassirou Diomaye Faye',
+    'cabinet ministériel sénégal',
+    'composition gouvernement sénégal',
+    "secrétaires d'état sénégal",
+    'gouvernement Diomaye Faye',
+    'liste ministres sénégal',
+  ].join(', '),
+});
 
 // Head Configuration
 useHead({
@@ -117,255 +150,289 @@ useHead({
     { name: 'robots', content: 'index, follow' },
     { name: 'geo.region', content: 'SN' },
     { name: 'geo.placename', content: 'Dakar' },
+    { name: 'geo.position', content: '14.7645042;-17.3660286' },
+    { name: 'ICBM', content: '14.7645042, -17.3660286' },
   ],
   script: [
     {
       type: 'application/ld+json',
-      children: JSON.stringify(governmentSchema.value),
+      children: JSON.stringify(pageSchema),
     },
     {
       type: 'application/ld+json',
       children: JSON.stringify(breadcrumbSchema),
     },
+    {
+      type: 'application/ld+json',
+      children: computed(() => JSON.stringify(governmentSchema.value)),
+    },
   ],
 });
 
-// Fonction pour générer l'URL du portrait
+// URL vers la fiche détail
 const getPortraitUrl = (member: GovernmentMember) => {
-  // Utiliser le slug de l'API (généré côté serveur si non fourni par Directus)
   const slug = member.slug || member.id;
-  return `/personnalites/${member.id}/${slug}?ref=gouvernement`;
+  return `/personnalites/${member.id}/${slug}`;
 };
 
-// Fonction pour obtenir les initiales si pas de photo
-const getInitials = (name: string): string => {
-  return name
-    .split(' ')
-    .slice(0, 2)
-    .map((word) => word.charAt(0))
-    .join('')
-    .toUpperCase();
-};
-
-// Fonction pour formater la durée en fonction
+// Durée en fonction
 const getDuration = (nominationDate: string): string => {
   const start = new Date(nominationDate);
   const now = new Date();
   const months = Math.floor((now.getTime() - start.getTime()) / (1000 * 60 * 60 * 24 * 30));
 
-  if (months < 1) return 'Récemment nommé';
+  if (months < 1) return 'Récemment nommé(e)';
   if (months < 12) return `${months} mois en fonction`;
   const years = Math.floor(months / 12);
   const remainingMonths = months % 12;
   if (remainingMonths === 0) return `${years} an${years > 1 ? 's' : ''} en fonction`;
-  return `${years} an${years > 1 ? 's' : ''} et ${remainingMonths} mois en fonction`;
+  return `${years} an${years > 1 ? 's' : ''} et ${remainingMonths} mois`;
 };
 </script>
 
 <template>
-  <div class="min-h-screen space-y-6 p-0 pb-16">
-    <AppBreadcrumb :items="[{ label: 'Gouvernement' }]" />
+  <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-950">
+    <!-- Breadcrumb -->
+    <div class="container mx-auto px-4 pt-2">
+      <AppBreadcrumb
+        :items="[{ label: 'Annuaires', to: '/annuaires' }, { label: 'Gouvernement' }]"
+      />
+    </div>
 
-    <!-- Header -->
-    <UCard class="custom-shadow">
-      <template #header>
-        <div class="space-y-4">
-          <h1 class="text-2xl font-bold sm:text-3xl">Gouvernement du Sénégal</h1>
-          <p class="text-gray-600 dark:text-gray-400">
-            Composition du gouvernement sous la présidence de Bassirou Diomaye Faye
-          </p>
+    <!-- SEO hidden heading -->
+    <h1 class="sr-only">
+      Gouvernement du Sénégal — Composition actuelle, ministres et secrétaires d'État
+    </h1>
 
-          <!-- Statistiques -->
-          <div v-if="stats" class="grid grid-cols-2 gap-4 md:grid-cols-4">
-            <div class="rounded-lg bg-blue-50 p-4 dark:bg-blue-900/20">
-              <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                {{ stats.total }}
-              </p>
-              <p class="text-sm text-gray-600 dark:text-gray-400">Membres</p>
-            </div>
-            <div class="rounded-lg bg-green-50 p-4 dark:bg-green-900/20">
-              <p class="text-2xl font-bold text-green-600 dark:text-green-400">
-                {{ stats.ministers }}
-              </p>
-              <p class="text-sm text-gray-600 dark:text-gray-400">Ministres</p>
-            </div>
-            <div class="rounded-lg bg-purple-50 p-4 dark:bg-purple-900/20">
-              <p class="text-2xl font-bold text-purple-600 dark:text-purple-400">
-                {{ stats.women }}
-              </p>
-              <p class="text-sm text-gray-600 dark:text-gray-400">Femmes</p>
-            </div>
-            <div class="rounded-lg bg-orange-50 p-4 dark:bg-orange-900/20">
-              <p class="text-2xl font-bold text-orange-600 dark:text-orange-400">
-                {{ Math.round((stats.women / stats.total) * 100) }}%
-              </p>
-              <p class="text-sm text-gray-600 dark:text-gray-400">Parité</p>
-            </div>
+    <!-- Sticky Header -->
+    <header
+      class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95"
+    >
+      <div class="container mx-auto px-4 py-3">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-lg font-bold text-gray-900 dark:text-white sm:text-xl">
+              Gouvernement du Sénégal
+            </h2>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+              Présidence de Bassirou Diomaye Faye
+            </p>
+          </div>
+          <!-- Stats desktop -->
+          <div v-if="stats" class="hidden items-center gap-3 sm:flex">
+            <span
+              class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-700 dark:bg-gray-800 dark:text-gray-300"
+            >
+              {{ stats.total }} membres
+            </span>
+            <span
+              class="inline-flex items-center rounded-full bg-purple-50 px-2.5 py-1 text-xs font-medium text-purple-700 dark:bg-purple-900/30 dark:text-purple-300"
+            >
+              {{ stats.women }} femmes · {{ Math.round((stats.women / stats.total) * 100) }}%
+            </span>
           </div>
         </div>
-      </template>
+        <!-- Stats mobile -->
+        <div v-if="stats" class="mt-2 flex items-center gap-2 sm:hidden">
+          <span
+            class="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-[11px] font-medium text-gray-600 dark:bg-gray-800 dark:text-gray-400"
+          >
+            {{ stats.total }} membres
+          </span>
+          <span
+            class="inline-flex items-center rounded-full bg-purple-50 px-2 py-0.5 text-[11px] font-medium text-purple-600 dark:bg-purple-900/30 dark:text-purple-300"
+          >
+            {{ stats.women }} femmes · {{ Math.round((stats.women / stats.total) * 100) }}%
+          </span>
+        </div>
+      </div>
+    </header>
 
+    <main class="container mx-auto px-4 pt-6">
       <!-- Loading -->
-      <div v-if="pending" class="space-y-6">
-        <div v-for="i in 3" :key="i" class="animate-pulse space-y-4">
-          <div class="h-6 w-48 rounded bg-gray-200 dark:bg-gray-700"></div>
-          <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <div v-for="j in 3" :key="j" class="h-32 rounded-lg bg-gray-200 dark:bg-gray-700"></div>
+      <div v-if="pending" class="space-y-8">
+        <div>
+          <div class="mb-4 h-5 w-40 rounded bg-gray-200 dark:bg-gray-700" />
+          <div class="h-48 overflow-hidden rounded-2xl bg-gray-200 dark:bg-gray-700 sm:h-56" />
+        </div>
+        <div>
+          <div class="mb-4 h-5 w-32 rounded bg-gray-200 dark:bg-gray-700" />
+          <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+            <div v-for="n in 10" :key="n" class="overflow-hidden rounded-xl">
+              <USkeleton class="aspect-[3/4] w-full" />
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Error -->
-      <UAlert
-        v-else-if="error"
-        title="Erreur"
-        description="Impossible de charger le gouvernement"
-        color="red"
-        icon="i-heroicons-exclamation-triangle"
-      />
+      <div v-else-if="error" class="py-12 text-center">
+        <div
+          class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30"
+        >
+          <UIcon
+            name="i-heroicons-exclamation-triangle"
+            class="h-8 w-8 text-red-600 dark:text-red-400"
+          />
+        </div>
+        <p class="text-sm font-medium text-gray-900 dark:text-white">Erreur de chargement</p>
+        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+          Impossible de charger le gouvernement
+        </p>
+        <UButton color="red" variant="soft" size="sm" class="mt-4" @click="$router.go(0)">
+          Réessayer
+        </UButton>
+      </div>
 
       <!-- Contenu -->
-      <div v-else-if="governmentData" class="space-y-8">
+      <div v-else-if="governmentData" class="space-y-10">
         <!-- Premier Ministre -->
-        <div v-if="primeMinister" class="space-y-4">
-          <h2 class="flex items-center gap-2 text-xl font-bold">
-            <UIcon name="i-heroicons-star" class="h-6 w-6 text-yellow-500" />
-            Premier Ministre
-          </h2>
+        <section v-if="primeMinister">
+          <h2 class="mb-4 text-lg font-bold text-gray-900 dark:text-white">Premier Ministre</h2>
 
-          <NuxtLink :to="getPortraitUrl(primeMinister)" class="block transition hover:scale-[1.02]">
-            <UCard class="border-l-4 border-yellow-500">
-              <div class="flex items-center gap-4">
-                <UAvatar
-                  :src="useCmsImage(primeMinister.photo)"
+          <NuxtLink
+            :to="getPortraitUrl(primeMinister)"
+            class="group relative block overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-200 transition-all hover:shadow-xl dark:bg-gray-900 dark:ring-gray-700"
+          >
+            <div class="flex flex-col sm:flex-row">
+              <!-- Photo PM -->
+              <div
+                class="relative aspect-[3/4] w-full shrink-0 overflow-hidden bg-gray-200 dark:bg-gray-800 sm:aspect-auto sm:h-56 sm:w-44 md:h-64 md:w-52"
+              >
+                <img
+                  :src="
+                    primeMinister.photo ? useCmsImage(primeMinister.photo) : '/unknown_member.webp'
+                  "
                   :alt="primeMinister.name"
-                  :text="getInitials(primeMinister.name)"
-                  size="xl"
-                  class="flex-shrink-0"
+                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div class="min-w-0 flex-1">
-                  <h3 class="text-lg font-bold">
-                    {{ primeMinister.name }}
-                  </h3>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">
-                    {{ primeMinister.role }}
-                  </p>
-                  <p class="mt-1 text-xs text-gray-500">
-                    {{ getDuration(primeMinister.nominationDate) }}
-                  </p>
+                <!-- Gradient mobile only -->
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent sm:hidden"
+                />
+                <!-- Info mobile overlay -->
+                <div class="absolute inset-x-0 bottom-0 p-4 sm:hidden">
+                  <h3 class="text-lg font-bold text-white">{{ primeMinister.name }}</h3>
+                  <p class="mt-0.5 text-sm text-white/80">{{ primeMinister.role }}</p>
                 </div>
-                <UIcon name="i-heroicons-arrow-right" class="h-5 w-5 text-gray-400" />
               </div>
-            </UCard>
+              <!-- Info desktop -->
+              <div class="hidden flex-1 flex-col justify-center p-6 sm:flex md:p-8">
+                <div
+                  class="mb-2 inline-flex w-fit items-center rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800 dark:bg-amber-900/30 dark:text-amber-300"
+                >
+                  Premier Ministre
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white md:text-2xl">
+                  {{ primeMinister.name }}
+                </h3>
+                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                  {{ primeMinister.role }}
+                </p>
+                <p
+                  v-if="primeMinister.nominationDate"
+                  class="mt-3 text-xs text-gray-500 dark:text-gray-500"
+                >
+                  {{ getDuration(primeMinister.nominationDate) }}
+                </p>
+              </div>
+              <!-- Arrow desktop -->
+              <div class="hidden items-center pr-6 sm:flex">
+                <UIcon
+                  name="i-heroicons-chevron-right-20-solid"
+                  class="h-5 w-5 text-gray-300 transition-transform group-hover:translate-x-1 group-hover:text-gray-500 dark:text-gray-600"
+                />
+              </div>
+            </div>
           </NuxtLink>
-        </div>
+        </section>
 
         <!-- Ministres -->
-        <div v-if="ministers.length > 0" class="space-y-4">
-          <h2 class="flex items-center gap-2 text-xl font-bold">
-            <UIcon name="i-heroicons-user-group" class="h-6 w-6 text-blue-500" />
+        <section v-if="ministers.length > 0">
+          <h2 class="mb-4 text-lg font-bold text-gray-900 dark:text-white">
             Ministres ({{ ministers.length }})
           </h2>
 
-          <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             <NuxtLink
               v-for="minister in ministers"
               :key="minister.id"
               :to="getPortraitUrl(minister)"
-              class="block transition hover:scale-[1.02]"
+              class="group relative aspect-[3/4] overflow-hidden rounded-xl bg-gray-200 shadow-sm ring-1 ring-gray-100 transition-all hover:shadow-lg hover:ring-gray-200 dark:bg-gray-800 dark:ring-gray-700 dark:hover:ring-gray-600"
             >
-              <UCard class="h-full hover:shadow-lg">
-                <div class="flex flex-col items-center space-y-3 text-center">
-                  <UAvatar
-                    :src="useCmsImage(minister.photo)"
-                    :alt="minister.name"
-                    :text="getInitials(minister.name)"
-                    size="lg"
-                  />
-                  <div class="w-full min-w-0">
-                    <h3 class="line-clamp-2 text-sm font-bold">
-                      {{ minister.name }}
-                    </h3>
-                    <p class="mt-1 line-clamp-2 text-xs text-gray-600 dark:text-gray-400">
-                      {{ minister.role }}
-                    </p>
-                    <UBadge
-                      v-if="minister.sexe === 'female'"
-                      color="purple"
-                      variant="soft"
-                      size="xs"
-                      class="mt-2"
-                    >
-                      Femme
-                    </UBadge>
-                  </div>
-                </div>
-              </UCard>
+              <img
+                :src="minister.photo ? useCmsImage(minister.photo) : '/unknown_member.webp'"
+                :alt="minister.name"
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"
+              />
+              <div class="absolute inset-x-0 bottom-0 p-3">
+                <h3 class="text-sm font-bold leading-tight text-white">
+                  {{ minister.name }}
+                </h3>
+                <p class="mt-0.5 line-clamp-2 text-[11px] leading-tight text-white/80">
+                  {{ minister.role }}
+                </p>
+              </div>
             </NuxtLink>
           </div>
-        </div>
+        </section>
 
         <!-- Secrétaires d'État -->
-        <div v-if="secretariesOfState.length > 0" class="space-y-4">
-          <h2 class="flex items-center gap-2 text-xl font-bold">
-            <UIcon name="i-heroicons-user" class="h-6 w-6 text-green-500" />
+        <section v-if="secretariesOfState.length > 0">
+          <h2 class="mb-4 text-lg font-bold text-gray-900 dark:text-white">
             Secrétaires d'État ({{ secretariesOfState.length }})
           </h2>
 
-          <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             <NuxtLink
               v-for="secretary in secretariesOfState"
               :key="secretary.id"
               :to="getPortraitUrl(secretary)"
-              class="block transition hover:scale-[1.02]"
+              class="group relative aspect-[3/4] overflow-hidden rounded-xl bg-gray-200 shadow-sm ring-1 ring-gray-100 transition-all hover:shadow-lg hover:ring-gray-200 dark:bg-gray-800 dark:ring-gray-700 dark:hover:ring-gray-600"
             >
-              <UCard class="h-full hover:shadow-md">
-                <div class="flex flex-col items-center space-y-2 text-center">
-                  <UAvatar
-                    :src="useCmsImage(secretary.photo)"
-                    :alt="secretary.name"
-                    :text="getInitials(secretary.name)"
-                    size="md"
-                  />
-                  <div class="w-full min-w-0">
-                    <h3 class="line-clamp-2 text-xs font-semibold">
-                      {{ secretary.name }}
-                    </h3>
-                    <p class="mt-1 line-clamp-2 text-xs text-gray-600 dark:text-gray-400">
-                      {{ secretary.role }}
-                    </p>
-                  </div>
-                </div>
-              </UCard>
+              <img
+                :src="secretary.photo ? useCmsImage(secretary.photo) : '/unknown_member.webp'"
+                :alt="secretary.name"
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"
+              />
+              <div class="absolute inset-x-0 bottom-0 p-3">
+                <h3 class="text-sm font-bold leading-tight text-white">
+                  {{ secretary.name }}
+                </h3>
+                <p class="mt-0.5 line-clamp-2 text-[11px] leading-tight text-white/80">
+                  {{ secretary.role }}
+                </p>
+              </div>
             </NuxtLink>
           </div>
-        </div>
+        </section>
 
-        <!-- Lien vers toutes les nominations -->
-        <div class="border-t pt-6">
+        <!-- Lien vers l'annuaire -->
+        <div class="border-t border-gray-200 pt-6 dark:border-gray-800">
           <NuxtLink
             to="/personnalites-senegal"
-            class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 dark:text-blue-400"
+            class="text-primary-600 hover:text-primary-700 dark:text-primary-400 inline-flex items-center gap-2 text-sm font-medium"
           >
-            <UIcon name="i-heroicons-arrow-right" class="h-5 w-5" />
             Voir l'annuaire des personnalités publiques
+            <UIcon name="i-heroicons-arrow-right-20-solid" class="h-4 w-4" />
           </NuxtLink>
         </div>
       </div>
-    </UCard>
+    </main>
 
-    <!-- Note de mise à jour -->
-    <div class="text-center text-sm text-gray-500">
-      <p>Dernière mise à jour : {{ governmentData?.lastUpdate || 'N/A' }}</p>
-      <p class="mt-1">Source : Décrets présidentiels de la République du Sénégal</p>
+    <!-- Note -->
+    <div class="container mx-auto mt-8 px-4 text-center text-xs text-gray-400 dark:text-gray-500">
+      <p>Source : Décrets présidentiels de la République du Sénégal</p>
     </div>
+
+    <ScrollToTopButton />
   </div>
 </template>
-
-<style scoped>
-.custom-shadow {
-  box-shadow:
-    0 1px 3px 0 rgba(0, 0, 0, 0.1),
-    0 1px 2px 0 rgba(0, 0, 0, 0.06);
-}
-</style>
