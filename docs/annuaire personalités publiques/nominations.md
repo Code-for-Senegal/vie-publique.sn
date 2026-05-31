@@ -1,6 +1,6 @@
 # PRD - Annuaire des Personnalités Publiques
 
-**Dernière mise à jour** : 2025-05-31
+**Dernière mise à jour** : 2026-05-30
 **Status** : Migration terminée (positions -> public_persons + public_person_appointments)
 
 ---
@@ -373,13 +373,39 @@ Directus CMS
 - Champ `rating` : supprimé
 - Champ `portrait` (texte) : remplacé par `short_bio` et `long_bio`
 
-### 5.3 Page `/gouvernement-senegal` (migrée)
+### 5.3 Page `/gouvernement-senegal` (migrée + refonte design/SEO)
 
-Même layout qu'actuellement mais alimenté par les nouvelles collections :
-- PM : `public_person_appointments` avec `position_category = "Premier Ministre"` et `is_current = true`
-- Ministres : `position_category = "Ministre"` et `is_current = true`
-- Secrétaires d'État : `position_category = "Secrétaire d'État"` et `is_current = true`
+Alimentée par les nouvelles collections, avec refonte complète du design et du SEO (mai 2026).
+
+**Data flow** :
+
+- API : `GET /api/government/current` → filtre `public_persons` où `current_appointment.position_category _in ['Premier Ministre', 'Ministre', "Secrétaire d'État"]` et `is_current = true`
+- Le filtre ne vérifie **pas** le `status` de l'appointment (uniquement `public_persons.status = published`)
+- Le champ M2O `current_appointment` sur `public_persons` doit être renseigné pour que la personne apparaisse
+- PM : `position_category = "Premier Ministre"` → card hero photo-centric
+- Ministres : `position_category = "Ministre"` → grille portrait cards
+- Secrétaires d'État : `position_category = "Secrétaire d'État"` → même grille
 - Liens vers `/personnalites/{public_persons.id}/{slug}`
+
+**Design (refonte mai 2026)** :
+
+- Layout pleine page `min-h-screen bg-gray-50 dark:bg-gray-950` (suppression du wrapper `UCard`)
+- Header sticky avec titre + stats inline (badges compacts : membres, femmes, %)
+- PM : card hero avec photo portrait à gauche + infos à droite (desktop), photo pleine largeur + gradient overlay (mobile)
+- Ministres + Secrétaires : cards photo portrait `aspect-[3/4]` avec gradient overlay `from-black/80 via-black/20 to-transparent`, texte blanc en overlay, hover `scale-105 + shadow-lg`
+- Grille responsive : `grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5`
+- Photo par défaut `/unknown_member.webp` si pas de photo
+- Suppression des icônes "IA" devant les titres de section
+- Style inspiré de la page députés (`/assemblee-nationale/deputes`)
+
+**SEO (refonte mai 2026)** :
+
+- Title : `Gouvernement du Sénégal — Composition actuelle sous Bassirou Diomaye Faye | Vie Publique Sénégal`
+- Meta description enrichie avec mots-clés : "gouvernement actuel sénégal", "liste ministres sénégal", etc.
+- 4 schemas JSON-LD : WebSite, WebPage, BreadcrumbList (3 niveaux), GovernmentOrganization (avec chaque membre en Person)
+- Schema GovernmentOrganization dynamique via `computed()` pour inclure les données réactives
+- Meta géographiques : `geo.region`, `geo.position`, `ICBM` (coordonnées Dakar)
+- Canonical, Open Graph, Twitter Card
 
 ### 5.4 Logique de résolution d'URL sur la page détail
 
@@ -594,12 +620,13 @@ Nomination   ←→ Document source (décret)
 11. ~~**Migrer `server/api/government/current.get.ts`** : alimenter depuis `public_persons` + `public_person_appointments`~~
 12. ~~**Migrer `composables/useGovernment.ts`** : adapter aux nouvelles structures~~
 13. ~~**Mettre à jour `pages/gouvernement-senegal/index.vue`** : adapter au nouveau format de données~~
+14. ~~**Refonte design + SEO** (mai 2026) : layout pleine page, cards photo portrait, gradient overlay, schemas JSON-LD enrichis, meta géo~~ (voir section 5.3 pour détails)
 
 ### Phase 6 : SEO et redirections -- DONE
 
-14. ~~**Redirection legacy** : logique de résolution dans l'API `[id].get.ts` (fallback `legacy_position_id`)~~
-15. ~~**Canonical URLs** : vérifiées sur toutes les pages migrées~~
-16. ~~**Tests SEO validés** : ancien ID -> 301, nouveau ID -> affichage, inexistant -> 404~~
+15. ~~**Redirection legacy** : logique de résolution dans l'API `[id].get.ts` (fallback `legacy_position_id`)~~
+16. ~~**Canonical URLs** : vérifiées sur toutes les pages migrées~~
+17. ~~**Tests SEO validés** : ancien ID -> 301, nouveau ID -> affichage, inexistant -> 404~~
 
 ### Phase 7 : Nettoyage -- DONE
 
@@ -644,9 +671,25 @@ Nomination   ←→ Document source (décret)
 
 ---
 
-## 9. Tests de validation
+## 9. Points d'attention CMS
 
-### 9.1 Résolution d'URL (critique)
+### 9.1 Cohérence des statuts d'appointments
+
+L'API `government/current` ne filtre **pas** sur le `status` de l'appointment (uniquement sur `public_persons.status = published`). En revanche, l'API `stats` et la page `/personnalites-senegal` filtrent sur `public_person_appointments.status = published`. Les appointments doivent être publiés pour apparaître de manière cohérente sur toutes les pages.
+
+### 9.2 Champ M2O `current_appointment`
+
+Le champ `current_appointment` sur `public_persons` est un raccourci M2O vers `public_person_appointments`. Il doit être renseigné manuellement dans Directus pour que la personne apparaisse sur la page gouvernement et dans les filtres par catégorie. Si ce champ est `null`, la personne est invisible même si un appointment `is_current = true` existe dans la table des nominations.
+
+### 9.3 Unicité du Premier Ministre actif
+
+Le code prend `primeMinister[0]` (premier résultat). Un seul appointment avec `position_category = "Premier Ministre"` et `is_current = true` doit exister à un instant donné. Lors d'un changement de PM, penser à mettre `is_current = false` et `end_date` sur l'ancien.
+
+---
+
+## 10. Tests de validation
+
+### 10.1 Résolution d'URL (critique)
 
 | Scénario | URL testée | Résultat attendu |
 |----------|-----------|------------------|
@@ -656,7 +699,7 @@ Nomination   ←→ Document source (décret)
 | ID inexistant | `/personnalites/99999/personne` | 404 propre |
 | Slug seul sans match | `/personnalites/abc/test` | 404 propre (id non numérique) |
 
-### 9.2 Fonctionnels
+### 10.2 Fonctionnels
 
 | Scénario | Page | Résultat attendu |
 |----------|------|------------------|
@@ -668,7 +711,7 @@ Nomination   ←→ Document source (décret)
 | Historique nominations | Fiche détail d'une personne | Liste chronologique de toutes ses fonctions |
 | Gouvernement actuel | `/gouvernement-senegal` | PM + ministres + secrétaires en poste |
 
-### 9.3 SEO
+### 10.3 SEO
 
 | Vérification | Méthode |
 |-------------|---------|
@@ -680,7 +723,7 @@ Nomination   ←→ Document source (décret)
 
 ---
 
-## 10. Docs techniques associées
+## 11. Docs techniques associées
 
 - [MIGRATION-NOMINATIONS.md](./MIGRATION-NOMINATIONS.md) - Détail de la migration architecture 3 couches (legacy, pour référence)
 - [feature-gouvernement-senegal.md](./feature-gouvernement-senegal.md) - Spécifications page gouvernement (sera mis à jour après migration)

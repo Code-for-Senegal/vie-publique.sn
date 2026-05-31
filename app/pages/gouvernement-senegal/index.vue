@@ -297,7 +297,7 @@ const getDuration = (nominationDate: string): string => {
             <div class="flex flex-col sm:flex-row">
               <!-- Photo PM -->
               <div
-                class="relative aspect-[3/4] w-full shrink-0 overflow-hidden bg-gray-200 dark:bg-gray-800 sm:aspect-auto sm:h-56 sm:w-44 md:h-64 md:w-52"
+                class="relative aspect-square w-full shrink-0 overflow-hidden bg-gray-200 dark:bg-gray-800 sm:aspect-auto sm:h-56 sm:w-44 md:h-64 md:w-52"
               >
                 <img
                   :src="

@@ -15,8 +15,10 @@ export default defineCachedEventHandler(
       const directus = getCmsClient();
 
       // Construction du filtre dynamique
+      // Exclure les personnes sans nomination actuelle (M2O current_appointment non renseigné)
       const filter: any = {
         status: { _eq: 'published' },
+        current_appointment: { id: { _nnull: true } },
       };
 
       // Filtre par genre
@@ -27,6 +29,7 @@ export default defineCachedEventHandler(
       // Filtre par catégorie de poste (via la nomination actuelle)
       if (filterCategory && filterCategory !== 'all') {
         filter.current_appointment = {
+          ...filter.current_appointment,
           position_category_slug: { _eq: filterCategory },
         };
       }

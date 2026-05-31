@@ -407,19 +407,33 @@ const backLabel = computed(() => {
                   </span>
                 </div>
 
-                <!-- Social links + Share -->
-                <div class="mt-3 flex items-center justify-center gap-2 sm:justify-start">
-                  <a
-                    v-for="link in socialLinks"
-                    :key="link.name"
-                    :href="link.url"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    :title="link.name"
-                    class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200"
+                <!-- Social links -->
+                <div
+                  v-if="socialLinks.length > 0"
+                  class="mt-3 flex flex-col items-center gap-1.5 sm:items-start"
+                >
+                  <span
+                    class="text-[11px] font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500"
                   >
-                    <UIcon :name="link.icon" class="h-4 w-4" />
-                  </a>
+                    Ses réseaux
+                  </span>
+                  <div class="flex items-center gap-2">
+                    <a
+                      v-for="link in socialLinks"
+                      :key="link.name"
+                      :href="link.url"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      :title="`Profil ${link.name}`"
+                      class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200"
+                    >
+                      <UIcon :name="link.icon" class="h-4 w-4" />
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Share -->
+                <div class="mt-3 flex justify-center sm:justify-start">
                   <SocialShare :title="title" :url="url" compact />
                 </div>
               </div>
