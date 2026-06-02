@@ -289,7 +289,6 @@ const title = `Conseil des ministres du Sénégal — ${new Date().toLocaleDateS
 /barometre-politique
 /elections/legislatives/resultats/global
 /quiz, /chatbot, /chat-bot
-/gouvernement-senegal
 /etat-senegal/annuaire, /organisation
 /a-propos/barometre-politique, /charte-dons
 /don/bictorys, /paydunya, /success

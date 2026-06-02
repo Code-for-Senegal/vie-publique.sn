@@ -26,6 +26,8 @@ export interface PublicPerson {
   short_bio?: string | null;
   long_bio?: string | null;
   education?: string | null;
+  birthdate?: string | null;
+  birthplace?: string | null;
   photo?: string | null;
   facebook?: string | null;
   twitter?: string | null;

@@ -182,18 +182,22 @@ const { navigationCards } = useNavigationCards();
 
     <HomeQuickAccess :navigation-cards="navigationCards" />
 
-    <HomeAppPromo />
 
     <div class="">
+       <div class="my-8">
+        <HomeGovernmentHighlight />
+      </div>
+       <div class="my-8">
+          <HomeAppPromo />
+      </div>
+
       <div class="my-8">
         <HomeFeaturedDocuments />
       </div>
        <div class="my-8">
         <HomeNews />
       </div>
-      <div class="my-8">
-        <HomeGovernmentHighlight />
-      </div>
+
       <div class="my-8">
         <HomeBudgetHighlight />
       </div>

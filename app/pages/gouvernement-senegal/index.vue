@@ -169,10 +169,10 @@ useHead({
   ],
 });
 
-// URL vers la fiche détail
+// URL vers la fiche détail (avec ref=gouvernement pour le retour)
 const getPortraitUrl = (member: GovernmentMember) => {
   const slug = member.slug || member.id;
-  return `/personnalites/${member.id}/${slug}`;
+  return `/personnalites/${member.id}/${slug}?ref=gouvernement`;
 };
 
 // Durée en fonction

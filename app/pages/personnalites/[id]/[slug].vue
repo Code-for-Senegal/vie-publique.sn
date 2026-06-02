@@ -227,10 +227,17 @@ const getEndReasonLabel = (reason: string | null | undefined) => {
   return endReasonLabels[reason] || reason;
 };
 
-// URL retour
+// Catégories des membres du gouvernement
+const governmentCategories = ['Premier Ministre', 'Ministre', "Secrétaire d'État"];
+const isGovernmentMember = computed(() => {
+  const cat = currentAppointment.value?.position_category;
+  return isActive.value && !!cat && governmentCategories.includes(cat);
+});
+
+// URL retour : gouvernement si ref=gouvernement ou si ministre actif sans ref explicite
 const backUrl = computed(() => {
   const referer = route.query.ref as string;
-  if (referer === 'gouvernement') {
+  if (referer === 'gouvernement' || (!referer && isGovernmentMember.value)) {
     return '/gouvernement-senegal';
   }
   const query = { ...route.query };
@@ -243,7 +250,10 @@ const backUrl = computed(() => {
 
 const backLabel = computed(() => {
   const referer = route.query.ref as string;
-  return referer === 'gouvernement' ? 'Gouvernement' : 'Personnalités';
+  if (referer === 'gouvernement' || (!referer && isGovernmentMember.value)) {
+    return 'Gouvernement';
+  }
+  return 'Personnalités';
 });
 </script>
 
@@ -441,28 +451,61 @@ const backLabel = computed(() => {
           </div>
         </div>
 
-        <!-- Formation -->
+        <!-- Infos personnelles (formation, naissance) -->
         <div
-          v-if="person.education"
-          class="flex items-start gap-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+          v-if="person.education || person.birthdate || person.birthplace"
+          class="grid gap-3 sm:grid-cols-2"
         >
+          <!-- Formation -->
           <div
-            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-purple-50 dark:bg-purple-900/20"
+            v-if="person.education"
+            class="flex items-start gap-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
           >
-            <UIcon
-              name="i-heroicons-academic-cap-20-solid"
-              class="h-4.5 w-4.5 text-purple-600 dark:text-purple-400"
-            />
-          </div>
-          <div class="min-w-0">
-            <p
-              class="text-[11px] font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500"
+            <div
+              class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-purple-50 dark:bg-purple-900/20"
             >
-              Formation
-            </p>
-            <p class="mt-0.5 text-sm font-medium text-gray-900 dark:text-white">
-              {{ person.education }}
-            </p>
+              <UIcon
+                name="i-heroicons-academic-cap-20-solid"
+                class="h-4.5 w-4.5 text-purple-600 dark:text-purple-400"
+              />
+            </div>
+            <div class="min-w-0">
+              <p
+                class="text-[11px] font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500"
+              >
+                Formation
+              </p>
+              <p class="mt-0.5 text-sm font-medium text-gray-900 dark:text-white">
+                {{ person.education }}
+              </p>
+            </div>
+          </div>
+
+          <!-- Date et lieu de naissance -->
+          <div
+            v-if="person.birthdate || person.birthplace"
+            class="flex items-start gap-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+          >
+            <div
+              class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-900/20"
+            >
+              <UIcon
+                name="i-heroicons-cake-20-solid"
+                class="h-4.5 w-4.5 text-blue-600 dark:text-blue-400"
+              />
+            </div>
+            <div class="min-w-0">
+              <p
+                class="text-[11px] font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500"
+              >
+                Naissance
+              </p>
+              <p class="mt-0.5 text-sm font-medium text-gray-900 dark:text-white">
+                <template v-if="person.birthdate">{{ formatDate(person.birthdate) }}</template>
+                <template v-if="person.birthdate && person.birthplace"> — </template>
+                <template v-if="person.birthplace">{{ person.birthplace }}</template>
+              </p>
+            </div>
           </div>
         </div>
 

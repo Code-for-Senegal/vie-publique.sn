@@ -1,12 +1,12 @@
 <script setup lang="ts">
 const { primeMinister, ministers, loading, error } = useGovernment();
 
-// Afficher les 6 premiers ministres
-const previewMinisters = computed(() => ministers.value.slice(0, 6));
+// Afficher les 8 premiers ministres
+const previewMinisters = computed(() => ministers.value.slice(0, 8));
 
 const getPortraitUrl = (member: { id?: string; slug?: string }) => {
   const slug = member.slug || member.id;
-  return `/personnalites/${member.id}/${slug}`;
+  return `/personnalites/${member.id}/${slug}?ref=gouvernement`;
 };
 </script>
 
