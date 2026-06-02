@@ -252,7 +252,7 @@ const formatDateISO = (date: string) => {
       </div>
 
       <!-- Contenu HTML -->
-      <div class="prose prose-sm max-w-none dark:prose-invert" itemprop="text" v-html="journal.content_html"></div>
+      <div class="prose prose-sm max-w-none prose-p:text-gray-600 prose-strong:text-gray-900 prose-li:text-gray-600 dark:prose-p:text-gray-300 dark:prose-strong:text-white dark:prose-li:text-gray-300 dark:prose-headings:text-white" itemprop="text" v-html="journal.content_html"></div>
 
       <ClientOnly placeholder="Chargement en cours">
         <embed

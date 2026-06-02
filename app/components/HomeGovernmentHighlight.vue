@@ -12,39 +12,17 @@ const getPortraitUrl = (member: { id?: string; slug?: string }) => {
 
 <template>
   <section class="my-4" aria-labelledby="government-heading">
+    <h2
+      id="government-heading"
+      class="mb-4 text-center text-xl font-semibold text-gray-800 dark:text-white"
+    >
+      Gouvernement du Sénégal
+    </h2>
+
     <UCard
       class="overflow-hidden border-0 bg-white shadow-sm transition-shadow hover:shadow-md dark:bg-gray-800/50"
       :ui="{ body: { padding: 'p-4 sm:p-6' } }"
     >
-      <!-- Header -->
-      <div class="mb-4 flex items-center justify-between sm:mb-5">
-        <div class="flex items-center gap-2">
-          <div
-            class="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-900/50"
-          >
-            <UIcon
-              name="i-heroicons-building-library"
-              class="h-4 w-4 text-gray-600 dark:text-gray-400"
-            />
-          </div>
-          <h2
-            id="government-heading"
-            class="text-base font-semibold text-gray-900 dark:text-white sm:text-lg"
-          >
-            Gouvernement du Sénégal
-          </h2>
-        </div>
-        <NuxtLink
-          to="/gouvernement-senegal"
-          class="group hidden items-center gap-1 text-sm font-medium text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 sm:inline-flex"
-        >
-          Voir tout
-          <UIcon
-            name="i-heroicons-arrow-right"
-            class="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-          />
-        </NuxtLink>
-      </div>
 
       <!-- Loading -->
       <div v-if="loading" class="space-y-3">
@@ -120,22 +98,18 @@ const getPortraitUrl = (member: { id?: string; slug?: string }) => {
           </NuxtLink>
         </div>
 
-        <!-- CTAs -->
-        <div class="mt-3 flex flex-col gap-2 sm:flex-row">
-          <NuxtLink
+        <!-- CTA -->
+        <div class="mt-4 text-center">
+          <UButton
             to="/gouvernement-senegal"
-            class="flex flex-1 items-center justify-center gap-2 rounded-xl bg-primary-50 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-primary-100 dark:bg-gray-700/50 dark:text-gray-300 dark:hover:bg-gray-700"
+            color="gray"
+            variant="solid"
+            size="md"
+            trailing-icon="i-heroicons-arrow-right"
+            class="rounded-full border-gray-200 bg-white font-medium"
           >
-            Composition du gouvernement
-            <UIcon name="i-heroicons-arrow-right" class="h-4 w-4" />
-          </NuxtLink>
-          <NuxtLink
-            to="/personnalites-senegal"
-            class="flex flex-1 items-center justify-center gap-2 rounded-xl bg-gray-50 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:bg-gray-700/30 dark:text-gray-300 dark:hover:bg-gray-700"
-          >
-            Annuaire des personnalités
-            <UIcon name="i-heroicons-arrow-right" class="h-4 w-4" />
-          </NuxtLink>
+            Voir la composition du gouvernement
+          </UButton>
         </div>
       </div>
     </UCard>

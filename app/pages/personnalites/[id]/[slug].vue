@@ -235,17 +235,15 @@ const isGovernmentMember = computed(() => {
 });
 
 // URL retour : gouvernement si ref=gouvernement ou si ministre actif sans ref explicite
-const backUrl = computed(() => {
+const backUrl = computed<string>(() => {
   const referer = route.query.ref as string;
   if (referer === 'gouvernement' || (!referer && isGovernmentMember.value)) {
     return '/gouvernement-senegal';
   }
   const query = { ...route.query };
   delete query.ref;
-  return {
-    path: '/personnalites-senegal',
-    query,
-  };
+  const qs = new URLSearchParams(query as Record<string, string>).toString();
+  return qs ? `/personnalites-senegal?${qs}` : '/personnalites-senegal';
 });
 
 const backLabel = computed(() => {
@@ -642,7 +640,7 @@ const backLabel = computed(() => {
           </div>
           <div class="p-6">
             <div
-              class="prose-a:text-primary-600 dark:prose-a:text-primary-400 prose prose-sm max-w-none dark:prose-invert sm:prose prose-headings:text-gray-900 prose-p:text-gray-600 dark:prose-headings:text-white dark:prose-p:text-gray-400"
+              class="prose prose-sm max-w-none sm:prose prose-headings:text-gray-900 prose-p:text-gray-600 prose-strong:text-gray-900 prose-li:text-gray-600 prose-a:text-primary-600 prose-img:rounded-xl prose-img:shadow-md dark:prose-headings:text-white dark:prose-p:text-gray-300 dark:prose-strong:text-white dark:prose-li:text-gray-300 dark:prose-a:text-primary-400 dark:prose-hr:border-gray-700"
               v-html="person.long_bio"
             ></div>
           </div>

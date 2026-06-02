@@ -248,7 +248,7 @@ useSeoMeta({
     <div class="prose prose-sm mx-auto max-w-4xl sm:prose lg:prose-lg dark:prose-invert">
       <div v-for="(section, idx) in job.sections" :key="idx" class="mb-8">
         <h2 v-if="section.title" class="mb-4 text-2xl font-bold">{{ section.title }}</h2>
-        <div v-if="section.content" class="whitespace-pre-wrap" v-html="section.content"></div>
+        <div v-if="section.content" class="whitespace-pre-wrap text-gray-600 dark:text-gray-300" v-html="section.content"></div>
 
         <ul v-if="section.items" class="list-disc space-y-2 pl-6">
           <li v-for="(item, i) in section.items" :key="i">{{ item }}</li>
