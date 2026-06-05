@@ -94,6 +94,7 @@ const securityConfig =
               'https://platform.twitter.com',
               'https://syndication.twitter.com',
               'https://cms.vie-publique.sn',
+              'https://docs.google.com',
             ],
             'base-uri': ["'self'"],
             'form-action': ["'self'"],
