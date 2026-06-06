@@ -146,19 +146,139 @@ const getSocialIcon = (platform: string) =>
 // Can use main + sidebar layout (for top-level entities with children)
 const hasMainContent = computed(() => children.value.length > 0)
 
-useSeoMeta({
-  title: () =>
-    entity.value
-      ? `${entity.value.name} | Organisation de l'État`
-      : "Entité publique | État du Sénégal",
-  description: () =>
-    entity.value
-      ? `Fiche de ${entity.value.name} : rattachement hiérarchique, type, et historique des changements.`
-      : "Fiche entité publique de l'État du Sénégal.",
-  ogTitle: () => entity.value?.name || 'Entité publique',
+const { siteName, siteUrl, themeColor, keywords } = useSiteMetadata()
+
+const pageTitle = computed(() =>
+  entity.value
+    ? `${entity.value.name} | Organisation de l'État du Sénégal`
+    : "Entité publique | Organisation de l'État du Sénégal",
+)
+
+const pageDescription = computed(() => {
+  if (!entity.value) return "Fiche d'une entité publique de l'État du Sénégal."
+  const parts: string[] = []
+  parts.push(`${entity.value.name}, ${entity.value.type_label.toLowerCase()} de l'État du Sénégal.`)
+  if (entity.value.parent_name) {
+    parts.push(`Rattaché à ${entity.value.parent_name}.`)
+  }
+  if (children.value.length > 0) {
+    parts.push(`Comprend ${children.value.length} structure${children.value.length > 1 ? 's' : ''} rattachée${children.value.length > 1 ? 's' : ''}.`)
+  }
+  if (decree.value?.numero) {
+    parts.push(`Source : décret n° ${decree.value.numero}.`)
+  }
+  return parts.join(' ')
 })
 
-useHead({ title: () => entity.value?.name || 'Entité publique' })
+const pageUrl = computed(() => `${siteUrl}/etat-senegal/${slug.value}`)
+
+const ogImage = computed(() => {
+  if (entity.value?.logo) return useCmsImage(entity.value.logo)
+  return `${siteUrl}/nomination-3.png`
+})
+
+useSeoMeta({
+  title: pageTitle,
+  ogTitle: pageTitle,
+  description: pageDescription,
+  ogDescription: pageDescription,
+  ogImage,
+  ogUrl: pageUrl,
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: pageTitle,
+  twitterDescription: pageDescription,
+  twitterImage: ogImage,
+  keywords: computed(() =>
+    [
+      ...keywords,
+      entity.value?.name || '',
+      entity.value?.type_label || '',
+      entity.value?.parent_name || '',
+      'organisation état Sénégal',
+    ].join(', '),
+  ),
+})
+
+const organizationSchema = computed(() => {
+  if (!entity.value) return null
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'GovernmentOrganization',
+    name: entity.value.name,
+    description: pageDescription.value,
+    url: pageUrl.value,
+    ...(entity.value.web_site && { sameAs: entity.value.web_site }),
+    ...(entity.value.email && { email: entity.value.email }),
+    ...(entity.value.phone && { telephone: entity.value.phone }),
+    ...(entity.value.adresse && {
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: entity.value.adresse,
+        addressCountry: 'SN',
+      },
+    }),
+    ...(entity.value.logo && { logo: useCmsImage(entity.value.logo) }),
+    ...(entity.value.parent_name && {
+      parentOrganization: {
+        '@type': 'GovernmentOrganization',
+        name: entity.value.parent_name,
+      },
+    }),
+  }
+})
+
+const breadcrumbSchema = computed(() => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: siteUrl },
+    { '@type': 'ListItem', position: 2, name: 'État du Sénégal', item: `${siteUrl}/etat-senegal` },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: "Organisation de l'État",
+      item: `${siteUrl}/etat-senegal/organisation`,
+    },
+    ...breadcrumb.value.map((p, i) => ({
+      '@type': 'ListItem',
+      position: 4 + i,
+      name: p.name,
+      item: `${siteUrl}/etat-senegal/${p.public_slug}`,
+    })),
+    {
+      '@type': 'ListItem',
+      position: 4 + breadcrumb.value.length,
+      name: entity.value?.name || 'Entité',
+      item: pageUrl.value,
+    },
+  ],
+}))
+
+useHead({
+  htmlAttrs: { lang: 'fr-SN' },
+  link: [{ rel: 'canonical', href: pageUrl }],
+  meta: [
+    { name: 'robots', content: 'index, follow' },
+    { name: 'theme-color', content: themeColor },
+    { name: 'author', content: siteName },
+    { property: 'og:site_name', content: siteName },
+  ],
+  script: computed(() => {
+    const scripts = []
+    if (organizationSchema.value) {
+      scripts.push({
+        type: 'application/ld+json',
+        children: JSON.stringify(organizationSchema.value),
+      })
+    }
+    scripts.push({
+      type: 'application/ld+json',
+      children: JSON.stringify(breadcrumbSchema.value),
+    })
+    return scripts
+  }),
+})
 </script>
 
 <template>

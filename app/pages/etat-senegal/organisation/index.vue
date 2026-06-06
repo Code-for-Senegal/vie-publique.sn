@@ -61,18 +61,70 @@ const formatDate = (v?: string) =>
     ? new Date(v).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })
     : null
 
+const { siteName, siteUrl, themeColor, keywords } = useSiteMetadata()
+
+const pageTitle = "Organisation de l'État du Sénégal | Vie Publique Sénégal"
+const pageDescription =
+  "Explorez l'organisation administrative de l'État du Sénégal : ministères, directions, agences, sociétés nationales, sociétés à participation publique et établissements publics selon les décrets officiels."
+const pageUrl = `${siteUrl}/etat-senegal/organisation`
+const ogImage = `${siteUrl}/nomination-3.png`
+
 useSeoMeta({
-  title: "Organisation de l'État du Sénégal",
-  description:
-    "Explorez l'organisation administrative de l'État du Sénégal : ministères, directions, agences, socièté nationale, socièté à participation publique et établissements publics selon les décrets officiels.",
-  ogTitle: "Organisation de l'État du Sénégal",
-  ogDescription:
-    "Structure officielle de l'État du Sénégal basée sur les décrets de répartition des services.",
+  title: pageTitle,
+  ogTitle: pageTitle,
+  description: pageDescription,
+  ogDescription: pageDescription,
+  ogImage,
+  ogUrl: pageUrl,
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: pageTitle,
+  twitterDescription: pageDescription,
+  twitterImage: ogImage,
+  keywords: [
+    ...keywords,
+    "organisation état Sénégal",
+    "ministères Sénégal",
+    "établissements publics Sénégal",
+    "organigramme état Sénégal",
+    "décret répartition services",
+  ].join(', '),
 })
 
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: siteUrl },
+    { '@type': 'ListItem', position: 2, name: 'État du Sénégal', item: `${siteUrl}/etat-senegal` },
+    { '@type': 'ListItem', position: 3, name: "Organisation de l'État", item: pageUrl },
+  ],
+}
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: pageTitle,
+  description: pageDescription,
+  url: pageUrl,
+  inLanguage: 'fr-SN',
+  isPartOf: { '@type': 'WebSite', name: siteName, url: siteUrl },
+}
+
 useHead({
-  title: "Organisation de l'État",
-  meta: [{ name: 'robots', content: 'index,follow' }],
+  htmlAttrs: { lang: 'fr-SN' },
+  title: "Organisation de l'État du Sénégal",
+  link: [{ rel: 'canonical', href: pageUrl }],
+  meta: [
+    { name: 'robots', content: 'index, follow' },
+    { name: 'theme-color', content: themeColor },
+    { name: 'author', content: siteName },
+    { property: 'og:site_name', content: siteName },
+  ],
+  script: computed(() => [
+    { type: 'application/ld+json', children: JSON.stringify(breadcrumbSchema) },
+    { type: 'application/ld+json', children: JSON.stringify(webPageSchema) },
+  ]),
 })
 </script>
 

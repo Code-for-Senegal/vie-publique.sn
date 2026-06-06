@@ -94,12 +94,60 @@ const decreeOptions = computed(() =>
 // Total changes count
 const totalAll = computed(() => summary.value.reduce((a, s) => a + s.count, 0))
 
+const { siteName, siteUrl, themeColor, keywords } = useSiteMetadata()
+
+const pageTitle = "Comparaison des décrets de répartition | Organisation de l'État du Sénégal"
+const pageDescription =
+  "Comparez les décrets de répartition des services de l'État du Sénégal et explorez les créations, suppressions, renommages et changements de tutelle entre décrets successifs."
+const pageUrl = `${siteUrl}/etat-senegal/organisation/changements`
+const ogImage = `${siteUrl}/nomination-3.png`
+
 useSeoMeta({
-  title: "Changements entre décrets - Organisation de l'État du Sénégal",
-  description:
-    "Comparez les décrets de répartition des services de l'État du Sénégal et explorez les créations, suppressions, renommages et changements de tutelle.",
+  title: pageTitle,
+  ogTitle: pageTitle,
+  description: pageDescription,
+  ogDescription: pageDescription,
+  ogImage,
+  ogUrl: pageUrl,
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: pageTitle,
+  twitterDescription: pageDescription,
+  twitterImage: ogImage,
+  keywords: [
+    ...keywords,
+    "décrets répartition Sénégal",
+    "changements organisation état Sénégal",
+    "réformes administratives Sénégal",
+    "comparaison décrets Sénégal",
+  ].join(', '),
 })
-useHead({ title: "Comparaison des décrets" })
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: siteUrl },
+    { '@type': 'ListItem', position: 2, name: 'État du Sénégal', item: `${siteUrl}/etat-senegal` },
+    { '@type': 'ListItem', position: 3, name: "Organisation de l'État", item: `${siteUrl}/etat-senegal/organisation` },
+    { '@type': 'ListItem', position: 4, name: 'Comparaison des décrets', item: pageUrl },
+  ],
+}
+
+useHead({
+  htmlAttrs: { lang: 'fr-SN' },
+  title: "Comparaison des décrets de répartition",
+  link: [{ rel: 'canonical', href: pageUrl }],
+  meta: [
+    { name: 'robots', content: 'index, follow' },
+    { name: 'theme-color', content: themeColor },
+    { name: 'author', content: siteName },
+    { property: 'og:site_name', content: siteName },
+  ],
+  script: computed(() => [
+    { type: 'application/ld+json', children: JSON.stringify(breadcrumbSchema) },
+  ]),
+})
 </script>
 
 <template>
