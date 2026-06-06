@@ -94,22 +94,23 @@ export default defineCachedEventHandler(
       if (!entity?.id || !entity?.slug) {
         continue
       }
-      if (entitiesMap.has(entity.id)) {
+      const entityIdStr = String(entity.id)
+      if (entitiesMap.has(entityIdStr)) {
         continue
       }
 
-      // parent_snapshot is returned as raw UUID string (or null) when not expanded
+      // parent_snapshot is returned as raw value (string UUID or integer) when not expanded
       const rawParent = snapshot.parent_snapshot
       const parentSnapshotId: string | null =
-        typeof rawParent === 'string' && rawParent
-          ? rawParent
-          : typeof rawParent === 'object' && rawParent !== null
-            ? (rawParent.id ?? null)
-            : null
+        rawParent === null || rawParent === undefined
+          ? null
+          : typeof rawParent === 'object'
+            ? (rawParent?.id != null ? String(rawParent.id) : null)
+            : String(rawParent)  // handles both legacy string UUIDs and new integer IDs
 
       const node: EntityNode = {
-        id: entity.id,
-        snapshot_id: snapshot.id,
+        id: entityIdStr,
+        snapshot_id: String(snapshot.id),
         public_slug: entity.slug,
         name: snapshot.official_label || entity.name || entity.slug,
         has_public_page: entity.has_public_page === true,
@@ -121,8 +122,8 @@ export default defineCachedEventHandler(
         parent_name: null,
       }
 
-      entitiesMap.set(entity.id, node)
-      snapshotToEntityId.set(snapshot.id, entity.id)
+      entitiesMap.set(entityIdStr, node)
+      snapshotToEntityId.set(String(snapshot.id), entityIdStr)
     }
 
     // Post-process: resolve parent names via snapshot_id lookup
@@ -158,7 +159,7 @@ export default defineCachedEventHandler(
   },
   {
     maxAge: getCacheMaxAge(CacheDuration.MEDIUM),
-    name: 'etat-organisation-entities-v4',
+    name: 'etat-organisation-entities-v5',
     getKey: async (event) => {
       const query = getQuery(event)
       const decree = (query.decree as string) || 'active'
