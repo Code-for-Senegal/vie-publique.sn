@@ -86,21 +86,21 @@ export default defineCachedEventHandler(
 
     for (const snapshot of snapshots as any[]) {
       const entity = snapshot.public_entity
-      if (!entity?.id || !entity?.slug || entitiesById.has(entity.id)) {
+      if (!entity?.id || !entity?.slug || entitiesById.has(String(entity.id))) {
         continue
       }
 
       const rawParent = snapshot.parent_snapshot
       const parentSnapshotId: string | null =
-        typeof rawParent === 'string' && rawParent
-          ? rawParent
-          : typeof rawParent === 'object' && rawParent !== null
-            ? (rawParent.id ?? null)
-            : null
+        rawParent === null || rawParent === undefined
+          ? null
+          : typeof rawParent === 'object'
+            ? (rawParent?.id != null ? String(rawParent.id) : null)
+            : String(rawParent)  // handles both legacy string UUIDs and new integer IDs
 
       const node = {
-        id: entity.id,
-        snapshot_id: snapshot.id as string,
+        id: String(entity.id),
+        snapshot_id: String(snapshot.id),
         public_slug: entity.slug,
         name: snapshot.official_label || entity.name || entity.slug,
         has_public_page: entity.has_public_page === true,
@@ -120,7 +120,7 @@ export default defineCachedEventHandler(
 
       entitiesById.set(node.id, node)
       entitiesBySlug.set(node.public_slug, node)
-      snapshotIdToEntityId.set(snapshot.id, node.id)
+      snapshotIdToEntityId.set(String(snapshot.id), node.id)
     }
 
     // Post-process: resolve parent_id and parent_name via snapshot ID lookup
@@ -221,7 +221,7 @@ export default defineCachedEventHandler(
   },
   {
     maxAge: getCacheMaxAge(CacheDuration.MEDIUM),
-    name: 'etat-organisation-entity-detail-v5',
+    name: 'etat-organisation-entity-detail-v6',
     getKey: event => {
       const slug = getRouterParam(event, 'slug')
       return `etat-organisation-entity-${slug}`
