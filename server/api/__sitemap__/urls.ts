@@ -176,7 +176,34 @@ export default defineSitemapEventHandler(async () => {
       console.warn('Erreur sitemap archives années:', sitemapError);
     }
 
-    // 6. Pages statiques : Laissées à l'auto-découverte de Nuxt Sitemap
+    // 6. Personnalités publiques
+    try {
+      const publicPersons = await directus.request(
+        readItems('public_persons', {
+          fields: ['id', 'slug', 'full_name', 'date_updated'],
+          filter: {
+            status: { _eq: 'published' },
+          },
+          limit: -1,
+          sort: ['full_name'],
+        }),
+      );
+
+      for (const person of publicPersons) {
+        const personSlug = person.slug || slugify(person.full_name);
+        const lastmod = toISODate(person.date_updated);
+        urls.push({
+          loc: `/personnalites/${person.id}/${personSlug}`,
+          ...(lastmod && { lastmod }),
+          changefreq: 'monthly',
+          priority: 0.7,
+        });
+      }
+    } catch (sitemapError) {
+      console.warn('Erreur sitemap personnalités publiques:', sitemapError);
+    }
+
+    // 7. Pages statiques : Laissées à l'auto-découverte de Nuxt Sitemap
     // Le module @nuxtjs/seo va automatiquement inclure toutes les pages du dossier /pages
   } catch (error) {
     console.error('Erreur génération sitemap:', error);

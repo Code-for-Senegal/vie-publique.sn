@@ -32,6 +32,22 @@ export function useNavigationCards() {
       display: false,
     },
     {
+      title: 'Budget',
+      description: 'Loi de finances 2025',
+      icon: 'i-heroicons-banknotes',
+      to: '/budget-senegal',
+      count: 8,
+      display: true,
+    },
+    {
+      title: 'Gouvernement',
+      description: 'Gouvernement du Sénégal',
+      icon: 'i-heroicons-building-library',
+      to: '/gouvernement-senegal',
+      count: 89,
+      display: true,
+    },
+    {
       title: 'Assemblée',
       description: "Suivez l'activité parlementaire",
       icon: 'i-heroicons-building-library',
@@ -55,14 +71,7 @@ export function useNavigationCards() {
       count: 54,
       display: true,
     },
-    {
-      title: 'Budget',
-      description: 'Loi de finances 2025',
-      icon: 'i-heroicons-banknotes',
-      to: '/budget-senegal',
-      count: 8,
-      display: true,
-    },
+
     {
       title: 'Élections',
       description: 'Scrutins, Listes, Résultats',

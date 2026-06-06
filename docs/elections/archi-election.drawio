@@ -1,0 +1,73 @@
+<mxfile host="65bd71144e">
+    <diagram id="O8DHGJqlrZhJegukghzq" name="v1">
+        <mxGraphModel dx="1086" dy="809" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="9" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="2" target="4">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="2" target="21">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="870" y="230" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="2" value="ELECTION" style="whiteSpace=wrap;html=1;aspect=fixed;verticalAlign=top;" vertex="1" parent="1">
+                    <mxGeometry x="25" y="10" width="150" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="3" target="4">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="COALITIONS&lt;div&gt;party&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;verticalAlign=top;" vertex="1" parent="1">
+                    <mxGeometry x="15" y="250" width="160" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="4" target="24">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="520" y="320" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="4" value="LISTE électorales" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+                    <mxGeometry x="250" y="290" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="24" target="22">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="560" y="280" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="11" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;chiffres globaux&lt;br&gt;(votants, particpation etc)&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+                    <mxGeometry x="45" y="50" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;Résultas globaux coalitions&lt;br&gt;(nombre voix, pourcentage, nombre sièges, nobre mairies)&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="300" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="CARTE&lt;div&gt;election&lt;/div&gt;&lt;div&gt;colaition gagnante&lt;/div&gt;&lt;div&gt;circonscription&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;verticalAlign=top;" vertex="1" parent="1">
+                    <mxGeometry x="435" y="520" width="180" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="ELECTION_MAP_NATIONAL&lt;div&gt;departement , région, municipalyté, votants&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+                    <mxGeometry x="235" y="520" width="180" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="ELECTION_MAP_NATIONAL&lt;div&gt;pays, locality, votants&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+                    <mxGeometry x="25" y="520" width="170" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;Résultas locaux&lt;br&gt;(coalition gagnante et nombre de voix)&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+                    <mxGeometry x="465" y="590" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;GUIDE LECTORAL&lt;/span&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;lien youtube, langue, election&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="640" y="360" width="180" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;PVs&lt;/span&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;election, regions, departement,municipalité, bureau&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="640" y="220" width="180" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;ELECTIONS PERSONS&lt;/span&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;nom,prénom,slug etc&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+                    <mxGeometry x="370" y="170" width="220" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;CANDIDATS&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="370" y="295" width="220" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="ASSEMBLEE DEPUTE" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1180" y="40" width="120" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

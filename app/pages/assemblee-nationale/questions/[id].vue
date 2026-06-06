@@ -351,7 +351,7 @@ useHead({
           </h2>
 
           <div
-            class="prose prose-sm prose-gray max-w-none dark:prose-invert"
+            class="prose prose-sm prose-gray max-w-none prose-p:text-gray-600 prose-strong:text-gray-900 prose-li:text-gray-600 dark:prose-p:text-gray-300 dark:prose-strong:text-white dark:prose-li:text-gray-300 dark:prose-headings:text-white"
             itemprop="text"
             v-html="question.question_text"
           ></div>

@@ -80,7 +80,7 @@ export const useCmsCollection = <T>(options: CmsCollectionOptions) => {
     // Créer une clé unique basée sur tous les paramètres
     const params = Object.keys(_query)
       .sort() // Trier pour cohérence
-      .map(key => `${key}=${_query[key]}`)
+      .map((key) => `${key}=${_query[key]}`)
       .join('&');
 
     return `cms-${collection}-${params}`;
@@ -121,6 +121,7 @@ export const useCmsCollection = <T>(options: CmsCollectionOptions) => {
           response.documents ||
           response.news ||
           response.nominations ||
+          response.persons ||
           response.medias ||
           response.media ||
           response.commissions ||

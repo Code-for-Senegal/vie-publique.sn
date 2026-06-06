@@ -1,8 +1,11 @@
 <script setup lang="ts">
 const { siteName, siteUrl, keywords, themeColor } = useSiteMetadata();
 
-const url = `${siteUrl}/nomination-senegal`;
+const url = `${siteUrl}/personnalites-senegal`;
 const image = `${siteUrl}/nomination-3.png`;
+
+const { $dateformat } = useNuxtApp();
+const route = useRoute();
 
 const {
   persons,
@@ -22,46 +25,20 @@ const {
   setSearchQuery,
   setFilterCategory,
   setFilterGender,
-} = usePublicPersons({
-  sort: '-current_appointment.appointment_date',
-});
+} = usePublicPersons();
 
-// SEO dynamique
-const title = computed(() => {
-  const latest = persons.value?.[0];
-  if (latest?.current_appointment?.appointment_date) {
-    const d = new Date(latest.current_appointment.appointment_date);
-    const formatted = d.toLocaleDateString('fr-FR', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    });
-    return `Nominations au Sénégal — Dernière mise à jour ${formatted}`;
-  }
-  return 'Nominations au Sénégal — Ministres, DG, PCA';
-});
+// SEO
+const title = 'Annuaire des personnalités publiques au Sénégal | Vie Publique Sénégal';
+const description =
+  'Annuaire complet des personnalités publiques du Sénégal : ministres, directeurs généraux, PCA, ambassadeurs, gouverneurs et hauts fonctionnaires. Profils, fonctions et nominations.';
 
-const description = computed(() => {
-  const latest = persons.value?.[0];
-  if (latest?.current_appointment?.appointment_date) {
-    const d = new Date(latest.current_appointment.appointment_date);
-    const formatted = d.toLocaleDateString('fr-FR', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    });
-    return `Liste complète des nominations au Sénégal. Dernière nomination le ${formatted}. Ministres, directeurs généraux, PCA, ambassadeurs nommés en conseil des ministres.`;
-  }
-  return 'Liste complète des nominations au Sénégal. Ministres, directeurs généraux, PCA, ambassadeurs nommés en conseil des ministres.';
-});
-
-const nominationsSchema = computed(() => ({
+const pageSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  name: title.value,
-  description: description.value,
-  url: url,
-  image: image,
+  name: title,
+  description,
+  url,
+  image,
   isPartOf: {
     '@type': 'WebSite',
     name: siteName,
@@ -75,10 +52,10 @@ const nominationsSchema = computed(() => ({
   ],
   mainEntity: {
     '@type': 'ItemList',
-    name: 'Nominations officielles Sénégal',
-    description: 'Liste des nominations officielles en conseil des ministres',
+    name: 'Personnalités publiques du Sénégal',
+    description: 'Annuaire des personnalités publiques et hauts fonctionnaires',
   },
-}));
+};
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -99,55 +76,31 @@ const breadcrumbSchema = {
     {
       '@type': 'ListItem',
       position: 3,
-      name: 'Nominations',
+      name: 'Personnalités publiques',
       item: url,
     },
   ],
 };
 
-const organizationSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'GovernmentOrganization',
-  name: 'Gouvernement du Sénégal',
-  url: url,
-  description:
-    'Nominations officielles du gouvernement sénégalais sous la présidence de Bassirou Diomaye Faye',
-  leader: {
-    '@type': 'Person',
-    name: 'Bassirou Diomaye Faye',
-    jobTitle: 'Président de la République',
-  },
-  address: {
-    '@type': 'PostalAddress',
-    addressCountry: 'SN',
-    addressLocality: 'Dakar',
-  },
-  areaServed: {
-    '@type': 'Country',
-    name: 'Sénégal',
-  },
-};
-
-// SEO Meta Tags
 useSeoMeta({
-  title: () => title.value,
-  ogTitle: () => title.value,
-  description: () => description.value,
-  ogDescription: () => description.value,
+  title,
+  ogTitle: title,
+  description,
+  ogDescription: description,
   ogImage: image,
   ogUrl: url,
   twitterCard: 'summary_large_image',
-  twitterTitle: () => title.value,
-  twitterDescription: () => description.value,
+  twitterTitle: title,
+  twitterDescription: description,
   twitterImage: image,
   keywords: [
     ...keywords,
-    'nominations conseil des ministres',
+    'personnalités publiques Sénégal',
     'ministres Sénégal',
     'directeurs généraux Sénégal',
     'PCA Sénégal',
-    'nominations présidentielles Sénégal',
-    'décrets nomination Sénégal',
+    'hauts fonctionnaires Sénégal',
+    'annuaire gouvernement Sénégal',
   ].join(', '),
 });
 
@@ -168,42 +121,65 @@ useHead({
   script: [
     {
       type: 'application/ld+json',
-      children: computed(() => JSON.stringify(nominationsSchema.value)),
+      children: JSON.stringify(pageSchema),
     },
     {
       type: 'application/ld+json',
       children: JSON.stringify(breadcrumbSchema),
     },
-    {
-      type: 'application/ld+json',
-      children: JSON.stringify(organizationSchema),
-    },
   ],
 });
 
-// Nombre total de nominations
+// URL vers la fiche détail
+const getDetailUrl = (person: any) => {
+  const slug =
+    person.slug ||
+    person.full_name
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+
+  return {
+    path: `/personnalites/${person.id}/${slug}`,
+    query: { ...route.query },
+  };
+};
+
+// Total
 const totalCount = computed(
   () => totalsByGender.value.maleCount + totalsByGender.value.femaleCount,
 );
 
-// Format date
-const formatDateFr = (dateStr: string) => {
-  const d = new Date(dateStr);
-  return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
-};
+// Reset page sur changement de recherche/filtres
+watch(searchQuery, () => {
+  filterCategory.value = 'all';
+  filterGender.value = 'all';
+  currentPage.value = 1;
+});
+
+watch([filterCategory, filterGender], () => {
+  currentPage.value = 1;
+});
+
+// Label genre pour affichage
+const getGenderLabel = (sexe: string) => (sexe === 'female' ? 'Nommée' : 'Nommé');
 </script>
 
 <template>
   <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-950">
     <!-- Breadcrumb -->
     <div class="container mx-auto px-4 pt-2">
-      <AppBreadcrumb :items="[{ label: 'Nominations' }]" />
+      <AppBreadcrumb
+        :items="[{ label: 'Annuaires', to: '/annuaires' }, { label: 'Personnalités publiques' }]"
+      />
     </div>
 
     <!-- SEO hidden heading -->
     <h1 class="sr-only">
-      Nominations au Sénégal, Membres du gouvernement, Conseil des ministres, Liste des ministres du
-      Sénégal, Directeurs généraux, PCA
+      Annuaire des personnalités publiques du Sénégal — Ministres, Directeurs généraux, PCA,
+      Ambassadeurs, Gouverneurs
     </h1>
 
     <!-- Sticky Header -->
@@ -213,19 +189,21 @@ const formatDateFr = (dateStr: string) => {
       <div class="container mx-auto px-4 py-3">
         <!-- Title Row -->
         <div class="flex items-center justify-between">
-          <h2 class="text-lg font-bold text-gray-900 dark:text-white sm:text-xl">Nominations</h2>
+          <h2 class="text-lg font-bold text-gray-900 dark:text-white sm:text-xl">
+            Annuaire des Personnalités publiques du Sénégal
+          </h2>
           <div class="flex items-center gap-3">
             <span
               v-if="totalCount"
               class="inline-flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400"
             >
               <UIcon name="i-heroicons-user-group-20-solid" class="h-3.5 w-3.5" />
-              {{ totalCount }} nominations
+              {{ totalCount }} personnalités
             </span>
           </div>
         </div>
 
-        <!-- Search Input -->
+        <!-- Search -->
         <div class="group relative mt-3">
           <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
             <UIcon
@@ -236,7 +214,7 @@ const formatDateFr = (dateStr: string) => {
           <input
             type="search"
             :value="searchQuery"
-            placeholder="Rechercher une nomination..."
+            placeholder="Rechercher une personnalité..."
             class="block w-full rounded-xl border-0 bg-gray-100 py-3 pl-11 pr-10 text-sm text-gray-900 ring-1 ring-transparent transition-all placeholder:text-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-400 dark:focus:bg-gray-800/80 dark:focus:ring-gray-500 sm:py-2.5"
             @input="setSearchQuery(($event.target as HTMLInputElement).value)"
           />
@@ -270,7 +248,7 @@ const formatDateFr = (dateStr: string) => {
           >
             <UIcon name="i-heroicons-user-20-solid" class="h-3.5 w-3.5" />
             Hommes
-            <span class="ml-0.5 text-[10px] opacity-70" v-if="totalsByGender.maleCount"
+            <span v-if="totalsByGender.maleCount" class="ml-0.5 text-[10px] opacity-70"
               >({{ totalsByGender.maleCount }})</span
             >
           </button>
@@ -285,13 +263,13 @@ const formatDateFr = (dateStr: string) => {
           >
             <UIcon name="i-heroicons-user-20-solid" class="h-3.5 w-3.5" />
             Femmes
-            <span class="ml-0.5 text-[10px] opacity-70" v-if="totalsByGender.femaleCount"
+            <span v-if="totalsByGender.femaleCount" class="ml-0.5 text-[10px] opacity-70"
               >({{ totalsByGender.femaleCount }})</span
             >
           </button>
         </div>
 
-        <!-- Category Filters - Horizontal Scroll -->
+        <!-- Category Filters -->
         <nav
           class="scrollbar-hide -mx-4 mt-2 overflow-x-auto px-4 pb-1"
           aria-label="Filtrer par catégorie"
@@ -348,7 +326,7 @@ const formatDateFr = (dateStr: string) => {
         </button>
       </p>
 
-      <!-- Loading Skeleton -->
+      <!-- Loading -->
       <div v-if="loading" class="space-y-2">
         <div
           v-for="n in 6"
@@ -364,7 +342,7 @@ const formatDateFr = (dateStr: string) => {
         </div>
       </div>
 
-      <!-- Error State -->
+      <!-- Error -->
       <div v-else-if="error" class="py-12">
         <div
           class="mx-auto max-w-sm rounded-2xl border border-red-200 bg-red-50 p-6 text-center dark:border-red-800 dark:bg-red-900/20"
@@ -379,7 +357,7 @@ const formatDateFr = (dateStr: string) => {
           </div>
           <p class="text-sm font-medium text-red-900 dark:text-red-200">Erreur de chargement</p>
           <p class="mt-1 text-xs text-red-700 dark:text-red-300">
-            Impossible de charger les nominations
+            Impossible de charger les personnalités
           </p>
           <UButton color="red" variant="soft" size="sm" class="mt-4" @click="$router.go(0)">
             Réessayer
@@ -387,14 +365,14 @@ const formatDateFr = (dateStr: string) => {
         </div>
       </div>
 
-      <!-- Empty State -->
+      <!-- Empty -->
       <div v-else-if="persons.length === 0" class="py-16 text-center">
         <div
           class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800"
         >
           <UIcon name="i-heroicons-user-group" class="h-8 w-8 text-gray-400" />
         </div>
-        <p class="text-sm font-medium text-gray-900 dark:text-white">Aucune nomination trouvée</p>
+        <p class="text-sm font-medium text-gray-900 dark:text-white">Aucune personnalité trouvée</p>
         <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
           Essayez une autre recherche ou modifiez les filtres
         </p>
@@ -413,13 +391,13 @@ const formatDateFr = (dateStr: string) => {
         </UButton>
       </div>
 
-      <!-- Nominations List -->
+      <!-- List -->
       <div v-else>
         <div class="space-y-2">
           <NuxtLink
             v-for="person in persons"
             :key="person.id"
-            :to="`/personnalites/${person.id}/${person.slug}`"
+            :to="getDetailUrl(person)"
             class="group flex gap-3 rounded-xl bg-white p-3 shadow-sm ring-1 ring-gray-100 transition-all hover:shadow-md hover:ring-gray-200 active:scale-[0.99] dark:bg-gray-900 dark:ring-gray-800 dark:hover:ring-gray-700"
           >
             <!-- Photo -->
@@ -430,9 +408,8 @@ const formatDateFr = (dateStr: string) => {
                 class="h-full w-full rounded-full object-cover ring-2 ring-gray-100 transition-shadow group-hover:ring-gray-200 dark:ring-gray-700 dark:group-hover:ring-gray-600"
                 loading="lazy"
               />
-              <!-- End date indicator -->
               <span
-                v-if="person.current_appointment?.end_date"
+                v-if="person.current_appointment && !person.current_appointment.is_current"
                 class="absolute -bottom-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 ring-2 ring-white dark:ring-gray-900"
                 title="Fin de fonction"
               >
@@ -448,7 +425,7 @@ const formatDateFr = (dateStr: string) => {
                 {{ person.full_name }}
               </h2>
               <p
-                v-if="person.current_appointment?.position_title"
+                v-if="person.current_appointment"
                 class="mt-0.5 line-clamp-1 text-xs text-gray-600 dark:text-gray-400"
               >
                 {{ person.current_appointment.position_title }}
@@ -459,20 +436,19 @@ const formatDateFr = (dateStr: string) => {
               >
                 {{ person.current_appointment.organization_label }}
               </p>
-              <div class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5">
-                <time
-                  v-if="person.current_appointment?.appointment_date"
-                  class="text-[11px] text-gray-400 dark:text-gray-500"
-                >
-                  {{ person.sexe === 'female' ? 'Nommée' : 'Nommé' }} le
-                  {{ formatDateFr(person.current_appointment.appointment_date) }}
+              <div
+                v-if="person.current_appointment?.appointment_date"
+                class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5"
+              >
+                <time class="text-[11px] text-gray-400 dark:text-gray-500">
+                  {{ getGenderLabel(person.sexe) }} le
+                  {{ $dateformat(person.current_appointment.appointment_date) }}
                 </time>
                 <span
-                  v-if="person.current_appointment?.end_date"
+                  v-if="person.current_appointment.end_date"
                   class="text-[11px] text-red-500 dark:text-red-400"
                 >
-                  Fin de fonction le
-                  {{ formatDateFr(person.current_appointment.end_date) }}
+                  Fin de fonction le {{ $dateformat(person.current_appointment.end_date) }}
                 </span>
               </div>
             </div>

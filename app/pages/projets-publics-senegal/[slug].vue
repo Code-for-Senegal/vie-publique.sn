@@ -110,7 +110,7 @@ useSeoMeta({
             <UIcon name="i-heroicons-document-magnifying-glass" class="h-5 w-5 text-gray-400" />
             Description
           </h3>
-          <div class="prose prose-sm max-w-none dark:prose-invert" v-html="project.description" />
+          <div class="prose prose-sm max-w-none prose-p:text-gray-600 prose-strong:text-gray-900 prose-li:text-gray-600 dark:prose-p:text-gray-300 dark:prose-strong:text-white dark:prose-li:text-gray-300 dark:prose-headings:text-white" v-html="project.description" />
         </div>
 
         <!-- Budgets annuels -->

@@ -2,69 +2,49 @@ import { readItems } from '@directus/sdk';
 import type { GovernmentMember } from '~/types/government-member';
 
 /**
- * API pour récupérer le gouvernement actuel du Sénégal
- * Filtre les nominations de type "Ministre", "Premier Ministre" et "Secrétaire d'État"
- * qui sont encore en fonction (pas de endDate ou endDate > aujourd'hui)
+ * API pour récupérer le gouvernement actuel du Sénégal.
+ * Requête la collection public_persons avec leur nomination actuelle (current_appointment)
+ * et filtre par catégorie de poste gouvernemental.
  */
 export default defineCachedEventHandler(
-  async (event) => {
-    const config = useRuntimeConfig();
-
+  async () => {
     try {
       const directus = getCmsClient();
-      const today = new Date().toISOString().split('T')[0];
 
-      // Filtre pour récupérer uniquement le gouvernement actuel
-      const filter: any = {
-        status: {
-          _eq: 'published',
-        },
-        type: {
-          _in: ['Ministre', 'Premier Ministre', "Secrétaire d'État"],
-        },
-        _and: [
-          {
-            _or: [
-              {
-                endDate: {
-                  _null: true, // Pas de date de fin = toujours en fonction
-                },
-              },
-              {
-                endDate: {
-                  _gte: today, // Date de fin dans le futur
-                },
-              },
-            ],
-          },
-        ],
-      };
+      // Catégories de postes gouvernementaux
+      const governmentCategories = ['Premier Ministre', 'Ministre', "Secrétaire d'État"];
 
-      // Récupération des membres du gouvernement
-      const governmentData = await directus
+      // Récupération des personnalités ayant un poste gouvernemental actuel
+      const personsData = await directus
         .request(
-          readItems('positions', {
+          readItems('public_persons', {
             fields: [
               'id',
-              'name',
+              'full_name',
               'slug',
               'sexe',
-              'type',
-              'role',
-              'organisation',
-              'nominationDate',
-              'endDate',
               'photo',
-              'formation',
-              'predecessor',
-              'rating',
+              'education',
+              'current_appointment.id',
+              'current_appointment.position_title',
+              'current_appointment.position_category',
+              'current_appointment.organization_label',
+              'current_appointment.appointment_date',
+              'current_appointment.end_date',
+              'current_appointment.is_current',
+              'current_appointment.predecessor_label',
             ],
-            filter,
-            sort: [
-              // Premier Ministre en premier, puis Ministres par ordre alphabétique
-              'type',
-              'name',
-            ],
+            filter: {
+              status: { _eq: 'published' },
+              current_appointment: {
+                position_category: {
+                  _in: governmentCategories,
+                },
+                is_current: { _eq: true },
+              },
+            },
+            sort: ['current_appointment.position_category', 'full_name'],
+            limit: -1,
           }),
         )
         .catch((error) => {
@@ -75,21 +55,24 @@ export default defineCachedEventHandler(
           });
         });
 
-      // Transformation des données avec génération du slug si nécessaire
-      const transformedGovernment: GovernmentMember[] = governmentData.map((member) => ({
-        id: member.id,
-        name: member.name,
-        slug: member.slug || generateSlugFromName(member.name),
-        sexe: member.sexe,
-        type: member.type || null,
-        role: member.role,
-        organisation: member.organisation || null,
-        nominationDate: member.nominationDate,
-        endDate: member.endDate || '',
-        photo: member.photo || null,
-        formation: member.formation || null,
-        predecessor: member.predecessor || null,
-        rating: member.rating || null,
+      // Transformation des données vers le format GovernmentMember
+      const transformedGovernment: GovernmentMember[] = personsData.map((person: any) => ({
+        id: String(person.id),
+        name: person.full_name,
+        slug: person.slug || generateSlugFromName(person.full_name),
+        sexe: person.sexe || 'male',
+        type: person.current_appointment?.position_category || null,
+        role:
+          person.current_appointment?.position_title ||
+          person.current_appointment?.position_category ||
+          '',
+        organisation: person.current_appointment?.organization_label || null,
+        nominationDate: person.current_appointment?.appointment_date || '',
+        endDate: person.current_appointment?.end_date || '',
+        photo: person.photo || null,
+        formation: person.education || null,
+        predecessor: person.current_appointment?.predecessor_label || null,
+        rating: null,
         portrait: null,
       }));
 
@@ -110,10 +93,10 @@ export default defineCachedEventHandler(
           total: transformedGovernment.length,
           ministers: ministers.length,
           secretariesOfState: secretariesOfState.length,
-          women: transformedGovernment.filter((m) => m.sexe === 'Madame').length,
-          men: transformedGovernment.filter((m) => m.sexe === 'Monsieur').length,
+          women: transformedGovernment.filter((m) => m.sexe === 'female').length,
+          men: transformedGovernment.filter((m) => m.sexe === 'male').length,
         },
-        lastUpdate: today,
+        lastUpdate: new Date().toISOString().split('T')[0],
       };
     } catch (error) {
       console.error('Erreur API gouvernement:', error);
@@ -124,7 +107,7 @@ export default defineCachedEventHandler(
     }
   },
   {
-    maxAge: 60 * 60 * 6, // 6 heures (le gouvernement change rarement)
+    maxAge: process.env.NODE_ENV === 'production' ? 5 * 60 : 0, // 5 min en prod, pas de cache en dev
     name: 'government-current',
   },
 );
