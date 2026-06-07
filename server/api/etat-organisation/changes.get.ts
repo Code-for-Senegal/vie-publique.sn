@@ -172,7 +172,8 @@ export default defineCachedEventHandler(
         ])
 
         for (const s of [...(toSnapshots as any[]), ...(fromSnapshots as any[])]) {
-          const entityId = typeof s.public_entity === 'object' ? s.public_entity?.id : s.public_entity
+          const rawId = typeof s.public_entity === 'object' ? s.public_entity?.id : s.public_entity
+          const entityId = rawId != null ? String(rawId) : null
           if (!entityId) continue
 
           const p1 = (s.parent_snapshot as any)?.official_label ?? null
@@ -182,8 +183,8 @@ export default defineCachedEventHandler(
           // Direct parent (first non-null)
           if (!parentNameMap.has(entityId) && p1) parentNameMap.set(entityId, p1)
 
-          // Root: highest ancestor available (p3 > p2 > p1)
-          const root = p3 || p2 || null
+          // Root: deepest ancestor available (p3 > p2 > p1) — covers shallow and deep hierarchies
+          const root = p3 || p2 || p1 || null
           if (!rootNameMap.has(entityId) && root) rootNameMap.set(entityId, root)
         }
       }
@@ -202,7 +203,7 @@ export default defineCachedEventHandler(
       allDecrees,
       summary,
       changes: (filteredChanges as any[]).map((c: any) => {
-        const entityId = c.entity?.id ?? null
+        const entityId = c.entity?.id != null ? String(c.entity.id) : null
         // For reparent: parent_official_label is in new_value/old_value
         // For created/deleted: use snapshot-based lookup
         const parentName: string | null =
