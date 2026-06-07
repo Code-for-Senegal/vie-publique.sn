@@ -79,15 +79,15 @@ export default defineCachedEventHandler(
             'year',
             'label',
             'version',
-            'entity',
+            'public_entity',
             'level',
             'code',
             'amount_cp',
             'unit',
-            'entity.name',
-            'entity.id',
-            'entity.public_slug',
-            'entity.logo',
+            'public_entity.name',
+            'public_entity.id',
+            'public_entity.slug',
+            'public_entity.logo',
           ],
           filter: {
             year: { _eq: year },
@@ -105,7 +105,7 @@ export default defineCachedEventHandler(
           // Récupérer les lignes budgétaires de comparaison
           compareItems = await directus.request(
             readItems('budget_line', {
-              fields: ['id', 'entity', 'amount_cp'],
+              fields: ['id', 'public_entity', 'amount_cp'],
               filter: {
                 year: { _eq: compareYear },
                 version: { _eq: compareVersion },
@@ -123,10 +123,12 @@ export default defineCachedEventHandler(
 
       // Enrichir les données avec la variation
       const enrichedItems = items.map((item: any) => {
-        // Matching par ID d'entité (item.entity est un objet, compareItem.entity est un ID)
-        const itemEntityId = typeof item.entity === 'object' ? item.entity.id : item.entity;
+        // Matching par ID d'entité (item.public_entity est un objet, compareItem.public_entity est un ID)
+        const itemEntityId =
+          typeof item.public_entity === 'object' ? item.public_entity.id : item.public_entity;
         const compareItem = compareItems.find((c: any) => {
-          const compareEntityId = typeof c.entity === 'object' ? c.entity.id : c.entity;
+          const compareEntityId =
+            typeof c.public_entity === 'object' ? c.public_entity.id : c.public_entity;
           return compareEntityId === itemEntityId;
         });
         let variation_percentage = null;
@@ -170,9 +172,10 @@ export default defineCachedEventHandler(
     maxAge: process.env.NODE_ENV === 'production' ? 5 * 60 : 0, // 5 minutes en prod, pas de cache en dev
     getKey: (event) => {
       const query = getQuery(event);
-      const compareKey = query.compareYear && query.compareVersion
-        ? `-vs-${query.compareYear}-${query.compareVersion}`
-        : '';
+      const compareKey =
+        query.compareYear && query.compareVersion
+          ? `-vs-${query.compareYear}-${query.compareVersion}`
+          : '';
       return `budget-ministries-${query.year || 2025}-${query.version || 'latest'}-${query.level || 'ministry'}${compareKey}`;
     },
   },
