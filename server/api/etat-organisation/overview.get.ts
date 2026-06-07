@@ -137,30 +137,41 @@ export default defineCachedEventHandler(
 
     if (entityIds.length > 0) {
       try {
-        const decreeIds = [activeDecree.id, previousDecree?.id].filter(Boolean)
-        const snapshots = await cmsClient.request(
-          readItems('entity_snapshots', {
-            fields: [
-              'public_entity',
-              'parent_snapshot.official_label',
-              'parent_snapshot.parent_snapshot.official_label',
-              'parent_snapshot.parent_snapshot.parent_snapshot.official_label',
-            ],
-            filter: {
-              decree: { _in: decreeIds },
-              public_entity: { _in: entityIds },
-            },
-            limit: -1,
-          }),
-        )
-        for (const s of snapshots as any[]) {
-          const entityId = typeof s.public_entity === 'object' ? s.public_entity?.id : s.public_entity
+        const snapshotFields = [
+          'public_entity',
+          'parent_snapshot.official_label',
+          'parent_snapshot.parent_snapshot.official_label',
+          'parent_snapshot.parent_snapshot.parent_snapshot.official_label',
+        ]
+        // Two separate _eq queries (like changes.get.ts) — more reliable than _in
+        const [toSnapshots, fromSnapshots] = await Promise.all([
+          cmsClient.request(
+            readItems('entity_snapshots', {
+              fields: snapshotFields,
+              filter: { decree: { _eq: activeDecree.id }, public_entity: { _in: entityIds } },
+              limit: -1,
+            }),
+          ),
+          previousDecree
+            ? cmsClient.request(
+                readItems('entity_snapshots', {
+                  fields: snapshotFields,
+                  filter: { decree: { _eq: previousDecree.id }, public_entity: { _in: entityIds } },
+                  limit: -1,
+                }),
+              )
+            : Promise.resolve([]),
+        ])
+        for (const s of [...(toSnapshots as any[]), ...(fromSnapshots as any[])]) {
+          const rawId = typeof s.public_entity === 'object' ? s.public_entity?.id : s.public_entity
+          const entityId = rawId != null ? String(rawId) : null
           if (!entityId) continue
-          const p1 = s.parent_snapshot?.official_label ?? null
-          const p2 = s.parent_snapshot?.parent_snapshot?.official_label ?? null
-          const p3 = s.parent_snapshot?.parent_snapshot?.parent_snapshot?.official_label ?? null
+          const p1 = (s.parent_snapshot as any)?.official_label ?? null
+          const p2 = (s.parent_snapshot as any)?.parent_snapshot?.official_label ?? null
+          const p3 = (s.parent_snapshot as any)?.parent_snapshot?.parent_snapshot?.official_label ?? null
           if (!parentNameMap.has(entityId) && p1) parentNameMap.set(entityId, p1)
-          const root = p3 || p2 || null
+          // Root: deepest ancestor available (p3 > p2 > p1) — covers shallow and deep hierarchies
+          const root = p3 || p2 || p1 || null
           if (!rootNameMap.has(entityId) && root) rootNameMap.set(entityId, root)
         }
       }
@@ -187,7 +198,7 @@ export default defineCachedEventHandler(
         total: (allChanges as any[]).length,
       },
       recent_changes: (recentChanges as any[]).map((change: any) => {
-        const entityId = change.entity?.id ?? null
+        const entityId = change.entity?.id != null ? String(change.entity.id) : null
         return {
           id: change.id,
           category: change.change_category,
