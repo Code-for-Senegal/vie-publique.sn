@@ -485,7 +485,6 @@ export default defineNuxtConfig({
       '/chatbot',
       '/chat-bot',
       '/etat-senegal/annuaire',
-      '/etat-senegal/organisation',
       '/a-propos/barometre-politique',
       '/a-propos/charte-dons',
       '/don/bictorys',

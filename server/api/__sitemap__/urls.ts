@@ -203,7 +203,40 @@ export default defineSitemapEventHandler(async () => {
       console.warn('Erreur sitemap personnalités publiques:', sitemapError);
     }
 
-    // 7. Pages statiques : Laissées à l'auto-découverte de Nuxt Sitemap
+    // 7. Entités publiques de l'État du Sénégal
+    try {
+      const publicEntities = await directus.request(
+        readItems('public_entities', {
+          fields: ['slug', 'date_updated'],
+          filter: {
+            has_public_page: { _eq: true },
+            slug: { _nnull: true },
+          },
+          limit: -1,
+          sort: ['slug'],
+        }),
+      );
+
+      // Pages statiques non auto-découvertes (sous-dossier /organisation)
+      urls.push(
+        { loc: '/etat-senegal/organisation', changefreq: 'weekly', priority: 0.8 },
+        { loc: '/etat-senegal/organisation/changements', changefreq: 'weekly', priority: 0.7 },
+      );
+
+      for (const entity of publicEntities) {
+        const lastmod = toISODate(entity.date_updated);
+        urls.push({
+          loc: `/etat-senegal/${entity.slug}`,
+          ...(lastmod && { lastmod }),
+          changefreq: 'monthly',
+          priority: 0.7,
+        });
+      }
+    } catch (sitemapError) {
+      console.warn('Erreur sitemap entités état:', sitemapError);
+    }
+
+    // 8. Pages statiques : Laissées à l'auto-découverte de Nuxt Sitemap
     // Le module @nuxtjs/seo va automatiquement inclure toutes les pages du dossier /pages
   } catch (error) {
     console.error('Erreur génération sitemap:', error);
