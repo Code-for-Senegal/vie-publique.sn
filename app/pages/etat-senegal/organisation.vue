@@ -1,6 +1,7 @@
 <template>
   <div class="min-h-screen flex flex-col px-4 pb-16">
-    <AppBreadcrumb :items="[
+    <AppBreadcrumb
+:items="[
       { label: 'État du Sénégal', to: '/etat-senegal' },
       { label: 'Organisation de l\'État' }
     ]" />

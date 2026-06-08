@@ -6,7 +6,7 @@ const { siteName, siteUrl, keywords, themeColor } = useSiteMetadata();
 const title =
   'Gouvernement du Sénégal — Composition actuelle sous Bassirou Diomaye Faye | Vie Publique Sénégal';
 const description =
-  "Composition actuelle du gouvernement du Sénégal sous la présidence de Bassirou Diomaye Faye. Liste complète des ministres, secrétaires d'État avec photos et fonctions.";
+  "Composition actuelle du gouvernement du Sénégal sous la présidence de Bassirou Diomaye Faye. Premier Ministre, liste complète des ministres et secrétaires d'État nommés avec photos, fonctions et fiches détaillées.";
 const url = `${siteUrl}/gouvernement-senegal`;
 const image = `${siteUrl}/nomination-3.png`;
 
@@ -52,6 +52,7 @@ const governmentSchema = computed(() => {
       jobTitle: member.role,
       gender: member.sexe === 'female' ? 'Female' : 'Male',
       image: member.photo ? useCmsImage(member.photo) : undefined,
+      url: `${siteUrl}/personnalites/${member.id}/${member.slug || member.id}`,
       worksFor: {
         '@type': 'GovernmentOrganization',
         name: 'Gouvernement du Sénégal',
@@ -60,13 +61,15 @@ const governmentSchema = computed(() => {
   };
 });
 
-const pageSchema = {
+const pageSchema = computed(() => ({
   '@context': 'https://schema.org',
   '@type': 'WebPage',
   name: title,
   description,
   url,
   image,
+  dateModified: governmentData.value?.lastUpdate || new Date().toISOString().split('T')[0],
+  inLanguage: 'fr-SN',
   isPartOf: {
     '@type': 'WebSite',
     name: siteName,
@@ -82,8 +85,9 @@ const pageSchema = {
     '@type': 'ItemList',
     name: 'Membres du gouvernement du Sénégal',
     description: "Premier Ministre, ministres et secrétaires d'État du Sénégal",
+    numberOfItems: stats.value?.total || 0,
   },
-};
+}));
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -128,13 +132,15 @@ useSeoMeta({
     'gouvernement actuel sénégal',
     'ministres sénégal',
     'premier ministre sénégal',
-    'Ousmane Sonko',
+    'Ahmadou Al Aminou Lo',
     'Bassirou Diomaye Faye',
     'cabinet ministériel sénégal',
     'composition gouvernement sénégal',
     "secrétaires d'état sénégal",
     'gouvernement Diomaye Faye',
     'liste ministres sénégal',
+    'remaniement ministériel sénégal',
+    'nomination ministres sénégal 2025',
   ].join(', '),
 });
 
@@ -156,7 +162,7 @@ useHead({
   script: [
     {
       type: 'application/ld+json',
-      children: JSON.stringify(pageSchema),
+      children: computed(() => JSON.stringify(pageSchema.value)),
     },
     {
       type: 'application/ld+json',
@@ -199,21 +205,16 @@ const getDuration = (nominationDate: string): string => {
       />
     </div>
 
-    <!-- SEO hidden heading -->
-    <h1 class="sr-only">
-      Gouvernement du Sénégal — Composition actuelle, ministres et secrétaires d'État
-    </h1>
-
-    <!-- Sticky Header -->
+    <!-- Sticky Header with visible h1 -->
     <header
       class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95"
     >
       <div class="container mx-auto px-4 py-3">
         <div class="flex items-center justify-between">
           <div>
-            <h2 class="text-lg font-bold text-gray-900 dark:text-white sm:text-xl">
+            <h1 class="text-lg font-bold text-gray-900 dark:text-white sm:text-xl">
               Gouvernement du Sénégal
-            </h2>
+            </h1>
             <p class="text-xs text-gray-500 dark:text-gray-400">
               Présidence de Bassirou Diomaye Faye
             </p>
@@ -286,6 +287,24 @@ const getDuration = (nominationDate: string): string => {
 
       <!-- Contenu -->
       <div v-else-if="governmentData" class="space-y-10">
+        <!-- Introduction SEO -->
+        <p
+          v-if="primeMinister && stats"
+          class="text-xs leading-relaxed text-gray-500 dark:text-gray-400 sm:text-sm"
+        >
+          Le gouvernement du Sénégal, sous la présidence de Bassirou Diomaye Faye, est dirigé par
+          le Premier Ministre {{ primeMinister.name }}. Il est composé de
+          {{ stats.total }} membres dont {{ stats.ministers }} ministres<template
+            v-if="stats.secretariesOfState > 0"
+          >
+            et {{ stats.secretariesOfState }} secrétaires d'État</template
+          >.
+          <span class="hidden sm:inline">
+            Consultez ci-dessous la liste complète des membres du gouvernement avec leurs fonctions
+            et accédez à leur fiche détaillée.</span
+          >
+        </p>
+
         <!-- Premier Ministre -->
         <section v-if="primeMinister">
           <h2 class="mb-4 text-lg font-bold text-gray-900 dark:text-white">Premier Ministre</h2>
@@ -303,7 +322,7 @@ const getDuration = (nominationDate: string): string => {
                   :src="
                     primeMinister.photo ? useCmsImage(primeMinister.photo) : '/unknown_member.webp'
                   "
-                  :alt="primeMinister.name"
+                  :alt="`${primeMinister.name}, Premier Ministre du Sénégal`"
                   class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <!-- Gradient mobile only -->
@@ -362,7 +381,7 @@ const getDuration = (nominationDate: string): string => {
             >
               <img
                 :src="minister.photo ? useCmsImage(minister.photo) : '/unknown_member.webp'"
-                :alt="minister.name"
+                :alt="`${minister.name}, ${minister.role}`"
                 class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 loading="lazy"
               />
@@ -396,7 +415,7 @@ const getDuration = (nominationDate: string): string => {
             >
               <img
                 :src="secretary.photo ? useCmsImage(secretary.photo) : '/unknown_member.webp'"
-                :alt="secretary.name"
+                :alt="`${secretary.name}, ${secretary.role}`"
                 class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 loading="lazy"
               />

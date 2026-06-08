@@ -230,7 +230,8 @@ watch(
       <div class="mx-auto max-w-4xl">
         <!-- Breadcrumb desktop only -->
         <div class="hidden pt-4 md:block">
-          <AppBreadcrumb :items="[
+          <AppBreadcrumb
+:items="[
             { label: 'Podcasts', to: '/podcasts' },
             { label: podcast?.title || 'Podcast' }
           ]" />

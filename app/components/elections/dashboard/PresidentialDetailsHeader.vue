@@ -27,9 +27,9 @@ const genderText = computed(() => {
         icon="i-heroicons-arrow-left"
         color="gray"
         variant="soft"
-        @click="emit('close')"
         class="rounded-xl shrink-0"
         size="sm"
+        @click="emit('close')"
       >
         <span class="hidden sm:inline">Retour</span>
       </UButton>

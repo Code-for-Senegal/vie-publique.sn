@@ -65,7 +65,8 @@ const listViewTypes = [
       size="xs"
       class="bg-gray b-0 mb-1 w-full hover:bg-white"
     >
-      <AppBreadcrumb :items="[
+      <AppBreadcrumb
+:items="[
         { label: 'Tableau de Bord Élections', to: '/elections' },
         { label: 'Candidatures Législatives 2024' }
       ]" />

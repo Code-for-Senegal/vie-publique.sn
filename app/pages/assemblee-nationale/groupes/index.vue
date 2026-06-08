@@ -5,7 +5,8 @@
       <div class="mx-auto max-w-6xl">
         <!-- Breadcrumb desktop only -->
         <div class="mb-2 hidden md:block">
-          <AppBreadcrumb :items="[
+          <AppBreadcrumb
+:items="[
             { label: 'Assemblée nationale', to: '/assemblee-nationale' },
             { label: 'Groupes parlementaires' }
           ]" />

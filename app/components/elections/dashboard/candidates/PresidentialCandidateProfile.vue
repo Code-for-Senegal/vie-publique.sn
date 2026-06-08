@@ -198,11 +198,11 @@ const getAssetUrl = (assetId: string, slug: string) => {
         <button
           v-for="(item, index) in items"
           :key="index"
-          @click="scrollToSection(item.id, index)"
           class="flex-1 flex items-center justify-center gap-2 px-2 sm:px-4 py-2.5 rounded-lg font-bold text-xs sm:text-sm transition-all duration-300"
           :class="activeTab === index
             ? 'bg-primary-600 text-white shadow-md'
             : 'text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-gray-800'"
+          @click="scrollToSection(item.id, index)"
         >
           <UIcon :name="item.icon" class="h-4 w-4 shrink-0" />
           <span

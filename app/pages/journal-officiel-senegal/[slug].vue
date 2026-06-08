@@ -166,7 +166,8 @@ const formatDateISO = (date: string) => {
 
 <template>
   <div class="min-h-screen pb-16" itemscope itemtype="https://schema.org/WebPage">
-    <AppBreadcrumb :items="[
+    <AppBreadcrumb
+:items="[
       { label: 'Journaux', to: '/journal-officiel-senegal' },
       { label: route.params.slug as string }
     ]" />

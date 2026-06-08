@@ -2,7 +2,8 @@
   <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-950">
     <!-- Breadcrumb -->
     <div class="container mx-auto px-4 pt-2">
-      <AppBreadcrumb :items="[
+      <AppBreadcrumb
+:items="[
         { label: 'Assemblée nationale', to: '/assemblee-nationale' },
         { label: 'Députés' }
       ]" />

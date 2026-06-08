@@ -147,7 +147,8 @@ watch([selectedType, selectedType], () => {
 
 <template>
   <div class="min-h-screen flex flex-col items-center px-4 pb-16">
-    <AppBreadcrumb :items="[
+    <AppBreadcrumb
+:items="[
       { label: 'Médias', to: '/medias' },
       { label: 'Aides à la presse 2023' }
     ]" />

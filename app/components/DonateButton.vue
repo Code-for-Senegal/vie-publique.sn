@@ -40,7 +40,7 @@
           </p>
 
           <!-- Formulaire de don -->
-          <form @submit.prevent="handleDonation" class="space-y-4">
+          <form class="space-y-4" @submit.prevent="handleDonation">
             <!-- Sélection du montant -->
             <div>
               <label class="mb-2 block text-sm font-medium">
@@ -53,8 +53,8 @@
                   :variant="selectedAmount === suggested.value ? 'solid' : 'outline'"
                   :color="selectedAmount === suggested.value ? 'primary' : 'gray'"
                   size="sm"
-                  @click="selectedAmount = suggested.value"
                   type="button"
+                  @click="selectedAmount = suggested.value"
                 >
                   {{ suggested.label }}
                 </UButton>

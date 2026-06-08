@@ -116,7 +116,8 @@ function openModal(minister: Candidate) {
 
 <template>
   <div class="container mx-auto min-h-screen px-4 pb-16">
-    <AppBreadcrumb :items="[
+    <AppBreadcrumb
+:items="[
       { label: 'Coalitions', to: '/elections/legislatives' },
       { label: coalitionId }
     ]" />

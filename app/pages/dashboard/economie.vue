@@ -405,11 +405,11 @@ const alertesMapConfig = computed<SenegalMapConfig>(() => ({
       <!-- Filtres -->
       <section v-if="isReady" class="mb-3">
         <DashboardFilters
-          :sectors="availableSectors"
-          :regions="regionOptions"
           v-model:active-sectors="activeSectors"
           v-model:active-tendances="activeTendances"
           v-model:active-regions="activeRegions"
+          :sectors="availableSectors"
+          :regions="regionOptions"
           :filtered-count="filteredRegions.length"
           @reset="resetFilters"
         />
