@@ -33,7 +33,7 @@ export default defineCachedEventHandler(
     const cmsClient = getCmsClient()
 
     const decrees = await cmsClient.request(
-      readItems('decree', {
+      readItems('state_organization_decree', {
         fields: ['id', 'numero', 'status', 'date_publication'],
         sort: ['-date_publication'],
         limit: 20,
@@ -57,7 +57,7 @@ export default defineCachedEventHandler(
       ?? orderedDecrees[0]
 
     const snapshots = await cmsClient.request(
-      readItems('entity_snapshots', {
+      readItems('state_entity_snapshot', {
         filter: {
           decree: { _eq: activeDecree.id },
           // Include null change_type (entite_regroupement) + all non-removed
