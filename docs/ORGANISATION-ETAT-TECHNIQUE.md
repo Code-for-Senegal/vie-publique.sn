@@ -20,7 +20,7 @@ La donnée source est gérée dans un CMS Directus et consommée par le frontend
 ## 2. Modèle de données (Directus / PostgreSQL)
 
 ```
-state_entity_type  ──────< state_entity ──────< state_entity_snapshot >──── state_organization_decree
+state_organization_entity_type  ──────< state_organization_entity ──────< state_organization_entity_snapshot >──── state_organization_decree
                                                       │
                                            parent_snapshot_id (self-ref)
 ```
@@ -29,17 +29,17 @@ state_entity_type  ──────< state_entity ──────< state_en
 
 | Collection | Rôle |
 |---|---|
-| `state_entity_type` | Référentiel des types (`ministere`, `direction`, `service`, `etablissement_public`, `societe_nationale`, `societe_participation_publique`, `entite_regroupement`, …) |
-| `state_entity` | Entité canonique avec `slug` **immuable** (clé URL stable), `name`, `code_institution` |
+| `state_organization_entity_type` | Référentiel des types (`ministere`, `direction`, `service`, `etablissement_public`, `societe_nationale`, `societe_participation_publique`, `entite_regroupement`, …) |
+| `state_organization_entity` | Entité canonique avec `slug` **immuable** (clé URL stable), `name`, `code_institution` |
 | `state_organization_decree` | Décret présidentiel avec `numero` (unique), `date_publication`, `status` (`active` ou archivé) |
-| `state_entity_snapshot` | Snapshot d'une entité pour un décret donné. Contient `official_label`, `change_type` et la hiérarchie via `parent_snapshot_id` (FK auto-référentielle) |
-| `state_entity_change` | Changements détectés entre deux décrets : `change_category` (`created`, `rename`, `reparent`, `deleted`, `merge`, `split`) |
+| `state_organization_entity_snapshot` | Snapshot d'une entité pour un décret donné. Contient `official_label`, `change_type` et la hiérarchie via `parent_snapshot_id` (FK auto-référentielle) |
+| `state_organization_entity_change` | Changements détectés entre deux décrets : `change_category` (`created`, `rename`, `reparent`, `deleted`, `merge`, `split`) |
 
 ### Points clés du schéma
 
 - **`slug` ne change jamais** — c'est le seul identifiant stable pour les URL publiques.
-- **`state_entity_snapshot.parent_snapshot_id`** est la **clé fiable** de hiérarchie (pas `parent_entity`). Chaque décret crée ses propres snapshots.
-- **`change_type = null`** dans `state_entity_snapshot` → entité de regroupement (`entite_regroupement`), exclue de `state_entity_change`.
+- **`state_organization_entity_snapshot.parent_snapshot_id`** est la **clé fiable** de hiérarchie (pas `parent_entity`). Chaque décret crée ses propres snapshots.
+- **`change_type = null`** dans `state_organization_entity_snapshot` → entité de regroupement (`entite_regroupement`), exclue de `state_organization_entity_change`.
 - **`code_institution`** : identifiant numérique stable pour les 3 racines (Présidence=21, Primature=22, Ministères).
 
 ---
@@ -146,7 +146,7 @@ Retourne **toutes les entités** du décret (flat list) avec leur hiérarchie de
   parent_snapshot_id?: string | null  // lien hiérarchique fiable
   parent_id?: string | null           // résolu en post-traitement
   parent_name?: string | null         // résolu en post-traitement
-  // Données de contact (depuis state_entity)
+  // Données de contact (depuis state_organization_entity)
   email?, adresse?, phone?, web_site?, reseaux_sociaux?, logo?
 }
 ```
@@ -387,9 +387,9 @@ scripts/import-decree.js
         │  Parsing Markdown → entités structurées
         │  Détection type depuis contexte parent (##, ###, ####, bold markers)
         │  Génération slug (ONCE, immuable)
-        │  Upsert state_entity par slug / code_institution
-        │  Création state_entity_snapshot liés au décret
-        │  Détection changements → state_entity_change
+        │  Upsert state_organization_entity par slug / code_institution
+        │  Création state_organization_entity_snapshot liés au décret
+        │  Détection changements → state_organization_entity_change
         ▼
 Directus CMS (PostgreSQL)
 ```
@@ -437,11 +437,11 @@ index.vue setup()
    ├─ useEtatOrganisation()
    │    ├─ useAsyncData('etat-organisation-overview')
    │    │       → GET /api/etat-organisation/overview
-   │    │             → Directus: state_organization_decree + state_entity_type + state_entity + state_entity_change
+   │    │             → Directus: state_organization_decree + state_organization_entity_type + state_organization_entity + state_organization_entity_change
    │    │             → Cache MEDIUM
    │    └─ useAsyncData('etat-organisation-entities-active')
    │            → GET /api/etat-organisation/entities
-   │                  → Directus: state_entity_snapshot JOIN public_entity JOIN entity_type
+   │                  → Directus: state_organization_entity_snapshot JOIN public_entity JOIN entity_type
    │                  → Post-traitement: résolution parent_name
    │                  → Cache MEDIUM
    │

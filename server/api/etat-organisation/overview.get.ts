@@ -1,4 +1,4 @@
-import { readItems } from '@directus/sdk'
+﻿import { readItems } from '@directus/sdk'
 import { CacheDuration, getCacheMaxAge } from '../../utils/cache'
 
 type DecreeRow = {
@@ -47,14 +47,14 @@ export default defineCachedEventHandler(
 
     const [allTypes, publicEntities, allChanges, recentChanges] = await Promise.all([
       cmsClient.request(
-        readItems('state_entity_type', {
+        readItems('state_organization_entity_type', {
           fields: ['id', 'code', 'label'],
           sort: ['label'],
           limit: -1,
         }),
       ),
       cmsClient.request(
-        readItems('state_entity', {
+        readItems('state_organization_entity', {
           fields: ['id', 'has_public_page', 'entity_type.code'],
           limit: -1,
         }),
@@ -62,7 +62,7 @@ export default defineCachedEventHandler(
       // Full count for summary (lightweight — only id + category)
       previousDecree
         ? cmsClient.request(
-            readItems('state_entity_change', {
+            readItems('state_organization_entity_change', {
               fields: ['id', 'change_category'],
               filter: {
                 from_decree: { _eq: previousDecree.id },
@@ -75,7 +75,7 @@ export default defineCachedEventHandler(
       // Recent items for display (limit 24)
       previousDecree
         ? cmsClient.request(
-            readItems('state_entity_change', {
+            readItems('state_organization_entity_change', {
               fields: [
                 'id',
                 'change_category',
@@ -146,7 +146,7 @@ export default defineCachedEventHandler(
         // Two separate _eq queries (like changes.get.ts) — more reliable than _in
         const [toSnapshots, fromSnapshots] = await Promise.all([
           cmsClient.request(
-            readItems('state_entity_snapshot', {
+            readItems('state_organization_entity_snapshot', {
               fields: snapshotFields,
               filter: { decree: { _eq: activeDecree.id }, public_entity: { _in: entityIds } },
               limit: -1,
@@ -154,7 +154,7 @@ export default defineCachedEventHandler(
           ),
           previousDecree
             ? cmsClient.request(
-                readItems('state_entity_snapshot', {
+                readItems('state_organization_entity_snapshot', {
                   fields: snapshotFields,
                   filter: { decree: { _eq: previousDecree.id }, public_entity: { _in: entityIds } },
                   limit: -1,

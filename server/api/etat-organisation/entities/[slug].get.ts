@@ -48,7 +48,7 @@ export default defineCachedEventHandler(
       (decrees as DecreeRow[]).find(decree => decree.status === 'active') || (decrees as DecreeRow[])[0]
 
     const snapshots = await cmsClient.request(
-      readItems('state_entity_snapshot', {
+      readItems('state_organization_entity_snapshot', {
         filter: {
           decree: { _eq: activeDecree.id },
           // Include change_type=null (entite_regroupement) — excluded by _neq alone in SQL
@@ -180,7 +180,7 @@ export default defineCachedEventHandler(
 
     const changes = await cmsClient
       .request(
-        readItems('state_entity_change', {
+        readItems('state_organization_entity_change', {
           fields: [
             'id',
             'change_category',

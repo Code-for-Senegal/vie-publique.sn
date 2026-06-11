@@ -1,4 +1,4 @@
-import { defineSitemapEventHandler } from '#imports';
+﻿import { defineSitemapEventHandler } from '#imports';
 import { readItems } from '@directus/sdk';
 
 export default defineSitemapEventHandler(async () => {
@@ -206,7 +206,7 @@ export default defineSitemapEventHandler(async () => {
     // 7. Entités publiques de l'État du Sénégal
     try {
       const publicEntities = await directus.request(
-        readItems('state_entity', {
+        readItems('state_organization_entity', {
           fields: ['slug', 'date_updated'],
           filter: {
             has_public_page: { _eq: true },

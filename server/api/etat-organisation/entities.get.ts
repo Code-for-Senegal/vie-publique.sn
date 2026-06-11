@@ -1,4 +1,4 @@
-import { readItems } from '@directus/sdk'
+﻿import { readItems } from '@directus/sdk'
 import { CacheDuration, getCacheMaxAge } from '~~/server/utils/cache'
 
 type DecreeRow = {
@@ -57,7 +57,7 @@ export default defineCachedEventHandler(
       ?? orderedDecrees[0]
 
     const snapshots = await cmsClient.request(
-      readItems('state_entity_snapshot', {
+      readItems('state_organization_entity_snapshot', {
         filter: {
           decree: { _eq: activeDecree.id },
           // Include null change_type (entite_regroupement) + all non-removed
