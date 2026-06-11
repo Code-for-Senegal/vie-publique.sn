@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const {
   fromNumero,
-  toNumero,
   selectedCategory,
   currentPage,
   changes,
@@ -14,9 +13,12 @@ const {
   totalPages,
   pending,
   resetFilters,
-} = useEtatOrganisationChanges()
+} = useEtatOrganisationChanges();
 
-const CATEGORY_META: Record<string, { label: string; color: string; icon: string; bg: string; border: string; iconBg: string }> = {
+const CATEGORY_META: Record<
+  string,
+  { label: string; color: string; icon: string; bg: string; border: string; iconBg: string }
+> = {
   created: {
     label: 'Créations',
     color: 'text-green-700 dark:text-green-400',
@@ -65,7 +67,7 @@ const CATEGORY_META: Record<string, { label: string; color: string; icon: string
     icon: 'i-heroicons-scissors',
     iconBg: 'bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-400',
   },
-}
+};
 
 const getCategoryMeta = (category: string) =>
   CATEGORY_META[category] ?? {
@@ -75,32 +77,48 @@ const getCategoryMeta = (category: string) =>
     border: 'border-gray-200 dark:border-gray-700',
     icon: 'i-heroicons-information-circle',
     iconBg: 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400',
-  }
+  };
 
 const formatDate = (v?: string) =>
-  v ? new Date(v).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' }) : null
+  v
+    ? new Date(v).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })
+    : null;
 
-const linkComponent = resolveComponent('NuxtLink')
+const linkComponent = resolveComponent('NuxtLink');
 
-// decreeOptions uses numero as value (human-readable, SEO-friendly URL param)
-const decreeOptions = computed(() =>
-  allDecrees.value.map(d => ({
-    value: d.numero,
-    label: `Décret n° ${d.numero}${d.date_publication ? ' (' + new Date(d.date_publication).getFullYear() + ')' : ''}`,
-    status: d.status,
-  })),
-)
+// Sorted by date_publication descending (most recent first)
+const sortedDecrees = computed(() =>
+  [...allDecrees.value].sort((a, b) => {
+    const da = a.date_publication ? new Date(a.date_publication).getTime() : 0;
+    const db = b.date_publication ? new Date(b.date_publication).getTime() : 0;
+    return db - da;
+  }),
+);
+
+// Auto-select the 2 most recent decrees when the list loads and nothing is set
+const initializeDefaults = () => {
+  if (!allDecrees.value.length) return;
+  if (fromNumero.value) return; // user already made a choice
+
+  const defaultFrom = sortedDecrees.value.find((d) => d.status !== 'active');
+  if (defaultFrom) {
+    fromNumero.value = defaultFrom.numero;
+    // "to" stays empty = active decree (most recent)
+  }
+};
+
+watch(allDecrees, initializeDefaults, { immediate: true });
 
 // Total changes count
-const totalAll = computed(() => summary.value.reduce((a, s) => a + s.count, 0))
+const totalAll = computed(() => summary.value.reduce((a, s) => a + s.count, 0));
 
-const { siteName, siteUrl, themeColor, keywords } = useSiteMetadata()
+const { siteName, siteUrl, themeColor, keywords } = useSiteMetadata();
 
-const pageTitle = "Comparaison des décrets de répartition | Organisation de l'État du Sénégal"
+const pageTitle = "Comparaison des décrets de répartition | Organisation de l'État du Sénégal";
 const pageDescription =
-  "Comparez les décrets de répartition des services de l'État du Sénégal et explorez les créations, suppressions, renommages et changements de tutelle entre décrets successifs."
-const pageUrl = `${siteUrl}/etat-senegal/organisation/changements`
-const ogImage = `${siteUrl}/nomination-3.png`
+  "Comparez les décrets de répartition des services de l'État du Sénégal et explorez les créations, suppressions, renommages et changements de tutelle entre décrets successifs.";
+const pageUrl = `${siteUrl}/etat-senegal/organisation/changements`;
+const ogImage = `${siteUrl}/nomination-3.png`;
 
 useSeoMeta({
   title: pageTitle,
@@ -116,12 +134,12 @@ useSeoMeta({
   twitterImage: ogImage,
   keywords: [
     ...keywords,
-    "décrets répartition Sénégal",
-    "changements organisation état Sénégal",
-    "réformes administratives Sénégal",
-    "comparaison décrets Sénégal",
+    'décrets répartition Sénégal',
+    'changements organisation état Sénégal',
+    'réformes administratives Sénégal',
+    'comparaison décrets Sénégal',
   ].join(', '),
-})
+});
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -129,14 +147,19 @@ const breadcrumbSchema = {
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Accueil', item: siteUrl },
     { '@type': 'ListItem', position: 2, name: 'État du Sénégal', item: `${siteUrl}/etat-senegal` },
-    { '@type': 'ListItem', position: 3, name: "Organisation de l'État", item: `${siteUrl}/etat-senegal/organisation` },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: "Organisation de l'État",
+      item: `${siteUrl}/etat-senegal/organisation`,
+    },
     { '@type': 'ListItem', position: 4, name: 'Comparaison des décrets', item: pageUrl },
   ],
-}
+};
 
 useHead({
   htmlAttrs: { lang: 'fr-SN' },
-  title: "Comparaison des décrets de répartition",
+  title: 'Comparaison des décrets de répartition',
   link: [{ rel: 'canonical', href: pageUrl }],
   meta: [
     { name: 'robots', content: 'index, follow' },
@@ -147,7 +170,7 @@ useHead({
   script: computed(() => [
     { type: 'application/ld+json', children: JSON.stringify(breadcrumbSchema) },
   ]),
-})
+});
 </script>
 
 <template>
@@ -163,53 +186,22 @@ useHead({
 
     <!-- ─── Hero ──────────────────────────────────────────────────── -->
     <section class="mx-auto mt-4 max-w-7xl px-4">
-      <div class="rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50 via-white to-blue-100 px-6 py-7 shadow-sm dark:border-blue-900 dark:from-gray-900 dark:via-gray-900 dark:to-blue-950">
+      <div
+        class="rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50 via-white to-blue-100 px-6 py-7 shadow-sm dark:border-blue-900 dark:from-gray-900 dark:via-gray-900 dark:to-blue-950"
+      >
         <h1 class="text-xl font-bold text-gray-900 dark:text-white sm:text-2xl">
           Comparaison des décrets de répartition
         </h1>
         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-          Explorez les modifications de l'organisation administrative de l'État entre deux décrets officiels.
+          Explorez les modifications de l'organisation administrative de l'État entre le décret
+          <span class="font-medium text-gray-700 dark:text-gray-300"
+            >n°&nbsp;{{ fromDecree.numero }}</span
+          >
+          et le décret
+          <span class="font-medium text-gray-700 dark:text-gray-300"
+            >n°&nbsp;{{ toDecree.numero }}</span
+          >.
         </p>
-      </div>
-    </section>
-
-    <!-- ─── Decree selectors ───────────────────────────────────────── -->
-    <section class="mx-auto mt-8 max-w-7xl px-4">
-      <div class="flex flex-wrap items-end gap-4 rounded-xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800/60">
-        <!-- From -->
-        <div class="min-w-[220px] flex-1">
-          <label class="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">Décret de départ</label>
-          <select
-            :value="fromNumero"
-            class="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-900 dark:text-white"
-            @change="fromNumero = ($event.target as HTMLSelectElement).value"
-          >
-            <option value="">Sélectionner un décret…</option>
-            <option v-for="opt in decreeOptions" :key="opt.value" :value="opt.value">
-              {{ opt.label }}{{ opt.status === 'active' ? ' — actif' : '' }}
-            </option>
-          </select>
-        </div>
-
-        <!-- Arrow -->
-        <div class="flex items-center pb-2">
-          <UIcon name="i-heroicons-arrow-long-right" class="h-5 w-5 text-gray-400" />
-        </div>
-
-        <!-- To -->
-        <div class="min-w-[220px] flex-1">
-          <label class="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">Décret d'arrivée</label>
-          <select
-            :value="toNumero"
-            class="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-900 dark:text-white"
-            @change="toNumero = ($event.target as HTMLSelectElement).value"
-          >
-            <option value="">Décret actif (défaut)</option>
-            <option v-for="opt in decreeOptions" :key="opt.value" :value="opt.value">
-              {{ opt.label }}{{ opt.status === 'active' ? ' — actif' : '' }}
-            </option>
-          </select>
-        </div>
       </div>
     </section>
 
@@ -217,10 +209,15 @@ useHead({
     <section v-if="summary.length" class="mx-auto mt-8 max-w-7xl px-4">
       <!-- Context line -->
       <p v-if="fromDecree && toDecree" class="mb-4 text-sm text-gray-500 dark:text-gray-400">
-        <span class="font-medium text-gray-700 dark:text-gray-300">{{ totalAll }}</span> modification{{ totalAll > 1 ? 's' : '' }}
-        entre le décret <span class="font-medium text-gray-700 dark:text-gray-300">n°&nbsp;{{ fromDecree.numero }}</span>
-        ({{ formatDate(fromDecree.date_publication) }})
-        et le décret <span class="font-medium text-gray-700 dark:text-gray-300">n°&nbsp;{{ toDecree.numero }}</span>
+        <span class="font-medium text-gray-700 dark:text-gray-300">{{ totalAll }}</span>
+        modification{{ totalAll > 1 ? 's' : '' }} entre le décret
+        <span class="font-medium text-gray-700 dark:text-gray-300"
+          >n°&nbsp;{{ fromDecree.numero }}</span
+        >
+        ({{ formatDate(fromDecree.date_publication) }}) et le décret
+        <span class="font-medium text-gray-700 dark:text-gray-300"
+          >n°&nbsp;{{ toDecree.numero }}</span
+        >
         ({{ formatDate(toDecree.date_publication) }}).
       </p>
 
@@ -239,8 +236,12 @@ useHead({
             <UIcon :name="getCategoryMeta(stat.category).icon" class="h-5 w-5" />
           </span>
           <div class="min-w-0">
-            <p class="text-lg font-bold leading-none text-gray-900 dark:text-white">{{ stat.count }}</p>
-            <p class="mt-0.5 text-xs leading-tight text-gray-500 dark:text-gray-400">{{ stat.label }}</p>
+            <p class="text-lg font-bold leading-none text-gray-900 dark:text-white">
+              {{ stat.count }}
+            </p>
+            <p class="mt-0.5 text-xs leading-tight text-gray-500 dark:text-gray-400">
+              {{ stat.label }}
+            </p>
           </div>
         </button>
       </div>
@@ -258,7 +259,9 @@ useHead({
             getCategoryMeta(stat.category).bg,
             getCategoryMeta(stat.category).color,
             getCategoryMeta(stat.category).border,
-            selectedCategory === stat.category ? 'ring-2 ring-blue-500' : 'opacity-70 hover:opacity-100',
+            selectedCategory === stat.category
+              ? 'ring-2 ring-blue-500'
+              : 'opacity-70 hover:opacity-100',
           ]"
           @click="selectedCategory = selectedCategory === stat.category ? '' : stat.category"
         >
@@ -280,7 +283,6 @@ useHead({
 
     <!-- ─── Changes list ──────────────────────────────────────────── -->
     <section class="mx-auto mt-6 max-w-7xl px-4">
-
       <!-- Loading -->
       <div v-if="pending" class="py-12 text-center text-sm text-gray-400">
         <UIcon name="i-heroicons-arrow-path" class="mb-2 h-6 w-6 animate-spin" />
@@ -289,9 +291,16 @@ useHead({
 
       <!-- Empty state -->
       <div v-else-if="!changes.length" class="py-16 text-center">
-        <UIcon name="i-heroicons-document-magnifying-glass" class="mx-auto mb-3 h-10 w-10 text-gray-300" />
+        <UIcon
+          name="i-heroicons-document-magnifying-glass"
+          class="mx-auto mb-3 h-10 w-10 text-gray-300"
+        />
         <p class="text-sm text-gray-500 dark:text-gray-400">
-          {{ total === 0 ? 'Aucun changement entre ces deux décrets.' : 'Aucun résultat pour ce filtre.' }}
+          {{
+            total === 0
+              ? 'Aucun changement entre ces deux décrets.'
+              : 'Aucun résultat pour ce filtre.'
+          }}
         </p>
         <button
           v-if="selectedCategory"
@@ -321,7 +330,7 @@ useHead({
             />
           </span>
 
-          <!-- Main content — entire block is a link if entity has a public page -->
+          <!-- Main content - entire block is a link if entity has a public page -->
           <component
             :is="change.has_public_page && change.slug ? linkComponent : 'div'"
             :to="change.has_public_page && change.slug ? `/etat-senegal/${change.slug}` : undefined"
@@ -330,7 +339,11 @@ useHead({
           >
             <p
               class="text-sm font-medium text-gray-900 dark:text-white"
-              :class="change.has_public_page && change.slug ? 'group-hover:text-blue-600 dark:group-hover:text-blue-400' : ''"
+              :class="
+                change.has_public_page && change.slug
+                  ? 'group-hover:text-blue-600 dark:group-hover:text-blue-400'
+                  : ''
+              "
             >
               {{ change.name || change.description }}
             </p>
@@ -342,15 +355,30 @@ useHead({
 
             <!-- Old → new value for rename / reparent -->
             <div
-              v-if="(change.category === 'rename' || change.category === 'reparent') && (change.old_value || change.new_value)"
+              v-if="
+                (change.category === 'rename' || change.category === 'reparent') &&
+                (change.old_value || change.new_value)
+              "
               class="mt-1.5 flex flex-wrap items-center gap-1 text-xs"
             >
-              <span class="rounded bg-red-50 px-1.5 py-0.5 text-red-600 line-through dark:bg-red-900/20 dark:text-red-400">
-                {{ change.category === 'rename' ? (change.old_value as any)?.official_label : (change.old_value as any)?.parent_official_label }}
+              <span
+                class="rounded bg-red-50 px-1.5 py-0.5 text-red-600 line-through dark:bg-red-900/20 dark:text-red-400"
+              >
+                {{
+                  change.category === 'rename'
+                    ? (change.old_value as any)?.official_label
+                    : (change.old_value as any)?.parent_official_label
+                }}
               </span>
               <UIcon name="i-heroicons-arrow-long-right" class="h-3.5 w-3.5 text-gray-400" />
-              <span class="rounded bg-green-50 px-1.5 py-0.5 text-green-600 dark:bg-green-900/20 dark:text-green-400">
-                {{ change.category === 'rename' ? (change.new_value as any)?.official_label : (change.new_value as any)?.parent_official_label }}
+              <span
+                class="rounded bg-green-50 px-1.5 py-0.5 text-green-600 dark:bg-green-900/20 dark:text-green-400"
+              >
+                {{
+                  change.category === 'rename'
+                    ? (change.new_value as any)?.official_label
+                    : (change.new_value as any)?.parent_official_label
+                }}
               </span>
             </div>
 
@@ -384,6 +412,5 @@ useHead({
         />
       </div>
     </section>
-
   </div>
 </template>
