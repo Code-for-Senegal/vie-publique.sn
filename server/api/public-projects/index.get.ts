@@ -116,7 +116,7 @@ export default defineCachedEventHandler(
       const total = Number(countResult[0]?.count?.id) || 0;
 
       // Si année spécifiée, récupérer les budgets annuels pour chaque projet
-      let budgetByProject = new Map<number, { ae: number | null; cp: number | null }>();
+      const budgetByProject = new Map<number, { ae: number | null; cp: number | null }>();
 
       if (yearParam && projects.length > 0) {
         // Trouver le budget_year ID

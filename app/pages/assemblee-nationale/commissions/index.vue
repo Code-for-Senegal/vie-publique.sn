@@ -184,7 +184,8 @@ const filteredCommissions = computed(() => {
       <div class="mx-auto max-w-4xl">
         <!-- Breadcrumb desktop only -->
         <div class="mb-2 hidden md:block">
-          <AppBreadcrumb :items="[
+          <AppBreadcrumb
+:items="[
             { label: 'Assemblée nationale', to: '/assemblee-nationale' },
             { label: 'Commissions' }
           ]" />

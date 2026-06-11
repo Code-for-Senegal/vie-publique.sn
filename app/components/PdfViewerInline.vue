@@ -173,8 +173,8 @@ onUnmounted(() => {
         </template>
       </span>
       <button
-        @click="emit('open-fullscreen')"
         class="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium transition-colors dark:hover:bg-primary-900/30"
+        @click="emit('open-fullscreen')"
       >
         <Icon name="heroicons:arrows-pointing-out" class="h-3.5 w-3.5" />
         Plein écran

@@ -355,13 +355,13 @@ watch(activeTab, (newTab) => {
           <button
             v-for="tab in tabs"
             :key="tab.id"
-            @click="activeTab = tab.id"
             :class="[
               'group flex items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-medium transition-all sm:gap-2 sm:px-4 sm:py-2 sm:text-sm',
               activeTab === tab.id
                 ? 'bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400'
                 : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white',
             ]"
+            @click="activeTab = tab.id"
           >
             <UIcon
               :name="tab.icon"
@@ -402,8 +402,8 @@ watch(activeTab, (newTab) => {
             Impossible de charger les données budgétaires. Veuillez réessayer.
           </p>
           <button
-            @click="$router.go(0)"
             class="mt-4 rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700"
+            @click="$router.go(0)"
           >
             Réessayer
           </button>

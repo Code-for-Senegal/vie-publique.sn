@@ -1,5 +1,5 @@
 import { readItems } from '@directus/sdk';
-import { VpDocument } from '~/types/vp_document';
+import type { VpDocument } from '~/types/vp_document';
 
 export default defineCachedEventHandler(
   async () => {

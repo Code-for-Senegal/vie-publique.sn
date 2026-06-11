@@ -1,7 +1,8 @@
 <!-- pages/resultats.vue -->
 <template>
   <div class="min-h-screen pb-16">
-    <AppBreadcrumb :items="[
+    <AppBreadcrumb
+:items="[
       { label: 'Élections', to: '/elections' },
       { label: 'Législatives 2024', to: '/elections/legislatives' },
       { label: 'Résultats', to: '/elections/legislatives/resultats' },

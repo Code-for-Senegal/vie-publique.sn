@@ -1,4 +1,4 @@
-import { readItems } from '@directus/sdk'
+﻿import { readItems } from '@directus/sdk'
 import { CacheDuration, getCacheMaxAge } from '../../utils/cache'
 
 type DecreeRow = {
@@ -31,7 +31,7 @@ export default defineCachedEventHandler(
     const cmsClient = getCmsClient()
 
     const decrees = await cmsClient.request(
-      readItems('decree', {
+      readItems('state_organization_decree', {
         fields: ['id', 'numero', 'status', 'date_publication'],
         sort: ['-date_publication'],
         limit: 20,
@@ -83,7 +83,7 @@ export default defineCachedEventHandler(
     }
 
     const allChanges = await cmsClient.request(
-      readItems('entity_changes', {
+      readItems('state_organization_entity_change', {
         fields: ['id', 'change_category'],
         filter: baseFilter,
         limit: -1,
@@ -107,7 +107,7 @@ export default defineCachedEventHandler(
     if (category) pagedFilter.change_category = { _eq: category }
 
     const filteredChanges = await cmsClient.request(
-      readItems('entity_changes', {
+      readItems('state_organization_entity_change', {
         fields: [
           'id',
           'change_category',
@@ -150,7 +150,7 @@ export default defineCachedEventHandler(
         // Query snapshots for `to_decree` (covers created) and `from_decree` (covers deleted)
         const [toSnapshots, fromSnapshots] = await Promise.all([
           cmsClient.request(
-            readItems('entity_snapshots', {
+            readItems('state_organization_entity_snapshot', {
               fields: snapshotFields,
               filter: {
                 decree: { _eq: resolvedTo.id },
@@ -160,7 +160,7 @@ export default defineCachedEventHandler(
             }),
           ),
           cmsClient.request(
-            readItems('entity_snapshots', {
+            readItems('state_organization_entity_snapshot', {
               fields: snapshotFields,
               filter: {
                 decree: { _eq: resolvedFrom.id },

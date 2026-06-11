@@ -236,9 +236,9 @@ useSeoMeta({
          <p class="text-gray-500 mt-2 italic text-sm">Essayez de modifier vos filtres ou votre recherche.</p>
          <UButton
            v-if="selectedType !== 'all' || selectedYear !== 'all'"
-           @click="selectedType = 'all'; selectedYear = 'all'"
            variant="soft"
            class="mt-6 rounded-full"
+           @click="selectedType = 'all'; selectedYear = 'all'"
          >
            Voir tout
          </UButton>

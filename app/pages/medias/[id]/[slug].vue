@@ -188,7 +188,8 @@ const backUrl = computed(() => {
 
 <template>
   <div class="min-h-screen space-y-4 p-0 pb-16">
-    <AppBreadcrumb :items="[
+    <AppBreadcrumb
+:items="[
       { label: 'Médias', to: '/medias' },
       { label: media?.name || 'Média' }
     ]" />

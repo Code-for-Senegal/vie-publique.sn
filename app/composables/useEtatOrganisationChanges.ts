@@ -1,40 +1,31 @@
-import type { EtatOrganisationChangesResponse } from '~~/types/etat-organisation'
+import type { EtatOrganisationChangesResponse } from '~~/types/etat-organisation';
 
 export function useEtatOrganisationChanges() {
-  const route = useRoute()
-  const router = useRouter()
+  const route = useRoute();
+  const router = useRouter();
 
-  // URL params use decree numero ("2024-940"), never UUIDs
-  const fromNumero = computed({
-    get: () => (route.query.from as string) || '',
-    set: (v: string) =>
-      router.push({ query: { ...route.query, from: v || undefined, page: undefined } }),
-  })
-
-  const toNumero = computed({
-    get: () => (route.query.to as string) || '',
-    set: (v: string) =>
-      router.push({ query: { ...route.query, to: v || undefined, page: undefined } }),
-  })
+  // Local refs — not URL-driven (selectors were removed from the page)
+  const fromNumero = ref('');
+  const toNumero = ref('');
 
   const selectedCategory = computed({
     get: () => (route.query.category as string) || '',
     set: (v: string) =>
       router.push({ query: { ...route.query, category: v || undefined, page: undefined } }),
-  })
+  });
 
   const currentPage = computed({
     get: () => Math.max(1, parseInt((route.query.page as string) || '1', 10) || 1),
     set: (v: number) =>
       router.push({ query: { ...route.query, page: v > 1 ? String(v) : undefined } }),
-  })
+  });
 
   const fetchParams = computed(() => ({
     from: fromNumero.value || undefined,
     to: toNumero.value || undefined,
     category: selectedCategory.value || undefined,
     page: currentPage.value > 1 ? String(currentPage.value) : undefined,
-  }))
+  }));
 
   const {
     data: changesResponse,
@@ -50,19 +41,19 @@ export function useEtatOrganisationChanges() {
       // lazy: page renders immediately; data loads without blocking navigation
       lazy: true,
     },
-  )
+  );
 
-  const changes = computed(() => changesResponse.value?.changes ?? [])
-  const summary = computed(() => changesResponse.value?.summary ?? [])
-  const allDecrees = computed(() => changesResponse.value?.allDecrees ?? [])
-  const fromDecree = computed(() => changesResponse.value?.from_decree ?? null)
-  const toDecree = computed(() => changesResponse.value?.to_decree ?? null)
-  const total = computed(() => changesResponse.value?.total ?? 0)
-  const pageSize = computed(() => changesResponse.value?.pageSize ?? 30)
-  const totalPages = computed(() => Math.max(1, Math.ceil(total.value / pageSize.value)))
+  const changes = computed(() => changesResponse.value?.changes ?? []);
+  const summary = computed(() => changesResponse.value?.summary ?? []);
+  const allDecrees = computed(() => changesResponse.value?.allDecrees ?? []);
+  const fromDecree = computed(() => changesResponse.value?.from_decree ?? null);
+  const toDecree = computed(() => changesResponse.value?.to_decree ?? null);
+  const total = computed(() => changesResponse.value?.total ?? 0);
+  const pageSize = computed(() => changesResponse.value?.pageSize ?? 30);
+  const totalPages = computed(() => Math.max(1, Math.ceil(total.value / pageSize.value)));
 
   const resetFilters = () =>
-    router.push({ query: { ...route.query, category: undefined, page: undefined } })
+    router.push({ query: { ...route.query, category: undefined, page: undefined } });
 
   return {
     fromNumero,
@@ -81,5 +72,5 @@ export function useEtatOrganisationChanges() {
     error,
     refresh,
     resetFilters,
-  }
+  };
 }

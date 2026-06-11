@@ -280,9 +280,9 @@ onUnmounted(() => {
         </a>
 
         <button
-          @click="emit('close')"
           class="flex h-9 w-9 items-center justify-center rounded-lg text-gray-300 transition-colors hover:bg-gray-700 hover:text-white"
           title="Fermer (Escape)"
+          @click="emit('close')"
         >
           <UIcon name="i-heroicons-x-mark" class="h-5 w-5" />
         </button>
@@ -296,9 +296,9 @@ onUnmounted(() => {
       <!-- Navigation pages -->
       <div class="flex items-center gap-1">
         <button
-          @click="goToPrev"
           :disabled="!canGoPrev"
           class="flex h-8 w-8 items-center justify-center rounded text-gray-300 transition-colors hover:bg-gray-700 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+          @click="goToPrev"
         >
           <UIcon name="i-heroicons-chevron-left" class="h-5 w-5" />
         </button>
@@ -308,9 +308,9 @@ onUnmounted(() => {
         </span>
 
         <button
-          @click="goToNext"
           :disabled="!canGoNext"
           class="flex h-8 w-8 items-center justify-center rounded text-gray-300 transition-colors hover:bg-gray-700 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+          @click="goToNext"
         >
           <UIcon name="i-heroicons-chevron-right" class="h-5 w-5" />
         </button>
@@ -321,27 +321,27 @@ onUnmounted(() => {
       <!-- Zoom -->
       <div class="flex items-center gap-1">
         <button
-          @click="zoomOut"
           :disabled="scale <= 0.5"
           class="flex h-8 w-8 items-center justify-center rounded text-gray-300 transition-colors hover:bg-gray-700 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
           title="Zoom arrière"
+          @click="zoomOut"
         >
           <UIcon name="i-heroicons-minus" class="h-4 w-4" />
         </button>
 
         <button
-          @click="resetZoom"
           class="min-w-[50px] rounded px-2 py-1 text-sm text-gray-300 transition-colors hover:bg-gray-700 hover:text-white"
           title="Ajuster la largeur"
+          @click="resetZoom"
         >
           {{ zoomPercent }}%
         </button>
 
         <button
-          @click="zoomIn"
           :disabled="scale >= 3"
           class="flex h-8 w-8 items-center justify-center rounded text-gray-300 transition-colors hover:bg-gray-700 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
           title="Zoom avant"
+          @click="zoomIn"
         >
           <UIcon name="i-heroicons-plus" class="h-4 w-4" />
         </button>

@@ -223,7 +223,7 @@ export const useBudget = (options: UseBudgetOptions = {}) => {
       }
 
       // Pour les indicateurs en %, afficher la valeur de l'année de comparaison au lieu du % de variation
-      let displayValue = indicator.unit === 'mds_fcfa'
+      const displayValue = indicator.unit === 'mds_fcfa'
         ? Math.round(indicator.value).toString()
         : indicator.value.toFixed(1);
       let displayVariation = variation;

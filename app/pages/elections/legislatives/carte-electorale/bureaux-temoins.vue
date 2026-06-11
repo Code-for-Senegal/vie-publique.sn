@@ -1,7 +1,8 @@
 <!-- # pages/elections/bureaux-temoins/index.vue -->
 <template>
   <div class="container mx-auto min-h-screen px-4 py-8 pb-16">
-    <AppBreadcrumb :items="[
+    <AppBreadcrumb
+:items="[
       { label: 'Élections', to: '/elections' },
       { label: 'Législatives 2024', to: '/elections/legislatives' },
       { label: 'Carte électorale', to: '/elections/legislatives/carte-electorale' },

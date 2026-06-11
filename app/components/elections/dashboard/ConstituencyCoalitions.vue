@@ -145,7 +145,7 @@ const selectCoalition = (list: any) => {
                 />
               </div>
               <!-- Commune Selector -->
-              <div class="w-full md:w-64" v-if="communes.length > 0">
+              <div v-if="communes.length > 0" class="w-full md:w-64">
                    <USelectMenu
                      v-model="selectedCommuneId"
                      :options="communes"

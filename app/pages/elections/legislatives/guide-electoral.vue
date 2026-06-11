@@ -1,7 +1,8 @@
 <template>
   <div class="min-h-screen flex flex-col items-center px-4 pb-16">
     <UButton size="xs" class="bg-gray b-0 mb-1 w-full hover:bg-white dark:bg-white dark:hover:bg-gray-100">
-      <AppBreadcrumb :items="[
+      <AppBreadcrumb
+:items="[
         { label: 'Tableau de Bord Élections', to: '/elections' },
         { label: 'Guide Électoral' }
       ]" />

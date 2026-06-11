@@ -35,8 +35,8 @@ const handleToggle = () => {
       <!-- Bouton expand/collapse -->
       <button
         v-if="node.children_count > 0 || node.children?.length > 0"
-        @click="handleToggle"
         class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 flex-shrink-0 w-5"
+        @click="handleToggle"
       >
         {{ isExpanded ? '−' : '+' }}
       </button>

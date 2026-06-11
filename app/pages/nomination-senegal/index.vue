@@ -270,7 +270,7 @@ const formatDateFr = (dateStr: string) => {
           >
             <UIcon name="i-heroicons-user-20-solid" class="h-3.5 w-3.5" />
             Hommes
-            <span class="ml-0.5 text-[10px] opacity-70" v-if="totalsByGender.maleCount"
+            <span v-if="totalsByGender.maleCount" class="ml-0.5 text-[10px] opacity-70"
               >({{ totalsByGender.maleCount }})</span
             >
           </button>
@@ -285,7 +285,7 @@ const formatDateFr = (dateStr: string) => {
           >
             <UIcon name="i-heroicons-user-20-solid" class="h-3.5 w-3.5" />
             Femmes
-            <span class="ml-0.5 text-[10px] opacity-70" v-if="totalsByGender.femaleCount"
+            <span v-if="totalsByGender.femaleCount" class="ml-0.5 text-[10px] opacity-70"
               >({{ totalsByGender.femaleCount }})</span
             >
           </button>
