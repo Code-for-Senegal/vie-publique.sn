@@ -212,7 +212,7 @@ useHead({
     </section>
 
     <!-- ─── Recent changes ────────────────────────────────────────── -->
-    <section class="mx-auto mt-16 max-w-7xl px-4">
+    <!-- <section class="mx-auto mt-16 max-w-7xl px-4">
       <div class="mb-5 flex items-center gap-3">
         <div class="h-px flex-1 bg-gray-200 dark:bg-gray-700" />
         <h2 class="text-base font-semibold text-gray-500 dark:text-gray-400">
@@ -222,6 +222,6 @@ useHead({
       </div>
 
       <EtatOrganisationRecentChanges :overview="overview ?? null" />
-    </section>
+    </section> -->
   </div>
 </template>
