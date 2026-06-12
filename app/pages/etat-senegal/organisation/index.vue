@@ -1,60 +1,5 @@
 ﻿<script setup lang="ts">
-const { overview, pending, entities } = useEtatOrganisation()
-
-const TYPE_ICONS_STATS: Record<string, string> = {
-  ministere: 'i-heroicons-building-office',
-  etablissement_public: 'i-heroicons-academic-cap',
-  societe_nationale: 'i-heroicons-building-storefront',
-  societe_participation_publique: 'i-heroicons-building-storefront',
-}
-const TYPE_COLORS_STATS: Record<string, string> = {
-  ministere: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400',
-  etablissement_public: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400',
-  societe_nationale: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400',
-  societe_participation_publique: 'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-400',
-}
-const STAT_TYPES = ['ministere', 'etablissement_public', 'societe_nationale', 'societe_participation_publique']
-const PLURAL_LABELS: Record<string, string> = {
-  ministere: 'Ministères',
-  etablissement_public: 'Établissements publics',
-  societe_nationale: 'Sociétés nationales',
-  societe_participation_publique: 'Sociétés à participation publique',
-}
-const TYPE_LINKS: Record<string, string> = {
-  ministere: '/etat-senegal/ministeres',
-  etablissement_public: '/etat-senegal/entites-publiques?type=etablissement_public',
-  societe_nationale: '/etat-senegal/entites-publiques?type=societe_nationale',
-  societe_participation_publique: '/etat-senegal/entites-publiques?type=societe_participation_publique',
-}
-const typeStats = computed(() => {
-  const counts = new Map<string, number>()
-  const labels = new Map<string, string>()
-  for (const entity of entities.value) {
-    if (STAT_TYPES.includes(entity.type_code)) {
-      counts.set(entity.type_code, (counts.get(entity.type_code) || 0) + 1)
-      if (!labels.has(entity.type_code)) labels.set(entity.type_code, entity.type_label)
-    }
-  }
-  return STAT_TYPES.filter(code => counts.has(code)).map(code => ({
-    code,
-    label: PLURAL_LABELS[code] || labels.get(code) || code,
-    count: counts.get(code) || 0,
-    icon: TYPE_ICONS_STATS[code] || 'i-heroicons-building-office',
-    color: TYPE_COLORS_STATS[code] || 'bg-gray-100 text-gray-600',
-  }))
-})
-
-const CHANGE_CATEGORY_LABELS: Record<string, { label: string; color: string; icon: string }> = {
-  created: { label: 'Nouvelle entité', color: 'green', icon: 'i-heroicons-plus-circle' },
-  deleted: { label: 'Suppression', color: 'red', icon: 'i-heroicons-minus-circle' },
-  rename: { label: 'Renommage', color: 'blue', icon: 'i-heroicons-pencil' },
-  reparent: { label: 'Changement de tutelle', color: 'amber', icon: 'i-heroicons-arrows-right-left' },
-  merge: { label: 'Fusion', color: 'purple', icon: 'i-heroicons-funnel' },
-  split: { label: 'Scission', color: 'orange', icon: 'i-heroicons-scissors' },
-}
-
-const getCategoryMeta = (category: string) =>
-  CHANGE_CATEGORY_LABELS[category] || { label: category, color: 'gray', icon: 'i-heroicons-information-circle' }
+const { overview } = useEtatOrganisation()
 
 const formatDate = (v?: string) =>
   v
@@ -179,23 +124,8 @@ useHead({
     </section>
 
     <!-- ─── Stats ────────────────────────────────────────────────── -->
-    <section v-if="typeStats.length" class="mx-auto mt-6 max-w-7xl px-4">
-      <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <NuxtLink
-          v-for="stat in typeStats"
-          :key="stat.code"
-          :to="TYPE_LINKS[stat.code]"
-          class="flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-3 transition hover:border-gray-300 hover:shadow-sm dark:border-gray-700 dark:bg-gray-800/50 dark:hover:border-gray-600"
-        >
-          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg" :class="stat.color">
-            <UIcon :name="stat.icon" class="h-5 w-5" />
-          </span>
-          <div class="min-w-0">
-            <p class="text-lg font-bold leading-none text-gray-900 dark:text-white">{{ stat.count }}</p>
-            <p class="mt-0.5 truncate text-xs text-gray-500 dark:text-gray-400">{{ stat.label }}</p>
-          </div>
-        </NuxtLink>
-      </div>
+    <section class="mx-auto mt-6 max-w-7xl px-4">
+      <EtatOrganisationStatsGrid />
     </section>
 
     <!-- ─── Explorer (tree + list) ───────────────────────────────── -->

@@ -134,6 +134,11 @@ useHead({
       </div>
     </section>
 
+    <!-- ─── Stats ────────────────────────────────────────────────── -->
+    <section v-if="archivedDecrees.length > 0" class="mx-auto mt-6 max-w-7xl px-4">
+      <EtatOrganisationStatsGrid :clickable="false" />
+    </section>
+
     <!-- ─── Decree selector + link to active ─────────────────────── -->
     <section class="mx-auto mt-6 max-w-7xl px-4">
       <div class="flex flex-wrap items-center gap-3">
