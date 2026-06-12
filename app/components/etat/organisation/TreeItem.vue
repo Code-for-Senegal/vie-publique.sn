@@ -54,6 +54,9 @@ const typeIcon = computed(() => TYPE_ICONS[props.node.type_code] || 'i-heroicons
 const typeBgColor = computed(() => TYPE_BG_COLORS[props.node.type_code] || 'bg-gray-100 text-gray-500')
 
 const indentPx = computed(() => Math.min((props.depth - 1) * 24 + (props.depth > 0 ? 12 : 0), 96))
+
+const route = useRoute()
+const isArchivePage = computed(() => route.path.includes('/historique'))
 </script>
 
 <template>
@@ -76,7 +79,7 @@ const indentPx = computed(() => Math.min((props.depth - 1) * 24 + (props.depth >
         <!-- Name + type label -->
         <div class="min-w-0 flex-1">
           <NuxtLink
-            v-if="node.has_public_page"
+            v-if="node.has_public_page && !isArchivePage"
             :to="`/etat-senegal/${node.public_slug}`"
             class="block text-sm font-bold text-gray-900 hover:text-emerald-700 dark:text-white dark:hover:text-emerald-400"
             @click.stop
@@ -137,7 +140,7 @@ const indentPx = computed(() => Math.min((props.depth - 1) * 24 + (props.depth >
 
       <!-- Name -->
       <NuxtLink
-        v-if="node.has_public_page"
+        v-if="node.has_public_page && !isArchivePage"
         :to="`/etat-senegal/${node.public_slug}`"
         class="min-w-0 flex-1 text-sm text-gray-800 hover:text-emerald-700 dark:text-gray-200 dark:hover:text-emerald-400"
         :class="depth === 1 ? 'font-medium' : ''"
