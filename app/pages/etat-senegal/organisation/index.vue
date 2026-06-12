@@ -211,7 +211,37 @@ useHead({
       <EtatOrganisationExplorer />
     </section>
 
-    <!-- ─── Recent changes ────────────────────────────────────────── -->
+    <!-- ─── Historique CTA ───────────────────────────────────────── -->
+    <section class="mx-auto mt-12 max-w-7xl px-4">
+      <div
+        class="flex flex-col items-start gap-4 rounded-2xl border border-amber-200 bg-amber-50 px-6 py-5 dark:border-amber-800 dark:bg-amber-900/20 sm:flex-row sm:items-center sm:justify-between"
+      >
+        <div class="flex items-start gap-3">
+          <UIcon name="i-heroicons-clock" class="mt-0.5 h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400" />
+          <div>
+            <p class="text-sm font-semibold text-amber-900 dark:text-amber-200">
+              Organigrammes des décrets antérieurs
+            </p>
+            <p class="mt-0.5 text-xs text-amber-700 dark:text-amber-400">
+              Consultez l'organisation administrative de l'État telle qu'elle était définie par les décrets de répartition des services précédents.
+            </p>
+          </div>
+        </div>
+        <UButton
+          to="/etat-senegal/organisation/historique"
+          color="amber"
+          variant="solid"
+          size="sm"
+          icon="i-heroicons-arrow-right"
+          trailing
+          class="shrink-0 self-center sm:self-auto"
+        >
+          Voir l'historique
+        </UButton>
+      </div>
+    </section>
+
+    <!-- ─── Recent changes (hidden) ──────────────────────────────── -->
     <!-- <section class="mx-auto mt-16 max-w-7xl px-4">
       <div class="mb-5 flex items-center gap-3">
         <div class="h-px flex-1 bg-gray-200 dark:bg-gray-700" />
