@@ -162,7 +162,7 @@ useHead({
   title: 'Comparaison des décrets de répartition',
   link: [{ rel: 'canonical', href: pageUrl }],
   meta: [
-    { name: 'robots', content: 'index, follow' },
+    { name: 'robots', content: 'noindex, nofollow' },
     { name: 'theme-color', content: themeColor },
     { name: 'author', content: siteName },
     { property: 'og:site_name', content: siteName },
