@@ -87,7 +87,6 @@ const isArchivePage = computed(() => route.path.includes('/historique'))
             {{ node.name }}
           </NuxtLink>
           <p v-else class="text-sm font-bold text-gray-900 dark:text-white">{{ node.name }}</p>
-          <p class="mt-0.5 text-xs text-gray-500">{{ node.type_label }}</p>
         </div>
 
         <!-- Children count + toggle -->
