@@ -141,33 +141,64 @@ useHead({
       <EtatOrganisationExplorer />
     </section>
 
-    <!-- ─── Historique CTA ───────────────────────────────────────── -->
+    <!-- ─── Explorer CTAs ──────────────────────────────────────── -->
     <section class="mx-auto mt-12 max-w-7xl px-4">
-      <div
-        class="flex flex-col items-start gap-4 rounded-2xl border border-amber-200 bg-amber-50 px-6 py-5 dark:border-amber-800 dark:bg-amber-900/20 sm:flex-row sm:items-center sm:justify-between"
-      >
-        <div class="flex items-start gap-3">
-          <UIcon name="i-heroicons-clock" class="mt-0.5 h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400" />
-          <div>
-            <p class="text-sm font-semibold text-amber-900 dark:text-amber-200">
-              Organigrammes des décrets antérieurs
-            </p>
-            <p class="mt-0.5 text-xs text-amber-700 dark:text-amber-400">
-              Consultez l'organisation administrative de l'État telle qu'elle était définie par les décrets de répartition des services précédents.
-            </p>
-          </div>
-        </div>
-        <UButton
-          to="/etat-senegal/organisation/historique"
-          color="amber"
-          variant="solid"
-          size="sm"
-          icon="i-heroicons-arrow-right"
-          trailing
-          class="shrink-0 self-center sm:self-auto"
+      <div class="grid gap-4 sm:grid-cols-2">
+        <!-- Historique -->
+        <div
+          class="flex flex-col items-center gap-4 rounded-2xl border border-amber-200 bg-amber-50 px-6 py-5 dark:border-amber-800 dark:bg-amber-900/20 sm:items-start sm:justify-between"
         >
-          Voir l'historique
-        </UButton>
+          <div class="flex items-start gap-3">
+            <UIcon name="i-heroicons-clock" class="mt-0.5 h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400" />
+            <div>
+              <p class="text-sm font-semibold text-amber-900 dark:text-amber-200">
+                Organigrammes des décrets antérieurs
+              </p>
+              <p class="mt-0.5 text-xs text-amber-700 dark:text-amber-400">
+                Consultez l'organisation telle qu'elle était définie par les décrets précédents.
+              </p>
+            </div>
+          </div>
+          <UButton
+            to="/etat-senegal/organisation/historique"
+            color="amber"
+            variant="solid"
+            size="sm"
+            icon="i-heroicons-arrow-right"
+            trailing
+            class="shrink-0 sm:self-end"
+          >
+            Voir l'historique
+          </UButton>
+        </div>
+
+        <!-- Comparaison décrets -->
+        <div
+          class="flex flex-col items-center gap-4 rounded-2xl border border-blue-200 bg-blue-50 px-6 py-5 dark:border-blue-800 dark:bg-blue-900/20 sm:items-start sm:justify-between"
+        >
+          <div class="flex items-start gap-3">
+            <UIcon name="i-heroicons-arrows-right-left" class="mt-0.5 h-5 w-5 shrink-0 text-blue-600 dark:text-blue-400" />
+            <div>
+              <p class="text-sm font-semibold text-blue-900 dark:text-blue-200">
+                Comparer deux décrets
+              </p>
+              <p class="mt-0.5 text-xs text-blue-700 dark:text-blue-400">
+                Explorez les créations, suppressions, renommages et changements de tutelle entre deux décrets successifs.
+              </p>
+            </div>
+          </div>
+          <UButton
+            to="/etat-senegal/organisation/changements"
+            color="blue"
+            variant="solid"
+            size="sm"
+            icon="i-heroicons-arrow-right"
+            trailing
+            class="shrink-0 sm:self-end"
+          >
+            Voir les changements
+          </UButton>
+        </div>
       </div>
     </section>
 

@@ -184,5 +184,35 @@ useHead({
     <section v-if="archivedDecrees.length > 0" class="mx-auto mt-6 max-w-7xl px-4">
       <EtatOrganisationExplorer :hide-archive-banner="true" />
     </section>
+
+    <!-- ─── CTA Comparaison ───────────────────────────────────────── -->
+    <section v-if="archivedDecrees.length > 0" class="mx-auto mt-12 max-w-7xl px-4">
+      <div
+        class="flex flex-col items-start gap-4 rounded-2xl border border-blue-200 bg-blue-50 px-6 py-5 dark:border-blue-800 dark:bg-blue-900/20 sm:flex-row sm:items-center sm:justify-between"
+      >
+        <div class="flex items-start gap-3">
+          <UIcon name="i-heroicons-arrows-right-left" class="mt-0.5 h-5 w-5 shrink-0 text-blue-600 dark:text-blue-400" />
+          <div>
+            <p class="text-sm font-semibold text-blue-900 dark:text-blue-200">
+              Comparer deux décrets
+            </p>
+            <p class="mt-0.5 text-xs text-blue-700 dark:text-blue-400">
+              Visualisez les créations, suppressions, renommages et changements de tutelle entre deux décrets successifs.
+            </p>
+          </div>
+        </div>
+        <UButton
+          to="/etat-senegal/organisation/changements"
+          color="blue"
+          variant="solid"
+          size="sm"
+          icon="i-heroicons-arrow-right"
+          trailing
+          class="shrink-0 self-center sm:self-auto"
+        >
+          Voir les changements
+        </UButton>
+      </div>
+    </section>
   </div>
 </template>
