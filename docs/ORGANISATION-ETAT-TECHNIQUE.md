@@ -377,40 +377,88 @@ EtatOrganisationEntityHistoryItem    // item historique d'une entité
 
 ## 10. Import des décrets (repo [organisation-etat](https://github.com/vie-publique-senegal/organisation-etat))
 
-### Pipeline d'import
+### Pipeline d'import — Architecture en deux phases
 
 ```
-markdown/decret_XXXX-XXX.md
+markdown/decret_XXXX-XXX.md  +  scripts/decrees.json
         │
         ▼
-scripts/import-decree.js
-        │  Parsing Markdown → entités structurées
+Phase 1 : scripts/import-snapshots.js   (idempotent)
+        │  Parsing Markdown → arbre d'entités en mémoire
         │  Détection type depuis contexte parent (##, ###, ####, bold markers)
         │  Génération slug (ONCE, immuable)
-        │  Upsert state_organization_entity par slug / code_institution
-        │  Création state_organization_entity_snapshot liés au décret
-        │  Détection changements → state_organization_entity_change
+        │  Résolution/création state_organization_entity par slug / code_institution
+        │  Upsert state_organization_entity_snapshot (parent_snapshot_id, code_institution niveau 2)
+        │
+        ▼
+Phase 2 : scripts/compute-changes.js    (rejouable, recalcul intelligent)
+        │  Tri des décrets par date_publication, construction des paires consécutives
+        │  Suppression des entity_change orphelins (paires devenues non-consécutives)
+        │  Détection created / rename / reparent / deleted par paire
+        │  → state_organization_entity_change
         ▼
 Directus CMS (PostgreSQL)
+```
+
+Les deux phases sont **indépendantes** et **idempotentes** : elles peuvent être rejouées sans créer de doublons. La Phase 2 peut être relancée après ajout d'un décret intercalaire sans tout réimporter.
+
+### Configuration — `scripts/decrees.json`
+
+Chaque décret est déclaré dans ce fichier (le tri se fait automatiquement par `date_publication`) :
+
+```json
+{
+  "numero": "2026-XXXX",
+  "date_publication": "2026-03-15",
+  "status": "active",
+  "document_url": "https://...",
+  "pr": "Nom du Président",
+  "pm": "Nom du Premier Ministre",
+  "markdownPath": "../markdown/decret_2026-XXXX.md"
+}
 ```
 
 ### Commandes
 
 ```bash
 cd scripts
-npm run import:2024    # Décret 2024-940
-npm run import:2025    # Décret 2025-1431
-npm run import:all     # Tous les décrets
 
-npm run clean:all      # Supprime toutes les données (structure préservée)
+# Phase 1 — importer les nouveaux décrets (uniquement ceux non encore traités)
+npm run snapshots
+
+# Phase 1 — forcer le réimport de tous les décrets
+npm run snapshots:force
+
+# Phase 1 — simulation sans écriture
+npm run snapshots -- --dry-run
+
+# Phase 2 — calculer les changements entre décrets consécutifs
+npm run changes
+
+# Phase 2 — recalculer toutes les paires
+npm run changes:force
 ```
 
 ### Règles slug
 
-- Entités niveau 2 (Présidence, Primature, Ministères) : slug simple.
-- `entite_regroupement` : slug qualifié par le parent (toujours).
-- Entités standard : simple si unique dans le décret, qualifié parent si doublon.
-- Max 100 chars (simple) ou 200 chars (avec parent).
+- Entités niveau 2 (Présidence, Primature, Ministères) : slug simple (max 100 car.).
+- `entite_regroupement` : toujours qualifié par la racine — `nom-code-racine` (max 200 car.).
+- Entités standard : simple si nom unique dans le décret, qualifié par la racine si doublon.
+
+### Détection du type par contexte parent
+
+| Contexte parent | Type assigné |
+|---|---|
+| Contient "Cabinet" | `cabinet` |
+| Contient "Secrétariat général" | `secretariat` |
+| Contient "Direction" | `direction` |
+| Contient "Services" | `service` |
+| Contient "Autres administrations" | `autres_administrations` |
+| Titre `###` / `####` | `entite_regroupement` |
+| `# Article 2` | `etablissement_public` |
+| `# Article 3` | `societe_nationale` / `societe_participation_publique` |
+
+> Les `entite_regroupement` sont **exclus** de `state_organization_entity_change` — ils ne génèrent jamais de changement détecté.
 
 ---
 
