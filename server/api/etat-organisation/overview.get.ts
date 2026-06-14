@@ -43,7 +43,29 @@ export default defineCachedEventHandler(
 
     const orderedDecrees = decrees as DecreeRow[]
     const activeDecree = orderedDecrees.find(decree => decree.status === 'active') || orderedDecrees[0]
-    const previousDecree = orderedDecrees.find(decree => decree.id !== activeDecree.id)
+
+    // Resolve true previousDecree via available entity_change pairs
+    const pairsRaw = await cmsClient.request(
+      readItems('state_organization_entity_change', {
+        fields: ['from_decree.id', 'to_decree.id'],
+        limit: -1,
+      }),
+    )
+    const seenPairs = new Set<string>()
+    let truePrevId: string | null = null
+    for (const row of pairsRaw as any[]) {
+      const fromId = row.from_decree?.id ? String(row.from_decree.id) : null
+      const toId = row.to_decree?.id ? String(row.to_decree.id) : null
+      if (!fromId || !toId) continue
+      const key = `${fromId}__${toId}`
+      if (!seenPairs.has(key)) {
+        seenPairs.add(key)
+        if (toId === activeDecree.id) truePrevId = fromId
+      }
+    }
+    const previousDecree = truePrevId
+      ? (orderedDecrees.find(d => d.id === truePrevId) ?? orderedDecrees.find(d => d.id !== activeDecree.id) ?? null)
+      : (orderedDecrees.find(d => d.id !== activeDecree.id) ?? null)
 
     const [allTypes, publicEntities, allChanges, recentChanges] = await Promise.all([
       cmsClient.request(

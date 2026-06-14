@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const {
   fromNumero,
+  toNumero,
   selectedCategory,
   currentPage,
   changes,
@@ -13,6 +14,8 @@ const {
   totalPages,
   pending,
   resetFilters,
+  availablePairs,
+  isPairAvailable,
 } = useEtatOrganisationChanges();
 
 const CATEGORY_META: Record<
@@ -84,30 +87,59 @@ const formatDate = (v?: string) =>
     ? new Date(v).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })
     : null;
 
-const linkComponent = resolveComponent('NuxtLink');
-
-// Sorted by date_publication descending (most recent first)
-const sortedDecrees = computed(() =>
-  [...allDecrees.value].sort((a, b) => {
-    const da = a.date_publication ? new Date(a.date_publication).getTime() : 0;
-    const db = b.date_publication ? new Date(b.date_publication).getTime() : 0;
+// Pairs sorted by to.date_publication descending
+const sortedAvailablePairs = computed(() =>
+  [...availablePairs.value].sort((a, b) => {
+    const da = a.to.date_publication ? new Date(a.to.date_publication).getTime() : 0;
+    const db = b.to.date_publication ? new Date(b.to.date_publication).getTime() : 0;
     return db - da;
   }),
 );
 
-// Auto-select the 2 most recent decrees when the list loads and nothing is set
-const initializeDefaults = () => {
-  if (!allDecrees.value.length) return;
-  if (fromNumero.value) return; // user already made a choice
+// Decrees that appear as 'from' in at least one valid pair
+const fromDecreeOptions = computed(() => {
+  const validFromNums = new Set(availablePairs.value.map((p) => p.from.numero));
+  return allDecrees.value
+    .filter((d) => validFromNums.has(d.numero))
+    .sort((a, b) => {
+      const da = a.date_publication ? new Date(a.date_publication).getTime() : 0;
+      const db = b.date_publication ? new Date(b.date_publication).getTime() : 0;
+      return db - da;
+    });
+});
 
-  const defaultFrom = sortedDecrees.value.find((d) => d.status !== 'active');
-  if (defaultFrom) {
-    fromNumero.value = defaultFrom.numero;
-    // "to" stays empty = active decree (most recent)
+// Decrees that are valid 'to' targets for the currently selected 'from'
+const toDecreeOptions = computed(() => {
+  if (!fromNumero.value) return [];
+  return availablePairs.value
+    .filter((p) => p.from.numero === fromNumero.value)
+    .map((p) => allDecrees.value.find((d) => d.numero === p.to.numero) ?? p.to)
+    .sort((a, b) => {
+      const da = a.date_publication ? new Date(a.date_publication).getTime() : 0;
+      const db = b.date_publication ? new Date(b.date_publication).getTime() : 0;
+      return db - da;
+    });
+});
+
+// Auto-select the only valid 'to' when 'from' changes
+watch(fromNumero, () => {
+  const firstTo = toDecreeOptions.value[0];
+  toNumero.value = firstTo?.numero ?? '';
+});
+
+// Auto-select the most recent available pair when data loads and nothing is set
+const initializeDefaults = () => {
+  if (!availablePairs.value.length) return;
+  if (fromNumero.value) return; // already set via URL
+
+  const defaultPair = sortedAvailablePairs.value[0];
+  if (defaultPair) {
+    fromNumero.value = defaultPair.from.numero;
+    toNumero.value = defaultPair.to.numero;
   }
 };
 
-watch(allDecrees, initializeDefaults, { immediate: true });
+watch(availablePairs, initializeDefaults, { immediate: true });
 
 // Total changes count
 const totalAll = computed(() => summary.value.reduce((a, s) => a + s.count, 0));
@@ -193,15 +225,71 @@ useHead({
           Comparaison des décrets de répartition
         </h1>
         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-          Explorez les modifications de l'organisation administrative de l'État entre le décret
-          <span class="font-medium text-gray-700 dark:text-gray-300"
-            >n°&nbsp;{{ fromDecree.numero }}</span
-          >
-          et le décret
-          <span class="font-medium text-gray-700 dark:text-gray-300"
-            >n°&nbsp;{{ toDecree.numero }}</span
-          >.
+          Explorez les modifications de l'organisation administrative de l'État entre deux décrets officiels.
         </p>
+      </div>
+    </section>
+
+    <!-- ─── Decree selectors ──────────────────────────────────────── -->
+    <section class="mx-auto mt-6 max-w-7xl px-4">
+      <!-- No comparison data at all -->
+      <div
+        v-if="!pending && availablePairs.length === 0"
+        class="flex items-start gap-3 rounded-xl border border-blue-200 bg-blue-50 px-4 py-4 text-sm text-blue-700 dark:border-blue-800 dark:bg-blue-900/20 dark:text-blue-400"
+      >
+        <UIcon name="i-heroicons-information-circle" class="mt-0.5 h-5 w-5 shrink-0" />
+        <div>
+          <p class="font-medium">Aucune donnée de comparaison disponible pour le moment.</p>
+          <p class="mt-0.5 text-xs opacity-80">
+            Les comparaisons entre décrets seront accessibles une fois les données d'évolution importées.
+          </p>
+        </div>
+      </div>
+
+      <!-- Selectors (only shown when pairs exist or still loading) -->
+      <div v-else class="flex flex-wrap items-center gap-3">
+        <label for="from-decree-select" class="text-sm font-medium text-gray-700 dark:text-gray-300">
+          Décret de départ :
+        </label>
+        <div class="relative">
+          <select
+            id="from-decree-select"
+            v-model="fromNumero"
+            :disabled="pending"
+            class="appearance-none rounded-lg border border-gray-300 bg-white py-2 pl-3 pr-8 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+          >
+            <option value="">Sélectionner un décret…</option>
+            <option v-for="d in fromDecreeOptions" :key="d.numero" :value="d.numero">
+              Décret n°&nbsp;{{ d.numero }}{{ d.date_publication ? ' (' + new Date(d.date_publication).getFullYear() + ')' : '' }}
+            </option>
+          </select>
+          <UIcon
+            name="i-heroicons-chevron-down"
+            class="pointer-events-none absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500"
+          />
+        </div>
+
+        <NuxtLink
+          to="/etat-senegal/organisation"
+          class="ml-auto inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-medium text-gray-600 shadow-sm transition hover:border-gray-300 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+        >
+          <UIcon name="i-heroicons-arrow-left" class="h-3.5 w-3.5" />
+          Organisation actuelle
+        </NuxtLink>
+      </div>
+
+      <!-- Invalid pair via URL (non-consecutive) -->
+      <div
+        v-if="!isPairAvailable && fromDecree && toDecree && availablePairs.length > 0"
+        class="mt-3 flex items-start gap-2 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-700 dark:border-amber-800 dark:bg-amber-900/20 dark:text-amber-400"
+      >
+        <UIcon name="i-heroicons-exclamation-triangle" class="mt-0.5 h-4 w-4 shrink-0" />
+        <span
+          >Aucune comparaison directe disponible entre le décret
+          <strong>{{ fromDecree.numero }}</strong> et le décret
+          <strong>{{ toDecree.numero }}</strong> (décrets non consécutifs). Utilisez le
+          sélecteur ci-dessus pour choisir une paire valide.</span
+        >
       </div>
     </section>
 
@@ -330,21 +418,9 @@ useHead({
             />
           </span>
 
-          <!-- Main content - entire block is a link if entity has a public page -->
-          <component
-            :is="change.has_public_page && change.slug ? linkComponent : 'div'"
-            :to="change.has_public_page && change.slug ? `/etat-senegal/${change.slug}` : undefined"
-            class="min-w-0 flex-1"
-            :class="change.has_public_page && change.slug ? 'group cursor-pointer' : ''"
-          >
-            <p
-              class="text-sm font-medium text-gray-900 dark:text-white"
-              :class="
-                change.has_public_page && change.slug
-                  ? 'group-hover:text-blue-600 dark:group-hover:text-blue-400'
-                  : ''
-              "
-            >
+          <!-- Main content -->
+          <div class="min-w-0 flex-1">
+            <p class="text-sm font-medium text-gray-900 dark:text-white">
               {{ change.name || change.description }}
             </p>
 
@@ -381,21 +457,7 @@ useHead({
                 }}
               </span>
             </div>
-
-            <span
-              class="mt-1 inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-xs font-medium"
-              :class="[getCategoryMeta(change.category).bg, getCategoryMeta(change.category).color]"
-            >
-              {{ getCategoryMeta(change.category).label }}
-            </span>
-          </component>
-
-          <!-- Arrow indicator (only for entities with a public page) -->
-          <UIcon
-            v-if="change.has_public_page && change.slug"
-            name="i-heroicons-chevron-right"
-            class="mt-1 h-4 w-4 shrink-0 text-gray-300 dark:text-gray-600"
-          />
+          </div>
         </li>
       </ul>
 

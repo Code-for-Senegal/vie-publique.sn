@@ -120,6 +120,11 @@ export interface EtatOrganisationChangesResponse {
   from_decree: EtatOrganisationDecreeRef | null
   to_decree: EtatOrganisationDecreeRef | null
   allDecrees: EtatOrganisationDecreeRef[]
+  availablePairs: Array<{
+    from: EtatOrganisationDecreeRef
+    to: EtatOrganisationDecreeRef
+  }>
+  isPairAvailable: boolean
   summary: EtatOrganisationChangeSummary[]
   changes: EtatOrganisationChange[]
   total: number
