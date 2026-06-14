@@ -221,7 +221,7 @@ useHead({
       <div
         class="rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50 via-white to-blue-100 px-6 py-7 shadow-sm dark:border-blue-900 dark:from-gray-900 dark:via-gray-900 dark:to-blue-950"
       >
-        <h1 class="text-xl font-bold text-gray-900 dark:text-white sm:text-2xl">
+        <h1 class="text-xl font-bold text-gray-900 dark:text-white md:text-3xl">
           Comparaison des décrets de répartition
         </h1>
         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">

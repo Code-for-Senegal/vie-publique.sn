@@ -96,14 +96,8 @@ useHead({
         <div class="pointer-events-none absolute -bottom-16 -left-16 h-52 w-52 rounded-full bg-amber-100/60 blur-3xl dark:bg-amber-800/20" />
 
         <div class="relative z-10">
-          <!-- Archive badge -->
+          <!-- Decree badge -->
           <div class="mb-3 flex flex-wrap items-center gap-2">
-            <span
-              class="inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-white px-3 py-1 text-xs font-medium text-amber-700 shadow-sm dark:border-amber-800 dark:bg-gray-900 dark:text-amber-300"
-            >
-              <UIcon name="i-heroicons-archive-box" class="h-3.5 w-3.5" />
-              Archives
-            </span>
             <div
               v-if="selectedDecree"
               class="inline-flex flex-wrap items-center gap-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-1 text-sm text-amber-800 dark:border-amber-800 dark:bg-amber-900/20 dark:text-amber-300"
@@ -122,7 +116,7 @@ useHead({
           </div>
 
           <!-- Title -->
-          <h1 class="text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl">
+          <h1 class="text-xl font-bold text-gray-900 dark:text-white md:text-3xl">
             Organisation de l'État
             <span class="text-amber-600 dark:text-amber-400">- Archives</span>
           </h1>

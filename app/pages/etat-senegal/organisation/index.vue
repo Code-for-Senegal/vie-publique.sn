@@ -112,7 +112,7 @@ useHead({
               </span>
             </div>
 
-            <h1 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-2xl lg:text-3xl">
+            <h1 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white md:text-3xl">
               Organisation administrative de l'État du Sénégal
             </h1>
             <p class="mt-2 max-w-2xl text-sm text-gray-600 dark:text-gray-300">
