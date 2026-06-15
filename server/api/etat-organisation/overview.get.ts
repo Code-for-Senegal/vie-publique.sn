@@ -24,6 +24,7 @@ export default defineCachedEventHandler(
     const decrees = await cmsClient.request(
       readItems('state_organization_decree', {
         fields: ['id', 'numero', 'status', 'date_publication'],
+        filter: { status: { _neq: 'draft' } },
         sort: ['-date_publication'],
         limit: 20,
       }),
