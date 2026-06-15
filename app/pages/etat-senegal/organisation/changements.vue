@@ -1,4 +1,7 @@
 <script setup lang="ts">
+const router = useRouter();
+const route = useRoute();
+
 const {
   fromNumero,
   toNumero,
@@ -131,14 +134,23 @@ watch(fromNumero, () => {
 });
 
 // Auto-select the most recent available pair when data loads and nothing is set
+// Use a single router.replace to avoid the double-push race condition where
+// the second push reads stale route.query and drops the first value.
 const initializeDefaults = () => {
   if (!availablePairs.value.length) return;
   if (fromNumero.value) return; // already set via URL
 
   const defaultPair = sortedAvailablePairs.value[0];
   if (defaultPair) {
-    fromNumero.value = defaultPair.from.numero;
-    toNumero.value = defaultPair.to.numero;
+    router.replace({
+      query: {
+        ...route.query,
+        from: defaultPair.from.numero,
+        to: defaultPair.to.numero,
+        page: undefined,
+        category: undefined,
+      },
+    });
   }
 };
 
@@ -252,24 +264,29 @@ useHead({
       <!-- Selectors (only shown when pairs exist or still loading) -->
       <div v-else class="flex flex-wrap items-center gap-2">
         <!-- Label -->
-        <label
-          for="from-decree-select"
-          class="shrink-0 text-sm font-medium text-gray-700 dark:text-gray-300"
-        >
+        <span class="shrink-0 text-sm font-medium text-gray-700 dark:text-gray-300">
           Décret de départ :
-        </label>
+        </span>
 
-        <!-- Select -->
-        <div class="relative">
+        <!-- Single decree: pill only -->
+        <span
+          v-if="fromDecreeOptions.length === 1 && fromDecree"
+          class="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-700 dark:border-blue-800 dark:bg-blue-900/20 dark:text-blue-400"
+        >
+          <UIcon name="i-heroicons-document-text" class="h-3.5 w-3.5 shrink-0" />
+          Décret n°&nbsp;{{ fromDecree.numero }}
+        </span>
+
+        <!-- Multiple decrees: select -->
+        <div v-else class="relative">
           <select
             id="from-decree-select"
             v-model="fromNumero"
             :disabled="pending"
             class="appearance-none rounded-lg border border-gray-300 bg-white py-2 pl-3 pr-8 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
           >
-            <option value="">Sélectionner un décret…</option>
             <option v-for="d in fromDecreeOptions" :key="d.numero" :value="d.numero">
-              Décret n°&nbsp;{{ d.numero }}{{ d.date_publication ? ' (' + new Date(d.date_publication).getFullYear() + ')' : '' }}
+              Décret n°&nbsp;{{ d.numero }}
             </option>
           </select>
           <UIcon
