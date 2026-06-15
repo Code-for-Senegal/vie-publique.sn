@@ -1,6 +1,13 @@
 <script setup lang="ts">
+import { NuxtLink } from '#components'
+import type { EtatOrganisationChange } from '~~/types/etat-organisation'
+
 const router = useRouter();
 const route = useRoute();
+
+const TOP_LEVEL_TYPES = new Set(['presidence', 'primature'])
+const isChangeClickable = (change: EtatOrganisationChange) =>
+  change.has_public_page && !!change.slug && TOP_LEVEL_TYPES.has(change.type_code ?? '')
 
 const {
   fromNumero,
@@ -458,9 +465,14 @@ useHead({
 
           <!-- Main content -->
           <div class="min-w-0 flex-1">
-            <p class="text-sm font-medium text-gray-900 dark:text-white">
+            <component
+              :is="isChangeClickable(change) ? NuxtLink : 'p'"
+              :to="isChangeClickable(change) ? `/etat-senegal/${change.slug}` : undefined"
+              class="text-sm font-medium text-gray-900 dark:text-white"
+              :class="isChangeClickable(change) ? 'hover:text-blue-600 dark:hover:text-blue-400' : ''"
+            >
               {{ change.name || change.description }}
-            </p>
+            </component>
 
             <!-- Parent breadcrumb -->
             <p v-if="change.root_name" class="mt-0.5 text-xs text-gray-400 dark:text-gray-500">

@@ -14,6 +14,12 @@ const {
   pending,
 } = useEtatOrganisation();
 
+const route = useRoute()
+const isArchivePage = computed(() => route.path.includes('/historique'))
+const TOP_LEVEL_TYPES = new Set(['presidence', 'primature'])
+const isLinkable = (entity: { has_public_page: boolean; type_code: string }) =>
+  entity.has_public_page && (!isArchivePage.value || TOP_LEVEL_TYPES.has(entity.type_code))
+
 const TYPE_ICONS: Record<string, string> = {
   presidence: 'i-heroicons-building-library',
   primature: 'i-heroicons-building-office-2',
@@ -183,7 +189,7 @@ const visibleTypes = computed(() =>
         <!-- Content -->
         <div class="min-w-0 flex-1">
           <NuxtLink
-            v-if="entity.has_public_page"
+            v-if="isLinkable(entity)"
             :to="`/etat-senegal/${entity.public_slug}`"
             class="block text-sm font-medium text-gray-900 hover:text-emerald-700 dark:text-white dark:hover:text-emerald-400"
           >
@@ -208,7 +214,7 @@ const visibleTypes = computed(() =>
 
         <!-- Arrow if clickable -->
         <UIcon
-          v-if="entity.has_public_page"
+          v-if="isLinkable(entity)"
           name="i-heroicons-chevron-right"
           class="h-4 w-4 shrink-0 text-gray-300 transition-colors group-hover:text-emerald-500"
         />
@@ -222,11 +228,11 @@ const visibleTypes = computed(() =>
         :total="totalFiltered"
         :page-count="LIST_PAGE_SIZE"
         size="sm"
-        @update:model-value="listPage = $event"
         :ui="{
           wrapper: 'flex items-center gap-1',
           rounded: 'rounded-lg',
         }"
+        @update:model-value="listPage = $event"
       />
     </div>
   </div>

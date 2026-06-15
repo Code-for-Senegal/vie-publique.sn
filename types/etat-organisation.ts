@@ -108,6 +108,7 @@ export interface EtatOrganisationChange {
   new_value: Record<string, unknown> | null
   slug: string | null
   has_public_page: boolean
+  type_code?: string | null
   name: string | null
   root_name: string | null
   parent_name: string | null
