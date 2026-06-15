@@ -271,9 +271,8 @@ useHead({
         <!-- Single decree: pill only -->
         <span
           v-if="fromDecreeOptions.length === 1 && fromDecree"
-          class="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-700 dark:border-blue-800 dark:bg-blue-900/20 dark:text-blue-400"
+          class="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
         >
-          <UIcon name="i-heroicons-document-text" class="h-3.5 w-3.5 shrink-0" />
           Décret n°&nbsp;{{ fromDecree.numero }}
         </span>
 

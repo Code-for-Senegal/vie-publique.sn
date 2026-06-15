@@ -89,41 +89,65 @@ useHead({
     <!-- ─── Hero ──────────────────────────────────────────────────── -->
     <section class="mx-auto mt-4 max-w-7xl px-4">
       <div
-        class="relative overflow-hidden rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 via-white to-amber-100 px-6 py-7 shadow-sm dark:border-amber-900 dark:from-gray-900 dark:via-gray-900 dark:to-amber-950 sm:px-10 sm:py-8"
+        class="relative overflow-hidden rounded-2xl border border-gray-200 bg-white px-6 pb-5 pt-7 shadow-sm dark:border-gray-700 dark:bg-gray-900 sm:px-10 sm:pb-6 sm:pt-8"
       >
-        <!-- Decorative blobs -->
-        <div class="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full bg-amber-200/40 blur-3xl dark:bg-amber-500/20" />
-        <div class="pointer-events-none absolute -bottom-16 -left-16 h-52 w-52 rounded-full bg-amber-100/60 blur-3xl dark:bg-amber-800/20" />
-
         <div class="relative z-10">
-          <!-- Decree badge -->
-          <div class="mb-3 flex flex-wrap items-center gap-2">
-            <div
-              v-if="selectedDecree"
-              class="inline-flex flex-wrap items-center gap-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-1 text-sm text-amber-800 dark:border-amber-800 dark:bg-amber-900/20 dark:text-amber-300"
-            >
-              <UIcon name="i-heroicons-document-text" class="h-4 w-4 shrink-0" />
-              <span>
-                Décret n°<strong class="ml-1">{{ selectedDecree.numero }}</strong>
-              </span>
-              <span
-                v-if="selectedDecree.date_publication"
-                class="text-amber-600 dark:text-amber-400"
-              >
-                - {{ formatDate(selectedDecree.date_publication) }}
-              </span>
-            </div>
-          </div>
-
           <!-- Title -->
           <h1 class="text-xl font-bold text-gray-900 dark:text-white md:text-3xl">
             Organisation de l'État
-            <span class="text-amber-600 dark:text-amber-400">- Archives</span>
+            <span class="text-gray-500 dark:text-gray-400">- Archives</span>
           </h1>
           <p class="mt-2 max-w-2xl text-sm text-gray-600 dark:text-gray-400">
             Consultez l'organisation administrative selon les décrets précédents.
           </p>
 
+          <!-- Decree selector + link to active -->
+          <div class="mt-3 flex flex-wrap items-center gap-3">
+            <template v-if="archivedDecrees.length > 1">
+              <label for="decree-select" class="shrink-0 text-sm font-medium text-gray-700 dark:text-gray-300">
+                Décret n°
+              </label>
+              <div class="relative">
+                <select
+                  id="decree-select"
+                  v-model="selectedDecreeNumero"
+                  class="appearance-none rounded-lg border border-gray-300 bg-white py-2 pl-3 pr-8 text-sm text-gray-900 shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+                >
+                  <option
+                    v-for="decree in archivedDecrees"
+                    :key="decree.id"
+                    :value="decree.numero"
+                  >
+                    {{ decree.numero }}
+                  </option>
+                </select>
+                <UIcon
+                  name="i-heroicons-chevron-down"
+                  class="pointer-events-none absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500"
+                />
+              </div>
+            </template>
+            <template v-else-if="selectedDecree">
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300">
+                Décret n°&nbsp;{{ selectedDecree.numero }}
+              </span>
+            </template>
+
+            <span
+              v-if="selectedDecree?.date_publication"
+              class="text-xs text-gray-400 dark:text-gray-500"
+            >
+              Publié le {{ formatDate(selectedDecree.date_publication) }}
+            </span>
+
+            <NuxtLink
+              to="/etat-senegal/organisation"
+              class="ml-auto inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-medium text-gray-600 shadow-sm transition hover:border-gray-300 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+            >
+              <UIcon name="i-heroicons-arrow-left" class="h-3.5 w-3.5" />
+              Organisation actuelle
+            </NuxtLink>
+          </div>
         </div>
       </div>
     </section>
@@ -133,52 +157,7 @@ useHead({
       <EtatOrganisationStatsGrid :clickable="false" />
     </section>
 
-    <!-- ─── Decree selector + link to active ─────────────────────── -->
-    <section class="mx-auto mt-6 max-w-7xl px-4">
-      <div class="flex flex-wrap items-center gap-3">
-        <template v-if="archivedDecrees.length > 1">
-          <label for="decree-select" class="text-sm font-medium text-gray-700 dark:text-gray-300">
-            Décret affiché :
-          </label>
-          <div class="relative">
-            <select
-              id="decree-select"
-              v-model="selectedDecreeNumero"
-              class="appearance-none rounded-lg border border-gray-300 bg-white py-2 pl-3 pr-8 text-sm text-gray-900 shadow-sm focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
-            >
-              <option
-                v-for="decree in archivedDecrees"
-                :key="decree.id"
-                :value="decree.numero"
-              >
-                Décret n°&nbsp;{{ decree.numero }}
-              </option>
-            </select>
-            <UIcon
-              name="i-heroicons-chevron-down"
-              class="pointer-events-none absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500"
-            />
-          </div>
-        </template>
 
-        <NuxtLink
-          to="/etat-senegal/organisation"
-          class="ml-auto inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-medium text-gray-600 shadow-sm transition hover:border-gray-300 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
-        >
-          <UIcon name="i-heroicons-arrow-left" class="h-3.5 w-3.5" />
-          Organisation actuelle
-        </NuxtLink>
-      </div>
-
-      <!-- Empty state -->
-      <div
-        v-if="archivedDecrees.length === 0"
-        class="mt-10 flex flex-col items-center justify-center gap-3 text-gray-500"
-      >
-        <UIcon name="i-heroicons-archive-box-x-mark" class="h-12 w-12 text-gray-300" />
-        <p class="text-sm">Aucun décret archivé disponible.</p>
-      </div>
-    </section>
 
     <!-- ─── Explorer ─────────────────────────────────────────────── -->
     <section v-if="archivedDecrees.length > 0" class="mx-auto mt-6 max-w-7xl px-4">
