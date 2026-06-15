@@ -59,7 +59,7 @@ export interface EtatOrganisationEntity {
   // Public-entity-based parent link (for display only)
   parent_id?: string | null
   parent_name?: string | null
-  // Contact fields (from public_entities)
+  // Contact fields (from state_organization_entity)
   email?: string | null
   adresse?: string | null
   phone?: string | null
@@ -120,6 +120,11 @@ export interface EtatOrganisationChangesResponse {
   from_decree: EtatOrganisationDecreeRef | null
   to_decree: EtatOrganisationDecreeRef | null
   allDecrees: EtatOrganisationDecreeRef[]
+  availablePairs: Array<{
+    from: EtatOrganisationDecreeRef
+    to: EtatOrganisationDecreeRef
+  }>
+  isPairAvailable: boolean
   summary: EtatOrganisationChangeSummary[]
   changes: EtatOrganisationChange[]
   total: number

@@ -33,7 +33,7 @@ const formatDate = (v?: string) =>
 
 // ── SEO ───────────────────────────────────────────────────────────
 useSeoMeta({
-  title: "Ministères du Sénégal — Décret en vigueur",
+  title: "Ministères du Sénégal - Décret en vigueur",
   description:
     "Liste officielle des ministères du Sénégal selon le décret de répartition des services de l'État en vigueur. Retrouvez les coordonnées et informations de chaque ministère.",
   ogTitle: "Ministères du Sénégal",
@@ -132,12 +132,15 @@ useHead({ title: "Ministères" })
 
     <!-- ─── Skeleton loader ──────────────────────────────────────── -->
     <section v-if="pending" class="mx-auto mt-6 max-w-7xl px-4">
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700">
+        <div class="h-10 border-b border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800/60" />
         <div
           v-for="i in 9"
           :key="i"
-          class="h-32 animate-pulse rounded-xl border border-gray-200 bg-gray-100 dark:border-gray-700 dark:bg-gray-800"
-        />
+          class="flex h-14 animate-pulse items-center gap-4 border-b border-gray-100 px-4 last:border-0 dark:border-gray-800"
+        >
+          <div class="h-4 w-2/3 rounded bg-gray-200 dark:bg-gray-700" />
+        </div>
       </div>
     </section>
 
@@ -156,69 +159,44 @@ useHead({ title: "Ministères" })
       </button>
     </section>
 
-    <!-- ─── Cards grid ───────────────────────────────────────────── -->
+    <!-- ─── Table ─────────────────────────────────────────────────── -->
     <section v-else class="mx-auto mt-6 max-w-7xl px-4">
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <component
-          :is="entity.has_public_page ? NuxtLink : 'div'"
-          v-for="entity in ministeres"
-          :key="entity.id"
-          :to="entity.has_public_page ? `/etat-senegal/${entity.public_slug}` : undefined"
-          class="group flex flex-col gap-3 rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:border-emerald-300 hover:shadow-md dark:border-gray-700 dark:bg-gray-800/60 dark:hover:border-emerald-700"
-          :class="entity.has_public_page ? 'cursor-pointer' : ''"
-        >
-          <!-- Name + chevron row -->
-          <div class="flex items-start justify-between gap-2">
-            <p class="flex-1 text-sm font-semibold leading-snug text-gray-900 dark:text-white">
-              {{ entity.name }}
-            </p>
-            <UIcon
-              v-if="entity.has_public_page"
-              name="i-heroicons-chevron-right"
-              class="mt-0.5 h-4 w-4 shrink-0 text-gray-300 transition-colors group-hover:text-emerald-500"
-            />
-          </div>
-
-          <!-- Contact info -->
-          <div class="mt-auto flex flex-wrap gap-x-4 gap-y-1">
-            <a
-              v-if="entity.web_site"
-              :href="entity.web_site"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-1 text-xs text-emerald-600 hover:underline dark:text-emerald-400"
-              @click.stop
-            >
-              <UIcon name="i-heroicons-globe-alt" class="h-3.5 w-3.5 shrink-0" />
-              Site web
-            </a>
-            <a
-              v-if="entity.email"
-              :href="`mailto:${entity.email}`"
-              class="inline-flex items-center gap-1 truncate text-xs text-gray-500 hover:text-emerald-600 dark:text-gray-400"
-              @click.stop
-            >
-              <UIcon name="i-heroicons-envelope" class="h-3.5 w-3.5 shrink-0" />
-              {{ entity.email }}
-            </a>
-            <a
-              v-if="entity.phone"
-              :href="`tel:${entity.phone}`"
-              class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-emerald-600 dark:text-gray-400"
-              @click.stop
-            >
-              <UIcon name="i-heroicons-phone" class="h-3.5 w-3.5 shrink-0" />
-              {{ entity.phone }}
-            </a>
-            <span
-              v-if="entity.adresse"
-              class="inline-flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400"
-            >
-              <UIcon name="i-heroicons-map-pin" class="h-3.5 w-3.5 shrink-0" />
-              {{ entity.adresse }}
-            </span>
-          </div>
-        </component>
+      <div class="overflow-hidden rounded-xl border border-gray-200 shadow-sm dark:border-gray-700">
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead class="bg-gray-50 dark:bg-gray-800/60">
+              <tr>
+                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                  Ministères
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 bg-white dark:divide-gray-800 dark:bg-gray-900">
+              <tr
+                v-for="entity in ministeres"
+                :key="entity.id"
+                class="transition-colors hover:bg-emerald-50/50 dark:hover:bg-emerald-900/10"
+              >
+                <!-- Nom -->
+                <td class="px-4 py-3.5">
+                  <component
+                    :is="entity.has_public_page ? NuxtLink : 'span'"
+                    :to="entity.has_public_page ? `/etat-senegal/${entity.public_slug}` : undefined"
+                    class="text-sm font-medium leading-snug text-gray-900 dark:text-white"
+                    :class="entity.has_public_page ? 'group/link inline-flex items-center gap-1.5 hover:text-emerald-600 dark:hover:text-emerald-400' : ''"
+                  >
+                    {{ entity.name }}
+                    <UIcon
+                      v-if="entity.has_public_page"
+                      name="i-heroicons-chevron-right"
+                      class="h-4 w-4 shrink-0 text-gray-300 transition-colors group-hover/link:text-emerald-500"
+                    />
+                  </component>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
   </div>

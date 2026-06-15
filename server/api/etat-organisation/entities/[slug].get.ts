@@ -30,7 +30,7 @@ export default defineCachedEventHandler(
     const cmsClient = getCmsClient()
 
     const decrees = await cmsClient.request(
-      readItems('decree', {
+      readItems('state_organization_decree', {
         fields: ['id', 'numero', 'status', 'date_publication'],
         sort: ['-date_publication'],
         limit: 20,
@@ -48,24 +48,19 @@ export default defineCachedEventHandler(
       (decrees as DecreeRow[]).find(decree => decree.status === 'active') || (decrees as DecreeRow[])[0]
 
     const snapshots = await cmsClient.request(
-      readItems('entity_snapshots', {
+      readItems('state_organization_entity_snapshot', {
         filter: {
           decree: { _eq: activeDecree.id },
-          // Include change_type=null (entite_regroupement) — excluded by _neq alone in SQL
-          _or: [
-            { change_type: { _null: true } },
-            { change_type: { _neq: 'removed' } },
-          ],
         },
         fields: [
           'id',
           'official_label',
           'parent_snapshot', // raw FK UUID — avoids unreliable multi-level M2O expansion
+          'code_institution',
           'public_entity.id',
           'public_entity.slug',
           'public_entity.name',
           'public_entity.has_public_page',
-          'public_entity.code_institution',
           'public_entity.entity_type.code',
           'public_entity.entity_type.label',
           'public_entity.email',
@@ -106,7 +101,7 @@ export default defineCachedEventHandler(
         has_public_page: entity.has_public_page === true,
         type_code: entity.entity_type?.code || 'other',
         type_label: entity.entity_type?.label || 'Autre',
-        code_institution: entity.code_institution ?? null,
+        code_institution: snapshot.code_institution ?? entity.code_institution ?? null,
         parent_snapshot_id: parentSnapshotId,
         parent_id: null as string | null,
         parent_name: null as string | null,
@@ -180,7 +175,7 @@ export default defineCachedEventHandler(
 
     const changes = await cmsClient
       .request(
-        readItems('entity_changes', {
+        readItems('state_organization_entity_change', {
           fields: [
             'id',
             'change_category',

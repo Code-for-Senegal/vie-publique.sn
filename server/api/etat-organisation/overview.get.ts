@@ -1,4 +1,4 @@
-import { readItems } from '@directus/sdk'
+﻿import { readItems } from '@directus/sdk'
 import { CacheDuration, getCacheMaxAge } from '../../utils/cache'
 
 type DecreeRow = {
@@ -22,7 +22,7 @@ export default defineCachedEventHandler(
     const cmsClient = getCmsClient()
 
     const decrees = await cmsClient.request(
-      readItems('decree', {
+      readItems('state_organization_decree', {
         fields: ['id', 'numero', 'status', 'date_publication'],
         sort: ['-date_publication'],
         limit: 20,
@@ -43,18 +43,40 @@ export default defineCachedEventHandler(
 
     const orderedDecrees = decrees as DecreeRow[]
     const activeDecree = orderedDecrees.find(decree => decree.status === 'active') || orderedDecrees[0]
-    const previousDecree = orderedDecrees.find(decree => decree.id !== activeDecree.id)
+
+    // Resolve true previousDecree via available entity_change pairs
+    const pairsRaw = await cmsClient.request(
+      readItems('state_organization_entity_change', {
+        fields: ['from_decree.id', 'to_decree.id'],
+        limit: -1,
+      }),
+    )
+    const seenPairs = new Set<string>()
+    let truePrevId: string | null = null
+    for (const row of pairsRaw as any[]) {
+      const fromId = row.from_decree?.id ? String(row.from_decree.id) : null
+      const toId = row.to_decree?.id ? String(row.to_decree.id) : null
+      if (!fromId || !toId) continue
+      const key = `${fromId}__${toId}`
+      if (!seenPairs.has(key)) {
+        seenPairs.add(key)
+        if (toId === activeDecree.id) truePrevId = fromId
+      }
+    }
+    const previousDecree = truePrevId
+      ? (orderedDecrees.find(d => d.id === truePrevId) ?? orderedDecrees.find(d => d.id !== activeDecree.id) ?? null)
+      : (orderedDecrees.find(d => d.id !== activeDecree.id) ?? null)
 
     const [allTypes, publicEntities, allChanges, recentChanges] = await Promise.all([
       cmsClient.request(
-        readItems('entities_types', {
+        readItems('state_organization_entity_type', {
           fields: ['id', 'code', 'label'],
           sort: ['label'],
           limit: -1,
         }),
       ),
       cmsClient.request(
-        readItems('public_entities', {
+        readItems('state_organization_entity', {
           fields: ['id', 'has_public_page', 'entity_type.code'],
           limit: -1,
         }),
@@ -62,7 +84,7 @@ export default defineCachedEventHandler(
       // Full count for summary (lightweight — only id + category)
       previousDecree
         ? cmsClient.request(
-            readItems('entity_changes', {
+            readItems('state_organization_entity_change', {
               fields: ['id', 'change_category'],
               filter: {
                 from_decree: { _eq: previousDecree.id },
@@ -75,7 +97,7 @@ export default defineCachedEventHandler(
       // Recent items for display (limit 24)
       previousDecree
         ? cmsClient.request(
-            readItems('entity_changes', {
+            readItems('state_organization_entity_change', {
               fields: [
                 'id',
                 'change_category',
@@ -146,7 +168,7 @@ export default defineCachedEventHandler(
         // Two separate _eq queries (like changes.get.ts) — more reliable than _in
         const [toSnapshots, fromSnapshots] = await Promise.all([
           cmsClient.request(
-            readItems('entity_snapshots', {
+            readItems('state_organization_entity_snapshot', {
               fields: snapshotFields,
               filter: { decree: { _eq: activeDecree.id }, public_entity: { _in: entityIds } },
               limit: -1,
@@ -154,7 +176,7 @@ export default defineCachedEventHandler(
           ),
           previousDecree
             ? cmsClient.request(
-                readItems('entity_snapshots', {
+                readItems('state_organization_entity_snapshot', {
                   fields: snapshotFields,
                   filter: { decree: { _eq: previousDecree.id }, public_entity: { _in: entityIds } },
                   limit: -1,

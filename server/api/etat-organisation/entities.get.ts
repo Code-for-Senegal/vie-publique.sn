@@ -1,4 +1,4 @@
-import { readItems } from '@directus/sdk'
+﻿import { readItems } from '@directus/sdk'
 import { CacheDuration, getCacheMaxAge } from '~~/server/utils/cache'
 
 type DecreeRow = {
@@ -33,7 +33,7 @@ export default defineCachedEventHandler(
     const cmsClient = getCmsClient()
 
     const decrees = await cmsClient.request(
-      readItems('decree', {
+      readItems('state_organization_decree', {
         fields: ['id', 'numero', 'status', 'date_publication'],
         sort: ['-date_publication'],
         limit: 20,
@@ -57,26 +57,20 @@ export default defineCachedEventHandler(
       ?? orderedDecrees[0]
 
     const snapshots = await cmsClient.request(
-      readItems('entity_snapshots', {
+      readItems('state_organization_entity_snapshot', {
         filter: {
           decree: { _eq: activeDecree.id },
-          // Include null change_type (entite_regroupement) + all non-removed
-          // NOTE: change_type=null means entite_regroupement — excluded by _neq alone in SQL
-          _or: [
-            { change_type: { _null: true } },
-            { change_type: { _neq: 'removed' } },
-          ],
         },
         fields: [
           'id',
           'official_label',
           // Raw FK UUID — no expansion, works 100% reliably for self-referential M2O
           'parent_snapshot',
+          'code_institution',
           'public_entity.id',
           'public_entity.slug',
           'public_entity.name',
           'public_entity.has_public_page',
-          'public_entity.code_institution',
           'public_entity.entity_type.code',
           'public_entity.entity_type.label',
         ],
@@ -116,7 +110,7 @@ export default defineCachedEventHandler(
         has_public_page: entity.has_public_page === true,
         type_code: entity.entity_type?.code || 'other',
         type_label: entity.entity_type?.label || 'Autre',
-        code_institution: entity.code_institution ?? null,
+        code_institution: snapshot.code_institution ?? entity.code_institution ?? null,
         parent_snapshot_id: parentSnapshotId,
         parent_id: null,
         parent_name: null,

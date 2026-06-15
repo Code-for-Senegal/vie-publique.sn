@@ -20,7 +20,7 @@ export interface BudgetEntityProgram {
 export interface BudgetEntity {
   id: number;
   name: string;
-  public_slug: string;
+  slug: string;
 }
 
 export interface BudgetEntityData {
@@ -33,13 +33,14 @@ export interface BudgetEntityData {
 
 export const useBudgetEntity = (slug: string) => {
   // Fetch des données de l'entité
-  const { data: entityData, pending: loading, error } = useFetch<BudgetEntityData>(
-    `/api/budget/entity/${slug}`,
-    {
-      key: `budget-entity-${slug}`,
-      server: true,
-    },
-  );
+  const {
+    data: entityData,
+    pending: loading,
+    error,
+  } = useFetch<BudgetEntityData>(`/api/budget/entity/${slug}`, {
+    key: `budget-entity-${slug}`,
+    server: true,
+  });
 
   // Computed pour les données de l'entité
   const entity = computed(() => entityData.value?.entity || null);
@@ -86,7 +87,7 @@ export const useBudgetEntity = (slug: string) => {
     return programs.value.map((program) => ({
       ...program,
       amount_cp_number: parseFloat(program.amount_cp || '0'),
-      percentage: total > 0 ? ((parseFloat(program.amount_cp || '0') / total) * 100) : 0,
+      percentage: total > 0 ? (parseFloat(program.amount_cp || '0') / total) * 100 : 0,
     }));
   });
 

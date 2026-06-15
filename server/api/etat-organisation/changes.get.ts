@@ -1,4 +1,4 @@
-import { readItems } from '@directus/sdk'
+﻿import { readItems } from '@directus/sdk'
 import { CacheDuration, getCacheMaxAge } from '../../utils/cache'
 
 type DecreeRow = {
@@ -31,7 +31,7 @@ export default defineCachedEventHandler(
     const cmsClient = getCmsClient()
 
     const decrees = await cmsClient.request(
-      readItems('decree', {
+      readItems('state_organization_decree', {
         fields: ['id', 'numero', 'status', 'date_publication'],
         sort: ['-date_publication'],
         limit: 20,
@@ -52,8 +52,41 @@ export default defineCachedEventHandler(
     }
 
     const activeDecree = allDecreeRows.find(d => d.status === 'active') ?? allDecreeRows[0]
-    // "previous" = the decree immediately before the active one
-    const previousDecree = allDecreeRows.find(d => d.id !== activeDecree.id) ?? null
+
+    // ── Fetch available pairs (distinct from/to combos that have entity_change records) ──
+    const pairsRaw = await cmsClient.request(
+      readItems('state_organization_entity_change', {
+        fields: [
+          'from_decree.id',
+          'from_decree.numero',
+          'from_decree.date_publication',
+          'to_decree.id',
+          'to_decree.numero',
+          'to_decree.date_publication',
+        ],
+        limit: -1,
+      }),
+    )
+    const pairsMap = new Map<string, { from: DecreeRow; to: DecreeRow }>()
+    for (const row of pairsRaw as any[]) {
+      const fromD = row.from_decree
+      const toD = row.to_decree
+      if (!fromD?.id || !toD?.id) continue
+      const key = `${fromD.id}__${toD.id}`
+      if (!pairsMap.has(key)) {
+        pairsMap.set(key, {
+          from: { id: String(fromD.id), numero: fromD.numero, date_publication: fromD.date_publication },
+          to: { id: String(toD.id), numero: toD.numero, date_publication: toD.date_publication },
+        })
+      }
+    }
+    const availablePairs = Array.from(pairsMap.values())
+
+    // Resolve true previousDecree: the 'from' side of the pair where 'to' = activeDecree
+    const truePrePair = availablePairs.find(p => p.to.id === activeDecree.id)
+    const previousDecree = truePrePair
+      ? (allDecreeRows.find(d => d.id === truePrePair.from.id) ?? allDecreeRows.find(d => d.id !== activeDecree.id) ?? null)
+      : (allDecreeRows.find(d => d.id !== activeDecree.id) ?? null)
 
     const resolvedTo = toNumero
       ? (allDecreeRows.find(d => d.numero === toNumero) ?? activeDecree)
@@ -63,11 +96,34 @@ export default defineCachedEventHandler(
       ? (allDecreeRows.find(d => d.numero === fromNumero) ?? previousDecree)
       : previousDecree
 
+    const isPairAvailable = resolvedFrom != null
+      && availablePairs.some(
+        p => p.from.numero === resolvedFrom.numero && p.to.numero === resolvedTo.numero,
+      )
+
     if (!resolvedFrom) {
       return {
         from_decree: null,
         to_decree: { id: resolvedTo.id, numero: resolvedTo.numero, date_publication: resolvedTo.date_publication, status: resolvedTo.status },
         allDecrees,
+        availablePairs,
+        isPairAvailable: false,
+        summary: [],
+        changes: [],
+        total: 0,
+        page: 1,
+        pageSize: PAGE_SIZE,
+      }
+    }
+
+    // If the requested pair has no entity_change records, return early
+    if (!isPairAvailable) {
+      return {
+        from_decree: { id: resolvedFrom.id, numero: resolvedFrom.numero, date_publication: resolvedFrom.date_publication, status: resolvedFrom.status },
+        to_decree: { id: resolvedTo.id, numero: resolvedTo.numero, date_publication: resolvedTo.date_publication, status: resolvedTo.status },
+        allDecrees,
+        availablePairs,
+        isPairAvailable: false,
         summary: [],
         changes: [],
         total: 0,
@@ -83,7 +139,7 @@ export default defineCachedEventHandler(
     }
 
     const allChanges = await cmsClient.request(
-      readItems('entity_changes', {
+      readItems('state_organization_entity_change', {
         fields: ['id', 'change_category'],
         filter: baseFilter,
         limit: -1,
@@ -107,7 +163,7 @@ export default defineCachedEventHandler(
     if (category) pagedFilter.change_category = { _eq: category }
 
     const filteredChanges = await cmsClient.request(
-      readItems('entity_changes', {
+      readItems('state_organization_entity_change', {
         fields: [
           'id',
           'change_category',
@@ -150,7 +206,7 @@ export default defineCachedEventHandler(
         // Query snapshots for `to_decree` (covers created) and `from_decree` (covers deleted)
         const [toSnapshots, fromSnapshots] = await Promise.all([
           cmsClient.request(
-            readItems('entity_snapshots', {
+            readItems('state_organization_entity_snapshot', {
               fields: snapshotFields,
               filter: {
                 decree: { _eq: resolvedTo.id },
@@ -160,7 +216,7 @@ export default defineCachedEventHandler(
             }),
           ),
           cmsClient.request(
-            readItems('entity_snapshots', {
+            readItems('state_organization_entity_snapshot', {
               fields: snapshotFields,
               filter: {
                 decree: { _eq: resolvedFrom.id },
@@ -201,6 +257,8 @@ export default defineCachedEventHandler(
       from_decree: { id: resolvedFrom.id, numero: resolvedFrom.numero, date_publication: resolvedFrom.date_publication, status: resolvedFrom.status },
       to_decree: { id: resolvedTo.id, numero: resolvedTo.numero, date_publication: resolvedTo.date_publication, status: resolvedTo.status },
       allDecrees,
+      availablePairs,
+      isPairAvailable,
       summary,
       changes: (filteredChanges as any[]).map((c: any) => {
         const entityId = c.entity?.id != null ? String(c.entity.id) : null
