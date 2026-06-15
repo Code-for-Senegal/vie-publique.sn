@@ -121,10 +121,13 @@ const toDecreeOptions = computed(() => {
     });
 });
 
-// Auto-select the only valid 'to' when 'from' changes
+// When fromNumero changes, reset toNumero only if its current value is no longer valid
 watch(fromNumero, () => {
-  const firstTo = toDecreeOptions.value[0];
-  toNumero.value = firstTo?.numero ?? '';
+  if (!availablePairs.value.length) return; // pairs not loaded yet, don't reset
+  const stillValid = toDecreeOptions.value.some((d) => d.numero === toNumero.value);
+  if (!stillValid) {
+    toNumero.value = toDecreeOptions.value[0]?.numero ?? '';
+  }
 });
 
 // Auto-select the most recent available pair when data loads and nothing is set
@@ -247,10 +250,16 @@ useHead({
       </div>
 
       <!-- Selectors (only shown when pairs exist or still loading) -->
-      <div v-else class="flex flex-wrap items-center gap-3">
-        <label for="from-decree-select" class="text-sm font-medium text-gray-700 dark:text-gray-300">
+      <div v-else class="flex flex-wrap items-center gap-2">
+        <!-- Label -->
+        <label
+          for="from-decree-select"
+          class="shrink-0 text-sm font-medium text-gray-700 dark:text-gray-300"
+        >
           Décret de départ :
         </label>
+
+        <!-- Select -->
         <div class="relative">
           <select
             id="from-decree-select"
@@ -269,6 +278,19 @@ useHead({
           />
         </div>
 
+        <!-- Arrow + to decree pill (immediately after the select) -->
+        <template v-if="toDecree">
+          <UIcon name="i-heroicons-arrow-long-right" class="h-4 w-4 shrink-0 text-gray-400" />
+          <span
+            class="inline-flex items-center gap-1.5 rounded-full border border-green-200 bg-green-50 px-3 py-1.5 text-xs font-medium text-green-700 dark:border-green-800 dark:bg-green-900/20 dark:text-green-400"
+          >
+            <UIcon name="i-heroicons-check-circle" class="h-3.5 w-3.5 shrink-0" />
+            Décret n°&nbsp;{{ toDecree.numero }}
+            <span v-if="toDecree.status === 'active'" class="opacity-70">&nbsp;- actif</span>
+          </span>
+        </template>
+
+        <!-- Back link (pushed to the far right) -->
         <NuxtLink
           to="/etat-senegal/organisation"
           class="ml-auto inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-medium text-gray-600 shadow-sm transition hover:border-gray-300 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-200"

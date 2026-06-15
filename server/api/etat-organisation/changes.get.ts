@@ -97,7 +97,9 @@ export default defineCachedEventHandler(
       : previousDecree
 
     const isPairAvailable = resolvedFrom != null
-      && availablePairs.some(p => p.from.id === resolvedFrom.id && p.to.id === resolvedTo.id)
+      && availablePairs.some(
+        p => p.from.numero === resolvedFrom.numero && p.to.numero === resolvedTo.numero,
+      )
 
     if (!resolvedFrom) {
       return {
