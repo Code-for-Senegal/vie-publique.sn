@@ -299,7 +299,7 @@ export default defineCachedEventHandler(
     }
   },
   {
-    maxAge: getCacheMaxAge(CacheDuration.MEDIUM),
+    maxAge: getCacheMaxAge(CacheDuration.SHORT),
     name: 'etat-organisation-changes',
     getKey: (event) => {
       const q = getQuery(event)

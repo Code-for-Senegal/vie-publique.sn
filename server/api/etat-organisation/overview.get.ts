@@ -238,7 +238,7 @@ export default defineCachedEventHandler(
     }
   },
   {
-    maxAge: getCacheMaxAge(CacheDuration.MEDIUM),
+    maxAge: getCacheMaxAge(CacheDuration.SHORT),
     name: 'etat-organisation-overview',
   },
 )

@@ -152,7 +152,7 @@ export default defineCachedEventHandler(
     }
   },
   {
-    maxAge: getCacheMaxAge(CacheDuration.MEDIUM),
+    maxAge: getCacheMaxAge(CacheDuration.SHORT),
     name: 'etat-organisation-entities-v5',
     getKey: async (event) => {
       const query = getQuery(event)

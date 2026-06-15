@@ -215,7 +215,7 @@ export default defineCachedEventHandler(
     }
   },
   {
-    maxAge: getCacheMaxAge(CacheDuration.MEDIUM),
+    maxAge: getCacheMaxAge(CacheDuration.SHORT),
     name: 'etat-organisation-entity-detail-v6',
     getKey: event => {
       const slug = getRouterParam(event, 'slug')
