@@ -4,9 +4,17 @@ export function useEtatOrganisationChanges() {
   const route = useRoute();
   const router = useRouter();
 
-  // Local refs — not URL-driven (selectors were removed from the page)
-  const fromNumero = ref('');
-  const toNumero = ref('');
+  // URL-driven writeable computed refs
+  const fromNumero = computed({
+    get: () => (route.query.from as string) || '',
+    set: (v: string) =>
+      router.push({ query: { ...route.query, from: v || undefined, page: undefined, category: undefined } }),
+  });
+  const toNumero = computed({
+    get: () => (route.query.to as string) || '',
+    set: (v: string) =>
+      router.push({ query: { ...route.query, to: v || undefined, page: undefined, category: undefined } }),
+  });
 
   const selectedCategory = computed({
     get: () => (route.query.category as string) || '',
@@ -46,6 +54,8 @@ export function useEtatOrganisationChanges() {
   const changes = computed(() => changesResponse.value?.changes ?? []);
   const summary = computed(() => changesResponse.value?.summary ?? []);
   const allDecrees = computed(() => changesResponse.value?.allDecrees ?? []);
+  const availablePairs = computed(() => changesResponse.value?.availablePairs ?? []);
+  const isPairAvailable = computed(() => changesResponse.value?.isPairAvailable ?? true);
   const fromDecree = computed(() => changesResponse.value?.from_decree ?? null);
   const toDecree = computed(() => changesResponse.value?.to_decree ?? null);
   const total = computed(() => changesResponse.value?.total ?? 0);
@@ -63,6 +73,8 @@ export function useEtatOrganisationChanges() {
     changes,
     summary,
     allDecrees,
+    availablePairs,
+    isPairAvailable,
     fromDecree,
     toDecree,
     total,

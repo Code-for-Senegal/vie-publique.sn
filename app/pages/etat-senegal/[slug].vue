@@ -2,7 +2,7 @@
 const route = useRoute()
 const slug = computed(() => route.params.slug as string)
 
-const { decree, entity, children, breadcrumb, history, pending, error } =
+const { decree, entity, children, breadcrumb, pending, error } =
   useEtatOrganisationEntity(slug)
 
 watchEffect(() => {
@@ -11,32 +11,8 @@ watchEffect(() => {
   }
 })
 
-const activeTab = ref('apercu')
-
-const tabs = [
-  { key: 'apercu', label: 'Aperçu', icon: 'i-heroicons-information-circle' },
-  { key: 'historique', label: 'Historique', icon: 'i-heroicons-clock' },
-]
-
 const formatDate = (v?: string) =>
   v ? new Date(v).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' }) : null
-
-const CHANGE_ICONS: Record<string, string> = {
-  created: 'i-heroicons-plus-circle',
-  deleted: 'i-heroicons-minus-circle',
-  rename: 'i-heroicons-pencil',
-  reparent: 'i-heroicons-arrows-right-left',
-  merge: 'i-heroicons-funnel',
-  split: 'i-heroicons-scissors',
-}
-const CHANGE_COLORS: Record<string, string> = {
-  created: 'text-green-500',
-  deleted: 'text-red-500',
-  rename: 'text-blue-500',
-  reparent: 'text-amber-500',
-  merge: 'text-purple-500',
-  split: 'text-orange-500',
-}
 
 const TYPE_ICONS: Record<string, string> = {
   presidence: 'i-heroicons-building-library',
@@ -344,37 +320,10 @@ useHead({
         <div class="grid gap-6 xl:grid-cols-3">
           <!-- Main column: tabs + aperçu or historique -->
           <div class="xl:col-span-2">
-            <!-- Tab switcher: only shown when there is history -->
-            <div
-              v-if="history.length"
-              class="mb-5 flex items-center gap-1 rounded-lg border border-gray-200 bg-gray-50 p-1 dark:border-gray-700 dark:bg-gray-800/60"
-            >
-              <button
-                v-for="tab in tabs"
-                :key="tab.key"
-                class="flex flex-1 items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-all duration-150"
-                :class="
-                  activeTab === tab.key
-                    ? 'bg-white text-gray-900 shadow-sm dark:bg-gray-700 dark:text-white'
-                    : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
-                "
-                @click="activeTab = tab.key"
-              >
-                <UIcon :name="tab.icon" class="h-4 w-4" />
-                {{ tab.label }}
-                <UBadge
-                  v-if="tab.key === 'historique' && history.length"
-                  color="gray"
-                  variant="subtle"
-                  size="xs"
-                >
-                  {{ history.length }}
-                </UBadge>
-              </button>
-            </div>
+            <!-- Tab switcher: hidden -->
 
             <!-- ── Aperçu ──────────────────────────────────────────── -->
-            <div v-if="!history.length || activeTab === 'apercu'">
+            <div>
               <!-- Identity card -->
               <div class="mb-6 rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800/50">
                 <div class="border-b border-gray-100 px-5 py-3 dark:border-gray-700">
@@ -617,32 +566,7 @@ useHead({
               </div>
             </div>
 
-            <!-- ── Historique ──────────────────────────────────────── -->
-            <div v-else-if="activeTab === 'historique'">
-              <div class="relative">
-                <div class="absolute left-5 top-0 h-full w-0.5 bg-gray-200 dark:bg-gray-700" />
-                <div class="space-y-4 pl-12">
-                  <div v-for="item in history" :key="item.id" class="relative">
-                    <div
-                      class="absolute -left-7 flex h-5 w-5 items-center justify-center rounded-full border-2 border-white bg-gray-100 dark:border-gray-900 dark:bg-gray-800"
-                    >
-                      <UIcon
-                        :name="CHANGE_ICONS[item.category] || 'i-heroicons-information-circle'"
-                        class="h-3 w-3"
-                        :class="CHANGE_COLORS[item.category] || 'text-gray-400'"
-                      />
-                    </div>
-                    <div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800/50">
-                      <div class="mb-2 flex flex-wrap items-center justify-between gap-2">
-                        <UBadge color="gray" variant="subtle" size="sm">{{ item.label }}</UBadge>
-                        <span class="text-xs text-gray-400">{{ item.from_decree }} → {{ item.to_decree }}</span>
-                      </div>
-                      <p class="text-sm text-gray-700 dark:text-gray-200">{{ item.description }}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <!-- ── Historique : hidden ── -->
           </div>
 
           <!-- Sidebar: always on the right column on desktop -->
