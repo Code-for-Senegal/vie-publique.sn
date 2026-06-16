@@ -55,7 +55,9 @@ const pageDescription = computed(() =>
 const pageUrl = computed(() => `${siteUrl}/etat-senegal/institutions/${slug.value}`);
 
 const ogImage = computed(() =>
-  institution.value?.logo ? useCmsImage(institution.value.logo) : `${siteUrl}/nomination-3.png`,
+  institution.value?.logo
+    ? useCmsImageAbsolute(institution.value.logo)
+    : `${siteUrl}/nomination-3.png`,
 );
 
 useSeoMeta({
@@ -88,6 +90,7 @@ const organizationSchema = computed(() => {
     name: institution.value.name,
     description: pageDescription.value,
     url: pageUrl.value,
+    inLanguage: 'fr-SN',
     ...(institution.value.web_site && { sameAs: institution.value.web_site }),
     ...(institution.value.email && { email: institution.value.email }),
     ...(institution.value.phone && { telephone: institution.value.phone }),
@@ -98,9 +101,34 @@ const organizationSchema = computed(() => {
         addressCountry: 'SN',
       },
     }),
-    ...(institution.value.logo && { logo: useCmsImage(institution.value.logo) }),
+    ...(institution.value.logo && { logo: useCmsImageAbsolute(institution.value.logo) }),
   };
 });
+
+const breadcrumbSchema = computed(() => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: siteUrl },
+    { '@type': 'ListItem', position: 2, name: 'État du Sénégal', item: `${siteUrl}/etat-senegal` },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Institutions constitutionnelles',
+      item: `${siteUrl}/etat-senegal/institutions`,
+    },
+    ...(institution.value
+      ? [
+          {
+            '@type': 'ListItem',
+            position: 4,
+            name: institution.value.name,
+            item: pageUrl.value,
+          },
+        ]
+      : []),
+  ],
+}));
 
 useHead({
   htmlAttrs: { lang: 'fr-SN' },
@@ -110,6 +138,7 @@ useHead({
     { name: 'theme-color', content: themeColor },
     { name: 'author', content: siteName },
     { property: 'og:site_name', content: siteName },
+    { property: 'og:locale', content: 'fr_SN' },
   ],
   script: computed(() => {
     const scripts = [];
@@ -119,6 +148,10 @@ useHead({
         children: JSON.stringify(organizationSchema.value),
       });
     }
+    scripts.push({
+      type: 'application/ld+json',
+      children: JSON.stringify(breadcrumbSchema.value),
+    });
     return scripts;
   }),
 });

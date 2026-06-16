@@ -7,15 +7,113 @@ const { institutions, filtered, dissolved, search, pending } = useEtatOrganisati
 const activeCount = computed(() => institutions.value.filter((i) => !i.dissolved).length);
 
 // ── SEO ───────────────────────────────────────────────────────────
+const { siteName, siteUrl, themeColor, keywords } = useSiteMetadata();
+
+const pageTitle = 'Institutions constitutionnelles du Sénégal | Vie Publique Sénégal';
+const pageDescription =
+  "Liste des institutions constitutionnelles de la République du Sénégal : Présidence de la République, Assemblée nationale, Sénat, Conseil constitutionnel, Conseil d'État, Cour des comptes, Haut Conseil des Collectivités Territoriales…";
+const pageUrl = `${siteUrl}/etat-senegal/institutions`;
+const ogImage = `${siteUrl}/nomination-3.png`;
+
 useSeoMeta({
-  title: 'Institutions constitutionnelles du Sénégal',
-  description:
-    "Liste des institutions constitutionnelles de la République du Sénégal : Présidence, Assemblée nationale, Sénat, Conseil constitutionnel, Conseil d'État, Cour des comptes…",
-  ogTitle: 'Institutions constitutionnelles du Sénégal',
-  ogDescription: 'Découvrez les institutions constitutionnelles de la République du Sénégal.',
+  title: pageTitle,
+  ogTitle: pageTitle,
+  description: pageDescription,
+  ogDescription: pageDescription,
+  ogImage,
+  ogUrl: pageUrl,
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: pageTitle,
+  twitterDescription: pageDescription,
+  twitterImage: ogImage,
+  keywords: [
+    ...keywords,
+    'institutions constitutionnelles Sénégal',
+    'institutions République Sénégal',
+    'Présidence République Sénégal',
+    'Assemblée nationale Sénégal',
+    'Sénat Sénégal',
+    'Conseil constitutionnel Sénégal',
+    'Cour des comptes Sénégal',
+    'Conseil d\'État Sénégal',
+  ].join(', '),
 });
 
-useHead({ title: 'Institutions constitutionnelles' });
+const collectionPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: pageTitle,
+  description: pageDescription,
+  url: pageUrl,
+  inLanguage: 'fr-SN',
+  isPartOf: {
+    '@type': 'WebSite',
+    name: siteName,
+    url: siteUrl,
+  },
+  about: {
+    '@type': 'GovernmentOrganization',
+    name: 'République du Sénégal',
+    url: 'https://www.gouv.sn',
+  },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: siteUrl },
+    { '@type': 'ListItem', position: 2, name: 'État du Sénégal', item: `${siteUrl}/etat-senegal` },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Institutions constitutionnelles',
+      item: pageUrl,
+    },
+  ],
+};
+
+const itemListSchema = computed(() => ({
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Institutions constitutionnelles du Sénégal',
+  description: pageDescription,
+  url: pageUrl,
+  numberOfItems: activeCount.value,
+  itemListElement: institutions.value
+    .filter((i) => !i.dissolved && i.has_public_page)
+    .map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'GovernmentOrganization',
+        name: item.name,
+        ...(item.description && { description: item.description }),
+        url: `${siteUrl}/etat-senegal/institutions/${item.slug}`,
+        ...(item.web_site && { sameAs: item.web_site }),
+      },
+    })),
+}));
+
+useHead({
+  htmlAttrs: { lang: 'fr-SN' },
+  link: [{ rel: 'canonical', href: pageUrl }],
+  meta: [
+    { name: 'robots', content: 'index, follow' },
+    { name: 'theme-color', content: themeColor },
+    { name: 'author', content: siteName },
+    { property: 'og:site_name', content: siteName },
+    { property: 'og:locale', content: 'fr_SN' },
+  ],
+  script: computed(() => [
+    { type: 'application/ld+json', children: JSON.stringify(collectionPageSchema) },
+    { type: 'application/ld+json', children: JSON.stringify(breadcrumbSchema) },
+    ...(institutions.value.length > 0
+      ? [{ type: 'application/ld+json', children: JSON.stringify(itemListSchema.value) }]
+      : []),
+  ]),
+});
 </script>
 
 <template>
