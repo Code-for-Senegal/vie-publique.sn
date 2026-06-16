@@ -1,3 +1,35 @@
+export interface EtatOrganisationInstitution {
+  id: string
+  slug: string
+  name: string
+  has_public_page: boolean
+  type_code: string
+  type_label: string
+  description: string | null
+  logo: string | null
+  web_site: string | null
+  adresse: string | null
+  email: string | null
+  phone: string | null
+  /** true si l'institution a été supprimée (déterminé côté serveur via map statique) */
+  dissolved: boolean
+  /** Slug du vote assemblée lié à l'abrogation */
+  dissolution_vote_slug: string | null
+}
+
+export interface EtatOrganisationInstitutionDetail extends EtatOrganisationInstitution {
+  reseaux_sociaux: Record<string, string> | null
+  code_institution: number | null
+}
+
+export interface EtatOrganisationInstitutionsResponse {
+  institutions: EtatOrganisationInstitution[]
+}
+
+export interface EtatOrganisationInstitutionDetailResponse {
+  institution: EtatOrganisationInstitutionDetail
+}
+
 export interface EtatOrganisationTypeStat {
   code: string
   label: string
