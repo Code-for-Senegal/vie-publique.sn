@@ -131,42 +131,18 @@ useHead({
 
     <!-- ─── Hero ──────────────────────────────────────────────────── -->
     <section class="mx-auto mt-4 max-w-7xl px-4">
-      <div
-        class="relative overflow-hidden rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50 via-white to-blue-100 px-6 py-7 shadow-sm dark:border-blue-900 dark:from-gray-900 dark:via-gray-900 dark:to-blue-950 sm:px-10 sm:py-8"
-      >
-        <div
-          class="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full bg-blue-200/40 blur-3xl dark:bg-blue-500/20"
-        />
-        <div
-          class="pointer-events-none absolute -bottom-16 -left-16 h-52 w-52 rounded-full bg-blue-100/60 blur-3xl dark:bg-blue-800/20"
-        />
-
-        <div class="relative z-10">
-          <div class="mb-3 flex flex-wrap items-center gap-2">
-            <span
-              class="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-white px-3 py-1 text-xs font-medium text-blue-700 shadow-sm dark:border-blue-800 dark:bg-gray-900 dark:text-blue-300"
-            >
-              <UIcon name="i-heroicons-building-library" class="h-3.5 w-3.5" />
-              République du Sénégal
-            </span>
-          </div>
-
-          <h1
-            class="text-xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-2xl lg:text-3xl"
-          >
-            Institutions constitutionnelles
-          </h1>
-          <p class="mt-2 max-w-2xl text-sm text-gray-600 dark:text-gray-300">
-            <span v-if="!pending" class="font-semibold text-blue-700 dark:text-blue-400">
-              {{ institutions.length }}
-            </span>
-            institution{{ institutions.length !== 1 ? 's' : '' }} constitutionnelle{{
-              institutions.length !== 1 ? 's' : ''
-            }}
-            de la République du Sénégal.
-          </p>
-        </div>
-      </div>
+      <h1 class="text-xl font-bold text-gray-900 md:text-3xl dark:text-white">
+        Institutions constitutionnelles
+      </h1>
+      <p class="mt-0.5 text-xs text-gray-500 md:mt-1 md:text-sm dark:text-gray-400">
+        <span v-if="!pending" class="font-semibold text-blue-700 dark:text-blue-400">
+          {{ institutions.length }}
+        </span>
+        institution{{ institutions.length !== 1 ? 's' : '' }} constitutionnelle{{
+          institutions.length !== 1 ? 's' : ''
+        }}
+        de la République du Sénégal.
+      </p>
     </section>
 
     <!-- ─── Search ───────────────────────────────────────────────── -->
@@ -237,7 +213,7 @@ useHead({
               ? `/etat-senegal/institutions/${item.slug}`
               : undefined
           "
-          class="group flex flex-col gap-3 rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-900"
+          class="group flex flex-col gap-3 rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-800/50"
           :class="{
             'cursor-pointer hover:border-blue-300 dark:hover:border-blue-700':
               item.has_public_page || item.dissolved,
@@ -245,11 +221,11 @@ useHead({
         >
           <div class="flex items-start gap-3">
             <div
-              class="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full ring-2 ring-blue-100 dark:ring-blue-900"
+              class="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full ring-2 ring-blue-100 dark:ring-blue-900/30"
               :class="
                 item.logo
                   ? 'border border-gray-200 bg-white dark:border-gray-700'
-                  : 'bg-blue-100 dark:bg-blue-900'
+                  : 'bg-blue-100 dark:bg-blue-900/30'
               "
             >
               <img
@@ -275,7 +251,7 @@ useHead({
             <UIcon
               v-if="item.has_public_page || item.dissolved"
               name="i-heroicons-arrow-right"
-              class="h-4 w-4 shrink-0 text-gray-300 transition-transform group-hover:translate-x-0.5 group-hover:text-blue-500 dark:text-gray-600"
+              class="h-4 w-4 shrink-0 text-gray-300 transition-transform group-hover:translate-x-0.5 dark:text-gray-600"
             />
           </div>
 
