@@ -87,10 +87,10 @@ const formatBudget = (value: number) => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-white pb-24 dark:bg-gray-950">
+  <div class="min-h-screen bg-gray-50 pb-24 dark:bg-gray-900">
     <!-- Sticky Header Mobile -->
     <header
-      class="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur-lg md:hidden dark:border-gray-800 dark:bg-gray-950/95"
+      class="sticky top-0 z-50 bg-white/95 backdrop-blur-lg md:hidden dark:bg-gray-950/95"
     >
       <div class="flex items-center gap-3 px-4 py-2.5">
         <NuxtLink
@@ -115,7 +115,7 @@ const formatBudget = (value: number) => {
     <!-- Desktop Layout -->
     <div class="hidden md:block">
       <!-- Top Bar with AppBreadcrumb -->
-      <div class="border-b border-gray-100 bg-white dark:border-gray-800 dark:bg-gray-950">
+      <div class="bg-white dark:bg-transparent">
         <div class="container mx-auto px-6 py-4">
           <div class="flex items-center justify-between">
             <AppBreadcrumb
@@ -131,7 +131,7 @@ const formatBudget = (value: number) => {
       </div>
 
       <!-- Hero Content -->
-      <div v-if="entity && !loading" class="border-b border-gray-100 bg-gradient-to-b from-gray-50 to-white dark:border-gray-800 dark:from-gray-900 dark:to-gray-950">
+      <div v-if="entity && !loading" class="bg-gradient-to-b from-gray-50 to-white dark:bg-transparent dark:bg-none">
         <div class="container mx-auto px-6 py-12">
           <div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
             <!-- Left: Entity Info -->
@@ -144,11 +144,11 @@ const formatBudget = (value: number) => {
                   {{ level === 'institution' ? 'Institution' : 'Ministère' }}
                 </span>
               </div>
-              
+
               <h1 class="text-3xl font-bold tracking-tight text-gray-900 lg:text-4xl dark:text-white">
                 {{ entity.name }}
               </h1>
-              
+
               <p v-if="latestYear" class="mt-3 text-lg text-gray-600 dark:text-gray-400">
                 Données budgétaires pour l'exercice {{ latestYear.year }}
               </p>
@@ -156,7 +156,7 @@ const formatBudget = (value: number) => {
 
             <!-- Right: Budget Summary Card -->
             <div v-if="currentBudget" class="w-full lg:w-auto">
-              <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-900">
+              <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800/50">
                 <div class="flex items-start justify-between gap-8">
                   <div>
                     <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Budget Total</p>
@@ -169,19 +169,19 @@ const formatBudget = (value: number) => {
                     <UIcon name="i-heroicons-banknotes" class="h-6 w-6 text-gray-600 dark:text-gray-400" />
                   </div>
                 </div>
-                
+
                 <div v-if="budgetVariation !== null && budgetVariation !== undefined" class="mt-4 flex items-center gap-2 border-t border-gray-100 pt-4 dark:border-gray-800">
-                  <div 
+                  <div
                     class="flex items-center gap-1.5 rounded-full px-2.5 py-1"
-                    :class="budgetVariation > 0 
-                      ? 'bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400' 
-                      : budgetVariation < 0 
-                        ? 'bg-red-50 text-red-700 dark:bg-red-900/20 dark:text-red-400' 
+                    :class="budgetVariation > 0
+                      ? 'bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                      : budgetVariation < 0
+                        ? 'bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-400'
                         : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'"
                   >
-                    <UIcon 
-                      :name="budgetVariation > 0 ? 'i-heroicons-arrow-trending-up' : budgetVariation < 0 ? 'i-heroicons-arrow-trending-down' : 'i-heroicons-minus'" 
-                      class="h-4 w-4" 
+                    <UIcon
+                      :name="budgetVariation > 0 ? 'i-heroicons-arrow-trending-up' : budgetVariation < 0 ? 'i-heroicons-arrow-trending-down' : 'i-heroicons-minus'"
+                      class="h-4 w-4"
                     />
                     <span class="text-sm font-semibold">
                       {{ budgetVariation > 0 ? '+' : '' }}{{ budgetVariation.toFixed(1) }}%
@@ -196,7 +196,7 @@ const formatBudget = (value: number) => {
       </div>
 
       <!-- Loading Hero -->
-      <div v-else-if="loading" class="border-b border-gray-100 bg-gradient-to-b from-gray-50 to-white dark:border-gray-800 dark:from-gray-900 dark:to-gray-950">
+      <div v-else-if="loading" class="bg-gradient-to-b from-gray-50 to-white dark:bg-transparent dark:bg-none">
         <div class="container mx-auto px-6 py-12">
           <div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
             <div class="max-w-2xl">
@@ -212,7 +212,7 @@ const formatBudget = (value: number) => {
 
     <!-- Mobile Budget Card -->
     <div v-if="entity && currentBudget && !loading" class="px-4 pt-4 md:hidden">
-      <div class="overflow-hidden rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
+          <div class="overflow-hidden rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800/50">
         <div class="flex items-start justify-between gap-3">
           <div class="min-w-0 flex-1">
             <p class="text-[10px] font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">Budget Total</p>
@@ -224,13 +224,13 @@ const formatBudget = (value: number) => {
           </div>
         </div>
         <div v-if="budgetVariation !== null && budgetVariation !== undefined" class="mt-3 flex items-center gap-2 border-t border-gray-100 pt-3 dark:border-gray-800">
-          <div 
+          <div
             class="flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium"
-            :class="budgetVariation > 0 ? 'bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400' : budgetVariation < 0 ? 'bg-red-50 text-red-700 dark:bg-red-900/20 dark:text-red-400' : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'"
+            :class="budgetVariation > 0 ? 'bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400' : budgetVariation < 0 ? 'bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-400' : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'"
           >
-            <UIcon 
-              :name="budgetVariation > 0 ? 'i-heroicons-arrow-trending-up' : budgetVariation < 0 ? 'i-heroicons-arrow-trending-down' : 'i-heroicons-minus'" 
-              class="h-3.5 w-3.5" 
+            <UIcon
+              :name="budgetVariation > 0 ? 'i-heroicons-arrow-trending-up' : budgetVariation < 0 ? 'i-heroicons-arrow-trending-down' : 'i-heroicons-minus'"
+              class="h-3.5 w-3.5"
             />
             <span>{{ budgetVariation > 0 ? '+' : '' }}{{ budgetVariation.toFixed(1) }}%</span>
           </div>
@@ -248,7 +248,7 @@ const formatBudget = (value: number) => {
 
       <!-- Error State -->
       <div v-else-if="error" class="mx-auto max-w-md py-12 text-center">
-        <div class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-red-50 dark:bg-red-900/20">
+          <div class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-red-50 dark:bg-red-900/30">
           <UIcon name="i-heroicons-exclamation-triangle" class="h-10 w-10 text-red-500" />
         </div>
         <h3 class="text-xl font-bold text-gray-900 dark:text-white">Données indisponibles</h3>
@@ -269,14 +269,14 @@ const formatBudget = (value: number) => {
         <!-- Evolution Chart -->
         <section
           v-if="evolutionChartData.length > 0"
-          class="rounded-2xl border border-gray-200 bg-white p-5 md:p-6 dark:border-gray-800 dark:bg-gray-900"
+          class="rounded-2xl border border-gray-200 bg-white p-5 md:p-6 dark:border-gray-700 dark:bg-gray-800/50"
         >
           <div class="mb-5 flex items-center justify-between">
             <div>
               <h2 class="text-lg font-bold text-gray-900 dark:text-white">Évolution</h2>
               <p class="text-sm text-gray-500 dark:text-gray-400">Historique des budgets alloués</p>
             </div>
-            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 dark:bg-blue-900/20">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 dark:bg-blue-900/30">
               <UIcon name="i-heroicons-chart-bar" class="h-5 w-5 text-blue-600 dark:text-blue-400" />
             </div>
           </div>
@@ -286,7 +286,7 @@ const formatBudget = (value: number) => {
         <!-- Programs Table -->
         <section
           v-if="formattedPrograms.length > 0"
-          class="rounded-2xl border border-gray-200 bg-white p-5 md:p-6 dark:border-gray-800 dark:bg-gray-900"
+          class="rounded-2xl border border-gray-200 bg-white p-5 md:p-6 dark:border-gray-700 dark:bg-gray-800/50"
         >
           <div class="mb-5 flex items-center justify-between">
             <div>
@@ -295,7 +295,7 @@ const formatBudget = (value: number) => {
                 Répartition budgétaire {{ latestYear?.year }}
               </p>
             </div>
-            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-50 dark:bg-purple-900/20">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-50 dark:bg-purple-900/30">
               <UIcon name="i-heroicons-rectangle-stack" class="h-5 w-5 text-purple-600 dark:text-purple-400" />
             </div>
           </div>
@@ -305,7 +305,7 @@ const formatBudget = (value: number) => {
         <!-- Empty Programs -->
         <div
           v-else
-          class="rounded-2xl border border-dashed border-gray-300 bg-gray-50 p-12 text-center dark:border-gray-700 dark:bg-gray-900"
+          class="rounded-2xl border border-dashed border-gray-300 bg-gray-50 p-12 text-center dark:border-gray-700 dark:bg-gray-800/50"
         >
           <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
             <UIcon name="i-heroicons-document-chart-bar" class="h-8 w-8 text-gray-400" />

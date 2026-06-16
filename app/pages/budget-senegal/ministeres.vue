@@ -1,8 +1,8 @@
 <template>
-  <div class="min-h-screen bg-white pb-24 dark:bg-gray-950">
+  <div class="min-h-screen bg-gray-50 pb-24 dark:bg-gray-900">
     <!-- Sticky Header Mobile -->
     <header
-      class="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur-lg dark:border-gray-800 dark:bg-gray-950/95 md:hidden"
+      class="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur-lg dark:border-gray-800 dark:bg-gray-900/95 md:hidden"
     >
       <div class="flex items-center gap-3 px-4 py-2.5">
         <NuxtLink
@@ -41,7 +41,7 @@
     <!-- Desktop Layout -->
     <div class="hidden md:block">
       <!-- Top Bar -->
-      <div class="border-b border-gray-100 bg-white dark:border-gray-800 dark:bg-gray-950">
+      <div class="border-b border-gray-100 bg-white dark:border-gray-800 dark:bg-transparent">
         <div class="container mx-auto px-6 py-4">
           <div class="flex items-center gap-4">
             <NuxtLink
@@ -66,7 +66,7 @@
 
       <!-- Hero Content -->
       <div
-        class="border-b border-gray-100 bg-gradient-to-b from-gray-50 to-white dark:border-gray-800 dark:from-gray-900 dark:to-gray-950"
+        class="bg-gradient-to-b from-gray-50 to-white dark:bg-transparent dark:bg-none"
       >
         <div class="container mx-auto px-6 py-12">
           <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
@@ -99,7 +99,7 @@
             <!-- Right: Stats -->
             <div class="flex gap-4">
               <div
-                class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-900"
+                class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-800/50"
               >
                 <div class="flex items-center gap-4">
                   <div
@@ -120,7 +120,7 @@
               </div>
               <div
                 v-if="totalBudget"
-                class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-900"
+                class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-800/50"
               >
                 <div class="flex items-center gap-4">
                   <div
@@ -148,7 +148,7 @@
     <main class="container mx-auto px-4 py-4 md:px-6 md:py-8">
       <!-- Filtres Card -->
       <div
-        class="rounded-xl border border-gray-200 bg-white p-3 dark:border-gray-800 dark:bg-gray-900 md:rounded-2xl md:p-5"
+        class="rounded-xl border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-gray-800/50 md:rounded-2xl md:p-5"
       >
         <div class="flex flex-col gap-3 md:gap-4">
           <!-- Row 1: Selectors -->
@@ -237,7 +237,7 @@
         <!-- Error state -->
         <div v-else-if="error" class="mx-auto max-w-md py-12 text-center">
           <div
-            class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-red-50 dark:bg-red-900/20"
+            class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-red-50 dark:bg-red-900/30"
           >
             <UIcon name="i-heroicons-exclamation-triangle" class="h-10 w-10 text-red-500" />
           </div>
@@ -253,7 +253,7 @@
         <!-- No results -->
         <div
           v-else-if="filteredMinistries.length === 0"
-          class="rounded-2xl border border-dashed border-gray-300 bg-gray-50 p-12 text-center dark:border-gray-700 dark:bg-gray-900"
+          class="rounded-2xl border border-dashed border-gray-300 bg-gray-50 p-12 text-center dark:border-gray-700 dark:bg-gray-800/50"
         >
           <div
             class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800"
@@ -278,7 +278,7 @@
         <!-- Tableau des ministères -->
         <div
           v-else
-          class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900"
+          class="rounded-2xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800/50"
         >
           <BudgetBudget2TableMinistryV2
             :ministries="filteredMinistries"
