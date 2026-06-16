@@ -1,5 +1,10 @@
 import { readItems } from '@directus/sdk';
 
+const DISSOLUTION_VOTE_MAP: Record<string, string> = {
+  'conseil-economique-social-environnemental': '4',
+  'haut-conseil-des-collectivites-territoriales': '4',
+};
+
 export default defineCachedEventHandler(
   async (event) => {
     const slug = getRouterParam(event, 'slug');
@@ -42,10 +47,13 @@ export default defineCachedEventHandler(
       throw createError({ statusCode: 404, message: 'Institution non trouvée' });
     }
 
+    const itemSlug = item.slug as string;
+    const dissolved = itemSlug in DISSOLUTION_VOTE_MAP;
+
     return {
       institution: {
         id: item.id as string,
-        slug: item.slug as string,
+        slug: itemSlug,
         name: item.name as string,
         has_public_page: item.has_public_page as boolean,
         type_code: (item.entity_type?.code ?? 'institution') as string,
@@ -58,6 +66,8 @@ export default defineCachedEventHandler(
         phone: (item.phone ?? null) as string | null,
         reseaux_sociaux: (item.reseaux_sociaux ?? null) as Record<string, string> | null,
         code_institution: (item.code_institution ?? null) as number | null,
+        dissolved,
+        dissolution_vote_slug: dissolved ? (DISSOLUTION_VOTE_MAP[itemSlug] ?? null) : null,
       },
     };
   },

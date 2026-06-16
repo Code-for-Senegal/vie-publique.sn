@@ -73,7 +73,9 @@ const toCmsAbsoluteUrl = (path: string | null | undefined): string => {
 };
 
 const ogImage = computed(() =>
-  institution.value?.logo ? toCmsAbsoluteUrl(institution.value.logo) : `${siteUrl}/nomination-3.png`,
+  institution.value?.logo
+    ? toCmsAbsoluteUrl(institution.value.logo)
+    : `${siteUrl}/nomination-3.png`,
 );
 
 useSeoMeta({
@@ -348,6 +350,24 @@ useHead({
               Aucune coordonnée disponible pour le moment.
             </div>
           </dl>
+        </div>
+      </section>
+
+      <!-- ─── Vote d'abrogation ─────────────────────────────────── -->
+      <section v-if="institution.dissolution_vote_slug" class="mx-auto mt-6 max-w-4xl px-4">
+        <div
+          class="rounded-xl border border-red-200 bg-red-50/50 px-5 py-4 dark:border-red-900/40 dark:bg-red-950/20"
+        >
+          <p class="mb-2 text-xs font-medium text-red-700 dark:text-red-400">
+            Cette institution a été supprimée par la loi.
+          </p>
+          <NuxtLink
+            :to="`/assemblee-nationale/votes/${institution.dissolution_vote_slug}`"
+            class="inline-flex items-center gap-1.5 text-sm text-red-600 hover:underline dark:text-red-500"
+          >
+            <UIcon name="i-heroicons-document-text" class="h-4 w-4 shrink-0" />
+            Voir le vote de la loi d'abrogation
+          </NuxtLink>
         </div>
       </section>
 

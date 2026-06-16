@@ -3,8 +3,8 @@ import { NuxtLink } from '#components';
 
 const { institutions, filtered, dissolved, search, pending } = useEtatOrganisationInstitutions();
 
-// Nombre stable d'institutions actives (indépendant de la recherche)
-const activeCount = computed(() => institutions.value.filter((i) => !i.dissolved).length);
+// Toutes les institutions (actives + supprimées) pour la grille unifiée
+const allInstitutions = computed(() => [...filtered.value, ...dissolved.value]);
 
 // ── SEO ───────────────────────────────────────────────────────────
 const { siteName, siteUrl, themeColor, keywords } = useSiteMetadata();
@@ -39,7 +39,7 @@ useSeoMeta({
     'Sénat Sénégal',
     'Conseil constitutionnel Sénégal',
     'Cour des comptes Sénégal',
-    'Conseil d\'État Sénégal',
+    "Conseil d'État Sénégal",
   ].join(', '),
 });
 
@@ -83,7 +83,7 @@ const itemListSchema = computed(() => ({
   name: 'Institutions constitutionnelles du Sénégal',
   description: pageDescription,
   url: pageUrl,
-  numberOfItems: activeCount.value,
+  numberOfItems: institutions.value.length,
   itemListElement: institutions.value
     .filter((i) => !i.dissolved && i.has_public_page)
     .map((item, index) => ({
@@ -158,10 +158,10 @@ useHead({
           </h1>
           <p class="mt-2 max-w-2xl text-sm text-gray-600 dark:text-gray-300">
             <span v-if="!pending" class="font-semibold text-blue-700 dark:text-blue-400">
-              {{ activeCount }}
+              {{ institutions.length }}
             </span>
-            institution{{ activeCount !== 1 ? 's' : '' }} constitutionnelle{{
-              activeCount !== 1 ? 's' : ''
+            institution{{ institutions.length !== 1 ? 's' : '' }} constitutionnelle{{
+              institutions.length !== 1 ? 's' : ''
             }}
             de la République du Sénégal.
           </p>
@@ -216,7 +216,7 @@ useHead({
 
     <!-- ─── Empty ─────────────────────────────────────────────────── -->
     <section
-      v-else-if="!pending && filtered.length === 0 && dissolved.length === 0"
+      v-else-if="!pending && allInstitutions.length === 0"
       class="mx-auto mt-6 max-w-7xl px-4"
     >
       <div
@@ -226,166 +226,79 @@ useHead({
       </div>
     </section>
 
-    <template v-else-if="!pending">
-      <!-- ─── Grid institutions actives ───────────────────────────── -->
-      <section v-if="filtered.length > 0" class="mx-auto mt-6 max-w-7xl px-4">
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <component
-            :is="item.has_public_page ? NuxtLink : 'div'"
-            v-for="item in filtered"
-            :key="item.id"
-            :to="item.has_public_page ? `/etat-senegal/institutions/${item.slug}` : undefined"
-            class="group flex flex-col gap-3 rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-900"
-            :class="{
-              'cursor-pointer hover:border-blue-300 dark:hover:border-blue-700':
-                item.has_public_page,
-            }"
-          >
-            <div class="flex items-start gap-3">
-              <div
-                class="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full ring-2 ring-blue-100 dark:ring-blue-900"
-                :class="
-                  item.logo
-                    ? 'border border-gray-200 bg-white dark:border-gray-700'
-                    : 'bg-blue-100 dark:bg-blue-900'
-                "
-              >
-                <img
-                  v-if="item.logo"
-                  :src="useCmsImage(item.logo)"
-                  :alt="item.name"
-                  class="h-full w-full object-contain"
-                  loading="lazy"
-                />
-                <UIcon
-                  v-else
-                  name="i-heroicons-building-library"
-                  class="h-5 w-5 text-blue-700 dark:text-blue-300"
-                />
-              </div>
-              <div class="min-w-0 flex-1">
-                <p
-                  class="truncate text-sm font-semibold text-gray-900 group-hover:text-blue-700 dark:text-white dark:group-hover:text-blue-300"
-                >
-                  {{ item.name }}
-                </p>
-                <p class="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
-                  {{ item.type_label }}
-                </p>
-              </div>
+    <section v-else-if="!pending && allInstitutions.length > 0" class="mx-auto mt-6 max-w-7xl px-4">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <component
+          :is="item.dissolved || item.has_public_page ? NuxtLink : 'div'"
+          v-for="item in allInstitutions"
+          :key="item.id"
+          :to="
+            item.dissolved || item.has_public_page
+              ? `/etat-senegal/institutions/${item.slug}`
+              : undefined
+          "
+          class="group flex flex-col gap-3 rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-900"
+          :class="{
+            'cursor-pointer hover:border-blue-300 dark:hover:border-blue-700':
+              item.has_public_page || item.dissolved,
+          }"
+        >
+          <div class="flex items-start gap-3">
+            <div
+              class="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full ring-2 ring-blue-100 dark:ring-blue-900"
+              :class="
+                item.logo
+                  ? 'border border-gray-200 bg-white dark:border-gray-700'
+                  : 'bg-blue-100 dark:bg-blue-900'
+              "
+            >
+              <img
+                v-if="item.logo"
+                :src="useCmsImage(item.logo)"
+                :alt="item.name"
+                class="h-full w-full object-contain"
+                loading="lazy"
+              />
               <UIcon
-                v-if="item.has_public_page"
-                name="i-heroicons-arrow-right"
-                class="h-4 w-4 shrink-0 text-gray-300 transition-transform group-hover:translate-x-0.5 group-hover:text-blue-500 dark:text-gray-600"
+                v-else
+                name="i-heroicons-building-library"
+                class="h-5 w-5 text-blue-700 dark:text-blue-300"
               />
             </div>
-
-            <p
-              v-if="item.description"
-              class="line-clamp-2 text-xs text-gray-500 dark:text-gray-400"
-            >
-              {{ item.description }}
-            </p>
-
-            <div
-              v-if="item.web_site"
-              class="mt-auto flex gap-3 border-t border-gray-100 pt-3 dark:border-gray-800"
-            >
-              <a
-                :href="item.web_site"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="flex items-center gap-1 text-xs text-blue-600 hover:underline dark:text-blue-400"
-                @click.stop
+            <div class="min-w-0 flex-1">
+              <p
+                class="truncate text-sm font-semibold text-gray-900 group-hover:text-blue-700 dark:text-white dark:group-hover:text-blue-300"
               >
-                <UIcon name="i-heroicons-globe-alt" class="h-3.5 w-3.5" />
-                Site web
-              </a>
+                {{ item.name }}
+              </p>
+              <p class="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+                {{ item.type_label }}
+              </p>
             </div>
-          </component>
-        </div>
-      </section>
-
-      <!-- ─── Institutions supprimées ──────────────────────────────── -->
-      <section v-if="dissolved.length > 0" class="mx-auto mt-10 max-w-7xl px-4">
-        <div class="mb-4 flex items-center gap-3">
-          <span class="h-px flex-1 bg-gray-200 dark:bg-gray-700" />
-          <span
-            class="flex items-center gap-1.5 text-xs font-medium text-gray-400 dark:text-gray-500"
-          >
-            <UIcon name="i-heroicons-archive-box-x-mark" class="h-4 w-4" />
-            Institutions supprimées
-          </span>
-          <span class="h-px flex-1 bg-gray-200 dark:bg-gray-700" />
-        </div>
-
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <div
-            v-for="item in dissolved"
-            :key="item.id"
-            class="flex flex-col gap-3 rounded-xl border border-dashed border-red-200 bg-red-50/40 p-5 dark:border-red-900/40 dark:bg-red-950/10"
-          >
-            <div class="flex items-start gap-3">
-              <div
-                class="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full ring-2 ring-red-100 dark:ring-red-900/40"
-                :class="
-                  item.logo
-                    ? 'border border-gray-200 bg-white dark:border-gray-700'
-                    : 'bg-red-100 dark:bg-red-900/30'
-                "
-              >
-                <img
-                  v-if="item.logo"
-                  :src="useCmsImage(item.logo)"
-                  :alt="item.name"
-                  class="h-full w-full object-contain grayscale"
-                  loading="lazy"
-                />
-                <UIcon
-                  v-else
-                  name="i-heroicons-building-library"
-                  class="h-5 w-5 text-red-400 dark:text-red-700"
-                />
-              </div>
-              <div class="min-w-0 flex-1">
-                <div class="mb-1 flex items-center gap-1.5">
-                  <span
-                    class="inline-flex items-center gap-1 rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700 dark:bg-red-900/40 dark:text-red-400"
-                  >
-                    <UIcon name="i-heroicons-x-circle" class="h-3 w-3" />
-                    Supprimée
-                  </span>
-                </div>
-                <p
-                  class="truncate text-sm font-medium text-gray-400 line-through dark:text-gray-600"
-                >
-                  {{ item.name }}
-                </p>
-                <p class="mt-0.5 text-xs text-gray-400 dark:text-gray-600">
-                  {{ item.type_label }}
-                </p>
-              </div>
-            </div>
-
-            <p
-              v-if="item.description"
-              class="line-clamp-2 text-xs text-gray-400 dark:text-gray-600"
-            >
-              {{ item.description }}
-            </p>
-
-            <!-- Lien vers le vote d'abrogation -->
-            <NuxtLink
-              v-if="item.dissolution_vote_slug"
-              :to="`/assemblee-nationale/votes/${item.dissolution_vote_slug}`"
-              class="mt-auto flex items-center gap-1.5 border-t border-red-100 pt-3 text-xs text-red-600 hover:underline dark:border-red-900/30 dark:text-red-500"
-            >
-              <UIcon name="i-heroicons-document-text" class="h-3.5 w-3.5 shrink-0" />
-              Voir le vote d'abrogation
-            </NuxtLink>
+            <UIcon
+              v-if="item.has_public_page || item.dissolved"
+              name="i-heroicons-arrow-right"
+              class="h-4 w-4 shrink-0 text-gray-300 transition-transform group-hover:translate-x-0.5 group-hover:text-blue-500 dark:text-gray-600"
+            />
           </div>
-        </div>
-      </section>
-    </template>
+
+          <p v-if="item.description" class="line-clamp-2 text-xs text-gray-500 dark:text-gray-400">
+            {{ item.description }}
+          </p>
+
+          <div
+            v-if="item.dissolved"
+            class="mt-auto flex gap-3 border-t border-gray-100 pt-3 dark:border-gray-800"
+          >
+            <span
+              class="inline-flex items-center gap-1 rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700 dark:bg-red-900/40 dark:text-red-400"
+            >
+              <UIcon name="i-heroicons-x-circle" class="h-3 w-3" />
+              Supprimée
+            </span>
+          </div>
+        </component>
+      </div>
+    </section>
   </div>
 </template>
