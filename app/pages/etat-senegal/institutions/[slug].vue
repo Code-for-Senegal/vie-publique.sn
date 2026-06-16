@@ -38,19 +38,31 @@ const hasBudget = computed(
 // ── SEO ────────────────────────────────────────────────────────────
 const { siteName, siteUrl, themeColor, keywords } = useSiteMetadata();
 
+// Short title for <title> tag — template adds "| Vie-Publique.sn", so keep base short
+const pageTitleShort = computed(() => institution.value?.name || 'Institution constitutionnelle');
+
+// Descriptive title for og:title / social sharing (no template applied)
 const pageTitle = computed(() =>
   institution.value
     ? `${institution.value.name} | Institutions du Sénégal`
     : 'Institution constitutionnelle | République du Sénégal',
 );
 
-const pageDescription = computed(() =>
+// Truncate description to 155 chars for meta tags
+const truncateDesc = (str: string, max = 155) =>
+  str.length <= max ? str : str.slice(0, str.lastIndexOf(' ', max)) + '\u2026';
+
+// Full description (used in JSON-LD schema — no char limit)
+const pageDescriptionFull = computed(() =>
   institution.value?.description
     ? institution.value.description
     : institution.value
       ? `${institution.value.name}, ${institution.value.type_label.toLowerCase()} de la République du Sénégal.`
       : 'Institution constitutionnelle de la République du Sénégal.',
 );
+
+// Truncated description for meta tags
+const pageDescription = computed(() => truncateDesc(pageDescriptionFull.value));
 
 const pageUrl = computed(() => `${siteUrl}/etat-senegal/institutions/${slug.value}`);
 
@@ -61,7 +73,7 @@ const ogImage = computed(() =>
 );
 
 useSeoMeta({
-  title: pageTitle,
+  title: pageTitleShort,
   ogTitle: pageTitle,
   description: pageDescription,
   ogDescription: pageDescription,
@@ -88,7 +100,7 @@ const organizationSchema = computed(() => {
     '@context': 'https://schema.org',
     '@type': 'GovernmentOrganization',
     name: institution.value.name,
-    description: pageDescription.value,
+    description: pageDescriptionFull.value,
     url: pageUrl.value,
     inLanguage: 'fr-SN',
     ...(institution.value.web_site && { sameAs: institution.value.web_site }),

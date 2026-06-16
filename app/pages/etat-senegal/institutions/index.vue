@@ -9,14 +9,17 @@ const activeCount = computed(() => institutions.value.filter((i) => !i.dissolved
 // ── SEO ───────────────────────────────────────────────────────────
 const { siteName, siteUrl, themeColor, keywords } = useSiteMetadata();
 
+// Short title for <title> tag — template adds "| Vie-Publique.sn", so keep base ≤42 chars
+const pageTitleShort = 'Institutions constitutionnelles | Sénégal';
+// Descriptive title for og:title / social sharing
 const pageTitle = 'Institutions constitutionnelles du Sénégal | Vie Publique Sénégal';
 const pageDescription =
-  "Liste des institutions constitutionnelles de la République du Sénégal : Présidence de la République, Assemblée nationale, Sénat, Conseil constitutionnel, Conseil d'État, Cour des comptes, Haut Conseil des Collectivités Territoriales…";
+  "Liste des institutions constitutionnelles du Sénégal : Présidence, Assemblée nationale, Sénat, Conseil constitutionnel, Conseil d'État, Cour des comptes.";
 const pageUrl = `${siteUrl}/etat-senegal/institutions`;
 const ogImage = `${siteUrl}/nomination-3.png`;
 
 useSeoMeta({
-  title: pageTitle,
+  title: pageTitleShort,
   ogTitle: pageTitle,
   description: pageDescription,
   ogDescription: pageDescription,
