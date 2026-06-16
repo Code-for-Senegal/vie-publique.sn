@@ -271,9 +271,6 @@ useHead({
               >
                 {{ item.name }}
               </p>
-              <p class="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
-                {{ item.type_label }}
-              </p>
             </div>
             <UIcon
               v-if="item.has_public_page || item.dissolved"

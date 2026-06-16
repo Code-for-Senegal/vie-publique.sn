@@ -5,6 +5,8 @@ const DISSOLUTION_VOTE_MAP: Record<string, string> = {
   'haut-conseil-des-collectivites-territoriales': '4',
 };
 
+const TOP_LEVEL_TYPES = new Set(['presidence', 'primature']);
+
 export default defineCachedEventHandler(
   async (event) => {
     const slug = getRouterParam(event, 'slug');
@@ -34,7 +36,7 @@ export default defineCachedEventHandler(
         ],
         filter: {
           slug: { _eq: slug },
-          entity_type: { code: { _eq: 'institution' } },
+          entity_type: { code: { _in: ['institution', 'primature', 'presidence'] } },
         },
         limit: 1,
       }),
@@ -48,7 +50,47 @@ export default defineCachedEventHandler(
     }
 
     const itemSlug = item.slug as string;
+    const typeCode = (item.entity_type?.code ?? 'institution') as string;
     const dissolved = itemSlug in DISSOLUTION_VOTE_MAP;
+
+    // For presidence and primature, resolve code_institution from the active snapshot
+    let codeInstitution = (item.code_institution ?? null) as number | null;
+
+    if (TOP_LEVEL_TYPES.has(typeCode)) {
+      type DecreeRow = { id: string; numero: string; status?: string; date_publication?: string };
+
+      const decrees = await cmsClient.request(
+        readItems('state_organization_decree', {
+          fields: ['id', 'numero', 'status', 'date_publication'],
+          filter: { status: { _neq: 'draft' } },
+          sort: ['-date_publication'],
+          limit: 20,
+        }),
+      );
+
+      if (Array.isArray(decrees) && decrees.length > 0) {
+        const activeDecree =
+          (decrees as DecreeRow[]).find((d) => d.status === 'active') ||
+          (decrees as DecreeRow[])[0];
+
+        const snapshots = await cmsClient.request(
+          readItems('state_organization_entity_snapshot', {
+            fields: ['code_institution'],
+            filter: {
+              decree: { _eq: activeDecree.id },
+              public_entity: { slug: { _eq: itemSlug } },
+            },
+            limit: 1,
+          }),
+        );
+
+        type SnapshotRow = { code_institution?: number | null };
+        const snap = (snapshots as SnapshotRow[])[0];
+        if (snap?.code_institution != null) {
+          codeInstitution = snap.code_institution;
+        }
+      }
+    }
 
     return {
       institution: {
@@ -56,7 +98,7 @@ export default defineCachedEventHandler(
         slug: itemSlug,
         name: item.name as string,
         has_public_page: item.has_public_page as boolean,
-        type_code: (item.entity_type?.code ?? 'institution') as string,
+        type_code: typeCode,
         type_label: (item.entity_type?.label ?? 'Institution') as string,
         description: (item.description ?? null) as string | null,
         logo: (item.logo ?? null) as string | null,
@@ -65,7 +107,7 @@ export default defineCachedEventHandler(
         email: (item.email ?? null) as string | null,
         phone: (item.phone ?? null) as string | null,
         reseaux_sociaux: (item.reseaux_sociaux ?? null) as Record<string, string> | null,
-        code_institution: (item.code_institution ?? null) as number | null,
+        code_institution: codeInstitution,
         dissolved,
         dissolution_vote_slug: dissolved ? (DISSOLUTION_VOTE_MAP[itemSlug] ?? null) : null,
       },

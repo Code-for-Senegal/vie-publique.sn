@@ -35,25 +35,23 @@ const hasBudget = computed(
   () => institution.value?.has_public_page && institution.value?.code_institution != null,
 );
 
+const TOP_LEVEL_TYPES = new Set(['presidence', 'primature']);
+const hasEntityPage = computed(
+  () =>
+    institution.value?.has_public_page === true &&
+    TOP_LEVEL_TYPES.has(institution.value?.type_code ?? ''),
+);
+
 // ── SEO ────────────────────────────────────────────────────────────
 const { siteName, siteUrl, themeColor, keywords } = useSiteMetadata();
 
-// Short title for <title> tag — template adds "| Vie-Publique.sn", so keep base short
-const pageTitleShort = computed(() => institution.value?.name || 'Institution constitutionnelle');
-
-// Descriptive title for og:title / social sharing (no template applied)
 const pageTitle = computed(() =>
   institution.value
     ? `${institution.value.name} | Institutions du Sénégal`
     : 'Institution constitutionnelle | République du Sénégal',
 );
 
-// Truncate description to 155 chars for meta tags
-const truncateDesc = (str: string, max = 155) =>
-  str.length <= max ? str : str.slice(0, str.lastIndexOf(' ', max)) + '\u2026';
-
-// Full description (used in JSON-LD schema — no char limit)
-const pageDescriptionFull = computed(() =>
+const pageDescription = computed(() =>
   institution.value?.description
     ? institution.value.description
     : institution.value
@@ -61,25 +59,14 @@ const pageDescriptionFull = computed(() =>
       : 'Institution constitutionnelle de la République du Sénégal.',
 );
 
-// Truncated description for meta tags
-const pageDescription = computed(() => truncateDesc(pageDescriptionFull.value));
-
 const pageUrl = computed(() => `${siteUrl}/etat-senegal/institutions/${slug.value}`);
 
-// Plain helper (not a composable) — safe to call inside computed()
-const toCmsAbsoluteUrl = (path: string | null | undefined): string => {
-  const rel = useCmsImage(path);
-  return rel.startsWith('http://') || rel.startsWith('https://') ? rel : `${siteUrl}${rel}`;
-};
-
 const ogImage = computed(() =>
-  institution.value?.logo
-    ? toCmsAbsoluteUrl(institution.value.logo)
-    : `${siteUrl}/nomination-3.png`,
+  institution.value?.logo ? useCmsImage(institution.value.logo) : `${siteUrl}/nomination-3.png`,
 );
 
 useSeoMeta({
-  title: pageTitleShort,
+  title: pageTitle,
   ogTitle: pageTitle,
   description: pageDescription,
   ogDescription: pageDescription,
@@ -106,9 +93,8 @@ const organizationSchema = computed(() => {
     '@context': 'https://schema.org',
     '@type': 'GovernmentOrganization',
     name: institution.value.name,
-    description: pageDescriptionFull.value,
+    description: pageDescription.value,
     url: pageUrl.value,
-    inLanguage: 'fr-SN',
     ...(institution.value.web_site && { sameAs: institution.value.web_site }),
     ...(institution.value.email && { email: institution.value.email }),
     ...(institution.value.phone && { telephone: institution.value.phone }),
@@ -119,34 +105,9 @@ const organizationSchema = computed(() => {
         addressCountry: 'SN',
       },
     }),
-    ...(institution.value.logo && { logo: toCmsAbsoluteUrl(institution.value.logo) }),
+    ...(institution.value.logo && { logo: useCmsImage(institution.value.logo) }),
   };
 });
-
-const breadcrumbSchema = computed(() => ({
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Accueil', item: siteUrl },
-    { '@type': 'ListItem', position: 2, name: 'État du Sénégal', item: `${siteUrl}/etat-senegal` },
-    {
-      '@type': 'ListItem',
-      position: 3,
-      name: 'Institutions constitutionnelles',
-      item: `${siteUrl}/etat-senegal/institutions`,
-    },
-    ...(institution.value
-      ? [
-          {
-            '@type': 'ListItem',
-            position: 4,
-            name: institution.value.name,
-            item: pageUrl.value,
-          },
-        ]
-      : []),
-  ],
-}));
 
 useHead({
   htmlAttrs: { lang: 'fr-SN' },
@@ -156,7 +117,6 @@ useHead({
     { name: 'theme-color', content: themeColor },
     { name: 'author', content: siteName },
     { property: 'og:site_name', content: siteName },
-    { property: 'og:locale', content: 'fr_SN' },
   ],
   script: computed(() => {
     const scripts = [];
@@ -166,10 +126,6 @@ useHead({
         children: JSON.stringify(organizationSchema.value),
       });
     }
-    scripts.push({
-      type: 'application/ld+json',
-      children: JSON.stringify(breadcrumbSchema.value),
-    });
     return scripts;
   }),
 });
@@ -218,14 +174,6 @@ useHead({
               <UIcon v-else name="i-heroicons-building-library" class="h-9 w-9" />
             </div>
 
-            <!-- Badge type -->
-            <span
-              class="mb-2 inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-xs font-medium text-emerald-700 dark:border-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300"
-            >
-              <UIcon name="i-heroicons-building-library" class="h-3.5 w-3.5" />
-              {{ institution.type_label }}
-            </span>
-
             <h1 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-3xl">
               {{ institution.name }}
             </h1>
@@ -236,15 +184,25 @@ useHead({
               {{ institution.description }}
             </p>
 
-            <!-- Lien budget -->
-            <NuxtLink
-              v-if="hasBudget"
-              :to="`/budget-senegal/${institution.slug}`"
-              class="mt-4 inline-flex items-center gap-1.5 rounded-full border border-blue-300 bg-blue-50 px-4 py-1.5 text-xs font-medium text-blue-800 transition-colors hover:bg-blue-100 dark:border-blue-700 dark:bg-blue-900/20 dark:text-blue-300 dark:hover:bg-blue-900/40"
-            >
-              <UIcon name="i-heroicons-banknotes" class="h-4 w-4" />
-              Voir le budget de l'institution
-            </NuxtLink>
+            <!-- Liens : organisation + budget -->
+            <div v-if="hasEntityPage || hasBudget" class="mt-4 flex flex-wrap justify-center gap-2">
+              <NuxtLink
+                v-if="hasEntityPage"
+                :to="`/etat-senegal/${institution.slug}`"
+                class="inline-flex items-center gap-1.5 rounded-full border border-emerald-300 bg-emerald-50 px-4 py-1.5 text-xs font-medium text-emerald-800 transition-colors hover:bg-emerald-100 dark:border-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-300 dark:hover:bg-emerald-900/40"
+              >
+                <UIcon name="i-heroicons-building-office-2" class="h-4 w-4" />
+                Voir l'organisation
+              </NuxtLink>
+              <NuxtLink
+                v-if="hasBudget"
+                :to="`/budget-senegal/${institution.slug}`"
+                class="inline-flex items-center gap-1.5 rounded-full border border-blue-300 bg-blue-50 px-4 py-1.5 text-xs font-medium text-blue-800 transition-colors hover:bg-blue-100 dark:border-blue-700 dark:bg-blue-900/20 dark:text-blue-300 dark:hover:bg-blue-900/40"
+              >
+                <UIcon name="i-heroicons-banknotes" class="h-4 w-4" />
+                Voir le budget
+              </NuxtLink>
+            </div>
           </div>
         </div>
       </section>
@@ -350,24 +308,6 @@ useHead({
               Aucune coordonnée disponible pour le moment.
             </div>
           </dl>
-        </div>
-      </section>
-
-      <!-- ─── Vote d'abrogation ─────────────────────────────────── -->
-      <section v-if="institution.dissolution_vote_slug" class="mx-auto mt-6 max-w-4xl px-4">
-        <div
-          class="rounded-xl border border-red-200 bg-red-50/50 px-5 py-4 dark:border-red-900/40 dark:bg-red-950/20"
-        >
-          <p class="mb-2 text-xs font-medium text-red-700 dark:text-red-400">
-            Cette institution a été supprimée par la loi.
-          </p>
-          <NuxtLink
-            :to="`/assemblee-nationale/votes/${institution.dissolution_vote_slug}`"
-            class="inline-flex items-center gap-1.5 text-sm text-red-600 hover:underline dark:text-red-500"
-          >
-            <UIcon name="i-heroicons-document-text" class="h-4 w-4 shrink-0" />
-            Voir le vote de la loi d'abrogation
-          </NuxtLink>
         </div>
       </section>
 
