@@ -66,10 +66,14 @@ const pageDescription = computed(() => truncateDesc(pageDescriptionFull.value));
 
 const pageUrl = computed(() => `${siteUrl}/etat-senegal/institutions/${slug.value}`);
 
+// Plain helper (not a composable) — safe to call inside computed()
+const toCmsAbsoluteUrl = (path: string | null | undefined): string => {
+  const rel = useCmsImage(path);
+  return rel.startsWith('http://') || rel.startsWith('https://') ? rel : `${siteUrl}${rel}`;
+};
+
 const ogImage = computed(() =>
-  institution.value?.logo
-    ? useCmsImageAbsolute(institution.value.logo)
-    : `${siteUrl}/nomination-3.png`,
+  institution.value?.logo ? toCmsAbsoluteUrl(institution.value.logo) : `${siteUrl}/nomination-3.png`,
 );
 
 useSeoMeta({
@@ -113,7 +117,7 @@ const organizationSchema = computed(() => {
         addressCountry: 'SN',
       },
     }),
-    ...(institution.value.logo && { logo: useCmsImageAbsolute(institution.value.logo) }),
+    ...(institution.value.logo && { logo: toCmsAbsoluteUrl(institution.value.logo) }),
   };
 });
 
