@@ -3,7 +3,7 @@ const { allDecrees, selectedDecreeNumero } = useEtatOrganisation()
 const router = useRouter()
 const route = useRoute()
 
-const { siteName, siteUrl, themeColor } = useSiteMetadata()
+const { siteName, siteUrl, themeColor, keywords } = useSiteMetadata()
 
 // Archived decrees only (exclude active)
 const archivedDecrees = computed(() =>
@@ -50,18 +50,27 @@ const pageDescription =
   "Consultez l'organisation administrative de l'État du Sénégal selon les décrets précédents. Archives des organigrammes officiels."
 const pageUrl = `${siteUrl}/etat-senegal/organisation`
 const canonicalUrl = pageUrl
+const ogImage = `${siteUrl}/nomination-3.png`
 
 useSeoMeta({
   title: pageTitle,
   ogTitle: pageTitle,
   description: pageDescription,
   ogDescription: pageDescription,
+  ogImage,
   ogUrl: `${siteUrl}/etat-senegal/organisation/historique`,
   ogType: 'website',
   twitterCard: 'summary_large_image',
   twitterTitle: pageTitle,
   twitterDescription: pageDescription,
+  twitterImage: ogImage,
   robots: 'noindex, follow',
+  keywords: [
+    ...keywords,
+    "organisation état Sénégal archives",
+    "historique décrets répartition Sénégal",
+    "organigramme état Sénégal",
+  ].join(', '),
 })
 
 useHead({
@@ -71,6 +80,7 @@ useHead({
     { name: 'theme-color', content: themeColor },
     { name: 'author', content: siteName },
     { property: 'og:site_name', content: siteName },
+    { property: 'og:locale', content: 'fr_SN' },
   ],
 })
 </script>

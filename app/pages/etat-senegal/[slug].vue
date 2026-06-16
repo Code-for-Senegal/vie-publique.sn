@@ -149,7 +149,7 @@ const pageDescription = computed(() => {
 const pageUrl = computed(() => `${siteUrl}/etat-senegal/${slug.value}`)
 
 const ogImage = computed(() => {
-  if (entity.value?.logo) return useCmsImage(entity.value.logo)
+  if (entity.value?.logo) return useCmsImageAbsolute(entity.value.logo)
   return `${siteUrl}/nomination-3.png`
 })
 
@@ -184,6 +184,7 @@ const organizationSchema = computed(() => {
     name: entity.value.name,
     description: pageDescription.value,
     url: pageUrl.value,
+    inLanguage: 'fr-SN',
     ...(entity.value.web_site && { sameAs: entity.value.web_site }),
     ...(entity.value.email && { email: entity.value.email }),
     ...(entity.value.phone && { telephone: entity.value.phone }),
@@ -194,7 +195,7 @@ const organizationSchema = computed(() => {
         addressCountry: 'SN',
       },
     }),
-    ...(entity.value.logo && { logo: useCmsImage(entity.value.logo) }),
+    ...(entity.value.logo && { logo: useCmsImageAbsolute(entity.value.logo) }),
     ...(entity.value.parent_name && {
       parentOrganization: {
         '@type': 'GovernmentOrganization',
@@ -239,6 +240,7 @@ useHead({
     { name: 'theme-color', content: themeColor },
     { name: 'author', content: siteName },
     { property: 'og:site_name', content: siteName },
+    { property: 'og:locale', content: 'fr_SN' },
   ],
   script: computed(() => {
     const scripts = []

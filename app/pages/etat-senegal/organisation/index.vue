@@ -65,6 +65,7 @@ useHead({
     { name: 'theme-color', content: themeColor },
     { name: 'author', content: siteName },
     { property: 'og:site_name', content: siteName },
+    { property: 'og:locale', content: 'fr_SN' },
   ],
   script: computed(() => [
     { type: 'application/ld+json', children: JSON.stringify(breadcrumbSchema) },
