@@ -149,7 +149,10 @@ const pageDescription = computed(() => {
 const pageUrl = computed(() => `${siteUrl}/etat-senegal/${slug.value}`)
 
 const ogImage = computed(() => {
-  if (entity.value?.logo) return useCmsImageAbsolute(entity.value.logo)
+  if (entity.value?.logo) {
+    const rel = useCmsImage(entity.value.logo)
+    return rel.startsWith('http') ? rel : `${siteUrl}${rel}`
+  }
   return `${siteUrl}/nomination-3.png`
 })
 
@@ -195,7 +198,7 @@ const organizationSchema = computed(() => {
         addressCountry: 'SN',
       },
     }),
-    ...(entity.value.logo && { logo: useCmsImageAbsolute(entity.value.logo) }),
+    ...(entity.value.logo && { logo: (() => { const r = useCmsImage(entity.value.logo); return r.startsWith('http') ? r : `${siteUrl}${r}` })() }),
     ...(entity.value.parent_name && {
       parentOrganization: {
         '@type': 'GovernmentOrganization',
@@ -579,7 +582,7 @@ useHead({
               class="rounded-xl border border-blue-200 bg-blue-50 p-5 dark:border-blue-800 dark:bg-blue-900/20"
             >
               <div class="mb-3 flex items-center gap-2">
-                <UIcon name="i-heroicons-banknotes" class="h-5 w-5 text-blue-600" />
+                <UIcon name="i-heroicons-chart-bar" class="h-5 w-5 text-blue-600" />
                 <h2 class="text-sm font-semibold text-blue-800 dark:text-blue-300">Budget</h2>
               </div>
               <p class="mb-4 text-xs text-blue-700 dark:text-blue-400">
@@ -590,7 +593,7 @@ useHead({
                 color="blue"
                 variant="solid"
                 size="sm"
-                icon="i-heroicons-banknotes"
+                icon="i-heroicons-chart-bar"
                 block
               >
                 Voir le budget détaillé
