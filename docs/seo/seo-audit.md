@@ -52,6 +52,9 @@
 | 12 | Pages institutions | STRATÉGIE | Créer institutions/[slug].vue | Voir `seo-strategy.md` |
 | 13 | Maillage interne contextuel | STRATÉGIE | Badges liens + documents liés | Voir `seo-strategy.md` |
 | 14 | Schema.org conditionnels (Legislation, Report...) | STRATÉGIE | Sur documents selon type | Voir `seo-strategy.md` |
+| 15 | Pages neuves indexées trop lentement (résultats récents) | HAUTE | IndexNow + Google News + meta fraîcheur | Voir `seo-indexation-rapide.md` |
+| 16 | Documents sans `robots`/`article:published_time` | MOYENNE | Aligner sur la page actualités | `app/pages/documents/[id]/[slug].vue` |
+| 17 | Sitemap documents priorité 0.7 + `monthly` | BASSE | Passer à 0.8 + `weekly` | `server/api/__sitemap__/urls.ts` |
 
 ---
 
