@@ -205,12 +205,44 @@ export default defineSitemapEventHandler(async () => {
 
     // 7. Entités publiques de l'État du Sénégal
     try {
+      // Récupère le décret actif pour identifier les entités supprimées
+      const sitemapDecrees = await directus.request(
+        readItems('state_organization_decree', {
+          fields: ['id', 'status'],
+          filter: { status: { _neq: 'draft' } },
+          sort: ['-date_publication'],
+          limit: 10,
+        }),
+      );
+
+      const activeDecree =
+        (sitemapDecrees as any[]).find(d => d.status === 'active') || (sitemapDecrees as any[])[0];
+
+      // Slugs des entités supprimées lors du dernier décret actif
+      const deletedEntitySlugs = new Set<string>();
+      if (activeDecree) {
+        const deletedChanges = await directus.request(
+          readItems('state_organization_entity_change', {
+            fields: ['entity.slug'],
+            filter: {
+              to_decree: { _eq: activeDecree.id },
+              change_category: { _eq: 'deleted' },
+            },
+            limit: -1,
+          }),
+        );
+        for (const change of deletedChanges as any[]) {
+          if (change.entity?.slug) deletedEntitySlugs.add(change.entity.slug);
+        }
+      }
+
       const publicEntities = await directus.request(
         readItems('state_organization_entity', {
           fields: ['slug', 'date_updated'],
           filter: {
             has_public_page: { _eq: true },
             slug: { _nnull: true },
+            entity_type: { code: { _neq: 'institution' } },
           },
           limit: -1,
           sort: ['slug'],
@@ -223,7 +255,8 @@ export default defineSitemapEventHandler(async () => {
         { loc: '/etat-senegal/organisation/changements', changefreq: 'weekly', priority: 0.7 },
       );
 
-      for (const entity of publicEntities) {
+      for (const entity of publicEntities as any[]) {
+        if (deletedEntitySlugs.has(entity.slug)) continue;
         const lastmod = toISODate(entity.date_updated);
         urls.push({
           loc: `/etat-senegal/${entity.slug}`,
