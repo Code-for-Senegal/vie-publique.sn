@@ -40,10 +40,10 @@ const documentCategories = [
   {
     title: "Institutions de la république",
     description:
-      "Bientot disponible ici la présentation des institutions de la république",
+      "Présentation des institutions de la république",
     icon: "i-heroicons-building-library",
-    to: "/publications/institutions",
-    display: false,
+    to: "/etat-senegal/institutions",
+    display: true,
     color: "bg-green-100 text-green-700",
   },
   {
