@@ -236,7 +236,37 @@ export default defineSitemapEventHandler(async () => {
       console.warn('Erreur sitemap entités état:', sitemapError);
     }
 
-    // 8. Pages statiques : Laissées à l'auto-découverte de Nuxt Sitemap
+    // 8. Pages détail Budget (entités publiques : ministères et institutions)
+    try {
+      const budgetEntities = await directus.request(
+        readItems('budget_line', {
+          fields: ['public_entity.slug'],
+          filter: {
+            status: { _eq: 'published' },
+            public_entity: { slug: { _nnull: true } },
+          },
+          limit: -1,
+        }),
+      );
+
+      // Déduplique les slugs
+      const seenSlugs = new Set<string>();
+      for (const line of budgetEntities as any[]) {
+        const slug = line.public_entity?.slug;
+        if (slug && !seenSlugs.has(slug)) {
+          seenSlugs.add(slug);
+          urls.push({
+            loc: `/budget-senegal/${slug}`,
+            changefreq: 'monthly',
+            priority: 0.7,
+          });
+        }
+      }
+    } catch (sitemapError) {
+      console.warn('Erreur sitemap budget entités:', sitemapError);
+    }
+
+    // 9. Pages statiques : Laissées à l'auto-découverte de Nuxt Sitemap
     // Le module @nuxtjs/seo va automatiquement inclure toutes les pages du dossier /pages
   } catch (error) {
     console.error('Erreur génération sitemap:', error);
