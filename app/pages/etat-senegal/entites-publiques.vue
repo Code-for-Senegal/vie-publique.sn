@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NuxtLink } from '#components'
+import { NuxtLink } from '#components';
 import type { EtatOrganisationEntity } from '~~/types/etat-organisation';
 
 const { entities, overview, pending } = useEtatOrganisation();
@@ -9,11 +9,10 @@ const router = useRouter();
 // ── Entity type config ───────────────────────────────────────────
 const TYPE_META: Record<
   string,
-  { label: string; short: string; color: string; bg: string; border: string; icon: string }
+  { label: string; color: string; bg: string; border: string; icon: string }
 > = {
   etablissement_public: {
     label: 'Établissements publics',
-    short: 'EP',
     color: 'text-orange-700 dark:text-orange-300',
     bg: 'bg-orange-50 dark:bg-orange-900/30',
     border: 'border-orange-200 dark:border-orange-800',
@@ -21,7 +20,6 @@ const TYPE_META: Record<
   },
   societe_nationale: {
     label: 'Sociétés nationales',
-    short: 'SN',
     color: 'text-rose-700 dark:text-rose-300',
     bg: 'bg-rose-50 dark:bg-rose-900/30',
     border: 'border-rose-200 dark:border-rose-800',
@@ -29,7 +27,6 @@ const TYPE_META: Record<
   },
   societe_participation_publique: {
     label: 'Sociétés à participation publique',
-    short: 'SPP',
     color: 'text-pink-700 dark:text-pink-300',
     bg: 'bg-pink-50 dark:bg-pink-900/30',
     border: 'border-pink-200 dark:border-pink-800',
@@ -191,19 +188,6 @@ useHead({ title: 'EP, SN et SPP' });
               Liste officielle des entités économiques et parapubliques de l'État du Sénégal selon
               le décret de répartition en vigueur.
             </p>
-
-            <!-- Type counters -->
-            <div class="mt-4 flex flex-wrap gap-3">
-              <span
-                v-for="(meta, code) in TYPE_META"
-                :key="code"
-                class="inline-flex items-center gap-1.5 rounded-lg border px-3 py-1 text-xs font-medium"
-                :class="[meta.bg, meta.color, meta.border]"
-              >
-                <UIcon :name="meta.icon" class="h-3.5 w-3.5" />
-                {{ typeCounts[code] ?? 0 }} {{ meta.label }}
-              </span>
-            </div>
           </div>
         </div>
       </div>
@@ -237,7 +221,7 @@ useHead({ title: 'EP, SN et SPP' });
           @click="activeType = activeType === code ? 'all' : code"
         >
           <UIcon :name="meta.icon" class="h-3 w-3" />
-          {{ meta.short }}
+          {{ meta.label }}
           <span class="ml-0.5 text-gray-400">({{ typeCounts[code] ?? 0 }})</span>
         </button>
       </div>
@@ -330,7 +314,7 @@ useHead({ title: 'EP, SN et SPP' });
               ]"
             >
               <UIcon :name="TYPE_META[entity.type_code].icon" class="h-3 w-3" />
-              {{ TYPE_META[entity.type_code].short }}
+              {{ TYPE_META[entity.type_code].label }}
             </span>
             <UIcon
               v-if="entity.has_public_page"
@@ -389,11 +373,11 @@ useHead({ title: 'EP, SN et SPP' });
           :page-count="PAGE_SIZE"
           :total="totalFiltered"
           :max="7"
-          @update:model-value="currentPage = $event"
           :ui="{
             wrapper: 'flex items-center gap-1',
             rounded: 'rounded-lg',
           }"
+          @update:model-value="currentPage = $event"
         />
       </div>
     </section>
