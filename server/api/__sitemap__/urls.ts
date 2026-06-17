@@ -262,6 +262,32 @@ export default defineSitemapEventHandler(async () => {
           });
         }
       }
+
+      // Institutions : pas de snapshot — requête directe sur state_organization_entity
+      // Types concernés : 'institution', 'presidence', 'primature'
+      const institutionEntities = await directus.request(
+        readItems('state_organization_entity', {
+          fields: ['slug', 'date_updated', 'has_public_page'],
+          filter: {
+            has_public_page: { _eq: true },
+            slug: { _nnull: true },
+            entity_type: { code: { _in: ['institution', 'presidence', 'primature'] } },
+          },
+          limit: -1,
+        }),
+      );
+
+      for (const entity of institutionEntities as any[]) {
+        const slug = entity.slug;
+        if (!slug) continue;
+        const lastmod = toISODate(entity.date_updated);
+        urls.push({
+          loc: `/etat-senegal/institutions/${slug}`,
+          ...(lastmod && { lastmod }),
+          changefreq: 'monthly',
+          priority: 0.7,
+        });
+      }
     } catch (sitemapError) {
       console.warn('Erreur sitemap entités état:', sitemapError);
     }
