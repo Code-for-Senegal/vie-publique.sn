@@ -236,7 +236,7 @@ useHead({
   htmlAttrs: { lang: 'fr-SN' },
   link: [{ rel: 'canonical', href: pageUrl }],
   meta: [
-    { name: 'robots', content: 'index, follow' },
+    { name: 'robots', content: computed(() => entity.value ? 'index, follow' : 'noindex, nofollow') },
     { name: 'theme-color', content: themeColor },
     { name: 'author', content: siteName },
     { property: 'og:site_name', content: siteName },
