@@ -129,12 +129,12 @@ useSeoMeta({
   title: 'Établissements publics, Sociétés nationales et SPP du Sénégal',
   description:
     "Liste officielle des établissements publics (EP), sociétés nationales (SN) et sociétés à participation publique (SPP) du Sénégal selon le décret de répartition des services de l'État en vigueur.",
-  ogTitle: 'EP, SN et SPP du Sénégal',
+  ogTitle: 'Entités publiques du Sénégal',
   ogDescription:
     "Établissements publics, sociétés nationales et sociétés à participation publique selon le décret de répartition des services de l'État.",
 });
 
-useHead({ title: 'EP, SN et SPP' });
+useHead({ title: 'Entités publiques du Sénégal' });
 </script>
 
 <template>
@@ -143,7 +143,7 @@ useHead({ title: 'EP, SN et SPP' });
       :items="[
         { label: 'État du Sénégal', to: '/etat-senegal' },
         { label: 'Organisation de l\'État', to: '/etat-senegal/organisation' },
-        { label: 'EP, SN et SPP' },
+        { label: 'Enitites publiques' },
       ]"
       class="px-4"
     />
