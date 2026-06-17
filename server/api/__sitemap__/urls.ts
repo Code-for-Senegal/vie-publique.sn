@@ -204,8 +204,10 @@ export default defineSitemapEventHandler(async () => {
     }
 
     // 7. Entités publiques de l'État du Sénégal
+    // Source de vérité : les snapshots du décret actif (seules les entités
+    // présentes dans ce snapshot existent réellement — les entités supprimées
+    // dans n'importe quelle transition passée sont automatiquement exclues).
     try {
-      // Récupère le décret actif pour identifier les entités supprimées
       const sitemapDecrees = await directus.request(
         readItems('state_organization_decree', {
           fields: ['id', 'status'],
@@ -216,38 +218,7 @@ export default defineSitemapEventHandler(async () => {
       );
 
       const activeDecree =
-        (sitemapDecrees as any[]).find(d => d.status === 'active') || (sitemapDecrees as any[])[0];
-
-      // Slugs des entités supprimées lors du dernier décret actif
-      const deletedEntitySlugs = new Set<string>();
-      if (activeDecree) {
-        const deletedChanges = await directus.request(
-          readItems('state_organization_entity_change', {
-            fields: ['entity.slug'],
-            filter: {
-              to_decree: { _eq: activeDecree.id },
-              change_category: { _eq: 'deleted' },
-            },
-            limit: -1,
-          }),
-        );
-        for (const change of deletedChanges as any[]) {
-          if (change.entity?.slug) deletedEntitySlugs.add(change.entity.slug);
-        }
-      }
-
-      const publicEntities = await directus.request(
-        readItems('state_organization_entity', {
-          fields: ['slug', 'date_updated'],
-          filter: {
-            has_public_page: { _eq: true },
-            slug: { _nnull: true },
-            entity_type: { code: { _neq: 'institution' } },
-          },
-          limit: -1,
-          sort: ['slug'],
-        }),
-      );
+        (sitemapDecrees as any[]).find((d: any) => d.status === 'active') || (sitemapDecrees as any[])[0];
 
       // Pages statiques non auto-découvertes (sous-dossier /organisation)
       urls.push(
@@ -255,15 +226,41 @@ export default defineSitemapEventHandler(async () => {
         { loc: '/etat-senegal/organisation/changements', changefreq: 'weekly', priority: 0.7 },
       );
 
-      for (const entity of publicEntities as any[]) {
-        if (deletedEntitySlugs.has(entity.slug)) continue;
-        const lastmod = toISODate(entity.date_updated);
-        urls.push({
-          loc: `/etat-senegal/${entity.slug}`,
-          ...(lastmod && { lastmod }),
-          changefreq: 'monthly',
-          priority: 0.7,
-        });
+      if (activeDecree) {
+        // Seules les entités présentes dans le snapshot actif sont vivantes
+        const activeSnapshots = await directus.request(
+          readItems('state_organization_entity_snapshot', {
+            fields: [
+              'public_entity.slug',
+              'public_entity.date_updated',
+              'public_entity.has_public_page',
+              'public_entity.entity_type.code',
+            ],
+            filter: {
+              decree: { _eq: activeDecree.id },
+              public_entity: {
+                has_public_page: { _eq: true },
+                slug: { _nnull: true },
+                entity_type: { code: { _neq: 'institution' } },
+              },
+            },
+            limit: -1,
+          }),
+        );
+
+        const seenEntitySlugs = new Set<string>();
+        for (const snapshot of activeSnapshots as any[]) {
+          const slug = snapshot.public_entity?.slug;
+          if (!slug || seenEntitySlugs.has(slug)) continue;
+          seenEntitySlugs.add(slug);
+          const lastmod = toISODate(snapshot.public_entity?.date_updated);
+          urls.push({
+            loc: `/etat-senegal/${slug}`,
+            ...(lastmod && { lastmod }),
+            changefreq: 'monthly',
+            priority: 0.7,
+          });
+        }
       }
     } catch (sitemapError) {
       console.warn('Erreur sitemap entités état:', sitemapError);
