@@ -296,8 +296,12 @@ useHead({
                 v-if="entity.logo"
                 :src="entity.logo"
                 :alt="entity.name"
+                :width="64"
+                :height="64"
+                sizes="64px"
                 class="h-full w-full object-contain"
                 loading="eager"
+                fetch-priority="high"
               />
               <UIcon v-else :name="entityTypeIcon" class="h-8 w-8" />
             </div>

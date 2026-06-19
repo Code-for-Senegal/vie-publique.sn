@@ -228,10 +228,13 @@ useHead({
                   : 'bg-blue-100 dark:bg-blue-900/30'
               "
             >
-              <img
+              <CmsImage
                 v-if="item.logo"
-                :src="useCmsImage(item.logo)"
+                :src="item.logo"
                 :alt="item.name"
+                :width="40"
+                :height="40"
+                sizes="40px"
                 class="h-full w-full object-contain"
                 loading="lazy"
               />
