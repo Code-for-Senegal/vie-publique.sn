@@ -1,42 +1,42 @@
 <script setup lang="ts">
-const { allDecrees, selectedDecreeNumero } = useEtatOrganisation()
-const router = useRouter()
-const route = useRoute()
+const { allDecrees, selectedDecreeNumero, overview } = useEtatOrganisation();
 
-const { siteName, siteUrl, themeColor, keywords } = useSiteMetadata()
+const activeDecreeNumero = computed(() => overview.value?.decree?.numero ?? null);
+const router = useRouter();
+const route = useRoute();
+
+const { siteName, siteUrl, themeColor, keywords } = useSiteMetadata();
 
 // Archived decrees only (exclude active)
-const archivedDecrees = computed(() =>
-  allDecrees.value.filter((d) => d.status !== 'active'),
-)
+const archivedDecrees = computed(() => allDecrees.value.filter((d) => d.status !== 'active'));
 
 const formatDate = (v?: string) =>
   v
     ? new Date(v).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })
-    : null
+    : null;
 
 // Set default to most recent archived — only if no decree in URL, only after hydration
-const defaultSet = ref(false)
+const defaultSet = ref(false);
 const setDefault = () => {
-  if (defaultSet.value || route.query.decree || !archivedDecrees.value.length) return
-  defaultSet.value = true
+  if (defaultSet.value || route.query.decree || !archivedDecrees.value.length) return;
+  defaultSet.value = true;
   const sorted = [...archivedDecrees.value].sort((a, b) => {
-    const da = a.date_publication ? new Date(a.date_publication).getTime() : 0
-    const db = b.date_publication ? new Date(b.date_publication).getTime() : 0
-    return db - da
-  })
-  router.replace({ query: { ...route.query, decree: sorted[0]!.numero } })
-}
+    const da = a.date_publication ? new Date(a.date_publication).getTime() : 0;
+    const db = b.date_publication ? new Date(b.date_publication).getTime() : 0;
+    return db - da;
+  });
+  router.replace({ query: { ...route.query, decree: sorted[0]!.numero } });
+};
 
 onMounted(() => {
-  setDefault()
+  setDefault();
   // If data wasn't ready yet on mount, wait for it
-  watch(archivedDecrees, setDefault)
-})
+  watch(archivedDecrees, setDefault);
+});
 
-const selectedDecree = computed(() =>
-  archivedDecrees.value.find((d) => d.numero === selectedDecreeNumero.value) ?? null,
-)
+const selectedDecree = computed(
+  () => archivedDecrees.value.find((d) => d.numero === selectedDecreeNumero.value) ?? null,
+);
 
 // v-model for the <select> — writes directly to the URL via selectedDecreeNumero setter
 
@@ -45,12 +45,12 @@ const pageTitle = computed(() =>
   selectedDecree.value
     ? `Organisation de l'État - Décret n°${selectedDecree.value.numero} | Vie Publique Sénégal`
     : "Organisation de l'État - Archives | Vie Publique Sénégal",
-)
+);
 const pageDescription =
-  "Consultez l'organisation administrative de l'État du Sénégal selon les décrets précédents. Archives des organigrammes officiels."
-const pageUrl = `${siteUrl}/etat-senegal/organisation`
-const canonicalUrl = pageUrl
-const ogImage = `${siteUrl}/nomination-3.png`
+  "Consultez l'organisation administrative de l'État du Sénégal selon les décrets précédents. Archives des organigrammes officiels.";
+const pageUrl = `${siteUrl}/etat-senegal/organisation`;
+const canonicalUrl = pageUrl;
+const ogImage = `${siteUrl}/nomination-3.png`;
 
 useSeoMeta({
   title: pageTitle,
@@ -67,11 +67,11 @@ useSeoMeta({
   robots: 'noindex, follow',
   keywords: [
     ...keywords,
-    "organisation état Sénégal archives",
-    "historique décrets répartition Sénégal",
-    "organigramme état Sénégal",
+    'organisation état Sénégal archives',
+    'historique décrets répartition Sénégal',
+    'organigramme état Sénégal',
   ].join(', '),
-})
+});
 
 useHead({
   htmlAttrs: { lang: 'fr-SN' },
@@ -82,7 +82,7 @@ useHead({
     { property: 'og:site_name', content: siteName },
     { property: 'og:locale', content: 'fr_SN' },
   ],
-})
+});
 </script>
 
 <template>
@@ -112,50 +112,55 @@ useHead({
           </p>
 
           <!-- Decree selector + link to active -->
-          <div class="mt-3 flex flex-wrap items-center gap-3">
+          <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <template v-if="archivedDecrees.length > 1">
-              <label for="decree-select" class="shrink-0 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Décret n°
-              </label>
-              <div class="relative">
-                <select
-                  id="decree-select"
-                  v-model="selectedDecreeNumero"
-                  class="appearance-none rounded-lg border border-gray-300 bg-white py-2 pl-3 pr-8 text-sm text-gray-900 shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+              <div class="flex items-center gap-2">
+                <label
+                  for="decree-select"
+                  class="shrink-0 text-sm font-medium text-gray-700 dark:text-gray-300"
                 >
-                  <option
-                    v-for="decree in archivedDecrees"
-                    :key="decree.id"
-                    :value="decree.numero"
+                  Décret n°
+                </label>
+                <div class="relative">
+                  <select
+                    id="decree-select"
+                    v-model="selectedDecreeNumero"
+                    class="appearance-none rounded-lg border border-gray-300 bg-white py-2 pl-3 pr-8 text-sm text-gray-900 shadow-sm focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
                   >
-                    {{ decree.numero }}
-                  </option>
-                </select>
-                <UIcon
-                  name="i-heroicons-chevron-down"
-                  class="pointer-events-none absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500"
-                />
+                    <option
+                      v-for="decree in archivedDecrees"
+                      :key="decree.id"
+                      :value="decree.numero"
+                    >
+                      {{ decree.numero
+                      }}{{
+                        decree.date_publication ? ` du ${formatDate(decree.date_publication)}` : ''
+                      }}
+                    </option>
+                  </select>
+                  <UIcon
+                    name="i-heroicons-chevron-down"
+                    class="pointer-events-none absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500"
+                  />
+                </div>
               </div>
             </template>
             <template v-else-if="selectedDecree">
-              <span class="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300">
+              <span
+                class="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
+              >
                 Décret n°&nbsp;{{ selectedDecree.numero }}
               </span>
             </template>
 
-            <span
-              v-if="selectedDecree?.date_publication"
-              class="text-xs text-gray-400 dark:text-gray-500"
-            >
-              Publié le {{ formatDate(selectedDecree.date_publication) }}
-            </span>
-
             <NuxtLink
               to="/etat-senegal/organisation"
-              class="ml-auto inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-medium text-gray-600 shadow-sm transition hover:border-gray-300 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+              class="inline-flex w-fit items-center gap-1.5 self-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-medium text-gray-600 shadow-sm transition hover:border-gray-300 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-200 sm:ml-auto"
             >
               <UIcon name="i-heroicons-arrow-left" class="h-3.5 w-3.5" />
-              Organisation actuelle
+              Organisation actuelle<template v-if="activeDecreeNumero"
+                >&nbsp;- n°&nbsp;{{ activeDecreeNumero }}</template
+              >
             </NuxtLink>
           </div>
         </div>
@@ -166,8 +171,6 @@ useHead({
     <section v-if="archivedDecrees.length > 0" class="mx-auto mt-6 max-w-7xl px-4">
       <EtatOrganisationStatsGrid :clickable="false" />
     </section>
-
-
 
     <!-- ─── Explorer ─────────────────────────────────────────────── -->
     <section v-if="archivedDecrees.length > 0" class="mx-auto mt-6 max-w-7xl px-4">
@@ -180,13 +183,17 @@ useHead({
         class="flex flex-col items-start gap-4 rounded-2xl border border-blue-200 bg-blue-50 px-6 py-5 dark:border-blue-800 dark:bg-blue-900/20 sm:flex-row sm:items-center sm:justify-between"
       >
         <div class="flex items-start gap-3">
-          <UIcon name="i-heroicons-arrows-right-left" class="mt-0.5 h-5 w-5 shrink-0 text-blue-600 dark:text-blue-400" />
+          <UIcon
+            name="i-heroicons-arrows-right-left"
+            class="mt-0.5 h-5 w-5 shrink-0 text-blue-600 dark:text-blue-400"
+          />
           <div>
             <p class="text-sm font-semibold text-blue-900 dark:text-blue-200">
               Comparer deux décrets
             </p>
             <p class="mt-0.5 text-xs text-blue-700 dark:text-blue-400">
-              Visualisez les créations, suppressions, renommages et changements de tutelle entre deux décrets successifs.
+              Visualisez les créations, suppressions, renommages et changements de tutelle entre
+              deux décrets successifs.
             </p>
           </div>
         </div>
