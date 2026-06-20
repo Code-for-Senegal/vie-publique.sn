@@ -99,7 +99,7 @@ useHead({
     <!-- ─── Hero ──────────────────────────────────────────────────── -->
     <section class="mx-auto mt-4 max-w-7xl px-4">
       <div
-        class="relative overflow-hidden rounded-2xl border border-gray-200 bg-white px-6 pb-5 pt-7 shadow-sm dark:border-gray-700 dark:bg-gray-900 sm:px-10 sm:pb-6 sm:pt-8"
+        class="relative overflow-hidden rounded-2xl border border-gray-200 bg-white px-6 pb-5 pt-7 shadow-sm dark:border-gray-700 dark:bg-gray-800/50 sm:px-10 sm:pb-6 sm:pt-8"
       >
         <div class="relative z-10">
           <!-- Title -->

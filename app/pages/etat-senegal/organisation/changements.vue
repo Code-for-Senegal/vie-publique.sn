@@ -242,14 +242,16 @@ useHead({
     <!-- ─── Hero ──────────────────────────────────────────────────── -->
     <section class="mx-auto mt-4 max-w-7xl px-4">
       <div
-        class="rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50 via-white to-blue-100 px-6 py-7 shadow-sm dark:border-blue-900 dark:from-gray-900 dark:via-gray-900 dark:to-blue-950"
+        class="relative overflow-hidden rounded-2xl border border-gray-200 bg-white px-6 pb-5 pt-7 shadow-sm dark:border-gray-700 dark:bg-gray-800/50 sm:px-10 sm:pb-6 sm:pt-8"
       >
-        <h1 class="text-xl font-bold text-gray-900 dark:text-white md:text-3xl">
-          Comparaison des décrets de répartition
-        </h1>
-        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-          Explorez les modifications de l'organisation administrative de l'État entre deux décrets officiels.
-        </p>
+        <div class="relative z-10">
+          <h1 class="text-xl font-bold text-gray-900 dark:text-white md:text-3xl">
+            Comparaison des décrets de répartition
+          </h1>
+          <p class="mt-2 max-w-2xl text-sm text-gray-600 dark:text-gray-400">
+            Explorez les modifications de l'organisation administrative de l'État entre deux décrets officiels.
+          </p>
+        </div>
       </div>
     </section>
 
