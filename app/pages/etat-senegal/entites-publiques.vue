@@ -151,44 +151,33 @@ useHead({ title: 'Entités publiques du Sénégal' });
     <!-- ─── Hero ──────────────────────────────────────────────────── -->
     <section class="mx-auto mt-4 max-w-7xl px-4">
       <div
-        class="relative overflow-hidden rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50 via-white to-blue-100 px-6 py-7 shadow-sm dark:border-blue-900 dark:from-gray-900 dark:via-gray-900 dark:to-blue-950 sm:px-10 sm:py-8"
+        class="relative overflow-hidden rounded-2xl border border-gray-200 bg-white px-6 pb-5 pt-7 shadow-sm dark:border-gray-700 dark:bg-gray-800/50 sm:px-10 sm:pb-6 sm:pt-8"
       >
-        <div
-          class="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full bg-blue-200/40 blur-3xl dark:bg-blue-500/20"
-        />
-        <div
-          class="pointer-events-none absolute -bottom-16 -left-16 h-52 w-52 rounded-full bg-blue-100/60 blur-3xl dark:bg-blue-800/20"
-        />
-
-        <div class="relative z-10 flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-10">
-          <div class="flex-1">
-            <!-- Decree badge + date -->
-            <div class="mb-3 flex flex-wrap items-center gap-2">
-              <span
-                v-if="overview?.decree"
-                class="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-white px-3 py-1 text-xs font-medium text-blue-700 shadow-sm dark:border-blue-800 dark:bg-gray-900 dark:text-blue-300"
-              >
-                <UIcon name="i-heroicons-document-text" class="h-3.5 w-3.5" />
-                Décret n°&nbsp;{{ overview.decree.numero }}
-              </span>
-              <span
-                v-if="overview?.decree?.date_publication"
-                class="text-xs text-gray-500 dark:text-gray-400"
-              >
-                - en vigueur depuis le {{ formatDate(overview.decree.date_publication) }}
-              </span>
-            </div>
-
-            <h1
-              class="text-xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-2xl lg:text-3xl"
+        <div class="relative z-10">
+          <!-- Decree badge + date -->
+          <div class="mb-3 flex flex-wrap items-center gap-2">
+            <span
+              v-if="overview?.decree"
+              class="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
             >
-              Établissements publics, Sociétés nationales et SPP
-            </h1>
-            <p class="mt-2 max-w-2xl text-sm text-gray-600 dark:text-gray-300">
-              Liste officielle des entités économiques et parapubliques de l'État du Sénégal selon
-              le décret de répartition en vigueur.
-            </p>
+              <UIcon name="i-heroicons-document-text" class="h-3.5 w-3.5" />
+              Décret n°&nbsp;{{ overview.decree.numero }}
+            </span>
+            <span
+              v-if="overview?.decree?.date_publication"
+              class="text-xs text-gray-400 dark:text-gray-500"
+            >
+              - en vigueur depuis le {{ formatDate(overview.decree.date_publication) }}
+            </span>
           </div>
+
+          <h1 class="text-xl font-bold text-gray-900 dark:text-white md:text-3xl">
+            Établissements publics, Sociétés nationales et SPP
+          </h1>
+          <p class="mt-2 max-w-2xl text-sm text-gray-600 dark:text-gray-400">
+            Liste officielle des entités économiques et parapubliques de l'État du Sénégal selon le
+            décret de répartition en vigueur.
+          </p>
         </div>
       </div>
     </section>
