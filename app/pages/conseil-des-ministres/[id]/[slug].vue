@@ -35,11 +35,10 @@ const url = computed(
 
 const image = computed(() => {
   if (article.value?.cover_image) {
-    return article.value.cover_image.startsWith('http')
-      ? article.value.cover_image
-      : `${siteUrl}${article.value.cover_image}`;
+    // cover_image est un ID d'asset Directus → transformer en URL proxy absolue
+    return useCmsImageAbsolute(article.value.cover_image);
   }
-  return `${siteUrl}/images/share-conseil-des-ministres-nomination-full.jfif`;
+  return `${siteUrl}/images/share-conseil-des-ministres-nomination-full.jpg`;
 });
 
 const publishedDate = computed(() =>
@@ -59,6 +58,7 @@ useSeoMeta({
   description: () => description.value,
   ogDescription: () => description.value,
   ogImage: () => image.value,
+  ogImageAlt: () => article.value?.title || 'Conseil des ministres du Sénégal',
   ogUrl: () => url.value,
   twitterCard: 'summary_large_image',
   twitterTitle: () => title.value,

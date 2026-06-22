@@ -184,9 +184,7 @@ const { navigationCards } = useNavigationCards();
 
 
     <div class="">
-       <div class="my-8">
-        <HomeGovernmentHighlight />
-      </div>
+
        <div class="my-8">
           <HomeAppPromo />
       </div>
@@ -194,6 +192,11 @@ const { navigationCards } = useNavigationCards();
       <div class="my-8">
         <HomeFeaturedDocuments />
       </div>
+
+      <div class="my-8">
+        <HomeGovernmentHighlight />
+      </div>
+
        <div class="my-8">
         <HomeNews />
       </div>

@@ -55,6 +55,7 @@
 | 15 | Pages neuves indexées trop lentement (résultats récents) | HAUTE | IndexNow + Google News + meta fraîcheur | Voir `seo-indexation-rapide.md` |
 | 16 | Documents sans `robots`/`article:published_time` | MOYENNE | Aligner sur la page actualités | `app/pages/documents/[id]/[slug].vue` |
 | 17 | Sitemap documents priorité 0.7 + `monthly` | BASSE | Passer à 0.8 + `weekly` | `server/api/__sitemap__/urls.ts` |
+| 18 | Meta SEO/og:image cassées sur plusieurs pages détail | HAUTE | Audit complet par page (og:image relative, meta dans watch, pages sans SEO) | Voir `seo-pages-detail-audit.md` |
 
 ---
 

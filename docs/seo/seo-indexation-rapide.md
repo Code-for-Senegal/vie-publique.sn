@@ -238,6 +238,57 @@ sitemap (`@nuxtjs/seo`) plutôt que de casser `defineSitemapEventHandler`.
 
 ---
 
+## E. Partage réseaux sociaux (Open Graph) — CORRIGÉ juin 2026
+
+**Symptôme** : en partageant une URL sur WhatsApp / LinkedIn / Facebook, l'image de couverture
+ne s'affichait pas.
+
+### Deux bugs distincts identifiés et corrigés
+
+**Bug 1 — Page actualités : meta non rendues côté serveur**
+`app/pages/actualites/[id]/[slug].vue` appelait `useSeoMeta()` / `useHead()` **à l'intérieur d'un
+`watch([article, route], …, { immediate: true })`**. Pendant le SSR, le watch immédiat s'exécute une
+fois au setup alors que `article` est encore `null` → le garde `if (article.value)` échoue → **aucune
+meta posée** → le crawler recevait les meta **globales** (titre « l'information publique au Sénégal »
++ image générique). Les watchers ne se redéclenchent pas pendant le rendu serveur.
+→ **Fix** : meta sorties du watch, définies dans le scope setup avec des **getters réactifs**
+(`() => …`), comme la page conseil-des-ministres.
+
+**Bug 2 — Page conseil-des-ministres : URL d'image malformée**
+Le `image` computed faisait `` `${siteUrl}${cover_image}` ``. Or l'API
+(`server/api/news/[id].get.ts`) renvoie `cover_image` comme **ID d'asset Directus brut**, pas une URL.
+Résultat : `https://www.vie-publique.snABCD-1234` (URL cassée). De plus le fallback était un `.jfif`,
+format mal supporté par les crawlers sociaux.
+→ **Fix** : utiliser `useCmsImageAbsolute(cover_image)` (→ `${siteUrl}/cms/<id>`) + fallback en `.jpg`
+(`public/images/share-conseil-des-ministres-nomination-full.jpg`, copié depuis le `.jfif`).
+
+### Règles Open Graph à retenir
+
+- Les balises OG doivent être dans le **HTML SSR** (les crawlers n'exécutent pas le JS) → toujours
+  définir le SEO **en scope setup avec getters**, jamais dans un `watch`/`onMounted`.
+- L'`og:image` doit être une **URL absolue** accessible publiquement, format **jpg/png** (éviter
+  `.jfif` et `.webp` — WhatsApp ne rend pas fiablement le WebP).
+- Toujours transformer un ID d'asset CMS via `useCmsImageAbsolute()`, jamais par concaténation.
+
+### ⚠️ Re-scraper les caches sociaux après tout changement OG
+
+Les plateformes cachent l'aperçu (souvent plusieurs jours). Après déploiement, forcer le re-scrape :
+
+- **Facebook / WhatsApp** : [Sharing Debugger](https://developers.facebook.com/tools/debug/) →
+  coller l'URL → « Scrape Again ». (WhatsApp utilise le cache Facebook.)
+- **LinkedIn** : [Post Inspector](https://www.linkedin.com/post-inspector/) → coller l'URL.
+- **Twitter/X** : Card Validator (ou simplement re-partager).
+
+> Tant que le cache n'est pas vidé, l'ancien aperçu (sans image) continue de s'afficher même après
+> le fix.
+
+### À vérifier (même classe de bug potentielle)
+
+- [ ] `app/pages/documents/[id]/[slug].vue` — vérifier que `pageImageUrl` (og:image) passe bien par
+  `useCmsImageAbsolute()` et non une concaténation `${siteUrl}${id}`.
+
+---
+
 ## 3. Checklist de reprise (prochaine session)
 
 ### Code (cette repo)
