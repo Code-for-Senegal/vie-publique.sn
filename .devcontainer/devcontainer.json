@@ -15,7 +15,7 @@
 	// "postCreateCommand": "yarn install",
 	"postCreateCommand": "pnpm install",
 	"features": {
-		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
+		"ghcr.io/devcontainers/features/docker-in-docker:3": {}
 	}
 
 
