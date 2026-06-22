@@ -156,7 +156,7 @@ const visibleTypes = computed(() =>
     <!-- Empty -->
     <div
       v-else-if="!paginatedEntities.length"
-      class="rounded-xl border border-gray-200 bg-white py-12 text-center dark:border-gray-700 dark:bg-gray-900"
+      class="rounded-xl border border-gray-200 bg-white py-12 text-center dark:border-gray-700 dark:bg-gray-800/50"
     >
       <UIcon name="i-heroicons-magnifying-glass" class="mx-auto mb-2 h-10 w-10 text-gray-300" />
       <p class="text-sm text-gray-500">Aucune entité ne correspond à votre recherche.</p>
@@ -171,7 +171,7 @@ const visibleTypes = computed(() =>
     <!-- List -->
     <div
       v-else
-      class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900"
+      class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800/50"
     >
       <div
         v-for="entity in paginatedEntities"

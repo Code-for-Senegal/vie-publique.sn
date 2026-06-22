@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { NuxtLink } from '#components'
-import type { EtatOrganisationChange } from '~~/types/etat-organisation'
+import { NuxtLink } from '#components';
+import type { EtatOrganisationChange } from '~~/types/etat-organisation';
 
 const router = useRouter();
 const route = useRoute();
 
-const TOP_LEVEL_TYPES = new Set(['presidence', 'primature'])
+const TOP_LEVEL_TYPES = new Set(['presidence', 'primature']);
 const isChangeClickable = (change: EtatOrganisationChange) =>
-  change.has_public_page && !!change.slug && TOP_LEVEL_TYPES.has(change.type_code ?? '')
+  change.has_public_page && !!change.slug && TOP_LEVEL_TYPES.has(change.type_code ?? '');
 
 const {
   fromNumero,
@@ -96,6 +96,10 @@ const formatDate = (v?: string) =>
   v
     ? new Date(v).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })
     : null;
+
+const activeDecreeNumero = computed(
+  () => allDecrees.value.find((d) => d.status === 'active')?.numero ?? null,
+);
 
 // Pairs sorted by to.date_publication descending
 const sortedAvailablePairs = computed(() =>
@@ -242,14 +246,17 @@ useHead({
     <!-- ─── Hero ──────────────────────────────────────────────────── -->
     <section class="mx-auto mt-4 max-w-7xl px-4">
       <div
-        class="rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50 via-white to-blue-100 px-6 py-7 shadow-sm dark:border-blue-900 dark:from-gray-900 dark:via-gray-900 dark:to-blue-950"
+        class="relative overflow-hidden rounded-2xl border border-gray-200 bg-white px-6 pb-5 pt-7 shadow-sm dark:border-gray-700 dark:bg-gray-800/50 sm:px-10 sm:pb-6 sm:pt-8"
       >
-        <h1 class="text-xl font-bold text-gray-900 dark:text-white md:text-3xl">
-          Comparaison des décrets de répartition
-        </h1>
-        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-          Explorez les modifications de l'organisation administrative de l'État entre deux décrets officiels.
-        </p>
+        <div class="relative z-10">
+          <h1 class="text-xl font-bold text-gray-900 dark:text-white md:text-3xl">
+            Comparaison des décrets de répartition
+          </h1>
+          <p class="mt-2 max-w-2xl text-sm text-gray-600 dark:text-gray-400">
+            Explorez les modifications de l'organisation administrative de l'État entre deux décrets
+            officiels.
+          </p>
+        </div>
       </div>
     </section>
 
@@ -264,64 +271,129 @@ useHead({
         <div>
           <p class="font-medium">Aucune donnée de comparaison disponible pour le moment.</p>
           <p class="mt-0.5 text-xs opacity-80">
-            Les comparaisons entre décrets seront accessibles une fois les données d'évolution importées.
+            Les comparaisons entre décrets seront accessibles une fois les données d'évolution
+            importées.
           </p>
         </div>
       </div>
 
       <!-- Selectors (only shown when pairs exist or still loading) -->
-      <div v-else class="flex flex-wrap items-center gap-2">
-        <!-- Label -->
-        <span class="shrink-0 text-sm font-medium text-gray-700 dark:text-gray-300">
-          Décret de départ :
-        </span>
+      <div v-else class="flex flex-col gap-2">
+        <!-- Row 1 always: label + select | desktop also: badge + link (right) -->
+        <div class="flex items-center gap-2">
+          <span class="shrink-0 text-sm font-medium text-gray-700 dark:text-gray-300">
+            Décret de départ :
+          </span>
 
-        <!-- Single decree: pill only -->
-        <span
-          v-if="fromDecreeOptions.length === 1 && fromDecree"
-          class="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
-        >
-          Décret n°&nbsp;{{ fromDecree.numero }}
-        </span>
-
-        <!-- Multiple decrees: select -->
-        <div v-else class="relative">
-          <select
-            id="from-decree-select"
-            v-model="fromNumero"
-            :disabled="pending"
-            class="appearance-none rounded-lg border border-gray-300 bg-white py-2 pl-3 pr-8 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+          <!-- Single decree: pill only -->
+          <span
+            v-if="fromDecreeOptions.length === 1 && fromDecree"
+            class="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
           >
-            <option v-for="d in fromDecreeOptions" :key="d.numero" :value="d.numero">
-              Décret n°&nbsp;{{ d.numero }}
-            </option>
-          </select>
-          <UIcon
-            name="i-heroicons-chevron-down"
-            class="pointer-events-none absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500"
-          />
+            Décret n°&nbsp;{{ fromDecree.numero }}
+          </span>
+
+          <!-- Multiple decrees: select -->
+          <div v-else class="relative">
+            <select
+              id="from-decree-select"
+              v-model="fromNumero"
+              :disabled="pending"
+              class="appearance-none rounded-lg border border-gray-300 bg-white py-2 pl-3 pr-8 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+            >
+              <option v-for="d in fromDecreeOptions" :key="d.numero" :value="d.numero">
+                {{ d.numero
+                }}{{ d.date_publication ? ` du ${formatDate(d.date_publication)}` : '' }}
+              </option>
+            </select>
+            <UIcon
+              name="i-heroicons-chevron-down"
+              class="pointer-events-none absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500"
+            />
+          </div>
+
+          <!-- Desktop only: badge inline after select -->
+          <div v-if="toDecree" class="hidden items-center gap-1.5 sm:flex">
+            <UIcon name="i-heroicons-arrow-long-right" class="h-4 w-4 text-gray-400" />
+            <span
+              class="inline-flex items-center gap-1.5 rounded-full border border-green-200 bg-green-50 px-3 py-1.5 text-xs font-medium text-green-700 dark:border-green-800 dark:bg-green-900/20 dark:text-green-400"
+            >
+              <UIcon name="i-heroicons-check-circle" class="h-3.5 w-3.5 shrink-0" />
+              Décret n°&nbsp;{{ toDecree.numero }}
+              <span v-if="toDecree.status === 'active'" class="opacity-70">&nbsp;- actif</span>
+            </span>
+          </div>
+
+          <!-- Desktop only: link pushed to the right -->
+          <NuxtLink
+            to="/etat-senegal/organisation"
+            class="ml-auto hidden shrink-0 items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-medium text-gray-600 shadow-sm transition hover:border-gray-300 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-200 sm:inline-flex"
+          >
+            <UIcon name="i-heroicons-arrow-left" class="h-3.5 w-3.5" />
+            Organisation actuelle<template v-if="activeDecreeNumero"
+              >&nbsp;- n°&nbsp;{{ activeDecreeNumero }}</template
+            >
+          </NuxtLink>
         </div>
 
-        <!-- Arrow + to decree pill (immediately after the select) -->
-        <template v-if="toDecree">
-          <UIcon name="i-heroicons-arrow-long-right" class="h-4 w-4 shrink-0 text-gray-400" />
-          <span
-            class="inline-flex items-center gap-1.5 rounded-full border border-green-200 bg-green-50 px-3 py-1.5 text-xs font-medium text-green-700 dark:border-green-800 dark:bg-green-900/20 dark:text-green-400"
-          >
-            <UIcon name="i-heroicons-check-circle" class="h-3.5 w-3.5 shrink-0" />
-            Décret n°&nbsp;{{ toDecree.numero }}
-            <span v-if="toDecree.status === 'active'" class="opacity-70">&nbsp;- actif</span>
-          </span>
-        </template>
-
-        <!-- Back link (pushed to the far right) -->
-        <NuxtLink
-          to="/etat-senegal/organisation"
-          class="ml-auto inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-medium text-gray-600 shadow-sm transition hover:border-gray-300 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+        <!-- Desktop only: note below row 1 -->
+        <p
+          v-if="availablePairs.length > 0"
+          class="hidden text-xs text-gray-400 dark:text-gray-500 sm:block"
         >
-          <UIcon name="i-heroicons-arrow-left" class="h-3.5 w-3.5" />
-          Organisation actuelle
-        </NuxtLink>
+          <UIcon
+            name="i-heroicons-information-circle"
+            class="mr-0.5 inline h-3.5 w-3.5 align-text-bottom"
+          />
+          {{ availablePairs.length }} comparaison{{
+            availablePairs.length > 1 ? 's' : ''
+          }}
+          disponible{{ availablePairs.length > 1 ? 's' : '' }}
+          (décrets consécutifs uniquement)
+        </p>
+
+        <!-- Mobile row 2: badge right -->
+        <div v-if="toDecree" class="flex justify-end sm:hidden">
+          <div class="flex items-center gap-1.5">
+            <UIcon name="i-heroicons-arrow-long-right" class="h-4 w-4 text-gray-400" />
+            <span
+              class="inline-flex items-center gap-1.5 rounded-full border border-green-200 bg-green-50 px-3 py-1.5 text-xs font-medium text-green-700 dark:border-green-800 dark:bg-green-900/20 dark:text-green-400"
+            >
+              <UIcon name="i-heroicons-check-circle" class="h-3.5 w-3.5 shrink-0" />
+              Décret n°&nbsp;{{ toDecree.numero }}
+              <span v-if="toDecree.status === 'active'" class="opacity-70">&nbsp;- actif</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Mobile row 3: note -->
+        <p
+          v-if="availablePairs.length > 0"
+          class="text-xs text-gray-400 dark:text-gray-500 sm:hidden"
+        >
+          <UIcon
+            name="i-heroicons-information-circle"
+            class="mr-0.5 inline h-3.5 w-3.5 align-text-bottom"
+          />
+          {{ availablePairs.length }} comparaison{{
+            availablePairs.length > 1 ? 's' : ''
+          }}
+          disponible{{ availablePairs.length > 1 ? 's' : '' }}
+          (décrets consécutifs uniquement)
+        </p>
+
+        <!-- Mobile row 4: link right -->
+        <div class="flex justify-end sm:hidden">
+          <NuxtLink
+            to="/etat-senegal/organisation"
+            class="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-medium text-gray-600 shadow-sm transition hover:border-gray-300 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+          >
+            <UIcon name="i-heroicons-arrow-left" class="h-3.5 w-3.5" />
+            Organisation actuelle<template v-if="activeDecreeNumero"
+              >&nbsp;- n°&nbsp;{{ activeDecreeNumero }}</template
+            >
+          </NuxtLink>
+        </div>
       </div>
 
       <!-- Invalid pair via URL (non-consecutive) -->
@@ -333,8 +405,8 @@ useHead({
         <span
           >Aucune comparaison directe disponible entre le décret
           <strong>{{ fromDecree.numero }}</strong> et le décret
-          <strong>{{ toDecree.numero }}</strong> (décrets non consécutifs). Utilisez le
-          sélecteur ci-dessus pour choisir une paire valide.</span
+          <strong>{{ toDecree.numero }}</strong> (décrets non consécutifs). Utilisez le sélecteur
+          ci-dessus pour choisir une paire valide.</span
         >
       </div>
     </section>
@@ -470,7 +542,9 @@ useHead({
               :is="isChangeClickable(change) ? NuxtLink : 'p'"
               :to="isChangeClickable(change) ? `/etat-senegal/${change.slug}` : undefined"
               class="text-sm font-medium text-gray-900 dark:text-white"
-              :class="isChangeClickable(change) ? 'hover:text-blue-600 dark:hover:text-blue-400' : ''"
+              :class="
+                isChangeClickable(change) ? 'hover:text-blue-600 dark:hover:text-blue-400' : ''
+              "
             >
               {{ change.name || change.description }}
             </component>

@@ -204,18 +204,21 @@ export default defineSitemapEventHandler(async () => {
     }
 
     // 7. Entités publiques de l'État du Sénégal
+    // Source de vérité : les snapshots du décret actif (seules les entités
+    // présentes dans ce snapshot existent réellement — les entités supprimées
+    // dans n'importe quelle transition passée sont automatiquement exclues).
     try {
-      const publicEntities = await directus.request(
-        readItems('state_organization_entity', {
-          fields: ['slug', 'date_updated'],
-          filter: {
-            has_public_page: { _eq: true },
-            slug: { _nnull: true },
-          },
-          limit: -1,
-          sort: ['slug'],
+      const sitemapDecrees = await directus.request(
+        readItems('state_organization_decree', {
+          fields: ['id', 'status'],
+          filter: { status: { _neq: 'draft' } },
+          sort: ['-date_publication'],
+          limit: 10,
         }),
       );
+
+      const activeDecree =
+        (sitemapDecrees as any[]).find((d: any) => d.status === 'active') || (sitemapDecrees as any[])[0];
 
       // Pages statiques non auto-découvertes (sous-dossier /organisation)
       urls.push(
@@ -223,10 +226,63 @@ export default defineSitemapEventHandler(async () => {
         { loc: '/etat-senegal/organisation/changements', changefreq: 'weekly', priority: 0.7 },
       );
 
-      for (const entity of publicEntities) {
+      if (activeDecree) {
+        // Seules les entités présentes dans le snapshot actif sont vivantes
+        const activeSnapshots = await directus.request(
+          readItems('state_organization_entity_snapshot', {
+            fields: [
+              'public_entity.slug',
+              'public_entity.date_updated',
+              'public_entity.has_public_page',
+              'public_entity.entity_type.code',
+            ],
+            filter: {
+              decree: { _eq: activeDecree.id },
+              public_entity: {
+                has_public_page: { _eq: true },
+                slug: { _nnull: true },
+                entity_type: { code: { _neq: 'institution' } },
+              },
+            },
+            limit: -1,
+          }),
+        );
+
+        const seenEntitySlugs = new Set<string>();
+        for (const snapshot of activeSnapshots as any[]) {
+          const slug = snapshot.public_entity?.slug;
+          if (!slug || seenEntitySlugs.has(slug)) continue;
+          seenEntitySlugs.add(slug);
+          const lastmod = toISODate(snapshot.public_entity?.date_updated);
+          urls.push({
+            loc: `/etat-senegal/${slug}`,
+            ...(lastmod && { lastmod }),
+            changefreq: 'monthly',
+            priority: 0.7,
+          });
+        }
+      }
+
+      // Institutions : pas de snapshot — requête directe sur state_organization_entity
+      // Types concernés : 'institution', 'presidence', 'primature'
+      const institutionEntities = await directus.request(
+        readItems('state_organization_entity', {
+          fields: ['slug', 'date_updated', 'has_public_page'],
+          filter: {
+            has_public_page: { _eq: true },
+            slug: { _nnull: true },
+            entity_type: { code: { _in: ['institution', 'presidence', 'primature'] } },
+          },
+          limit: -1,
+        }),
+      );
+
+      for (const entity of institutionEntities as any[]) {
+        const slug = entity.slug;
+        if (!slug) continue;
         const lastmod = toISODate(entity.date_updated);
         urls.push({
-          loc: `/etat-senegal/${entity.slug}`,
+          loc: `/etat-senegal/institutions/${slug}`,
           ...(lastmod && { lastmod }),
           changefreq: 'monthly',
           priority: 0.7,
@@ -236,7 +292,37 @@ export default defineSitemapEventHandler(async () => {
       console.warn('Erreur sitemap entités état:', sitemapError);
     }
 
-    // 8. Pages statiques : Laissées à l'auto-découverte de Nuxt Sitemap
+    // 8. Pages détail Budget (entités publiques : ministères et institutions)
+    try {
+      const budgetEntities = await directus.request(
+        readItems('budget_line', {
+          fields: ['public_entity.slug'],
+          filter: {
+            status: { _eq: 'published' },
+            public_entity: { slug: { _nnull: true } },
+          },
+          limit: -1,
+        }),
+      );
+
+      // Déduplique les slugs
+      const seenSlugs = new Set<string>();
+      for (const line of budgetEntities as any[]) {
+        const slug = line.public_entity?.slug;
+        if (slug && !seenSlugs.has(slug)) {
+          seenSlugs.add(slug);
+          urls.push({
+            loc: `/budget-senegal/${slug}`,
+            changefreq: 'monthly',
+            priority: 0.7,
+          });
+        }
+      }
+    } catch (sitemapError) {
+      console.warn('Erreur sitemap budget entités:', sitemapError);
+    }
+
+    // 9. Pages statiques : Laissées à l'auto-découverte de Nuxt Sitemap
     // Le module @nuxtjs/seo va automatiquement inclure toutes les pages du dossier /pages
   } catch (error) {
     console.error('Erreur génération sitemap:', error);
