@@ -61,6 +61,37 @@ Required environment variables (see .env.example):
 
 **⚠️ IMPORTANT**: All URLs must be WITHOUT trailing slash to avoid double-slash issues in the CMS proxy system.
 
+### Conventions de nommage Directus (IMPORTANT — à suivre pour toute nouvelle feature)
+
+> Avant de créer une collection Directus, identifier à quelle **famille** appartient le contenu,
+> puis appliquer la convention correspondante. **Toujours vérifier les noms réels existants**
+> (`grep -rE "read(Items|Item)\(" server/`) plutôt que supposer — certains noms surprennent
+> (ex. les podcasts sont dans `vp_podcasts`, pas `podcasts`).
+
+**Champs** : toujours en **anglais**, `snake_case` (`title`, `slug`, `cover_image`, `publish_date`,
+`seo_title`, `seo_description`, `full_name`, `date_updated`…). Statut de publication = champ `status`
+avec valeurs `draft` / `published` / `archived`.
+
+**Collections** — 3 familles :
+
+| Famille | Convention | Exemples | Quand l'utiliser |
+| --- | --- | --- | --- |
+| **Contenu public principal** | pluriel nu, sans préfixe | `documents`, `news`, `media`, `elections`, `dossiers` | Contenu public de 1er rang destiné aux citoyens. Le nom calque souvent l'URL publique (ex. `/dossiers` → `dossiers`, `/carte` → `carte`). |
+| **Module métier** | `<domaine>_<entité>` (singulier) | `assembly_deputy`, `budget_line`, `state_organization_entity`, `election_coalition`, `public_project`, `public_persons` | Données structurées d'un domaine fonctionnel (assemblée, budget, état, élections, projets). Les tables liées gardent le préfixe du domaine. |
+| **Contenu propre à l'association** | préfixe `vp_` | `vp_podcasts`, `vp_documents`, `vp_team`, `vp_partners`, `vp_social_stats`, `vp_feature_flags` | Contenu/ressources **de l'association Vie Publique** (page « À propos » : leurs documents, leur équipe, partenaires…) + config applicative. **Ne PAS confondre** avec le contenu public du site. |
+
+> ⚠️ Le préfixe `vp_` = « contenu de l'association », **pas** « contenu éditorial du site ».
+> Une page de référence publique (ex. Dossiers) va dans la famille **sans préfixe**.
+
+**Relations Many-to-Many** : un champ M2M par type de contenu lié. Directus crée la table de
+jonction `<collectionA>_<collectionB>` et les clés étrangères `<collection>_id`. Côté serveur,
+on lit la FK de la **cible** (ex. `documents_id`, `news_id`, `vp_podcasts_id`) — voir
+`server/api/dossiers/[slug].get.ts` (`flattenM2M`) comme référence.
+
+**Blocs riches répétables** (FAQ, chronologie, comparatif…) : interface **« Repeater »**
+(section Selection ; anciennement « List ») → crée un champ `json` avec un formulaire propre
+pour les rédacteurs (pas de JSON brut à saisir).
+
 ### Development Workflow
 
 1. **Branch Strategy**: Work on `develop` branch, create PRs to `develop`
@@ -101,6 +132,35 @@ Le projet utilise `@nuxtjs/seo`. Un audit basé uniquement sur le code produit d
 3. `@nuxtjs/seo` fournit des **fallbacks globaux** (og:image, robots, canonical, og:site_name) → « la page ne définit pas X » ≠ « X absent du HTML ».
 4. **2 seules causes réelles de partage social cassé** : (a) meta dans un `watch`/`onMounted` au lieu du scope setup → SSR rend les meta GLOBALES ; (b) concat malformée `` `${siteUrl}${idBrut}` `` (sans slash). Toujours définir `useSeoMeta`/`useHead` **en scope setup avec getters réactifs**, et utiliser `useCmsImageAbsolute()` pour les images CMS.
 5. Avant de « corriger l'indexation » d'une page : vérifier `routeRules` (redirects 301) et `robots.disallow` dans `nuxt.config.ts`.
+
+### UI & Design conventions (IMPORTANT)
+
+> Référence complète : `docs/design.md`. **Lire avant de créer une nouvelle page/section.**
+
+Style cible : **sobre, éditorial, premium** (Google / Apple / Medium / service-public.fr) —
+priorité au contenu, à la lisibilité, au responsive et au SEO. **Pas** de look « template IA /
+dashboard ».
+
+1. **Dark mode — palette « Dim » slate du site (NE PAS changer), surfaces SOLIDES.** Le thème dark
+   est défini **globalement** dans `app/assets/css/app.css` : `.dark body` & `.dark .bg-gray-900` =
+   **`#15202B`**, `.bg-gray-800` = **`#1E2732`** (cartes), `.bg-gray-700` = `#22303C`, accent
+   `#1D9BF0`. C'est la palette voulue — **ne pas la remplacer** par une autre échelle (`neutral`,
+   `zinc`… → rend presque noir et casse la cohérence).
+   - **Fond de page** : `dark:bg-gray-900` (= `#15202B`) ou hériter du body (`dark:bg-transparent`).
+   - **Cartes/surfaces** : `dark:bg-gray-800` (= `#1E2732`, standard `UCard`), anneaux
+     `dark:ring-gray-700`, texte `dark:text-white` / `dark:text-gray-300/400`.
+   - **Pas d'opacité `/50`** sur les grandes surfaces (`dark:bg-gray-800/50`) → aspect délavé bleuté ;
+     utiliser la couleur pleine.
+2. **Sobriété** : éviter l'excès d'icônes colorées, de cartes, de bordures et d'ombres. Préférer
+   l'espace blanc et de fines séparations (`border-t border-gray-100 dark:border-gray-700`).
+3. **Couleurs** : surtout blanc / gris clair / **bleu VP (`sky`, couleur primary)**. Touches
+   vert/jaune/rouge seulement si porteuses de sens (statut). Pas de palette flashy par défaut.
+4. **Icônes de section** optionnelles et discrètes (pas de pastilles colorées). Le titre suffit.
+5. **Largeur de lecture** éditoriale : `max-w-3xl` pour le contenu texte.
+6. **Mobile** : pas de scroll horizontal visible (`scrollbar-hide`), pas de contenu coupé ;
+   transformer les tableaux larges en blocs empilés.
+7. **Réutiliser les composants existants** plutôt que recréer : documents →
+   `DocumentsDocumentListItem` ; fil d'ariane → `AppBreadcrumb` ; images CMS → `CmsImage`.
 
 ### Performance Considerations
 
