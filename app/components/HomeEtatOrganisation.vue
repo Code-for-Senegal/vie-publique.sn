@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { EtatOrganisationOverview } from '~~/types/etat-organisation';
 
-// Endpoint léger (mis en cache côté serveur) : fournit le décret en vigueur
-// et les compteurs par type. Évite le fetch lourd des entités utilisé par la page.
+// Endpoint léger (mis en cache côté serveur) : le décret en vigueur + les
+// compteurs par type, désormais calculés sur le snapshot du décret actif
+// (même logique que EtatOrganisationStatsGrid). Évite le fetch lourd des entités.
 const { data: overview } = await useAsyncData<EtatOrganisationOverview>(
   'home-etat-organisation-overview',
   () => $fetch('/api/etat-organisation/overview'),
@@ -34,13 +35,19 @@ const TYPE_COLORS: Record<string, string> = {
   societe_participation_publique:
     'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-400',
 };
+const PLURAL_LABELS: Record<string, string> = {
+  ministere: 'Ministères',
+  etablissement_public: 'Établissements publics',
+  societe_nationale: 'Sociétés nationales',
+  societe_participation_publique: 'Sociétés à participation publique',
+};
 
 const stats = computed(() => {
   const types = overview.value?.stats?.types ?? [];
   const byCode = new Map(types.map((t) => [t.code, t]));
   return STAT_TYPES.filter((code) => byCode.has(code)).map((code) => ({
     code,
-    label: byCode.get(code)!.label,
+    label: PLURAL_LABELS[code] || byCode.get(code)!.label,
     count: byCode.get(code)!.count,
     icon: TYPE_ICONS[code] || 'i-heroicons-building-office',
     color: TYPE_COLORS[code] || 'bg-gray-100 text-gray-500',

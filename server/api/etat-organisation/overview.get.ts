@@ -68,7 +68,7 @@ export default defineCachedEventHandler(
       ? (orderedDecrees.find(d => d.id === truePrevId) ?? orderedDecrees.find(d => d.id !== activeDecree.id) ?? null)
       : (orderedDecrees.find(d => d.id !== activeDecree.id) ?? null)
 
-    const [allTypes, publicEntities, allChanges, recentChanges] = await Promise.all([
+    const [allTypes, activeSnapshots, allChanges, recentChanges] = await Promise.all([
       cmsClient.request(
         readItems('state_organization_entity_type', {
           fields: ['id', 'code', 'label'],
@@ -76,9 +76,17 @@ export default defineCachedEventHandler(
           limit: -1,
         }),
       ),
+      // Compter à partir du snapshot du décret actif (même logique que la page
+      // /etat-senegal/organisation), et non du total brut des entités en base.
       cmsClient.request(
-        readItems('state_organization_entity', {
-          fields: ['id', 'has_public_page', 'entity_type.code'],
+        readItems('state_organization_entity_snapshot', {
+          filter: { decree: { _eq: activeDecree.id } },
+          fields: [
+            'id',
+            'public_entity.id',
+            'public_entity.has_public_page',
+            'public_entity.entity_type.code',
+          ],
           limit: -1,
         }),
       ),
@@ -122,15 +130,31 @@ export default defineCachedEventHandler(
         : Promise.resolve([]),
     ])
 
-    const totalEntities = Array.isArray(publicEntities) ? publicEntities.length : 0
-    const publicPages = Array.isArray(publicEntities)
-      ? publicEntities.filter((entity: any) => entity.has_public_page === true).length
-      : 0
+    // Déduplication par public_entity (un snapshot par entité dans le décret actif)
+    type SnapshotRow = {
+      public_entity?: {
+        id?: string | number
+        has_public_page?: boolean
+        entity_type?: { code?: string }
+      } | null
+    }
+    const entityById = new Map<string, { has_public_page: boolean; type_code: string }>()
+    for (const snapshot of (activeSnapshots as SnapshotRow[]) || []) {
+      const entity = snapshot?.public_entity
+      const entityId = entity?.id != null ? String(entity.id) : null
+      if (!entityId || entityById.has(entityId)) continue
+      entityById.set(entityId, {
+        has_public_page: entity?.has_public_page === true,
+        type_code: entity?.entity_type?.code || 'other',
+      })
+    }
+
+    const totalEntities = entityById.size
+    const publicPages = Array.from(entityById.values()).filter(e => e.has_public_page).length
 
     const typeCounts = new Map<string, number>()
-    for (const entity of publicEntities as any[]) {
-      const code = entity?.entity_type?.code || 'other'
-      typeCounts.set(code, (typeCounts.get(code) || 0) + 1)
+    for (const entity of entityById.values()) {
+      typeCounts.set(entity.type_code, (typeCounts.get(entity.type_code) || 0) + 1)
     }
 
     const typeStats = (allTypes as any[])
