@@ -13,6 +13,12 @@ export interface DocumentsOptions {
   /** Nombre d'items par page */
   limit?: number;
 
+  /** Filtre année initial (ex: '2026'). Appliqué AVANT le premier fetch pour le SSR */
+  year?: string;
+
+  /** Filtre famille initial (ex: 'statistics'). Appliqué AVANT le premier fetch pour le SSR */
+  family?: string;
+
   /** Synchroniser avec l'URL */
   syncUrl?: boolean;
 }
@@ -87,13 +93,15 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
   });
 
   // Gestion du filtre par année
-  const yearFilter = ref<string>('all');
+  // Initialisé via options.year pour que le PREMIER fetch (SSR inclus) soit déjà filtré.
+  const yearFilter = ref<string>(options.year || 'all');
 
   // Gestion du filtre par organisme d'audit
   const auditInstitutionFilter = ref<string>('');
 
   // Gestion du filtre par famille de documents
-  const familyFilter = ref<string>('all');
+  // Initialisé via options.family pour que le PREMIER fetch (SSR inclus) soit déjà filtré.
+  const familyFilter = ref<string>(options.family || 'all');
 
   // Lecture des filtres depuis l'URL
   onMounted(() => {
@@ -197,6 +205,17 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
   // Computed pour compatibilité avec l'ancien code
   const totalItems = computed(() => collection.pagination.value?.total || 0);
   const totalPages = computed(() => collection.pagination.value?.totalPages || 1);
+
+  // Recalage des pages hors-limites.
+  // Si l'URL demande une page > totalPages (ex: ?page=3 alors que la collection
+  // filtrée ne contient qu'1 page), le CMS renvoie un tableau vide et l'UI
+  // afficherait « Aucun résultat » à tort, sans pagination pour revenir en arrière.
+  // On recale donc sur la dernière page valide une fois les données chargées.
+  watch([totalPages, collection.loading], () => {
+    if (!collection.loading.value && state.currentPage.value > totalPages.value) {
+      state.currentPage.value = totalPages.value;
+    }
+  });
 
   const setAuditInstitutionFilter = (value: string) => {
     auditInstitutionFilter.value = value;

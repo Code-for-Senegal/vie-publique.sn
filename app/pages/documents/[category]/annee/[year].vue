@@ -168,16 +168,15 @@ const {
   totalPages,
   itemsPerPage,
   searchQuery,
-  yearFilter,
   setSearchQuery,
   setCurrentPage,
 } = useDocuments({
   type: config.type,
   limit: 10,
+  // Passé à l'init pour que le premier fetch (SSR) soit déjà filtré par année.
+  // Mutation tardive (yearFilter.value = year après coup) = SSR désynchronisé → page blanche en accès direct.
+  year,
 });
-
-// Forcer le filtre année
-yearFilter.value = year;
 
 const currentPageUI = computed({
   get: () => currentPage.value,

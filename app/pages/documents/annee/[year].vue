@@ -55,13 +55,14 @@ const {
   totalItems,
   totalPages,
   itemsPerPage,
-  yearFilter,
   setSearchQuery,
   setCurrentPage,
-} = useDocuments({ limit: 10 });
-
-// Forcer le filtre année
-yearFilter.value = year;
+} = useDocuments({
+  limit: 10,
+  // Passé à l'init pour que le premier fetch (SSR) soit déjà filtré par année.
+  // Mutation tardive (yearFilter.value = year après coup) = SSR vide → page blanche en accès direct.
+  year,
+});
 
 const currentPageUI = computed({
   get: () => currentPage.value,
@@ -121,8 +122,7 @@ const yearExists = computed(() => {
               Documents — {{ year }}
             </h2>
             <p class="text-xs text-gray-500 dark:text-gray-400">
-              {{ totalItems }} document{{ totalItems > 1 ? 's' : '' }}
-              publiés en {{ year }}
+              {{ totalItems }} document{{ totalItems > 1 ? 's' : '' }} publiés en {{ year }}
             </p>
           </div>
         </div>

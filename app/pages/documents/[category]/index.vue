@@ -271,7 +271,6 @@ const {
   searchQuery,
   filterValue: selectedFilter,
   yearFilter,
-  familyFilter,
   totalItems,
   totalPages,
   itemsPerPage,
@@ -281,12 +280,10 @@ const {
 } = useDocuments({
   type: config.type || undefined,
   limit: 10,
+  // Passé à l'init pour que le premier fetch (SSR) soit déjà filtré par famille.
+  // Mutation tardive (familyFilter.value = ... après coup) = SSR vide en accès direct.
+  family: config.family || undefined,
 });
-
-// Si la catégorie filtre par famille, appliquer le filtre
-if (config.family) {
-  familyFilter.value = config.family;
-}
 
 const currentPageUI = computed({
   get: () => currentPage.value,
