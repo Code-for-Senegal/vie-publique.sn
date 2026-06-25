@@ -38,8 +38,8 @@ const sections = computed(() => {
   const d = dossier.value;
   if (!d) return [];
   const list: { id: string; label: string }[] = [];
+  if (has(d.highlights)) list.push({ id: 'a-retenir', label: 'À retenir' });
   if (d.intro_html || d.content_html) list.push({ id: 'introduction', label: 'Introduction' });
-  if (has(d.highlights)) list.push({ id: 'nouveautes', label: 'Nouveautés' });
   if (has(d.documents)) list.push({ id: 'documents', label: 'Documents' });
   if (has(d.comparison)) list.push({ id: 'comparatif', label: 'Comparatif' });
   if (has(d.timeline)) list.push({ id: 'chronologie', label: 'Chronologie' });
@@ -224,7 +224,17 @@ useHead({
 
           <!-- Sections -->
           <div class="mt-8 space-y-8 sm:mt-10 sm:space-y-10">
-            <!-- 1. Introduction éditoriale + contenu riche -->
+            <!-- 1. À retenir : résumé rapide / repères clés, AVANT le contenu détaillé -->
+            <DossierSection
+              id="a-retenir"
+              title="À retenir"
+              description="Les informations essentielles du dossier en un coup d'œil"
+              :empty="!has(dossier.highlights)"
+            >
+              <DossierHighlights :items="dossier.highlights!" />
+            </DossierSection>
+
+            <!-- 2. Introduction éditoriale + contenu riche -->
             <DossierSection
               id="introduction"
               title="Introduction"
@@ -240,15 +250,6 @@ useHead({
                 class="prose prose-base mt-6 max-w-none text-gray-700 dark:prose-invert prose-headings:font-semibold prose-h2:mt-8 prose-p:leading-relaxed prose-a:text-sky-600 prose-img:rounded-xl dark:text-gray-300 dark:prose-a:text-sky-400"
                 v-html="dossier.content_html"
               />
-            </DossierSection>
-
-            <!-- 2. Principales nouveautés -->
-            <DossierSection
-              id="nouveautes"
-              title="Principales nouveautés"
-              :empty="!has(dossier.highlights)"
-            >
-              <DossierHighlights :items="dossier.highlights!" />
             </DossierSection>
 
             <!-- 3. Documents liés -->

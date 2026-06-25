@@ -39,8 +39,8 @@ Chaque section ne s'affiche **que si elle est renseignée** (gestion des relatio
 
 1. **Hero** — titre, résumé, cover, dates (publication / mise à jour)
 2. **Sommaire** — ancres vers les sections présentes
-3. **Introduction** — `intro_html` + `content_html`
-4. **Principales nouveautés** — `highlights`
+3. **À retenir** — `highlights` (résumé rapide / repères clés, affiché **avant** le contenu détaillé)
+4. **Introduction** — `intro_html` + `content_html`
 5. **Documents liés** — relation `documents`
 6. **Comparatif** — `comparison`
 7. **Chronologie** — `timeline`

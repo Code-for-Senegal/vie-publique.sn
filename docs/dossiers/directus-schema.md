@@ -55,7 +55,7 @@ aux rédacteurs un formulaire clair (bouton + Ajouter / supprimer, glisser-dépo
 
 | Champ (clé) | Sous-champs du repeater | Usage |
 | --- | --- | --- |
-| `highlights` | `title` (Input, requis), `description` (Textarea) | Principales nouveautés |
+| `highlights` | `title` (Input, requis), `description` (Textarea) | « À retenir » — repères / résumé rapide (infos de contexte, pas forcément des nouveautés) |
 | `faq` | `question` (Input, requis), `answer` (WYSIWYG ou Textarea) | FAQ (génère le JSON-LD `FAQPage`) |
 | `timeline` | `date` (Input — ISO `2026-03-12` **ou** libellé « Mars 2026 »), `title` (Input, requis), `description` (Textarea) | Chronologie |
 | `comparison` | `label` (Input, requis), `before` (Textarea), `after` (Textarea) | Comparatif ancien/nouveau |
