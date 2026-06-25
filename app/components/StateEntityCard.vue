@@ -15,7 +15,7 @@ const entityLink = computed(() =>
 
 <template>
   <div
-    class="border-b border-gray-200 dark:border-gray-700 py-3 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors px-2"
+    class="border-b border-gray-200 dark:border-gray-700 py-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors px-2"
     :class="{ 'cursor-pointer': isClickable }"
   >
     <div class="flex items-center justify-between gap-4">

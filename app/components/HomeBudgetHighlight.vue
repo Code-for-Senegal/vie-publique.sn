@@ -56,7 +56,7 @@ const badgeColors: Record<string, 'orange' | 'green' | 'red'> = {
 <template>
   <div class="my-4">
     <UCard
-      class="overflow-hidden border-0 bg-white shadow-sm transition-shadow hover:shadow-md dark:bg-gray-800/50"
+      class="overflow-hidden border-0 bg-white shadow-sm transition-shadow hover:shadow-md dark:bg-gray-800"
       :ui="{ body: { padding: 'p-4 sm:p-6' } }"
     >
       <!-- Header -->

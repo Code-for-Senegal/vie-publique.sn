@@ -38,7 +38,7 @@ provide('treeCollapseAll', collapseAll);
     <!-- Empty -->
     <div
       v-else-if="!treeRoots.length"
-      class="rounded-xl border border-gray-200 bg-white py-10 text-center dark:border-gray-700 dark:bg-gray-800/50"
+      class="rounded-xl border border-gray-200 bg-white py-10 text-center dark:border-gray-700 dark:bg-gray-800"
     >
       <UIcon name="i-heroicons-building-office" class="mx-auto mb-2 h-10 w-10 text-gray-300" />
       <p class="text-sm text-gray-500">Aucune donnée disponible.</p>
@@ -47,7 +47,7 @@ provide('treeCollapseAll', collapseAll);
     <!-- Tree -->
     <div
       v-else
-      class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800/50"
+      class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800"
     >
       <EtatOrganisationTreeItem
         v-for="root in treeRoots"

@@ -101,7 +101,7 @@ const linkComponent = resolveComponent('NuxtLink')
     </div>
 
     <!-- Recent change list (top ~8) -->
-    <ul class="divide-y divide-gray-100 rounded-xl border border-gray-200 bg-white dark:divide-gray-700/50 dark:border-gray-700 dark:bg-gray-800/50">
+    <ul class="divide-y divide-gray-100 rounded-xl border border-gray-200 bg-white dark:divide-gray-700/50 dark:border-gray-700 dark:bg-gray-800">
       <li
         v-for="change in recentChanges.slice(0, 8)"
         :key="change.id"
