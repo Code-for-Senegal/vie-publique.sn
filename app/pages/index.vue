@@ -166,6 +166,8 @@ useHead({
 
 // Utilisation du composable centralisé pour les données de navigation
 const { navigationCards } = useNavigationCards();
+
+const { isFeatureEnabled } = useFeatureFlags();
 </script>
 
 <template>
@@ -182,11 +184,9 @@ const { navigationCards } = useNavigationCards();
 
     <HomeQuickAccess :navigation-cards="navigationCards" />
 
-
     <div class="">
-
-       <div class="my-8">
-          <HomeAppPromo />
+      <div class="my-8">
+        <HomeAppPromo />
       </div>
 
       <div class="my-8">
@@ -194,17 +194,25 @@ const { navigationCards } = useNavigationCards();
       </div>
 
       <div class="my-8">
+        <HomeDossiers />
+      </div>
+
+      <div v-if="isFeatureEnabled('menu_organigramme_etat')" class="my-8">
+        <HomeEtatOrganisation />
+      </div>
+
+      <div class="my-8">
         <HomeGovernmentHighlight />
       </div>
 
-       <div class="my-8">
+      <div class="my-8">
         <HomeNews />
       </div>
 
       <div class="my-8">
         <HomeBudgetHighlight />
       </div>
-     <div class="my-8">
+      <div class="my-8">
         <HomePodcasts />
       </div>
       <div class="my-8">
