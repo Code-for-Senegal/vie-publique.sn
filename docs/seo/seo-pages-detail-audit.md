@@ -7,6 +7,50 @@
 
 ---
 
+## 0. ⚠️ Méthodologie de diagnostic SEO — À LIRE AVANT TOUTE ANALYSE
+
+**Leçon apprise (juin 2026)** : un premier audit basé uniquement sur la lecture du code a produit
+**plusieurs faux diagnostics**. Toujours suivre ces règles avant de conclure qu'une page a un bug SEO.
+
+### Règle 0 — Vérifier le HTML SSR de PROD avant de conclure
+Ne jamais déduire un bug de partage/indexation à partir du seul code. Le module `@nuxtjs/seo`
+transforme la sortie. Toujours confirmer avec :
+```bash
+curl -sL -A "facebookexternalhit/1.1" "https://www.vie-publique.sn/<page>" \
+  | grep -iE 'og:|twitter:|canonical|robots'
+```
+
+### Règle 1 — `@nuxtjs/seo` ABSOLUTISE les `og:image` relatives
+`useCmsImage(id)` renvoie `/cms/<id>` (relatif), mais le HTML servi contient
+`https://www.vie-publique.sn/cms/<id>`. → **Une `og:image` relative `/cms/...` n'est PAS un bug.**
+
+### Règle 2 — `@nuxtjs/seo` fournit des FALLBACKS globaux
+Quand une page ne définit pas `og:image`, `robots`, `canonical` ou `og:site_name`, le module met une
+valeur globale. → **« la page ne définit pas X » ≠ « X est absent du HTML »**. Une page sans `ogImage`
+propre affiche quand même l'image générique `share-linkedin.png`.
+
+### Règle 3 — Il n'existe que 2 causes réelles de partage social CASSÉ
+1. **Meta dans un `watch`/`onMounted`** (pas en scope setup) → SSR rend `og:title`+`og:url`+`og:image`
+   **globaux** (aperçu = page d'accueil). C'est le SEUL cas où tout est faux.
+2. **Concat absolue malformée** `` `${siteUrl}${idBrut}` `` → `https://…<id>` (pas de slash) → le module
+   ne corrige pas (déjà « absolu ») → image cassée.
+   - ✅ `` `${siteUrl}${useCmsImage(id)}` `` → `https://…/cms/<id>` (slash présent) = OK
+   - ✅ `useCmsImage(id)` seul = OK (absolutisé par le module)
+   - ❌ `` `${siteUrl}${id}` `` = cassé
+
+### Règle 4 — Avant de « corriger l'indexation » d'une page, vérifier 2 choses
+- **`routeRules` (redirects 301)** dans `nuxt.config.ts` : si la page est redirigée, elle ne rend rien
+  → ne pas la « corriger » (ex. `rapport-senegal/**` → `/documents/rapports-audit`).
+- **`robots.disallow`** dans `nuxt.config.ts` : si la page y est listée, elle est **volontairement non
+  indexée** → ne pas ajouter `index,follow` sans décision produit (ex. `/projets-publics-senegal/**`).
+
+### Règle 5 — Distinguer « bug » vs « amélioration »
+- **Bug** = aperçu faux/cassé (cause 1 ou 2 ci-dessus).
+- **Amélioration** = aperçu fonctionne mais image générique au lieu d'une image dédiée, ou `og:url`
+  manquant qui retombe sur la home. Réel, mais à prioriser après les bugs.
+
+---
+
 ## 1. Comment c'est testé
 
 On récupère le HTML **réellement servi par le serveur** (ce que voit un crawler), pas le DOM après JS :
@@ -75,32 +119,33 @@ Le module **`@nuxtjs/seo` fait deux choses automatiquement** :
 
 | Page | Bug réel | Correctif |
 |---|---|---|
-| `actualites/[id]/[slug]` | Meta dans `watch(immediate)` → SSR rendait les meta **globales** (vérifié en prod ci-dessus) | Meta déplacées en scope setup, getters réactifs |
+| `actualites/[id]/[slug]` | Meta dans `watch(immediate)` → SSR rendait les meta **globales** (vérifié en prod) | Meta déplacées en scope setup, getters réactifs |
 | `conseil-des-ministres/[id]/[slug]` | `og:image` = `` `${siteUrl}${cover_image}` `` (ID brut → URL collée cassée) + fallback `.jfif` | `useCmsImageAbsolute()` + fallback `.jpg` |
+| `podcasts/[id]/[slug]` | Meta dans `watch(immediate)` → SSR rendait les meta **globales** (vérifié en prod) | Meta déplacées en scope setup, getters réactifs |
+| `budget-senegal/[slug]` | Pas d'`ogImage`/`twitterImage` → image générique globale | `ogImage`/`twitterImage` = `vpsn-share-budget.png` (statique, pas de logo en base) |
 
-> Non encore déployées → la prod montre toujours l'ancien comportement pour `actualites`.
+> Non encore déployées → la prod montre toujours l'ancien comportement tant que ce n'est pas déployé.
+
+### Pages SANS action requise (vérifié)
+
+| Page | Raison |
+|---|---|
+| `rapport-senegal/[slug]` | Redirigée **301** vers `/documents/rapports-audit` (`nuxt.config.ts` routeRules) → ne rend rien |
+| `projets-publics-senegal/[slug]` | Dans `robots.disallow` (`nuxt.config.ts`) → **volontairement non indexée**. `og:url`/`ogImage` manquants mais ne pas « corriger » sans décision produit. ⚠️ Incohérence à trancher : la page est aussi dans le **sitemap** (`__sitemap__/urls.ts`) tout en étant disallow. |
 
 ---
 
 ## 5. Bugs restants, par priorité (révisés après tests prod)
 
-### 🔴 Critique — meta dans un `watch`/`onMounted` → aperçu social entièrement faux
+### 🔴 Critique — pages sans structure SEO propre (à implémenter)
 
-- **`podcasts/[id]/[slug]`** — meta dans un `watch` (même bug qu'`actualites`). **Confirmé en prod** :
-  `og:title`/`og:url`/`og:image` = valeurs globales. → Déplacer en scope setup avec getters.
-- **`rapport-senegal/[slug]`** — `useHead` dans `onMounted`, données chargées **côté client**
-  (import JSON) → SSR vide. ⚠️ Page **legacy redirigée 301** (`seo-audit.md`) → confirmer si encore
-  atteignable avant d'investir.
+- **`assemblee-nationale/groupes/[id]/[name]`** — **aucune** meta SEO (ni `useSeoMeta`, ni `useHead`,
+  ni Schema.org). À implémenter (modèle : `commissions/[id]`). *(non vérifié en prod, à confirmer)*
+- **`assemblee-nationale/votes/[id]`** — pas de `useSeoMeta` (og:* tombent sur le global), JSON-LD
+  figé (pas `computed`). À compléter. *(non vérifié en prod, à confirmer)*
 
-### 🟠 Important — `og:*` partiellement manquants (retombent sur le global)
-
-- **`projets-publics-senegal/[slug]`** — `og:title` OK mais **pas d'`ogUrl`** (→ pointe vers la home),
-  pas d'`ogImage` propre, pas de Schema.org. Ajouter `ogUrl`, `ogImage` (fallback), JSON-LD.
-- **`budget-senegal/[slug]`** — pas d'`ogImage`/`twitterImage` → image générique. Ajouter au minimum
-  `${siteUrl}/images/vpsn-share-budget.png`, idéalement le logo de l'entité via `useCmsImageAbsolute()`.
-- **`assemblee-nationale/votes/[id]`** — pas de `useSeoMeta` (donc og:* globaux), JSON-LD figé.
-- **`assemblee-nationale/groupes/[id]/[name]`** — **aucune** meta SEO. À implémenter (modèle :
-  `commissions/[id]`).
+> ✅ `podcasts` et `budget` étaient ici → **corrigés** (voir § 4).
+> ⚠️ `projets-publics-senegal` et `rapport-senegal` → **pas d'action** (voir § 4 : disallow / 301).
 
 ### 🟡 À améliorer (fonctionne, mais perfectible)
 
@@ -167,15 +212,19 @@ Pour que **toi** puisses re-tester après déploiement (et vider les caches soci
 
 ## 8. Checklist d'intervention (prochaine session)
 
-### 🔴 Critique
-- [ ] `podcasts/[id]/[slug]` — sortir meta du `watch` → scope setup (modèle `actualites` corrigé)
-- [ ] `rapport-senegal/[slug]` — confirmer statut 301 ; sinon migrer en fetch SSR + meta setup
+### ✅ Fait (juin 2026)
+- [x] `actualites/[id]/[slug]` — meta sorties du `watch` → scope setup
+- [x] `conseil-des-ministres/[id]/[slug]` — `useCmsImageAbsolute` + fallback `.jpg`
+- [x] `podcasts/[id]/[slug]` — meta sorties du `watch` → scope setup
+- [x] `budget-senegal/[slug]` — `ogImage`/`twitterImage` = `vpsn-share-budget.png`
+
+### 🔴 Critique (restant)
 - [ ] `assemblee-nationale/groupes/[id]/[name]` — implémenter meta SEO complètes
 - [ ] `assemblee-nationale/votes/[id]` — ajouter `useSeoMeta` + JSON-LD réactif
 
-### 🟠 og:* manquants
-- [ ] `projets-publics-senegal/[slug]` — `ogUrl` + `ogImage` + Schema.org
-- [ ] `budget-senegal/[slug]` — `ogImage`/`twitterImage` (fallback ou logo entité)
+### ❓ Décision produit (ne pas corriger sans validation)
+- [ ] `projets-publics-senegal/[slug]` — trancher : indexer (retirer du `robots.disallow` + compléter
+  SEO) ou non (retirer du sitemap pour lever l'incohérence)
 
 ### 🟡 Améliorations
 - [ ] `documents/[id]/[slug]` — fallback og:image par type + `article:published_time`

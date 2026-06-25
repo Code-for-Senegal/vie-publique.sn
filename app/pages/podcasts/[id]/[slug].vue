@@ -167,60 +167,53 @@ const formatViews = (count?: number) => {
   return count.toString();
 };
 
-// SEO setup
-watch(
-  [podcast, route],
-  () => {
-    if (podcast.value) {
-      useSeoMeta({
-        title: title.value,
-        ogTitle: title.value,
-        description: description.value,
-        ogDescription: description.value,
-        ogImage: image.value,
-        ogUrl: url.value,
-        ogType: 'video.other',
-        twitterCard: 'summary_large_image',
-        twitterTitle: title.value,
-        twitterDescription: description.value,
-        twitterImage: image.value,
-        keywords: [
-          ...keywords,
-          ...(podcast.value.tags || []),
-          'podcast Sénégal',
-          'Vie Publique',
-        ]
-          .filter(Boolean)
-          .join(', '),
-      });
+// SEO setup — défini en scope setup avec des getters réactifs pour être rendu côté serveur
+// (les crawlers sociaux ne lisent que le HTML SSR).
+// NE PAS remettre dans un watch : pendant le SSR, un watch immédiat s'exécute avant que
+// `podcast` soit chargé → les meta retombent sur les valeurs globales par défaut.
+useSeoMeta({
+  title: () => title.value,
+  ogTitle: () => title.value,
+  description: () => description.value,
+  ogDescription: () => description.value,
+  ogImage: () => image.value,
+  ogImageAlt: () => podcast.value?.title || siteName,
+  ogUrl: () => url.value,
+  ogType: 'video.other',
+  twitterCard: 'summary_large_image',
+  twitterTitle: () => title.value,
+  twitterDescription: () => description.value,
+  twitterImage: () => image.value,
+  keywords: () =>
+    [...keywords, ...(podcast.value?.tags || []), 'podcast Sénégal', 'Vie Publique']
+      .filter(Boolean)
+      .join(', '),
+});
 
-      useHead({
-        htmlAttrs: { lang: 'fr-SN' },
-        link: [{ rel: 'canonical', href: url.value }],
-        meta: [
-          { name: 'theme-color', content: themeColor },
-          { name: 'author', content: siteName },
-          { property: 'og:site_name', content: siteName },
-          { property: 'og:video', content: youtubeEmbedUrl.value },
-          { name: 'robots', content: 'index, follow' },
-        ],
-        script: [
-          videoSchema.value
-            ? {
-                type: 'application/ld+json',
-                children: JSON.stringify(videoSchema.value),
-              }
-            : null,
-          {
+useHead({
+  htmlAttrs: { lang: 'fr-SN' },
+  link: () => [{ rel: 'canonical', href: url.value }],
+  meta: [
+    { name: 'theme-color', content: themeColor },
+    { name: 'author', content: siteName },
+    { property: 'og:site_name', content: siteName },
+    { property: 'og:video', content: () => youtubeEmbedUrl.value },
+    { name: 'robots', content: 'index, follow, max-image-preview:large' },
+  ],
+  script: () =>
+    [
+      videoSchema.value
+        ? {
             type: 'application/ld+json',
-            children: JSON.stringify(breadcrumbSchema.value),
-          },
-        ].filter(Boolean),
-      });
-    }
-  },
-  { immediate: true, deep: true },
-);
+            children: JSON.stringify(videoSchema.value),
+          }
+        : null,
+      {
+        type: 'application/ld+json',
+        children: JSON.stringify(breadcrumbSchema.value),
+      },
+    ].filter(Boolean),
+});
 </script>
 
 <template>

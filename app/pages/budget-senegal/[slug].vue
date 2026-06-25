@@ -29,6 +29,9 @@ const description = computed(() =>
     : "Budget de l'État du Sénégal",
 );
 
+// Pas de logo en base pour les entités budget → image de partage statique dédiée
+const image = computed(() => `${siteUrl}/images/vpsn-share-budget.png`);
+
 const url = computed(() => `${siteUrl}/budget-senegal/${slug}`);
 
 // SEO Setup
@@ -37,10 +40,13 @@ useSeoMeta({
   ogTitle: () => title.value,
   description: () => description.value,
   ogDescription: () => description.value,
+  ogImage: () => image.value,
+  ogImageAlt: () => (entity.value ? `Budget ${entity.value.name}` : "Budget de l'État du Sénégal"),
   ogUrl: () => url.value,
   twitterCard: 'summary_large_image',
   twitterTitle: () => title.value,
   twitterDescription: () => description.value,
+  twitterImage: () => image.value,
   keywords: () =>
     [
       ...keywords,
