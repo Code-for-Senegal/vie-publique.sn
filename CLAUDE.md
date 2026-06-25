@@ -90,6 +90,18 @@ Required environment variables (see .env.example):
 3. **SEO Optimization**: Use `useSeoMeta()` and `useHead()` in pages
 4. **Error Handling**: Wrap API calls in try-catch, use `showError()` for user feedback
 
+### SEO & Open Graph — règles de diagnostic (IMPORTANT)
+
+> Référence complète : `docs/seo/seo-pages-detail-audit.md` (§0 Méthodologie), `docs/seo/seo-indexation-rapide.md`, `docs/seo/seo-audit.md`. **Lire ces docs avant tout audit/modif SEO.**
+
+Le projet utilise `@nuxtjs/seo`. Un audit basé uniquement sur le code produit de **faux diagnostics**. Règles :
+
+1. **Vérifier le HTML SSR de PROD avant de conclure** : `curl -sL -A "facebookexternalhit/1.1" <url> | grep -iE 'og:|twitter:|canonical|robots'`. Ne jamais déduire un bug du seul code.
+2. `@nuxtjs/seo` **absolutise** les `og:image` relatives : `useCmsImage(id)` (`/cms/<id>`) devient absolu dans le HTML → une og:image relative `/cms/...` **n'est PAS un bug**.
+3. `@nuxtjs/seo` fournit des **fallbacks globaux** (og:image, robots, canonical, og:site_name) → « la page ne définit pas X » ≠ « X absent du HTML ».
+4. **2 seules causes réelles de partage social cassé** : (a) meta dans un `watch`/`onMounted` au lieu du scope setup → SSR rend les meta GLOBALES ; (b) concat malformée `` `${siteUrl}${idBrut}` `` (sans slash). Toujours définir `useSeoMeta`/`useHead` **en scope setup avec getters réactifs**, et utiliser `useCmsImageAbsolute()` pour les images CMS.
+5. Avant de « corriger l'indexation » d'une page : vérifier `routeRules` (redirects 301) et `robots.disallow` dans `nuxt.config.ts`.
+
 ### Performance Considerations
 
 - PWA enabled with service worker

@@ -185,110 +185,110 @@ const formatDateISO = (date: string) => {
   return new Date(date).toISOString();
 };
 
-// SEO setup
-watch(
-  [article, route],
-  () => {
-    if (article.value) {
-      // SEO Meta Tags
-      useSeoMeta({
-        title: title.value,
-        ogTitle: title.value,
-        description: description.value,
-        ogDescription: description.value,
-        ogImage: image.value,
-        ogUrl: url.value,
-        twitterCard: 'summary_large_image',
-        twitterTitle: title.value,
-        twitterDescription: description.value,
-        twitterImage: image.value,
-        keywords: [
-          ...keywords,
-          ...(article.value.tags || []),
-          'actualités République Sénégal',
-          'news Sénégal',
-          article.value.category?.name || '',
-        ]
-          .filter(Boolean)
-          .join(', '),
-      });
+// SEO setup — défini dans le scope setup avec des getters réactifs pour être rendu
+// correctement côté serveur (les crawlers sociaux ne lisent que le HTML SSR).
+// NE PAS remettre dans un watch : pendant le SSR, un watch immédiat s'exécute avant que
+// `article` soit chargé → les meta retombent sur les valeurs globales par défaut.
+useSeoMeta({
+  title: () => title.value,
+  ogTitle: () => title.value,
+  description: () => description.value,
+  ogDescription: () => description.value,
+  ogImage: () => image.value,
+  ogImageAlt: () => article.value?.title || siteName,
+  ogUrl: () => url.value,
+  twitterCard: 'summary_large_image',
+  twitterTitle: () => title.value,
+  twitterDescription: () => description.value,
+  twitterImage: () => image.value,
+  keywords: () =>
+    [
+      ...keywords,
+      ...(article.value?.tags || []),
+      'actualités République Sénégal',
+      'news Sénégal',
+      article.value?.category?.name || '',
+    ]
+      .filter(Boolean)
+      .join(', '),
+});
 
-      // Head Configuration
-      useHead({
-        htmlAttrs: { lang: 'fr-SN' },
-        link: [
-          { rel: 'canonical', href: url.value },
-          article.value.document?.file
-            ? {
-                rel: 'alternate',
-                type: 'application/pdf',
-                href: pdfUrl.value,
-              }
-            : null,
-        ].filter(Boolean),
-        meta: [
-          { name: 'theme-color', content: themeColor },
-          { name: 'author', content: siteName },
-          { property: 'og:type', content: 'article' },
-          { property: 'og:site_name', content: siteName },
-          {
-            property: 'article:published_time',
-            content: formatDateISO(article.value.date_published),
-          },
-          {
-            property: 'article:modified_time',
-            content: article.value.date_updated
-              ? formatDateISO(article.value.date_updated)
-              : formatDateISO(article.value.date_published),
-          },
-          { property: 'article:author', content: siteName },
-          {
-            property: 'article:section',
-            content: article.value.category?.name || 'Actualités',
-          },
-          {
-            property: 'article:tag',
-            content: article.value.tags?.join(', ') || '',
-          },
-          { name: 'robots', content: 'index, follow' },
-          { name: 'geo.region', content: 'SN' },
-          { name: 'geo.placename', content: 'Dakar' },
-          { name: 'geo.position', content: '14.7645042;-17.3660286' },
-          { name: 'ICBM', content: '14.7645042, -17.3660286' },
-          {
-            name: 'news_keywords',
-            content: article.value.tags?.join(', ') || 'République du Sénégal',
-          },
-        ],
-        script: [
-          articleSchema.value
-            ? {
-                type: 'application/ld+json',
-                children: JSON.stringify(articleSchema.value),
-              }
-            : null,
-          {
+useHead({
+  htmlAttrs: { lang: 'fr-SN' },
+  link: () =>
+    [
+      { rel: 'canonical', href: url.value },
+      article.value?.document?.file
+        ? {
+            rel: 'alternate',
+            type: 'application/pdf',
+            href: pdfUrl.value,
+          }
+        : null,
+    ].filter(Boolean),
+  meta: [
+    { name: 'theme-color', content: themeColor },
+    { name: 'author', content: siteName },
+    { property: 'og:type', content: 'article' },
+    { property: 'og:site_name', content: siteName },
+    {
+      property: 'article:published_time',
+      content: () => (article.value ? formatDateISO(article.value.date_published) : ''),
+    },
+    {
+      property: 'article:modified_time',
+      content: () =>
+        article.value
+          ? article.value.date_updated
+            ? formatDateISO(article.value.date_updated)
+            : formatDateISO(article.value.date_published)
+          : '',
+    },
+    { property: 'article:author', content: siteName },
+    {
+      property: 'article:section',
+      content: () => article.value?.category?.name || 'Actualités',
+    },
+    {
+      property: 'article:tag',
+      content: () => article.value?.tags?.join(', ') || '',
+    },
+    { name: 'robots', content: 'index, follow, max-image-preview:large' },
+    { name: 'geo.region', content: 'SN' },
+    { name: 'geo.placename', content: 'Dakar' },
+    { name: 'geo.position', content: '14.7645042;-17.3660286' },
+    { name: 'ICBM', content: '14.7645042, -17.3660286' },
+    {
+      name: 'news_keywords',
+      content: () => article.value?.tags?.join(', ') || 'République du Sénégal',
+    },
+  ],
+  script: () =>
+    [
+      articleSchema.value
+        ? {
             type: 'application/ld+json',
-            children: JSON.stringify(breadcrumbSchema.value),
-          },
-          webPageSchema.value
-            ? {
-                type: 'application/ld+json',
-                children: JSON.stringify(webPageSchema.value),
-              }
-            : null,
-          digitalDocumentSchema.value
-            ? {
-                type: 'application/ld+json',
-                children: JSON.stringify(digitalDocumentSchema.value),
-              }
-            : null,
-        ].filter(Boolean),
-      });
-    }
-  },
-  { immediate: true, deep: true },
-);
+            children: JSON.stringify(articleSchema.value),
+          }
+        : null,
+      {
+        type: 'application/ld+json',
+        children: JSON.stringify(breadcrumbSchema.value),
+      },
+      webPageSchema.value
+        ? {
+            type: 'application/ld+json',
+            children: JSON.stringify(webPageSchema.value),
+          }
+        : null,
+      digitalDocumentSchema.value
+        ? {
+            type: 'application/ld+json',
+            children: JSON.stringify(digitalDocumentSchema.value),
+          }
+        : null,
+    ].filter(Boolean),
+});
 </script>
 
 <template>
