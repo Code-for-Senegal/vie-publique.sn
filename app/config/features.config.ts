@@ -46,6 +46,12 @@ export const DEFAULT_FEATURES: Record<string, FeatureFlag> = {
     environments: ['dev', 'test', 'production'],
     description: 'Menu Conseil des ministres',
   },
+  menu_dossiers: {
+    key: 'menu_dossiers',
+    enabled: true,
+    environments: ['dev', 'test', 'production'],
+    description: 'Menu Dossiers (pages de référence thématiques)',
+  },
   menu_assemblee_nationale: {
     key: 'menu_assemblee_nationale',
     enabled: true,

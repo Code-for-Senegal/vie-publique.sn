@@ -168,6 +168,13 @@ const allNavigationCards: NavigationCard[] = [
     featureKey: 'menu_documents',
   },
   {
+    title: 'Dossiers',
+    description: 'Pages de référence sur les grands sujets',
+    icon: 'i-heroicons-folder-open',
+    to: '/dossiers',
+    featureKey: 'menu_dossiers',
+  },
+  {
     title: 'Annuaire',
     description: 'Nominations, Sites, Medias...',
     icon: 'i-heroicons-book-open',
@@ -321,6 +328,10 @@ const cardConfigs: CardConfigs = {
   Documents: {
     color: 'text-indigo-600 dark:text-indigo-400',
     bgColor: 'bg-indigo-100 dark:bg-indigo-900/30',
+  },
+  Dossiers: {
+    color: 'text-rose-600 dark:text-rose-400',
+    bgColor: 'bg-rose-100 dark:bg-rose-900/30',
   },
   'Assemblée Nationale': {
     color: 'text-amber-600 dark:text-amber-400',

@@ -99,6 +99,33 @@ export default defineSitemapEventHandler(async () => {
       });
     }
 
+    // 3b. Dossiers thématiques
+    try {
+      const dossiers = await directus.request(
+        readItems('dossier', {
+          fields: ['slug', 'date_updated', 'publish_date'],
+          filter: {
+            status: { _eq: 'published' },
+          },
+          limit: -1,
+          sort: ['-publish_date'],
+        }),
+      );
+
+      for (const dossier of dossiers as any[]) {
+        if (!dossier.slug) continue;
+        const lastmod = toISODate(dossier.date_updated) || toISODate(dossier.publish_date);
+        urls.push({
+          loc: `/dossiers/${dossier.slug}`,
+          ...(lastmod && { lastmod }),
+          changefreq: 'weekly',
+          priority: 0.9,
+        });
+      }
+    } catch (sitemapError) {
+      console.warn('Erreur sitemap dossiers:', sitemapError);
+    }
+
     // 4. Projets Publics
     try {
       // Pages dashboards (PRES et PIP)
