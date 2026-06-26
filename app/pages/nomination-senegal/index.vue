@@ -165,10 +165,10 @@ useHead({
     { name: 'geo.position', content: '14.7645042;-17.3660286' },
     { name: 'ICBM', content: '14.7645042, -17.3660286' },
   ],
-  script: [
+  script: () => [
     {
       type: 'application/ld+json',
-      children: computed(() => JSON.stringify(nominationsSchema.value)),
+      innerHTML: JSON.stringify(nominationsSchema.value),
     },
     {
       type: 'application/ld+json',

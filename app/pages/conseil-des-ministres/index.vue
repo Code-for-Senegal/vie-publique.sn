@@ -182,10 +182,10 @@ useHead({
       content: 'Conseil des ministres, Sénégal, gouvernement, communiqué',
     },
   ],
-  script: [
+  script: () => [
     {
       type: 'application/ld+json',
-      children: computed(() => JSON.stringify(conseilMinistresSchema.value)),
+      innerHTML: JSON.stringify(conseilMinistresSchema.value),
     },
     {
       type: 'application/ld+json',

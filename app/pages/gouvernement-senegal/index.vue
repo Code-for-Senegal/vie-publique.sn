@@ -159,10 +159,10 @@ useHead({
     { name: 'geo.position', content: '14.7645042;-17.3660286' },
     { name: 'ICBM', content: '14.7645042, -17.3660286' },
   ],
-  script: [
+  script: () => [
     {
       type: 'application/ld+json',
-      children: computed(() => JSON.stringify(pageSchema.value)),
+      innerHTML: JSON.stringify(pageSchema.value),
     },
     {
       type: 'application/ld+json',
@@ -170,7 +170,7 @@ useHead({
     },
     {
       type: 'application/ld+json',
-      children: computed(() => JSON.stringify(governmentSchema.value)),
+      innerHTML: JSON.stringify(governmentSchema.value),
     },
   ],
 });
@@ -292,11 +292,9 @@ const getDuration = (nominationDate: string): string => {
           v-if="primeMinister && stats"
           class="text-xs leading-relaxed text-gray-500 dark:text-gray-400 sm:text-sm"
         >
-          Le gouvernement du Sénégal, sous la présidence de Bassirou Diomaye Faye, est dirigé par
-          le Premier Ministre {{ primeMinister.name }}. Il est composé de
-          {{ stats.total }} membres dont {{ stats.ministers }} ministres<template
-            v-if="stats.secretariesOfState > 0"
-          >
+          Le gouvernement du Sénégal, sous la présidence de Bassirou Diomaye Faye, est dirigé par le
+          Premier Ministre {{ primeMinister.name }}. Il est composé de {{ stats.total }} membres
+          dont {{ stats.ministers }} ministres<template v-if="stats.secretariesOfState > 0">
             et {{ stats.secretariesOfState }} secrétaires d'État</template
           >.
           <span class="hidden sm:inline">

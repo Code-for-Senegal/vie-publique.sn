@@ -56,14 +56,7 @@ const collectionSchema = computed(() => ({
   about: { '@type': 'GovernmentOrganization', name: 'République du Sénégal' },
 }));
 
-const breadcrumbSchema = computed(() => ({
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Accueil', item: siteUrl },
-    { '@type': 'ListItem', position: 2, name: 'Dossiers', item: url },
-  ],
-}));
+// Pas de BreadcrumbList en page : le @graph global de @nuxtjs/seo l'émet déjà.
 
 useHead({
   htmlAttrs: { lang: 'fr-SN' },
@@ -72,10 +65,7 @@ useHead({
     { name: 'theme-color', content: themeColor },
     { name: 'robots', content: 'index, follow, max-image-preview:large' },
   ],
-  script: [
-    { type: 'application/ld+json', innerHTML: JSON.stringify(collectionSchema.value) },
-    { type: 'application/ld+json', innerHTML: JSON.stringify(breadcrumbSchema.value) },
-  ],
+  script: [{ type: 'application/ld+json', innerHTML: JSON.stringify(collectionSchema.value) }],
 });
 </script>
 

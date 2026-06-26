@@ -148,14 +148,14 @@ useHead({
         : '',
     },
   ],
-  script: [
+  script: () => [
     {
       type: 'application/ld+json',
-      children: computed(() => JSON.stringify(breadcrumbSchema.value)),
+      innerHTML: JSON.stringify(breadcrumbSchema.value),
     },
     {
       type: 'application/ld+json',
-      children: computed(() => JSON.stringify(articleSchema.value)),
+      innerHTML: JSON.stringify(articleSchema.value),
     },
   ],
 });
@@ -189,7 +189,6 @@ const formattedDate = computed(() => {
 
 // État du viewer PDF modal
 const showPdfViewer = ref(false);
-
 </script>
 
 <template>

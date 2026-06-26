@@ -105,15 +105,9 @@ const articleSchema = computed(() => {
   };
 });
 
-const breadcrumbSchema = computed(() => ({
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Accueil', item: siteUrl },
-    { '@type': 'ListItem', position: 2, name: 'Dossiers', item: `${siteUrl}/dossiers` },
-    { '@type': 'ListItem', position: 3, name: dossier.value?.title || 'Dossier', item: url.value },
-  ],
-}));
+// Pas de BreadcrumbList ni WebPage en page : le @graph global de @nuxtjs/seo
+// les émet déjà (breadcrumb auto-dérivé de la route). On ne garde que les nœuds
+// d'entité propres à la page (Article, FAQPage).
 
 const faqSchema = computed(() => {
   if (!has(dossier.value?.faq)) return null;
@@ -175,7 +169,6 @@ useHead({
         type: 'application/ld+json',
         innerHTML: JSON.stringify(articleSchema.value),
       },
-      { type: 'application/ld+json', innerHTML: JSON.stringify(breadcrumbSchema.value) },
       faqSchema.value && {
         type: 'application/ld+json',
         innerHTML: JSON.stringify(faqSchema.value),
