@@ -83,49 +83,42 @@ export const useCollectionState = (
     sort: urlParamsMapping.sort || "sort",
   };
 
-  // États réactifs
-  const currentPage = ref(1);
-  const searchQuery = ref("");
-  const sortBy = ref(defaultSort);
-  const filterValue = ref(defaultFilter);
+  // Lecture des query params de façon SYNCHRONE (SSR + client).
+  // ⚠️ NE PAS faire ceci dans onMounted : onMounted ne s'exécute pas côté
+  // serveur, donc le SSR ignorerait ?page=N et rendrait toujours la page 1
+  // (contenu serveur identique pour toutes les pages → bug pagination + SEO).
+  const query = route.query;
+
+  // Page
+  let initialPage = 1;
+  if (syncUrl && query[urlMapping.page]) {
+    const page = parseInt(query[urlMapping.page] as string);
+    if (!isNaN(page) && page > 0) {
+      initialPage = page;
+    }
+  }
+
+  // États réactifs (initialisés depuis l'URL pour un SSR correct)
+  const currentPage = ref(initialPage);
+  const searchQuery = ref(
+    syncUrl && query[urlMapping.search] ? (query[urlMapping.search] as string) : "",
+  );
+  const sortBy = ref(
+    syncUrl && query[urlMapping.sort] ? (query[urlMapping.sort] as string) : defaultSort,
+  );
+  const filterValue = ref(
+    syncUrl && query[urlMapping.filter] ? (query[urlMapping.filter] as string) : defaultFilter,
+  );
   const itemsPerPage = ref(defaultItemsPerPage);
 
-  // Lecture des query params au montage (uniquement côté client)
-  onMounted(() => {
-    if (!syncUrl) return;
-
-    const query = route.query;
-
-    // Page
-    if (query[urlMapping.page]) {
-      const page = parseInt(query[urlMapping.page] as string);
-      if (!isNaN(page) && page > 0) {
-        currentPage.value = page;
-      }
-    }
-
-    // Recherche
-    if (query[urlMapping.search]) {
-      searchQuery.value = query[urlMapping.search] as string;
-    }
-
-    // Tri
-    if (query[urlMapping.sort]) {
-      sortBy.value = query[urlMapping.sort] as string;
-    }
-
-    // Filtre principal
-    if (query[urlMapping.filter]) {
-      filterValue.value = query[urlMapping.filter] as string;
-    }
-
-    // Filtres additionnels (ex: category, type)
+  // Filtres additionnels (ex: category, type)
+  if (syncUrl) {
     Object.keys(additionalFilters).forEach((key) => {
       if (query[key]) {
         additionalFilters[key].value = query[key];
       }
     });
-  });
+  }
 
   // Mise à jour de l'URL quand l'état change
   // On merge avec route.query pour préserver les params gérés par d'autres watchers (year, family, etc.)

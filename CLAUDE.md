@@ -132,6 +132,7 @@ Le projet utilise `@nuxtjs/seo`. Un audit basé uniquement sur le code produit d
 3. `@nuxtjs/seo` fournit des **fallbacks globaux** (og:image, robots, canonical, og:site_name) → « la page ne définit pas X » ≠ « X absent du HTML ».
 4. **2 seules causes réelles de partage social cassé** : (a) meta dans un `watch`/`onMounted` au lieu du scope setup → SSR rend les meta GLOBALES ; (b) concat malformée `` `${siteUrl}${idBrut}` `` (sans slash). Toujours définir `useSeoMeta`/`useHead` **en scope setup avec getters réactifs**, et utiliser `useCmsImageAbsolute()` pour les images CMS.
 5. Avant de « corriger l'indexation » d'une page : vérifier `routeRules` (redirects 301) et `robots.disallow` dans `nuxt.config.ts`.
+6. **Schema.org : utiliser le JSON-LD brut (pattern majoritaire du projet, modèle = `documents/[id]/[slug].vue`), PAS `useSchemaOrg`.** Définir chaque schéma comme un objet `computed` simple (`{ '@context': 'https://schema.org', '@type': 'Article', … }`) en scope setup, puis l'injecter via `useHead({ script: [{ type: 'application/ld+json', children: computed(() => JSON.stringify(monSchema.value)) }] })`. Construire les URLs d'image **absolues** avec la fonction pure `useCmsImage()` + le `siteUrl` capturé en setup (`` `${siteUrl}${useCmsImage(id)}` ``), jamais `useCmsImageAbsolute()` à l'intérieur du schéma. _(Les 6 pages historiques en `useSchemaOrg`/`defineArticle` sont l'exception ; si on doit y toucher, ne jamais appeler de composable Nuxt — `useRuntimeConfig`/`useSiteMetadata`/`useCmsImageAbsolute` — dans un getter, car nuxt-schema-org les résout hors scope setup → 500 SSR. Pour une nouvelle page, préférer le JSON-LD brut.)_
 
 ### UI & Design conventions (IMPORTANT)
 
@@ -161,6 +162,47 @@ dashboard ».
    transformer les tableaux larges en blocs empilés.
 7. **Réutiliser les composants existants** plutôt que recréer : documents →
    `DocumentsDocumentListItem` ; fil d'ariane → `AppBreadcrumb` ; images CMS → `CmsImage`.
+
+### Listes paginées / filtrées & SSR (IMPORTANT — éviter le bug de pagination)
+
+> Contexte : une liste paginée doit rendre le BON contenu **côté serveur**. Un état lu trop
+> tard (après le rendu serveur) casse la pagination ET le SEO. Règle apprise sur la page
+> `/assemblee-nationale/questions` (cf. `useCollectionState.ts`).
+
+1. **Initialiser l'état UI (page, recherche, tri, filtre) à partir de `route.query` DE FAÇON
+   SYNCHRONE dans le `setup`** — JAMAIS dans `onMounted`. `onMounted` ne s'exécute pas pendant
+   le SSR : l'état resterait à sa valeur par défaut (`page=1`), le serveur rendrait toujours la
+   page 1 quel que soit `?page=N`, puis l'affichage « sauterait » après hydratation.
+
+   ```typescript
+   // ✅ BON — lu au setup, valable SSR + client
+   const route = useRoute();
+   const currentPage = ref(parseInt(route.query.page as string) || 1);
+
+   // ❌ MAUVAIS — onMounted = client uniquement → SSR ignore ?page
+   const currentPage = ref(1);
+   onMounted(() => { if (route.query.page) currentPage.value = +route.query.page; });
+   ```
+
+2. **Réutiliser `useCollectionState` + `useCmsCollection`** pour toute nouvelle liste (documents,
+   news, votes, dossiers… 15 collections les utilisent déjà). Ne pas réimplémenter la pagination
+   à la main. La pagination est **serveur** (`limit`/`offset` via l'API), pas un `slice` client.
+
+3. **Pages hors-limites** : prévoir le recalage `?page=999` → dernière page valide une fois les
+   données chargées (voir le `watch([totalPages, loading])` dans `useDocuments.ts`), sinon l'UI
+   affiche « Aucun résultat » à tort.
+
+4. **Toujours vérifier en SSR avant de conclure** (cf. règle SEO §1) : comparer le HTML serveur
+   de deux pages doit donner des items **disjoints**.
+
+   ```bash
+   # les deux ensembles d'IDs doivent être différents (0 commun)
+   curl -sL "<url>?page=1" | grep -oE '/prefix/[0-9]+' | sort -u
+   curl -sL "<url>?page=2" | grep -oE '/prefix/[0-9]+' | sort -u
+   ```
+
+   ⚠️ S'assurer de cibler le bon motif de lien d'item : une page « hub » (ex. `/documents` =
+   catégories) n'est PAS la liste paginée (ex. `/documents/public`).
 
 ### Performance Considerations
 
