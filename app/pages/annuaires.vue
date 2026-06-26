@@ -148,11 +148,11 @@ useHead({
   script: [
     {
       type: 'application/ld+json',
-      children: JSON.stringify(directorySchema),
+      innerHTML: JSON.stringify(directorySchema),
     },
     {
       type: 'application/ld+json',
-      children: JSON.stringify(breadcrumbSchema),
+      innerHTML: JSON.stringify(breadcrumbSchema),
     },
   ],
 });

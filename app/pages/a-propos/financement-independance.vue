@@ -105,9 +105,9 @@ useHead({
     { name: 'geo.placename', content: 'Dakar' },
   ],
   script: [
-    { type: 'application/ld+json', children: JSON.stringify(organizationSchema) },
-    { type: 'application/ld+json', children: JSON.stringify(breadcrumbSchema) },
-    { type: 'application/ld+json', children: JSON.stringify(faqSchema) },
+    { type: 'application/ld+json', innerHTML: JSON.stringify(organizationSchema) },
+    { type: 'application/ld+json', innerHTML: JSON.stringify(breadcrumbSchema) },
+    { type: 'application/ld+json', innerHTML: JSON.stringify(faqSchema) },
   ],
 });
 

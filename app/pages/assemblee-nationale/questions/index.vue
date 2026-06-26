@@ -130,19 +130,19 @@ useHead({
   script: [
     {
       type: 'application/ld+json',
-      children: JSON.stringify(questionsCollectionSchema),
+      innerHTML: JSON.stringify(questionsCollectionSchema),
     },
     {
       type: 'application/ld+json',
-      children: JSON.stringify(breadcrumbSchema),
+      innerHTML: JSON.stringify(breadcrumbSchema),
     },
     {
       type: 'application/ld+json',
-      children: JSON.stringify(organizationSchema),
+      innerHTML: JSON.stringify(organizationSchema),
     },
     {
       type: 'application/ld+json',
-      children: JSON.stringify(governmentServiceSchema),
+      innerHTML: JSON.stringify(governmentServiceSchema),
     },
   ],
 });

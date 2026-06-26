@@ -176,12 +176,12 @@ useHead({
     if (personSchema.value) {
       scripts.push({
         type: 'application/ld+json',
-        children: JSON.stringify(personSchema.value),
+        innerHTML: JSON.stringify(personSchema.value),
       });
     }
     scripts.push({
       type: 'application/ld+json',
-      children: JSON.stringify(breadcrumbSchema.value),
+      innerHTML: JSON.stringify(breadcrumbSchema.value),
     });
     return scripts;
   }),

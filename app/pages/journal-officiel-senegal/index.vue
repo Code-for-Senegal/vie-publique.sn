@@ -238,19 +238,19 @@ useHead({
   script: [
     {
       type: "application/ld+json",
-      children: JSON.stringify(journalOfficielSchema),
+      innerHTML: JSON.stringify(journalOfficielSchema),
     },
     {
       type: "application/ld+json",
-      children: JSON.stringify(breadcrumbSchema),
+      innerHTML: JSON.stringify(breadcrumbSchema),
     },
     {
       type: "application/ld+json",
-      children: JSON.stringify(datasetSchema),
+      innerHTML: JSON.stringify(datasetSchema),
     },
     {
       type: "application/ld+json",
-      children: JSON.stringify(periodicalSchema),
+      innerHTML: JSON.stringify(periodicalSchema),
     },
   ],
 });

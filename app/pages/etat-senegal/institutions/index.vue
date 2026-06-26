@@ -110,10 +110,10 @@ useHead({
     { property: 'og:locale', content: 'fr_SN' },
   ],
   script: computed(() => [
-    { type: 'application/ld+json', children: JSON.stringify(collectionPageSchema) },
-    { type: 'application/ld+json', children: JSON.stringify(breadcrumbSchema) },
+    { type: 'application/ld+json', innerHTML: JSON.stringify(collectionPageSchema) },
+    { type: 'application/ld+json', innerHTML: JSON.stringify(breadcrumbSchema) },
     ...(institutions.value.length > 0
-      ? [{ type: 'application/ld+json', children: JSON.stringify(itemListSchema.value) }]
+      ? [{ type: 'application/ld+json', innerHTML: JSON.stringify(itemListSchema.value) }]
       : []),
   ]),
 });

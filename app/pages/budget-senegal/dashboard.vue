@@ -116,15 +116,15 @@ useHead({
   script: [
     {
       type: 'application/ld+json',
-      children: JSON.stringify(budgetSchema),
+      innerHTML: JSON.stringify(budgetSchema),
     },
     {
       type: 'application/ld+json',
-      children: JSON.stringify(datasetSchema),
+      innerHTML: JSON.stringify(datasetSchema),
     },
     {
       type: 'application/ld+json',
-      children: JSON.stringify(breadcrumbSchema),
+      innerHTML: JSON.stringify(breadcrumbSchema),
     },
   ],
 });

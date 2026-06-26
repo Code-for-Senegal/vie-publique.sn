@@ -155,19 +155,19 @@ useHead({
   script: [
     {
       type: "application/ld+json",
-      children: JSON.stringify(magistratureSchema),
+      innerHTML: JSON.stringify(magistratureSchema),
     },
     {
       type: "application/ld+json",
-      children: JSON.stringify(breadcrumbSchema),
+      innerHTML: JSON.stringify(breadcrumbSchema),
     },
     {
       type: "application/ld+json",
-      children: JSON.stringify(organizationSchema),
+      innerHTML: JSON.stringify(organizationSchema),
     },
     {
       type: "application/ld+json",
-      children: JSON.stringify(legalServiceSchema),
+      innerHTML: JSON.stringify(legalServiceSchema),
     },
   ],
 });

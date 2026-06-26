@@ -68,8 +68,8 @@ useHead({
     { property: 'og:locale', content: 'fr_SN' },
   ],
   script: computed(() => [
-    { type: 'application/ld+json', children: JSON.stringify(breadcrumbSchema) },
-    { type: 'application/ld+json', children: JSON.stringify(webPageSchema) },
+    { type: 'application/ld+json', innerHTML: JSON.stringify(breadcrumbSchema) },
+    { type: 'application/ld+json', innerHTML: JSON.stringify(webPageSchema) },
   ]),
 })
 </script>

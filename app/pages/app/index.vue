@@ -72,8 +72,8 @@ useHead({
     { name: 'robots', content: 'index, follow' },
   ],
   script: [
-    { type: 'application/ld+json', children: JSON.stringify(breadcrumbSchema) },
-    { type: 'application/ld+json', children: JSON.stringify(softwareAppSchema) },
+    { type: 'application/ld+json', innerHTML: JSON.stringify(breadcrumbSchema) },
+    { type: 'application/ld+json', innerHTML: JSON.stringify(softwareAppSchema) },
   ],
 });
 

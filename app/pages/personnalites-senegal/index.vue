@@ -121,11 +121,11 @@ useHead({
   script: [
     {
       type: 'application/ld+json',
-      children: JSON.stringify(pageSchema),
+      innerHTML: JSON.stringify(pageSchema),
     },
     {
       type: 'application/ld+json',
-      children: JSON.stringify(breadcrumbSchema),
+      innerHTML: JSON.stringify(breadcrumbSchema),
     },
   ],
 });

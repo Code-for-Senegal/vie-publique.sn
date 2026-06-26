@@ -195,7 +195,7 @@ useHead({
   script: [
     {
       type: 'application/ld+json',
-      children: JSON.stringify(breadcrumbSchema.value),
+      innerHTML: JSON.stringify(breadcrumbSchema.value),
     },
   ],
 });

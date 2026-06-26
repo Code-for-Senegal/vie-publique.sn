@@ -98,8 +98,8 @@ useHead({
     { name: 'geo.placename', content: 'Dakar' },
   ],
   script: [
-    { type: 'application/ld+json', children: JSON.stringify(breadcrumbSchema) },
-    { type: 'application/ld+json', children: JSON.stringify(eventSchema) },
+    { type: 'application/ld+json', innerHTML: JSON.stringify(breadcrumbSchema) },
+    { type: 'application/ld+json', innerHTML: JSON.stringify(eventSchema) },
   ],
 });
 </script>

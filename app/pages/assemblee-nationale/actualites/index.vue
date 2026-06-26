@@ -122,15 +122,15 @@ useHead({
   script: [
     {
       type: "application/ld+json",
-      children: JSON.stringify(newsCollectionSchema),
+      innerHTML: JSON.stringify(newsCollectionSchema),
     },
     {
       type: "application/ld+json",
-      children: JSON.stringify(breadcrumbSchema),
+      innerHTML: JSON.stringify(breadcrumbSchema),
     },
     {
       type: "application/ld+json",
-      children: JSON.stringify(organizationSchema),
+      innerHTML: JSON.stringify(organizationSchema),
     },
   ],
 });

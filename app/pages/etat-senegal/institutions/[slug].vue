@@ -123,7 +123,7 @@ useHead({
     if (organizationSchema.value) {
       scripts.push({
         type: 'application/ld+json',
-        children: JSON.stringify(organizationSchema.value),
+        innerHTML: JSON.stringify(organizationSchema.value),
       });
     }
     return scripts;

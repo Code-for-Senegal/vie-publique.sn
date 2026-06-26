@@ -205,12 +205,12 @@ useHead({
       videoSchema.value
         ? {
             type: 'application/ld+json',
-            children: JSON.stringify(videoSchema.value),
+            innerHTML: JSON.stringify(videoSchema.value),
           }
         : null,
       {
         type: 'application/ld+json',
-        children: JSON.stringify(breadcrumbSchema.value),
+        innerHTML: JSON.stringify(breadcrumbSchema.value),
       },
     ].filter(Boolean),
 });

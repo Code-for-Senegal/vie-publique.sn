@@ -85,11 +85,11 @@ useHead({
   script: [
     {
       type: 'application/ld+json',
-      children: JSON.stringify(podcastCollectionSchema),
+      innerHTML: JSON.stringify(podcastCollectionSchema),
     },
     {
       type: 'application/ld+json',
-      children: JSON.stringify(breadcrumbSchema),
+      innerHTML: JSON.stringify(breadcrumbSchema),
     },
   ],
 });

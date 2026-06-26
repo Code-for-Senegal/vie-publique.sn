@@ -268,23 +268,23 @@ useHead({
       articleSchema.value
         ? {
             type: 'application/ld+json',
-            children: JSON.stringify(articleSchema.value),
+            innerHTML: JSON.stringify(articleSchema.value),
           }
         : null,
       {
         type: 'application/ld+json',
-        children: JSON.stringify(breadcrumbSchema.value),
+        innerHTML: JSON.stringify(breadcrumbSchema.value),
       },
       webPageSchema.value
         ? {
             type: 'application/ld+json',
-            children: JSON.stringify(webPageSchema.value),
+            innerHTML: JSON.stringify(webPageSchema.value),
           }
         : null,
       digitalDocumentSchema.value
         ? {
             type: 'application/ld+json',
-            children: JSON.stringify(digitalDocumentSchema.value),
+            innerHTML: JSON.stringify(digitalDocumentSchema.value),
           }
         : null,
     ].filter(Boolean),
