@@ -38,9 +38,14 @@ const url = computed(() => {
   return `${siteUrl}/actualites/${route.params.id}/${route.params.slug}`;
 });
 
+// URL absolue construite SANS useRuntimeConfig dans ce computed : il est lu par des
+// getters useHead/useSeoMeta évalués hors scope setup (SSR), or `useCmsImageAbsolute`
+// → `useSiteMetadata` → `useRuntimeConfig` y plante (500). `useCmsImage` est pur ;
+// `siteUrl` est déjà capturé en setup.
 const image = computed(() => {
-  if (!article.value) return defaultImage;
-  return article.value.cover_image ? useCmsImageAbsolute(article.value.cover_image) : defaultImage;
+  if (!article.value?.cover_image) return defaultImage;
+  const rel = useCmsImage(article.value.cover_image);
+  return rel.startsWith('http') ? rel : `${siteUrl}${rel}`;
 });
 
 const pdfUrl = computed(() => {
