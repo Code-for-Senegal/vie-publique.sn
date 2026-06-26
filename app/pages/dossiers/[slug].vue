@@ -173,12 +173,12 @@ useHead({
     [
       articleSchema.value && {
         type: 'application/ld+json',
-        children: JSON.stringify(articleSchema.value),
+        innerHTML: JSON.stringify(articleSchema.value),
       },
-      { type: 'application/ld+json', children: JSON.stringify(breadcrumbSchema.value) },
+      { type: 'application/ld+json', innerHTML: JSON.stringify(breadcrumbSchema.value) },
       faqSchema.value && {
         type: 'application/ld+json',
-        children: JSON.stringify(faqSchema.value),
+        innerHTML: JSON.stringify(faqSchema.value),
       },
     ].filter(Boolean),
 });

@@ -73,8 +73,8 @@ useHead({
     { name: 'robots', content: 'index, follow, max-image-preview:large' },
   ],
   script: [
-    { type: 'application/ld+json', children: JSON.stringify(collectionSchema.value) },
-    { type: 'application/ld+json', children: JSON.stringify(breadcrumbSchema.value) },
+    { type: 'application/ld+json', innerHTML: JSON.stringify(collectionSchema.value) },
+    { type: 'application/ld+json', innerHTML: JSON.stringify(breadcrumbSchema.value) },
   ],
 });
 </script>
