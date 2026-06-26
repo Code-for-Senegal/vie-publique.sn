@@ -11,8 +11,7 @@ onMounted(() => {
     window.matchMedia('(display-mode: standalone)').matches ||
     (navigator as any).standalone === true;
   // WebView natif : iOS WKWebView n'a pas "Safari" dans le UA, Android WebView contient "wv"
-  const isWebView =
-    /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(ua) || /\bwv\b/.test(ua);
+  const isWebView = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(ua) || /\bwv\b/.test(ua);
 
   isInApp.value = isStandalone || isWebView;
 });
@@ -41,14 +40,15 @@ onMounted(() => {
         <div class="hidden flex-shrink-0 flex-col items-center gap-1 lg:flex">
           <div class="rounded-lg bg-white shadow-sm">
             <img
-              src="/qr-app.png"
+              src="/qr-code-page-app-vpsn.png"
               alt="QR Code - Télécharger l'app"
               class="h-28 w-28"
+              width="112"
+              height="112"
+              loading="lazy"
             />
           </div>
-          <p class="text-[10px] text-gray-400 dark:text-gray-500">
-            Scannez pour télécharger
-          </p>
+          <p class="text-[10px] text-gray-400 dark:text-gray-500">Scannez pour télécharger</p>
         </div>
 
         <!-- Content -->
@@ -67,10 +67,16 @@ onMounted(() => {
               @click.stop
             >
               <svg class="h-5 w-5" viewBox="0 0 24 24">
-                <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92z" fill="#4285F4"/>
-                <path d="M14.499 12.707L16.801 15.009 5.864 21.342 14.499 12.707z" fill="#FBBC04"/>
-                <path d="M17.698 11.507L20.532 13.146A1 1 0 0120.532 14.854L17.698 16.493 15.166 13.961 17.698 11.507z" fill="#EA4335"/>
-                <path d="M5.864 3.458L16.8 9.79 14.498 12.092 5.864 3.458z" fill="#34A853"/>
+                <path
+                  d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92z"
+                  fill="#4285F4"
+                />
+                <path d="M14.499 12.707L16.801 15.009 5.864 21.342 14.499 12.707z" fill="#FBBC04" />
+                <path
+                  d="M17.698 11.507L20.532 13.146A1 1 0 0120.532 14.854L17.698 16.493 15.166 13.961 17.698 11.507z"
+                  fill="#EA4335"
+                />
+                <path d="M5.864 3.458L16.8 9.79 14.498 12.092 5.864 3.458z" fill="#34A853" />
               </svg>
               Télécharger sur Google Play
             </a>
