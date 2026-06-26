@@ -139,6 +139,15 @@ Le projet utilise `@nuxtjs/seo`. Un audit basé uniquement sur le code produit d
    - un `defineBreadcrumb` (`useSchemaOrg`) **fusionne** avec le breadcrumb auto → **un seul `BreadcrumbList` malformé à items dupliqués** (ex. page `assemblee-nationale/deputes/[id]` : **8 items au lieu de 4**) → à retirer (laisser le breadcrumb auto du `@graph`).
    _Vérifier : `curl -s <url>` → le `@graph` contient déjà le breadcrumb ; la page ne doit ajouter que son nœud d'entité. Pages historiques avec doublon = inoffensif (sauf le cas `defineBreadcrumb`/8-items) → migration opportuniste._
 
+### Conventions d'URL (SEO)
+
+> Détail complet : `docs/guidelines/url-structure-analysis.md`.
+
+- Mots séparés par des **tirets** (`-`), pas d'underscores.
+- URL **courte mais descriptive**, calée sur les termes de recherche FR courants.
+- **Pas d'accents** ni de caractères spéciaux/encodés ; minuscules.
+- Slug stable une fois indexé ; si changement, prévoir une **redirection 301** (`routeRules`).
+
 ### UI & Design conventions (IMPORTANT)
 
 > Référence complète : `docs/design.md`. **Lire avant de créer une nouvelle page/section.**
