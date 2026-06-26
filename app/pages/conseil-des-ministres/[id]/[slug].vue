@@ -35,8 +35,13 @@ const url = computed(
 
 const image = computed(() => {
   if (article.value?.cover_image) {
-    // cover_image est un ID d'asset Directus → transformer en URL proxy absolue
-    return useCmsImageAbsolute(article.value.cover_image);
+    // cover_image est un ID d'asset Directus → URL proxy absolue.
+    // ⚠️ NE PAS utiliser useCmsImageAbsolute() ici : ce computed est lu en lazy par
+    // defineArticle()/useSchemaOrg, dont la résolution SSR se fait HORS du scope setup.
+    // useCmsImageAbsolute appelle useSiteMetadata()→useRuntimeConfig() (composable Nuxt)
+    // → « composable called outside setup » → 500 sur le chargement direct de l'URL.
+    // On combine donc le `siteUrl` déjà capturé (string) et useCmsImage() (fonction pure).
+    return `${siteUrl}${useCmsImage(article.value.cover_image)}`;
   }
   return `${siteUrl}/images/share-conseil-des-ministres-nomination-full.jpg`;
 });
@@ -157,7 +162,9 @@ const formatDateISO = (date: string) => {
 <template>
   <div class="min-h-screen bg-gray-50/50 dark:bg-gray-900">
     <!-- Sticky Header (mobile only) -->
-    <header class="sticky top-0 z-40 border-b border-gray-100 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95 md:relative md:border-0 md:bg-transparent md:backdrop-blur-none dark:md:bg-transparent">
+    <header
+      class="sticky top-0 z-40 border-b border-gray-100 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95 md:relative md:border-0 md:bg-transparent md:backdrop-blur-none dark:md:bg-transparent"
+    >
       <div class="container mx-auto px-4">
         <div class="flex items-center gap-3 py-3 md:hidden">
           <!-- Back button -->
@@ -171,7 +178,10 @@ const formatDateISO = (date: string) => {
 
           <!-- Title & Meta -->
           <div class="min-w-0 flex-1">
-            <h1 v-if="article" class="line-clamp-2 text-xs font-semibold leading-tight text-gray-900 dark:text-white">
+            <h1
+              v-if="article"
+              class="line-clamp-2 text-xs font-semibold leading-tight text-gray-900 dark:text-white"
+            >
               {{ article.title }}
             </h1>
             <USkeleton v-else class="h-4 w-48" />
@@ -197,14 +207,18 @@ const formatDateISO = (date: string) => {
     </header>
 
     <div class="container mx-auto px-4 py-6">
-      <AppBreadcrumb :items="[
-        { label: 'Conseil des ministres', to: '/conseil-des-ministres' },
-        { label: article?.title || 'Communiqué' }
-      ]" />
+      <AppBreadcrumb
+        :items="[
+          { label: 'Conseil des ministres', to: '/conseil-des-ministres' },
+          { label: article?.title || 'Communiqué' },
+        ]"
+      />
 
       <!-- Loading state -->
       <div v-if="loading" class="mx-auto max-w-3xl space-y-6">
-        <div class="overflow-hidden rounded-2xl bg-white ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700">
+        <div
+          class="overflow-hidden rounded-2xl bg-white ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+        >
           <USkeleton class="aspect-video w-full" />
           <div class="space-y-4 p-6">
             <USkeleton class="h-6 w-3/4" />
@@ -217,10 +231,17 @@ const formatDateISO = (date: string) => {
 
       <!-- Error state -->
       <div v-else-if="error" class="mx-auto max-w-md py-16 text-center">
-        <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30">
-          <UIcon name="i-heroicons-exclamation-triangle" class="h-8 w-8 text-red-600 dark:text-red-400" />
+        <div
+          class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30"
+        >
+          <UIcon
+            name="i-heroicons-exclamation-triangle"
+            class="h-8 w-8 text-red-600 dark:text-red-400"
+          />
         </div>
-        <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Erreur de chargement</h2>
+        <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+          Erreur de chargement
+        </h2>
         <p class="mb-6 text-sm text-gray-600 dark:text-gray-400">
           Une erreur est survenue lors du chargement de l'article.
         </p>
@@ -235,25 +256,39 @@ const formatDateISO = (date: string) => {
 
       <!-- Content -->
       <div v-else-if="article" class="mx-auto max-w-3xl">
-        <article
-          itemscope
-          itemtype="https://schema.org/GovernmentAnnouncement"
-        >
+        <article itemscope itemtype="https://schema.org/GovernmentAnnouncement">
           <!-- Schema.org hidden metadata -->
-          <div itemprop="publisher" itemscope itemtype="https://schema.org/GovernmentOrganization" class="hidden">
+          <div
+            itemprop="publisher"
+            itemscope
+            itemtype="https://schema.org/GovernmentOrganization"
+            class="hidden"
+          >
             <meta itemprop="name" content="Conseil des ministres du Sénégal" />
             <meta itemprop="url" :content="`${siteUrl}/conseil-des-ministres`" />
           </div>
-          <div itemprop="about" itemscope itemtype="https://schema.org/GovernmentOrganization" class="hidden">
+          <div
+            itemprop="about"
+            itemscope
+            itemtype="https://schema.org/GovernmentOrganization"
+            class="hidden"
+          >
             <meta itemprop="name" content="Conseil des ministres du Sénégal" />
-            <div itemprop="parentOrganization" itemscope itemtype="https://schema.org/GovernmentOrganization">
+            <div
+              itemprop="parentOrganization"
+              itemscope
+              itemtype="https://schema.org/GovernmentOrganization"
+            >
               <meta itemprop="name" content="République du Sénégal" />
             </div>
           </div>
           <meta itemprop="url" :content="url" />
           <meta itemprop="genre" content="Communiqué officiel" />
           <meta itemprop="articleSection" content="Gouvernement" />
-          <meta itemprop="keywords" content="Conseil des ministres, Sénégal, Gouvernement, Communiqué officiel" />
+          <meta
+            itemprop="keywords"
+            content="Conseil des ministres, Sénégal, Gouvernement, Communiqué officiel"
+          />
 
           <!-- Cover Image -->
           <div
@@ -278,7 +313,10 @@ const formatDateISO = (date: string) => {
           <div class="space-y-6">
             <!-- Title & Meta (visible on larger screens) -->
             <div class="hidden md:block">
-              <h1 class="mb-3 text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl" itemprop="headline name">
+              <h1
+                class="mb-3 text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl"
+                itemprop="headline name"
+              >
                 {{ article.title }}
               </h1>
               <div class="flex items-center gap-3 text-sm text-gray-500">
@@ -313,7 +351,9 @@ const formatDateISO = (date: string) => {
             </div>
 
             <!-- Article Body -->
-            <div class="rounded-2xl bg-white p-6 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700 sm:p-8">
+            <div
+              class="rounded-2xl bg-white p-6 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700 sm:p-8"
+            >
               <div
                 itemprop="articleBody"
                 class="prose prose-sm max-w-none dark:prose-invert prose-headings:font-semibold prose-h2:mt-8 prose-h2:text-xl prose-p:leading-relaxed prose-a:text-emerald-600 dark:prose-a:text-emerald-400"
@@ -322,11 +362,10 @@ const formatDateISO = (date: string) => {
             </div>
 
             <!-- Share & Social -->
-            <div class="rounded-2xl bg-white p-5 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700">
-              <SocialShare
-                :title="article.title"
-                :url="url"
-              />
+            <div
+              class="rounded-2xl bg-white p-5 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+            >
+              <SocialShare :title="article.title" :url="url" />
             </div>
           </div>
         </article>
@@ -334,10 +373,14 @@ const formatDateISO = (date: string) => {
 
       <!-- Not Found -->
       <div v-else class="mx-auto max-w-md py-16 text-center">
-        <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
+        <div
+          class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800"
+        >
           <UIcon name="i-heroicons-document-magnifying-glass" class="h-8 w-8 text-gray-400" />
         </div>
-        <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Communiqué non trouvé</h2>
+        <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+          Communiqué non trouvé
+        </h2>
         <p class="mb-6 text-sm text-gray-600 dark:text-gray-400">
           Ce communiqué n'existe pas ou a été supprimé.
         </p>

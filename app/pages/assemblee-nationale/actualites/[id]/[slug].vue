@@ -42,7 +42,14 @@ const url = computed(() => {
 
 const image = computed(() => {
   if (!article.value) return defaultImage;
-  return article.value.cover_image ? useCmsImageAbsolute(article.value.cover_image) : defaultImage;
+  // ⚠️ NE PAS utiliser useCmsImageAbsolute() ici : ce computed est lu en lazy par
+  // defineArticle()/useSchemaOrg, dont la résolution SSR se fait HORS du scope setup.
+  // useCmsImageAbsolute appelle useSiteMetadata()→useRuntimeConfig() (composable Nuxt)
+  // → « composable called outside setup » → 500 sur le chargement direct de l'URL.
+  // On combine donc le `siteUrl` déjà capturé (string) et useCmsImage() (fonction pure).
+  return article.value.cover_image
+    ? `${siteUrl}${useCmsImage(article.value.cover_image)}`
+    : defaultImage;
 });
 
 // SEO Setup
@@ -151,9 +158,15 @@ useSchemaOrg([
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50/50 dark:bg-gray-900" itemscope itemtype="https://schema.org/WebPage">
+  <div
+    class="min-h-screen bg-gray-50/50 dark:bg-gray-900"
+    itemscope
+    itemtype="https://schema.org/WebPage"
+  >
     <!-- Sticky Header (mobile only) -->
-    <header class="sticky top-0 z-40 border-b border-gray-100 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95 md:relative md:border-0 md:bg-transparent md:backdrop-blur-none dark:md:bg-transparent">
+    <header
+      class="sticky top-0 z-40 border-b border-gray-100 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95 md:relative md:border-0 md:bg-transparent md:backdrop-blur-none dark:md:bg-transparent"
+    >
       <div class="container mx-auto px-4">
         <div class="flex items-center gap-3 py-3 md:hidden">
           <!-- Back button -->
@@ -167,7 +180,10 @@ useSchemaOrg([
 
           <!-- Title & Meta -->
           <div class="min-w-0 flex-1">
-            <h1 v-if="article" class="line-clamp-2 text-xs font-semibold leading-tight text-gray-900 dark:text-white">
+            <h1
+              v-if="article"
+              class="line-clamp-2 text-xs font-semibold leading-tight text-gray-900 dark:text-white"
+            >
               {{ article.title }}
             </h1>
             <USkeleton v-else class="h-4 w-48" />
@@ -180,15 +196,19 @@ useSchemaOrg([
     </header>
 
     <div class="container mx-auto px-4 py-6">
-      <AppBreadcrumb :items="[
-        { label: 'Assemblée nationale', to: '/assemblee-nationale' },
-        { label: 'Actualités', to: '/assemblee-nationale/actualites' },
-        { label: article?.title || 'Article' }
-      ]" />
+      <AppBreadcrumb
+        :items="[
+          { label: 'Assemblée nationale', to: '/assemblee-nationale' },
+          { label: 'Actualités', to: '/assemblee-nationale/actualites' },
+          { label: article?.title || 'Article' },
+        ]"
+      />
 
       <!-- Loading state -->
       <div v-if="loading" class="mx-auto max-w-3xl space-y-6">
-        <div class="overflow-hidden rounded-2xl bg-white ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700">
+        <div
+          class="overflow-hidden rounded-2xl bg-white ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+        >
           <USkeleton class="aspect-video w-full" />
           <div class="space-y-4 p-6">
             <USkeleton class="h-6 w-3/4" />
@@ -201,10 +221,17 @@ useSchemaOrg([
 
       <!-- Error state -->
       <div v-else-if="error" class="mx-auto max-w-md py-16 text-center">
-        <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30">
-          <UIcon name="i-heroicons-exclamation-triangle" class="h-8 w-8 text-red-600 dark:text-red-400" />
+        <div
+          class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30"
+        >
+          <UIcon
+            name="i-heroicons-exclamation-triangle"
+            class="h-8 w-8 text-red-600 dark:text-red-400"
+          />
         </div>
-        <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Erreur de chargement</h2>
+        <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+          Erreur de chargement
+        </h2>
         <p class="mb-6 text-sm text-gray-600 dark:text-gray-400">
           Une erreur est survenue lors du chargement de l'article.
         </p>
@@ -229,9 +256,19 @@ useSchemaOrg([
         <div class="hidden">
           <meta itemprop="url" :content="url" />
           <meta itemprop="datePublished" :content="formatDateISO(article.date_published)" />
-          <meta itemprop="dateModified" :content="article.date_updated ? formatDateISO(article.date_updated) : formatDateISO(article.date_published)" />
+          <meta
+            itemprop="dateModified"
+            :content="
+              article.date_updated
+                ? formatDateISO(article.date_updated)
+                : formatDateISO(article.date_published)
+            "
+          />
           <meta itemprop="articleSection" content="Politique" />
-          <meta itemprop="keywords" :content="article.tags?.join(', ') || 'Assemblée nationale, Sénégal'" />
+          <meta
+            itemprop="keywords"
+            :content="article.tags?.join(', ') || 'Assemblée nationale, Sénégal'"
+          />
           <div itemprop="publisher" itemscope itemtype="https://schema.org/NewsMediaOrganization">
             <meta itemprop="name" :content="siteName" />
             <meta itemprop="url" :content="siteUrl" />
@@ -279,11 +316,16 @@ useSchemaOrg([
           <!-- Title & Meta (visible on larger screens) -->
           <div class="hidden md:block">
             <div class="mb-3 flex items-center gap-2">
-              <span class="rounded-full bg-blue-100 px-2.5 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+              <span
+                class="rounded-full bg-blue-100 px-2.5 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+              >
                 Assemblée nationale
               </span>
             </div>
-            <h1 class="mb-3 text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl" itemprop="headline">
+            <h1
+              class="mb-3 text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl"
+              itemprop="headline"
+            >
               {{ article.title }}
             </h1>
             <div class="flex items-center gap-3 text-sm text-gray-500">
@@ -311,7 +353,9 @@ useSchemaOrg([
           </div>
 
           <!-- Article Body -->
-          <div class="rounded-2xl bg-white p-6 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700 sm:p-8">
+          <div
+            class="rounded-2xl bg-white p-6 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700 sm:p-8"
+          >
             <div
               class="prose prose-sm max-w-none dark:prose-invert prose-headings:font-semibold prose-h2:mt-8 prose-h2:text-xl prose-p:leading-relaxed prose-a:text-blue-600 prose-img:rounded-xl dark:prose-a:text-blue-400"
               itemprop="articleBody"
@@ -320,18 +364,19 @@ useSchemaOrg([
           </div>
 
           <!-- Share & Social -->
-          <div class="rounded-2xl bg-white p-5 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700">
-            <SocialShare
-              :title="article.title"
-              :url="url"
-            />
+          <div
+            class="rounded-2xl bg-white p-5 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+          >
+            <SocialShare :title="article.title" :url="url" />
           </div>
         </div>
       </article>
 
       <!-- Not Found -->
       <div v-else class="mx-auto max-w-md py-16 text-center">
-        <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
+        <div
+          class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800"
+        >
           <UIcon name="i-heroicons-document-magnifying-glass" class="h-8 w-8 text-gray-400" />
         </div>
         <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Article non trouvé</h2>
