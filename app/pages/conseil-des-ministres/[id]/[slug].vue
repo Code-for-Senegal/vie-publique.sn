@@ -34,13 +34,9 @@ const url = computed(
 );
 
 const image = computed(() => {
+  // URL absolue construite avec siteUrl (capturé en setup) + useCmsImage() (fonction pure) :
+  // pas d'appel de composable Nuxt ici, donc lisible sans risque dans le JSON-LD ci-dessous.
   if (article.value?.cover_image) {
-    // cover_image est un ID d'asset Directus → URL proxy absolue.
-    // ⚠️ NE PAS utiliser useCmsImageAbsolute() ici : ce computed est lu en lazy par
-    // defineArticle()/useSchemaOrg, dont la résolution SSR se fait HORS du scope setup.
-    // useCmsImageAbsolute appelle useSiteMetadata()→useRuntimeConfig() (composable Nuxt)
-    // → « composable called outside setup » → 500 sur le chargement direct de l'URL.
-    // On combine donc le `siteUrl` déjà capturé (string) et useCmsImage() (fonction pure).
     return `${siteUrl}${useCmsImage(article.value.cover_image)}`;
   }
   return `${siteUrl}/images/share-conseil-des-ministres-nomination-full.jpg`;
@@ -83,49 +79,61 @@ useSeoMeta({
     ].join(', '),
 });
 
-// Schema.org
-useSchemaOrg([
-  defineBreadcrumb({
-    itemListElement: () => [
-      { name: 'Accueil', item: '/' },
-      { name: 'Conseil des ministres', item: '/conseil-des-ministres' },
-      { name: article.value?.title || 'Communiqué', item: url.value },
-    ],
-  }),
-  defineArticle({
-    '@type': 'GovernmentAnnouncement',
-    headline: () => article.value?.title || 'Communiqué du Conseil des ministres',
-    description: () => description.value,
-    image: () => image.value,
-    datePublished: () => publishedDate.value,
-    dateModified: () => modifiedDate.value || publishedDate.value,
-    author: {
-      '@type': 'GovernmentOrganization',
-      name: 'Conseil des ministres du Sénégal',
-      url: `${siteUrl}/conseil-des-ministres`,
+// Schema.org — JSON-LD brut (pattern projet, modèle : documents/[id]/[slug].vue)
+const breadcrumbSchema = computed(() => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: siteUrl },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Conseil des ministres',
+      item: `${siteUrl}/conseil-des-ministres`,
     },
-    publisher: {
-      '@type': 'GovernmentOrganization',
-      name: 'Conseil des ministres du Sénégal',
-      url: `${siteUrl}/conseil-des-ministres`,
-      logo: {
-        '@type': 'ImageObject',
-        url: `${siteUrl}/images/logo-senegal.png`,
-      },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: article.value?.title || 'Communiqué',
+      item: url.value,
     },
-    articleSection: 'Gouvernement',
-    keywords: ['Conseil des ministres', 'Sénégal', 'Gouvernement', 'Communiqué officiel'],
-    about: {
-      '@type': 'GovernmentOrganization',
-      name: 'Conseil des ministres du Sénégal',
-      parentOrganization: {
-        '@type': 'GovernmentOrganization',
-        name: 'République du Sénégal',
-      },
+  ],
+}));
+
+const articleSchema = computed(() => ({
+  '@context': 'https://schema.org',
+  '@type': 'GovernmentAnnouncement',
+  headline: article.value?.title || 'Communiqué du Conseil des ministres',
+  description: description.value,
+  image: image.value || undefined,
+  datePublished: publishedDate.value || undefined,
+  dateModified: modifiedDate.value || publishedDate.value || undefined,
+  author: {
+    '@type': 'GovernmentOrganization',
+    name: 'Conseil des ministres du Sénégal',
+    url: `${siteUrl}/conseil-des-ministres`,
+  },
+  publisher: {
+    '@type': 'GovernmentOrganization',
+    name: 'Conseil des ministres du Sénégal',
+    url: `${siteUrl}/conseil-des-ministres`,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${siteUrl}/images/logo-senegal.png`,
     },
-    mainEntityOfPage: () => url.value,
-  }),
-]);
+  },
+  articleSection: 'Gouvernement',
+  keywords: ['Conseil des ministres', 'Sénégal', 'Gouvernement', 'Communiqué officiel'],
+  about: {
+    '@type': 'GovernmentOrganization',
+    name: 'Conseil des ministres du Sénégal',
+    parentOrganization: {
+      '@type': 'GovernmentOrganization',
+      name: 'République du Sénégal',
+    },
+  },
+  mainEntityOfPage: url.value,
+}));
 
 useHead({
   htmlAttrs: { lang: 'fr-SN' },
@@ -146,6 +154,16 @@ useHead({
     { name: 'geo.placename', content: 'Dakar' },
     { name: 'geo.position', content: '14.7645042;-17.3660286' },
     { name: 'ICBM', content: '14.7645042, -17.3660286' },
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: computed(() => JSON.stringify(breadcrumbSchema.value)),
+    },
+    {
+      type: 'application/ld+json',
+      innerHTML: computed(() => JSON.stringify(articleSchema.value)),
+    },
   ],
 });
 

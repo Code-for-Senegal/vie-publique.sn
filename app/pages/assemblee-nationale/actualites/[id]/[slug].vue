@@ -42,11 +42,8 @@ const url = computed(() => {
 
 const image = computed(() => {
   if (!article.value) return defaultImage;
-  // ⚠️ NE PAS utiliser useCmsImageAbsolute() ici : ce computed est lu en lazy par
-  // defineArticle()/useSchemaOrg, dont la résolution SSR se fait HORS du scope setup.
-  // useCmsImageAbsolute appelle useSiteMetadata()→useRuntimeConfig() (composable Nuxt)
-  // → « composable called outside setup » → 500 sur le chargement direct de l'URL.
-  // On combine donc le `siteUrl` déjà capturé (string) et useCmsImage() (fonction pure).
+  // URL absolue construite avec siteUrl (capturé en setup) + useCmsImage() (fonction pure) :
+  // pas d'appel de composable Nuxt ici, donc lisible sans risque dans le JSON-LD ci-dessous.
   return article.value.cover_image
     ? `${siteUrl}${useCmsImage(article.value.cover_image)}`
     : defaultImage;
@@ -73,6 +70,70 @@ useSeoMeta({
       'politique sénégalaise',
     ].join(', '),
 });
+
+// Schema.org — JSON-LD brut (pattern projet, modèle : documents/[id]/[slug].vue)
+const breadcrumbSchema = computed(() => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: siteUrl },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Assemblée nationale',
+      item: `${siteUrl}/assemblee-nationale`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Actualités',
+      item: `${siteUrl}/assemblee-nationale/actualites`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 4,
+      name: article.value?.title || 'Article',
+      item: url.value,
+    },
+  ],
+}));
+
+const articleSchema = computed(() => ({
+  '@context': 'https://schema.org',
+  '@type': 'NewsArticle',
+  headline: article.value?.title || '',
+  description: description.value,
+  image: image.value || undefined,
+  datePublished: article.value?.date_published
+    ? formatDateISO(article.value.date_published)
+    : undefined,
+  dateModified: article.value?.date_updated
+    ? formatDateISO(article.value.date_updated)
+    : article.value?.date_published
+      ? formatDateISO(article.value.date_published)
+      : undefined,
+  author: {
+    '@type': 'Organization',
+    name: 'Assemblée nationale du Sénégal',
+    url: `${siteUrl}/assemblee-nationale`,
+  },
+  publisher: {
+    '@type': 'NewsMediaOrganization',
+    name: siteName,
+    url: siteUrl,
+    logo: {
+      '@type': 'ImageObject',
+      url: defaultImage,
+    },
+  },
+  articleSection: 'Politique',
+  keywords: article.value?.tags?.join(', ') || 'Assemblée nationale, Sénégal, politique',
+  about: {
+    '@type': 'GovernmentOrganization',
+    name: 'Assemblée nationale du Sénégal',
+  },
+  mainEntityOfPage: url.value,
+}));
 
 useHead({
   htmlAttrs: { lang: 'fr-SN' },
@@ -107,54 +168,17 @@ useHead({
       content: () => article.value?.tags?.join(', ') || 'Assemblée nationale, Sénégal',
     },
   ],
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: computed(() => JSON.stringify(breadcrumbSchema.value)),
+    },
+    {
+      type: 'application/ld+json',
+      innerHTML: computed(() => JSON.stringify(articleSchema.value)),
+    },
+  ],
 });
-
-// Structured Data
-useSchemaOrg([
-  defineBreadcrumb({
-    itemListElement: () => [
-      { name: 'Accueil', item: '/' },
-      { name: 'Assemblée nationale', item: '/assemblee-nationale' },
-      { name: 'Actualités', item: '/assemblee-nationale/actualites' },
-      { name: article.value?.title || 'Article', item: url.value },
-    ],
-  }),
-  defineArticle({
-    '@type': 'NewsArticle',
-    headline: () => article.value?.title,
-    description: () => description.value,
-    image: () => image.value,
-    datePublished: () =>
-      article.value?.date_published ? formatDateISO(article.value.date_published) : undefined,
-    dateModified: () =>
-      article.value?.date_updated
-        ? formatDateISO(article.value.date_updated)
-        : article.value?.date_published
-          ? formatDateISO(article.value.date_published)
-          : undefined,
-    author: {
-      '@type': 'Organization',
-      name: 'Assemblée nationale du Sénégal',
-      url: `${siteUrl}/assemblee-nationale`,
-    },
-    publisher: {
-      '@type': 'NewsMediaOrganization',
-      name: siteName,
-      url: siteUrl,
-      logo: {
-        '@type': 'ImageObject',
-        url: defaultImage,
-      },
-    },
-    articleSection: 'Politique',
-    keywords: () => article.value?.tags?.join(', ') || 'Assemblée nationale, Sénégal, politique',
-    about: {
-      '@type': 'GovernmentOrganization',
-      name: 'Assemblée nationale du Sénégal',
-    },
-    mainEntityOfPage: () => url.value,
-  }),
-]);
 </script>
 
 <template>

@@ -74,11 +74,11 @@ avec valeurs `draft` / `published` / `archived`.
 
 **Collections** — 3 familles :
 
-| Famille | Convention | Exemples | Quand l'utiliser |
-| --- | --- | --- | --- |
-| **Contenu public principal** | pluriel nu, sans préfixe | `documents`, `news`, `media`, `elections`, `dossiers` | Contenu public de 1er rang destiné aux citoyens. Le nom calque souvent l'URL publique (ex. `/dossiers` → `dossiers`, `/carte` → `carte`). |
-| **Module métier** | `<domaine>_<entité>` (singulier) | `assembly_deputy`, `budget_line`, `state_organization_entity`, `election_coalition`, `public_project`, `public_persons` | Données structurées d'un domaine fonctionnel (assemblée, budget, état, élections, projets). Les tables liées gardent le préfixe du domaine. |
-| **Contenu propre à l'association** | préfixe `vp_` | `vp_podcasts`, `vp_documents`, `vp_team`, `vp_partners`, `vp_social_stats`, `vp_feature_flags` | Contenu/ressources **de l'association Vie Publique** (page « À propos » : leurs documents, leur équipe, partenaires…) + config applicative. **Ne PAS confondre** avec le contenu public du site. |
+| Famille                            | Convention                       | Exemples                                                                                                                | Quand l'utiliser                                                                                                                                                                                 |
+| ---------------------------------- | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Contenu public principal**       | pluriel nu, sans préfixe         | `documents`, `news`, `media`, `elections`, `dossiers`                                                                   | Contenu public de 1er rang destiné aux citoyens. Le nom calque souvent l'URL publique (ex. `/dossiers` → `dossiers`, `/carte` → `carte`).                                                        |
+| **Module métier**                  | `<domaine>_<entité>` (singulier) | `assembly_deputy`, `budget_line`, `state_organization_entity`, `election_coalition`, `public_project`, `public_persons` | Données structurées d'un domaine fonctionnel (assemblée, budget, état, élections, projets). Les tables liées gardent le préfixe du domaine.                                                      |
+| **Contenu propre à l'association** | préfixe `vp_`                    | `vp_podcasts`, `vp_documents`, `vp_team`, `vp_partners`, `vp_social_stats`, `vp_feature_flags`                          | Contenu/ressources **de l'association Vie Publique** (page « À propos » : leurs documents, leur équipe, partenaires…) + config applicative. **Ne PAS confondre** avec le contenu public du site. |
 
 > ⚠️ Le préfixe `vp_` = « contenu de l'association », **pas** « contenu éditorial du site ».
 > Une page de référence publique (ex. Dossiers) va dans la famille **sans préfixe**.
@@ -132,7 +132,7 @@ Le projet utilise `@nuxtjs/seo`. Un audit basé uniquement sur le code produit d
 3. `@nuxtjs/seo` fournit des **fallbacks globaux** (og:image, robots, canonical, og:site_name) → « la page ne définit pas X » ≠ « X absent du HTML ».
 4. **2 seules causes réelles de partage social cassé** : (a) meta dans un `watch`/`onMounted` au lieu du scope setup → SSR rend les meta GLOBALES ; (b) concat malformée `` `${siteUrl}${idBrut}` `` (sans slash). Toujours définir `useSeoMeta`/`useHead` **en scope setup avec getters réactifs**, et utiliser `useCmsImageAbsolute()` pour les images CMS.
 5. Avant de « corriger l'indexation » d'une page : vérifier `routeRules` (redirects 301) et `robots.disallow` dans `nuxt.config.ts`.
-6. **Schema.org : utiliser le JSON-LD brut (pattern majoritaire du projet, modèle = `documents/[id]/[slug].vue`), PAS `useSchemaOrg`.** Définir chaque schéma comme un objet `computed` simple (`{ '@context': 'https://schema.org', '@type': 'Article', … }`) en scope setup, puis l'injecter via `useHead({ script: [{ type: 'application/ld+json', children: computed(() => JSON.stringify(monSchema.value)) }] })`. Construire les URLs d'image **absolues** avec la fonction pure `useCmsImage()` + le `siteUrl` capturé en setup (`` `${siteUrl}${useCmsImage(id)}` ``), jamais `useCmsImageAbsolute()` à l'intérieur du schéma. _(Les 6 pages historiques en `useSchemaOrg`/`defineArticle` sont l'exception ; si on doit y toucher, ne jamais appeler de composable Nuxt — `useRuntimeConfig`/`useSiteMetadata`/`useCmsImageAbsolute` — dans un getter, car nuxt-schema-org les résout hors scope setup → 500 SSR. Pour une nouvelle page, préférer le JSON-LD brut.)_
+6. **Schema.org : utiliser le JSON-LD brut (pattern majoritaire du projet, modèle = `documents/[id]/[slug].vue`), PAS `useSchemaOrg`.** Définir chaque schéma comme un objet `computed` simple (`{ '@context': 'https://schema.org', '@type': 'Article', … }`) en scope setup, puis l'injecter via `useHead({ script: [{ type: 'application/ld+json', innerHTML: computed(() => JSON.stringify(monSchema.value)) }] })`. **⚠️ Utiliser `innerHTML`, PAS `children`** : avec `@unhead/vue` v2 (le projet est en v2), `children` est rendu comme **attribut HTML** (`<script … children="{…}">`) et le JSON-LD n'est **pas lu par Google**. _(Beaucoup de pages historiques utilisent encore `children` → JSON-LD page cassé ; à migrer vers `innerHTML`. Vérifier le rendu : `curl -s <url> | grep -oE '<script type="application/ld\+json">'` doit montrer le `{…}` en contenu, pas en attribut.)_ Construire les URLs d'image **absolues** avec la fonction pure `useCmsImage()` + le `siteUrl` capturé en setup (`` `${siteUrl}${useCmsImage(id)}` ``), jamais `useCmsImageAbsolute()` à l'intérieur du schéma. _(Les 6 pages historiques en `useSchemaOrg`/`defineArticle` sont l'exception ; si on doit y toucher, ne jamais appeler de composable Nuxt — `useRuntimeConfig`/`useSiteMetadata`/`useCmsImageAbsolute` — dans un getter, car nuxt-schema-org les résout hors scope setup → 500 SSR. Pour une nouvelle page, préférer le JSON-LD brut.)_
 
 ### UI & Design conventions (IMPORTANT)
 
@@ -181,7 +181,9 @@ dashboard ».
 
    // ❌ MAUVAIS — onMounted = client uniquement → SSR ignore ?page
    const currentPage = ref(1);
-   onMounted(() => { if (route.query.page) currentPage.value = +route.query.page; });
+   onMounted(() => {
+     if (route.query.page) currentPage.value = +route.query.page;
+   });
    ```
 
 2. **Réutiliser `useCollectionState` + `useCmsCollection`** pour toute nouvelle liste (documents,
