@@ -49,7 +49,7 @@ export const DEFAULT_FEATURES: Record<string, FeatureFlag> = {
   menu_dossiers: {
     key: 'menu_dossiers',
     enabled: true,
-    environments: ['dev', 'test', 'production'],
+    environments: ['dev', 'test'],
     description: 'Menu Dossiers (pages de référence thématiques)',
   },
   menu_assemblee_nationale: {

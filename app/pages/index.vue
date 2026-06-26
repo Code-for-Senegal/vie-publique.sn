@@ -193,7 +193,7 @@ const { isFeatureEnabled } = useFeatureFlags();
         <HomeFeaturedDocuments />
       </div>
 
-      <div class="my-8">
+      <div v-if="isFeatureEnabled('menu_dossiers')" class="my-8">
         <HomeDossiers />
       </div>
 
