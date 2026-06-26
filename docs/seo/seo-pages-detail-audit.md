@@ -165,10 +165,19 @@ Le module **`@nuxtjs/seo` fait deux choses automatiquement** :
 sont les modèles propres :
 
 ```ts
-// 1. computed/getters réactifs en scope setup — image absolue + fallback supporté
-const image = computed(() =>
-  entity.value?.logo ? useCmsImageAbsolute(entity.value.logo) : `${siteUrl}/images/fallback.jpg`,
-);
+const { siteName, siteUrl, defaultImage } = useSiteMetadata(); // ✅ composables APPELÉS en setup
+
+// 1. Image absolue SANS composable Nuxt dans le calcul lu par les getters.
+//    ⚠️ Un `computed` est LAZY : il s'évalue à la 1re lecture, qui a lieu DANS le getter
+//    `ogImage: () => image.value` — donc HORS scope setup. Si ce computed appelle
+//    `useCmsImageAbsolute()` (→ useSiteMetadata → useRuntimeConfig), c'est un crash
+//    « composable called outside setup » → 500 SSR. On utilise donc la fonction PURE
+//    `useCmsImage()` + `siteUrl` déjà capturé en setup.
+const image = computed(() => {
+  if (!entity.value?.logo) return defaultImage;
+  const rel = useCmsImage(entity.value.logo); // pur : renvoie /cms/<id>
+  return rel.startsWith('http') ? rel : `${siteUrl}${rel}`;
+});
 
 // 2. useSeoMeta en scope setup, getters réactifs (JAMAIS dans un watch/onMounted)
 useSeoMeta({
@@ -184,12 +193,29 @@ useSeoMeta({
   twitterImage: () => image.value,
 });
 
-// 3. useHead : canonical (le module le génère aussi, mais explicite = mieux)
+// 3. useHead : canonical + JSON-LD du nœud d'entité.
+const articleSchema = computed(() => ({ '@context': 'https://schema.org', '@type': 'Article', /* … */ }));
 useHead({
   htmlAttrs: { lang: 'fr-SN' },
   link: () => [{ rel: 'canonical', href: url.value }],
+  // ⚠️ `innerHTML` et NON `children` : avec @unhead/vue v2, `children` est rendu comme
+  //    ATTRIBUT (<script … children="{…}">) → JSON-LD vide, non lu par Google.
+  script: () => [
+    { type: 'application/ld+json', innerHTML: JSON.stringify(articleSchema.value) },
+  ],
 });
 ```
+
+**Règles JSON-LD (rappel, cf. CLAUDE.md §SEO 6–7) :**
+
+- **`innerHTML`, jamais `children`** (sinon script vide en @unhead v2).
+- **Aucun composable Nuxt** (`useRuntimeConfig`/`useSiteMetadata`/`useCmsImageAbsolute`) **dans un
+  getter** ni dans un `computed` lu uniquement par un getter → 500 SSR. URL image absolue =
+  `useCmsImage()` (pur) + `siteUrl` capturé en setup.
+- **N'émettre que le nœud d'entité** (`Article`/`NewsArticle`/`Person`/`FAQPage`…). Le `@graph`
+  global de `@nuxtjs/seo` émet déjà WebSite/WebPage/Organization **et un BreadcrumbList** → **ne pas
+  réémettre de BreadcrumbList** en page, et **ne pas** utiliser `defineBreadcrumb` (il fusionne avec
+  l'auto → BreadcrumbList malformé, ex. `deputes/[id]` = 8 items).
 
 ---
 

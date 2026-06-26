@@ -259,8 +259,9 @@ Le `image` computed faisait `` `${siteUrl}${cover_image}` ``. Or l'API
 (`server/api/news/[id].get.ts`) renvoie `cover_image` comme **ID d'asset Directus brut**, pas une URL.
 Résultat : `https://www.vie-publique.snABCD-1234` (URL cassée). De plus le fallback était un `.jfif`,
 format mal supporté par les crawlers sociaux.
-→ **Fix** : utiliser `useCmsImageAbsolute(cover_image)` (→ `${siteUrl}/cms/<id>`) + fallback en `.jpg`
-(`public/images/share-conseil-des-ministres-nomination-full.jpg`, copié depuis le `.jfif`).
+→ **Fix** : construire `${siteUrl}/cms/<id>` via la fonction pure `useCmsImage()` + `siteUrl` (setup),
+avec un fallback en `.jpg` (`public/images/share-conseil-des-ministres-nomination-full.jpg`).
+**⚠️ Ne pas** appeler `useCmsImageAbsolute()` dans le getter (→ 500 SSR, voir la règle ci-dessous).
 
 ### Règles Open Graph à retenir
 
@@ -268,7 +269,12 @@ format mal supporté par les crawlers sociaux.
   définir le SEO **en scope setup avec getters**, jamais dans un `watch`/`onMounted`.
 - L'`og:image` doit être une **URL absolue** accessible publiquement, format **jpg/png** (éviter
   `.jfif` et `.webp` — WhatsApp ne rend pas fiablement le WebP).
-- Toujours transformer un ID d'asset CMS via `useCmsImageAbsolute()`, jamais par concaténation.
+- Transformer un ID d'asset CMS en URL absolue, jamais par concaténation brute d'ID.
+  **⚠️ MAIS : ne pas appeler `useCmsImageAbsolute()` dans un getter `useHead`/`useSeoMeta`** (ni dans
+  un `computed` lu uniquement par un getter) : il appelle `useSiteMetadata`/`useRuntimeConfig`,
+  évalués **hors scope setup** → erreur « composable called outside setup » → **500 SSR** (cas vécu :
+  `/actualites/[id]`, `/dossiers/[slug]`). **Pattern sûr** : fonction **pure** `useCmsImage(id)`
+  (`/cms/<id>`) + `siteUrl` capturé en setup → `` `${siteUrl}${useCmsImage(id)}` ``. Cf. CLAUDE.md §SEO 6.
 
 ### ⚠️ Re-scraper les caches sociaux après tout changement OG
 
