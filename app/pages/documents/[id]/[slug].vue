@@ -46,17 +46,21 @@ const getSafeString = (val: unknown): string => {
   return '';
 };
 
-const pageTitle = computed(() =>
-  document.value?.title
-    ? `${getSafeString(document.value.title)} - Vie Publique Sénégal`
-    : 'Chargement...',
-);
+// La marque est ajoutée UNE fois par le titleTemplate global (@nuxtjs/seo) → ne pas
+// la répéter ici (sinon « … - Vie Publique Sénégal | Vie-Publique.sn », titre trop long).
+const pageTitle = computed(() => getSafeString(document.value?.title) || 'Chargement...');
 
-const pageDescription = computed(
-  () =>
-    getSafeString(document.value?.description) ||
-    `${typeLabel.value} - Document officiel du Sénégal`,
-);
+// Fallback descriptif et UNIQUE quand le document n'a pas de description (sinon meta
+// générique « Document - Document officiel… » trop courte/dupliquée).
+const pageDescription = computed(() => {
+  const desc = getSafeString(document.value?.description);
+  if (desc) return desc;
+  const t = getSafeString(document.value?.title);
+  const d = formattedDate.value ? ` (${formattedDate.value})` : '';
+  return t
+    ? `${t} — ${typeLabel.value} officiel de la République du Sénégal${d}. À consulter et télécharger sur Vie-Publique.sn.`
+    : `${typeLabel.value} officiel de la République du Sénégal.`;
+});
 
 const { siteUrl } = useSiteMetadata();
 
@@ -74,7 +78,7 @@ useSeoMeta({
   title: () => pageTitle.value,
   description: () => pageDescription.value,
   ogTitle: () => getSafeString(document.value?.title),
-  ogDescription: () => getSafeString(document.value?.description) || typeLabel.value,
+  ogDescription: () => pageDescription.value,
   ogImage: () => pageImageUrl.value,
   ogType: 'article',
   ogUrl: () =>
@@ -83,7 +87,7 @@ useSeoMeta({
       : '',
   twitterCard: 'summary_large_image',
   twitterTitle: () => getSafeString(document.value?.title),
-  twitterDescription: () => getSafeString(document.value?.description) || typeLabel.value,
+  twitterDescription: () => pageDescription.value,
   twitterImage: () => pageImageUrl.value,
 });
 
@@ -209,12 +213,13 @@ const showPdfViewer = ref(false);
               <UIcon name="i-heroicons-arrow-left" class="h-4 w-4" />
             </NuxtLink>
             <div class="min-w-0 flex-1">
-              <h1
+              <!-- Barre de nav mobile : titre en paragraphe (le titre principal est dans le contenu) -->
+              <p
                 v-if="document"
                 class="line-clamp-2 text-sm font-semibold leading-tight text-gray-900 dark:text-white"
               >
                 {{ document.title }}
-              </h1>
+              </p>
               <USkeleton v-else class="h-4 w-48" />
               <p v-if="formattedDate" class="mt-0.5 text-[10px] text-gray-500">
                 {{ formattedDate }}
