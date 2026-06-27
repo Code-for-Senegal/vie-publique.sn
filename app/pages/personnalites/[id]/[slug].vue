@@ -10,12 +10,13 @@ const { siteName, siteUrl, keywords, themeColor } = useSiteMetadata();
 
 // Métadonnées dynamiques
 const title = computed(() => {
-  if (!person.value) return 'Personnalité publique | Vie Publique Sénégal';
+  // La marque est ajoutée par le titleTemplate global → ne pas la répéter ici.
+  if (!person.value) return 'Personnalité publique';
   const apt = currentAppointment.value;
   if (apt?.position_title) {
-    return `${person.value.full_name} - ${apt.position_title} | Vie Publique Sénégal`;
+    return `${person.value.full_name} - ${apt.position_title}`;
   }
-  return `${person.value.full_name} | Vie Publique Sénégal`;
+  return person.value.full_name;
 });
 
 const description = computed(() => {
@@ -408,7 +409,10 @@ const backLabel = computed(() => {
                     {{ isActive ? 'En fonction' : 'Fin de fonction' }}
                   </span>
                   <span
-                    v-if="currentAppointment?.position_category && currentAppointment.position_category !== 'Autre'"
+                    v-if="
+                      currentAppointment?.position_category &&
+                      currentAppointment.position_category !== 'Autre'
+                    "
                     class="bg-primary-50 text-primary-700 ring-primary-200 dark:bg-primary-900/20 dark:text-primary-400 dark:ring-primary-800 inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ring-1"
                   >
                     {{ currentAppointment.position_category }}
@@ -640,7 +644,7 @@ const backLabel = computed(() => {
           </div>
           <div class="p-6">
             <div
-              class="prose prose-sm max-w-none sm:prose prose-headings:text-gray-900 prose-p:text-gray-600 prose-strong:text-gray-900 prose-li:text-gray-600 prose-a:text-primary-600 prose-img:rounded-xl prose-img:shadow-md dark:prose-headings:text-white dark:prose-p:text-gray-300 dark:prose-strong:text-white dark:prose-li:text-gray-300 dark:prose-a:text-primary-400 dark:prose-hr:border-gray-700"
+              class="prose-a:text-primary-600 dark:prose-a:text-primary-400 prose prose-sm max-w-none sm:prose prose-headings:text-gray-900 prose-p:text-gray-600 prose-strong:text-gray-900 prose-li:text-gray-600 prose-img:rounded-xl prose-img:shadow-md dark:prose-headings:text-white dark:prose-p:text-gray-300 dark:prose-strong:text-white dark:prose-li:text-gray-300 dark:prose-hr:border-gray-700"
               v-html="person.long_bio"
             ></div>
           </div>
