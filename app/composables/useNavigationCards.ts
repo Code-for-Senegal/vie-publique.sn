@@ -59,7 +59,7 @@ export function useNavigationCards() {
       title: 'Journal officiel',
       description: 'Lois, Décrets, Arrêtés',
       icon: 'i-heroicons-newspaper',
-      to: '/documents/journal-officiel',
+      to: '/documents/journal-officiel-senegal',
       count: 1354,
       display: true,
     },

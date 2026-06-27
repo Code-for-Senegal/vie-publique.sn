@@ -5,7 +5,7 @@ const CATEGORY_SEO: Record<
   string,
   { type: string; label: string; countLabel: string; ogImage: string }
 > = {
-  'journal-officiel': {
+  'journal-officiel-senegal': {
     type: 'official_journal',
     label: 'Journal Officiel',
     countLabel: 'publication',

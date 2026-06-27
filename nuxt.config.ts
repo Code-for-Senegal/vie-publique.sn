@@ -196,9 +196,18 @@ export default defineNuxtConfig({
     '/publications': { redirect: { to: '/actualites', statusCode: 301 }, prerender: true },
     '/publications/**': { redirect: { to: '/actualites', statusCode: 301 }, prerender: true },
     // Redirections des anciennes URLs anglaises vers françaises
-    '/about/privacy': { redirect: { to: '/a-propos/confidentialite', statusCode: 301 }, prerender: true },
-    '/about/barometre': { redirect: { to: '/a-propos/barometre-politique', statusCode: 301 }, prerender: true },
-    '/about/us': { redirect: { to: '/a-propos/qui-sommes-nous', statusCode: 301 }, prerender: true },
+    '/about/privacy': {
+      redirect: { to: '/a-propos/confidentialite', statusCode: 301 },
+      prerender: true,
+    },
+    '/about/barometre': {
+      redirect: { to: '/a-propos/barometre-politique', statusCode: 301 },
+      prerender: true,
+    },
+    '/about/us': {
+      redirect: { to: '/a-propos/qui-sommes-nous', statusCode: 301 },
+      prerender: true,
+    },
     // Apple touch icons (requêtes automatiques iOS)
     '/apple-touch-icon.png': { redirect: '/pwa-192x192.png' },
     '/apple-touch-icon-precomposed.png': { redirect: '/pwa-192x192.png' },
@@ -207,39 +216,107 @@ export default defineNuxtConfig({
     '/reports/**': { redirect: { to: '/documents/rapports-audit', statusCode: 301 } },
     '/rapport-senegal': { redirect: { to: '/documents/rapports-audit', statusCode: 301 } },
     '/rapport-senegal/**': { redirect: { to: '/documents/rapports-audit', statusCode: 301 } },
+    // Journal officiel : consolidation vers /documents/journal-officiel-senegal
+    '/journal-officiel-senegal': {
+      redirect: { to: '/documents/journal-officiel-senegal', statusCode: 301 },
+    },
+    '/journal-officiel-senegal/**': {
+      redirect: { to: '/documents/journal-officiel-senegal', statusCode: 301 },
+    },
+    '/documents/journal-officiel': {
+      redirect: { to: '/documents/journal-officiel-senegal', statusCode: 301 },
+    },
+    '/documents/journal-officiel/**': {
+      redirect: { to: '/documents/journal-officiel-senegal/**', statusCode: 301 },
+    },
     '/budget-etat-senegal': { redirect: { to: '/budget-senegal', statusCode: 301 } },
     '/budget-etat-senegal/**': { redirect: { to: '/budget-senegal/**', statusCode: 301 } },
-    '/nomination-senegal/conseil-des-ministres-07-aout': { redirect: { to: '/nomination-senegal', statusCode: 301 } },
-    '/nomination-senegal/conseil-des-ministres-07-aout/**': { redirect: { to: '/nomination-senegal/**', statusCode: 301 } },
-    '/nomination-senegal/conseil-des-ministres-18-juillet': { redirect: { to: '/nomination-senegal', statusCode: 301 } },
-    '/nomination-senegal/conseil-des-ministres-18-juillet/**': { redirect: { to: '/nomination-senegal/**', statusCode: 301 } },
-    '/nomination-senegal/conseil-des-ministres-31-juillet': { redirect: { to: '/nomination-senegal', statusCode: 301 } },
-    '/nomination-senegal/conseil-des-ministres-31-juillet/**': { redirect: { to: '/nomination-senegal/**', statusCode: 301 } },
-    '/publications/recrutement': { redirect: { to: '/a-propos/recrutement', statusCode: 301 }, prerender: true },
-    '/conseil-des-ministres/conseil-des-ministres-*': { redirect: { to: '/conseil-des-ministres', statusCode: 301 } },
+    '/nomination-senegal/conseil-des-ministres-07-aout': {
+      redirect: { to: '/nomination-senegal', statusCode: 301 },
+    },
+    '/nomination-senegal/conseil-des-ministres-07-aout/**': {
+      redirect: { to: '/nomination-senegal/**', statusCode: 301 },
+    },
+    '/nomination-senegal/conseil-des-ministres-18-juillet': {
+      redirect: { to: '/nomination-senegal', statusCode: 301 },
+    },
+    '/nomination-senegal/conseil-des-ministres-18-juillet/**': {
+      redirect: { to: '/nomination-senegal/**', statusCode: 301 },
+    },
+    '/nomination-senegal/conseil-des-ministres-31-juillet': {
+      redirect: { to: '/nomination-senegal', statusCode: 301 },
+    },
+    '/nomination-senegal/conseil-des-ministres-31-juillet/**': {
+      redirect: { to: '/nomination-senegal/**', statusCode: 301 },
+    },
+    '/publications/recrutement': {
+      redirect: { to: '/a-propos/recrutement', statusCode: 301 },
+      prerender: true,
+    },
+    '/conseil-des-ministres/conseil-des-ministres-*': {
+      redirect: { to: '/conseil-des-ministres', statusCode: 301 },
+    },
     '/medias/liste-officielle': { redirect: { to: '/medias', statusCode: 301 }, prerender: true },
     '/code-senegal': { redirect: { to: '/documents/codes', statusCode: 301 } },
     '/code-senegal/**': { redirect: { to: '/documents/codes', statusCode: 301 } },
     '/portraits': { redirect: { to: '/personnalites', statusCode: 301 } },
     '/portraits/**': { redirect: { to: '/personnalites/**', statusCode: 301 } },
-    '/budget-senegal/2024': { redirect: { to: '/budget-senegal', statusCode: 301 }, prerender: true },
-    '/budget-senegal/2025': { redirect: { to: '/budget-senegal', statusCode: 301 }, prerender: true },
+    '/budget-senegal/2024': {
+      redirect: { to: '/budget-senegal', statusCode: 301 },
+      prerender: true,
+    },
+    '/budget-senegal/2025': {
+      redirect: { to: '/budget-senegal', statusCode: 301 },
+      prerender: true,
+    },
     // Anciennes URLs PDF → pages documents
-    '/pdf/budget/2024-lois-de-finances-2023-18.pdf': { redirect: { to: '/documents/budget', statusCode: 301 } },
-    '/pdf/budget/2024-loi-de-finances-annexes.pdf': { redirect: { to: '/documents/budget', statusCode: 301 } },
-    '/pdf/budget/2024-rapport-execution-budgetaire-premier-trimestre.pdf': { redirect: { to: '/documents/budget', statusCode: 301 } },
-    '/pdf/budget/2024-rapport-execution-budgetaire-deuxieme-trimestre.pdf': { redirect: { to: '/documents/budget', statusCode: 301 } },
-    '/pdf/budget/2025-projet-loi-de-finance-initiale.pdf': { redirect: { to: '/documents/budget', statusCode: 301 } },
-    '/pdf/budget/2025-projet-loi-de-finance-initiale-annexes-voies-et-moyens.pdf': { redirect: { to: '/documents/budget', statusCode: 301 } },
-    '/pdf/budget/2025-document-budgetaire-genre.pdf': { redirect: { to: '/documents/budget', statusCode: 301 } },
-    '/pdf/budget/2024-LFR-loi-de-finances-rectificative-2024-scan-compressed.pdf': { redirect: { to: '/documents/budget', statusCode: 301 } },
-    '/pdf/jors/**': { redirect: { to: '/documents/journal-officiel', statusCode: 301 } },
-    '/pdf/textes/Decret-2024-940.pdf': { redirect: { to: '/documents/551/decret-2024-940-portant-repartition-des-services-de-letat', statusCode: 301 } },
-    '/pdf/programmes/senegal-2050-brochure.pdf': { redirect: { to: '/documents/415/senegal-2050', statusCode: 301 } },
-    '/pdf/programmes/senegal-2050-brochure_compressed.pdf': { redirect: { to: '/documents/415/senegal-2050', statusCode: 301 } },
-    '/pdf/programmes/etats-generaux-industrie-commerce-pre-rappord-diagnostic-industrialisation.pdf': { redirect: { to: '/actualites/133/etats-generaux-industrie-commerce', statusCode: 301 } },
-    '/pdf/justice/arrete-7934-du-31-mai-2016-relatif-au-bareme-de-remunerations-des-mandataires-judiciaires.pdf': { redirect: { to: '/documents/1402/JO-6937-du-02-juin-2016', statusCode: 301 } },
-    '/pdf/communiques/reunion-interministerielle-rentree-scolaire-2024-2025.pdf': { redirect: { to: '/actualites/136/reunion-interministerielle-rentree-scolaire-2024-2025', statusCode: 301 } },
+    '/pdf/budget/2024-lois-de-finances-2023-18.pdf': {
+      redirect: { to: '/documents/budget', statusCode: 301 },
+    },
+    '/pdf/budget/2024-loi-de-finances-annexes.pdf': {
+      redirect: { to: '/documents/budget', statusCode: 301 },
+    },
+    '/pdf/budget/2024-rapport-execution-budgetaire-premier-trimestre.pdf': {
+      redirect: { to: '/documents/budget', statusCode: 301 },
+    },
+    '/pdf/budget/2024-rapport-execution-budgetaire-deuxieme-trimestre.pdf': {
+      redirect: { to: '/documents/budget', statusCode: 301 },
+    },
+    '/pdf/budget/2025-projet-loi-de-finance-initiale.pdf': {
+      redirect: { to: '/documents/budget', statusCode: 301 },
+    },
+    '/pdf/budget/2025-projet-loi-de-finance-initiale-annexes-voies-et-moyens.pdf': {
+      redirect: { to: '/documents/budget', statusCode: 301 },
+    },
+    '/pdf/budget/2025-document-budgetaire-genre.pdf': {
+      redirect: { to: '/documents/budget', statusCode: 301 },
+    },
+    '/pdf/budget/2024-LFR-loi-de-finances-rectificative-2024-scan-compressed.pdf': {
+      redirect: { to: '/documents/budget', statusCode: 301 },
+    },
+    '/pdf/jors/**': { redirect: { to: '/documents/journal-officiel-senegal', statusCode: 301 } },
+    '/pdf/textes/Decret-2024-940.pdf': {
+      redirect: {
+        to: '/documents/551/decret-2024-940-portant-repartition-des-services-de-letat',
+        statusCode: 301,
+      },
+    },
+    '/pdf/programmes/senegal-2050-brochure.pdf': {
+      redirect: { to: '/documents/415/senegal-2050', statusCode: 301 },
+    },
+    '/pdf/programmes/senegal-2050-brochure_compressed.pdf': {
+      redirect: { to: '/documents/415/senegal-2050', statusCode: 301 },
+    },
+    '/pdf/programmes/etats-generaux-industrie-commerce-pre-rappord-diagnostic-industrialisation.pdf':
+      { redirect: { to: '/actualites/133/etats-generaux-industrie-commerce', statusCode: 301 } },
+    '/pdf/justice/arrete-7934-du-31-mai-2016-relatif-au-bareme-de-remunerations-des-mandataires-judiciaires.pdf':
+      { redirect: { to: '/documents/1402/JO-6937-du-02-juin-2016', statusCode: 301 } },
+    '/pdf/communiques/reunion-interministerielle-rentree-scolaire-2024-2025.pdf': {
+      redirect: {
+        to: '/actualites/136/reunion-interministerielle-rentree-scolaire-2024-2025',
+        statusCode: 301,
+      },
+    },
   },
 
   // Optimisations Vite pour le bundling (simplifiées pour éviter les conflits)
@@ -472,8 +549,6 @@ export default defineNuxtConfig({
   robots: {
     allow: '/',
     disallow: [
-      '/journal-officiel-senegal/v2',
-      '/journal-officiel-senegal/v3',
       '/budget-senegal/old',
       '/financial-scandals',
       '/publications/enquetes',

@@ -50,7 +50,7 @@ const documentCategories = [
     title: 'Journal Officiel',
     description: 'Textes, Lois, Décrets, Arrêtés',
     icon: 'i-heroicons-newspaper',
-    to: '/documents/journal-officiel',
+    to: '/documents/journal-officiel-senegal',
     gradient: 'from-blue-500 to-blue-600',
     iconBg: 'bg-blue-500/10',
     iconColor: 'text-blue-500',

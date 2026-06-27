@@ -15,7 +15,7 @@ Vie-Publique.sn est un site citoyen independant qui facilite l'acces a l'informa
 - [Nominations](https://www.vie-publique.sn/nomination-senegal) : Nominations par le conseil des ministres (ministres, DG, PCA, ambassadeurs)
 - [Justice et magistrature](https://www.vie-publique.sn/justice/magistrature) : Nominations dans la magistrature senegalaise
 - [Elections](https://www.vie-publique.sn/elections-senegal) : Donnees electorales, carte electorale, resultats
-- [Journal officiel](https://www.vie-publique.sn/journal-officiel-senegal) : Archives du Journal officiel de la Republique du Senegal
+- [Journal officiel](https://www.vie-publique.sn/documents/journal-officiel-senegal) : Archives du Journal officiel de la Republique du Senegal
 - [Podcasts](https://www.vie-publique.sn/podcasts) : Podcasts sur la vie publique senegalaise
 - [Gouvernement](https://www.vie-publique.sn/gouvernement-senegal) : Composition du gouvernement actuel
 - [Medias](https://www.vie-publique.sn/medias) : Revue de presse et medias senegalais

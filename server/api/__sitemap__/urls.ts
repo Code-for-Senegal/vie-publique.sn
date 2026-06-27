@@ -170,7 +170,13 @@ export default defineSitemapEventHandler(async () => {
         }),
       );
 
-      const categories = ['journal-officiel', 'rapports-audit', 'strategies', 'codes', 'budget'];
+      const categories = [
+        'journal-officiel-senegal',
+        'rapports-audit',
+        'strategies',
+        'codes',
+        'budget',
+      ];
 
       // Page index archives
       urls.push({
@@ -245,7 +251,8 @@ export default defineSitemapEventHandler(async () => {
       );
 
       const activeDecree =
-        (sitemapDecrees as any[]).find((d: any) => d.status === 'active') || (sitemapDecrees as any[])[0];
+        (sitemapDecrees as any[]).find((d: any) => d.status === 'active') ||
+        (sitemapDecrees as any[])[0];
 
       // Pages statiques non auto-découvertes (sous-dossier /organisation)
       urls.push(

@@ -25,7 +25,7 @@ const CATEGORY_SEO: Record<
     showAuditInstitution: boolean;
   }
 > = {
-  'journal-officiel': {
+  'journal-officiel-senegal': {
     type: 'official_journal',
     label: 'Journal Officiel',
     countLabel: 'publication',

@@ -9,7 +9,7 @@
       </div>
     </header>
 
-    <main class="container mx-auto px-0 sm:px-4 py-4">
+    <main class="container mx-auto px-0 py-4 sm:px-4">
       <!-- Navigation Cards - Mobile: 2 cols compact, Desktop: 3 cols -->
       <div class="grid grid-cols-2 gap-1.5 md:grid-cols-3 md:gap-3">
         <NuxtLink
@@ -199,7 +199,7 @@ const allNavigationCards: NavigationCard[] = [
     title: 'Journal officiel Sénégal',
     description: 'Lois, Décrets, Arrêtés',
     icon: 'i-heroicons-newspaper',
-    to: '/documents/journal-officiel',
+    to: '/documents/journal-officiel-senegal',
     featureKey: 'menu_journal_officiel',
   },
   {
@@ -306,7 +306,7 @@ const allNavigationCards: NavigationCard[] = [
     icon: 'i-heroicons-clipboard-document-list',
     to: '/projets-publics-senegal',
     featureKey: 'menu_projets_publics',
-  }
+  },
 ];
 
 // Filtrer les cartes en fonction des feature flags

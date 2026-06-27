@@ -22,7 +22,7 @@ watch(
 
 // Mapping des types de documents vers labels et URLs
 const documentTypes: Record<string, { label: string; slug: string }> = {
-  official_journal: { label: 'Journal Officiel', slug: 'journal-officiel' },
+  official_journal: { label: 'Journal Officiel', slug: 'journal-officiel-senegal' },
   audit_report: { label: "Rapport d'Audit", slug: 'rapports-audit' },
   budget: { label: 'Budget', slug: 'budget' },
   strategy: { label: 'Stratégie', slug: 'strategies' },

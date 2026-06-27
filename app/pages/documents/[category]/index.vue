@@ -34,7 +34,7 @@ interface CategoryConfig {
 }
 
 const CATEGORY_CONFIG: Record<string, CategoryConfig> = {
-  'journal-officiel': {
+  'journal-officiel-senegal': {
     type: 'official_journal',
     title: 'Journal Officiel',
     breadcrumbLabel: 'Journal Officiel',
