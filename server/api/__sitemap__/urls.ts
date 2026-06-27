@@ -40,7 +40,7 @@ export default defineSitemapEventHandler(async () => {
     // 2. Actualités et Conseil des ministres
     const news = await directus.request(
       readItems('news', {
-        fields: ['slug', 'id', 'date_updated', 'date_published', 'category.name'],
+        fields: ['slug', 'id', 'title', 'date_updated', 'date_published', 'category.name'],
         filter: {
           status: { _eq: 'published' },
         },
@@ -48,6 +48,12 @@ export default defineSitemapEventHandler(async () => {
         sort: ['-date_published'],
       }),
     );
+
+    // Fraîcheur Google News : les articles publiés il y a moins de 48 h reçoivent
+    // la balise <news:news> (éligibilité « Top Stories » / onglet Actualités).
+    // Au-delà de 48 h, Google ignore la balise → on ne la pose que sur les récents.
+    const NEWS_WINDOW_MS = 48 * 60 * 60 * 1000;
+    const nowMs = Date.now();
 
     for (const item of news) {
       let path = `/actualites/${item.id}/${item.slug}`;
@@ -59,11 +65,24 @@ export default defineSitemapEventHandler(async () => {
       }
 
       const lastmod = toISODate(item.date_updated) || toISODate(item.date_published);
+      const publishedMs = item.date_published ? new Date(item.date_published).getTime() : 0;
+      const isRecent = publishedMs > 0 && nowMs - publishedMs < NEWS_WINDOW_MS;
+
       urls.push({
         loc: path,
         ...(lastmod && { lastmod }),
-        changefreq: 'weekly',
+        changefreq: isRecent ? 'hourly' : 'weekly',
         priority: priority,
+        // Balise Google News uniquement pour les articles frais (< 48 h)
+        ...(isRecent && item.title
+          ? {
+              news: {
+                publication: { name: 'Vie Publique Sénégal', language: 'fr' },
+                publication_date: toISODate(item.date_published),
+                title: item.title,
+              },
+            }
+          : {}),
       });
     }
 

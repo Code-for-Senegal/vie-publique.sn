@@ -81,38 +81,48 @@ useSeoMeta({
 
 // Schema.org — JSON-LD brut (pattern projet, modèle : documents/[id]/[slug].vue)
 // Breadcrumb : émis par <AppBreadcrumb> (source unique du fil d'Ariane, §7 CLAUDE.md).
+//
+// Type NewsArticle (et non GovernmentAnnouncement) : c'est le type que Google
+// exploite pour « Top Stories » / résultats Article (fraîcheur = levier CTR).
+// ⚠️ CRÉDIBILITÉ : Vie Publique REPUBLIE et structure le communiqué officiel.
+// On déclare donc l'éditeur (author/publisher) = Vie Publique (Organization),
+// et on CITE la source de l'État (about + citation). On ne se déclare PAS
+// GovernmentOrganization : se faire passer pour l'État = incohérence E-E-A-T.
 const articleSchema = computed(() => ({
   '@context': 'https://schema.org',
-  '@type': 'GovernmentAnnouncement',
+  '@type': 'NewsArticle',
   headline: article.value?.title || 'Communiqué du Conseil des ministres',
   description: description.value,
-  image: image.value || undefined,
+  image: image.value ? [image.value] : undefined,
   datePublished: publishedDate.value || undefined,
   dateModified: modifiedDate.value || publishedDate.value || undefined,
+  inLanguage: 'fr-SN',
   author: {
-    '@type': 'GovernmentOrganization',
-    name: 'Conseil des ministres du Sénégal',
-    url: `${siteUrl}/conseil-des-ministres`,
+    '@type': 'Organization',
+    name: siteName,
+    url: siteUrl,
   },
   publisher: {
-    '@type': 'GovernmentOrganization',
-    name: 'Conseil des ministres du Sénégal',
-    url: `${siteUrl}/conseil-des-ministres`,
+    '@type': 'Organization',
+    name: siteName,
+    url: siteUrl,
     logo: {
       '@type': 'ImageObject',
-      url: `${siteUrl}/images/logo-senegal.png`,
+      // Logo Vie Publique à jour, URL publique stable + raster (requis par Google
+      // pour le logo éditeur ; le SVG de app/assets a une URL hashée non stable).
+      url: `${siteUrl}/logos/logo-transparent-carre.png`,
     },
   },
-  articleSection: 'Gouvernement',
+  articleSection: 'Conseil des ministres',
   keywords: ['Conseil des ministres', 'Sénégal', 'Gouvernement', 'Communiqué officiel'],
+  // Sujet de l'article (l'organe de l'État) — on PARLE de lui, on ne l'EST pas.
   about: {
     '@type': 'GovernmentOrganization',
-    name: 'Conseil des ministres du Sénégal',
-    parentOrganization: {
-      '@type': 'GovernmentOrganization',
-      name: 'République du Sénégal',
-    },
+    name: 'Conseil des ministres de la République du Sénégal',
   },
+  // Source officielle citée (crédibilité : données issues de l'État, attribuées).
+  citation: 'Communiqué officiel du Conseil des ministres de la République du Sénégal',
+  isAccessibleForFree: true,
   mainEntityOfPage: url.value,
 }));
 
@@ -124,7 +134,7 @@ useHead({
   ],
   meta: [
     { name: 'theme-color', content: themeColor },
-    { name: 'author', content: 'Conseil des ministres du Sénégal' },
+    { name: 'author', content: siteName },
     { property: 'og:type', content: 'article' },
     { property: 'og:site_name', content: siteName },
     { property: 'article:published_time', content: () => publishedDate.value },
@@ -252,31 +262,26 @@ const formatDateISO = (date: string) => {
 
       <!-- Content -->
       <div v-else-if="article" class="mx-auto max-w-3xl">
-        <article itemscope itemtype="https://schema.org/GovernmentAnnouncement">
+        <article itemscope itemtype="https://schema.org/NewsArticle">
           <!-- Schema.org hidden metadata -->
+          <!-- Éditeur = Vie Publique (Organization), PAS l'État : on republie/cite. -->
           <div
             itemprop="publisher"
             itemscope
-            itemtype="https://schema.org/GovernmentOrganization"
+            itemtype="https://schema.org/Organization"
             class="hidden"
           >
-            <meta itemprop="name" content="Conseil des ministres du Sénégal" />
-            <meta itemprop="url" :content="`${siteUrl}/conseil-des-ministres`" />
+            <meta itemprop="name" :content="siteName" />
+            <meta itemprop="url" :content="siteUrl" />
           </div>
+          <!-- Sujet de l'article (l'organe de l'État) : on en parle, on ne l'est pas. -->
           <div
             itemprop="about"
             itemscope
             itemtype="https://schema.org/GovernmentOrganization"
             class="hidden"
           >
-            <meta itemprop="name" content="Conseil des ministres du Sénégal" />
-            <div
-              itemprop="parentOrganization"
-              itemscope
-              itemtype="https://schema.org/GovernmentOrganization"
-            >
-              <meta itemprop="name" content="République du Sénégal" />
-            </div>
+            <meta itemprop="name" content="Conseil des ministres de la République du Sénégal" />
           </div>
           <meta itemprop="url" :content="url" />
           <meta itemprop="genre" content="Communiqué officiel" />

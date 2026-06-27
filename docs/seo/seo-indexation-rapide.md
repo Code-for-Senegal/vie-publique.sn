@@ -149,30 +149,63 @@ C'est ce qui fait apparaître PressAfrik & co. en temps réel. Concerne surtout
 2. Y déclarer le site et les sections (Actualités, Conseil des ministres).
 3. Respecter les règles éditoriales Google News (auteur, dates claires, contenu original).
 
-### C.2 Sitemap News dédié (à créer)
+### C.2 Balises Google News dans le sitemap — **FAIT** (juin 2026)
 
-Différent du sitemap classique : ne contient **que les articles des dernières 48 h** avec balises
-`<news:news>`. Le module `@nuxtjs/sitemap` supporte l'extension `news` par URL.
-
-À ajouter dans `server/api/__sitemap__/urls.ts` pour les news récentes (< 48 h) :
+Implémenté dans `server/api/__sitemap__/urls.ts` (boucle `news`) : les articles publiés
+**il y a moins de 48 h** reçoivent une balise `<news:news>` + `changefreq: 'hourly'`.
+Au-delà de 48 h, Google ignore la balise → on ne la pose que sur les articles frais.
 
 ```ts
-// dans la boucle news, si date_published < 48h :
+const NEWS_WINDOW_MS = 48 * 60 * 60 * 1000;
+const nowMs = Date.now();
+// ...dans la boucle news :
+const publishedMs = item.date_published ? new Date(item.date_published).getTime() : 0;
+const isRecent = publishedMs > 0 && nowMs - publishedMs < NEWS_WINDOW_MS;
 urls.push({
   loc: path,
   ...(lastmod && { lastmod }),
-  changefreq: 'hourly',
+  changefreq: isRecent ? 'hourly' : 'weekly',
   priority,
-  news: {
-    publication: { name: 'Vie Publique Sénégal', language: 'fr' },
-    publication_date: toISODate(item.date_published),
-    title: item.title,
-  },
+  ...(isRecent && item.title
+    ? {
+        news: {
+          publication: { name: 'Vie Publique Sénégal', language: 'fr' },
+          publication_date: toISODate(item.date_published),
+          title: item.title,
+        },
+      }
+    : {}),
 });
 ```
 
-> Vérifier la config `sitemap` de `@nuxtjs/seo` pour exposer un sitemap news distinct si besoin
-> (option `sitemaps` multiple). Référencer le sitemap news dans Publisher Center.
+> ⚠️ Le champ `title` a dû être **ajouté** aux `fields` du `readItems('news', …)` (il manquait).
+> Vérifié en SSR : `@nuxtjs/sitemap` déclare bien `xmlns:news` et rend `<news:news>` /
+> `<news:publication_date>` dès qu'un article est dans la fenêtre. Couvre **actualités ET
+> conseil-des-ministres** (même collection `news`).
+>
+> _Optionnel (non fait)_ : exposer un **sitemap news distinct** (option `sitemaps` multiple de
+> `@nuxtjs/seo`) plutôt que d'inliner dans le sitemap principal — à référencer dans Publisher Center.
+
+### C.3 Schema `NewsArticle` + crédibilité éditeur — **FAIT** (juin 2026, conseil-des-ministres)
+
+`app/pages/conseil-des-ministres/[id]/[slug].vue` : le JSON-LD est passé de
+`GovernmentAnnouncement` (type **ignoré** par Google pour les actus) à **`NewsArticle`**
+(type exploité pour « Top Stories » / résultats Article).
+
+**⚠️ Règle de crédibilité (E-E-A-T) appliquée** : Vie Publique **republie et structure** le
+communiqué officiel — elle **n'EST PAS** l'État. Donc :
+
+- `author` / `publisher` = **`Organization` « Vie Publique Sénégal »** (logo = PNG public stable
+  `/logos/logo-transparent-carre.png`, pas le SVG `app/assets` à URL hashée),
+  **plus jamais** `GovernmentOrganization` (se déclarer organe de l'État sur un domaine privé =
+  incohérence d'identité, risque E-E-A-T).
+- La source officielle est **citée**, pas usurpée : `about` = `GovernmentOrganization`
+  (le **sujet**), + `citation` = « Communiqué officiel du Conseil des ministres… ».
+- `name` = le **nom de marque** (« Vie Publique Sénégal »), `url` = le domaine — jamais l'inverse.
+- Microdata du template aligné (article `NewsArticle`, publisher `Organization`).
+
+> **À répliquer** sur `app/pages/actualites/[id]/[slug].vue` (même collection `news`, plus gros
+> volume d'actus) : vérifier son type de schéma + son `publisher`. Prochaine étape évidente.
 
 ---
 
@@ -304,7 +337,9 @@ Les plateformes cachent l'aperçu (souvent plusieurs jours). Après déploiement
 - [ ] **D.3** — Décider du cache sitemap (~10 min) ou laisser sans cache
 - [ ] **B.2** — Créer `server/api/seo/indexnow.post.ts` + `runtimeConfig` (clé + secret)
 - [ ] **B.1** — Déposer `public/<KEY>.txt` + ajouter `NUXT_INDEXNOW_KEY` / `NUXT_INDEXNOW_WEBHOOK_SECRET` à `.env.example`
-- [ ] **C.2** — Ajouter l'extension `news` au sitemap pour les actualités < 48 h
+- [x] **C.2** — Extension `news` (< 48 h) ajoutée au sitemap (actualités + conseil-des-ministres) — **FAIT**
+- [x] **C.3** — `NewsArticle` + `publisher`/`author` = Organization Vie Publique + source citée sur `conseil-des-ministres/[id]/[slug]` — **FAIT**
+- [ ] **C.3bis** — Répliquer `NewsArticle` + publisher Vie Publique sur `actualites/[id]/[slug].vue`
 
 ### Externe (Directus / Google — hors repo)
 - [ ] **B.3** — Créer le Flow Directus (publish documents/news → POST /api/seo/indexnow)
