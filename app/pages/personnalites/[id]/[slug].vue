@@ -595,7 +595,13 @@ const backLabel = computed(() => {
                   </a>
                   <span v-else-if="apt.source_label">{{ apt.source_label }}</span>
                   <span v-if="apt.source_document && apt.source_label"> · </span>
-                  <span v-if="apt.source_document">{{ apt.source_document.title }}</span>
+                  <NuxtLink
+                    v-if="apt.source_document"
+                    :to="`/documents/${apt.source_document.id}/${apt.source_document.slug}`"
+                    class="text-primary-600 dark:text-primary-400 underline-offset-2 hover:underline"
+                  >
+                    {{ apt.source_document.title }}
+                  </NuxtLink>
                 </p>
 
                 <!-- Notes -->

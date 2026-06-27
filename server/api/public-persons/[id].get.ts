@@ -103,6 +103,7 @@ export default defineCachedEventHandler(
               'source_link',
               'source_document.id',
               'source_document.title',
+              'source_document.slug',
               'notes',
             ],
             filter: {
@@ -144,7 +145,11 @@ export default defineCachedEventHandler(
         source_label: apt.source_label || null,
         source_link: apt.source_link || null,
         source_document: apt.source_document
-          ? { id: apt.source_document.id, title: apt.source_document.title }
+          ? {
+              id: apt.source_document.id,
+              title: apt.source_document.title,
+              slug: apt.source_document.slug || generateSlugFromName(apt.source_document.title),
+            }
           : null,
         notes: apt.notes || null,
       }));

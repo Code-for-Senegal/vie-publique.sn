@@ -14,7 +14,7 @@ export interface PublicPersonAppointment {
   successor?: { id: number; full_name: string; slug: string } | null;
   source_label?: string | null;
   source_link?: string | null;
-  source_document?: { id: number; title: string } | null;
+  source_document?: { id: number; title: string; slug?: string } | null;
   notes?: string | null;
 }
 
