@@ -11,9 +11,9 @@ const { data, pending, error } = useFetch('/api/dossiers', {
   lazy: true,
 });
 
-const dossiers = computed<DossierListItem[]>(
-  () => (data.value?.dossiers as DossierListItem[]) || [],
-);
+// L'API renvoie { items: [...] } en succès (la clé `dossiers` n'existe que dans
+// le fallback d'erreur du handler) → lire `items`.
+const dossiers = computed<DossierListItem[]>(() => (data.value?.items as DossierListItem[]) || []);
 </script>
 
 <template>

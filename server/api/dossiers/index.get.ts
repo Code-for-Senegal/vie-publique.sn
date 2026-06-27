@@ -121,14 +121,17 @@ export default defineCachedEventHandler(
         },
       };
     } catch (error: any) {
-      // Dégradation gracieuse : on ne casse pas la page liste (ex. collection pas
-      // encore créée côté Directus) — on logue et on renvoie une liste vide.
-      console.warn('Erreur récupération dossiers:', error?.message || error);
-      return {
-        items: [],
-        dossiers: [],
-        pagination: { page, limit, total: 0, totalPages: 0 },
-      };
+      // NE PAS retourner d'objet vide ici : ce handler est `defineCachedEventHandler`,
+      // donc une réponse vide (HTTP 200) serait MISE EN CACHE et resservie même après
+      // rétablissement du CMS (cache empoisonné). On relance une erreur — Nitro ne cache
+      // pas les handlers qui throw — et le front gère déjà l'état `error`. Pattern aligné
+      // sur le reste des endpoints (news, documents, podcasts…).
+      if (error?.statusCode) throw error;
+      console.error('Erreur récupération dossiers:', error?.message || error);
+      throw createError({
+        statusCode: 500,
+        statusMessage: 'Une erreur est survenue lors de la récupération des dossiers',
+      });
     }
   },
   {
