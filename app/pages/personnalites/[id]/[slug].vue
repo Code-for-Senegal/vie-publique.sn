@@ -121,7 +121,15 @@ const personSchema = computed(() => {
     image: image.value,
     description: description.value,
     url: url.value,
-    gender: person.value.sexe === 'male' ? 'Male' : 'Female',
+    mainEntityOfPage: url.value,
+    // gender seulement si connu (sinon Google recevait « Female » par défaut)
+    ...(person.value.sexe && {
+      gender: person.value.sexe === 'male' ? 'Male' : 'Female',
+    }),
+    ...(person.value.birthdate && { birthDate: person.value.birthdate.split('T')[0] }),
+    ...(person.value.birthplace && {
+      birthPlace: { '@type': 'Place', name: person.value.birthplace },
+    }),
     nationality: {
       '@type': 'Country',
       name: 'Sénégal',
@@ -149,16 +157,13 @@ useHead({
     { property: 'og:site_name', content: siteName },
     { name: 'robots', content: 'index, follow' },
   ],
-  script: computed(() => {
-    const scripts = [];
-    if (personSchema.value) {
-      scripts.push({
-        type: 'application/ld+json',
-        innerHTML: JSON.stringify(personSchema.value),
-      });
-    }
-    return scripts;
-  }),
+  script: [
+    {
+      key: 'ld-person',
+      type: 'application/ld+json',
+      innerHTML: computed(() => (personSchema.value ? JSON.stringify(personSchema.value) : '')),
+    },
+  ],
 });
 
 // Date formatting
