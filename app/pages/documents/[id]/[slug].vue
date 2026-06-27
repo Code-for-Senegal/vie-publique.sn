@@ -62,7 +62,14 @@ const pageDescription = computed(() => {
     : `${typeLabel.value} officiel de la République du Sénégal.`;
 });
 
-const { siteUrl } = useSiteMetadata();
+const { siteUrl, siteName, defaultImage } = useSiteMetadata();
+
+// Date ISO 8601 AVEC fuseau horaire (Google exige tz sur datePublished/dateModified)
+const toISO = (d?: string) => {
+  if (!d) return undefined;
+  const dt = new Date(d);
+  return isNaN(dt.getTime()) ? undefined : dt.toISOString();
+};
 
 const pageImageUrl = computed(() => {
   const img = document.value?.cover_image;
@@ -128,17 +135,22 @@ const articleSchema = computed(() => ({
   '@context': 'https://schema.org',
   '@type': 'Article',
   headline: getSafeString(document.value?.title),
-  description: getSafeString(document.value?.description) || typeLabel.value,
+  description: pageDescription.value,
   image: pageImageUrl.value || undefined,
-  datePublished: document.value?.publish_date || undefined,
+  datePublished: toISO(document.value?.publish_date),
+  dateModified:
+    toISO(getSafeString((document.value as any)?.date_updated)) ||
+    toISO(document.value?.publish_date),
   author: {
     '@type': 'Organization',
     name: 'République du Sénégal',
+    url: siteUrl,
   },
   publisher: {
     '@type': 'Organization',
-    name: 'Vie Publique Sénégal',
+    name: siteName,
     url: siteUrl,
+    logo: { '@type': 'ImageObject', url: defaultImage },
   },
 }));
 
