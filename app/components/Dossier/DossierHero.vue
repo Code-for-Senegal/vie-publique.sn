@@ -45,17 +45,8 @@
           · Mis à jour le {{ formatDate(updatedDate) }}
         </span>
       </div>
-
-      <!-- Tags : discrets, limités -->
-      <div v-if="visibleTags.length" class="mt-4 flex flex-wrap gap-1.5">
-        <span
-          v-for="tag in visibleTags"
-          :key="tag"
-          class="rounded-md bg-gray-100 px-2 py-0.5 text-xs text-gray-600 dark:bg-gray-800 dark:text-gray-400"
-        >
-          {{ tag }}
-        </span>
-      </div>
+      <!-- Les tags ne sont PAS dans le hero : ils sont affichés en pied d'article
+           (convention éditoriale « sujets liés »). Cf. pages/dossiers/[slug].vue. -->
     </div>
   </header>
 </template>
@@ -68,9 +59,6 @@ interface Props {
   dossier: Dossier;
 }
 const props = defineProps<Props>();
-
-// Max 5 tags affichés (cf. règle design)
-const visibleTags = computed(() => (props.dossier.tags || []).slice(0, 5));
 
 const updatedDate = computed(() => {
   if (!props.dossier.date_updated) return '';

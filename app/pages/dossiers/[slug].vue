@@ -50,6 +50,9 @@ const sections = computed(() => {
   return list;
 });
 
+// Tags affichés en pied d'article (« sujets liés »), limités pour rester sobres.
+const dossierTags = computed(() => (dossier.value?.tags || []).slice(0, 10));
+
 // Sommaire mobile déroulant (<details>) : refermé après sélection d'une ancre.
 const mobileToc = ref<HTMLDetailsElement | null>(null);
 const closeMobileToc = () => {
@@ -337,6 +340,27 @@ useHead({
             >
               <DossierLinks :links="dossier.sources!" />
             </DossierSection>
+
+            <!-- Thèmes / tags : en pied d'article (convention éditoriale « sujets liés ») -->
+            <div
+              v-if="dossierTags.length"
+              class="border-t border-gray-100 pt-5 dark:border-gray-700 sm:pt-8"
+            >
+              <p
+                class="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500"
+              >
+                Thèmes
+              </p>
+              <div class="flex flex-wrap gap-1.5">
+                <span
+                  v-for="tag in dossierTags"
+                  :key="tag"
+                  class="rounded-md bg-gray-100 px-2 py-0.5 text-xs text-gray-600 dark:bg-gray-800 dark:text-gray-400"
+                >
+                  {{ tag }}
+                </span>
+              </div>
+            </div>
 
             <!-- Partage (mobile) -->
             <div class="border-t border-gray-100 pt-8 dark:border-gray-700 lg:hidden">
