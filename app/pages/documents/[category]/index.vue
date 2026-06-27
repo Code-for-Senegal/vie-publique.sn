@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { AUDIT_INSTITUTION_PAGES, getAuditInstitutionPage } from '~~/types/document';
 import armpLogo from '~/assets/logos/armp.webp';
 import ofnacLogo from '~/assets/logos/ofnac.webp';
 import igeLogo from '~/assets/logos/ige.webp';
@@ -245,8 +246,23 @@ useSeoMeta({
   twitterDescription: config.seo.description,
 });
 
+// Canonical : sur /documents/rapports-audit?organisme=X, on canonicalise vers la
+// page dédiée indexable de l'organisme (funnel des signaux SEO du param vers la
+// vraie URL). Sinon, canonical = la page catégorie propre (sans query param).
+const canonicalUrl = computed(() => {
+  const orga =
+    category === 'rapports-audit' && route.query.organisme
+      ? getAuditInstitutionPage(
+          AUDIT_INSTITUTION_PAGES.find((o) => o.institution === route.query.organisme)?.slug || '',
+        )
+      : undefined;
+  return orga
+    ? `${siteUrl}/documents/rapports-audit/organisme/${orga.slug}`
+    : `${siteUrl}/documents/${category}`;
+});
+
 useHead({
-  link: [{ rel: 'canonical', href: `${siteUrl}/documents/${category}` }],
+  link: [{ rel: 'canonical', href: canonicalUrl }],
   script: [
     {
       type: 'application/ld+json',
@@ -314,7 +330,13 @@ const handleYearChange = (e: Event) => {
 // --- Audit Institution Filter (rapports-audit) ---
 
 const showAuditFilter = config.filters.includes('audit_institution');
-const organismes = ['all', 'Cour des Comptes', 'OFNAC', 'CENTIF', 'IGE', 'ARMP'];
+
+// Chips organisme = liens crawlables vers les pages dédiées indexables
+// (/documents/rapports-audit/organisme/<slug>), pas un filtre en query param.
+const organismeLinks = AUDIT_INSTITUTION_PAGES.map((o) => ({
+  name: o.name,
+  to: `/documents/rapports-audit/organisme/${o.slug}`,
+}));
 
 const logoMap: Record<string, string> = {
   ARMP: armpLogo,
@@ -411,35 +433,25 @@ const resetFilters = () => {
         </div>
 
         <!-- Audit Institution Filter (rapports-audit) -->
+        <!-- Liens vers les pages dédiées par organisme (indexables + maillage interne) -->
         <div
           v-if="showAuditFilter"
           class="scrollbar-hide -mx-4 mt-3 flex items-center gap-1.5 overflow-x-auto px-4 py-1"
         >
-          <button
-            v-for="org in organismes"
-            :key="org"
-            type="button"
-            :class="[
-              'shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-all active:scale-95',
-              selectedFilter === org
-                ? 'bg-primary-500 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400',
-            ]"
-            @click="setSelectedFilter(org)"
+          <NuxtLink
+            to="/documents/rapports-audit"
+            class="bg-primary-500 shrink-0 rounded-full px-3 py-1.5 text-xs font-medium text-white transition-all active:scale-95"
           >
-            {{ org === 'all' ? 'Tous' : org }}
-          </button>
-
-          <!-- Effacer -->
-          <button
-            v-if="hasActiveFilters"
-            type="button"
-            class="shrink-0 rounded-full bg-red-50 px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-100 active:scale-95 dark:bg-red-900/30 dark:text-red-400"
-            @click="resetFilters"
+            Tous
+          </NuxtLink>
+          <NuxtLink
+            v-for="org in organismeLinks"
+            :key="org.to"
+            :to="org.to"
+            class="shrink-0 rounded-full bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-600 transition-all hover:bg-gray-200 active:scale-95 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
           >
-            <UIcon name="i-heroicons-x-mark" class="mr-1 inline h-3 w-3" />
-            Effacer
-          </button>
+            {{ org.name }}
+          </NuxtLink>
         </div>
       </div>
     </header>

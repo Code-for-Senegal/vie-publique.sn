@@ -19,6 +19,12 @@ export interface DocumentsOptions {
   /** Filtre famille initial (ex: 'statistics'). Appliqué AVANT le premier fetch pour le SSR */
   family?: string;
 
+  /**
+   * Organisme d'audit initial (ex: 'OFNAC'). Appliqué AVANT le premier fetch pour le SSR.
+   * Utilisé par les pages dédiées /documents/rapports-audit/organisme/<slug>.
+   */
+  auditInstitution?: string;
+
   /** Synchroniser avec l'URL */
   syncUrl?: boolean;
 }
@@ -97,18 +103,24 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
   const yearFilter = ref<string>(options.year || 'all');
 
   // Gestion du filtre par organisme d'audit
-  const auditInstitutionFilter = ref<string>('');
+  // Initialisé via options.auditInstitution pour que le PREMIER fetch (SSR inclus)
+  // soit déjà filtré sur les pages dédiées par organisme.
+  const auditInstitutionFilter = ref<string>(options.auditInstitution || '');
 
   // Gestion du filtre par famille de documents
   // Initialisé via options.family pour que le PREMIER fetch (SSR inclus) soit déjà filtré.
   const familyFilter = ref<string>(options.family || 'all');
+
+  // Quand l'organisme est imposé par la page (page dédiée par organisme),
+  // on ne lit/écrit PAS le query param ?organisme : l'URL reste propre.
+  const lockAuditInstitution = !!options.auditInstitution;
 
   // Lecture des filtres depuis l'URL
   onMounted(() => {
     if (route.query.year) {
       yearFilter.value = route.query.year as string;
     }
-    if (route.query.organisme) {
+    if (!lockAuditInstitution && route.query.organisme) {
       auditInstitutionFilter.value = route.query.organisme as string;
     }
     if (route.query.family) {
@@ -128,7 +140,9 @@ export const useDocuments = (options: DocumentsOptions = {}) => {
   });
 
   // Synchronisation du filtre organisme avec l'URL
+  // (désactivée sur les pages dédiées où l'organisme est imposé)
   watch(auditInstitutionFilter, () => {
+    if (lockAuditInstitution) return;
     const query: any = { ...route.query };
     if (auditInstitutionFilter.value) {
       query.organisme = auditInstitutionFilter.value;

@@ -1,5 +1,6 @@
 ﻿import { defineSitemapEventHandler } from '#imports';
 import { readItems } from '@directus/sdk';
+import { AUDIT_INSTITUTION_PAGES } from '~~/types/document';
 
 export default defineSitemapEventHandler(async () => {
   const urls: any[] = [];
@@ -124,6 +125,15 @@ export default defineSitemapEventHandler(async () => {
       }
     } catch (sitemapError) {
       console.warn('Erreur sitemap dossiers:', sitemapError);
+    }
+
+    // 3c. Pages dédiées par organisme de contrôle (rapports d'audit)
+    for (const orga of AUDIT_INSTITUTION_PAGES) {
+      urls.push({
+        loc: `/documents/rapports-audit/organisme/${orga.slug}`,
+        changefreq: 'weekly',
+        priority: 0.8,
+      });
     }
 
     // 4. Projets Publics
