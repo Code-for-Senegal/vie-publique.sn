@@ -46,6 +46,19 @@ const getSafeString = (val: unknown): string => {
   return '';
 };
 
+// Date formatée — déclarée AVANT pageDescription qui l'utilise. Sinon référence en
+// avant : @unhead évalue le getter `description` de useSeoMeta pendant le setup côté
+// client, avant l'init de `formattedDate` → TDZ « Cannot access before initialization ».
+const formattedDate = computed(() => {
+  if (!document.value?.publish_date) return '';
+  const date = new Date(document.value.publish_date);
+  return date.toLocaleDateString('fr-FR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+});
+
 // La marque est ajoutée UNE fois par le titleTemplate global (@nuxtjs/seo) → ne pas
 // la répéter ici (sinon « … - Vie Publique Sénégal | Vie-Publique.sn », titre trop long).
 const pageTitle = computed(() => getSafeString(document.value?.title) || 'Chargement...');
@@ -192,17 +205,6 @@ const fileSize = computed(() => {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-});
-
-// Date formatée
-const formattedDate = computed(() => {
-  if (!document.value?.publish_date) return '';
-  const date = new Date(document.value.publish_date);
-  return date.toLocaleDateString('fr-FR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
 });
 
 // État du viewer PDF modal
