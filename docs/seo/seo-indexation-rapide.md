@@ -331,8 +331,8 @@ Les plateformes cachent l'aperçu (souvent plusieurs jours). Après déploiement
 ## 3. Checklist de reprise (prochaine session)
 
 ### Code (cette repo)
-- [ ] **D.1** — Ajouter `meta` (robots + article:published_time/modified_time) sur `documents/[id]/[slug].vue`
-- [ ] **D.1bis** — Vérifier/exposer `date_updated` dans `server/api/documents/[id].get.ts`
+- [x] **D.1** — `meta` fraîcheur (robots `max-image-preview:large` + article:published_time/modified_time + section + author) sur `documents/[id]/[slug].vue` — **FAIT**
+- [x] **D.1bis** — `date_updated` exposé par `server/api/documents/[id].get.ts` (+ type `Document`) — **FAIT**
 - [ ] **D.2** — Sitemap documents : `priority 0.8` + `changefreq 'weekly'` (+ boost < 7j optionnel)
 - [ ] **D.3** — Décider du cache sitemap (~10 min) ou laisser sans cache
 - [ ] **B.2** — Créer `server/api/seo/indexnow.post.ts` + `runtimeConfig` (clé + secret)

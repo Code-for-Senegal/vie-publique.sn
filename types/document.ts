@@ -191,6 +191,7 @@ export interface Document {
   type: string;
   publish_date: string;
   date_created?: string;
+  date_updated?: string;
   description?: string;
   audit_institution?: string;
   family?: string;

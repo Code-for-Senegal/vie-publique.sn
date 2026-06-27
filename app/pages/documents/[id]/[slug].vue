@@ -121,9 +121,7 @@ const articleSchema = computed(() => ({
   description: pageDescription.value,
   image: pageImageUrl.value || undefined,
   datePublished: toISO(document.value?.publish_date),
-  dateModified:
-    toISO(getSafeString((document.value as any)?.date_updated)) ||
-    toISO(document.value?.publish_date),
+  dateModified: toISO(document.value?.date_updated) || toISO(document.value?.publish_date),
   author: {
     '@type': 'Organization',
     name: 'République du Sénégal',
@@ -139,6 +137,23 @@ const articleSchema = computed(() => ({
 
 useHead({
   htmlAttrs: { lang: 'fr-SN' },
+  meta: [
+    // Grande vignette dans les résultats Google (meilleur CTR).
+    { name: 'robots', content: 'index, follow, max-image-preview:large' },
+    // Signaux de fraîcheur (absents jusqu'ici sur les pages documents).
+    {
+      property: 'article:published_time',
+      content: () => toISO(document.value?.publish_date) || '',
+    },
+    {
+      property: 'article:modified_time',
+      content: () =>
+        toISO(document.value?.date_updated) || toISO(document.value?.publish_date) || '',
+    },
+    { property: 'article:section', content: () => typeLabel.value },
+    // Auteur du texte légal = l'État (cohérent avec le schema Article) ; éditeur = Vie Publique.
+    { property: 'article:author', content: 'République du Sénégal' },
+  ],
   link: () => [
     {
       rel: 'canonical',
