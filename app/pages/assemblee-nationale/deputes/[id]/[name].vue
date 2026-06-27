@@ -3,25 +3,28 @@
     <!-- Breadcrumb -->
     <div class="container mx-auto px-4 pt-4">
       <AppBreadcrumb
-:items="[
-        { label: 'Assemblée nationale', to: '/assemblee-nationale' },
-        { label: 'Députés', to: '/assemblee-nationale/deputes' },
-        { label: deputyFullName || 'Détail' }
-      ]" />
+        :items="[
+          { label: 'Assemblée nationale', to: '/assemblee-nationale' },
+          { label: 'Députés', to: '/assemblee-nationale/deputes' },
+          { label: deputyFullName || 'Détail' },
+        ]"
+      />
     </div>
 
     <!-- Sticky Header mobile -->
-    <header class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm md:relative md:border-0 md:bg-transparent md:backdrop-blur-none dark:border-gray-800 dark:bg-gray-900/95">
+    <header
+      class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95 md:relative md:border-0 md:bg-transparent md:backdrop-blur-none"
+    >
       <div class="container mx-auto px-4 py-3 md:py-4">
         <div class="flex items-center gap-3">
           <NuxtLink
             to="/assemblee-nationale/deputes"
-            class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 md:hidden dark:bg-gray-800"
+            class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 md:hidden"
           >
             <UIcon name="i-heroicons-arrow-left" class="h-4 w-4 text-gray-600 dark:text-gray-400" />
           </NuxtLink>
           <div class="min-w-0 flex-1">
-            <h1 class="truncate text-sm font-semibold text-gray-900 md:text-lg dark:text-white">
+            <h1 class="truncate text-sm font-semibold text-gray-900 dark:text-white md:text-lg">
               {{ deputyFullName || 'Député' }}
             </h1>
           </div>
@@ -47,7 +50,10 @@
 
       <!-- Error State -->
       <div v-else-if="error" class="rounded-2xl bg-red-50 p-6 text-center dark:bg-red-900/20">
-        <UIcon name="i-heroicons-exclamation-triangle" class="mx-auto mb-3 h-10 w-10 text-red-500" />
+        <UIcon
+          name="i-heroicons-exclamation-triangle"
+          class="mx-auto mb-3 h-10 w-10 text-red-500"
+        />
         <h3 class="font-semibold text-red-800 dark:text-red-200">Erreur</h3>
         <p class="mt-1 text-sm text-red-600 dark:text-red-300">Une erreur est survenue</p>
         <NuxtLink
@@ -75,9 +81,9 @@
           <!-- Commissions -->
           <section
             v-if="deputiesCommissions.length"
-            class="rounded-2xl bg-white p-4 ring-1 ring-gray-100 md:p-6 dark:bg-gray-800 dark:ring-gray-700"
+            class="rounded-2xl bg-white p-4 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700 md:p-6"
           >
-            <h2 class="mb-3 text-sm font-bold text-gray-900 md:text-base dark:text-white">
+            <h2 class="mb-3 text-sm font-bold text-gray-900 dark:text-white md:text-base">
               Commissions
             </h2>
 
@@ -93,11 +99,14 @@
                   v-for="commission in deputiesCommissionsFiltered"
                   :key="commission.assembly_commission_id.id"
                   :to="`/assemblee-nationale/commissions/${commission.assembly_commission_id.id}`"
-                  class="flex items-center gap-2 rounded-lg bg-blue-50 p-3 text-sm text-blue-700 transition-colors active:bg-blue-100 md:hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400"
+                  class="flex items-center gap-2 rounded-lg bg-blue-50 p-3 text-sm text-blue-700 transition-colors active:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400 md:hover:bg-blue-100"
                 >
                   <UIcon name="i-heroicons-users" class="h-4 w-4 shrink-0" />
                   <span class="line-clamp-1">{{ commission.assembly_commission_id.name }}</span>
-                  <UIcon name="i-heroicons-chevron-right" class="ml-auto h-4 w-4 shrink-0 opacity-50" />
+                  <UIcon
+                    name="i-heroicons-chevron-right"
+                    class="ml-auto h-4 w-4 shrink-0 opacity-50"
+                  />
                 </NuxtLink>
               </div>
             </div>
@@ -232,14 +241,8 @@ useHead({
 
 // Structured Data
 useSchemaOrg([
-  defineBreadcrumb({
-    itemListElement: () => [
-      { name: 'Accueil', item: '/' },
-      { name: 'Assemblée nationale', item: '/assemblee-nationale' },
-      { name: 'Députés', item: '/assemblee-nationale/deputes' },
-      { name: deputyFullName.value || 'Député', item: url.value },
-    ],
-  }),
+  // Breadcrumb émis par <AppBreadcrumb> (source unique) — pas de defineBreadcrumb ici
+  // pour éviter la fusion @graph qui dupliquait les items (§7 CLAUDE.md).
   definePerson({
     name: () => deputyFullName.value,
     givenName: () => getSafeString(deputy.value?.first_name),

@@ -272,22 +272,26 @@ useHead({
     [
       articleSchema.value
         ? {
+            key: 'ld-article',
             type: 'application/ld+json',
             innerHTML: JSON.stringify(articleSchema.value),
           }
         : null,
       {
+        key: 'ld-breadcrumb',
         type: 'application/ld+json',
         innerHTML: JSON.stringify(breadcrumbSchema.value),
       },
       webPageSchema.value
         ? {
+            key: 'ld-webpage',
             type: 'application/ld+json',
             innerHTML: JSON.stringify(webPageSchema.value),
           }
         : null,
       digitalDocumentSchema.value
         ? {
+            key: 'ld-digitaldocument',
             type: 'application/ld+json',
             innerHTML: JSON.stringify(digitalDocumentSchema.value),
           }

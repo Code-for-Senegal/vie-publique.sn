@@ -166,10 +166,12 @@ useHead({
   ],
   script: () => [
     {
+      key: 'ld-breadcrumb',
       type: 'application/ld+json',
       innerHTML: JSON.stringify(breadcrumbSchema.value),
     },
     {
+      key: 'ld-article',
       type: 'application/ld+json',
       innerHTML: JSON.stringify(articleSchema.value),
     },

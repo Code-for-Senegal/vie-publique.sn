@@ -71,13 +71,8 @@ useHead({
 
 // Structured Data
 useSchemaOrg([
-  defineBreadcrumb({
-    itemListElement: () => [
-      { name: 'Accueil', item: '/' },
-      { name: 'Budget Sénégal', item: '/budget-senegal' },
-      { name: entity.value?.name || 'Détail', item: url.value },
-    ],
-  }),
+  // Breadcrumb émis par <AppBreadcrumb> (source unique) — pas de defineBreadcrumb ici
+  // pour éviter la fusion @graph qui dupliquait les items (§7 CLAUDE.md).
   defineWebPage({
     name: () => title.value,
     description: () => description.value,

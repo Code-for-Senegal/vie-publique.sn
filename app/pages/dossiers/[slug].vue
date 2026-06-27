@@ -167,10 +167,12 @@ useHead({
   script: () =>
     [
       articleSchema.value && {
+        key: 'ld-article',
         type: 'application/ld+json',
         innerHTML: JSON.stringify(articleSchema.value),
       },
       faqSchema.value && {
+        key: 'ld-faq',
         type: 'application/ld+json',
         innerHTML: JSON.stringify(faqSchema.value),
       },

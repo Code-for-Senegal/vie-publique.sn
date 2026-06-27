@@ -230,14 +230,8 @@ useHead({
 
 // Structured Data
 useSchemaOrg([
-  defineBreadcrumb({
-    itemListElement: () => [
-      { name: 'Accueil', item: '/' },
-      { name: 'Assemblée nationale', item: '/assemblee-nationale' },
-      { name: 'Commissions', item: '/assemblee-nationale/commissions' },
-      { name: commission.value?.name || 'Commission', item: url.value },
-    ],
-  }),
+  // Breadcrumb émis par <AppBreadcrumb> (source unique) — pas de defineBreadcrumb ici
+  // pour éviter la fusion @graph qui dupliquait les items (§7 CLAUDE.md).
   defineOrganization({
     '@type': 'GovernmentOrganization',
     name: () => commission.value?.name,
@@ -315,27 +309,30 @@ const deputyUrl = computed((deputy: any) => {
 <template>
   <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
     <!-- Sticky Header Mobile -->
-    <div class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 px-4 py-3 backdrop-blur-sm dark:border-gray-700 dark:bg-gray-800/95 md:relative md:border-0 md:bg-transparent md:py-6 md:backdrop-blur-none dark:md:bg-transparent">
+    <div
+      class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 px-4 py-3 backdrop-blur-sm dark:border-gray-700 dark:bg-gray-800/95 md:relative md:border-0 md:bg-transparent md:py-6 md:backdrop-blur-none dark:md:bg-transparent"
+    >
       <div class="mx-auto max-w-6xl">
         <!-- Breadcrumb desktop only -->
         <div class="mb-2 hidden md:block">
           <AppBreadcrumb
-:items="[
-            { label: 'Assemblée nationale', to: '/assemblee-nationale' },
-            { label: 'Commissions', to: '/assemblee-nationale/commissions' },
-            { label: commission?.name || 'Détail' }
-          ]" />
+            :items="[
+              { label: 'Assemblée nationale', to: '/assemblee-nationale' },
+              { label: 'Commissions', to: '/assemblee-nationale/commissions' },
+              { label: commission?.name || 'Détail' },
+            ]"
+          />
         </div>
-        
+
         <div class="flex items-center gap-4">
           <!-- Back button mobile -->
-          <NuxtLink 
-            to="/assemblee-nationale/commissions" 
+          <NuxtLink
+            to="/assemblee-nationale/commissions"
             class="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 active:scale-95 dark:bg-gray-700 md:hidden"
           >
             <UIcon name="i-heroicons-arrow-left" class="h-5 w-5 text-gray-600 dark:text-gray-300" />
           </NuxtLink>
-          
+
           <div class="min-w-0 flex-1">
             <h1 class="truncate text-lg font-semibold text-gray-900 dark:text-white md:text-2xl">
               {{ commission?.name || 'Commission' }}
@@ -353,13 +350,17 @@ const deputyUrl = computed((deputy: any) => {
       <!-- Loading state -->
       <div v-if="loading" class="space-y-6">
         <!-- Header skeleton -->
-        <div class="rounded-2xl bg-white p-6 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700">
+        <div
+          class="rounded-2xl bg-white p-6 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+        >
           <USkeleton class="mb-3 h-6 w-2/3" />
           <USkeleton class="h-4 w-full" />
           <USkeleton class="mt-2 h-4 w-3/4" />
         </div>
         <!-- Bureau skeleton -->
-        <div class="rounded-2xl bg-white p-6 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700">
+        <div
+          class="rounded-2xl bg-white p-6 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+        >
           <USkeleton class="mb-6 h-6 w-48" />
           <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
             <div v-for="i in 6" :key="i" class="flex items-center gap-4">
@@ -375,12 +376,19 @@ const deputyUrl = computed((deputy: any) => {
 
       <!-- Error state -->
       <div v-else-if="error" class="rounded-2xl bg-red-50 p-6 text-center dark:bg-red-900/20">
-        <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30">
-          <UIcon name="i-heroicons-exclamation-triangle" class="h-6 w-6 text-red-600 dark:text-red-400" />
+        <div
+          class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30"
+        >
+          <UIcon
+            name="i-heroicons-exclamation-triangle"
+            class="h-6 w-6 text-red-600 dark:text-red-400"
+          />
         </div>
         <h3 class="font-medium text-red-800 dark:text-red-300">Erreur de chargement</h3>
-        <p class="mt-1 text-sm text-red-600 dark:text-red-400">Impossible de charger les informations de la commission</p>
-        <NuxtLink 
+        <p class="mt-1 text-sm text-red-600 dark:text-red-400">
+          Impossible de charger les informations de la commission
+        </p>
+        <NuxtLink
           to="/assemblee-nationale/commissions"
           class="mt-4 inline-flex items-center gap-2 rounded-lg bg-red-100 px-4 py-2 text-sm font-medium text-red-700 transition-colors hover:bg-red-200 dark:bg-red-900/30 dark:text-red-400"
         >
@@ -392,9 +400,14 @@ const deputyUrl = computed((deputy: any) => {
       <!-- Contenu de la commission -->
       <div v-else-if="commission" class="space-y-6">
         <!-- Description -->
-        <div v-if="commission.description" class="rounded-2xl bg-white p-5 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700">
+        <div
+          v-if="commission.description"
+          class="rounded-2xl bg-white p-5 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+        >
           <div class="flex items-start gap-4">
-            <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 text-white">
+            <div
+              class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 text-white"
+            >
               <UIcon name="i-heroicons-building-library" class="h-6 w-6" />
             </div>
             <div>
@@ -405,12 +418,21 @@ const deputyUrl = computed((deputy: any) => {
         </div>
 
         <!-- Bureau de la commission -->
-        <div class="rounded-2xl bg-white p-5 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700">
+        <div
+          class="rounded-2xl bg-white p-5 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+        >
           <div class="mb-5 flex items-center gap-3">
-            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-900/30">
-              <UIcon name="i-heroicons-user-group" class="h-5 w-5 text-blue-600 dark:text-blue-400" />
+            <div
+              class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-900/30"
+            >
+              <UIcon
+                name="i-heroicons-user-group"
+                class="h-5 w-5 text-blue-600 dark:text-blue-400"
+              />
             </div>
-            <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Bureau de la commission</h2>
+            <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
+              Bureau de la commission
+            </h2>
           </div>
 
           <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -418,7 +440,7 @@ const deputyUrl = computed((deputy: any) => {
             <NuxtLink
               v-if="commission.president"
               :to="`/assemblee-nationale/deputes/${commission.president.id}/${$getSlugifyUrlPath(commission.president.first_name + '-' + commission.president.last_name)}`"
-              class="group flex items-center gap-4 rounded-xl bg-emerald-50 p-4 transition-all active:scale-[0.99] hover:bg-emerald-100 dark:bg-emerald-900/20 dark:hover:bg-emerald-900/30"
+              class="group flex items-center gap-4 rounded-xl bg-emerald-50 p-4 transition-all hover:bg-emerald-100 active:scale-[0.99] dark:bg-emerald-900/20 dark:hover:bg-emerald-900/30"
             >
               <img
                 :src="getImageUrl(commission.president.photo)"
@@ -429,19 +451,24 @@ const deputyUrl = computed((deputy: any) => {
                 <div class="truncate font-medium text-gray-900 dark:text-white">
                   {{ commission.president.first_name }} {{ commission.president.last_name }}
                 </div>
-                <span class="inline-flex items-center gap-1 rounded-full bg-emerald-500 px-2 py-0.5 text-xs font-medium text-white">
+                <span
+                  class="inline-flex items-center gap-1 rounded-full bg-emerald-500 px-2 py-0.5 text-xs font-medium text-white"
+                >
                   <UIcon name="i-heroicons-star" class="h-3 w-3" />
                   Président(e)
                 </span>
               </div>
-              <UIcon name="i-heroicons-chevron-right" class="h-5 w-5 text-emerald-400 transition-transform group-hover:translate-x-1" />
+              <UIcon
+                name="i-heroicons-chevron-right"
+                class="h-5 w-5 text-emerald-400 transition-transform group-hover:translate-x-1"
+              />
             </NuxtLink>
 
             <!-- Vice-président -->
             <NuxtLink
               v-if="commission.vice_president"
               :to="`/assemblee-nationale/deputes/${commission.vice_president.id}/${$getSlugifyUrlPath(commission.vice_president.first_name + '-' + commission.vice_president.last_name)}`"
-              class="group flex items-center gap-4 rounded-xl bg-gray-50 p-4 transition-all active:scale-[0.99] hover:bg-gray-100 dark:bg-gray-700/50 dark:hover:bg-gray-700"
+              class="group flex items-center gap-4 rounded-xl bg-gray-50 p-4 transition-all hover:bg-gray-100 active:scale-[0.99] dark:bg-gray-700/50 dark:hover:bg-gray-700"
             >
               <img
                 v-if="commission.vice_president.photo"
@@ -449,23 +476,30 @@ const deputyUrl = computed((deputy: any) => {
                 :alt="commission.vice_president.first_name"
                 class="h-14 w-14 rounded-full object-cover ring-2 ring-gray-300 dark:ring-gray-600"
               />
-              <div v-else class="flex h-14 w-14 items-center justify-center rounded-full bg-gray-200 ring-2 ring-gray-300 dark:bg-gray-600 dark:ring-gray-500">
+              <div
+                v-else
+                class="flex h-14 w-14 items-center justify-center rounded-full bg-gray-200 ring-2 ring-gray-300 dark:bg-gray-600 dark:ring-gray-500"
+              >
                 <UIcon name="i-heroicons-user" class="h-7 w-7 text-gray-400 dark:text-gray-300" />
               </div>
               <div class="min-w-0 flex-1">
                 <div class="truncate font-medium text-gray-900 dark:text-white">
-                  {{ commission.vice_president.first_name }} {{ commission.vice_president.last_name }}
+                  {{ commission.vice_president.first_name }}
+                  {{ commission.vice_president.last_name }}
                 </div>
                 <span class="text-sm text-gray-500 dark:text-gray-400">Vice-président(e)</span>
               </div>
-              <UIcon name="i-heroicons-chevron-right" class="h-5 w-5 text-gray-300 transition-transform group-hover:translate-x-1 dark:text-gray-500" />
+              <UIcon
+                name="i-heroicons-chevron-right"
+                class="h-5 w-5 text-gray-300 transition-transform group-hover:translate-x-1 dark:text-gray-500"
+              />
             </NuxtLink>
 
             <!-- 1er Vice-président -->
             <NuxtLink
               v-if="commission['1st_vice_president']"
               :to="`/assemblee-nationale/deputes/${commission['1st_vice_president'].id}/${$getSlugifyUrlPath(commission['1st_vice_president'].first_name + '-' + commission['1st_vice_president'].last_name)}`"
-              class="group flex items-center gap-4 rounded-xl bg-gray-50 p-4 transition-all active:scale-[0.99] hover:bg-gray-100 dark:bg-gray-700/50 dark:hover:bg-gray-700"
+              class="group flex items-center gap-4 rounded-xl bg-gray-50 p-4 transition-all hover:bg-gray-100 active:scale-[0.99] dark:bg-gray-700/50 dark:hover:bg-gray-700"
             >
               <img
                 v-if="commission['1st_vice_president'].photo"
@@ -473,23 +507,30 @@ const deputyUrl = computed((deputy: any) => {
                 :alt="commission['1st_vice_president'].first_name"
                 class="h-14 w-14 rounded-full object-cover ring-2 ring-gray-300 dark:ring-gray-600"
               />
-              <div v-else class="flex h-14 w-14 items-center justify-center rounded-full bg-gray-200 ring-2 ring-gray-300 dark:bg-gray-600 dark:ring-gray-500">
+              <div
+                v-else
+                class="flex h-14 w-14 items-center justify-center rounded-full bg-gray-200 ring-2 ring-gray-300 dark:bg-gray-600 dark:ring-gray-500"
+              >
                 <UIcon name="i-heroicons-user" class="h-7 w-7 text-gray-400 dark:text-gray-300" />
               </div>
               <div class="min-w-0 flex-1">
                 <div class="truncate font-medium text-gray-900 dark:text-white">
-                  {{ commission['1st_vice_president'].first_name }} {{ commission['1st_vice_president'].last_name }}
+                  {{ commission['1st_vice_president'].first_name }}
+                  {{ commission['1st_vice_president'].last_name }}
                 </div>
                 <span class="text-sm text-gray-500 dark:text-gray-400">1er Vice-président(e)</span>
               </div>
-              <UIcon name="i-heroicons-chevron-right" class="h-5 w-5 text-gray-300 transition-transform group-hover:translate-x-1 dark:text-gray-500" />
+              <UIcon
+                name="i-heroicons-chevron-right"
+                class="h-5 w-5 text-gray-300 transition-transform group-hover:translate-x-1 dark:text-gray-500"
+              />
             </NuxtLink>
 
             <!-- 2e Vice-président -->
             <NuxtLink
               v-if="commission['2nd_vice_president']"
               :to="`/assemblee-nationale/deputes/${commission['2nd_vice_president'].id}/${$getSlugifyUrlPath(commission['2nd_vice_president'].first_name + '-' + commission['2nd_vice_president'].last_name)}`"
-              class="group flex items-center gap-4 rounded-xl bg-gray-50 p-4 transition-all active:scale-[0.99] hover:bg-gray-100 dark:bg-gray-700/50 dark:hover:bg-gray-700"
+              class="group flex items-center gap-4 rounded-xl bg-gray-50 p-4 transition-all hover:bg-gray-100 active:scale-[0.99] dark:bg-gray-700/50 dark:hover:bg-gray-700"
             >
               <img
                 v-if="commission['2nd_vice_president'].photo"
@@ -497,23 +538,30 @@ const deputyUrl = computed((deputy: any) => {
                 :alt="commission['2nd_vice_president'].first_name"
                 class="h-14 w-14 rounded-full object-cover ring-2 ring-gray-300 dark:ring-gray-600"
               />
-              <div v-else class="flex h-14 w-14 items-center justify-center rounded-full bg-gray-200 ring-2 ring-gray-300 dark:bg-gray-600 dark:ring-gray-500">
+              <div
+                v-else
+                class="flex h-14 w-14 items-center justify-center rounded-full bg-gray-200 ring-2 ring-gray-300 dark:bg-gray-600 dark:ring-gray-500"
+              >
                 <UIcon name="i-heroicons-user" class="h-7 w-7 text-gray-400 dark:text-gray-300" />
               </div>
               <div class="min-w-0 flex-1">
                 <div class="truncate font-medium text-gray-900 dark:text-white">
-                  {{ commission['2nd_vice_president'].first_name }} {{ commission['2nd_vice_president'].last_name }}
+                  {{ commission['2nd_vice_president'].first_name }}
+                  {{ commission['2nd_vice_president'].last_name }}
                 </div>
                 <span class="text-sm text-gray-500 dark:text-gray-400">2e Vice-président(e)</span>
               </div>
-              <UIcon name="i-heroicons-chevron-right" class="h-5 w-5 text-gray-300 transition-transform group-hover:translate-x-1 dark:text-gray-500" />
+              <UIcon
+                name="i-heroicons-chevron-right"
+                class="h-5 w-5 text-gray-300 transition-transform group-hover:translate-x-1 dark:text-gray-500"
+              />
             </NuxtLink>
 
             <!-- Secrétaire -->
             <NuxtLink
               v-if="commission.secretary"
               :to="`/assemblee-nationale/deputes/${commission.secretary.id}/${$getSlugifyUrlPath(commission.secretary.first_name + '-' + commission.secretary.last_name)}`"
-              class="group flex items-center gap-4 rounded-xl bg-gray-50 p-4 transition-all active:scale-[0.99] hover:bg-gray-100 dark:bg-gray-700/50 dark:hover:bg-gray-700"
+              class="group flex items-center gap-4 rounded-xl bg-gray-50 p-4 transition-all hover:bg-gray-100 active:scale-[0.99] dark:bg-gray-700/50 dark:hover:bg-gray-700"
             >
               <img
                 v-if="commission.secretary.photo"
@@ -521,7 +569,10 @@ const deputyUrl = computed((deputy: any) => {
                 :alt="commission.secretary.first_name"
                 class="h-14 w-14 rounded-full object-cover ring-2 ring-gray-300 dark:ring-gray-600"
               />
-              <div v-else class="flex h-14 w-14 items-center justify-center rounded-full bg-gray-200 ring-2 ring-gray-300 dark:bg-gray-600 dark:ring-gray-500">
+              <div
+                v-else
+                class="flex h-14 w-14 items-center justify-center rounded-full bg-gray-200 ring-2 ring-gray-300 dark:bg-gray-600 dark:ring-gray-500"
+              >
                 <UIcon name="i-heroicons-user" class="h-7 w-7 text-gray-400 dark:text-gray-300" />
               </div>
               <div class="min-w-0 flex-1">
@@ -530,14 +581,17 @@ const deputyUrl = computed((deputy: any) => {
                 </div>
                 <span class="text-sm text-gray-500 dark:text-gray-400">Secrétaire</span>
               </div>
-              <UIcon name="i-heroicons-chevron-right" class="h-5 w-5 text-gray-300 transition-transform group-hover:translate-x-1 dark:text-gray-500" />
+              <UIcon
+                name="i-heroicons-chevron-right"
+                class="h-5 w-5 text-gray-300 transition-transform group-hover:translate-x-1 dark:text-gray-500"
+              />
             </NuxtLink>
 
             <!-- Rapporteur -->
             <NuxtLink
               v-if="commission.reporter"
               :to="`/assemblee-nationale/deputes/${commission.reporter.id}/${$getSlugifyUrlPath(commission.reporter.first_name + '-' + commission.reporter.last_name)}`"
-              class="group flex items-center gap-4 rounded-xl bg-gray-50 p-4 transition-all active:scale-[0.99] hover:bg-gray-100 dark:bg-gray-700/50 dark:hover:bg-gray-700"
+              class="group flex items-center gap-4 rounded-xl bg-gray-50 p-4 transition-all hover:bg-gray-100 active:scale-[0.99] dark:bg-gray-700/50 dark:hover:bg-gray-700"
             >
               <img
                 v-if="commission.reporter.photo"
@@ -545,7 +599,10 @@ const deputyUrl = computed((deputy: any) => {
                 :alt="commission.reporter.first_name"
                 class="h-14 w-14 rounded-full object-cover ring-2 ring-gray-300 dark:ring-gray-600"
               />
-              <div v-else class="flex h-14 w-14 items-center justify-center rounded-full bg-gray-200 ring-2 ring-gray-300 dark:bg-gray-600 dark:ring-gray-500">
+              <div
+                v-else
+                class="flex h-14 w-14 items-center justify-center rounded-full bg-gray-200 ring-2 ring-gray-300 dark:bg-gray-600 dark:ring-gray-500"
+              >
                 <UIcon name="i-heroicons-user" class="h-7 w-7 text-gray-400 dark:text-gray-300" />
               </div>
               <div class="min-w-0 flex-1">
@@ -554,21 +611,31 @@ const deputyUrl = computed((deputy: any) => {
                 </div>
                 <span class="text-sm text-gray-500 dark:text-gray-400">Rapporteur</span>
               </div>
-              <UIcon name="i-heroicons-chevron-right" class="h-5 w-5 text-gray-300 transition-transform group-hover:translate-x-1 dark:text-gray-500" />
+              <UIcon
+                name="i-heroicons-chevron-right"
+                class="h-5 w-5 text-gray-300 transition-transform group-hover:translate-x-1 dark:text-gray-500"
+              />
             </NuxtLink>
           </div>
         </div>
 
         <!-- Membres de la commission -->
-        <div v-if="regularMembers.length > 0" class="rounded-2xl bg-white p-5 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700">
+        <div
+          v-if="regularMembers.length > 0"
+          class="rounded-2xl bg-white p-5 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+        >
           <div class="mb-5 flex items-center justify-between">
             <div class="flex items-center gap-3">
-              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-sky-100 dark:bg-sky-900/30">
+              <div
+                class="flex h-10 w-10 items-center justify-center rounded-lg bg-sky-100 dark:bg-sky-900/30"
+              >
                 <UIcon name="i-heroicons-users" class="h-5 w-5 text-sky-600 dark:text-sky-400" />
               </div>
               <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Membres</h2>
             </div>
-            <span class="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300">
+            <span
+              class="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+            >
               {{ regularMembers.length }} députés
             </span>
           </div>
@@ -584,15 +651,20 @@ const deputyUrl = computed((deputy: any) => {
       </div>
 
       <!-- Not found state -->
-      <div v-else class="rounded-2xl bg-white p-8 text-center ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700">
-        <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700">
+      <div
+        v-else
+        class="rounded-2xl bg-white p-8 text-center ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+      >
+        <div
+          class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700"
+        >
           <UIcon name="i-heroicons-building-library" class="h-8 w-8 text-gray-400" />
         </div>
         <h3 class="font-medium text-gray-900 dark:text-white">Commission non trouvée</h3>
         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
           Cette commission n'existe pas ou a été supprimée
         </p>
-        <NuxtLink 
+        <NuxtLink
           to="/assemblee-nationale/commissions"
           class="mt-4 inline-flex items-center gap-2 rounded-lg bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700 transition-colors hover:bg-emerald-100 dark:bg-emerald-900/30 dark:text-emerald-400"
         >
