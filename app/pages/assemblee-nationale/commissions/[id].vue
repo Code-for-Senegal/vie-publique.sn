@@ -130,36 +130,7 @@ const commissionSchema = computed(() => {
   return schema;
 });
 
-const breadcrumbSchema = computed(() => ({
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: 'Accueil',
-      item: siteUrl,
-    },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: 'Assemblée nationale',
-      item: `${siteUrl}/assemblee-nationale`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 3,
-      name: 'Commissions',
-      item: `${siteUrl}/assemblee-nationale/commissions`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 4,
-      name: commission.value?.name || 'Commission',
-      item: url.value,
-    },
-  ],
-}));
+// Breadcrumb : émis par <AppBreadcrumb> (source unique du fil d'Ariane, §7 CLAUDE.md).
 
 const webPageSchema = computed(() => {
   if (!commission.value) return null;

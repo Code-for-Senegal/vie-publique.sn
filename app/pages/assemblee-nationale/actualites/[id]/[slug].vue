@@ -72,32 +72,7 @@ useSeoMeta({
 });
 
 // Schema.org — JSON-LD brut (pattern projet, modèle : documents/[id]/[slug].vue)
-const breadcrumbSchema = computed(() => ({
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Accueil', item: siteUrl },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: 'Assemblée nationale',
-      item: `${siteUrl}/assemblee-nationale`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 3,
-      name: 'Actualités',
-      item: `${siteUrl}/assemblee-nationale/actualites`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 4,
-      name: article.value?.title || 'Article',
-      item: url.value,
-    },
-  ],
-}));
-
+// Breadcrumb : émis par <AppBreadcrumb> (source unique du fil d'Ariane, §7 CLAUDE.md).
 const articleSchema = computed(() => ({
   '@context': 'https://schema.org',
   '@type': 'NewsArticle',
@@ -169,11 +144,6 @@ useHead({
     },
   ],
   script: [
-    {
-      key: 'ld-breadcrumb',
-      type: 'application/ld+json',
-      innerHTML: computed(() => JSON.stringify(breadcrumbSchema.value)),
-    },
     {
       key: 'ld-article',
       type: 'application/ld+json',

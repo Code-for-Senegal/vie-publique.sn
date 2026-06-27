@@ -1,18 +1,19 @@
 <script setup lang="ts">
-const route = useRoute()
-const slug = computed(() => route.params.slug as string)
+const route = useRoute();
+const slug = computed(() => route.params.slug as string);
 
-const { decree, entity, children, breadcrumb, pending, error } =
-  useEtatOrganisationEntity(slug)
+const { decree, entity, children, breadcrumb, pending, error } = useEtatOrganisationEntity(slug);
 
 watchEffect(() => {
   if (error.value) {
-    throw createError({ statusCode: 404, statusMessage: 'Entité publique introuvable' })
+    throw createError({ statusCode: 404, statusMessage: 'Entité publique introuvable' });
   }
-})
+});
 
 const formatDate = (v?: string) =>
-  v ? new Date(v).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' }) : null
+  v
+    ? new Date(v).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })
+    : null;
 
 const TYPE_ICONS: Record<string, string> = {
   presidence: 'i-heroicons-building-library',
@@ -26,7 +27,7 @@ const TYPE_ICONS: Record<string, string> = {
   societe_participation_publique: 'i-heroicons-building-storefront',
   agence: 'i-heroicons-megaphone',
   entite_regroupement: 'i-heroicons-folder-open',
-}
+};
 
 const TYPE_BG_COLORS: Record<string, string> = {
   presidence: 'bg-violet-100 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400',
@@ -37,72 +38,82 @@ const TYPE_BG_COLORS: Record<string, string> = {
   service: 'bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400',
   etablissement_public: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400',
   societe_nationale: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400',
-  societe_participation_publique: 'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-400',
+  societe_participation_publique:
+    'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-400',
   agence: 'bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-400',
-}
+};
 
 const entityTypeIcon = computed(
   () => TYPE_ICONS[entity.value?.type_code ?? ''] || 'i-heroicons-building-office',
-)
+);
 const entityTypeBg = computed(
   () => TYPE_BG_COLORS[entity.value?.type_code ?? ''] || 'bg-gray-100 text-gray-600',
-)
+);
 
 // Budget link condition: has public page AND has a code_institution
 const hasBudget = computed(
   () => entity.value?.has_public_page && entity.value?.code_institution != null,
-)
+);
 
 // Types displayed as collapsible sections (with nested subchildren)
-const GROUPING_TYPES = new Set(['entite_regroupement'])
+const GROUPING_TYPES = new Set(['entite_regroupement']);
 
 // Types grouped into virtual accordion sections (grouped by type, items are the entities themselves)
-const SOCIETE_TYPES = new Set(['etablissement_public', 'societe_nationale', 'societe_participation_publique'])
+const SOCIETE_TYPES = new Set([
+  'etablissement_public',
+  'societe_nationale',
+  'societe_participation_publique',
+]);
 
 const VIRTUAL_GROUP_LABELS: Record<string, string> = {
   etablissement_public: 'Établissements publics',
   societe_nationale: 'Sociétés nationales',
   societe_participation_publique: 'Sociétés à participation publique',
-}
+};
 
 const groupingChildren = computed(() =>
-  children.value.filter(c => GROUPING_TYPES.has(c.type_code)),
-)
+  children.value.filter((c) => GROUPING_TYPES.has(c.type_code)),
+);
 
 // Virtual accordion sections: one per societe type that has at least one child
 const societeGroupSections = computed(() => {
-  const groups = new Map<string, { id: string; code: string; label: string; items: typeof children.value }>()
-  for (const child of children.value.filter(c => SOCIETE_TYPES.has(c.type_code))) {
+  const groups = new Map<
+    string,
+    { id: string; code: string; label: string; items: typeof children.value }
+  >();
+  for (const child of children.value.filter((c) => SOCIETE_TYPES.has(c.type_code))) {
     if (!groups.has(child.type_code)) {
       groups.set(child.type_code, {
         id: `__group__${child.type_code}`,
         code: child.type_code,
         label: VIRTUAL_GROUP_LABELS[child.type_code] || child.type_label,
         items: [],
-      })
+      });
     }
-    groups.get(child.type_code)!.items.push(child)
+    groups.get(child.type_code)!.items.push(child);
   }
-  return Array.from(groups.values())
-})
+  return Array.from(groups.values());
+});
 
 const directChildrenByType = computed(() => {
-  const groups = new Map<string, { code: string; label: string; items: typeof children.value }>()
-  for (const child of children.value.filter(c => !GROUPING_TYPES.has(c.type_code) && !SOCIETE_TYPES.has(c.type_code))) {
+  const groups = new Map<string, { code: string; label: string; items: typeof children.value }>();
+  for (const child of children.value.filter(
+    (c) => !GROUPING_TYPES.has(c.type_code) && !SOCIETE_TYPES.has(c.type_code),
+  )) {
     if (!groups.has(child.type_code)) {
-      groups.set(child.type_code, { code: child.type_code, label: child.type_label, items: [] })
+      groups.set(child.type_code, { code: child.type_code, label: child.type_label, items: [] });
     }
-    groups.get(child.type_code)!.items.push(child)
+    groups.get(child.type_code)!.items.push(child);
   }
-  return Array.from(groups.values())
-})
+  return Array.from(groups.values());
+});
 
 // Open-set approach: missing key = closed by default
-const openSections = ref<Record<string, boolean>>({})
-const getIsOpen = (id: string) => openSections.value[id] === true
+const openSections = ref<Record<string, boolean>>({});
+const getIsOpen = (id: string) => openSections.value[id] === true;
 const toggleSection = (id: string) => {
-  openSections.value = { ...openSections.value, [id]: !getIsOpen(id) }
-}
+  openSections.value = { ...openSections.value, [id]: !getIsOpen(id) };
+};
 
 // Social media platform icons
 const SOCIAL_ICONS: Record<string, string> = {
@@ -115,46 +126,50 @@ const SOCIAL_ICONS: Record<string, string> = {
   tiktok: 'i-simple-icons-tiktok',
   telegram: 'i-simple-icons-telegram',
   whatsapp: 'i-simple-icons-whatsapp',
-}
+};
 const getSocialIcon = (platform: string) =>
-  SOCIAL_ICONS[platform.toLowerCase()] || 'i-heroicons-globe-alt'
+  SOCIAL_ICONS[platform.toLowerCase()] || 'i-heroicons-globe-alt';
 
 // Can use main + sidebar layout (for top-level entities with children)
-const hasMainContent = computed(() => children.value.length > 0)
+const hasMainContent = computed(() => children.value.length > 0);
 
-const { siteName, siteUrl, themeColor, keywords } = useSiteMetadata()
+const { siteName, siteUrl, themeColor, keywords } = useSiteMetadata();
 
 const pageTitle = computed(() =>
   entity.value
     ? `${entity.value.name} | Organisation de l'État du Sénégal`
     : "Entité publique | Organisation de l'État du Sénégal",
-)
+);
 
 const pageDescription = computed(() => {
-  if (!entity.value) return "Fiche d'une entité publique de l'État du Sénégal."
-  const parts: string[] = []
-  parts.push(`${entity.value.name}, ${entity.value.type_label.toLowerCase()} de l'État du Sénégal.`)
+  if (!entity.value) return "Fiche d'une entité publique de l'État du Sénégal.";
+  const parts: string[] = [];
+  parts.push(
+    `${entity.value.name}, ${entity.value.type_label.toLowerCase()} de l'État du Sénégal.`,
+  );
   if (entity.value.parent_name) {
-    parts.push(`Rattaché à ${entity.value.parent_name}.`)
+    parts.push(`Rattaché à ${entity.value.parent_name}.`);
   }
   if (children.value.length > 0) {
-    parts.push(`Comprend ${children.value.length} structure${children.value.length > 1 ? 's' : ''} rattachée${children.value.length > 1 ? 's' : ''}.`)
+    parts.push(
+      `Comprend ${children.value.length} structure${children.value.length > 1 ? 's' : ''} rattachée${children.value.length > 1 ? 's' : ''}.`,
+    );
   }
   if (decree.value?.numero) {
-    parts.push(`Source : décret n° ${decree.value.numero}.`)
+    parts.push(`Source : décret n° ${decree.value.numero}.`);
   }
-  return parts.join(' ')
-})
+  return parts.join(' ');
+});
 
-const pageUrl = computed(() => `${siteUrl}/etat-senegal/${slug.value}`)
+const pageUrl = computed(() => `${siteUrl}/etat-senegal/${slug.value}`);
 
 const ogImage = computed(() => {
   if (entity.value?.logo) {
-    const rel = useCmsImage(entity.value.logo)
-    return rel.startsWith('http') ? rel : `${siteUrl}${rel}`
+    const rel = useCmsImage(entity.value.logo);
+    return rel.startsWith('http') ? rel : `${siteUrl}${rel}`;
   }
-  return `${siteUrl}/nomination-3.png`
-})
+  return `${siteUrl}/nomination-3.png`;
+});
 
 useSeoMeta({
   title: pageTitle,
@@ -177,10 +192,10 @@ useSeoMeta({
       'organisation état Sénégal',
     ].join(', '),
   ),
-})
+});
 
 const organizationSchema = computed(() => {
-  if (!entity.value) return null
+  if (!entity.value) return null;
   return {
     '@context': 'https://schema.org',
     '@type': 'GovernmentOrganization',
@@ -198,68 +213,47 @@ const organizationSchema = computed(() => {
         addressCountry: 'SN',
       },
     }),
-    ...(entity.value.logo && { logo: (() => { const r = useCmsImage(entity.value.logo); return r.startsWith('http') ? r : `${siteUrl}${r}` })() }),
+    ...(entity.value.logo && {
+      logo: (() => {
+        const r = useCmsImage(entity.value.logo);
+        return r.startsWith('http') ? r : `${siteUrl}${r}`;
+      })(),
+    }),
     ...(entity.value.parent_name && {
       parentOrganization: {
         '@type': 'GovernmentOrganization',
         name: entity.value.parent_name,
       },
     }),
-  }
-})
+  };
+});
 
-const breadcrumbSchema = computed(() => ({
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Accueil', item: siteUrl },
-    { '@type': 'ListItem', position: 2, name: 'État du Sénégal', item: `${siteUrl}/etat-senegal` },
-    {
-      '@type': 'ListItem',
-      position: 3,
-      name: "Organisation de l'État",
-      item: `${siteUrl}/etat-senegal/organisation`,
-    },
-    ...breadcrumb.value.map((p, i) => ({
-      '@type': 'ListItem',
-      position: 4 + i,
-      name: p.name,
-      item: `${siteUrl}/etat-senegal/${p.public_slug}`,
-    })),
-    {
-      '@type': 'ListItem',
-      position: 4 + breadcrumb.value.length,
-      name: entity.value?.name || 'Entité',
-      item: pageUrl.value,
-    },
-  ],
-}))
+// Breadcrumb : émis par <AppBreadcrumb> (source unique du fil d'Ariane, §7 CLAUDE.md).
 
 useHead({
   htmlAttrs: { lang: 'fr-SN' },
   link: [{ rel: 'canonical', href: pageUrl }],
   meta: [
-    { name: 'robots', content: computed(() => entity.value ? 'index, follow' : 'noindex, nofollow') },
+    {
+      name: 'robots',
+      content: computed(() => (entity.value ? 'index, follow' : 'noindex, nofollow')),
+    },
     { name: 'theme-color', content: themeColor },
     { name: 'author', content: siteName },
     { property: 'og:site_name', content: siteName },
     { property: 'og:locale', content: 'fr_SN' },
   ],
   script: computed(() => {
-    const scripts = []
+    const scripts = [];
     if (organizationSchema.value) {
       scripts.push({
         type: 'application/ld+json',
         innerHTML: JSON.stringify(organizationSchema.value),
-      })
+      });
     }
-    scripts.push({
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify(breadcrumbSchema.value),
-    })
-    return scripts
+    return scripts;
   }),
-})
+});
 </script>
 
 <template>
@@ -268,7 +262,7 @@ useHead({
       :items="[
         { label: 'État du Sénégal', to: '/etat-senegal' },
         { label: 'Organisation', to: '/etat-senegal/organisation' },
-        ...breadcrumb.map(p => ({ label: p.name, to: `/etat-senegal/${p.public_slug}` })),
+        ...breadcrumb.map((p) => ({ label: p.name, to: `/etat-senegal/${p.public_slug}` })),
         { label: entity?.name || 'Détail' },
       ]"
       class="px-4"
@@ -289,8 +283,10 @@ useHead({
           <div class="flex items-center gap-5">
             <!-- Logo ou icône selon disponibilité -->
             <div
-              class="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl overflow-hidden"
-              :class="entity.logo ? 'bg-white border border-gray-200 dark:border-gray-700' : entityTypeBg"
+              class="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl"
+              :class="
+                entity.logo ? 'border border-gray-200 bg-white dark:border-gray-700' : entityTypeBg
+              "
             >
               <CmsImage
                 v-if="entity.logo"
@@ -308,7 +304,9 @@ useHead({
 
             <!-- Title block -->
             <div class="min-w-0 flex-1">
-              <h1 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-3xl">
+              <h1
+                class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-3xl"
+              >
                 {{ entity.name }}
               </h1>
 
@@ -334,7 +332,9 @@ useHead({
             <!-- ── Aperçu ──────────────────────────────────────────── -->
             <div>
               <!-- Identity card -->
-              <div class="mb-6 rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800/50">
+              <div
+                class="mb-6 rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800/50"
+              >
                 <div class="border-b border-gray-100 px-5 py-3 dark:border-gray-700">
                   <h2 class="text-sm font-semibold text-gray-900 dark:text-white">Identité</h2>
                 </div>
@@ -352,7 +352,9 @@ useHead({
                   </div>
                   <div v-if="entity.parent_name" class="flex items-start gap-4 px-5 py-3">
                     <dt class="w-40 shrink-0 text-xs text-gray-500">Rattachement</dt>
-                    <dd class="text-sm text-gray-800 dark:text-gray-100">{{ entity.parent_name }}</dd>
+                    <dd class="text-sm text-gray-800 dark:text-gray-100">
+                      {{ entity.parent_name }}
+                    </dd>
                   </div>
                   <div v-if="decree?.date_publication" class="flex items-start gap-4 px-5 py-3">
                     <dt class="w-40 shrink-0 text-xs text-gray-500">Décret</dt>
@@ -381,7 +383,9 @@ useHead({
                   v-for="(group, gi) in groupingChildren"
                   :key="group.id"
                   :class="[
-                    gi < groupingChildren.length - 1 || societeGroupSections.length > 0 || directChildrenByType.length > 0
+                    gi < groupingChildren.length - 1 ||
+                    societeGroupSections.length > 0 ||
+                    directChildrenByType.length > 0
                       ? 'border-b border-gray-100 dark:border-gray-700'
                       : '',
                   ]"
@@ -396,7 +400,10 @@ useHead({
                         class="flex h-6 w-6 shrink-0 items-center justify-center rounded"
                         :class="TYPE_BG_COLORS[group.type_code] || 'bg-amber-100 text-amber-600'"
                       >
-                        <UIcon :name="TYPE_ICONS[group.type_code] || 'i-heroicons-folder-open'" class="h-3.5 w-3.5" />
+                        <UIcon
+                          :name="TYPE_ICONS[group.type_code] || 'i-heroicons-folder-open'"
+                          class="h-3.5 w-3.5"
+                        />
                       </span>
                       <span class="flex-1 text-sm font-medium text-gray-800 dark:text-gray-100">
                         {{ group.name }}
@@ -405,12 +412,19 @@ useHead({
                         {{ group.subchildren.length }}
                       </span>
                       <UIcon
-                        :name="getIsOpen(group.id) ? 'i-heroicons-chevron-down' : 'i-heroicons-chevron-right'"
+                        :name="
+                          getIsOpen(group.id)
+                            ? 'i-heroicons-chevron-down'
+                            : 'i-heroicons-chevron-right'
+                        "
                         class="h-4 w-4 shrink-0 text-gray-400"
                       />
                     </button>
 
-                    <div v-if="getIsOpen(group.id)" class="divide-y divide-gray-50 dark:divide-gray-800/60">
+                    <div
+                      v-if="getIsOpen(group.id)"
+                      class="divide-y divide-gray-50 dark:divide-gray-800/60"
+                    >
                       <div
                         v-for="sub in group.subchildren"
                         :key="sub.id"
@@ -447,15 +461,15 @@ useHead({
                   </template>
 
                   <!-- Plain row: no sub-children, no accordion -->
-                  <div
-                    v-else
-                    class="flex items-center gap-2 px-5 py-3"
-                  >
+                  <div v-else class="flex items-center gap-2 px-5 py-3">
                     <span
                       class="flex h-6 w-6 shrink-0 items-center justify-center rounded"
                       :class="TYPE_BG_COLORS[group.type_code] || 'bg-amber-100 text-amber-600'"
                     >
-                      <UIcon :name="TYPE_ICONS[group.type_code] || 'i-heroicons-folder-open'" class="h-3.5 w-3.5" />
+                      <UIcon
+                        :name="TYPE_ICONS[group.type_code] || 'i-heroicons-folder-open'"
+                        class="h-3.5 w-3.5"
+                      />
                     </span>
                     <NuxtLink
                       v-if="group.has_public_page"
@@ -464,7 +478,10 @@ useHead({
                     >
                       {{ group.name }}
                     </NuxtLink>
-                    <span v-else class="flex-1 text-sm font-medium text-gray-600 dark:text-gray-400">
+                    <span
+                      v-else
+                      class="flex-1 text-sm font-medium text-gray-600 dark:text-gray-400"
+                    >
                       {{ group.name }}
                     </span>
                   </div>
@@ -474,7 +491,11 @@ useHead({
                 <div
                   v-for="(group, gi) in societeGroupSections"
                   :key="group.id"
-                  :class="gi < societeGroupSections.length - 1 || directChildrenByType.length > 0 ? 'border-b border-gray-100 dark:border-gray-700' : ''"
+                  :class="
+                    gi < societeGroupSections.length - 1 || directChildrenByType.length > 0
+                      ? 'border-b border-gray-100 dark:border-gray-700'
+                      : ''
+                  "
                 >
                   <button
                     class="flex w-full items-center gap-2 px-5 py-3 text-left hover:bg-gray-50 dark:hover:bg-gray-800/40"
@@ -484,17 +505,29 @@ useHead({
                       class="flex h-6 w-6 shrink-0 items-center justify-center rounded"
                       :class="TYPE_BG_COLORS[group.code] || 'bg-gray-100 text-gray-500'"
                     >
-                      <UIcon :name="TYPE_ICONS[group.code] || 'i-heroicons-building-storefront'" class="h-3.5 w-3.5" />
+                      <UIcon
+                        :name="TYPE_ICONS[group.code] || 'i-heroicons-building-storefront'"
+                        class="h-3.5 w-3.5"
+                      />
                     </span>
-                    <span class="flex-1 text-sm font-medium text-gray-800 dark:text-gray-100">{{ group.label }}</span>
+                    <span class="flex-1 text-sm font-medium text-gray-800 dark:text-gray-100">{{
+                      group.label
+                    }}</span>
                     <span class="text-xs text-gray-400">{{ group.items.length }}</span>
                     <UIcon
-                      :name="getIsOpen(group.id) ? 'i-heroicons-chevron-down' : 'i-heroicons-chevron-right'"
+                      :name="
+                        getIsOpen(group.id)
+                          ? 'i-heroicons-chevron-down'
+                          : 'i-heroicons-chevron-right'
+                      "
                       class="h-4 w-4 shrink-0 text-gray-400"
                     />
                   </button>
 
-                  <div v-if="getIsOpen(group.id)" class="divide-y divide-gray-50 dark:divide-gray-800/60">
+                  <div
+                    v-if="getIsOpen(group.id)"
+                    class="divide-y divide-gray-50 dark:divide-gray-800/60"
+                  >
                     <div
                       v-for="item in group.items"
                       :key="item.id"
@@ -504,7 +537,10 @@ useHead({
                         class="flex h-5 w-5 shrink-0 items-center justify-center rounded"
                         :class="TYPE_BG_COLORS[item.type_code] || 'bg-gray-100 text-gray-500'"
                       >
-                        <UIcon :name="TYPE_ICONS[item.type_code] || 'i-heroicons-building-storefront'" class="h-3 w-3" />
+                        <UIcon
+                          :name="TYPE_ICONS[item.type_code] || 'i-heroicons-building-storefront'"
+                          class="h-3 w-3"
+                        />
                       </span>
                       <div class="min-w-0 flex-1">
                         <NuxtLink
@@ -514,7 +550,9 @@ useHead({
                         >
                           {{ item.name }}
                         </NuxtLink>
-                        <span v-else class="text-sm text-gray-600 dark:text-gray-400">{{ item.name }}</span>
+                        <span v-else class="text-sm text-gray-600 dark:text-gray-400">{{
+                          item.name
+                        }}</span>
                       </div>
                       <UIcon
                         v-if="item.has_public_page"
@@ -529,19 +567,30 @@ useHead({
                 <div
                   v-for="(group, gi) in directChildrenByType"
                   :key="group.code"
-                  :class="gi < directChildrenByType.length - 1 ? 'border-b border-gray-100 dark:border-gray-700' : ''"
+                  :class="
+                    gi < directChildrenByType.length - 1
+                      ? 'border-b border-gray-100 dark:border-gray-700'
+                      : ''
+                  "
                 >
                   <div class="flex items-center gap-2 px-5 py-2.5">
                     <span
                       class="flex h-6 w-6 items-center justify-center rounded"
                       :class="TYPE_BG_COLORS[group.code] || 'bg-gray-100 text-gray-500'"
                     >
-                      <UIcon :name="TYPE_ICONS[group.code] || 'i-heroicons-building-office'" class="h-3.5 w-3.5" />
+                      <UIcon
+                        :name="TYPE_ICONS[group.code] || 'i-heroicons-building-office'"
+                        class="h-3.5 w-3.5"
+                      />
                     </span>
-                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                    <span
+                      class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400"
+                    >
                       {{ group.label }}
                     </span>
-                    <span class="rounded-full bg-gray-100 px-1.5 py-0.5 text-xs text-gray-500 dark:bg-gray-800">
+                    <span
+                      class="rounded-full bg-gray-100 px-1.5 py-0.5 text-xs text-gray-500 dark:bg-gray-800"
+                    >
                       {{ group.items.length }}
                     </span>
                   </div>
@@ -590,7 +639,8 @@ useHead({
                 <h2 class="text-sm font-semibold text-blue-800 dark:text-blue-300">Budget</h2>
               </div>
               <p class="mb-4 text-xs text-blue-700 dark:text-blue-400">
-                Consultez le budget détaillé, l'évolution par année et la répartition par programmes.
+                Consultez le budget détaillé, l'évolution par année et la répartition par
+                programmes.
               </p>
               <UButton
                 :to="`/budget-senegal/${entity.public_slug}`"
@@ -606,7 +656,13 @@ useHead({
 
             <!-- Coordonnées -->
             <div
-              v-if="entity.email || entity.phone || entity.adresse || entity.web_site || (entity.reseaux_sociaux && Object.keys(entity.reseaux_sociaux).length)"
+              v-if="
+                entity.email ||
+                entity.phone ||
+                entity.adresse ||
+                entity.web_site ||
+                (entity.reseaux_sociaux && Object.keys(entity.reseaux_sociaux).length)
+              "
               class="rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800/50"
             >
               <div class="border-b border-gray-100 px-5 py-3 dark:border-gray-700">
@@ -627,21 +683,29 @@ useHead({
                     <a
                       :href="`tel:${entity.phone}`"
                       class="text-sm text-blue-600 hover:underline dark:text-blue-400"
-                    >{{ entity.phone }}</a>
+                      >{{ entity.phone }}</a
+                    >
                   </div>
                 </div>
                 <div v-if="entity.email" class="flex items-start gap-3 px-5 py-3">
-                  <UIcon name="i-heroicons-envelope" class="mt-0.5 h-4 w-4 shrink-0 text-gray-400" />
+                  <UIcon
+                    name="i-heroicons-envelope"
+                    class="mt-0.5 h-4 w-4 shrink-0 text-gray-400"
+                  />
                   <div>
                     <p class="text-xs text-gray-500">Email</p>
                     <a
                       :href="`mailto:${entity.email}`"
                       class="break-all text-sm text-blue-600 hover:underline dark:text-blue-400"
-                    >{{ entity.email }}</a>
+                      >{{ entity.email }}</a
+                    >
                   </div>
                 </div>
                 <div v-if="entity.web_site" class="flex items-start gap-3 px-5 py-3">
-                  <UIcon name="i-heroicons-globe-alt" class="mt-0.5 h-4 w-4 shrink-0 text-gray-400" />
+                  <UIcon
+                    name="i-heroicons-globe-alt"
+                    class="mt-0.5 h-4 w-4 shrink-0 text-gray-400"
+                  />
                   <div>
                     <p class="text-xs text-gray-500">Site web</p>
                     <a
@@ -649,7 +713,8 @@ useHead({
                       target="_blank"
                       rel="noopener noreferrer"
                       class="break-all text-sm text-blue-600 hover:underline dark:text-blue-400"
-                    >{{ entity.web_site }}</a>
+                      >{{ entity.web_site }}</a
+                    >
                   </div>
                 </div>
                 <div
@@ -675,20 +740,30 @@ useHead({
             </div>
 
             <!-- Références légales -->
-            <div class="rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800/50">
+            <div
+              class="rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800/50"
+            >
               <div class="border-b border-gray-100 px-5 py-3 dark:border-gray-700">
-                <h2 class="text-sm font-semibold text-gray-900 dark:text-white">Références légales</h2>
+                <h2 class="text-sm font-semibold text-gray-900 dark:text-white">
+                  Références légales
+                </h2>
               </div>
               <div class="divide-y divide-gray-100 dark:divide-gray-700">
                 <div v-if="decree" class="flex items-start gap-3 px-5 py-3">
-                  <UIcon name="i-heroicons-document-text" class="mt-0.5 h-4 w-4 shrink-0 text-gray-400" />
+                  <UIcon
+                    name="i-heroicons-document-text"
+                    class="mt-0.5 h-4 w-4 shrink-0 text-gray-400"
+                  />
                   <div>
                     <p class="text-xs text-gray-500">Décret en vigueur</p>
                     <p class="text-sm text-gray-800 dark:text-gray-100">n° {{ decree.numero }}</p>
                   </div>
                 </div>
                 <div v-if="decree?.date_publication" class="flex items-start gap-3 px-5 py-3">
-                  <UIcon name="i-heroicons-calendar" class="mt-0.5 h-4 w-4 shrink-0 text-gray-400" />
+                  <UIcon
+                    name="i-heroicons-calendar"
+                    class="mt-0.5 h-4 w-4 shrink-0 text-gray-400"
+                  />
                   <div>
                     <p class="text-xs text-gray-500">Date de publication</p>
                     <p class="text-sm text-gray-800 dark:text-gray-100">
@@ -700,7 +775,10 @@ useHead({
             </div>
 
             <!-- Hiérarchie -->
-            <div v-if="breadcrumb.length" class="rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800/50">
+            <div
+              v-if="breadcrumb.length"
+              class="rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800/50"
+            >
               <div class="border-b border-gray-100 px-5 py-3 dark:border-gray-700">
                 <h2 class="text-sm font-semibold text-gray-900 dark:text-white">Hiérarchie</h2>
               </div>
@@ -722,4 +800,3 @@ useHead({
     </template>
   </div>
 </template>
-

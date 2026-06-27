@@ -80,26 +80,7 @@ useSeoMeta({
 });
 
 // Schema.org — JSON-LD brut (pattern projet, modèle : documents/[id]/[slug].vue)
-const breadcrumbSchema = computed(() => ({
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Accueil', item: siteUrl },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: 'Conseil des ministres',
-      item: `${siteUrl}/conseil-des-ministres`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 3,
-      name: article.value?.title || 'Communiqué',
-      item: url.value,
-    },
-  ],
-}));
-
+// Breadcrumb : émis par <AppBreadcrumb> (source unique du fil d'Ariane, §7 CLAUDE.md).
 const articleSchema = computed(() => ({
   '@context': 'https://schema.org',
   '@type': 'GovernmentAnnouncement',
@@ -156,10 +137,6 @@ useHead({
     { name: 'ICBM', content: '14.7645042, -17.3660286' },
   ],
   script: [
-    {
-      type: 'application/ld+json',
-      innerHTML: computed(() => JSON.stringify(breadcrumbSchema.value)),
-    },
     {
       type: 'application/ld+json',
       innerHTML: computed(() => JSON.stringify(articleSchema.value)),

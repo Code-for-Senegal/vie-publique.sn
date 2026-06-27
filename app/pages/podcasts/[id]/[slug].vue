@@ -137,30 +137,7 @@ const videoSchema = computed(() => {
   };
 });
 
-const breadcrumbSchema = computed(() => ({
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: 'Accueil',
-      item: siteUrl,
-    },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: 'Podcasts',
-      item: `${siteUrl}/podcasts`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 3,
-      name: podcast.value?.title || 'Podcast',
-      item: url.value,
-    },
-  ],
-}));
+// Breadcrumb : émis par <AppBreadcrumb> (source unique du fil d'Ariane, §7 CLAUDE.md).
 
 const formatViews = (count?: number) => {
   if (!count) return '0';
@@ -209,10 +186,6 @@ useHead({
             innerHTML: JSON.stringify(videoSchema.value),
           }
         : null,
-      {
-        type: 'application/ld+json',
-        innerHTML: JSON.stringify(breadcrumbSchema.value),
-      },
     ].filter(Boolean),
 });
 </script>

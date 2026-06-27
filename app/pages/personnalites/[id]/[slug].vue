@@ -137,30 +137,7 @@ const personSchema = computed(() => {
   };
 });
 
-const breadcrumbSchema = computed(() => ({
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: 'Accueil',
-      item: siteUrl,
-    },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: 'Personnalités',
-      item: `${siteUrl}/personnalites-senegal`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 3,
-      name: person.value?.full_name || 'Personnalité',
-      item: url.value,
-    },
-  ],
-}));
+// Breadcrumb : émis par <AppBreadcrumb> (source unique du fil d'Ariane, §7 CLAUDE.md).
 
 useHead({
   htmlAttrs: { lang: 'fr-SN' },
@@ -180,10 +157,6 @@ useHead({
         innerHTML: JSON.stringify(personSchema.value),
       });
     }
-    scripts.push({
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify(breadcrumbSchema.value),
-    });
     return scripts;
   }),
 });

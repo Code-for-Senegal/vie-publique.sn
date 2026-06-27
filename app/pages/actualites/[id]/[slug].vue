@@ -120,30 +120,7 @@ const articleSchema = computed(() => {
   };
 });
 
-const breadcrumbSchema = computed(() => ({
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: 'Accueil',
-      item: siteUrl,
-    },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: 'Actualités',
-      item: `${siteUrl}/actualites`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 3,
-      name: article.value?.title || 'Article',
-      item: url.value,
-    },
-  ],
-}));
+// Breadcrumb : émis par <AppBreadcrumb> (source unique du fil d'Ariane, §7 CLAUDE.md).
 
 const webPageSchema = computed(() => {
   if (!article.value) return null;
@@ -279,11 +256,6 @@ useHead({
             innerHTML: JSON.stringify(articleSchema.value),
           }
         : null,
-      {
-        key: 'ld-breadcrumb',
-        type: 'application/ld+json',
-        innerHTML: JSON.stringify(breadcrumbSchema.value),
-      },
       webPageSchema.value
         ? {
             key: 'ld-webpage',

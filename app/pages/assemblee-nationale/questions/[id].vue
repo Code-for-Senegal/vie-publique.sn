@@ -103,36 +103,7 @@ const questionSchema = computed(() => {
   };
 });
 
-const breadcrumbSchema = computed(() => ({
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: 'Accueil',
-      item: siteUrl,
-    },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: 'Assemblée nationale',
-      item: `${siteUrl}/assemblee-nationale`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 3,
-      name: 'Questions écrites',
-      item: `${siteUrl}/assemblee-nationale/questions`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 4,
-      name: question.value?.subject || 'Question',
-      item: url.value,
-    },
-  ],
-}));
+// Breadcrumb : émis par <AppBreadcrumb> (source unique du fil d'Ariane, §7 CLAUDE.md).
 
 const webPageSchema = computed(() => {
   if (!question.value) return null;
@@ -247,10 +218,6 @@ useHead({
     { name: 'ICBM', content: '14.7645042, -17.3660286' },
   ],
   script: () => [
-    {
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify(breadcrumbSchema.value),
-    },
     {
       type: 'application/ld+json',
       innerHTML: JSON.stringify(questionSchema.value),
