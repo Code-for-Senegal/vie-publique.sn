@@ -111,38 +111,8 @@ useSeoMeta({
   twitterImage: () => pageImageUrl.value,
 });
 
-const breadcrumbSchema = computed(() => ({
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: 'Accueil',
-      item: siteUrl,
-    },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: 'Documents',
-      item: `${siteUrl}/documents/public`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 3,
-      name: typeLabel.value,
-      item: `${siteUrl}/documents/${typeSlug.value}`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 4,
-      name: document.value?.title || '',
-      item: document.value
-        ? `${siteUrl}/documents/${document.value.id}/${document.value.slug}`
-        : '',
-    },
-  ],
-}));
+// Pas de BreadcrumbList ici : <AppBreadcrumb> (dans le template) est la source unique
+// du fil d'Ariane (§7 CLAUDE.md). En émettre un second = doublon au test Rich Results.
 
 const articleSchema = computed(() => ({
   '@context': 'https://schema.org',
@@ -178,11 +148,6 @@ useHead({
     },
   ],
   script: () => [
-    {
-      key: 'ld-breadcrumb',
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify(breadcrumbSchema.value),
-    },
     {
       key: 'ld-article',
       type: 'application/ld+json',
