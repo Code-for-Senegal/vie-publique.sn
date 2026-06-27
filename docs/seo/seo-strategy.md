@@ -2,7 +2,18 @@
 
 > Objectif : Devenir la référence documentaire publique au Sénégal (le "Legifrance de l'Afrique francophone")
 > Cible : >1 million de visites/an via SEO programmatique
-> Dernière mise à jour : avril 2026
+> Dernière mise à jour : juin 2026
+>
+> **⚠️ Priorités révisées par la donnée GSC (juin 2026) — voir [`gsc-analyse-2026-06.md`](./gsc-analyse-2026-06.md).**
+> L'export Search Console 12 mois (153 289 clics / 4 018 526 impressions) **recadre les priorités** :
+>
+> 1. **Conseil des ministres / nominations** = gisement n°1 (**303k impr/an, ~1,3 % CTR**) → problème de **CTR**, pas de classement. Action : titres datés + fraîcheur + FAQ.
+> 2. **Personnalités politiques** = 277k impr, 1ʳᵉ source de clics, bcp en **page 2** → Schema.org Person + enrichissement.
+> 3. **Page liste « gouvernement / ministres »** = demande directe (13,7k impr).
+> 4. **PDF `/docs/`** rankent (664k impr) sans contrôle SEO → jumeaux HTML.
+>
+> **Indexation déjà débloquée** : 16 512 pages indexées (vs 973 estimées ici) → la Phase 1 est faite ; le sujet est désormais le **CTR**, pas l'indexation.
+> Les **rapports d'organes de contrôle** (~31k impr/an) sont **10× plus petits** que le Conseil des ministres : bonne page evergreen (livrée), mais pas le levier prioritaire.
 
 ---
 
@@ -38,7 +49,7 @@ Le SEO programmatique consiste à **générer automatiquement des milliers de pa
 
 | Donnée source | Volume actuel | Pages générables |
 |---------------|---------------|-----------------|
-| Documents individuels | ~7 800 publiés | ~7 800 (dont 973 indexées, 5 251 bloquées noindex) |
+| Documents individuels | ~7 800 publiés | ~7 800 (16 512 pages indexées au total en juin 2026 — voir GSC) |
 | Catégories documents | 5 existantes (+17 prévues) | 22 |
 | Archives par année (global) | 71 années dans le CMS | 71 |
 | Archives par année × catégorie | 71 × 5 catégories | 355 |
@@ -51,11 +62,16 @@ Le SEO programmatique consiste à **générer automatiquement des milliers de pa
 
 ### Objectif réaliste d'indexation
 
-| Métrique | Actuel (fév. 2026) | Objectif court terme | Comment |
-|----------|-------------------|---------------------|---------|
-| Pages indexées | 973 | ~5 000 | Retirer noindex des documents valides (Phase 1) |
-| Pages dans le sitemap | 8 298 | ~8 500 | Déjà atteint avec les archives par année |
-| Nouvelles pages SEO créées | — | +480 | Archives (427) + catégories (22) + institutions (20) + listes (4) + guides (7) |
+> **Mis à jour juin 2026 (GSC) : objectif d'indexation DÉPASSÉ.** L'index est passé de ~10 159
+> pages (28/03/2026) à **16 512** (12/06/2026). Le goulot n'est plus l'indexation mais le **CTR**
+> (convertir les 4 M d'impressions/an en clics — surtout Conseil des ministres & Personnalités).
+
+| Métrique | Actuel (juin 2026) | Objectif | Comment |
+|----------|-------------------|----------|---------|
+| Pages indexées | **16 512** | maintenir + qualité | Objectif initial (~5 000) dépassé |
+| Pages non indexées | 10 461 | réduire le thin content | Majorité = PDF `/docs/` (non indexables, normal) |
+| CTR moyen (Search) | **3,8 %** | ~6–7 % | Titres datés + fraîcheur + FAQ sur clusters à fort volume |
+| Clics / Impressions (12 mois) | 153 289 / 4 018 526 | — | Référence de suivi |
 
 ---
 
@@ -153,7 +169,7 @@ Pages de type fiche pour chaque institution publique.
 
 Contenu : description, missions, documents publiés, dirigeants, sous-entités.
 
-**État actuel du code** : ces pages n'existent pas (`/etat-senegal/annuaire/[slug]` existe mais est bloqué en robots.txt).
+**État actuel du code** : ces pages générales n'existent pas (`/etat-senegal/annuaire/[slug]` existe mais est bloqué en robots.txt). En revanche, une **variante ciblée est FAITE** pour les 5 organismes de contrôle (`/documents/rapports-audit/organisme/<slug>`) — voir §3.5.
 
 ### Niveau 4 — Pages documents individuels
 
@@ -216,6 +232,27 @@ Exemples :
 Chaque intersection = une porte d'entrée SEO supplémentaire.
 
 **Champs Directus exploitables** : `type`, `family`, `audit_institution`, `tags`, `publish_date`.
+
+**État actuel** : la 1ʳᵉ intersection est **FAITE** (juin 2026) — pages dédiées par organisme
+de contrôle sous `/documents/rapports-audit/organisme/<slug>` (5 institutions : Cour des
+Comptes, OFNAC, IGE, CENTIF, ARMP), pour cibler « rapport `<organisme>` sénégal ».
+Implémentation :
+
+- Config partagée `AUDIT_INSTITUTION_PAGES` (slug, nom, intro éditoriale) dans
+  `types/document.ts` — importée par la page **et** le sitemap.
+- Filtre **dès le SSR** via `useDocuments({ auditInstitution })` (option ajoutée + verrou
+  de la synchro URL pour garder l'URL propre, sans `?organisme=`).
+- Page `app/pages/documents/rapports-audit/organisme/[slug].vue` : H1 unique, titre sans
+  marque, **paragraphe d'intro éditorial**, JSON-LD `CollectionPage` + `ItemList`, maillage
+  interne vers les autres organismes.
+- Page catégorie `[category]/index.vue` : chips organisme convertis en **liens crawlables**
+  vers les pages dédiées ; `canonical` des URLs `?organisme=X` redirigé vers la page dédiée
+  (funnel des signaux du param vers la vraie URL).
+- Sitemap : 5 URLs ajoutées.
+
+> Segment `/organisme/` retenu pour éviter la collision de route avec la page archive
+> `/documents/rapports-audit/annee`. Ce pattern est **réplicable** pour `type × thème (tags)`
+> (ex. `/documents/theme/finances-publiques`) et `type × institution`.
 
 ### 3.6 Pages guides citoyens (longue traîne)
 
@@ -317,6 +354,31 @@ Résumé clair en 155 caractères. Si `documents.description` est vide :
 ### Résumé texte indexable
 
 Google n'indexe pas les PDF correctement. Chaque page document doit contenir un résumé texte visible (pas seulement le lien PDF).
+
+### Optimiser une page catégorie / listing pour ranker #1
+
+Une page « liste » nue (juste des items + pagination) reste du **quasi thin-content** : rien
+n'y cible la requête. Leviers qui font passer ce type de page en 1ʳᵉ position, **par ordre
+d'impact** (modèle de référence : pages organisme `/documents/rapports-audit/organisme/<slug>`) :
+
+1. **Paragraphe d'intro éditorial (200+ mots)** contenant la requête cible en langage naturel
+   (pas de bourrage). C'est le levier n°1.
+2. **H1 = la requête exacte** (« Rapports de la Cour des Comptes du Sénégal », pas « Rapports »).
+   Un seul H1 par page.
+3. **Title + description calés sur la formulation réelle** des internautes — inclure « pdf »,
+   « sénégal », l'année quand c'est pertinent. **Source = export GSC** (onglet Requêtes).
+4. **Bloc FAQ (schema `FAQPage`)** : 3-5 questions type « C'est quoi l'OFNAC ? », « Comment
+   consulter le Journal officiel ? » → capte les *People Also Ask* + rich snippet.
+5. **Maillage interne à ancre descriptive** : lier vers la catégorie avec un texte d'ancre =
+   la requête, depuis le hub `/documents`, le footer et les pages détail.
+6. **Fraîcheur** : afficher dates + documents récents (signal d'actualité).
+
+> ⚠️ **`<meta name="keywords">` est ignorée par Google depuis 2009** — inutile. Les « mots-clés »
+> se placent dans le **texte visible** (intro, H1, FAQ, ancres), jamais dans une balise meta.
+>
+> ⚠️ **Le champ `tags` Directus n'est PAS une meta** : il sert à **générer des pages thématiques**
+> (intersections — voir §3.5), pas à « taguer » la page courante pour Google. N'en créer que
+> pour les tags ayant assez de documents (sinon thin content).
 
 ---
 
@@ -503,7 +565,7 @@ Les URLs `/documents/4613/rapport-xxx` contiennent un ID sans valeur SEO. Si la 
 
 | Champ | Utilisation SEO |
 |-------|----------------|
-| `audit_institution` | 5 valeurs (OFNAC, IGE, CENTIF, Cour des Comptes, ARMP) → pages par institution |
+| `audit_institution` | 5 valeurs (OFNAC, IGE, CENTIF, Cour des Comptes, ARMP) → pages par institution — **FAIT** (`/documents/rapports-audit/organisme/<slug>`) |
 | `tags` | Tableau libre → pages thématiques |
 | `publish_date` | → pages par année |
 | `family` | 10 valeurs → pages par famille |
@@ -644,6 +706,7 @@ Note : utiliser canonical vers les pages existantes (`/assemblee-nationale/deput
 | `app/pages/documents/annee/index.vue` | `/documents/annee` | 3 | **FAIT** |
 | `app/pages/documents/annee/[year].vue` | `/documents/annee/2024` | 3 | **FAIT** |
 | `app/pages/documents/[category]/annee/[year].vue` | `/documents/journal-officiel/annee/2024` | 3 | **FAIT** |
+| `app/pages/documents/rapports-audit/organisme/[slug].vue` | `/documents/rapports-audit/organisme/ofnac` | 4 (variante) | **FAIT** (juin 2026) |
 | `app/pages/institutions/index.vue` | `/institutions` | 4 | À faire |
 | `app/pages/institutions/[slug].vue` | `/institutions/[slug]` | 4 | À faire |
 | `app/pages/liste-deputes-senegal.vue` | `/liste-deputes-senegal` | 7 | À faire |
