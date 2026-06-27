@@ -117,9 +117,42 @@ Noms à fort volume bloqués page 2 (quick wins) :
 
 « liste du nouveau gouvernement du sénégal 2026 » (13 698 impr, pos 8). Créer `/gouvernement-senegal` (ou `/liste-ministres-senegal`) — liste structurée, mise à jour à chaque remaniement, schema `ItemList`. Cf. Phase 7 de la stratégie (à remonter en priorité).
 
-### D. PDF `/docs/` → jumeaux HTML
+### D. PDF `/docs/` → jumeaux HTML — **DÉCISION : NE PAS TRAITER (juin 2026)**
 
-Voir §3. Vérifier la couverture HTML des 377 PDF qui rankent, prioriser les plus gros (ex. « nouveau règlement intérieur de l'Assemblée » : 6 193 clics en PDF).
+L'idée initiale (forcer le ranking de la page HTML à la place du PDF + tracker les PDF dans
+GA) a été **étudiée puis écartée**. C'est le bon choix, et voici pourquoi — pour ne pas le
+re-débattre :
+
+**1. « Tracker les PDF dans GA » est contre-productif.** Un PDF ne charge pas le tag JS GA →
+GA ne le verra **jamais** nativement. Le seul moyen serait d'émettre des événements
+côté serveur (Measurement Protocol depuis le proxy `/docs`), ce qui produirait des **données
+pourries** :
+
+- **bots** (Googlebot et crawlers re-téléchargent les PDF en boucle) comptés comme du trafic —
+  GA côté JS les exclut, le MP côté serveur **non** → chiffres gonflés ;
+- **cache** (PDF cachés 24 h CDN/navigateur) → beaucoup de vues n'atteignent pas le serveur →
+  sous-comptage ;
+- **pas de cookie `_ga`** sur un atterrissage direct → client_id aléatoires → chaque vue =
+  « nouvel utilisateur ».
+→ Résultat moins fiable que l'absence de données. **Le bon outil pour le trafic PDF, c'est
+Search Console** (clics/impressions par URL, déjà propre), PAS GA.
+
+**2. Le canonical PDF → HTML est faible.** Google ne respecte un canonical inter-format que si
+les deux sont **équivalents**. Pour les docs **avec `content_html`** (texte rendu sur la page
+HTML — déjà le cas), ça peut marcher ; pour les docs **sans texte** (PDF scanné), la page HTML
+est mince → canonical ignoré, et **le PDF EST le contenu** (normal qu'il ranke).
+
+**3. Le « problème » n'en est pas vraiment un.** Sur les gros docs, le **PDF ET la page HTML
+rankent tous les deux** (ex. règlement intérieur Assemblée : 6 193 clics PDF **+** 1 991 clics
+sur `/documents/6107/…`). On capte donc **plus** de trafic au total. Qui cherche « … pdf »
+**veut le PDF** — le lui servir est une bonne UX. Forcer la consolidation = friction + risque
+sur un chemin critique, pour un bénéfice incertain.
+
+**Conclusion** : on **laisse PDF et page HTML coexister**. La page HTML est déjà forte (texte
+`content_html` + signaux de fraîcheur + schema `Article` — faits) et capte sa part. Pour
+mesurer les PDF : **Search Console**. _Si un jour on veut le trafic PDF agrégé dans un tableau
+de bord, passer par l'**API Search Console** (données réelles), jamais par des événements GA
+serveur._
 
 ### E. Organismes de contrôle (feature livrée juin 2026)
 
@@ -170,6 +203,6 @@ Reléguer `decrets` / `arretes` en standalone (demande réelle marginale hors no
 1. **CTR Conseil des ministres / nominations** (titres datés + fraîcheur + FAQ) — *impact n°1, peu de code*.
 2. **Personnalités** : Schema.org Person + enrichissement des fiches page-2 + consolidation `portraits`/`personnalites`.
 3. **Page liste gouvernement / ministres**.
-4. **Jumeaux HTML des PDF `/docs/`** les plus performants.
+4. ~~Jumeaux HTML des PDF `/docs/`~~ — **écarté** (voir §4.D) : PDF + page HTML coexistent déjà, et tracker les PDF dans GA donnerait des données pourries. Trafic PDF → Search Console.
 5. Suivi des **pages organismes** livrées (CENTIF en tête).
 6. **Catégories** Code / Loi / Budget / Constitution (par demande réelle).

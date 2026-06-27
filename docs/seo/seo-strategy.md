@@ -10,7 +10,7 @@
 > 1. **Conseil des ministres / nominations** = gisement n°1 (**303k impr/an, ~1,3 % CTR**) → problème de **CTR**, pas de classement. Action : titres datés + fraîcheur + FAQ.
 > 2. **Personnalités politiques** = 277k impr, 1ʳᵉ source de clics, bcp en **page 2** → Schema.org Person + enrichissement.
 > 3. **Page liste « gouvernement / ministres »** = demande directe (13,7k impr).
-> 4. **PDF `/docs/`** rankent (664k impr) sans contrôle SEO → jumeaux HTML.
+> 4. **PDF `/docs/`** (664k impr) : ne PAS forcer de jumeaux HTML ni tracker dans GA (décision juin 2026, cf. `gsc-analyse-2026-06.md` §4.D) — PDF + page HTML coexistent déjà ; trafic PDF → Search Console.
 >
 > **Indexation déjà débloquée** : 16 512 pages indexées (vs 973 estimées ici) → la Phase 1 est faite ; le sujet est désormais le **CTR**, pas l'indexation.
 > Les **rapports d'organes de contrôle** (~31k impr/an) sont **10× plus petits** que le Conseil des ministres : bonne page evergreen (livrée), mais pas le levier prioritaire.
