@@ -259,8 +259,11 @@ export default defineNuxtConfig({
     '/medias/liste-officielle': { redirect: { to: '/medias', statusCode: 301 }, prerender: true },
     '/code-senegal': { redirect: { to: '/documents/codes', statusCode: 301 } },
     '/code-senegal/**': { redirect: { to: '/documents/codes', statusCode: 301 } },
-    '/portraits': { redirect: { to: '/personnalites', statusCode: 301 } },
-    '/portraits/**': { redirect: { to: '/personnalites/**', statusCode: 301 } },
+    // Legacy /portraits/<slug> : résolu vers /personnalites/<id>/<slug> par le
+    // handler serveur server/routes/portraits/[slug].get.ts (lookup slug -> id).
+    // Le blanket '/portraits/**' -> '/personnalites/**' renvoyait sur un 404
+    // (la route cible est /personnalites/[id]/[slug], 2 segments). Ne PAS le remettre.
+    '/portraits': { redirect: { to: '/personnalites-senegal', statusCode: 301 } },
     '/budget-senegal/2024': {
       redirect: { to: '/budget-senegal', statusCode: 301 },
       prerender: true,

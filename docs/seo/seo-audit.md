@@ -285,8 +285,16 @@ const title = `Conseil des ministres du Sénégal — ${new Date().toLocaleDateS
 | `/rapport-senegal/**` | `/documents/rapports-audit` | 301 |
 | `/code-senegal/**` | `/documents/codes` | 301 |
 | `/budget-etat-senegal` | `/budget-senegal` | 301 |
-| `/portraits/*` | `/personnalites/*` | 301 |
+| `/portraits/<slug>` | `/personnalites/<id>/<slug>` (résolu) | 301 |
 | 12+ URLs PDF legacy | `/documents/*` | 301 |
+
+> ⚠️ **`/portraits/<slug>` — corrigé juin 2026.** L'ancien routeRule `/portraits/** -> /personnalites/**`
+> renvoyait sur un **404** (la cible `/personnalites/[id]/[slug]` a 2 segments, l'ancien slug n'en a
+> qu'1). Or ces URLs rankent encore et reçoivent des clics (ex. `el-malick-ndiaye` ~1096 clics/an).
+> Remplacé par un handler `server/routes/portraits/[slug].get.ts` qui résout `slug -> id` via le CMS
+> (carte normalisée, cache 1h) + un petit tableau d'alias pour les slugs corrigés à la migration
+> (`yacine-fall->yassine-fall`, `omar-samba-ba->oumar-samba-ba`, `general-jean-baptiste-tine->jean-baptiste-tine`).
+> Slug introuvable -> `/personnalites-senegal` (jamais de 404). **Y ajouter toute nouvelle correspondance legacy repérée en GSC.**
 
 ### C. Robots.txt — Paths bloqués
 
