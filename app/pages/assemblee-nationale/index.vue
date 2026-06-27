@@ -109,7 +109,7 @@ useHead({
 
     <!-- En-tête -->
     <header class="container mx-auto px-4 py-4">
-      <h1 class="text-xl font-bold text-gray-900 md:text-2xl dark:text-white">
+      <h1 class="text-lg font-bold text-gray-900 sm:text-xl dark:text-white">
         Assemblée nationale
       </h1>
       <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">

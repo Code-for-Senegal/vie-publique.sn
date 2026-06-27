@@ -8,7 +8,7 @@
     <!-- Header mobile-first -->
     <header class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm md:relative md:border-0 md:bg-transparent md:backdrop-blur-none dark:border-gray-800 dark:bg-gray-900/95">
       <div class="container mx-auto px-4 py-3 md:py-6">
-        <h1 class="text-xl font-bold text-gray-900 md:text-3xl dark:text-white">
+        <h1 class="text-lg font-bold text-gray-900 sm:text-xl dark:text-white">
           Budget du Sénégal
         </h1>
         <p class="mt-0.5 text-xs text-gray-500 md:mt-1 md:text-sm dark:text-gray-400">

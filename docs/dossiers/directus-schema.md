@@ -46,6 +46,38 @@
 | `tags` | JSON | **Tags** | Tableau de chaînes (`["code du travail","droit social"]`) |
 | `featured` | Boolean | Toggle | Mise en avant (badge « À la une ») |
 
+> ### ⚠️ NOTE RÉDACTEURS / ADMIN — normaliser le dropdown `type` (à corriger)
+>
+> Le filtre par catégorie de la page `/dossiers` compare la **valeur stockée** à la **clé**
+> (`legislative`, `reform`, …). Or sur l'instance actuelle le dropdown `type` a été configuré
+> avec le **libellé FR comme valeur** (ex. `Législatif` au lieu de `legislative`). Conséquence :
+> le badge s'affiche bien, mais **cliquer un filtre ne renvoyait aucun résultat**.
+>
+> **À faire dans Directus** (Settings → Data Model → `dossier` → champ `type` → interface
+> **Dropdown** → liste des **Choices**) : pour chaque entrée, séparer correctement les deux
+> colonnes —
+>
+> | Colonne Directus | Valeur à saisir | Exemple |
+> | --- | --- | --- |
+> | **Text** (libellé affiché) | le libellé FR | `Législatif` |
+> | **Value** (valeur stockée) | la **clé snake_case** | `legislative` |
+>
+> Liste complète (Text → **Value**) : `Législatif` → **`legislative`**, `Réforme` →
+> **`reform`**, `Politique publique` → **`policy`**, `Finances publiques` →
+> **`public_finance`**, `Institution` → **`institution`**, `Élection` → **`election`**,
+> `Rapport` → **`report`**, `Fact-check` → **`fact_check`**, `Guide` → **`guide`**.
+> _(Source unique de vérité : `app/config/dossiers.config.ts`.)_
+>
+> **Migrer les dossiers déjà saisis** : rééditer chaque dossier existant et re-sélectionner la
+> catégorie (la valeur passera de `Législatif` à `legislative`). En base, on peut aussi faire un
+> `UPDATE dossier SET type='legislative' WHERE type='Législatif';` (idem pour chaque libellé).
+>
+> > 🛡️ **Le front reste tolérant** : `app/pages/dossiers/index.vue` reconnaît **clé _et_ libellé**
+> > et n'affiche que les filtres ayant du contenu — rien ne casse pendant la migration. Mais une
+> > fois les valeurs normalisées sur les clés, ce sera plus propre et cohérent avec les autres
+> > collections (`documents`, `news`…). **Toujours saisir la `Value` en clé snake_case** pour les
+> > nouveaux dossiers.
+
 ### Champs JSON éditoriaux (interface « Repeater »)
 
 Pour chacun : dans « New Field », section **Selection → Repeater** (Directus crée
