@@ -418,11 +418,10 @@ useHead({
           <h3 class="mb-3 text-sm font-bold text-gray-900 dark:text-white md:text-base">
             Documents joints
           </h3>
-          <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+          <div class="space-y-6">
             <template v-for="attachment in question.attachments" :key="attachment.id">
               <div
                 v-if="attachment.id"
-                class="overflow-hidden rounded-xl"
                 itemscope
                 itemtype="https://schema.org/MediaObject"
               >
@@ -438,44 +437,62 @@ useHead({
                   itemprop="contentUrl"
                 />
 
-                <!-- PDF attachments : carte avec actions Lire / Télécharger -->
-                <div
-                  v-else-if="isPdfFile(attachment)"
-                  class="flex items-center gap-3 rounded-xl bg-gray-50 p-3 ring-1 ring-gray-100 dark:bg-gray-700/40 dark:ring-gray-700"
-                >
+                <!-- PDF attachments : barre d'actions + viewer inline -->
+                <div v-else-if="isPdfFile(attachment)">
+                  <!-- Barre d'actions (style page document) -->
                   <div
-                    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-red-50 text-red-500 dark:bg-red-900/20 dark:text-red-400"
+                    class="mb-3 flex flex-wrap items-center gap-2 rounded-xl bg-gray-50 p-3 ring-1 ring-gray-100 dark:bg-gray-700/40 dark:ring-gray-700"
                   >
-                    <UIcon name="i-heroicons-document-text" class="h-5 w-5" />
-                  </div>
-                  <div class="min-w-0 flex-1">
-                    <p class="truncate text-sm font-medium text-gray-900 dark:text-white">
-                      {{ attachment.filename || 'Document PDF' }}
-                    </p>
-                    <p
-                      v-if="formatFileSize(attachment.filesize)"
-                      class="text-xs text-gray-400 dark:text-gray-500"
+                    <div
+                      class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-red-50 text-red-500 dark:bg-red-900/20 dark:text-red-400"
                     >
-                      PDF · {{ formatFileSize(attachment.filesize) }}
-                    </p>
+                      <UIcon name="i-heroicons-document-text" class="h-5 w-5" />
+                    </div>
+                    <div class="min-w-0 flex-1">
+                      <p class="truncate text-sm font-medium text-gray-900 dark:text-white">
+                        {{ attachment.filename || 'Document PDF' }}
+                      </p>
+                      <p
+                        v-if="formatFileSize(attachment.filesize)"
+                        class="text-xs text-gray-400 dark:text-gray-500"
+                      >
+                        PDF · {{ formatFileSize(attachment.filesize) }}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      class="bg-primary-500 hover:bg-primary-600 flex h-8 items-center gap-1 rounded-lg px-2.5 text-xs font-medium text-white transition-colors active:scale-95"
+                      @click="openPdf(attachment)"
+                    >
+                      <UIcon name="i-heroicons-eye" class="h-3.5 w-3.5" />
+                      Lire
+                    </button>
+                    <button
+                      type="button"
+                      class="flex h-8 items-center gap-1 rounded-lg bg-[#FFD400] px-2.5 text-xs font-medium text-gray-900 transition-colors hover:bg-yellow-400 active:scale-95"
+                      @click="downloadCmsFile(getFileUrl(attachment), attachment.filename)"
+                    >
+                      <UIcon name="i-heroicons-arrow-down-tray" class="h-3.5 w-3.5" />
+                      Télécharger
+                    </button>
+                    <a
+                      :href="getFileUrl(attachment)"
+                      target="_blank"
+                      class="flex h-8 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2.5 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-50 active:scale-95 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                    >
+                      <UIcon name="i-heroicons-arrow-top-right-on-square" class="h-3.5 w-3.5" />
+                      Ouvrir
+                    </a>
                   </div>
-                  <button
-                    type="button"
-                    class="flex h-8 shrink-0 items-center gap-1 rounded-lg bg-blue-50 px-2.5 text-xs font-medium text-blue-700 transition-colors hover:bg-blue-100 active:scale-95 dark:bg-blue-900/20 dark:text-blue-400"
-                    @click="openPdf(attachment)"
-                  >
-                    <UIcon name="i-heroicons-eye" class="h-4 w-4" />
-                    Lire
-                  </button>
-                  <a
-                    :href="getFileUrl(attachment)"
-                    :download="attachment.filename"
-                    target="_blank"
-                    class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700"
-                    title="Télécharger"
-                  >
-                    <UIcon name="i-heroicons-arrow-down-tray" class="h-4 w-4" />
-                  </a>
+
+                  <!-- Viewer PDF inline -->
+                  <ClientOnly>
+                    <PdfViewerInline
+                      :src="getFileUrl(attachment)"
+                      max-height="700px"
+                      @open-fullscreen="openPdf(attachment)"
+                    />
+                  </ClientOnly>
                 </div>
 
                 <!-- Autres fichiers : lien de téléchargement -->
