@@ -138,6 +138,8 @@ Le projet utilise `@nuxtjs/seo`. Un audit basé uniquement sur le code produit d
    - un `BreadcrumbList` en script séparé = doublon (toléré par Google mais inutile) ;
    - un `defineBreadcrumb` (`useSchemaOrg`) **fusionne** avec le breadcrumb auto → **un seul `BreadcrumbList` malformé à items dupliqués** (ex. page `assemblee-nationale/deputes/[id]` : **8 items au lieu de 4**) → à retirer (laisser le breadcrumb auto du `@graph`).
    _Vérifier : `curl -s <url>` → le `@graph` contient déjà le breadcrumb ; la page ne doit ajouter que son nœud d'entité. Pages historiques avec doublon = inoffensif (sauf le cas `defineBreadcrumb`/8-items) → migration opportuniste._
+8. **Un seul `<h1>` par page.** Piège récurrent : les pages détail ont **deux en-têtes** (barre sticky **mobile** + en-tête **desktop**) qui affichent le même titre. Si les deux sont `<h1>` → **2 H1** (les deux sont dans le DOM, juste masqués en CSS selon le viewport). **Règle : un seul `<h1>` = le titre principal du contenu ; la barre de nav mobile et les titres de cartes/sections sont en `<p>` ou `<h2>`.** Vérifier : `curl -s <url> | grep -o "<h1" | wc -l` doit donner **1**.
+9. **Titre de page : ne PAS répéter la marque.** Le `titleTemplate` global (`@nuxtjs/seo`) ajoute déjà `| Vie-Publique.sn`. En page, mettre **juste le titre** (+ éventuel descripteur utile : « Nom - Poste »), **sans** « - Vie Publique Sénégal » ni « | … Vie Publique Sénégal » (sinon marque dupliquée + titre trop long). Un **qualificatif de section** sans la marque (« | Actualités Sénégal ») reste acceptable.
 
 ### Conventions d'URL (SEO)
 
