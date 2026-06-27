@@ -171,8 +171,8 @@ focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500
 
 ### Logo
 
-- Principal : `/public/logos/logo2.webp`
-- SVG : `/public/vie-publique-logo-4.svg`
+- Principal (raster, share/schema) : `/public/logos/logo-transparent-carre.png`
+- SVG (header) : `/public/vie-publique-logo-4.svg`
 - PWA : `pwa-192x192.png`, `pwa-512x512.png`, `pwa-1024x1024.png`
 
 ### Conventions

@@ -93,12 +93,13 @@ const articleSchema = computed(() => {
       url: siteUrl,
     },
     publisher: {
-      '@type': 'NewsMediaOrganization',
+      '@type': 'Organization',
       name: siteName,
       url: siteUrl,
       logo: {
         '@type': 'ImageObject',
-        url: defaultImage,
+        // Logo Vie Publique à jour, URL publique stable + raster (cf. conseil-des-ministres).
+        url: `${siteUrl}/logos/logo-transparent-carre.png`,
       },
     },
     mainEntityOfPage: {
@@ -400,11 +401,11 @@ useHead({
             :content="article.tags?.join(', ') || 'République du Sénégal'"
           />
           <meta itemprop="inLanguage" content="fr-SN" />
-          <div itemprop="publisher" itemscope itemtype="https://schema.org/NewsMediaOrganization">
+          <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
             <meta itemprop="name" :content="siteName" />
             <meta itemprop="url" :content="siteUrl" />
             <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-              <meta itemprop="url" :content="defaultImage" />
+              <meta itemprop="url" :content="`${siteUrl}/logos/logo-transparent-carre.png`" />
             </div>
           </div>
           <div itemprop="author" itemscope itemtype="https://schema.org/Organization">

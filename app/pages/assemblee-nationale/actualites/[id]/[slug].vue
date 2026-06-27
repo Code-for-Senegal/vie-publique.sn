@@ -87,18 +87,20 @@ const articleSchema = computed(() => ({
     : article.value?.date_published
       ? formatDateISO(article.value.date_published)
       : undefined,
+  // Éditeur = Vie Publique (on republie/structure l'info), l'Assemblée est le SUJET cité.
   author: {
     '@type': 'Organization',
-    name: 'Assemblée nationale du Sénégal',
-    url: `${siteUrl}/assemblee-nationale`,
+    name: siteName,
+    url: siteUrl,
   },
   publisher: {
-    '@type': 'NewsMediaOrganization',
+    '@type': 'Organization',
     name: siteName,
     url: siteUrl,
     logo: {
       '@type': 'ImageObject',
-      url: defaultImage,
+      // Logo Vie Publique à jour, URL publique stable + raster (cf. conseil-des-ministres).
+      url: `${siteUrl}/logos/logo-transparent-carre.png`,
     },
   },
   articleSection: 'Politique',
@@ -107,6 +109,7 @@ const articleSchema = computed(() => ({
     '@type': 'GovernmentOrganization',
     name: 'Assemblée nationale du Sénégal',
   },
+  citation: 'Assemblée nationale de la République du Sénégal',
   mainEntityOfPage: url.value,
 }));
 
@@ -115,7 +118,7 @@ useHead({
   link: () => [{ rel: 'canonical', href: url.value }],
   meta: [
     { name: 'theme-color', content: themeColor },
-    { name: 'author', content: 'Assemblée nationale du Sénégal' },
+    { name: 'author', content: siteName },
     { property: 'og:type', content: 'article' },
     { property: 'og:site_name', content: siteName },
     {
@@ -265,16 +268,16 @@ useHead({
             itemprop="keywords"
             :content="article.tags?.join(', ') || 'Assemblée nationale, Sénégal'"
           />
-          <div itemprop="publisher" itemscope itemtype="https://schema.org/NewsMediaOrganization">
+          <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
             <meta itemprop="name" :content="siteName" />
             <meta itemprop="url" :content="siteUrl" />
             <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-              <meta itemprop="url" :content="defaultImage" />
+              <meta itemprop="url" :content="`${siteUrl}/logos/logo-transparent-carre.png`" />
             </div>
           </div>
           <div itemprop="author" itemscope itemtype="https://schema.org/Organization">
-            <meta itemprop="name" content="Assemblée nationale du Sénégal" />
-            <meta itemprop="url" :content="`${siteUrl}/assemblee-nationale`" />
+            <meta itemprop="name" :content="siteName" />
+            <meta itemprop="url" :content="siteUrl" />
           </div>
           <div itemprop="mainEntityOfPage" itemscope itemtype="https://schema.org/WebPage">
             <meta itemprop="@id" :content="url" />

@@ -5,7 +5,7 @@ const title = 'Vie Publique Sénégal — App gratuite | Budget, Lois, Journal O
 const description =
   "Téléchargez l'app Vie Publique Sénégal. 10 000+ documents officiels : journal officiel, lois, décrets, budgets, nominations. Gratuit sur Android et iPhone.";
 const url = `${siteUrl}/app`;
-const image = `${siteUrl}/logos/logo2.webp`;
+const image = `${siteUrl}/logos/logo-transparent-carre.png`;
 
 const APP_STORE_URL = 'https://apps.apple.com/us/app/vie-publique-s%C3%A9n%C3%A9gal/id6757257552';
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=sn.viepublique.app';
@@ -133,10 +133,16 @@ const darkScreenshots = [
           class="store-btn inline-flex items-center gap-3 rounded-2xl bg-gray-900 px-6 py-3.5 text-white shadow-lg transition-all hover:scale-105 hover:shadow-xl dark:bg-[#E2BA13] dark:text-gray-900"
         >
           <svg class="h-8 w-8" viewBox="0 0 24 24">
-            <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92z" fill="#4285F4"/>
-            <path d="M14.499 12.707L16.801 15.009 5.864 21.342 14.499 12.707z" fill="#FBBC04"/>
-            <path d="M17.698 11.507L20.532 13.146A1 1 0 0120.532 14.854L17.698 16.493 15.166 13.961 17.698 11.507z" fill="#EA4335"/>
-            <path d="M5.864 3.458L16.8 9.79 14.498 12.092 5.864 3.458z" fill="#34A853"/>
+            <path
+              d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92z"
+              fill="#4285F4"
+            />
+            <path d="M14.499 12.707L16.801 15.009 5.864 21.342 14.499 12.707z" fill="#FBBC04" />
+            <path
+              d="M17.698 11.507L20.532 13.146A1 1 0 0120.532 14.854L17.698 16.493 15.166 13.961 17.698 11.507z"
+              fill="#EA4335"
+            />
+            <path d="M5.864 3.458L16.8 9.79 14.498 12.092 5.864 3.458z" fill="#34A853" />
           </svg>
           <div class="text-left">
             <div class="text-[10px] uppercase leading-tight opacity-70">Disponible sur</div>
@@ -383,10 +389,16 @@ const darkScreenshots = [
           class="inline-flex items-center gap-3 rounded-2xl bg-gray-900 px-6 py-3.5 text-white shadow-lg transition-all hover:scale-105 hover:shadow-xl dark:bg-[#E2BA13] dark:text-gray-900"
         >
           <svg class="h-6 w-6" viewBox="0 0 24 24">
-            <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92z" fill="#4285F4"/>
-            <path d="M14.499 12.707L16.801 15.009 5.864 21.342 14.499 12.707z" fill="#FBBC04"/>
-            <path d="M17.698 11.507L20.532 13.146A1 1 0 0120.532 14.854L17.698 16.493 15.166 13.961 17.698 11.507z" fill="#EA4335"/>
-            <path d="M5.864 3.458L16.8 9.79 14.498 12.092 5.864 3.458z" fill="#34A853"/>
+            <path
+              d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92z"
+              fill="#4285F4"
+            />
+            <path d="M14.499 12.707L16.801 15.009 5.864 21.342 14.499 12.707z" fill="#FBBC04" />
+            <path
+              d="M17.698 11.507L20.532 13.146A1 1 0 0120.532 14.854L17.698 16.493 15.166 13.961 17.698 11.507z"
+              fill="#EA4335"
+            />
+            <path d="M5.864 3.458L16.8 9.79 14.498 12.092 5.864 3.458z" fill="#34A853" />
           </svg>
           <span class="text-sm font-semibold sm:text-base">Télécharger sur Google Play</span>
         </a>

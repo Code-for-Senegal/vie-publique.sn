@@ -8,7 +8,7 @@ export const useSiteMetadata = () => {
     defaultTitle: 'Vie Publique Sénégal - Information citoyenne et actualité politique',
     defaultDescription:
       "Accédez aux documents officiels du Sénégal : journal officiel, lois, décrets, codes juridiques, budget, rapports d'audit (OFNAC, Cour des Comptes), nominations et travaux parlementaires.",
-    defaultImage: `${siteUrl}/logos/logo2.webp`,
+    defaultImage: `${siteUrl}/logos/logo-transparent-carre.png`,
     defaultLocale: 'fr_SN',
     twitterHandle: '@viepubliquesn',
     twitterCardType: 'summary_large_image',
