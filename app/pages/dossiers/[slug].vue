@@ -55,7 +55,8 @@ const sections = computed(() => {
 // ---- SEO (scope setup + getters réactifs → rendu SSR pour les crawlers) ----
 const seoTitle = computed(() => {
   if (!dossier.value) return 'Chargement…';
-  return dossier.value.seo_title || `${dossier.value.title} | Dossier Vie Publique Sénégal`;
+  // La marque est ajoutée par le titleTemplate global → ne pas la répéter ici.
+  return dossier.value.seo_title || dossier.value.title;
 });
 
 const seoDescription = computed(() => {
