@@ -2,7 +2,7 @@
   <section
     v-if="!empty"
     :id="id"
-    class="scroll-mt-20 border-t border-gray-100 pt-8 dark:border-gray-700 sm:pt-10"
+    class="scroll-mt-16 border-t border-gray-100 pt-5 dark:border-gray-700 sm:scroll-mt-20 sm:pt-10"
     :aria-labelledby="`${id}-title`"
   >
     <h2
