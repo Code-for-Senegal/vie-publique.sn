@@ -25,10 +25,8 @@ const title = computed(() => {
 
 const description = computed(() => {
   if (!podcast.value) return '';
-  const plainText =
-    podcast.value.description?.replace(/<[^>]*>/g, '') || podcast.value.title;
-  const excerpt =
-    plainText.length > 160 ? plainText.substring(0, 157) + '...' : plainText;
+  const plainText = podcast.value.description?.replace(/<[^>]*>/g, '') || podcast.value.title;
+  const excerpt = plainText.length > 160 ? plainText.substring(0, 157) + '...' : plainText;
   return excerpt;
 });
 
@@ -219,30 +217,33 @@ useHead({
 <template>
   <div class="min-h-screen bg-gray-50 pb-24 dark:bg-gray-900">
     <!-- Sticky Header Mobile -->
-    <div class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 px-4 py-3 backdrop-blur-sm dark:border-gray-700 dark:bg-gray-800/95 md:relative md:border-0 md:bg-transparent md:py-0 md:backdrop-blur-none dark:md:bg-transparent">
+    <div
+      class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 px-4 py-3 backdrop-blur-sm dark:border-gray-700 dark:bg-gray-800/95 md:relative md:border-0 md:bg-transparent md:py-0 md:backdrop-blur-none dark:md:bg-transparent"
+    >
       <div class="mx-auto max-w-4xl">
         <!-- Breadcrumb desktop only -->
         <div class="hidden pt-4 md:block">
           <AppBreadcrumb
-:items="[
-            { label: 'Podcasts', to: '/podcasts' },
-            { label: podcast?.title || 'Podcast' }
-          ]" />
+            :items="[
+              { label: 'Podcasts', to: '/podcasts' },
+              { label: podcast?.title || 'Podcast' },
+            ]"
+          />
         </div>
-        
+
         <div class="flex items-center gap-3 md:py-4">
           <!-- Back button mobile -->
-          <NuxtLink 
-            to="/podcasts" 
+          <NuxtLink
+            to="/podcasts"
             class="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 active:scale-95 dark:bg-gray-700 md:hidden"
           >
             <UIcon name="i-heroicons-arrow-left" class="h-5 w-5 text-gray-600 dark:text-gray-300" />
           </NuxtLink>
-          
+
           <div class="min-w-0 flex-1">
-            <h1 class="truncate text-base font-semibold text-gray-900 dark:text-white md:hidden">
+            <p class="truncate text-base font-semibold text-gray-900 dark:text-white md:hidden">
               {{ podcast?.title || 'Podcast' }}
-            </h1>
+            </p>
           </div>
 
           <SocialShare v-if="podcast" :title="podcast.title" :url="url" />
@@ -262,12 +263,19 @@ useHead({
 
       <!-- Error -->
       <div v-else-if="error" class="rounded-2xl bg-red-50 p-6 text-center dark:bg-red-900/20">
-        <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30">
-          <UIcon name="i-heroicons-exclamation-triangle" class="h-6 w-6 text-red-600 dark:text-red-400" />
+        <div
+          class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30"
+        >
+          <UIcon
+            name="i-heroicons-exclamation-triangle"
+            class="h-6 w-6 text-red-600 dark:text-red-400"
+          />
         </div>
         <h3 class="font-medium text-red-800 dark:text-red-300">Erreur de chargement</h3>
-        <p class="mt-1 text-sm text-red-600 dark:text-red-400">Une erreur est survenue lors du chargement du podcast</p>
-        <NuxtLink 
+        <p class="mt-1 text-sm text-red-600 dark:text-red-400">
+          Une erreur est survenue lors du chargement du podcast
+        </p>
+        <NuxtLink
           to="/podcasts"
           class="mt-4 inline-flex items-center gap-2 rounded-lg bg-red-100 px-4 py-2 text-sm font-medium text-red-700 transition-colors hover:bg-red-200 dark:bg-red-900/30 dark:text-red-400"
         >
@@ -281,18 +289,26 @@ useHead({
         <!-- Video Player -->
         <div class="overflow-hidden rounded-xl bg-black shadow-lg">
           <!-- YouTube Embed -->
-          <div v-if="youtubeEmbedUrl" class="relative w-full" style="padding-bottom: 56.25%;">
+          <div v-if="youtubeEmbedUrl" class="relative w-full" style="padding-bottom: 56.25%">
             <iframe
               :src="youtubeEmbedUrl"
               :title="podcast.title"
               class="absolute inset-0 h-full w-full"
               frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
               referrerpolicy="strict-origin-when-cross-origin"
               allowfullscreen
             ></iframe>
           </div>
-          
+
           <!-- Fallback si pas d'embed -->
           <a
             v-else-if="podcast.youtube_url"
@@ -302,12 +318,20 @@ useHead({
             class="group relative block"
           >
             <img
-              :src="podcast.cover_image ? useCmsImage(podcast.cover_image) : (getYoutubeVideoId() ? `https://i.ytimg.com/vi/${getYoutubeVideoId()}/maxresdefault.jpg` : '/default-image-2.gif')"
+              :src="
+                podcast.cover_image
+                  ? useCmsImage(podcast.cover_image)
+                  : getYoutubeVideoId()
+                    ? `https://i.ytimg.com/vi/${getYoutubeVideoId()}/maxresdefault.jpg`
+                    : '/default-image-2.gif'
+              "
               :alt="podcast.title"
               class="aspect-video w-full object-cover"
             />
             <div class="absolute inset-0 flex items-center justify-center bg-black/40">
-              <div class="flex h-16 w-16 items-center justify-center rounded-full bg-red-600 shadow-lg transition-transform group-hover:scale-110">
+              <div
+                class="flex h-16 w-16 items-center justify-center rounded-full bg-red-600 shadow-lg transition-transform group-hover:scale-110"
+              >
                 <UIcon name="i-heroicons-play-solid" class="ml-1 h-7 w-7 text-white" />
               </div>
             </div>
@@ -315,7 +339,9 @@ useHead({
         </div>
 
         <!-- Podcast Info Card -->
-        <div class="rounded-2xl bg-white p-5 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700">
+        <div
+          class="rounded-2xl bg-white p-5 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+        >
           <!-- Title (desktop only, mobile has it in sticky header) -->
           <h1 class="hidden text-xl font-bold text-gray-900 dark:text-white md:block md:text-2xl">
             {{ podcast.title }}
@@ -323,17 +349,23 @@ useHead({
 
           <!-- Meta info -->
           <div class="flex flex-wrap items-center gap-3 text-sm md:mt-3">
-            <time 
+            <time
               :datetime="formatDateISO(podcast.date_published)"
               class="text-gray-500 dark:text-gray-400"
             >
               {{ formatDate(podcast.date_published) }}
             </time>
-            <span v-if="podcast.duration" class="flex items-center gap-1.5 rounded-full bg-gray-100 px-2.5 py-1 text-gray-600 dark:bg-gray-700 dark:text-gray-300">
+            <span
+              v-if="podcast.duration"
+              class="flex items-center gap-1.5 rounded-full bg-gray-100 px-2.5 py-1 text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+            >
               <UIcon name="i-heroicons-clock" class="h-3.5 w-3.5" />
               {{ podcast.duration }}
             </span>
-            <span v-if="podcast.view_count" class="flex items-center gap-1.5 text-gray-500 dark:text-gray-400">
+            <span
+              v-if="podcast.view_count"
+              class="flex items-center gap-1.5 text-gray-500 dark:text-gray-400"
+            >
               <UIcon name="i-heroicons-eye" class="h-3.5 w-3.5" />
               {{ formatViews(podcast.view_count) }} vues
             </span>
@@ -367,20 +399,26 @@ useHead({
         </div>
 
         <!-- Description -->
-        <div v-if="podcast.description" class="rounded-2xl bg-white p-5 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700">
+        <div
+          v-if="podcast.description"
+          class="rounded-2xl bg-white p-5 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+        >
           <h2 class="mb-3 flex items-center gap-2 font-semibold text-gray-900 dark:text-white">
-            <UIcon name="i-heroicons-document-text" class="h-5 w-5 text-blue-600 dark:text-blue-400" />
+            <UIcon
+              name="i-heroicons-document-text"
+              class="h-5 w-5 text-blue-600 dark:text-blue-400"
+            />
             Description
           </h2>
           <div
-            class="prose prose-sm max-w-none dark:prose-invert prose-p:text-gray-600 dark:prose-p:text-gray-300 prose-a:text-blue-600 dark:prose-a:text-blue-400"
+            class="prose prose-sm max-w-none dark:prose-invert prose-p:text-gray-600 prose-a:text-blue-600 dark:prose-p:text-gray-300 dark:prose-a:text-blue-400"
             v-html="podcast.description"
           />
         </div>
 
         <!-- Back link -->
         <div class="pt-2">
-          <NuxtLink 
+          <NuxtLink
             to="/podcasts"
             class="inline-flex items-center gap-2 text-sm font-medium text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
           >
@@ -391,13 +429,20 @@ useHead({
       </article>
 
       <!-- Not found -->
-      <div v-else class="rounded-2xl bg-white p-8 text-center ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700">
-        <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700">
+      <div
+        v-else
+        class="rounded-2xl bg-white p-8 text-center ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+      >
+        <div
+          class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700"
+        >
           <UIcon name="i-heroicons-microphone" class="h-8 w-8 text-gray-400" />
         </div>
         <h3 class="font-medium text-gray-900 dark:text-white">Podcast non trouvé</h3>
-        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Ce podcast n'existe pas ou a été supprimé</p>
-        <NuxtLink 
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          Ce podcast n'existe pas ou a été supprimé
+        </p>
+        <NuxtLink
           to="/podcasts"
           class="mt-4 inline-flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300"
         >

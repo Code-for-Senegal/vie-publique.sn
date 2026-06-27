@@ -165,12 +165,20 @@ const getYoutubeThumbnail = (podcast: PodcastEpisode) => {
 
 const extractYoutubeId = (url?: string) => {
   if (!url) return null;
-  const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\s?]+)/);
+  const match = url.match(
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\s?]+)/,
+  );
   return match?.[1] || null;
 };
 
 const getPodcastUrl = (podcast: PodcastEpisode) => {
-  const slug = podcast.slug || podcast.title?.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'podcast';
+  const slug =
+    podcast.slug ||
+    podcast.title
+      ?.toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '') ||
+    'podcast';
   return `/podcasts/${podcast.id}/${slug}`;
 };
 </script>
@@ -189,9 +197,9 @@ const getPodcastUrl = (podcast: PodcastEpisode) => {
           <UIcon name="i-heroicons-arrow-left" class="h-5 w-5 text-gray-600 dark:text-gray-300" />
         </NuxtLink>
 
-        <h1 class="flex-1 truncate text-base font-semibold text-gray-900 dark:text-white">
+        <p class="flex-1 truncate text-base font-semibold text-gray-900 dark:text-white">
           Podcasts
-        </h1>
+        </p>
 
         <a
           :href="PLAYLIST_URL"
@@ -208,12 +216,20 @@ const getPodcastUrl = (podcast: PodcastEpisode) => {
       <!-- Background Image with Overlay -->
       <div class="absolute inset-0 h-[420px] overflow-hidden md:h-[480px]">
         <img
-          :src="featuredPodcast.cover_image ? useCmsImage(featuredPodcast.cover_image) : getYoutubeThumbnail(featuredPodcast)"
+          :src="
+            featuredPodcast.cover_image
+              ? useCmsImage(featuredPodcast.cover_image)
+              : getYoutubeThumbnail(featuredPodcast)
+          "
           :alt="featuredPodcast.title"
           class="h-full w-full object-cover"
         />
-        <div class="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-white/40 dark:from-gray-950 dark:via-gray-950/80 dark:to-gray-950/40"></div>
-        <div class="absolute inset-0 bg-gradient-to-r from-white/90 via-transparent to-transparent dark:from-gray-950/90"></div>
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-white/40 dark:from-gray-950 dark:via-gray-950/80 dark:to-gray-950/40"
+        ></div>
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-white/90 via-transparent to-transparent dark:from-gray-950/90"
+        ></div>
       </div>
 
       <!-- Content -->
@@ -224,7 +240,7 @@ const getPodcastUrl = (podcast: PodcastEpisode) => {
           <a
             :href="PLAYLIST_URL"
             target="_blank"
-            class="flex items-center gap-2 rounded-full bg-red-600 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-red-500 hover:scale-105"
+            class="flex items-center gap-2 rounded-full bg-red-600 px-4 py-2 text-sm font-medium text-white transition-all hover:scale-105 hover:bg-red-500"
           >
             <UIcon name="i-simple-icons-youtube" class="h-4 w-4" />
             <span>YouTube</span>
@@ -234,18 +250,22 @@ const getPodcastUrl = (podcast: PodcastEpisode) => {
         <!-- Featured Content -->
         <div class="mt-20 md:mt-24">
           <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-white/70">
-            <span class="rounded bg-blue-500 px-2 py-0.5 text-xs font-medium text-white">DERNIER ÉPISODE</span>
+            <span class="rounded bg-blue-500 px-2 py-0.5 text-xs font-medium text-white"
+              >DERNIER ÉPISODE</span
+            >
             <span>{{ $dateformat(featuredPodcast.date_published) }}</span>
             <span v-if="featuredPodcast.duration">• {{ featuredPodcast.duration }}</span>
           </div>
 
-          <h1 class="mt-3 max-w-2xl text-2xl font-bold leading-tight text-gray-900 md:text-4xl dark:text-white">
+          <h1
+            class="mt-3 max-w-2xl text-2xl font-bold leading-tight text-gray-900 dark:text-white md:text-4xl"
+          >
             {{ featuredPodcast.title }}
           </h1>
 
           <div
             v-if="featuredPodcast.description"
-            class="mt-3 line-clamp-2 max-w-xl text-sm text-gray-600 md:text-base dark:text-white/70 [&>p]:m-0 [&>p]:inline"
+            class="mt-3 line-clamp-2 max-w-xl text-sm text-gray-600 dark:text-white/70 md:text-base [&>p]:m-0 [&>p]:inline"
             v-html="featuredPodcast.description"
           />
 
@@ -254,7 +274,9 @@ const getPodcastUrl = (podcast: PodcastEpisode) => {
               class="group flex items-center gap-3 rounded-full bg-gray-900 px-6 py-3 font-semibold text-white transition-all hover:scale-105 hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100"
               @click="playPodcast(featuredPodcast)"
             >
-              <div class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 transition-transform group-hover:scale-110">
+              <div
+                class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 transition-transform group-hover:scale-110"
+              >
                 <UIcon name="i-heroicons-play-solid" class="ml-0.5 h-4 w-4 text-white" />
               </div>
               Écouter maintenant
@@ -272,8 +294,13 @@ const getPodcastUrl = (podcast: PodcastEpisode) => {
     </div>
 
     <!-- Loading Hero -->
-    <div v-else-if="loading && currentPage === 1" class="relative h-[420px] bg-gray-100 md:h-[480px] dark:bg-gray-900">
-      <div class="absolute inset-0 bg-gradient-to-t from-white via-gray-100 to-gray-200 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800"></div>
+    <div
+      v-else-if="loading && currentPage === 1"
+      class="relative h-[420px] bg-gray-100 dark:bg-gray-900 md:h-[480px]"
+    >
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-white via-gray-100 to-gray-200 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800"
+      ></div>
       <div class="relative mx-auto max-w-6xl px-4 pt-16 md:pt-6">
         <!-- Desktop Navigation Skeleton -->
         <div class="mb-8 hidden items-center justify-between md:flex">
@@ -313,25 +340,40 @@ const getPodcastUrl = (podcast: PodcastEpisode) => {
           >
             <div class="relative aspect-video overflow-hidden rounded-xl">
               <img
-                :src="podcast.cover_image ? useCmsImage(podcast.cover_image) : getYoutubeThumbnail(podcast)"
+                :src="
+                  podcast.cover_image
+                    ? useCmsImage(podcast.cover_image)
+                    : getYoutubeThumbnail(podcast)
+                "
                 :alt="podcast.title"
                 class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
-              <div class="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/40">
-                <div class="flex h-12 w-12 scale-0 items-center justify-center rounded-full bg-white transition-transform group-hover:scale-100">
+              <div
+                class="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/40"
+              >
+                <div
+                  class="flex h-12 w-12 scale-0 items-center justify-center rounded-full bg-white transition-transform group-hover:scale-100"
+                >
                   <UIcon name="i-heroicons-play-solid" class="ml-0.5 h-5 w-5 text-gray-900" />
                 </div>
               </div>
-              <span v-if="podcast.duration" class="absolute bottom-2 right-2 rounded bg-black/80 px-1.5 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm">
+              <span
+                v-if="podcast.duration"
+                class="absolute bottom-2 right-2 rounded bg-black/80 px-1.5 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm"
+              >
                 {{ podcast.duration }}
               </span>
             </div>
             <NuxtLink :to="getPodcastUrl(podcast)" class="mt-2 block" @click.stop>
-              <h4 class="line-clamp-2 text-sm font-medium text-gray-900 transition-colors group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
+              <h4
+                class="line-clamp-2 text-sm font-medium text-gray-900 transition-colors group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400"
+              >
                 {{ podcast.title }}
               </h4>
             </NuxtLink>
-            <time class="mt-1 text-xs text-gray-500 dark:text-white/50">{{ $dateformat(podcast.date_published) }}</time>
+            <time class="mt-1 text-xs text-gray-500 dark:text-white/50">{{
+              $dateformat(podcast.date_published)
+            }}</time>
           </div>
         </div>
       </section>
@@ -339,11 +381,18 @@ const getPodcastUrl = (podcast: PodcastEpisode) => {
       <!-- Error State -->
       <div v-if="error" class="py-12">
         <div class="rounded-2xl bg-red-50 p-8 text-center dark:bg-red-500/10">
-          <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-red-100 dark:bg-red-500/20">
-            <UIcon name="i-heroicons-exclamation-triangle" class="h-7 w-7 text-red-500 dark:text-red-400" />
+          <div
+            class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-red-100 dark:bg-red-500/20"
+          >
+            <UIcon
+              name="i-heroicons-exclamation-triangle"
+              class="h-7 w-7 text-red-500 dark:text-red-400"
+            />
           </div>
           <h3 class="text-lg font-medium text-gray-900 dark:text-white">Erreur de chargement</h3>
-          <p class="mt-2 text-sm text-gray-600 dark:text-white/60">Une erreur est survenue lors du chargement des podcasts</p>
+          <p class="mt-2 text-sm text-gray-600 dark:text-white/60">
+            Une erreur est survenue lors du chargement des podcasts
+          </p>
         </div>
       </div>
 
@@ -359,11 +408,20 @@ const getPodcastUrl = (podcast: PodcastEpisode) => {
       <!-- Empty State -->
       <div v-else-if="podcasts.length === 0" class="py-16">
         <div class="text-center">
-          <div class="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-gray-100 dark:bg-white/5">
-            <UIcon name="i-heroicons-microphone" class="h-10 w-10 text-gray-400 dark:text-white/40" />
+          <div
+            class="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-gray-100 dark:bg-white/5"
+          >
+            <UIcon
+              name="i-heroicons-microphone"
+              class="h-10 w-10 text-gray-400 dark:text-white/40"
+            />
           </div>
-          <h3 class="text-xl font-medium text-gray-900 dark:text-white">Aucun podcast disponible</h3>
-          <p class="mt-2 text-sm text-gray-600 dark:text-white/60">Revenez bientôt pour de nouveaux épisodes</p>
+          <h3 class="text-xl font-medium text-gray-900 dark:text-white">
+            Aucun podcast disponible
+          </h3>
+          <p class="mt-2 text-sm text-gray-600 dark:text-white/60">
+            Revenez bientôt pour de nouveaux épisodes
+          </p>
         </div>
       </div>
 
@@ -380,33 +438,53 @@ const getPodcastUrl = (podcast: PodcastEpisode) => {
             class="group cursor-pointer"
             @click="playPodcast(podcast)"
           >
-            <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800">
+            <div
+              class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800"
+            >
               <img
-                :src="podcast.cover_image ? useCmsImage(podcast.cover_image) : getYoutubeThumbnail(podcast)"
+                :src="
+                  podcast.cover_image
+                    ? useCmsImage(podcast.cover_image)
+                    : getYoutubeThumbnail(podcast)
+                "
                 :alt="podcast.title"
                 class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
-              <div class="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/40">
-                <div class="flex h-10 w-10 scale-0 items-center justify-center rounded-full bg-white transition-transform group-hover:scale-100">
+              <div
+                class="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/40"
+              >
+                <div
+                  class="flex h-10 w-10 scale-0 items-center justify-center rounded-full bg-white transition-transform group-hover:scale-100"
+                >
                   <UIcon name="i-heroicons-play-solid" class="ml-0.5 h-4 w-4 text-gray-900" />
                 </div>
               </div>
-              <span v-if="podcast.duration" class="absolute bottom-2 right-2 rounded bg-black/80 px-1.5 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm">
+              <span
+                v-if="podcast.duration"
+                class="absolute bottom-2 right-2 rounded bg-black/80 px-1.5 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm"
+              >
                 {{ podcast.duration }}
               </span>
             </div>
             <NuxtLink :to="getPodcastUrl(podcast)" class="mt-2 block" @click.stop>
-              <h4 class="line-clamp-2 text-sm font-medium text-gray-900 transition-colors group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
+              <h4
+                class="line-clamp-2 text-sm font-medium text-gray-900 transition-colors group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400"
+              >
                 {{ podcast.title }}
               </h4>
             </NuxtLink>
-            <time class="mt-1 text-xs text-gray-500 dark:text-white/50">{{ $dateformat(podcast.date_published) }}</time>
+            <time class="mt-1 text-xs text-gray-500 dark:text-white/50">{{
+              $dateformat(podcast.date_published)
+            }}</time>
           </div>
         </div>
       </section>
 
       <!-- Pagination -->
-      <div v-if="!loading && totalPages > 1" class="flex justify-center border-t border-gray-200 py-8 dark:border-white/10">
+      <div
+        v-if="!loading && totalPages > 1"
+        class="flex justify-center border-t border-gray-200 py-8 dark:border-white/10"
+      >
         <UPagination
           v-model="currentPage"
           :total="totalItems"
@@ -418,7 +496,8 @@ const getPodcastUrl = (podcast: PodcastEpisode) => {
             wrapper: 'flex items-center gap-2',
             base: 'min-w-10 min-h-10 flex items-center justify-center rounded-lg text-sm font-medium transition-all',
             active: 'bg-gray-900 text-white dark:bg-white dark:text-gray-900',
-            inactive: 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-white/10 dark:text-white dark:hover:bg-white/20',
+            inactive:
+              'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-white/10 dark:text-white dark:hover:bg-white/20',
           }"
         />
       </div>

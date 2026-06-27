@@ -204,12 +204,12 @@ useHead({
 
           <!-- Title & Meta -->
           <div class="min-w-0 flex-1">
-            <h1
+            <p
               v-if="article"
               class="line-clamp-2 text-xs font-semibold leading-tight text-gray-900 dark:text-white"
             >
               {{ article.title }}
-            </h1>
+            </p>
             <USkeleton v-else class="h-4 w-48" />
             <p v-if="article?.date_published" class="mt-0.5 text-[10px] text-gray-500">
               {{ formatDate(article.date_published) }}

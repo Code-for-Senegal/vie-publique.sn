@@ -17,7 +17,7 @@
           >
             Budget {{ selectedYear }}
           </p>
-          <h1 class="truncate text-base font-semibold text-gray-900 dark:text-white">Ministères</h1>
+          <p class="truncate text-base font-semibold text-gray-900 dark:text-white">Ministères</p>
         </div>
         <span
           class="rounded-md bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600 dark:bg-gray-800 dark:text-gray-400"
@@ -65,9 +65,7 @@
       </div>
 
       <!-- Hero Content -->
-      <div
-        class="bg-gradient-to-b from-gray-50 to-white dark:bg-transparent dark:bg-none"
-      >
+      <div class="bg-gradient-to-b from-gray-50 to-white dark:bg-transparent dark:bg-none">
         <div class="container mx-auto px-6 py-12">
           <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <!-- Left: Title -->

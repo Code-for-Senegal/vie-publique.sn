@@ -11,27 +11,27 @@ interface OfficeGroup {
 // Configuration des groupes pour le skeleton et l'affichage réel
 const groupsConfig = [
   {
-    name: "Président",
-    role: "president",
-    columns: "max-w-xs mx-auto",
+    name: 'Président',
+    role: 'president',
+    columns: 'max-w-xs mx-auto',
     count: 1,
   },
   {
-    name: "Vice-présidents",
-    role: "vice_president",
-    columns: "grid-cols-2 md:grid-cols-4",
+    name: 'Vice-présidents',
+    role: 'vice_president',
+    columns: 'grid-cols-2 md:grid-cols-4',
     count: 8,
   },
   {
-    name: "Secrétaires",
-    role: "secretary",
-    columns: "grid-cols-2 md:grid-cols-3",
+    name: 'Secrétaires',
+    role: 'secretary',
+    columns: 'grid-cols-2 md:grid-cols-3',
     count: 6,
   },
   {
-    name: "Questeurs",
-    role: "quaestor",
-    columns: "grid-cols-2 max-w-2xl mx-auto",
+    name: 'Questeurs',
+    role: 'quaestor',
+    columns: 'grid-cols-2 max-w-2xl mx-auto',
     count: 2,
   },
 ];
@@ -43,7 +43,7 @@ const groupedMembers = computed<OfficeGroup[]>(() => {
 
   groupsConfig.forEach((config) => {
     const members =
-      config.role === "president"
+      config.role === 'president'
         ? office.value.find((member) => member.role === config.role)?.deputy
           ? [office.value.find((member) => member.role === config.role)!.deputy]
           : []
@@ -75,14 +75,15 @@ const totalMembers = computed(() => {
   <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-950">
     <!-- Breadcrumb desktop -->
     <div class="container mx-auto hidden px-4 pt-2 md:block">
-      <AppBreadcrumb :items="[
-        { label: 'Assemblée nationale', to: '/assemblee-nationale' },
-        { label: 'Bureau' }
-      ]" />
+      <AppBreadcrumb
+        :items="[{ label: 'Assemblée nationale', to: '/assemblee-nationale' }, { label: 'Bureau' }]"
+      />
     </div>
 
     <!-- Sticky Header Mobile Only -->
-    <header class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm md:hidden dark:border-gray-800 dark:bg-gray-900/95">
+    <header
+      class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95 md:hidden"
+    >
       <div class="container mx-auto px-4 py-3">
         <div class="flex items-center gap-3">
           <NuxtLink
@@ -90,13 +91,17 @@ const totalMembers = computed(() => {
             class="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
             aria-label="Retour"
           >
-            <UIcon name="i-heroicons-arrow-left-20-solid" class="h-5 w-5 text-gray-600 dark:text-gray-300" />
+            <UIcon
+              name="i-heroicons-arrow-left-20-solid"
+              class="h-5 w-5 text-gray-600 dark:text-gray-300"
+            />
           </NuxtLink>
           <div class="min-w-0 flex-1">
-            <h1 class="text-lg font-bold text-gray-900 dark:text-white">
-              Bureau de l'Assemblée
-            </h1>
-            <p v-if="!loading && totalMembers" class="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+            <p class="text-lg font-bold text-gray-900 dark:text-white">Bureau de l'Assemblée</p>
+            <p
+              v-if="!loading && totalMembers"
+              class="mt-0.5 text-xs text-gray-500 dark:text-gray-400"
+            >
               {{ totalMembers }} membres
             </p>
           </div>
@@ -107,10 +112,13 @@ const totalMembers = computed(() => {
     <!-- Desktop Header -->
     <div class="hidden md:block">
       <div class="container mx-auto px-4 py-6">
-        <h1 class="mb-2 text-center text-2xl font-bold text-gray-900 md:text-3xl dark:text-white">
+        <h1 class="mb-2 text-center text-2xl font-bold text-gray-900 dark:text-white md:text-3xl">
           Bureau de l'Assemblée nationale
         </h1>
-        <p v-if="!loading && totalMembers" class="text-center text-sm text-gray-600 dark:text-gray-400">
+        <p
+          v-if="!loading && totalMembers"
+          class="text-center text-sm text-gray-600 dark:text-gray-400"
+        >
           {{ totalMembers }} membres · 15e législature
         </p>
       </div>
