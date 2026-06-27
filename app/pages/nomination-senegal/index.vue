@@ -57,7 +57,7 @@ const description = computed(() => {
 
 const nominationsSchema = computed(() => ({
   '@context': 'https://schema.org',
-  '@type': 'WebPage',
+  '@type': 'CollectionPage',
   name: title.value,
   description: description.value,
   url: url,
@@ -80,53 +80,8 @@ const nominationsSchema = computed(() => ({
   },
 }));
 
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: 'Accueil',
-      item: siteUrl,
-    },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: 'Annuaires',
-      item: `${siteUrl}/annuaires`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 3,
-      name: 'Nominations',
-      item: url,
-    },
-  ],
-};
-
-const organizationSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'GovernmentOrganization',
-  name: 'Gouvernement du Sénégal',
-  url: url,
-  description:
-    'Nominations officielles du gouvernement sénégalais sous la présidence de Bassirou Diomaye Faye',
-  leader: {
-    '@type': 'Person',
-    name: 'Bassirou Diomaye Faye',
-    jobTitle: 'Président de la République',
-  },
-  address: {
-    '@type': 'PostalAddress',
-    addressCountry: 'SN',
-    addressLocality: 'Dakar',
-  },
-  areaServed: {
-    '@type': 'Country',
-    name: 'Sénégal',
-  },
-};
+// Note SEO : BreadcrumbList émis par <AppBreadcrumb> et Organization/WebPage par
+// le @graph global de @nuxtjs/seo. En page on n'émet que CollectionPage (CLAUDE.md §7).
 
 // SEO Meta Tags
 useSeoMeta({
@@ -165,18 +120,11 @@ useHead({
     { name: 'geo.position', content: '14.7645042;-17.3660286' },
     { name: 'ICBM', content: '14.7645042, -17.3660286' },
   ],
-  script: () => [
+  script: [
     {
+      key: 'ld-nominations',
       type: 'application/ld+json',
-      innerHTML: JSON.stringify(nominationsSchema.value),
-    },
-    {
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify(breadcrumbSchema),
-    },
-    {
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify(organizationSchema),
+      innerHTML: computed(() => JSON.stringify(nominationsSchema.value)),
     },
   ],
 });

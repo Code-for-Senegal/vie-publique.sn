@@ -75,72 +75,9 @@ const conseilMinistresSchema = computed(() => ({
   },
 }));
 
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: 'Accueil',
-      item: siteUrl,
-    },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: 'Conseil des ministres',
-      item: url,
-    },
-  ],
-};
-
-const organizationSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'GovernmentOrganization',
-  name: 'Conseil des ministres du Sénégal',
-  url: url,
-  description:
-    'Conseil des ministres de la République du Sénégal, organe principal du pouvoir exécutif',
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'Palais de la République',
-    addressLocality: 'Dakar',
-    addressCountry: 'SN',
-  },
-  areaServed: {
-    '@type': 'Country',
-    name: 'Sénégal',
-  },
-  parentOrganization: {
-    '@type': 'GovernmentOrganization',
-    name: 'République du Sénégal',
-  },
-  leader: {
-    '@type': 'Person',
-    name: 'Bassirou Diomaye Faye',
-    jobTitle: 'Président de la République du Sénégal',
-  },
-};
-
-const governmentServiceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'GovernmentService',
-  name: 'Service de communication du Conseil des ministres',
-  description: 'Service de publication des communiqués et décisions du Conseil des ministres',
-  provider: {
-    '@type': 'GovernmentOrganization',
-    name: 'Conseil des ministres du Sénégal',
-  },
-  areaServed: {
-    '@type': 'Country',
-    name: 'Sénégal',
-  },
-  serviceType: 'Communication gouvernementale',
-  audience: {
-    '@type': 'Audience',
-    audienceType: 'Citizens, Media, Public officials',
-  },
-};
+// Note SEO : le BreadcrumbList est émis par <AppBreadcrumb> (source unique),
+// et Organization/WebPage par le @graph global de @nuxtjs/seo. On n'émet donc
+// en page QUE le nœud d'entité propre : CollectionPage (cf. CLAUDE.md §7).
 
 // SEO Meta Tags
 useSeoMeta({
@@ -182,22 +119,11 @@ useHead({
       content: 'Conseil des ministres, Sénégal, gouvernement, communiqué',
     },
   ],
-  script: () => [
+  script: [
     {
+      key: 'ld-conseil-ministres',
       type: 'application/ld+json',
-      innerHTML: JSON.stringify(conseilMinistresSchema.value),
-    },
-    {
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify(breadcrumbSchema),
-    },
-    {
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify(organizationSchema),
-    },
-    {
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify(governmentServiceSchema),
+      innerHTML: computed(() => JSON.stringify(conseilMinistresSchema.value)),
     },
   ],
 });
