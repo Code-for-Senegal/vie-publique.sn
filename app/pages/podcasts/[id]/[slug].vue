@@ -18,6 +18,60 @@ watch(
   },
 );
 
+// Helpers — déclarés AVANT les computed/schemas qui les utilisent (image, videoSchema…).
+// Sinon TDZ : @unhead évalue les getters useSeoMeta/useHead à l'hydratation avant l'init → 500.
+
+/**
+ * Extrait l'ID YouTube depuis youtube_video_id ou youtube_url
+ */
+const getYoutubeVideoId = () => {
+  if (!podcast.value) return null;
+  if (podcast.value.youtube_video_id) return podcast.value.youtube_video_id;
+
+  // Essayer d'extraire depuis youtube_url
+  const url = podcast.value.youtube_url;
+  if (!url) return null;
+
+  // Format: youtube.com/watch?v=ID ou youtu.be/ID ou youtube.com/embed/ID
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\s?]+)/,
+    /^([a-zA-Z0-9_-]{11})$/, // ID direct
+  ];
+
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match?.[1]) return match[1];
+  }
+
+  return null;
+};
+
+const formatDate = (date: string) => {
+  return new Date(date).toLocaleDateString('fr-FR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+};
+
+const formatDateISO = (date: string) => {
+  return new Date(date).toISOString();
+};
+
+/**
+ * Convertit une durée "HH:MM:SS" ou "MM:SS" en format ISO 8601 (ex: "1H30M15S")
+ */
+const formatDurationISO = (duration: string) => {
+  const parts = duration.split(':').map(Number);
+  if (parts.length === 3) {
+    return `${parts[0]}H${parts[1]}M${parts[2]}S`;
+  }
+  if (parts.length === 2) {
+    return `${parts[0]}M${parts[1]}S`;
+  }
+  return '';
+};
+
 const title = computed(() => {
   if (!podcast.value) return 'Chargement...';
   return `${podcast.value.title} | Podcasts Vie Publique Sénégal`;
@@ -45,31 +99,6 @@ const image = computed(() => {
   if (videoId) return `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
   return defaultImage;
 });
-
-/**
- * Extrait l'ID YouTube depuis youtube_video_id ou youtube_url
- */
-const getYoutubeVideoId = () => {
-  if (!podcast.value) return null;
-  if (podcast.value.youtube_video_id) return podcast.value.youtube_video_id;
-
-  // Essayer d'extraire depuis youtube_url
-  const url = podcast.value.youtube_url;
-  if (!url) return null;
-
-  // Format: youtube.com/watch?v=ID ou youtu.be/ID ou youtube.com/embed/ID
-  const patterns = [
-    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\s?]+)/,
-    /^([a-zA-Z0-9_-]{11})$/, // ID direct
-  ];
-
-  for (const pattern of patterns) {
-    const match = url.match(pattern);
-    if (match?.[1]) return match[1];
-  }
-
-  return null;
-};
 
 const youtubeEmbedUrl = computed(() => {
   const videoId = getYoutubeVideoId();
@@ -132,32 +161,6 @@ const breadcrumbSchema = computed(() => ({
     },
   ],
 }));
-
-const formatDate = (date: string) => {
-  return new Date(date).toLocaleDateString('fr-FR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-};
-
-const formatDateISO = (date: string) => {
-  return new Date(date).toISOString();
-};
-
-/**
- * Convertit une durée "HH:MM:SS" ou "MM:SS" en format ISO 8601 (ex: "1H30M15S")
- */
-const formatDurationISO = (duration: string) => {
-  const parts = duration.split(':').map(Number);
-  if (parts.length === 3) {
-    return `${parts[0]}H${parts[1]}M${parts[2]}S`;
-  }
-  if (parts.length === 2) {
-    return `${parts[0]}M${parts[1]}S`;
-  }
-  return '';
-};
 
 const formatViews = (count?: number) => {
   if (!count) return '0';

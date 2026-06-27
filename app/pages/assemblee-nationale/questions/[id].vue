@@ -10,6 +10,20 @@ const { question, loading, error } = useAssemblyQuestions({
   id: computed(() => route.params.id as string),
 });
 
+// Helpers de date — déclarés AVANT les computed/schemas qui les utilisent (sinon TDZ :
+// @unhead évalue les getters useSeoMeta/useHead à l'hydratation avant l'init → 500).
+const formatDate = (date: string) => {
+  return new Date(date).toLocaleDateString('fr-FR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+};
+
+const formatDateISO = (date: string) => {
+  return new Date(date).toISOString();
+};
+
 const questionFullName = computed(() => {
   if (!question.value) return '';
   return `${question.value.deputy.first_name} ${question.value.deputy.last_name}`;
@@ -144,18 +158,6 @@ const webPageSchema = computed(() => {
 });
 
 // Helper functions
-const formatDate = (date: string) => {
-  return new Date(date).toLocaleDateString('fr-FR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-};
-
-const formatDateISO = (date: string) => {
-  return new Date(date).toISOString();
-};
-
 const getImageUrl = (imageId: string) => {
   return useCmsImage(imageId);
 };
@@ -420,11 +422,7 @@ useHead({
           </h3>
           <div class="space-y-6">
             <template v-for="attachment in question.attachments" :key="attachment.id">
-              <div
-                v-if="attachment.id"
-                itemscope
-                itemtype="https://schema.org/MediaObject"
-              >
+              <div v-if="attachment.id" itemscope itemtype="https://schema.org/MediaObject">
                 <meta itemprop="contentUrl" :content="getFileUrl(attachment)" />
                 <meta itemprop="encodingFormat" :content="attachment.type" />
 

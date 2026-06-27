@@ -21,6 +21,21 @@ watch(
   },
 );
 
+// Helpers de date — déclarés AVANT les computed/schemas qui les utilisent. Sinon TDZ
+// (« Cannot access before initialization ») : @unhead évalue les getters useSeoMeta/
+// useHead pendant l'hydratation client, avant l'init de la fonction → 500 en accès direct.
+const formatDate = (date: string) => {
+  return new Date(date).toLocaleDateString('fr-FR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+};
+
+const formatDateISO = (date: string) => {
+  return new Date(date).toISOString();
+};
+
 const title = computed(() => {
   if (!article.value) return 'Chargement...';
   return `${article.value.title} | Actualités Sénégal`;
@@ -176,19 +191,6 @@ const digitalDocumentSchema = computed(() => {
     },
   };
 });
-
-// Helper functions
-const formatDate = (date: string) => {
-  return new Date(date).toLocaleDateString('fr-FR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-};
-
-const formatDateISO = (date: string) => {
-  return new Date(date).toISOString();
-};
 
 // SEO setup — défini dans le scope setup avec des getters réactifs pour être rendu
 // correctement côté serveur (les crawlers sociaux ne lisent que le HTML SSR).
