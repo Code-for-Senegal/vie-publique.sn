@@ -1,18 +1,18 @@
 ﻿<script setup lang="ts">
-const { overview } = useEtatOrganisation()
+const { overview } = useEtatOrganisation();
 
 const formatDate = (v?: string) =>
   v
     ? new Date(v).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })
-    : null
+    : null;
 
-const { siteName, siteUrl, themeColor, keywords } = useSiteMetadata()
+const { siteName, siteUrl, themeColor, keywords } = useSiteMetadata();
 
-const pageTitle = "Organisation de l'État du Sénégal | Vie Publique Sénégal"
+const pageTitle = "Organisation de l'État du Sénégal | Vie Publique Sénégal";
 const pageDescription =
-  "Explorez l'organisation administrative de l'État du Sénégal : ministères, directions, agences, sociétés nationales, sociétés à participation publique et établissements publics selon les décrets officiels."
-const pageUrl = `${siteUrl}/etat-senegal/organisation`
-const ogImage = `${siteUrl}/nomination-3.png`
+  "Explorez l'organisation administrative de l'État du Sénégal : ministères, directions, agences, sociétés nationales, sociétés à participation publique et établissements publics selon les décrets officiels.";
+const pageUrl = `${siteUrl}/etat-senegal/organisation`;
+const ogImage = `${siteUrl}/nomination-3.png`;
 
 useSeoMeta({
   title: pageTitle,
@@ -28,23 +28,16 @@ useSeoMeta({
   twitterImage: ogImage,
   keywords: [
     ...keywords,
-    "organisation état Sénégal",
-    "ministères Sénégal",
-    "établissements publics Sénégal",
-    "organigramme état Sénégal",
-    "décret répartition services",
+    'organisation état Sénégal',
+    'ministères Sénégal',
+    'établissements publics Sénégal',
+    'organigramme état Sénégal',
+    'décret répartition services',
   ].join(', '),
-})
+});
 
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Accueil', item: siteUrl },
-    { '@type': 'ListItem', position: 2, name: 'État du Sénégal', item: `${siteUrl}/etat-senegal` },
-    { '@type': 'ListItem', position: 3, name: "Organisation de l'État", item: pageUrl },
-  ],
-}
+// NB : le BreadcrumbList est émis UNE seule fois par <AppBreadcrumb> (useSchemaOrg).
+// Ne PAS le réémettre ici (cf. CLAUDE.md §7 — sinon BreadcrumbList dupliqué).
 
 const webPageSchema = {
   '@context': 'https://schema.org',
@@ -54,7 +47,7 @@ const webPageSchema = {
   url: pageUrl,
   inLanguage: 'fr-SN',
   isPartOf: { '@type': 'WebSite', name: siteName, url: siteUrl },
-}
+};
 
 useHead({
   htmlAttrs: { lang: 'fr-SN' },
@@ -67,11 +60,10 @@ useHead({
     { property: 'og:site_name', content: siteName },
     { property: 'og:locale', content: 'fr_SN' },
   ],
-  script: computed(() => [
-    { type: 'application/ld+json', innerHTML: JSON.stringify(breadcrumbSchema) },
-    { type: 'application/ld+json', innerHTML: JSON.stringify(webPageSchema) },
-  ]),
-})
+  script: [
+    { key: 'ld-webpage', type: 'application/ld+json', innerHTML: JSON.stringify(webPageSchema) },
+  ],
+});
 </script>
 
 <template>
@@ -111,7 +103,8 @@ useHead({
             Organisation administrative de l'État du Sénégal
           </h1>
           <p class="mt-2 max-w-2xl text-sm text-gray-600 dark:text-gray-400">
-            Explorez l'organigramme officiel, les entités publiques et les changements entre décrets de répartition des services.
+            Explorez l'organigramme officiel, les entités publiques et les changements entre décrets
+            de répartition des services.
           </p>
         </div>
       </div>
@@ -143,7 +136,10 @@ useHead({
           class="flex flex-col items-center gap-4 rounded-2xl border border-amber-200 bg-amber-50 px-6 py-5 dark:border-amber-800 dark:bg-amber-900/20 sm:items-start sm:justify-between"
         >
           <div class="flex items-start gap-3">
-            <UIcon name="i-heroicons-clock" class="mt-0.5 h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400" />
+            <UIcon
+              name="i-heroicons-clock"
+              class="mt-0.5 h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400"
+            />
             <div>
               <p class="text-sm font-semibold text-amber-900 dark:text-amber-200">
                 Organigrammes des décrets antérieurs
@@ -171,13 +167,17 @@ useHead({
           class="flex flex-col items-center gap-4 rounded-2xl border border-blue-200 bg-blue-50 px-6 py-5 dark:border-blue-800 dark:bg-blue-900/20 sm:items-start sm:justify-between"
         >
           <div class="flex items-start gap-3">
-            <UIcon name="i-heroicons-arrows-right-left" class="mt-0.5 h-5 w-5 shrink-0 text-blue-600 dark:text-blue-400" />
+            <UIcon
+              name="i-heroicons-arrows-right-left"
+              class="mt-0.5 h-5 w-5 shrink-0 text-blue-600 dark:text-blue-400"
+            />
             <div>
               <p class="text-sm font-semibold text-blue-900 dark:text-blue-200">
                 Comparer deux décrets
               </p>
               <p class="mt-0.5 text-xs text-blue-700 dark:text-blue-400">
-                Explorez les créations, suppressions, renommages et changements de tutelle entre deux décrets successifs.
+                Explorez les créations, suppressions, renommages et changements de tutelle entre
+                deux décrets successifs.
               </p>
             </div>
           </div>

@@ -62,20 +62,8 @@ const collectionPageSchema = {
   },
 };
 
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Accueil', item: siteUrl },
-    { '@type': 'ListItem', position: 2, name: 'État du Sénégal', item: `${siteUrl}/etat-senegal` },
-    {
-      '@type': 'ListItem',
-      position: 3,
-      name: 'Institutions constitutionnelles',
-      item: pageUrl,
-    },
-  ],
-};
+// NB : le BreadcrumbList est émis UNE seule fois par <AppBreadcrumb> (useSchemaOrg).
+// Ne PAS le réémettre ici (cf. CLAUDE.md §7 — sinon BreadcrumbList dupliqué).
 
 const itemListSchema = computed(() => ({
   '@context': 'https://schema.org',
@@ -110,10 +98,19 @@ useHead({
     { property: 'og:locale', content: 'fr_SN' },
   ],
   script: computed(() => [
-    { type: 'application/ld+json', innerHTML: JSON.stringify(collectionPageSchema) },
-    { type: 'application/ld+json', innerHTML: JSON.stringify(breadcrumbSchema) },
+    {
+      key: 'ld-collectionpage',
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify(collectionPageSchema),
+    },
     ...(institutions.value.length > 0
-      ? [{ type: 'application/ld+json', innerHTML: JSON.stringify(itemListSchema.value) }]
+      ? [
+          {
+            key: 'ld-itemlist',
+            type: 'application/ld+json',
+            innerHTML: JSON.stringify(itemListSchema.value),
+          },
+        ]
       : []),
   ]),
 });
@@ -131,10 +128,10 @@ useHead({
 
     <!-- ─── Hero ──────────────────────────────────────────────────── -->
     <section class="mx-auto mt-4 max-w-7xl px-4">
-      <h1 class="text-xl font-bold text-gray-900 md:text-3xl dark:text-white">
+      <h1 class="text-xl font-bold text-gray-900 dark:text-white md:text-3xl">
         Institutions constitutionnelles
       </h1>
-      <p class="mt-0.5 text-xs text-gray-500 md:mt-1 md:text-sm dark:text-gray-400">
+      <p class="mt-0.5 text-xs text-gray-500 dark:text-gray-400 md:mt-1 md:text-sm">
         <span v-if="!pending" class="font-semibold text-blue-700 dark:text-blue-400">
           {{ institutions.length }}
         </span>
