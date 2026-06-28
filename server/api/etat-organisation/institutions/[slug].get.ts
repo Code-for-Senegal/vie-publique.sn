@@ -26,6 +26,9 @@ export default defineCachedEventHandler(
           'entity_type.code',
           'entity_type.label',
           'description',
+          'body',
+          'cover_image',
+          'faq',
           'logo',
           'web_site',
           'adresse',
@@ -101,6 +104,11 @@ export default defineCachedEventHandler(
         type_code: typeCode,
         type_label: (item.entity_type?.label ?? 'Institution') as string,
         description: (item.description ?? null) as string | null,
+        body: (item.body ?? null) as string | null,
+        cover_image: (item.cover_image ?? null) as string | null,
+        faq: (Array.isArray(item.faq) ? item.faq : null) as
+          | { question: string; answer: string }[]
+          | null,
         logo: (item.logo ?? null) as string | null,
         web_site: (item.web_site ?? null) as string | null,
         adresse: (item.adresse ?? null) as string | null,
@@ -115,7 +123,7 @@ export default defineCachedEventHandler(
   },
   {
     maxAge: getCacheMaxAge(CacheDuration.SHORT),
-    name: 'etat-organisation-institution-detail',
+    name: 'etat-organisation-institution-detail-v2',
     getKey: (event) => `etat-organisation-institution-${getRouterParam(event, 'slug')}`,
   },
 );

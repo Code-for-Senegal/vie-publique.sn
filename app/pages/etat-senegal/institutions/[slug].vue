@@ -42,6 +42,15 @@ const hasEntityPage = computed(
     TOP_LEVEL_TYPES.has(institution.value?.type_code ?? ''),
 );
 
+// ── Body éditorial repliable (UX mobile) ───────────────────────────
+const bodyExpanded = ref(false);
+const isBodyLong = computed(() => (institution.value?.body?.length ?? 0) > 600);
+
+// ── FAQ ─────────────────────────────────────────────────────────────
+const faqItems = computed(() =>
+  (institution.value?.faq ?? []).filter((f) => f?.question && f?.answer),
+);
+
 // ── SEO ────────────────────────────────────────────────────────────
 const { siteName, siteUrl, themeColor, keywords } = useSiteMetadata();
 
@@ -61,9 +70,17 @@ const pageDescription = computed(() =>
 
 const pageUrl = computed(() => `${siteUrl}/etat-senegal/institutions/${slug.value}`);
 
-const ogImage = computed(() =>
-  institution.value?.logo ? useCmsImage(institution.value.logo) : `${siteUrl}/nomination-3.png`,
-);
+const toAbsoluteCms = (id: string) => {
+  const rel = useCmsImage(id);
+  return rel.startsWith('http') ? rel : `${siteUrl}${rel}`;
+};
+
+// og:image : couverture paysage d'abord (meilleur rendu social qu'un logo carré).
+const ogImage = computed(() => {
+  if (institution.value?.cover_image) return toAbsoluteCms(institution.value.cover_image);
+  if (institution.value?.logo) return toAbsoluteCms(institution.value.logo);
+  return `${siteUrl}/nomination-3.png`;
+});
 
 useSeoMeta({
   title: pageTitle,
@@ -95,6 +112,8 @@ const organizationSchema = computed(() => {
     name: institution.value.name,
     description: pageDescription.value,
     url: pageUrl.value,
+    inLanguage: 'fr-SN',
+    areaServed: { '@type': 'Country', name: 'Sénégal' },
     ...(institution.value.web_site && { sameAs: institution.value.web_site }),
     ...(institution.value.email && { email: institution.value.email }),
     ...(institution.value.phone && { telephone: institution.value.phone }),
@@ -105,7 +124,21 @@ const organizationSchema = computed(() => {
         addressCountry: 'SN',
       },
     }),
-    ...(institution.value.logo && { logo: useCmsImage(institution.value.logo) }),
+    ...(institution.value.logo && { logo: toAbsoluteCms(institution.value.logo) }),
+    ...(institution.value.cover_image && { image: toAbsoluteCms(institution.value.cover_image) }),
+  };
+});
+
+const faqSchema = computed(() => {
+  if (!faqItems.value.length) return null;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.value.map((f) => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer },
+    })),
   };
 });
 
@@ -122,8 +155,16 @@ useHead({
     const scripts = [];
     if (organizationSchema.value) {
       scripts.push({
+        key: 'ld-organization',
         type: 'application/ld+json',
         innerHTML: JSON.stringify(organizationSchema.value),
+      });
+    }
+    if (faqSchema.value) {
+      scripts.push({
+        key: 'ld-faq',
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify(faqSchema.value),
       });
     }
     return scripts;
@@ -203,6 +244,40 @@ useHead({
                 Voir le budget
               </NuxtLink>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── Présentation (body éditorial repliable) ─────────────── -->
+      <!-- Pas de titre de carte : le body WYSIWYG porte déjà ses propres titres (H2/H3). -->
+      <section v-if="institution.body" class="mx-auto mt-6 max-w-4xl px-4">
+        <div
+          class="rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800/50"
+        >
+          <div class="px-5 py-4">
+            <div class="relative">
+              <div
+                class="prose-a:text-primary-600 dark:prose-a:text-primary-400 prose prose-sm max-w-none overflow-hidden transition-all prose-headings:text-gray-900 prose-p:text-gray-600 prose-strong:text-gray-900 prose-li:text-gray-600 prose-img:rounded-xl dark:prose-headings:text-white dark:prose-p:text-gray-300 dark:prose-strong:text-white dark:prose-li:text-gray-300"
+                :class="isBodyLong && !bodyExpanded ? 'max-h-64' : ''"
+                v-html="institution.body"
+              />
+              <div
+                v-if="isBodyLong && !bodyExpanded"
+                class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white dark:from-gray-800"
+              />
+            </div>
+            <button
+              v-if="isBodyLong"
+              type="button"
+              class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400"
+              @click="bodyExpanded = !bodyExpanded"
+            >
+              {{ bodyExpanded ? 'Réduire' : 'Lire la suite' }}
+              <UIcon
+                :name="bodyExpanded ? 'i-heroicons-chevron-up' : 'i-heroicons-chevron-down'"
+                class="h-4 w-4"
+              />
+            </button>
           </div>
         </div>
       </section>
@@ -308,6 +383,37 @@ useHead({
               Aucune coordonnée disponible pour le moment.
             </div>
           </dl>
+        </div>
+      </section>
+
+      <!-- ─── FAQ ─────────────────────────────────────────────────── -->
+      <section v-if="faqItems.length" class="mx-auto mt-6 max-w-4xl px-4">
+        <div
+          class="rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800/50"
+        >
+          <div class="border-b border-gray-100 px-5 py-3 dark:border-gray-700">
+            <h2 class="text-sm font-semibold text-gray-900 dark:text-white">
+              Questions fréquentes
+            </h2>
+          </div>
+          <div class="divide-y divide-gray-100 dark:divide-gray-700">
+            <details v-for="(item, i) in faqItems" :key="i" class="group px-5 py-3">
+              <summary
+                class="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-medium text-gray-800 dark:text-gray-100"
+              >
+                {{ item.question }}
+                <UIcon
+                  name="i-heroicons-chevron-down"
+                  class="h-4 w-4 shrink-0 text-gray-400 transition-transform group-open:rotate-180"
+                />
+              </summary>
+              <p
+                class="mt-2 whitespace-pre-line text-sm leading-relaxed text-gray-600 dark:text-gray-300"
+              >
+                {{ item.answer }}
+              </p>
+            </details>
+          </div>
         </div>
       </section>
 

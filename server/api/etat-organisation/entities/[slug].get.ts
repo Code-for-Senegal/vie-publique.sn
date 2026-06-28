@@ -1,12 +1,12 @@
-import { readItems } from '@directus/sdk'
-import { CacheDuration, getCacheMaxAge } from '../../../utils/cache'
+import { readItems } from '@directus/sdk';
+import { CacheDuration, getCacheMaxAge } from '../../../utils/cache';
 
 type DecreeRow = {
-  id: string
-  numero: string
-  status?: string
-  date_publication?: string
-}
+  id: string;
+  numero: string;
+  status?: string;
+  date_publication?: string;
+};
 
 const CHANGE_LABELS: Record<string, string> = {
   created: 'Création',
@@ -15,19 +15,19 @@ const CHANGE_LABELS: Record<string, string> = {
   merge: 'Fusion',
   split: 'Scission',
   deleted: 'Suppression',
-}
+};
 
 export default defineCachedEventHandler(
   async (event) => {
-    const slug = getRouterParam(event, 'slug')
+    const slug = getRouterParam(event, 'slug');
     if (!slug) {
       throw createError({
         statusCode: 400,
         message: 'Le slug est requis',
-      })
+      });
     }
 
-    const cmsClient = getCmsClient()
+    const cmsClient = getCmsClient();
 
     const decrees = await cmsClient.request(
       readItems('state_organization_decree', {
@@ -36,17 +36,18 @@ export default defineCachedEventHandler(
         sort: ['-date_publication'],
         limit: 20,
       }),
-    )
+    );
 
     if (!Array.isArray(decrees) || decrees.length === 0) {
       throw createError({
         statusCode: 404,
         message: 'Aucun décret disponible',
-      })
+      });
     }
 
     const activeDecree =
-      (decrees as DecreeRow[]).find(decree => decree.status === 'active') || (decrees as DecreeRow[])[0]
+      (decrees as DecreeRow[]).find((decree) => decree.status === 'active') ||
+      (decrees as DecreeRow[])[0];
 
     const snapshots = await cmsClient.request(
       readItems('state_organization_entity_snapshot', {
@@ -70,29 +71,35 @@ export default defineCachedEventHandler(
           'public_entity.web_site',
           'public_entity.reseaux_sociaux',
           'public_entity.logo',
+          'public_entity.description',
+          'public_entity.body',
+          'public_entity.cover_image',
+          'public_entity.faq',
         ],
         sort: ['official_label'],
         limit: -1,
       }),
-    )
+    );
 
-    const entitiesById = new Map<string, any>()
-    const entitiesBySlug = new Map<string, any>()
-    const snapshotIdToEntityId = new Map<string, string>()
+    const entitiesById = new Map<string, any>();
+    const entitiesBySlug = new Map<string, any>();
+    const snapshotIdToEntityId = new Map<string, string>();
 
     for (const snapshot of snapshots as any[]) {
-      const entity = snapshot.public_entity
+      const entity = snapshot.public_entity;
       if (!entity?.id || !entity?.slug || entitiesById.has(String(entity.id))) {
-        continue
+        continue;
       }
 
-      const rawParent = snapshot.parent_snapshot
+      const rawParent = snapshot.parent_snapshot;
       const parentSnapshotId: string | null =
         rawParent === null || rawParent === undefined
           ? null
           : typeof rawParent === 'object'
-            ? (rawParent?.id != null ? String(rawParent.id) : null)
-            : String(rawParent)  // handles both legacy string UUIDs and new integer IDs
+            ? rawParent?.id != null
+              ? String(rawParent.id)
+              : null
+            : String(rawParent); // handles both legacy string UUIDs and new integer IDs
 
       const node = {
         id: String(entity.id),
@@ -112,66 +119,70 @@ export default defineCachedEventHandler(
         web_site: entity.web_site ?? null,
         reseaux_sociaux: (entity.reseaux_sociaux as Record<string, string> | null) ?? null,
         logo: (entity.logo as string | null) ?? null,
-      }
+        description: (entity.description as string | null) ?? null,
+        body: (entity.body as string | null) ?? null,
+        cover_image: (entity.cover_image as string | null) ?? null,
+        faq: Array.isArray(entity.faq) ? entity.faq : null,
+      };
 
-      entitiesById.set(node.id, node)
-      entitiesBySlug.set(node.public_slug, node)
-      snapshotIdToEntityId.set(String(snapshot.id), node.id)
+      entitiesById.set(node.id, node);
+      entitiesBySlug.set(node.public_slug, node);
+      snapshotIdToEntityId.set(String(snapshot.id), node.id);
     }
 
     // Post-process: resolve parent_id and parent_name via snapshot ID lookup
     for (const node of entitiesById.values()) {
       if (node.parent_snapshot_id) {
-        const parentEntityId = snapshotIdToEntityId.get(node.parent_snapshot_id)
+        const parentEntityId = snapshotIdToEntityId.get(node.parent_snapshot_id);
         if (parentEntityId) {
-          const parentNode = entitiesById.get(parentEntityId)
+          const parentNode = entitiesById.get(parentEntityId);
           if (parentNode) {
-            node.parent_id = parentNode.id
-            node.parent_name = parentNode.name
+            node.parent_id = parentNode.id;
+            node.parent_name = parentNode.name;
           }
         }
       }
     }
 
-    const target = entitiesBySlug.get(slug)
+    const target = entitiesBySlug.get(slug);
 
     if (!target || !target.has_public_page) {
       throw createError({
         statusCode: 404,
         message: 'Entité publique non trouvée',
-      })
+      });
     }
 
     const directChildren = Array.from(entitiesById.values())
-      .filter(node => node.parent_id === target.id)
-      .sort((a, b) => a.name.localeCompare(b.name, 'fr'))
+      .filter((node) => node.parent_id === target.id)
+      .sort((a, b) => a.name.localeCompare(b.name, 'fr'));
 
-    const children = directChildren.map(child => ({
+    const children = directChildren.map((child) => ({
       ...child,
       subchildren:
         child.type_code === 'entite_regroupement' || child.type_code === 'etablissement_public'
           ? Array.from(entitiesById.values())
-              .filter(n => n.parent_id === child.id)
+              .filter((n) => n.parent_id === child.id)
               .sort((a, b) => a.name.localeCompare(b.name, 'fr'))
           : [],
-    }))
+    }));
 
-    const breadcrumb: Array<{ id: string; public_slug: string; name: string }> = []
-    let currentParentId = target.parent_id
-    let guard = 0
+    const breadcrumb: Array<{ id: string; public_slug: string; name: string }> = [];
+    let currentParentId = target.parent_id;
+    let guard = 0;
 
     while (currentParentId && guard < 25) {
-      const parent = entitiesById.get(currentParentId)
+      const parent = entitiesById.get(currentParentId);
       if (!parent) {
-        break
+        break;
       }
       breadcrumb.unshift({
         id: parent.id,
         public_slug: parent.public_slug,
         name: parent.name,
-      })
-      currentParentId = parent.parent_id
-      guard += 1
+      });
+      currentParentId = parent.parent_id;
+      guard += 1;
     }
 
     const changes = await cmsClient
@@ -192,7 +203,7 @@ export default defineCachedEventHandler(
           limit: -1,
         }),
       )
-      .catch(() => [])
+      .catch(() => []);
 
     return {
       decree: {
@@ -204,7 +215,7 @@ export default defineCachedEventHandler(
       entity: target,
       children,
       breadcrumb,
-      history: (changes as any[]).map(change => ({
+      history: (changes as any[]).map((change) => ({
         id: change.id,
         category: change.change_category,
         label: CHANGE_LABELS[change.change_category] || change.change_category,
@@ -213,14 +224,14 @@ export default defineCachedEventHandler(
         to_decree: change.to_decree?.numero || null,
         date_created: change.date_created,
       })),
-    }
+    };
   },
   {
     maxAge: getCacheMaxAge(CacheDuration.SHORT),
-    name: 'etat-organisation-entity-detail-v6',
-    getKey: event => {
-      const slug = getRouterParam(event, 'slug')
-      return `etat-organisation-entity-${slug}`
+    name: 'etat-organisation-entity-detail-v7',
+    getKey: (event) => {
+      const slug = getRouterParam(event, 'slug');
+      return `etat-organisation-entity-${slug}`;
     },
   },
-)
+);

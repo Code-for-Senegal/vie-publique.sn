@@ -1,3 +1,9 @@
+/** Élément de FAQ (champ Repeater Directus → json) */
+export interface EtatOrganisationFaqItem {
+  question: string;
+  answer: string;
+}
+
 export interface EtatOrganisationInstitution {
   id: string;
   slug: string;
@@ -21,6 +27,12 @@ export interface EtatOrganisationInstitution {
 export interface EtatOrganisationInstitutionDetail extends EtatOrganisationInstitution {
   reseaux_sociaux: Record<string, string> | null;
   code_institution: number | null;
+  /** Contenu éditorial riche (WYSIWYG / HTML) */
+  body: string | null;
+  /** Image de couverture paysage (id CMS) pour l'og:image et le bandeau */
+  cover_image: string | null;
+  /** Questions fréquentes (Repeater Directus) */
+  faq: EtatOrganisationFaqItem[] | null;
 }
 
 export interface EtatOrganisationInstitutionsResponse {
@@ -99,6 +111,11 @@ export interface EtatOrganisationEntity {
   web_site?: string | null;
   reseaux_sociaux?: Record<string, string> | null;
   logo?: string | null;
+  // Editorial content (from state_organization_entity)
+  description?: string | null;
+  body?: string | null;
+  cover_image?: string | null;
+  faq?: EtatOrganisationFaqItem[] | null;
   // Direct children (populated for entite_regroupement children in detail API)
   subchildren?: EtatOrganisationEntity[];
 }

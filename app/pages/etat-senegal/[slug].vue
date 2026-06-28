@@ -133,6 +133,14 @@ const getSocialIcon = (platform: string) =>
 // Can use main + sidebar layout (for top-level entities with children)
 const hasMainContent = computed(() => children.value.length > 0);
 
+// ── Body éditorial repliable (UX mobile : ne pas repousser les structures) ──
+const bodyExpanded = ref(false);
+// On ne clampe (et n'affiche « Lire la suite ») que si le body est long.
+const isBodyLong = computed(() => (entity.value?.body?.length ?? 0) > 600);
+
+// ── FAQ ─────────────────────────────────────────────────────────────
+const faqItems = computed(() => (entity.value?.faq ?? []).filter((f) => f?.question && f?.answer));
+
 const { siteName, siteUrl, themeColor, keywords } = useSiteMetadata();
 
 const pageTitle = computed(() =>
@@ -143,6 +151,8 @@ const pageTitle = computed(() =>
 
 const pageDescription = computed(() => {
   if (!entity.value) return "Fiche d'une entité publique de l'État du Sénégal.";
+  // Si une description éditoriale existe, elle prime (meta plus pertinente).
+  if (entity.value.description) return entity.value.description;
   const parts: string[] = [];
   parts.push(
     `${entity.value.name}, ${entity.value.type_label.toLowerCase()} de l'État du Sénégal.`,
@@ -163,11 +173,16 @@ const pageDescription = computed(() => {
 
 const pageUrl = computed(() => `${siteUrl}/etat-senegal/${slug.value}`);
 
+const toAbsoluteCms = (id: string) => {
+  const rel = useCmsImage(id);
+  return rel.startsWith('http') ? rel : `${siteUrl}${rel}`;
+};
+
+// og:image : la couverture paysage d'abord (meilleur rendu social qu'un logo carré),
+// puis le logo, puis le visuel par défaut.
 const ogImage = computed(() => {
-  if (entity.value?.logo) {
-    const rel = useCmsImage(entity.value.logo);
-    return rel.startsWith('http') ? rel : `${siteUrl}${rel}`;
-  }
+  if (entity.value?.cover_image) return toAbsoluteCms(entity.value.cover_image);
+  if (entity.value?.logo) return toAbsoluteCms(entity.value.logo);
   return `${siteUrl}/nomination-3.png`;
 });
 
@@ -196,6 +211,7 @@ useSeoMeta({
 
 const organizationSchema = computed(() => {
   if (!entity.value) return null;
+  const publicChildren = children.value.filter((c) => c.has_public_page);
   return {
     '@context': 'https://schema.org',
     '@type': 'GovernmentOrganization',
@@ -203,6 +219,7 @@ const organizationSchema = computed(() => {
     description: pageDescription.value,
     url: pageUrl.value,
     inLanguage: 'fr-SN',
+    areaServed: { '@type': 'Country', name: 'Sénégal' },
     ...(entity.value.web_site && { sameAs: entity.value.web_site }),
     ...(entity.value.email && { email: entity.value.email }),
     ...(entity.value.phone && { telephone: entity.value.phone }),
@@ -213,18 +230,34 @@ const organizationSchema = computed(() => {
         addressCountry: 'SN',
       },
     }),
-    ...(entity.value.logo && {
-      logo: (() => {
-        const r = useCmsImage(entity.value.logo);
-        return r.startsWith('http') ? r : `${siteUrl}${r}`;
-      })(),
-    }),
+    ...(entity.value.logo && { logo: toAbsoluteCms(entity.value.logo) }),
+    ...(entity.value.cover_image && { image: toAbsoluteCms(entity.value.cover_image) }),
     ...(entity.value.parent_name && {
       parentOrganization: {
         '@type': 'GovernmentOrganization',
         name: entity.value.parent_name,
       },
     }),
+    ...(publicChildren.length > 0 && {
+      subOrganization: publicChildren.map((c) => ({
+        '@type': 'GovernmentOrganization',
+        name: c.name,
+        url: `${siteUrl}/etat-senegal/${c.public_slug}`,
+      })),
+    }),
+  };
+});
+
+const faqSchema = computed(() => {
+  if (!faqItems.value.length) return null;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.value.map((f) => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer },
+    })),
   };
 });
 
@@ -247,8 +280,16 @@ useHead({
     const scripts = [];
     if (organizationSchema.value) {
       scripts.push({
+        key: 'ld-organization',
         type: 'application/ld+json',
         innerHTML: JSON.stringify(organizationSchema.value),
+      });
+    }
+    if (faqSchema.value) {
+      scripts.push({
+        key: 'ld-faq',
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify(faqSchema.value),
       });
     }
     return scripts;
@@ -331,38 +372,54 @@ useHead({
 
             <!-- ── Aperçu ──────────────────────────────────────────── -->
             <div>
-              <!-- Identity card -->
+              <!-- Présentation : le body riche prime (il porte ses propres titres).
+                   Le chapô (description) ne s'affiche que s'il n'y a PAS de body, pour
+                   éviter le doublon de titre/intro. -->
               <div
+                v-if="entity.description || entity.body"
                 class="mb-6 rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800/50"
               >
-                <div class="border-b border-gray-100 px-5 py-3 dark:border-gray-700">
-                  <h2 class="text-sm font-semibold text-gray-900 dark:text-white">Identité</h2>
+                <div
+                  v-if="!entity.body"
+                  class="border-b border-gray-100 px-5 py-3 dark:border-gray-700"
+                >
+                  <h2 class="text-sm font-semibold text-gray-900 dark:text-white">Présentation</h2>
                 </div>
-                <dl class="divide-y divide-gray-100 dark:divide-gray-700">
-                  <div class="flex items-start gap-4 px-5 py-3">
-                    <dt class="w-40 shrink-0 text-xs text-gray-500">Nom officiel</dt>
-                    <dd class="text-sm text-gray-800 dark:text-gray-100">{{ entity.name }}</dd>
+                <div class="px-5 py-4">
+                  <!-- Chapô : seulement quand il n'y a pas de body -->
+                  <p
+                    v-if="entity.description && !entity.body"
+                    class="text-sm leading-relaxed text-gray-700 dark:text-gray-300"
+                  >
+                    {{ entity.description }}
+                  </p>
+
+                  <!-- Body riche : clampé si long, avec fondu + « Lire la suite » -->
+                  <div v-if="entity.body" class="relative">
+                    <div
+                      class="prose-a:text-primary-600 dark:prose-a:text-primary-400 prose prose-sm max-w-none overflow-hidden transition-all prose-headings:text-gray-900 prose-p:text-gray-600 prose-strong:text-gray-900 prose-li:text-gray-600 prose-img:rounded-xl dark:prose-headings:text-white dark:prose-p:text-gray-300 dark:prose-strong:text-white dark:prose-li:text-gray-300"
+                      :class="isBodyLong && !bodyExpanded ? 'max-h-64' : ''"
+                      v-html="entity.body"
+                    />
+                    <div
+                      v-if="isBodyLong && !bodyExpanded"
+                      class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white dark:from-gray-800"
+                    />
                   </div>
-                  <div class="flex items-start gap-4 px-5 py-3">
-                    <dt class="w-40 shrink-0 text-xs text-gray-500">Type</dt>
-                    <dd class="flex items-center gap-1.5 text-sm text-gray-800 dark:text-gray-100">
-                      <UIcon :name="entityTypeIcon" class="h-4 w-4 text-gray-400" />
-                      {{ entity.type_label }}
-                    </dd>
-                  </div>
-                  <div v-if="entity.parent_name" class="flex items-start gap-4 px-5 py-3">
-                    <dt class="w-40 shrink-0 text-xs text-gray-500">Rattachement</dt>
-                    <dd class="text-sm text-gray-800 dark:text-gray-100">
-                      {{ entity.parent_name }}
-                    </dd>
-                  </div>
-                  <div v-if="decree?.date_publication" class="flex items-start gap-4 px-5 py-3">
-                    <dt class="w-40 shrink-0 text-xs text-gray-500">Décret</dt>
-                    <dd class="text-sm text-gray-800 dark:text-gray-100">
-                      n° {{ decree.numero }} - {{ formatDate(decree.date_publication) }}
-                    </dd>
-                  </div>
-                </dl>
+
+                  <button
+                    v-if="isBodyLong"
+                    type="button"
+                    class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400"
+                    @click="bodyExpanded = !bodyExpanded"
+                  >
+                    {{ bodyExpanded ? 'Réduire' : 'Lire la suite' }}
+                    <UIcon
+                      :name="bodyExpanded ? 'i-heroicons-chevron-up' : 'i-heroicons-chevron-down'"
+                      class="h-4 w-4"
+                    />
+                  </button>
+                </div>
               </div>
 
               <!-- Children -->
@@ -373,9 +430,15 @@ useHead({
                 <div
                   class="flex items-center justify-between border-b border-gray-100 px-5 py-3 dark:border-gray-700"
                 >
-                  <h2 class="text-sm font-semibold text-gray-900 dark:text-white">
-                    Structures rattachées
-                  </h2>
+                  <div>
+                    <h2 class="text-sm font-semibold text-gray-900 dark:text-white">
+                      Organisation administrative
+                    </h2>
+                    <p class="mt-0.5 text-xs text-gray-400 dark:text-gray-500">
+                      Explorez les services, directions, établissements publics et autres organismes
+                      rattachés.
+                    </p>
+                  </div>
                 </div>
 
                 <!-- Grouping sections (entite_regroupement as collapsible sections) -->
@@ -621,6 +684,36 @@ useHead({
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+
+            <!-- ── FAQ ──────────────────────────────────────────────── -->
+            <div
+              v-if="faqItems.length"
+              class="mt-6 rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800/50"
+            >
+              <div class="border-b border-gray-100 px-5 py-3 dark:border-gray-700">
+                <h2 class="text-sm font-semibold text-gray-900 dark:text-white">
+                  Questions fréquentes
+                </h2>
+              </div>
+              <div class="divide-y divide-gray-100 dark:divide-gray-700">
+                <details v-for="(item, i) in faqItems" :key="i" class="group px-5 py-3">
+                  <summary
+                    class="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-medium text-gray-800 dark:text-gray-100"
+                  >
+                    {{ item.question }}
+                    <UIcon
+                      name="i-heroicons-chevron-down"
+                      class="h-4 w-4 shrink-0 text-gray-400 transition-transform group-open:rotate-180"
+                    />
+                  </summary>
+                  <p
+                    class="mt-2 whitespace-pre-line text-sm leading-relaxed text-gray-600 dark:text-gray-300"
+                  >
+                    {{ item.answer }}
+                  </p>
+                </details>
               </div>
             </div>
 
