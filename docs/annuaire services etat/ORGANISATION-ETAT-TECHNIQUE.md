@@ -30,7 +30,7 @@ state_organization_entity_type  ──────< state_organization_entity �
 | Collection | Rôle |
 |---|---|
 | `state_organization_entity_type` | Référentiel des types (`ministere`, `direction`, `service`, `etablissement_public`, `societe_nationale`, `societe_participation_publique`, `entite_regroupement`, …) |
-| `state_organization_entity` | Entité canonique avec `slug` **immuable** (clé URL stable), `name`, `code_institution` |
+| `state_organization_entity` | Entité canonique avec `slug` **immuable** (clé URL stable), `name`, `code_institution`, champs de contact (`logo`, `web_site`, `email`, `phone`, `adresse`, `reseaux_sociaux`) et champs éditoriaux/SEO (`description`, `body` WYSIWYG, `cover_image`, `faq`) — voir §8.1 |
 | `state_organization_decree` | Décret présidentiel avec `numero` (unique), `date_publication`, `status` (`active` ou archivé) |
 | `state_organization_entity_snapshot` | Snapshot d'une entité pour un décret donné. Contient `official_label`, `change_type` et la hiérarchie via `parent_snapshot_id` (FK auto-référentielle) |
 | `state_organization_entity_change` | Changements détectés entre deux décrets : `change_category` (`created`, `rename`, `reparent`, `deleted`, `merge`, `split`) |
@@ -47,9 +47,14 @@ state_organization_entity_type  ──────< state_organization_entity �
 ## 3. Architecture Frontend
 
 ```
-pages/etat-senegal/organisation/
-├── index.vue            ← page principale (overview + stats + explorer + recent changes)
-└── changements.vue      ← page de comparaison inter-décrets
+pages/etat-senegal/
+├── [slug].vue                  ← fiche détail d'une entité (Présentation + structures + FAQ)  [§8]
+├── institutions/
+│   ├── index.vue               ← liste des institutions constitutionnelles
+│   └── [slug].vue              ← fiche détail d'une institution  [§8]
+└── organisation/
+    ├── index.vue               ← page principale (overview + stats + explorer + recent changes)
+    └── changements.vue         ← page de comparaison inter-décrets
 
 composables/
 ├── useEtatOrganisation.ts         ← état central : overview, entities, tree, filtres, pagination
@@ -73,6 +78,8 @@ server/api/etat-organisation/
 ├── overview.get.ts                ← GET /api/etat-organisation/overview
 ├── entities.get.ts                ← GET /api/etat-organisation/entities
 ├── entities/[slug].get.ts         ← GET /api/etat-organisation/entities/:slug
+├── institutions.get.ts            ← GET /api/etat-organisation/institutions
+├── institutions/[slug].get.ts     ← GET /api/etat-organisation/institutions/:slug
 └── changes.get.ts                 ← GET /api/etat-organisation/changes
 ```
 
@@ -166,12 +173,20 @@ Retourne le détail d'une entité avec arborescence locale, breadcrumb et histor
 ```typescript
 {
   decree: EtatOrganisationDecreeRef | null,
-  entity: EtatOrganisationEntity,
+  entity: EtatOrganisationEntity,  // inclut description, body, cover_image, faq (§8.1)
   children: EtatOrganisationEntity[],
   breadcrumb: Array<{ id, public_slug, name }>,
   history: EtatOrganisationEntityHistoryItem[]
 }
 ```
+
+> Les champs éditoriaux (`description`, `body`, `cover_image`, `faq`) sont ajoutés aux `fields` de la requête Directus **et** au mapping du node serveur. Cache : `etat-organisation-entity-detail-v7`.
+
+---
+
+### `GET /api/etat-organisation/institutions/:slug`
+
+Détail d'une institution constitutionnelle (lecture directe de `state_organization_entity`, sans snapshot). Inclut les mêmes champs éditoriaux (§8.1). **Réponse** : `{ institution: EtatOrganisationInstitutionDetail }`. Cache : `etat-organisation-institution-detail-v2`.
 
 ---
 
@@ -320,7 +335,52 @@ Utilise `useEtatOrganisationChanges()`. Permet de sélectionner deux décrets vi
 
 ---
 
-## 8. Composants UI détaillés
+## 8. Pages de détail d'entité (fiches publiques)
+
+Deux pages rendent la fiche d'une entité, à partir de la **même collection** `state_organization_entity` :
+
+| Route | Fichier | Cible |
+|---|---|---|
+| `/etat-senegal/:slug` | `pages/etat-senegal/[slug].vue` | Toute entité publique de l'organigramme (ministères, directions, agences, établissements…). Source : snapshot du décret actif. Layout 2 colonnes (contenu + sidebar). |
+| `/etat-senegal/institutions/:slug` | `pages/etat-senegal/institutions/[slug].vue` | Institutions constitutionnelles (Présidence, Assemblée, Conseil constitutionnel…). Layout centré 1 colonne. |
+
+> ⚠️ La Présidence et la Primature (`type_code` `presidence` / `primature`) sont accessibles **par les deux routes**.
+
+### 8.1 Champs éditoriaux (`state_organization_entity`)
+
+En plus des champs de contact (`email`, `phone`, `adresse`, `web_site`, `reseaux_sociaux`, `logo`), l'entité porte **4 champs éditoriaux** exploités par les fiches :
+
+| Champ | Type Directus | Usage |
+|---|---|---|
+| `description` | Texte court (~200-300 car.) | Résumé : **meta description**, og/twitter, excerpt des cartes de liste, **chapô** de la fiche (uniquement si pas de `body`). |
+| `body` | WYSIWYG / Rich text (HTML) | Article éditorial (rôle, missions, base légale, fonctionnement…). Porte ses **propres titres H2/H3** — jamais de H1. |
+| `cover_image` | Image (paysage, ~1200×630) | **og:image** prioritaire (meilleur rendu social qu'un logo carré/transparent qui se recadre mal). **Non affichée** dans la page (social only, par défaut). |
+| `faq` | Repeater → `json` | Liste `{ question, answer }` → section FAQ visible + JSON-LD `FAQPage`. |
+
+> **Stratégie hybride** : `body`/`cover_image`/`faq` ne sont remplis que pour les **fiches phares** (institutions, grands ministères). Les milliers d'entités secondaires (directions, services) restent sur `description` seul. Ne PAS imposer le WYSIWYG partout (il resterait vide).
+>
+> ⚠️ Les endpoints `entities/[slug].get.ts` et `institutions/[slug].get.ts` doivent **fetcher ces champs** (sans quoi la fiche reste du « thin content » non rankable). Caches versionnés (`etat-organisation-entity-detail-v7`, `etat-organisation-institution-detail-v2`) → **bumper la version** à chaque changement de forme de réponse.
+
+### 8.2 Logique d'affichage « Présentation »
+
+- **Le `body` riche prime.** Quand il existe, il se suffit à lui-même (il porte ses titres) : on **n'affiche NI titre de carte « Présentation », NI le chapô** `description` → évite le **doublon de titre** et l'**intro répétée**.
+- Le **chapô** (`description`) ne s'affiche que pour les entités **sans** `body`.
+- **Body repliable** (UX mobile) : clampé à `max-h-64` + fondu dégradé + bouton **« Lire la suite »** dès que `body.length > 600`. Le texte complet reste **dans le HTML SSR** → SEO préservé **et** scroll borné avant le bloc « Organisation administrative ».
+- Rendu via `v-html` + classes Tailwind `prose` (contenu CMS de confiance, même pattern que `personnalites/[id]/[slug].vue`).
+
+### 8.3 Bloc « Organisation administrative » (structures rattachées)
+
+- Sous-titre grisé discret signalant que le bloc est navigable :
+  _« Explorez les services, directions, établissements publics et autres organismes rattachés. »_
+- Enfants groupés par type : `entite_regroupement` en **accordéon**, établissements/sociétés en **sections virtuelles** repliables, autres types en listes groupées.
+
+### 8.4 FAQ
+
+Section `<details>` natifs (accordéon), placée **après** les structures rattachées (pour ne pas les repousser sur mobile). Alimente aussi le JSON-LD `FAQPage` (§12).
+
+---
+
+## 9. Composants UI détaillés
 
 ### `EtatOrganisationExplorer.vue`
 
@@ -354,7 +414,7 @@ Utilise `useEtatOrganisationChanges()`. Permet de sélectionner deux décrets vi
 
 ---
 
-## 9. Types TypeScript centraux
+## 10. Types TypeScript centraux
 
 Fichier : `types/etat-organisation.ts`
 
@@ -371,11 +431,15 @@ EtatOrganisationRecentChange         // changement léger pour overview
 EtatOrganisationTypeStat             // { code, label, count }
 EtatOrganisationChangeSummary        // { category, label, count }
 EtatOrganisationEntityHistoryItem    // item historique d'une entité
+EtatOrganisationInstitutionDetail    // institution + body, cover_image, faq
+EtatOrganisationFaqItem              // { question, answer } (champ faq Repeater)
 ```
+
+> `EtatOrganisationEntity` et `EtatOrganisationInstitutionDetail` incluent désormais les champs éditoriaux `description?`, `body?`, `cover_image?`, `faq?` (§8.1).
 
 ---
 
-## 10. Import des décrets (repo [organisation-etat](https://github.com/vie-publique-senegal/organisation-etat))
+## 11. Import des décrets (repo [organisation-etat](https://github.com/vie-publique-senegal/organisation-etat))
 
 ### Pipeline d'import — Architecture en deux phases
 
@@ -462,20 +526,48 @@ npm run changes:force
 
 ---
 
-## 11. SEO
+## 12. SEO
 
-La page `index.vue` configure via `useSeoMeta` + `useHead` :
+> Règles transverses : voir `CLAUDE.md` (§ SEO & Open Graph) et `docs/seo/`. **Toujours vérifier le HTML SSR de prod avant de conclure** (`@nuxtjs/seo` absolutise les og:image relatives et fournit des fallbacks globaux).
 
-```
-title: "Organisation de l'État du Sénégal"
-description: "Explorez l'organigramme officiel, les entités publiques..."
-robots: index,follow
-og:title + og:description
+### 12.1 Page liste — `organisation/index.vue`
+
+`useSeoMeta` + `useHead` : `title` « Organisation de l'État du Sénégal », `description` organigramme, `robots: index,follow`, og:title/description, canonical, JSON-LD `WebPage`. Le `BreadcrumbList` est émis **uniquement** par `<AppBreadcrumb>` (ne pas le réémettre en page).
+
+### 12.2 Fiches de détail — `[slug].vue` & `institutions/[slug].vue`
+
+| Élément | Mise en œuvre |
+|---|---|
+| **`title`** | `"{name} \| Organisation de l'État du Sénégal"` (entité) / `"{name} \| Institutions du Sénégal"` (institution). Le `titleTemplate` global ajoute `\| Vie-Publique.sn`. |
+| **`description` / og** | `description` éditorial si présent, sinon phrase générée (type + tutelle + nb structures + décret). |
+| **og:image** | `cover_image` **en priorité** → fallback `logo` → fallback `/nomination-3.png`. URL absolutisée (`toAbsoluteCms` = `siteUrl` + `/cms/<id>`). |
+| **`canonical`** | URL propre de la fiche. |
+| **JSON-LD `GovernmentOrganization`** | `name`, `description`, `url`, `inLanguage`, `areaServed: Sénégal`, + `sameAs`/`email`/`telephone`/`address`/`logo`/`image`/`parentOrganization` quand dispo. Côté entité : `subOrganization` = enfants à page publique. |
+| **JSON-LD `FAQPage`** | Émis seulement si `faq` non vide. `mainEntity[]` = `Question` + `acceptedAnswer/Answer`. |
+| **`key` sur chaque `<script>` ld+json** | `ld-organization`, `ld-faq` → évite le **doublon de nœud à l'hydratation** (cf. CLAUDE.md §6). |
+| **`BreadcrumbList`** | Émis **uniquement** par `<AppBreadcrumb>` (source unique). **Ne PAS** ajouter de breadcrumb en page. |
+| **1 seul `<h1>`** | Le nom de l'entité. Le `body` WYSIWYG ne doit contenir que des **H2/H3**. |
+
+### 12.3 Levier « thin content »
+
+Le principal frein au ranking de ces fiches était l'**absence de texte unique** (l'endpoint entité ne récupérait même pas `description`). Les champs `description` + `body` + `faq` (§8.1) sont la réponse : contenu rédactionnel indexable + ciblage _People Also Ask_ via `FAQPage`.
+
+### 12.4 Vérifications SSR (avant de conclure)
+
+```bash
+# 1 seul H1
+curl -s <url> | grep -o "<h1" | wc -l                 # → 1
+# 1 seul BreadcrumbList, N ListItem (pas 2×N)
+curl -s <url> | grep -oE '"@type":"(BreadcrumbList|ListItem)"' | sort | uniq -c
+# FAQPage présent si faq rempli
+curl -s <url> | grep -o '"@type":"FAQPage"'
+# og:image = cover_image
+curl -s <url> | grep -oE '<meta[^>]*og:image[^>]*>'
 ```
 
 ---
 
-## 12. Flux de données complet (SSR)
+## 13. Flux de données complet (SSR)
 
 ```
 Browser request /etat-senegal/organisation
@@ -504,7 +596,7 @@ EtatOrganisationRecentChanges (overview prop)
 
 ---
 
-## 13. Dépendances clés
+## 14. Dépendances clés
 
 | Package | Rôle |
 |---|---|
