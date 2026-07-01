@@ -33,6 +33,16 @@ export default defineCachedEventHandler(
               'voters_against',
               'voters_abstention',
               'number',
+              // M2M documents (jonction assembly_vote_documents, FK cible documents_id)
+              // — même pattern que server/api/dossiers/[slug].get.ts
+              'documents.documents_id.id',
+              'documents.documents_id.title',
+              'documents.documents_id.slug',
+              'documents.documents_id.type',
+              'documents.documents_id.publish_date',
+              'documents.documents_id.cover_image',
+              'documents.documents_id.description',
+              'documents.documents_id.status',
             ],
           }),
         )
@@ -44,11 +54,20 @@ export default defineCachedEventHandler(
           });
         });
 
+      // Aplatit le M2M documents (row.documents_id → document), publiés uniquement.
+      // Même helper que server/api/dossiers/[slug].get.ts (flattenM2M).
+      const documents = Array.isArray((voteData as any).documents)
+        ? (voteData as any).documents
+            .map((row: any) => row?.documents_id)
+            .filter((doc: any) => doc && doc.status === 'published')
+        : [];
+
       // Slug SEO : celui du CMS s'il existe, sinon généré depuis le nom (l'id reste la clé).
       const vote = {
         ...voteData,
         slug:
           (voteData as any).slug || generateSlugFromName((voteData as any).name || `vote-${id}`),
+        documents,
       };
 
       // Le frontend attend { vote: ... }
@@ -62,7 +81,7 @@ export default defineCachedEventHandler(
   },
   {
     maxAge: 60 * 60, // 1 heure
-    name: 'assembly-vote-detail-v2',
+    name: 'assembly-vote-detail-v7',
     getKey: (event) => `assembly-vote-${getRouterParam(event, 'id')}`,
   },
 );

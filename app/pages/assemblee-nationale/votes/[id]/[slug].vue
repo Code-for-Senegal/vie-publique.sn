@@ -153,6 +153,22 @@
             </p>
           </section>
 
+          <!-- Documents associés — placés AVANT la description pour rester visibles
+               même si la description est longue. Affichage horizontal responsive (≤3). -->
+          <section v-if="vote.documents?.length">
+            <h2 class="mb-3 text-sm font-bold text-gray-900 dark:text-white md:text-base">
+              {{ vote.documents.length > 1 ? 'Documents associés' : 'Document associé' }}
+            </h2>
+            <!-- Un document par ligne : le titre s'affiche en entier, même sur desktop. -->
+            <div class="space-y-3">
+              <DocumentsDocumentListItem
+                v-for="doc in vote.documents"
+                :key="doc.id"
+                :document="doc"
+              />
+            </div>
+          </section>
+
           <!-- Description -->
           <section
             v-if="vote.desc"
@@ -237,6 +253,13 @@ const articleSchema = computed(() => {
     description: pageDescription.value,
     ...(formatDateISO(vote.value.date) && { datePublished: formatDateISO(vote.value.date) }),
     ...(stripHtml(vote.value.desc) && { articleBody: stripHtml(vote.value.desc) }),
+    ...(vote.value.documents?.length && {
+      citation: vote.value.documents.map((d) => ({
+        '@type': 'CreativeWork',
+        name: d.title,
+        url: `${siteUrl}/documents/${d.id}/${d.slug}`,
+      })),
+    }),
     inLanguage: 'fr-SN',
     url: url.value,
     image: ogImage,
