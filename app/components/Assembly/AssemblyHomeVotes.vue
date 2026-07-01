@@ -3,7 +3,7 @@
     <NuxtLink
       v-for="vote in votes?.slice(0, 3)"
       :key="vote.id"
-      :to="`/assemblee-nationale/votes/${vote.id}`"
+      :to="`/assemblee-nationale/votes/${vote.id}/${vote.slug}`"
       class="block rounded-lg bg-gray-50 p-2 transition hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600"
     >
       <!-- Header: Date et Status -->
@@ -19,13 +19,10 @@
           class="font-medium uppercase"
           size="xs"
         >
-          {{ vote.status === "adopted" ? "Adopté" : "Rejeté" }}
+          {{ vote.status === 'adopted' ? 'Adopté' : 'Rejeté' }}
         </UBadge>
       </div>
-      <h3
-        class="line-clamp-2 text-sm font-medium dark:text-gray-200"
-        v-text="vote.name"
-      ></h3>
+      <h3 class="line-clamp-2 text-sm font-medium dark:text-gray-200" v-text="vote.name"></h3>
       <!-- Tag catégorie -->
       <div>
         <time class="mt-1 block text-xs text-gray-500 dark:text-gray-400">

@@ -22,6 +22,7 @@ export default defineCachedEventHandler(
             fields: [
               'id',
               'name',
+              'slug',
               'desc',
               'description',
               'date',
@@ -43,11 +44,15 @@ export default defineCachedEventHandler(
           });
         });
 
-      // On retourne directement l'objet vote, ou on peut le transformer si nécessaire
-      // Le frontend attend { vote: ... }
-      return {
-        vote: voteData,
+      // Slug SEO : celui du CMS s'il existe, sinon généré depuis le nom (l'id reste la clé).
+      const vote = {
+        ...voteData,
+        slug:
+          (voteData as any).slug || generateSlugFromName((voteData as any).name || `vote-${id}`),
       };
+
+      // Le frontend attend { vote: ... }
+      return { vote };
     } catch (error: any) {
       throw createError({
         statusCode: error.statusCode || 500,
@@ -57,7 +62,7 @@ export default defineCachedEventHandler(
   },
   {
     maxAge: 60 * 60, // 1 heure
-    name: 'assembly-vote-detail',
+    name: 'assembly-vote-detail-v2',
     getKey: (event) => `assembly-vote-${getRouterParam(event, 'id')}`,
   },
 );

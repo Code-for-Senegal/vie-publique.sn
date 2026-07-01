@@ -1,4 +1,4 @@
-<!-- pages/assemblee-nationale/votes/[id].vue -->
+<!-- pages/assemblee-nationale/votes/[id]/[slug].vue -->
 <template>
   <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-900">
     <!-- Breadcrumb -->
@@ -181,12 +181,8 @@ const route = useRoute();
 const id = computed(() => route.params.id as string);
 const { vote, loading, error } = useAssemblyVotes({ id });
 
-const url = computed(() => {
-  if (!route.params.id) return siteUrl;
-  return `${siteUrl}/assemblee-nationale/votes/${route.params.id}`;
-});
-
-const formatDate = (date: string) => {
+// ── Helpers (déclarés avant tout computed/getter SEO — anti-TDZ, cf. CLAUDE.md) ──
+const formatDate = (date?: string | null) => {
   if (!date) return '';
   return new Date(date).toLocaleDateString('fr-FR', {
     day: 'numeric',
@@ -194,6 +190,102 @@ const formatDate = (date: string) => {
     year: 'numeric',
   });
 };
+
+const formatDateISO = (date?: string | null) => {
+  if (!date) return undefined;
+  const d = new Date(date);
+  return isNaN(d.getTime()) ? undefined : d.toISOString();
+};
+
+const stripHtml = (html?: string | null) =>
+  (html || '')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+const truncate = (text: string, max = 160) =>
+  text.length > max ? `${text.slice(0, max - 1).trimEnd()}…` : text;
+
+// ── SEO ──────────────────────────────────────────────────────────────
+const canonicalSlug = computed(() => vote.value?.slug || (route.params.slug as string) || 'vote');
+const url = computed(
+  () => `${siteUrl}/assemblee-nationale/votes/${id.value}/${canonicalSlug.value}`,
+);
+
+const ogImage = `${siteUrl}/images/menu/assemblee-nationale-1.jpg`;
+
+const pageTitle = computed(() =>
+  vote.value?.name ? vote.value.name : "Vote de l'Assemblée nationale du Sénégal",
+);
+
+const pageDescription = computed(() => {
+  if (!vote.value) return "Détail d'un vote de l'Assemblée nationale du Sénégal.";
+  const fromDesc = stripHtml(vote.value.desc || vote.value.description);
+  if (fromDesc) return truncate(fromDesc);
+  const verdict = vote.value.status === 'adopted' ? 'adopté' : 'rejeté';
+  return truncate(
+    `${vote.value.name} : texte ${verdict} par l'Assemblée nationale du Sénégal le ${formatDate(vote.value.date)}.`,
+  );
+});
+
+const articleSchema = computed(() => {
+  if (!vote.value) return null;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: pageTitle.value,
+    description: pageDescription.value,
+    ...(formatDateISO(vote.value.date) && { datePublished: formatDateISO(vote.value.date) }),
+    ...(stripHtml(vote.value.desc) && { articleBody: stripHtml(vote.value.desc) }),
+    inLanguage: 'fr-SN',
+    url: url.value,
+    image: ogImage,
+    author: { '@type': 'Organization', name: siteName, url: siteUrl },
+    publisher: { '@type': 'Organization', name: siteName, url: siteUrl },
+    isPartOf: {
+      '@type': 'CollectionPage',
+      name: "Votes de l'Assemblée nationale",
+      url: `${siteUrl}/assemblee-nationale/votes`,
+    },
+  };
+});
+
+useSeoMeta({
+  title: pageTitle,
+  ogTitle: pageTitle,
+  description: pageDescription,
+  ogDescription: pageDescription,
+  ogImage,
+  ogUrl: url,
+  ogType: 'article',
+  twitterCard: 'summary_large_image',
+  twitterTitle: pageTitle,
+  twitterDescription: pageDescription,
+  twitterImage: ogImage,
+});
+
+useHead({
+  htmlAttrs: { lang: 'fr-SN' },
+  link: [{ rel: 'canonical', href: url }],
+  meta: [
+    { name: 'robots', content: 'index, follow' },
+    { name: 'theme-color', content: themeColor },
+    { name: 'author', content: siteName },
+    { property: 'og:site_name', content: siteName },
+    { property: 'og:locale', content: 'fr_SN' },
+  ],
+  script: computed(() =>
+    articleSchema.value
+      ? [
+          {
+            key: 'ld-article',
+            type: 'application/ld+json',
+            innerHTML: JSON.stringify(articleSchema.value),
+          },
+        ]
+      : [],
+  ),
+});
 
 // Breadcrumb : émis par <AppBreadcrumb> (source unique du fil d'Ariane, §7 CLAUDE.md).
 </script>

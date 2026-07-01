@@ -1,4 +1,4 @@
-import { readItems } from "@directus/sdk";
+import { readItems } from '@directus/sdk';
 
 export default defineCachedEventHandler(
   async (event) => {
@@ -9,7 +9,7 @@ export default defineCachedEventHandler(
     const page = parseInt(query.page as string) || 1;
     const limit = parseInt(query.limit as string) || 50;
     const search = query.search as string;
-    const sortBy = (query.sortBy as string) || "-date";
+    const sortBy = (query.sortBy as string) || '-date';
     const filterStatus = query.filterStatus as string;
 
     try {
@@ -19,7 +19,7 @@ export default defineCachedEventHandler(
       const filter: any = {};
 
       // Filtre par statut si fourni
-      if (filterStatus && filterStatus !== "all") {
+      if (filterStatus && filterStatus !== 'all') {
         filter.status = {
           _eq: filterStatus,
         };
@@ -46,43 +46,52 @@ export default defineCachedEventHandler(
 
       // Récupération des votes avec pagination depuis la collection assembly_votes
       const voteData = await directus.request(
-        readItems("assembly_vote", {
+        readItems('assembly_vote', {
           fields: [
-            "id",
-            "name",
-            "desc",
-            "description",
-            "date",
-            "status",
-            "type",
-            "voters",
-            "voters_for",
-            "voters_against",
-            "voters_abstention",
-            "number",
+            'id',
+            'name',
+            'slug',
+            'desc',
+            'description',
+            'date',
+            'status',
+            'type',
+            'voters',
+            'voters_for',
+            'voters_against',
+            'voters_abstention',
+            'number',
           ],
           filter,
           limit,
           offset,
           sort: [sortBy],
-        })
+        }),
       );
 
+      // Slug SEO : celui du CMS s'il existe, sinon généré depuis le nom (l'id reste la clé).
+      const votes = (voteData as any[]).map((v) => ({
+        ...v,
+        slug: v.slug || generateSlugFromName(v.name || `vote-${v.id}`),
+      }));
+
       // Récupération du total de votes
-      const [totalCountResult] = await directus.request(
-        readItems("assembly_vote", {
-          fields: ["id"],
-          filter,
-          aggregate: {
-            count: ["id"],
-          },
-        })
-      ).catch(() => [{count: {id: voteData.length}}]);
+      const [totalCountResult] = await directus
+        .request(
+          readItems('assembly_vote', {
+            fields: ['id'],
+            filter,
+            aggregate: {
+              count: ['id'],
+            },
+          }),
+        )
+        .catch(() => [{ count: { id: voteData.length } }]);
 
       const totalCount = Number(totalCountResult?.count?.id || voteData.length);
 
       return {
-        votes: voteData,
+        votes,
         totalVotes: totalCount,
         pagination: {
           page,
@@ -92,11 +101,11 @@ export default defineCachedEventHandler(
         },
       };
     } catch (error: any) {
-      console.error("Error fetching assembly votes:", error);
-      console.error("Error details:", {
+      console.error('Error fetching assembly votes:', error);
+      console.error('Error details:', {
         message: error.message,
         errors: error.errors,
-        stack: error.stack
+        stack: error.stack,
       });
       throw createError({
         statusCode: 500,
@@ -106,7 +115,7 @@ export default defineCachedEventHandler(
   },
   {
     maxAge: 60 * 60, // 1 heure
-    name: "assembly-votes",
-    getKey: (event) => buildCacheKey("assembly-votes", getQuery(event)),
+    name: 'assembly-votes-v2',
+    getKey: (event) => buildCacheKey('assembly-votes', getQuery(event)),
   },
 );
