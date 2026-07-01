@@ -85,8 +85,22 @@ avec valeurs `draft` / `published` / `archived`.
 
 **Relations Many-to-Many** : un champ M2M par type de contenu lié. Directus crée la table de
 jonction `<collectionA>_<collectionB>` et les clés étrangères `<collection>_id`. Côté serveur,
-on lit la FK de la **cible** (ex. `documents_id`, `news_id`, `vp_podcasts_id`) — voir
-`server/api/dossiers/[slug].get.ts` (`flattenM2M`) comme référence.
+on lit la FK de la **cible** (ex. `documents_id`, `news_id`, `vp_podcasts_id`) via l'expansion
+imbriquée `champ.<cible>_id.<sousChamp>` puis on aplatit (`row => row.<cible>_id`, en filtrant
+`status === 'published'`). Références : `server/api/dossiers/[slug].get.ts` (helper `flattenM2M`)
+et `server/api/assembly/votes/[id].get.ts`.
+
+> ⚠️ **Piège permission (fait perdre du temps).** L'expansion imbriquée
+> `champ.<cible>_id.*` **ne remonte RIEN et le champ disparaît silencieusement** (pas d'erreur,
+> juste `undefined`) si le **rôle du token CMS n'a pas le droit `Read` sur la table de JONCTION**
+> `<collectionA>_<collectionB>`. Ce n'est PAS un bug de code. Directus n'accorde pas ce droit
+> automatiquement aux nouvelles jonctions. **Diagnostic** : si `champ.*` renvoie bien les lignes
+> de jonction (`{ id, <src>_id, <cible>_id }`) mais que `champ.<cible>_id.*` fait disparaître le
+> champ → **droit manquant sur la jonction**. **Fix** : Directus → Settings → Roles → *(rôle du
+> token)* → cocher **Read** sur la collection de jonction. Corollaire : ne PAS conclure trop vite
+> à un mauvais nom de FK ni basculer sur un contournement 2-requêtes — **vérifier d'abord le droit
+> de lecture sur la jonction** (et purger le cache : un résultat vide reste caché tant que le
+> `name` du `defineCachedEventHandler` n'est pas bumpé).
 
 **Blocs riches répétables** (FAQ, chronologie, comparatif…) : interface **« Repeater »**
 (section Selection ; anciennement « List ») → crée un champ `json` avec un formulaire propre
