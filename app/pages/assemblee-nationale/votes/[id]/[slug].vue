@@ -62,7 +62,7 @@
             <!-- Header with meta and share button -->
             <div class="mb-2 flex items-start justify-between gap-3">
               <div class="text-xs text-gray-500 dark:text-gray-400">
-                Vote n° {{ vote.id }} du {{ formatDate(vote.date) }}
+                Vote du {{ formatDate(vote.date) }}
               </div>
               <SocialShare :title="vote.name" :url="url" />
             </div>
