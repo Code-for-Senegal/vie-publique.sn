@@ -342,7 +342,7 @@ Conséquences mesurées dans Bing WT :
 
 **Fix** (cause identifiée : le réglage Coolify « Direction: `Redirect to www.` » génère une redirection Traefik **temporaire**, non paramétrable en 301 depuis l'UI — le DNS OVH `www CNAME → apex` est correct, rien à changer côté DNS) :
 
-1. ✅ **Code (fait le 02/07/2026)** : middleware Nitro `server/middleware/host-redirect.ts` → **301** `vie-publique.sn/* → https://www.vie-publique.sn/*` (même middleware ajouté dans le repo archives.sn).
+1. ✅ **Code (fait le 02/07/2026)** : middleware Nitro `server/middleware/host-redirect.ts` → **301** `vie-publique.sn/* → https://www.vie-publique.sn/*` (même middleware ajouté dans le repo archives.sn). Mécanisme complet (DNS OVH / Coolify / middleware) documenté dans `docs/guidelines/dns-redirections-domaines.md`.
 2. **Coolify (action manuelle, ACTIVE le middleware)** : app *vie-publique.sn (prod)* → Configuration → General → **Direction : « Allow www & non-www »** (au lieu de « `Redirect to www.` ») → Save → redéployer. Tant que la Direction reste sur « `Redirect to www.` », Traefik répond 307 avant que la requête n'atteigne l'app et le middleware est inerte. Garder les 2 domaines dans « Domains » (nécessaire pour les certificats TLS des 2 hôtes). Idem sur l'app *archives.sn (master)*.
 3. **Bing WT** : supprimer le sitemap `https://vie-publique.sn/sitemap.xml` (ne garder que le www). Idem côté archives.sn (sitemap non-www).
 4. Résidu accepté : le 1er saut `http→https` reste en 302 (redirection d'entrypoint Traefik gérée globalement par Coolify) — impact mineur, le saut suivant vers www est désormais 301.

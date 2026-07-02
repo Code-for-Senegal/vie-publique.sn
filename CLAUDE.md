@@ -61,6 +61,8 @@ Required environment variables (see .env.example):
 
 **⚠️ IMPORTANT**: All URLs must be WITHOUT trailing slash to avoid double-slash issues in the CMS proxy system.
 
+**Hôte canonique** : `https://www.vie-publique.sn` (AVEC www). La redirection 301 apex→www est faite par `server/middleware/host-redirect.ts` (PAS par Coolify — sa Direction doit rester sur « Allow www & non-www ») ; mécanisme complet documenté dans `docs/guidelines/dns-redirections-domaines.md`.
+
 ### Conventions de nommage Directus (IMPORTANT — à suivre pour toute nouvelle feature)
 
 > Avant de créer une collection Directus, identifier à quelle **famille** appartient le contenu,
