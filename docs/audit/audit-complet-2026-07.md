@@ -54,7 +54,7 @@
 ### 🔎 SEO Bing — audit Bing Webmaster Tools (2 juillet 2026)
 
 - [ ] [BING-1 — 🔴 Double hôte www/non-www : redirections 302/307 TEMPORAIRES + 2 sitemaps soumis (25,3K URLs découvertes pour 12,6K réelles)](#bing-1--double-hôte-wwwnon-www--redirections-temporaires)
-- [ ] [BING-2 — 617 pages avec 2 balises `<h1>` (haute gravité Bing) = fiches députés](#bing-2--617-pages-avec-2-h1--fiches-députés)
+- [x] [BING-2 — 617 pages avec 2 balises `<h1>` (haute gravité Bing) = fiches députés](#bing-2--617-pages-avec-2-h1--fiches-députés) ✅ corrigé 02/07/2026 (h1 sticky → `<p>`, vérifié SSR : 1 h1)
 - [ ] [BING-3 — 7 417 pages « meta description trop courte » (descriptions CMS brutes des documents)](#bing-3--meta-descriptions-trop-courtes-74k-pages)
 - [ ] [BING-4 — 5 583 pages « meta descriptions identiques » (conséquence de BING-1 + BING-3)](#bing-4--meta-descriptions-identiques-56k-pages)
 - [ ] [BING-5 — `/recherche?q=*` indexable (`index, follow`) → Bing crawle des requêtes spam](#bing-5--recherche-indexable--crawl-de-requêtes-spam)

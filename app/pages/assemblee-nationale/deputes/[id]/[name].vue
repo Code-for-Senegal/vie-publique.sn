@@ -24,9 +24,10 @@
             <UIcon name="i-heroicons-arrow-left" class="h-4 w-4 text-gray-600 dark:text-gray-400" />
           </NuxtLink>
           <div class="min-w-0 flex-1">
-            <h1 class="truncate text-sm font-semibold text-gray-900 dark:text-white md:text-lg">
+            <!-- Pas de h1 ici : le h1 unique de la page est dans AssemblyProfileHeader (règle SEO : 1 seul h1) -->
+            <p class="truncate text-sm font-semibold text-gray-900 dark:text-white md:text-lg">
               {{ deputyFullName || 'Député' }}
-            </h1>
+            </p>
           </div>
           <SocialShare v-if="deputy" :title="deputyFullName" :url="url" />
         </div>
