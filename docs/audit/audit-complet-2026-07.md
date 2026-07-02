@@ -57,7 +57,7 @@
 - [x] [BING-2 — 617 pages avec 2 balises `<h1>` (haute gravité Bing) = fiches députés](#bing-2--617-pages-avec-2-h1--fiches-députés) ✅ corrigé 02/07/2026 (h1 sticky → `<p>`, vérifié SSR : 1 h1)
 - [ ] [BING-3 — 7 417 pages « meta description trop courte » (descriptions CMS brutes des documents)](#bing-3--meta-descriptions-trop-courtes-74k-pages)
 - [ ] [BING-4 — 5 583 pages « meta descriptions identiques » (conséquence de BING-1 + BING-3)](#bing-4--meta-descriptions-identiques-56k-pages)
-- [ ] [BING-5 — `/recherche?q=*` indexable (`index, follow`) → Bing crawle des requêtes spam](#bing-5--recherche-indexable--crawl-de-requêtes-spam)
+- [x] [BING-5 — `/recherche?q=*` indexable (`index, follow`) → Bing crawle des requêtes spam](#bing-5--recherche-indexable--crawl-de-requêtes-spam) ✅ corrigé 02/07/2026 (noindex,follow + hors sitemap + règle SEO §10 CLAUDE.md ; corrige aussi le title SEO-5)
 - [ ] [BING-6 — Canonical fiche député reflète un slug erroné (duplicats auto-canonisés)](#bing-6--canonical-député-sur-slug-erroné)
 - [ ] [BING-7 — 🔴 archives.sn duplique les documents (même backend) et capte le ranking Bing malgré le canonical vers VP — décision stratégique requise](#bing-7--archivessn-duplique-les-documents-et-capte-le-ranking-bing)
 

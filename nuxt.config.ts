@@ -546,6 +546,8 @@ export default defineNuxtConfig({
   // Sitemap dynamique
   sitemap: {
     sources: ['/api/__sitemap__/urls'],
+    // La recherche interne est noindex (règle SEO §10 CLAUDE.md) → hors sitemap
+    exclude: ['/recherche'],
   },
 
   // Robots.txt
