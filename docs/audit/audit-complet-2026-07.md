@@ -385,10 +385,12 @@ Site Explorer montre que Bing crawle massivement des URLs `/recherche?q=…` **s
 
 | Page | Source du canonical | Gravité |
 | --- | --- | --- |
-| `deputes/[id]/[name].vue:173` | `route.fullPath` | **La pire** : inclut même la **query string** → chaque `?utm_source=…` d'un partage social devient sa propre URL canonique |
-| `personnalites/[id]/[slug].vue:55` | `route.params.slug` | slug erroné écho |
-| `actualites/[id]/[slug].vue:53` | `route.params.slug` | slug erroné écho |
-| `conseil-des-ministres/[id]/[slug].vue:33` | `route.params.slug` | slug erroné écho |
+| ~~`deputes/[id]/[name].vue:173`~~ | ~~`route.fullPath`~~ | ✅ **corrigé 02/07/2026** (slug dérivé de `first_name`/`last_name`, même logique qu'AssemblyDeputyCard) — c'était le pire cas : `route.fullPath` incluait même la query string (`?utm_source=…` auto-canonisé) |
+| `personnalites/[id]/[slug].vue:55` | `route.params.slug` | slug erroné écho — reste à faire |
+| `actualites/[id]/[slug].vue:53` | `route.params.slug` | slug erroné écho — reste à faire |
+| `conseil-des-ministres/[id]/[slug].vue:33` | `route.params.slug` | slug erroné écho — reste à faire |
+
+✅ La nouvelle page `questions/[id]/[slug].vue` (refonte en cours) applique déjà le bon pattern (`question.value?.slug`, vérifié 02/07/2026).
 
 ✅ Bons patterns existants (canonical depuis les **données**) : `documents/[id]/[slug].vue` (`document.value.slug`) et `votes/[id]/[slug].vue` (`vote.value?.slug`) — modèles à répliquer. ⚠️ La refonte questions en cours doit appliquer ce pattern d'emblée.
 
