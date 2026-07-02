@@ -40,23 +40,23 @@
 - [ ] [QUAL-2 — ~5 200 lignes de code mort (29 composants + 6 composables)](#qual-2--code-mort-5-200-lignes)
 - [ ] [QUAL-3 — `formatDate` redéfini dans 28 fichiers → créer `app/utils/date.ts`](#qual-3--formatdate-dupliqué-dans-28-fichiers)
 - [ ] [QUAL-4 — ~424 occurrences de `any`](#qual-4--424-any)
-- [ ] [QUAL-5 — 225 `console.*` en prod (dont routes de paiement)](#qual-5--225-console-en-prod)
+- [ ] [QUAL-5 — 225 `console.*` en prod (dont routes de paiement)](#qual-5--225-console-en-prod) ⏳ partiel 02/07/2026 : 225 → 55 (−75 %) ; restent 10 console dans `donate/*` + règle ESLint `no-console` à ajouter
 - [ ] [QUAL-6 — Double arborescence élections (`elections/` vs `elections-senegal/`)](#qual-6--double-arborescence-élections)
 
 ### 🟠 Important — SEO
 
-- [ ] [SEO-1 — 4 pages avec JSON-LD réactif sans `key` (duplication à l'hydratation)](#seo-1--json-ld-réactif-sans-key-4-pages)
+- [ ] [SEO-1 — 4 pages avec JSON-LD réactif sans `key` (duplication à l'hydratation)](#seo-1--json-ld-réactif-sans-key-4-pages) ⏳ partiel 02/07/2026 : questions ✅ (refonte `[id]/[slug]`, `key: 'ld-question'`) ; restent podcasts, médias, conseil-des-ministres
 - [ ] [SEO-2 — Contradiction robots.disallow vs sitemap sur `/projets-publics-senegal`](#seo-2--contradiction-robots-vs-sitemap)
-- [ ] [SEO-3 — Sitemap incomplet (podcasts, médias, questions, commissions, groupes)](#seo-3--sitemap-incomplet)
+- [ ] [SEO-3 — Sitemap incomplet (podcasts, médias, questions, commissions, groupes)](#seo-3--sitemap-incomplet) ⏳ partiel 02/07/2026 : votes ✅ + questions ✅ ajoutés ; restent podcasts (prioritaire), médias, commissions, groupes, carte, recrutement
 - [ ] [SEO-4 — 17 pages sans aucun meta + fichier `chat-bot/ [id].vue` avec espace](#seo-4--pages-sans-meta--fichier-avec-espace)
-- [ ] [SEO-5 — Restes du TODO SEO : WebPage réémis, marque dans title recherche.vue](#seo-5--restes-du-todo-seo)
+- [ ] [SEO-5 — Restes du TODO SEO : WebPage réémis, marque dans title recherche.vue](#seo-5--restes-du-todo-seo) ⏳ partiel 02/07/2026 : title recherche ✅ (via BING-5), WebPage questions ✅ (refonte) ; restent WebPage `actualites/[id]/[slug]` + cocher §2/§3 dans docs/seo/TODO-seo.md
 
 ### 🔎 SEO Bing — audit Bing Webmaster Tools (2 juillet 2026)
 
 - [x] [BING-1 — 🔴 Double hôte www/non-www : redirections 302/307 TEMPORAIRES + 2 sitemaps soumis (25,3K URLs découvertes pour 12,6K réelles)](#bing-1--double-hôte-wwwnon-www--redirections-temporaires) ✅ terminé 02/07/2026 (middleware 301 + Coolify + sitemaps non-www supprimés dans Bing WT) — re-mesurer les URLs découvertes sous 2-4 semaines
 - [x] [BING-2 — 617 pages avec 2 balises `<h1>` (haute gravité Bing) = fiches députés](#bing-2--617-pages-avec-2-h1--fiches-députés) ✅ corrigé 02/07/2026 (h1 sticky → `<p>`, vérifié SSR : 1 h1)
 - [x] [BING-3 — 7 417 pages « meta description trop courte » (descriptions CMS brutes des documents)](#bing-3--meta-descriptions-trop-courtes-74k-pages) ✅ corrigé 02/07/2026 (desc < 80 chars enrichie + fix « Journal Officiel officiel » ; re-mesurer dans Bing WT sous 2-3 semaines)
-- [ ] [BING-4 — 5 583 pages « meta descriptions identiques » (conséquence de BING-1 + BING-3)](#bing-4--meta-descriptions-identiques-56k-pages)
+- [x] [BING-4 — 5 583 pages « meta descriptions identiques » (conséquence de BING-1 + BING-3)](#bing-4--meta-descriptions-identiques-56k-pages) ✅ vérifié 02/07/2026 : fallback description unique dérivé du titre + enrichissement < 80 chars en place (`documents/[id]/[slug].vue:79-86`) ; re-mesurer dans Bing WT sous 2-3 semaines
 - [x] [BING-5 — `/recherche?q=*` indexable (`index, follow`) → Bing crawle des requêtes spam](#bing-5--recherche-indexable--crawl-de-requêtes-spam) ✅ corrigé 02/07/2026 (noindex,follow + hors sitemap + règle SEO §10 CLAUDE.md ; corrige aussi le title SEO-5)
 - [ ] [BING-6 — Canonical construit depuis la route (slug erroné/UTM auto-canonisés) : députés, personnalités, actualités, conseil des ministres](#bing-6--canonical-sur-slug-erroné-députés--3-autres-gabarits)
 - [ ] [BING-7 — 🔴 archives.sn duplique les documents (même backend) et capte le ranking Bing malgré le canonical vers VP — décision stratégique requise](#bing-7--archivessn-duplique-les-documents-et-capte-le-ranking-bing)
@@ -73,7 +73,7 @@
 
 - [ ] [A11Y-1 — Pas de skip link « Aller au contenu »](#a11y-1--pas-de-skip-link)
 - [ ] [A11Y-2 — `EtatTreeNode.vue` cliquable sans rôle/clavier](#a11y-2--etattreenode-non-accessible-clavier)
-- [ ] [A11Y-3 — UButton icône sans aria-label (3-4 cas)](#a11y-3--boutons-icône-sans-aria-label)
+- [ ] [A11Y-3 — UButton icône sans aria-label (3-4 cas)](#a11y-3--boutons-icône-sans-aria-label) ⏳ partiel 02/07/2026 : `documents/public.vue` ✅ (aria-label grille/liste) ; `ElectionMapD3` OK (texte visible) ; reste le bouton x-mark de `elections-senegal/dashboard/[type]/[year].vue`
 - [ ] [A11Y-4 — Contrastes `text-gray-400` sur fond clair (~40-80 cas)](#a11y-4--contrastes-text-gray-400)
 - [ ] [SEC-8 — Proxies legacy `[...path].ts` : path non encodé + buffering RAM](#sec-8--proxies-legacy-path-non-encodé--buffering-ram)
 - [ ] [SEC-9 — Divulgation de messages d'erreur (search, webhooks)](#sec-9--divulgation-de-messages-derreur)
@@ -273,7 +273,7 @@ Schémas **réactifs** (dépendant de données async) sans `key:` → duplicatio
 | `app/pages/podcasts/[id]/[slug].vue` | l. 181-189 |
 | `app/pages/medias/[id]/[slug].vue` | l. 111-120 |
 | `app/pages/conseil-des-ministres/[id]/[slug].vue` | l. 149-154 |
-| `app/pages/assemblee-nationale/questions/[id].vue` | l. 220-229 (2 nœuds) |
+| ~~`app/pages/assemblee-nationale/questions/[id].vue`~~ | ✅ corrigé 02/07/2026 — page refondue en `questions/[id]/[slug].vue` avec `key: 'ld-question'` |
 
 **Fix** : ajouter `key: 'ld-...'` unique par script. Vérif post-déploiement au test Rich Results (pas curl).
 
