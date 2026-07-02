@@ -63,16 +63,26 @@ const formattedDate = computed(() => {
 // la répéter ici (sinon « … - Vie Publique Sénégal | Vie-Publique.sn », titre trop long).
 const pageTitle = computed(() => getSafeString(document.value?.title) || 'Chargement...');
 
-// Fallback descriptif et UNIQUE quand le document n'a pas de description (sinon meta
-// générique « Document - Document officiel… » trop courte/dupliquée).
+// « Journal Officiel » contient déjà « officiel » → éviter « Journal Officiel
+// officiel de la République… » dans les descriptions générées.
+const typeDescriptor = computed(() =>
+  /officiel/i.test(typeLabel.value)
+    ? `${typeLabel.value} de la République du Sénégal`
+    : `${typeLabel.value} officiel de la République du Sénégal`,
+);
+
+// Meta description : beaucoup de descriptions CMS sont minimales (« Décrets
+// N° 2021-469 2021-497 » = 28 chars) → Bing les signale « too short » (seuil
+// constaté ~80 chars, audit BING-3). En dessous, on enrichit avec le suffixe
+// descriptif ; sans description du tout, fallback UNIQUE sur le titre (sinon
+// meta générique dupliquée sur des milliers de pages).
 const pageDescription = computed(() => {
   const desc = getSafeString(document.value?.description);
-  if (desc) return desc;
-  const t = getSafeString(document.value?.title);
+  if (desc.length >= 80) return desc;
   const d = formattedDate.value ? ` (${formattedDate.value})` : '';
-  return t
-    ? `${t} — ${typeLabel.value} officiel de la République du Sénégal${d}. À consulter et télécharger sur Vie-Publique.sn.`
-    : `${typeLabel.value} officiel de la République du Sénégal.`;
+  const suffix = `${typeDescriptor.value}${d}. À consulter et télécharger sur Vie-Publique.sn.`;
+  const base = desc || getSafeString(document.value?.title);
+  return base ? `${base} — ${suffix}` : suffix;
 });
 
 const { siteUrl, siteName, defaultImage } = useSiteMetadata();
