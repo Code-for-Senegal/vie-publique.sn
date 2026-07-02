@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
+const { siteName, siteUrl, keywords, themeColor } = useSiteMetadata();
 
 const title = "Questions écrites à l'Assemblée nationale du Sénégal | 15e législature";
 const description =
@@ -32,30 +32,7 @@ const questionsCollectionSchema = {
   },
 };
 
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: 'Accueil',
-      item: siteUrl,
-    },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: 'Assemblée nationale',
-      item: `${siteUrl}/assemblee-nationale`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 3,
-      name: 'Questions écrites',
-      item: url,
-    },
-  ],
-};
+// Breadcrumb : émis par <AppBreadcrumb> (source unique du fil d'Ariane, §7 CLAUDE.md).
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -129,18 +106,17 @@ useHead({
   ],
   script: [
     {
+      key: 'ld-collection',
       type: 'application/ld+json',
       innerHTML: JSON.stringify(questionsCollectionSchema),
     },
     {
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify(breadcrumbSchema),
-    },
-    {
+      key: 'ld-organization',
       type: 'application/ld+json',
       innerHTML: JSON.stringify(organizationSchema),
     },
     {
+      key: 'ld-government-service',
       type: 'application/ld+json',
       innerHTML: JSON.stringify(governmentServiceSchema),
     },
@@ -185,28 +161,39 @@ const formatDateISO = (date: string) => {
       <AppBreadcrumb
         :items="[
           { label: 'Assemblée nationale', to: '/assemblee-nationale' },
-          { label: 'Questions écrites' }
+          { label: 'Questions écrites' },
         ]"
       />
     </div>
 
     <!-- Sticky Header mobile -->
-    <header class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm md:relative md:border-0 md:bg-transparent md:backdrop-blur-none dark:border-gray-800 dark:bg-gray-900/95">
+    <header
+      class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95 md:relative md:border-0 md:bg-transparent md:backdrop-blur-none"
+    >
       <div class="container mx-auto px-4 py-3 md:py-6">
         <div class="flex items-center gap-3 md:justify-center">
           <!-- Back button mobile only -->
           <NuxtLink
             to="/assemblee-nationale"
-            class="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 transition-colors hover:bg-gray-200 md:hidden dark:bg-gray-800 dark:hover:bg-gray-700"
+            class="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 md:hidden"
             aria-label="Retour"
           >
-            <UIcon name="i-heroicons-arrow-left-20-solid" class="h-5 w-5 text-gray-600 dark:text-gray-300" />
+            <UIcon
+              name="i-heroicons-arrow-left-20-solid"
+              class="h-5 w-5 text-gray-600 dark:text-gray-300"
+            />
           </NuxtLink>
           <div class="min-w-0 flex-1 md:flex-none md:text-center">
-            <h1 class="text-lg font-bold text-gray-900 md:text-2xl dark:text-white" itemprop="headline">
+            <h1
+              class="text-lg font-bold text-gray-900 dark:text-white md:text-2xl"
+              itemprop="headline"
+            >
               Questions écrites
             </h1>
-            <p v-if="!loading && totalItems" class="mt-0.5 text-xs text-gray-500 md:text-sm dark:text-gray-400">
+            <p
+              v-if="!loading && totalItems"
+              class="mt-0.5 text-xs text-gray-500 dark:text-gray-400 md:text-sm"
+            >
               {{ totalItems }} questions au total
             </p>
           </div>
@@ -221,7 +208,11 @@ const formatDateISO = (date: string) => {
         <div>
           <USkeleton class="mb-3 h-5 w-40" />
           <div class="grid grid-cols-2 gap-2 md:grid-cols-4">
-            <div v-for="i in 4" :key="i" class="flex flex-col items-center rounded-xl bg-white p-4 dark:bg-gray-800">
+            <div
+              v-for="i in 4"
+              :key="i"
+              class="flex flex-col items-center rounded-xl bg-white p-4 dark:bg-gray-800"
+            >
               <USkeleton class="mb-2 h-16 w-16 rounded-full" />
               <USkeleton class="mb-1 h-3 w-20" />
               <USkeleton class="h-2 w-16" />
@@ -244,21 +235,30 @@ const formatDateISO = (date: string) => {
 
       <!-- Error State -->
       <div v-else-if="error" class="rounded-2xl bg-red-50 p-6 text-center dark:bg-red-900/20">
-        <UIcon name="i-heroicons-exclamation-triangle" class="mx-auto mb-3 h-10 w-10 text-red-500" />
+        <UIcon
+          name="i-heroicons-exclamation-triangle"
+          class="mx-auto mb-3 h-10 w-10 text-red-500"
+        />
         <h3 class="font-semibold text-red-800 dark:text-red-200">Erreur de chargement</h3>
-        <p class="mt-1 text-sm text-red-600 dark:text-red-300">Impossible de charger les questions écrites</p>
+        <p class="mt-1 text-sm text-red-600 dark:text-red-300">
+          Impossible de charger les questions écrites
+        </p>
       </div>
 
       <!-- Content -->
       <div v-else class="space-y-6">
         <!-- Top Deputies Section -->
         <section>
-          <h2 class="mb-3 text-sm font-bold text-gray-900 md:text-lg dark:text-white">
+          <h2 class="mb-3 text-sm font-bold text-gray-900 dark:text-white md:text-lg">
             Députés les plus actifs
           </h2>
 
           <div v-if="topDeputiesLoading" class="grid grid-cols-2 gap-2 md:grid-cols-4">
-            <div v-for="i in 4" :key="i" class="flex flex-col items-center rounded-xl bg-white p-4 dark:bg-gray-800">
+            <div
+              v-for="i in 4"
+              :key="i"
+              class="flex flex-col items-center rounded-xl bg-white p-4 dark:bg-gray-800"
+            >
               <USkeleton class="mb-2 h-14 w-14 rounded-full" />
               <USkeleton class="mb-1 h-3 w-20" />
               <USkeleton class="h-2 w-16" />
@@ -278,14 +278,17 @@ const formatDateISO = (date: string) => {
               v-for="(deputy, index) in topDeputies"
               :key="deputy.id"
               :to="`/assemblee-nationale/deputes/${deputy.id}/${$getSlugifyUrlPath(deputy.first_name + ' ' + deputy.last_name)}`"
-              class="group relative flex flex-col items-center rounded-xl bg-white p-3 ring-1 ring-gray-100 transition-all active:scale-[0.98] md:p-4 md:hover:ring-blue-200 md:hover:shadow-md dark:bg-gray-800 dark:ring-gray-700"
+              class="group relative flex flex-col items-center rounded-xl bg-white p-3 ring-1 ring-gray-100 transition-all active:scale-[0.98] dark:bg-gray-800 dark:ring-gray-700 md:p-4 md:hover:shadow-md md:hover:ring-blue-200"
               itemscope
               itemtype="https://schema.org/Person"
               itemprop="itemListElement"
             >
               <meta itemprop="position" :content="index + 1" />
               <meta itemprop="identifier" :content="deputy.id" />
-              <meta itemprop="url" :content="`${siteUrl}/assemblee-nationale/deputes/${deputy.id}`" />
+              <meta
+                itemprop="url"
+                :content="`${siteUrl}/assemblee-nationale/deputes/${deputy.id}`"
+              />
 
               <!-- Rank Badge -->
               <div
@@ -303,17 +306,19 @@ const formatDateISO = (date: string) => {
               <CmsImage
                 :src="deputy.photo"
                 :alt="deputy.first_name"
-                class="mb-2 h-14 w-14 rounded-full object-cover ring-2 ring-white md:h-16 md:w-16 dark:ring-gray-700"
+                class="mb-2 h-14 w-14 rounded-full object-cover ring-2 ring-white dark:ring-gray-700 md:h-16 md:w-16"
                 itemprop="image"
               />
               <div class="text-center">
-                <p class="text-xs font-medium capitalize text-gray-900 md:text-sm dark:text-white">
+                <p class="text-xs font-medium capitalize text-gray-900 dark:text-white md:text-sm">
                   <span itemprop="givenName">{{ deputy.first_name.toLowerCase() }}</span>
-                  <span class="uppercase tracking-wide" itemprop="familyName">{{ deputy.last_name }}</span>
+                  <span class="uppercase tracking-wide" itemprop="familyName">{{
+                    deputy.last_name
+                  }}</span>
                 </p>
                 <meta itemprop="name" :content="`${deputy.first_name} ${deputy.last_name}`" />
                 <meta itemprop="jobTitle" content="Député" />
-                <p class="mt-0.5 text-[10px] text-blue-900 md:text-xs dark:text-blue-400">
+                <p class="mt-0.5 text-[10px] text-blue-900 dark:text-blue-400 md:text-xs">
                   {{ deputy.questionsCount }} question{{ deputy.questionsCount > 1 ? 's' : '' }}
                 </p>
               </div>
@@ -326,7 +331,7 @@ const formatDateISO = (date: string) => {
           <meta itemprop="name" content="Questions écrites parlementaires" />
           <meta itemprop="numberOfItems" :content="totalItems" />
 
-          <h2 class="mb-3 text-sm font-bold text-gray-900 md:text-lg dark:text-white">
+          <h2 class="mb-3 text-sm font-bold text-gray-900 dark:text-white md:text-lg">
             Toutes les questions
           </h2>
 
@@ -335,18 +340,24 @@ const formatDateISO = (date: string) => {
             <NuxtLink
               v-for="(question, index) in paginatedQuestions"
               :key="question.id"
-              :to="`/assemblee-nationale/questions/${question.id}`"
-              class="group flex gap-3 rounded-xl bg-white p-3 ring-1 ring-gray-100 transition-all active:scale-[0.98] md:p-4 md:hover:ring-gray-200 md:hover:shadow-md dark:bg-gray-800 dark:ring-gray-700"
+              :to="`/assemblee-nationale/questions/${question.id}/${question.slug || 'question'}`"
+              class="group flex gap-3 rounded-xl bg-white p-3 ring-1 ring-gray-100 transition-all active:scale-[0.98] dark:bg-gray-800 dark:ring-gray-700 md:p-4 md:hover:shadow-md md:hover:ring-gray-200"
               itemscope
               itemtype="https://schema.org/Question"
               itemprop="itemListElement"
             >
               <meta itemprop="position" :content="(currentPage - 1) * itemsPerPage + index + 1" />
-              <meta itemprop="url" :content="`${siteUrl}/assemblee-nationale/questions/${question.id}`" />
+              <meta
+                itemprop="url"
+                :content="`${siteUrl}/assemblee-nationale/questions/${question.id}/${question.slug || 'question'}`"
+              />
               <meta itemprop="dateCreated" :content="formatDateISO(question.question_date)" />
 
               <div itemprop="author" itemscope itemtype="https://schema.org/Person" class="hidden">
-                <meta itemprop="name" :content="`${question.deputy.first_name} ${question.deputy.last_name}`" />
+                <meta
+                  itemprop="name"
+                  :content="`${question.deputy.first_name} ${question.deputy.last_name}`"
+                />
                 <meta itemprop="jobTitle" content="Député" />
                 <meta itemprop="image" :content="useCmsImageAbsolute(question.deputy.photo)" />
               </div>
@@ -369,12 +380,15 @@ const formatDateISO = (date: string) => {
                   {{ $dateformat(question.question_date) }}
                 </time>
                 <h3
-                  class="line-clamp-2 text-xs font-medium text-gray-900 md:text-sm dark:text-white"
+                  class="line-clamp-2 text-xs font-medium text-gray-900 dark:text-white md:text-sm"
                   itemprop="name"
                 >
                   {{ question.subject }}
                 </h3>
-                <p class="mt-0.5 text-[10px] text-blue-900 md:text-xs dark:text-blue-400" itemprop="author">
+                <p
+                  class="mt-0.5 text-[10px] text-blue-900 dark:text-blue-400 md:text-xs"
+                  itemprop="author"
+                >
                   {{ question.deputy.first_name }} {{ question.deputy.last_name }}
                 </p>
               </div>
@@ -382,7 +396,7 @@ const formatDateISO = (date: string) => {
               <!-- Arrow -->
               <UIcon
                 name="i-heroicons-chevron-right"
-                class="h-4 w-4 shrink-0 self-center text-gray-300 md:hidden dark:text-gray-600"
+                class="h-4 w-4 shrink-0 self-center text-gray-300 dark:text-gray-600 md:hidden"
               />
             </NuxtLink>
           </div>

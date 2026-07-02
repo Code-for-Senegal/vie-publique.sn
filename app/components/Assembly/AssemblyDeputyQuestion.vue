@@ -2,10 +2,10 @@
   <!-- Section Questions -->
   <section
     v-if="deputy"
-    class="rounded-2xl bg-white p-4 ring-1 ring-gray-100 md:p-6 dark:bg-gray-800 dark:ring-gray-700"
+    class="rounded-2xl bg-white p-4 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700 md:p-6"
   >
     <div class="mb-3 flex items-center justify-between">
-      <h2 class="text-sm font-bold text-gray-900 md:text-base dark:text-white">
+      <h2 class="text-sm font-bold text-gray-900 dark:text-white md:text-base">
         Questions écrites
         <span v-if="questions.length > 0" class="ml-1 text-blue-600 dark:text-blue-400">
           ({{ questions.length }})
@@ -35,10 +35,11 @@
       v-else-if="questions.length === 0"
       class="rounded-xl bg-gray-50 p-4 text-center dark:bg-gray-700/50"
     >
-      <UIcon name="i-heroicons-chat-bubble-left-right" class="mx-auto mb-2 h-8 w-8 text-gray-300 dark:text-gray-600" />
-      <p class="text-xs text-gray-500 dark:text-gray-400">
-        Aucune question référencée
-      </p>
+      <UIcon
+        name="i-heroicons-chat-bubble-left-right"
+        class="mx-auto mb-2 h-8 w-8 text-gray-300 dark:text-gray-600"
+      />
+      <p class="text-xs text-gray-500 dark:text-gray-400">Aucune question référencée</p>
     </div>
 
     <!-- Questions List -->
@@ -46,13 +47,13 @@
       <NuxtLink
         v-for="question in displayedQuestions"
         :key="question.id"
-        :to="`/assemblee-nationale/questions/${question.id}`"
-        class="group block rounded-xl bg-gray-50 p-3 transition-all active:scale-[0.99] md:hover:bg-blue-50 dark:bg-gray-700/50 dark:md:hover:bg-blue-900/20"
+        :to="`/assemblee-nationale/questions/${question.id}/${question.slug || 'question'}`"
+        class="group block rounded-xl bg-gray-50 p-3 transition-all active:scale-[0.99] dark:bg-gray-700/50 md:hover:bg-blue-50 dark:md:hover:bg-blue-900/20"
       >
         <time class="text-[10px] text-gray-400 md:text-xs">
           {{ $dateformat(question.question_date) }}
         </time>
-        <h3 class="line-clamp-2 text-xs font-medium text-gray-900 md:text-sm dark:text-white">
+        <h3 class="line-clamp-2 text-xs font-medium text-gray-900 dark:text-white md:text-sm">
           {{ question.subject }}
         </h3>
       </NuxtLink>
@@ -60,7 +61,7 @@
       <!-- Voir plus button -->
       <button
         v-if="questions.length > 3"
-        class="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-50 p-3 text-sm font-medium text-blue-700 transition-colors active:bg-blue-100 md:hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400"
+        class="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-50 p-3 text-sm font-medium text-blue-700 transition-colors active:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400 md:hover:bg-blue-100"
         @click="isModalOpen = true"
       >
         <span>Voir les {{ questions.length }} questions</span>
@@ -72,8 +73,10 @@
     <UModal v-model="isModalOpen" :ui="{ width: 'sm:max-w-lg' }">
       <div class="rounded-2xl bg-white dark:bg-gray-800">
         <!-- Modal Header -->
-        <div class="flex items-center justify-between border-b border-gray-100 p-4 dark:border-gray-700">
-          <h3 class="text-sm font-bold text-gray-900 md:text-base dark:text-white">
+        <div
+          class="flex items-center justify-between border-b border-gray-100 p-4 dark:border-gray-700"
+        >
+          <h3 class="text-sm font-bold text-gray-900 dark:text-white md:text-base">
             Questions écrites ({{ questions.length }})
           </h3>
           <button
@@ -89,14 +92,14 @@
           <NuxtLink
             v-for="question in questions"
             :key="question.id"
-            :to="`/assemblee-nationale/questions/${question.id}`"
-            class="group block rounded-xl bg-gray-50 p-3 transition-all active:scale-[0.99] md:hover:bg-blue-50 dark:bg-gray-700/50"
+            :to="`/assemblee-nationale/questions/${question.id}/${question.slug || 'question'}`"
+            class="group block rounded-xl bg-gray-50 p-3 transition-all active:scale-[0.99] dark:bg-gray-700/50 md:hover:bg-blue-50"
             @click="isModalOpen = false"
           >
             <time class="text-[10px] text-gray-400 md:text-xs">
               {{ $dateformat(question.question_date) }}
             </time>
-            <h3 class="line-clamp-2 text-xs font-medium text-gray-900 md:text-sm dark:text-white">
+            <h3 class="line-clamp-2 text-xs font-medium text-gray-900 dark:text-white md:text-sm">
               {{ question.subject }}
             </h3>
           </NuxtLink>
@@ -115,6 +118,7 @@ interface Deputy {
 interface Question {
   id: number | string;
   subject: string;
+  slug?: string;
   question_date: string;
   [key: string]: any;
 }

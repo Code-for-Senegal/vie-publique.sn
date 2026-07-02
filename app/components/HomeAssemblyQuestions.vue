@@ -22,7 +22,7 @@ const { questions, loading, error } = useAssemblyQuestions();
       <div
         v-for="n in 3"
         :key="n"
-        class="w-56 flex-shrink-0 snap-start rounded-xl bg-white p-3 shadow-sm ring-1 ring-gray-100 md:w-auto md:flex-shrink md:p-4 dark:bg-gray-800 dark:ring-gray-700/50"
+        class="w-56 flex-shrink-0 snap-start rounded-xl bg-white p-3 shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700/50 md:w-auto md:flex-shrink md:p-4"
       >
         <div class="flex items-center gap-2.5">
           <USkeleton class="h-9 w-9 flex-shrink-0 rounded-full md:h-10 md:w-10" />
@@ -61,9 +61,9 @@ const { questions, loading, error } = useAssemblyQuestions();
           class="w-56 flex-shrink-0 snap-start md:w-auto md:flex-shrink"
         >
           <NuxtLink
-            :to="`/assemblee-nationale/questions/${question.id}`"
+            :to="`/assemblee-nationale/questions/${question.id}/${question.slug || 'question'}`"
             :aria-label="`Voir la question de ${question.deputy.first_name} ${question.deputy.last_name}`"
-            class="block h-full rounded-xl bg-white p-3 shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.98] md:p-4 md:hover:shadow-md dark:bg-gray-800 dark:ring-gray-700/50"
+            class="block h-full rounded-xl bg-white p-3 shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.98] dark:bg-gray-800 dark:ring-gray-700/50 md:p-4 md:hover:shadow-md"
           >
             <!-- Deputy header -->
             <div class="flex items-center gap-2.5">
@@ -75,17 +75,21 @@ const { questions, loading, error } = useAssemblyQuestions();
                 class="h-9 w-9 flex-shrink-0 rounded-full object-cover md:h-10 md:w-10"
               />
               <div class="min-w-0 flex-1">
-                <p class="truncate text-[13px] font-semibold text-gray-900 md:text-sm dark:text-white">
+                <p
+                  class="truncate text-[13px] font-semibold text-gray-900 dark:text-white md:text-sm"
+                >
                   {{ question.deputy.first_name }} {{ question.deputy.last_name }}
                 </p>
-                <p class="text-[11px] text-gray-500 md:text-xs dark:text-gray-400">
+                <p class="text-[11px] text-gray-500 dark:text-gray-400 md:text-xs">
                   {{ $dateformat(question.question_date) }}
                 </p>
               </div>
             </div>
 
             <!-- Subject - fixed height with line-clamp -->
-            <p class="mt-2.5 line-clamp-3 min-h-[3.5rem] text-[12px] leading-relaxed text-gray-600 md:mt-3 md:min-h-[4rem] md:text-sm dark:text-gray-300">
+            <p
+              class="mt-2.5 line-clamp-3 min-h-[3.5rem] text-[12px] leading-relaxed text-gray-600 dark:text-gray-300 md:mt-3 md:min-h-[4rem] md:text-sm"
+            >
               {{ question.subject }}
             </p>
           </NuxtLink>
@@ -108,10 +112,7 @@ const { questions, loading, error } = useAssemblyQuestions();
     </div>
 
     <!-- Empty state -->
-    <div
-      v-else
-      class="py-8 text-center text-sm text-gray-500 dark:text-gray-400"
-    >
+    <div v-else class="py-8 text-center text-sm text-gray-500 dark:text-gray-400">
       Aucune question disponible pour le moment
     </div>
   </section>

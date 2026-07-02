@@ -1,18 +1,15 @@
+<!-- pages/assemblee-nationale/questions/[id]/[slug].vue -->
 <script setup lang="ts">
-const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
+const { siteName, siteUrl, defaultImage, themeColor } = useSiteMetadata();
 
 const route = useRoute();
-const config = useRuntimeConfig();
+const id = computed(() => route.params.id as string);
 
-// ✅ Nouvelle architecture : useCmsCollection avec mode détail (id)
-// Plus besoin de onMounted ni de fetchById
-const { question, loading, error } = useAssemblyQuestions({
-  id: computed(() => route.params.id as string),
-});
+const { question, loading, error } = useAssemblyQuestions({ id });
 
-// Helpers de date — déclarés AVANT les computed/schemas qui les utilisent (sinon TDZ :
-// @unhead évalue les getters useSeoMeta/useHead à l'hydratation avant l'init → 500).
-const formatDate = (date: string) => {
+// ── Helpers (déclarés avant tout computed/getter SEO — anti-TDZ, cf. CLAUDE.md) ──
+const formatDate = (date?: string | null) => {
+  if (!date) return '';
   return new Date(date).toLocaleDateString('fr-FR', {
     year: 'numeric',
     month: 'long',
@@ -20,40 +17,53 @@ const formatDate = (date: string) => {
   });
 };
 
-const formatDateISO = (date: string) => {
-  return new Date(date).toISOString();
+const formatDateISO = (date?: string | null) => {
+  if (!date) return undefined;
+  const d = new Date(date);
+  return isNaN(d.getTime()) ? undefined : d.toISOString();
 };
 
+const stripHtml = (html?: string | null) =>
+  (html || '')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+const truncate = (text: string, max = 160) =>
+  text.length > max ? `${text.slice(0, max - 1).trimEnd()}…` : text;
+
 const questionFullName = computed(() => {
-  if (!question.value) return '';
+  if (!question.value?.deputy) return '';
   return `${question.value.deputy.first_name} ${question.value.deputy.last_name}`;
 });
 
-const title = computed(() => {
-  if (!question.value) return 'Chargement...';
-  return `${question.value.subject} | Question écrite de ${questionFullName.value}`;
-});
+// ── SEO ──────────────────────────────────────────────────────────────
+const canonicalSlug = computed(
+  () => question.value?.slug || (route.params.slug as string) || 'question',
+);
+const url = computed(
+  () => `${siteUrl}/assemblee-nationale/questions/${id.value}/${canonicalSlug.value}`,
+);
+
+const title = computed(() =>
+  question.value?.subject
+    ? question.value.subject
+    : "Question écrite à l'Assemblée nationale du Sénégal",
+);
 
 const description = computed(() => {
-  if (!question.value) return '';
-  // Extraire du texte brut du contenu HTML
-  const plainText = question.value.question_text?.replace(/<[^>]*>/g, '') || question.value.subject;
-  const excerpt = plainText.length > 160 ? plainText.substring(0, 157) + '...' : plainText;
-  return `Question écrite posée par ${questionFullName.value} le ${formatDate(question.value.question_date)}. ${excerpt}`;
-});
-
-const url = computed(() => {
-  if (!route.params.id) return siteUrl;
-  return `${siteUrl}/assemblee-nationale/questions/${route.params.id}`;
+  if (!question.value) return "Question écrite d'un député de l'Assemblée nationale du Sénégal.";
+  const excerpt = stripHtml(question.value.question_text) || question.value.subject;
+  return truncate(
+    `Question écrite posée par ${questionFullName.value} le ${formatDate(question.value.question_date)}. ${excerpt}`,
+  );
 });
 
 // Pré-extraire siteUrl pour éviter d'appeler useSiteMetadata dans un computed
 const cmsImageBase = `${siteUrl}/cms`;
 
 const image = computed(() => {
-  if (!question.value) return defaultImage;
-  if (!question.value.deputy.photo) return defaultImage;
-  // Construction manuelle de l'URL absolue pour éviter l'appel de composable dans computed
+  if (!question.value?.deputy?.photo) return defaultImage;
   const photo = question.value.deputy.photo;
   if (photo.startsWith('http://') || photo.startsWith('https://')) return photo;
   if (photo.startsWith('/')) return `${siteUrl}${photo}`;
@@ -67,26 +77,31 @@ const questionSchema = computed(() => {
     '@context': 'https://schema.org',
     '@type': 'Question',
     name: question.value.subject,
-    text: question.value.question_text?.replace(/<[^>]*>/g, '') || question.value.subject,
-    dateCreated: formatDateISO(question.value.question_date),
+    text: stripHtml(question.value.question_text) || question.value.subject,
+    ...(formatDateISO(question.value.question_date) && {
+      dateCreated: formatDateISO(question.value.question_date),
+    }),
     url: url.value,
-    author: {
-      '@type': 'Person',
-      name: questionFullName.value,
-      givenName: question.value.deputy.first_name,
-      familyName: question.value.deputy.last_name,
-      jobTitle: 'Député',
-      image: question.value.deputy.photo
-        ? question.value.deputy.photo.startsWith('http')
-          ? question.value.deputy.photo
-          : `${cmsImageBase}/${question.value.deputy.photo}`
-        : undefined,
-      worksFor: {
-        '@type': 'GovernmentOrganization',
-        name: 'Assemblée nationale du Sénégal',
-        url: `${siteUrl}/assemblee-nationale`,
+    inLanguage: 'fr-SN',
+    ...(question.value.deputy && {
+      author: {
+        '@type': 'Person',
+        name: questionFullName.value,
+        givenName: question.value.deputy.first_name,
+        familyName: question.value.deputy.last_name,
+        jobTitle: 'Député',
+        ...(question.value.deputy.photo && {
+          image: question.value.deputy.photo.startsWith('http')
+            ? question.value.deputy.photo
+            : `${cmsImageBase}/${question.value.deputy.photo}`,
+        }),
+        worksFor: {
+          '@type': 'GovernmentOrganization',
+          name: 'Assemblée nationale du Sénégal',
+          url: `${siteUrl}/assemblee-nationale`,
+        },
       },
-    },
+    }),
     about: {
       '@type': 'GovernmentOrganization',
       name: 'Gouvernement du Sénégal',
@@ -96,37 +111,53 @@ const questionSchema = computed(() => {
       name: 'Questions écrites parlementaires',
       url: `${siteUrl}/assemblee-nationale/questions`,
     },
-    mainEntity: {
-      '@type': 'GovernmentOrganization',
-      name: 'Assemblée nationale du Sénégal',
-    },
   };
+});
+
+useSeoMeta({
+  title: () => title.value,
+  ogTitle: () => title.value,
+  description: () => description.value,
+  ogDescription: () => description.value,
+  ogImage: () => image.value,
+  ogUrl: () => url.value,
+  ogType: 'article',
+  twitterCard: 'summary_large_image',
+  twitterTitle: () => title.value,
+  twitterDescription: () => description.value,
+  twitterImage: () => image.value,
+});
+
+useHead({
+  htmlAttrs: { lang: 'fr-SN' },
+  link: () => [{ rel: 'canonical', href: url.value }],
+  meta: [
+    { name: 'robots', content: 'index, follow' },
+    { name: 'theme-color', content: themeColor },
+    { name: 'author', content: () => questionFullName.value || siteName },
+    { property: 'og:site_name', content: siteName },
+    { property: 'og:locale', content: 'fr_SN' },
+    {
+      property: 'article:published_time',
+      content: () => (question.value && formatDateISO(question.value.question_date)) || '',
+    },
+    { property: 'article:author', content: () => questionFullName.value },
+    { property: 'article:section', content: 'Questions parlementaires' },
+  ],
+  script: computed(() =>
+    questionSchema.value
+      ? [
+          {
+            key: 'ld-question',
+            type: 'application/ld+json',
+            innerHTML: JSON.stringify(questionSchema.value),
+          },
+        ]
+      : [],
+  ),
 });
 
 // Breadcrumb : émis par <AppBreadcrumb> (source unique du fil d'Ariane, §7 CLAUDE.md).
-
-const webPageSchema = computed(() => {
-  if (!question.value) return null;
-
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: title.value,
-    description: description.value,
-    url: url.value,
-    image: image.value,
-    isPartOf: {
-      '@type': 'WebSite',
-      name: siteName,
-      url: siteUrl,
-    },
-    about: {
-      '@type': 'GovernmentOrganization',
-      name: 'Assemblée nationale du Sénégal',
-    },
-    mainEntity: questionSchema.value,
-  };
-});
 
 // Helper functions
 const getImageUrl = (imageId: string) => {
@@ -170,74 +201,10 @@ const openPdf = (attachment: { id?: string; filename?: string }) => {
   activePdf.value = { src, title: attachment.filename || 'Document PDF' };
   showPdfViewer.value = true;
 };
-
-// SEO Setup
-useSeoMeta({
-  title: () => title.value,
-  ogTitle: () => title.value,
-  description: () => description.value,
-  ogDescription: () => description.value,
-  ogImage: () => image.value,
-  ogUrl: () => url.value,
-  twitterCard: 'summary_large_image',
-  twitterTitle: () => title.value,
-  twitterDescription: () => description.value,
-  twitterImage: () => image.value,
-  keywords: () =>
-    [
-      ...keywords,
-      `${questionFullName.value}`,
-      'question écrite',
-      'député Sénégal',
-      'Assemblée nationale Sénégal',
-      'contrôle parlementaire',
-      question.value?.subject || '',
-    ]
-      .filter(Boolean)
-      .join(', '),
-});
-
-useHead({
-  htmlAttrs: { lang: 'fr-SN' },
-  link: () => [{ rel: 'canonical', href: url.value }],
-  meta: [
-    { name: 'theme-color', content: themeColor },
-    { name: 'author', content: () => questionFullName.value },
-    { property: 'og:type', content: 'article' },
-    { property: 'og:site_name', content: siteName },
-    {
-      property: 'article:published_time',
-      content: () => (question.value ? formatDateISO(question.value.question_date) : ''),
-    },
-    { property: 'article:author', content: () => questionFullName.value },
-    { property: 'article:section', content: 'Questions parlementaires' },
-    { name: 'robots', content: 'index, follow' },
-    { name: 'geo.region', content: 'SN' },
-    { name: 'geo.placename', content: 'Dakar' },
-    { name: 'geo.position', content: '14.7645042;-17.3660286' },
-    { name: 'ICBM', content: '14.7645042, -17.3660286' },
-  ],
-  script: () => [
-    {
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify(questionSchema.value),
-    },
-    {
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify(webPageSchema.value),
-    },
-  ],
-});
-
-// ✅ Plus besoin de onMounted : les données sont chargées automatiquement via SSR
 </script>
 
 <template>
-  <div
-    class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-900"
-    itemscope
-    itemtype="https://schema.org/WebPage"
-  >
+  <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-900">
     <!-- Breadcrumb -->
     <div class="container mx-auto px-4 pt-4">
       <AppBreadcrumb
@@ -249,7 +216,7 @@ useHead({
       />
     </div>
 
-    <!-- Sticky Header mobile -->
+    <!-- Sticky Header mobile (titre de nav en <p>, le h1 est le sujet de la question) -->
     <header
       class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95 md:relative md:border-0 md:bg-transparent md:backdrop-blur-none"
     >
@@ -262,9 +229,9 @@ useHead({
             <UIcon name="i-heroicons-arrow-left" class="h-4 w-4 text-gray-600 dark:text-gray-400" />
           </NuxtLink>
           <div class="min-w-0 flex-1">
-            <h1 class="truncate text-sm font-semibold text-gray-900 dark:text-white md:text-lg">
+            <p class="truncate text-sm font-semibold text-gray-900 dark:text-white md:text-lg">
               Question écrite
-            </h1>
+            </p>
           </div>
           <SocialShare v-if="question" :title="question.subject" :url="url" />
         </div>
@@ -306,37 +273,7 @@ useHead({
       </div>
 
       <!-- Content -->
-      <article
-        v-else-if="question"
-        itemscope
-        itemtype="https://schema.org/Question"
-        itemprop="mainEntity"
-      >
-        <!-- Schema.org hidden metadata -->
-        <div class="hidden">
-          <meta itemprop="url" :content="url" />
-          <meta itemprop="dateCreated" :content="formatDateISO(question.question_date)" />
-          <meta itemprop="name" :content="question.subject" />
-          <div itemprop="author" itemscope itemtype="https://schema.org/Person">
-            <meta itemprop="name" :content="questionFullName" />
-            <meta itemprop="givenName" :content="question.deputy.first_name" />
-            <meta itemprop="familyName" :content="question.deputy.last_name" />
-            <meta itemprop="jobTitle" content="Député" />
-            <meta itemprop="image" :content="getImageUrl(question.deputy.photo)" />
-            <div itemprop="worksFor" itemscope itemtype="https://schema.org/GovernmentOrganization">
-              <meta itemprop="name" content="Assemblée nationale du Sénégal" />
-              <meta itemprop="url" :content="`${siteUrl}/assemblee-nationale`" />
-            </div>
-          </div>
-          <div itemprop="about" itemscope itemtype="https://schema.org/GovernmentOrganization">
-            <meta itemprop="name" content="Gouvernement du Sénégal" />
-          </div>
-          <div itemprop="isPartOf" itemscope itemtype="https://schema.org/CollectionPage">
-            <meta itemprop="name" content="Questions écrites parlementaires" />
-            <meta itemprop="url" :content="`${siteUrl}/assemblee-nationale/questions`" />
-          </div>
-        </div>
-
+      <article v-else-if="question">
         <!-- Deputy Card -->
         <NuxtLink
           :to="`/assemblee-nationale/deputes/${question.deputy.id}/${$getSlugifyUrlPath(question.deputy.first_name + ' ' + question.deputy.last_name)}`"
@@ -365,16 +302,12 @@ useHead({
         <div
           class="rounded-2xl bg-white p-4 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700 md:p-6"
         >
-          <h2
-            class="mb-4 text-lg font-bold text-gray-900 dark:text-white md:text-xl"
-            itemprop="name"
-          >
+          <h1 class="mb-4 text-lg font-bold text-gray-900 dark:text-white md:text-xl">
             {{ question.subject }}
-          </h2>
+          </h1>
 
           <div
             class="prose prose-sm prose-gray max-w-none prose-p:text-gray-600 prose-strong:text-gray-900 prose-li:text-gray-600 dark:prose-headings:text-white dark:prose-p:text-gray-300 dark:prose-strong:text-white dark:prose-li:text-gray-300"
-            itemprop="text"
             v-html="question.question_text"
           ></div>
         </div>
@@ -384,22 +317,18 @@ useHead({
           v-if="question.attachments && question.attachments.length > 0"
           class="mt-4 rounded-2xl bg-white p-4 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700 md:p-6"
         >
-          <h3 class="mb-3 text-sm font-bold text-gray-900 dark:text-white md:text-base">
+          <h2 class="mb-3 text-sm font-bold text-gray-900 dark:text-white md:text-base">
             Documents joints
-          </h3>
+          </h2>
           <div class="space-y-6">
             <template v-for="attachment in question.attachments" :key="attachment.id">
-              <div v-if="attachment.id" itemscope itemtype="https://schema.org/MediaObject">
-                <meta itemprop="contentUrl" :content="getFileUrl(attachment)" />
-                <meta itemprop="encodingFormat" :content="attachment.type" />
-
+              <div v-if="attachment.id">
                 <!-- Image attachments -->
                 <img
                   v-if="isImageFile(attachment.type)"
                   :src="getImageUrl(attachment.id)"
                   alt="Document joint"
                   class="h-auto w-full rounded-xl ring-1 ring-gray-200 dark:ring-gray-700"
-                  itemprop="contentUrl"
                 />
 
                 <!-- PDF attachments : barre d'actions + viewer inline -->

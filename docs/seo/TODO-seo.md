@@ -12,8 +12,8 @@ Organization) auto-dérivé de la route. Plusieurs pages réémettent un breadcr
 **À faire** : retirer, sur les pages détail, le `breadcrumbSchema` par page (et les
 `webPageSchema`) injectés via `useHead` — ne garder que le **nœud d'entité** (Article, NewsArticle,
 Person, FAQPage…). Pages concernées (non exhaustif) : `actualites/[id]`, `conseil-des-ministres/[id]`,
-`personnalites/[id]`, `documents/[id]`, `etat-senegal/[slug]`, `assemblee-nationale/questions/[id]`…
-(les dossiers sont déjà faits).
+`personnalites/[id]`, `documents/[id]`, `etat-senegal/[slug]`…
+(les dossiers et `assemblee-nationale/questions` — liste + détail — sont déjà faits).
 
 > Cf. CLAUDE.md § SEO règle 7.
 
@@ -37,6 +37,13 @@ réactifs, + éventuellement un nœud JSON-LD adapté. (Vérifier aussi `useSeoM
 ---
 
 ## Déjà fait (pour mémoire)
+
+- **Questions écrites** (juil. 2026) : migration `/questions/:id` → `/questions/:id/:slug`
+  (slug CMS + fallback serveur, redirection 301 via `[id]/index.vue`), sitemap (fiches),
+  h1 = sujet de la question (barre mobile → `<p>`), JSON-LD `Question` avec `key`
+  (retrait `WebPage` + breadcrumb doublon), title sans suffixe manuel, caches bumpés v2
+  (`assembly-questions`, `assembly-question-detail`, `assembly-latest-questions`,
+  `assembly-deputy-questions`). Modèle : migration votes (commit `84e618d`).
 - JSON-LD `children` → `innerHTML` sur ~36 pages (sinon script vide en @unhead v2).
 - 500 SSR `/actualites/[id]` (`useCmsImageAbsolute` dans un getter) → `useCmsImage` + `siteUrl`.
 - **Un seul `<h1>`** sur toutes les pages (barres d'en-tête mobile → `<p>`).

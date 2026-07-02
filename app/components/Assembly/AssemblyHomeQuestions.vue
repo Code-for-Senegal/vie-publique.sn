@@ -3,7 +3,7 @@
     <NuxtLink
       v-for="question in questions?.slice(0, 3)"
       :key="question.id"
-      :to="`/assemblee-nationale/questions/${question.id}`"
+      :to="`/assemblee-nationale/questions/${question.id}/${question.slug || 'question'}`"
       class="block rounded-lg bg-gray-50 p-2 transition hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600"
     >
       <div class="flex items-center gap-3">

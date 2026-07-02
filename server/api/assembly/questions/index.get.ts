@@ -1,4 +1,4 @@
-import { readItems, aggregate } from "@directus/sdk";
+import { readItems, aggregate } from '@directus/sdk';
 
 interface TopDeputy {
   id: string;
@@ -10,15 +10,14 @@ interface TopDeputy {
 
 export default defineCachedEventHandler(
   async (event) => {
-
     // Récupération des paramètres de requête
     const query = getQuery(event);
     const page = parseInt(query.page as string) || 1;
     const limit = parseInt(query.limit as string) || 50;
     const search = query.search as string;
-    const sortBy = (query.sortBy as string) || "-question_date";
+    const sortBy = (query.sortBy as string) || '-question_date';
     const filterStatus = query.filterStatus as string;
-    const includeStats = query.includeStats === "true";
+    const includeStats = query.includeStats === 'true';
     const topDeputiesLimit = parseInt(query.topDeputiesLimit as string) || 4;
 
     try {
@@ -27,7 +26,7 @@ export default defineCachedEventHandler(
       // Construction du filtre dynamique
       const filter: any = {
         status: {
-          _eq: filterStatus || "published",
+          _eq: filterStatus || 'published',
         },
       };
 
@@ -53,18 +52,19 @@ export default defineCachedEventHandler(
       // Récupération des questions avec pagination
       const questionData = await directus
         .request(
-          readItems("assembly_question", {
+          readItems('assembly_question', {
             fields: [
-              "id",
-              "subject",
-              "question_date",
-              "status",
-              "deputy.id",
-              "deputy.first_name",
-              "deputy.last_name",
-              "deputy.photo",
-              "deputy.group.name",
-              "deputy.group.color",
+              'id',
+              'subject',
+              'slug',
+              'question_date',
+              'status',
+              'deputy.id',
+              'deputy.first_name',
+              'deputy.last_name',
+              'deputy.photo',
+              'deputy.group.name',
+              'deputy.group.color',
             ],
             filter,
             limit,
@@ -75,16 +75,16 @@ export default defineCachedEventHandler(
         .catch((error) => {
           throw createError({
             statusCode: error.errors?.[0]?.extensions?.code || 500,
-            message: error.errors?.[0]?.message || "Erreur interne du serveur",
+            message: error.errors?.[0]?.message || 'Erreur interne du serveur',
           });
         });
 
       // Récupération du total de questions avec aggregate()
       const [totalCountResult] = await directus.request(
-        aggregate("assembly_question", {
-          aggregate: { count: "*" },
+        aggregate('assembly_question', {
+          aggregate: { count: '*' },
           query: { filter },
-        })
+        }),
       );
       const totalCount = Number(totalCountResult?.count || questionData.length);
 
@@ -92,6 +92,10 @@ export default defineCachedEventHandler(
       const transformedQuestions = questionData.map((question) => ({
         id: question.id,
         subject: question.subject,
+        // Slug SEO : celui du CMS s'il existe, sinon généré depuis le sujet.
+        slug:
+          (question as any).slug ||
+          generateSlugFromName(question.subject || `question-${question.id}`),
         question_date: question.question_date || null,
         status: question.status,
         deputy: question.deputy
@@ -110,19 +114,14 @@ export default defineCachedEventHandler(
       if (includeStats) {
         // Récupérer toutes les questions pour calculer les stats
         const allQuestionsForStats = await directus.request(
-          readItems("assembly_question", {
-            fields: [
-              "deputy.id",
-              "deputy.first_name",
-              "deputy.last_name",
-              "deputy.photo",
-            ],
+          readItems('assembly_question', {
+            fields: ['deputy.id', 'deputy.first_name', 'deputy.last_name', 'deputy.photo'],
             filter: {
-              status: { _eq: "published" },
+              status: { _eq: 'published' },
               deputy: { _nnull: true },
             },
             limit: -1,
-          })
+          }),
         );
 
         // Agrégation des questions par député
@@ -136,8 +135,8 @@ export default defineCachedEventHandler(
           } else {
             deputyStats.set(deputyId, {
               id: deputyId,
-              first_name: question.deputy.first_name || "",
-              last_name: question.deputy.last_name || "",
+              first_name: question.deputy.first_name || '',
+              last_name: question.deputy.last_name || '',
               photo: question.deputy.photo || null,
               questionsCount: 1,
             });
@@ -165,13 +164,13 @@ export default defineCachedEventHandler(
       throw createError({
         statusCode: 500,
         statusMessage:
-          "Une erreur est survenue lors de la récupération des questions parlementaires",
+          'Une erreur est survenue lors de la récupération des questions parlementaires',
       });
     }
   },
   {
     maxAge: 60 * 60, // 1 heure
-    name: "assembly-questions",
-    getKey: (event) => buildCacheKey("assembly-questions", getQuery(event)),
+    name: 'assembly-questions-v2',
+    getKey: (event) => buildCacheKey('assembly-questions', getQuery(event)),
   },
 );

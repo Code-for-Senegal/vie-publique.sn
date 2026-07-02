@@ -387,6 +387,35 @@ export default defineSitemapEventHandler(async () => {
       console.warn('Erreur sitemap votes assemblée:', sitemapError);
     }
 
+    // 7f. Questions écrites de l'Assemblée nationale
+    try {
+      const questions = await directus.request(
+        readItems('assembly_question', {
+          fields: ['id', 'subject', 'slug', 'question_date', 'date_updated'],
+          filter: {
+            status: { _eq: 'published' },
+          },
+          limit: -1,
+          sort: ['-question_date'],
+        }),
+      );
+
+      for (const question of questions as any[]) {
+        if (!question.id) continue;
+        const slug =
+          question.slug || generateSlugFromName(question.subject || `question-${question.id}`);
+        const lastmod = toISODate(question.date_updated) || toISODate(question.question_date);
+        urls.push({
+          loc: `/assemblee-nationale/questions/${question.id}/${slug}`,
+          ...(lastmod && { lastmod }),
+          changefreq: 'monthly',
+          priority: 0.6,
+        });
+      }
+    } catch (sitemapError) {
+      console.warn('Erreur sitemap questions assemblée:', sitemapError);
+    }
+
     // 8. Pages détail Budget (entités publiques : ministères et institutions)
     try {
       const budgetEntities = await directus.request(

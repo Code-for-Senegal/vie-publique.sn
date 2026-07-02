@@ -92,6 +92,7 @@ export interface AssemblyOfficeMember {
 export interface AssemblyQuestion {
   id: string;
   subject: string;
+  slug?: string;
   question_text?: string | null;
   question_date?: string | null;
   status: 'draft' | 'published' | 'answered';
