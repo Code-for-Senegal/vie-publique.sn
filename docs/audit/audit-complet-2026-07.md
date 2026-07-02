@@ -58,7 +58,7 @@
 - [x] [BING-3 — 7 417 pages « meta description trop courte » (descriptions CMS brutes des documents)](#bing-3--meta-descriptions-trop-courtes-74k-pages) ✅ corrigé 02/07/2026 (desc < 80 chars enrichie + fix « Journal Officiel officiel » ; re-mesurer dans Bing WT sous 2-3 semaines)
 - [ ] [BING-4 — 5 583 pages « meta descriptions identiques » (conséquence de BING-1 + BING-3)](#bing-4--meta-descriptions-identiques-56k-pages)
 - [x] [BING-5 — `/recherche?q=*` indexable (`index, follow`) → Bing crawle des requêtes spam](#bing-5--recherche-indexable--crawl-de-requêtes-spam) ✅ corrigé 02/07/2026 (noindex,follow + hors sitemap + règle SEO §10 CLAUDE.md ; corrige aussi le title SEO-5)
-- [ ] [BING-6 — Canonical fiche député reflète un slug erroné (duplicats auto-canonisés)](#bing-6--canonical-député-sur-slug-erroné)
+- [ ] [BING-6 — Canonical construit depuis la route (slug erroné/UTM auto-canonisés) : députés, personnalités, actualités, conseil des ministres](#bing-6--canonical-sur-slug-erroné-députés--3-autres-gabarits)
 - [ ] [BING-7 — 🔴 archives.sn duplique les documents (même backend) et capte le ranking Bing malgré le canonical vers VP — décision stratégique requise](#bing-7--archivessn-duplique-les-documents-et-capte-le-ranking-bing)
 
 ### 🟠 Important — Docs / CI / Hygiène
@@ -377,11 +377,24 @@ Site Explorer montre que Bing crawle massivement des URLs `/recherche?q=…` **s
 
 **Fix** : ajouter dans `recherche.vue` : `useHead({ meta: [{ name: 'robots', content: 'noindex, follow' }] })` (pattern noindex déjà utilisé ailleurs). **Ne PAS** mettre `/recherche` en `robots.disallow` (Bing doit pouvoir crawler pour voir le noindex). Retirer `/recherche` du sitemap.
 
-### BING-6 — Canonical député sur slug erroné
+### BING-6 — Canonical sur slug erroné (députés + 3 autres gabarits)
 
-`/assemblee-nationale/deputes/12/abdou-mbow` sert la fiche de **Maimouna Bousso** (l'id prime, le slug est ignoré) et le canonical **reflète le slug erroné** au lieu du slug réel → chaque variante d'URL s'auto-canonise = duplicats indexables à l'infini. Les pages documents font le bon pattern (canonical recalculé depuis les données : `/documents/442/nimporte-quoi` → canonical `/documents/442/code-marches-publics`).
+`/assemblee-nationale/deputes/12/abdou-mbow` sert la fiche de **Maimouna Bousso** (l'id prime, le slug est ignoré) et le canonical **reflète le slug erroné** au lieu du slug réel → chaque variante d'URL s'auto-canonise = duplicats indexables.
 
-**Fix** : sur `deputes/[id]/[name].vue`, construire le canonical (et `og:url`) à partir du **slug dérivé des données** (`full_name` slugifié), pas de `route.path` — ou rediriger 301 vers le bon slug comme le font les documents.
+**Périmètre réel (vérifié dans le code, 02/07/2026)** — le canonical est construit depuis la route au lieu des données sur **4 gabarits** :
+
+| Page | Source du canonical | Gravité |
+| --- | --- | --- |
+| `deputes/[id]/[name].vue:173` | `route.fullPath` | **La pire** : inclut même la **query string** → chaque `?utm_source=…` d'un partage social devient sa propre URL canonique |
+| `personnalites/[id]/[slug].vue:55` | `route.params.slug` | slug erroné écho |
+| `actualites/[id]/[slug].vue:53` | `route.params.slug` | slug erroné écho |
+| `conseil-des-ministres/[id]/[slug].vue:33` | `route.params.slug` | slug erroné écho |
+
+✅ Bons patterns existants (canonical depuis les **données**) : `documents/[id]/[slug].vue` (`document.value.slug`) et `votes/[id]/[slug].vue` (`vote.value?.slug`) — modèles à répliquer. ⚠️ La refonte questions en cours doit appliquer ce pattern d'emblée.
+
+**Gravité réelle : moyenne-basse mais pas théorique.** Le déclencheur naturel : un titre modifié dans le CMS change le slug → l'ancienne URL indexée continue de répondre 200 en s'auto-canonisant = 2 copies indexées qui se cannibalisent. Plus les variantes UTM sur les députés (partages sociaux). Ce n'est PAS la cause du problème Bing actuel (c'était BING-1/7) — fix d'hygiène à faible coût, pas urgent.
+
+**Fix** : sur les 4 pages, construire `url` à partir du **slug dérivé des données** (entité slugifiée), pas de `route.params`/`route.fullPath` — modèle : `documents/[id]/[slug].vue`.
 
 ### BING-7 — archives.sn duplique les documents et capte le ranking Bing
 
