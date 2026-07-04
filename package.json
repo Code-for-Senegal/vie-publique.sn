@@ -9,7 +9,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
-    "start": "echo '========================================' && echo '🚀 Démarrage serveur Nuxt/Nitro' && echo 'HOST:' $HOST && echo 'PORT:' $PORT && echo 'NODE_ENV:' $NODE_ENV && echo '========================================' && HOST=0.0.0.0 PORT=3000 node .output/server/index.mjs",
+    "start": "node .output/server/index.mjs",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
