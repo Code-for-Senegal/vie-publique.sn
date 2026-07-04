@@ -192,21 +192,19 @@ const { isFeatureEnabled } = useFeatureFlags();
       <div class="my-8">
         <HomeFeaturedDocuments />
       </div>
-
+      <div class="my-8">
+        <HomeNews />
+      </div>
       <div v-if="isFeatureEnabled('menu_dossiers')" class="my-8">
         <HomeDossiers />
-      </div>
-
-      <div v-if="isFeatureEnabled('menu_organigramme_etat')" class="my-8">
-        <HomeEtatOrganisation />
       </div>
 
       <div class="my-8">
         <HomeGovernmentHighlight />
       </div>
 
-      <div class="my-8">
-        <HomeNews />
+      <div v-if="isFeatureEnabled('menu_organigramme_etat')" class="my-8">
+        <HomeEtatOrganisation />
       </div>
 
       <div class="my-8">

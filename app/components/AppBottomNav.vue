@@ -64,25 +64,68 @@ const isActiveTab = (tab: Tab) => tab.name === activeTabName.value
   padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
-/* ── Glass container ── */
+/* ── Glass container (Liquid Glass optique) ── */
 .glass-nav {
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(12px) saturate(150%);
-  -webkit-backdrop-filter: blur(12px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  /* dark : le verre laisse vivre les couleurs derrière, teinte très légère */
+  background: rgba(15, 23, 42, 0.13);
+  backdrop-filter: blur(33px) saturate(200%) contrast(110%) brightness(105%);
+  -webkit-backdrop-filter: blur(33px) saturate(200%) contrast(110%) brightness(105%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  /* ombre externe très diffuse — profondeur, pas de halo/glow blanc */
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.03);
+    0 8px 30px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* reflet optique supérieur */
+.glass-nav::before {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.28),
+    rgba(255, 255, 255, 0.05) 35%,
+    transparent 70%
+  );
+  opacity: 0.28;
+}
+
+/* profondeur — dégradé radial très léger, ne blanchit pas l'ensemble */
+.glass-nav::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(
+    120% 100% at 50% 0%,
+    rgba(255, 255, 255, 0.06),
+    transparent 60%
+  );
 }
 
 :root:not(.dark) .glass-nav {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(12px) saturate(150%);
-  -webkit-backdrop-filter: blur(12px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.45);
+  /* opacité réduite ~40% : le verre disparaît presque sur fond clair (cf. Apple Podcasts) */
+  background: rgba(255, 255, 255, 0.065);
+  backdrop-filter: blur(33px) saturate(205%) contrast(108%) brightness(106%);
+  -webkit-backdrop-filter: blur(33px) saturate(205%) contrast(108%) brightness(106%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.15);
+    0 8px 30px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+/* reflet supérieur discret en light */
+:root:not(.dark) .glass-nav::before {
+  opacity: 0.5;
 }
 
 /* ── Nav items (dark mode - blanc pur) ── */
@@ -91,23 +134,56 @@ const isActiveTab = (tab: Tab) => tab.name === activeTabName.value
   color: #ffffff;
   -webkit-tap-highlight-color: transparent;
   text-decoration: none;
+  /* transition douce du matériau vivant (couleur icône + texte) */
+  transition:
+    color 250ms ease,
+    transform 250ms ease;
 }
 
-.nav-item:hover,
-.nav-item.is-active {
+.nav-item:hover {
   color: #ffffff;
 }
 
-/* ── Active pill (capsule) ── */
+/* actif dark : accent clair (meilleure lisibilité sur verre sombre) */
+.nav-item.is-active {
+  color: #8ab4f8;
+}
+
+/* ── Active pill : toujours du verre, seulement plus dense (jamais bleu/opaque) ── */
 .active-pill {
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.1);
+  /* verre translucide, densité légèrement supérieure au conteneur */
+  background: rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  /* léger reflet supérieur interne */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+  animation: pill-in 250ms ease;
 }
 
 :root:not(.dark) .active-pill {
-  background: rgba(0, 0, 0, 0.08);
-  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* apparition douce du matériau (opacité + translation) */
+@keyframes pill-in {
+  from {
+    opacity: 0;
+    transform: translateY(2px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* ── Light mode text (noir pur) ── */
@@ -115,8 +191,12 @@ const isActiveTab = (tab: Tab) => tab.name === activeTabName.value
   color: #000000;
 }
 
-:root:not(.dark) .nav-item:hover,
-:root:not(.dark) .nav-item.is-active {
+:root:not(.dark) .nav-item:hover {
   color: #000000;
+}
+
+/* actif light : accent Vie Publique */
+:root:not(.dark) .nav-item.is-active {
+  color: #0c2146;
 }
 </style>
