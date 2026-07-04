@@ -54,6 +54,48 @@ valeurs dans `app.css` (un seul endroit).
 - **Largeur de lecture** : `max-w-3xl` pour le contenu éditorial.
 - **Tags** : limités (≈ 3–5 visibles), discrets, placés sous le contenu plutôt qu'en avant.
 
+## Matériau « Liquid Glass » (barre de navigation mobile)
+
+> Référence d'implémentation : `app/components/AppBottomNav.vue`. Cible = **matériau optique
+> Apple Liquid Glass** (Bottom Tab Bar iOS 26 / Apple Podcasts), **pas** un glassmorphism classique
+> ni un fond blanc/gris translucide. Le verre doit **capter les couleurs de l'arrière-plan** et
+> **presque disparaître sur fond clair**. Réservé aux **surfaces flottantes** (barre de nav mobile,
+> overlays) — **pas** pour les cartes de contenu (qui restent en surfaces pleines, cf. §Dark mode).
+
+**Principes du matériau**
+
+1. **Fond très faible** (le verre laisse vivre le contenu derrière) : light `rgba(255,255,255,0.06–0.08)`,
+   dark `rgba(15,23,42,0.13–0.18)`. Sur fond clair, le verre doit **presque s'effacer**.
+2. **Backdrop optique** (pas seulement un blur) :
+   `backdrop-filter: blur(30–34px) saturate(200%) contrast(110%) brightness(105%)`. La **saturation
+   élevée** est ce qui fait « capter » les couleurs derrière — c'est la clé du rendu Apple.
+3. **Bordure quasi invisible** : light `rgba(255,255,255,0.20)`, dark `rgba(255,255,255,0.09)`.
+   Jamais de bordure franche.
+4. **Ombre externe diffuse** (`0 8px 30px rgba(0,0,0,0.1–0.22)`) pour la profondeur — **pas** de glow
+   blanc lumineux autour du composant.
+5. **Reflet supérieur discret** via `::before` (`linear-gradient` blanc en haut, `opacity ≈ 0.3–0.5`),
+   avec une éventuelle couche `::after` `radial-gradient` très légère pour la profondeur. Ne doit
+   **jamais blanchir** l'ensemble. Prévoir `position: relative; overflow: hidden; isolation: isolate` sur le
+   conteneur et `z-index: -1` sur les pseudo-éléments.
+
+**Hiérarchie d'accent (onglet actif — modèle Apple Podcasts)**
+
+- L'accent est porté par **l'icône et le texte**, **jamais** par un fond coloré :
+  - actif light → couleur d'accent VP **`#0C2146`** ; actif dark → bleu clair lisible **`#8AB4F8`**.
+  - inactif → icône/texte noir (light) / blanc (dark), sans fond.
+- La **capsule active reste du verre**, seulement **légèrement plus dense** (même matériau, jamais
+  bleue, jamais grise opaque) : fond `rgba(255,255,255,0.09)` dark / `0.22` light, `backdrop-filter:
+  blur(18px) saturate(180%)`, fine bordure interne, léger reflet en haut, `border-radius: 9999px`.
+- **Transitions ~250ms** sur la couleur icône/texte (matériau « vivant ») + apparition douce de la
+  capsule (`@keyframes` opacité + translation, car la pill est en `v-if`).
+
+**À éviter** : ❌ capsule remplie de bleu · ❌ capsule grise opaque · ❌ fond blanc/gris trop opaque
+· ❌ blur faible (< 20px) · ❌ halo/glow blanc visible · ❌ effet Material Design.
+
+**Vérifier** le rendu sur 5 arrière-plans : fond blanc, fond sombre, image/couleur, page article
+(texte derrière), page liste (cards derrière) — le verre doit teinter selon le fond, pas rester une
+capsule blanche/grise uniforme.
+
 ## Pages liste / index (en-tête, fil d'ariane, filtres)
 
 > Gabarit commun à toutes les pages de listing (`/actualites`, `/documents`, `/dossiers`…).

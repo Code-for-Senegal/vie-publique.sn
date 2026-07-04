@@ -164,7 +164,7 @@ SUMMARY
 
 Résumé en 3 ou 4 phrases.
 
-Maximum 700 caractères.
+Maximum 500 caractères.
 
 ====================================
 INTRO_HTML

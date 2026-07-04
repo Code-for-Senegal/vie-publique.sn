@@ -413,8 +413,6 @@ Ce document recense **toutes les URLs** du projet, leur type, leur fonction et l
 | `/api/health` | GET | Health check |
 | `/api/csrf-token` | GET | Token CSRF |
 | `/api/csp-report` | POST | Rapport CSP |
-| `/api/debug/version` | GET | Version app |
-| `/api/debug/env` | GET | Variables env |
 | `/api/features/flags` | GET | Feature flags |
 | `/api/chat` | POST | Chat IA |
 | `/api/councyl-minister` | GET | Conseil ministre (typo?) |
