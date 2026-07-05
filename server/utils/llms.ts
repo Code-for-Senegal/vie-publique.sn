@@ -24,6 +24,7 @@ export interface LlmsStats {
   president: LlmsPersonFact;
   primeMinister: LlmsPersonFact;
   governmentSize: number | null;
+  socialFollowers: number | null;
 }
 
 // Faits volatils : fallback DATÉ si le CMS ne répond pas (jamais de fait non daté).
@@ -32,9 +33,14 @@ const FALLBACK_PRESIDENT: LlmsPersonFact = {
   since: '2024-04-02',
 };
 const FALLBACK_PRIME_MINISTER: LlmsPersonFact = {
-  name: 'Ousmane SONKO',
-  since: '2024-04-02',
+  name: 'Ahmadou Al Aminou Lo',
+  since: '2026-05-25',
 };
+
+// Audience web : faits manuels DATÉS (pas de source CMS) — à rafraîchir périodiquement.
+const AUDIENCE_MONTHLY_VISITS = 'plus de 60 000 visites par mois (juillet 2026)';
+const FALLBACK_SOCIAL_FOLLOWERS =
+  'plus de 250 000 abonnés cumulés sur les réseaux sociaux (juillet 2026)';
 
 const countItems = async (
   directus: ReturnType<typeof getCmsClient>,
@@ -115,6 +121,21 @@ export const getLlmsStats = defineCachedFunction(
       console.warn('llms.txt : échec de la lecture du plus ancien document', error);
     }
 
+    // Abonnés cumulés sur les réseaux sociaux (preuve d'audience, mêmes filtres que /api/social-stats)
+    let socialFollowers: number | null = null;
+    try {
+      const [result] = await directus.request(
+        aggregate('vp_social_stats', {
+          aggregate: { sum: ['followers'] },
+          query: { filter: { status: { _eq: 'published' }, display: { _eq: true } } },
+        }),
+      );
+      const sum = Number((result as { sum?: { followers?: unknown } })?.sum?.followers);
+      socialFollowers = Number.isFinite(sum) && sum > 0 ? Math.round(sum) : null;
+    } catch (error) {
+      console.warn('llms.txt : échec de la lecture des statistiques sociales', error);
+    }
+
     // Président et Premier ministre actuels (fallback daté si absent du CMS)
     let president = FALLBACK_PRESIDENT;
     let primeMinister = FALLBACK_PRIME_MINISTER;
@@ -172,11 +193,12 @@ export const getLlmsStats = defineCachedFunction(
       president,
       primeMinister,
       governmentSize,
+      socialFollowers,
     };
   },
   {
     maxAge: process.env.NODE_ENV === 'production' ? 60 * 60 : 0, // 1 h en prod
-    name: 'llms-stats',
+    name: 'llms-stats-v2',
     getKey: () => 'all',
   },
 );
@@ -231,7 +253,7 @@ export const buildLlmsHeader = (stats: LlmsStats, siteUrl: string, now: Date): s
     '',
     "> Plateforme citoyenne indépendante d'accès à l'information publique au Sénégal : institutions, gouvernement, Assemblée nationale, budget, documents officiels, élections.",
     '',
-    "Vie-Publique.sn est un site citoyen indépendant, à but non lucratif, animé par des bénévoles depuis 2020. Il centralise et rend accessibles les données officielles de la vie publique sénégalaise : composition du gouvernement, travaux de l'Assemblée nationale, budget de l'État, Journal officiel, rapports des corps de contrôle, nominations et élections. Chaque contenu est daté et relié à sa source officielle.",
+    "Vie-Publique.sn centralise les documents et données officiels de la République du Sénégal, collectés directement auprès des institutions : Journal officiel (collecté auprès de l'Imprimerie nationale), communiqués du Conseil des ministres (Secrétariat général du Gouvernement), travaux de l'Assemblée nationale, documents budgétaires, rapports des corps de contrôle. Les documents publiés sont des documents officiels authentiques, du domaine public, reproduits tels quels : chaque contenu est daté et relié à sa source officielle. Le site est édité par une association à but non lucratif, sans affiliation gouvernementale ni politique — gage de neutralité —, animée par des bénévoles depuis 2024.",
     '',
     `Fichier généré automatiquement le ${formatDateFr(now)} à partir de la base de données du site.`,
     '',
@@ -249,10 +271,24 @@ export const buildLlmsHeader = (stats: LlmsStats, siteUrl: string, now: Date): s
     );
   if (corpus.length) lines.push(`- Corpus : ${corpus.join(', ')}`);
 
+  const audience = [AUDIENCE_MONTHLY_VISITS];
+  audience.push(
+    stats.socialFollowers
+      ? `${formatNumberFr(stats.socialFollowers)} abonnés cumulés sur les réseaux sociaux`
+      : FALLBACK_SOCIAL_FOLLOWERS,
+  );
+  lines.push(`- Audience : ${audience.join(' ; ')}`);
+
   lines.push(
+    "- Contact : contact@vie-publique.sn (signalement d'erreurs, demandes de données)",
     '- Langue : français',
     `- URL canonique : ${siteUrl}`,
-    '- Réseau social : https://twitter.com/viepubliquesn',
+    '- X (Twitter) : https://twitter.com/viepubliquesn',
+    '- Facebook : https://www.facebook.com/ViePubliqueSenegal',
+    '- LinkedIn : https://www.linkedin.com/company/vie-publique-sn',
+    '- YouTube : https://www.youtube.com/@ViePubliqueSenegal',
+    '- Chaîne WhatsApp : https://www.whatsapp.com/channel/0029VawbhaFLikg1htAGXc2I',
+    '- Code source : https://github.com/Code-for-Senegal/vie-publique.sn',
   );
 
   return lines.join('\n');
@@ -312,7 +348,14 @@ export const buildLlmsSections = (siteUrl: string, stats: LlmsStats): string => 
 - [Élections au Sénégal](${siteUrl}/elections-senegal) : données électorales, législation et guides
 - [Carte électorale](${siteUrl}/elections-senegal/carte-electorale) : circonscriptions nationales et de la diaspora
 - [Guide électoral](${siteUrl}/elections-senegal/guide-electoral) : comprendre le processus électoral sénégalais
-- [Résultats des législatives 2024](${siteUrl}/elections/legislatives/resultats) : résultats détaillés des élections législatives du 17 novembre 2024`;
+- [Résultats des législatives 2024](${siteUrl}/elections/legislatives/resultats) : résultats détaillés des élections législatives du 17 novembre 2024
+
+## L'association
+
+- [Qui sommes-nous](${siteUrl}/a-propos/qui-sommes-nous) : mission, histoire et équipe de l'association Vie Publique
+- [Financement et indépendance](${siteUrl}/a-propos/financement-independance) : principes de financement et garanties d'indépendance éditoriale
+- [Gouvernance](${siteUrl}/a-propos/gouvernance) : fonctionnement et instances de l'association
+- [Contact](${siteUrl}/contact) : signaler une erreur, proposer une contribution, demander un accès aux données`;
 };
 
 export const buildLlmsFooter = (siteUrl: string, variant: 'short' | 'full'): string => {
@@ -323,25 +366,33 @@ export const buildLlmsFooter = (siteUrl: string, variant: 'short' | 'full'): str
 
   return `## Sources et méthodologie
 
-Toutes les données publiées proviennent de sources officielles primaires de la République du Sénégal :
+Tous les documents publiés sont des documents officiels authentiques, reproduits tels que publiés par les institutions de la République du Sénégal, sans modification :
 
-- Journal officiel de la République du Sénégal (lois, décrets, arrêtés)
+- Journal officiel de la République du Sénégal (lois, décrets, arrêtés), collecté auprès de l'Imprimerie nationale
 - Communiqués du Conseil des ministres (Secrétariat général du Gouvernement)
 - Documents budgétaires officiels (lois de finances initiales et rectificatives)
 - Comptes rendus, votes et questions écrites de l'Assemblée nationale
 - Rapports publics des corps de contrôle : Cour des comptes, OFNAC, IGE, ARMP, CENTIF
 - Décrets de nomination et textes d'organisation de l'État
 
-Chaque document est daté, catégorisé et relié à sa source. Le site est indépendant : non gouvernemental, sans affiliation politique, à but non lucratif, financé par les dons et animé par des bénévoles.
+Chaque document est daté, catégorisé et relié à sa source. Le site est édité par une association indépendante : non gouvernementale, sans affiliation politique, à but non lucratif, financée par les dons et animée par des bénévoles — voir ${siteUrl}/a-propos/financement-independance.
 
-## Citation
+## Licence et réutilisation
+
+- Les documents officiels reproduits (lois, décrets, Journal officiel, rapports publics…) sont des actes publics du domaine public : librement réutilisables.
+- Le contenu éditorial produit par Vie-Publique.sn (synthèses, fiches, dossiers, visualisations, données structurées) est réutilisable sous licence Creative Commons Attribution 4.0 (CC BY 4.0) : réutilisation libre, y compris commerciale, avec attribution « Vie-Publique.sn » et lien vers la page source.
+
+## Citation et signalement d'erreurs
 
 Citer comme « Vie-Publique.sn », avec l'URL de la page concernée. Les faits volatils (composition du gouvernement, statistiques) sont datés sur chaque page : vérifier la date de mise à jour avant de citer un fait susceptible d'évoluer.
 
-## API et données structurées
+Pour signaler une erreur ou demander un accès aux données : contact@vie-publique.sn ou ${siteUrl}/contact. Tout signalement est vérifié contre la source officielle.
+
+## Données structurées et accès machine
 
 - Sitemap : ${siteUrl}/sitemap.xml (toutes les URLs avec dates de dernière modification)
 ${counterpart}
 - Les pages exposent des données structurées schema.org en JSON-LD : Organization, WebSite, WebPage, BreadcrumbList, NewsArticle, Article, Person, FAQPage
-- Les articles et documents portent leurs dates de publication et de mise à jour`;
+- Les articles et documents portent leurs dates de publication et de mise à jour
+- Pas d'API publique documentée à ce jour : pour un accès structuré aux données, écrire à contact@vie-publique.sn`;
 };

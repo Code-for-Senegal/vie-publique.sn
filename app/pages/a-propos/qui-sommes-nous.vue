@@ -123,12 +123,10 @@ useHead({
   <div class="container mx-auto min-h-screen max-w-4xl px-4 py-8 pb-16">
     <AppBreadcrumb :items="[{ label: 'À propos' }]" />
 
-    <article class="prose prose-sm mx-auto sm:prose lg:prose-lg dark:prose-invert">
+    <article class="prose prose-sm mx-auto dark:prose-invert sm:prose lg:prose-lg">
       <h1>À Propos</h1>
 
-      <p class="text-sm text-gray-600 dark:text-gray-400">
-        Dernière modification: 21 décembre 2025
-      </p>
+      <p class="text-sm text-gray-600 dark:text-gray-400">Dernière modification: 5 juillet 2026</p>
 
       <h3>Projet Citoyen, Ouvert et Open Source</h3>
 
@@ -261,11 +259,42 @@ useHead({
         dans le but de faciliter leur accès et leur utilisation par le public.
       </p>
 
-      <h3>Avertissement</h3>
+      <h3>Licence et réutilisation des contenus</h3>
 
       <p>
-        Cette application ne représente aucune entité officielle du Gouvernement du Sénégal.
+        Les documents officiels reproduits sur la plateforme (lois, décrets, Journal officiel,
+        rapports publics…) sont des actes publics relevant du domaine public : ils sont librement
+        réutilisables.
       </p>
+
+      <p>
+        Le contenu éditorial produit par Vie-Publique.sn (synthèses, fiches, dossiers,
+        visualisations, données structurées) est mis à disposition sous licence
+        <a
+          href="https://creativecommons.org/licenses/by/4.0/deed.fr"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Creative Commons Attribution 4.0 (CC BY 4.0)</a
+        >
+        : vous pouvez le réutiliser, le partager et l'adapter librement, y compris à des fins
+        commerciales, à condition de créditer « Vie-Publique.sn » et d'ajouter un lien vers la page
+        source.
+      </p>
+
+      <p>
+        Le code source de la plateforme est open source, publié sur
+        <a
+          href="https://github.com/Code-for-Senegal/vie-publique.sn"
+          target="_blank"
+          rel="noopener noreferrer"
+          >GitHub</a
+        >
+        sous licence GNU GPL v3.
+      </p>
+
+      <h3>Avertissement</h3>
+
+      <p>Cette application ne représente aucune entité officielle du Gouvernement du Sénégal.</p>
 
       <p>Elle permet d'accéder à des informations publiques disponibles en ligne, notamment :</p>
 
@@ -283,7 +312,9 @@ useHead({
       </p>
 
       <ul>
-        <li><a href="https://www.presidence.sn" target="_blank" rel="noopener">presidence.sn</a></li>
+        <li>
+          <a href="https://www.presidence.sn" target="_blank" rel="noopener">presidence.sn</a>
+        </li>
         <li><a href="https://www.primature.sn" target="_blank" rel="noopener">primature.sn</a></li>
         <li><a href="https://www.cena.sn" target="_blank" rel="noopener">cena.sn</a></li>
         <li><a href="https://dge.sn" target="_blank" rel="noopener">dge.sn</a></li>
@@ -310,7 +341,13 @@ useHead({
         consulter directement les sites gouvernementaux concernés.
       </p>
 
-      <p>La plateforme met en œuvre un service d’ingestion de données encadré, reposant sur des mécanismes de limitation des requêtes (quotas), de journalisation sécurisée et de mise en cache, afin de garantir la traçabilité des opérations, le respect des conditions d’utilisation des sources et la stabilité des systèmes interrogés. Fonctionnalités principales :</p>
+      <p>
+        La plateforme met en œuvre un service d’ingestion de données encadré, reposant sur des
+        mécanismes de limitation des requêtes (quotas), de journalisation sécurisée et de mise en
+        cache, afin de garantir la traçabilité des opérations, le respect des conditions
+        d’utilisation des sources et la stabilité des systèmes interrogés. Fonctionnalités
+        principales :
+      </p>
       <ul>
         <li>Consultation des politiques publiques</li>
         <li>Accès aux documents officiels</li>
