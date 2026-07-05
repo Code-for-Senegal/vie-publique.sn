@@ -201,7 +201,7 @@ const { commission, loading, error } = useAssemblyCommissions({
 **Solution temporaire**: L'API retourne un tableau vide au lieu d'une erreur 500.
 
 **Actions à faire**:
-1. Créer la table `assembly_vote` dans Directus (voir SQL dans `docs/hotfix-assembly-migration.md`)
+1. Créer la table `assembly_vote` dans Directus (voir SQL dans `./hotfix-assembly-migration.md`)
 2. Décommenter le code dans `server/api/assembly/votes/index.get.ts` et `[id].get.ts`
 3. Tester les endpoints
 

@@ -725,5 +725,5 @@ Le code prend `primeMinister[0]` (premier résultat). Un seul appointment avec `
 
 ## 11. Docs techniques associées
 
-- [MIGRATION-NOMINATIONS.md](./MIGRATION-NOMINATIONS.md) - Détail de la migration architecture 3 couches (legacy, pour référence)
+- [MIGRATION-NOMINATIONS.md](../archive/MIGRATION-NOMINATIONS.md) - Détail de la migration architecture 3 couches (archivé, chantier terminé)
 - [feature-gouvernement-senegal.md](./feature-gouvernement-senegal.md) - Spécifications page gouvernement (sera mis à jour après migration)
