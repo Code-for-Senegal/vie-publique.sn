@@ -34,6 +34,30 @@ La page n'a pas de `useSeoMeta` (titre/description) → elle hérite du titre gl
 réactifs, + éventuellement un nœud JSON-LD adapté. (Vérifier aussi `useSeoMeta` sur les autres pages
 `votes/*` si manquant.)
 
+## 4. GEO / autorité externe — entité + backlinks (juil. 2026)
+
+Renforcer le poids de Vie-Publique.sn dans les réponses des moteurs et des LLM
+(ChatGPT, Perplexity, Claude, AI Overviews). Démarche détaillée :
+`docs/a-propos/wikipedia-wikidata.md`.
+
+- [ ] **Wikidata** : créer l'item (immédiat, gros levier entité) + reporter le QID dans le
+      `sameAs` du schema Organization
+- [ ] **Wikipédia** : constituer d'abord le dossier de sources presse (≥ 2 sources centrées
+      espacées de 2 ans) — publier trop tôt = suppression ; brouillon + relecture Projet:Sénégal
+- [ ] **Backlinks / annuaires** : data.gouv.sn (réutilisations), Civic Tech Field Guide
+      (civictech.guide), réseau Code for All, Participedia ; relations presse (Seneweb,
+      Dakaractu, RFI/BBC Afrique — angle civic tech / transparence budgétaire)
+- [ ] **Crawlers IA** : vérifier que robots.txt n'exclut pas GPTBot, ClaudeBot, PerplexityBot,
+      Google-Extended ; suivre l'indexation Bing (ChatGPT search)
+- [x] **Licence CC BY 4.0** (juil. 2026) : déclarée dans le llms.txt ET sur
+      `/a-propos/qui-sommes-nous` (§ « Licence et réutilisation des contenus ») — contenu
+      éditorial CC BY 4.0, documents officiels = domaine public, code = GPL v3
+- [ ] **API publique documentée** (lecture seule, quelques collections) : différenciateur GEO
+      majeur pour les agents IA ; en attendant, le llms.txt renvoie vers `contact@vie-publique.sn`
+- [ ] **Faits d'audience datés** dans `server/utils/llms.ts` (60 000 visites/mois, juil. 2026) :
+      à rafraîchir périodiquement (les abonnés cumulés sont dynamiques via `vp_social_stats`)
+- [x] Date de fondation tranchée : **2024** — llms.txt harmonisé (juil. 2026)
+
 ---
 
 ## Déjà fait (pour mémoire)
