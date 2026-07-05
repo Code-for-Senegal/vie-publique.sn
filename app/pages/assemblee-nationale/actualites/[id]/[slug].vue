@@ -27,11 +27,13 @@ const title = computed(() => {
   return `${article.value.title} | Assemblée nationale Sénégal`;
 });
 
+// cleanCmsText : décode les entités + NFKC (retire le pseudo-gras astral qui casse
+// le JSON-LD → GSC « Truncated Unicode character ») ; truncateText coupe au code point.
+const { cleanCmsText, truncateText } = useCleanText();
+
 const description = computed(() => {
   if (!article.value) return '';
-  // Extraire du texte brut du contenu HTML si disponible
-  const plainText = article.value.content?.replace(/<[^>]*>/g, '') || article.value.title;
-  const excerpt = plainText.length > 160 ? plainText.substring(0, 157) + '...' : plainText;
+  const excerpt = truncateText(cleanCmsText(article.value.content) || article.value.title);
   return `${excerpt} Publié le ${formatDate(article.value.date_published)} par l'Assemblée nationale du Sénégal.`;
 });
 

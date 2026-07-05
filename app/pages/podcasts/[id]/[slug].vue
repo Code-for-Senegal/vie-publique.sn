@@ -77,11 +77,13 @@ const title = computed(() => {
   return `${podcast.value.title} | Podcasts Vie Publique Sénégal`;
 });
 
+// cleanCmsText : décode les entités + NFKC (retire le pseudo-gras astral qui casse
+// le JSON-LD → GSC « Truncated Unicode character ») ; truncateText coupe au code point.
+const { cleanCmsText, truncateText } = useCleanText();
+
 const description = computed(() => {
   if (!podcast.value) return '';
-  const plainText = podcast.value.description?.replace(/<[^>]*>/g, '') || podcast.value.title;
-  const excerpt = plainText.length > 160 ? plainText.substring(0, 157) + '...' : plainText;
-  return excerpt;
+  return truncateText(cleanCmsText(podcast.value.description) || podcast.value.title);
 });
 
 const url = computed(() => {

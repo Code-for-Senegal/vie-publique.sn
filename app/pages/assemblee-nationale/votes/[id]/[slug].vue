@@ -213,14 +213,9 @@ const formatDateISO = (date?: string | null) => {
   return isNaN(d.getTime()) ? undefined : d.toISOString();
 };
 
-const stripHtml = (html?: string | null) =>
-  (html || '')
-    .replace(/<[^>]*>/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-
-const truncate = (text: string, max = 160) =>
-  text.length > max ? `${text.slice(0, max - 1).trimEnd()}…` : text;
+// cleanCmsText : strip HTML + décode les entités + NFKC (retire le pseudo-gras
+// astral qui casse le JSON-LD → GSC « Truncated Unicode character »).
+const { cleanCmsText, truncateText } = useCleanText();
 
 // ── SEO ──────────────────────────────────────────────────────────────
 const canonicalSlug = computed(() => vote.value?.slug || (route.params.slug as string) || 'vote');
@@ -236,10 +231,10 @@ const pageTitle = computed(() =>
 
 const pageDescription = computed(() => {
   if (!vote.value) return "Détail d'un vote de l'Assemblée nationale du Sénégal.";
-  const fromDesc = stripHtml(vote.value.desc || vote.value.description);
-  if (fromDesc) return truncate(fromDesc);
+  const fromDesc = cleanCmsText(vote.value.desc || vote.value.description);
+  if (fromDesc) return truncateText(fromDesc);
   const verdict = vote.value.status === 'adopted' ? 'adopté' : 'rejeté';
-  return truncate(
+  return truncateText(
     `${vote.value.name} : texte ${verdict} par l'Assemblée nationale du Sénégal le ${formatDate(vote.value.date)}.`,
   );
 });
@@ -252,7 +247,9 @@ const articleSchema = computed(() => {
     headline: pageTitle.value,
     description: pageDescription.value,
     ...(formatDateISO(vote.value.date) && { datePublished: formatDateISO(vote.value.date) }),
-    ...(stripHtml(vote.value.desc) && { articleBody: stripHtml(vote.value.desc) }),
+    ...(cleanCmsText(vote.value.desc) && {
+      articleBody: truncateText(cleanCmsText(vote.value.desc), 1200),
+    }),
     ...(vote.value.documents?.length && {
       citation: vote.value.documents.map((d) => ({
         '@type': 'CreativeWork',

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useNews } from '~/composables/news/useNews';
 
-const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
+const { siteName, siteUrl, keywords, themeColor } = useSiteMetadata();
 const route = useRoute();
 
 // Utilisation du composable useNews avec l'ID
@@ -14,19 +14,13 @@ const title = computed(() => {
   return `${article.value.title} | Conseil des ministres du Sénégal`;
 });
 
+// cleanCmsText : décode les entités + NFKC (retire le pseudo-gras astral qui casse
+// le JSON-LD → GSC « Truncated Unicode character ») ; truncateText coupe au code point.
+const { cleanCmsText, truncateText } = useCleanText();
+
 const description = computed(() => {
   if (!article.value) return 'Communiqué conseil des ministres du gouvernement du Sénégal';
-
-  // Extraire du contenu HTML pour créer une description
-  const htmlContent = article.value.content || article.value.title;
-  const textContent = htmlContent
-    .replace(/<[^>]*>/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-  const truncatedContent =
-    textContent.length > 160 ? `${textContent.substring(0, 157)}...` : textContent;
-
-  return truncatedContent || article.value.title;
+  return truncateText(cleanCmsText(article.value.content) || article.value.title);
 });
 
 const url = computed(

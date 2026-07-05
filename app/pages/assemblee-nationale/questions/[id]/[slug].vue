@@ -23,14 +23,10 @@ const formatDateISO = (date?: string | null) => {
   return isNaN(d.getTime()) ? undefined : d.toISOString();
 };
 
-const stripHtml = (html?: string | null) =>
-  (html || '')
-    .replace(/<[^>]*>/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-
-const truncate = (text: string, max = 160) =>
-  text.length > max ? `${text.slice(0, max - 1).trimEnd()}…` : text;
+// cleanCmsText : strip HTML + décode les entités + NFKC (retire le pseudo-gras
+// astral qui casse le JSON-LD → GSC « Truncated Unicode character »).
+// truncateText : troncature sûre au niveau des code points.
+const { cleanCmsText, truncateText } = useCleanText();
 
 const questionFullName = computed(() => {
   if (!question.value?.deputy) return '';
@@ -53,8 +49,8 @@ const title = computed(() =>
 
 const description = computed(() => {
   if (!question.value) return "Question écrite d'un député de l'Assemblée nationale du Sénégal.";
-  const excerpt = stripHtml(question.value.question_text) || question.value.subject;
-  return truncate(
+  const excerpt = cleanCmsText(question.value.question_text) || question.value.subject;
+  return truncateText(
     `Question écrite posée par ${questionFullName.value} le ${formatDate(question.value.question_date)}. ${excerpt}`,
   );
 });
@@ -76,8 +72,8 @@ const questionSchema = computed(() => {
   return {
     '@context': 'https://schema.org',
     '@type': 'Question',
-    name: question.value.subject,
-    text: stripHtml(question.value.question_text) || question.value.subject,
+    name: cleanCmsText(question.value.subject) || question.value.subject,
+    text: truncateText(cleanCmsText(question.value.question_text) || question.value.subject, 1200),
     ...(formatDateISO(question.value.question_date) && {
       dateCreated: formatDateISO(question.value.question_date),
     }),

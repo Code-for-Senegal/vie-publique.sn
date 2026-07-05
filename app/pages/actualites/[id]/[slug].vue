@@ -4,7 +4,6 @@ import { useNews } from '~/composables/news/useNews';
 const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
 
 const route = useRoute();
-const config = useRuntimeConfig();
 
 // Utilisation de useNews avec l'ID
 const { article, loading, error, refresh } = useNews({
@@ -41,10 +40,13 @@ const title = computed(() => {
   return `${article.value.title} | Actualités Sénégal`;
 });
 
+// cleanCmsText : décode les entités + NFKC (retire le pseudo-gras astral qui casse
+// le JSON-LD → GSC « Truncated Unicode character ») ; truncateText coupe au code point.
+const { cleanCmsText, truncateText } = useCleanText();
+
 const description = computed(() => {
   if (!article.value) return '';
-  const plainText = article.value.content?.replace(/<[^>]*>/g, '') || article.value.title;
-  const excerpt = plainText.length > 160 ? plainText.substring(0, 157) + '...' : plainText;
+  const excerpt = truncateText(cleanCmsText(article.value.content) || article.value.title);
   return `${excerpt} Publié le ${formatDate(article.value.date_published)} - Actualités République du Sénégal.`;
 });
 

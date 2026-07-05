@@ -24,7 +24,9 @@ watchEffect(() => {
 
 // Helpers
 const formatDateISO = (date?: string) => (date ? new Date(date).toISOString() : '');
-const stripHtml = (html?: string) => (html ? html.replace(/<[^>]*>/g, '').trim() : '');
+// cleanCmsText : strip HTML + décode les entités + NFKC (retire le pseudo-gras
+// astral qui casse le JSON-LD → GSC « Truncated Unicode character »).
+const { cleanCmsText, truncateText } = useCleanText();
 
 // ---- Helpers de présence (relations / blocs vides) ----
 const has = <T,>(arr?: T[]): arr is T[] => Array.isArray(arr) && arr.length > 0;
@@ -69,8 +71,11 @@ const seoTitle = computed(() => {
 const seoDescription = computed(() => {
   if (!dossier.value) return '';
   if (dossier.value.seo_description) return dossier.value.seo_description;
-  const base = dossier.value.summary || stripHtml(dossier.value.intro_html) || dossier.value.title;
-  return base.length > 160 ? `${base.substring(0, 157)}…` : base;
+  const base =
+    cleanCmsText(dossier.value.summary) ||
+    cleanCmsText(dossier.value.intro_html) ||
+    dossier.value.title;
+  return truncateText(base);
 });
 
 const url = computed(() => `${siteUrl}/dossiers/${slug.value}`);
@@ -124,8 +129,8 @@ const faqSchema = computed(() => {
     '@type': 'FAQPage',
     mainEntity: dossier.value!.faq!.map((item) => ({
       '@type': 'Question',
-      name: item.question,
-      acceptedAnswer: { '@type': 'Answer', text: stripHtml(item.answer) },
+      name: cleanCmsText(item.question) || item.question,
+      acceptedAnswer: { '@type': 'Answer', text: cleanCmsText(item.answer) },
     })),
   };
 });
