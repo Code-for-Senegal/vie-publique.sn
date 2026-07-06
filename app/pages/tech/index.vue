@@ -25,6 +25,13 @@ interface Session {
   status: 'upcoming' | 'past';
   /** Lien YouTube du replay (uniquement pour status = 'past') */
   replayUrl?: string;
+  /** ID de la vidéo YouTube du replay — sert à l'embed et au schema.org VideoObject */
+  youtubeId?: string;
+  /** Résumé/accroche du replay affiché sous le lecteur */
+  replaySummary?: string;
+  /** Lien vers la présentation projetée pendant la séance (PDF ou page HTML) */
+  slidesUrl?: string;
+  slidesLabel?: string;
 }
 
 const sessions: Session[] = [
@@ -43,7 +50,13 @@ const sessions: Session[] = [
       '30 min — Questions / Réponses, échanges et opportunités de contribution',
       '5 min — Conclusion',
     ],
-    status: 'upcoming',
+    status: 'past',
+    replayUrl: 'https://youtu.be/u7-VV-IIClU',
+    youtubeId: 'u7-VV-IIClU',
+    replaySummary:
+      'Replay de la première séance : les coulisses techniques de Vie Publique Sénégal — architecture, IA et RAG, DevOps, open data et open source.',
+    slidesUrl: '/tech/coulisses-civic-tech',
+    slidesLabel: 'Lire les coulisses techniques',
   },
 ];
 
@@ -94,14 +107,25 @@ useSeoMeta({
   ].join(', '),
 });
 
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Accueil', item: siteUrl },
-    { '@type': 'ListItem', position: 2, name: 'Webinaires techniques', item: url },
-  ],
-};
+// Le BreadcrumbList est émis par <AppBreadcrumb> (useSchemaOrg) — ne pas le dupliquer ici (cf. CLAUDE.md §7).
+
+// Un nœud VideoObject par séance passée avec replay (indexation vidéo Google).
+const videoSchemas = computed(() =>
+  pastSessions.value
+    .filter((s) => s.youtubeId)
+    .map((s) => ({
+      '@context': 'https://schema.org',
+      '@type': 'VideoObject',
+      name: `${s.title} — Webinaire technique Vie Publique Sénégal`,
+      description: s.replaySummary || description,
+      thumbnailUrl: [`https://i.ytimg.com/vi/${s.youtubeId}/maxresdefault.jpg`],
+      uploadDate: s.startDate,
+      contentUrl: s.replayUrl,
+      embedUrl: `https://www.youtube-nocookie.com/embed/${s.youtubeId}`,
+      publisher: { '@type': 'Organization', name: 'Vie Publique Sénégal', url: siteUrl },
+      inLanguage: 'fr',
+    })),
+);
 
 // Un nœud Event par séance à venir (rich results Google + agenda).
 const eventSchemas = computed(() =>
@@ -146,14 +170,14 @@ useHead({
   ],
   script: [
     {
-      key: 'ld-breadcrumb',
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify(breadcrumbSchema),
-    },
-    {
       key: 'ld-events',
       type: 'application/ld+json',
       innerHTML: computed(() => JSON.stringify(eventSchemas.value)),
+    },
+    {
+      key: 'ld-videos',
+      type: 'application/ld+json',
+      innerHTML: computed(() => JSON.stringify(videoSchemas.value)),
     },
   ],
 });
@@ -270,33 +294,85 @@ useHead({
       >
         Revoir les séances
       </h2>
-      <ul class="space-y-3">
+      <ul class="space-y-6">
         <li
           v-for="session in pastSessions"
           :key="session.number"
-          class="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800"
+          class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800"
         >
-          <div class="flex flex-wrap items-center justify-between gap-2">
-            <div>
-              <p class="font-semibold text-gray-900 dark:text-white">
-                Séance #{{ session.number }} — {{ session.title }}
-              </p>
-              <p class="text-xs text-gray-500 dark:text-gray-400">{{ session.dateLabel }}</p>
+          <!-- Lecteur embarqué du replay -->
+          <div
+            v-if="session.youtubeId"
+            class="relative w-full bg-gray-900"
+            style="padding-bottom: 56.25%"
+          >
+            <iframe
+              :src="`https://www.youtube-nocookie.com/embed/${session.youtubeId}`"
+              :title="`Replay — Séance #${session.number} : ${session.title}`"
+              class="absolute inset-0 h-full w-full"
+              frameborder="0"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+                web-share;
+              "
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+
+          <div class="p-4">
+            <p class="font-semibold text-gray-900 dark:text-white">
+              Séance #{{ session.number }} — {{ session.title }}
+            </p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">{{ session.dateLabel }}</p>
+            <p v-if="session.replaySummary" class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+              {{ session.replaySummary }}
+            </p>
+
+            <div class="mt-3 flex flex-wrap items-center gap-3">
+              <a
+                v-if="session.replayUrl"
+                :href="session.replayUrl"
+                target="_blank"
+                rel="noopener"
+                class="inline-flex items-center gap-2 text-sm font-medium text-red-600 hover:underline dark:text-red-400"
+              >
+                <UIcon name="i-heroicons-play" class="h-4 w-4" />
+                Voir sur YouTube
+              </a>
+              <NuxtLink
+                v-if="session.slidesUrl"
+                :to="session.slidesUrl"
+                class="inline-flex items-center gap-2 text-sm font-medium text-sky-600 hover:underline dark:text-sky-400"
+              >
+                <UIcon name="i-heroicons-document-text" class="h-4 w-4" />
+                {{ session.slidesLabel || 'Voir la présentation' }}
+              </NuxtLink>
             </div>
-            <a
-              v-if="session.replayUrl"
-              :href="session.replayUrl"
-              target="_blank"
-              rel="noopener"
-              class="inline-flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700"
-            >
-              <UIcon name="i-heroicons-play" class="h-4 w-4" />
-              Voir le replay
-            </a>
           </div>
         </li>
       </ul>
     </section>
+
+    <!-- CTA permanent — visible entre deux séances (aucune séance programmée) -->
+    <div v-if="!nextSession" class="mb-12">
+      <p class="mb-4 max-w-2xl text-gray-600 dark:text-gray-400">
+        La prochaine séance est en préparation. Inscrivez-vous dès maintenant pour être prévenu·e de
+        la date et recevoir l'invitation par e-mail.
+      </p>
+      <a
+        href="#formulaire"
+        class="inline-flex items-center gap-2 rounded-lg bg-[#FFD400] px-6 py-2.5 text-sm font-medium text-gray-900 transition-colors hover:bg-yellow-400 active:scale-[0.98]"
+      >
+        S'inscrire aux prochaines séances
+        <UIcon name="i-heroicons-arrow-down" class="h-4 w-4" />
+      </a>
+    </div>
 
     <!-- Formulaire d'inscription -->
     <section id="formulaire">
