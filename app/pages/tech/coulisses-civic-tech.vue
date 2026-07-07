@@ -106,6 +106,103 @@ const costItems: CostItem[] = [
 const costTotal = 6027397;
 const formatXOF = (n: number) => `${n.toLocaleString('fr-FR')} FCFA`;
 
+// Le démarrage — preuves sociales (lancement + première traction).
+const tweetUrl = 'https://x.com/malick_yacine/status/1785472745150742983';
+const linkedinUrl = 'https://www.linkedin.com/feed/update/urn:li:activity:7206260166911033344/';
+const firstVersionImage = '/img/tech/webinaire1/premiere-version-10k-visiteurs.jfif';
+
+// Notre stack technique — chaque outil pointe vers son site officiel.
+interface StackTool {
+  name: string;
+  url: string;
+  role: string;
+}
+interface StackGroup {
+  title: string;
+  icon: string;
+  tools: StackTool[];
+}
+const stackGroups: StackGroup[] = [
+  {
+    title: 'Frontend & mobile',
+    icon: 'i-heroicons-computer-desktop',
+    tools: [
+      { name: 'Nuxt', url: 'https://nuxt.com', role: 'Framework web (Vue), SSR & SEO' },
+      { name: 'Vue', url: 'https://vuejs.org', role: 'Bibliothèque d’interface' },
+      { name: 'Tailwind CSS', url: 'https://tailwindcss.com', role: 'Design system utilitaire' },
+      {
+        name: 'PWA / TWA',
+        url: 'https://web.dev/explore/progressive-web-apps',
+        role: 'Application mobile installable',
+      },
+    ],
+  },
+  {
+    title: 'Backend & données',
+    icon: 'i-heroicons-circle-stack',
+    tools: [
+      { name: 'Directus', url: 'https://directus.io', role: 'CMS headless' },
+      { name: 'PostgreSQL', url: 'https://www.postgresql.org', role: 'Base de données' },
+      { name: 'Redis', url: 'https://redis.io', role: 'Cache' },
+      { name: 'MinIO', url: 'https://min.io', role: 'Stockage objet auto-hébergé' },
+      { name: 'Typesense', url: 'https://typesense.org', role: 'Moteur de recherche' },
+    ],
+  },
+  {
+    title: 'Infrastructure & DevOps',
+    icon: 'i-heroicons-server-stack',
+    tools: [
+      {
+        name: 'Hostinger',
+        url: 'https://www.hostinger.fr/vps-hebergement',
+        role: 'VPS (hébergement actuel)',
+      },
+      { name: 'Coolify', url: 'https://coolify.io', role: 'Déploiement (PaaS auto-hébergé)' },
+      { name: 'Docker', url: 'https://www.docker.com', role: 'Conteneurs' },
+      { name: 'GitHub Actions', url: 'https://github.com/features/actions', role: 'CI/CD' },
+      {
+        name: 'SonarQube',
+        url: 'https://www.sonarsource.com/products/sonarqube/',
+        role: 'Qualité du code',
+      },
+      { name: 'Cloudflare', url: 'https://www.cloudflare.com', role: 'CDN & sécurité (cible)' },
+    ],
+  },
+  {
+    title: 'IA & automatisation',
+    icon: 'i-heroicons-cpu-chip',
+    tools: [
+      {
+        name: 'Claude Code',
+        url: 'https://www.anthropic.com/claude-code',
+        role: 'Développement assisté par IA',
+      },
+      {
+        name: 'GitHub Copilot',
+        url: 'https://github.com/features/copilot',
+        role: 'Assistant de code',
+      },
+      { name: 'n8n', url: 'https://n8n.io', role: 'Automatisation des workflows' },
+      {
+        name: 'changedetection.io',
+        url: 'https://changedetection.io',
+        role: 'Surveillance des sources',
+      },
+      { name: 'Mistral AI', url: 'https://mistral.ai', role: 'OCR & résumés' },
+      { name: 'OpenAI', url: 'https://openai.com', role: 'Traitement documentaire' },
+    ],
+  },
+  {
+    title: 'Services',
+    icon: 'i-heroicons-envelope',
+    tools: [
+      { name: 'Brevo', url: 'https://www.brevo.com', role: 'Newsletter' },
+      { name: 'Resend', url: 'https://resend.com', role: 'E-mails transactionnels' },
+      { name: 'Firebase', url: 'https://firebase.google.com', role: 'Notifications push' },
+    ],
+  },
+];
+
 useSeoMeta({
   title,
   ogTitle: title,
@@ -200,7 +297,9 @@ useHead({
         comment il est fait sous le capot : l'évolution de son architecture, nos choix techniques,
         notre DevOps et notre manière de développer avec l'IA. Pour découvrir l'association et son
         histoire, rendez-vous sur
-        <NuxtLink to="/a-propos" class="text-sky-600 hover:underline dark:text-sky-400"
+        <NuxtLink
+          to="/a-propos/qui-sommes-nous"
+          class="text-sky-600 hover:underline dark:text-sky-400"
           >la page À propos</NuxtLink
         >.
       </p>
@@ -233,6 +332,73 @@ useHead({
       <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
         Replay de la séance du 4 juillet 2026.
       </p>
+    </section>
+
+    <!-- Le démarrage -->
+    <section class="mb-12">
+      <h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Le démarrage</h2>
+      <p class="mb-6 text-gray-600 dark:text-gray-400">
+        Tout a commencé simplement. La toute première version du site a été développée et
+        <strong>mise en ligne en une heure</strong> — sans backend, directement déployée depuis Git.
+        L'objectif : aller vite pour confronter l'idée au réel plutôt que de peaufiner dans notre
+        coin.
+      </p>
+
+      <!-- Tweet de lancement -->
+      <a
+        :href="tweetUrl"
+        target="_blank"
+        rel="noopener"
+        class="group flex items-start gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-colors hover:border-sky-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-sky-500/40"
+      >
+        <UIcon
+          name="i-simple-icons-x"
+          class="mt-0.5 h-5 w-5 shrink-0 text-gray-900 dark:text-white"
+        />
+        <span class="min-w-0 flex-1">
+          <span class="block text-sm text-gray-700 dark:text-gray-300">
+            «&nbsp;Le projet a été poussé en production en 1&nbsp;heure.&nbsp;»
+          </span>
+          <span class="mt-1 block text-xs text-gray-500 dark:text-gray-400">
+            Le tweet de lancement, avril 2024 — voir sur X
+          </span>
+        </span>
+        <UIcon
+          name="i-heroicons-arrow-top-right-on-square"
+          class="mt-0.5 h-4 w-4 shrink-0 text-gray-400 transition-colors group-hover:text-sky-500"
+        />
+      </a>
+
+      <p class="mt-6 text-gray-600 dark:text-gray-400">
+        Un mois après le lancement, la plateforme franchissait déjà les
+        <strong>10 000 visiteurs</strong> — le signal que le besoin de transparence était bien réel.
+        Nous l'avons partagé sur LinkedIn, capture à l'appui.
+      </p>
+
+      <figure
+        class="mt-4 overflow-hidden rounded-lg border border-gray-200 bg-white p-2 dark:border-gray-700"
+      >
+        <img
+          :src="firstVersionImage"
+          alt="Capture des statistiques de la première version de Vie Publique Sénégal : plus de 10 000 visiteurs atteints un mois après le lancement"
+          loading="lazy"
+          class="mx-auto h-auto w-full rounded"
+        />
+        <figcaption class="mt-2 text-center text-xs text-gray-400">
+          Premiers résultats : 10 000 visiteurs un mois après la mise en ligne
+        </figcaption>
+      </figure>
+
+      <a
+        :href="linkedinUrl"
+        target="_blank"
+        rel="noopener"
+        class="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-sky-600 hover:underline dark:text-sky-400"
+      >
+        <UIcon name="i-simple-icons-linkedin" class="h-4 w-4" />
+        Lire le post LinkedIn
+        <UIcon name="i-heroicons-arrow-top-right-on-square" class="h-3 w-3" />
+      </a>
     </section>
 
     <!-- Évolution de l'architecture -->
@@ -324,6 +490,46 @@ useHead({
           </div>
         </li>
       </ol>
+    </section>
+
+    <!-- Notre stack technique -->
+    <section class="mb-12">
+      <h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Notre stack technique</h2>
+      <p class="mb-6 text-gray-600 dark:text-gray-400">
+        Nous privilégions l'open source et l'auto-hébergement pour rester souverains et maîtriser
+        nos coûts. Voici les principaux outils qui font tourner la plateforme — cliquez pour
+        découvrir chacun d'eux.
+      </p>
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div
+          v-for="group in stackGroups"
+          :key="group.title"
+          class="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-800"
+        >
+          <h3 class="flex items-center gap-2 font-semibold text-gray-900 dark:text-white">
+            <UIcon :name="group.icon" class="h-5 w-5 text-sky-500" />
+            {{ group.title }}
+          </h3>
+          <ul class="mt-3 space-y-2">
+            <li v-for="tool in group.tools" :key="tool.name" class="text-sm leading-snug">
+              <a
+                :href="tool.url"
+                target="_blank"
+                rel="noopener"
+                class="group inline-flex items-center gap-1 font-medium text-sky-600 hover:underline dark:text-sky-400"
+              >
+                {{ tool.name }}
+                <UIcon
+                  name="i-heroicons-arrow-top-right-on-square"
+                  class="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-100"
+                />
+              </a>
+              <span class="text-gray-500 dark:text-gray-400"> — {{ tool.role }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
     </section>
 
     <!-- DevOps & pipeline IA -->
@@ -438,6 +644,73 @@ useHead({
         />
         <figcaption class="mt-2 text-center text-xs text-gray-400">
           Vue d'ensemble du modèle de données publiques
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- L'audience aujourd'hui -->
+    <section class="mb-12">
+      <h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">
+        De 10 000 à des centaines de milliers de visiteurs
+      </h2>
+      <p class="mb-6 text-gray-600 dark:text-gray-400">
+        Deux ans après ce premier cap des 10 000 visiteurs, l'audience a changé d'échelle. La
+        transparence de l'information publique intéresse, et la majorité de notre trafic vient
+        aujourd'hui de la recherche Google — signe que les pages répondent à de vraies questions des
+        citoyens.
+      </p>
+
+      <!-- Chiffres clés -->
+      <div class="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div
+          class="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800"
+        >
+          <p class="text-2xl font-bold text-gray-900 dark:text-white">59&nbsp;k</p>
+          <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Utilisateurs actifs / mois</p>
+        </div>
+        <div
+          class="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800"
+        >
+          <p class="text-2xl font-bold text-gray-900 dark:text-white">252&nbsp;k</p>
+          <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Pages vues / mois</p>
+        </div>
+        <div
+          class="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800"
+        >
+          <p class="text-2xl font-bold text-gray-900 dark:text-white">137&nbsp;k</p>
+          <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Clics Google (3 mois)</p>
+        </div>
+        <div
+          class="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800"
+        >
+          <p class="text-2xl font-bold text-gray-900 dark:text-white">3,42&nbsp;M</p>
+          <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Impressions (3 mois)</p>
+        </div>
+      </div>
+
+      <!-- Google Analytics -->
+      <figure class="overflow-hidden rounded-lg border border-gray-200 bg-white p-3">
+        <img
+          src="/img/tech/webinaire1/google-analytcis.png"
+          alt="Tableau de bord Google Analytics de vie-publique.sn : 59 000 utilisateurs actifs, 481 000 événements et 252 000 vues sur le dernier mois, en hausse d'environ 45 à 50 % par rapport à la période précédente"
+          loading="lazy"
+          class="mx-auto h-auto w-full"
+        />
+        <figcaption class="mt-2 text-center text-xs text-gray-400">
+          Google Analytics — fréquentation en forte croissance (+45&nbsp;% à +50&nbsp;%)
+        </figcaption>
+      </figure>
+
+      <!-- Google Search Console -->
+      <figure class="mt-4 overflow-hidden rounded-lg border border-gray-200 bg-white p-3">
+        <img
+          src="/img/tech/webinaire1/google-search.png"
+          alt="Google Search Console de vie-publique.sn sur 3 mois : 137 000 clics, 3,42 millions d'impressions et un CTR moyen de 4 % dans les résultats de recherche"
+          loading="lazy"
+          class="mx-auto h-auto w-full"
+        />
+        <figcaption class="mt-2 text-center text-xs text-gray-400">
+          Google Search Console — 137&nbsp;k clics pour 3,42&nbsp;M d'impressions sur 3&nbsp;mois
         </figcaption>
       </figure>
     </section>
