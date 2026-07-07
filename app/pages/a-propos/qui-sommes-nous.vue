@@ -245,6 +245,16 @@ useHead({
         servir au mieux les intérêts des citoyens sénégalais.
       </p>
 
+      <h3>Les coulisses techniques</h3>
+
+      <p>
+        Curieux de savoir comment la plateforme est construite&nbsp;? Nous racontons son démarrage
+        (mise en ligne en une heure), l'évolution de notre architecture, notre stack technique,
+        notre DevOps et notre manière de développer avec l'IA — ainsi que nos coûts de
+        fonctionnement, par transparence — sur
+        <NuxtLink to="/tech/coulisses-civic-tech">la page « Les coulisses techniques »</NuxtLink>.
+      </p>
+
       <h3>Contributeurs</h3>
 
       <p>Les personnes qui contribuent au projet</p>

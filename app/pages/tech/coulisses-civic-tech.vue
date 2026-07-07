@@ -651,7 +651,7 @@ useHead({
     <!-- L'audience aujourd'hui -->
     <section class="mb-12">
       <h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">
-        De 10 000 à des centaines de milliers de visiteurs
+        Près de 60 000 visiteurs uniques chaque mois
       </h2>
       <p class="mb-6 text-gray-600 dark:text-gray-400">
         Deux ans après ce premier cap des 10 000 visiteurs, l'audience a changé d'échelle. La
@@ -721,8 +721,8 @@ useHead({
       <p class="mb-6 text-gray-600 dark:text-gray-400">
         Par transparence, voici ce que coûte le fonctionnement de nos plateformes sur une année. Ces
         montants couvrent l'infrastructure, les licences et les services&nbsp;; ils
-        <strong>n'incluent pas</strong> la rémunération des stagiaires&nbsp;: la majorité de l'équipe
-        est bénévole.
+        <strong>n'incluent pas</strong> la rémunération des stagiaires&nbsp;: la majorité de
+        l'équipe est bénévole.
       </p>
 
       <div class="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700">
