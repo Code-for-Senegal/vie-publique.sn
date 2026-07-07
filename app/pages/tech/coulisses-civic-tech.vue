@@ -721,7 +721,8 @@ useHead({
       <p class="mb-6 text-gray-600 dark:text-gray-400">
         Par transparence, voici ce que coûte le fonctionnement de nos plateformes sur une année. Ces
         montants couvrent l'infrastructure, les licences et les services&nbsp;; ils
-        <strong>n'incluent pas</strong> de rémunération&nbsp;: l'équipe est entièrement bénévole.
+        <strong>n'incluent pas</strong> la rémunération des stagiaires&nbsp;: la majorité de l'équipe
+        est bénévole.
       </p>
 
       <div class="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700">
