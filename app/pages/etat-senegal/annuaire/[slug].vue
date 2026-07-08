@@ -59,7 +59,14 @@ const eventTypeLabels: Record<string, string> = {
 </script>
 
 <template>
-  <div class="container mx-auto px-4 py-8">
+  <div class="container mx-auto min-h-screen px-4 py-8 pb-16">
+    <AppBreadcrumb :items="[
+      { label: 'État du Sénégal', to: '/etat-senegal' },
+      { label: 'Annuaire', to: '/etat-senegal/annuaire' },
+      ...breadcrumb.map(parent => ({ label: parent.name, to: `/etat-senegal/annuaire/${parent.public_slug}` })),
+      { label: entity?.name || 'Détail' }
+    ]" />
+
     <!-- Loading -->
     <div v-if="pending" class="py-12 text-center">
       <UIcon name="i-heroicons-arrow-path" class="text-primary-600 h-8 w-8 animate-spin" />
@@ -67,29 +74,6 @@ const eventTypeLabels: Record<string, string> = {
     </div>
 
     <div v-else-if="entity">
-      <!-- Fil d'Ariane -->
-      <nav v-if="breadcrumb.length > 0" class="mb-6">
-        <ol class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-          <li>
-            <NuxtLink to="/etat-senegal/annuaire" class="hover:text-primary-600">
-              Annuaire
-            </NuxtLink>
-          </li>
-          <li v-for="parent in breadcrumb" :key="parent.id" class="flex items-center gap-2">
-            <UIcon name="i-heroicons-chevron-right" class="h-4 w-4" />
-            <NuxtLink
-              :to="`/etat-senegal/annuaire/${parent.public_slug}`"
-              class="hover:text-primary-600"
-            >
-              {{ parent.name }}
-            </NuxtLink>
-          </li>
-          <li class="flex items-center gap-2">
-            <UIcon name="i-heroicons-chevron-right" class="h-4 w-4" />
-            <span class="font-medium text-gray-900 dark:text-white">{{ entity.name }}</span>
-          </li>
-        </ol>
-      </nav>
 
       <!-- En-tête -->
       <UCard class="mb-6">

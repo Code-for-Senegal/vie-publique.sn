@@ -1,6 +1,6 @@
 export interface CmsCollectionOptions {
   collection: string;
-  id?: string;
+  id?: string | Ref<string>;
   fields?: string[];
   filters?: Record<string, any>;
   sort?: Ref<string> | string;
@@ -16,10 +16,10 @@ export const useCmsCollection = <T>(options: CmsCollectionOptions) => {
     id,
     fields = [],
     filters = {},
-    sort = "-publish_date",
+    sort = '-publish_date',
     limit = 10,
     page = 1,
-    search = "",
+    search = '',
     transform,
   } = options;
 
@@ -28,7 +28,7 @@ export const useCmsCollection = <T>(options: CmsCollectionOptions) => {
     const params: Record<string, any> = {};
 
     // Si c'est une collection (liste)
-    if (!id) {
+    if (!unref(id)) {
       params.limit = unref(limit);
       params.page = unref(page);
       params.sortBy = unref(sort);
@@ -38,7 +38,7 @@ export const useCmsCollection = <T>(options: CmsCollectionOptions) => {
     const resolvedFilters = unref(filters);
     if (resolvedFilters && Object.keys(resolvedFilters).length > 0) {
       Object.keys(resolvedFilters).forEach((key) => {
-        if (resolvedFilters[key] !== undefined && resolvedFilters[key] !== "") {
+        if (resolvedFilters[key] !== undefined && resolvedFilters[key] !== '') {
           params[key] = resolvedFilters[key];
         }
       });
@@ -52,7 +52,7 @@ export const useCmsCollection = <T>(options: CmsCollectionOptions) => {
 
     // Ajout des champs si spécifiés
     if (fields.length > 0) {
-      params.fields = fields.join(",");
+      params.fields = fields.join(',');
     }
 
     return params;
@@ -60,34 +60,54 @@ export const useCmsCollection = <T>(options: CmsCollectionOptions) => {
 
   // Construction de l'URL selon la collection
   const url = computed(() => {
-    if (id) {
-      return `/api/${collection}/${id}`;
+    const _id = unref(id);
+    if (_id) {
+      return `/api/${collection}/${_id}`;
     } else {
       return `/api/${collection}`;
     }
   });
 
+  // Génération d'une clé de cache unique basée sur la collection et tous les paramètres
+  const cacheKey = computed(() => {
+    const _id = unref(id);
+    const _query = query.value;
+
+    if (_id) {
+      return `cms-${collection}-${_id}`;
+    }
+
+    // Créer une clé unique basée sur tous les paramètres
+    const params = Object.keys(_query)
+      .sort() // Trier pour cohérence
+      .map((key) => `${key}=${_query[key]}`)
+      .join('&');
+
+    return `cms-${collection}-${params}`;
+  });
+
   // Appel API
   const { data, pending, error, refresh } = useFetch(url, {
-    query: id ? undefined : query, // Pas de query params pour les détails
+    key: cacheKey,
+    query: computed(() => (unref(id) ? undefined : query.value)), // Pas de query params pour les détails
     transform: (response: any) => {
       // Transformation par défaut selon le type de collection
       let items: any[] = [];
       let paginationData = {};
 
-      if (id) {
+      if (unref(id)) {
         // Pour les détails
         items = [
           response.document ||
-          response.nomination ||
-          response.media ||
-          response.commission ||
-          response.group ||
-          response.question ||
-          response.vote ||
-          response.deputy ||
-          response.item ||
-          response.data
+            response.nomination ||
+            response.media ||
+            response.commission ||
+            response.group ||
+            response.question ||
+            response.vote ||
+            response.deputy ||
+            response.item ||
+            response.data,
         ];
         paginationData = {
           page: 1,
@@ -101,6 +121,7 @@ export const useCmsCollection = <T>(options: CmsCollectionOptions) => {
           response.documents ||
           response.news ||
           response.nominations ||
+          response.persons ||
           response.medias ||
           response.media ||
           response.commissions ||
@@ -115,9 +136,24 @@ export const useCmsCollection = <T>(options: CmsCollectionOptions) => {
         paginationData = response.pagination || {
           page: unref(page),
           limit: unref(limit),
-          total: response.total || response.totalCount || response.totalCommissions || response.totalGroups || response.totalQuestions || response.totalVotes || response.totalDeputies || 0,
+          total:
+            response.total ||
+            response.totalCount ||
+            response.totalCommissions ||
+            response.totalGroups ||
+            response.totalQuestions ||
+            response.totalVotes ||
+            response.totalDeputies ||
+            0,
           totalPages: Math.ceil(
-            (response.total || response.totalCount || response.totalCommissions || response.totalGroups || response.totalQuestions || response.totalVotes || response.totalDeputies || 0) / unref(limit),
+            (response.total ||
+              response.totalCount ||
+              response.totalCommissions ||
+              response.totalGroups ||
+              response.totalQuestions ||
+              response.totalVotes ||
+              response.totalDeputies ||
+              0) / unref(limit),
           ),
         };
       }

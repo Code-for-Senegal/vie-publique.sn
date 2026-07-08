@@ -1,151 +1,183 @@
 <script setup lang="ts">
-import HomeLatestDocuments from "~/components/HomeLatestDocuments.vue";
+import HomeLatestDocuments from '~/components/HomeLatestDocuments.vue';
+
+const siteUrl = useRuntimeConfig().public.siteUrl || 'https://www.vie-publique.sn';
+
+const seoTitle = 'Documents officiels du Sénégal';
+const seoDescription =
+  "Accédez aux documents officiels du Sénégal: Journal officiel, rapports d'audit, codes généraux et plus encore.";
+
+useSeoMeta({
+  title: seoTitle,
+  description: seoDescription,
+  ogTitle: seoTitle,
+  ogDescription: seoDescription,
+  ogImage: `${siteUrl}/images/share-linkedin.png`,
+  ogUrl: `${siteUrl}/documents`,
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: seoTitle,
+  twitterDescription: seoDescription,
+});
 
 useHead({
-  title: "Documents officiels du Sénégal",
-  meta: [
+  link: [{ rel: 'canonical', href: `${siteUrl}/documents` }],
+  script: [
     {
-      name: "description",
-      content:
-        "Accédez aux documents officiels du Sénégal: Journal officiel, rapports d'audit, codes généraux et plus encore.",
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: seoTitle,
+        description: seoDescription,
+        url: `${siteUrl}/documents`,
+      }),
     },
   ],
 });
 
 const documentCategories = [
   {
-    title: "Journal Officiel",
-    description: "Textes, Lois, Décrets, Arrêtés",
-    icon: "i-heroicons-newspaper",
-    to: "/documents/journal-officiel",
-    color: "blue",
+    title: 'Tous les documents',
+    description: 'Explorer tous les documents',
+    icon: 'i-heroicons-squares-2x2',
+    to: '/documents/public',
+    gradient: 'from-purple-500 to-purple-600',
+    iconBg: 'bg-purple-500/10',
+    iconColor: 'text-purple-500',
   },
   {
-    title: "Rapports Publics",
-    description: "Cours des Comptes OFNAC etc",
-    icon: "i-heroicons-document-chart-bar",
-    to: "/documents/rapports-audit",
-    color: "green",
+    title: 'Journal Officiel',
+    description: 'Textes, Lois, Décrets, Arrêtés',
+    icon: 'i-heroicons-newspaper',
+    to: '/documents/journal-officiel-senegal',
+    gradient: 'from-blue-500 to-blue-600',
+    iconBg: 'bg-blue-500/10',
+    iconColor: 'text-blue-500',
   },
   {
-    title: "Documents Budgétaires",
-    description: "Lois de finances et annexes",
-    icon: "i-heroicons-banknotes",
-    to: "/documents/budget",
-    color: "amber",
+    title: 'Rapports Publics',
+    description: 'Cours des Comptes, OFNAC...',
+    icon: 'i-heroicons-document-chart-bar',
+    to: '/documents/rapports-audit',
+    gradient: 'from-emerald-500 to-emerald-600',
+    iconBg: 'bg-emerald-500/10',
+    iconColor: 'text-emerald-500',
   },
   {
-    title: "Documents Stratégie",
-    description: "Les stratégies du Sénégal",
-    icon: "i-heroicons-presentation-chart-line",
-    to: "/documents/strategies",
-    color: "red",
+    title: 'Documents Budgétaires',
+    description: 'Lois de finances et annexes',
+    icon: 'i-heroicons-banknotes',
+    to: '/documents/budget',
+    gradient: 'from-amber-500 to-amber-600',
+    iconBg: 'bg-amber-500/10',
+    iconColor: 'text-amber-500',
   },
   {
-    title: "Codes Généraux",
-    description: "Constitution, famille, presse...",
-    icon: "i-heroicons-scale",
-    to: "/documents/codes",
-    color: "indigo",
+    title: 'Documents Stratégie',
+    description: 'Stratégies nationales',
+    icon: 'i-heroicons-presentation-chart-line',
+    to: '/documents/strategies',
+    gradient: 'from-rose-500 to-rose-600',
+    iconBg: 'bg-rose-500/10',
+    iconColor: 'text-rose-500',
   },
   {
-    title: "Tous les documents",
-    description: "Liste complète des documents officiels",
-    icon: "i-heroicons-document-text",
-    to: "/documents/public",
-    color: "purple",
+    title: 'Codes Généraux',
+    description: 'Constitution, famille, presse...',
+    icon: 'i-heroicons-scale',
+    to: '/documents/codes',
+    gradient: 'from-indigo-500 to-indigo-600',
+    iconBg: 'bg-indigo-500/10',
+    iconColor: 'text-indigo-500',
+  },
+  {
+    title: 'Statistiques',
+    description: 'Enquêtes et données statistiques',
+    icon: 'i-heroicons-chart-pie',
+    to: '/documents/statistiques',
+    gradient: 'from-cyan-500 to-cyan-600',
+    iconBg: 'bg-cyan-500/10',
+    iconColor: 'text-cyan-500',
+  },
+  {
+    title: 'Parlementaire',
+    description: 'Rapports et questions parlementaires',
+    icon: 'i-heroicons-building-library',
+    to: '/documents/parlementaire',
+    gradient: 'from-orange-500 to-orange-600',
+    iconBg: 'bg-orange-500/10',
+    iconColor: 'text-orange-500',
+  },
+  {
+    title: 'Élection',
+    description: 'Documents électoraux officiels',
+    icon: 'i-heroicons-check-badge',
+    to: '/documents/elections',
+    gradient: 'from-teal-500 to-teal-600',
+    iconBg: 'bg-teal-500/10',
+    iconColor: 'text-teal-500',
   },
 ];
-
-// Fonction pour obtenir la couleur de fond de l'icône
-const getIconBgColor = (color: string) => {
-  const colorMap: Record<string, string> = {
-    blue: "bg-blue-100",
-    green: "bg-emerald-100",
-    amber: "bg-amber-100",
-    red: "bg-rose-100",
-    indigo: "bg-indigo-100",
-    purple: "bg-purple-100",
-  };
-  return colorMap[color] || "bg-gray-100";
-};
-
-// Fonction pour obtenir la couleur de l'icône
-const getIconColor = (color: string) => {
-  const colorMap: Record<string, string> = {
-    blue: "text-blue-600",
-    green: "text-emerald-600",
-    amber: "text-amber-600",
-    red: "text-rose-600",
-    indigo: "text-indigo-600",
-    purple: "text-purple-600",
-  };
-  return colorMap[color] || "text-gray-600";
-};
 </script>
 
 <template>
-  <div class="container mx-auto">
-    <div class="prose prose-sm sm:prose mx-auto my-2">
-      <h1 class="text-center dark:text-white">Documents</h1>
+  <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-950">
+    <div class="container mx-auto px-4">
+      <AppBreadcrumb :items="[{ label: 'Documents' }]" />
     </div>
 
-    <div class="mt-2 grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2">
-      <NuxtLink
-        v-for="menu in documentCategories"
-        :key="menu.title"
-        :to="menu.to"
-        class="no-underline"
-      >
-        <UCard
-          :ui="{
-            base: 'transition-all duration-300 h-full',
-            body: {
-              base: 'p-0 h-full',
-              padding: '',
-            },
-            ring: '',
-            divide: '',
-          }"
-          class="hover:scale-102 overflow-hidden shadow-md transition-all hover:shadow-xl"
+    <!-- Header -->
+    <header class="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+      <div class="container mx-auto px-4 py-4">
+        <h1 class="text-xl font-bold text-gray-900 dark:text-white">Documents</h1>
+        <p class="mt-0.5 text-sm text-gray-500 dark:text-gray-400">
+          Accédez aux documents officiels du Sénégal
+        </p>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-4">
+      <!-- Categories Grid -->
+      <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-3">
+        <NuxtLink
+          v-for="cat in documentCategories"
+          :key="cat.title"
+          :to="cat.to"
+          class="group relative flex flex-col items-center rounded-2xl bg-white p-4 text-center shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.97] dark:bg-gray-800 dark:ring-gray-700 sm:p-5 sm:hover:shadow-lg"
         >
-          <div class="flex h-full">
-            <!-- Partie gauche avec l'icône sur fond coloré -->
-            <div
-              :class="[
-                getIconBgColor(menu.color),
-                'flex items-center justify-center',
-                'w-16 py-4 sm:w-20 sm:py-6',
-              ]"
-            >
-              <div class="flex flex-col items-center">
-                <UIcon
-                  :name="menu.icon"
-                  :class="[getIconColor(menu.color), 'h-10 w-10']"
-                />
-              </div>
-            </div>
-
-            <!-- Partie droite avec le texte -->
-            <div class="flex flex-1 flex-col justify-center p-4">
-              <h2 class="text-base font-bold text-gray-800 dark:text-gray-200">
-                {{ menu.title }}
-              </h2>
-              <p class="text-xs text-gray-600 sm:text-sm dark:text-gray-400">
-                {{ menu.description }}
-              </p>
-            </div>
+          <!-- Icon Container -->
+          <div
+            :class="[
+              cat.iconBg,
+              'flex h-12 w-12 items-center justify-center rounded-xl transition-transform group-hover:scale-110 sm:h-14 sm:w-14',
+            ]"
+          >
+            <UIcon :name="cat.icon" :class="[cat.iconColor, 'h-6 w-6 sm:h-7 sm:w-7']" />
           </div>
-        </UCard>
-      </NuxtLink>
-    </div>
 
-    <HomeLatestDocuments />
+          <!-- Text -->
+          <h2 class="mt-3 text-sm font-semibold text-gray-900 dark:text-white sm:text-base">
+            {{ cat.title }}
+          </h2>
+          <p class="mt-0.5 line-clamp-2 text-xs text-gray-500 dark:text-gray-400">
+            {{ cat.description }}
+          </p>
+
+          <!-- Hover Arrow (desktop) -->
+          <div
+            class="absolute right-2 top-2 opacity-0 transition-opacity group-hover:opacity-100 sm:right-3 sm:top-3"
+          >
+            <UIcon name="i-heroicons-arrow-up-right" class="h-4 w-4 text-gray-400" />
+          </div>
+        </NuxtLink>
+      </div>
+
+      <!-- Latest Documents Section -->
+      <section class="mt-8">
+        <HomeLatestDocuments />
+      </section>
+    </main>
   </div>
 </template>
-
-<style scoped>
-.hover\:scale-102:hover {
-  transform: scale(1.02);
-}
-</style>

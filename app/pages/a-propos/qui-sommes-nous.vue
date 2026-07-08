@@ -112,36 +112,21 @@ useHead({
     { name: 'geo.placename', content: 'Dakar' },
   ],
   script: [
-    { type: 'application/ld+json', children: JSON.stringify(organizationSchema) },
-    { type: 'application/ld+json', children: JSON.stringify(breadcrumbSchema) },
-    { type: 'application/ld+json', children: JSON.stringify(aboutPageSchema) },
+    { type: 'application/ld+json', innerHTML: JSON.stringify(organizationSchema) },
+    { type: 'application/ld+json', innerHTML: JSON.stringify(breadcrumbSchema) },
+    { type: 'application/ld+json', innerHTML: JSON.stringify(aboutPageSchema) },
   ],
 });
 </script>
 
 <template>
-  <div class="container mx-auto max-w-4xl px-4 py-8">
-    <!-- Breadcrumb -->
-    <!-- Breadcrumb -->
-    <nav
-      class="mb-6 flex items-center text-sm text-gray-500 dark:text-gray-400"
-      aria-label="Breadcrumb"
-    >
-      <NuxtLink to="/" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-        Accueil
-      </NuxtLink>
-      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
-      <span class="truncate font-medium text-gray-900 dark:text-white" aria-current="page">
-        À Propos
-      </span>
-    </nav>
+  <div class="container mx-auto min-h-screen max-w-4xl px-4 py-8 pb-16">
+    <AppBreadcrumb :items="[{ label: 'À propos' }]" />
 
-    <article class="prose prose-sm mx-auto sm:prose lg:prose-lg dark:prose-invert">
+    <article class="prose prose-sm mx-auto dark:prose-invert sm:prose lg:prose-lg">
       <h1>À Propos</h1>
 
-      <p class="text-sm text-gray-600 dark:text-gray-400">
-        Dernière modification: 21 décembre 2025
-      </p>
+      <p class="text-sm text-gray-600 dark:text-gray-400">Dernière modification: 5 juillet 2026</p>
 
       <h3>Projet Citoyen, Ouvert et Open Source</h3>
 
@@ -164,7 +149,7 @@ useHead({
         2025.
       </p>
 
-      <p>
+      <p class="hidden">
         Dans un souci de transparence vis-à-vis de notre communauté, nous publions nos principes de
         financement, de gouvernance et nos garanties d'indépendance éditoriale sur des pages dédiées
         :
@@ -260,6 +245,16 @@ useHead({
         servir au mieux les intérêts des citoyens sénégalais.
       </p>
 
+      <h3>Les coulisses techniques</h3>
+
+      <p>
+        Curieux de savoir comment la plateforme est construite&nbsp;? Nous racontons son démarrage
+        (mise en ligne en une heure), l'évolution de notre architecture, notre stack technique,
+        notre DevOps et notre manière de développer avec l'IA — ainsi que nos coûts de
+        fonctionnement, par transparence — sur
+        <NuxtLink to="/tech/coulisses-civic-tech">la page « Les coulisses techniques »</NuxtLink>.
+      </p>
+
       <h3>Contributeurs</h3>
 
       <p>Les personnes qui contribuent au projet</p>
@@ -273,6 +268,102 @@ useHead({
         sources publiques, puis centralisés, enrichis, croisés avant d'être publiés sur Vie Publique
         dans le but de faciliter leur accès et leur utilisation par le public.
       </p>
+
+      <h3>Licence et réutilisation des contenus</h3>
+
+      <p>
+        Les documents officiels reproduits sur la plateforme (lois, décrets, Journal officiel,
+        rapports publics…) sont des actes publics relevant du domaine public : ils sont librement
+        réutilisables.
+      </p>
+
+      <p>
+        Le contenu éditorial produit par Vie-Publique.sn (synthèses, fiches, dossiers,
+        visualisations, données structurées) est mis à disposition sous licence
+        <a
+          href="https://creativecommons.org/licenses/by/4.0/deed.fr"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Creative Commons Attribution 4.0 (CC BY 4.0)</a
+        >
+        : vous pouvez le réutiliser, le partager et l'adapter librement, y compris à des fins
+        commerciales, à condition de créditer « Vie-Publique.sn » et d'ajouter un lien vers la page
+        source.
+      </p>
+
+      <p>
+        Le code source de la plateforme est open source, publié sur
+        <a
+          href="https://github.com/Code-for-Senegal/vie-publique.sn"
+          target="_blank"
+          rel="noopener noreferrer"
+          >GitHub</a
+        >
+        sous licence GNU GPL v3.
+      </p>
+
+      <h3>Avertissement</h3>
+
+      <p>Cette application ne représente aucune entité officielle du Gouvernement du Sénégal.</p>
+
+      <p>Elle permet d'accéder à des informations publiques disponibles en ligne, notamment :</p>
+
+      <ul>
+        <li>Textes officiels</li>
+        <li>Journaux officiels</li>
+        <li>Lois et décrets</li>
+        <li>Publications institutionnelles</li>
+        <li>Informations électorales publiées officiellement</li>
+      </ul>
+
+      <p>
+        Toutes les données proviennent exclusivement de sources publiques officielles accessibles au
+        public, notamment :
+      </p>
+
+      <ul>
+        <li>
+          <a href="https://www.presidence.sn" target="_blank" rel="noopener">presidence.sn</a>
+        </li>
+        <li><a href="https://www.primature.sn" target="_blank" rel="noopener">primature.sn</a></li>
+        <li><a href="https://www.cena.sn" target="_blank" rel="noopener">cena.sn</a></li>
+        <li><a href="https://dge.sn" target="_blank" rel="noopener">dge.sn</a></li>
+        <li><a href="https://assemblee.sn" target="_blank" rel="noopener">assemblee.sn</a></li>
+      </ul>
+
+      <p>
+        Les contenus sont reproduits à des fins informatives et éducatives uniquement, après leur
+        publication officielle par les autorités compétentes.
+      </p>
+
+      <p>
+        Cette application n'est affiliée, sponsorisée ni approuvée par aucune institution
+        gouvernementale.
+      </p>
+
+      <p>
+        Vie Publique SN ne collecte ni données électorales personnelles, ni votes, ni données
+        sensibles liées au processus électoral.
+      </p>
+
+      <p>
+        Pour toute information officielle et juridiquement opposable, les utilisateurs doivent
+        consulter directement les sites gouvernementaux concernés.
+      </p>
+
+      <p>
+        La plateforme met en œuvre un service d’ingestion de données encadré, reposant sur des
+        mécanismes de limitation des requêtes (quotas), de journalisation sécurisée et de mise en
+        cache, afin de garantir la traçabilité des opérations, le respect des conditions
+        d’utilisation des sources et la stabilité des systèmes interrogés. Fonctionnalités
+        principales :
+      </p>
+      <ul>
+        <li>Consultation des politiques publiques</li>
+        <li>Accès aux documents officiels</li>
+        <li>Tableaux de bord de suivi</li>
+        <li>Visualisation des indicateurs</li>
+      </ul>
     </article>
   </div>
 </template>

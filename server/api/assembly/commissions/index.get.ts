@@ -128,9 +128,6 @@ export default defineCachedEventHandler(
   {
     maxAge: 60 * 60, // 1 heure
     name: "assembly-commissions",
-    getKey: (event) => {
-      const query = getQuery(event);
-      return `assembly-commissions-${JSON.stringify(query)}`;
-    },
+    getKey: (event) => buildCacheKey("assembly-commissions", getQuery(event)),
   },
 );

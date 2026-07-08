@@ -1,6 +1,12 @@
 <template>
-  <div class="min-h-screen bg-gray-50 py-12 dark:bg-gray-900">
+  <div class="min-h-screen bg-gray-50 py-12 pb-16 dark:bg-gray-900">
     <UContainer>
+      <AppBreadcrumb
+        :items="[
+          { label: 'Don' }
+        ]"
+      />
+
       <div class="mx-auto max-w-2xl">
         <!-- En-tête -->
         <div class="mb-8 text-center">
@@ -31,7 +37,7 @@
             </div>
 
             <!-- Formulaire de don -->
-            <form @submit.prevent="handleSubmit" class="space-y-5">
+            <form class="space-y-5" @submit.prevent="handleSubmit">
               <!-- Sélection du montant -->
               <div>
                 <label class="mb-3 block text-sm font-medium text-gray-700 dark:text-gray-200">
@@ -44,9 +50,9 @@
                     :variant="selectedAmount === suggested.value ? 'solid' : 'outline'"
                     :color="selectedAmount === suggested.value ? 'primary' : 'gray'"
                     size="lg"
-                    @click="selectAmount(suggested.value)"
                     type="button"
                     class="h-16"
+                    @click="selectAmount(suggested.value)"
                   >
                     {{ suggested.label }}
                   </UButton>

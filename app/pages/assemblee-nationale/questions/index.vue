@@ -1,92 +1,70 @@
 <script setup lang="ts">
-const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
+const { siteName, siteUrl, keywords, themeColor } = useSiteMetadata();
 
 const title = "Questions écrites à l'Assemblée nationale du Sénégal | 15e législature";
-const description = "Consultez toutes les questions écrites posées par les députés de la 15e législature de l'Assemblée nationale du Sénégal. Activité parlementaire et contrôle de l'action gouvernementale.";
+const description =
+  "Consultez toutes les questions écrites posées par les députés de la 15e législature de l'Assemblée nationale du Sénégal. Activité parlementaire et contrôle de l'action gouvernementale.";
 const url = `${siteUrl}/assemblee-nationale/questions`;
 const image = `${siteUrl}/images/questions-ecrites-assemblee.webp`;
 
 const questionsCollectionSchema = {
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "name": title,
-  "description": description,
-  "url": url,
-  "image": image,
-  "isPartOf": {
-    "@type": "WebSite",
-    "name": siteName,
-    "url": siteUrl,
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: title,
+  description: description,
+  url: url,
+  image: image,
+  isPartOf: {
+    '@type': 'WebSite',
+    name: siteName,
+    url: siteUrl,
   },
-  "about": {
-    "@type": "GovernmentOrganization",
-    "name": "Assemblée nationale du Sénégal",
-    "description": "Parlement de la République du Sénégal",
-    "url": `${siteUrl}/assemblee-nationale`,
+  about: {
+    '@type': 'GovernmentOrganization',
+    name: 'Assemblée nationale du Sénégal',
+    description: 'Parlement de la République du Sénégal',
+    url: `${siteUrl}/assemblee-nationale`,
   },
-  "mainEntity": {
-    "@type": "ItemList",
-    "name": "Questions écrites parlementaires",
-    "description": "Collection des questions écrites posées par les députés sénégalais",
+  mainEntity: {
+    '@type': 'ItemList',
+    name: 'Questions écrites parlementaires',
+    description: 'Collection des questions écrites posées par les députés sénégalais',
   },
 };
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Accueil",
-      "item": siteUrl,
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Assemblée nationale",
-      "item": `${siteUrl}/assemblee-nationale`,
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Questions écrites",
-      "item": url,
-    },
-  ],
-};
+// Breadcrumb : émis par <AppBreadcrumb> (source unique du fil d'Ariane, §7 CLAUDE.md).
 
 const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "LegislativeBuilding",
-  "name": "Assemblée nationale du Sénégal",
-  "url": `${siteUrl}/assemblee-nationale`,
-  "description": "Institution législative de la République du Sénégal",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Avenue Léopold Sédar Senghor",
-    "addressLocality": "Dakar",
-    "addressCountry": "SN",
+  '@context': 'https://schema.org',
+  '@type': 'LegislativeBuilding',
+  name: 'Assemblée nationale du Sénégal',
+  url: `${siteUrl}/assemblee-nationale`,
+  description: 'Institution législative de la République du Sénégal',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Avenue Léopold Sédar Senghor',
+    addressLocality: 'Dakar',
+    addressCountry: 'SN',
   },
-  "governmentType": "Legislature",
-  "numberOfMembers": 165,
-  "legislativeTerm": "15e législature",
+  governmentType: 'Legislature',
+  numberOfMembers: 165,
+  legislativeTerm: '15e législature',
 };
 
 const governmentServiceSchema = {
-  "@context": "https://schema.org",
-  "@type": "GovernmentService",
-  "name": "Questions écrites parlementaires",
-  "description": "Service de questions écrites permettant aux députés d'interroger le gouvernement",
-  "provider": {
-    "@type": "GovernmentOrganization",
-    "name": "Assemblée nationale du Sénégal",
+  '@context': 'https://schema.org',
+  '@type': 'GovernmentService',
+  name: 'Questions écrites parlementaires',
+  description: "Service de questions écrites permettant aux députés d'interroger le gouvernement",
+  provider: {
+    '@type': 'GovernmentOrganization',
+    name: 'Assemblée nationale du Sénégal',
   },
-  "areaServed": {
-    "@type": "Country",
-    "name": "Sénégal",
+  areaServed: {
+    '@type': 'Country',
+    name: 'Sénégal',
   },
-  "serviceType": "Contrôle parlementaire",
+  serviceType: 'Contrôle parlementaire',
 };
 
 useSeoMeta({
@@ -96,52 +74,51 @@ useSeoMeta({
   ogDescription: description,
   ogImage: image,
   ogUrl: url,
-  twitterCard: "summary_large_image",
+  twitterCard: 'summary_large_image',
   twitterTitle: title,
   twitterDescription: description,
   twitterImage: image,
   keywords: [
     ...keywords,
-    "questions écrites Assemblée nationale",
-    "députés sénégalais questions",
-    "contrôle parlementaire Sénégal",
-    "15e législature questions",
-    "activité parlementaire Sénégal",
-    "questions gouvernement Sénégal",
-    "parlement sénégalais contrôle",
-  ].join(", "),
+    'questions écrites Assemblée nationale',
+    'députés sénégalais questions',
+    'contrôle parlementaire Sénégal',
+    '15e législature questions',
+    'activité parlementaire Sénégal',
+    'questions gouvernement Sénégal',
+    'parlement sénégalais contrôle',
+  ].join(', '),
 });
 
 useHead({
-  htmlAttrs: { lang: "fr-SN" },
-  link: [{ rel: "canonical", href: url }],
+  htmlAttrs: { lang: 'fr-SN' },
+  link: [{ rel: 'canonical', href: url }],
   meta: [
-    { name: "theme-color", content: themeColor },
-    { name: "author", content: "Assemblée nationale du Sénégal" },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: siteName },
-    { name: "robots", content: "index, follow" },
-    { name: "geo.region", content: "SN" },
-    { name: "geo.placename", content: "Dakar" },
-    { name: "geo.position", content: "14.7645042;-17.3660286" },
-    { name: "ICBM", content: "14.7645042, -17.3660286" },
+    { name: 'theme-color', content: themeColor },
+    { name: 'author', content: 'Assemblée nationale du Sénégal' },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:site_name', content: siteName },
+    { name: 'robots', content: 'index, follow' },
+    { name: 'geo.region', content: 'SN' },
+    { name: 'geo.placename', content: 'Dakar' },
+    { name: 'geo.position', content: '14.7645042;-17.3660286' },
+    { name: 'ICBM', content: '14.7645042, -17.3660286' },
   ],
   script: [
     {
-      type: "application/ld+json",
-      children: JSON.stringify(questionsCollectionSchema),
+      key: 'ld-collection',
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify(questionsCollectionSchema),
     },
     {
-      type: "application/ld+json",
-      children: JSON.stringify(breadcrumbSchema),
+      key: 'ld-organization',
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify(organizationSchema),
     },
     {
-      type: "application/ld+json",
-      children: JSON.stringify(organizationSchema),
-    },
-    {
-      type: "application/ld+json",
-      children: JSON.stringify(governmentServiceSchema),
+      key: 'ld-government-service',
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify(governmentServiceSchema),
     },
   ],
 });
@@ -155,46 +132,12 @@ const {
   currentPage,
   itemsPerPage,
   totalItems,
-  setCurrentPage,
-  setItemsPerPage
-} = useAssemblyQuestions({ limit: 50 }); // Charger 50 questions au lieu de 2000
-
-// Calcul des statistiques sur toutes les questions
-const topDeputies = computed(() => {
-  if (!questions.value || questions.value.length === 0) return [];
-
-  // Grouper les questions par député
-  const questionsByDeputy = questions.value.reduce((acc: any, question: any) => {
-    if (!question.deputy) return acc;
-
-    const deputyId = question.deputy.id;
-    if (!acc[deputyId]) {
-      acc[deputyId] = {
-        id: deputyId,
-        first_name: question.deputy.first_name,
-        last_name: question.deputy.last_name,
-        photo: question.deputy.photo,
-        questionsCount: 0,
-      };
-    }
-    acc[deputyId].questionsCount++;
-    return acc;
-  }, {});
-
-  // Convertir en tableau et trier
-  return Object.values(questionsByDeputy)
-    .sort((a: any, b: any) => b.questionsCount - a.questionsCount)
-    .slice(0, 4);
-});
+  topDeputies,
+  topDeputiesLoading,
+} = useAssemblyQuestions({ limit: 50, includeStats: true, topDeputiesLimit: 4 });
 
 // Les questions sont déjà paginées côté serveur via useCmsCollection
 const paginatedQuestions = computed(() => questions.value || []);
-
-const handlePageChange = (page: number) => {
-  setCurrentPage(page);
-  // Faire défiler vers le haut de la liste
-  window.scrollTo({ top: 0, behavior: "smooth" });
-};
 
 const formatDateISO = (date: string) => {
   return new Date(date).toISOString();
@@ -203,154 +146,278 @@ const formatDateISO = (date: string) => {
 
 <template>
   <div
-class="container mx-auto min-h-screen bg-white py-4 dark:bg-gray-900" itemscope
-    itemtype="https://schema.org/CollectionPage">
-    <NuxtLink
-to="/assemblee-nationale"
-      class="mb-4 inline-flex items-center text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100">
-      <UIcon name="i-heroicons-arrow-left" class="mr-2 h-5 w-5" />
-      15e législature Assemblée nationale
-    </NuxtLink>
+    class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-900"
+    itemscope
+    itemtype="https://schema.org/CollectionPage"
+  >
+    <!-- Schema.org metadata (hidden) -->
+    <div class="hidden">
+      <span itemprop="name">{{ title }}</span>
+      <span itemprop="description">{{ description }}</span>
+    </div>
 
-    <div class="mx-auto max-w-4xl">
-      <div class="prose prose-sm sm:prose my-2">
-        <h1 class="mb-2 dark:text-gray-100" itemprop="headline">Questions écrites</h1>
-      </div>
-
-      <div v-if="loading" class="flex justify-center py-8">
-        <UIcon name="i-heroicons-arrow-path" class="h-8 w-8 animate-spin" />
-      </div>
-
-      <UAlert
-        v-else-if="error"
-        title="Erreur de chargement"
-        description="Impossible de charger les questions écrites"
-        color="red"
-        icon="i-heroicons-exclamation-triangle"
+    <!-- Breadcrumb -->
+    <div class="container mx-auto hidden px-4 pt-4 md:block">
+      <AppBreadcrumb
+        :items="[
+          { label: 'Assemblée nationale', to: '/assemblee-nationale' },
+          { label: 'Questions écrites' },
+        ]"
       />
+    </div>
 
-      <div v-else>
-        <div class="mb-2 rounded-lg p-0">
-          <h2 class="mb-4 text-xl font-bold dark:text-gray-100">
+    <!-- Sticky Header mobile -->
+    <header
+      class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95 md:relative md:border-0 md:bg-transparent md:backdrop-blur-none"
+    >
+      <div class="container mx-auto px-4 py-3 md:py-6">
+        <div class="flex items-center gap-3 md:justify-center">
+          <!-- Back button mobile only -->
+          <NuxtLink
+            to="/assemblee-nationale"
+            class="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 md:hidden"
+            aria-label="Retour"
+          >
+            <UIcon
+              name="i-heroicons-arrow-left-20-solid"
+              class="h-5 w-5 text-gray-600 dark:text-gray-300"
+            />
+          </NuxtLink>
+          <div class="min-w-0 flex-1 md:flex-none md:text-center">
+            <h1
+              class="text-lg font-bold text-gray-900 dark:text-white md:text-2xl"
+              itemprop="headline"
+            >
+              Questions écrites
+            </h1>
+            <p
+              v-if="!loading && totalItems"
+              class="mt-0.5 text-xs text-gray-500 dark:text-gray-400 md:text-sm"
+            >
+              {{ totalItems }} questions au total
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-4">
+      <!-- Loading State -->
+      <div v-if="loading" class="space-y-6">
+        <!-- Top Deputies Skeleton -->
+        <div>
+          <USkeleton class="mb-3 h-5 w-40" />
+          <div class="grid grid-cols-2 gap-2 md:grid-cols-4">
+            <div
+              v-for="i in 4"
+              :key="i"
+              class="flex flex-col items-center rounded-xl bg-white p-4 dark:bg-gray-800"
+            >
+              <USkeleton class="mb-2 h-16 w-16 rounded-full" />
+              <USkeleton class="mb-1 h-3 w-20" />
+              <USkeleton class="h-2 w-16" />
+            </div>
+          </div>
+        </div>
+        <!-- Questions Skeleton -->
+        <div class="space-y-2">
+          <USkeleton class="mb-3 h-5 w-24" />
+          <div v-for="i in 5" :key="i" class="flex gap-3 rounded-xl bg-white p-3 dark:bg-gray-800">
+            <USkeleton class="h-14 w-14 shrink-0 rounded-full" />
+            <div class="flex-1 space-y-2">
+              <USkeleton class="h-2 w-20" />
+              <USkeleton class="h-4 w-full" />
+              <USkeleton class="h-3 w-32" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error State -->
+      <div v-else-if="error" class="rounded-2xl bg-red-50 p-6 text-center dark:bg-red-900/20">
+        <UIcon
+          name="i-heroicons-exclamation-triangle"
+          class="mx-auto mb-3 h-10 w-10 text-red-500"
+        />
+        <h3 class="font-semibold text-red-800 dark:text-red-200">Erreur de chargement</h3>
+        <p class="mt-1 text-sm text-red-600 dark:text-red-300">
+          Impossible de charger les questions écrites
+        </p>
+      </div>
+
+      <!-- Content -->
+      <div v-else class="space-y-6">
+        <!-- Top Deputies Section -->
+        <section>
+          <h2 class="mb-3 text-sm font-bold text-gray-900 dark:text-white md:text-lg">
             Députés les plus actifs
           </h2>
-          <div class="grid grid-cols-2 gap-2 md:grid-cols-4" itemscope itemtype="https://schema.org/ItemList">
-            <meta itemprop="name" content="Députés les plus actifs">
-            <meta itemprop="numberOfItems" :content="topDeputies.length">
 
+          <div v-if="topDeputiesLoading" class="grid grid-cols-2 gap-2 md:grid-cols-4">
             <div
-v-for="(deputy, index) in topDeputies" :key="deputy.id"
-              class="custom-shadow relative flex flex-col items-center rounded-lg bg-white p-4 transition-all hover:shadow-md dark:bg-gray-800 dark:text-gray-100"
-              itemscope itemtype="https://schema.org/Person" itemprop="itemListElement">
-              <meta itemprop="position" :content="index + 1">
-              <meta itemprop="identifier" :content="deputy.id">
+              v-for="i in 4"
+              :key="i"
+              class="flex flex-col items-center rounded-xl bg-white p-4 dark:bg-gray-800"
+            >
+              <USkeleton class="mb-2 h-14 w-14 rounded-full" />
+              <USkeleton class="mb-1 h-3 w-20" />
+              <USkeleton class="h-2 w-16" />
+            </div>
+          </div>
 
+          <div
+            v-else
+            class="grid grid-cols-2 gap-2 md:grid-cols-4"
+            itemscope
+            itemtype="https://schema.org/ItemList"
+          >
+            <meta itemprop="name" content="Députés les plus actifs" />
+            <meta itemprop="numberOfItems" :content="topDeputies.length" />
+
+            <NuxtLink
+              v-for="(deputy, index) in topDeputies"
+              :key="deputy.id"
+              :to="`/assemblee-nationale/deputes/${deputy.id}/${$getSlugifyUrlPath(deputy.first_name + ' ' + deputy.last_name)}`"
+              class="group relative flex flex-col items-center rounded-xl bg-white p-3 ring-1 ring-gray-100 transition-all active:scale-[0.98] dark:bg-gray-800 dark:ring-gray-700 md:p-4 md:hover:shadow-md md:hover:ring-blue-200"
+              itemscope
+              itemtype="https://schema.org/Person"
+              itemprop="itemListElement"
+            >
+              <meta itemprop="position" :content="index + 1" />
+              <meta itemprop="identifier" :content="deputy.id" />
+              <meta
+                itemprop="url"
+                :content="`${siteUrl}/assemblee-nationale/deputes/${deputy.id}`"
+              />
+
+              <!-- Rank Badge -->
               <div
-class="absolute left-1/2 top-20 -translate-x-1/2 rounded-full px-3 py-1 text-sm font-bold text-white"
+                class="absolute -right-1 -top-1 rounded-full px-2 py-0.5 text-[10px] font-bold text-white md:text-xs"
                 :class="{
-                  'bg-yellow-500': index === 0,
-                  'bg-yellow-400': index === 1,
-                  'bg-amber-700': index === 2,
+                  'bg-blue-500': index === 0,
+                  'bg-blue-400': index === 1,
+                  'bg-blue-600': index === 2,
                   'bg-gray-400': index === 3,
-                }">
-                {{ index + 1 }}{{ index === 0 ? "er" : "ème" }}
+                }"
+              >
+                {{ index + 1 }}{{ index === 0 ? 'er' : 'e' }}
               </div>
 
-              <NuxtLink
-                :to="`/assemblee-nationale/deputes/${deputy.id}/${$getSlugifyUrlPath(deputy.first_name + ' ' + deputy.last_name)}`"
-                class="flex flex-col items-center" itemprop="url">
-                <CmsImage
-:src="deputy.photo" :alt="deputy.first_name"
-                  class="mb-3 h-20 w-20 rounded-full object-cover shadow-sm" itemprop="image" />
-                <div class="text-center">
-                  <div class="truncate font-medium capitalize text-gray-900 dark:text-gray-100">
-                    <span itemprop="givenName">{{ deputy.first_name.toLowerCase() }}</span><br />
-                    <span class="tracking-wider" itemprop="familyName">
-                      {{ deputy.last_name.toUpperCase() }}
-                    </span>
-                  </div>
-                  <meta itemprop="name" :content="`${deputy.first_name} ${deputy.last_name}`">
-                  <meta itemprop="jobTitle" content="Député">
-                  <div class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                    {{ deputy.questionsCount }} question{{
-                      deputy.questionsCount > 1 ? "s" : ""
-                    }}
-                  </div>
-                </div>
-              </NuxtLink>
-            </div>
+              <CmsImage
+                :src="deputy.photo"
+                :alt="deputy.first_name"
+                class="mb-2 h-14 w-14 rounded-full object-cover ring-2 ring-white dark:ring-gray-700 md:h-16 md:w-16"
+                itemprop="image"
+              />
+              <div class="text-center">
+                <p class="text-xs font-medium capitalize text-gray-900 dark:text-white md:text-sm">
+                  <span itemprop="givenName">{{ deputy.first_name.toLowerCase() }}</span>
+                  <span class="uppercase tracking-wide" itemprop="familyName">{{
+                    deputy.last_name
+                  }}</span>
+                </p>
+                <meta itemprop="name" :content="`${deputy.first_name} ${deputy.last_name}`" />
+                <meta itemprop="jobTitle" content="Député" />
+                <p class="mt-0.5 text-[10px] text-blue-900 dark:text-blue-400 md:text-xs">
+                  {{ deputy.questionsCount }} question{{ deputy.questionsCount > 1 ? 's' : '' }}
+                </p>
+              </div>
+            </NuxtLink>
           </div>
-        </div>
+        </section>
 
-        <div id="questions-list" class="space-y-2" itemscope itemtype="https://schema.org/ItemList">
-          <meta itemprop="name" content="Questions écrites parlementaires">
-          <meta itemprop="numberOfItems" :content="totalItems">
+        <!-- Questions List -->
+        <section id="questions-list" itemscope itemtype="https://schema.org/ItemList">
+          <meta itemprop="name" content="Questions écrites parlementaires" />
+          <meta itemprop="numberOfItems" :content="totalItems" />
 
-          <div class="mb-4 flex items-center justify-between">
-            <h2 class="text-xl font-bold dark:text-gray-100">Questions</h2>
-            <div class="text-sm text-gray-500 dark:text-gray-400">
-              {{ totalItems }} questions au total
-            </div>
+          <h2 class="mb-3 text-sm font-bold text-gray-900 dark:text-white md:text-lg">
+            Toutes les questions
+          </h2>
+
+          <!-- Questions - Mobile: compact list, Desktop: cards -->
+          <div class="space-y-2">
+            <NuxtLink
+              v-for="(question, index) in paginatedQuestions"
+              :key="question.id"
+              :to="`/assemblee-nationale/questions/${question.id}/${question.slug || 'question'}`"
+              class="group flex gap-3 rounded-xl bg-white p-3 ring-1 ring-gray-100 transition-all active:scale-[0.98] dark:bg-gray-800 dark:ring-gray-700 md:p-4 md:hover:shadow-md md:hover:ring-gray-200"
+              itemscope
+              itemtype="https://schema.org/Question"
+              itemprop="itemListElement"
+            >
+              <meta itemprop="position" :content="(currentPage - 1) * itemsPerPage + index + 1" />
+              <meta
+                itemprop="url"
+                :content="`${siteUrl}/assemblee-nationale/questions/${question.id}/${question.slug || 'question'}`"
+              />
+              <meta itemprop="dateCreated" :content="formatDateISO(question.question_date)" />
+
+              <div itemprop="author" itemscope itemtype="https://schema.org/Person" class="hidden">
+                <meta
+                  itemprop="name"
+                  :content="`${question.deputy.first_name} ${question.deputy.last_name}`"
+                />
+                <meta itemprop="jobTitle" content="Député" />
+                <meta itemprop="image" :content="useCmsImageAbsolute(question.deputy.photo)" />
+              </div>
+
+              <!-- Photo -->
+              <CmsImage
+                :src="question.deputy.photo"
+                :alt="question.deputy.first_name"
+                class="h-12 w-12 shrink-0 rounded-full object-cover md:h-14 md:w-14"
+                itemprop="image"
+              />
+
+              <!-- Content -->
+              <div class="min-w-0 flex-1">
+                <time
+                  :datetime="formatDateISO(question.question_date)"
+                  itemprop="dateCreated"
+                  class="text-[10px] text-gray-400 md:text-xs"
+                >
+                  {{ $dateformat(question.question_date) }}
+                </time>
+                <h3
+                  class="line-clamp-2 text-xs font-medium text-gray-900 dark:text-white md:text-sm"
+                  itemprop="name"
+                >
+                  {{ question.subject }}
+                </h3>
+                <p
+                  class="mt-0.5 text-[10px] text-blue-900 dark:text-blue-400 md:text-xs"
+                  itemprop="author"
+                >
+                  {{ question.deputy.first_name }} {{ question.deputy.last_name }}
+                </p>
+              </div>
+
+              <!-- Arrow -->
+              <UIcon
+                name="i-heroicons-chevron-right"
+                class="h-4 w-4 shrink-0 self-center text-gray-300 dark:text-gray-600 md:hidden"
+              />
+            </NuxtLink>
           </div>
 
-          <article
-v-for="(question, index) in paginatedQuestions" :key="question.id" itemscope
-            itemtype="https://schema.org/Question" itemprop="itemListElement"
-            class="custom-shadow transition-all hover:shadow-lg dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100">
-            <meta itemprop="position" :content="(currentPage - 1) * itemsPerPage + index + 1">
-            <meta itemprop="url" :content="`${siteUrl}/assemblee-nationale/questions/${question.id}`">
-            <meta itemprop="dateCreated" :content="formatDateISO(question.question_date)">
-
-            <div itemprop="author" itemscope itemtype="https://schema.org/Person">
-              <meta itemprop="name" :content="`${question.deputy.first_name} ${question.deputy.last_name}`">
-              <meta itemprop="jobTitle" content="Député">
-              <meta itemprop="image" :content="useCmsImageAbsolute(question.deputy.photo)">
-            </div>
-
-            <UCard>
-              <NuxtLink :to="`/assemblee-nationale/questions/${question.id}`">
-                <div class="flex gap-4">
-                  <div class="flex-shrink-0">
-                    <CmsImage
-:src="question.deputy.photo" :alt="question.deputy.first_name"
-                      class="h-20 w-20 rounded-full object-cover" itemprop="image" />
-                  </div>
-                  <div class="flex-grow">
-                    <div class="mb-1 text-sm text-gray-500 dark:text-gray-400">
-                      <time :datetime="formatDateISO(question.question_date)" itemprop="dateCreated">
-                        {{ $dateformat(question.question_date) }}
-                      </time>
-                    </div>
-                    <h2 class="text-normal mb-2 font-medium dark:text-gray-100" itemprop="name">
-                      {{ question.subject }}
-                    </h2>
-                    <div class="text-sm font-medium text-blue-900 dark:text-blue-300" itemprop="author">
-                      {{ question.deputy.first_name }}
-                      {{ question.deputy.last_name }}
-                    </div>
-                  </div>
-                  <div class="flex items-center">
-                    <UIcon name="i-heroicons-chevron-right" class="h-5 w-5 text-gray-400 dark:text-gray-300" />
-                  </div>
-                </div>
-              </NuxtLink>
-            </UCard>
-          </article>
-
+          <!-- Pagination -->
           <div class="mt-6 flex justify-center">
             <UPagination
-:model-value="currentPage" :total="totalItems" :per-page="itemsPerPage"
-              :active-button="{ color: 'yellow' }" :ui="{
-                wrapper: 'flex items-center gap-1',
-                base: 'min-w-8 min-h-8 flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed',
-                active:
-                  'bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900',
-                inactive:
-                  'bg-white text-gray-900 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700',
-              }" @change="handlePageChange" />
+              v-model="currentPage"
+              :total="totalItems"
+              :page-count="itemsPerPage"
+              :default-page="1"
+              :show-edges="true"
+              :sibling-count="1"
+              size="sm"
+              :active-button="{ color: 'yellow' }"
+            />
           </div>
-        </div>
+        </section>
       </div>
-    </div>
+    </main>
+
+    <ScrollToTopButton />
   </div>
 </template>

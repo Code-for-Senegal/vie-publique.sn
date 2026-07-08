@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { MediaType } from "../../../../types/media";
-import { typeDisplayMap, typeColorMap, typeIconMap } from "../../../../types/media";
+import type { MediaType } from '../../../../types/media';
+import { typeDisplayMap, typeColorMap, typeIconMap } from '../../../../types/media';
 
 const route = useRoute();
 const router = useRouter();
@@ -16,11 +16,11 @@ const { siteName, siteUrl, keywords, themeColor } = useSiteMetadata();
 const title = computed(() =>
   media.value
     ? `${media.value.name} - ${typeDisplayMap[media.value.type as MediaType]} | Vie-Publique.sn`
-    : "Média | Vie-Publique.sn",
+    : 'Média | Vie-Publique.sn',
 );
 
 const description = computed(() => {
-  if (!media.value) return "Détails du média sénégalais";
+  if (!media.value) return 'Détails du média sénégalais';
   const typeLabel = typeDisplayMap[media.value.type as MediaType];
   return media.value.description
     ? `${media.value.description.substring(0, 155)}...`
@@ -42,17 +42,19 @@ useSeoMeta({
   ogDescription: description,
   ogImage: image,
   ogUrl: url,
-  twitterCard: "summary_large_image",
+  twitterCard: 'summary_large_image',
   twitterTitle: title,
   twitterDescription: description,
   twitterImage: image,
-  keywords: computed(() => [
-    ...keywords,
-    media.value?.name || "",
-    typeDisplayMap[media.value?.type as MediaType] || "",
-    "média sénégalais",
-    "MCTN Sénégal",
-  ].join(", ")),
+  keywords: computed(() =>
+    [
+      ...keywords,
+      media.value?.name || '',
+      typeDisplayMap[media.value?.type as MediaType] || '',
+      'média sénégalais',
+      'MCTN Sénégal',
+    ].join(', '),
+  ),
 });
 
 // Schema.org pour le référencement
@@ -67,8 +69,8 @@ const organizationSchema = computed(() => {
   if (media.value.tiktok) sameAs.push(media.value.tiktok);
 
   return {
-    "@context": "https://schema.org",
-    "@type": "NewsMediaOrganization",
+    '@context': 'https://schema.org',
+    '@type': 'NewsMediaOrganization',
     name: media.value.name,
     url: media.value.website || url.value,
     logo: image.value,
@@ -76,88 +78,55 @@ const organizationSchema = computed(() => {
     description: description.value,
     sameAs: sameAs.length > 0 ? sameAs : undefined,
     address: {
-      "@type": "PostalAddress",
-      addressCountry: "SN",
-      addressLocality: "Dakar",
+      '@type': 'PostalAddress',
+      addressCountry: 'SN',
+      addressLocality: 'Dakar',
     },
     areaServed: {
-      "@type": "Country",
-      name: "Sénégal",
+      '@type': 'Country',
+      name: 'Sénégal',
     },
     parentOrganization: media.value.group?.name
       ? {
-          "@type": "Organization",
+          '@type': 'Organization',
           name: media.value.group.name,
         }
       : undefined,
   };
 });
 
-const breadcrumbSchema = computed(() => ({
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "Accueil",
-      item: siteUrl,
-    },
-    {
-      "@type": "ListItem",
-      position: 2,
-      name: "Annuaires",
-      item: `${siteUrl}/annuaires`,
-    },
-    {
-      "@type": "ListItem",
-      position: 3,
-      name: "Médias",
-      item: `${siteUrl}/medias`,
-    },
-    {
-      "@type": "ListItem",
-      position: 4,
-      name: media.value?.name || "Média",
-      item: url.value,
-    },
-  ],
-}));
+// Breadcrumb : émis par <AppBreadcrumb> (source unique du fil d'Ariane, §7 CLAUDE.md).
 
 // Head Configuration
 useHead({
-  htmlAttrs: { lang: "fr-SN" },
-  link: [{ rel: "canonical", href: url.value }],
+  htmlAttrs: { lang: 'fr-SN' },
+  link: [{ rel: 'canonical', href: url.value }],
   meta: [
-    { name: "theme-color", content: themeColor },
-    { name: "author", content: siteName },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: siteName },
-    { name: "robots", content: "index, follow" },
+    { name: 'theme-color', content: themeColor },
+    { name: 'author', content: siteName },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:site_name', content: siteName },
+    { name: 'robots', content: 'index, follow' },
   ],
   script: computed(() => {
     const scripts = [];
     if (organizationSchema.value) {
       scripts.push({
-        type: "application/ld+json",
-        children: JSON.stringify(organizationSchema.value),
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify(organizationSchema.value),
       });
     }
-    scripts.push({
-      type: "application/ld+json",
-      children: JSON.stringify(breadcrumbSchema.value),
-    });
     return scripts;
   }),
 });
 
 // Computed pour les réseaux sociaux
 const socialPlatforms = [
-  { key: "facebook", icon: "i-simple-icons-facebook", label: "Facebook" },
-  { key: "instagram", icon: "i-simple-icons-instagram", label: "Instagram" },
-  { key: "twitter", icon: "i-simple-icons-x", label: "X (Twitter)" },
-  { key: "tiktok", icon: "i-simple-icons-tiktok", label: "TikTok" },
-  { key: "youtube", icon: "i-simple-icons-youtube", label: "YouTube" },
+  { key: 'facebook', icon: 'i-simple-icons-facebook', label: 'Facebook' },
+  { key: 'instagram', icon: 'i-simple-icons-instagram', label: 'Instagram' },
+  { key: 'twitter', icon: 'i-simple-icons-x', label: 'X (Twitter)' },
+  { key: 'tiktok', icon: 'i-simple-icons-tiktok', label: 'TikTok' },
+  { key: 'youtube', icon: 'i-simple-icons-youtube', label: 'YouTube' },
 ];
 
 const availableSocialLinks = computed(() => {
@@ -169,10 +138,10 @@ const availableSocialLinks = computed(() => {
 
 const getInitials = (name: string): string => {
   return name
-    .split(" ")
+    .split(' ')
     .slice(0, 2)
     .map((word) => word.charAt(0))
-    .join("")
+    .join('')
     .toUpperCase();
 };
 
@@ -180,22 +149,17 @@ const getInitials = (name: string): string => {
 const backUrl = computed(() => {
   const query = { ...route.query };
   return {
-    path: "/medias",
+    path: '/medias',
     query,
   };
 });
 </script>
 
 <template>
-  <div class="space-y-4 p-0">
-    <!-- Bouton retour -->
-    <NuxtLink
-      :to="backUrl"
-      class="inline-flex items-center text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-200"
-    >
-      <UIcon name="i-heroicons-arrow-left" class="mr-2 h-5 w-5" />
-      Retour à la liste
-    </NuxtLink>
+  <div class="min-h-screen space-y-4 p-0 pb-16">
+    <AppBreadcrumb
+      :items="[{ label: 'Médias', to: '/medias' }, { label: media?.name || 'Média' }]"
+    />
 
     <!-- Loading state avec skeleton -->
     <UCard v-if="loading" class="custom-shadow">
@@ -237,10 +201,7 @@ const backUrl = computed(() => {
           <div>
             <h1 class="text-2xl font-bold">{{ media.name }}</h1>
             <UBadge variant="soft" class="mt-2" size="md">
-              <UIcon
-                :name="typeIconMap[media.type as MediaType]"
-                class="mr-1 h-4 w-4"
-              />
+              <UIcon :name="typeIconMap[media.type as MediaType]" class="mr-1 h-4 w-4" />
               {{ typeDisplayMap[media.type as MediaType] }}
             </UBadge>
           </div>
@@ -289,10 +250,7 @@ const backUrl = computed(() => {
               <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
                 {{ platform.label }}
               </span>
-              <UIcon
-                name="i-heroicons-arrow-top-right-on-square"
-                class="h-4 w-4 text-gray-400"
-              />
+              <UIcon name="i-heroicons-arrow-top-right-on-square" class="h-4 w-4 text-gray-400" />
             </ULink>
           </div>
         </div>

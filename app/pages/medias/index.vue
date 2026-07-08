@@ -152,19 +152,19 @@ useHead({
   script: [
     {
       type: "application/ld+json",
-      children: JSON.stringify(mediasSchema),
+      innerHTML: JSON.stringify(mediasSchema),
     },
     {
       type: "application/ld+json",
-      children: JSON.stringify(breadcrumbSchema),
+      innerHTML: JSON.stringify(breadcrumbSchema),
     },
     {
       type: "application/ld+json",
-      children: JSON.stringify(organizationSchema),
+      innerHTML: JSON.stringify(organizationSchema),
     },
     {
       type: "application/ld+json",
-      children: JSON.stringify(datasetSchema),
+      innerHTML: JSON.stringify(datasetSchema),
     },
   ],
 });
@@ -256,7 +256,13 @@ const getInitials = (name: string): string => {
 </script>
 
 <template>
-  <div class="space-y-2 p-0">
+  <div class="min-h-screen space-y-2 p-0 pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'Médias' }
+      ]"
+    />
+
     <NuxtLink
       to="/annuaires"
       class="mb-2 inline-flex items-center text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-200"

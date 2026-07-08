@@ -5,11 +5,8 @@
         class="mb-4 flex flex-col items-center justify-between gap-2 md:flex-row"
       >
         <h2 class="text-center text-xl font-semibold">
-          Classement des professions des 7294 candidats
+          Classement des professions des {{ totalCandidates }} candidats
         </h2>
-        <p class="text-center text-sm text-gray-500">
-          3853 titulaires et 3441 suppléants
-        </p>
       </div>
     </template>
 
@@ -48,14 +45,16 @@ import type { ElectionStatsProfession } from "~/types/election-stats-profession"
 
 const props = defineProps<{
   professions: ElectionStatsProfession[];
-  loading: boolean;
+  loading?: boolean;
 }>();
 
-const totalCandidates = ref(7294);
+const totalCandidates = computed(() => {
+    return props.professions.reduce((sum, p) => sum + (Number(p.count?.id) || 0), 0);
+});
 
 // Calculer le pourcentage pour chaque profession
-const calculatePercentage = (count: string) => {
+const calculatePercentage = (count: number) => {
   const total = totalCandidates.value;
-  return total ? ((parseInt(count) / total) * 100).toFixed(1) : 0;
+  return total ? ((count / total) * 100).toFixed(1) : '0.0';
 };
 </script>

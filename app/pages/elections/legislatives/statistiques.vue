@@ -6,7 +6,7 @@ const seoTitle = "Chiffres clés Législatives 2024 Sénégal";
 const seoDescription =
   "Législatives du 17 Novembre 2024 Sénégal: coalitions, listes, candidats, résultats";
 const seoImgPath = "/images/vpsn-share-elections.png";
-const seoPageUrl = "https://vie-publique.sn/elections/legislatives";
+const seoPageUrl = "https://www.vie-publique.sn/elections/legislatives";
 useHead({
   title: seoTitle,
   meta: [
@@ -69,15 +69,13 @@ const statsTypes = [
 </script>
 
 <template>
-  <div class="flex flex-col items-center px-4">
-    <UBreadcrumb
-      class="mt-2"
-      :links="[
-        { label: 'Accueil', to: '/' },
-        { label: 'Législatives 2024', to: '/elections' },
-        { label: 'Statistiques' },
-      ]"
-    />
+  <div class="min-h-screen flex flex-col items-center px-4 pb-16">
+    <AppBreadcrumb
+:items="[
+      { label: 'Élections', to: '/elections' },
+      { label: 'Législatives 2024', to: '/elections/legislatives' },
+      { label: 'Statistiques' }
+    ]" />
 
     <div class="prose prose-sm sm:prose mx-auto my-4">
       <h1 class="mb-2 text-center dark:text-white">Statistiques Législatives 2024</h1>

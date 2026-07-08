@@ -1,0 +1,24 @@
+# Nixpacks configuration for Coolify deployment
+# See: https://nixpacks.com/docs/configuration/file
+
+[variables]
+NODE_ENV = "production"
+HOST = "0.0.0.0"
+PORT = "3000"
+# Ensure npm installs all deps including devDependencies needed for build
+NPM_CONFIG_PRODUCTION = "false"
+
+[phases.setup]
+# Install apt packages needed for sharp (@nuxt/image) and healthcheck
+aptPkgs = ["curl", "wget"]
+
+[phases.install]
+cmds = ["npm ci"]
+
+[phases.build]
+# Build completes normally - nuxt.config.ts close hook handles process.exit()
+cmds = ["npm run build"]
+
+[start]
+# Start directly with node for faster and more reliable startup
+cmd = "node .output/server/index.mjs"

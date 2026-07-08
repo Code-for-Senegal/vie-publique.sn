@@ -38,7 +38,14 @@ export default defineCachedEventHandler(
         description: flag.description,
       }))
 
-      return transformedFlags
+      // Fusionner : Directus flags écrasent les defaults, mais les flags
+      // définis localement et absents de Directus restent disponibles
+      const directusKeys = new Set(transformedFlags.map((f) => f.key))
+      const localOnlyFlags = Object.values(DEFAULT_FEATURES).filter(
+        (f) => !directusKeys.has(f.key),
+      )
+
+      return [...transformedFlags, ...localOnlyFlags]
     } catch (error) {
       console.error('Error fetching feature flags from Directus:', error)
 

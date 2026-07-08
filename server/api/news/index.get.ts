@@ -146,9 +146,6 @@ export default defineCachedEventHandler(
   {
     maxAge: 60 * 5, // 5 minutes
     name: "news",
-    getKey: (event) => {
-      const query = getQuery(event);
-      return `news-${JSON.stringify(query)}`;
-    },
+    getKey: (event) => buildCacheKey("news", getQuery(event)),
   },
 );

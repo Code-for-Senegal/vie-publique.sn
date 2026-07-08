@@ -1,0 +1,20 @@
+{
+  "datasets": {
+    "couverture-vaccinale": [
+      { "regionCode": "DK", "region": "Dakar", "tauxVaccination": 92.5, "centresSante": 850, "medecinsParHab": 2.1, "litHopital": 4200 },
+      { "regionCode": "TH", "region": "Thiès", "tauxVaccination": 85.3, "centresSante": 320, "medecinsParHab": 0.9, "litHopital": 1800 },
+      { "regionCode": "SL", "region": "Saint-Louis", "tauxVaccination": 78.0, "centresSante": 180, "medecinsParHab": 0.7, "litHopital": 950 },
+      { "regionCode": "ZG", "region": "Ziguinchor", "tauxVaccination": 72.4, "centresSante": 120, "medecinsParHab": 0.5, "litHopital": 620 },
+      { "regionCode": "KL", "region": "Kaolack", "tauxVaccination": 76.8, "centresSante": 190, "medecinsParHab": 0.6, "litHopital": 880 },
+      { "regionCode": "KD", "region": "Kolda", "tauxVaccination": 58.2, "centresSante": 95, "medecinsParHab": 0.3, "litHopital": 410 },
+      { "regionCode": "TC", "region": "Tambacounda", "tauxVaccination": 62.1, "centresSante": 110, "medecinsParHab": 0.4, "litHopital": 520 },
+      { "regionCode": "KG", "region": "Kédougou", "tauxVaccination": 48.5, "centresSante": 35, "medecinsParHab": 0.2, "litHopital": 150 },
+      { "regionCode": "MT", "region": "Matam", "tauxVaccination": 55.0, "centresSante": 80, "medecinsParHab": 0.3, "litHopital": 380 },
+      { "regionCode": "FK", "region": "Fatick", "tauxVaccination": 74.5, "centresSante": 130, "medecinsParHab": 0.5, "litHopital": 650 },
+      { "regionCode": "DB", "region": "Diourbel", "tauxVaccination": 80.2, "centresSante": 210, "medecinsParHab": 0.6, "litHopital": 1100 },
+      { "regionCode": "LG", "region": "Louga", "tauxVaccination": 68.7, "centresSante": 105, "medecinsParHab": 0.4, "litHopital": 480 },
+      { "regionCode": "SD", "region": "Sédhiou", "tauxVaccination": 52.3, "centresSante": 60, "medecinsParHab": 0.2, "litHopital": 220 },
+      { "regionCode": "KF", "region": "Kaffrine", "tauxVaccination": 64.0, "centresSante": 85, "medecinsParHab": 0.3, "litHopital": 340 }
+    ]
+  }
+}

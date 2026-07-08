@@ -1,0 +1,20 @@
+{
+  "datasets": {
+    "pib-region": [
+      { "regionCode": "DK", "region": "Dakar", "pibParHabitant": 980000, "tauxChomage": 12.5, "population": 4000000, "secteurDominant": "Services", "annee": 2025, "secteur": "services" },
+      { "regionCode": "TH", "region": "Thiès", "pibParHabitant": 520000, "tauxChomage": 15.2, "population": 2200000, "secteurDominant": "Services", "annee": 2025, "secteur": "services" },
+      { "regionCode": "SL", "region": "Saint-Louis", "pibParHabitant": 380000, "tauxChomage": 18.1, "population": 1100000, "secteurDominant": "Agriculture", "annee": 2025, "secteur": "agriculture" },
+      { "regionCode": "ZG", "region": "Ziguinchor", "pibParHabitant": 290000, "tauxChomage": 22.3, "population": 700000, "secteurDominant": "Agriculture", "annee": 2025, "secteur": "agriculture" },
+      { "regionCode": "KL", "region": "Kaolack", "pibParHabitant": 340000, "tauxChomage": 19.8, "population": 1100000, "secteurDominant": "Agriculture", "annee": 2025, "secteur": "agriculture" },
+      { "regionCode": "KD", "region": "Kolda", "pibParHabitant": 210000, "tauxChomage": 25.1, "population": 800000, "secteurDominant": "Agriculture", "annee": 2025, "secteur": "agriculture" },
+      { "regionCode": "TC", "region": "Tambacounda", "pibParHabitant": 250000, "tauxChomage": 23.4, "population": 900000, "secteurDominant": "Mines", "annee": 2025, "secteur": "mines" },
+      { "regionCode": "KG", "region": "Kédougou", "pibParHabitant": 310000, "tauxChomage": 20.5, "population": 200000, "secteurDominant": "Mines", "annee": 2025, "secteur": "mines" },
+      { "regionCode": "MT", "region": "Matam", "pibParHabitant": 220000, "tauxChomage": 26.7, "population": 700000, "secteurDominant": "Agriculture", "annee": 2025, "secteur": "agriculture" },
+      { "regionCode": "FK", "region": "Fatick", "pibParHabitant": 280000, "tauxChomage": 21.0, "population": 900000, "secteurDominant": "Pêche", "annee": 2025, "secteur": "peche" },
+      { "regionCode": "DB", "region": "Diourbel", "pibParHabitant": 300000, "tauxChomage": 20.3, "population": 1800000, "secteurDominant": "Agriculture", "annee": 2025, "secteur": "agriculture" },
+      { "regionCode": "LG", "region": "Louga", "pibParHabitant": 260000, "tauxChomage": 24.0, "population": 1000000, "secteurDominant": "Agriculture", "annee": 2025, "secteur": "agriculture" },
+      { "regionCode": "SD", "region": "Sédhiou", "pibParHabitant": 190000, "tauxChomage": 27.5, "population": 500000, "secteurDominant": "Agriculture", "annee": 2025, "secteur": "agriculture" },
+      { "regionCode": "KF", "region": "Kaffrine", "pibParHabitant": 230000, "tauxChomage": 23.8, "population": 700000, "secteurDominant": "Agriculture", "annee": 2025, "secteur": "agriculture" }
+    ]
+  }
+}

@@ -1,21 +1,62 @@
 import { readItems } from "@directus/sdk";
-import type { Document } from "~/types/document";
+import type { Document } from "~~/types/document";
 
 export default defineCachedEventHandler(
   async (event) => {
-    const config = useRuntimeConfig();
 
     // Récupération des paramètres de requête
     const query = getQuery(event);
     const page = parseInt(query.page as string) || 1;
     const limit = parseInt(query.limit as string) || 10;
     const search = query.search as string;
-    const sortBy = (query.sortBy as string) || "-publish_date";
+    const sortBy = (query.sortBy as string) || (query.sort as string) || "-publish_date";
     const filterType = query.filterType as string;
     const type = query.type as string;
+    const electionIds = query.election_ids as string; // IDs séparés par des virgules
+    const year = query.year as string;
+    const auditInstitution = query.audit_institution as string;
+    const family = query.family as string;
 
     try {
       const directus = getCmsClient();
+
+      // Si on filtre par election_id(s), récupérer d'abord les élections avec leurs documents
+      let documentIdsFromElections: number[] = [];
+      const electionIdsList: number[] = [];
+
+      // Construire la liste des IDs d'élections à filtrer
+      if (electionIds) {
+        electionIdsList.push(...electionIds.split(',').map(id => parseInt(id.trim())).filter(id => !isNaN(id)));
+      }
+
+      if (electionIdsList.length > 0) {
+        try {
+          const electionData = await directus.request(
+            readItems("elections", {
+              fields: ["documents.documents_id.id"],
+              filter: {
+                id: { _in: electionIdsList },
+              },
+              limit: electionIdsList.length,
+            })
+          );
+
+          if (electionData && electionData.length > 0) {
+            for (const election of electionData as any[]) {
+              if (election.documents && Array.isArray(election.documents)) {
+                const docIds = election.documents
+                  .map((doc: any) => doc?.documents_id?.id)
+                  .filter((id: any) => id !== null && id !== undefined);
+                documentIdsFromElections.push(...docIds);
+              }
+            }
+            // Dédupliquer les IDs de documents
+            documentIdsFromElections = [...new Set(documentIdsFromElections)];
+          }
+        } catch (err) {
+          console.error("Erreur lors de la récupération des élections:", err);
+        }
+      }
 
       // Construction du filtre dynamique
       const filter: any = {
@@ -28,6 +69,25 @@ export default defineCachedEventHandler(
       if (type && type !== "all") {
         filter.type = {
           _eq: type,
+        };
+      }
+
+      // Filtre par election_id(s) - utiliser les IDs récupérés
+      if (electionIdsList.length > 0 && documentIdsFromElections.length > 0) {
+        filter.id = {
+          _in: documentIdsFromElections,
+        };
+      } else if (electionIdsList.length > 0 && documentIdsFromElections.length === 0) {
+        // Si les élections n'ont pas de documents, retourner un résultat vide
+        return {
+          documents: [],
+          totalDocuments: 0,
+          pagination: {
+            page,
+            limit,
+            total: 0,
+            totalPages: 0,
+          },
         };
       }
 
@@ -54,6 +114,30 @@ export default defineCachedEventHandler(
         }
       }
 
+      // Filtre par année (paramètre dédié, prioritaire sur filterType)
+      if (year && year !== "all") {
+        const yearNum = parseInt(year);
+        if (!isNaN(yearNum)) {
+          filter.publish_date = {
+            _between: [`${yearNum}-01-01`, `${yearNum}-12-31`],
+          };
+        }
+      }
+
+      // Filtre par organisme d'audit (paramètre dédié)
+      if (auditInstitution && auditInstitution !== "all") {
+        filter.audit_institution = {
+          _eq: auditInstitution,
+        };
+      }
+
+      // Filtre par famille de documents
+      if (family && family !== "all") {
+        filter.family = {
+          _eq: family,
+        };
+      }
+
       // Recherche textuelle
       if (search) {
         filter._or = [
@@ -68,6 +152,11 @@ export default defineCachedEventHandler(
             },
           },
           {
+            content_html: {
+              _icontains: search,
+            },
+          },
+          {
             audit_institution: {
               _icontains: search,
             },
@@ -78,13 +167,31 @@ export default defineCachedEventHandler(
       // Calcul de l'offset pour la pagination
       const offset = (page - 1) * limit;
 
-      // Gérer le tri (support de date_created) pour la recuperation des 3 derniers documents
-      let sortField = sortBy;
-      if (sortBy === "-date_created") {
-        sortField = "-date_created";
-      } else if (sortBy === "date_created") {
-        sortField = "date_created";
+      // Gérer le tri - Directus SDK accepte les formats: 'field' ou '-field'
+      // On ajoute un tri secondaire pour la stabilité des résultats
+      const sortFields: string[] = [];
+
+      if (sortBy) {
+        // Nettoyage du paramètre au cas où
+        const cleanSort = sortBy.toString().trim();
+        if (cleanSort) {
+          sortFields.push(cleanSort);
+
+          // Tris secondaires pour la stabilité
+          if (cleanSort.includes('title')) {
+            sortFields.push('-publish_date');
+          } else if (cleanSort.includes('publish_date')) {
+            sortFields.push('title');
+          }
+        }
       }
+
+      if (sortFields.length === 0) {
+        sortFields.push("-publish_date");
+      }
+
+      // Toujours ajouter l'ID en dernier ressort pour une stabilité totale
+      sortFields.push('id');
 
       // Récupération des documents avec pagination et meta
       const documentData = await directus
@@ -99,6 +206,7 @@ export default defineCachedEventHandler(
               "date_created",
               "description",
               "audit_institution",
+              "family",
               "cover_image",
               "file.id",
               "file.type",
@@ -108,7 +216,7 @@ export default defineCachedEventHandler(
             filter,
             limit,
             offset,
-            sort: [sortField],
+            sort: sortFields,
           }),
         )
         .catch((error) => {
@@ -137,7 +245,7 @@ export default defineCachedEventHandler(
       // Transformation des données
       const transformedDocuments: Document[] = documentData.map((doc) => ({
         id: doc.id,
-        title: doc.title,
+        title: doc.title?.trim() || doc.title,
         slug: doc.slug,
         type: doc.type,
         publish_date: doc.publish_date,
@@ -145,6 +253,7 @@ export default defineCachedEventHandler(
         ...(doc.audit_institution
           ? { audit_institution: doc.audit_institution }
           : {}),
+        ...(doc.family ? { family: doc.family } : {}),
         ...(doc.cover_image
           ? { cover_image: doc.cover_image }
           : {}),
@@ -170,11 +279,8 @@ export default defineCachedEventHandler(
     }
   },
   {
-    maxAge: 60 * 60, // 1 heure
+    maxAge: 60 * 5, // 5 minutes
     name: "documents",
-    getKey: (event) => {
-      const query = getQuery(event);
-      return `documents-${JSON.stringify(query)}`;
-    },
+    getKey: (event) => buildCacheKey("documents", getQuery(event)),
   },
 );

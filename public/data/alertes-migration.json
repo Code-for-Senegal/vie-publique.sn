@@ -1,0 +1,182 @@
+[
+  {
+    "lieu": "Mer Méditerranée centrale",
+    "lng": 13.2,
+    "lat": 34.5,
+    "type": "Naufrage",
+    "victimes": 38,
+    "date": "2025-09-14",
+    "detail": "Embarcation partie de Libye, 38 disparus dont 12 Sénégalais"
+  },
+  {
+    "lieu": "Mer Méditerranée centrale",
+    "lng": 12.8,
+    "lat": 35.1,
+    "type": "Naufrage",
+    "victimes": 22,
+    "date": "2025-07-03",
+    "detail": "Canot surchargé, 22 morts confirmés"
+  },
+  {
+    "lieu": "Mer Méditerranée occidentale",
+    "lng": -2.5,
+    "lat": 35.8,
+    "type": "Naufrage",
+    "victimes": 15,
+    "date": "2025-11-20",
+    "detail": "Traversée vers l'Espagne, 15 disparus"
+  },
+  {
+    "lieu": "Route des Canaries",
+    "lng": -18.5,
+    "lat": 22.0,
+    "type": "Naufrage",
+    "victimes": 63,
+    "date": "2025-08-28",
+    "detail": "Pirogue partie de Mbour, 63 disparus en mer"
+  },
+  {
+    "lieu": "Route des Canaries",
+    "lng": -20.1,
+    "lat": 19.5,
+    "type": "Naufrage",
+    "victimes": 45,
+    "date": "2025-06-11",
+    "detail": "Pirogue dérivante retrouvée, 45 victimes"
+  },
+  {
+    "lieu": "Route des Canaries",
+    "lng": -17.8,
+    "lat": 24.5,
+    "type": "Naufrage",
+    "victimes": 30,
+    "date": "2025-10-05",
+    "detail": "Embarcation partie de Saint-Louis, 30 disparus"
+  },
+  {
+    "lieu": "Îles Canaries (arrivée)",
+    "lng": -15.4,
+    "lat": 28.1,
+    "type": "Interception",
+    "victimes": 0,
+    "date": "2025-12-01",
+    "detail": "156 migrants secourus par Salvamento Marítimo"
+  },
+  {
+    "lieu": "Détroit de Gibraltar",
+    "lng": -5.5,
+    "lat": 35.9,
+    "type": "Interception",
+    "victimes": 0,
+    "date": "2025-09-22",
+    "detail": "89 migrants interceptés, 14 Sénégalais"
+  },
+  {
+    "lieu": "Libye (Tripoli)",
+    "lng": 13.18,
+    "lat": 32.9,
+    "type": "Détention",
+    "victimes": 5,
+    "date": "2025-05-30",
+    "detail": "Centre de détention, conditions inhumaines signalées"
+  },
+  {
+    "lieu": "Libye (Sabha)",
+    "lng": 14.43,
+    "lat": 27.03,
+    "type": "Détention",
+    "victimes": 8,
+    "date": "2025-04-15",
+    "detail": "Migrants retenus par des milices, 8 décès signalés"
+  },
+  {
+    "lieu": "Désert du Sahara (Niger)",
+    "lng": 8.0,
+    "lat": 20.5,
+    "type": "Disparition",
+    "victimes": 25,
+    "date": "2025-07-19",
+    "detail": "Convoi perdu dans le désert, 25 disparus"
+  },
+  {
+    "lieu": "Agadez (Niger)",
+    "lng": 7.99,
+    "lat": 16.97,
+    "type": "Point de transit",
+    "victimes": 0,
+    "date": "2025-12-15",
+    "detail": "Hub migratoire majeur, ~500 Sénégalais en transit/mois"
+  },
+  {
+    "lieu": "Lampedusa (Italie)",
+    "lng": 12.6,
+    "lat": 35.5,
+    "type": "Arrivée",
+    "victimes": 0,
+    "date": "2025-11-08",
+    "detail": "245 migrants débarqués dont 32 Sénégalais"
+  },
+  {
+    "lieu": "Mbour (départ)",
+    "lng": -16.97,
+    "lat": 14.42,
+    "type": "Départ",
+    "victimes": 0,
+    "date": "2025-10-12",
+    "detail": "Point de départ principal des pirogues vers les Canaries"
+  },
+  {
+    "lieu": "Saint-Louis (départ)",
+    "lng": -16.49,
+    "lat": 16.02,
+    "type": "Départ",
+    "victimes": 0,
+    "date": "2025-09-05",
+    "detail": "Départs fréquents de pirogues signalés"
+  },
+  {
+    "lieu": "Kafountine (départ)",
+    "lng": -16.74,
+    "lat": 12.92,
+    "type": "Départ",
+    "victimes": 0,
+    "date": "2025-08-18",
+    "detail": "Zone de départ en Casamance"
+  },
+  {
+    "lieu": "Tunisie (Sfax)",
+    "lng": 10.76,
+    "lat": 34.74,
+    "type": "Naufrage",
+    "victimes": 18,
+    "date": "2025-06-27",
+    "detail": "Naufrage au large de Sfax, 18 morts"
+  },
+  {
+    "lieu": "Algérie (Tamanrasset)",
+    "lng": 5.53,
+    "lat": 22.79,
+    "type": "Expulsion",
+    "victimes": 0,
+    "date": "2025-11-02",
+    "detail": "Refoulement de 230 migrants subsahariens"
+  },
+  {
+    "lieu": "Maroc (Nador)",
+    "lng": -2.93,
+    "lat": 35.17,
+    "type": "Violence",
+    "victimes": 3,
+    "date": "2025-03-14",
+    "detail": "Tentative de passage de la barrière de Melilla, 3 blessés graves"
+  },
+  {
+    "lieu": "Mauritanie (Nouadhibou)",
+    "lng": -17.03,
+    "lat": 20.94,
+    "type": "Interception",
+    "victimes": 0,
+    "date": "2025-10-30",
+    "detail": "Pirogue interceptée avec 92 passagers"
+  }
+]

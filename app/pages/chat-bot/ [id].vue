@@ -1,5 +1,8 @@
 <template>
-  <div class="flex h-dvh min-w-0 flex-col">
+  <Head>
+    <Meta name="robots" content="noindex" />
+  </Head>
+  <div class="flex h-dvh min-h-screen min-w-0 flex-col pb-16">
     <AiChatHeader title="Chat Statique" />
     <AiChatMessagesList ref="messagesListRef" />
     <div class="h-4" />
@@ -11,13 +14,13 @@
 
 <script setup lang="ts">
 definePageMeta({
-  layout: "chat",
+  layout: 'chat',
 });
-const messagesListRef = ref<{ addMessage: (message: string) => void } | null>(null)
+const messagesListRef = ref<{ addMessage: (message: string) => void } | null>(null);
 
 const handleStaticSubmit = (message: string) => {
   if (messagesListRef.value) {
-    messagesListRef.value.addMessage(message)
+    messagesListRef.value.addMessage(message);
   }
-}
+};
 </script>

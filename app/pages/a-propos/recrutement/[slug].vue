@@ -199,21 +199,14 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="container mx-auto px-4 py-8">
-    <!-- Breadcrumb -->
-    <nav class="mb-6 text-sm">
-      <ol class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
-        <li>
-          <NuxtLink to="/" class="hover:text-blue-600">Accueil</NuxtLink>
-        </li>
-        <li>/</li>
-        <li>
-          <NuxtLink to="/a-propos/recrutement" class="hover:text-blue-600">Recrutement</NuxtLink>
-        </li>
-        <li>/</li>
-        <li class="text-gray-900 dark:text-white">{{ job.title }}</li>
-      </ol>
-    </nav>
+  <div class="container mx-auto min-h-screen px-4 py-8 pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'À propos', to: '/a-propos/qui-sommes-nous' },
+        { label: 'Recrutement', to: '/a-propos/recrutement' },
+        { label: job.title || 'Offre' },
+      ]"
+    />
 
     <!-- En-tête -->
     <div class="mb-8">
@@ -255,7 +248,7 @@ useSeoMeta({
     <div class="prose prose-sm mx-auto max-w-4xl sm:prose lg:prose-lg dark:prose-invert">
       <div v-for="(section, idx) in job.sections" :key="idx" class="mb-8">
         <h2 v-if="section.title" class="mb-4 text-2xl font-bold">{{ section.title }}</h2>
-        <div v-if="section.content" class="whitespace-pre-wrap" v-html="section.content"></div>
+        <div v-if="section.content" class="whitespace-pre-wrap text-gray-600 dark:text-gray-300" v-html="section.content"></div>
 
         <ul v-if="section.items" class="list-disc space-y-2 pl-6">
           <li v-for="(item, i) in section.items" :key="i">{{ item }}</li>

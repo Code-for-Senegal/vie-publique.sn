@@ -17,6 +17,7 @@ export interface Coalition {
   color: string;
   list_order: number;
   logo: string | null;
+  acronym: string | null;
   bulletin: string | null;
   videos: Video[];
   head_of_list: HeadOfList;

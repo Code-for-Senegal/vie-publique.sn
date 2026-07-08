@@ -22,7 +22,13 @@ const stats = computed<PromesseStats>(
 </script>
 
 <template>
-  <div>
+  <div class="min-h-screen pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'Baromètre politique' }
+      ]"
+    />
+
     <h1 class="my-2 text-center text-2xl font-bold">
       Vérificateur de promesses électorales
     </h1>

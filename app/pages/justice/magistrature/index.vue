@@ -155,19 +155,19 @@ useHead({
   script: [
     {
       type: "application/ld+json",
-      children: JSON.stringify(magistratureSchema),
+      innerHTML: JSON.stringify(magistratureSchema),
     },
     {
       type: "application/ld+json",
-      children: JSON.stringify(breadcrumbSchema),
+      innerHTML: JSON.stringify(breadcrumbSchema),
     },
     {
       type: "application/ld+json",
-      children: JSON.stringify(organizationSchema),
+      innerHTML: JSON.stringify(organizationSchema),
     },
     {
       type: "application/ld+json",
-      children: JSON.stringify(legalServiceSchema),
+      innerHTML: JSON.stringify(legalServiceSchema),
     },
   ],
 });
@@ -297,7 +297,14 @@ watch(selectedJurisdictionType, () => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center px-4">
+  <div class="min-h-screen flex flex-col items-center px-4 pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'Justice', to: '/justice' },
+        { label: 'Magistrature' }
+      ]"
+    />
+
     <div class="prose prose-sm sm:prose mx-auto my-2">
       <h1 class="text-center dark:text-white">Annuaire Magistrature Sénégal</h1>
     </div>

@@ -46,6 +46,12 @@ export const DEFAULT_FEATURES: Record<string, FeatureFlag> = {
     environments: ['dev', 'test', 'production'],
     description: 'Menu Conseil des ministres',
   },
+  menu_dossiers: {
+    key: 'menu_dossiers',
+    enabled: true,
+    environments: ['dev', 'test'],
+    description: 'Menu Dossiers (pages de référence thématiques)',
+  },
   menu_assemblee_nationale: {
     key: 'menu_assemblee_nationale',
     enabled: true,
@@ -86,13 +92,19 @@ export const DEFAULT_FEATURES: Record<string, FeatureFlag> = {
     key: 'menu_recherche',
     enabled: true,
     environments: ['dev', 'test', 'production'],
-    description: 'Fonctionnalité de recherche (menu, header, page d\'accueil)',
+    description: "Fonctionnalité de recherche (menu, header, page d'accueil)",
   },
   menu_dashboard_conseil: {
     key: 'menu_dashboard_conseil',
     enabled: false,
     environments: ['dev'],
     description: 'Menu Dashboard Conseil des Ministres (dev only)',
+  },
+  menu_dashboard_corruption: {
+    key: 'menu_dashboard_corruption',
+    enabled: true,
+    environments: ['dev', 'test'],
+    description: 'Menu Dashboard Corruption & Gouvernance (PNUD A2)',
   },
   menu_etat_senegal: {
     key: 'menu_etat_senegal',
@@ -143,6 +155,18 @@ export const DEFAULT_FEATURES: Record<string, FeatureFlag> = {
     enabled: true,
     environments: ['dev', 'test', 'production'],
     description: 'Affichage des liens footer',
+  },
+  menu_projets_publics: {
+    key: 'menu_projets_publics',
+    enabled: true,
+    environments: ['dev', 'test', 'production'],
+    description: 'Menu Projets Publics (PIP, LFI, PRES)',
+  },
+  menu_dashboard_rac: {
+    key: 'menu_dashboard_rac',
+    enabled: true,
+    environments: ['dev', 'test'],
+    description: 'Dashboard RAC 2025 - Revue Annuelle Conjointe',
   },
 };
 

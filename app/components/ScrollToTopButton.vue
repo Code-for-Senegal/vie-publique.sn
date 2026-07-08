@@ -10,7 +10,7 @@ const scrollToTop = (): void => {
 };
 
 onMounted(() => {
-  window.addEventListener("scroll", checkScroll);
+  window.addEventListener("scroll", checkScroll, { passive: true });
 });
 
 onUnmounted(() => {
@@ -19,13 +19,22 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <UButton
-    v-show="showButton"
-    :ui="{ rounded: 'rounded-full' }"
-    class="bg-primary fixed bottom-4 right-4 p-2 text-white shadow-lg"
-    icon="i-heroicons-arrow-up-circle"
-    @click="scrollToTop"
+  <Transition
+    enter-active-class="transition-all duration-300 ease-out"
+    enter-from-class="opacity-0 translate-y-4 scale-90"
+    enter-to-class="opacity-100 translate-y-0 scale-100"
+    leave-active-class="transition-all duration-200 ease-in"
+    leave-from-class="opacity-100 translate-y-0 scale-100"
+    leave-to-class="opacity-0 translate-y-4 scale-90"
   >
-    Sommaire
-  </UButton>
+    <button
+      v-show="showButton"
+      class="fixed z-40 flex items-center justify-center rounded-full bg-gray-900 text-white shadow-lg active:scale-95 dark:bg-white dark:text-gray-900 bottom-20 right-3 h-10 w-10 lg:bottom-6 lg:right-6 lg:h-10 lg:w-auto lg:gap-2 lg:px-4 lg:pr-5"
+      aria-label="Retour en haut"
+      @click="scrollToTop"
+    >
+      <UIcon name="i-heroicons-arrow-up" class="h-5 w-5 shrink-0" />
+      <span class="hidden lg:inline text-sm font-medium">Haut</span>
+    </button>
+  </Transition>
 </template>

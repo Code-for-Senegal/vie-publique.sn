@@ -1,8 +1,8 @@
 // composables/useAssemblyDeputies.ts
-import type { AssemblyDeputy, AssemblyDeputyCommission } from "~/types/assembly";
+import type { AssemblyDeputy, AssemblyDeputyCommission } from '~/types/assembly';
 
-interface AssemblyDeputiesOptions {
-  id?: string;
+export interface AssemblyDeputiesOptions {
+  id?: string | Ref<string>;
   groupId?: string;
   status?: string;
   limit?: number;
@@ -14,10 +14,10 @@ interface AssemblyDeputiesOptions {
  */
 export const useAssemblyDeputies = (options: AssemblyDeputiesOptions = {}) => {
   // Mode détail : récupérer un député spécifique
-  if (options.id) {
+  if (unref(options.id)) {
     const collection = useCmsCollection<AssemblyDeputy>({
-      collection: "assembly/deputies",
-      id: options.id,
+      collection: 'assembly/deputies',
+      id: options.id as string | Ref<string>,
     });
 
     return {
@@ -30,22 +30,22 @@ export const useAssemblyDeputies = (options: AssemblyDeputiesOptions = {}) => {
 
   // Mode liste : récupérer la liste des députés avec filtres et pagination
   const state = useCollectionState({
-    defaultSort: "last_name",
+    defaultSort: 'last_name',
     defaultItemsPerPage: options.limit || 200,
     syncUrl: true,
     urlParamsMapping: {
-      search: "q",
-      filter: "groupId",
-      page: "page",
+      search: 'q',
+      filter: 'groupId',
+      page: 'page',
     },
   });
 
   // Filtres spécifiques
   const groupId = computed(() => options.groupId || state.filterValue.value);
-  const status = computed(() => options.status || "active");
+  const status = computed(() => options.status || 'active');
 
   const collection = useCmsCollection<AssemblyDeputy>({
-    collection: "assembly/deputies",
+    collection: 'assembly/deputies',
     filters: computed(() => ({
       groupId: groupId.value || undefined,
       status: status.value,
@@ -110,9 +110,7 @@ export const useAssemblyDeputyCommissions = (deputyId: string) => {
  * Cette méthode est conservée pour compatibilité ascendante
  */
 export const fetchElectedDeputies = async (groupId?: string | null) => {
-  console.warn(
-    "fetchElectedDeputies() est déprécié. Utilisez useAssemblyDeputies() à la place."
-  );
+  console.warn('fetchElectedDeputies() est déprécié. Utilisez useAssemblyDeputies() à la place.');
   // Cette fonction ne fait rien, les données sont chargées automatiquement via SSR
 };
 
@@ -122,7 +120,7 @@ export const fetchElectedDeputies = async (groupId?: string | null) => {
  */
 export const fetchElectedDeputyById = async (id: string) => {
   console.warn(
-    "fetchElectedDeputyById() est déprécié. Utilisez useAssemblyDeputies({ id }) à la place."
+    'fetchElectedDeputyById() est déprécié. Utilisez useAssemblyDeputies({ id }) à la place.',
   );
   // Cette fonction ne fait rien, les données sont chargées automatiquement via SSR
 };
@@ -133,7 +131,7 @@ export const fetchElectedDeputyById = async (id: string) => {
  */
 export const fetchElectedDeputyCommissions = async (idDeputy: string) => {
   console.warn(
-    "fetchElectedDeputyCommissions() est déprécié. Utilisez useAssemblyDeputyCommissions() à la place."
+    'fetchElectedDeputyCommissions() est déprécié. Utilisez useAssemblyDeputyCommissions() à la place.',
   );
   // Cette fonction ne fait rien, les données sont chargées automatiquement via SSR
 };

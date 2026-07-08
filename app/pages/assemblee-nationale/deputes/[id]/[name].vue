@@ -1,77 +1,137 @@
 <template>
-  <div class="container mx-auto px-4 py-4">
-    <UButton
-      icon="i-heroicons-arrow-left"
-      class="mb-2"
-      variant="ghost"
-      label="Retour"
-      color="gray"
-      @click="handleReturn()"
-    />
-
-    <!-- Loading state -->
-    <div v-if="loading" class="flex justify-center py-8">
-      <UIcon name="i-heroicons-arrow-path" class="h-8 w-8 animate-spin" />
+  <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-900">
+    <!-- Breadcrumb -->
+    <div class="container mx-auto px-4 pt-4">
+      <AppBreadcrumb
+        :items="[
+          { label: 'Assemblée nationale', to: '/assemblee-nationale' },
+          { label: 'Députés', to: '/assemblee-nationale/deputes' },
+          { label: deputyFullName || 'Détail' },
+        ]"
+      />
     </div>
 
-    <!-- Error state -->
-    <UAlert
-      v-else-if="error"
-      title="Erreur"
-      description="Une erreur est survenue lors de l'affichage des informations du député."
-      color="red"
-      icon="i-heroicons-exclamation-triangle"
-    />
+    <!-- Sticky Header mobile -->
+    <header
+      class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95 md:relative md:border-0 md:bg-transparent md:backdrop-blur-none"
+    >
+      <div class="container mx-auto px-4 py-3 md:py-4">
+        <div class="flex items-center gap-3">
+          <NuxtLink
+            to="/assemblee-nationale/deputes"
+            class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 md:hidden"
+          >
+            <UIcon name="i-heroicons-arrow-left" class="h-4 w-4 text-gray-600 dark:text-gray-400" />
+          </NuxtLink>
+          <div class="min-w-0 flex-1">
+            <!-- Pas de h1 ici : le h1 unique de la page est dans AssemblyProfileHeader (règle SEO : 1 seul h1) -->
+            <p class="truncate text-sm font-semibold text-gray-900 dark:text-white md:text-lg">
+              {{ deputyFullName || 'Député' }}
+            </p>
+          </div>
+          <SocialShare v-if="deputy" :title="deputyFullName" :url="url" />
+        </div>
+      </div>
+    </header>
 
-    <div v-else-if="deputy" class="mt-3 flex flex-col gap-4 md:flex-row">
-      <div class="w-full md:w-1/3">
-        <div class="md:z-1 sticky top-[84px] bg-gray-100 md:bg-transparent">
-          <AssemblyProfileHeader :deputy="deputy" />
+    <main class="container mx-auto px-4 py-4">
+      <!-- Loading State -->
+      <div v-if="loading" class="space-y-4">
+        <div class="flex flex-col items-center gap-4 rounded-2xl bg-white p-6 dark:bg-gray-800">
+          <USkeleton class="h-24 w-24 rounded-full" />
+          <USkeleton class="h-5 w-40" />
+          <USkeleton class="h-4 w-32" />
+        </div>
+        <div class="space-y-3 rounded-2xl bg-white p-4 dark:bg-gray-800">
+          <USkeleton class="h-5 w-24" />
+          <USkeleton class="h-4 w-full" />
+          <USkeleton class="h-4 w-3/4" />
         </div>
       </div>
 
-      <div class="flex w-full flex-col gap-5 md:w-2/3">
-        <!-- BIO -->
-        <AssemblyBiography :deputy="deputy" />
-
-        <!-- COMMISSIONS -->
-        <UCard v-if="deputiesCommissions.length">
-          <h2 class="mb-4 text-xl font-bold">Commissions</h2>
-
-          <div v-if="deputiesCommissionsFiltered.length === 0">
-            <p class="text-sm text-gray-500">Aucune commission</p>
-          </div>
-          <div v-else>
-            <p class="my-4 text-sm text-gray-500 dark:text-gray-50">
-              Membres des commissions suivantes:
-            </p>
-
-            <div
-              v-for="commission in deputiesCommissionsFiltered"
-              :key="commission.assembly_commission_id.id"
-              class="transition-all hover:shadow-lg"
-            >
-              <NuxtLink
-                :to="`/assemblee-nationale/commissions/${commission.assembly_commission_id.id}`"
-              >
-                <ul class="flex gap-4">
-                  <li class="mb-2 text-sm underline">
-                    <UIcon name="i-heroicons-arrow-top-right-on-square" size="sm" />
-                    {{ commission.assembly_commission_id.name }}
-                  </li>
-                </ul>
-              </NuxtLink>
-            </div>
-          </div>
-        </UCard>
-
-        <!-- QUESTIONS ECRITES -->
-        <AssemblyDeputyQuestion :deputy="deputy" />
+      <!-- Error State -->
+      <div v-else-if="error" class="rounded-2xl bg-red-50 p-6 text-center dark:bg-red-900/20">
+        <UIcon
+          name="i-heroicons-exclamation-triangle"
+          class="mx-auto mb-3 h-10 w-10 text-red-500"
+        />
+        <h3 class="font-semibold text-red-800 dark:text-red-200">Erreur</h3>
+        <p class="mt-1 text-sm text-red-600 dark:text-red-300">Une erreur est survenue</p>
+        <NuxtLink
+          to="/assemblee-nationale/deputes"
+          class="mt-4 inline-block text-sm text-red-600 underline dark:text-red-400"
+        >
+          Retourner aux députés
+        </NuxtLink>
       </div>
-    </div>
 
-    <!-- Not found state -->
-    <div v-else class="py-8 text-center text-gray-500">Député non trouvé</div>
+      <!-- Content -->
+      <div v-else-if="deputy" class="space-y-4 md:flex md:gap-6 md:space-y-0">
+        <!-- Profile Card - Sticky on desktop -->
+        <div class="md:w-1/3">
+          <div class="md:sticky md:top-20">
+            <AssemblyProfileHeader :deputy="deputy" />
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="space-y-4 md:w-2/3">
+          <!-- Biography -->
+          <AssemblyBiography :deputy="deputy" />
+
+          <!-- Commissions -->
+          <section
+            v-if="deputiesCommissions.length"
+            class="rounded-2xl bg-white p-4 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700 md:p-6"
+          >
+            <h2 class="mb-3 text-sm font-bold text-gray-900 dark:text-white md:text-base">
+              Commissions
+            </h2>
+
+            <div v-if="deputiesCommissionsFiltered.length === 0">
+              <p class="text-xs text-gray-500 dark:text-gray-400">Aucune commission</p>
+            </div>
+            <div v-else class="space-y-2">
+              <p class="text-xs text-gray-500 dark:text-gray-400">
+                Membre des commissions suivantes :
+              </p>
+              <div class="space-y-1.5">
+                <NuxtLink
+                  v-for="commission in deputiesCommissionsFiltered"
+                  :key="commission.assembly_commission_id.id"
+                  :to="`/assemblee-nationale/commissions/${commission.assembly_commission_id.id}`"
+                  class="flex items-center gap-2 rounded-lg bg-blue-50 p-3 text-sm text-blue-700 transition-colors active:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400 md:hover:bg-blue-100"
+                >
+                  <UIcon name="i-heroicons-users" class="h-4 w-4 shrink-0" />
+                  <span class="line-clamp-1">{{ commission.assembly_commission_id.name }}</span>
+                  <UIcon
+                    name="i-heroicons-chevron-right"
+                    class="ml-auto h-4 w-4 shrink-0 opacity-50"
+                  />
+                </NuxtLink>
+              </div>
+            </div>
+          </section>
+
+          <!-- Questions -->
+          <AssemblyDeputyQuestion :deputy="deputy" />
+        </div>
+      </div>
+
+      <!-- Not found -->
+      <div v-else class="rounded-2xl bg-gray-100 p-8 text-center dark:bg-gray-800">
+        <UIcon name="i-heroicons-user" class="mx-auto mb-3 h-10 w-10 text-gray-400" />
+        <p class="text-gray-500 dark:text-gray-400">Député non trouvé</p>
+        <NuxtLink
+          to="/assemblee-nationale/deputes"
+          class="mt-3 inline-block text-sm text-blue-600 underline dark:text-blue-400"
+        >
+          Retourner aux députés
+        </NuxtLink>
+      </div>
+    </main>
+
+    <ScrollToTopButton />
   </div>
 </template>
 
@@ -79,7 +139,6 @@
 const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
 
 const route = useRoute();
-const router = useRouter();
 
 // ✅ Utilisation de la nouvelle architecture SSR
 const deputyId = computed(() => route.params.id as string);
@@ -107,33 +166,60 @@ const description = computed(() => {
   return `Découvrez le profil et l'activité parlementaire de ${deputyFullName.value}${ageText}, député${listText} à l'Assemblée nationale du Sénégal.`;
 });
 
+// Slug dérivé des DONNÉES (même logique que les liens d'AssemblyDeputyCard), jamais de
+// route.fullPath : le canonical doit rester stable quel que soit le slug tapé ou les
+// query params (?utm…), sinon chaque variante d'URL s'auto-canonise (audit BING-6).
+const deputySlug = computed(() => {
+  if (!deputy.value) return '';
+  return `${deputy.value.first_name}-${deputy.value.last_name}`
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+});
+
 const url = computed(() => {
-  if (!route.params.id) return siteUrl;
-  // Utilise l'URL complète avec le nom du député si disponible
-  if (deputy.value && route.fullPath) {
-    return `${siteUrl}${route.fullPath}`;
+  if (deputy.value) {
+    return `${siteUrl}/assemblee-nationale/deputes/${deputy.value.id}/${deputySlug.value}`;
   }
-  // Fallback avec juste l'ID
+  if (!route.params.id) return siteUrl;
+  // Fallback avec juste l'ID tant que les données ne sont pas chargées
   return `${siteUrl}/assemblee-nationale/deputes/${route.params.id}`;
 });
 
 const image = computed(() => {
-  return deputy.value?.photo
-    ? useCmsImageAbsolute(deputy.value.photo)
-    : `${siteUrl}/images/vpsn-share-elections.png`;
+  const photo = deputy.value?.photo;
+  // Si photo est un objet (relation Directus), on essaie de récupérer l'ID
+  const photoId =
+    typeof photo === 'object' && photo !== null && 'id' in photo ? (photo as any).id : photo;
+
+  if (typeof photoId !== 'string') {
+    return `${siteUrl}/images/vpsn-share-elections.png`;
+  }
+
+  // Utilisation de useCmsImage (safe) puis concaténation manuelle avec siteUrl (safe)
+  const relativeUrl = useCmsImage(photoId);
+  if (relativeUrl.startsWith('http')) return relativeUrl;
+  return `${siteUrl}${relativeUrl}`;
 });
+
+const getSafeString = (val: unknown): string => {
+  if (typeof val === 'string') return val;
+  if (typeof val === 'number') return String(val);
+  return '';
+};
 
 // SEO Setup
 useSeoMeta({
-  title: () => title.value,
-  ogTitle: () => title.value,
-  description: () => description.value,
-  ogDescription: () => description.value,
+  title: () => getSafeString(title.value),
+  ogTitle: () => getSafeString(title.value),
+  description: () => getSafeString(description.value),
+  ogDescription: () => getSafeString(description.value),
   ogImage: () => image.value,
   ogUrl: () => url.value,
   twitterCard: 'summary_large_image',
-  twitterTitle: () => title.value,
-  twitterDescription: () => description.value,
+  twitterTitle: () => getSafeString(title.value),
+  twitterDescription: () => getSafeString(description.value),
   twitterImage: () => image.value,
   keywords: () =>
     [
@@ -167,20 +253,14 @@ useHead({
 
 // Structured Data
 useSchemaOrg([
-  defineBreadcrumb({
-    itemListElement: () => [
-      { name: 'Accueil', item: '/' },
-      { name: 'Assemblée nationale', item: '/assemblee-nationale' },
-      { name: 'Députés', item: '/assemblee-nationale/deputes' },
-      { name: deputyFullName.value || 'Député', item: url.value },
-    ],
-  }),
+  // Breadcrumb émis par <AppBreadcrumb> (source unique) — pas de defineBreadcrumb ici
+  // pour éviter la fusion @graph qui dupliquait les items (§7 CLAUDE.md).
   definePerson({
     name: () => deputyFullName.value,
-    givenName: () => deputy.value?.first_name,
-    familyName: () => deputy.value?.last_name,
+    givenName: () => getSafeString(deputy.value?.first_name),
+    familyName: () => getSafeString(deputy.value?.last_name),
     jobTitle: 'Député',
-    description: () => description.value,
+    description: () => getSafeString(description.value),
     image: () => image.value,
     url: () => url.value,
     birthDate: () => deputy.value?.birthdate,
@@ -209,38 +289,13 @@ useSchemaOrg([
 ]);
 
 // Helper function
-const calculateAge = (birthdate: string): number => {
+function calculateAge(birthdate: string): number {
   const birthDate = new Date(birthdate);
   const today = new Date();
   return today.getFullYear() - birthDate.getFullYear();
-};
+}
 
 const deputiesCommissionsFiltered = computed(() => {
   return deputiesCommissions.value.filter((commission) => commission.assembly_commission_id);
 });
-
-// Liste des routes valides pour le retour
-const validReturnPaths = [
-  '/assemblee-nationale/deputes',
-  '/assemblee-nationale/commissions',
-  '/assemblee-nationale/bureau',
-  '/assemblee-nationale/groupes',
-];
-
-// Gestion du retour
-const handleReturn = () => {
-  // Vérifie si on a un referer dans l'historique de navigation
-  const previousRoute = router.options.history.state.back;
-
-  // Si on a un referer et qu'il fait partie des routes valides
-  if (
-    typeof previousRoute === 'string' &&
-    validReturnPaths.some((path) => previousRoute.startsWith(path))
-  ) {
-    router.back();
-  } else {
-    // Sinon, redirection vers la liste des députés par défaut
-    router.push('/assemblee-nationale/deputes');
-  }
-};
 </script>

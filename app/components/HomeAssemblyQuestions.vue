@@ -1,15 +1,40 @@
+<script setup lang="ts">
+import { useAssemblyQuestions } from '~/composables/useAssemblyQuestions';
+
+const { questions, loading, error } = useAssemblyQuestions();
+</script>
+
 <template>
-  <div class="my-4">
+  <section class="my-4" aria-labelledby="questions-heading">
+    <h2
+      id="questions-heading"
+      class="mb-4 text-center text-xl font-semibold text-gray-800 dark:text-white"
+    >
+      Dernières initiatives parlementaires
+    </h2>
+
     <!-- Loading state -->
-    <div v-if="loading" class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-      <div v-for="n in 3" :key="n" class="animate-pulse">
-        <div class="flex items-center gap-3">
-          <div class="h-10 w-10 rounded-full bg-gray-200"></div>
-          <div class="flex-1">
-            <div class="h-4 w-3/4 rounded bg-gray-200"></div>
-            <div class="mt-2 h-3 w-1/2 rounded bg-gray-200"></div>
-            <div class="mt-1 h-2 w-1/4 rounded bg-gray-200"></div>
+    <div
+      v-if="loading"
+      class="no-scrollbar flex snap-x snap-mandatory gap-2.5 overflow-x-auto px-1 pb-4 pt-1 md:grid md:grid-cols-3 md:gap-4 md:overflow-x-visible md:px-0 md:pb-0 md:pt-0"
+      aria-busy="true"
+    >
+      <div
+        v-for="n in 3"
+        :key="n"
+        class="w-56 flex-shrink-0 snap-start rounded-xl bg-white p-3 shadow-sm ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700/50 md:w-auto md:flex-shrink md:p-4"
+      >
+        <div class="flex items-center gap-2.5">
+          <USkeleton class="h-9 w-9 flex-shrink-0 rounded-full md:h-10 md:w-10" />
+          <div class="flex-1 space-y-1.5">
+            <USkeleton class="h-3 w-20" />
+            <USkeleton class="h-2.5 w-14" />
           </div>
+        </div>
+        <div class="mt-2.5 space-y-1.5">
+          <USkeleton class="h-3 w-full" />
+          <USkeleton class="h-3 w-full" />
+          <USkeleton class="h-3 w-2/3" />
         </div>
       </div>
     </div>
@@ -24,74 +49,81 @@
     />
 
     <!-- Content -->
-    <div v-else>
-      <div class="prose prose-sm mx-auto my-4 sm:prose-sm">
-        <h2 class="text-center text-gray-800 dark:text-white">
-          Dernières initiatives parlementaires
-        </h2>
-      </div>
-
-      <div class="grid gap-4 sm:grid-cols-3">
-        <div
-          v-for="question in questions?.slice(0, 3)"
+    <div v-else-if="questions && questions.length > 0">
+      <div
+        class="no-scrollbar flex snap-x snap-mandatory items-start gap-2.5 overflow-x-auto px-1 pb-4 pt-1 md:grid md:grid-cols-3 md:gap-4 md:overflow-x-visible md:px-0 md:pb-0 md:pt-0"
+        role="list"
+      >
+        <article
+          v-for="question in questions.slice(0, 3)"
           :key="question.id"
-          class="custom-shadow group relative overflow-hidden rounded-xl bg-white shadow-sm transition-all duration-200 hover:translate-y-[-2px] hover:shadow-md dark:bg-gray-800 dark:ring-1 dark:ring-gray-700 dark:backdrop-blur-md"
+          role="listitem"
+          class="w-56 flex-shrink-0 snap-start md:w-auto md:flex-shrink"
         >
-          <NuxtLink :to="`/assemblee-nationale/questions/${question.id}`" class="block h-full p-4">
-            <!-- En-tête avec photo du député et date -->
-            <div class="mb-3 flex items-start gap-3">
+          <NuxtLink
+            :to="`/assemblee-nationale/questions/${question.id}/${question.slug || 'question'}`"
+            :aria-label="`Voir la question de ${question.deputy.first_name} ${question.deputy.last_name}`"
+            class="block h-full rounded-xl bg-white p-3 shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.98] dark:bg-gray-800 dark:ring-gray-700/50 md:p-4 md:hover:shadow-md"
+          >
+            <!-- Deputy header -->
+            <div class="flex items-center gap-2.5">
               <CmsImage
                 :src="question.deputy.photo"
                 :quality="50"
-                :alt="question.deputy.first_name + ' ' + question.deputy.last_name"
-                class="h-10 w-10 rounded-full object-cover"
+                :fallback="'/unknown_member.webp'"
+                :alt="`${question.deputy.first_name} ${question.deputy.last_name}`"
+                class="h-9 w-9 flex-shrink-0 rounded-full object-cover md:h-10 md:w-10"
               />
-              <div class="flex-1">
-                <div class="text-xs text-gray-500 dark:text-gray-300">
-                  {{ question.deputy.first_name }}
-                  {{ question.deputy.last_name }}
-                </div>
-                <div class="text-xs text-gray-400 dark:text-gray-400">
+              <div class="min-w-0 flex-1">
+                <p
+                  class="truncate text-[13px] font-semibold text-gray-900 dark:text-white md:text-sm"
+                >
+                  {{ question.deputy.first_name }} {{ question.deputy.last_name }}
+                </p>
+                <p class="text-[11px] text-gray-500 dark:text-gray-400 md:text-xs">
                   {{ $dateformat(question.question_date) }}
-                </div>
+                </p>
               </div>
             </div>
 
-            <!-- Sujet de la question -->
-            <h3 class="line-clamp-3 text-sm font-medium text-gray-900 dark:text-white">
+            <!-- Subject - fixed height with line-clamp -->
+            <p
+              class="mt-2.5 line-clamp-3 min-h-[3.5rem] text-[12px] leading-relaxed text-gray-600 dark:text-gray-300 md:mt-3 md:min-h-[4rem] md:text-sm"
+            >
               {{ question.subject }}
-            </h3>
+            </p>
           </NuxtLink>
-        </div>
+        </article>
       </div>
 
-      <!-- Lien "Voir toute l'activité parlementaire" -->
-      <div class="mt-8 text-center">
-        <NuxtLink
-          to="/actualites"
-          class="group inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 transition-all duration-200 hover:bg-gray-50 hover:shadow-md hover:ring-gray-400 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:hover:bg-gray-700 dark:hover:ring-gray-600"
+      <!-- CTA -->
+      <div class="mt-6 text-center">
+        <UButton
+          to="/assemblee-nationale/questions"
+          color="gray"
+          variant="solid"
+          size="md"
+          trailing-icon="i-heroicons-arrow-right"
+          class="rounded-full border-gray-200 bg-white font-medium"
         >
           Voir toute l'activité parlementaire
-          <UIcon
-            name="i-heroicons-arrow-right"
-            class="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
-          />
-        </NuxtLink>
+        </UButton>
       </div>
     </div>
 
     <!-- Empty state -->
-    <div
-      v-if="!loading && !error && (!questions || questions.length === 0)"
-      class="py-8 text-center text-gray-500 dark:text-gray-400"
-    >
+    <div v-else class="py-8 text-center text-sm text-gray-500 dark:text-gray-400">
       Aucune question disponible pour le moment
     </div>
-  </div>
+  </section>
 </template>
 
-<script setup lang="ts">
-import { useAssemblyQuestions } from '~/composables/useAssemblyQuestions';
-
-const { questions, loading, error } = useAssemblyQuestions();
-</script>
+<style scoped>
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+</style>

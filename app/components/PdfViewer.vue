@@ -1,8 +1,6 @@
 <template>
   <div class="pdf-viewer-container">
-    <div
-      class="pdf-controls mb-4 flex flex-wrap items-center justify-between gap-2"
-    >
+    <div class="pdf-controls mb-4 flex flex-wrap items-center justify-between gap-2">
       <div class="flex items-center gap-2">
         <UButton
           icon="i-heroicons-minus"
@@ -63,14 +61,6 @@
           @click="nextPage"
         />
       </div>
-
-      <UButton
-        icon="i-heroicons-arrow-down-tray"
-        label="Télécharger"
-        size="sm"
-        variant="outline"
-        @click="downloadPdf"
-      />
     </div>
 
     <div
@@ -83,10 +73,7 @@
       >
         <div class="text-center">
           <div class="mb-2">
-            <UIcon
-              name="i-heroicons-arrow-path"
-              class="h-8 w-8 animate-spin text-gray-500"
-            />
+            <UIcon name="i-heroicons-arrow-path" class="h-8 w-8 animate-spin text-gray-500" />
           </div>
           <p class="text-sm text-gray-600">Chargement du PDF...</p>
           <p v-if="loadingProgress > 0" class="mt-1 text-xs text-gray-500">
@@ -97,10 +84,7 @@
 
       <div v-if="error" class="flex h-96 items-center justify-center">
         <div class="text-center">
-          <UIcon
-            name="i-heroicons-exclamation-triangle"
-            class="mb-2 h-12 w-12 text-red-500"
-          />
+          <UIcon name="i-heroicons-exclamation-triangle" class="mb-2 h-12 w-12 text-red-500" />
           <p class="text-sm text-gray-600">Erreur lors du chargement du PDF</p>
           <p class="mt-1 text-xs text-gray-500">{{ errorMessage }}</p>
           <UButton
@@ -130,9 +114,7 @@
           :disabled="currentPage <= 1"
           @click="previousPage"
         />
-        <span class="text-sm font-medium"
-          >{{ currentPage }} / {{ totalPages }}</span
-        >
+        <span class="text-sm font-medium">{{ currentPage }} / {{ totalPages }}</span>
         <UButton
           icon="i-heroicons-chevron-right"
           size="sm"
@@ -146,13 +128,9 @@
 </template>
 
 <script setup lang="ts">
-import * as pdfjsLib from "pdfjs-dist";
-import type { PDFDocumentProxy, PDFPageProxy } from "pdfjs-dist";
+import type { PDFDocumentProxy, PDFPageProxy } from 'pdfjs-dist/types/src/display/api';
 
-// Configuration du worker PDF.js - utiliser le worker local
-if (typeof window !== "undefined") {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdf-worker/pdf.worker.min.mjs";
-}
+let pdfjsLib: typeof import('pdfjs-dist') | null = null;
 
 interface Props {
   source: string;
@@ -160,7 +138,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  downloadName: "document.pdf",
+  downloadName: 'document.pdf',
 });
 
 // Refs
@@ -171,7 +149,7 @@ const totalPages = ref(0);
 const scale = ref(1.5); // Scale par défaut plus élevé pour mobile
 const loading = ref(true);
 const error = ref(false);
-const errorMessage = ref("");
+const errorMessage = ref('');
 const loadingProgress = ref(0);
 
 // PDF.js objects
@@ -197,19 +175,19 @@ const renderPage = async (num: number) => {
 
   try {
     const page: PDFPageProxy = await pdfDoc.getPage(num);
-    
+
     // Utiliser un ratio de pixels pour améliorer la netteté
     const pixelRatio = window.devicePixelRatio || 1;
     const viewport = page.getViewport({ scale: scale.value * pixelRatio });
 
     const canvas = pdfCanvas.value;
-    const context = canvas.getContext("2d");
+    const context = canvas.getContext('2d');
     if (!context) return;
 
     // Définir la taille réelle du canvas
     canvas.width = viewport.width;
     canvas.height = viewport.height;
-    
+
     // Ajuster le style CSS pour l'affichage
     canvas.style.width = `${viewport.width / pixelRatio}px`;
     canvas.style.height = `${viewport.height / pixelRatio}px`;
@@ -229,8 +207,8 @@ const renderPage = async (num: number) => {
       pageNumPending = null;
     }
   } catch (err: any) {
-    if (err.name !== "RenderingCancelledException") {
-      console.error("Error rendering page:", err);
+    if (err.name !== 'RenderingCancelledException') {
+      console.error('Error rendering page:', err);
     }
     pageRendering = false;
   }
@@ -286,7 +264,7 @@ const fitToWidth = () => {
     const viewport = page.getViewport({ scale: 1 });
     const containerWidth = pdfContainer.value!.clientWidth - 32; // 32px for padding
     let calculatedScale = containerWidth / viewport.width;
-    
+
     // Sur mobile, arrondir le scale pour éviter le flou
     const isMobile = window.innerWidth < 768;
     if (isMobile) {
@@ -295,7 +273,7 @@ const fitToWidth = () => {
       // S'assurer qu'on ne descend pas en dessous de 1 sur mobile
       calculatedScale = Math.max(1, calculatedScale);
     }
-    
+
     scale.value = calculatedScale;
     queueRenderPage(currentPage.value);
   });
@@ -319,10 +297,10 @@ const fitToPage = () => {
 
 // Download PDF
 const downloadPdf = () => {
-  const link = document.createElement("a");
+  const link = document.createElement('a');
   link.href = props.source;
   link.download = props.downloadName;
-  link.target = "_blank";
+  link.target = '_blank';
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
@@ -332,12 +310,15 @@ const downloadPdf = () => {
 const loadPdf = async () => {
   loading.value = true;
   error.value = false;
-  errorMessage.value = "";
+  errorMessage.value = '';
   loadingProgress.value = 0;
+
+  if (!pdfjsLib) return;
 
   try {
     const loadingTask = pdfjsLib.getDocument({
       url: props.source,
+      wasmUrl: '/pdf-worker/',
       onProgress: (progress) => {
         if (progress.total > 0) {
           loadingProgress.value = (progress.loaded / progress.total) * 100;
@@ -357,9 +338,9 @@ const loadPdf = async () => {
 
     loading.value = false;
   } catch (err: any) {
-    console.error("Error loading PDF:", err);
+    console.error('Error loading PDF:', err);
     error.value = true;
-    errorMessage.value = err.message || "Erreur inconnue";
+    errorMessage.value = err.message || 'Erreur inconnue';
     loading.value = false;
   }
 };
@@ -367,20 +348,20 @@ const loadPdf = async () => {
 // Keyboard navigation
 const handleKeyPress = (e: KeyboardEvent) => {
   switch (e.key) {
-    case "ArrowLeft":
+    case 'ArrowLeft':
       previousPage();
       break;
-    case "ArrowRight":
+    case 'ArrowRight':
       nextPage();
       break;
-    case "+":
-    case "=":
+    case '+':
+    case '=':
       if (!e.ctrlKey && !e.metaKey) {
         e.preventDefault();
         zoomIn();
       }
       break;
-    case "-":
+    case '-':
       if (!e.ctrlKey && !e.metaKey) {
         e.preventDefault();
         zoomOut();
@@ -390,13 +371,18 @@ const handleKeyPress = (e: KeyboardEvent) => {
 };
 
 // Lifecycle
-onMounted(() => {
+onMounted(async () => {
+  pdfjsLib = await import('pdfjs-dist');
+  pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+    'pdfjs-dist/build/pdf.worker.min.mjs',
+    import.meta.url,
+  ).href;
   loadPdf();
-  window.addEventListener("keydown", handleKeyPress);
+  window.addEventListener('keydown', handleKeyPress);
 });
 
 onUnmounted(() => {
-  window.removeEventListener("keydown", handleKeyPress);
+  window.removeEventListener('keydown', handleKeyPress);
   if (pdfDoc) {
     pdfDoc.destroy();
   }
@@ -446,12 +432,12 @@ watch(
   -webkit-font-smoothing: antialiased;
 }
 
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }

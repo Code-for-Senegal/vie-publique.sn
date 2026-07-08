@@ -127,9 +127,6 @@ export default defineCachedEventHandler(
   {
     maxAge: 60 * 60, // 1 heure
     name: "medias",
-    getKey: (event) => {
-      const query = getQuery(event);
-      return `medias-${JSON.stringify(query)}`;
-    },
+    getKey: (event) => buildCacheKey("medias", getQuery(event)),
   },
 );

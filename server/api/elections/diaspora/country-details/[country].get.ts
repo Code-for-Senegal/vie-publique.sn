@@ -2,7 +2,13 @@ import { readItems } from "@directus/sdk";
 
 /**
  * Endpoint pour récupérer les détails des bureaux de vote d'un pays de la diaspora
- * GET /api/elections/diaspora/country-details/:country?search=...&page=1&limit=100
+ * GET /api/elections/diaspora/country-details/:country?search=...&page=1&limit=100&election=...
+ *
+ * Query params:
+ * - search: Recherche dans les localités et lieux de vote
+ * - page: Numéro de page (défaut: 1)
+ * - limit: Nombre d'éléments par page (défaut: 1000)
+ * - election: ID de l'élection pour filtrer les données
  *
  * @returns Liste des bureaux de vote avec pagination et recherche
  */
@@ -21,6 +27,7 @@ export default defineCachedEventHandler(
     const search = query.search as string | undefined;
     const page = parseInt((query.page as string) || "1");
     const limit = parseInt((query.limit as string) || "1000");
+    const electionId = query.election as string | undefined;
 
     try {
       const directus = getCmsClient();
@@ -28,6 +35,7 @@ export default defineCachedEventHandler(
       // Construction du filtre
       interface FilterType {
         country: { _eq: string };
+        election?: { _eq: number };
         _or?: Array<{
           locality?: { _contains: string };
           polling_place?: { _contains: string };
@@ -39,6 +47,11 @@ export default defineCachedEventHandler(
           _eq: decodeURIComponent(country),
         },
       };
+
+      // Ajouter le filtre d'élection si présent
+      if (electionId) {
+        filter.election = { _eq: parseInt(electionId) };
+      }
 
       // Ajouter le filtre de recherche si présent
       if (search) {
@@ -106,8 +119,7 @@ export default defineCachedEventHandler(
     name: "diaspora-country-details",
     getKey: (event) => {
       const country = getRouterParam(event, "country");
-      const query = getQuery(event);
-      return `diaspora-details-${country}-${JSON.stringify(query)}`;
+      return buildCacheKey(`diaspora-country-details-${country}`, getQuery(event));
     },
   },
 );

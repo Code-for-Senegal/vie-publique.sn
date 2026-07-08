@@ -1,0 +1,36 @@
+{
+  "datasets": {
+    "electrification": [
+      { "regionCode": "DK", "region": "Dakar", "tauxElectrification": 98.5, "puissanceInstallee": 820, "solaire": 12 },
+      { "regionCode": "TH", "region": "Thiès", "tauxElectrification": 82.0, "puissanceInstallee": 180, "solaire": 25 },
+      { "regionCode": "SL", "region": "Saint-Louis", "tauxElectrification": 68.5, "puissanceInstallee": 120, "solaire": 30 },
+      { "regionCode": "ZG", "region": "Ziguinchor", "tauxElectrification": 55.0, "puissanceInstallee": 60, "solaire": 35 },
+      { "regionCode": "KL", "region": "Kaolack", "tauxElectrification": 72.0, "puissanceInstallee": 95, "solaire": 22 },
+      { "regionCode": "KD", "region": "Kolda", "tauxElectrification": 38.5, "puissanceInstallee": 30, "solaire": 45 },
+      { "regionCode": "TC", "region": "Tambacounda", "tauxElectrification": 42.0, "puissanceInstallee": 40, "solaire": 50 },
+      { "regionCode": "KG", "region": "Kédougou", "tauxElectrification": 28.0, "puissanceInstallee": 15, "solaire": 60 },
+      { "regionCode": "MT", "region": "Matam", "tauxElectrification": 45.0, "puissanceInstallee": 35, "solaire": 55 },
+      { "regionCode": "FK", "region": "Fatick", "tauxElectrification": 62.0, "puissanceInstallee": 55, "solaire": 28 },
+      { "regionCode": "DB", "region": "Diourbel", "tauxElectrification": 70.0, "puissanceInstallee": 80, "solaire": 20 },
+      { "regionCode": "LG", "region": "Louga", "tauxElectrification": 52.0, "puissanceInstallee": 45, "solaire": 40 },
+      { "regionCode": "SD", "region": "Sédhiou", "tauxElectrification": 32.0, "puissanceInstallee": 20, "solaire": 55 },
+      { "regionCode": "KF", "region": "Kaffrine", "tauxElectrification": 48.0, "puissanceInstallee": 35, "solaire": 42 }
+    ],
+    "eau-potable": [
+      { "regionCode": "DK", "region": "Dakar", "tauxAccesEau": 97.0, "forages": 450 },
+      { "regionCode": "TH", "region": "Thiès", "tauxAccesEau": 88.0, "forages": 280 },
+      { "regionCode": "SL", "region": "Saint-Louis", "tauxAccesEau": 78.5, "forages": 190 },
+      { "regionCode": "ZG", "region": "Ziguinchor", "tauxAccesEau": 72.0, "forages": 110 },
+      { "regionCode": "KL", "region": "Kaolack", "tauxAccesEau": 80.0, "forages": 200 },
+      { "regionCode": "KD", "region": "Kolda", "tauxAccesEau": 55.0, "forages": 80 },
+      { "regionCode": "TC", "region": "Tambacounda", "tauxAccesEau": 60.0, "forages": 95 },
+      { "regionCode": "KG", "region": "Kédougou", "tauxAccesEau": 42.0, "forages": 35 },
+      { "regionCode": "MT", "region": "Matam", "tauxAccesEau": 58.0, "forages": 85 },
+      { "regionCode": "FK", "region": "Fatick", "tauxAccesEau": 70.0, "forages": 130 },
+      { "regionCode": "DB", "region": "Diourbel", "tauxAccesEau": 75.5, "forages": 160 },
+      { "regionCode": "LG", "region": "Louga", "tauxAccesEau": 62.0, "forages": 100 },
+      { "regionCode": "SD", "region": "Sédhiou", "tauxAccesEau": 48.0, "forages": 55 },
+      { "regionCode": "KF", "region": "Kaffrine", "tauxAccesEau": 56.0, "forages": 75 }
+    ]
+  }
+}

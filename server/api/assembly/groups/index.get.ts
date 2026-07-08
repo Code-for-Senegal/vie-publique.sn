@@ -137,9 +137,6 @@ export default defineCachedEventHandler(
   {
     maxAge: 60 * 60, // 1 heure
     name: "assembly-groups",
-    getKey: (event) => {
-      const query = getQuery(event);
-      return `assembly-groups-${JSON.stringify(query)}`;
-    },
+    getKey: (event) => buildCacheKey("assembly-groups", getQuery(event)),
   },
 );

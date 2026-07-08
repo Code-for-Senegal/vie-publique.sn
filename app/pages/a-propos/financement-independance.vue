@@ -105,9 +105,9 @@ useHead({
     { name: 'geo.placename', content: 'Dakar' },
   ],
   script: [
-    { type: 'application/ld+json', children: JSON.stringify(organizationSchema) },
-    { type: 'application/ld+json', children: JSON.stringify(breadcrumbSchema) },
-    { type: 'application/ld+json', children: JSON.stringify(faqSchema) },
+    { type: 'application/ld+json', innerHTML: JSON.stringify(organizationSchema) },
+    { type: 'application/ld+json', innerHTML: JSON.stringify(breadcrumbSchema) },
+    { type: 'application/ld+json', innerHTML: JSON.stringify(faqSchema) },
   ],
 });
 
@@ -135,7 +135,7 @@ const partnersProjects = ref<PartnerProject[]>([
     name: 'Polaris Association',
     type: 'Subvention & accompagnement technique',
     period: 'juillet 2025 - octobre 2025 (3 mois)',
-    amount: '5 000 EUR (3,2 millions FCFA)',
+    amount: '',
     object: 'Renforcement de la plateforme Vie Publique Sénégal',
     finances:
       'amélioration UX/UI, fonctionnalités de la plateforme, renforcement organisationnel sur un périmètre défini.',
@@ -154,7 +154,7 @@ const partnersProjects = ref<PartnerProject[]>([
     name: 'Africtivist',
     type: 'Subvention de projet (Election Civic Tech Fund)',
     period: 'novembre 2025 - octobre 2026 (12 mois)',
-    amount: '15 000 EUR (9,8 millions FCFA)',
+    amount: '',
     object: '« Plateforme électorale citoyenne »',
     finances:
       'outils civiques liés aux processus électoraux, information citoyenne, participation et transparence.',
@@ -173,7 +173,7 @@ const partnersProjects = ref<PartnerProject[]>([
     name: 'PNUD - Programme des Nations Unies pour le développement',
     type: 'Partenaire de mise en œuvre',
     period: 'décembre 2025 - mai 2026 (6 mois)',
-    amount: '49 000 USD (27 millions FCFA)',
+    amount: '',
     object:
       "Initiative phare pour l'espace civique et la promotion de nouveaux modèles d'engagement citoyen (3P4D)",
     finances:
@@ -188,47 +188,17 @@ const partnersProjects = ref<PartnerProject[]>([
       linkText: 'Voir l’appel à projets',
     },
   },
-
-  {
-    id: 'osf',
-    name: 'Open Society Foundations (OSF)',
-    type: 'Grant de projet',
-    period: '24 mois',
-    amount: '250 000 USD',
-    object:
-      "Production éditoriale et recherche, participation citoyenne, diffusion de l'information publique.",
-    finances:
-      "production éditoriale et recherche, participation citoyenne, diffusion de l'information publique, renforcement organisationnel.",
-    doesNotFinance:
-      "gouvernance de l'association, décisions éditoriales, prises de position publiques.",
-    isVisible: false,
-  },
 ]);
 </script>
 
 <template>
-  <div class="container mx-auto max-w-4xl px-4 py-8">
-    <!-- Breadcrumb / Back -->
-    <!-- Breadcrumb / Back -->
-    <nav
-      class="mb-6 flex items-center text-sm text-gray-500 dark:text-gray-400"
-      aria-label="Breadcrumb"
-    >
-      <NuxtLink to="/" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-        Accueil
-      </NuxtLink>
-      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
-      <NuxtLink
-        to="/a-propos/qui-sommes-nous"
-        class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-      >
-        À propos
-      </NuxtLink>
-      <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
-      <span class="truncate font-medium text-gray-900 dark:text-white" aria-current="page">
-        Financement & indépendance
-      </span>
-    </nav>
+  <div class="container mx-auto min-h-screen max-w-4xl px-4 py-8 pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'À propos', to: '/a-propos/qui-sommes-nous' },
+        { label: 'Financement & Indépendance' },
+      ]"
+    />
 
     <article class="prose prose-sm mx-auto sm:prose lg:prose-lg dark:prose-invert">
       <h1>Financement & indépendance</h1>
@@ -291,7 +261,6 @@ const partnersProjects = ref<PartnerProject[]>([
           <ul>
             <li><strong>Type</strong> : {{ project.type }}</li>
             <li><strong>Période</strong> : {{ project.period }}</li>
-            <li><strong>Montant</strong> : {{ project.amount }}</li>
             <li v-if="project.object"><strong>Objet</strong> : {{ project.object }}</li>
           </ul>
           <p><strong>Finance</strong> : {{ project.finances }}</p>

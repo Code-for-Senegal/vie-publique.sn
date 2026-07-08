@@ -20,7 +20,7 @@ export interface BudgetEntityProgram {
 export interface BudgetEntity {
   id: number;
   name: string;
-  public_slug: string;
+  slug: string;
 }
 
 export interface BudgetEntityData {
@@ -33,13 +33,14 @@ export interface BudgetEntityData {
 
 export const useBudgetEntity = (slug: string) => {
   // Fetch des données de l'entité
-  const { data: entityData, pending: loading, error } = useFetch<BudgetEntityData>(
-    `/api/budget/entity/${slug}`,
-    {
-      key: `budget-entity-${slug}`,
-      server: true,
-    },
-  );
+  const {
+    data: entityData,
+    pending: loading,
+    error,
+  } = useFetch<BudgetEntityData>(`/api/budget/entity/${slug}`, {
+    key: `budget-entity-${slug}`,
+    server: true,
+  });
 
   // Computed pour les données de l'entité
   const entity = computed(() => entityData.value?.entity || null);
@@ -53,13 +54,10 @@ export const useBudgetEntity = (slug: string) => {
     return latestYear.value ? latestYear.value.amount_cp : 0;
   });
 
-  // Computed pour la variation du budget total (année N vs N-1)
+  // Computed pour la variation du budget total (année N vs N-1) - retourne le nombre
   const budgetVariation = computed(() => {
     if (evolution.value.length < 2) {
-      return {
-        percentage: 'N/A',
-        color: 'gray',
-      };
+      return null;
     }
 
     const sortedEvolution = [...evolution.value].sort((a, b) => b.year - a.year);
@@ -67,17 +65,10 @@ export const useBudgetEntity = (slug: string) => {
     const previousYear = sortedEvolution[1];
 
     if (!currentYear || !previousYear || previousYear.amount_cp === 0) {
-      return {
-        percentage: 'N/A',
-        color: 'gray',
-      };
+      return null;
     }
 
-    const variation = ((currentYear.amount_cp - previousYear.amount_cp) / previousYear.amount_cp) * 100;
-    return {
-      percentage: `${variation > 0 ? '+' : ''}${variation.toFixed(1)}%`,
-      color: variation > 0 ? 'green' : variation < 0 ? 'red' : 'gray',
-    };
+    return ((currentYear.amount_cp - previousYear.amount_cp) / previousYear.amount_cp) * 100;
   });
 
   // Computed pour les données du graphique d'évolution
@@ -96,7 +87,7 @@ export const useBudgetEntity = (slug: string) => {
     return programs.value.map((program) => ({
       ...program,
       amount_cp_number: parseFloat(program.amount_cp || '0'),
-      percentage: total > 0 ? ((parseFloat(program.amount_cp || '0') / total) * 100) : 0,
+      percentage: total > 0 ? (parseFloat(program.amount_cp || '0') / total) * 100 : 0,
     }));
   });
 

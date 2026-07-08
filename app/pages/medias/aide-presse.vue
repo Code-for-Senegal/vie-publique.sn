@@ -5,7 +5,7 @@ const seoTitle = "Aide à la presse Sénégal 2023";
 const seoDescription =
   "Fonds d'appui et de développement de la presse (FADP), classement des titres de presse aidés en 2023 au Sénégal";
 const seoImgPath = "/images/share-media.JPG";
-const seoPageUrl = "https://vie-publique.sn/medias/aide";
+const seoPageUrl = "https://www.vie-publique.sn/medias/aide";
 useHead({
   title: seoTitle,
   meta: [
@@ -146,7 +146,13 @@ watch([selectedType, selectedType], () => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center px-4">
+  <div class="min-h-screen flex flex-col items-center px-4 pb-16">
+    <AppBreadcrumb
+:items="[
+      { label: 'Médias', to: '/medias' },
+      { label: 'Aides à la presse 2023' }
+    ]" />
+
     <div class="prose prose-sm sm:prose mx-auto my-2">
       <h1 class="text-center dark:text-white">Aides à la presse 2023</h1>
     </div>

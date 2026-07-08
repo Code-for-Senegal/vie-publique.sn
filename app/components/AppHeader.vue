@@ -1,6 +1,6 @@
 <template>
   <header class="header_top sticky top-0 z-50 w-full">
-    <div class="sm:container-page flex items-center justify-between px-4 py-1">
+    <div class="sm:container-page flex items-center justify-between px-4 py-0">
       <!-- Logo -->
       <NuxtLink to="/" class="flex items-center">
         <img

@@ -59,8 +59,8 @@ const seoDescription =
   "Suivez l'activité parlementaire de l'Assemblée nationale du Sénégal : séances plénières, commissions, textes adoptés, questions au gouvernement et travaux parlementaires.";
 const seoKeywords =
   "Assemblée nationale Sénégal, députés sénégalais, parlement sénégal, lois sénégal, séances plénières, commissions parlementaires";
-const seoImgPath = "https://vie-publique.sn/seo-img-assemblee.png";
-const seoPageUrl = "https://vie-publique.sn/assemblee-nationale";
+const seoImgPath = "https://www.vie-publique.sn/seo-img-assemblee.png";
+const seoPageUrl = "https://www.vie-publique.sn/assemblee-nationale";
 useHead({
   title: seoTitle,
   meta: [
@@ -100,23 +100,25 @@ useHead({
 </script>
 
 <template>
-  <div>
-    <!-- En-tête compacte -->
-    <header class="border-b bg-white dark:bg-transparent">
-      <div class="container mx-auto py-4 sm:px-4">
-        <div class="flex items-center justify-between">
-          <div class="prose prose-sm sm:prose dark:prose-invert">
-            <h1 class="">Assemblée nationale</h1>
-          </div>
-        </div>
-        <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-          15ème législature 2024-2029
-        </p>
-      </div>
+  <div class="min-h-screen bg-gray-50 pb-16 dark:bg-gray-900">
+    <div class="hidden md:block container mx-auto px-4 pt-4">
+      <AppBreadcrumb :items="[
+        { label: 'Assemblée nationale' }
+      ]" />
+    </div>
+
+    <!-- En-tête -->
+    <header class="container mx-auto px-4 py-4">
+      <h1 class="text-lg font-bold text-gray-900 sm:text-xl dark:text-white">
+        Assemblée nationale
+      </h1>
+      <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+        15ème législature 2024-2029
+      </p>
     </header>
 
     <!-- Main Content -->
-    <main class="container mx-auto sm:px-4">
+    <main class="container mx-auto px-4">
       <!-- Navigation Cards -->
       <div class="mb-2 grid grid-cols-2 gap-2 lg:grid-cols-3">
         <NuxtLink
@@ -172,9 +174,9 @@ useHead({
       <!-- Recent Content Sections -->
       <div>
         <!-- Version desktop -->
-        <div class="hidden gap-4 md:grid md:grid-cols-2 lg:grid-cols-3">
+        <div class="hidden gap-4 md:grid md:grid-cols-2">
           <!-- Latest News -->
-          <section class="rounded-lg bg-white p-4 dark:bg-gray-800">
+          <!-- <section class="rounded-lg bg-white p-4 dark:bg-gray-800">
             <div class="mb-4 flex items-center justify-between">
               <h2 class="text-xl font-bold dark:text-white">Actualités</h2>
               <NuxtLink
@@ -186,7 +188,7 @@ useHead({
               </NuxtLink>
             </div>
             <AssemblyHomeNews :news="news" />
-          </section>
+          </section> -->
 
           <!-- Latest Questions -->
           <section class="rounded-lg bg-white p-4 dark:bg-gray-800">
@@ -241,7 +243,7 @@ useHead({
           </section>
 
           <!-- Actualités -->
-          <section class="rounded-lg bg-white p-4 dark:bg-gray-800">
+          <!-- <section class="rounded-lg bg-white p-4 dark:bg-gray-800">
             <div
               class="mb-4 flex items-center justify-between border-b border-gray-100 p-2 dark:border-gray-700"
             >
@@ -255,7 +257,7 @@ useHead({
               </NuxtLink>
             </div>
             <AssemblyHomeNews :news="news" class="news-mobile" />
-          </section>
+          </section> -->
 
           <!-- Votes -->
           <section class="rounded-lg bg-white p-4 dark:bg-gray-800">

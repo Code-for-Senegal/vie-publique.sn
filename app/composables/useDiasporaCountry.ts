@@ -33,6 +33,7 @@ interface DiasporaCountryOptions {
   search?: Ref<string>;
   page?: Ref<number>;
   limit?: number;
+  electionId?: Ref<string | undefined> | string | undefined;
 }
 
 /**
@@ -44,11 +45,41 @@ interface DiasporaCountryOptions {
  *   country: 'France',
  *   search: searchQuery,
  *   page: currentPage,
+ *   electionId: electionIdRef,
  * });
  * ```
  */
 export const useDiasporaCountry = (options: DiasporaCountryOptions) => {
-  const { country, search, page, limit = 1000 } = options;
+  const { country, search, page, limit = 1000, electionId } = options;
+
+  // Computed pour obtenir la valeur de l'election ID
+  const currentElectionId = computed(() => {
+    if (!electionId) return undefined;
+    const value = isRef(electionId) ? electionId.value : electionId;
+    return value || undefined;
+  });
+
+  // Query params pour les statistiques
+  const statsQueryParams = computed(() => {
+    const params: Record<string, string> = {};
+    if (currentElectionId.value) {
+      params.election = currentElectionId.value;
+    }
+    return params;
+  });
+
+  // Query params pour les détails
+  const detailsQueryParams = computed(() => {
+    const params: Record<string, string | number> = {
+      search: search?.value || "",
+      page: page?.value || 1,
+      limit,
+    };
+    if (currentElectionId.value) {
+      params.election = currentElectionId.value;
+    }
+    return params;
+  });
 
   // ✅ Récupération des statistiques du pays via l'endpoint serveur
   const {
@@ -59,8 +90,10 @@ export const useDiasporaCountry = (options: DiasporaCountryOptions) => {
   } = useFetch<{ data: CountryStats }>(
     `/api/elections/diaspora/country-stats/${encodeURIComponent(country)}`,
     {
-      key: `diaspora-stats-${country}`,
+      key: computed(() => `diaspora-stats-${country}-${currentElectionId.value || 'all'}`),
+      query: statsQueryParams,
       server: true,
+      watch: [currentElectionId],
     },
   );
 
@@ -74,14 +107,10 @@ export const useDiasporaCountry = (options: DiasporaCountryOptions) => {
     data: DiasporaLocation[];
     meta: { total_count: number; page: number; limit: number; total_pages: number };
   }>(`/api/elections/diaspora/country-details/${encodeURIComponent(country)}`, {
-    key: `diaspora-details-${country}`,
-    query: {
-      search: search || "",
-      page: page || 1,
-      limit,
-    },
+    key: computed(() => `diaspora-details-${country}-${currentElectionId.value || 'all'}`),
+    query: detailsQueryParams,
     server: true,
-    watch: search && page ? [search, page] : undefined,
+    watch: search && page ? [search, page, currentElectionId] : [currentElectionId],
   });
 
   // Computed pour les stats formatées

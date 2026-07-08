@@ -1,5 +1,5 @@
 <template>
-  <div class="maintenance-page">
+  <div class="maintenance-page min-h-screen pb-16">
     <div class="maintenance-content">
       <h1>Site en maintenance</h1>
       <p>

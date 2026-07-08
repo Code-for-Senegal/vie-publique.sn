@@ -1,9 +1,10 @@
-import { defineStore } from "pinia";
+import { defineStore } from 'pinia';
 
 interface Update {
   id: string;
   title: string;
-  type: "document" | "question";
+  type: 'document' | 'question';
+  doc_type?: string;
   date_created: string;
   publish_date?: string;
   url: string;
@@ -14,12 +15,12 @@ interface Update {
 interface Question {
   id: string;
   subject: string;
+  slug?: string;
   question_date: string;
   date_created: string;
 }
 
-
-export const useLatestUpdatesStore = defineStore("latestUpdates", {
+export const useLatestUpdatesStore = defineStore('latestUpdates', {
   state: () => ({
     documents: [] as Update[],
     questions: [] as Update[],
@@ -44,11 +45,7 @@ export const useLatestUpdatesStore = defineStore("latestUpdates", {
   actions: {
     async fetchUpdates() {
       // Si les données sont récentes, pas besoin de refetch
-      if (
-        !this.shouldRefetch &&
-        this.documents.length > 0 &&
-        this.questions.length > 0
-      ) {
+      if (!this.shouldRefetch && this.documents.length > 0 && this.questions.length > 0) {
         return;
       }
 
@@ -57,29 +54,30 @@ export const useLatestUpdatesStore = defineStore("latestUpdates", {
 
       try {
         // ✅ Utilisation des API Nuxt server pour tout - récupération des documents featured
-        const documentsData = await $fetch("/api/documents/featured", {
+        const documentsData = await $fetch('/api/documents/featured', {
           params: {
             limit: 3,
           },
         });
 
         const questionsData = await $fetch<{ questions: Question[] }>(
-          "/api/assembly/questions/latest",
+          '/api/assembly/questions/latest',
           {
             params: {
               limit: 3,
             },
-          }
+          },
         );
 
         // Formater les résultats
         this.documents = documentsData.documents.map((doc) => ({
           id: doc.id,
           title: doc.title,
-          type: "document" as const,
+          type: 'document' as const,
+          doc_type: doc.type,
           date_created: doc.publish_date,
           publish_date: doc.publish_date,
-          url: `/documents/${doc.id}/${doc.slug || "document"}`,
+          url: `/documents/${doc.id}/${doc.slug || 'document'}`,
           slug: doc.slug,
           cover_image: doc.cover_image,
         }));
@@ -87,15 +85,15 @@ export const useLatestUpdatesStore = defineStore("latestUpdates", {
         this.questions = questionsData.questions.map((q) => ({
           id: q.id,
           title: q.subject,
-          type: "question" as const,
+          type: 'question' as const,
           date_created: q.date_created,
-          url: `/assemblee-nationale/questions/${q.id}`,
-          slug: undefined,
+          url: `/assemblee-nationale/questions/${q.id}/${q.slug || 'question'}`,
+          slug: q.slug,
         }));
 
         this.lastFetch = new Date();
       } catch (e) {
-        console.error("Error fetching updates:", e);
+        console.error('Error fetching updates:', e);
         this.error = e as Error;
       } finally {
         this.loading = false;

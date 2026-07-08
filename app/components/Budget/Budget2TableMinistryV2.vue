@@ -54,14 +54,18 @@
               <!-- Nom du ministère -->
               <div class="line-clamp-2 flex-1">
                 <NuxtLink
-                  v-if="ministry.entity?.public_slug"
-                  :to="`/budget-senegal/${ministry.entity.public_slug}`"
+                  v-if="ministry.public_entity?.slug"
+                  :to="`/budget-senegal/${ministry.public_entity.slug}`"
                   class="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
                 >
-                  {{ year === 2026 ? ministry.label : (ministry.entity?.name || ministry.label) }}
+                  {{
+                    year === 2026 ? ministry.label : ministry.public_entity?.name || ministry.label
+                  }}
                 </NuxtLink>
                 <span v-else class="text-sm font-medium">
-                  {{ year === 2026 ? ministry.label : (ministry.entity?.name || ministry.label) }}
+                  {{
+                    year === 2026 ? ministry.label : ministry.public_entity?.name || ministry.label
+                  }}
                 </span>
               </div>
 

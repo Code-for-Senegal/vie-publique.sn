@@ -35,12 +35,12 @@ export default defineEventHandler(async (event) => {
     checks.checks.cms.status = 'error';
   }
 
-  // Statut global
-  const hasError = Object.values(checks.checks).some((c) => c.status === 'error');
-  checks.status = hasError ? 'error' : 'ok';
+  // Statut global - seul le serveur est critique pour le health check
+  const serverOk = checks.checks.server.status === 'ok';
+  checks.status = serverOk ? 'ok' : 'error';
 
-  // Code HTTP
-  setResponseStatus(event, hasError ? 503 : 200);
+  // Code HTTP - retourne 200 tant que le serveur Nuxt tourne
+  setResponseStatus(event, serverOk ? 200 : 503);
 
   return {
     ...checks,

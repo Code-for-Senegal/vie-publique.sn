@@ -9,14 +9,14 @@ defineProps<ProfileHeaderProps>();
 </script>
 
 <template>
-  <div v-if="deputy" class="rounded-lg border bg-white p-4 shadow-sm">
+  <div v-if="deputy" class="rounded-2xl bg-white p-4 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700">
     <div class="flex flex-col items-center text-center">
       <CmsImage
         v-if="deputy.photo"
         :src="deputy.photo"
         :quality="50"
         :alt="deputy.first_name + ' ' + deputy.last_name"
-        class="mb-4 h-full w-full object-cover"
+        class="mb-4 h-full w-full rounded-xl object-cover"
       />
       <UAvatar
         v-else
@@ -29,13 +29,13 @@ defineProps<ProfileHeaderProps>();
         size="3xl"
         class="m-4 shadow"
       />
-      <h1 class="mb-2 text-xl font-bold capitalize">
+      <h1 class="mb-2 text-xl font-bold capitalize text-gray-900 dark:text-white">
         {{ deputy.first_name.toLowerCase() }}
         <span class="font-bold tracking-wider">
           {{ deputy.last_name.toUpperCase() }}
         </span>
       </h1>
-      <div class="mb-2 flex flex-col items-center space-y-2 text-gray-600">
+      <div class="mb-2 flex flex-col items-center space-y-2 text-gray-600 dark:text-gray-400">
         <div
           v-if="deputy.birthplace"
           class="flex items-center justify-center gap-2"
@@ -84,7 +84,7 @@ defineProps<ProfileHeaderProps>();
       </div>
 
       <div
-        class="inline-block rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800"
+        class="inline-block rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800 dark:bg-green-900/30 dark:text-green-400"
       >
         EN ACTIVITÉ
       </div>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="min-h-screen pb-16">
     <Head>
       <Meta name="robots" content="noindex" />
     </Head>

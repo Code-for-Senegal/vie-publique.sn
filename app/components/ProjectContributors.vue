@@ -12,7 +12,7 @@ const getAvatar = (contributor: any) => {
 </script>
 
 <template>
-  <div class="bg-white py-2 dark:text-black">
+  <div class="py-2">
     <div class="container mx-auto">
       <!-- Loading State -->
       <div v-if="loading" class="flex justify-center py-8">
@@ -33,7 +33,7 @@ const getAvatar = (contributor: any) => {
         <div
           v-for="contributor in contributors"
           :key="contributor.id"
-          class="flex flex-col items-center rounded-lg bg-white p-2 shadow-md transition-all hover:shadow-lg"
+          class="flex flex-col items-center rounded-lg bg-white p-2 shadow-md transition-all hover:shadow-lg dark:bg-gray-800"
         >
           <!-- Image du contributeur -->
           <div class="rounded-full">
@@ -50,7 +50,7 @@ const getAvatar = (contributor: any) => {
           <!-- Informations du contributeur -->
           <div class="mt-4 flex h-14 w-full flex-col justify-center text-center">
             <p
-              class="flex flex-col items-center text-lg font-semibold leading-tight text-gray-900 md:text-xl"
+              class="flex flex-col items-center text-lg font-semibold leading-tight text-gray-900 dark:text-white md:text-xl"
             >
               <span class="block w-full truncate px-2" :title="contributor.first_name">
                 {{ contributor.first_name }}
@@ -62,7 +62,7 @@ const getAvatar = (contributor: any) => {
           </div>
 
           <p
-            class="mt-1 w-full truncate px-2 text-center text-sm text-gray-500"
+            class="mt-1 w-full truncate px-2 text-center text-sm text-gray-500 dark:text-gray-400"
             :title="contributor.job"
           >
             {{ contributor.job }}

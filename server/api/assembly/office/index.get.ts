@@ -76,9 +76,6 @@ export default defineCachedEventHandler(
   {
     maxAge: 60 * 60, // 1 heure
     name: "assembly-office",
-    getKey: (event) => {
-      const query = getQuery(event);
-      return `assembly-office-${JSON.stringify(query)}`;
-    },
+    getKey: (event) => buildCacheKey("assembly-office", getQuery(event)),
   },
 );

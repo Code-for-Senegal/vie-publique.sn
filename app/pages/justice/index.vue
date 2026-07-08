@@ -2,8 +2,8 @@
 const seoTitle = "Justice République du Sénégal";
 const seoDescription =
   "La justice Sénégal, Conseil supérieur de la magistrature, Cour suprême, Conseil constitutionnel, Conseil d'État, Cour d'appel, Tribunal";
-const seoImgPath = "https://vie-publique.sn/images/share-linkedin.png";
-const seoPageUrl = "https://vie-publique.sn/justice";
+const seoImgPath = "https://www.vie-publique.sn/images/share-linkedin.png";
+const seoPageUrl = "https://www.vie-publique.sn/justice";
 useHead({
   title: seoTitle,
   meta: [
@@ -81,7 +81,13 @@ const links = [
 </script>
 
 <template>
-  <div class="container mx-auto px-4">
+  <div class="container mx-auto min-h-screen px-4 pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'Justice' }
+      ]"
+    />
+
     <div class="prose prose-sm sm:prose mx-auto my-2">
       <h1 class="text-center dark:text-white">La Justice au Sénégal</h1>
     </div>

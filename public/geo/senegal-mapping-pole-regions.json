@@ -1,0 +1,60 @@
+{
+  "poles": [
+    {
+      "slug": "dakar",
+      "name": "Pôle Dakar",
+      "regions": ["Dakar"]
+    },
+    {
+      "slug": "thies",
+      "name": "Pôle Thiès",
+      "regions": ["Thiès"]
+    },
+    {
+      "slug": "diourbel-louga",
+      "name": "Pôle Diourbel - Louga",
+      "regions": ["Diourbel", "Louga"]
+    },
+    {
+      "slug": "centre",
+      "name": "Pôle Centre",
+      "regions": ["Fatick", "Kaolack", "Kaffrine"]
+    },
+    {
+      "slug": "nord",
+      "name": "Pôle Nord",
+      "regions": ["Saint-Louis", "Matam"]
+    },
+    {
+      "slug": "nord-est",
+      "name": "Pôle Nord-Est",
+      "regions": ["Tambacounda"]
+    },
+    {
+      "slug": "sud-est",
+      "name": "Pôle Sud-Est",
+      "regions": ["Kédougou"]
+    },
+    {
+      "slug": "sud",
+      "name": "Pôle Sud",
+      "regions": ["Ziguinchor", "Sédhiou", "Kolda"]
+    }
+  ],
+  "regions_to_pole": {
+    "Dakar": "dakar",
+    "Thiès": "thies",
+    "Diourbel": "diourbel-louga",
+    "Louga": "diourbel-louga",
+    "Fatick": "centre",
+    "Kaolack": "centre",
+    "Kaffrine": "centre",
+    "Saint-Louis": "nord",
+    "Matam": "nord",
+    "Tambacounda": "nord-est",
+    "Kédougou": "sud-est",
+    "Ziguinchor": "sud",
+    "Sédhiou": "sud",
+    "Kolda": "sud"
+  }
+}

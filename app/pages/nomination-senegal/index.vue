@@ -1,17 +1,65 @@
 <script setup lang="ts">
 const { siteName, siteUrl, keywords, themeColor } = useSiteMetadata();
 
-const title = 'Nominations du Président Diomaye Faye | Annuaire Sénégal';
-const description =
-  'Liste complète des nominations du président Bassirou Diomaye Faye au Sénégal. Ministres, Directeurs généraux, PCA et toutes les nominations officielles.';
 const url = `${siteUrl}/nomination-senegal`;
 const image = `${siteUrl}/nomination-3.png`;
 
-const nominationsSchema = {
+const {
+  persons,
+  loading,
+  error,
+  currentPage,
+  searchQuery,
+  filterCategory,
+  filterGender,
+  totalItems,
+  totalPages,
+  totalsByCategory,
+  totalsByGender,
+  hasActiveFilters,
+  resetFilters,
+  setCurrentPage,
+  setSearchQuery,
+  setFilterCategory,
+  setFilterGender,
+} = usePublicPersons({
+  sort: '-current_appointment.appointment_date',
+});
+
+// SEO dynamique
+const title = computed(() => {
+  const latest = persons.value?.[0];
+  if (latest?.current_appointment?.appointment_date) {
+    const d = new Date(latest.current_appointment.appointment_date);
+    const formatted = d.toLocaleDateString('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+    return `Nominations au Sénégal — Dernière mise à jour ${formatted}`;
+  }
+  return 'Nominations au Sénégal — Ministres, DG, PCA';
+});
+
+const description = computed(() => {
+  const latest = persons.value?.[0];
+  if (latest?.current_appointment?.appointment_date) {
+    const d = new Date(latest.current_appointment.appointment_date);
+    const formatted = d.toLocaleDateString('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+    return `Liste complète des nominations au Sénégal. Dernière nomination le ${formatted}. Ministres, directeurs généraux, PCA, ambassadeurs nommés en conseil des ministres.`;
+  }
+  return 'Liste complète des nominations au Sénégal. Ministres, directeurs généraux, PCA, ambassadeurs nommés en conseil des ministres.';
+});
+
+const nominationsSchema = computed(() => ({
   '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  name: title,
-  description: description,
+  '@type': 'CollectionPage',
+  name: title.value,
+  description: description.value,
   url: url,
   image: image,
   isPartOf: {
@@ -21,92 +69,40 @@ const nominationsSchema = {
   },
   about: [
     {
-      '@type': 'Person',
-      name: 'Bassirou Diomaye Faye',
-      jobTitle: 'Président de la République du Sénégal',
-    },
-    {
       '@type': 'GovernmentOrganization',
       name: 'Gouvernement du Sénégal',
     },
   ],
   mainEntity: {
     '@type': 'ItemList',
-    name: 'Nominations présidentielles Sénégal',
-    description: 'Liste des nominations officielles du président Diomaye Faye',
+    name: 'Nominations officielles Sénégal',
+    description: 'Liste des nominations officielles en conseil des ministres',
   },
-};
+}));
 
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: 'Accueil',
-      item: siteUrl,
-    },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: 'Annuaires',
-      item: `${siteUrl}/annuaires`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 3,
-      name: 'Nominations',
-      item: url,
-    },
-  ],
-};
-
-const organizationSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'GovernmentOrganization',
-  name: 'Gouvernement du Sénégal',
-  url: url,
-  description:
-    'Nominations officielles du gouvernement sénégalais sous la présidence de Bassirou Diomaye Faye',
-  leader: {
-    '@type': 'Person',
-    name: 'Bassirou Diomaye Faye',
-    jobTitle: 'Président de la République',
-  },
-  address: {
-    '@type': 'PostalAddress',
-    addressCountry: 'SN',
-    addressLocality: 'Dakar',
-  },
-  areaServed: {
-    '@type': 'Country',
-    name: 'Sénégal',
-  },
-};
+// Note SEO : BreadcrumbList émis par <AppBreadcrumb> et Organization/WebPage par
+// le @graph global de @nuxtjs/seo. En page on n'émet que CollectionPage (CLAUDE.md §7).
 
 // SEO Meta Tags
 useSeoMeta({
-  title,
-  ogTitle: title,
-  description,
-  ogDescription: description,
+  title: () => title.value,
+  ogTitle: () => title.value,
+  description: () => description.value,
+  ogDescription: () => description.value,
   ogImage: image,
   ogUrl: url,
   twitterCard: 'summary_large_image',
-  twitterTitle: title,
-  twitterDescription: description,
+  twitterTitle: () => title.value,
+  twitterDescription: () => description.value,
   twitterImage: image,
   keywords: [
     ...keywords,
-    'nominations Bassirou Diomaye Faye',
-    'gouvernement Sénégal 2024',
+    'nominations conseil des ministres',
     'ministres Sénégal',
     'directeurs généraux Sénégal',
     'PCA Sénégal',
-    'nominations présidentielles',
-    'nouveau gouvernement sénégalais',
-    'conseil des ministres',
+    'nominations présidentielles Sénégal',
+    'décrets nomination Sénégal',
   ].join(', '),
 });
 
@@ -126,261 +122,344 @@ useHead({
   ],
   script: [
     {
+      key: 'ld-nominations',
       type: 'application/ld+json',
-      children: JSON.stringify(nominationsSchema),
-    },
-    {
-      type: 'application/ld+json',
-      children: JSON.stringify(breadcrumbSchema),
-    },
-    {
-      type: 'application/ld+json',
-      children: JSON.stringify(organizationSchema),
+      innerHTML: computed(() => JSON.stringify(nominationsSchema.value)),
     },
   ],
 });
 
-const { $dateformat } = useNuxtApp();
-const route = useRoute();
+// Nombre total de nominations
+const totalCount = computed(
+  () => totalsByGender.value.maleCount + totalsByGender.value.femaleCount,
+);
 
-const {
-  nominations,
-  loading,
-  error,
-  currentPage,
-  searchQuery,
-  filterType,
-  filterGender,
-  totalItems,
-  totalPages,
-  totalsByType,
-  totalsByGender,
-  setCurrentPage,
-  setSearchQuery,
-  setFilterType,
-  setFilterGender,
-} = useNominations();
-
-// Fonction pour créer l'URL vers détails en gardant les filtres actuels
-const getDetailUrl = (minister: any) => {
-  const slug = minister.name
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-
-  // Récupère les query params actuels
-  const query = { ...route.query };
-
-  return {
-    path: `/personnalites/${minister.id}/${slug}`,
-    query,
-  };
+// Format date
+const formatDateFr = (dateStr: string) => {
+  const d = new Date(dateStr);
+  return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
 };
-
-// Reset de la page lors du changement de recherche
-watch(searchQuery, () => {
-  filterType.value = 'all';
-  filterGender.value = 'all';
-  currentPage.value = 1;
-});
-
-// Reset de la page lors du changement de filtres
-watch([filterType, filterGender], () => {
-  currentPage.value = 1;
-});
 </script>
 
 <template>
-  <div class="flex flex-col items-center px-4">
-    <h1 class="sr-only mb-4 text-sm text-gray-500">
-      Membres du gouvernement du Sénégal, Nouveau gouvernement Sénégal Diomaye Sonko, Conseil des
-      ministres, Liste des ministres du Sénégal,
+  <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-950">
+    <!-- Breadcrumb -->
+    <div class="container mx-auto px-4 pt-2">
+      <AppBreadcrumb :items="[{ label: 'Nominations' }]" />
+    </div>
+
+    <!-- SEO hidden heading -->
+    <h1 class="sr-only">
+      Nominations au Sénégal, Membres du gouvernement, Conseil des ministres, Liste des ministres du
+      Sénégal, Directeurs généraux, PCA
     </h1>
-    <div class="container">
-      <div class="prose prose-sm my-2 sm:prose">
-        <h1 class="dark:text-white">
-          {{ totalsByGender.maleCount + totalsByGender.femaleCount }} Nominations
-          <!--du président Diomaye-->
-        </h1>
-      </div>
-    </div>
 
-    <p class="sr-only mb-4 text-sm text-gray-500">Ministres, Secrétaires, Directeurs, PCA...</p>
+    <!-- Sticky Header -->
+    <header
+      class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95"
+    >
+      <div class="container mx-auto px-4 py-3">
+        <!-- Title Row -->
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-bold text-gray-900 dark:text-white sm:text-xl">Nominations</h2>
+          <div class="flex items-center gap-3">
+            <span
+              v-if="totalCount"
+              class="inline-flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400"
+            >
+              <UIcon name="i-heroicons-user-group-20-solid" class="h-3.5 w-3.5" />
+              {{ totalCount }} nominations
+            </span>
+          </div>
+        </div>
 
-    <div class="w-full max-w-4xl">
-      <!-- Conteneur principal avec grid -->
-
-      <div class="grid grid-cols-1 gap-2 lg:grid-cols-4">
-        <!-- Colonne des filtres (1/4 en desktop) -->
-        <div class="lg:col-span-1">
-          <!-- recherche -->
-          <UInput
-            :model-value="searchQuery"
-            class="input custom-shadow mb-3 w-full"
-            size="lg"
-            icon="i-heroicons-magnifying-glass"
+        <!-- Search Input -->
+        <div class="group relative mt-3">
+          <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
+            <UIcon
+              name="i-heroicons-magnifying-glass-20-solid"
+              class="h-5 w-5 text-gray-400 transition-colors group-focus-within:text-gray-500"
+            />
+          </div>
+          <input
+            type="search"
+            :value="searchQuery"
             placeholder="Rechercher une nomination..."
-            @update:model-value="setSearchQuery"
-          >
-          </UInput>
-
-          <div class="mb-1 w-full text-center">
-            <UButton
-              :ui="{ rounded: 'rounded-full' }"
-              class="custom-shadow mb-1 ml-1 text-sm font-normal transition-all duration-300 ease-in-out"
-              :color="filterGender === 'Monsieur' ? 'primary' : 'white'"
-              size="sm"
-              @click="setFilterGender(filterGender === 'Monsieur' ? 'all' : 'Monsieur')"
-            >
-              Hommes
-              <UBadge
-                :ui="{ rounded: 'rounded-full' }"
-                :label="totalsByGender.maleCount"
-                :color="filterGender === 'Monsieur' ? 'primary' : 'primary'"
-                :variant="filterGender === 'Monsieur' ? 'soft' : 'solid'"
-                size="xs"
-              ></UBadge>
-            </UButton>
-            <UButton
-              :ui="{ rounded: 'rounded-full' }"
-              class="custom-shadow mb-1 ml-1 text-sm font-normal transition-all duration-300 ease-in-out"
-              :color="filterGender === 'Madame' ? 'primary' : 'white'"
-              size="sm"
-              @click="setFilterGender(filterGender === 'Madame' ? 'all' : 'Madame')"
-            >
-              Femmes
-              <UBadge
-                :ui="{ rounded: 'rounded-full' }"
-                :label="totalsByGender.femaleCount"
-                color="primary"
-                :variant="filterGender === 'Madame' ? 'soft' : 'solid'"
-                size="xs"
-              ></UBadge>
-            </UButton>
-          </div>
-
-          <div class="mb-2 w-full text-center">
-            <UButton
-              v-for="(total, type) in totalsByType"
-              :key="type"
-              :ui="{ rounded: 'rounded-full' }"
-              :color="filterType === type ? 'primary' : 'white'"
-              class="custom-shadow mb-1 ml-1 text-sm font-normal transition-all duration-300 ease-in-out"
-              size="sm"
-              @click="setFilterType(filterType === type ? 'all' : type)"
-            >
-              {{ type }}
-              <UBadge
-                :ui="{ rounded: 'rounded-full' }"
-                :label="total"
-                color="primary"
-                :variant="filterType === type ? 'soft' : 'solid'"
-                size="xs"
-              ></UBadge>
-            </UButton>
-          </div>
-        </div>
-
-        <!-- Colonne de la liste des nominations (3/4 en desktop) -->
-        <div class="space-y-2 lg:col-span-3">
-          <!-- État de chargement - Skeleton loaders -->
-          <template v-if="loading">
-            <UCard v-for="i in 5" :key="`skeleton-${i}`" class="custom-shadow">
-              <div class="flex animate-pulse flex-row gap-2">
-                <!-- Skeleton photo -->
-                <div
-                  class="h-16 w-16 flex-shrink-0 rounded-full bg-gray-300 md:h-20 md:w-20 dark:bg-gray-700"
-                ></div>
-                <!-- Skeleton texte -->
-                <div class="flex-grow space-y-2">
-                  <div class="h-4 w-3/4 rounded bg-gray-300 dark:bg-gray-700"></div>
-                  <div class="h-3 w-full rounded bg-gray-200 dark:bg-gray-600"></div>
-                  <div class="h-3 w-1/2 rounded bg-gray-200 dark:bg-gray-600"></div>
-                  <div class="h-3 w-2/3 rounded bg-gray-200 dark:bg-gray-600"></div>
-                </div>
-              </div>
-            </UCard>
-          </template>
-
-          <!-- État d'erreur -->
-          <UAlert
-            v-else-if="error"
-            title="Erreur de chargement"
-            description="Impossible de charger les nominations"
-            color="red"
-            icon="i-heroicons-exclamation-triangle"
+            class="block w-full rounded-xl border-0 bg-gray-100 py-3 pl-11 pr-10 text-sm text-gray-900 ring-1 ring-transparent transition-all placeholder:text-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-400 dark:focus:bg-gray-800/80 dark:focus:ring-gray-500 sm:py-2.5"
+            @input="setSearchQuery(($event.target as HTMLInputElement).value)"
           />
-
-          <!-- Liste des nominations -->
-          <template v-else>
-            <NuxtLink
-              v-for="minister in nominations"
-              :key="minister.name"
-              :to="getDetailUrl(minister)"
-              class="block"
+          <button
+            v-if="searchQuery"
+            type="button"
+            class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 transition-colors hover:text-gray-600 dark:hover:text-gray-300"
+            @click="setSearchQuery('')"
+          >
+            <span
+              class="flex h-5 w-5 items-center justify-center rounded-full bg-gray-300 dark:bg-gray-600"
             >
-              <UCard class="custom-shadow transition-shadow hover:shadow-lg">
-                <div class="flex flex-row gap-2">
-                  <div class="h-16 w-16 flex-shrink-0 md:h-20 md:w-20">
-                    <img
-                      v-if="minister.photo"
-                      :src="useCmsImage(minister.photo)"
-                      :alt="minister.name"
-                      sizes="64px sm:80px"
-                      class="h-full w-full rounded-full object-cover"
-                      loading="lazy"
-                    />
-                    <img
-                      v-else
-                      src="/unknown_member.webp"
-                      :alt="minister.name"
-                      sizes="64px sm:80px"
-                      class="h-full w-full rounded-full object-cover"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div class="flex-grow">
-                    <h2 class="font-semibold">{{ minister.name }}</h2>
-                    <p class="text-sm">{{ minister.role }}</p>
-                    <p v-if="minister.organisation" class="text-sm text-gray-500">
-                      {{ minister.organisation }}
-                    </p>
-                    <p class="text-sm text-gray-500">
-                      Nommé le
-                      {{ $dateformat(minister.nominationDate) }}
-                    </p>
-                    <p v-if="minister.endDate" class="text-sm text-gray-500">
-                      Limogé le
-                      {{ $dateformat(minister.endDate) }}
-                    </p>
-                  </div>
-                </div>
-              </UCard>
-            </NuxtLink>
+              <UIcon
+                name="i-heroicons-x-mark-20-solid"
+                class="h-3.5 w-3.5 text-gray-600 dark:text-gray-300"
+              />
+            </span>
+          </button>
+        </div>
 
-            <!-- Message si aucun résultat -->
-            <div v-if="nominations.length === 0" class="py-8 text-center">
-              <p>Aucune nomination trouvée</p>
-            </div>
-          </template>
+        <!-- Gender Filters -->
+        <div class="mt-3 flex gap-2">
+          <button
+            class="flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-all active:scale-95"
+            :class="[
+              filterGender === 'male'
+                ? 'bg-blue-600 text-white shadow-sm'
+                : 'bg-white text-gray-700 ring-1 ring-gray-200 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:ring-gray-700 dark:hover:bg-gray-700',
+            ]"
+            @click="setFilterGender(filterGender === 'male' ? 'all' : 'male')"
+          >
+            <UIcon name="i-heroicons-user-20-solid" class="h-3.5 w-3.5" />
+            Hommes
+            <span v-if="totalsByGender.maleCount" class="ml-0.5 text-[10px] opacity-70"
+              >({{ totalsByGender.maleCount }})</span
+            >
+          </button>
+          <button
+            class="flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-all active:scale-95"
+            :class="[
+              filterGender === 'female'
+                ? 'bg-purple-600 text-white shadow-sm'
+                : 'bg-white text-gray-700 ring-1 ring-gray-200 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:ring-gray-700 dark:hover:bg-gray-700',
+            ]"
+            @click="setFilterGender(filterGender === 'female' ? 'all' : 'female')"
+          >
+            <UIcon name="i-heroicons-user-20-solid" class="h-3.5 w-3.5" />
+            Femmes
+            <span v-if="totalsByGender.femaleCount" class="ml-0.5 text-[10px] opacity-70"
+              >({{ totalsByGender.femaleCount }})</span
+            >
+          </button>
+        </div>
+
+        <!-- Category Filters - Horizontal Scroll -->
+        <nav
+          class="scrollbar-hide -mx-4 mt-2 overflow-x-auto px-4 pb-1"
+          aria-label="Filtrer par catégorie"
+        >
+          <div v-if="loading" class="flex gap-2 py-0.5">
+            <USkeleton v-for="n in 5" :key="n" class="h-7 w-20 shrink-0 rounded-full" />
+          </div>
+          <div v-else class="flex gap-1.5 py-0.5">
+            <button
+              v-for="(catData, slug) in totalsByCategory"
+              :key="slug"
+              class="flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-all active:scale-95"
+              :class="[
+                filterCategory === slug
+                  ? 'bg-primary-600 text-white shadow-sm'
+                  : 'bg-white text-gray-700 ring-1 ring-gray-200 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:ring-gray-700 dark:hover:bg-gray-700',
+              ]"
+              @click="setFilterCategory(filterCategory === slug ? 'all' : (slug as string))"
+            >
+              {{ catData.label }}
+              <span class="text-[10px] opacity-70">({{ catData.count }})</span>
+            </button>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 pt-4">
+      <!-- Filter indicator -->
+      <p
+        v-if="hasActiveFilters"
+        class="mb-3 flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400"
+      >
+        <span v-if="filterGender !== 'all'" class="inline-flex items-center gap-1">
+          <span
+            class="h-2 w-2 rounded-full"
+            :class="filterGender === 'male' ? 'bg-blue-500' : 'bg-purple-500'"
+          />
+          {{ filterGender === 'male' ? 'Hommes' : 'Femmes' }}
+        </span>
+        <span v-if="filterCategory !== 'all'" class="inline-flex items-center gap-1">
+          <span class="bg-primary-500 h-2 w-2 rounded-full" />
+          {{ totalsByCategory[filterCategory]?.label || filterCategory }}
+        </span>
+        <span v-if="searchQuery"> · "{{ searchQuery }}"</span>
+        <button
+          class="text-primary-600 hover:text-primary-700 dark:text-primary-400 ml-1 underline underline-offset-2"
+          @click="
+            resetFilters();
+            setSearchQuery('');
+          "
+        >
+          Effacer
+        </button>
+      </p>
+
+      <!-- Loading Skeleton -->
+      <div v-if="loading" class="space-y-2">
+        <div
+          v-for="n in 6"
+          :key="n"
+          class="flex gap-3 rounded-xl bg-white p-3 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800"
+        >
+          <USkeleton class="h-14 w-14 shrink-0 rounded-full sm:h-16 sm:w-16" />
+          <div class="flex flex-1 flex-col justify-center space-y-2">
+            <USkeleton class="h-4 w-2/5 rounded" />
+            <USkeleton class="h-3 w-full rounded" />
+            <USkeleton class="h-3 w-1/3 rounded" />
+          </div>
         </div>
       </div>
 
-      <!-- Pagination -->
-      <div
-        v-if="totalPages > 1"
-        class="flex justify-end border-t border-gray-200 px-3 py-3.5 dark:border-gray-700"
-      >
-        <UPagination
-          :model-value="currentPage"
-          size="md"
-          :page-count="25"
-          :total="totalItems"
-          @update:model-value="setCurrentPage"
-        />
+      <!-- Error State -->
+      <div v-else-if="error" class="py-12">
+        <div
+          class="mx-auto max-w-sm rounded-2xl border border-red-200 bg-red-50 p-6 text-center dark:border-red-800 dark:bg-red-900/20"
+        >
+          <div
+            class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/50"
+          >
+            <UIcon
+              name="i-heroicons-exclamation-triangle"
+              class="h-6 w-6 text-red-600 dark:text-red-400"
+            />
+          </div>
+          <p class="text-sm font-medium text-red-900 dark:text-red-200">Erreur de chargement</p>
+          <p class="mt-1 text-xs text-red-700 dark:text-red-300">
+            Impossible de charger les nominations
+          </p>
+          <UButton color="red" variant="soft" size="sm" class="mt-4" @click="$router.go(0)">
+            Réessayer
+          </UButton>
+        </div>
       </div>
-    </div>
+
+      <!-- Empty State -->
+      <div v-else-if="persons.length === 0" class="py-16 text-center">
+        <div
+          class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800"
+        >
+          <UIcon name="i-heroicons-user-group" class="h-8 w-8 text-gray-400" />
+        </div>
+        <p class="text-sm font-medium text-gray-900 dark:text-white">Aucune nomination trouvée</p>
+        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+          Essayez une autre recherche ou modifiez les filtres
+        </p>
+        <UButton
+          v-if="hasActiveFilters || searchQuery"
+          color="gray"
+          variant="soft"
+          size="sm"
+          class="mt-4"
+          @click="
+            resetFilters();
+            setSearchQuery('');
+          "
+        >
+          Réinitialiser les filtres
+        </UButton>
+      </div>
+
+      <!-- Nominations List -->
+      <div v-else>
+        <div class="space-y-2">
+          <NuxtLink
+            v-for="person in persons"
+            :key="person.id"
+            :to="`/personnalites/${person.id}/${person.slug}`"
+            class="group flex gap-3 rounded-xl bg-white p-3 shadow-sm ring-1 ring-gray-100 transition-all hover:shadow-md hover:ring-gray-200 active:scale-[0.99] dark:bg-gray-900 dark:ring-gray-800 dark:hover:ring-gray-700"
+          >
+            <!-- Photo -->
+            <div class="relative h-14 w-14 shrink-0 sm:h-16 sm:w-16">
+              <img
+                :src="person.photo ? useCmsImage(person.photo) : '/unknown_member.webp'"
+                :alt="person.full_name"
+                class="h-full w-full rounded-full object-cover ring-2 ring-gray-100 transition-shadow group-hover:ring-gray-200 dark:ring-gray-700 dark:group-hover:ring-gray-600"
+                loading="lazy"
+              />
+              <!-- End date indicator -->
+              <span
+                v-if="person.current_appointment?.end_date"
+                class="absolute -bottom-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 ring-2 ring-white dark:ring-gray-900"
+                title="Fin de fonction"
+              >
+                <UIcon name="i-heroicons-x-mark-20-solid" class="h-2.5 w-2.5 text-white" />
+              </span>
+            </div>
+
+            <!-- Content -->
+            <div class="flex min-w-0 flex-1 flex-col justify-center">
+              <h2
+                class="group-hover:text-primary-600 dark:group-hover:text-primary-400 truncate text-sm font-semibold text-gray-900 dark:text-white"
+              >
+                {{ person.full_name }}
+              </h2>
+              <p
+                v-if="person.current_appointment?.position_title"
+                class="mt-0.5 line-clamp-1 text-xs text-gray-600 dark:text-gray-400"
+              >
+                {{ person.current_appointment.position_title }}
+              </p>
+              <p
+                v-if="person.current_appointment?.organization_label"
+                class="line-clamp-1 text-xs text-gray-500 dark:text-gray-500"
+              >
+                {{ person.current_appointment.organization_label }}
+              </p>
+              <div class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5">
+                <time
+                  v-if="person.current_appointment?.appointment_date"
+                  class="text-[11px] text-gray-400 dark:text-gray-500"
+                >
+                  {{ person.sexe === 'female' ? 'Nommée' : 'Nommé' }} le
+                  {{ formatDateFr(person.current_appointment.appointment_date) }}
+                </time>
+                <span
+                  v-if="person.current_appointment?.end_date"
+                  class="text-[11px] text-red-500 dark:text-red-400"
+                >
+                  Fin de fonction le
+                  {{ formatDateFr(person.current_appointment.end_date) }}
+                </span>
+              </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="hidden items-center sm:flex">
+              <UIcon
+                name="i-heroicons-chevron-right-20-solid"
+                class="h-4 w-4 text-gray-300 transition-colors group-hover:text-gray-500 dark:text-gray-600 dark:group-hover:text-gray-400"
+              />
+            </div>
+          </NuxtLink>
+        </div>
+
+        <!-- Pagination -->
+        <div v-if="totalPages > 1" class="mt-8 flex justify-center">
+          <UPagination
+            :model-value="currentPage"
+            :total="totalItems"
+            :page-count="25"
+            size="sm"
+            :ui="{
+              wrapper: 'flex items-center gap-1',
+              rounded: 'rounded-lg',
+            }"
+            @update:model-value="setCurrentPage"
+          />
+        </div>
+      </div>
+    </main>
   </div>
 </template>
+
+<style scoped>
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+</style>

@@ -1,100 +1,112 @@
 <template>
   <!-- Section Questions -->
-  <UCard v-if="deputy">
-    <h2 class="mb-4 text-xl font-bold">
-      <span v-if="questions.length > 1">{{ questions.length }}</span>
-      Questions écrites
-    </h2>
-
-    <div v-if="loadingQuestions" class="flex justify-center py-4">
-      <UIcon name="i-heroicons-arrow-path" class="h-6 w-6 animate-spin" />
+  <section
+    v-if="deputy"
+    class="rounded-2xl bg-white p-4 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700 md:p-6"
+  >
+    <div class="mb-3 flex items-center justify-between">
+      <h2 class="text-sm font-bold text-gray-900 dark:text-white md:text-base">
+        Questions écrites
+        <span v-if="questions.length > 0" class="ml-1 text-blue-600 dark:text-blue-400">
+          ({{ questions.length }})
+        </span>
+      </h2>
+      <NuxtLink
+        v-if="questions.length > 0"
+        to="/assemblee-nationale/questions"
+        class="text-xs text-blue-600 hover:underline dark:text-blue-400"
+      >
+        Voir tout
+      </NuxtLink>
     </div>
 
+    <!-- Loading -->
+    <div v-if="loadingQuestions" class="space-y-2">
+      <div v-for="i in 3" :key="i" class="flex gap-3 rounded-xl bg-gray-50 p-3 dark:bg-gray-700/50">
+        <div class="flex-1 space-y-2">
+          <USkeleton class="h-2 w-20" />
+          <USkeleton class="h-4 w-full" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty -->
     <div
       v-else-if="questions.length === 0"
-      class="py-4 text-center text-gray-500 dark:text-gray-200"
+      class="rounded-xl bg-gray-50 p-4 text-center dark:bg-gray-700/50"
     >
-      Aucune question référencée pour le moment
+      <UIcon
+        name="i-heroicons-chat-bubble-left-right"
+        class="mx-auto mb-2 h-8 w-8 text-gray-300 dark:text-gray-600"
+      />
+      <p class="text-xs text-gray-500 dark:text-gray-400">Aucune question référencée</p>
     </div>
 
-    <div v-else class="space-y-4">
-      <div
+    <!-- Questions List -->
+    <div v-else class="space-y-2">
+      <NuxtLink
         v-for="question in displayedQuestions"
         :key="question.id"
-        class="transition-all hover:shadow-md"
+        :to="`/assemblee-nationale/questions/${question.id}/${question.slug || 'question'}`"
+        class="group block rounded-xl bg-gray-50 p-3 transition-all active:scale-[0.99] dark:bg-gray-700/50 md:hover:bg-blue-50 dark:md:hover:bg-blue-900/20"
       >
-        <NuxtLink
-          :to="`/assemblee-nationale/questions/${question.id}`"
-          class="block"
-        >
-          <div>
-            <div class="text-xs text-gray-500 dark:text-gray-50">
-              {{ $dateformat(question.question_date) }}
-            </div>
-            <h3 class="font-xs">
-              {{ question.subject }}
-            </h3>
-            <UDivider site="sm" class="mt-4" />
-          </div>
-        </NuxtLink>
-      </div>
+        <time class="text-[10px] text-gray-400 md:text-xs">
+          {{ $dateformat(question.question_date) }}
+        </time>
+        <h3 class="line-clamp-2 text-xs font-medium text-gray-900 dark:text-white md:text-sm">
+          {{ question.subject }}
+        </h3>
+      </NuxtLink>
 
-      <!-- Bouton "Voir plus" si plus de 3 questions -->
-      <div v-if="questions.length > 3" class="mt-4 text-center">
-        <UButton
-          variant="ghost"
-          color="primary"
-          label="Voir toutes les questions"
-          icon="i-heroicons-arrow-right"
-          @click="isModalOpen = true"
-        />
-      </div>
+      <!-- Voir plus button -->
+      <button
+        v-if="questions.length > 3"
+        class="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-50 p-3 text-sm font-medium text-blue-700 transition-colors active:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400 md:hover:bg-blue-100"
+        @click="isModalOpen = true"
+      >
+        <span>Voir les {{ questions.length }} questions</span>
+        <UIcon name="i-heroicons-arrow-right" class="h-4 w-4" />
+      </button>
     </div>
 
-    <!-- Modal pour afficher toutes les questions -->
-    <UModal v-model="isModalOpen" :ui="{ width: 'md:max-w-2xl' }">
-      <UCard>
-        <template #header>
-          <div class="flex items-center justify-between">
-            <h3 class="text-lg font-bold">
-              Toutes les questions écrites ({{ questions.length }})
-            </h3>
-            <UButton
-              color="gray"
-              variant="ghost"
-              icon="i-heroicons-x-mark"
-              aria-label="Fermer"
-              @click="isModalOpen = false"
-            />
-          </div>
-        </template>
+    <!-- Modal -->
+    <UModal v-model="isModalOpen" :ui="{ width: 'sm:max-w-lg' }">
+      <div class="rounded-2xl bg-white dark:bg-gray-800">
+        <!-- Modal Header -->
+        <div
+          class="flex items-center justify-between border-b border-gray-100 p-4 dark:border-gray-700"
+        >
+          <h3 class="text-sm font-bold text-gray-900 dark:text-white md:text-base">
+            Questions écrites ({{ questions.length }})
+          </h3>
+          <button
+            class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-400"
+            @click="isModalOpen = false"
+          >
+            <UIcon name="i-heroicons-x-mark" class="h-4 w-4" />
+          </button>
+        </div>
 
-        <div class="max-h-[70vh] space-y-4 overflow-y-auto p-1">
-          <div
+        <!-- Modal Content -->
+        <div class="max-h-[60vh] space-y-2 overflow-y-auto p-4">
+          <NuxtLink
             v-for="question in questions"
             :key="question.id"
-            class="transition-all hover:shadow-md"
+            :to="`/assemblee-nationale/questions/${question.id}/${question.slug || 'question'}`"
+            class="group block rounded-xl bg-gray-50 p-3 transition-all active:scale-[0.99] dark:bg-gray-700/50 md:hover:bg-blue-50"
+            @click="isModalOpen = false"
           >
-            <NuxtLink
-              :to="`/assemblee-nationale/questions/${question.id}`"
-              class="block"
-              @click="isModalOpen = false"
-            >
-              <div>
-                <div class="text-xs text-gray-500">
-                  {{ $dateformat(question.question_date) }}
-                </div>
-                <h3 class="font-xs">
-                  {{ question.subject }}
-                </h3>
-                <UDivider site="sm" class="mt-4" />
-              </div>
-            </NuxtLink>
-          </div>
+            <time class="text-[10px] text-gray-400 md:text-xs">
+              {{ $dateformat(question.question_date) }}
+            </time>
+            <h3 class="line-clamp-2 text-xs font-medium text-gray-900 dark:text-white md:text-sm">
+              {{ question.subject }}
+            </h3>
+          </NuxtLink>
         </div>
-      </UCard>
+      </div>
     </UModal>
-  </UCard>
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -106,6 +118,7 @@ interface Deputy {
 interface Question {
   id: number | string;
   subject: string;
+  slug?: string;
   question_date: string;
   [key: string]: any;
 }

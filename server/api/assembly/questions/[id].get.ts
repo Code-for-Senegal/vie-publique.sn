@@ -1,14 +1,13 @@
-import { readItem } from "@directus/sdk";
+import { readItem } from '@directus/sdk';
 
 export default defineCachedEventHandler(
   async (event) => {
-    const config = useRuntimeConfig();
-    const id = getRouterParam(event, "id");
+    const id = getRouterParam(event, 'id');
 
     if (!id) {
       throw createError({
         statusCode: 400,
-        statusMessage: "ID de la question parlementaire manquant",
+        statusMessage: 'ID de la question parlementaire manquant',
       });
     }
 
@@ -18,32 +17,31 @@ export default defineCachedEventHandler(
       // Récupération de la question complète
       const questionData = await directus
         .request(
-          readItem("assembly_question", id, {
+          readItem('assembly_question', id, {
             fields: [
-              "id",
-              "subject",
-              "question_text",
-              "question_date",
-              "status",
-              "deputy.id",
-              "deputy.first_name",
-              "deputy.last_name",
-              "deputy.photo",
-              "deputy.group.name",
-              "deputy.group.color",
-              "attachments.directus_files_id.id",
-              "attachments.directus_files_id.type",
-              "attachments.directus_files_id.filename_download",
-              "attachments.directus_files_id.filesize",
+              'id',
+              'subject',
+              'slug',
+              'question_text',
+              'question_date',
+              'status',
+              'deputy.id',
+              'deputy.first_name',
+              'deputy.last_name',
+              'deputy.photo',
+              'deputy.group.name',
+              'deputy.group.color',
+              'attachments.directus_files_id.id',
+              'attachments.directus_files_id.type',
+              'attachments.directus_files_id.filename_download',
+              'attachments.directus_files_id.filesize',
             ],
           }),
         )
         .catch((error) => {
           throw createError({
             statusCode: error.errors?.[0]?.extensions?.code || 404,
-            message:
-              error.errors?.[0]?.message ||
-              "Question parlementaire introuvable",
+            message: error.errors?.[0]?.message || 'Question parlementaire introuvable',
           });
         });
 
@@ -51,6 +49,10 @@ export default defineCachedEventHandler(
       const transformedQuestion = {
         id: questionData.id,
         subject: questionData.subject,
+        // Slug SEO : celui du CMS s'il existe, sinon généré depuis le sujet (l'id reste la clé).
+        slug:
+          (questionData as any).slug ||
+          generateSlugFromName(questionData.subject || `question-${id}`),
         question_text: questionData.question_text || null,
         question_date: questionData.question_date || null,
         status: questionData.status,
@@ -80,13 +82,13 @@ export default defineCachedEventHandler(
     } catch (error) {
       throw createError({
         statusCode: 404,
-        statusMessage: "Question parlementaire non trouvée",
+        statusMessage: 'Question parlementaire non trouvée',
       });
     }
   },
   {
     maxAge: 60 * 60, // 1 heure
-    name: "assembly-question-detail",
-    getKey: (event) => `assembly-question-${getRouterParam(event, "id")}`,
+    name: 'assembly-question-detail-v2',
+    getKey: (event) => `assembly-question-${getRouterParam(event, 'id')}`,
   },
 );

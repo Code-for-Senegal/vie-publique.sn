@@ -26,15 +26,15 @@ export default defineCachedEventHandler(
             'code',
             'amount_ae',
             'amount_cp',
-            'entity.id',
-            'entity.name',
-            'entity.public_slug',
+            'public_entity.id',
+            'public_entity.name',
+            'public_entity.slug',
             'version.id',
             'version.label',
           ],
           filter: {
-            entity: {
-              public_slug: { _eq: slug },
+            public_entity: {
+              slug: { _eq: slug },
             },
             status: { _eq: 'published' },
           },
@@ -51,9 +51,9 @@ export default defineCachedEventHandler(
 
       // 2. Extraire les infos de l'entité depuis la première ligne
       const entity = {
-        id: allBudgetLines[0].entity.id,
-        name: allBudgetLines[0].entity.name,
-        public_slug: allBudgetLines[0].entity.public_slug,
+        id: allBudgetLines[0].public_entity.id,
+        name: allBudgetLines[0].public_entity.name,
+        slug: allBudgetLines[0].public_entity.slug,
       };
 
       // 3. Séparer les lignes par level
@@ -146,7 +146,7 @@ export default defineCachedEventHandler(
         entity: {
           id: entity.id,
           name: entity.name,
-          public_slug: entity.public_slug,
+          slug: entity.slug,
         },
         level,
         evolution,

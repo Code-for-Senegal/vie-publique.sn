@@ -39,15 +39,15 @@ const filteredRows = computed(() => {
 </script>
 
 <template>
-  <div class="mx-auto max-w-7xl space-y-6 p-4">
-    <!-- Breadcrumb -->
-    <UBreadcrumb
-      :links="[
-        { label: 'Accueil', to: '/' },
-        { label: 'Diaspora', to: '/elections/legislatives/carte-electorale' },
-        { label: country },
-      ]"
-    />
+  <div class="mx-auto min-h-screen max-w-7xl space-y-6 p-4 pb-16">
+    <AppBreadcrumb
+:items="[
+      { label: 'Élections', to: '/elections' },
+      { label: 'Législatives 2024', to: '/elections/legislatives' },
+      { label: 'Carte électorale', to: '/elections/legislatives/carte-electorale' },
+      { label: 'Diaspora', to: '/elections/legislatives/carte-electorale' },
+      { label: country }
+    ]" />
 
     <!-- En-tête avec stats -->
     <UCard>
@@ -174,6 +174,7 @@ const filteredRows = computed(() => {
           <UPagination
             v-model="page"
             :total="totalPages"
+            :page-count="1"
             :ui="{
               wrapper: 'flex items-center gap-1',
               button: {

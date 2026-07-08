@@ -1,9 +1,8 @@
 <script setup lang="ts">
-const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
-
 const route = useRoute();
-const router = useRouter();
 const config = useRuntimeConfig();
+
+const { siteName, siteUrl, defaultImage, keywords, themeColor } = useSiteMetadata();
 
 // ✅ Nouvelle architecture : useCmsCollection avec mode détail (id)
 // Plus besoin de onMounted ni de fetchById
@@ -32,9 +31,10 @@ const url = computed(() => {
 
 const image = computed(() => {
   if (!commission.value) return defaultImage;
-  return commission.value.president?.photo
-    ? useCmsImageAbsolute(commission.value.president.photo)
-    : defaultImage;
+  if (!commission.value.president?.photo) return defaultImage;
+  const relativeUrl = useCmsImage(commission.value.president.photo);
+  // Construire l'URL absolue sans appeler useCmsImageAbsolute (qui utilise un composable)
+  return relativeUrl.startsWith('http') ? relativeUrl : `${siteUrl}${relativeUrl}`;
 });
 
 const commissionSchema = computed(() => {
@@ -130,36 +130,7 @@ const commissionSchema = computed(() => {
   return schema;
 });
 
-const breadcrumbSchema = computed(() => ({
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: 'Accueil',
-      item: siteUrl,
-    },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: 'Assemblée nationale',
-      item: `${siteUrl}/assemblee-nationale`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 3,
-      name: 'Commissions',
-      item: `${siteUrl}/assemblee-nationale/commissions`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 4,
-      name: commission.value?.name || 'Commission',
-      item: url.value,
-    },
-  ],
-}));
+// Breadcrumb : émis par <AppBreadcrumb> (source unique du fil d'Ariane, §7 CLAUDE.md).
 
 const webPageSchema = computed(() => {
   if (!commission.value) return null;
@@ -230,14 +201,8 @@ useHead({
 
 // Structured Data
 useSchemaOrg([
-  defineBreadcrumb({
-    itemListElement: () => [
-      { name: 'Accueil', item: '/' },
-      { name: 'Assemblée nationale', item: '/assemblee-nationale' },
-      { name: 'Commissions', item: '/assemblee-nationale/commissions' },
-      { name: commission.value?.name || 'Commission', item: url.value },
-    ],
-  }),
+  // Breadcrumb émis par <AppBreadcrumb> (source unique) — pas de defineBreadcrumb ici
+  // pour éviter la fusion @graph qui dupliquait les items (§7 CLAUDE.md).
   defineOrganization({
     '@type': 'GovernmentOrganization',
     name: () => commission.value?.name,
@@ -313,185 +278,340 @@ const deputyUrl = computed((deputy: any) => {
 </script>
 
 <template>
-  <div class="container mx-auto px-4 py-4">
-    <div class="mx-auto max-w-6xl">
-      <UButton
-        icon="i-heroicons-arrow-left"
-        variant="ghost"
-        label="Retour à la liste"
-        color="gray"
-        @click="router.back()"
-      />
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <!-- Sticky Header Mobile -->
+    <div
+      class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 px-4 py-3 backdrop-blur-sm dark:border-gray-700 dark:bg-gray-800/95 md:relative md:border-0 md:bg-transparent md:py-6 md:backdrop-blur-none dark:md:bg-transparent"
+    >
+      <div class="mx-auto max-w-6xl">
+        <!-- Breadcrumb desktop only -->
+        <div class="mb-2 hidden md:block">
+          <AppBreadcrumb
+            :items="[
+              { label: 'Assemblée nationale', to: '/assemblee-nationale' },
+              { label: 'Commissions', to: '/assemblee-nationale/commissions' },
+              { label: commission?.name || 'Détail' },
+            ]"
+          />
+        </div>
 
+        <div class="flex items-center gap-4">
+          <!-- Back button mobile -->
+          <NuxtLink
+            to="/assemblee-nationale/commissions"
+            class="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 active:scale-95 dark:bg-gray-700 md:hidden"
+          >
+            <UIcon name="i-heroicons-arrow-left" class="h-5 w-5 text-gray-600 dark:text-gray-300" />
+          </NuxtLink>
+
+          <div class="min-w-0 flex-1">
+            <h1 class="truncate text-lg font-semibold text-gray-900 dark:text-white md:text-2xl">
+              {{ commission?.name || 'Commission' }}
+            </h1>
+            <p v-if="commission?.members" class="text-sm text-gray-500 dark:text-gray-400">
+              {{ commission.members.length }} membres
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="mx-auto max-w-6xl px-4 pb-24 pt-4 md:pt-0">
       <!-- Loading state -->
-      <div v-if="loading" class="flex justify-center py-8">
-        <UIcon name="i-heroicons-arrow-path" class="h-8 w-8 animate-spin" />
+      <div v-if="loading" class="space-y-6">
+        <!-- Header skeleton -->
+        <div
+          class="rounded-2xl bg-white p-6 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+        >
+          <USkeleton class="mb-3 h-6 w-2/3" />
+          <USkeleton class="h-4 w-full" />
+          <USkeleton class="mt-2 h-4 w-3/4" />
+        </div>
+        <!-- Bureau skeleton -->
+        <div
+          class="rounded-2xl bg-white p-6 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+        >
+          <USkeleton class="mb-6 h-6 w-48" />
+          <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div v-for="i in 6" :key="i" class="flex items-center gap-4">
+              <USkeleton class="h-14 w-14 rounded-full" />
+              <div class="flex-1 space-y-2">
+                <USkeleton class="h-4 w-32" />
+                <USkeleton class="h-3 w-20" />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Error state -->
-      <UAlert
-        v-else-if="error"
-        title="Erreur de chargement"
-        description="Impossible de charger les informations de la commission"
-        color="red"
-        icon="i-heroicons-exclamation-triangle"
-      />
+      <div v-else-if="error" class="rounded-2xl bg-red-50 p-6 text-center dark:bg-red-900/20">
+        <div
+          class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30"
+        >
+          <UIcon
+            name="i-heroicons-exclamation-triangle"
+            class="h-6 w-6 text-red-600 dark:text-red-400"
+          />
+        </div>
+        <h3 class="font-medium text-red-800 dark:text-red-300">Erreur de chargement</h3>
+        <p class="mt-1 text-sm text-red-600 dark:text-red-400">
+          Impossible de charger les informations de la commission
+        </p>
+        <NuxtLink
+          to="/assemblee-nationale/commissions"
+          class="mt-4 inline-flex items-center gap-2 rounded-lg bg-red-100 px-4 py-2 text-sm font-medium text-red-700 transition-colors hover:bg-red-200 dark:bg-red-900/30 dark:text-red-400"
+        >
+          <UIcon name="i-heroicons-arrow-left" class="h-4 w-4" />
+          Retour aux commissions
+        </NuxtLink>
+      </div>
 
       <!-- Contenu de la commission -->
-      <div v-else-if="commission" class="space-y-8 dark:text-black">
-        <!-- En-tête de la commission -->
-        <div class="rounded-lg bg-white p-2 shadow-sm">
-          <h1 class="mb-2 text-2xl font-bold md:text-3xl">
-            {{ commission.name }}
-          </h1>
-
-          <div class="prose prose-gray max-w-none">
-            <p class="text-gray-600">{{ commission.description }}</p>
+      <div v-else-if="commission" class="space-y-6">
+        <!-- Description -->
+        <div
+          v-if="commission.description"
+          class="rounded-2xl bg-white p-5 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+        >
+          <div class="flex items-start gap-4">
+            <div
+              class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 text-white"
+            >
+              <UIcon name="i-heroicons-building-library" class="h-6 w-6" />
+            </div>
+            <div>
+              <h2 class="font-semibold text-gray-900 dark:text-white">À propos</h2>
+              <p class="mt-1 text-gray-600 dark:text-gray-400">{{ commission.description }}</p>
+            </div>
           </div>
         </div>
 
         <!-- Bureau de la commission -->
-        <div class="rounded-lg bg-white p-2 shadow-sm">
-          <h2 class="mb-6 text-xl font-bold">Bureau de la commission</h2>
+        <div
+          class="rounded-2xl bg-white p-5 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+        >
+          <div class="mb-5 flex items-center gap-3">
+            <div
+              class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-900/30"
+            >
+              <UIcon
+                name="i-heroicons-user-group"
+                class="h-5 w-5 text-blue-600 dark:text-blue-400"
+              />
+            </div>
+            <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
+              Bureau de la commission
+            </h2>
+          </div>
 
-          <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             <!-- Président -->
             <NuxtLink
               v-if="commission.president"
               :to="`/assemblee-nationale/deputes/${commission.president.id}/${$getSlugifyUrlPath(commission.president.first_name + '-' + commission.president.last_name)}`"
-              class="flex items-center space-x-4"
+              class="group flex items-center gap-4 rounded-xl bg-emerald-50 p-4 transition-all hover:bg-emerald-100 active:scale-[0.99] dark:bg-emerald-900/20 dark:hover:bg-emerald-900/30"
             >
               <img
                 :src="getImageUrl(commission.president.photo)"
                 :alt="commission.president.first_name"
-                class="h-16 w-16 rounded-full object-cover"
+                class="h-14 w-14 rounded-full object-cover ring-2 ring-emerald-500"
               />
-              <div>
-                <div class="font-medium">
-                  {{ commission.president.first_name }}
-                  {{ commission.president.last_name }}
+              <div class="min-w-0 flex-1">
+                <div class="truncate font-medium text-gray-900 dark:text-white">
+                  {{ commission.president.first_name }} {{ commission.president.last_name }}
                 </div>
-                <div class="text-sm text-gray-500">Président(e)</div>
+                <span
+                  class="inline-flex items-center gap-1 rounded-full bg-emerald-500 px-2 py-0.5 text-xs font-medium text-white"
+                >
+                  <UIcon name="i-heroicons-star" class="h-3 w-3" />
+                  Président(e)
+                </span>
               </div>
+              <UIcon
+                name="i-heroicons-chevron-right"
+                class="h-5 w-5 text-emerald-400 transition-transform group-hover:translate-x-1"
+              />
             </NuxtLink>
 
-            <div v-if="commission.vice_president" class="flex items-center space-x-4">
+            <!-- Vice-président -->
+            <NuxtLink
+              v-if="commission.vice_president"
+              :to="`/assemblee-nationale/deputes/${commission.vice_president.id}/${$getSlugifyUrlPath(commission.vice_president.first_name + '-' + commission.vice_president.last_name)}`"
+              class="group flex items-center gap-4 rounded-xl bg-gray-50 p-4 transition-all hover:bg-gray-100 active:scale-[0.99] dark:bg-gray-700/50 dark:hover:bg-gray-700"
+            >
               <img
                 v-if="commission.vice_president.photo"
                 :src="getImageUrl(commission.vice_president.photo)"
                 :alt="commission.vice_president.first_name"
-                class="h-16 w-16 rounded-full object-cover"
+                class="h-14 w-14 rounded-full object-cover ring-2 ring-gray-300 dark:ring-gray-600"
               />
-              <UAvatar
+              <div
                 v-else
-                :src="
-                  commission.vice_president.gender === 'M'
-                    ? '/adobe-default-profil-man.jpg'
-                    : '/adobe-default-profil-women.jpg'
-                "
-                alt="Default image"
-                size="3xl"
-                class="m-4 shadow-md"
-              />
-              <div>
-                <div class="font-medium">
+                class="flex h-14 w-14 items-center justify-center rounded-full bg-gray-200 ring-2 ring-gray-300 dark:bg-gray-600 dark:ring-gray-500"
+              >
+                <UIcon name="i-heroicons-user" class="h-7 w-7 text-gray-400 dark:text-gray-300" />
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="truncate font-medium text-gray-900 dark:text-white">
                   {{ commission.vice_president.first_name }}
                   {{ commission.vice_president.last_name }}
                 </div>
-                <div class="text-sm text-gray-500">Vice-président(e)</div>
+                <span class="text-sm text-gray-500 dark:text-gray-400">Vice-président(e)</span>
               </div>
-            </div>
+              <UIcon
+                name="i-heroicons-chevron-right"
+                class="h-5 w-5 text-gray-300 transition-transform group-hover:translate-x-1 dark:text-gray-500"
+              />
+            </NuxtLink>
 
             <!-- 1er Vice-président -->
             <NuxtLink
               v-if="commission['1st_vice_president']"
               :to="`/assemblee-nationale/deputes/${commission['1st_vice_president'].id}/${$getSlugifyUrlPath(commission['1st_vice_president'].first_name + '-' + commission['1st_vice_president'].last_name)}`"
-              class="flex items-center space-x-4"
+              class="group flex items-center gap-4 rounded-xl bg-gray-50 p-4 transition-all hover:bg-gray-100 active:scale-[0.99] dark:bg-gray-700/50 dark:hover:bg-gray-700"
             >
               <img
                 v-if="commission['1st_vice_president'].photo"
                 :src="getImageUrl(commission['1st_vice_president'].photo)"
                 :alt="commission['1st_vice_president'].first_name"
-                class="h-16 w-16 rounded-full object-cover"
+                class="h-14 w-14 rounded-full object-cover ring-2 ring-gray-300 dark:ring-gray-600"
               />
-              <UAvatar
+              <div
                 v-else
-                :src="
-                  commission['1st_vice_president'].gender === 'M'
-                    ? '/adobe-default-profil-man.jpg'
-                    : '/adobe-default-profil-women.jpg'
-                "
-                alt="Default image"
-                size="3xl"
-                class="m-4 shadow-md"
-              />
-              <div>
-                <div class="font-medium">
+                class="flex h-14 w-14 items-center justify-center rounded-full bg-gray-200 ring-2 ring-gray-300 dark:bg-gray-600 dark:ring-gray-500"
+              >
+                <UIcon name="i-heroicons-user" class="h-7 w-7 text-gray-400 dark:text-gray-300" />
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="truncate font-medium text-gray-900 dark:text-white">
                   {{ commission['1st_vice_president'].first_name }}
                   {{ commission['1st_vice_president'].last_name }}
                 </div>
-                <div class="text-sm text-gray-500">1er Vice-président(e)</div>
+                <span class="text-sm text-gray-500 dark:text-gray-400">1er Vice-président(e)</span>
               </div>
+              <UIcon
+                name="i-heroicons-chevron-right"
+                class="h-5 w-5 text-gray-300 transition-transform group-hover:translate-x-1 dark:text-gray-500"
+              />
             </NuxtLink>
 
+            <!-- 2e Vice-président -->
             <NuxtLink
               v-if="commission['2nd_vice_president']"
               :to="`/assemblee-nationale/deputes/${commission['2nd_vice_president'].id}/${$getSlugifyUrlPath(commission['2nd_vice_president'].first_name + '-' + commission['2nd_vice_president'].last_name)}`"
-              class="flex items-center space-x-4"
+              class="group flex items-center gap-4 rounded-xl bg-gray-50 p-4 transition-all hover:bg-gray-100 active:scale-[0.99] dark:bg-gray-700/50 dark:hover:bg-gray-700"
             >
               <img
+                v-if="commission['2nd_vice_president'].photo"
                 :src="getImageUrl(commission['2nd_vice_president'].photo)"
                 :alt="commission['2nd_vice_president'].first_name"
-                class="h-16 w-16 rounded-full object-cover"
+                class="h-14 w-14 rounded-full object-cover ring-2 ring-gray-300 dark:ring-gray-600"
               />
-              <div>
-                <div class="font-medium">
+              <div
+                v-else
+                class="flex h-14 w-14 items-center justify-center rounded-full bg-gray-200 ring-2 ring-gray-300 dark:bg-gray-600 dark:ring-gray-500"
+              >
+                <UIcon name="i-heroicons-user" class="h-7 w-7 text-gray-400 dark:text-gray-300" />
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="truncate font-medium text-gray-900 dark:text-white">
                   {{ commission['2nd_vice_president'].first_name }}
                   {{ commission['2nd_vice_president'].last_name }}
                 </div>
-                <div class="text-sm text-gray-500">2e Vice-président(e)</div>
+                <span class="text-sm text-gray-500 dark:text-gray-400">2e Vice-président(e)</span>
               </div>
+              <UIcon
+                name="i-heroicons-chevron-right"
+                class="h-5 w-5 text-gray-300 transition-transform group-hover:translate-x-1 dark:text-gray-500"
+              />
             </NuxtLink>
 
-            <!-- Vice-secretary -->
-            <div v-if="commission.secretary" class="flex items-center space-x-4">
+            <!-- Secrétaire -->
+            <NuxtLink
+              v-if="commission.secretary"
+              :to="`/assemblee-nationale/deputes/${commission.secretary.id}/${$getSlugifyUrlPath(commission.secretary.first_name + '-' + commission.secretary.last_name)}`"
+              class="group flex items-center gap-4 rounded-xl bg-gray-50 p-4 transition-all hover:bg-gray-100 active:scale-[0.99] dark:bg-gray-700/50 dark:hover:bg-gray-700"
+            >
               <img
+                v-if="commission.secretary.photo"
                 :src="getImageUrl(commission.secretary.photo)"
                 :alt="commission.secretary.first_name"
-                class="h-16 w-16 rounded-full object-cover"
+                class="h-14 w-14 rounded-full object-cover ring-2 ring-gray-300 dark:ring-gray-600"
               />
-              <div>
-                <div class="font-medium">
-                  {{ commission.secretary.first_name }}
-                  {{ commission.secretary.last_name }}
-                </div>
-                <div class="text-sm text-gray-500">Secrétaire</div>
+              <div
+                v-else
+                class="flex h-14 w-14 items-center justify-center rounded-full bg-gray-200 ring-2 ring-gray-300 dark:bg-gray-600 dark:ring-gray-500"
+              >
+                <UIcon name="i-heroicons-user" class="h-7 w-7 text-gray-400 dark:text-gray-300" />
               </div>
-            </div>
+              <div class="min-w-0 flex-1">
+                <div class="truncate font-medium text-gray-900 dark:text-white">
+                  {{ commission.secretary.first_name }} {{ commission.secretary.last_name }}
+                </div>
+                <span class="text-sm text-gray-500 dark:text-gray-400">Secrétaire</span>
+              </div>
+              <UIcon
+                name="i-heroicons-chevron-right"
+                class="h-5 w-5 text-gray-300 transition-transform group-hover:translate-x-1 dark:text-gray-500"
+              />
+            </NuxtLink>
 
-            <!-- reporter -->
-            <div v-if="commission.reporter" class="flex items-center space-x-4">
+            <!-- Rapporteur -->
+            <NuxtLink
+              v-if="commission.reporter"
+              :to="`/assemblee-nationale/deputes/${commission.reporter.id}/${$getSlugifyUrlPath(commission.reporter.first_name + '-' + commission.reporter.last_name)}`"
+              class="group flex items-center gap-4 rounded-xl bg-gray-50 p-4 transition-all hover:bg-gray-100 active:scale-[0.99] dark:bg-gray-700/50 dark:hover:bg-gray-700"
+            >
               <img
+                v-if="commission.reporter.photo"
                 :src="getImageUrl(commission.reporter.photo)"
                 :alt="commission.reporter.first_name"
-                class="h-16 w-16 rounded-full object-cover"
+                class="h-14 w-14 rounded-full object-cover ring-2 ring-gray-300 dark:ring-gray-600"
               />
-              <div>
-                <div class="font-medium">
-                  {{ commission.reporter.first_name }}
-                  {{ commission.reporter.last_name }}
-                </div>
-                <div class="text-sm text-gray-500">Rapporteur</div>
+              <div
+                v-else
+                class="flex h-14 w-14 items-center justify-center rounded-full bg-gray-200 ring-2 ring-gray-300 dark:bg-gray-600 dark:ring-gray-500"
+              >
+                <UIcon name="i-heroicons-user" class="h-7 w-7 text-gray-400 dark:text-gray-300" />
               </div>
-            </div>
+              <div class="min-w-0 flex-1">
+                <div class="truncate font-medium text-gray-900 dark:text-white">
+                  {{ commission.reporter.first_name }} {{ commission.reporter.last_name }}
+                </div>
+                <span class="text-sm text-gray-500 dark:text-gray-400">Rapporteur</span>
+              </div>
+              <UIcon
+                name="i-heroicons-chevron-right"
+                class="h-5 w-5 text-gray-300 transition-transform group-hover:translate-x-1 dark:text-gray-500"
+              />
+            </NuxtLink>
           </div>
         </div>
 
         <!-- Membres de la commission -->
-        <div class="rounded-lg bg-white p-6 shadow-sm">
-          <h2 class="mb-6 text-xl font-bold">Membres de la commission</h2>
+        <div
+          v-if="regularMembers.length > 0"
+          class="rounded-2xl bg-white p-5 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+        >
+          <div class="mb-5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div
+                class="flex h-10 w-10 items-center justify-center rounded-lg bg-sky-100 dark:bg-sky-900/30"
+              >
+                <UIcon name="i-heroicons-users" class="h-5 w-5 text-sky-600 dark:text-sky-400" />
+              </div>
+              <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Membres</h2>
+            </div>
+            <span
+              class="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+            >
+              {{ regularMembers.length }} députés
+            </span>
+          </div>
 
-          <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+          <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
             <AssemblyDeputyCard
               v-for="deputy in regularMembers"
               :key="deputy.id"
@@ -502,7 +622,27 @@ const deputyUrl = computed((deputy: any) => {
       </div>
 
       <!-- Not found state -->
-      <div v-else class="py-8 text-center text-gray-500">Commission non trouvée</div>
+      <div
+        v-else
+        class="rounded-2xl bg-white p-8 text-center ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
+      >
+        <div
+          class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700"
+        >
+          <UIcon name="i-heroicons-building-library" class="h-8 w-8 text-gray-400" />
+        </div>
+        <h3 class="font-medium text-gray-900 dark:text-white">Commission non trouvée</h3>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          Cette commission n'existe pas ou a été supprimée
+        </p>
+        <NuxtLink
+          to="/assemblee-nationale/commissions"
+          class="mt-4 inline-flex items-center gap-2 rounded-lg bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700 transition-colors hover:bg-emerald-100 dark:bg-emerald-900/30 dark:text-emerald-400"
+        >
+          <UIcon name="i-heroicons-arrow-left" class="h-4 w-4" />
+          Retour aux commissions
+        </NuxtLink>
+      </div>
     </div>
   </div>
 </template>

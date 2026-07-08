@@ -1,60 +1,84 @@
 <template>
-  <div class="container mx-auto px-4 py-8">
-    <div class="mx-auto grid max-w-5xl grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3">
-      <NuxtLink v-for="card in navigationCards" :key="card.title" :to="card.to" class="group block">
-        <div
-          class="custom-shadow flex items-center gap-2 rounded-xl bg-white p-3 shadow-md shadow-sm transition-all duration-200 sm:p-4 dark:bg-gray-800 dark:ring-1 dark:ring-gray-700 dark:backdrop-blur-md"
+  <div class="min-h-screen pb-20 dark:bg-gray-900">
+    <!-- Header sticky mobile -->
+    <header
+      class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95 md:relative md:border-0 md:bg-transparent md:backdrop-blur-none"
+    >
+      <div class="container mx-auto px-4 py-3 md:py-6">
+        <h1 class="text-lg font-bold text-gray-900 dark:text-white md:text-2xl">Menu</h1>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-0 py-4 sm:px-4">
+      <!-- Navigation Cards - Mobile: 2 cols compact, Desktop: 3 cols -->
+      <div class="grid grid-cols-2 gap-1.5 md:grid-cols-3 md:gap-3">
+        <NuxtLink
+          v-for="card in navigationCards"
+          :key="card.title"
+          :to="card.to"
+          class="group flex items-center gap-2 rounded-lg bg-white p-2 ring-1 ring-gray-100 transition-all active:scale-[0.98] dark:bg-gray-800 dark:ring-gray-700 md:gap-3 md:rounded-xl md:p-4 md:hover:shadow-md md:hover:ring-gray-300"
         >
-          <div class="flex-shrink-0">
+          <div
+            class="flex h-8 w-8 shrink-0 items-center justify-center rounded-md md:h-10 md:w-10 md:rounded-lg"
+            :class="cardConfigs[card.title]?.bgColor || 'bg-gray-100 dark:bg-gray-700'"
+          >
             <UIcon
               :name="card.icon"
-              class="h-6 w-6 transition-transform duration-200 group-hover:scale-110"
-              :class="[cardConfigs[card.title]?.color || 'text-gray-600']"
+              class="h-4 w-4 transition-transform group-hover:scale-110 md:h-5 md:w-5"
+              :class="cardConfigs[card.title]?.color || 'text-gray-600 dark:text-gray-400'"
             />
           </div>
-
           <div class="min-w-0 flex-1">
             <h3
-              class="line-clamp-2 text-sm font-medium leading-tight text-gray-900 sm:line-clamp-1 sm:text-base dark:text-white"
+              class="line-clamp-2 text-[11px] font-medium leading-tight text-gray-900 dark:text-white md:line-clamp-1 md:text-sm md:font-semibold"
             >
               {{ card.title }}
             </h3>
+            <p class="hidden truncate text-xs text-gray-500 dark:text-gray-400 md:block">
+              {{ card.description }}
+            </p>
           </div>
+        </NuxtLink>
+      </div>
+
+      <!-- Footer mobile only -->
+      <div class="mt-8 md:hidden">
+        <!-- Social Links -->
+        <div class="flex items-center justify-center gap-5 pb-6">
+          <ULink
+            v-for="social in linksSocial"
+            :key="social.label"
+            :to="social.to"
+            class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors active:bg-gray-200 dark:bg-gray-800 dark:text-gray-400"
+            target="_blank"
+            :aria-label="social.label"
+          >
+            <UIcon :name="social.icon" class="h-5 w-5" />
+          </ULink>
         </div>
-      </NuxtLink>
-    </div>
 
-    <!-- Footer pour mobile -->
-    <div class="mt-8 block md:hidden">
-      <div class="flex items-center justify-center gap-6 pb-4">
-        <ULink
-          v-for="social in linksSocial"
-          :key="social.label"
-          :to="social.to"
-          class="text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
-          target="_blank"
-          :aria-label="social.label"
+        <!-- Quick Links -->
+        <div
+          class="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-t border-gray-200 py-4 dark:border-gray-700"
         >
-          <UIcon :name="social.icon" class="h-8 w-8" />
-        </ULink>
-      </div>
+          <ULink
+            v-for="link in links"
+            :key="link.label"
+            :to="link.to"
+            class="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+          >
+            {{ link.label }}
+          </ULink>
+        </div>
 
-      <div class="flex flex-col items-center justify-center gap-4">
-        <ul class="flex flex-col items-center gap-4">
-          <li v-for="link in links" :key="link.label">
-            <ULink
-              :to="link.to"
-              class="text-sm text-gray-500 underline hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
-            >
-              {{ link.label }}
-            </ULink>
-          </li>
-        </ul>
+        <!-- Version -->
+        <p class="text-center text-[11px] text-gray-400 dark:text-gray-500">
+          v{{ version }} &copy; {{ currentYear }} Vie Publique SN
+        </p>
       </div>
-      <div class="mt-4 flex flex-col items-center py-4 text-sm text-gray-500">
-        Version {{ version }} &copy; {{ currentYear }}
-      </div>
-    </div>
+    </main>
+
+    <ScrollToTopButton />
   </div>
 </template>
 
@@ -69,6 +93,7 @@ interface NavigationCard {
 
 interface CardConfig {
   color: string;
+  bgColor: string;
 }
 
 interface CardConfigs {
@@ -143,6 +168,13 @@ const allNavigationCards: NavigationCard[] = [
     featureKey: 'menu_documents',
   },
   {
+    title: 'Dossiers',
+    description: 'Pages de référence sur les grands sujets',
+    icon: 'i-heroicons-folder-open',
+    to: '/dossiers',
+    featureKey: 'menu_dossiers',
+  },
+  {
     title: 'Annuaire',
     description: 'Nominations, Sites, Medias...',
     icon: 'i-heroicons-book-open',
@@ -167,7 +199,7 @@ const allNavigationCards: NavigationCard[] = [
     title: 'Journal officiel Sénégal',
     description: 'Lois, Décrets, Arrêtés',
     icon: 'i-heroicons-newspaper',
-    to: '/documents/journal-officiel',
+    to: '/documents/journal-officiel-senegal',
     featureKey: 'menu_journal_officiel',
   },
   {
@@ -185,17 +217,17 @@ const allNavigationCards: NavigationCard[] = [
     featureKey: 'menu_gouvernement',
   },
   {
-    title: 'Nominations',
-    description: 'Nominations, Ministres, DG...',
+    title: 'Personnalités publiques',
+    description: 'Ministres, DG, PCA, nominations...',
     icon: 'i-heroicons-user-group',
-    to: '/nomination-senegal',
+    to: '/personnalites-senegal',
     featureKey: 'menu_nominations',
   },
   {
     title: 'Élections',
     description: 'Informations sur les élections',
     icon: 'i-heroicons-clipboard-document-check',
-    to: '/elections',
+    to: '/elections-senegal',
     featureKey: 'menu_elections',
   },
   {
@@ -213,11 +245,11 @@ const allNavigationCards: NavigationCard[] = [
     featureKey: 'menu_recherche',
   },
   {
-    title: 'Dashbord Conseil des Ministres',
+    title: 'Dashbords & Observatoires',
     description: 'TEST DASHBOARD',
     icon: 'i-heroicons-chart-bar',
-    to: '/dashboard/conseil-ministre',
-    featureKey: 'menu_dashboard_conseil',
+    to: '/dashboard',
+    featureKey: 'menu_dashboard',
   },
   {
     title: 'Etat du Sénégal',
@@ -261,6 +293,20 @@ const allNavigationCards: NavigationCard[] = [
     to: '/don/paydunya',
     featureKey: 'menu_don_paydunya',
   },
+  {
+    title: 'Podcasts',
+    description: 'Lives, Spaces, Interviews en replay',
+    icon: 'i-heroicons-microphone',
+    to: '/podcasts',
+    featureKey: 'menu_podcasts',
+  },
+  {
+    title: 'Projets Publics',
+    description: 'Suivi des investissements PIP, PRES',
+    icon: 'i-heroicons-clipboard-document-list',
+    to: '/projets-publics-senegal',
+    featureKey: 'menu_projets_publics',
+  },
 ];
 
 // Filtrer les cartes en fonction des feature flags
@@ -276,56 +322,100 @@ const navigationCards = computed(() =>
 
 const cardConfigs: CardConfigs = {
   Actualités: {
-    color: 'text-blue-600',
+    color: 'text-blue-600 dark:text-blue-400',
+    bgColor: 'bg-blue-100 dark:bg-blue-900/30',
   },
   Documents: {
-    color: 'text-indigo-600',
+    color: 'text-indigo-600 dark:text-indigo-400',
+    bgColor: 'bg-indigo-100 dark:bg-indigo-900/30',
+  },
+  Dossiers: {
+    color: 'text-rose-600 dark:text-rose-400',
+    bgColor: 'bg-rose-100 dark:bg-rose-900/30',
   },
   'Assemblée Nationale': {
-    color: 'text-red-600',
+    color: 'text-amber-600 dark:text-amber-400',
+    bgColor: 'bg-amber-100 dark:bg-amber-900/30',
   },
   'Journal officiel Sénégal': {
-    color: 'text-yellow-500',
+    color: 'text-yellow-600 dark:text-yellow-400',
+    bgColor: 'bg-yellow-100 dark:bg-yellow-900/30',
   },
   Annuaire: {
-    color: 'text-emerald-600',
+    color: 'text-emerald-600 dark:text-emerald-400',
+    bgColor: 'bg-emerald-100 dark:bg-emerald-900/30',
   },
-  Nominations: {
-    color: 'text-emerald-600',
+  'Personnalités publiques': {
+    color: 'text-teal-600 dark:text-teal-400',
+    bgColor: 'bg-teal-100 dark:bg-teal-900/30',
   },
   Élections: {
-    color: 'text-amber-600',
+    color: 'text-orange-600 dark:text-orange-400',
+    bgColor: 'bg-orange-100 dark:bg-orange-900/30',
   },
   'Conseil des ministres': {
-    color: 'text-violet-600',
+    color: 'text-emerald-600 dark:text-emerald-400',
+    bgColor: 'bg-emerald-100 dark:bg-emerald-900/30',
   },
   'Budget du Sénégal': {
-    color: 'text-orange-600',
+    color: 'text-green-600 dark:text-green-400',
+    bgColor: 'bg-green-100 dark:bg-green-900/30',
   },
   'Gouvernement du Sénégal': {
-    color: 'text-purple-600',
+    color: 'text-purple-600 dark:text-purple-400',
+    bgColor: 'bg-purple-100 dark:bg-purple-900/30',
   },
   Chatbot: {
-    color: 'text-cyan-600',
+    color: 'text-cyan-600 dark:text-cyan-400',
+    bgColor: 'bg-cyan-100 dark:bg-cyan-900/30',
   },
   Quiz: {
-    color: 'text-yellow-600',
+    color: 'text-pink-600 dark:text-pink-400',
+    bgColor: 'bg-pink-100 dark:bg-pink-900/30',
   },
   'Etat du Sénégal': {
-    color: 'text-blue-600',
+    color: 'text-sky-600 dark:text-sky-400',
+    bgColor: 'bg-sky-100 dark:bg-sky-900/30',
+  },
+  "Organigramme de l'etat": {
+    color: 'text-slate-600 dark:text-slate-400',
+    bgColor: 'bg-slate-100 dark:bg-slate-900/30',
   },
   'Don avec Bictorys': {
-    color: 'text-red-600',
+    color: 'text-red-600 dark:text-red-400',
+    bgColor: 'bg-red-100 dark:bg-red-900/30',
   },
   'Don avec Paydunya': {
-    color: 'text-red-600',
+    color: 'text-rose-600 dark:text-rose-400',
+    bgColor: 'bg-rose-100 dark:bg-rose-900/30',
+  },
+  Podcasts: {
+    color: 'text-violet-600 dark:text-violet-400',
+    bgColor: 'bg-violet-100 dark:bg-violet-900/30',
+  },
+  Recherche: {
+    color: 'text-gray-600 dark:text-gray-400',
+    bgColor: 'bg-gray-100 dark:bg-gray-700',
+  },
+  'Suivi promesses électorales': {
+    color: 'text-lime-600 dark:text-lime-400',
+    bgColor: 'bg-lime-100 dark:bg-lime-900/30',
+  },
+  'Dashbord Conseil des Ministres': {
+    color: 'text-fuchsia-600 dark:text-fuchsia-400',
+    bgColor: 'bg-fuchsia-100 dark:bg-fuchsia-900/30',
+  },
+  'Dashboard Corruption': {
+    color: 'text-orange-600 dark:text-orange-400',
+    bgColor: 'bg-orange-100 dark:bg-orange-900/30',
+  },
+  'Projets Publics': {
+    color: 'text-cyan-600 dark:text-cyan-400',
+    bgColor: 'bg-cyan-100 dark:bg-cyan-900/30',
+  },
+  'RAC 2025': {
+    color: 'text-teal-600 dark:text-teal-400',
+    bgColor: 'bg-teal-100 dark:bg-teal-900/30',
   },
 } as const;
 </script>
-
-<style scoped>
-.footer-mobile {
-  border-top: 2px solid #fff;
-  border-image: linear-gradient(45deg, green 33%, #ff0 67%, red) 5;
-}
-</style>

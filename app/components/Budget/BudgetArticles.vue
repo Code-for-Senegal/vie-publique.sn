@@ -50,7 +50,7 @@ const {
       <UCard
         v-for="article in budgetArticles.slice(0, 3)"
         :key="article.id"
-        class="border-primary/20 hover:border-primary/30 dark:via-primary/10 dark:to-primary/20 border-1 cursor-pointer overflow-hidden bg-white transition hover:shadow-lg dark:bg-gradient-to-br dark:from-gray-800"
+        class="border-primary/20 hover:border-primary/30 border-1 cursor-pointer overflow-hidden bg-white transition hover:shadow-lg dark:bg-gray-800"
       >
         <NuxtLink
           :to="`/actualites/${article.id}/${article.slug}`"

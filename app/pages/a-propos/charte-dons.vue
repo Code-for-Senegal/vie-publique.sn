@@ -73,21 +73,15 @@ useHead({
 </script>
 
 <template>
-  <div class="min-h-screen bg-white py-8 dark:bg-gray-900">
+  <div class="min-h-screen bg-white py-8 pb-16 dark:bg-gray-900">
     <UContainer>
       <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <!-- Bouton retour -->
-        <div class="mb-6">
-          <UButton
-            to="/don/bictorys"
-            color="gray"
-            variant="ghost"
-            icon="i-heroicons-arrow-left"
-            size="sm"
-          >
-            Retour
-          </UButton>
-        </div>
+        <AppBreadcrumb
+          :items="[
+            { label: 'À propos', to: '/a-propos/qui-sommes-nous' },
+            { label: 'Charte des dons' },
+          ]"
+        />
 
         <!-- En-tête -->
         <div class="mb-8 border-b border-gray-200 pb-6 dark:border-gray-700">
@@ -309,7 +303,7 @@ useHead({
             </li>
             <li>
               <strong>Site web</strong> :
-              <a href="https://vie-publique.sn">https://vie-publique.sn</a>
+              <a href="https://www.vie-publique.sn">https://www.vie-publique.sn</a>
             </li>
             <li>
               <strong>Réseaux sociaux</strong> : Suivez-nous sur

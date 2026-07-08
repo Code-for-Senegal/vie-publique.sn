@@ -1,0 +1,1065 @@
+{
+  "id": "rac_2025",
+  "slug": "rac-2025",
+  "title": "Tableau de bord national - RAC 2025",
+  "subtitle": "État de mise en œuvre de la politique économique et sociale en 2024",
+  "country": "Sénégal",
+  "year_label": "RAC 2025",
+  "reference_year": 2024,
+  "document_date": "2025-10-10",
+  "document_type": "presentation",
+  "status": "technical_validation",
+  "location": "Hôtel NOOM",
+  "source": {
+    "institution": "Ministère de l’Économie, du Plan et de la Coopération",
+    "producer": "DGPPE / UCSPE",
+    "document_title": "RAC 2025 - Revue Annuelle Conjointe - État de mise en œuvre de la politique économique et sociale en 2024"
+  },
+  "context": [
+    {
+      "id": "snd_2025_2029",
+      "label": "Adoption de la Stratégie nationale de développement (SND) 2025-2029"
+    },
+    {
+      "id": "pres",
+      "label": "Plan de redressement économique et social (PRES)"
+    },
+    {
+      "id": "reclassement_pma",
+      "label": "Reclassement du Sénégal hors de la catégorie des PMA"
+    }
+  ],
+  "process": [
+    {
+      "step": 1,
+      "label": "Lancement du processus"
+    },
+    {
+      "step": 2,
+      "label": "Contributions sectorielles et régionales"
+    },
+    {
+      "step": 3,
+      "label": "Élaboration du rapport de synthèse"
+    },
+    {
+      "step": 4,
+      "label": "Partage avec les catégories d’acteurs"
+    },
+    {
+      "step": 5,
+      "label": "Validation technique"
+    }
+  ],
+  "overview": {
+    "cards": [
+      {
+        "id": "pib_reel",
+        "label": "Croissance du PIB réel",
+        "unit": "%",
+        "value_2023": 4.3,
+        "value_2024": 6.1,
+        "delta": 1.8,
+        "delta_unit": "pdp",
+        "trend": "up",
+        "category": "macro"
+      },
+      {
+        "id": "pib_hors_hydro_agri",
+        "label": "Croissance du PIB hors hydrocarbures et agriculture",
+        "unit": "%",
+        "value_2023": 3.9,
+        "value_2024": 3.5,
+        "delta": -0.4,
+        "delta_unit": "pdp",
+        "trend": "down",
+        "category": "macro"
+      },
+      {
+        "id": "investissement_fbcf",
+        "label": "Taux d’investissement (FBCF)",
+        "unit": "%",
+        "value_2023": 35.0,
+        "value_2024": 34.0,
+        "delta": -1.0,
+        "delta_unit": "pdp",
+        "trend": "down",
+        "category": "macro"
+      },
+      {
+        "id": "deficit_compte_courant",
+        "label": "Déficit du compte courant",
+        "unit": "% PIB",
+        "value_2023": 18.9,
+        "value_2024": 12.5,
+        "delta": -6.4,
+        "delta_unit": "pdp",
+        "trend": "improving",
+        "category": "macro"
+      },
+      {
+        "id": "inflation_ihpc",
+        "label": "Taux d’inflation (IHPC)",
+        "unit": "%",
+        "value_2023": 5.9,
+        "value_2024": 0.8,
+        "delta": -5.1,
+        "delta_unit": "pdp",
+        "trend": "improving",
+        "category": "macro"
+      },
+      {
+        "id": "deficit_public",
+        "label": "Déficit public",
+        "unit": "%",
+        "value_2023": 14.8,
+        "value_2024": 13.4,
+        "delta": -1.4,
+        "delta_unit": "pdp",
+        "trend": "improving",
+        "category": "macro"
+      },
+      {
+        "id": "pression_fiscale",
+        "label": "Pression fiscale",
+        "unit": "%",
+        "value_2023": 18.6,
+        "value_2024": 18.6,
+        "delta": 0.0,
+        "delta_unit": "pdp",
+        "trend": "stable",
+        "category": "macro"
+      }
+    ],
+    "highlights": [
+      "Croissance du PIB réel en hausse à 6,1%",
+      "Inflation fortement réduite à 0,8%",
+      "Déficit du compte courant en nette amélioration",
+      "Déficit public encore élevé à 13,4%"
+    ],
+    "challenges": [
+      "Ramener le déficit public dans des proportions soutenables",
+      "Renforcer l’efficacité des investissements",
+      "Accélérer la croissance hors hydrocarbures",
+      "Améliorer la productivité du secteur primaire et de l’économie",
+      "Élargir l’assiette fiscale",
+      "Augmenter l’investissement privé et le recours aux PPP"
+    ]
+  },
+  "sections": [
+    {
+      "id": "agriculture",
+      "title": "Agriculture",
+      "group": "secteurs_productifs",
+      "source_ministry": "MASAE",
+      "metrics": [
+        {
+          "id": "rendement_arachide",
+          "label": "Rendement arachide",
+          "unit": "kg/ha",
+          "value_2023": 1336,
+          "value_2024": 1020,
+          "delta": -23.6,
+          "delta_unit": "%",
+          "trend": "down"
+        },
+        {
+          "id": "couverture_besoins_cerealiers",
+          "label": "Taux de couverture des besoins céréaliers",
+          "unit": "%",
+          "value_2023": 56.5,
+          "value_2024": 48.0,
+          "delta": -8.5,
+          "delta_unit": "pdp",
+          "trend": "down"
+        },
+        {
+          "id": "rendement_riz",
+          "label": "Rendement riz",
+          "unit": "kg/ha",
+          "value_2023": 3831,
+          "value_2024": 3943,
+          "delta": 2.9,
+          "delta_unit": "%",
+          "trend": "up"
+        },
+        {
+          "id": "couverture_besoins_riz",
+          "label": "Taux de couverture des besoins en riz",
+          "unit": "%",
+          "value_2023": 35.5,
+          "value_2024": 30.0,
+          "delta": -5.5,
+          "delta_unit": "pdp",
+          "trend": "down"
+        }
+      ],
+      "facts": [
+        "Subventions de 120 milliards de FCFA en intrants agricoles en 2024",
+        "Longue pause pluviométrique en août 2024, suivie d’inondations en octobre 2024 au nord et nord-est"
+      ],
+      "challenges": [
+        "Sécurisation des terres à vocation agricole",
+        "Maîtrise de l’eau",
+        "Renforcement de l’investissement privé dans l’agriculture"
+      ]
+    },
+    {
+      "id": "elevage",
+      "title": "Élevage et productions animales",
+      "group": "secteurs_productifs",
+      "source_ministry": "MASAE",
+      "metrics": [
+        {
+          "id": "production_lait",
+          "label": "Production de lait",
+          "unit": "millions de litres",
+          "value_2023": 394.3,
+          "value_2024": 417.29,
+          "delta": 6.0,
+          "delta_unit": "%",
+          "trend": "up"
+        },
+        {
+          "id": "couverture_besoins_lait",
+          "label": "Taux de couverture des besoins en lait",
+          "unit": "%",
+          "value_2023": 28.0,
+          "value_2024": 33.0,
+          "delta": 5.0,
+          "delta_unit": "pdp",
+          "trend": "up"
+        },
+        {
+          "id": "production_viande_abats",
+          "label": "Production de viande et d’abats",
+          "unit": "tonnes",
+          "value_2023": 303400,
+          "value_2024": 316654,
+          "delta": 4.36,
+          "delta_unit": "%",
+          "trend": "up"
+        },
+        {
+          "id": "couverture_besoins_viande_abats",
+          "label": "Taux de couverture des besoins en viande et d’abats",
+          "unit": "%",
+          "value_2023": 93.1,
+          "value_2024": 93.4,
+          "delta": 0.3,
+          "delta_unit": "pdp",
+          "trend": "up"
+        }
+      ],
+      "facts": [
+        "Difficultés d’accès des ménages pastoraux aux ressources en eau et au foncier",
+        "Insuffisance d’infrastructures de conservation, de stockage et de commercialisation"
+      ],
+      "challenges": [
+        "Renforcer les infrastructures et équipements de production, conservation, stockage et commercialisation",
+        "Promouvoir la production de fourrage et les services d’appoint"
+      ]
+    },
+    {
+      "id": "peche_aquaculture",
+      "title": "Pêche et aquaculture",
+      "group": "secteurs_productifs",
+      "source_ministry": "MPIMP",
+      "metrics": [
+        {
+          "id": "debarquements_peche_artisanale",
+          "label": "Débarquements de la pêche artisanale",
+          "unit": "tonnes",
+          "value_2023": 358925,
+          "value_2024": 372587,
+          "delta": 3.8,
+          "delta_unit": "%",
+          "trend": "up"
+        },
+        {
+          "id": "production_aquacole",
+          "label": "Production aquacole",
+          "unit": "tonnes",
+          "value_2023": 1804,
+          "value_2024": 2074,
+          "delta": 14.0,
+          "delta_unit": "%",
+          "trend": "up"
+        }
+      ],
+      "facts": [
+        "La pêche artisanale s’est renforcée grâce à des conditions météorologiques plus favorables",
+        "Levée de certaines interdictions telles que la pêche nocturne et la capture de mulet noir",
+        "Faible implication du privé dans l’aquaculture"
+      ],
+      "challenges": [
+        "Renforcer la gestion durable des ressources halieutiques",
+        "Améliorer les capacités techniques des acteurs de l’aquaculture"
+      ]
+    },
+    {
+      "id": "industrie",
+      "title": "Industrie",
+      "group": "secteurs_productifs",
+      "source_ministry": "DGPPE",
+      "metrics": [
+        {
+          "id": "poids_industrie_pib",
+          "label": "Poids de l’industrie dans le PIB",
+          "unit": "%",
+          "value_2023": 16.4,
+          "value_2024": 15.8,
+          "delta": -0.6,
+          "delta_unit": "pdp",
+          "trend": "down"
+        },
+        {
+          "id": "poids_industrie_manufacturiere_pib",
+          "label": "Poids de l’industrie manufacturière dans le PIB",
+          "unit": "%",
+          "value_2023": 7.5,
+          "value_2024": 6.9,
+          "delta": -0.6,
+          "delta_unit": "pdp",
+          "trend": "down"
+        },
+        {
+          "id": "poids_industrie_agroalimentaire_pib",
+          "label": "Poids de l’industrie agro-alimentaire dans le PIB",
+          "unit": "%",
+          "value_2023": 7.1,
+          "value_2024": 7.0,
+          "delta": -0.1,
+          "delta_unit": "pdp",
+          "trend": "down"
+        },
+        {
+          "id": "poids_industrie_extractives_pib",
+          "label": "Poids de l’industrie extractive dans le PIB",
+          "unit": "%",
+          "value_2023": 4.5,
+          "value_2024": 7.4,
+          "delta": 2.9,
+          "delta_unit": "pdp",
+          "trend": "up"
+        }
+      ],
+      "facts": [
+        "Début d’exploitation du pétrole en 2024",
+        "Volume d’exploitation pétrolière mentionné : 16,9 MMBBS"
+      ],
+      "challenges": [
+        "Renforcer le soutien à la modernisation des unités industrielles",
+        "Favoriser le développement de la manufacture et de l’agro-alimentaire"
+      ]
+    },
+    {
+      "id": "energie",
+      "title": "Infrastructures et services énergétiques",
+      "group": "secteurs_appui_production",
+      "source_ministry": "MEPM",
+      "metrics": [
+        {
+          "id": "electrification_nationale",
+          "label": "Taux d’électrification nationale",
+          "unit": "%",
+          "value_2023": 84.3,
+          "value_2024": 86.0,
+          "delta": 1.7,
+          "delta_unit": "pdp",
+          "trend": "up"
+        },
+        {
+          "id": "electrification_rurale",
+          "label": "Taux d’électrification rurale",
+          "unit": "%",
+          "value_2023": 65.6,
+          "value_2024": 69.8,
+          "delta": 4.2,
+          "delta_unit": "pdp",
+          "trend": "up"
+        },
+        {
+          "id": "part_renouvelables_mix",
+          "label": "Part des énergies renouvelables dans le mix énergétique",
+          "unit": "%",
+          "value_2023": 27.3,
+          "value_2024": 28.8,
+          "delta": 1.5,
+          "delta_unit": "pdp",
+          "trend": "up"
+        }
+      ],
+      "facts": [
+        "Amélioration de la production énergétique avec la mise en service de nouvelles centrales",
+        "Le rythme de l’électrification rurale demeure une contrainte majeure"
+      ],
+      "challenges": [
+        "Accélérer la mise en œuvre des projets énergétiques en cours",
+        "Augmenter la part de l’énergie renouvelable dans le mix énergétique"
+      ]
+    },
+    {
+      "id": "secteur_financier",
+      "title": "Secteur financier",
+      "group": "secteurs_appui_production",
+      "source_ministry": "MMESS",
+      "metrics": [
+        {
+          "id": "credit_economie_pib",
+          "label": "Crédit à l’économie en pourcentage du PIB",
+          "unit": "%",
+          "value_2023": 34.4,
+          "value_2024": 33.8,
+          "delta": -0.6,
+          "delta_unit": "pdp",
+          "trend": "down"
+        },
+        {
+          "id": "bancarisation_stricte",
+          "label": "Taux de bancarisation strict",
+          "unit": "%",
+          "value_2023": 22.4,
+          "value_2024": 23.9,
+          "delta": 1.5,
+          "delta_unit": "pdp",
+          "trend": "up"
+        },
+        {
+          "id": "bancarisation_elargie",
+          "label": "Taux de bancarisation élargi",
+          "unit": "%",
+          "value_2023": 61.6,
+          "value_2024": 63.8,
+          "delta": 2.2,
+          "delta_unit": "pdp",
+          "trend": "up"
+        }
+      ],
+      "facts": [
+        "Le taux de bancarisation strict reste inférieur à la moyenne de l’UEMOA",
+        "Moyenne UEMOA mentionnée : 25,6%"
+      ],
+      "challenges": [
+        "Renforcer l’inclusion financière"
+      ]
+    },
+    {
+      "id": "economie_numerique",
+      "title": "Économie numérique",
+      "group": "secteurs_appui_production",
+      "source_ministry": "MCTN",
+      "metrics": [
+        {
+          "id": "indice_tic",
+          "label": "Indice de développement des TIC",
+          "unit": "indice",
+          "value_2023": 66.5,
+          "value_2024": 69.3,
+          "delta": 3.5,
+          "delta_unit": "points",
+          "trend": "up"
+        },
+        {
+          "id": "abonnement_haut_debit_1000_habitants",
+          "label": "Abonnement à une connexion internet haut débit pour 1000 habitants",
+          "unit": "pour 1000 habitants",
+          "value_2023": 19.8,
+          "value_2024": 21.2,
+          "delta": 7.0,
+          "delta_unit": "%",
+          "trend": "up"
+        }
+      ],
+      "facts": [
+        "Amélioration de la couverture réseau",
+        "Compétition accrue entre opérateurs",
+        "Déficit d’infrastructures numériques",
+        "Disparités géographiques d’accès au numérique"
+      ],
+      "challenges": [
+        "Stimuler l’innovation numérique et sa diffusion dans l’économie",
+        "Réduire la fracture numérique"
+      ]
+    },
+    {
+      "id": "education_formation",
+      "title": "Éducation et formation",
+      "group": "secteurs_sociaux",
+      "source_ministry": "MEN / MFPT / MESRI",
+      "metrics": [
+        {
+          "id": "prescolarisation",
+          "label": "Taux brut de préscolarisation",
+          "unit": "%",
+          "value_2023": 22.9,
+          "value_2024": 25.1,
+          "delta": 2.2,
+          "delta_unit": "pdp",
+          "trend": "up"
+        },
+        {
+          "id": "scolarisation_primaire",
+          "label": "Taux brut de scolarisation au primaire",
+          "unit": "%",
+          "value_2023": 81.4,
+          "value_2024": 82.2,
+          "delta": 0.8,
+          "delta_unit": "pdp",
+          "trend": "up"
+        },
+        {
+          "id": "achevement_primaire",
+          "label": "Taux d’achèvement au primaire",
+          "unit": "%",
+          "value_2023": 57.0,
+          "value_2024": 58.8,
+          "delta": 1.8,
+          "delta_unit": "pdp",
+          "trend": "up"
+        },
+        {
+          "id": "reussite_baccalaureat",
+          "label": "Taux de réussite au Baccalauréat",
+          "unit": "%",
+          "value_2023": 51.61,
+          "value_2024": 50.5,
+          "delta": -1.1,
+          "delta_unit": "pdp",
+          "trend": "down"
+        },
+        {
+          "id": "orientation_fpt",
+          "label": "Sortants du cycle fondamental orientés vers la FPT",
+          "unit": "%",
+          "value_2023": 10.09,
+          "value_2024": 13.3,
+          "delta": 3.2,
+          "delta_unit": "pdp",
+          "trend": "up"
+        },
+        {
+          "id": "densite_chercheurs",
+          "label": "Densité de chercheurs",
+          "unit": "par million d’habitants",
+          "value_2023": 1167,
+          "value_2024": 1213,
+          "delta": 3.9,
+          "delta_unit": "%",
+          "trend": "up"
+        }
+      ],
+      "facts": [
+        "Résultats jugés mitigés malgré 22,67% du budget global en 2024",
+        "Les abris provisoires persistent dans de nombreuses zones",
+        "Déficit du personnel enseignant"
+      ],
+      "challenges": [
+        "Renforcer la gouvernance du système éducatif",
+        "Orienter 30% des sortants du cycle fondamental vers la FPT",
+        "Accélérer l’innovation numérique pour le suivi et l’efficacité du système éducatif"
+      ]
+    },
+    {
+      "id": "sante_nutrition",
+      "title": "Santé et nutrition",
+      "group": "secteurs_sociaux",
+      "source_ministry": "MSAS",
+      "metrics": [
+        {
+          "id": "accouchements_assistes",
+          "label": "Taux d’accouchements assistés par du personnel qualifié",
+          "unit": "%",
+          "value_2023": 94.0,
+          "value_2024": 97.0,
+          "delta": 3.0,
+          "delta_unit": "pdp",
+          "trend": "up"
+        },
+        {
+          "id": "ratio_medecins",
+          "label": "Ratio médecins / habitants",
+          "unit": "1 pour x habitants",
+          "value_2023": 6820,
+          "value_2024": 6500,
+          "delta": -4.69,
+          "delta_unit": "%",
+          "trend": "improving"
+        },
+        {
+          "id": "ratio_infirmiers",
+          "label": "Ratio infirmier / habitants",
+          "unit": "1 pour x habitants",
+          "value_2023": 3461,
+          "value_2024": 2250,
+          "delta": -34.9,
+          "delta_unit": "%",
+          "trend": "improving"
+        },
+        {
+          "id": "ratio_sages_femmes",
+          "label": "Ratio sage-femme d’État / FAR",
+          "unit": "1 pour x",
+          "value_2023": 1524,
+          "value_2024": 1193,
+          "delta": -21.7,
+          "delta_unit": "%",
+          "trend": "improving"
+        },
+        {
+          "id": "prevalence_diabete",
+          "label": "Prévalence du diabète",
+          "unit": "%",
+          "value_2023": null,
+          "value_2024": 4.2,
+          "delta": null,
+          "delta_unit": null,
+          "trend": null
+        },
+        {
+          "id": "prevalence_hta",
+          "label": "Prévalence de l’hypertension artérielle",
+          "unit": "%",
+          "value_2023": null,
+          "value_2024": 24.2,
+          "delta": null,
+          "delta_unit": null,
+          "trend": null
+        }
+      ],
+      "facts": [
+        "La norme OMS de 1 médecin pour 10 000 habitants est dépassée",
+        "Les normes concernant les ratios infirmier et sage-femme ne sont pas encore atteintes",
+        "Les maladies non transmissibles deviennent un enjeu majeur de santé publique"
+      ],
+      "challenges": [
+        "Améliorer la gouvernance du secteur",
+        "Relever le plateau technique",
+        "Renforcer la lutte contre les maladies non transmissibles"
+      ]
+    },
+    {
+      "id": "eau_assainissement",
+      "title": "Eau et assainissement",
+      "group": "secteurs_sociaux",
+      "source_ministry": "MHA",
+      "metrics": [
+        {
+          "id": "eau_potable_urbain",
+          "label": "Taux d’accès à l’eau potable amélioré (urbain)",
+          "unit": "%",
+          "value_2023": 99.0,
+          "value_2024": 99.2,
+          "delta": 0.2,
+          "delta_unit": "pdp",
+          "trend": "up"
+        },
+        {
+          "id": "eau_potable_rural",
+          "label": "Taux d’accès à l’eau potable amélioré (rural)",
+          "unit": "%",
+          "value_2023": 97.3,
+          "value_2024": 97.8,
+          "delta": 0.5,
+          "delta_unit": "pdp",
+          "trend": "up"
+        },
+        {
+          "id": "assainissement_rural",
+          "label": "Taux d’accès à l’assainissement amélioré en milieu rural",
+          "unit": "%",
+          "value_2023": 59.37,
+          "value_2024": 66.4,
+          "delta": 7.0,
+          "delta_unit": "pdp",
+          "trend": "up"
+        },
+        {
+          "id": "assainissement_urbain",
+          "label": "Taux d’accès à l’assainissement amélioré en milieu urbain",
+          "unit": "%",
+          "value_2023": 75.7,
+          "value_2024": 79.9,
+          "delta": 4.2,
+          "delta_unit": "pdp",
+          "trend": "up"
+        }
+      ],
+      "facts": [
+        "Finalisation de la cartographie des zones inondables, notamment dans les régions à risque"
+      ],
+      "challenges": [
+        "Améliorer l’accès aux services d’assainissement",
+        "Harmoniser la gestion du service public de l’eau"
+      ]
+    },
+    {
+      "id": "environnement",
+      "title": "Environnement",
+      "group": "secteurs_sociaux",
+      "source_ministry": "METE",
+      "metrics": [
+        {
+          "id": "terres_reboisees",
+          "label": "Superficies de terres reboisées / régénérées",
+          "unit": "ha",
+          "value_2023": 10920,
+          "value_2024": 11150,
+          "delta": 2.1,
+          "delta_unit": "%",
+          "trend": "up"
+        },
+        {
+          "id": "especes_clefs_suivies",
+          "label": "Proportion des espèces clés menacées suivies dans les parcs, réserves et AMP",
+          "unit": "%",
+          "value_2023": 78.0,
+          "value_2024": 88.9,
+          "delta": 10.9,
+          "delta_unit": "pdp",
+          "trend": "up"
+        },
+        {
+          "id": "couverture_amp",
+          "label": "Taux de couverture des aires marines protégées",
+          "unit": "%",
+          "value_2023": 2.88,
+          "value_2024": 4.29,
+          "delta": 1.4,
+          "delta_unit": "pdp",
+          "trend": "up"
+        },
+        {
+          "id": "pm25",
+          "label": "Niveau moyen annuel de particules fines PM2.5",
+          "unit": "µg/m³",
+          "value_2023": 28.2,
+          "value_2024": 22.3,
+          "delta": -5.9,
+          "delta_unit": "µg/m³",
+          "trend": "improving"
+        }
+      ],
+      "facts": [
+        "Retrait du Parc national du Niokolo-Koba de la liste du Patrimoine mondial en péril",
+        "Réhabilitation de quatre stations de mesure de la qualité de l’air",
+        "La concentration de PM2.5 reste au-dessus de la norme annuelle OMS de 5 µg/m³",
+        "Le Sénégal est classé 37e le plus pollué parmi 138 pays évalués"
+      ],
+      "challenges": [
+        "Améliorer la conservation de la biodiversité",
+        "Renforcer la dynamique de reboisement et de régénération des terres",
+        "Promouvoir des modes de consommation et de production durables"
+      ]
+    },
+    {
+      "id": "justice_droits_humains",
+      "title": "Justice et droits humains",
+      "group": "gouvernance_paix_securite",
+      "source_ministry": "MJGS / MISP",
+      "metrics": [
+        {
+          "id": "occupation_prisons",
+          "label": "Taux d’occupation des prisons",
+          "unit": "%",
+          "value_2023": 262.0,
+          "value_2024": 257.0,
+          "delta": -5.0,
+          "delta_unit": "pdp",
+          "trend": "improving"
+        },
+        {
+          "id": "detention_preventive",
+          "label": "Taux de détention préventive",
+          "unit": "%",
+          "value_2023": 51.2,
+          "value_2024": 49.8,
+          "delta": -1.4,
+          "delta_unit": "pdp",
+          "trend": "improving"
+        },
+        {
+          "id": "detenus_formes",
+          "label": "Pourcentage de détenus condamnés ayant reçu une formation",
+          "unit": "%",
+          "value_2023": 52.2,
+          "value_2024": 70.4,
+          "delta": 18.2,
+          "delta_unit": "pdp",
+          "trend": "up"
+        },
+        {
+          "id": "magistrats_100k",
+          "label": "Nombre de magistrats pour 100 000 habitants",
+          "unit": "pour 100 000 habitants",
+          "value_2023": 3.0,
+          "value_2024": 2.85,
+          "delta": -5.0,
+          "delta_unit": "%",
+          "trend": "down"
+        },
+        {
+          "id": "ratio_greffiers_magistrat",
+          "label": "Ratio greffiers / magistrat",
+          "unit": "ratio",
+          "value_2023": 0.87,
+          "value_2024": 0.91,
+          "delta": 4.6,
+          "delta_unit": "%",
+          "trend": "up"
+        }
+      ],
+      "facts": [
+        "Installation des TGI de Kaffrine et Rufisque et du TI de Keur Massar",
+        "Retards dans l’installation du TGI de Tivaouane et des TI de Guinguinéo, Goudomp et Thionk-Essyl",
+        "Ratio de magistrats en dessous de la norme de 10 pour 100 000 habitants",
+        "Déficit important de greffiers"
+      ],
+      "challenges": [
+        "Accélérer la mise en œuvre de la carte judiciaire",
+        "Renforcer le personnel judiciaire",
+        "Poursuivre les efforts de préparation à la réinsertion sociale"
+      ]
+    },
+    {
+      "id": "gouvernance_territoriale",
+      "title": "Gouvernance territoriale",
+      "group": "gouvernance_paix_securite",
+      "source_ministry": "MFB / MUCTAT",
+      "metrics": [
+        {
+          "id": "recettes_ct",
+          "label": "Recettes propres des collectivités territoriales",
+          "unit": "milliards FCFA",
+          "value_2023": 259.7,
+          "value_2024": 271.3,
+          "delta": 4.5,
+          "delta_unit": "%",
+          "trend": "up"
+        },
+        {
+          "id": "transferts_etat_ct",
+          "label": "Transfert de l’État aux collectivités territoriales (FDD et FECT)",
+          "unit": "milliards FCFA",
+          "value_2023": 70.8,
+          "value_2024": 74.6,
+          "delta": 5.3,
+          "delta_unit": "%",
+          "trend": "up"
+        },
+        {
+          "id": "investissements_ct",
+          "label": "Volume d’investissements des collectivités territoriales",
+          "unit": "milliards FCFA",
+          "value_2023": 131.9,
+          "value_2024": 122.4,
+          "delta": -7.2,
+          "delta_unit": "%",
+          "trend": "down"
+        },
+        {
+          "id": "execution_investissements_ct",
+          "label": "Taux d’exécution des investissements",
+          "unit": "%",
+          "value_2023": 58.2,
+          "value_2024": 57.2,
+          "delta": -1.7,
+          "delta_unit": "pdp",
+          "trend": "down"
+        }
+      ],
+      "facts": [
+        "Amélioration de la mobilisation des recettes",
+        "Augmentation des transferts de l’État",
+        "Faible exécution des investissements"
+      ],
+      "challenges": [
+        "Renforcer l’autonomie financière des collectivités territoriales",
+        "Accélérer la mise en œuvre de la fonction publique locale"
+      ]
+    }
+  ],
+  "territorial_poles": {
+    "id": "poles_territoriaux",
+    "title": "RAC pôles",
+    "datasets": [
+      {
+        "id": "production_cerealiere_2024",
+        "title": "Production céréalière en 2024",
+        "unit": "tonnes",
+        "values": [
+          {
+            "pole": "Nord",
+            "value": 348533.5
+          },
+          {
+            "pole": "Diourbel-Louga",
+            "value": 106169
+          },
+          {
+            "pole": "Nord-Est",
+            "value": 58186.4
+          },
+          {
+            "pole": "Sud-Est",
+            "value": 267316
+          },
+          {
+            "pole": "Sud",
+            "value": 886645
+          },
+          {
+            "pole": "Centre",
+            "value": 518322
+          },
+          {
+            "pole": "Thiès",
+            "value": 46932
+          },
+          {
+            "pole": "Dakar",
+            "value": 1010
+          }
+        ],
+        "insights": [
+          "Les pôles Sud, Centre et Nord assurent plus de 75% de la production céréalière nationale",
+          "Parts respectives mentionnées : Sud 38%, Centre 22%, Nord 15%"
+        ]
+      },
+      {
+        "id": "scolarisation_poles_2024",
+        "title": "TBS au primaire et au secondaire en 2024",
+        "unit": "%",
+        "note": "Les valeurs exactes par pôle peuvent nécessiter une vérification visuelle complémentaire sur la carte de la page 22 si tu veux un import 100% sûr",
+        "insights": [
+          "Les niveaux de scolarisation les plus faibles au primaire comme au secondaire sont observés dans les pôles Diourbel-Louga et Nord-Est"
+        ]
+      }
+    ]
+  },
+  "snd_2025_2029": {
+    "title": "Cadre de suivi SND 2025-2029",
+    "setup_process": [
+      "Établissement de la matrice des réformes",
+      "Proposition d’indicateurs selon la hiérarchie de la chaîne de résultats et articulation avec les agendas internationaux",
+      "Établissement de la situation de référence",
+      "Détermination des cibles annuelles",
+      "Partage et validation de la liste des indicateurs et de leurs cibles"
+    ],
+    "targets": [
+      {
+        "axis": "Axe 2 - Capital humain de qualité et équité sociale",
+        "id": "medicaments_production_nationale",
+        "label": "Taux de couverture des besoins en médicaments par la production nationale",
+        "reference_year": 2023,
+        "baseline": 10.0,
+        "unit": "%",
+        "targets": {
+          "2025": 10.0,
+          "2026": 10.0,
+          "2027": 23.0,
+          "2028": 27.0,
+          "2029": 30.0
+        }
+      },
+      {
+        "axis": "Axe 2 - Capital humain de qualité et équité sociale",
+        "id": "orientation_fpt_target",
+        "label": "Pourcentage de sortants du cycle fondamental orientés vers la FPT",
+        "reference_year": 2024,
+        "baseline": 13.3,
+        "unit": "%",
+        "targets": {
+          "2025": 15.6,
+          "2026": 18.9,
+          "2027": 23.3,
+          "2028": 28.6,
+          "2029": 30.0
+        }
+      },
+      {
+        "axis": "Axe 2 - Capital humain de qualité et équité sociale",
+        "id": "mortalite_infantile",
+        "label": "Taux de mortalité infantile",
+        "reference_year": 2023,
+        "baseline": 31.0,
+        "unit": "pour 1000",
+        "targets": {
+          "2025": 26.8,
+          "2026": 24.6,
+          "2027": 22.5,
+          "2028": 20.4,
+          "2029": 20.0
+        }
+      },
+      {
+        "axis": "Axe 2 - Capital humain de qualité et équité sociale",
+        "id": "achevement_elementaire",
+        "label": "Taux d’achèvement à l’élémentaire",
+        "reference_year": 2024,
+        "baseline": 58.8,
+        "unit": "%",
+        "targets": {
+          "2025": 58.4,
+          "2026": 60.0,
+          "2027": 60.5,
+          "2028": 61.1,
+          "2029": 61.6
+        }
+      },
+      {
+        "axis": "Axe 3 - Aménagement et développement durable",
+        "id": "co2_sequestre",
+        "label": "Quantité de CO2 séquestrée",
+        "reference_year": 2023,
+        "baseline": 3833,
+        "unit": "tonnes",
+        "targets": {
+          "2025": 4771.9,
+          "2026": 5251.9,
+          "2027": 5731.8,
+          "2028": 6211.8,
+          "2029": 6691.7
+        }
+      }
+    ],
+    "example_indicators_without_targets_in_slide": [
+      {
+        "axis": "Axe 1 - Économie compétitive",
+        "label": "Rendement arachide dans les pôles"
+      },
+      {
+        "axis": "Axe 1 - Économie compétitive",
+        "label": "Rendement céréales dans les pôles"
+      },
+      {
+        "axis": "Axe 1 - Économie compétitive",
+        "label": "Volume de financement PPP"
+      },
+      {
+        "axis": "Axe 4 - Bonne gouvernance et engagement africain",
+        "label": "Pourcentage de détenus en instance de jugement"
+      },
+      {
+        "axis": "Axe 4 - Bonne gouvernance et engagement africain",
+        "label": "Indice de bonne gouvernance"
+      }
+    ]
+  },
+  "ui": {
+    "default_tab": "overview",
+    "available_tabs": [
+      "overview",
+      "secteurs_productifs",
+      "secteurs_appui_production",
+      "secteurs_sociaux",
+      "gouvernance_paix_securite",
+      "territorial_poles",
+      "snd_2025_2029"
+    ],
+    "comparison_enabled": true,
+    "map_enabled": true,
+    "show_challenges": true,
+    "show_source": true
+  }
+}

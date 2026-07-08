@@ -3,7 +3,7 @@ const seoTitle = "Chiffres clés Législatives 2024 Sénégal";
 const seoDescription =
   "Législatives du 17 Novembre 2024 Sénégal: coalitions, carte électoaale, résultats, candidats, partis politiques, législatives, présidentielles";
 const seoImgPath = "/images/vpsn-share-elections.png";
-const seoPageUrl = "https://vie-publique.sn/elections/legislatives";
+const seoPageUrl = "https://www.vie-publique.sn/elections/legislatives";
 useHead({
   title: seoTitle,
   meta: [
@@ -114,7 +114,13 @@ const electionCategories = [
 </script>
 
 <template>
-  <div>
+  <div class="min-h-screen pb-16">
+    <AppBreadcrumb
+      :items="[
+        { label: 'Élections' }
+      ]"
+    />
+
     <LayoutSubcategoryComponent
       :item="electionCategories"
       :title="`Élections Législatives 2024`"
