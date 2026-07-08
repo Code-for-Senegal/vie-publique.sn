@@ -2,7 +2,7 @@
 const { siteName, siteUrl, keywords, themeColor } = useSiteMetadata();
 
 /**
- * Page éditoriale « Les coulisses techniques » — issue du Webinaire technique #1.
+ * Page éditoriale « Les coulisses techniques » - issue du Webinaire technique #1.
  * Reprend UNIQUEMENT la partie technique (architecture, DevOps, pipeline IA).
  * La présentation de l'association vit sur /a-propos (pas de doublon ici).
  */
@@ -15,7 +15,7 @@ const url = `${siteUrl}/tech/coulisses-civic-tech`;
 const image = `${siteUrl}/og-image.png`;
 const datePublished = '2026-07-04';
 
-// Évolution de l'architecture — rendue en frise HTML (indexable, responsive, dark-mode).
+// Évolution de l'architecture - rendue en frise HTML (indexable, responsive, dark-mode).
 interface ArchiStep {
   year: string;
   version: string;
@@ -32,7 +32,7 @@ const archiSteps: ArchiStep[] = [
   {
     year: '2024',
     version: 'v0',
-    tagline: 'Les débuts — déployé en 1 heure',
+    tagline: 'Les débuts - déployé en 1 heure',
     changes: [
       '1 seul serveur, 1 seul environnement',
       'Pas de backend',
@@ -84,7 +84,7 @@ const archiSteps: ArchiStep[] = [
   },
 ];
 
-// Coûts d'exploitation annuels (FCFA / XOF) — source : webinaire #1 du 4 juillet 2026.
+// Coûts d'exploitation annuels (FCFA / XOF) - source : webinaire #1 du 4 juillet 2026.
 // Hors rémunération de prestataires ; l'équipe est bénévole.
 interface CostItem {
   label: string;
@@ -93,25 +93,25 @@ interface CostItem {
   pct: number;
 }
 const costItems: CostItem[] = [
-  { label: 'Licences IA — Claude (3 développeurs)', annual: 4244400, pct: 70 },
+  { label: 'Licences IA - Claude (3 développeurs)', annual: 4244400, pct: 70 },
   { label: 'Infrastructure cloud (Hostinger)', annual: 982500, pct: 16 },
   { label: 'Base de données (Supabase)', annual: 196500, pct: 3 },
   { label: 'Autres abonnements (SerpAPI, etc.)', annual: 168000, pct: 3 },
   { label: "Envoi d'e-mails (Resend)", annual: 157200, pct: 3 },
   { label: 'Nom de domaine & DNS', annual: 150000, pct: 2 },
   { label: 'Newsletter (Brevo)', annual: 59605, pct: 1 },
-  { label: 'Licence App Store — Apple (99 $)', annual: 55242, pct: 1 },
-  { label: 'Licence Play Store — Google (25 $)', annual: 13950, pct: 0 },
+  { label: 'Licence App Store - Apple (99 $)', annual: 55242, pct: 1 },
+  { label: 'Licence Play Store - Google (25 $)', annual: 13950, pct: 0 },
 ];
 const costTotal = 6027397;
 const formatXOF = (n: number) => `${n.toLocaleString('fr-FR')} FCFA`;
 
-// Le démarrage — preuves sociales (lancement + première traction).
+// Le démarrage - preuves sociales (lancement + première traction).
 const tweetUrl = 'https://x.com/malick_yacine/status/1785472745150742983';
 const linkedinUrl = 'https://www.linkedin.com/feed/update/urn:li:activity:7206260166911033344/';
 const firstVersionImage = '/img/tech/webinaire1/premiere-version-10k-visiteurs.jfif';
 
-// Notre stack technique — chaque outil pointe vers son site officiel.
+// Notre stack technique - chaque outil pointe vers son site officiel.
 interface StackTool {
   name: string;
   url: string;
@@ -230,7 +230,7 @@ useSeoMeta({
   ].join(', '),
 });
 
-// Le BreadcrumbList est émis par <AppBreadcrumb> (useSchemaOrg) — ne pas le dupliquer ici (cf. CLAUDE.md §7).
+// Le BreadcrumbList est émis par <AppBreadcrumb> (useSchemaOrg) - ne pas le dupliquer ici (cf. CLAUDE.md §7).
 const articleSchema = {
   '@context': 'https://schema.org',
   '@type': 'Article',
@@ -244,7 +244,7 @@ const articleSchema = {
   mainEntityOfPage: { '@type': 'WebPage', '@id': url },
   video: {
     '@type': 'VideoObject',
-    name: 'Webinaire technique #1 — Les coulisses de Vie Publique Sénégal',
+    name: 'Webinaire technique #1 - Les coulisses de Vie Publique Sénégal',
     description,
     thumbnailUrl: [`https://i.ytimg.com/vi/${YOUTUBE_ID}/maxresdefault.jpg`],
     uploadDate: datePublished,
@@ -293,10 +293,10 @@ useHead({
         Les coulisses techniques d'une civic tech
       </h1>
       <p class="mt-3 text-gray-600 dark:text-gray-400">
-        Vie Publique Sénégal est un produit vivant, construit et amélioré par des bénévoles. Voici
-        comment il est fait sous le capot : l'évolution de son architecture, nos choix techniques,
-        notre DevOps et notre manière de développer avec l'IA. Pour découvrir l'association et son
-        histoire, rendez-vous sur
+        Vie Publique Sénégal est une infrastructure civique open source, construite et améliorée par
+        des bénévoles. Voici comment elle fonctionne sous le capot : l'évolution de son
+        architecture, nos choix techniques, notre DevOps et notre manière de développer avec l'IA.
+        Pour découvrir l'association et son histoire, rendez-vous sur
         <NuxtLink
           to="/a-propos/qui-sommes-nous"
           class="text-sky-600 hover:underline dark:text-sky-400"
@@ -313,7 +313,7 @@ useHead({
       >
         <iframe
           :src="`https://www.youtube-nocookie.com/embed/${YOUTUBE_ID}`"
-          title="Replay — Webinaire technique #1 : les coulisses de Vie Publique Sénégal"
+          title="Replay - Webinaire technique #1 : les coulisses de Vie Publique Sénégal"
           class="absolute inset-0 h-full w-full"
           frameborder="0"
           allow="
@@ -339,7 +339,7 @@ useHead({
       <h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Le démarrage</h2>
       <p class="mb-6 text-gray-600 dark:text-gray-400">
         Tout a commencé simplement. La toute première version du site a été développée et
-        <strong>mise en ligne en une heure</strong> — sans backend, directement déployée depuis Git.
+        <strong>mise en ligne en une heure</strong> - sans backend, directement déployée depuis Git.
         L'objectif : aller vite pour confronter l'idée au réel plutôt que de peaufiner dans notre
         coin.
       </p>
@@ -360,7 +360,7 @@ useHead({
             «&nbsp;Le projet a été poussé en production en 1&nbsp;heure.&nbsp;»
           </span>
           <span class="mt-1 block text-xs text-gray-500 dark:text-gray-400">
-            Le tweet de lancement, avril 2024 — voir sur X
+            Le tweet de lancement, avril 2024 - voir sur X
           </span>
         </span>
         <UIcon
@@ -371,8 +371,7 @@ useHead({
 
       <p class="mt-6 text-gray-600 dark:text-gray-400">
         Un mois après le lancement, la plateforme franchissait déjà les
-        <strong>10 000 visiteurs</strong> — le signal que le besoin de transparence était bien réel.
-        Nous l'avons partagé sur LinkedIn, capture à l'appui.
+        <strong>10 000 visiteurs</strong> - le signal que le besoin de transparence était bien réel.
       </p>
 
       <figure
@@ -408,7 +407,7 @@ useHead({
       </h2>
       <p class="mb-6 text-gray-600 dark:text-gray-400">
         Nous n'avons pas commencé avec l'architecture d'aujourd'hui. Elle a grandi étape par étape,
-        au rythme des besoins réels et des moyens d'une association bénévole — du prototype déployé
+        au rythme des besoins réels et des moyens d'une association bénévole - du prototype déployé
         en une heure vers une plateforme robuste et souveraine.
       </p>
 
@@ -484,7 +483,7 @@ useHead({
                 class="mx-auto h-auto w-full"
               />
               <figcaption class="mt-2 text-center text-xs text-gray-400">
-                Architecture {{ step.year }} — {{ step.version }}
+                Architecture {{ step.year }} - {{ step.version }}
               </figcaption>
             </figure>
           </div>
@@ -497,8 +496,7 @@ useHead({
       <h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Notre stack technique</h2>
       <p class="mb-6 text-gray-600 dark:text-gray-400">
         Nous privilégions l'open source et l'auto-hébergement pour rester souverains et maîtriser
-        nos coûts. Voici les principaux outils qui font tourner la plateforme — cliquez pour
-        découvrir chacun d'eux.
+        nos coûts. Voici les principaux outils qui font tourner la plateforme.
       </p>
 
       <div class="grid gap-4 sm:grid-cols-2">
@@ -525,7 +523,7 @@ useHead({
                   class="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-100"
                 />
               </a>
-              <span class="text-gray-500 dark:text-gray-400"> — {{ tool.role }}</span>
+              <span class="text-gray-500 dark:text-gray-400"> - {{ tool.role }}</span>
             </li>
           </ul>
         </div>
@@ -538,8 +536,8 @@ useHead({
         DevOps &amp; développement assisté par IA
       </h2>
       <p class="mb-6 text-gray-600 dark:text-gray-400">
-        Avec une petite équipe bénévole, la productivité vient de l'outillage. Nous nous appuyons
-        fortement sur l'IA pour développer, et sur l'automatisation pour traiter la donnée publique.
+        Avec une petite équipe bénévole, tout repose sur l'outillage : l'IA pour développer,
+        l'automatisation pour traiter la donnée publique.
       </p>
 
       <div
@@ -631,9 +629,8 @@ useHead({
       <h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Notre modèle de données</h2>
       <p class="mb-4 text-gray-600 dark:text-gray-400">
         Notre objectif : bâtir la base de données publiques la plus complète et fiable du Sénégal.
-        Tout est relié — Assemblée nationale, collectivités locales, données électorales,
-        personnalités publiques, budget, documents et contenus éditoriaux forment un référentiel
-        cohérent.
+        Assemblée nationale, collectivités locales, données électorales, personnalités publiques,
+        budget, documents et contenus éditoriaux : tout est relié dans un référentiel cohérent.
       </p>
       <figure class="overflow-hidden rounded-lg border border-gray-200 bg-white p-3">
         <img
@@ -655,9 +652,8 @@ useHead({
       </h2>
       <p class="mb-6 text-gray-600 dark:text-gray-400">
         Deux ans après ce premier cap des 10 000 visiteurs, l'audience a changé d'échelle. La
-        transparence de l'information publique intéresse, et la majorité de notre trafic vient
-        aujourd'hui de la recherche Google — signe que les pages répondent à de vraies questions des
-        citoyens.
+        majorité de notre trafic vient aujourd'hui de la recherche Google - signe que les pages
+        répondent à de vraies questions des citoyens.
       </p>
 
       <!-- Chiffres clés -->
@@ -697,7 +693,7 @@ useHead({
           class="mx-auto h-auto w-full"
         />
         <figcaption class="mt-2 text-center text-xs text-gray-400">
-          Google Analytics — fréquentation en forte croissance (+45&nbsp;% à +50&nbsp;%)
+          Google Analytics - fréquentation en forte croissance (+45&nbsp;% à +50&nbsp;%)
         </figcaption>
       </figure>
 
@@ -710,7 +706,7 @@ useHead({
           class="mx-auto h-auto w-full"
         />
         <figcaption class="mt-2 text-center text-xs text-gray-400">
-          Google Search Console — 137&nbsp;k clics pour 3,42&nbsp;M d'impressions sur 3&nbsp;mois
+          Google Search Console - 137&nbsp;k clics pour 3,42&nbsp;M d'impressions sur 3&nbsp;mois
         </figcaption>
       </figure>
     </section>
