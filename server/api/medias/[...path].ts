@@ -14,23 +14,9 @@ export default defineEventHandler(async (event) => {
   const query = getQuery(event)
   const quality = query.quality as string | undefined
   
-  // Récupérer l'URL du CMS depuis la configuration
   const config = useRuntimeConfig()
-  
-  // Priorité : CMS_API_URL_ASSETS > CMS_API_URL/assets > cmsApiUrl/assets > fallback
-  let targetUrl = ''
-  
-  if (process.env.CMS_API_URL_ASSETS) {
-    targetUrl = `${process.env.CMS_API_URL_ASSETS}/${path}`
-  } else if (process.env.CMS_API_URL) {
-    targetUrl = `${process.env.CMS_API_URL}/assets/${path}`
-  } else if (config.public.cmsApiUrl) {
-    targetUrl = `${config.public.cmsApiUrl}/assets/${path}`
-  } else {
-    // Fallback URL en dur pour la production (temporaire)
-    targetUrl = `https://cms.vie-publique.sn/assets/${path}`
-    console.warn('Using fallback CMS URL - configure environment variables')
-  }
+  const cmsBase = config.cmsApiUrl || 'https://cms.vie-publique.sn'
+  let targetUrl = `${cmsBase}/assets/${path}`
   
   // Ajouter les paramètres de transformation Directus si nécessaire
   if (quality) {

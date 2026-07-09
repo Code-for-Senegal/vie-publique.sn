@@ -583,12 +583,6 @@ export default defineNuxtConfig({
     enabled: !!process.env.GTAG_ID,
     id: process.env.GTAG_ID,
   },
-  // FIXME web-vitals: incompatible avec Nuxt 4? Temporarily disabled
-  // webVitals: {
-  //   provider: 'ga',
-  //   disabled: !process.env.GTAG_ID,
-  //   ga: { id: process.env.GTAG_ID },
-  // },
   image: {
     // Provider pour les images locales et du proxy
     providers: {
@@ -604,10 +598,6 @@ export default defineNuxtConfig({
     // Alias pour simplifier l'usage
     alias: {
       cms: '/cms',
-    },
-    directus: {
-      // This URL needs to include the final `assets/` directory
-      baseURL: process.env.CMS_API_URL_ASSETS,
     },
   },
   /* PWA options */
