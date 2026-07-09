@@ -11,7 +11,20 @@ export const getImage: ProviderGetImage = (src, { modifiers = {}, baseURL } = {}
   const params: string[] = []
   if (modifiers.width) params.push(`width=${modifiers.width}`)
   if (modifiers.height) params.push(`height=${modifiers.height}`)
-  if (modifiers.quality) params.push(`quality=${modifiers.quality}`)
+
+  // SVG et GIF : pas de conversion format (SVG serait rasterisé, GIF perdrait l'animation)
+  const cleanPath = src.split('?')[0]
+  const ext = cleanPath.split('.').pop()?.toLowerCase()
+  const skipConversion = ext === 'svg' || ext === 'gif'
+
+  if (!skipConversion) {
+    // Format WebP par défaut — Directus le convertit nativement via Sharp
+    params.push(`format=${modifiers.format || 'webp'}`)
+    // Qualité 80 par défaut si non précisée
+    params.push(`quality=${modifiers.quality || 80}`)
+  }
+  // fit=cover pour le recadrage (même comportement que object-cover CSS)
+  if (modifiers.fit) params.push(`fit=${modifiers.fit}`)
   const queryString = params.length ? `?${params.join('&')}` : ''
 
   // Si l'URL commence déjà par /cms/, on la retourne avec les params

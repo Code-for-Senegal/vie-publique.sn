@@ -244,7 +244,6 @@ Ce document recense **toutes les URLs** du projet, leur type, leur fonction et l
 | URL | Type | SEO | Description |
 |-----|------|-----|-------------|
 | `/don/bictorys` | Formulaire | ⭐⭐ | Don via Bictorys |
-| `/don/paydunya` | Formulaire | ⭐⭐ | Don via Paydunya |
 | `/don/success` | Confirmation | ⭐ | Succès paiement |
 | `/don/cancel` | Confirmation | ⭐ | Annulation paiement |
 
@@ -399,8 +398,6 @@ Ce document recense **toutes les URLs** du projet, leur type, leur fonction et l
 | Endpoint | Méthode | Description |
 |----------|---------|-------------|
 | `/api/donate/init-payment` | POST | Initialiser paiement |
-| `/api/donate/paydunya/init-payment` | POST | Paiement Paydunya |
-| `/api/donate/paydunya/callback` | POST | Callback Paydunya |
 | `/api/donate/webhook` | POST | Webhook paiements |
 | `/api/newsletter/subscribe` | POST | Inscription newsletter |
 

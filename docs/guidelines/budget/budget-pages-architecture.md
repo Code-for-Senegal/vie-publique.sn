@@ -591,8 +591,7 @@ npm run lint:fix
 ```bash
 # .env
 CMS_API_URL=https://cms.vie-publique.sn
-CMS_API_URL_ASSETS=https://cms.vie-publique.sn
-NUXT_PUBLIC_SITE_URL=https://vie-publique.sn
+NUXT_PUBLIC_SITE_URL=https://www.vie-publique.sn
 ```
 
 ⚠️ **Important** : Pas de trailing slash pour éviter double-slash.

@@ -378,10 +378,6 @@ const cardConfigs: CardConfigs = {
     color: 'text-red-600 dark:text-red-400',
     bgColor: 'bg-red-100 dark:bg-red-900/30',
   },
-  'Don avec Paydunya': {
-    color: 'text-rose-600 dark:text-rose-400',
-    bgColor: 'bg-rose-100 dark:bg-rose-900/30',
-  },
   Podcasts: {
     color: 'text-violet-600 dark:text-violet-400',
     bgColor: 'bg-violet-100 dark:bg-violet-900/30',

@@ -159,10 +159,6 @@ useHead({
               <strong>Bictorys</strong> : Paiement par carte bancaire, mobile money (Orange Money,
               Wave)
             </li>
-            <li>
-              <strong>Paydunya</strong> : Paiement par carte bancaire, mobile money (Orange Money,
-              Wave)
-            </li>
           </ul>
 
           <h2>4. Sécurité et confidentialité</h2>
@@ -186,7 +182,7 @@ useHead({
           <h3>Traitement des paiements</h3>
 
           <ul>
-            <li>Les paiements sont traités via des plateformes sécurisées (Bictorys et Paydunya)</li>
+            <li>Les paiements sont traités via la plateforme sécurisée Bictorys</li>
             <li>Nous ne stockons jamais vos informations bancaires ou de carte de crédit</li>
             <li>Toutes les transactions sont cryptées selon les standards de l'industrie</li>
           </ul>

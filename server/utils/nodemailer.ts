@@ -66,7 +66,7 @@ export async function sendDonationConfirmationEmail(
     const config = useRuntimeConfig()
     const transport = getTransporter()
 
-    const gatewayName = donationData.gateway === 'bictorys' ? 'Bictorys' : 'Paydunya'
+    const gatewayName = 'Bictorys'
     const formattedAmount = formatAmount(donationData.amount)
     const formattedDate = new Date(donationData.created_at).toLocaleString('fr-FR', {
       dateStyle: 'long',

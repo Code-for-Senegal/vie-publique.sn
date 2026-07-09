@@ -1042,7 +1042,6 @@ Récupération via un seul appel API `/api/budget/evolution` avec cache.
 ```bash
 # .env
 CMS_API_URL=https://cms.vie-publique.sn
-CMS_API_URL_ASSETS=https://cms.vie-publique.sn
 ```
 
 ⚠️ **Important** : Pas de trailing slash pour éviter double-slash dans les URLs.

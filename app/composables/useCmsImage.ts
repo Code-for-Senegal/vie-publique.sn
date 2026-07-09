@@ -25,14 +25,14 @@ export const useCmsImage = (imagePath: string | null | undefined, quality?: numb
   }
 
   // Sinon, c'est un ID du CMS, transformer en URL proxy SEO-friendly
-  let proxyUrl = `/cms/${imagePath}`
-
-  // Ajouter le paramètre de qualité si fourni
-  if (quality) {
-    proxyUrl += `?quality=${quality}`
+  // SVG et GIF : pas de conversion de format (SVG serait rasterisé, GIF perdrait l'animation)
+  const ext = imagePath.split('.').pop()?.toLowerCase()
+  if (ext === 'svg' || ext === 'gif') {
+    return `/cms/${imagePath}`
   }
-
-  return proxyUrl
+  // format=webp + quality par défaut — Directus les applique via Sharp
+  const q = quality || 80
+  return `/cms/${imagePath}?format=webp&quality=${q}`
 }
 
 /**

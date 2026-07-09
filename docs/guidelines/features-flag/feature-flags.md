@@ -560,11 +560,6 @@ const navigationCards: NavigationCard[] = [
       icon: 'i-heroicons-heart',
       to: '/don/bictorys',
     },
-    {
-      title: 'Don avec Paydunya',
-      icon: 'i-heroicons-heart',
-      to: '/don/paydunya',
-    },
   ] : []),
 ];
 </script>

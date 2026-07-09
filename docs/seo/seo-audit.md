@@ -308,7 +308,7 @@ const title = `Conseil des ministres du Sénégal — ${new Date().toLocaleDateS
 /quiz, /chatbot, /chat-bot
 /etat-senegal/annuaire, /organisation
 /a-propos/barometre-politique, /charte-dons
-/don/bictorys, /paydunya, /success
+/don/bictorys, /don/success
 /dashboard/**
 /projets-publics-senegal/**
 ```

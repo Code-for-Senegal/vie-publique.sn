@@ -253,11 +253,6 @@ const navigationCards: NavigationCard[] = [
       to: '/don/bictorys',
       icon: 'i-heroicons-heart',
     },
-    {
-      title: 'Don avec Paydunya',
-      to: '/don/paydunya',
-      icon: 'i-heroicons-heart',
-    },
   ] : []),
 ];
 ```
