@@ -26,7 +26,6 @@ useSeoMeta({
     'transparence financière',
     'soutenir vie publique',
     'bictorys',
-    'paydunya',
     'contribution citoyenne',
   ].join(', '),
 })
@@ -364,9 +363,6 @@ useHead({
                 <div class="mt-4 flex gap-4">
                   <UButton to="/don/bictorys" color="primary" size="lg">
                     Faire un don avec Bictorys
-                  </UButton>
-                  <UButton to="/don/paydunya" color="primary" variant="outline" size="lg">
-                    Faire un don avec Paydunya
                   </UButton>
                 </div>
               </div>

@@ -124,17 +124,6 @@
                 >
                   <span class="truncate">Don via Bictorys</span>
                 </UButton>
-                <UButton
-                  to="/don/paydunya"
-                  size="sm"
-                  color="gray"
-                  variant="outline"
-                  icon="i-heroicons-device-phone-mobile"
-                  block
-                  class="w-full justify-center"
-                >
-                  <span class="truncate">Don via Paydunya</span>
-                </UButton>
               </div>
             </div>
 
@@ -167,8 +156,6 @@ const retryUrl = computed(() => {
   switch (gateway.value) {
     case 'bictorys':
       return '/don/bictorys'
-    case 'paydunya':
-      return '/don/paydunya'
     default:
       return '/don/bictorys'
   }

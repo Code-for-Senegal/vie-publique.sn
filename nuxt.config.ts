@@ -395,12 +395,6 @@ export default defineNuxtConfig({
     sunuElectionApiUrl: process.env.SUNU_ELECTION_API_URL,
     sunuElectionApiKey: process.env.SUNU_ELECTION_API_KEY,
 
-    // Configuration Paydunya
-    paydunyaMasterKey: process.env.PAYDUNYA_MASTER_KEY,
-    paydunyaPrivateKey: process.env.PAYDUNYA_PRIVATE_KEY,
-    paydunyaToken: process.env.PAYDUNYA_TOKEN,
-    paydunyaApiUrl: process.env.PAYDUNYA_API_URL,
-
     // Configuration SMTP pour Nodemailer
     smtpHost: process.env.SMTP_HOST,
     smtpPort: process.env.SMTP_PORT,
@@ -568,7 +562,6 @@ export default defineNuxtConfig({
       '/a-propos/barometre-politique',
       '/a-propos/charte-dons',
       '/don/bictorys',
-      '/don/paydunya',
       '/don/success',
       '/dashboard/**',
       '/projets-publics-senegal',

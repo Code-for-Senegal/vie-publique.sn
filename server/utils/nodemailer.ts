@@ -35,7 +35,7 @@ function getTransporter(): Transporter {
  * Interface pour les données de don
  */
 interface DonationEmailData {
-  gateway: 'bictorys' | 'paydunya'
+  gateway: 'bictorys'
   transaction_id: string
   amount: number
   donor_name: string

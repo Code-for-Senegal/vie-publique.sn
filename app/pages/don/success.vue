@@ -151,8 +151,6 @@ const gatewayName = computed(() => {
   switch (gateway.value) {
     case 'bictorys':
       return 'Bictorys'
-    case 'paydunya':
-      return 'Paydunya'
     default:
       return ''
   }

@@ -287,13 +287,6 @@ const allNavigationCards: NavigationCard[] = [
     featureKey: 'menu_don_bictorys',
   },
   {
-    title: 'Don avec Paydunya',
-    description: 'Soutenez-nous via Paydunya',
-    icon: 'i-heroicons-heart',
-    to: '/don/paydunya',
-    featureKey: 'menu_don_paydunya',
-  },
-  {
     title: 'Podcasts',
     description: 'Lives, Spaces, Interviews en replay',
     icon: 'i-heroicons-microphone',
