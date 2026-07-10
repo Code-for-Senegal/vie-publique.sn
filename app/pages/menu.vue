@@ -262,7 +262,7 @@ const allNavigationCards: NavigationCard[] = [
     title: "Organigramme de l'etat",
     description: "Annuaire de l'état",
     icon: 'i-heroicons-information-circle',
-    to: '/etat-senegal/annuaire',
+    to: '/etat-senegal/organisation',
     featureKey: 'menu_organigramme_etat',
   },
   {
@@ -285,13 +285,6 @@ const allNavigationCards: NavigationCard[] = [
     icon: 'i-heroicons-heart',
     to: '/don/bictorys',
     featureKey: 'menu_don_bictorys',
-  },
-  {
-    title: 'Don avec Paydunya',
-    description: 'Soutenez-nous via Paydunya',
-    icon: 'i-heroicons-heart',
-    to: '/don/paydunya',
-    featureKey: 'menu_don_paydunya',
   },
   {
     title: 'Podcasts',
@@ -384,10 +377,6 @@ const cardConfigs: CardConfigs = {
   'Don avec Bictorys': {
     color: 'text-red-600 dark:text-red-400',
     bgColor: 'bg-red-100 dark:bg-red-900/30',
-  },
-  'Don avec Paydunya': {
-    color: 'text-rose-600 dark:text-rose-400',
-    bgColor: 'bg-rose-100 dark:bg-rose-900/30',
   },
   Podcasts: {
     color: 'text-violet-600 dark:text-violet-400',

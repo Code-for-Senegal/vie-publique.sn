@@ -18,18 +18,36 @@ Vie Publique Sénégal is a platform dedicated to providing transparent access t
 
 Follow us on our social networks to stay updated:
 
-- [LinkedIn](https://www.linkedin.com/company/vie-publique-sn) - 33K followers
-- [Facebook](https://www.facebook.com/ViePubliqueSenegal) - 16K followers
-- [Instagram](https://www.instagram.com/viepubliquesn) - 500 followers
-- [Twitter/X](https://x.com/ViePubliqueSN) - 14K followers
+- [LinkedIn](https://www.linkedin.com/company/vie-publique-sn) - 85K followers
+- [Facebook](https://www.facebook.com/ViePubliqueSenegal) - 100K followers
+- [Instagram](https://www.instagram.com/viepubliquesn) - 10k followers
+- [Twitter/X](https://x.com/ViePubliqueSN) - 25K followers
 
-## Technical Stack
+## Architecture & Technical Stack
 
-- **Frontend**: Nuxt 4
-- **UI Framework**: Nuxt UI
-- **State Management**: Pinia
-- **Styling**: Tailwind CSS
-- **API**: Directus
+> 📖 **Want the full story?** Read [**Behind the scenes of a civic tech**](https://www.vie-publique.sn/tech/coulisses-civic-tech) — how the platform grew from a prototype shipped in **one hour** to a robust, self-hosted and sovereign architecture, our DevOps, our AI-assisted development pipeline, our data model, and even our running costs (full transparency). It also shows our traction: from **10,000 visitors** one month after launch to **~60,000 unique visitors / month** today.
+
+![Current architecture of Vie Publique Sénégal (2026)](public/img/tech/webinaire1/vie-publique-sn-v2-actuelle.webp)
+
+### Frontend & mobile
+
+- [Nuxt 4](https://nuxt.com) (Vue 3, SSR & SEO) · [Nuxt UI](https://ui.nuxt.com) · [Tailwind CSS](https://tailwindcss.com) · [Pinia](https://pinia.vuejs.org)
+- Progressive Web App (PWA / TWA)
+
+### Backend & data
+
+- [Directus](https://directus.io) (headless CMS) · [PostgreSQL](https://www.postgresql.org) · [Redis](https://redis.io) (cache)
+- [MinIO](https://min.io) (self-hosted object storage) · [Typesense](https://typesense.org) (search engine)
+
+### Infrastructure & DevOps
+
+- [Hostinger](https://www.hostinger.fr/vps-hebergement) VPS · [Coolify](https://coolify.io) (self-hosted PaaS) · [Docker](https://www.docker.com)
+- [GitHub Actions](https://github.com/features/actions) (CI/CD) · [SonarQube](https://www.sonarsource.com/products/sonarqube/) (code quality) · [Cloudflare](https://www.cloudflare.com)
+
+### AI & automation
+
+- [Claude Code](https://www.anthropic.com/claude-code) & [GitHub Copilot](https://github.com/features/copilot) — AI-assisted development
+- [n8n](https://n8n.io) workflows · [Mistral AI](https://mistral.ai) / [OpenAI](https://openai.com) for document OCR & summarization
 
 ## Getting Started
 

@@ -17,6 +17,5 @@ menu_organigramme_etat,true,"[""dev"",""test"",""production""]",Menu Organigramm
 menu_quiz,true,"[""dev"",""test"",""production""]",Menu Quiz - QCM sur institutions publiques
 menu_suivi_promesses,false,"[""dev"",""test""]",Menu Suivi promesses électorales (bientôt disponible)
 menu_don_bictorys,true,"[""dev"",""test"",""production""]",Menu Don avec Bictorys
-menu_don_paydunya,true,"[""dev"",""test"",""production""]",Menu Don avec Paydunya
 social_networks,true,"[""dev"",""test"",""production""]",Affichage des réseaux sociaux (footer mobile)
 footer_links,true,"[""dev"",""test"",""production""]",Affichage des liens footer (À Propos, Contact, etc.)

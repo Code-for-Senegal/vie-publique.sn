@@ -35,7 +35,7 @@ function getTransporter(): Transporter {
  * Interface pour les données de don
  */
 interface DonationEmailData {
-  gateway: 'bictorys' | 'paydunya'
+  gateway: 'bictorys'
   transaction_id: string
   amount: number
   donor_name: string
@@ -66,7 +66,7 @@ export async function sendDonationConfirmationEmail(
     const config = useRuntimeConfig()
     const transport = getTransporter()
 
-    const gatewayName = donationData.gateway === 'bictorys' ? 'Bictorys' : 'Paydunya'
+    const gatewayName = 'Bictorys'
     const formattedAmount = formatAmount(donationData.amount)
     const formattedDate = new Date(donationData.created_at).toLocaleString('fr-FR', {
       dateStyle: 'long',

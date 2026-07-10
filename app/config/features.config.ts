@@ -136,13 +136,6 @@ export const DEFAULT_FEATURES: Record<string, FeatureFlag> = {
     environments: ['dev', 'test', 'production'],
     description: 'Menu Don avec Bictorys',
   },
-  menu_don_paydunya: {
-    key: 'menu_don_paydunya',
-    enabled: true,
-    environments: ['dev', 'test', 'production'],
-    description: 'Menu Don avec Paydunya',
-  },
-
   // Composants
   social_networks: {
     key: 'social_networks',

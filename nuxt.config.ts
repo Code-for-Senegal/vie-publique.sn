@@ -41,6 +41,9 @@ const securityConfig =
               'https://fonts.openmaptiles.org',
               // Iconify (chargement dynamique d'icônes par Nuxt UI)
               'https://api.iconify.design',
+              // Microsoft Clarity
+              'https://www.clarity.ms',
+              'https://*.clarity.ms',
             ],
             'script-src': [
               "'self'",
@@ -54,6 +57,8 @@ const securityConfig =
               'https://connect.facebook.net',
               'https://instant.page',
               'https://www.gstatic.com',
+              // Microsoft Clarity
+              'https://www.clarity.ms',
             ],
             'script-src-attr': ["'unsafe-inline'", "'unsafe-hashes'"],
             'style-src': [
@@ -395,12 +400,6 @@ export default defineNuxtConfig({
     sunuElectionApiUrl: process.env.SUNU_ELECTION_API_URL,
     sunuElectionApiKey: process.env.SUNU_ELECTION_API_KEY,
 
-    // Configuration Paydunya
-    paydunyaMasterKey: process.env.PAYDUNYA_MASTER_KEY,
-    paydunyaPrivateKey: process.env.PAYDUNYA_PRIVATE_KEY,
-    paydunyaToken: process.env.PAYDUNYA_TOKEN,
-    paydunyaApiUrl: process.env.PAYDUNYA_API_URL,
-
     // Configuration SMTP pour Nodemailer
     smtpHost: process.env.SMTP_HOST,
     smtpPort: process.env.SMTP_PORT,
@@ -530,6 +529,14 @@ export default defineNuxtConfig({
           src: '//instant.page/5.1.1',
           integrity: 'sha384-MWfCL6g1OTGsbSwfuMHc8+8J2u71/LA8dzlIN3ycajckxuZZmF+DNjdm7O6H3PSq',
         },
+        ...(process.env.CLARITY_PROJECT_ID
+          ? [
+              {
+                key: 'microsoft-clarity',
+                innerHTML: `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${process.env.CLARITY_PROJECT_ID}");`,
+              },
+            ]
+          : []),
       ],
     },
   },
@@ -568,7 +575,6 @@ export default defineNuxtConfig({
       '/a-propos/barometre-politique',
       '/a-propos/charte-dons',
       '/don/bictorys',
-      '/don/paydunya',
       '/don/success',
       '/dashboard/**',
       '/projets-publics-senegal',
@@ -590,12 +596,6 @@ export default defineNuxtConfig({
     enabled: !!process.env.GTAG_ID,
     id: process.env.GTAG_ID,
   },
-  // FIXME web-vitals: incompatible avec Nuxt 4? Temporarily disabled
-  // webVitals: {
-  //   provider: 'ga',
-  //   disabled: !process.env.GTAG_ID,
-  //   ga: { id: process.env.GTAG_ID },
-  // },
   image: {
     // Provider pour les images locales et du proxy
     providers: {
@@ -611,10 +611,6 @@ export default defineNuxtConfig({
     // Alias pour simplifier l'usage
     alias: {
       cms: '/cms',
-    },
-    directus: {
-      // This URL needs to include the final `assets/` directory
-      baseURL: process.env.CMS_API_URL_ASSETS,
     },
   },
   /* PWA options */

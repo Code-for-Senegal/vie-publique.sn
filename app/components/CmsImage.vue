@@ -45,7 +45,7 @@ const props = withDefaults(defineProps<Props>(), {
   fetchpriority: undefined,
   fallback: "/default-image-2.gif",
   useProxy: true,
-  quality: undefined,
+  quality: 80,
 });
 
 // Déterminer si on utilise le proxy ou l'URL directe
