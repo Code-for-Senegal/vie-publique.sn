@@ -262,7 +262,7 @@ const allNavigationCards: NavigationCard[] = [
     title: "Organigramme de l'etat",
     description: "Annuaire de l'état",
     icon: 'i-heroicons-information-circle',
-    to: '/etat-senegal/annuaire',
+    to: '/etat-senegal/organisation',
     featureKey: 'menu_organigramme_etat',
   },
   {
