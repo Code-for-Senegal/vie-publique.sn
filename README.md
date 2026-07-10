@@ -1,5 +1,14 @@
 # Vie Publique Sénégal
 
+[![CI/CD](https://github.com/vie-publique-senegal/vie-publique.sn/actions/workflows/_ci-cd.yml/badge.svg)](https://github.com/vie-publique-senegal/vie-publique.sn/actions)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=malicktech_vie-publique.sn&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=malicktech_vie-publique.sn)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Nuxt](https://img.shields.io/badge/Nuxt-4-00DC82?logo=nuxt.js&logoColor=white)](https://nuxt.com)
+[![GitHub Sponsors](https://img.shields.io/github/sponsors/vie-publique-senegal?style=social)](https://github.com/sponsors/vie-publique-senegal)
+[![GitHub Stars](https://img.shields.io/github/stars/vie-publique-senegal/vie-publique.sn?style=social)](https://github.com/vie-publique-senegal/vie-publique.sn/stargazers)
+
+> Originally initiated within [Code for Senegal](https://github.com/Code-for-Senegal/vie-publique.sn) and now actively maintained by [Vie Publique Sénégal](https://github.com/vie-publique-senegal/vie-publique.sn).
+
 ## Overview
 
 Vie Publique Sénégal is a platform dedicated to providing transparent access to public information in Senegal. This project aims to make government data and public information easily accessible to citizens.
@@ -62,8 +71,8 @@ Follow us on our social networks to stay updated:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/vie-publique-senegal.git
-cd vie-publique-senegal
+git clone https://github.com/vie-publique-senegal/vie-publique.sn.git
+cd vie-publique.sn
 ```
 
 2. Install dependencies:
@@ -214,10 +223,23 @@ Coverage reports are generated in the `coverage/` directory and are excluded fro
 
 This project uses [SonarCloud](https://sonarcloud.io/) for continuous code quality and security analysis. Code quality metrics are automatically analyzed on every push and pull request.
 
+## 💝 Soutenir le projet
+
+Vie Publique Sénégal est un projet **civique et open source**, développé bénévolement pour rendre l'information publique accessible à tous les citoyens sénégalais.
+
+Si le projet vous est utile :
+
+- ⭐ **Étoilez le dépôt** — gratuit et ça aide à la visibilité
+- 💝 **[Devenez sponsor](https://github.com/sponsors/vie-publique-senegal)** — soutenez financièrement via GitHub Sponsors
+- 🤝 **Contribuez au code** — PRs bienvenues, voir [Contributing](#contributing)
+- 📣 **Partagez** — parlez du projet autour de vous
+
+> Les dons aident à couvrir les coûts d'infrastructure (serveurs VPS, CDN, domaine) et à financer de nouvelles fonctionnalités.
+
 ## Contributing
 
 We welcome contributions! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
