@@ -1,7 +1,11 @@
 # TODO - Optimisations Recherche Typesense
 
+> ⚠️ **Document remplacé par [`audit-recherche-2026-07.md`](./audit-recherche-2026-07.md)**
+> (audit complet du 12/07/2026 : bug accents `locale: fr`, clés scoped, alias, couverture,
+> analytics). Les items non traités ci-dessous y sont repris et priorisés.
+
 > Date : 22/02/2026 (mis à jour le 23/02/2026)
-> Statut : En cours
+> Statut : Archivé — voir audit-recherche-2026-07.md
 > Concerne : `server/api/search.ts`, index Typesense `vpdata`, `composables/useSearchEnhanced.ts`
 
 ---

@@ -96,36 +96,38 @@ export default defineEventHandler(async (event) => {
       prioritize_num_matching_fields: false, // Désactivé : les stop words matchent dans tous les champs et gonflent artificiellement fields_matched
       typo_tokens_threshold: isPhrasalSearch ? 3 : 2, // Plus de tolérance pour les phrases longues
       drop_tokens_threshold: isPhrasalSearch ? 1 : 2, // Plus strict pour les phrases (ne pas ignorer de mots)
-      // Optimisation : ne récupérer que les champs nécessaires
-      include_fields: 'id,title,content_text,type,category,date_published,cover_image,slug',
-      exclude_fields: 'content_html', // Exclure les champs lourds (ne lister que les champs existants dans le schéma)
+      // Optimisation : ne récupérer que les champs nécessaires.
+      // content_text est volontairement exclu (documents entiers = payload ×3) :
+      // l'extrait affiché vient du snippet highlight retourné par Typesense.
+      // url/summary/source_id : champs v2 (absents de l'index v1, ignorés par Typesense).
+      include_fields:
+        'id,source_id,title,type,category,date_published,cover_image,slug,url,summary',
       facet_by: 'type', // Activer les facettes pour compter par type
       max_facet_values: 10,
     };
 
-    // Ajouter les filtres par type si spécifiés
+    // Ajouter les filtres par type si spécifiés.
+    // Whitelist UI → valeur `type` dans l'index (v2 multi-types ; sur l'index v1 seuls
+    // document/news existent, les autres filtres donnent simplement 0 résultat).
+    const TYPE_FILTER_MAP: Record<string, string> = {
+      document: 'document',
+      actualite: 'news', // alias UI historique
+      news: 'news',
+      dossier: 'dossier',
+      depute: 'depute',
+      question: 'question',
+      vote: 'vote',
+      personnalite: 'personnalite',
+      institution: 'institution',
+      podcast: 'podcast',
+    };
     if (types && types.trim() !== '') {
-      const typesList = types
+      const typeValues = types
         .split(',')
-        .map((t) => t.trim())
+        .map((t) => TYPE_FILTER_MAP[t.trim()])
         .filter(Boolean);
-      if (typesList.length > 0) {
-        // Construire le filtre pour Typesense
-        // Format: type:=[document,actualite] ou category.slug:=[actualites,documents]
-        const typeFilters = typesList
-          .map((type) => {
-            if (type === 'document') {
-              return 'type:=document';
-            } else if (type === 'actualite') {
-              return 'type:!=document'; // Tous sauf documents
-            }
-            return null;
-          })
-          .filter(Boolean);
-
-        if (typeFilters.length > 0) {
-          searchParams.filter_by = typeFilters.join(' || ');
-        }
+      if (typeValues.length > 0) {
+        searchParams.filter_by = `type:=[${typeValues.join(',')}]`;
       }
     }
 
@@ -142,6 +144,12 @@ export default defineEventHandler(async (event) => {
       const article = hit.document;
       if (!article) return hit;
 
+      // Index v2 : l'URL publique est précalculée à l'indexation (scripts/search-reindex.mjs)
+      if (article.url) {
+        return { ...hit, formattedUrl: article.url };
+      }
+
+      // Index v1 (legacy) : reconstruction de l'URL à partir du type/catégorie
       const id = article.id;
       const slug =
         article.slug ||
@@ -205,9 +213,13 @@ export default defineEventHandler(async (event) => {
       details: error?.data || error?.response?._data,
     });
 
+    // SEC-9 : ne pas exposer le détail Typesense au client (il reste dans les logs serveur)
     throw createError({
       statusCode,
-      message: `Erreur lors de la recherche: ${typesenseMessage}`,
+      message:
+        process.env.NODE_ENV === 'development'
+          ? `Erreur lors de la recherche: ${typesenseMessage}`
+          : 'Erreur lors de la recherche',
       cause: process.env.NODE_ENV === 'development' ? error : undefined,
     });
   }
