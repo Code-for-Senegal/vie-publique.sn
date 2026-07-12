@@ -559,6 +559,17 @@ export default defineNuxtConfig({
 
   // Robots.txt
   robots: {
+    groups: [
+      // Groupe * : reçoit aussi les allow/disallow top-level (fusion faite par le module).
+      // Content-Signal (contentsignals.org) : search + ai-input autorisés, ai-train refusé.
+      {
+        userAgent: '*',
+        contentSignal: 'search=yes,ai-input=yes,ai-train=no,use=reference',
+      },
+      // Crawlers explicitement bloqués (scraping massif sans opt-out exploitable)
+      { userAgent: 'Bytespider', disallow: '/' },
+      { userAgent: 'CCBot', disallow: '/' },
+    ],
     allow: '/',
     disallow: [
       '/budget-senegal/old',

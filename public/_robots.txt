@@ -1,8 +1,0 @@
-User-agent: *
-Disallow: /budget-senegal/old
-Disallow: /financial-scandals
-Disallow: /publications/enquetes
-Disallow: /publications/institutions
-Disallow: /barometre-politique
-Disallow: /elections/legislatives/resultats/global
-Disallow: /publications/recrutement
