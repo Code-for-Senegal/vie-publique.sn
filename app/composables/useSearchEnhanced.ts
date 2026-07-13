@@ -13,6 +13,11 @@ export const useSearchEnhanced = () => {
   const selectedTypes = ref<string[]>(
     (route.query.types as string)?.split(',').filter(Boolean) || [],
   );
+  // Filtres documents : sous-type (facette category) + année de publication
+  const selectedCategories = ref<string[]>(
+    (route.query.categories as string)?.split(',').filter(Boolean) || [],
+  );
+  const selectedYear = ref<number | null>(parseInt(route.query.year as string) || null);
   const itemsPerPage = 10;
 
   // Compteurs par type
@@ -20,6 +25,8 @@ export const useSearchEnhanced = () => {
     document: 0,
     actualite: 0,
   });
+  // Compteurs par sous-type (facette category)
+  const resultCountsByCategory = ref<Record<string, number>>({});
 
   // Fonction pour mettre en surbrillance les termes recherchés
   const highlightText = (text: string, query: string) => {
@@ -46,6 +53,14 @@ export const useSearchEnhanced = () => {
       query.types = selectedTypes.value.join(',');
     }
 
+    if (selectedCategories.value.length > 0) {
+      query.categories = selectedCategories.value.join(',');
+    }
+
+    if (selectedYear.value) {
+      query.year = String(selectedYear.value);
+    }
+
     router.push({ query });
   };
 
@@ -70,6 +85,8 @@ export const useSearchEnhanced = () => {
         page: currentPage.value,
         limit: itemsPerPage,
         types: selectedTypes.value.join(','),
+        categories: selectedCategories.value.join(','),
+        year: selectedYear.value || undefined,
       };
 
       // $fetch (et non useFetch) : appel déclenché par un événement utilisateur
@@ -103,6 +120,7 @@ export const useSearchEnhanced = () => {
           document: response.typeCounts?.document || 0,
           actualite: response.typeCounts?.news || 0,
         };
+        resultCountsByCategory.value = response.categoryCounts || {};
       }
     } catch {
       searchResults.value = [];
@@ -126,6 +144,15 @@ export const useSearchEnhanced = () => {
   // Observer les changements de filtres
   watch(
     selectedTypes,
+    () => {
+      currentPage.value = 1;
+      performSearch();
+    },
+    { deep: true },
+  );
+
+  watch(
+    [selectedCategories, selectedYear],
     () => {
       currentPage.value = 1;
       performSearch();
@@ -162,6 +189,11 @@ export const useSearchEnhanced = () => {
     const index = selectedTypes.value.indexOf(type);
     if (index > -1) {
       selectedTypes.value.splice(index, 1);
+      // Les filtres sous-type/année sont liés au filtre Documents : on les vide avec lui
+      if (type === 'document') {
+        selectedCategories.value = [];
+        selectedYear.value = null;
+      }
     } else {
       selectedTypes.value.push(type);
     }
@@ -184,6 +216,8 @@ export const useSearchEnhanced = () => {
     currentPage,
     hasSearched,
     selectedTypes,
+    selectedCategories,
+    selectedYear,
     performSearch,
     debouncedSearch,
     totalPages,
@@ -192,5 +226,6 @@ export const useSearchEnhanced = () => {
     toggleType,
     highlightText,
     resultCountsByType,
+    resultCountsByCategory,
   };
 };

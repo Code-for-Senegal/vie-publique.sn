@@ -399,15 +399,20 @@ synonymes manquants via les requêtes sans résultat.
 - [ ] (Optionnel) `enable_analytics=false` sur les requêtes du quick search header pour ne
       compter que les recherches de la page `/recherche`
 
-### 🟡 C8 — Facettes riches : sous-type de document + année (données prêtes, UI à faire)
+### ✅ C8 — Facettes riches : sous-type de document + année (fait le 13/07/2026)
 
 - [x] `category` renseignée pour 100 % de l'index v2 (libellé FR du sous-type : « Journal
       Officiel », « Loi », « Décret », « Rapport d'audit »… — mapping `DOCUMENT_TYPE_LABELS`
-      dans le script + workflow RT v2) — 13/07/2026
-- [ ] UI : facette **sous-type** (`facet_by=category` quand le filtre « Documents » est actif)
-      dans `search.ts` + `recherche.vue`
-- [ ] UI : filtre par **année** (`date_published` est facetable/triable :
-      `filter_by=date_published:>=…`)
+      dans le script + workflow RT v2). Le champ Directus source est **`documents.type`**
+      (29 valeurs) ; `documents.family` (10 familles larges) n'est volontairement PAS indexé.
+- [x] API : `facet_by=type,category`, filtres `categories=` (multi, libellés FR — valeurs à
+      espaces via backticks Typesense, backticks/virgules strippés de l'entrée) et `year=`
+      (plage epoch sur `date_published`) combinés en `&&` → réponse `categoryCounts`.
+- [x] UI `recherche.vue` : quand le filtre « Documents » est actif → sélecteur multi
+      « Type de document » (options triées par compteur) + sélecteur « Année » (2026→1960)
+      + bouton réinitialiser ; synchronisés dans l'URL (`?categories=…&year=…`) ; vidés quand
+      on désélectionne « Documents ».
+      Validé : `budget`+`Loi` → 666 ; `Journal Officiel,Loi` → 2 121 ; `année 2024` → 99.
 
 ### ✅ C9 — Champ `summary` (fait le 13/07/2026)
 

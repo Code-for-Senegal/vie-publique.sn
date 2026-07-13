@@ -5,6 +5,8 @@ export default defineEventHandler(async (event) => {
     const query = getQuery(event);
     let searchTerm = query.q as string;
     const types = query.types as string;
+    const categories = query.categories as string; // sous-types de documents (facette category)
+    const year = parseInt(query.year as string) || null; // filtre par année de publication
     const page = parseInt(query.page as string) || 1;
     const limit = parseInt(query.limit as string) || 20;
 
@@ -106,8 +108,8 @@ export default defineEventHandler(async (event) => {
       // url/summary/source_id : champs v2 (absents de l'index v1, ignorés par Typesense).
       include_fields:
         'id,source_id,title,type,category,date_published,cover_image,slug,url,summary',
-      facet_by: 'type', // Activer les facettes pour compter par type
-      max_facet_values: 10,
+      facet_by: 'type,category', // Facettes : compteurs par type + par sous-type (category)
+      max_facet_values: 40, // ~29 sous-types de documents + libellés des autres types
     };
 
     // Ajouter les filtres par type si spécifiés.
@@ -125,14 +127,37 @@ export default defineEventHandler(async (event) => {
       institution: 'institution',
       podcast: 'podcast',
     };
+    const filterClauses: string[] = [];
     if (types && types.trim() !== '') {
       const typeValues = types
         .split(',')
         .map((t) => TYPE_FILTER_MAP[t.trim()])
         .filter(Boolean);
       if (typeValues.length > 0) {
-        searchParams.filter_by = `type:=[${typeValues.join(',')}]`;
+        filterClauses.push(`type:=[${typeValues.join(',')}]`);
       }
+    }
+    // Filtre par sous-type (libellés FR de la facette category, ex. "Journal Officiel,Loi").
+    // Valeurs avec espaces/accents → backticks Typesense ; on retire backticks/virgules de
+    // l'entrée (caractères de syntaxe filter_by) pour éviter toute injection de filtre.
+    if (categories && categories.trim() !== '') {
+      const categoryValues = categories
+        .split(',')
+        .map((c) => c.replace(/[`,]/g, '').trim())
+        .filter(Boolean)
+        .map((c) => `\`${c}\``);
+      if (categoryValues.length > 0) {
+        filterClauses.push(`category:=[${categoryValues.join(',')}]`);
+      }
+    }
+    // Filtre par année de publication (date_published = epoch secondes, triable/facetable)
+    if (year && year >= 1900 && year <= 2100) {
+      const start = Date.UTC(year, 0, 1) / 1000;
+      const end = Date.UTC(year + 1, 0, 1) / 1000;
+      filterClauses.push(`date_published:>=${start} && date_published:<${end}`);
+    }
+    if (filterClauses.length > 0) {
+      searchParams.filter_by = filterClauses.join(' && ');
     }
 
     const response: any = await $fetch(searchUrl, {
@@ -188,13 +213,20 @@ export default defineEventHandler(async (event) => {
       };
     });
 
-    // Extraire les comptages par type des facettes
+    // Extraire les comptages par type et par sous-type (category) des facettes
     const typeCounts: Record<string, number> = {};
+    const categoryCounts: Record<string, number> = {};
     if (response.facet_counts && response.facet_counts.length > 0) {
       const typeFacet = response.facet_counts.find((f: any) => f.field_name === 'type');
       if (typeFacet && typeFacet.counts) {
         typeFacet.counts.forEach((count: any) => {
           typeCounts[count.value] = count.count;
+        });
+      }
+      const categoryFacet = response.facet_counts.find((f: any) => f.field_name === 'category');
+      if (categoryFacet && categoryFacet.counts) {
+        categoryFacet.counts.forEach((count: any) => {
+          categoryCounts[count.value] = count.count;
         });
       }
     }
@@ -206,7 +238,8 @@ export default defineEventHandler(async (event) => {
       query: searchTerm,
       types: types,
       page: page,
-      typeCounts: typeCounts, // Ajouter les comptages par type
+      typeCounts: typeCounts, // Comptages par type (facette)
+      categoryCounts: categoryCounts, // Comptages par sous-type (facette category)
     };
   } catch (error: any) {
     const statusCode = error?.statusCode || error?.status || error?.response?.status || 500;

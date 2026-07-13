@@ -25,10 +25,13 @@ const {
   currentPage,
   hasSearched,
   selectedTypes,
+  selectedCategories,
+  selectedYear,
   performSearch,
   totalPages,
   toggleType,
   resultCountsByType,
+  resultCountsByCategory,
 } = useSearchEnhanced();
 
 // Types disponibles pour les filtres.
@@ -80,6 +83,35 @@ const visibleTypes = computed(() =>
       selectedTypes.value.includes(t.value),
   ),
 );
+
+// Filtres documents (visibles quand le filtre « Documents » est actif) :
+// sous-types issus de la facette `category` (libellés FR : Journal Officiel, Loi, Décret…)
+const categoryOptions = computed(() => {
+  const counts = resultCountsByCategory.value;
+  const names = new Set([...Object.keys(counts), ...selectedCategories.value]);
+  return [...names]
+    .sort((a, b) => (counts[b] || 0) - (counts[a] || 0))
+    .map((name) => ({
+      label: counts[name] ? `${name} (${counts[name]})` : name,
+      value: name,
+    }));
+});
+
+const currentYear = new Date().getFullYear();
+const yearOptions = [
+  { label: 'Toutes les années', value: 0 },
+  ...Array.from({ length: currentYear - 1959 }, (_, i) => ({
+    label: String(currentYear - i),
+    value: currentYear - i,
+  })),
+];
+// USelect ne gère pas null : 0 = « toutes les années »
+const yearModel = computed({
+  get: () => selectedYear.value ?? 0,
+  set: (v: number) => {
+    selectedYear.value = v || null;
+  },
+});
 
 // Fonction pour formater les dates Unix timestamp (sans le jour de la semaine)
 const formatUnixDate = (timestamp: number | string) => {
@@ -205,6 +237,45 @@ const getBadgeColor = (type: string) => {
           >
             {{ resultCountsByType[type.value] }}
           </span>
+        </button>
+      </div>
+
+      <!-- Filtres documents : sous-type + année (liés au filtre « Documents ») -->
+      <div v-if="selectedTypes.includes('document')" class="mb-4 flex flex-wrap items-center gap-2">
+        <USelectMenu
+          v-model="selectedCategories"
+          :options="categoryOptions"
+          multiple
+          value-attribute="value"
+          option-attribute="label"
+          placeholder="Type de document"
+          size="sm"
+          class="w-full sm:w-64"
+        >
+          <template #label>
+            <span v-if="selectedCategories.length === 0" class="text-gray-400"
+              >Type de document</span
+            >
+            <span v-else class="truncate">{{ selectedCategories.join(', ') }}</span>
+          </template>
+        </USelectMenu>
+        <USelect
+          v-model="yearModel"
+          :options="yearOptions"
+          value-attribute="value"
+          option-attribute="label"
+          size="sm"
+          class="w-full sm:w-44"
+        />
+        <button
+          v-if="selectedCategories.length > 0 || selectedYear"
+          class="text-xs text-gray-500 underline-offset-2 hover:underline dark:text-gray-400"
+          @click="
+            selectedCategories = [];
+            selectedYear = null;
+          "
+        >
+          Réinitialiser
         </button>
       </div>
 
