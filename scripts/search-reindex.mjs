@@ -17,6 +17,8 @@
  *   node scripts/search-reindex.mjs --only=documents,news # sources choisies
  *   node scripts/search-reindex.mjs --prune               # + supprime les orphelins (docs absents de Directus)
  *   node scripts/search-reindex.mjs --set-alias           # pointe l'alias vp-search sur la cible (opération seule)
+ *   node scripts/search-reindex.mjs --setup-analytics     # crée les règles analytics (popular/nohits) sur la cible
+ *                                                         # (prérequis : serveur démarré avec TYPESENSE_ENABLE_SEARCH_ANALYTICS=true)
  *   node scripts/search-reindex.mjs --target=vpdata_v2    # collection cible (défaut : vpdata_v2)
  *
  * Env requis (lu depuis .env à la racine du repo, ou l'environnement) :
@@ -558,6 +560,46 @@ async function setAlias() {
   console.log(`✅ Alias ${ALIAS} → ${TARGET}`);
 }
 
+/**
+ * Crée les collections de destination + règles analytics (idempotent).
+ * ⚠️ Les règles pointent sur la collection RÉELLE (pas l'alias) : re-lancer après
+ * chaque nouvelle version d'index (vpdata_v3…), comme pour les synonymes.
+ */
+async function setupAnalytics() {
+  const destinations = [
+    { rule: 'vp-popular', type: 'popular_queries', collection: 'vp_queries_popular' },
+    { rule: 'vp-nohits', type: 'nohits_queries', collection: 'vp_queries_nohits' },
+  ];
+  const existing = await ts('/collections').then((c) => c.map((x) => x.name));
+  for (const { rule, type, collection } of destinations) {
+    if (!existing.includes(collection)) {
+      await ts('/collections', {
+        method: 'POST',
+        body: JSON.stringify({
+          name: collection,
+          fields: [
+            { name: 'q', type: 'string' },
+            { name: 'count', type: 'int32' },
+          ],
+        }),
+      });
+      console.log(`✅ Collection ${collection} créée`);
+    }
+    await ts(`/analytics/rules/${rule}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        type,
+        params: {
+          source: { collections: [TARGET] },
+          destination: { collection },
+          limit: 1000,
+        },
+      }),
+    });
+    console.log(`✅ Règle analytics ${rule} (${type}) → ${collection} [source: ${TARGET}]`);
+  }
+}
+
 async function report() {
   const qs = new URLSearchParams({
     q: '*',
@@ -584,6 +626,12 @@ if (args.create) await createCollection();
 if (args['set-alias']) {
   // --set-alias : opération seule (pointer l'alias), pas de synchronisation
   await setAlias();
+  process.exit(0);
+}
+
+if (args['setup-analytics']) {
+  // opération seule : collections destination + règles analytics
+  await setupAnalytics();
   process.exit(0);
 }
 

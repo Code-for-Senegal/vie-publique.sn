@@ -357,19 +357,40 @@ ministres` (trop large, bruit). À enrichir plus tard avec les données analytic
    assembly_question…) pour du temps réel complet — en attendant, la réconciliation hebdo
    du script couvre ces contenus.
 
-### 🔲 C7 — Analytics de recherche (requêtes populaires + sans résultat)
+### 🟡 C7 — Analytics de recherche (requêtes populaires + sans résultat)
 
-Prérequis **infra** : redémarrer Typesense avec les flags
-`--enable-search-analytics=true --analytics-dir=/data/analytics --analytics-flush-interval=60`
-(env Coolify du service). Puis créer les collections de destination + règles
-`popular_queries` et `nohits_queries` (voir doc Typesense « Search Analytics »).
+Typesense self-hosted n'a **pas d'interface type Algolia** (l'UI n'existe que sur Typesense
+Cloud) : les analytics atterrissent dans des **collections Typesense normales**
+(`vp_queries_popular`, `vp_queries_nohits`), consultables par API ou via le dashboard
+communautaire [typesense-dashboard](https://github.com/bfritscher/typesense-dashboard)
+(⚠️ à utiliser avec une clé de lecture, jamais la clé admin depuis un navigateur).
+
+Mise en place :
+
+1. **Infra** : env ajoutées au `docker-compose.yml` du service Coolify
+   (`vpsn-automation/typesense/docker-compose.yml`) le 13/07/2026 :
+   `TYPESENSE_ENABLE_SEARCH_ANALYTICS=true`, `TYPESENSE_ANALYTICS_DIR=/data/analytics`
+   (dans le volume → persistant), `TYPESENSE_ANALYTICS_FLUSH_INTERVAL=60` → **reporter dans
+   Coolify + redéployer le service** (⚠️ coupe la recherche quelques secondes).
+2. **Règles** (après le redémarrage) : `node scripts/search-reindex.mjs --setup-analytics`
+   (idempotent ; crée les 2 collections destination + les règles `popular_queries` /
+   `nohits_queries` sur la collection cible). ⚠️ Comme les synonymes, les règles pointent la
+   collection réelle → re-lancer après chaque nouvelle version d'index.
+3. **Consulter** : `GET /collections/vp_queries_popular/documents/search?q=*&query_by=q&sort_by=count:desc`.
 
 Bénéfices : « Recherches populaires » de `/recherche` alimentées par les vraies requêtes
 (aujourd'hui codées en dur — « Budget 2024 »… en 2026), détection des trous de contenu et des
 synonymes manquants via les requêtes sans résultat.
 
-- [ ] Flags serveur (Coolify) + règles analytics
-- [ ] Endpoint `/api/search/popular` (cache SWR) + brancher `recherche.vue`
+> 💡 En attendant : GA4 (mesure améliorée « Recherche sur le site », captée via `?q=`) donne
+> déjà les termes recherchés → GA4 → Engagement → Événements → `view_search_results`,
+> dimension `search_term`. Mais pas les requêtes « sans résultat ».
+
+- [x] Compose : flags analytics ajoutés — 13/07/2026 (reste : reporter dans Coolify + redéployer)
+- [ ] Redéployer le service Typesense (Coolify) puis `--setup-analytics`
+- [ ] Endpoint `/api/search/popular` (cache SWR ~1 h) + brancher `recherche.vue`
+- [ ] (Optionnel) `enable_analytics=false` sur les requêtes du quick search header pour ne
+      compter que les recherches de la page `/recherche`
 
 ### 🟡 C8 — Facettes riches : sous-type de document + année (données prêtes, UI à faire)
 
