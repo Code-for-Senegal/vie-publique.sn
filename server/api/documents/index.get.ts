@@ -17,9 +17,6 @@ async function searchDocumentIdsViaTypesense(opts: {
   page: number;
   limit: number;
 }): Promise<{ ids: number[]; total: number } | null> {
-  const config = useRuntimeConfig();
-  if (!config.typesenseApiKey || !config.typesenseUrl) return null;
-
   const filterClauses = ['type:=document'];
   if (opts.effType) {
     const label = DOCUMENT_TYPE_LABELS[opts.effType as keyof typeof DOCUMENT_TYPE_LABELS];
@@ -39,27 +36,18 @@ async function searchDocumentIdsViaTypesense(opts: {
   if (opts.sortBy.trim() === 'publish_date') sortByTs = 'date_published:asc';
 
   try {
-    const response: any = await $fetch(
-      `${config.typesenseUrl}/collections/${config.typesenseCollection}/documents/search`,
-      {
-        headers: { 'x-typesense-api-key': config.typesenseApiKey as string },
-        params: {
-          q: opts.search,
-          query_by: 'title,summary,content_text,tags',
-          query_by_weights: '80,45,30,5',
-          text_match_type: 'max_score',
-          prioritize_exact_match: true,
-          prioritize_token_position: false,
-          prioritize_num_matching_fields: false,
-          sort_by: sortByTs,
-          filter_by: filterClauses.join(' && '),
-          include_fields: 'source_id,id',
-          highlight_fields: 'none',
-          per_page: Math.min(opts.limit, 100),
-          page: opts.page,
-        },
-      },
-    );
+    // Scoring commun (query_by, text_match_type, prioritize_*) : TYPESENSE_QUERY_DEFAULTS
+    // via searchTypesense (server/utils/typesense.ts) — partagé avec /api/search
+    const response: any = await searchTypesense({
+      q: opts.search,
+      query_by_weights: '80,45,30,5',
+      sort_by: sortByTs,
+      filter_by: filterClauses.join(' && '),
+      include_fields: 'source_id,id',
+      highlight_fields: 'none',
+      per_page: Math.min(opts.limit, 100),
+      page: opts.page,
+    });
     const ids = (response.hits || [])
       .map((hit: any) => {
         const doc = hit.document || {};
@@ -440,7 +428,7 @@ export default defineCachedEventHandler(
           totalPages: Math.ceil(Number(totalCount) / limit),
         },
       };
-    } catch (error) {
+    } catch {
       throw createError({
         statusCode: 500,
         statusMessage: 'Une erreur est survenue lors de la récupération des documents',

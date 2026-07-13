@@ -26,20 +26,6 @@ export default defineEventHandler(async (event) => {
       searchTerm = '*';
     }
 
-    const config = useRuntimeConfig();
-    const typesenseApiKey = config.typesenseApiKey;
-    const typesenseUrl = config.typesenseUrl;
-    const typesenseCollection = config.typesenseCollection || 'vie-publique-senegal';
-
-    if (!typesenseApiKey) {
-      throw createError({
-        statusCode: 500,
-        message: 'Configuration Typesense manquante',
-      });
-    }
-
-    const searchUrl = `${typesenseUrl}/collections/${typesenseCollection}/documents/search`;
-
     // Détection du type de recherche pour adapter la stratégie
     const words = searchTerm.split(' ').filter((w) => w.length > 0);
     const wordCount = words.length;
@@ -81,25 +67,19 @@ export default defineEventHandler(async (event) => {
       queryWeights = '80,45,30,5'; // Par défaut
     }
 
+    // Les paramètres de scoring communs (query_by, text_match_type, prioritize_*)
+    // viennent de TYPESENSE_QUERY_DEFAULTS (server/utils/typesense.ts) — partagés
+    // avec la recherche de la liste documents.
     const searchParams: any = {
       q: searchTerm,
-      // ⚠️ summary n'existe que dans l'index v2 (vp-search) — ne pas repointer TYPESENSE_COLLECTION sur l'ancien vpdata
-      query_by: 'title,summary,content_text,tags',
       query_by_weights: queryWeights, // Poids adaptés selon le type de recherche
       sort_by: '_text_match:desc,priority:desc,date_published:desc', // Tri par pertinence, puis priorité (documents > news), puis date
-      // max_score (défaut) : utilise le MEILLEUR score réel parmi tous les champs
-      // Contrairement à max_weight qui privilégie le champ avec le poids le plus élevé
-      // même si le match y est faible (ex: "la" dans un titre → poids titre élevé)
-      text_match_type: 'max_score',
       highlight_fields: 'title,summary,content_text', // Highlight sur le texte brut
       highlight_start_tag: '<mark>',
       highlight_end_tag: '</mark>',
       highlight_affix_num_tokens: 5, // Contexte autour des mots trouvés
       per_page: limit,
       page: page,
-      prioritize_exact_match: true, // Prioriser les correspondances exactes
-      prioritize_token_position: false, // Désactivé : les stop words ("la", "de") matchent tôt dans les titres et biaisent le scoring
-      prioritize_num_matching_fields: false, // Désactivé : les stop words matchent dans tous les champs et gonflent artificiellement fields_matched
       typo_tokens_threshold: isPhrasalSearch ? 3 : 2, // Plus de tolérance pour les phrases longues
       drop_tokens_threshold: isPhrasalSearch ? 1 : 2, // Plus strict pour les phrases (ne pas ignorer de mots)
       // Optimisation : ne récupérer que les champs nécessaires.
@@ -160,14 +140,7 @@ export default defineEventHandler(async (event) => {
       searchParams.filter_by = filterClauses.join(' && ');
     }
 
-    const response: any = await $fetch(searchUrl, {
-      method: 'GET',
-      headers: {
-        'x-typesense-api-key': typesenseApiKey,
-        'Content-Type': 'application/json',
-      },
-      params: searchParams,
-    });
+    const response: any = await searchTypesense(searchParams);
 
     const formattedData = (response.hits || []).map((hit: any) => {
       const article = hit.document;
