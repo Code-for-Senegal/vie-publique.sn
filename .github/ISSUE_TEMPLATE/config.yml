@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 🔒 Faille de sécurité
+    url: https://github.com/vie-publique-senegal/vie-publique.sn/security/policy
+    about: Ne pas ouvrir d'issue publique — signalement privé (voir la politique de sécurité).
+  - name: 💬 Question générale
+    url: https://www.vie-publique.sn/a-propos/qui-sommes-nous
+    about: Contact et informations sur le projet (email — viepubliquesenegal@gmail.com).

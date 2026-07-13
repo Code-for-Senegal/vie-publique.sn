@@ -1,0 +1,18 @@
+name: 💡 Proposition
+description: Suggérer une amélioration ou une nouvelle fonctionnalité
+labels: [enhancement]
+body:
+  - type: textarea
+    id: besoin
+    attributes:
+      label: Besoin
+      description: Quel problème cette fonctionnalité résout-elle ? Pour qui ?
+    validations:
+      required: true
+  - type: textarea
+    id: proposition
+    attributes:
+      label: Proposition
+      description: Comment vous imaginez la fonctionnalité (exemples bienvenus).
+    validations:
+      required: true

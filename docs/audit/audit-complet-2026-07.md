@@ -521,7 +521,7 @@ Aussi : `rate-limit.ts:29` se fie au premier élément de `x-forwarded-for` (spo
 ### DOC-7 — Fichiers orphelins
 
 - `nuxt.config.build-optimized.ts` : référencé nulle part — expérimentation jamais fusionnée. Porter éventuellement `manualChunks` dans le config principal, puis supprimer.
-- `design.md` (racine) vs `docs/design.md` : deux docs design chevauchants ; CLAUDE.md ne référence que `docs/design.md` → fusionner.
+- ~~`design.md` (racine) vs `docs/design.md` : deux docs design chevauchants ; CLAUDE.md ne référence que `docs/design.md` → fusionner.~~ **Fait (2026-07-14)** : contenu unique (marque navy/gold, palette par domaine, typographie, spacing, icônes/assets) fusionné dans `docs/design.md`, fichier racine supprimé.
 
 ### QUAL-7 — Types mal rangés
 
