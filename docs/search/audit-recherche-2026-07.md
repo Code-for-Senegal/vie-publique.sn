@@ -295,24 +295,26 @@ filtres UI de `recherche.vue` (chips par type, alimentées par la facette `type`
 > locale) elles sont **actives et validées** (`lfr` : 9 → 129 résultats). Les synonymes sont
 > PAR collection : le script `--create` les recrée automatiquement à chaque nouvelle version.
 
-Les 11 règles (définies dans `scripts/search-reindex.mjs`, source de vérité) :
+**27 règles** au 13/07/2026 (source de vérité : constante `SYNONYMS` de
+`scripts/search-reindex.mjs` ; pousser à tout moment — instantané, sans réindexation — via
+`node scripts/search-reindex.mjs --sync-synonyms`) :
 
-| id | synonymes |
-| --- | --- |
-| `jo-journal-officiel` | jo ↔ journal officiel |
-| `assemblee-parlement` | assemblée nationale ↔ parlement ↔ hémicycle |
-| `budget-loi-finances` | budget ↔ loi de finances |
-| `lfr` | lfr ↔ loi de finances rectificative |
-| `pm-premier-ministre` | pm ↔ premier ministre |
-| `president-chef-etat` | président de la république ↔ chef de l'état |
-| `depute-parlementaire` | député ↔ parlementaire |
-| `code-route` | code de la route ↔ code routier |
-| `dpg` | dpg ↔ déclaration de politique générale |
-| `cese` | cese ↔ conseil économique social et environnemental |
-| `ofnac` | ofnac ↔ office national de lutte contre la fraude et la corruption |
+- **Institutions & sigles** : jo/jors ↔ journal officiel · assemblée nationale ↔ parlement ↔
+  hémicycle · pm ↔ premier ministre ↔ primature · président de la république ↔ chef de l'état ·
+  député ↔ parlementaire · cese · hcct · ofnac · ige · ansd · cena · dgid · arcop ·
+  cedeao/ecowas · uemoa
+- **Budget & finances publiques** : budget ↔ loi de finances · lfr · lfi · plf · cgi (code
+  général des impôts) · impôts ↔ fiscalité · marchés publics ↔ commande publique
+- **Textes & concepts** : constitution ↔ loi fondamentale · code de la route ↔ code routier ·
+  dpg · collectivités territoriales ↔ locales · élections locales ↔ municipales ↔ territoriales
+
+Validé en prod (via `vp-search`) : `jors` → 4 736, `plf` → 1 037, `ansd` → 1 253, `arcop` → 917,
+`cgi` → 271, `cena` → 148, `ige` → 38, `loi fondamentale` → 1 007.
 
 Écartés volontairement : `an` (mot courant : « par an »), `gouvernement ↔ conseil des
-ministres` (trop large, bruit). À enrichir plus tard avec les données analytics (C7).
+ministres` (trop large, bruit). Règle générale : **précision > rappel** — pas de sigles ambigus
+ni de concepts trop larges. À enrichir en continu avec les requêtes sans résultat
+(`vp_queries_nohits`, cf. C7).
 
 ### 🔧 Workflows n8n — audit du 13/07/2026 (exports : `vpsn-automation/typesense/`)
 

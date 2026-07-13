@@ -17,6 +17,7 @@
  *   node scripts/search-reindex.mjs --only=documents,news # sources choisies
  *   node scripts/search-reindex.mjs --prune               # + supprime les orphelins (docs absents de Directus)
  *   node scripts/search-reindex.mjs --set-alias           # pointe l'alias vp-search sur la cible (opération seule)
+ *   node scripts/search-reindex.mjs --sync-synonyms       # pousse les synonymes sur la cible (instantané)
  *   node scripts/search-reindex.mjs --setup-analytics     # crée les règles analytics (popular/nohits) sur la cible
  *                                                         # (prérequis : serveur démarré avec TYPESENSE_ENABLE_SEARCH_ANALYTICS=true)
  *   node scripts/search-reindex.mjs --target=vpdata_v2    # collection cible (défaut : vpdata_v2)
@@ -448,18 +449,41 @@ const SCHEMA = {
   ],
 };
 
+// Synonymes multi-directionnels (instantanés, PAS de réindexation nécessaire).
+// Pousser à tout moment avec : node scripts/search-reindex.mjs --sync-synonyms
+// Précision > rappel : ne pas lier des concepts trop larges (ex. gouvernement ↔ conseil
+// des ministres) ni des sigles ambigus en français courant (ex. « an »).
 const SYNONYMS = {
-  'jo-journal-officiel': ['jo', 'journal officiel'],
+  // Institutions & abréviations
+  'jo-journal-officiel': ['jo', 'jors', 'journal officiel'],
   'assemblee-parlement': ['assemblée nationale', 'parlement', 'hémicycle'],
-  'budget-loi-finances': ['budget', 'loi de finances'],
-  lfr: ['lfr', 'loi de finances rectificative'],
-  'pm-premier-ministre': ['pm', 'premier ministre'],
+  'pm-premier-ministre': ['pm', 'premier ministre', 'primature'],
   'president-chef-etat': ['président de la république', "chef de l'état"],
   'depute-parlementaire': ['député', 'parlementaire'],
+  cese: ['cese', 'conseil économique social et environnemental'],
+  hcct: ['hcct', 'haut conseil des collectivités territoriales'],
+  ofnac: ['ofnac', 'office national de lutte contre la fraude et la corruption'],
+  ige: ['ige', "inspection générale d'état"],
+  ansd: ['ansd', 'agence nationale de la statistique et de la démographie'],
+  cena: ['cena', 'commission électorale nationale autonome'],
+  dgid: ['dgid', 'direction générale des impôts et des domaines'],
+  arcop: ['arcop', 'autorité de régulation de la commande publique'],
+  cedeao: ['cedeao', "communauté économique des états de l'afrique de l'ouest", 'ecowas'],
+  uemoa: ['uemoa', 'union économique et monétaire ouest-africaine'],
+  // Budget & finances publiques
+  'budget-loi-finances': ['budget', 'loi de finances'],
+  lfr: ['lfr', 'loi de finances rectificative'],
+  lfi: ['lfi', 'loi de finances initiale'],
+  plf: ['plf', 'projet de loi de finances'],
+  cgi: ['cgi', 'code général des impôts'],
+  'impots-fiscalite': ['impôts', 'fiscalité'],
+  'marches-publics': ['marchés publics', 'commande publique'],
+  // Textes & concepts
+  'constitution-loi-fondamentale': ['constitution', 'loi fondamentale'],
   'code-route': ['code de la route', 'code routier'],
   dpg: ['dpg', 'déclaration de politique générale'],
-  cese: ['cese', 'conseil économique social et environnemental'],
-  ofnac: ['ofnac', 'office national de lutte contre la fraude et la corruption'],
+  'collectivites-territoriales': ['collectivités territoriales', 'collectivités locales'],
+  'elections-locales': ['élections locales', 'élections municipales', 'élections territoriales'],
 };
 
 // ---------------------------------------------------------------------------
@@ -634,6 +658,18 @@ if (args['set-alias']) {
 if (args['setup-analytics']) {
   // opération seule : collections destination + règles analytics
   await setupAnalytics();
+  process.exit(0);
+}
+
+if (args['sync-synonyms']) {
+  // opération seule : pousser les synonymes sur la cible (instantané, sans réindexation)
+  for (const [id, synonyms] of Object.entries(SYNONYMS)) {
+    await ts(`/collections/${TARGET}/synonyms/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({ synonyms }),
+    });
+  }
+  console.log(`✅ ${Object.keys(SYNONYMS).length} synonymes synchronisés sur ${TARGET}.`);
   process.exit(0);
 }
 
