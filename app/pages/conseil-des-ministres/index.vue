@@ -103,7 +103,15 @@ useSeoMeta({
 
 useHead({
   htmlAttrs: { lang: 'fr-SN' },
-  link: [{ rel: 'canonical', href: url }],
+  link: [
+    { rel: 'canonical', href: url },
+    {
+      rel: 'alternate',
+      type: 'application/rss+xml',
+      title: 'Vie-Publique.sn — Conseil des ministres',
+      href: '/conseil-des-ministres/rss.xml',
+    },
+  ],
   meta: [
     { name: 'theme-color', content: themeColor },
     { name: 'author', content: 'Conseil des ministres du Sénégal' },

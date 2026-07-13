@@ -32,9 +32,10 @@ Cette feuille de route présente les grandes évolutions prévues pour la platef
 
 ## 🔔 Syndication & contribution
 
-- [ ] **Flux RSS**
-  - Flux par catégorie (actualités, lois, discours, etc.)
-  - Flux global du site
+- [x] **Flux RSS** _(fait 2026-07 — voir docs/rss/flux-rss.md)_
+  - Flux global du site : `/rss.xml`
+  - Flux par rubrique : `/actualites/rss.xml`, `/conseil-des-ministres/rss.xml`, `/documents/rss.xml`, `/documents/journal-officiel-senegal/rss.xml`
+  - Extensible aux autres catégories de documents (rapports d'audit, codes…) à la demande
 
 - [ ] **Espace de contribution ouverte**
   - Formulaire pour soumettre un article, un lien, un document

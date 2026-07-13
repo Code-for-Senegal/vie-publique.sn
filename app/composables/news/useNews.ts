@@ -133,14 +133,13 @@ export const useNews = (options: NewsOptions = {}) => {
     sort: state.sortBy,
     limit: state.itemsPerPage,
     page: state.currentPage,
-    search: state.searchQuery,
+    search: state.apiSearchQuery,
   });
 
   // Récupération dynamique des catégories depuis l'API
-  const { data: categoriesData } = useFetch<{ categories: { name: string; slug: string; count: number }[] }>(
-    '/api/news/categories',
-    { key: 'news-categories' },
-  );
+  const { data: categoriesData } = useFetch<{
+    categories: { name: string; slug: string; count: number }[];
+  }>('/api/news/categories', { key: 'news-categories' });
 
   const categories = computed(() => {
     const apiCategories = categoriesData.value?.categories || [];

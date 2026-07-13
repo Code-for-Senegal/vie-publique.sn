@@ -242,9 +242,9 @@ const quickSearchResults = ref([]);
 const mobileSearchResults = ref([]);
 const searchInput = ref();
 
-// Recherche rapide avec debounce pour desktop
+// Recherche rapide avec debounce pour desktop (seuils alignés site-wide : 350 ms, min 2 car.)
 const quickSearch = useDebounceFn(async () => {
-  if (!quickSearchQuery.value.trim()) {
+  if (quickSearchQuery.value.trim().length < 2) {
     quickSearchResults.value = [];
     return;
   }
@@ -263,11 +263,11 @@ const quickSearch = useDebounceFn(async () => {
     console.error('Erreur recherche rapide:', error);
     quickSearchResults.value = [];
   }
-}, 200);
+}, 350);
 
-// Recherche mobile avec debounce
+// Recherche mobile avec debounce (mêmes seuils)
 const mobileSearch = useDebounceFn(async () => {
-  if (!mobileSearchQuery.value.trim()) {
+  if (mobileSearchQuery.value.trim().length < 2) {
     mobileSearchResults.value = [];
     return;
   }
@@ -285,7 +285,7 @@ const mobileSearch = useDebounceFn(async () => {
     console.error('Erreur recherche mobile:', error);
     mobileSearchResults.value = [];
   }
-}, 200);
+}, 350);
 
 // Watchers pour les recherches en temps réel
 watch(quickSearchQuery, quickSearch);

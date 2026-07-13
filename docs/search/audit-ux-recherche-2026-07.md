@@ -101,8 +101,8 @@ Un bouton « Rechercher » n'aurait de sens que pour une action coûteuse ou une
 
 | # | Action | Impact | Effort |
 | --- | --- | --- | --- |
-| U1 | **Debounce 350 ms + min 2 caractères dans `useCollectionState`** (le `searchQuery` exposé aux inputs reste immédiat pour l'affichage ; c'est la valeur passée à `useCmsCollection` qui est débouncée). Corrige d'un coup TOUTES les listes (documents, députés, médias…) | 🔴 Charge serveur + stabilité UX | 1–2 h |
-| U2 | Harmoniser `/recherche` et header sur les mêmes seuils (300–350 ms, min 2 car.) | Cohérence | 30 min |
+| U1 | ✅ **Fait le 13/07/2026** — `apiSearchQuery` dans `useCollectionState` (debounce 350 ms + min 2 car. + reset page 1), consommé par les 12 composables de listes (`search: state.apiSearchQuery`). `searchQuery` reste immédiat pour la liaison v-model. Init synchrone depuis l'URL → SSR filtré (`?q=budget` OK, `?q=b` → non filtré). Effacement du champ = retour immédiat à la liste complète. | 🔴 Charge serveur + stabilité UX | ✅ |
+| U2 | ✅ **Fait le 13/07/2026** — seuils alignés partout : header (200→350 ms, min 2 car.), `/recherche` (300→350 ms, 1 caractère ignoré) | Cohérence | ✅ |
 | U3 | Listes députés/personnalités/annuaire → recherche via Typesense (`type:=depute` etc., même pattern hybride que C10) pour la tolérance accents sur les noms | Rappel sur noms propres | ½ j |
 | U4 | Accueil : brancher les suggestions live du header (même composant/API) — optionnel, à A/B tester ; la sobriété actuelle se défend | Engagement | 2 h |
 | U5 | « Recherches populaires » dynamiques (analytics C7) sur `/recherche` + modal mobile header | Pertinence des suggestions | 2 h (attend les données) |

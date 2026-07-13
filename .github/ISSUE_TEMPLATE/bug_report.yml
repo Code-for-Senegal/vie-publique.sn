@@ -1,0 +1,31 @@
+name: 🐛 Bug
+description: Signaler un problème sur le site ou l'application
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Ce qui ne fonctionne pas.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Étapes pour reproduire
+      placeholder: |
+        1. Aller sur…
+        2. Cliquer sur…
+        3. Constater…
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: URL concernée
+      placeholder: https://www.vie-publique.sn/…
+  - type: input
+    id: environment
+    attributes:
+      label: Environnement
+      placeholder: 'ex. Chrome 126 / Android 14, app mobile iOS…'

@@ -262,7 +262,20 @@ const canonicalUrl = computed(() => {
 });
 
 useHead({
-  link: [{ rel: 'canonical', href: canonicalUrl }],
+  link: [
+    { rel: 'canonical', href: canonicalUrl },
+    // Autodiscovery RSS — seul le Journal officiel a un flux dédié à ce jour
+    ...(category === 'journal-officiel-senegal'
+      ? [
+          {
+            rel: 'alternate',
+            type: 'application/rss+xml',
+            title: 'Vie-Publique.sn — Journal officiel du Sénégal',
+            href: '/documents/journal-officiel-senegal/rss.xml',
+          },
+        ]
+      : []),
+  ],
   script: [
     {
       type: 'application/ld+json',

@@ -16,13 +16,18 @@ Vie Publique Sénégal is a platform dedicated to providing transparent access t
 
 ## Features
 
-- **News Section**: Access to the latest news and updates
-- **Official Documents**: Browse through official documents, laws, and decrees
-- **National Assembly**: Information about the National Assembly
-- **Council of Ministers**: Access to council of ministers' communiqués
-- **Budget**: Information about Senegal's budget
-- **Directory**: Access to various public institutions and resources
-- **Elections**: Information about elections
+- **Official Documents**: 10,000+ documents — laws, decrees, reports, Journal officiel — with full-text search
+- **News & Dossiers**: latest public-affairs news and thematic reference pages gathering documents, news and podcasts on a single topic
+- **National Assembly**: deputies, commissions, votes, written questions and parliamentary news
+- **Council of Ministers**: communiqués, appointments and personality profiles
+- **State Organization**: ministries and public entities, constitutional institutions, organizational chart with decree archives and comparison
+- **Budget**: Senegal's budget explained with visualizations
+- **Elections**: electoral dashboard (presidential, legislative, local) with results maps and statistics
+- **Public Projects**: dashboards tracking public programs (PRES, PIP)
+- **Podcasts**: civic podcast episodes
+- **Stay Informed**: newsletter, RSS feeds, push notifications and a mobile app (Android/iOS)
+
+> 📋 See the [CHANGELOG](CHANGELOG.md) for the main features shipped over time.
 
 ## Social Networks
 

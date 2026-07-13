@@ -53,7 +53,7 @@ export const useAssemblyDeputies = (options: AssemblyDeputiesOptions = {}) => {
     sort: state.sortBy,
     limit: state.itemsPerPage,
     page: state.currentPage,
-    search: state.searchQuery,
+    search: state.apiSearchQuery,
   });
 
   return {

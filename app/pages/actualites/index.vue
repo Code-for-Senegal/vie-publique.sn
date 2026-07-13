@@ -116,7 +116,15 @@ useSeoMeta({
 
 useHead({
   htmlAttrs: { lang: 'fr-SN' },
-  link: [{ rel: 'canonical', href: url }],
+  link: [
+    { rel: 'canonical', href: url },
+    {
+      rel: 'alternate',
+      type: 'application/rss+xml',
+      title: 'Vie-Publique.sn — Actualités',
+      href: '/actualites/rss.xml',
+    },
+  ],
   meta: [
     { name: 'theme-color', content: themeColor },
     { name: 'author', content: siteName },
@@ -233,23 +241,34 @@ const formatDateISO = (date: string) => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-950" itemscope itemtype="https://schema.org/CollectionPage">
+  <div
+    class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-950"
+    itemscope
+    itemtype="https://schema.org/CollectionPage"
+  >
     <!-- Breadcrumb -->
     <div class="container mx-auto px-4 pt-2">
       <AppBreadcrumb :items="[{ label: 'Actualités' }]" />
     </div>
 
     <!-- Sticky Header -->
-    <header class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95">
+    <header
+      class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/95"
+    >
       <div class="container mx-auto px-4 py-3">
         <!-- Title Row -->
         <div class="flex items-center justify-between">
-          <h1 class="text-lg font-bold text-gray-900 sm:text-xl dark:text-white" itemprop="headline">
+          <h1
+            class="text-lg font-bold text-gray-900 dark:text-white sm:text-xl"
+            itemprop="headline"
+          >
             Actualités
           </h1>
-          <span class="text-xs text-gray-500 dark:text-gray-400">{{ totalItems }} article{{ totalItems > 1 ? 's' : '' }}</span>
+          <span class="text-xs text-gray-500 dark:text-gray-400"
+            >{{ totalItems }} article{{ totalItems > 1 ? 's' : '' }}</span
+          >
         </div>
-        
+
         <!-- Search Input - Full Width, Prominent -->
         <div class="group relative mt-3">
           <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
@@ -262,7 +281,7 @@ const formatDateISO = (date: string) => {
             type="search"
             :value="searchQuery"
             placeholder="Rechercher un article, un sujet..."
-            class="block w-full rounded-xl border-0 bg-gray-100 py-3 pl-11 pr-10 text-sm text-gray-900 ring-1 ring-transparent transition-all placeholder:text-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 sm:py-2.5 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-400 dark:focus:bg-gray-800/80 dark:focus:ring-gray-500"
+            class="block w-full rounded-xl border-0 bg-gray-100 py-3 pl-11 pr-10 text-sm text-gray-900 ring-1 ring-transparent transition-all placeholder:text-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-400 dark:focus:bg-gray-800/80 dark:focus:ring-gray-500 sm:py-2.5"
             @input="setSearchQuery(($event.target as HTMLInputElement).value)"
           />
           <button
@@ -271,14 +290,22 @@ const formatDateISO = (date: string) => {
             class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 transition-colors hover:text-gray-600 dark:hover:text-gray-300"
             @click="setSearchQuery('')"
           >
-            <span class="flex h-5 w-5 items-center justify-center rounded-full bg-gray-300 dark:bg-gray-600">
-              <UIcon name="i-heroicons-x-mark-20-solid" class="h-3.5 w-3.5 text-gray-600 dark:text-gray-300" />
+            <span
+              class="flex h-5 w-5 items-center justify-center rounded-full bg-gray-300 dark:bg-gray-600"
+            >
+              <UIcon
+                name="i-heroicons-x-mark-20-solid"
+                class="h-3.5 w-3.5 text-gray-600 dark:text-gray-300"
+              />
             </span>
           </button>
         </div>
 
         <!-- Category Filters - Horizontal Scroll -->
-        <nav class="-mx-4 mt-3 overflow-x-auto px-4 pb-1 scrollbar-hide" aria-label="Filtrer par catégorie">
+        <nav
+          class="scrollbar-hide -mx-4 mt-3 overflow-x-auto px-4 pb-1"
+          aria-label="Filtrer par catégorie"
+        >
           <div v-if="loading" class="flex gap-2 py-0.5">
             <USkeleton v-for="n in 5" :key="n" class="h-7 w-24 shrink-0 rounded-full" />
           </div>
@@ -292,7 +319,11 @@ const formatDateISO = (date: string) => {
                   ? 'text-white shadow-sm'
                   : 'bg-white text-gray-700 ring-1 ring-gray-200 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:ring-gray-700 dark:hover:bg-gray-700',
               ]"
-              :style="selectedCategory === category.name ? { backgroundColor: getCategoryColor(category.name) } : {}"
+              :style="
+                selectedCategory === category.name
+                  ? { backgroundColor: getCategoryColor(category.name) }
+                  : {}
+              "
               :aria-pressed="selectedCategory === category.name"
               @click="setSelectedCategory(category.name)"
             >
@@ -302,7 +333,9 @@ const formatDateISO = (date: string) => {
                 :style="{ backgroundColor: getCategoryColor(category.name) }"
               />
               {{ category.name }}
-              <span v-if="category.count" class="text-[10px] opacity-70">({{ category.count }})</span>
+              <span v-if="category.count" class="text-[10px] opacity-70"
+                >({{ category.count }})</span
+              >
             </button>
           </div>
         </nav>
@@ -312,7 +345,11 @@ const formatDateISO = (date: string) => {
     <main class="container mx-auto px-4 pt-4">
       <!-- Loading Skeleton -->
       <div v-if="loading" class="space-y-3">
-        <div v-for="n in 6" :key="n" class="flex gap-3 rounded-xl bg-white p-3 shadow-sm dark:bg-gray-900">
+        <div
+          v-for="n in 6"
+          :key="n"
+          class="flex gap-3 rounded-xl bg-white p-3 shadow-sm dark:bg-gray-900"
+        >
           <USkeleton class="h-20 w-24 shrink-0 rounded-lg" />
           <div class="flex flex-1 flex-col justify-between py-0.5">
             <div class="space-y-2">
@@ -327,9 +364,16 @@ const formatDateISO = (date: string) => {
 
       <!-- Error State -->
       <div v-else-if="error" class="py-12">
-        <div class="mx-auto max-w-sm rounded-2xl border border-red-200 bg-red-50 p-6 text-center dark:border-red-800 dark:bg-red-900/20">
-          <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/50">
-            <UIcon name="i-heroicons-exclamation-triangle" class="h-6 w-6 text-red-600 dark:text-red-400" />
+        <div
+          class="mx-auto max-w-sm rounded-2xl border border-red-200 bg-red-50 p-6 text-center dark:border-red-800 dark:bg-red-900/20"
+        >
+          <div
+            class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/50"
+          >
+            <UIcon
+              name="i-heroicons-exclamation-triangle"
+              class="h-6 w-6 text-red-600 dark:text-red-400"
+            />
           </div>
           <p class="text-sm font-medium text-red-900 dark:text-red-200">Erreur de chargement</p>
           <p class="mt-1 text-xs text-red-700 dark:text-red-300">Une erreur est survenue</p>
@@ -340,11 +384,10 @@ const formatDateISO = (date: string) => {
       </div>
 
       <!-- Empty State -->
-      <div
-        v-else-if="!articles.length || paginatedNews.length === 0"
-        class="py-16 text-center"
-      >
-        <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
+      <div v-else-if="!articles.length || paginatedNews.length === 0" class="py-16 text-center">
+        <div
+          class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800"
+        >
           <UIcon name="i-heroicons-newspaper" class="h-8 w-8 text-gray-400" />
         </div>
         <p class="text-sm font-medium text-gray-900 dark:text-white">Aucun résultat</p>
@@ -355,7 +398,10 @@ const formatDateISO = (date: string) => {
           variant="soft"
           size="sm"
           class="mt-4"
-          @click="setSearchQuery(''); setSelectedCategory('Toutes')"
+          @click="
+            setSearchQuery('');
+            setSelectedCategory('Toutes');
+          "
         >
           Réinitialiser les filtres
         </UButton>
@@ -366,9 +412,15 @@ const formatDateISO = (date: string) => {
         <meta itemprop="numberOfItems" :content="`${paginatedNews.length}`" />
 
         <!-- Filter indicator -->
-        <p v-if="selectedCategory !== 'Toutes' || searchQuery" class="mb-3 text-xs text-gray-500 dark:text-gray-400">
+        <p
+          v-if="selectedCategory !== 'Toutes' || searchQuery"
+          class="mb-3 text-xs text-gray-500 dark:text-gray-400"
+        >
           <span v-if="selectedCategory !== 'Toutes'" class="inline-flex items-center gap-1">
-            <span class="h-2 w-2 rounded-full" :style="{ backgroundColor: getCategoryColor(selectedCategory) }" />
+            <span
+              class="h-2 w-2 rounded-full"
+              :style="{ backgroundColor: getCategoryColor(selectedCategory) }"
+            />
             {{ selectedCategory }}
           </span>
           <span v-if="searchQuery"> · "{{ searchQuery }}"</span>
@@ -399,11 +451,16 @@ const formatDateISO = (date: string) => {
 
             <NuxtLink
               :to="formatNewsUrl(article)"
-              class="group flex gap-3 rounded-xl bg-white p-2.5 shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.98] sm:flex-col sm:gap-0 sm:p-0 sm:ring-0 sm:shadow-md sm:hover:shadow-lg dark:bg-gray-900 dark:ring-gray-800"
+              class="group flex gap-3 rounded-xl bg-white p-2.5 shadow-sm ring-1 ring-gray-100 transition-all active:scale-[0.98] dark:bg-gray-900 dark:ring-gray-800 sm:flex-col sm:gap-0 sm:p-0 sm:shadow-md sm:ring-0 sm:hover:shadow-lg"
               itemprop="url"
             >
               <!-- Image -->
-              <div class="relative shrink-0" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+              <div
+                class="relative shrink-0"
+                itemprop="image"
+                itemscope
+                itemtype="https://schema.org/ImageObject"
+              >
                 <CmsImage
                   :src="article.cover_image"
                   :fallback="'/default-image-2.gif'"
@@ -415,7 +472,11 @@ const formatDateISO = (date: string) => {
                 />
                 <meta
                   itemprop="url"
-                  :content="article.cover_image ? useCmsImageAbsolute(article.cover_image) : '/default-image-2.gif'"
+                  :content="
+                    article.cover_image
+                      ? useCmsImageAbsolute(article.cover_image)
+                      : '/default-image-2.gif'
+                  "
                 />
 
                 <!-- Category Badge (desktop only) -->
@@ -423,7 +484,12 @@ const formatDateISO = (date: string) => {
                   class="glass-badge absolute bottom-2 left-2 hidden rounded-full px-2.5 py-1 text-[10px] font-medium text-white sm:inline-block"
                   itemprop="articleSection"
                 >
-                  <span class="mr-1.5 inline-block h-1.5 w-1.5 rounded-full" :style="{ backgroundColor: getCategoryColor(article.category?.name || 'Non catégorisé') }" />
+                  <span
+                    class="mr-1.5 inline-block h-1.5 w-1.5 rounded-full"
+                    :style="{
+                      backgroundColor: getCategoryColor(article.category?.name || 'Non catégorisé'),
+                    }"
+                  />
                   {{ article.category?.name || 'Non catégorisé' }}
                 </span>
               </div>
@@ -434,12 +500,17 @@ const formatDateISO = (date: string) => {
                 <span
                   class="glass-badge-light mb-1 inline-flex w-fit items-center rounded-full px-2 py-0.5 text-[10px] font-medium sm:hidden"
                 >
-                  <span class="mr-1 inline-block h-1.5 w-1.5 rounded-full" :style="{ backgroundColor: getCategoryColor(article.category?.name || 'Non catégorisé') }" />
+                  <span
+                    class="mr-1 inline-block h-1.5 w-1.5 rounded-full"
+                    :style="{
+                      backgroundColor: getCategoryColor(article.category?.name || 'Non catégorisé'),
+                    }"
+                  />
                   {{ article.category?.name || 'Non catégorisé' }}
                 </span>
 
                 <h2
-                  class="line-clamp-2 text-sm font-semibold leading-snug text-gray-900 group-hover:text-primary-600 sm:line-clamp-3 dark:text-white"
+                  class="group-hover:text-primary-600 line-clamp-2 text-sm font-semibold leading-snug text-gray-900 dark:text-white sm:line-clamp-3"
                   itemprop="headline"
                 >
                   {{ article.title }}
@@ -447,7 +518,7 @@ const formatDateISO = (date: string) => {
 
                 <time
                   :datetime="formatDateISO(article.date_published)"
-                  class="mt-1.5 text-[11px] text-gray-500 sm:mt-2 sm:text-xs dark:text-gray-400"
+                  class="mt-1.5 text-[11px] text-gray-500 dark:text-gray-400 sm:mt-2 sm:text-xs"
                   itemprop="datePublished"
                 >
                   {{ $dateformatWithDayName(article.date_published) }}
@@ -482,7 +553,7 @@ const formatDateISO = (date: string) => {
   backdrop-filter: blur(12px) saturate(150%);
   -webkit-backdrop-filter: blur(12px) saturate(150%);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 
+  box-shadow:
     0 2px 8px rgba(0, 0, 0, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
@@ -494,7 +565,7 @@ const formatDateISO = (date: string) => {
   -webkit-backdrop-filter: blur(8px) saturate(150%);
   border: 1px solid rgba(255, 255, 255, 0.5);
   color: rgba(15, 23, 42, 0.9);
-  box-shadow: 
+  box-shadow:
     0 1px 4px rgba(0, 0, 0, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
@@ -503,7 +574,7 @@ const formatDateISO = (date: string) => {
   background: rgba(30, 41, 59, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.9);
-  box-shadow: 
+  box-shadow:
     0 1px 4px rgba(0, 0, 0, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }

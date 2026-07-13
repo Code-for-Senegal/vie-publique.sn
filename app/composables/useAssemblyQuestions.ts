@@ -117,7 +117,7 @@ export const useAssemblyQuestions = (options: AssemblyQuestionsOptions = {}) => 
     sort: state.sortBy,
     limit: state.itemsPerPage,
     page: state.currentPage,
-    search: state.searchQuery,
+    search: state.apiSearchQuery,
   });
 
   // Récupération des statistiques des députés les plus actifs (optionnel)

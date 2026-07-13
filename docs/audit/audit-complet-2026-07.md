@@ -445,7 +445,7 @@ En plus : **lignes 11-12 inversées** (`CMS_API_URL=xxx` / `CMS_API_KEY=https://
 
 ### DOC-3 — Scripts version:* cassés
 
-`package.json` garde `version:patch|minor|major` → `scripts/update-version.js`, **supprimé** au commit c4800c88 (« clean script infra »). Aucun CHANGELOG. Versions incohérentes : package.json 2.0.1 vs `sonar.projectVersion=1.8.6`.
+`package.json` garde `version:patch|minor|major` → `scripts/update-version.js`, **supprimé** au commit c4800c88 (« clean script infra »). ~~Aucun CHANGELOG.~~ **Fait (2026-07-13)** : `CHANGELOG.md` créé (gros grain, daté par mois, reconstitué depuis git) + règle de tenue à jour dans CLAUDE.md (§ Development Workflow). Reste : versions incohérentes (package.json 2.0.1 vs `sonar.projectVersion=1.8.6`) et scripts `version:*` cassés — le changelog étant daté (pas versionné), l'option simple est de **supprimer** les 3 scripts morts plutôt que de les réparer.
 
 ### DOC-4 — Configs de déploiement mortes
 
@@ -521,7 +521,7 @@ Aussi : `rate-limit.ts:29` se fie au premier élément de `x-forwarded-for` (spo
 ### DOC-7 — Fichiers orphelins
 
 - `nuxt.config.build-optimized.ts` : référencé nulle part — expérimentation jamais fusionnée. Porter éventuellement `manualChunks` dans le config principal, puis supprimer.
-- `design.md` (racine) vs `docs/design.md` : deux docs design chevauchants ; CLAUDE.md ne référence que `docs/design.md` → fusionner.
+- ~~`design.md` (racine) vs `docs/design.md` : deux docs design chevauchants ; CLAUDE.md ne référence que `docs/design.md` → fusionner.~~ **Fait (2026-07-14)** : contenu unique (marque navy/gold, palette par domaine, typographie, spacing, icônes/assets) fusionné dans `docs/design.md`, fichier racine supprimé.
 
 ### QUAL-7 — Types mal rangés
 

@@ -109,7 +109,7 @@ export const usePodcasts = (options: PodcastsOptions = {}) => {
     sort: state.sortBy,
     limit: state.itemsPerPage,
     page: state.currentPage,
-    search: state.searchQuery,
+    search: state.apiSearchQuery,
   });
 
   // Catégories désactivées pour le moment

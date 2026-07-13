@@ -17,6 +17,32 @@
 - Accents sémantiques (vert/jaune/rouge) **seulement** s'ils portent un sens (statut, succès,
   alerte). Jamais de palette multicolore décorative.
 
+### Marque (brand)
+
+Définie dans `tailwind.config.ts` (`text-brand-navy`, `bg-brand-gold`…). Réservée à
+l'**identité visuelle** (hero, headers, badges, supports de com) — pas aux composants UI
+courants (qui restent en `primary: sky`, cf. `app.config.ts`).
+
+| Couleur     | Hex       | Usage                                       |
+| ----------- | --------- | ------------------------------------------- |
+| Bleu Marine | `#18223B` | Couleur principale, fonds hero, confiance   |
+| Jaune Doré  | `#E2BA13` | Accent, CTA, highlights — avec parcimonie   |
+
+> Accessibilité : blanc sur navy (12.5:1) et gold sur navy (6.2:1) passent WCAG AA ;
+> **gold sur blanc (2.2:1) ne passe PAS** → réservé aux grands titres (24px+) ou fond sombre.
+
+### Palette par domaine
+
+| Domaine                | Couleur Tailwind | Usage                            |
+| ---------------------- | ---------------- | -------------------------------- |
+| UI / Documents / JO    | `sky`            | Boutons, liens, pages documents  |
+| Budget recettes        | `emerald`        | Graphiques recettes              |
+| Budget dépenses        | `orange`         | Dépenses, alertes budget         |
+| Assemblée              | `blue`           | Pages parlementaires             |
+| Conseil des ministres  | `amber`          | Nominations, communiqués         |
+| Élections              | `violet`         | Résultats, données électorales   |
+| Erreurs / Déficit      | `rose`           | Alertes, déficits                |
+
 ### ⚠️ Dark mode — palette `gray` du site, surfaces pleines (pas de `/50`)
 
 Le thème dark est défini **globalement** dans `app/assets/css/app.css` (palette « Dim » slate) :
@@ -41,6 +67,10 @@ valeurs dans `app.css` (un seul endroit).
 > 2. **Pas d'autre échelle** (`neutral`, `zinc`…) — ça rend « presque noir » et **dénote** à côté
 >    des autres cartes du site (qui sont en `gray-800`). Une page doit se fondre avec les autres.
 
+_Note : `tailwind.config.ts` expose aussi l'échelle de tokens `dark-50…950` (même palette Dim,
+ex. `dark-700` = `#1E2732`) — dans les pages, on utilise les classes `dark:bg-gray-*`
+surchargées par `app.css`, pas ces tokens._
+
 ## Composants & patterns
 
 - **Sections** : titre `<h2>` sobre + fine séparation (`border-t`). Icône de section facultative
@@ -53,6 +83,35 @@ valeurs dans `app.css` (un seul endroit).
   plutôt qu'un tableau large qui déborde.
 - **Largeur de lecture** : `max-w-3xl` pour le contenu éditorial.
 - **Tags** : limités (≈ 3–5 visibles), discrets, placés sous le contenu plutôt qu'en avant.
+
+## Typographie
+
+**System UI stack** (San Francisco / Roboto / Segoe UI selon l'OS) — aucune font téléchargée,
+rendu instantané. Weights : 300–700.
+
+| Élément | Mobile      | Desktop     | Weight           |
+| ------- | ----------- | ----------- | ---------------- |
+| H1      | `text-2xl`  | `text-4xl`  | light + medium   |
+| H2      | `text-lg`   | `text-xl`   | semibold         |
+| H3      | `text-base` | `text-lg`   | semibold         |
+| Body    | `text-sm`   | `text-base` | regular          |
+| Caption | `text-xs`   | `text-sm`   | medium           |
+
+Titre hero : `<h1 class="text-2xl md:text-4xl font-light">Texte<br /><span class="font-medium">Accent</span></h1>`.
+
+## Espacement & layout
+
+- Conteneur : `px-2 sm:px-6 lg:px-8` · sections : `my-8` · grilles : `gap-2` à `gap-4`.
+- Breakpoints : mobile = 1 colonne + nav bottom ; `sm:` = 2 colonnes ; `lg:` = 3-4 colonnes.
+
+## Icônes & assets
+
+- **Heroicons** via Nuxt UI (`i-heroicons-*`) : `document-text` (documents), `chart-bar`/`chart-pie`
+  (budget), `building-library` (assemblée), `magnifying-glass` (recherche), `home`, `chevron-right`.
+- **Logo** : raster (share/schema) `/public/logos/logo-transparent-carre.png` ; SVG (header)
+  `/public/vie-publique-logo-4.svg` ; PWA `pwa-{192,512,1024}x*.png`.
+- Images : **WebP** préféré ; defaults `/public/default-image.png`,
+  `/public/default-journal-officiel.webp` ; `loading="lazy"` sauf above-the-fold.
 
 ## Matériau « Liquid Glass » (barre de navigation mobile)
 

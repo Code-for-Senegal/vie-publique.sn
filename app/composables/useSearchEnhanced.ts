@@ -66,10 +66,15 @@ export const useSearchEnhanced = () => {
 
   // Fonction de recherche améliorée
   const performSearch = async () => {
-    if (!searchQuery.value.trim() && selectedTypes.value.length === 0) {
+    const trimmed = searchQuery.value.trim();
+    if (!trimmed && selectedTypes.value.length === 0) {
       searchResults.value = [];
       totalResults.value = 0;
       hasSearched.value = false;
+      return;
+    }
+    // 1 seul caractère : on attend la suite de la frappe (seuil site-wide : min 2 car.)
+    if (trimmed.length === 1 && selectedTypes.value.length === 0) {
       return;
     }
 
@@ -130,11 +135,11 @@ export const useSearchEnhanced = () => {
     }
   };
 
-  // Recherche avec debounce pour temps réel
+  // Recherche avec debounce pour temps réel (seuil aligné site-wide : 350 ms)
   const debouncedSearch = useDebounceFn(() => {
     currentPage.value = 1;
     performSearch();
-  }, 300);
+  }, 350);
 
   // Observer les changements de la requête de recherche
   watch(searchQuery, () => {
