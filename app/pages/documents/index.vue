@@ -21,7 +21,15 @@ useSeoMeta({
 });
 
 useHead({
-  link: [{ rel: 'canonical', href: `${siteUrl}/documents` }],
+  link: [
+    { rel: 'canonical', href: `${siteUrl}/documents` },
+    {
+      rel: 'alternate',
+      type: 'application/rss+xml',
+      title: 'Vie-Publique.sn — Documents officiels',
+      href: '/documents/rss.xml',
+    },
+  ],
   script: [
     {
       type: 'application/ld+json',

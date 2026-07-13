@@ -456,7 +456,16 @@ export default defineNuxtConfig({
       viewport: 'width=device-width, initial-scale=1',
       // Note: @vite-pwa/nuxt injecte automatiquement <link rel="manifest">
       // Ne PAS l'ajouter manuellement ici (doublon sinon)
-      link: [],
+      link: [
+        // Autodiscovery du flux RSS global (les flux par rubrique sont déclarés
+        // par leurs pages de listing respectives) — voir docs/rss/flux-rss.md
+        {
+          rel: 'alternate',
+          type: 'application/rss+xml',
+          title: 'Vie-Publique.sn — Dernières publications',
+          href: '/rss.xml',
+        },
+      ],
       meta: [
         {
           name: 'keywords',

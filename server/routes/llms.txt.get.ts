@@ -22,6 +22,6 @@ export default defineCachedEventHandler(
   },
   {
     maxAge: process.env.NODE_ENV === 'production' ? 24 * 60 * 60 : 0, // 24 h en prod
-    name: 'llms-txt-v2',
+    name: 'llms-txt-v3', // v3 : ajout des flux RSS
   },
 );

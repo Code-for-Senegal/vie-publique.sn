@@ -391,6 +391,7 @@ Pour signaler une erreur ou demander un accès aux données : contact@vie-publiq
 ## Données structurées et accès machine
 
 - Sitemap : ${siteUrl}/sitemap.xml (toutes les URLs avec dates de dernière modification)
+- Flux RSS : ${siteUrl}/rss.xml (global) · ${siteUrl}/actualites/rss.xml · ${siteUrl}/conseil-des-ministres/rss.xml · ${siteUrl}/documents/rss.xml · ${siteUrl}/documents/journal-officiel-senegal/rss.xml (Journal officiel)
 ${counterpart}
 - Les pages exposent des données structurées schema.org en JSON-LD : Organization, WebSite, WebPage, BreadcrumbList, NewsArticle, Article, Person, FAQPage
 - Les articles et documents portent leurs dates de publication et de mise à jour

@@ -46,6 +46,10 @@ const links = [
     label: 'Financement & indépendance',
     to: '/a-propos/financement-independance',
   },
+  {
+    label: 'Flux RSS',
+    to: '/rss.xml',
+  },
 ];
 </script>
 

@@ -98,8 +98,8 @@ et `server/api/assembly/votes/[id].get.ts`.
 > `<collectionA>_<collectionB>`. Ce n'est PAS un bug de code. Directus n'accorde pas ce droit
 > automatiquement aux nouvelles jonctions. **Diagnostic** : si `champ.*` renvoie bien les lignes
 > de jonction (`{ id, <src>_id, <cible>_id }`) mais que `champ.<cible>_id.*` fait disparaître le
-> champ → **droit manquant sur la jonction**. **Fix** : Directus → Settings → Roles → *(rôle du
-> token)* → cocher **Read** sur la collection de jonction. Corollaire : ne PAS conclure trop vite
+> champ → **droit manquant sur la jonction**. **Fix** : Directus → Settings → Roles → _(rôle du
+> token)_ → cocher **Read** sur la collection de jonction. Corollaire : ne PAS conclure trop vite
 > à un mauvais nom de FK ni basculer sur un contournement 2-requêtes — **vérifier d'abord le droit
 > de lecture sur la jonction** (et purger le cache : un résultat vide reste caché tant que le
 > `name` du `defineCachedEventHandler` n'est pas bumpé).
@@ -175,7 +175,7 @@ Le projet utilise `@nuxtjs/seo`. Un audit basé uniquement sur le code produit d
    - **⚠️ Le `BreadcrumbList` du `@graph` est émis par le composant `<AppBreadcrumb>`** (`app/components/AppBreadcrumb.vue` appelle `useSchemaOrg([defineBreadcrumb(...)])` à partir de ses `items`). **C'est la source UNIQUE du breadcrumb.** Donc sur **toute page qui utilise `<AppBreadcrumb>`** (quasi toutes les pages détail), **ne JAMAIS** ajouter un autre breadcrumb : ni un `defineBreadcrumb` page, ni un `BreadcrumbList` en JSON-LD brut — le composant s'en charge.
    - un **2ᵉ `defineBreadcrumb`** dans la page **fusionne** avec celui d'AppBreadcrumb dans le **même** nœud `@graph` → **un seul `BreadcrumbList` malformé à items dupliqués** (ex. `assemblee-nationale/deputes/[id]` : **8 items au lieu de 4**, chaque niveau en double). **Corrigé** (retrait du `defineBreadcrumb` page) sur `deputes/[id]/[name]`, `commissions/[id]`, `budget-senegal/[slug]`.
    - un **`BreadcrumbList` en JSON-LD brut** dans la page = 2 nœuds séparés (page + AppBreadcrumb) = doublon **toléré** par Google mais inutile → à retirer par opportunité (laisser AppBreadcrumb seul). Pages encore concernées : `documents/[id]/[slug]`, `personnalites/[id]/[slug]`, `actualites/[id]/[slug]`, `etat-senegal/[slug]`…
-   _Vérifier : `curl -s <url> | grep -oE '"@type":"(BreadcrumbList|ListItem)"' | sort | uniq -c` → attendu **1 BreadcrumbList** et **N ListItem** (N = nb de niveaux, pas 2×N). Le nœud `Person` n'apparaît PAS au test Rich Results (type sans affichage enrichi) — c'est **normal**, pas un bug._
+     _Vérifier : `curl -s <url> | grep -oE '"@type":"(BreadcrumbList|ListItem)"' | sort | uniq -c` → attendu **1 BreadcrumbList** et **N ListItem** (N = nb de niveaux, pas 2×N). Le nœud `Person` n'apparaît PAS au test Rich Results (type sans affichage enrichi) — c'est **normal**, pas un bug._
 8. **Un seul `<h1>` par page.** Piège récurrent : les pages détail ont **deux en-têtes** (barre sticky **mobile** + en-tête **desktop**) qui affichent le même titre. Si les deux sont `<h1>` → **2 H1** (les deux sont dans le DOM, juste masqués en CSS selon le viewport). **Règle : un seul `<h1>` = le titre principal du contenu ; la barre de nav mobile et les titres de cartes/sections sont en `<p>` ou `<h2>`.** Vérifier : `curl -s <url> | grep -o "<h1" | wc -l` doit donner **1**.
 9. **Titre de page : ne PAS répéter la marque.** Le `titleTemplate` global (`@nuxtjs/seo`) ajoute déjà `| Vie-Publique.sn`. En page, mettre **juste le titre** (+ éventuel descripteur utile : « Nom - Poste »), **sans** « - Vie Publique Sénégal » ni « | … Vie Publique Sénégal » (sinon marque dupliquée + titre trop long). Un **qualificatif de section** sans la marque (« | Actualités Sénégal ») reste acceptable.
 10. **Recherche interne : JAMAIS indexable.** Toute page de résultats de recherche (`/recherche` ou future variante) doit porter `{ name: 'robots', content: 'noindex, follow' }` et être exclue du sitemap (`sitemap.exclude` dans `nuxt.config.ts`). Raisons : espace d'URLs `?q=` infini qui brûle le crawl budget, **vecteur de spam** (des fermes de liens pointent vers `/recherche?q=<spam>` pour faire indexer leurs mots-clés sur notre domaine — constaté sur Bing en 2026-07), contenu pauvre/dupliqué pénalisé (« search results in search results »). **⚠️ PAS de `Disallow` robots.txt** sur ces pages : le crawler doit pouvoir les crawler pour voir le noindex, et `follow` laisse circuler le jus vers les fiches. Ce qui doit ranker à la place : les pages de listing éditoriales à URL stable (`/documents/public`, `/dossiers`…).
@@ -200,6 +200,20 @@ markdown construit dans `server/utils/llms.ts` depuis Directus). Règles : (1) *
 majeure du site → l'ajouter dans `buildLlmsSections()`, sauf si elle est en `Disallow` robots ;
 (3) changement de Président/PM → mettre à jour les fallbacks datés dans `server/utils/llms.ts`
 (le CMS prime, le fallback ne sert qu'en panne).
+
+### Flux RSS
+
+> Détail complet : `docs/rss/flux-rss.md` (architecture, choix de design, ajout d'un flux, vérification).
+
+5 flux servis par des **routes Nitro dynamiques** (`server/routes/**/rss.xml.get.ts`, builder
+partagé `server/utils/rss.ts`) : `/rss.xml` (global), `/actualites/rss.xml`,
+`/conseil-des-ministres/rss.xml`, `/documents/rss.xml`, `/documents/journal-officiel-senegal/rss.xml`.
+Règles : (1) **ne JAMAIS créer `public/rss.xml`** (masquerait la route, même piège que llms.txt) ;
+(2) les items documents sont datés par **`date_created`** (ajout au site — backfill), pas
+`publish_date` ; (3) descriptions nettoyées via `cleanCmsText` (**`shared/clean-text.ts`**, dont
+`app/composables/useCleanText.ts` n'est qu'un ré-export) ; (4) route en échec → **throw** (jamais
+un flux vide en 200 : il serait mis en cache) ; (5) nouveau flux → suivre la doc et déclarer
+l'autodiscovery sur la page de listing correspondante.
 
 ### UI & Design conventions (IMPORTANT)
 
