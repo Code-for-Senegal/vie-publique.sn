@@ -105,12 +105,14 @@ curl -X POST "$TS_URL/keys" -H "X-TYPESENSE-API-KEY: $ADMIN_KEY" -d '{
 
 **Reste à faire** :
 
-- [ ] Mettre à jour `TYPESENSE_API_KEY` dans **Coolify** (env du service Nuxt) avec la clé scoped.
-- [ ] Créer une clé write-only pour **n8n** (`"actions": ["documents:*"], "collections": ["vpdata.*"]`)
-      et remplacer la clé admin dans les workflows n8n.
+- [x] `TYPESENSE_API_KEY` mis à jour dans **Coolify** avec la clé scoped — 13/07/2026.
+- [x] Clé write-only **n8n** créée (`documents:*` sur `vpdata.*` + `vp-search`) et intégrée au
+      workflow RT v2 — 13/07/2026.
 - [ ] **Rotation de la clé admin** : la clé bootstrap ne se change qu'en redémarrant le service
-      Typesense avec un nouveau `--api-key` (env du conteneur dans Coolify). À faire APRÈS que
-      l'app et n8n utilisent leurs clés scoped. Choisir une clé longue (32+ caractères aléatoires).
+      Typesense avec un nouveau `--api-key` (env du conteneur dans Coolify). App et n8n sont
+      maintenant sur clés scoped → faisable à tout moment (prévu au nettoyage J+7). Choisir une
+      clé longue (32+ caractères aléatoires) et mettre à jour `TYPESENSE_ADMIN_API_KEY` du `.env`
+      local (utilisée par `scripts/search-reindex.mjs`).
 
 ### 🟡 C2 — Nouvelle collection `vpdata_v2` : sans `locale: fr` + modèle multi-types, réindexée depuis Directus 🔴 (index PRÊT le 13/07/2026 — reste la bascule)
 
@@ -213,9 +215,15 @@ collection + bascule par **alias** (aucune coupure, retour arrière possible).
 - [x] Recréer les 11 synonymes (C6) sur la v2 — actifs et validés — 13/07/2026
 - [x] Alias `vp-search` → `vpdata_v2` créé — 13/07/2026
 - [x] Code app compatible v1/v2 (`search.ts` : `article.url`, filtres whitelist ; chips dynamiques `recherche.vue`) — 13/07/2026
-- [ ] **Bascule prod** : voir « Séquence de bascule » ci-dessous (Coolify + n8n)
+- [x] **Bascule prod FAITE le 13/07/2026** : Coolify (`TYPESENSE_COLLECTION=vp-search` + clé
+      search-only) + workflow n8n RT v2 importé. Vérifié en prod : `decret` → 6 332,
+      fiches députés en tête avec bonnes URLs, synonymes actifs, payload 14,2 Ko/10 hits.
+      Réconciliation `--prune` rejouée : 14 604 docs, 0 orphelin, 0 erreur.
+- [ ] Tester le workflow RT v2 en conditions réelles (republier un item Directus → vérifier
+      l'upsert ; dépublier → vérifier la suppression de l'index)
 - [ ] Cron/routine de réconciliation (rejouer le script en hebdo, ou après chaque import en masse)
-- [ ] J+7 : supprimer `vpdata` v1 (et la collection `news` obsolète)
+- [ ] J+7 (~20/07/2026) : supprimer `vpdata` v1 et la collection `news` obsolète, faire tourner
+      la clé admin Typesense, révoquer le token Directus en clair dans les anciens exports n8n
 
 #### Séquence de bascule production (ordre STRICT)
 
