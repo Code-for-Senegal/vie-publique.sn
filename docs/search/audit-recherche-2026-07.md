@@ -1,8 +1,9 @@
 # Audit recherche Typesense + Directus — Juillet 2026
 
-> Date : 12/07/2026
-> Statut : ✅ Audit terminé — correctifs en cours
-> Concerne : `server/api/search.ts`, `app/composables/useSearchEnhanced.ts`, index Typesense `vpdata`, endpoints Directus `_icontains`
+> Date : 12/07/2026 — mis à jour le 13/07/2026
+> Statut : ✅ **Migration v2 EN PROD depuis le 13/07/2026** (index `vpdata_v2` via alias `vp-search`,
+> 14 604 docs multi-types, accents/synonymes corrigés) — reste : backlog §4
+> Concerne : `server/api/search.ts`, `app/composables/useSearchEnhanced.ts`, `scripts/search-reindex.mjs`, index Typesense, workflows n8n
 > Remplace : `TODO-search-optimizations.md` (les items non traités y sont repris ici)
 
 ---
@@ -12,18 +13,18 @@
 L'infrastructure est saine (Typesense 28.0, index `vpdata` à jour, réponses 10–80 ms) et le
 tuning v6 (poids dynamiques, `max_score`, champ `priority`) fonctionne. L'audit a révélé :
 
-| # | Constat | Gravité |
-| --- | --- | --- |
-| 1 | **Recherche sans accents cassée** (`decret` → 72 résultats vs `décret` → 4 480) — cause : `locale: fr` | 🔴 Critique |
-| 2 | **La clé admin Typesense sert de clé de recherche** dans l'app (aucune clé scoped n'existe) | 🔴 Critique |
-| 3 | Couverture limitée à 2 types (documents + actualités) : députés, votes, questions, dossiers, podcasts, personnalités introuvables | 🟠 Important |
-| 3b | **33 % des documents publiés absents de l'index** : 10 198 publiés dans Directus vs 6 841 indexés (3 359 manquants + 2 orphelins). Cause : les **imports en masse** dans Directus (fév. 2026 : 984 docs ; avril 2026 : 2 215 docs) ne déclenchent pas les triggers n8n | 🔴 Critique |
-| 4 | Payload de réponse 3× trop lourd (`content_text` complet renvoyé pour chaque hit) | 🟠 Important |
-| 5 | **Bug : le highlighting Typesense n'est jamais utilisé** (le composable lit `hits[].highlights.title` — format tableau — au lieu de `hits[].highlight.title.snippet`) → fallback regex client systématique | 🟠 Important |
-| 6 | Recherche Directus `_icontains` sur `content_html` de ~6 800 documents (LIKE `%…%` non indexable) | 🟠 Important |
-| 7 | Aucun synonyme, aucune curation, aucune règle analytics, aucun alias configurés (tout est vide) | 🟡 Moyen |
-| 8 | Collection `news` obsolète (169 docs, figée depuis nov. 2025, plus référencée par le code) | 🟡 Moyen |
-| 9 | Code mort (`useSearch.ts`), `useFetch` dans un handler d'événement, message d'erreur Typesense brut renvoyé au client (SEC-9) | 🟡 Moyen |
+| # | Constat | Gravité | Statut |
+| --- | --- | --- | --- |
+| 1 | **Recherche sans accents cassée** (`decret` → 72 résultats vs `décret` → 4 480) — cause : `locale: fr` | 🔴 Critique | ✅ Résolu (v2) |
+| 2 | **La clé admin Typesense sert de clé de recherche** dans l'app (aucune clé scoped n'existe) | 🔴 Critique | ✅ Clés scoped (reste rotation admin, J+7) |
+| 3 | Couverture limitée à 2 types (documents + actualités) : députés, votes, questions, dossiers, podcasts, personnalités introuvables | 🟠 Important | ✅ Résolu (9 types) |
+| 3b | **33 % des documents publiés absents de l'index** : 10 198 publiés dans Directus vs 6 841 indexés (3 359 manquants + 2 orphelins). Cause : les **imports en masse** dans Directus (fév. 2026 : 984 docs ; avril 2026 : 2 215 docs) ne déclenchent pas les triggers n8n | 🔴 Critique | ✅ Résolu (réindex + script réconciliation ; reste le cron) |
+| 4 | Payload de réponse 3× trop lourd (`content_text` complet renvoyé pour chaque hit) | 🟠 Important | ✅ Résolu (−64 %) |
+| 5 | **Bug : le highlighting Typesense n'est jamais utilisé** (le composable lit `hits[].highlights.title` — format tableau — au lieu de `hits[].highlight.title.snippet`) → fallback regex client systématique | 🟠 Important | ✅ Résolu |
+| 6 | Recherche Directus `_icontains` sur `content_html` de ~6 800 documents (LIKE `%…%` non indexable) | 🟠 Important | 🔲 C10 |
+| 7 | Aucun synonyme, aucune curation, aucune règle analytics, aucun alias configurés (tout est vide) | 🟡 Moyen | 🟡 Synonymes + alias faits ; analytics = C7, curation = backlog |
+| 8 | Collection `news` obsolète (169 docs, figée depuis nov. 2025, plus référencée par le code) | 🟡 Moyen | 🔲 Suppression au J+7 |
+| 9 | Code mort (`useSearch.ts`), `useFetch` dans un handler d'événement, message d'erreur Typesense brut renvoyé au client (SEC-9) | 🟡 Moyen | ✅ Résolu |
 
 ## 2. État des lieux (mesuré le 12/07/2026 via l'API admin)
 
@@ -114,7 +115,7 @@ curl -X POST "$TS_URL/keys" -H "X-TYPESENSE-API-KEY: $ADMIN_KEY" -d '{
       clé longue (32+ caractères aléatoires) et mettre à jour `TYPESENSE_ADMIN_API_KEY` du `.env`
       local (utilisée par `scripts/search-reindex.mjs`).
 
-### 🟡 C2 — Nouvelle collection `vpdata_v2` : sans `locale: fr` + modèle multi-types, réindexée depuis Directus 🔴 (index PRÊT le 13/07/2026 — reste la bascule)
+### ✅ C2 — Nouvelle collection `vpdata_v2` : sans `locale: fr` + modèle multi-types, réindexée depuis Directus (EN PROD depuis le 13/07/2026)
 
 > **C2 et C5 sont fusionnés** (décision du 13/07/2026) : puisque l'ancien index a 33 % de trous
 > (P0-3), on ne copie PAS `vpdata` → on **réindexe tout depuis Directus** (source de vérité),
@@ -258,14 +259,10 @@ Typesense (avec contexte autour du match) n'était **jamais** utilisé, remplac�
 client sur la requête entière. Fix : lire le format objet `result.highlight?.title?.snippet` /
 `result.highlight?.content_text?.snippet`.
 
-### 🔲 C5 — Étendre la couverture : indexer les autres contenus 🟠 (fusionné dans C2)
+### ✅ C5 — Étendre la couverture : indexer les autres contenus (fait via C2, 13/07/2026)
 
-> Réalisé via la réindexation C2 (le script indexe toutes les collections ci-dessous).
+> Réalisé par la réindexation C2 (le script indexe toutes les collections ci-dessous).
 > Cette section reste la **référence du mapping** type/priority/URL.
-
-Un citoyen qui cherche un député, une question écrite, un vote, un dossier, un podcast ou une
-personnalité ne trouve rien. Indexer ces collections Directus dans l'index avec un
-`type` dédié et un `priority` gradué — le champ a été conçu pour ça :
 
 | Contenu (Directus) | `type` | `priority` | URL cible |
 | --- | --- | --- | --- |
@@ -275,7 +272,7 @@ personnalité ne trouve rien. Indexer ces collections Directus dans l'index avec
 | Questions écrites (`assembly_question`) | `question` | 65 | `/assemblee-nationale/questions/{id}` |
 | Votes (`assembly_vote`) | `vote` | 65 | `/assemblee-nationale/votes/{id}` |
 | Personnalités (`public_persons`) | `personnalite` | 60 | `/personnalites/{id}/{slug}` |
-| Annuaire de l'État (`state_organization_entity`) | `institution` | 60 | `/etat-senegal/organisation` (⚠️ vérifier s'il existe une fiche détail par entité) |
+| Annuaire de l'État (`state_organization_entity`) | `institution` | 60 | `/etat-senegal/annuaire/{slug}` |
 | Actualités (`news`) | `news` | 50 | `/actualites/{id}/{slug}` (+ cas particuliers existants) |
 | Podcasts (`vp_podcasts`) | `podcast` | 40 | `/podcasts/{id}/{slug}` |
 
@@ -283,8 +280,10 @@ Côté code : étendre le mapping d'URL dans `server/api/search.ts` (switch sur 
 filtres UI de `recherche.vue` (chips par type, alimentées par la facette `type` déjà active).
 
 - [x] Indexation initiale : faite par le script C2 (9 sources, 14 604 docs) — 13/07/2026
-- [ ] n8n : triggers temps réel (upsert au publish, delete à l'archive) vers `vp-search` pour
-      chaque collection — le script C2 sert de rattrapage pour ce que n8n rate
+- [x] n8n temps réel pour **news + documents** : workflow « RT v2 » déployé — 13/07/2026
+- [ ] (Optionnel) Étendre le webhook n8n aux autres collections (dossier, questions, votes,
+      personnalités, annuaire, podcasts) — en attendant, ces contenus sont rafraîchis par la
+      **réconciliation** (`--prune`), fréquence de publication faible → non bloquant
 - [x] `search.ts` : URL précalculée `article.url` (+ fallback v1) et filtres whitelist — 13/07/2026
 - [x] `recherche.vue` : chips de filtre dynamiques (affichées si comptage > 0) — 13/07/2026
 
@@ -317,13 +316,25 @@ ministres` (trop large, bruit). À enrichir plus tard avec les données analytic
 
 ### 🔧 Workflows n8n — audit du 13/07/2026 (exports : `vpsn-automation/typesense/`)
 
+> **13/07/2026 : le workflow corrigé « Directus to typesense RT v2 » a été généré
+> (`vpsn-automation/typesense/Directus to typesense RT v2.json`) et importé/déployé.**
+> Il intègre toutes les corrections ci-dessous (branche delete réparée, dépublication gérée,
+> cible `vp-search`, mapping v2, clé write scoped).
+
+- [x] Workflow « RT v2 » importé et actif — 13/07/2026
+- [ ] Vérifier que l'**ancien** « Directus to typesense RT » est bien **désactivé** (même path
+      de webhook → conflit possible s'il est resté actif)
+- [ ] **Supprimer les 2 workflows Batch** (Docs/News) — remplacés par `scripts/search-reindex.mjs`
+- [ ] **Révoquer le token Directus** en clair dans les anciens exports JSON (repo git) ; ne pas
+      committer le JSON v2 tel quel (il contient la clé write)
+
 | Workflow | Verdict | Détail |
 | --- | --- | --- |
 | `directus-to-typesense Batch - Docs` | ❌ **Supprimer** | `limit: 2000` **sans pagination** → cause directe des 3 359 documents manquants (P0-3). Remplacé par `scripts/search-reindex.mjs`. |
 | `directus-to-typesense Batch - News` | ❌ **Supprimer** | Même bug (`limit: 2000`, pas de pagination). Remplacé par le script. |
-| `Directus to typesense RT` (webhook temps réel) | ✅ **Garder, mais corriger** | Voir liste ci-dessous. |
+| `Directus to typesense RT` | ❌ **Désactiver/supprimer** | Remplacé par « RT v2 » (corrections ci-dessous, pour mémoire). |
 
-**Corrections à faire sur le workflow RT :**
+**Corrections appliquées dans RT v2 (pour mémoire) :**
 
 1. **Branche delete cassée (3 bugs)** : le node « Filter Delete Events » teste `$json.event` /
    `$json.collection` au lieu de **`$json.body.event` / `$json.body.collection`** (ne matche
@@ -360,22 +371,25 @@ synonymes manquants via les requêtes sans résultat.
 - [ ] Flags serveur (Coolify) + règles analytics
 - [ ] Endpoint `/api/search/popular` (cache SWR) + brancher `recherche.vue`
 
-### 🔲 C8 — Facettes riches : sous-type de document + année
+### 🟡 C8 — Facettes riches : sous-type de document + année (données prêtes, UI à faire)
 
-`type` n'a que 2 valeurs et `category` est vide à 99,6 %. Indexer le sous-type réel des
-documents (loi, décret, arrêté, JO, rapport…) dans `category` (n8n), et exposer un filtre
-par **année** (`date_published` est déjà facetable/triable : `facet_by=date_published` par
-tranches, ou filtre `filter_by=date_published:>=…`).
+- [x] `category` renseignée pour 100 % de l'index v2 (libellé FR du sous-type : « Journal
+      Officiel », « Loi », « Décret », « Rapport d'audit »… — mapping `DOCUMENT_TYPE_LABELS`
+      dans le script + workflow RT v2) — 13/07/2026
+- [ ] UI : facette **sous-type** (`facet_by=category` quand le filtre « Documents » est actif)
+      dans `search.ts` + `recherche.vue`
+- [ ] UI : filtre par **année** (`date_published` est facetable/triable :
+      `filter_by=date_published:>=…`)
 
-- [ ] n8n : renseigner `category` (sous-type) pour les documents
-- [ ] `search.ts` + `recherche.vue` : facette sous-type + filtre année
+### 🟡 C9 — Champ `summary` (indexé et rempli, pas encore exploité)
 
-### 🔲 C9 — Champ `summary`
-
-Indexer un résumé de 200–300 caractères (n8n : description Directus, sinon début du texte
-nettoyé). Usage : `query_by: 'title,summary,content_text,tags'` avec poids `80,60,30,5`, et
-extrait d'affichage propre (plus besoin du fallback sur `content_text`). Le champ existe déjà
-(optionnel) dans le schéma v2.
+- [x] Champ `summary` (300 car., description Directus sinon début du texte nettoyé) indexé et
+      rempli pour tout l'index v2 par le script + workflow RT v2 — 13/07/2026
+- [ ] `search.ts` : l'ajouter au scoring — `query_by: 'title,summary,content_text,tags'` avec
+      poids type `100,40,20,5` (court) / `60,55,50,10` (phrase). ⚠️ Ne le faire que maintenant
+      que la prod est sur la v2 (le champ n'existe pas dans la v1 → `query_by` planterait).
+- [ ] Affichage : utiliser `document.summary` comme extrait quand il n'y a pas de snippet
+      highlight (remplace le fallback vide depuis l'exclusion de `content_text`)
 
 ### 🔲 C10 — Recherche Directus : sortir `content_html` du `_icontains` 🟠
 
@@ -397,16 +411,34 @@ Les autres listes (députés : nom/profession, etc.) sont de petits volumes → 
 - [ ] Supprimer la collection `news` (⚠️ vérifier d'abord dans n8n qu'aucun workflow n'y écrit encore)
 - [ ] Rafraîchir `search-typesense.md` (chiffres périmés : 4 860 vs 7 040 ; historique v3/v5/v6 confus)
 
-## 4. Ordre d'exécution recommandé
+## 4. Reste à faire (backlog au 13/07/2026, migration v2 en prod)
 
-| Étape | Correctifs | Dépendances |
+### Court terme (cette semaine)
+
+| # | Tâche | Effort | Détail |
+| --- | --- | --- | --- |
+| 1 | Tester le workflow RT v2 en réel | 10 min | Republier un item Directus → vérifier l'upsert dans `vp-search` ; le dépublier → vérifier sa disparition de l'index |
+| 2 | Vérifier ancien RT désactivé + supprimer les 2 Batch | 5 min | n8n (même path de webhook → conflit possible) |
+| 3 | Révoquer le token Directus exposé | 10 min | En clair dans les anciens exports JSON commités (`7FnM4F…`) |
+| 4 | Cron de réconciliation hebdo | 30 min | `node scripts/search-reindex.mjs --prune` (n8n Schedule, tâche Coolify ou GitHub Action) + le rejouer après chaque import en masse |
+
+### J+7 (~20/07/2026), si aucune anomalie
+
+| # | Tâche | Détail |
 | --- | --- | --- |
-| 1. Quick wins code | C3, C4, hygiène code | — (fait) |
-| 2. Sécurité | C1 (Coolify + n8n + rotation admin) | Accès Coolify/n8n |
-| 3. Réindex v2 | C2+C5 fusionnés (multi-types depuis Directus, fix accents + trous P0-3) + synonymes C6 | Accès n8n + Coolify |
-| 4. Facettes & résumés | C8, C9 | C2 |
-| 5. Pilotage | C7 analytics | Flags serveur |
-| 6. Directus | C10 | C2 (option A) |
+| 5 | Supprimer les collections `vpdata` (v1) et `news` | `DELETE /collections/...` (l'app et n8n sont sur `vp-search`) |
+| 6 | Rotation de la clé admin Typesense | Redémarrer le service avec un nouveau `--api-key` (32+ car.) ; mettre à jour `TYPESENSE_ADMIN_API_KEY` du `.env` local |
+
+### Améliorations suivantes (par ordre de valeur)
+
+| # | Correctif | Impact | Effort |
+| --- | --- | --- | --- |
+| 7 | **C9** : `summary` dans `query_by` + extrait d'affichage | Pertinence + UX extraits | 1–2 h |
+| 8 | **C8** : facette sous-type de document + filtre année | UX filtres (les données sont déjà dans l'index) | ½–1 j |
+| 9 | **C10** : recherche de la liste `/documents/public` via Typesense (ou retirer `content_html` du `_icontains`) | Perf Postgres + pertinence | ½ j |
+| 10 | **C7** : analytics Typesense (flags serveur + règles) → recherches populaires dynamiques, requêtes sans résultat | Pilotage data, synonymes guidés par l'usage | ½ j |
+| 11 | Hygiène doc : bandeau « périmé » sur `search-typesense.md` | — | 10 min |
+| 12 | (Optionnel) Webhooks n8n pour les 7 autres collections | Temps réel complet (couvert par le cron en attendant) | 1–2 h |
 
 ## 5. Vérifications post-déploiement
 
