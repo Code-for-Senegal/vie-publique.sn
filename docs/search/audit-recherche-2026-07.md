@@ -220,8 +220,9 @@ collection + bascule par **alias** (aucune coupure, retour arrière possible).
       search-only) + workflow n8n RT v2 importé. Vérifié en prod : `decret` → 6 332,
       fiches députés en tête avec bonnes URLs, synonymes actifs, payload 14,2 Ko/10 hits.
       Réconciliation `--prune` rejouée : 14 604 docs, 0 orphelin, 0 erreur.
-- [ ] Tester le workflow RT v2 en conditions réelles (republier un item Directus → vérifier
-      l'upsert ; dépublier → vérifier la suppression de l'index)
+- [x] Workflow RT v2 testé en réel sur un document (exécution n8n OK, upsert vers `vp-search`)
+      — 13/07/2026. Reste à tester une fois la **dépublication** (status → draft ⇒ le doc doit
+      disparaître de l'index) et une **suppression**.
 - [ ] Cron/routine de réconciliation (rejouer le script en hebdo, ou après chaque import en masse)
 - [ ] J+7 (~20/07/2026) : supprimer `vpdata` v1 et la collection `news` obsolète, faire tourner
       la clé admin Typesense, révoquer le token Directus en clair dans les anciens exports n8n
@@ -464,28 +465,30 @@ Les autres listes (députés : nom/profession, etc.) sont de petits volumes → 
 
 | # | Tâche | Effort | Détail |
 | --- | --- | --- | --- |
-| 1 | Tester le workflow RT v2 en réel | 10 min | Republier un item Directus → vérifier l'upsert dans `vp-search` ; le dépublier → vérifier sa disparition de l'index |
+| 1 | ~~Tester le workflow RT v2 en réel~~ ✅ upsert document validé (13/07) | 5 min | Reste : tester une dépublication (→ retrait de l'index) et une suppression |
 | 2 | Vérifier ancien RT désactivé + supprimer les 2 Batch | 5 min | n8n (même path de webhook → conflit possible) |
 | 3 | Révoquer le token Directus exposé | 10 min | En clair dans les anciens exports JSON commités (`7FnM4F…`) |
 | 4 | Cron de réconciliation hebdo | 30 min | `node scripts/search-reindex.mjs --prune` (n8n Schedule, tâche Coolify ou GitHub Action) + le rejouer après chaque import en masse |
+| 5 | **Étendre le RT v2 aux 7 autres types** | 2–3 h | Le webhook ne couvre que `news` + `documents`. Pour dossier, questions, votes, personnalités, annuaire, podcasts : (a) **Directus** : abonner le webhook/flow à ces collections ; (b) **n8n** : ajouter les sorties au Switch + un couple Get/Transform par collection (mapping = fonctions `map()` de `scripts/search-reindex.mjs`, ids `<type>-<id>`, mêmes règles URL/priority que le tableau C5). En attendant : couverts par la réconciliation `--prune` (fréquence de publication faible → non bloquant). |
 
 ### J+7 (~20/07/2026), si aucune anomalie
 
 | # | Tâche | Détail |
 | --- | --- | --- |
-| 5 | Supprimer les collections `vpdata` (v1) et `news` | `DELETE /collections/...` (l'app et n8n sont sur `vp-search`) |
-| 6 | Rotation de la clé admin Typesense | Redémarrer le service avec un nouveau `--api-key` (32+ car.) ; mettre à jour `TYPESENSE_ADMIN_API_KEY` du `.env` local |
+| 6 | Supprimer les collections `vpdata` (v1) et `news` | `DELETE /collections/...` (l'app et n8n sont sur `vp-search`) |
+| 7 | Rotation de la clé admin Typesense | Redémarrer le service avec un nouveau `--api-key` (32+ car.) ; mettre à jour `TYPESENSE_ADMIN_API_KEY` du `.env` local |
 
 ### Améliorations suivantes (par ordre de valeur)
 
 | # | Correctif | Impact | Effort |
 | --- | --- | --- | --- |
-| 7 | **C9** : `summary` dans `query_by` + extrait d'affichage | Pertinence + UX extraits | 1–2 h |
-| 8 | **C8** : facette sous-type de document + filtre année | UX filtres (les données sont déjà dans l'index) | ½–1 j |
-| 9 | **C10** : recherche de la liste `/documents/public` via Typesense (ou retirer `content_html` du `_icontains`) | Perf Postgres + pertinence | ½ j |
-| 10 | **C7** : analytics Typesense (flags serveur + règles) → recherches populaires dynamiques, requêtes sans résultat | Pilotage data, synonymes guidés par l'usage | ½ j |
-| 11 | Hygiène doc : bandeau « périmé » sur `search-typesense.md` | — | 10 min |
-| 12 | (Optionnel) Webhooks n8n pour les 7 autres collections | Temps réel complet (couvert par le cron en attendant) | 1–2 h |
+| 8 | ~~**C9** : `summary` dans `query_by` + extrait d'affichage~~ | ✅ Fait le 13/07/2026 | — |
+| 9 | ~~**C8** : facette sous-type de document + filtre année~~ | ✅ Fait le 13/07/2026 | — |
+| 10 | ~~**C10** : recherche de la liste documents via Typesense~~ | ✅ Fait le 13/07/2026 | — |
+| 11 | ~~**C7** : analytics Typesense~~ | ✅ En collecte depuis le 13/07/2026 | — |
+| 12 | ~~Hygiène doc : bandeau « périmé » sur `search-typesense.md`~~ | ✅ Fait le 13/07/2026 | — |
+| 13 | `/api/search/popular` + « Recherches populaires » dynamiques | UX (attendre quelques jours de données analytics) | 2 h |
+| 14 | Curation/overrides sur les requêtes clés (ex. `constitution` → texte consolidé épinglé) | Pertinence éditoriale | 1 h |
 
 ## 5. Vérifications post-déploiement
 
