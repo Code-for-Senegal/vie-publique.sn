@@ -31,6 +31,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { DOCUMENT_TYPE_LABELS } from '../shared/document-type-labels.mjs';
+
 // ---------------------------------------------------------------------------
 // Config
 // ---------------------------------------------------------------------------
@@ -180,41 +182,8 @@ const normalizeTags = (tags) =>
     .map((t) => (typeof t === 'string' ? t : t?.name || t?.title || ''))
     .filter(Boolean);
 
-// ---------------------------------------------------------------------------
-// Libellés français des sous-types de documents (facette `category`)
-// ---------------------------------------------------------------------------
-
-const DOCUMENT_TYPE_LABELS = {
-  official_journal: 'Journal Officiel',
-  law: 'Loi',
-  decree: 'Décret',
-  decision: 'Décision',
-  ministerial_order: 'Arrêté ministériel',
-  government_bill: 'Projet de loi',
-  bill_proposal: 'Proposition de loi',
-  code: 'Code',
-  audit_report: "Rapport d'audit",
-  sectoral_report: 'Rapport sectoriel',
-  parliament_report: 'Rapport parlementaire',
-  parliamentary_report: 'Rapport parlementaire',
-  annual_report: 'Rapport annuel',
-  international_report: 'Rapport international',
-  commission_report: 'Rapport de commission',
-  budget: 'Budget',
-  election: 'Élections',
-  council_of_ministers: 'Conseil des ministres',
-  interministerial_council: 'Conseil interministériel',
-  general_policy_statement: 'Déclaration de politique générale',
-  parliament_question: 'Question parlementaire',
-  legal_opinion: 'Avis juridique',
-  press_release: 'Communiqué',
-  communique: 'Communiqué',
-  public_notice: 'Note au public',
-  speech: 'Discours',
-  strategy: 'Stratégie',
-  circular: 'Circulaire',
-  uncategorized: 'Autre',
-};
+// Libellés français des sous-types de documents (facette `category`) :
+// importés depuis shared/document-type-labels.mjs (partagés avec l'API documents).
 
 // ---------------------------------------------------------------------------
 // Sources : une entrée par collection Directus à indexer

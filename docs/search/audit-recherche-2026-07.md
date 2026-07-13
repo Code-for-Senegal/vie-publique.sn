@@ -426,15 +426,27 @@ synonymes manquants via les requêtes sans résultat.
       (plus d'extrait vide quand seul le titre matche).
       Validé : « code de la route » garde les Codes en tête ; « JO 7896 » affiche le résumé.
 
-### 🔲 C10 — Recherche Directus : sortir `content_html` du `_icontains` 🟠
+### ✅ C10 — Recherche de la liste documents via Typesense (fait le 13/07/2026)
 
-`server/api/documents/index.get.ts` fait un `_or` `_icontains` incluant `content_html`
-(~6 800 docs, LIKE `%…%` non indexable) : coûteux pour Postgres, sans pertinence, sensible
-aux accents. Deux options :
+`server/api/documents/index.get.ts` faisait un `_or` `_icontains` incluant `content_html`
+(~10 000 docs, LIKE `%…%` non indexable Postgres, sans pertinence, sensible aux accents).
+Implémentation **hybride** (options A + B combinées) :
 
-- **Option A (recommandée)** : la recherche de la liste `/documents/public` interroge Typesense
-  (`filter_by=type:=document`) au lieu de Directus — pertinence + accents + perf.
-- **Option B (minimale)** : retirer `content_html` du `_or` (garder title/description/audit_institution).
+- **Chemin Typesense** (cas nominal) : quand `search` est présent, Typesense résout les IDs
+  classés par pertinence (`filter_by type:=document`, filtre type→`category` via le mapping
+  partagé, année → plage `date_published`), puis **hydratation Directus** (`id _in`, mêmes
+  champs que la liste) remise dans l'ordre de pertinence. Total = `found` Typesense. Tri :
+  pertinence par défaut, `publish_date` croissant respecté.
+- **Fallback Directus** conservé pour les combinaisons non indexées (famille, institution
+  d'audit, élections, tri par titre) et en cas d'indisponibilité Typesense (dégradation
+  propre) — mais **sans `content_html`** dans le `_or` (fin du scan Postgres dans tous les cas).
+- Mapping type→libellé extrait dans **`shared/document-type-labels.mjs`** (source de vérité
+  unique script + API, import `#shared/` côté nitro — un import relatif `../../../shared` est
+  mal résolu au bundle). ⚠️ Copie inline restante dans le node n8n « Transform Document v2 ».
+
+Validé : `decret` = `décret` = 6 166 docs pertinents ; `search`+`type=official_journal` →
+1 455 tous JO ; `search`+`year=2024` → 99 ; `family` → fallback OK ; pagination disjointe ;
+synonyme `plf` → 906 ; liste sans `search` inchangée (10 198).
 
 Les autres listes (députés : nom/profession, etc.) sont de petits volumes → `_icontains` OK.
 

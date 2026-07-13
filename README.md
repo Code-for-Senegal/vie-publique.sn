@@ -26,6 +26,8 @@ Vie Publique Sénégal is a platform dedicated to providing transparent access t
 
 ## Social Networks
 
+The project has built one of the largest civic information communities in Senegal, reaching more than 250,000 followers across its social platforms.
+
 Follow us on our social networks to stay updated:
 
 - [LinkedIn](https://www.linkedin.com/company/vie-publique-sn) - 85K followers
@@ -47,17 +49,22 @@ Follow us on our social networks to stay updated:
 ### Backend & data
 
 - [Directus](https://directus.io) (headless CMS) · [PostgreSQL](https://www.postgresql.org) · [Redis](https://redis.io) (cache)
-- [MinIO](https://min.io) (self-hosted object storage) · [Typesense](https://typesense.org) (search engine)
+- [MinIO](https://min.io) (self-hosted object storage)
+- [Typesense](https://typesense.org) (search engine)
 
 ### Infrastructure & DevOps
 
-- [Hostinger](https://www.hostinger.fr/vps-hebergement) VPS · [Coolify](https://coolify.io) (self-hosted PaaS) · [Docker](https://www.docker.com)
-- [GitHub Actions](https://github.com/features/actions) (CI/CD) · [SonarQube](https://www.sonarsource.com/products/sonarqube/) (code quality) · [Cloudflare](https://www.cloudflare.com)
+- [Hostinger](https://www.hostinger.fr/vps-hebergement) VPS
+- [Coolify](https://coolify.io) (self-hosted PaaS) · [Docker](https://www.docker.com)
+- [GitHub Actions](https://github.com/features/actions) (CI/CD)
+- [SonarQube](https://www.sonarsource.com/products/sonarqube/) (code quality)
+- [Cloudflare](https://www.cloudflare.com)
 
 ### AI & automation
 
 - [Claude Code](https://www.anthropic.com/claude-code) & [GitHub Copilot](https://github.com/features/copilot) — AI-assisted development
-- [n8n](https://n8n.io) workflows · [Mistral AI](https://mistral.ai) / [OpenAI](https://openai.com) for document OCR & summarization
+- [n8n](https://n8n.io) workflows
+- [Mistral AI](https://mistral.ai) / [OpenAI](https://openai.com) for document OCR & summarization
 
 ## Getting Started
 
