@@ -445,7 +445,7 @@ En plus : **lignes 11-12 inversées** (`CMS_API_URL=xxx` / `CMS_API_KEY=https://
 
 ### DOC-3 — Scripts version:* cassés
 
-`package.json` garde `version:patch|minor|major` → `scripts/update-version.js`, **supprimé** au commit c4800c88 (« clean script infra »). Aucun CHANGELOG. Versions incohérentes : package.json 2.0.1 vs `sonar.projectVersion=1.8.6`.
+`package.json` garde `version:patch|minor|major` → `scripts/update-version.js`, **supprimé** au commit c4800c88 (« clean script infra »). ~~Aucun CHANGELOG.~~ **Fait (2026-07-13)** : `CHANGELOG.md` créé (gros grain, daté par mois, reconstitué depuis git) + règle de tenue à jour dans CLAUDE.md (§ Development Workflow). Reste : versions incohérentes (package.json 2.0.1 vs `sonar.projectVersion=1.8.6`) et scripts `version:*` cassés — le changelog étant daté (pas versionné), l'option simple est de **supprimer** les 3 scripts morts plutôt que de les réparer.
 
 ### DOC-4 — Configs de déploiement mortes
 

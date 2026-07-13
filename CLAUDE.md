@@ -129,6 +129,11 @@ pour les rédacteurs (pas de JSON brut à saisir).
 2. **Commit Convention**: Use Conventional Commits (feat:, fix:, docs:, etc.)
 3. **Before Committing**: Always run `npm run lint:fix` and `npm run format`
 4. **Type Safety**: Ensure all new code has proper TypeScript types
+5. **Changelog** : toute nouvelle fonctionnalité **structurante et visible utilisateur** (nouveau
+   module, nouvelle page publique, nouveau canal type RSS/notifications) → ajouter une puce dans
+   la section du mois en cours de `CHANGELOG.md` (créer la section si besoin), formulée pour un
+   lecteur non-dev. Rester **gros grain** : pas une ligne par commit (le détail est dans git),
+   pas de `fix`/`refactor`/`docs` internes ni de micro-améliorations UI/SEO.
 
 ### Critical Patterns
 
