@@ -105,3 +105,58 @@ curl -s http://localhost:3000/actualites/rss.xml | grep -oE '&[a-z]*[^a-z;]' | s
 entre les redémarrages (supprimer `handlers/rss-*` pour tester une valeur fraîche — noms :
 `rss-global`, `rss-actualites`, `rss-conseil-ministres`, `rss-documents`,
 `rss-documents-jo`) ; et tester les accents via un client UTF-8, pas curl Git Bash.
+
+## Diffusion & acquisition — reste à faire (checklist, juillet 2026)
+
+> Déployé en prod le 2026-07-13, les 5 flux validés (200, XML bien formé, dates RFC,
+> échappement OK, Googlebot 200, non bloqué par robots.txt). Le flux seul ne génère pas
+> de trafic : il faut le brancher. Par ordre d'impact :
+
+### 1. Moteurs de recherche — soumettre le flux comme sitemap
+
+- [ ] **Google Search Console** : Sitemaps → ajouter `https://www.vie-publique.sn/rss.xml`
+      (EN PLUS du sitemap.xml, pas à la place). Accélère la découverte des nouveaux
+      contenus (recommandation officielle Google : sitemap XML pour l'historique + RSS
+      pour la fraîcheur).
+      **⚠️ Premier envoi le 2026-07-13 : GSC affiche « Impossible de récupérer le
+      sitemap » (type Inconnu, 0 URL). Vérifié le même jour : PAS un vrai problème**
+      (curl UA Googlebot → 200 `application/rss+xml`, robots.txt ne bloque pas,
+      `X-Robots-Tag: noindex` est normal et recommandé pour un flux). C'est le bug
+      d'affichage GSC bien connu au premier envoi d'un sitemap → **attendre 24-72 h,
+      puis supprimer/re-soumettre si l'état ne passe pas à « Opération effectuée »**.
+      Ne PAS « corriger » le code sur la base de ce message.
+- [ ] **Bing Webmaster Tools** : soumettre le même flux comme sitemap (d'autant plus
+      utile que l'indexation Bing a posé problème — cf. audit BING-1).
+
+### 2. Automatisation de diffusion (le vrai levier — n8n déjà en prod)
+
+- [ ] Workflow n8n **auto-post réseaux sociaux** : node *RSS Feed Trigger* sur
+      `/conseil-des-ministres/rss.xml` et `/documents/journal-officiel-senegal/rss.xml`
+      → post X/LinkedIn/Facebook (titre + lien) à chaque nouvel item.
+- [ ] **Canal WhatsApp** (et/ou Telegram) « Vie-Publique.sn » alimenté par le flux CM/JO —
+      canal n°1 de l'audience sénégalaise, meilleur potentiel de trafic récurrent.
+- [ ] **Newsletter RSS-to-email** (Brevo/Mailchimp) : digest hebdo auto-généré depuis
+      `/rss.xml`.
+
+### 3. Annuaires / agrégateurs (secondaire)
+
+- [ ] Revendiquer la source sur **Feedly** (feedly.com/i/publisher — logo + description) ;
+      rien d'autre à faire, l'autodiscovery suffit.
+- [ ] Soumettre à **Feedspot** (listes « Top Senegal News RSS Feeds » → backlink).
+- [ ] Optionnel : magazine **Flipboard** alimenté par le flux (audience diaspora).
+
+### 4. Le faire savoir (presse, juristes, veille)
+
+- [ ] **Actualité d'annonce** sur le site : « Suivez le Journal officiel et le Conseil des
+      ministres par RSS » (les 5 URLs + mini-guide Feedly). Bon contenu SEO
+      (« journal officiel sénégal alerte »).
+- [ ] Mentionner les flux sur la page **aide-presse** et dans la prochaine newsletter.
+
+### 5. Mesure (avant d'investir plus)
+
+- [ ] Suivre les user-agents des lecteurs RSS dans les logs serveur (Feedly y indique le
+      nombre d'abonnés : `Feedly/1.0 (... N subscribers)`).
+- [ ] Optionnel : ajouter `?utm_source=rss&utm_medium=feed` aux liens des items
+      (modif dans `server/utils/rss.ts`) pour voir le trafic entrant dans GA4.
+      Attention : changer les URLs change les `<guid>` → les lecteurs re-verraient les
+      items comme nouveaux une fois. À faire tôt ou jamais.
