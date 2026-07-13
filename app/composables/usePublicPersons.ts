@@ -77,7 +77,7 @@ export const usePublicPersons = (options: PublicPersonsOptions = {}) => {
     sort: state.sortBy,
     limit: state.itemsPerPage,
     page: state.currentPage,
-    search: state.searchQuery,
+    search: state.apiSearchQuery,
   });
 
   const totalItems = computed(() => collection.pagination.value?.total || 0);

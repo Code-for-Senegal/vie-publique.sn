@@ -1,5 +1,5 @@
 // composables/useElections.ts
-import type { ElectionCandidate } from "~/types/election";
+import type { ElectionCandidate } from '~/types/election';
 
 interface ElectionCandidatesOptions {
   /** ID du candidat pour récupération unitaire */
@@ -49,10 +49,10 @@ export const useElections = (options: ElectionCandidatesOptions = {}) => {
       // États vides pour compatibilité avec l'ancien code
       candidates: computed(() => []),
       currentPage: ref(1),
-      searchQuery: ref(""),
-      sortBy: ref(options.sort || "last_name"),
-      filterCoalition: ref(""),
-      filterGender: ref(""),
+      searchQuery: ref(''),
+      sortBy: ref(options.sort || 'last_name'),
+      filterCoalition: ref(''),
+      filterGender: ref(''),
       itemsPerPage: ref(options.limit || 200),
       totalItems: computed(() => 0),
       totalPages: computed(() => 0),
@@ -71,20 +71,20 @@ export const useElections = (options: ElectionCandidatesOptions = {}) => {
 
   // État UI géré par useCollectionState
   const state = useCollectionState({
-    defaultSort: options.sort || "last_name",
+    defaultSort: options.sort || 'last_name',
     defaultItemsPerPage: options.limit || 200,
     syncUrl: options.syncUrl !== false,
     urlParamsMapping: {
-      search: "q",
-      filter: "coalition",
-      page: "page",
-      sort: "sort",
+      search: 'q',
+      filter: 'coalition',
+      page: 'page',
+      sort: 'sort',
     },
   });
 
   // Filtres spécifiques
   const filterCoalition = computed(() => options.coalition || state.filterValue.value);
-  const filterGender = ref<string>("");
+  const filterGender = ref<string>('');
 
   // Construction de la query string
   const queryParams = computed(() => {
@@ -102,8 +102,8 @@ export const useElections = (options: ElectionCandidatesOptions = {}) => {
       params.gender = filterGender.value;
     }
 
-    if (state.searchQuery.value) {
-      params.search = state.searchQuery.value;
+    if (state.apiSearchQuery.value) {
+      params.search = state.apiSearchQuery.value;
     }
 
     return params;
@@ -119,7 +119,7 @@ export const useElections = (options: ElectionCandidatesOptions = {}) => {
       total: number;
       totalPages: number;
     };
-  }>("/api/elections/candidates/elected", {
+  }>('/api/elections/candidates/elected', {
     query: queryParams,
     // SSR activé par défaut avec useFetch
     // Les données seront chargées côté serveur lors du rendu initial
@@ -166,7 +166,7 @@ export const useElections = (options: ElectionCandidatesOptions = {}) => {
     setItemsPerPage: state.setItemsPerPage,
     resetFilters: () => {
       state.resetFilters();
-      filterGender.value = "";
+      filterGender.value = '';
     },
 
     // Méthodes spécifiques
@@ -176,11 +176,7 @@ export const useElections = (options: ElectionCandidatesOptions = {}) => {
     // Computed
     totalItems,
     totalPages,
-    hasActiveFilters: computed(
-      () =>
-        state.hasActiveFilters.value ||
-        filterGender.value !== ""
-    ),
+    hasActiveFilters: computed(() => state.hasActiveFilters.value || filterGender.value !== ''),
   };
 };
 
@@ -190,9 +186,7 @@ export const useElections = (options: ElectionCandidatesOptions = {}) => {
  * @deprecated Utilisez useElections() à la place
  */
 export const useElectionElectedCandidates = () => {
-  console.warn(
-    "useElectionElectedCandidates() est déprécié. Utilisez useElections() à la place."
-  );
+  console.warn('useElectionElectedCandidates() est déprécié. Utilisez useElections() à la place.');
 
   const { candidates, loading, error, refresh } = useElections();
 

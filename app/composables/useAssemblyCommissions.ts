@@ -101,7 +101,7 @@ export const useAssemblyCommissions = (options: AssemblyCommissionsOptions = {})
     sort: state.sortBy,
     limit: state.itemsPerPage,
     page: state.currentPage,
-    search: state.searchQuery,
+    search: state.apiSearchQuery,
   });
 
   // Computed pour compatibilité avec l'ancien code

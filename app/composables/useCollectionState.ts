@@ -43,6 +43,8 @@ export interface CollectionState {
   // États réactifs
   currentPage: Ref<number>;
   searchQuery: Ref<string>;
+  /** Valeur de recherche à passer à l'API : débouncée (350 ms) + min 2 caractères */
+  apiSearchQuery: Ref<string>;
   sortBy: Ref<string>;
   filterValue: Ref<string>;
   itemsPerPage: Ref<number>;
@@ -59,17 +61,15 @@ export interface CollectionState {
   hasActiveFilters: ComputedRef<boolean>;
 }
 
-export const useCollectionState = (
-  options: CollectionStateOptions = {}
-): CollectionState => {
+export const useCollectionState = (options: CollectionStateOptions = {}): CollectionState => {
   const route = useRoute();
   const router = useRouter();
 
   // Destructuration des options avec valeurs par défaut
   const {
-    defaultSort = "-publish_date",
+    defaultSort = '-publish_date',
     defaultItemsPerPage = 10,
-    defaultFilter = "all",
+    defaultFilter = 'all',
     syncUrl = true,
     urlParamsMapping = {},
     additionalFilters = {},
@@ -77,10 +77,10 @@ export const useCollectionState = (
 
   // Mapping par défaut des paramètres URL
   const urlMapping = {
-    search: urlParamsMapping.search || "search",
-    filter: urlParamsMapping.filter || "filter",
-    page: urlParamsMapping.page || "page",
-    sort: urlParamsMapping.sort || "sort",
+    search: urlParamsMapping.search || 'search',
+    filter: urlParamsMapping.filter || 'filter',
+    page: urlParamsMapping.page || 'page',
+    sort: urlParamsMapping.sort || 'sort',
   };
 
   // Lecture des query params de façon SYNCHRONE (SSR + client).
@@ -101,7 +101,7 @@ export const useCollectionState = (
   // États réactifs (initialisés depuis l'URL pour un SSR correct)
   const currentPage = ref(initialPage);
   const searchQuery = ref(
-    syncUrl && query[urlMapping.search] ? (query[urlMapping.search] as string) : "",
+    syncUrl && query[urlMapping.search] ? (query[urlMapping.search] as string) : '',
   );
   const sortBy = ref(
     syncUrl && query[urlMapping.sort] ? (query[urlMapping.sort] as string) : defaultSort,
@@ -110,6 +110,41 @@ export const useCollectionState = (
     syncUrl && query[urlMapping.filter] ? (query[urlMapping.filter] as string) : defaultFilter,
   );
   const itemsPerPage = ref(defaultItemsPerPage);
+
+  // Valeur de recherche envoyée à l'API — c'est ELLE que les composables passent à
+  // useCmsCollection (pas searchQuery, qui reste immédiat pour la liaison v-model) :
+  // - debounce 350 ms : 1 requête par pause de frappe, pas par caractère
+  //   (le useFetch de useCmsCollection est réactif → sans ça, « budget » = 6 requêtes) ;
+  // - minimum 2 caractères : pas de requête sur « l » ;
+  // - initialisée de façon SYNCHRONE depuis l'URL pour que le premier rendu SSR
+  //   soit déjà filtré (même règle que la pagination, cf. commentaire ci-dessus).
+  const apiSearchQuery = ref(searchQuery.value.trim().length >= 2 ? searchQuery.value.trim() : '');
+  let searchDebounceTimer: ReturnType<typeof setTimeout> | undefined;
+  watch(searchQuery, (value) => {
+    const trimmed = value.trim();
+    if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
+
+    // Effacement (ou < 2 caractères) : retour immédiat à la liste non filtrée
+    if (trimmed.length < 2) {
+      if (apiSearchQuery.value !== '') {
+        apiSearchQuery.value = '';
+        currentPage.value = 1;
+      }
+      return;
+    }
+
+    searchDebounceTimer = setTimeout(() => {
+      if (apiSearchQuery.value !== trimmed) {
+        apiSearchQuery.value = trimmed;
+        // Nouvelle recherche → repartir de la page 1 (l'input est lié en v-model
+        // direct : setSearchQuery n'est pas toujours appelé)
+        currentPage.value = 1;
+      }
+    }, 350);
+  });
+  onScopeDispose(() => {
+    if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
+  });
 
   // Filtres additionnels (ex: category, type)
   if (syncUrl) {
@@ -135,7 +170,7 @@ export const useCollectionState = (
     }
 
     // Recherche
-    if (searchQuery.value && searchQuery.value.trim() !== "") {
+    if (searchQuery.value && searchQuery.value.trim() !== '') {
       query[urlMapping.search] = searchQuery.value.trim();
     } else {
       delete query[urlMapping.search];
@@ -158,12 +193,7 @@ export const useCollectionState = (
     // Filtres additionnels
     Object.keys(additionalFilters).forEach((key) => {
       const value = additionalFilters[key].value;
-      if (
-        value !== undefined &&
-        value !== null &&
-        value !== "" &&
-        value !== "all"
-      ) {
+      if (value !== undefined && value !== null && value !== '' && value !== 'all') {
         query[key] = value;
       } else {
         delete query[key];
@@ -181,7 +211,7 @@ export const useCollectionState = (
       () => {
         updateURL();
       },
-      { deep: true }
+      { deep: true },
     );
 
     // Watcher pour les filtres additionnels
@@ -227,35 +257,32 @@ export const useCollectionState = (
 
   const resetFilters = () => {
     currentPage.value = 1;
-    searchQuery.value = "";
+    searchQuery.value = '';
     sortBy.value = defaultSort;
     filterValue.value = defaultFilter;
 
     // Reset des filtres additionnels
     Object.keys(additionalFilters).forEach((key) => {
       if (isRef(additionalFilters[key])) {
-        additionalFilters[key].value =
-          options.additionalFilters?.[key] || "all";
+        additionalFilters[key].value = options.additionalFilters?.[key] || 'all';
       }
     });
   };
 
   // Computed pour vérifier si des filtres sont actifs
   const hasActiveFilters = computed(() => {
-    const hasSearch = searchQuery.value !== "";
+    const hasSearch = searchQuery.value !== '';
     const hasFilter = filterValue.value !== defaultFilter;
     const hasSort = sortBy.value !== defaultSort;
 
     // Vérifier les filtres additionnels
-    const hasAdditionalFilters = Object.values(additionalFilters).some(
-      (filter: any) => {
-        if (isRef(filter)) {
-          const value = filter.value;
-          return value !== "" && value !== "all" && value !== undefined;
-        }
-        return false;
+    const hasAdditionalFilters = Object.values(additionalFilters).some((filter: any) => {
+      if (isRef(filter)) {
+        const value = filter.value;
+        return value !== '' && value !== 'all' && value !== undefined;
       }
-    );
+      return false;
+    });
 
     return hasSearch || hasFilter || hasSort || hasAdditionalFilters;
   });
@@ -264,6 +291,7 @@ export const useCollectionState = (
     // États réactifs
     currentPage,
     searchQuery,
+    apiSearchQuery,
     sortBy,
     filterValue,
     itemsPerPage,
