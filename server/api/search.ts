@@ -63,29 +63,33 @@ export default defineEventHandler(async (event) => {
     const significantWords = words.filter((w) => !stopWords.has(w.toLowerCase()));
     const isPhrasalSearch = hasQuotes || wordCount > 2;
 
-    // Adapter les poids selon le type de recherche
-    // Pour les recherches courtes (1-2 mots significatifs), prioriser le titre
+    // Adapter les poids selon le type de recherche (title, summary, content_text, tags).
+    // summary (~300 car., rédigé au CMS ou début du texte) est un signal intermédiaire :
+    // un match y pèse plus que dans le corps (un JO de 200 pages « mentionne » tout)
+    // mais moins que dans le titre.
+    // Pour les recherches courtes (1-2 mots significatifs), prioriser le titre.
     // Pour les phrases/requêtes longues, augmenter le poids du contenu car les documents
     // les plus pertinents ont souvent la phrase dans leur contenu (ex: JO avec "code de la route")
     let queryWeights: string;
     if (isShortQuery && significantWords.length <= 2) {
-      queryWeights = '100,20,5'; // Requêtes courtes : titre dominant
+      queryWeights = '100,40,20,5'; // Requêtes courtes : titre dominant
     } else if (isPhrasalSearch || significantWords.length >= 3) {
-      queryWeights = '60,50,10'; // Phrases/expressions : contenu presque aussi important que titre
+      queryWeights = '60,55,50,10'; // Phrases/expressions : contenu presque aussi important que titre
     } else {
-      queryWeights = '80,30,5'; // Par défaut
+      queryWeights = '80,45,30,5'; // Par défaut
     }
 
     const searchParams: any = {
       q: searchTerm,
-      query_by: 'title,content_text,tags',
+      // ⚠️ summary n'existe que dans l'index v2 (vp-search) — ne pas repointer TYPESENSE_COLLECTION sur l'ancien vpdata
+      query_by: 'title,summary,content_text,tags',
       query_by_weights: queryWeights, // Poids adaptés selon le type de recherche
       sort_by: '_text_match:desc,priority:desc,date_published:desc', // Tri par pertinence, puis priorité (documents > news), puis date
       // max_score (défaut) : utilise le MEILLEUR score réel parmi tous les champs
       // Contrairement à max_weight qui privilégie le champ avec le poids le plus élevé
       // même si le match y est faible (ex: "la" dans un titre → poids titre élevé)
       text_match_type: 'max_score',
-      highlight_fields: 'title,content_text', // Highlight sur le texte brut
+      highlight_fields: 'title,summary,content_text', // Highlight sur le texte brut
       highlight_start_tag: '<mark>',
       highlight_end_tag: '</mark>',
       highlight_affix_num_tokens: 5, // Contexte autour des mots trouvés

@@ -409,15 +409,17 @@ synonymes manquants via les requêtes sans résultat.
 - [ ] UI : filtre par **année** (`date_published` est facetable/triable :
       `filter_by=date_published:>=…`)
 
-### 🟡 C9 — Champ `summary` (indexé et rempli, pas encore exploité)
+### ✅ C9 — Champ `summary` (fait le 13/07/2026)
 
 - [x] Champ `summary` (300 car., description Directus sinon début du texte nettoyé) indexé et
-      rempli pour tout l'index v2 par le script + workflow RT v2 — 13/07/2026
-- [ ] `search.ts` : l'ajouter au scoring — `query_by: 'title,summary,content_text,tags'` avec
-      poids type `100,40,20,5` (court) / `60,55,50,10` (phrase). ⚠️ Ne le faire que maintenant
-      que la prod est sur la v2 (le champ n'existe pas dans la v1 → `query_by` planterait).
-- [ ] Affichage : utiliser `document.summary` comme extrait quand il n'y a pas de snippet
-      highlight (remplace le fallback vide depuis l'exclusion de `content_text`)
+      rempli pour tout l'index v2 par le script + workflow RT v2
+- [x] `search.ts` : intégré au scoring — `query_by: 'title,summary,content_text,tags'`, poids
+      `100,40,20,5` (court) / `60,55,50,10` (phrase) / `80,45,30,5` (défaut) + highlight.
+      ⚠️ `summary` n'existe que dans la v2 → ne jamais repointer `TYPESENSE_COLLECTION` sur
+      l'ancien `vpdata` avec ce code.
+- [x] Affichage : extrait en cascade `snippet content_text → snippet summary → summary brut`
+      (plus d'extrait vide quand seul le titre matche).
+      Validé : « code de la route » garde les Codes en tête ; « JO 7896 » affiche le résumé.
 
 ### 🔲 C10 — Recherche Directus : sortir `content_html` du `_icontains` 🟠
 

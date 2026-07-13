@@ -78,8 +78,9 @@ export const useSearchEnhanced = () => {
       });
 
       if (response) {
-        // Extraits : snippets Typesense (format objet `highlight`, avec contexte
-        // autour du match) ; fallback regex client si le champ n'a pas matché
+        // Extraits : snippets Typesense (format objet `highlight`, avec contexte autour
+        // du match), en cascade : contenu → résumé → résumé brut (jamais d'extrait vide,
+        // même quand seul le titre matche)
         searchResults.value = (response.data || []).map((result: any) => ({
           ...result,
           highlightedTitle:
@@ -87,10 +88,8 @@ export const useSearchEnhanced = () => {
             highlightText(result.document?.title || '', searchQuery.value),
           highlightedContent:
             result.highlight?.content_text?.snippet ||
-            highlightText(
-              result.document?.content_text?.substring(0, 300) || '',
-              searchQuery.value,
-            ),
+            result.highlight?.summary?.snippet ||
+            highlightText(result.document?.summary || '', searchQuery.value),
         }));
 
         totalResults.value = response.total || 0;
