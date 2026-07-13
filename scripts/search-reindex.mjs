@@ -585,18 +585,20 @@ async function setupAnalytics() {
       });
       console.log(`✅ Collection ${collection} créée`);
     }
+    // ⚠️ la règle matche le nom de collection TEL QUE REQUÊTÉ (l'alias n'est pas résolu) :
+    // il faut écouter l'alias (utilisé par la prod) ET le nom réel (vérifié empiriquement).
     await ts(`/analytics/rules/${rule}`, {
       method: 'PUT',
       body: JSON.stringify({
         type,
         params: {
-          source: { collections: [TARGET] },
+          source: { collections: [TARGET, ALIAS] },
           destination: { collection },
           limit: 1000,
         },
       }),
     });
-    console.log(`✅ Règle analytics ${rule} (${type}) → ${collection} [source: ${TARGET}]`);
+    console.log(`✅ Règle analytics ${rule} (${type}) → ${collection} [sources: ${TARGET}, ${ALIAS}]`);
   }
 }
 

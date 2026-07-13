@@ -374,8 +374,10 @@ Mise en place :
    Coolify + redéployer le service** (⚠️ coupe la recherche quelques secondes).
 2. **Règles** (après le redémarrage) : `node scripts/search-reindex.mjs --setup-analytics`
    (idempotent ; crée les 2 collections destination + les règles `popular_queries` /
-   `nohits_queries` sur la collection cible). ⚠️ Comme les synonymes, les règles pointent la
-   collection réelle → re-lancer après chaque nouvelle version d'index.
+   `nohits_queries`). ⚠️ **Piège vérifié empiriquement** : la règle matche le nom de collection
+   TEL QUE REQUÊTÉ — une requête via l'alias `vp-search` n'est PAS comptée par une règle dont
+   la source est `vpdata_v2`. Le script déclare donc les DEUX sources (`[cible, alias]`).
+   Comme les synonymes, re-lancer après chaque nouvelle version d'index.
 3. **Consulter** : `GET /collections/vp_queries_popular/documents/search?q=*&query_by=q&sort_by=count:desc`.
 
 Bénéfices : « Recherches populaires » de `/recherche` alimentées par les vraies requêtes
@@ -386,9 +388,12 @@ synonymes manquants via les requêtes sans résultat.
 > déjà les termes recherchés → GA4 → Engagement → Événements → `view_search_results`,
 > dimension `search_term`. Mais pas les requêtes « sans résultat ».
 
-- [x] Compose : flags analytics ajoutés — 13/07/2026 (reste : reporter dans Coolify + redéployer)
-- [ ] Redéployer le service Typesense (Coolify) puis `--setup-analytics`
+- [x] Compose : flags analytics ajoutés + service redéployé — 13/07/2026
+- [x] Règles créées (`--setup-analytics`) et **validées en réel** : requêtes de prod capturées
+      dans `vp_queries_popular`, requête sans résultat capturée dans `vp_queries_nohits` — 13/07/2026
 - [ ] Endpoint `/api/search/popular` (cache SWR ~1 h) + brancher `recherche.vue`
+      (⚠️ nécessite une clé de lecture couvrant `vp_queries_*` — la clé search-only de l'app
+      est scopée `vpdata.*`/`vp-search`)
 - [ ] (Optionnel) `enable_analytics=false` sur les requêtes du quick search header pour ne
       compter que les recherches de la page `/recherche`
 
