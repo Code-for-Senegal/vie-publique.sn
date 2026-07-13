@@ -75,7 +75,10 @@
                   {{ result.document?.title }}
                 </p>
                 <p class="truncate text-xs text-gray-500 dark:text-gray-400">
-                  {{ result.document?.category?.name || 'Actualité' }}
+                  {{
+                    result.document?.category ||
+                    (result.document?.type === 'document' ? 'Document' : 'Actualité')
+                  }}
                 </p>
               </div>
             </NuxtLink>
@@ -204,7 +207,10 @@
                   {{ result.document?.title }}
                 </p>
                 <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                  {{ result.document?.category?.name || 'Actualité' }}
+                  {{
+                    result.document?.category ||
+                    (result.document?.type === 'document' ? 'Document' : 'Actualité')
+                  }}
                 </p>
               </div>
             </NuxtLink>
@@ -244,14 +250,15 @@ const quickSearch = useDebounceFn(async () => {
   }
 
   try {
-    const { data } = await $fetch('/api/search', {
+    // $fetch renvoie directement le body { data, total, ... }
+    const response: any = await $fetch('/api/search', {
       query: {
         q: quickSearchQuery.value,
         limit: 8,
       },
     });
 
-    quickSearchResults.value = data?.data || [];
+    quickSearchResults.value = response?.data || [];
   } catch (error) {
     console.error('Erreur recherche rapide:', error);
     quickSearchResults.value = [];
@@ -266,14 +273,14 @@ const mobileSearch = useDebounceFn(async () => {
   }
 
   try {
-    const { data } = await $fetch('/api/search', {
+    const response: any = await $fetch('/api/search', {
       query: {
         q: mobileSearchQuery.value,
         limit: 10,
       },
     });
 
-    mobileSearchResults.value = data?.data || [];
+    mobileSearchResults.value = response?.data || [];
   } catch (error) {
     console.error('Erreur recherche mobile:', error);
     mobileSearchResults.value = [];

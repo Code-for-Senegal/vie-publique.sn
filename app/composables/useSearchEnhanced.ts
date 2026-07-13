@@ -3,7 +3,7 @@ export const useSearchEnhanced = () => {
   const router = useRouter();
 
   // États de recherche
-  const searchQuery = ref((route.query.q as string) || "");
+  const searchQuery = ref((route.query.q as string) || '');
   const searchResults = ref([]);
   const totalResults = ref(0);
   const totalIndexed = ref(0);
@@ -11,31 +11,30 @@ export const useSearchEnhanced = () => {
   const currentPage = ref(parseInt(route.query.page as string) || 1);
   const hasSearched = ref(false);
   const selectedTypes = ref<string[]>(
-    (route.query.types as string)?.split(",").filter(Boolean) || [],
+    (route.query.types as string)?.split(',').filter(Boolean) || [],
   );
+  // Filtres documents : sous-type (facette category) + année de publication
+  const selectedCategories = ref<string[]>(
+    (route.query.categories as string)?.split(',').filter(Boolean) || [],
+  );
+  const selectedYear = ref<number | null>(parseInt(route.query.year as string) || null);
   const itemsPerPage = 10;
-  
+
   // Compteurs par type
   const resultCountsByType = ref<Record<string, number>>({
     document: 0,
     actualite: 0,
   });
+  // Compteurs par sous-type (facette category)
+  const resultCountsByCategory = ref<Record<string, number>>({});
 
   // Fonction pour mettre en surbrillance les termes recherchés
   const highlightText = (text: string, query: string) => {
     if (!text || !query) return text;
 
-    const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const regex = new RegExp(`(${escapedQuery})`, "gi");
-    return text.replace(
-      regex,
-      '<mark class="bg-yellow-200 px-1 rounded">$1</mark>',
-    );
-  };
-
-  // Fonction pour formater l'URL des résultats (identique à la page recherche.vue)
-  const formatResultUrl = (result: any) => {
-    return result.formattedUrl || "/actualites";
+    const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`(${escapedQuery})`, 'gi');
+    return text.replace(regex, '<mark class="bg-yellow-200 px-1 rounded">$1</mark>');
   };
 
   // Synchroniser avec l'URL
@@ -51,7 +50,15 @@ export const useSearchEnhanced = () => {
     }
 
     if (selectedTypes.value.length > 0) {
-      query.types = selectedTypes.value.join(",");
+      query.types = selectedTypes.value.join(',');
+    }
+
+    if (selectedCategories.value.length > 0) {
+      query.categories = selectedCategories.value.join(',');
+    }
+
+    if (selectedYear.value) {
+      query.year = String(selectedYear.value);
     }
 
     router.push({ query });
@@ -77,38 +84,45 @@ export const useSearchEnhanced = () => {
         q: searchQuery.value,
         page: currentPage.value,
         limit: itemsPerPage,
-        types: selectedTypes.value.join(","),
+        types: selectedTypes.value.join(','),
+        categories: selectedCategories.value.join(','),
+        year: selectedYear.value || undefined,
       };
 
-      const { data } = await useFetch("/api/search", {
+      // $fetch (et non useFetch) : appel déclenché par un événement utilisateur
+      const response: any = await $fetch('/api/search', {
         query: searchParams,
       });
 
-      if (data.value) {
-        // Traiter les résultats avec highlighting (en gardant les données originales)
-        searchResults.value = (data.value.data || []).map((result: any) => ({
+      if (response) {
+        // Extraits : snippets Typesense (format objet `highlight`, avec contexte autour
+        // du match), en cascade : contenu → résumé → résumé brut (jamais d'extrait vide,
+        // même quand seul le titre matche)
+        searchResults.value = (response.data || []).map((result: any) => ({
           ...result,
-          highlightedTitle: result.highlights?.title?.[0]?.snippet
-            ? result.highlights.title[0].snippet
-            : highlightText(result.document?.title || "", searchQuery.value),
-          highlightedContent: result.highlights?.content_text?.[0]?.snippet
-            ? result.highlights.content_text[0].snippet
-            : highlightText(
-                result.document?.content_text?.substring(0, 300) || "",
-                searchQuery.value,
-              ),
+          highlightedTitle:
+            result.highlight?.title?.snippet ||
+            highlightText(result.document?.title || '', searchQuery.value),
+          highlightedContent:
+            result.highlight?.content_text?.snippet ||
+            result.highlight?.summary?.snippet ||
+            highlightText(result.document?.summary || '', searchQuery.value),
         }));
 
-        totalResults.value = data.value.total || 0;
-        totalIndexed.value = data.value.totalIndexed || data.value.total || 0;
-        
-        // Utiliser les comptages par type depuis les facets Typesense
+        totalResults.value = response.total || 0;
+        totalIndexed.value = response.totalIndexed || response.total || 0;
+
+        // Utiliser les comptages par type depuis les facets Typesense.
+        // Tous les types v2 (depute, dossier, question…) sont passés tels quels ;
+        // "news" est mappé vers l'alias UI historique "actualite".
         resultCountsByType.value = {
-          document: data.value.typeCounts?.document || 0,
-          actualite: data.value.typeCounts?.news || 0, // Mapper "news" vers "actualite"
+          ...(response.typeCounts || {}),
+          document: response.typeCounts?.document || 0,
+          actualite: response.typeCounts?.news || 0,
         };
+        resultCountsByCategory.value = response.categoryCounts || {};
       }
-    } catch (error) {
+    } catch {
       searchResults.value = [];
       totalResults.value = 0;
     } finally {
@@ -130,7 +144,16 @@ export const useSearchEnhanced = () => {
   // Observer les changements de filtres
   watch(
     selectedTypes,
-    (newTypes, oldTypes) => {
+    () => {
+      currentPage.value = 1;
+      performSearch();
+    },
+    { deep: true },
+  );
+
+  watch(
+    [selectedCategories, selectedYear],
+    () => {
       currentPage.value = 1;
       performSearch();
     },
@@ -152,10 +175,10 @@ export const useSearchEnhanced = () => {
   // Fonction pour obtenir la couleur du badge selon le type
   const getTypeBadgeColor = (type: string) => {
     const typeColors: Record<string, string> = {
-      document: "bg-orange-100 text-orange-800 border-orange-200",
-      actualite: "bg-blue-100 text-blue-800 border-blue-200",
-      actualités: "bg-blue-100 text-blue-800 border-blue-200",
-      default: "bg-gray-100 text-gray-800 border-gray-200",
+      document: 'bg-orange-100 text-orange-800 border-orange-200',
+      actualite: 'bg-blue-100 text-blue-800 border-blue-200',
+      actualités: 'bg-blue-100 text-blue-800 border-blue-200',
+      default: 'bg-gray-100 text-gray-800 border-gray-200',
     };
 
     return typeColors[type?.toLowerCase()] || typeColors.default;
@@ -166,6 +189,11 @@ export const useSearchEnhanced = () => {
     const index = selectedTypes.value.indexOf(type);
     if (index > -1) {
       selectedTypes.value.splice(index, 1);
+      // Les filtres sous-type/année sont liés au filtre Documents : on les vide avec lui
+      if (type === 'document') {
+        selectedCategories.value = [];
+        selectedYear.value = null;
+      }
     } else {
       selectedTypes.value.push(type);
     }
@@ -188,6 +216,8 @@ export const useSearchEnhanced = () => {
     currentPage,
     hasSearched,
     selectedTypes,
+    selectedCategories,
+    selectedYear,
     performSearch,
     debouncedSearch,
     totalPages,
@@ -196,5 +226,6 @@ export const useSearchEnhanced = () => {
     toggleType,
     highlightText,
     resultCountsByType,
+    resultCountsByCategory,
   };
 };

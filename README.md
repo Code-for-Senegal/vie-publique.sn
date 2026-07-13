@@ -5,7 +5,8 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Nuxt](https://img.shields.io/badge/Nuxt-4-00DC82?logo=nuxt.js&logoColor=white)](https://nuxt.com)
 [![GitHub Sponsors](https://img.shields.io/github/sponsors/vie-publique-senegal?style=social)](https://github.com/sponsors/vie-publique-senegal)
-[![GitHub Stars](https://img.shields.io/github/stars/vie-publique-senegal/vie-publique.sn?style=social)](https://github.com/vie-publique-senegal/vie-publique.sn/stargazers)
+[![GitHub Stars](https://img.shields.io/github/stars/Code-for-Senegal/vie-publique.sn?style=social)](https://github.com/Code-for-Senegal/vie-publique.sn/stargazers)
+[![Support Vie Publique Sénégal](https://img.shields.io/badge/Sponsor-Vie%20Publique-pink?logo=github)](https://github.com/sponsors/vie-publique-senegal)
 
 > Originally initiated within [Code for Senegal](https://github.com/Code-for-Senegal/vie-publique.sn) and now actively maintained by [Vie Publique Sénégal](https://github.com/vie-publique-senegal/vie-publique.sn).
 
@@ -24,6 +25,8 @@ Vie Publique Sénégal is a platform dedicated to providing transparent access t
 - **Elections**: Information about elections
 
 ## Social Networks
+
+The project has built one of the largest civic information communities in Senegal, reaching more than 250,000 followers across its social platforms.
 
 Follow us on our social networks to stay updated:
 
@@ -46,17 +49,22 @@ Follow us on our social networks to stay updated:
 ### Backend & data
 
 - [Directus](https://directus.io) (headless CMS) · [PostgreSQL](https://www.postgresql.org) · [Redis](https://redis.io) (cache)
-- [MinIO](https://min.io) (self-hosted object storage) · [Typesense](https://typesense.org) (search engine)
+- [MinIO](https://min.io) (self-hosted object storage)
+- [Typesense](https://typesense.org) (search engine)
 
 ### Infrastructure & DevOps
 
-- [Hostinger](https://www.hostinger.fr/vps-hebergement) VPS · [Coolify](https://coolify.io) (self-hosted PaaS) · [Docker](https://www.docker.com)
-- [GitHub Actions](https://github.com/features/actions) (CI/CD) · [SonarQube](https://www.sonarsource.com/products/sonarqube/) (code quality) · [Cloudflare](https://www.cloudflare.com)
+- [Hostinger](https://www.hostinger.fr/vps-hebergement) VPS
+- [Coolify](https://coolify.io) (self-hosted PaaS) · [Docker](https://www.docker.com)
+- [GitHub Actions](https://github.com/features/actions) (CI/CD)
+- [SonarQube](https://www.sonarsource.com/products/sonarqube/) (code quality)
+- [Cloudflare](https://www.cloudflare.com)
 
 ### AI & automation
 
 - [Claude Code](https://www.anthropic.com/claude-code) & [GitHub Copilot](https://github.com/features/copilot) — AI-assisted development
-- [n8n](https://n8n.io) workflows · [Mistral AI](https://mistral.ai) / [OpenAI](https://openai.com) for document OCR & summarization
+- [n8n](https://n8n.io) workflows
+- [Mistral AI](https://mistral.ai) / [OpenAI](https://openai.com) for document OCR & summarization
 
 ## Getting Started
 
@@ -223,18 +231,27 @@ Coverage reports are generated in the `coverage/` directory and are excluded fro
 
 This project uses [SonarCloud](https://sonarcloud.io/) for continuous code quality and security analysis. Code quality metrics are automatically analyzed on every push and pull request.
 
-## 💝 Soutenir le projet
+## 💝 Support the project
 
-Vie Publique Sénégal est un projet **civique et open source**, développé bénévolement pour rendre l'information publique accessible à tous les citoyens sénégalais.
+Vie Publique Sénégal is an open-source civic technology initiative that provides free access to public information in Senegal.
 
-Si le projet vous est utile :
+The platform currently serves more than **59,000 monthly active users** and provides access to **10,000+ public documents**, including laws, official journals, reports and parliamentary documents.
 
-- ⭐ **Étoilez le dépôt** — gratuit et ça aide à la visibilité
-- 💝 **[Devenez sponsor](https://github.com/sponsors/vie-publique-senegal)** — soutenez financièrement via GitHub Sponsors
-- 🤝 **Contribuez au code** — PRs bienvenues, voir [Contributing](#contributing)
-- 📣 **Partagez** — parlez du projet autour de vous
+If you find this project useful:
 
-> Les dons aident à couvrir les coûts d'infrastructure (serveurs VPS, CDN, domaine) et à financer de nouvelles fonctionnalités.
+- ⭐ **Star the repository** — it helps increase visibility
+- 💝 **[Become a sponsor](https://github.com/sponsors/vie-publique-senegal)**
+- 🤝 **Contribute code** — pull requests are welcome
+- 📣 **Share the project** with others
+
+Financial contributions help us fund:
+
+- infrastructure, hosting and security costs;
+- digitization and processing of public documents;
+- maintenance of web and mobile applications;
+- search, open data and multilingual AI initiatives.
+
+> All sponsored improvements directly benefit the open-source project and remain publicly accessible.
 
 ## Contributing
 

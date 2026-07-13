@@ -1,5 +1,13 @@
 # Système de Recherche Typesense
 
+> ⚠️ **Document partiellement périmé (13/07/2026).** Depuis la migration v2, l'index actif est
+> **`vpdata_v2`** (via l'alias **`vp-search`**), 14 604 docs multi-types (documents, actualités,
+> députés, questions, votes, dossiers, personnalités, annuaire, podcasts), sans `locale: fr`,
+> ids namespacés `<type>-<id>`, champ `url` précalculé. Réindexation/réconciliation :
+> `scripts/search-reindex.mjs`. **Référence à jour : [`audit-recherche-2026-07.md`](./audit-recherche-2026-07.md).**
+> Les sections ci-dessous restent valables pour l'algorithme de scoring (poids dynamiques,
+> `max_score`, tri par `priority`), mais les chiffres et le schéma décrivent l'ancien index v1.
+
 ## Vue d'ensemble
 
 Le système de recherche utilise Typesense (v28.0) comme moteur de recherche full-text pour indexer et rechercher dans les actualités et documents officiels du site Vie-Publique.sn. L'index `vpdata` contient environ 4 860 documents (4 673 documents officiels + 187 actualités).
