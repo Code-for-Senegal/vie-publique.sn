@@ -456,8 +456,13 @@ Les autres listes (députés : nom/profession, etc.) sont de petits volumes → 
 - [x] Supprimer `useSearch.ts` (code mort, doublon de `useSearchEnhanced`) — fait le 13/07/2026
 - [x] `useFetch` → `$fetch` dans `performSearch` (anti-pattern Nuxt dans un handler) — fait le 13/07/2026
 - [x] Message d'erreur générique en prod (`SEC-9`) : le détail Typesense reste dans les logs serveur — fait le 13/07/2026
+- [x] Factoriser l'appel Typesense des deux routes dans `server/utils/typesense.ts`
+      (`searchTypesense` + `TYPESENSE_QUERY_DEFAULTS`, pattern getCmsClient) — 13/07/2026
+- [x] Bandeau « partiellement périmé » sur `search-typesense.md` (pointe vers ce doc) — 13/07/2026
+- [x] UX : debounce 350 ms + min 2 caractères sur toutes les recherches (U1+U2, détail dans
+      [`audit-ux-recherche-2026-07.md`](./audit-ux-recherche-2026-07.md)) ; sweep de 22 pages
+      validé — 13/07/2026
 - [ ] Supprimer la collection `news` (⚠️ vérifier d'abord dans n8n qu'aucun workflow n'y écrit encore)
-- [ ] Rafraîchir `search-typesense.md` (chiffres périmés : 4 860 vs 7 040 ; historique v3/v5/v6 confus)
 
 ## 4. Reste à faire (backlog au 13/07/2026, migration v2 en prod)
 
