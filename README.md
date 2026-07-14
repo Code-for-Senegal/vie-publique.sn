@@ -258,6 +258,11 @@ Financial contributions help us fund:
 
 > All sponsored improvements directly benefit the open-source project and remain publicly accessible.
 
+## Documentation
+
+Technical documentation lives in [`docs/`](docs/README.md) — the master index maps every domain
+(architecture, SEO, infra, feature modules…) to its canonical doc.
+
 ## Contributing
 
 We welcome contributions! Please feel free to submit a Pull Request.

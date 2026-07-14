@@ -148,6 +148,28 @@ pour les rédacteurs (pas de JSON brut à saisir).
    lecteur non-dev. Rester **gros grain** : pas une ligne par commit (le détail est dans git),
    pas de `fix`/`refactor`/`docs` internes ni de micro-améliorations UI/SEO.
 
+### Documentation — où ranger un nouveau doc (`docs/`)
+
+> Index maître : [`docs/README.md`](docs/README.md) (une info = **un seul doc canonique** ; les
+> autres docs y renvoient). Nommage : **kebab-case minuscule ASCII** (sans espaces/accents),
+> TODO actifs préfixés `todo-`, exception `README.md`.
+
+| Type de contenu | Destination |
+| --- | --- |
+| Doc d'une **feature du site** (modèle Directus, archi pages, logique métier) | `docs/modules/<module>/` (1 dossier par feature, index dans `docs/modules/README.md`) |
+| **Règle transversale dev** (API, URLs, design, flags, proxy…) | `docs/guidelines/` |
+| **SEO** (stratégie, audits, conventions) | `docs/seo/` |
+| **Infra / déploiement / CI-CD / monitoring** | `docs/infra/` |
+| **Rapport d'audit daté** | `docs/audits/audit-<sujet>-AAAA-MM.md` |
+| Identité projet (roadmap, open-source…) | `docs/project/` |
+| Chantier **terminé et vérifié** | `docs/archive/` (+ ligne dans sa table, avec référence vivante) |
+
+Règles : (1) nouveau doc canonique → l'ajouter dans la table de `docs/README.md` (et
+`docs/modules/README.md` si module) ; (2) ne PAS créer de doc pour ce que git/le code documente
+déjà ; (3) pas de données brutes (JSON/CSV d'import), de prompts jetables ni de contenu éditorial
+publié dans `docs/` ; (4) contenu mort → **supprimer** (git garde l'historique), n'archiver que
+ce qui a une valeur de traçabilité.
+
 ### Critical Patterns
 
 1. **API Data Fetching**:
