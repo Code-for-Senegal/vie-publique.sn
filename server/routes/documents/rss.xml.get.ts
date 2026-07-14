@@ -2,7 +2,7 @@
  * /documents/rss.xml — flux RSS des documents officiels (tous types : lois, décrets,
  * Journal officiel, rapports, communiqués…).
  * Items datés par `date_created` (ajout au site) et non `publish_date` (date officielle
- * du texte) à cause du backfill — voir docs/rss/flux-rss.md.
+ * du texte) à cause du backfill — voir docs/modules/rss/flux-rss.md.
  */
 export default defineCachedEventHandler(
   async (event) => {

@@ -3,6 +3,17 @@ import HomeLatestDocuments from '~/components/HomeLatestDocuments.vue';
 
 const siteUrl = useRuntimeConfig().public.siteUrl || 'https://www.vie-publique.sn';
 
+// Recherche scopée documents : renvoie vers la liste /documents/public
+// (recherche Typesense C10 + filtres/pagination déjà en place ; paramètre ?q=,
+// cf. urlParamsMapping de useDocuments)
+const searchQuery = ref('');
+const performSearch = () => {
+  const q = searchQuery.value.trim();
+  if (q.length >= 2) {
+    navigateTo({ path: '/documents/public', query: { q } });
+  }
+};
+
 const seoTitle = 'Documents officiels du Sénégal';
 const seoDescription =
   "Accédez aux documents officiels du Sénégal: Journal officiel, rapports d'audit, codes généraux et plus encore.";
@@ -138,16 +149,51 @@ const documentCategories = [
     <!-- Header -->
     <header class="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
       <div class="container mx-auto px-4 py-4">
-        <h1 class="text-xl font-bold text-gray-900 dark:text-white">Documents</h1>
+        <h1 class="text-xl font-bold text-gray-900 dark:text-white sm:text-2xl">Documents</h1>
         <p class="mt-0.5 text-sm text-gray-500 dark:text-gray-400">
           Accédez aux documents officiels du Sénégal
         </p>
+
+        <!-- Search (même style que /documents/public : champ gris dans le header blanc) -->
+        <div class="group relative mt-3">
+          <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
+            <UIcon
+              name="i-heroicons-magnifying-glass-20-solid"
+              class="h-5 w-5 text-gray-400 transition-colors group-focus-within:text-gray-500"
+            />
+          </div>
+          <input
+            v-model="searchQuery"
+            type="search"
+            placeholder="Rechercher un document, un rapport..."
+            aria-label="Rechercher dans les documents officiels"
+            class="block w-full rounded-xl border-0 bg-gray-100 py-3 pl-11 pr-12 text-sm text-gray-900 ring-1 ring-transparent transition-all placeholder:text-gray-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-400 dark:focus:bg-gray-800/80 dark:focus:ring-gray-500 sm:py-2.5"
+            @keyup.enter="performSearch"
+          />
+          <button
+            v-if="searchQuery.trim().length >= 2"
+            type="button"
+            aria-label="Lancer la recherche"
+            class="absolute inset-y-0 right-2 my-auto flex h-8 w-8 items-center justify-center rounded-lg bg-blue-700 text-white transition-colors hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700"
+            @click="performSearch"
+          >
+            <UIcon name="i-heroicons-arrow-right" class="h-4 w-4" />
+          </button>
+        </div>
       </div>
     </header>
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-4">
+      <!-- Latest Documents Section -->
+      <section class="mt-2">
+        <HomeLatestDocuments hide-cta title-align="left" :limit="4" :desktop-cols="4" />
+      </section>
+
       <!-- Categories Grid -->
+      <h2 class="mb-4 mt-8 text-lg font-semibold text-gray-800 dark:text-white">
+        Parcourir par catégorie
+      </h2>
       <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-3">
         <NuxtLink
           v-for="cat in documentCategories"
@@ -166,9 +212,9 @@ const documentCategories = [
           </div>
 
           <!-- Text -->
-          <h2 class="mt-3 text-sm font-semibold text-gray-900 dark:text-white sm:text-base">
+          <h3 class="mt-3 text-sm font-semibold text-gray-900 dark:text-white sm:text-base">
             {{ cat.title }}
-          </h2>
+          </h3>
           <p class="mt-0.5 line-clamp-2 text-xs text-gray-500 dark:text-gray-400">
             {{ cat.description }}
           </p>
@@ -181,11 +227,6 @@ const documentCategories = [
           </div>
         </NuxtLink>
       </div>
-
-      <!-- Latest Documents Section -->
-      <section class="mt-8">
-        <HomeLatestDocuments />
-      </section>
     </main>
   </div>
 </template>

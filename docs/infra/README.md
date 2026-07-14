@@ -56,7 +56,7 @@ Navigateur ──HTTPS──> Traefik (Coolify) ──> Frontend Nuxt (SSR)
 
 GitHub Actions (`.github/workflows/`) → build `Dockerfile.optimized` → push **ghcr.io** →
 webhook **Coolify** (event « Packages ») → pull image + redémarrage conteneur.
-Détail : [`../guidelines/ci-cd-github.md`](../guidelines/ci-cd-github.md).
+Détail : [`./ci-cd-github.md`](./ci-cd-github.md).
 
 ## Sauvegardes
 
@@ -65,8 +65,10 @@ Détail : [`../guidelines/ci-cd-github.md`](../guidelines/ci-cd-github.md).
 
 ## Supervision
 
-- **Uptime Kuma** (sur VPS TEST) : checks HTTP des endpoints (`/api/health`, Directus `/server/health`, etc.).
-- Plan Prometheus/Grafana/Alertmanager décrit dans [`../SUPERVISION.md`](../SUPERVISION.md) — **non déployé** à ce jour.
+- **Uptime Kuma** (<https://kuma.vpsn.cloud>, sur VPS TEST) : checks HTTP des endpoints (`/api/health`, Directus `/server/health`, etc.).
+- **Sentry** (erreurs applicatives front + Nitro) : [`sentry.md`](./sentry.md).
+- Vue d'ensemble du monitoring (schéma) : [`monitoring.md`](./monitoring.md).
+- Plan Prometheus/Grafana/Alertmanager décrit dans [`supervision-infra.md`](./supervision-infra.md) — **non déployé** à ce jour.
 
 ## Sécurité infra
 

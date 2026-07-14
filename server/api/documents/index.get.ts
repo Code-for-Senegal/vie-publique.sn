@@ -157,6 +157,7 @@ export default defineCachedEventHandler(
               slug: doc.slug,
               type: doc.type,
               publish_date: doc.publish_date,
+              ...(doc.date_created ? { date_created: doc.date_created } : {}),
               ...(doc.description ? { description: doc.description } : {}),
               ...(doc.audit_institution ? { audit_institution: doc.audit_institution } : {}),
               ...(doc.family ? { family: doc.family } : {}),
@@ -411,6 +412,7 @@ export default defineCachedEventHandler(
         slug: doc.slug,
         type: doc.type,
         publish_date: doc.publish_date,
+        ...(doc.date_created ? { date_created: doc.date_created } : {}),
         ...(doc.description ? { description: doc.description } : {}),
         ...(doc.audit_institution ? { audit_institution: doc.audit_institution } : {}),
         ...(doc.family ? { family: doc.family } : {}),
@@ -437,7 +439,7 @@ export default defineCachedEventHandler(
   },
   {
     maxAge: 60 * 5, // 5 minutes
-    name: 'documents',
+    name: 'documents-v2', // v2 : ajout de date_created dans la réponse (bump = purge cache)
     getKey: (event) => buildCacheKey('documents', getQuery(event)),
   },
 );

@@ -635,17 +635,19 @@ Voir la liste complète des catégories à ajouter dans [section 2 — Niveau 2]
 
 ### Phase 5 — Maillage interne contextuel (1 API à créer)
 
-| Action | Fichier |
-|--------|---------|
-| Section "Documents liés" | `app/pages/documents/[id]/[slug].vue` |
-| Badges liens contextuels (type, famille, année) | `app/pages/documents/[id]/[slug].vue` |
-| **API documents liés** | `server/api/documents/related/[id].ts` — **À CRÉER** |
+| Action | Fichier | Statut |
+|--------|---------|--------|
+| Section "Documents similaires" | `app/pages/documents/[id]/[slug].vue` | **FAIT** (2026-07) |
+| Badges liens contextuels (type, famille, année) | `app/pages/documents/[id]/[slug].vue` | À faire |
+| **API documents liés** | `server/api/documents/related/[id].get.ts` | **FAIT** (2026-07) |
 
-**Logique API `GET /api/documents/related/[id]`** :
-- Documents du même `type` (5 derniers)
-- Documents de la même `family` (5 derniers)
-- Documents de la même `audit_institution` (si renseigné)
-- Dédupliquer + exclure le document courant
+**Logique API `GET /api/documents/related/[id]`** (implémentée) :
+
+- Priorité : même `audit_institution` (si renseigné) > même `type` > même `family`
+- 6 documents max, triés par `-publish_date`, dédupliqués, document courant exclu
+- Dégrade en `{ documents: [] }` (jamais de 500 — widget non bloquant pour la page)
+- Rendu SSR (liens présents dans le HTML serveur = maillage crawlable), affichage via
+  `DocumentsDocumentListItem`, cache Nitro 1 h (`name: 'documents-related'`)
 
 ### Phase 6 — Schema.org enrichis
 
@@ -717,7 +719,7 @@ Note : utiliser canonical vers les pages existantes (`/assemblee-nationale/deput
 
 | Endpoint | Description | Phase | Statut |
 |----------|-------------|-------|--------|
-| `GET /api/documents/related/[id]` | Documents liés (même type/famille/institution) | 5 | À faire |
+| `GET /api/documents/related/[id]` | Documents liés (même type/famille/institution) | 5 | **FAIT** |
 
 ### Timeline recommandée
 
@@ -726,7 +728,7 @@ Phase 1  → Débloquer l'indexation + consolider legacy (impact immédiat)
 Phase 2  → Étendre CATEGORY_CONFIG (ajout config, fort impact)
 Phase 3  → Pages archives par année — FAIT ✓
 Phase 4  → Pages institutions (2 fichiers Vue)
-Phase 5  → Maillage interne contextuel (1 API + badges)
+Phase 5  → Maillage interne contextuel — API + section « Documents similaires » FAIT ✓ (badges à faire)
 Phase 6  → Schema.org enrichis
 Phase 7  → Pages listes
 Phase 8  → Guides citoyens

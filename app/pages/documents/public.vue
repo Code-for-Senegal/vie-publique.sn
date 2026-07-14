@@ -183,7 +183,7 @@ const handleReset = () => {
 <template>
   <div class="min-h-screen bg-gray-50 pb-20 dark:bg-gray-950">
     <!-- Breadcrumb -->
-    <div class="hidden md:block container mx-auto px-4">
+    <div class="container mx-auto px-4">
       <AppBreadcrumb
         :items="[{ label: 'Documents', to: '/documents' }, { label: 'Tous les documents' }]"
       />

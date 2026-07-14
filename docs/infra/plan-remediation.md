@@ -1,6 +1,6 @@
 # Plan de remédiation sécurité — Vie-Publique.sn
 
-> **Checklist maître** fusionnant l'audit **applicatif** ([`../audit/audit-complet-2026-07.md`](../audit/audit-complet-2026-07.md), SEC-1..10)
+> **Checklist maître** fusionnant l'audit **applicatif** ([`../audits/audit-complet-2026-07.md`](../audits/audit-complet-2026-07.md), SEC-1..10)
 > et l'audit **infra** ([`securite-infra-2026-07.md`](./securite-infra-2026-07.md), INFRA-1..13).
 > Cadre : **défense en profondeur** + **séparation données/app** (principes du webinaire).
 >
@@ -45,9 +45,9 @@
 
 - [ ] **INFRA-12** — Formaliser une cadence de MAJ : patchs OS auto (`dnf-automatic`), revue mensuelle Directus/Coolify, veille CVE des images du compose. Noter la date de dernière MAJ par VPS.
 - [ ] **INFRA-10 (suite)** — Installer **fail2ban** (SSH + endpoints auth).
-- [ ] **Supervision** — Étendre Uptime Kuma ou déployer le plan Prometheus/Grafana ([`../SUPERVISION.md`](../SUPERVISION.md)) ; conserver les logs Traefik pour investigation.
+- [ ] **Supervision** — Étendre Uptime Kuma ou déployer le plan Prometheus/Grafana ([`supervision-infra.md`](./supervision-infra.md)) ; conserver les logs Traefik pour investigation.
 - [ ] **SEC-8** — Proxies legacy `[...path].ts` : `encodeURIComponent`, rejeter `..`, whitelister extensions, streamer au lieu de bufferer.
-- [ ] **SEC-9** — Messages d'erreur génériques côté client (search Typesense, webhooks) ; `rate-limit.ts` : ne pas se fier au 1er `x-forwarded-for`.
+- [x] **SEC-9** — Messages d'erreur génériques côté client (search Typesense, webhooks) — *fait 2026-07 via `reportServerError()`/Sentry*. Reste : `rate-limit.ts` : ne pas se fier au 1er `x-forwarded-for`.
 - [ ] **Tokens** — Rotation périodique du token front read-only + des tokens write.
 
 ---
@@ -68,7 +68,7 @@
 ## Périmètre / sources revues (05/07/2026)
 
 Toutes les docs `docs/` + l'historique git ont été croisés. Aucun autre audit sécurité que
-[`../audit/audit-complet-2026-07.md`](../audit/audit-complet-2026-07.md) (SEC-1..10) n'existe.
-Le point sécu de [`../audit/architecture-api-directus.md`](../audit/architecture-api-directus.md)
+[`../audits/audit-complet-2026-07.md`](../audits/audit-complet-2026-07.md) (SEC-1..10) n'existe.
+Le point sécu de [`../archive/architecture-api-directus.md`](../archive/architecture-api-directus.md)
 (« CMS_API_KEY exposée côté client ») est **vérifié résolu** : clé/URL CMS en config serveur, absentes
 du bloc `runtimeConfig.public` (`nuxt.config.ts`). Ce doc de migration est périmé sur ce point.

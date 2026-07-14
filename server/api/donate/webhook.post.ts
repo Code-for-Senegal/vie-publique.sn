@@ -5,12 +5,12 @@
 
 export default defineEventHandler(async (event) => {
   try {
-    const config = useRuntimeConfig()
-    const body = await readBody(event)
+    const config = useRuntimeConfig();
+    const body = await readBody(event);
 
     // Vérification de la signature du webhook (sécurité)
-    const signature = getHeader(event, 'x-bictorys-signature') || ''
-    const webhookSecret = config.bictorysWebhookSecret
+    const signature = getHeader(event, 'x-bictorys-signature') || '';
+    const webhookSecret = config.bictorysWebhookSecret;
 
     // TODO: Implémenter la vérification de signature selon la documentation Bictorys
     // Exemple de vérification HMAC (à adapter selon Bictorys)
@@ -28,51 +28,51 @@ export default defineEventHandler(async (event) => {
       transaction_id: body.data?.reference || body.reference,
       status: body.data?.status || body.status,
       timestamp: new Date().toISOString(),
-    })
+    });
 
     // Traiter différents types d'événements
-    const eventType = body.event || body.type
-    const transactionData = body.data || body
+    const eventType = body.event || body.type;
+    const transactionData = body.data || body;
 
     switch (eventType) {
       case 'charge.success':
       case 'payment.success':
         // Paiement réussi
-        await handleSuccessfulPayment(transactionData)
-        break
+        await handleSuccessfulPayment(transactionData);
+        break;
 
       case 'charge.failed':
       case 'payment.failed':
         // Paiement échoué
-        await handleFailedPayment(transactionData)
-        break
+        await handleFailedPayment(transactionData);
+        break;
 
       case 'charge.pending':
       case 'payment.pending':
         // Paiement en attente
-        await handlePendingPayment(transactionData)
-        break
+        await handlePendingPayment(transactionData);
+        break;
 
       default:
-        console.warn(`Type d'événement non géré: ${eventType}`)
+        console.warn(`Type d'événement non géré: ${eventType}`);
     }
 
     // Retourner une réponse 200 pour confirmer la réception du webhook
     return {
       success: true,
       message: 'Webhook traité avec succès',
-    }
+    };
   } catch (error: any) {
-    console.error('Erreur lors du traitement du webhook Bictorys:', error)
+    reportServerError(error, 'api/donate/webhook');
 
-    // Même en cas d'erreur, retourner 200 pour éviter que Bictorys ne retente
-    // On log l'erreur pour investigation
+    // Même en cas d'erreur, retourner 200 pour éviter que Bictorys ne retente.
+    // SEC-9 : message générique (les détails sont dans les logs + Sentry)
     return {
       success: false,
-      message: error.message,
-    }
+      message: 'Erreur lors du traitement du webhook',
+    };
   }
-})
+});
 
 /**
  * Gérer un paiement réussi
@@ -82,7 +82,7 @@ async function handleSuccessfulPayment(data: any) {
     reference: data.reference,
     amount: data.amount,
     email: data.customer?.email,
-  })
+  });
 
   // TODO: Enregistrer le don dans la base de données
   // - Sauvegarder dans une table donations
@@ -100,11 +100,14 @@ async function handleSuccessfulPayment(data: any) {
       donor_phone: data.customer?.phone || data.customerObject?.phone,
       invoice_ref: data.merchantReference || data.reference,
       created_at: new Date().toISOString(),
-    })
-    console.log('✉️ Email de confirmation envoyé avec succès')
+    });
+    console.log('✉️ Email de confirmation envoyé avec succès');
   } catch (emailError) {
-    console.error('❌ Erreur lors de l\'envoi de l\'email:', emailError)
-    // Ne pas faire échouer le webhook si l'email échoue
+    // Ne pas faire échouer le webhook si l'email échoue — mais le signaler :
+    // un donateur sans email de remerciement, ça doit se voir en monitoring
+    reportServerError(emailError, 'api/donate/webhook/email', {
+      reference: data.reference || data.transaction_id,
+    });
   }
 }
 
@@ -115,7 +118,7 @@ async function handleFailedPayment(data: any) {
   console.log('❌ Paiement échoué:', {
     reference: data.reference,
     reason: data.failure_reason || data.error_message,
-  })
+  });
 
   // TODO: Logger l'échec pour analyse
 }
@@ -126,7 +129,7 @@ async function handleFailedPayment(data: any) {
 async function handlePendingPayment(data: any) {
   console.log('⏳ Paiement en attente:', {
     reference: data.reference,
-  })
+  });
 
   // TODO: Mettre à jour le statut si nécessaire
 }

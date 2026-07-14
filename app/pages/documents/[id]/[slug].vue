@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Document } from '~~/types/document';
+
 const route = useRoute();
 
 const documentId = computed(() => route.params.id as string);
@@ -10,6 +12,15 @@ const {
 } = useDocuments({
   id: documentId.value,
 });
+
+// Documents similaires (maillage interne SEO — les liens doivent être dans le HTML SSR).
+// L'endpoint dégrade en liste vide en cas d'échec CMS : jamais bloquant pour la page.
+const { data: relatedData } = await useAsyncData(
+  `documents-related-${documentId.value}`,
+  () => $fetch<{ documents: Document[] }>(`/api/documents/related/${route.params.id}`),
+  { watch: [() => route.params.id] },
+);
+const relatedDocuments = computed(() => relatedData.value?.documents || []);
 
 watch(
   () => route.params.id,
@@ -395,6 +406,24 @@ const showPdfViewer = ref(false);
                 />
               </div>
             </ClientOnly>
+
+            <!-- Documents similaires (maillage interne) -->
+            <section
+              v-if="relatedDocuments.length"
+              class="mt-10 border-t border-gray-100 pt-6 dark:border-gray-700"
+            >
+              <h2 class="mb-4 text-base font-semibold text-gray-900 dark:text-white">
+                Documents similaires
+              </h2>
+              <div class="space-y-3">
+                <DocumentsDocumentListItem
+                  v-for="relatedDoc in relatedDocuments"
+                  :key="relatedDoc.id"
+                  :document="relatedDoc"
+                  show-file-indicator
+                />
+              </div>
+            </section>
           </div>
 
           <!-- Sidebar Desktop -->

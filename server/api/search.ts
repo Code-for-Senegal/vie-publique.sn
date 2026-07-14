@@ -217,10 +217,11 @@ export default defineEventHandler(async (event) => {
   } catch (error: any) {
     const statusCode = error?.statusCode || error?.status || error?.response?.status || 500;
     const typesenseMessage = error?.data?.message || error?.message || 'Erreur inconnue';
-    console.error('Erreur lors de la recherche Typesense:', {
+    reportServerError(error, 'api/search', {
       statusCode,
       message: typesenseMessage,
       details: error?.data || error?.response?._data,
+      query: getQuery(event).q,
     });
 
     // SEC-9 : ne pas exposer le détail Typesense au client (il reste dans les logs serveur)

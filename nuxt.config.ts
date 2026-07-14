@@ -27,6 +27,10 @@ const securityConfig =
               'https://*.vie-publique.sn',
               'https://www.google-analytics.com',
               'https://*.google-analytics.com',
+              // GA4 envoie aussi vers ses endpoints régionaux + doubleclick (Google Signals)
+              'https://analytics.google.com',
+              'https://*.analytics.google.com',
+              'https://stats.g.doubleclick.net',
               'https://www.google.com',
               'https://fonts.googleapis.com',
               'https://*.googleapis.com',
@@ -44,6 +48,12 @@ const securityConfig =
               // Microsoft Clarity
               'https://www.clarity.ms',
               'https://*.clarity.ms',
+              // Sentry (monitoring d'erreurs) — hôtes d'ingestion selon la région du projet
+              'https://*.ingest.sentry.io',
+              'https://*.ingest.us.sentry.io',
+              'https://*.ingest.de.sentry.io',
+              // Cloudflare Web Analytics (beacon injecté par le proxy Cloudflare)
+              'https://cloudflareinsights.com',
             ],
             'script-src': [
               "'self'",
@@ -59,6 +69,8 @@ const securityConfig =
               'https://www.gstatic.com',
               // Microsoft Clarity
               'https://www.clarity.ms',
+              // Cloudflare Web Analytics (beacon injecté par le proxy Cloudflare)
+              'https://static.cloudflareinsights.com',
             ],
             'script-src-attr': ["'unsafe-inline'", "'unsafe-hashes'"],
             'style-src': [
@@ -383,6 +395,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxtjs/mdc',
     'nuxt-security',
+    '@sentry/nuxt/module',
   ],
   devtools: { enabled: true },
   runtimeConfig: {
@@ -430,6 +443,10 @@ export default defineNuxtConfig({
       firebaseAppId: process.env.NUXT_PUBLIC_FIREBASE_APP_ID,
       firebaseMeasurementId: process.env.NUXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
       firebaseVapidKey: process.env.NUXT_PUBLIC_FIREBASE_VAPID_KEY,
+      // Sentry (monitoring d'erreurs) — DSN vide = désactivé (voir docs/infra/sentry.md)
+      sentry: {
+        dsn: process.env.NUXT_PUBLIC_SENTRY_DSN || '',
+      },
       // Feature Flags
       appEnv: process.env.NUXT_PUBLIC_APP_ENV || 'production',
       featureFlagsEnabled: process.env.NUXT_FEATURE_FLAGS_ENABLED !== 'false',
@@ -458,7 +475,7 @@ export default defineNuxtConfig({
       // Ne PAS l'ajouter manuellement ici (doublon sinon)
       link: [
         // Autodiscovery du flux RSS global (les flux par rubrique sont déclarés
-        // par leurs pages de listing respectives) — voir docs/rss/flux-rss.md
+        // par leurs pages de listing respectives) — voir docs/modules/rss/flux-rss.md
         {
           rel: 'alternate',
           type: 'application/rss+xml',
@@ -550,6 +567,18 @@ export default defineNuxtConfig({
     },
   },
   security: securityConfig as any,
+
+  // Sentry (monitoring d'erreurs) — voir docs/infra/sentry.md
+  sentry: {
+    // Injecte l'init serveur en tête du bundle Nitro : pas besoin de changer
+    // la commande de démarrage (node .output/server/index.mjs) ni le Dockerfile.
+    autoInjectServerSentry: 'top-level-import',
+    // Pas d'upload de source maps pour l'instant (nécessiterait SENTRY_AUTH_TOKEN au build)
+    sourceMapsUploadOptions: {
+      enabled: false,
+    },
+  },
+
   site: {
     url: process.env.NUXT_PUBLIC_SITE_URL || 'https://www.vie-publique.sn',
     name: 'Vie Publique Sénégal',

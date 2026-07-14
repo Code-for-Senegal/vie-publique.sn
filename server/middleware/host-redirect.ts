@@ -3,7 +3,7 @@
  *
  * Le réglage « Direction: Redirect to www. » de Coolify génère une redirection
  * Traefik TEMPORAIRE (302/307) que Bing/Google ne consolident pas : les deux
- * hôtes restent indexés (cf. docs/audit/audit-complet-2026-07.md — BING-1).
+ * hôtes restent indexés (cf. docs/audits/audit-complet-2026-07.md — BING-1).
  * Ce middleware fait la redirection en 301 côté app. Pour qu'il reçoive les
  * requêtes apex, mettre la Direction Coolify sur « Allow www & non-www ».
  */

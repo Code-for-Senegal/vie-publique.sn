@@ -123,6 +123,19 @@ pour les rédacteurs (pas de JSON brut à saisir).
 - Tout nouveau handler consommant le CMS doit **dégrader proprement** : requêtes isolées
   (échec = donnée omise ou fallback daté), jamais un 500 global (modèle : `server/utils/llms.ts`).
 
+### Monitoring d'erreurs (Sentry)
+
+> Détail complet : `docs/infra/sentry.md`. Actif seulement si `NUXT_PUBLIC_SENTRY_DSN` est défini.
+
+- Périmètre : **erreurs uniquement** (pas de tracing ni replay — décision, pas un oubli).
+- **Dans tout bloc `catch` serveur qui dégrade proprement**, appeler
+  `reportServerError(error, scope, context?)` (`server/utils/report-error.ts`, auto-importé) :
+  la dégradation reste propre pour l'utilisateur, l'erreur devient visible en monitoring.
+  Jamais de `error.message` dans la réponse HTTP (SEC-9) — message générique + `reportServerError`.
+- Côté client, rien à faire (capture auto) ; les erreurs de chunks post-déploiement et le bruit
+  réseau sont déjà exclus dans `sentry.client.config.ts` — ne pas les « réparer ».
+- `sentry.server.config.ts` lit `process.env` (PAS `useRuntimeConfig()`, indisponible à ce stade).
+
 ### Development Workflow
 
 1. **Branch Strategy**: Work on `develop` branch, create PRs to `develop`
@@ -134,6 +147,28 @@ pour les rédacteurs (pas de JSON brut à saisir).
    la section du mois en cours de `CHANGELOG.md` (créer la section si besoin), formulée pour un
    lecteur non-dev. Rester **gros grain** : pas une ligne par commit (le détail est dans git),
    pas de `fix`/`refactor`/`docs` internes ni de micro-améliorations UI/SEO.
+
+### Documentation — où ranger un nouveau doc (`docs/`)
+
+> Index maître : [`docs/README.md`](docs/README.md) (une info = **un seul doc canonique** ; les
+> autres docs y renvoient). Nommage : **kebab-case minuscule ASCII** (sans espaces/accents),
+> TODO actifs préfixés `todo-`, exception `README.md`.
+
+| Type de contenu | Destination |
+| --- | --- |
+| Doc d'une **feature du site** (modèle Directus, archi pages, logique métier) | `docs/modules/<module>/` (1 dossier par feature, index dans `docs/modules/README.md`) |
+| **Règle transversale dev** (API, URLs, design, flags, proxy…) | `docs/guidelines/` |
+| **SEO** (stratégie, audits, conventions) | `docs/seo/` |
+| **Infra / déploiement / CI-CD / monitoring** | `docs/infra/` |
+| **Rapport d'audit daté** | `docs/audits/audit-<sujet>-AAAA-MM.md` |
+| Identité projet (roadmap, open-source…) | `docs/project/` |
+| Chantier **terminé et vérifié** | `docs/archive/` (+ ligne dans sa table, avec référence vivante) |
+
+Règles : (1) nouveau doc canonique → l'ajouter dans la table de `docs/README.md` (et
+`docs/modules/README.md` si module) ; (2) ne PAS créer de doc pour ce que git/le code documente
+déjà ; (3) pas de données brutes (JSON/CSV d'import), de prompts jetables ni de contenu éditorial
+publié dans `docs/` ; (4) contenu mort → **supprimer** (git garde l'historique), n'archiver que
+ce qui a une valeur de traçabilité.
 
 ### Critical Patterns
 
@@ -208,7 +243,7 @@ majeure du site → l'ajouter dans `buildLlmsSections()`, sauf si elle est en `D
 
 ### Flux RSS
 
-> Détail complet : `docs/rss/flux-rss.md` (architecture, choix de design, ajout d'un flux, vérification).
+> Détail complet : `docs/modules/rss/flux-rss.md` (architecture, choix de design, ajout d'un flux, vérification).
 
 5 flux servis par des **routes Nitro dynamiques** (`server/routes/**/rss.xml.get.ts`, builder
 partagé `server/utils/rss.ts`) : `/rss.xml` (global), `/actualites/rss.xml`,
@@ -222,7 +257,7 @@ l'autodiscovery sur la page de listing correspondante.
 
 ### UI & Design conventions (IMPORTANT)
 
-> Référence complète : `docs/design.md`. **Lire avant de créer une nouvelle page/section.**
+> Référence complète : `docs/guidelines/design.md`. **Lire avant de créer une nouvelle page/section.**
 
 Style cible : **sobre, éditorial, premium** (Google / Apple / Medium / service-public.fr) —
 priorité au contenu, à la lisibilité, au responsive et au SEO. **Pas** de look « template IA /

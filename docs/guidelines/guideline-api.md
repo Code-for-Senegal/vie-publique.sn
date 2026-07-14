@@ -1015,18 +1015,18 @@ watch(categoryFilter, () => {
 ## 📚 Exemples réels dans le projet
 
 ### Documents
-- Routes API : [server/api/documents/index.get.ts](../server/api/documents/index.get.ts)
-- Composable : [composables/useDocuments.ts](../composables/useDocuments.ts)
-- Page : [pages/documents/public.vue](../pages/documents/public.vue)
+- Routes API : [server/api/documents/index.get.ts](../../server/api/documents/index.get.ts)
+- Composable : [composables/useDocuments.ts](../../app/composables/useDocuments.ts)
+- Page : [pages/documents/public.vue](../../app/pages/documents/public.vue)
 
 ### News
-- Routes API : [server/api/news/index.get.ts](../server/api/news/index.get.ts)
-- Composable : [composables/news/useNews.ts](../composables/news/useNews.ts)
-- Page : [pages/actualites/index.vue](../pages/actualites/index.vue)
+- Routes API : [server/api/news/index.get.ts](../../server/api/news/index.get.ts)
+- Composable : [composables/news/useNews.ts](../../app/composables/news/useNews.ts)
+- Page : [pages/actualites/index.vue](../../app/pages/actualites/index.vue)
 
 ### Composables génériques
-- État UI : [composables/useCollectionState.ts](../composables/useCollectionState.ts)
-- Fetch : [composables/useCmsCollection.ts](../composables/useCmsCollection.ts)
+- État UI : [composables/useCollectionState.ts](../../app/composables/useCollectionState.ts)
+- Fetch : [composables/useCmsCollection.ts](../../app/composables/useCmsCollection.ts)
 
 ---
 

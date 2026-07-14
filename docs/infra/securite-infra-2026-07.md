@@ -1,6 +1,6 @@
 # Sécurité de l'infrastructure — findings & remédiation (Juillet 2026)
 
-> **Complément « infra » de l'audit applicatif** [`../audit/audit-complet-2026-07.md`](../audit/audit-complet-2026-07.md)
+> **Complément « infra » de l'audit applicatif** [`../audits/audit-complet-2026-07.md`](../audits/audit-complet-2026-07.md)
 > (qui couvre le code : SEC-1 à SEC-10). Ce document couvre le **serveur, l'exposition réseau,
 > les comptes et les sauvegardes**, à partir des `docker-compose` et de la topologie réelle.
 >

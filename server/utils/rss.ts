@@ -7,7 +7,7 @@ import { DOCUMENT_TYPE_LABELS } from '#shared/document-type-labels.mjs';
  * Flux RSS 2.0 — builder + fetchers partagés par les routes `server/routes/**⁠/rss.xml.get.ts`.
  *
  * Documentation complète (choix de design, ajout d'un nouveau flux, vérification) :
- * docs/rss/flux-rss.md. Points clés :
+ * docs/modules/rss/flux-rss.md. Points clés :
  * - Les items « documents » sont datés/triés par `date_created` (date d'AJOUT au site),
  *   PAS `publish_date` (date officielle du texte) : le site fait du backfill (un JO de
  *   2019 importé aujourd'hui doit apparaître comme nouveau dans le flux).

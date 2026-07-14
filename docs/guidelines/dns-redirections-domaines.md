@@ -1,7 +1,7 @@
 # DNS, hôte canonique & redirections de domaines
 
 > **Date** : juillet 2026 — mis en place suite à l'audit Bing (voir
-> `docs/audit/audit-complet-2026-07.md`, section BING-1).
+> `docs/audits/audit-complet-2026-07.md`, section BING-1).
 > Concerne **vie-publique.sn** ET **archives.sn** (même mécanisme, repo séparé).
 
 ## L'hôte canonique est `https://www.vie-publique.sn` (AVEC www)

@@ -1,7 +1,7 @@
 /**
  * /conseil-des-ministres/rss.xml — flux RSS des communiqués du Conseil des ministres
  * (collection `news`, catégorie « Conseil des ministres » — même source que la page).
- * Voir docs/rss/flux-rss.md.
+ * Voir docs/modules/rss/flux-rss.md.
  */
 export default defineCachedEventHandler(
   async (event) => {

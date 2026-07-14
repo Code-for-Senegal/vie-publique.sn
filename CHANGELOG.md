@@ -8,6 +8,7 @@ l'historique git (`git log --grep="^feat"`, Conventional Commits).
 
 ### Juillet 2026
 
+- **Documents similaires** : suggestions de documents pertinents à consulter sur chaque fiche document
 - **Flux RSS** : 5 flux RSS 2.0 (global, actualités, conseil des ministres, documents, Journal officiel)
 - **Refonte de la recherche** (Typesense v2) : index multi-types, synonymes, facettes documents, meilleure pertinence
 - **llms.txt / llms-full.txt** : exposition du site aux crawlers IA (GEO), génération dynamique depuis le CMS

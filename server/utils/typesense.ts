@@ -8,7 +8,7 @@
  *
  * Toute évolution du tuning de pertinence (query_by, text_match_type, prioritize_*)
  * se fait ICI pour rester cohérente entre les deux.
- * Référence : docs/search/audit-recherche-2026-07.md
+ * Référence : docs/audits/audit-recherche-2026-07.md
  */
 
 /**
