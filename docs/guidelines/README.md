@@ -21,7 +21,8 @@
 | **UI / Design** | [`../design.md`](../design.md) | [`/CLAUDE.md`](../../CLAUDE.md) (§ UI & Design) |
 | **CI/CD** | [`ci-cd-github.md`](./ci-cd-github.md) | — |
 | **Déploiement / Docker** | [`DEPLOYMENT.md`](./DEPLOYMENT.md) | [`../DOCKER.md`](../DOCKER.md), [`../DOCKER-OPTIMIZATION.md`](../DOCKER-OPTIMIZATION.md) |
-| **Infra / topologie** | [`../infra/README.md`](../infra/README.md) | [`../SUPERVISION.md`](../SUPERVISION.md) |
+| **Infra / topologie** | [`../infra/README.md`](../infra/README.md) | [`../monitoring/supervision-infra.md`](../monitoring/supervision-infra.md) |
+| **Monitoring d'erreurs (Sentry)** | [`../monitoring/sentry.md`](../monitoring/sentry.md) | — |
 | **DNS / redirections domaines** | [`dns-redirections-domaines.md`](./dns-redirections-domaines.md) | — |
 | **Feature flags** | [`features-flag/README-FEATURE-FLAGS.md`](./features-flag/README-FEATURE-FLAGS.md) | [`features-flag/feature-flags-cheatsheet.md`](./features-flag/feature-flags-cheatsheet.md) |
 | **Budget (module)** | [`budget/budget.md`](./budget/budget.md) | dossier [`budget/`](./budget/) |

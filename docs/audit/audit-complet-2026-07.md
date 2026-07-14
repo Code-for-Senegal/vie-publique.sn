@@ -76,7 +76,7 @@
 - [ ] [A11Y-3 — UButton icône sans aria-label (3-4 cas)](#a11y-3--boutons-icône-sans-aria-label) ⏳ partiel 02/07/2026 : `documents/public.vue` ✅ (aria-label grille/liste) ; `ElectionMapD3` OK (texte visible) ; reste le bouton x-mark de `elections-senegal/dashboard/[type]/[year].vue`
 - [ ] [A11Y-4 — Contrastes `text-gray-400` sur fond clair (~40-80 cas)](#a11y-4--contrastes-text-gray-400)
 - [ ] [SEC-8 — Proxies legacy `[...path].ts` : path non encodé + buffering RAM](#sec-8--proxies-legacy-path-non-encodé--buffering-ram)
-- [ ] [SEC-9 — Divulgation de messages d'erreur (search, webhooks)](#sec-9--divulgation-de-messages-derreur)
+- [x] [SEC-9 — Divulgation de messages d'erreur (search, webhooks)](#sec-9--divulgation-de-messages-derreur) _(fait 2026-07 via Sentry/`reportServerError` ; reste le point annexe x-forwarded-for)_
 - [ ] [SEC-10 — Dépendances vulnérables (`@grpc/grpc-js` High via firebase-admin)](#sec-10--dépendances-vulnérables)
 - [ ] [PERF-9 — Shiki : 18 langages pour le chatbot (chunks 225 KB + WASM 607 KB)](#perf-9--shiki-surdimensionné)
 - [ ] [PERF-10 — `councyl-minister.ts` non caché + `limit: -1` sur ~20 endpoints](#perf-10--endpoints-non-cachésnon-bornés)
@@ -492,6 +492,7 @@ Aucun lien « Aller au contenu » dans `app/layouts/default.vue`. **Fix** : `<a 
 
 `server/api/search.ts:208-211` renvoie le message d'erreur Typesense au client ; `donate/webhook` renvoie `error.message`. **Fix** : messages génériques, détails en logs.
 Aussi : `rate-limit.ts:29` se fie au premier élément de `x-forwarded-for` (spoofable hors proxy de confiance).
+**✅ Fait 2026-07** (`search.ts`, `donate/webhook`, `donate/init-payment`) : messages génériques au client, détails via `reportServerError()` → logs + Sentry (`docs/monitoring/sentry.md`). Reste : `rate-limit.ts` (x-forwarded-for).
 
 ### SEC-10 — Dépendances vulnérables
 

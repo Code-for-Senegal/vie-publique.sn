@@ -45,9 +45,9 @@
 
 - [ ] **INFRA-12** — Formaliser une cadence de MAJ : patchs OS auto (`dnf-automatic`), revue mensuelle Directus/Coolify, veille CVE des images du compose. Noter la date de dernière MAJ par VPS.
 - [ ] **INFRA-10 (suite)** — Installer **fail2ban** (SSH + endpoints auth).
-- [ ] **Supervision** — Étendre Uptime Kuma ou déployer le plan Prometheus/Grafana ([`../SUPERVISION.md`](../SUPERVISION.md)) ; conserver les logs Traefik pour investigation.
+- [ ] **Supervision** — Étendre Uptime Kuma ou déployer le plan Prometheus/Grafana ([`../monitoring/supervision-infra.md`](../monitoring/supervision-infra.md)) ; conserver les logs Traefik pour investigation.
 - [ ] **SEC-8** — Proxies legacy `[...path].ts` : `encodeURIComponent`, rejeter `..`, whitelister extensions, streamer au lieu de bufferer.
-- [ ] **SEC-9** — Messages d'erreur génériques côté client (search Typesense, webhooks) ; `rate-limit.ts` : ne pas se fier au 1er `x-forwarded-for`.
+- [x] **SEC-9** — Messages d'erreur génériques côté client (search Typesense, webhooks) — *fait 2026-07 via `reportServerError()`/Sentry*. Reste : `rate-limit.ts` : ne pas se fier au 1er `x-forwarded-for`.
 - [ ] **Tokens** — Rotation périodique du token front read-only + des tokens write.
 
 ---

@@ -123,6 +123,19 @@ pour les rédacteurs (pas de JSON brut à saisir).
 - Tout nouveau handler consommant le CMS doit **dégrader proprement** : requêtes isolées
   (échec = donnée omise ou fallback daté), jamais un 500 global (modèle : `server/utils/llms.ts`).
 
+### Monitoring d'erreurs (Sentry)
+
+> Détail complet : `docs/monitoring/sentry.md`. Actif seulement si `NUXT_PUBLIC_SENTRY_DSN` est défini.
+
+- Périmètre : **erreurs uniquement** (pas de tracing ni replay — décision, pas un oubli).
+- **Dans tout bloc `catch` serveur qui dégrade proprement**, appeler
+  `reportServerError(error, scope, context?)` (`server/utils/report-error.ts`, auto-importé) :
+  la dégradation reste propre pour l'utilisateur, l'erreur devient visible en monitoring.
+  Jamais de `error.message` dans la réponse HTTP (SEC-9) — message générique + `reportServerError`.
+- Côté client, rien à faire (capture auto) ; les erreurs de chunks post-déploiement et le bruit
+  réseau sont déjà exclus dans `sentry.client.config.ts` — ne pas les « réparer ».
+- `sentry.server.config.ts` lit `process.env` (PAS `useRuntimeConfig()`, indisponible à ce stade).
+
 ### Development Workflow
 
 1. **Branch Strategy**: Work on `develop` branch, create PRs to `develop`

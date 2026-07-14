@@ -65,8 +65,9 @@ Détail : [`../guidelines/ci-cd-github.md`](../guidelines/ci-cd-github.md).
 
 ## Supervision
 
-- **Uptime Kuma** (sur VPS TEST) : checks HTTP des endpoints (`/api/health`, Directus `/server/health`, etc.).
-- Plan Prometheus/Grafana/Alertmanager décrit dans [`../SUPERVISION.md`](../SUPERVISION.md) — **non déployé** à ce jour.
+- **Uptime Kuma** (<https://kuma.vpsn.cloud>, sur VPS TEST) : checks HTTP des endpoints (`/api/health`, Directus `/server/health`, etc.).
+- **Sentry** (erreurs applicatives front + Nitro) : [`../monitoring/sentry.md`](../monitoring/sentry.md).
+- Plan Prometheus/Grafana/Alertmanager décrit dans [`../monitoring/supervision-infra.md`](../monitoring/supervision-infra.md) — **non déployé** à ce jour.
 
 ## Sécurité infra
 
