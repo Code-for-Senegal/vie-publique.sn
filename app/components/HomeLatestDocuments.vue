@@ -1,20 +1,60 @@
 <script setup lang="ts">
 import type { Document } from '~~/types/document';
 
-const { data: documents, pending, error } = useAsyncData('latest-documents', () =>
+interface Props {
+  /** Masque le bouton « Voir tous les documents » (ex. page /documents où le lien est redondant) */
+  hideCta?: boolean;
+  titleAlign?: 'center' | 'left';
+  /** Nombre de documents affichés */
+  limit?: number;
+  /** Colonnes de la grille desktop (une seule ligne : desktopCols = limit) */
+  desktopCols?: 3 | 4;
+}
+const props = withDefaults(defineProps<Props>(), {
+  hideCta: false,
+  titleAlign: 'center',
+  limit: 6,
+  desktopCols: 3,
+});
+
+const gridClass = props.desktopCols === 4 ? 'md:grid-cols-4' : 'md:grid-cols-3';
+
+const {
+  data: documents,
+  pending,
+  error,
+} = useAsyncData(`latest-documents-${props.limit}`, () =>
   $fetch<{ documents: Document[] }>('/api/documents', {
-    params: { limit: 6, sort: '-date_created' },
+    params: { limit: props.limit, sort: '-date_created' },
   }).then((res) => res.documents),
 );
 
 const getDocumentUrl = (doc: Document) => `/documents/${doc.id}/${doc.slug}`;
+
+// « il y a X min/h/j » sur date_created (= date d'ajout au site).
+// `now` est capturé au rendu serveur et transmis au client via useState :
+// SSR et hydratation calculent le même libellé (pas de mismatch).
+const now = useState('latest-documents-now', () => Date.now());
+const timeAgo = (dateStr: string): string => {
+  const diffMin = Math.floor((now.value - new Date(dateStr).getTime()) / 60000);
+  if (diffMin < 60) return 'il y a moins d’une heure';
+  const diffH = Math.floor(diffMin / 60);
+  if (diffH < 24) return `il y a ${diffH} h`;
+  const diffD = Math.floor(diffH / 24);
+  if (diffD === 1) return 'hier';
+  if (diffD < 7) return `il y a ${diffD} jours`;
+  return ''; // au-delà d'une semaine : date absolue plus parlante
+};
 </script>
 
 <template>
   <section class="my-4" aria-labelledby="latest-documents-heading">
+    <!-- Variante 'left' = titre de section dans une page (ex. /documents) : plus petit que le H1.
+         Variante 'center' (défaut) = section de l'accueil. -->
     <h2
       id="latest-documents-heading"
-      class="mb-4 text-center text-xl font-semibold text-gray-800 dark:text-white"
+      class="mb-4 font-semibold text-gray-800 dark:text-white"
+      :class="props.titleAlign === 'left' ? 'text-left text-lg' : 'text-center text-xl'"
     >
       Derniers documents publiés
     </h2>
@@ -22,14 +62,15 @@ const getDocumentUrl = (doc: Document) => `/documents/${doc.id}/${doc.slug}`;
     <!-- Loading state -->
     <div
       v-if="pending"
-      class="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-4 pt-1 md:grid md:grid-cols-3 md:gap-4 md:overflow-x-visible md:px-0 md:pb-0 md:pt-0"
+      class="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-4 pt-1 md:grid md:gap-4 md:overflow-x-visible md:px-0 md:pb-0 md:pt-0"
+      :class="gridClass"
       aria-busy="true"
       aria-label="Chargement des documents"
     >
       <div
-        v-for="n in 6"
+        v-for="n in props.limit"
         :key="n"
-        class="w-40 flex-shrink-0 snap-start rounded-lg bg-white p-3 shadow-sm sm:w-56 md:w-auto md:flex-shrink dark:bg-gray-800"
+        class="w-40 flex-shrink-0 snap-start rounded-lg bg-white p-3 shadow-sm dark:bg-gray-800 sm:w-56 md:w-auto md:flex-shrink"
       >
         <USkeleton class="aspect-[4/3] w-full rounded-md" />
         <div class="mt-3 space-y-2">
@@ -51,10 +92,10 @@ const getDocumentUrl = (doc: Document) => `/documents/${doc.id}/${doc.slug}`;
     <!-- Documents -->
     <div v-else-if="documents && documents.length > 0">
       <div
-        class="no-scrollbar flex snap-x snap-mandatory gap-2.5 overflow-x-auto px-1 pb-4 pt-1 md:grid md:grid-cols-3 md:gap-4 md:overflow-x-visible md:px-0 md:pb-0 md:pt-0"
+        class="no-scrollbar flex snap-x snap-mandatory gap-2.5 overflow-x-auto px-1 pb-4 pt-1 md:grid md:gap-4 md:overflow-x-visible md:px-0 md:pb-0 md:pt-0"
+        :class="gridClass"
         role="list"
       >
-
         <UCard
           v-for="doc in documents"
           :key="doc.id"
@@ -93,25 +134,24 @@ const getDocumentUrl = (doc: Document) => `/documents/${doc.id}/${doc.slug}`;
             </div>
 
             <!-- Title -->
-            <h3
-              class="line-clamp-2 text-sm font-medium leading-snug text-gray-900 dark:text-white"
-            >
+            <h3 class="line-clamp-2 text-sm font-medium leading-snug text-gray-900 dark:text-white">
               {{ doc.title }}
             </h3>
 
-            <!-- Date -->
+            <!-- Date d'ajout (relative si récente ; datetime ISO pour les machines) -->
             <time
               v-if="doc.date_created"
+              :datetime="doc.date_created"
               class="mt-1 text-xs text-gray-500 dark:text-gray-400"
             >
-              {{ $dateformat(doc.date_created) }}
+              {{ timeAgo(doc.date_created) || $dateformat(doc.date_created) }}
             </time>
           </NuxtLink>
         </UCard>
       </div>
 
       <!-- CTA -->
-      <div class="mt-6 text-center">
+      <div v-if="!props.hideCta" class="mt-6 text-center">
         <UButton
           to="/documents/public"
           color="gray"

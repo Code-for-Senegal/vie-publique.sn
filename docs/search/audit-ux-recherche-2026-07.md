@@ -21,6 +21,7 @@
 
 | Où | Backend | Déclenchement | Volume |
 | --- | --- | --- | --- |
+| Hub `/documents` (champ dans le header, ajouté 07/2026) | aucun appel direct : redirige vers `/documents/public?q=` (donc Typesense C10) | **Entrée ou clic uniquement**, min 2 caractères | — |
 | Listes documents (`/documents/[category]`, `/documents/annee/[year]`…) | **Typesense hybride** (C10) + fallback Directus | à la frappe, **⚠️ SANS debounce** (1 requête par caractère) | 10 198 |
 | Députés (`/assemblee-nationale/deputes`) | Directus `_icontains` (nom, profession) | à la frappe, **⚠️ SANS debounce** | 166 |
 | Médias, autres listes sur ce pattern | Directus `_icontains` | idem | variable |
