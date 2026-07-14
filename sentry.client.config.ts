@@ -4,7 +4,7 @@
  *
  * Périmètre volontairement minimal : capture d'ERREURS uniquement.
  * Pas de tracing ni de session replay (poids client + quota du plan gratuit).
- * Voir docs/monitoring/sentry.md avant de modifier.
+ * Voir docs/infra/sentry.md avant de modifier.
  */
 import * as Sentry from '@sentry/nuxt';
 import { useRuntimeConfig } from '#imports';

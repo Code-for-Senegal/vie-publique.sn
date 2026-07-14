@@ -125,7 +125,7 @@ pour les rédacteurs (pas de JSON brut à saisir).
 
 ### Monitoring d'erreurs (Sentry)
 
-> Détail complet : `docs/monitoring/sentry.md`. Actif seulement si `NUXT_PUBLIC_SENTRY_DSN` est défini.
+> Détail complet : `docs/infra/sentry.md`. Actif seulement si `NUXT_PUBLIC_SENTRY_DSN` est défini.
 
 - Périmètre : **erreurs uniquement** (pas de tracing ni replay — décision, pas un oubli).
 - **Dans tout bloc `catch` serveur qui dégrade proprement**, appeler
@@ -221,7 +221,7 @@ majeure du site → l'ajouter dans `buildLlmsSections()`, sauf si elle est en `D
 
 ### Flux RSS
 
-> Détail complet : `docs/rss/flux-rss.md` (architecture, choix de design, ajout d'un flux, vérification).
+> Détail complet : `docs/modules/rss/flux-rss.md` (architecture, choix de design, ajout d'un flux, vérification).
 
 5 flux servis par des **routes Nitro dynamiques** (`server/routes/**/rss.xml.get.ts`, builder
 partagé `server/utils/rss.ts`) : `/rss.xml` (global), `/actualites/rss.xml`,
@@ -235,7 +235,7 @@ l'autodiscovery sur la page de listing correspondante.
 
 ### UI & Design conventions (IMPORTANT)
 
-> Référence complète : `docs/design.md`. **Lire avant de créer une nouvelle page/section.**
+> Référence complète : `docs/guidelines/design.md`. **Lire avant de créer une nouvelle page/section.**
 
 Style cible : **sobre, éditorial, premium** (Google / Apple / Medium / service-public.fr) —
 priorité au contenu, à la lisibilité, au responsive et au SEO. **Pas** de look « template IA /

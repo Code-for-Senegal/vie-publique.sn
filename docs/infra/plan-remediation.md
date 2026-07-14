@@ -1,6 +1,6 @@
 # Plan de remédiation sécurité — Vie-Publique.sn
 
-> **Checklist maître** fusionnant l'audit **applicatif** ([`../audit/audit-complet-2026-07.md`](../audit/audit-complet-2026-07.md), SEC-1..10)
+> **Checklist maître** fusionnant l'audit **applicatif** ([`../audits/audit-complet-2026-07.md`](../audits/audit-complet-2026-07.md), SEC-1..10)
 > et l'audit **infra** ([`securite-infra-2026-07.md`](./securite-infra-2026-07.md), INFRA-1..13).
 > Cadre : **défense en profondeur** + **séparation données/app** (principes du webinaire).
 >
@@ -68,7 +68,7 @@
 ## Périmètre / sources revues (05/07/2026)
 
 Toutes les docs `docs/` + l'historique git ont été croisés. Aucun autre audit sécurité que
-[`../audit/audit-complet-2026-07.md`](../audit/audit-complet-2026-07.md) (SEC-1..10) n'existe.
-Le point sécu de [`../audit/architecture-api-directus.md`](../audit/architecture-api-directus.md)
+[`../audits/audit-complet-2026-07.md`](../audits/audit-complet-2026-07.md) (SEC-1..10) n'existe.
+Le point sécu de [`../archive/architecture-api-directus.md`](../archive/architecture-api-directus.md)
 (« CMS_API_KEY exposée côté client ») est **vérifié résolu** : clé/URL CMS en config serveur, absentes
 du bloc `runtimeConfig.public` (`nuxt.config.ts`). Ce doc de migration est périmé sur ce point.

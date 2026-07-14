@@ -19,7 +19,7 @@ Coolify existant). Le SDK étant le même, migrer = changer le DSN. On démarre 
 (tier gratuit ~5 000 événements/mois) ; bascule GlitchTip possible sans toucher au code si le
 quota ou la souveraineté des données devient un sujet.
 
-**Périmètre du monitoring global** (qui surveille quoi) :
+**Périmètre du monitoring global** (qui surveille quoi — schéma complet : [`monitoring.md`](./monitoring.md)) :
 
 | Outil                                                               | Couvre                                                                 |
 | ------------------------------------------------------------------- | ---------------------------------------------------------------------- |

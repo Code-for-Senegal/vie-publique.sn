@@ -56,7 +56,7 @@ Navigateur ──HTTPS──> Traefik (Coolify) ──> Frontend Nuxt (SSR)
 
 GitHub Actions (`.github/workflows/`) → build `Dockerfile.optimized` → push **ghcr.io** →
 webhook **Coolify** (event « Packages ») → pull image + redémarrage conteneur.
-Détail : [`../guidelines/ci-cd-github.md`](../guidelines/ci-cd-github.md).
+Détail : [`./ci-cd-github.md`](./ci-cd-github.md).
 
 ## Sauvegardes
 

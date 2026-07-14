@@ -443,7 +443,7 @@ export default defineNuxtConfig({
       firebaseAppId: process.env.NUXT_PUBLIC_FIREBASE_APP_ID,
       firebaseMeasurementId: process.env.NUXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
       firebaseVapidKey: process.env.NUXT_PUBLIC_FIREBASE_VAPID_KEY,
-      // Sentry (monitoring d'erreurs) — DSN vide = désactivé (voir docs/monitoring/sentry.md)
+      // Sentry (monitoring d'erreurs) — DSN vide = désactivé (voir docs/infra/sentry.md)
       sentry: {
         dsn: process.env.NUXT_PUBLIC_SENTRY_DSN || '',
       },
@@ -568,7 +568,7 @@ export default defineNuxtConfig({
   },
   security: securityConfig as any,
 
-  // Sentry (monitoring d'erreurs) — voir docs/monitoring/sentry.md
+  // Sentry (monitoring d'erreurs) — voir docs/infra/sentry.md
   sentry: {
     // Injecte l'init serveur en tête du bundle Nitro : pas besoin de changer
     // la commande de démarrage (node .output/server/index.mjs) ni le Dockerfile.

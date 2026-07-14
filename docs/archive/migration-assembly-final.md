@@ -266,10 +266,10 @@ curl https://cms.vie-publique.sn/items/assembly_commission
 
 | Document | Description |
 |----------|-------------|
-| [guideline-api.md](./guideline-api.md) | Guidelines complètes de l'architecture |
+| [guideline-api.md](../guidelines/guideline-api.md) | Guidelines complètes de l'architecture |
 | [migration-assembly-completed.md](./migration-assembly-completed.md) | Guide de migration initial |
 | [hotfix-assembly-migration.md](./hotfix-assembly-migration.md) | Corrections des bugs |
-| [CLAUDE.md](../CLAUDE.md) | Instructions du projet |
+| [CLAUDE.md](../../CLAUDE.md) | Instructions du projet |
 
 ---
 

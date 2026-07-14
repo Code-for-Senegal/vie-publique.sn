@@ -372,4 +372,4 @@ Tous les appels API passent maintenant **obligatoirement** par le serveur Nuxt:
 - ✅ URLs CMS cachées
 - ✅ Pattern unifié
 
-**Respect total du guideline** [docs/guideline-api.md](guideline-api.md)
+**Respect total du guideline** [docs/guideline-api.md](../guidelines/guideline-api.md)

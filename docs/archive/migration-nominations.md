@@ -295,7 +295,7 @@ npm run dev
 
 ## 📚 Références
 
-- [Guide API Architecture](./guideline-api.md)
+- [Guide API Architecture](../guidelines/guideline-api.md)
 - [Composable générique useCmsCollection](../composables/useCmsCollection.ts)
 - [Composable générique useCollectionState](../composables/useCollectionState.ts)
 - [Exemple documents](../server/api/documents/)

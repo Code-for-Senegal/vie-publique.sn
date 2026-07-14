@@ -2,7 +2,7 @@
 
 ## 📋 Résumé
 
-Migration complète de toutes les collections de l'Assemblée Nationale vers la nouvelle architecture basée sur le modèle `medias`, suivant les guidelines du fichier [guideline-api.md](./guideline-api.md).
+Migration complète de toutes les collections de l'Assemblée Nationale vers la nouvelle architecture basée sur le modèle `medias`, suivant les guidelines du fichier [guideline-api.md](../guidelines/guideline-api.md).
 
 **Date**: 2025-01-XX
 **Collections migrées**: 5
@@ -430,7 +430,7 @@ Les filtres, recherche et pagination sont **automatiquement** synchronisés dans
 
 ## 📚 Ressources
 
-- **Guidelines**: [docs/guideline-api.md](./guideline-api.md)
+- **Guidelines**: [docs/guideline-api.md](../guidelines/guideline-api.md)
 - **Directus SDK**: https://directus.io/docs/guides/connect/sdk
 - **Nuxt Data Fetching**: https://nuxt.com/docs/getting-started/data-fetching
 - **Cache Nitro**: https://nitro.build/guide/cache
@@ -479,4 +479,4 @@ Pour migrer une nouvelle collection, suivez ces étapes :
 ---
 
 **Auteur**: Claude Code
-**Référence**: [CLAUDE.md](../CLAUDE.md) - Guidelines du projet
+**Référence**: [CLAUDE.md](../../CLAUDE.md) - Guidelines du projet

@@ -1124,7 +1124,7 @@ npm run build
 ## 📚 Ressources
 
 **Documentation existante** :
-- [budget-v2.md](./budget-v2.md) - Modèle de données
+- [budget-model.md](./budget-model.md) - Modèle de données
 - [budget-api.md](./budget-api.md) - Endpoints API Directus
 
 **Composables Nuxt** :

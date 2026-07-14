@@ -20,5 +20,5 @@ Ces règles sont **en vigueur** dans le code — les garder à l'esprit pour tou
 3. **Token CMS = rôle read-only** limité aux collections publiques (`web-vie-publique-access-policies`).
    Les tokens à droits d'écriture (n8n, intégrations) sont distincts et à portée minimale.
 
-> Détail sécurité applicative : [`audit-complet-2026-07.md`](./audit-complet-2026-07.md) (SEC-*).
+> Détail sécurité applicative : [`audit-complet-2026-07.md`](../audits/audit-complet-2026-07.md) (SEC-*).
 > Sécurité infra + plan de remédiation : [`../infra/`](../infra/).

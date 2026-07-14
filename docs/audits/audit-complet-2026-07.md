@@ -492,7 +492,7 @@ Aucun lien « Aller au contenu » dans `app/layouts/default.vue`. **Fix** : `<a 
 
 `server/api/search.ts:208-211` renvoie le message d'erreur Typesense au client ; `donate/webhook` renvoie `error.message`. **Fix** : messages génériques, détails en logs.
 Aussi : `rate-limit.ts:29` se fie au premier élément de `x-forwarded-for` (spoofable hors proxy de confiance).
-**✅ Fait 2026-07** (`search.ts`, `donate/webhook`, `donate/init-payment`) : messages génériques au client, détails via `reportServerError()` → logs + Sentry (`docs/monitoring/sentry.md`). Reste : `rate-limit.ts` (x-forwarded-for).
+**✅ Fait 2026-07** (`search.ts`, `donate/webhook`, `donate/init-payment`) : messages génériques au client, détails via `reportServerError()` → logs + Sentry (`docs/infra/sentry.md`). Reste : `rate-limit.ts` (x-forwarded-for).
 
 ### SEC-10 — Dépendances vulnérables
 

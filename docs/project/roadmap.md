@@ -32,7 +32,7 @@ Cette feuille de route présente les grandes évolutions prévues pour la platef
 
 ## 🔔 Syndication & contribution
 
-- [x] **Flux RSS** _(fait 2026-07 — voir docs/rss/flux-rss.md)_
+- [x] **Flux RSS** _(fait 2026-07 — voir docs/modules/rss/flux-rss.md)_
   - Flux global du site : `/rss.xml`
   - Flux par rubrique : `/actualites/rss.xml`, `/conseil-des-ministres/rss.xml`, `/documents/rss.xml`, `/documents/journal-officiel-senegal/rss.xml`
   - Extensible aux autres catégories de documents (rapports d'audit, codes…) à la demande
@@ -73,7 +73,7 @@ Cette feuille de route présente les grandes évolutions prévues pour la platef
   - **Solution** : Utiliser `getCacheMaxAge()` pour cache court en dev (30s-5min), long en prod (1h-24h)
   - **Fichier** : `server/utils/cache.ts` déjà créé avec `CacheDuration` constants
   - **Routes à modifier** : 46 fichiers restants (2/48 déjà fait : `budget/years` et `budget/global`)
-  - **Détails** : Voir [docs/TODO-cache-optimization.md](./TODO-cache-optimization.md)
+  - **Détails** : Voir [docs/TODO-cache-optimization.md](../guidelines/todo-cache-optimization.md)
   - **Temps estimé** : 30-45 min
   - **Impact** : 🚀 Dev plus rapide, 📈 performance prod maintenue
 

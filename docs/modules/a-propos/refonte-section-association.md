@@ -96,7 +96,7 @@ La séparation est **éditoriale, pas technique** :
    actus ↔ ses rapports PDF. Chaque rapport annuel lié depuis gouvernance ET financement.
 3. **État vide positif** sur nous-rejoindre : « Pas d'offre en ce moment — candidature spontanée /
    devenir bénévole / adhérer » (jamais une liste d'offres expirées en vitrine).
-4. **Design** : suivre `docs/design.md` (sobre, éditorial, `max-w-3xl`, dark mode palette Dim).
+4. **Design** : suivre `docs/guidelines/design.md` (sobre, éditorial, `max-w-3xl`, dark mode palette Dim).
 5. **Réutiliser** : `AppBreadcrumb`, `CmsImage`, `useCollectionState`/`useCmsCollection` pour les
    listes paginées, `DocumentsDocumentListItem` pour les listes de PDFs.
 
@@ -306,7 +306,7 @@ curl -sL "<url>?page=2" | grep -oE '/a-propos/actualites/[a-z0-9-]+' | sort -u
 
 - Conventions Directus & pièges M2M/permissions : `CLAUDE.md` (§ Conventions de nommage Directus)
 - Règles SEO/JSON-LD/pagination : `CLAUDE.md` (§ SEO & Open Graph, § Listes paginées)
-- Design : `docs/design.md`
+- Design : `docs/guidelines/design.md`
 - llms.txt : `docs/seo/llms-txt.md`
 - URLs : `docs/guidelines/url-structure-analysis.md`
 - Modèles de code : `server/api/dossiers/[slug].get.ts` (flattenM2M),

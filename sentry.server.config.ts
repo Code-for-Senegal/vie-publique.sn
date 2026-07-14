@@ -5,7 +5,7 @@
  *
  * ⚠️ Ici, PAS de useRuntimeConfig() : ce fichier s'exécute avant l'init de Nitro.
  * On lit directement process.env (docs Sentry). Périmètre : erreurs uniquement.
- * Voir docs/monitoring/sentry.md avant de modifier.
+ * Voir docs/infra/sentry.md avant de modifier.
  */
 import * as Sentry from '@sentry/nuxt';
 

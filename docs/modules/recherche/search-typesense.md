@@ -4,7 +4,7 @@
 > **`vpdata_v2`** (via l'alias **`vp-search`**), 14 604 docs multi-types (documents, actualités,
 > députés, questions, votes, dossiers, personnalités, annuaire, podcasts), sans `locale: fr`,
 > ids namespacés `<type>-<id>`, champ `url` précalculé. Réindexation/réconciliation :
-> `scripts/search-reindex.mjs`. **Référence à jour : [`audit-recherche-2026-07.md`](./audit-recherche-2026-07.md).**
+> `scripts/search-reindex.mjs`. **Référence à jour : [`audit-recherche-2026-07.md`](../../audits/audit-recherche-2026-07.md).**
 > Les sections ci-dessous restent valables pour l'algorithme de scoring (poids dynamiques,
 > `max_score`, tri par `priority`), mais les chiffres et le schéma décrivent l'ancien index v1.
 
