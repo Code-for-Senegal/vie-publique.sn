@@ -75,7 +75,7 @@
 ```
 
 **Utilisé dans** :
-- [pages/nomination-senegal/index.vue](../pages/nomination-senegal/index.vue) (ligne 342-363)
+- [pages/nomination-senegal/index.vue](../../app/pages/nomination-senegal/index.vue) (ligne 342-363)
 - `pages/assemblee-nationale/deputes.vue` (à adapter)
 
 ---
