@@ -27,6 +27,10 @@ const securityConfig =
               'https://*.vie-publique.sn',
               'https://www.google-analytics.com',
               'https://*.google-analytics.com',
+              // GA4 envoie aussi vers ses endpoints régionaux + doubleclick (Google Signals)
+              'https://analytics.google.com',
+              'https://*.analytics.google.com',
+              'https://stats.g.doubleclick.net',
               'https://www.google.com',
               'https://fonts.googleapis.com',
               'https://*.googleapis.com',
@@ -48,6 +52,8 @@ const securityConfig =
               'https://*.ingest.sentry.io',
               'https://*.ingest.us.sentry.io',
               'https://*.ingest.de.sentry.io',
+              // Cloudflare Web Analytics (beacon injecté par le proxy Cloudflare)
+              'https://cloudflareinsights.com',
             ],
             'script-src': [
               "'self'",
@@ -63,6 +69,8 @@ const securityConfig =
               'https://www.gstatic.com',
               // Microsoft Clarity
               'https://www.clarity.ms',
+              // Cloudflare Web Analytics (beacon injecté par le proxy Cloudflare)
+              'https://static.cloudflareinsights.com',
             ],
             'script-src-attr': ["'unsafe-inline'", "'unsafe-hashes'"],
             'style-src': [

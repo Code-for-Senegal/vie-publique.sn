@@ -49,6 +49,9 @@ const links = [
   {
     label: 'Flux RSS',
     to: '/rss.xml',
+    // Route Nitro (pas une page Vue) : sans `external`, vue-router tente de la
+    // résoudre à chaque rendu SSR → warn "No match found" en boucle dans les logs
+    external: true,
   },
 ];
 </script>
@@ -77,6 +80,7 @@ const links = [
         <li v-for="link in links" :key="link.label">
           <ULink
             :to="link.to"
+            :external="link.external"
             class="text-sm text-gray-500 underline hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
           >
             {{ link.label }}
