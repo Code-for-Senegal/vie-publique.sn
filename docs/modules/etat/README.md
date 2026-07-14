@@ -5,7 +5,7 @@ son organigramme administratif, son gouvernement et son budget. L'objectif est d
 données officielles (décrets de répartition des services) **lisibles pour le citoyen**.
 
 > **Documentation technique détaillée** (modèle de données Directus, API, import des décrets,
-> SEO) : voir [`ORGANISATION-ETAT-TECHNIQUE.md`](./ORGANISATION-ETAT-TECHNIQUE.md).
+> SEO) : voir [`organisation-etat-technique.md`](./organisation-etat-technique.md).
 
 ---
 
@@ -51,7 +51,7 @@ pour un simple changement de nom.
 Au-delà des données structurées, les **fiches phares** portent du contenu rédactionnel
 (champs `description`, `body` WYSIWYG, `cover_image`, `faq`) pour la lisibilité **et le
 référencement**. Logique d'affichage et règles SEO : voir
-[`ORGANISATION-ETAT-TECHNIQUE.md`](./ORGANISATION-ETAT-TECHNIQUE.md) §8 (fiches) et §12 (SEO).
+[`organisation-etat-technique.md`](./organisation-etat-technique.md) §8 (fiches) et §12 (SEO).
 
 ---
 

@@ -73,7 +73,7 @@ Cette feuille de route présente les grandes évolutions prévues pour la platef
   - **Solution** : Utiliser `getCacheMaxAge()` pour cache court en dev (30s-5min), long en prod (1h-24h)
   - **Fichier** : `server/utils/cache.ts` déjà créé avec `CacheDuration` constants
   - **Routes à modifier** : 46 fichiers restants (2/48 déjà fait : `budget/years` et `budget/global`)
-  - **Détails** : Voir [docs/TODO-cache-optimization.md](../guidelines/todo-cache-optimization.md)
+  - **Détails** : Voir [docs/guidelines/todo-cache-optimization.md](../guidelines/todo-cache-optimization.md)
   - **Temps estimé** : 30-45 min
   - **Impact** : 🚀 Dev plus rapide, 📈 performance prod maintenue
 

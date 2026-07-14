@@ -4,7 +4,7 @@ import type { DossierType } from '~~/types/dossier';
  * Configuration runtime de la feature Dossiers (libellés des catégories).
  *
  * Les **clés** doivent correspondre EXACTEMENT aux valeurs du dropdown `type`
- * de la collection Directus `dossiers` (voir `docs/dossiers/directus-schema.md`).
+ * de la collection Directus `dossiers` (voir `docs/modules/dossiers/directus-schema.md`).
  */
 
 /** Libellés FR des types de dossier (clé = valeur stockée dans Directus). */

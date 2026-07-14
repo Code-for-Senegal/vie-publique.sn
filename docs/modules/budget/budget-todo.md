@@ -109,8 +109,8 @@ Desktop (2fr,1fr):
 #### 4. Documentation Mise à Jour
 
 **Fichiers mis à jour** :
-- `docs/guidelines/budget/budget-dashboard-improvements.md`
-- `docs/guidelines/budget/budget-todo.md`
+- `docs/modules/budget/budget-dashboard-improvements.md`
+- `docs/modules/budget/budget-todo.md`
 
 **Ajouts** :
 - Section détaillée sur système de comparaison

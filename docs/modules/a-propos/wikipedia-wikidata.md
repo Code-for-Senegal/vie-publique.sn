@@ -2,7 +2,7 @@
 
 > Objectif : faire exister **Vie-Publique.sn comme entité** aux yeux des moteurs et des LLM
 > (Google Knowledge Panel, ChatGPT, Perplexity, Claude…). Levier n°1 de la stratégie
-> « autorité externe » du plan SEO (cf. `docs/seo/TODO-seo.md`).
+> « autorité externe » du plan SEO (cf. `docs/seo/todo-seo.md`).
 
 ## 0. Ordre d'attaque (important)
 

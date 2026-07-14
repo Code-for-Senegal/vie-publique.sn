@@ -475,7 +475,7 @@ export default defineNuxtConfig({
       // Ne PAS l'ajouter manuellement ici (doublon sinon)
       link: [
         // Autodiscovery du flux RSS global (les flux par rubrique sont déclarés
-        // par leurs pages de listing respectives) — voir docs/rss/flux-rss.md
+        // par leurs pages de listing respectives) — voir docs/modules/rss/flux-rss.md
         {
           rel: 'alternate',
           type: 'application/rss+xml',

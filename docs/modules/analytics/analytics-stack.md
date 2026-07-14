@@ -96,7 +96,7 @@ Le `NUXT_PUBLIC_FIREBASE_MEASUREMENT_ID` lie Firebase au property GA4.
 Les PDF servis par `/docs/[...path]` ne déclenchent pas de pageview GA (pas de HTML chargé).  
 **Décision prise** : implémenter via GA4 Measurement Protocol depuis le proxy serveur.
 
-→ Voir `docs/analytics/tracking-pdf-decision.md` pour le détail technique et les pièges.
+→ Voir `docs/modules/analytics/tracking-pdf-decision.md` pour le détail technique et les pièges.
 
 **Pré-requis implémentation** :
 ```env

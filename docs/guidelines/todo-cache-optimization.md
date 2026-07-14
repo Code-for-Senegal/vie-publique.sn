@@ -143,7 +143,7 @@ Tâche :
 
 3. Vérifier que le projet build correctement après les modifications
 
-Liste complète des fichiers dans : docs/TODO-cache-optimization.md
+Liste complète des fichiers dans : docs/guidelines/todo-cache-optimization.md
 
 Commence par me montrer un exemple de modification pour 2-3 fichiers, puis si validé, applique à tous.
 ```

@@ -1,7 +1,7 @@
 /**
  * /actualites/rss.xml — flux RSS des actualités (toutes catégories : générales,
  * Conseil des ministres, Assemblée nationale…) + derniers dossiers thématiques.
- * Voir docs/rss/flux-rss.md.
+ * Voir docs/modules/rss/flux-rss.md.
  */
 export default defineCachedEventHandler(
   async (event) => {

@@ -2,7 +2,7 @@
 /**
  * Réindexation Typesense depuis Directus (source de vérité).
  *
- * Contexte : docs/search/audit-recherche-2026-07.md (C2+C5).
+ * Contexte : docs/audits/audit-recherche-2026-07.md (C2+C5).
  * - Crée la collection cible (schéma v2 : sans locale fr, ids namespacés `<type>-<id>`,
  *   champ `url` précalculé) + les synonymes.
  * - Indexe TOUTES les collections publiques : documents, actualités, dossiers, députés,
@@ -187,7 +187,7 @@ const normalizeTags = (tags) =>
 
 // ---------------------------------------------------------------------------
 // Sources : une entrée par collection Directus à indexer
-// Mapping type/priority/URL : docs/search/audit-recherche-2026-07.md §C5
+// Mapping type/priority/URL : docs/audits/audit-recherche-2026-07.md §C5
 // ---------------------------------------------------------------------------
 
 const SOURCES = [

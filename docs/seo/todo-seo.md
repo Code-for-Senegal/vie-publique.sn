@@ -38,7 +38,7 @@ réactifs, + éventuellement un nœud JSON-LD adapté. (Vérifier aussi `useSeoM
 
 Renforcer le poids de Vie-Publique.sn dans les réponses des moteurs et des LLM
 (ChatGPT, Perplexity, Claude, AI Overviews). Démarche détaillée :
-`docs/a-propos/wikipedia-wikidata.md`.
+`docs/modules/a-propos/wikipedia-wikidata.md`.
 
 - [ ] **Wikidata** : créer l'item (immédiat, gros levier entité) + reporter le QID dans le
       `sameAs` du schema Organization

@@ -193,4 +193,4 @@ A: Redémarrer le serveur
 
 - [feature-flags.md](./feature-flags.md) - Doc technique
 - [feature-flags-migration.md](./feature-flags-migration.md) - Guide migration
-- [README-FEATURE-FLAGS.md](./README.md) - Guide complet
+- [README.md](./README.md) - Guide complet

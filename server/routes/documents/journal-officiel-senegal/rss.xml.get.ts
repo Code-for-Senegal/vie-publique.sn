@@ -2,7 +2,7 @@
  * /documents/journal-officiel-senegal/rss.xml — flux RSS du Journal officiel
  * (documents de type `official_journal`, même périmètre que la page
  * /documents/journal-officiel-senegal).
- * Items datés par `date_created` (ajout au site, backfill) — voir docs/rss/flux-rss.md.
+ * Items datés par `date_created` (ajout au site, backfill) — voir docs/modules/rss/flux-rss.md.
  */
 export default defineCachedEventHandler(
   async (event) => {

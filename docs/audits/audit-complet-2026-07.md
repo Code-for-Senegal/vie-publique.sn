@@ -49,7 +49,7 @@
 - [ ] [SEO-2 — Contradiction robots.disallow vs sitemap sur `/projets-publics-senegal`](#seo-2--contradiction-robots-vs-sitemap)
 - [ ] [SEO-3 — Sitemap incomplet (podcasts, médias, questions, commissions, groupes)](#seo-3--sitemap-incomplet) ⏳ partiel 02/07/2026 : votes ✅ + questions ✅ ajoutés ; restent podcasts (prioritaire), médias, commissions, groupes, carte, recrutement
 - [ ] [SEO-4 — 17 pages sans aucun meta + fichier `chat-bot/ [id].vue` avec espace](#seo-4--pages-sans-meta--fichier-avec-espace)
-- [ ] [SEO-5 — Restes du TODO SEO : WebPage réémis, marque dans title recherche.vue](#seo-5--restes-du-todo-seo) ⏳ partiel 02/07/2026 : title recherche ✅ (via BING-5), WebPage questions ✅ (refonte) ; restent WebPage `actualites/[id]/[slug]` + cocher §2/§3 dans docs/seo/TODO-seo.md
+- [ ] [SEO-5 — Restes du TODO SEO : WebPage réémis, marque dans title recherche.vue](#seo-5--restes-du-todo-seo) ⏳ partiel 02/07/2026 : title recherche ✅ (via BING-5), WebPage questions ✅ (refonte) ; restent WebPage `actualites/[id]/[slug]` + cocher §2/§3 dans docs/seo/todo-seo.md
 
 ### 🔎 SEO Bing — audit Bing Webmaster Tools (2 juillet 2026)
 
@@ -307,7 +307,7 @@ Routes dynamiques absentes de `server/api/__sitemap__/urls.ts` :
 - Nœud `WebPage` réémis (déjà dans le `@graph` global) : `actualites/[id]/[slug].vue` (l. 262), `questions/[id].vue` (l. 225-228) — à retirer.
 - `recherche.vue:4` : title « Recherche Avancée - Vie-Publique.sn » répète la marque (page indexable).
 - ~20 pages liste avec BreadcrumbList brut (doublon toléré avec AppBreadcrumb) — purge par opportunité.
-- Mettre à jour `docs/seo/TODO-seo.md` : §2 (députés) et §3 (votes) sont **faits**, à cocher.
+- Mettre à jour `docs/seo/todo-seo.md` : §2 (députés) et §3 (votes) sont **faits**, à cocher.
 
 ---
 
@@ -522,7 +522,7 @@ Aussi : `rate-limit.ts:29` se fie au premier élément de `x-forwarded-for` (spo
 ### DOC-7 — Fichiers orphelins
 
 - `nuxt.config.build-optimized.ts` : référencé nulle part — expérimentation jamais fusionnée. Porter éventuellement `manualChunks` dans le config principal, puis supprimer.
-- ~~`design.md` (racine) vs `docs/design.md` : deux docs design chevauchants ; CLAUDE.md ne référence que `docs/design.md` → fusionner.~~ **Fait (2026-07-14)** : contenu unique (marque navy/gold, palette par domaine, typographie, spacing, icônes/assets) fusionné dans `docs/design.md`, fichier racine supprimé.
+- ~~`design.md` (racine) vs `docs/guidelines/design.md` : deux docs design chevauchants ; CLAUDE.md ne référence que `docs/guidelines/design.md` → fusionner.~~ **Fait (2026-07-14)** : contenu unique (marque navy/gold, palette par domaine, typographie, spacing, icônes/assets) fusionné dans `docs/guidelines/design.md`, fichier racine supprimé.
 
 ### QUAL-7 — Types mal rangés
 

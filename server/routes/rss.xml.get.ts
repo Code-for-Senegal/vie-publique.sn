@@ -1,7 +1,7 @@
 /**
  * /rss.xml — flux RSS global : 30 dernières publications du site, toutes rubriques
  * confondues (actualités + documents officiels + dossiers thématiques).
- * Voir docs/rss/flux-rss.md.
+ * Voir docs/modules/rss/flux-rss.md.
  */
 export default defineCachedEventHandler(
   async (event) => {

@@ -7,7 +7,7 @@
  * comparatif, sources).
  *
  * La modélisation Directus correspondante est documentée dans
- * `docs/dossiers/directus-schema.md`.
+ * `docs/modules/dossiers/directus-schema.md`.
  */
 
 /** Statut de publication d'un dossier (champ standard Directus). */
